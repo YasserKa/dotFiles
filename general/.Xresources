@@ -1,0 +1,30 @@
+! Xterm
+! Fonts
+! xterm*font: 7x13
+! xterm*font: 7x14
+!xterm*faceName: DejaVu Sans Mono Book
+xterm*faceName: Hermit
+xterm*faceSize: 13
+
+! Make every shell a login shell (to include all necessary environment variables)
+xterm*loginshell: true
+
+! Scrollback limit
+xterm*savelines: 2048
+
+! double-click to select whole URLs
+! xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! DOS-box colours
+xterm*foreground: rgb:54/fc/54
+xterm*background: rgb:00/00/00
+
+! Blinking cursor
+xterm*cursorBlink: true
+
+! right scrollbar (default is left)
+! xterm*ScrollBar: true
+! xterm*rightScrollBar: true
+
+! stop output to terminal from jumping down to bottom
+! xterm*scrollTtyOutput: false

@@ -1,0 +1,20 @@
+2017-06-16 10:47:05	-->	yasser1 (~yasser@194.126.8.90) has joined #archlinux
+2017-06-16 10:47:05	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/fkksz9 | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/3uvJQk"
+2017-06-16 10:47:05	--	Topic set by tigrmesh (~tigrmesh@archlinux/op/tigrmesh) on Mon, 05 Jun 2017 01:10:31
+2017-06-16 10:47:05	--	Channel #archlinux: 1743 nicks (3 ops, 0 voices, 1740 normals)
+2017-06-16 10:47:06	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-06-16 10:47:15	alwyn	awal: ask the host I guess
+2017-06-16 10:47:25	hollunder	Thanks grawity and esph, mounting the EFI partition to /boot solved it, upgrading to the newest kernel did not require a manual step
+2017-06-16 10:47:55	yasser1	Hello guys, I am going through https://wiki.archlinux.org/index.php/Easy-RSA , and it says that I need 2 machines - one for the clinet and another for the server -. How to go around this?
+2017-06-16 10:47:56	@phrik	Title: Easy-RSA - ArchWiki (at wiki.archlinux.org)
+2017-06-16 10:48:01	physkets	Has anybody here attempted setting up SecureBoot with one's own keys? I was wondering if I also needed to sign the intel ucode image and the initramfs files.
+2017-06-16 10:48:07	<--	hardfalcon (~hardfalco@x4db6e1ae.dyn.telefonica.de) has quit (Ping timeout: 246 seconds)
+2017-06-16 10:49:37	grawity	yasser1: easy-rsa doesn't have "clients" nor "servers"
+2017-06-16 10:49:41	esph	hollunder: now you can nuke your old /boot partition if it was a partition, or unmount your ESP (remount it after) and remove everything under /boot if it was just a directory on your / partition (since those files will always be hidden by your ESP / /boot and are just taking up space)
+2017-06-16 10:49:51	grawity	yasser1: the software you're making the certs *for*, like OpenVPN or whatever, has clients and servers
+2017-06-16 10:49:55	-->	ubervison (~ubervison@192.33.227.114) has joined #archlinux
+2017-06-16 10:50:20	yasser1	Ah, I see thanks for the clarification.
+2017-06-16 10:50:36	yasser1	Yeah, I came from OpenVPN to Easy-RSA
+2017-06-16 10:50:40	hollunder	esph, good idea to clean that up
+2017-06-16 10:51:16	-->	Pupnik (~Pupnik@2001:44b8:4038:8c5:6e13:770d:9f69:3f5b) has joined #archlinux
+2017-06-16 10:52:32	<--	venmx (~pactadmin@85.255.235.37) has quit (Ping timeout: 268 seconds)

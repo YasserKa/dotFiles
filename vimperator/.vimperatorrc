@@ -1,0 +1,12 @@
+"3.16.0 (created: 2017/02/01 00:55:15)
+
+source! /home/yasser/.vimperatorrc.local
+
+" vim: set ft=vimperator:
+set editor=vim
+noremap K H
+noremap J L
+noremap H gT
+noremap L gt
+
+inoremap <C-a> <C-Home><C-S-End>

@@ -1,0 +1,10 @@
+Commands
+
+command | curl -F c=@- https://ptpb.pw/
+curl -X PUT -F c=@- https://ptpb.pw/17c5829d-81a0-4eb6-8681-ba72f83ffbf3   UPDATE
+# to add syntax add /extenstion#L-N
+
+echo "This message will self-destruct in two minutes" | curl -F sunset=120 -F c=@- https://ptpb.pw/
+
+asciinema rec term.json
+curl -F c=@term.json https://ptpb.pw/

@@ -1,0 +1,15 @@
+:set hlsearch
+
+d`M - Delete until mark M
+
+' The last place the cursor was at line 67 of the current file
+
+" Line 1 (we were at the top of the file when last closed it)
+
+[ The start of the last insert (line 128)
+
+] The end of the insert (line 129)
+
+
+~                                                        
+~             

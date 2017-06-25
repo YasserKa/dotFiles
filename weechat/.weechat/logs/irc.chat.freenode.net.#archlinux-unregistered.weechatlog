@@ -1,0 +1,46 @@
+2017-06-16 10:26:13	-->	yasser (~yasser@194.126.8.90) has joined #archlinux-unregistered
+2017-06-16 10:26:13	--	Topic for #archlinux-unregistered is "=== You need a freenode account to join #archlinux. Register by following the instructions at <http://freenode.net/kb/answer/registration>. You can get a list of people who can help you by typing `/msg chanserv access #archlinux list`, or join #freenode and ask there. The bot can give you a one-time ticket. ==="
+2017-06-16 10:26:13	--	Topic set by tigrmesh (~tigrmesh@archlinux/op/tigrmesh) on Tue, 09 Aug 2016 07:33:51
+2017-06-16 10:26:13	--	Channel #archlinux-unregistered: 416 nicks (6 ops, 0 voices, 410 normals)
+2017-06-16 10:26:15	--	Channel created on Sun, 28 Dec 2014 01:49:46
+2017-06-16 10:27:17	yasser	Hello guys, I am going through this https://wiki.archlinux.org/index.php/Easy-RSA , but I only have one machine. It's said that I need 2 machines - one for the client and another for the server - . How should I go around this?
+2017-06-16 10:27:17	@EMIYA	yasser: You're not in #archlinux yet -- please log in to your freenode account first. (Type /topic for more info. If you're human, use ?invite to get a pass.)
+2017-06-16 10:27:47	-->	DullTube (~user@user149.c3.hrastnik.kabelnet.net) has joined #archlinux-unregistered
+2017-06-16 10:28:33	<--	Trendrrr (~anon@51.141.6.44) has quit (Ping timeout: 240 seconds)
+2017-06-16 10:28:55	--	Topic for #archlinux-unregistered is "=== You need a freenode account to join #archlinux. Register by following the instructions at <http://freenode.net/kb/answer/registration>. You can get a list of people who can help you by typing `/msg chanserv access #archlinux list`, or join #freenode and ask there. The bot can give you a one-time ticket. ==="
+2017-06-16 10:28:55	--	Topic set by tigrmesh (~tigrmesh@archlinux/op/tigrmesh) on Tue, 09 Aug 2016 07:33:51
+2017-06-16 10:29:08	-->	Trendrrr (~anon@51.141.6.44) has joined #archlinux-unregistered
+2017-06-16 10:29:55	-->	Lavarners (~Lavarners@95.14.98.245) has joined #archlinux-unregistered
+2017-06-16 10:33:19	<--	Lavarners (~Lavarners@95.14.98.245) has quit (Remote host closed the connection)
+2017-06-16 10:33:43	@EMIYA	Foxboron: You can /join #archlinux now.
+2017-06-16 10:35:17	-->	penguinguru (~penguingu@101.173.213.95) has joined #archlinux-unregistered
+2017-06-16 10:36:18	@EMIYA	penguinguru: You can /join #archlinux now.
+2017-06-16 10:36:21	<--	penguinguru (~penguingu@101.173.213.95) has left #archlinux-unregistered (requested by EMIYA (Go back to #archlinux now.))
+2017-06-16 10:37:57	<--	Foxboron (~fox@velox.vulpes.pw) has left #archlinux-unregistered (requested by EMIYA (Go back to #archlinux now.))
+2017-06-16 10:45:17	-->	yasser1 (~yasser@194.126.8.90) has joined #archlinux-unregistered
+2017-06-16 10:45:17	--	Topic for #archlinux-unregistered is "=== You need a freenode account to join #archlinux. Register by following the instructions at <http://freenode.net/kb/answer/registration>. You can get a list of people who can help you by typing `/msg chanserv access #archlinux list`, or join #freenode and ask there. The bot can give you a one-time ticket. ==="
+2017-06-16 10:45:17	--	Topic set by tigrmesh (~tigrmesh@archlinux/op/tigrmesh) on Tue, 09 Aug 2016 07:33:51
+2017-06-16 10:45:17	--	Channel #archlinux-unregistered: 415 nicks (6 ops, 0 voices, 409 normals)
+2017-06-16 10:45:17	--	Channel created on Sun, 28 Dec 2014 01:49:46
+2017-06-16 10:46:53	@EMIYA	yasser1: You can /join #archlinux now.
+2017-06-16 10:47:05	<--	yasser1 (~yasser@194.126.8.90) has left #archlinux-unregistered (requested by EMIYA (Go back to #archlinux now.))
+2017-06-16 11:28:17	-->	yasser1 (~yasser@194.126.8.90) has joined #archlinux-unregistered
+2017-06-16 11:28:17	--	Topic for #archlinux-unregistered is "=== You need a freenode account to join #archlinux. Register by following the instructions at <http://freenode.net/kb/answer/registration>. You can get a list of people who can help you by typing `/msg chanserv access #archlinux list`, or join #freenode and ask there. The bot can give you a one-time ticket. ==="
+2017-06-16 11:28:17	--	Topic set by tigrmesh (~tigrmesh@archlinux/op/tigrmesh) on Tue, 09 Aug 2016 07:33:51
+2017-06-16 11:28:17	--	Channel #archlinux-unregistered: 421 nicks (6 ops, 0 voices, 415 normals)
+2017-06-16 11:28:19	--	Channel created on Sun, 28 Dec 2014 01:49:46
+2017-06-16 11:29:43	<--	Darkimmortal (~Darkimmor@weeaboo.com) has quit (Quit: Hurrr)
+2017-06-16 11:31:56	-->	Freenoodle (~Bratwurst@p4FC7F051.dip0.t-ipconnect.de) has joined #archlinux-unregistered
+2017-06-16 11:32:39	<--	Trendrrr (~anon@51.141.6.44) has quit (Remote host closed the connection)
+2017-06-16 11:33:00	-->	Trendrrr (~anon@51.141.6.44) has joined #archlinux-unregistered
+2017-06-16 11:33:18	<--	MadAGu (~MadAGu@ppp091138146207.dsl.hol.gr) has quit (Quit: Battle control Terminated)
+2017-06-16 11:34:28	-->	MadAGu (~MadAGu@ppp091138146207.dsl.hol.gr) has joined #archlinux-unregistered
+2017-06-16 11:36:12	<--	rocker2344 (~rocker234@66.172.33.111) has quit (Ping timeout: 260 seconds)
+2017-06-16 11:37:42	<--	seventh__ (~seventh__@unaffiliated/seventh--/x-9387472) has left #archlinux-unregistered
+2017-06-16 11:37:50	<--	pandaant (~batman@dslb-178-005-195-046.178.005.pools.vodafone-ip.de) has quit (Remote host closed the connection)
+2017-06-16 11:38:03	-->	penguinguru (~penguingu@101.173.213.95) has joined #archlinux-unregistered
+2017-06-16 11:38:10	<--	penguinguru (~penguingu@101.173.213.95) has left #archlinux-unregistered (requested by EMIYA (Go back to #archlinux now.))
+2017-06-16 11:38:11	<--	ParrotSec (~ParrotSec@2405:7f00:8808:3e00:441b:bff3:221c:9b40) has quit (Remote host closed the connection)
+2017-06-16 11:39:01	-->	ParrotSec (~ParrotSec@2405:7f00:8808:3e00:441b:bff3:221c:9b40) has joined #archlinux-unregistered
+2017-06-16 11:41:23	-->	pandaant (~batman@dslb-178-005-195-046.178.005.pools.vodafone-ip.de) has joined #archlinux-unregistered
+2017-06-16 11:41:53	<--	Grandad (~Grandad@cpc121736-barn9-2-0-cust373.17-1.cable.virginm.net) has quit (Remote host closed the connection)

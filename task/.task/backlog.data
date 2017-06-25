@@ -1,0 +1,82 @@
+{"description":"test","entry":"20170619T061521Z","modified":"20170619T061521Z","status":"pending","uuid":"c8c6d88d-c8d2-4f23-b733-20e77325604f"}
+{"description":"test","end":"20170619T061535Z","entry":"20170619T061521Z","modified":"20170619T061537Z","status":"deleted","uuid":"c8c6d88d-c8d2-4f23-b733-20e77325604f"}
+{"description":"termite","entry":"20170619T061557Z","modified":"20170619T061557Z","project":"tools","status":"pending","uuid":"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"}
+{"description":"mpv","entry":"20170619T061635Z","modified":"20170619T061635Z","project":"tools","status":"pending","uuid":"6fbaeedb-6021-496a-a639-42a35bd6eea3"}
+{"description":"ptpb pastebin","entry":"20170619T061704Z","modified":"20170619T061704Z","project":"tools","status":"pending","uuid":"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"}
+{"description":"mpd music pastebin","entry":"20170619T061715Z","modified":"20170619T061715Z","project":"tools","status":"pending","uuid":"47d73e5b-4a66-4f40-8e52-b1619129ee2f"}
+{"description":"mpd music with ncmpcpp to inteact with","entry":"20170619T061715Z","modified":"20170619T061755Z","project":"tools","status":"pending","uuid":"47d73e5b-4a66-4f40-8e52-b1619129ee2f"}
+{"description":"mupdf instead of zathura?","entry":"20170619T061853Z","modified":"20170619T061853Z","project":"tools","status":"pending","uuid":"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"}
+{"description":"mopidy music?","entry":"20170619T061926Z","modified":"20170619T061926Z","project":"tools","status":"pending","uuid":"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"}
+{"description":"Latex Book","entry":"20170620T035104Z","modified":"20170620T035104Z","status":"pending","tags":["books"],"uuid":"3453c4b1-c8e5-4d6a-8758-784f4026093f"}
+{"description":"Latex Book","entry":"20170620T035104Z","modified":"20170620T035114Z","start":"20170620T035114Z","status":"pending","tags":["books"],"uuid":"3453c4b1-c8e5-4d6a-8758-784f4026093f"}
+{"description":"Latex Book","due":"20170622T210000Z","entry":"20170620T035104Z","modified":"20170620T035148Z","start":"20170620T035114Z","status":"pending","tags":["books"],"uuid":"3453c4b1-c8e5-4d6a-8758-784f4026093f"}
+{"description":"mvc","entry":"20170620T035345Z","modified":"20170620T035345Z","status":"pending","tags":["misc"],"uuid":"a054629e-2cec-4a76-97ac-b3c71efa11bf"}
+{"description":"texdoc","entry":"20170620T040447Z","modified":"20170620T040447Z","status":"pending","uuid":"08437a17-f453-45f5-b0d1-b73c0e29939f"}
+{"description":"swap the Xmedia-F*- with the F*-fn+F*- check the video tutorial for more info and use xmodmap if possible","entry":"20170620T070319Z","modified":"20170620T070319Z","status":"pending","tags":["misc"],"uuid":"c47b4372-feee-4974-bb25-bc2555bdcd55"}
+{"description":"how to get the available network SSIDs","entry":"20170621T093700Z","modified":"20170621T093700Z","status":"pending","tags":["misc"],"uuid":"14070df9-e32c-432b-8d0b-90f45ad9167a"}
+{"description":"download the arch wiki and put it in the pad","entry":"20170621T122910Z","modified":"20170621T122910Z","status":"pending","tags":["misc"],"uuid":"70eb7923-02ff-4ee2-9ffd-71b25fe59dff"}
+{"description":"swap the Xmedia-F*- with the F*-fn+F*- check the video tutorial for more info and use xmodmap if possible","end":"20170621T185805Z","entry":"20170620T070319Z","modified":"20170621T185805Z","status":"completed","tags":["misc"],"uuid":"c47b4372-feee-4974-bb25-bc2555bdcd55"}
+{"description":"how to get the available network SSIDs","end":"20170621T185805Z","entry":"20170621T093700Z","modified":"20170621T185805Z","status":"completed","tags":["misc"],"uuid":"14070df9-e32c-432b-8d0b-90f45ad9167a"}
+{"description":"front,mainmatter for tex at P.54","entry":"20170622T032045Z","modified":"20170622T032045Z","status":"pending","tags":["misc"],"uuid":"78b4a03a-aba3-4be8-bdf7-5c777d064632"}
+{"description":"swap the rest of the F keys","entry":"20170622T035802Z","modified":"20170622T035802Z","status":"pending","tags":["misc"],"uuid":"e93b7545-256c-48ae-ba6b-f88f3651c015"}
+{"description":"Learn how to use vimperator","entry":"20170622T043620Z","modified":"20170622T043620Z","project":"firefox","status":"pending","uuid":"a15ce2a3-a2e5-44c5-88f7-be82d35800fa"}
+{"description":"check for useful stuff in firefox","entry":"20170622T043637Z","modified":"20170622T043637Z","project":"firefox","status":"pending","uuid":"8fde9732-3833-42f5-8a33-f3f938d31526"}
+{"description":"tutoiral about firefox?","entry":"20170622T043646Z","modified":"20170622T043646Z","project":"firefox","status":"pending","uuid":"1cb6f73d-9e3b-407a-a82a-5ad76a56055f"}
+{"description":"swap the rest of the F keys","end":"20170622T052950Z","entry":"20170622T035802Z","modified":"20170622T052950Z","status":"completed","tags":["misc"],"uuid":"e93b7545-256c-48ae-ba6b-f88f3651c015"}
+{"description":"Mom, Wallet","entry":"20170622T053044Z","modified":"20170622T053044Z","status":"pending","tags":["misc"],"uuid":"10a7912a-55e3-4075-b445-faf526d8de80"}
+{"description":"Mom, Wallet","entry":"20170622T053044Z","modified":"20170622T053100Z","status":"pending","tags":["misc","dailyLife"],"uuid":"10a7912a-55e3-4075-b445-faf526d8de80"}
+{"description":"modify weechat channels","entry":"20170622T053225Z","modified":"20170622T053225Z","status":"pending","tags":["misc"],"uuid":"67f31eaa-1e45-4380-a3c5-a73164795dd3"}
+{"description":"zsh exec tasksh","entry":"20170622T053511Z","modified":"20170622T053511Z","status":"pending","tags":["tools"],"uuid":"053ef9f0-6ede-4a98-b945-109f54bac4ca"}
+{"description":"termite","entry":"20170619T061557Z","modified":"20170622T053604Z","project":"tools","status":"pending","tags":["tools"],"uuid":"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"}
+{"description":"mpv","entry":"20170619T061635Z","modified":"20170622T053606Z","project":"tools","status":"pending","tags":["tools"],"uuid":"6fbaeedb-6021-496a-a639-42a35bd6eea3"}
+{"description":"ptpb pastebin","entry":"20170619T061704Z","modified":"20170622T053606Z","project":"tools","status":"pending","tags":["tools"],"uuid":"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"}
+{"description":"mpd music with ncmpcpp to inteact with","entry":"20170619T061715Z","modified":"20170622T053606Z","project":"tools","status":"pending","tags":["tools"],"uuid":"47d73e5b-4a66-4f40-8e52-b1619129ee2f"}
+{"description":"mupdf instead of zathura?","entry":"20170619T061853Z","modified":"20170622T053606Z","project":"tools","status":"pending","tags":["tools"],"uuid":"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"}
+{"description":"mopidy music?","entry":"20170619T061926Z","modified":"20170622T053606Z","project":"tools","status":"pending","tags":["tools"],"uuid":"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"}
+{"description":"termite","entry":"20170619T061557Z","modified":"20170622T053626Z","status":"pending","tags":["tools"],"uuid":"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"}
+{"description":"mpv","entry":"20170619T061635Z","modified":"20170622T053626Z","status":"pending","tags":["tools"],"uuid":"6fbaeedb-6021-496a-a639-42a35bd6eea3"}
+{"description":"ptpb pastebin","entry":"20170619T061704Z","modified":"20170622T053626Z","status":"pending","tags":["tools"],"uuid":"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"}
+{"description":"mpd music with ncmpcpp to inteact with","entry":"20170619T061715Z","modified":"20170622T053626Z","status":"pending","tags":["tools"],"uuid":"47d73e5b-4a66-4f40-8e52-b1619129ee2f"}
+{"description":"mupdf instead of zathura?","entry":"20170619T061853Z","modified":"20170622T053626Z","status":"pending","tags":["tools"],"uuid":"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"}
+{"description":"mopidy music?","entry":"20170619T061926Z","modified":"20170622T053626Z","status":"pending","tags":["tools"],"uuid":"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"}
+{"description":"get UML Distilled book","entry":"20170622T075512Z","modified":"20170622T075512Z","status":"pending","tags":["misc"],"uuid":"faa8e06a-1dca-47d2-b71e-74565743f6e6"}
+{"description":"download shutter","entry":"20170622T125745Z","modified":"20170622T125745Z","status":"pending","tags":["misk"],"uuid":"8c93e0fa-0d5d-4745-a76c-412ac65e8832"}
+{"description":"umlet or else check other stuff dia or w.e \/ Tex for uml.","entry":"20170622T135052Z","modified":"20170622T135052Z","status":"pending","tags":["misc"],"uuid":"61cb633b-7653-48f9-a4f7-1af84afb0981"}
+{"description":"Mom, Wallet","end":"20170622T164325Z","entry":"20170622T053044Z","modified":"20170622T164325Z","status":"completed","tags":["misc","dailyLife"],"uuid":"10a7912a-55e3-4075-b445-faf526d8de80"}
+{"description":"get UML Distilled book","end":"20170622T164625Z","entry":"20170622T075512Z","modified":"20170622T164626Z","status":"deleted","tags":["misc"],"uuid":"faa8e06a-1dca-47d2-b71e-74565743f6e6"}
+{"description":"download shutter","end":"20170622T190210Z","entry":"20170622T125745Z","modified":"20170622T190210Z","status":"completed","tags":["misk"],"uuid":"8c93e0fa-0d5d-4745-a76c-412ac65e8832"}
+{"description":"mupdf instead of zathura?","end":"20170622T190515Z","entry":"20170619T061853Z","modified":"20170622T190515Z","status":"completed","tags":["tools"],"uuid":"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"}
+{"description":"mpv","end":"20170622T190707Z","entry":"20170619T061635Z","modified":"20170622T190707Z","status":"completed","tags":["tools"],"uuid":"6fbaeedb-6021-496a-a639-42a35bd6eea3"}
+{"description":"static vs singleton","entry":"20170623T031717Z","modified":"20170623T031717Z","status":"pending","tags":["google"],"uuid":"aa437752-8ee6-4060-9716-b4ee4d75b561"}
+{"description":"download the arch wiki and put it in the pad","end":"20170624T093856Z","entry":"20170621T122910Z","modified":"20170624T093858Z","status":"deleted","tags":["misc"],"uuid":"70eb7923-02ff-4ee2-9ffd-71b25fe59dff"}
+{"description":"mvc","end":"20170624T093905Z","entry":"20170620T035345Z","modified":"20170624T093907Z","status":"deleted","tags":["misc"],"uuid":"a054629e-2cec-4a76-97ac-b3c71efa11bf"}
+{"description":"Latex Book","due":"20170622T210000Z","end":"20170624T132247Z","entry":"20170620T035104Z","modified":"20170624T132247Z","status":"completed","tags":["books"],"uuid":"3453c4b1-c8e5-4d6a-8758-784f4026093f"}
+{"description":"termite","end":"20170624T132928Z","entry":"20170619T061557Z","modified":"20170624T132928Z","status":"completed","tags":["tools"],"uuid":"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"}
+{"description":"Read the bash guide","due":"20170625T210000Z","entry":"20170625T061430Z","modified":"20170625T061430Z","status":"pending","uuid":"c6c7da99-43ac-49cb-83ad-5dabea7c9723"}
+{"description":"Wrapper around bastebin command","due":"20170625T210000Z","entry":"20170625T061446Z","modified":"20170625T061446Z","status":"pending","uuid":"c0270216-a0a6-4857-83d3-7614bb9f2ca7"}
+{"description":"a note executable script","entry":"20170625T080637Z","modified":"20170625T080637Z","status":"pending","uuid":"9f00020e-f6d2-4176-9d57-9807f9bd52e1"}
+{"description":"o arg1, arg2","entry":"20170625T085827Z","modified":"20170625T085827Z","project":"firefox","status":"pending","uuid":"6ffa7985-cd6c-4123-b9d9-997910472a2c"}
+{"description":"w new window","entry":"20170625T085842Z","modified":"20170625T085842Z","project":"firefox","status":"pending","uuid":"10a5bd75-6bce-46af-b595-24ad9b48f2ad"}
+{"description":"P tab from the clipboard","entry":"20170625T085851Z","modified":"20170625T085851Z","project":"firefox","status":"pending","uuid":"f39ac2f9-e405-41cd-9a15-2f194de1209a"}
+{"description":"dotFiles","entry":"20170625T120721Z","modified":"20170625T120721Z","status":"pending","uuid":"93d57e76-4829-4843-bf13-804bfadb778a"}
+{"description":"read general recommendation in arch wiki","entry":"20170625T120741Z","modified":"20170625T120741Z","status":"pending","uuid":"2644c124-93f2-4e34-aa0a-142f26e3d497"}
+{"description":"Read the bash guide","entry":"20170625T061430Z","modified":"20170625T121327Z","status":"pending","uuid":"c6c7da99-43ac-49cb-83ad-5dabea7c9723"}
+{"description":"Wrapper around bastebin command","entry":"20170625T061446Z","modified":"20170625T121327Z","status":"pending","uuid":"c0270216-a0a6-4857-83d3-7614bb9f2ca7"}
+{"description":"o arg1, arg2","end":"20170625T121344Z","entry":"20170625T085827Z","modified":"20170625T121346Z","project":"firefox","status":"deleted","uuid":"6ffa7985-cd6c-4123-b9d9-997910472a2c"}
+{"description":"w new window","end":"20170625T121346Z","entry":"20170625T085842Z","modified":"20170625T121346Z","project":"firefox","status":"deleted","uuid":"10a5bd75-6bce-46af-b595-24ad9b48f2ad"}
+{"description":"P tab from the clipboard","end":"20170625T121346Z","entry":"20170625T085851Z","modified":"20170625T121346Z","project":"firefox","status":"deleted","uuid":"f39ac2f9-e405-41cd-9a15-2f194de1209a"}
+{"description":"static vs singleton","end":"20170625T121650Z","entry":"20170623T031717Z","modified":"20170625T121650Z","status":"completed","tags":["google"],"uuid":"aa437752-8ee6-4060-9716-b4ee4d75b561"}
+{"description":"modify weechat channels","end":"20170625T143559Z","entry":"20170622T053225Z","modified":"20170625T143559Z","status":"completed","tags":["misc"],"uuid":"67f31eaa-1e45-4380-a3c5-a73164795dd3"}
+{"description":"zsh exec tasksh","end":"20170625T143612Z","entry":"20170622T053511Z","modified":"20170625T143612Z","status":"completed","tags":["tools"],"uuid":"053ef9f0-6ede-4a98-b945-109f54bac4ca"}
+{"description":"a note executable script","end":"20170625T143633Z","entry":"20170625T080637Z","modified":"20170625T143633Z","status":"completed","uuid":"9f00020e-f6d2-4176-9d57-9807f9bd52e1"}
+{"description":"Learn how to use vimperator","end":"20170625T143643Z","entry":"20170622T043620Z","modified":"20170625T143645Z","project":"firefox","status":"completed","uuid":"a15ce2a3-a2e5-44c5-88f7-be82d35800fa"}
+{"description":"check for useful stuff in firefox","end":"20170625T143645Z","entry":"20170622T043637Z","modified":"20170625T143645Z","project":"firefox","status":"completed","uuid":"8fde9732-3833-42f5-8a33-f3f938d31526"}
+{"description":"tutoiral about firefox?","end":"20170625T143645Z","entry":"20170622T043646Z","modified":"20170625T143645Z","project":"firefox","status":"completed","uuid":"1cb6f73d-9e3b-407a-a82a-5ad76a56055f"}
+{"description":"ptpb pastebin","end":"20170625T174112Z","entry":"20170619T061704Z","modified":"20170625T174114Z","status":"completed","tags":["tools"],"uuid":"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"}
+{"description":"texdoc","end":"20170625T174114Z","entry":"20170620T040447Z","modified":"20170625T174114Z","status":"completed","uuid":"08437a17-f453-45f5-b0d1-b73c0e29939f"}
+{"description":"Read the bash guide","end":"20170625T174114Z","entry":"20170625T061430Z","modified":"20170625T174114Z","status":"completed","uuid":"c6c7da99-43ac-49cb-83ad-5dabea7c9723"}
+{"description":"Wrapper around bastebin command","end":"20170625T174114Z","entry":"20170625T061446Z","modified":"20170625T174114Z","status":"completed","uuid":"c0270216-a0a6-4857-83d3-7614bb9f2ca7"}
+{"description":"umlet or else check other stuff dia or w.e \/ Tex for uml.","end":"20170625T183742Z","entry":"20170622T135052Z","modified":"20170625T183742Z","status":"completed","tags":["misc"],"uuid":"61cb633b-7653-48f9-a4f7-1af84afb0981"}
+{"description":"front,mainmatter for tex at P.54","end":"20170625T183748Z","entry":"20170622T032045Z","modified":"20170625T183748Z","status":"completed","tags":["misc"],"uuid":"78b4a03a-aba3-4be8-bdf7-5c777d064632"}
+{"description":"dotfiles stow","entry":"20170625T193528Z","modified":"20170625T193528Z","status":"pending","uuid":"7948b2a9-0b9b-4e20-8d2a-cc611f9ba1ed"}
+{"description":"dotFiles","end":"20170625T200137Z","entry":"20170625T120721Z","modified":"20170625T200137Z","status":"completed","uuid":"93d57e76-4829-4843-bf13-804bfadb778a"}

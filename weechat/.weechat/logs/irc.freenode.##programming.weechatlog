@@ -1,0 +1,714 @@
+2017-06-18 20:28:52	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-06-18 20:28:52	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-18 20:28:52	--	Topic set by _W_ (~w@irc.w-wins.com) on Sat, 12 Nov 2016 15:15:10
+2017-06-18 20:28:52	--	Channel ##programming: 711 nicks (1 op, 12 voices, 698 normals)
+2017-06-18 20:28:53	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-18 20:29:01	<--	cioran89 (~cioran89@p5DDF2A3D.dip0.t-ipconnect.de) has quit (Quit: Leaving)
+2017-06-18 20:29:01	-->	rmxsantiago (~rmxsantia@2a02:8084:2360:4600:9c5d:cece:1116:7dee) has joined ##programming
+2017-06-18 20:29:16	<--	django_ (~django_@unaffiliated/django-/x-8345756) has quit (Ping timeout: 246 seconds)
+2017-06-18 20:30:22	-->	Henke37 (~Henrik@81-227-16-59-no133.bredband.skanova.com) has joined ##programming
+2017-06-18 20:31:30	<--	therue (~therue@1-162-73-226.dynamic-ip.hinet.net) has quit (Quit: WeeChat 1.8)
+2017-06-18 20:31:33	<--	rmxsantiago (~rmxsantia@2a02:8084:2360:4600:9c5d:cece:1116:7dee) has quit (Remote host closed the connection)
+2017-06-18 20:31:36	graff	"tivoization" i guess it's become a thing
+2017-06-18 20:31:48	-->	therue (~therue@1-162-73-226.dynamic-ip.hinet.net) has joined ##programming
+2017-06-18 20:31:50	-->	frmus (~frmus@2a01:4f8:c17:3ab1::2) has joined ##programming
+2017-06-18 20:33:06	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-06-18 20:33:06	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-18 20:33:06	--	Topic set by _W_ (~w@irc.w-wins.com) on Sat, 12 Nov 2016 15:15:10
+2017-06-18 20:33:06	--	Channel ##programming: 711 nicks (1 op, 12 voices, 698 normals)
+2017-06-18 20:33:08	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-18 20:33:57	<--	andrewSC (~andrewSC@unaffiliated/andrewsc) has quit (Ping timeout: 260 seconds)
+2017-06-18 20:34:10	<--	mandeep (~mandeep@gateway/vpn/privateinternetaccess/mandeepb) has quit (Quit: Leaving)
+2017-06-18 20:34:18	graff	https://libreboot.org/faq.html
+2017-06-18 20:34:54	-->	ympek (~ympek@2a01:115f:509:2d00:8937:ddda:b589:f853) has joined ##programming
+2017-06-18 20:35:13	<--	acerbic (~acerbic@2602:30a:2cf9:4710:f27b:cbff:fe81:c6b3) has quit (Ping timeout: 246 seconds)
+2017-06-18 20:35:35	-->	LKoen (~LKoen@2a01:e35:2eed:a430:fd70:750c:e366:2fda) has joined ##programming
+2017-06-18 20:53:29	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-06-18 20:53:29	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-18 20:53:29	--	Topic set by _W_ (~w@irc.w-wins.com) on Sat, 12 Nov 2016 15:15:10
+2017-06-18 20:53:29	--	Channel ##programming: 706 nicks (1 op, 12 voices, 693 normals)
+2017-06-18 20:53:31	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-18 20:54:24	<--	patientp_ (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has quit (Remote host closed the connection)
+2017-06-18 20:54:25	+beaky	NSFW but slide 10 is a direct comparison https://www.openbsd.org/papers/hackfest2015-pledge/mgp00001.html
+2017-06-18 20:54:29	pie3	which activities you(your script) daily do in your computer/devices other than coding?
+2017-06-18 20:54:51	<--	damke_ (~damke@unaffiliated/damke) has quit (Ping timeout: 268 seconds)
+2017-06-18 20:55:00	+beaky	scheduling my tea drinking
+2017-06-18 20:55:33	yasser	Reading books? Managing tasks? Hearing Music?
+2017-06-18 20:55:39	pie3	do you use computer for it? beaky
+2017-06-18 20:56:09	+beaky	yes i have it pick my teas of the day and account for the stuff i have in store and stuff, and then i put in my tea notes
+2017-06-18 20:56:12	yasser	My favorite is using Arch to break it.
+2017-06-18 20:56:15	+beaky	lol
+2017-06-18 20:56:35	-->	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has joined ##programming
+2017-06-18 20:56:46	<--	okuu (~pyon@unaffiliated/pyon) has quit (Remote host closed the connection)
+2017-06-18 20:56:51	+beaky	arch, so bleeding edge that its users are perpetually bleeding
+2017-06-18 20:57:22	yasser	Well, I started 1/2 weeks ago.
+2017-06-18 20:57:37	yasser	And to add to that bloodshed I am not that experienced with linux.
+2017-06-18 20:57:42	yasser	So yeah, it's non-stop brainfak.
+2017-06-18 20:58:30	yasser	Call me masochist.
+2017-06-18 20:59:52	-->	dan01 (~dan01@86.125.249.0) has joined ##programming
+2017-06-18 21:00:02	-->	magiq (~magiq@213-227-218-130.static.vega-ua.net) has joined ##programming
+2017-06-18 21:00:35	-->	mandeep (~mandeep@gateway/vpn/privateinternetaccess/mandeepb) has joined ##programming
+2017-06-18 21:00:42	-->	kasisnu (~kasisnu@180.151.89.143) has joined ##programming
+2017-06-18 21:00:42	-->	zaherdirkey (~zaherdirk@37.48.208.45) has joined ##programming
+2017-06-18 21:00:59	-->	Swyper (~Swyper@bmtnon1328w-lp140-01-70-31-65-147.dsl.bell.ca) has joined ##programming
+2017-06-18 21:01:33	<--	Jo-Anna2 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has quit (Ping timeout: 240 seconds)
+2017-06-18 21:01:34	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-18 21:01:36	<--	energizer (~energizer@unaffiliated/energizer) has quit (Max SendQ exceeded)
+2017-06-18 21:03:07	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-18 21:03:41	exio4	how is the theme song for a persecution called?
+2017-06-18 21:04:01	-->	numlocked (~numlocked@65.156.253.10) has joined ##programming
+2017-06-18 21:04:59	<--	unyu (~pyon@unaffiliated/pyon) has quit (Remote host closed the connection)
+2017-06-18 21:05:15	<--	kasisnu (~kasisnu@180.151.89.143) has quit (Ping timeout: 240 seconds)
+2017-06-18 21:07:25	<--	energizer (~energizer@unaffiliated/energizer) has quit (Client Quit)
+2017-06-18 21:08:11	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-18 21:08:13	<--	energizer (~energizer@unaffiliated/energizer) has quit (Max SendQ exceeded)
+2017-06-18 21:09:06	graff	looking at the coreboot build system right now
+2017-06-18 21:09:20	graff	a wealth of information
+2017-06-18 21:09:42	graff	git clone http://review.coreboot.org/coreboot.git ; cd coreboot ; make menuconfig
+2017-06-18 21:10:08	-->	Sircle (b6b9c06d@gateway/web/freenode/ip.182.185.192.109) has joined ##programming
+2017-06-18 21:10:10	Sircle	HI
+2017-06-18 21:10:11	graff	just feel around, I have learned more about architecture in like 5 seconds than anywhere else...
+2017-06-18 21:10:15	Sircle	Does anyone knows of a keyboard that is cherry speed silver but not with a metallic case?
+2017-06-18 21:10:23	Sircle	Anyone using typescript?
+2017-06-18 21:10:31	<--	mandeep (~mandeep@gateway/vpn/privateinternetaccess/mandeepb) has quit (Quit: Leaving)
+2017-06-18 21:10:35	pie3	how do you use $PATH variable
+2017-06-18 21:10:53	pie3	graff: I am with laptop now
+2017-06-18 21:11:24	graff	pie3: heh ok.
+2017-06-18 21:11:33	graff	echo $PATH
+2017-06-18 21:11:36	occultus	yasser: the bleeding will probably go down after a few weeks :P
+2017-06-18 21:11:39	graff	which ls
+2017-06-18 21:12:06	-->	rmxsantiago (~rmxsantia@2a02:8084:2360:4600:9c5d:cece:1116:7dee) has joined ##programming
+2017-06-18 21:12:11	pie3	ok i found a long result graff
+2017-06-18 21:12:13	pie3	what is that?
+2017-06-18 21:12:21	-->	okuu (~pyon@unaffiliated/pyon) has joined ##programming
+2017-06-18 21:12:25	pie3	ls gave the list
+2017-06-18 21:12:26	graff	`which' has to search through the contents of the directories listed in the PATH environment variable to see which binary called `ls' is going to run first
+2017-06-18 21:12:50	graff	likewise when the shell invokes `ls' it also searches PATH. the exact same PATH
+2017-06-18 21:13:34	-->	unyu (~pyon@unaffiliated/pyon) has joined ##programming
+2017-06-18 21:14:15	graff	this is accomplished by the C functions getenv() and execl/execv
+2017-06-18 21:14:32	<--	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has quit (Remote host closed the connection)
+2017-06-18 21:14:47	 *	Sircle wiats
+2017-06-18 21:14:49	graff	execvp() searched PATH automatically. calling getenv() on its own and then parsing the contents of the PATH
+2017-06-18 21:14:51	<--	Guest18175 (~rxc@vultr.ryan-clancy.com) has quit (Quit: ZNC - http://znc.in)
+2017-06-18 21:14:52	 *	Sircle waits
+2017-06-18 21:14:54	pie3	confused
+2017-06-18 21:14:57	pie3	slowly
+2017-06-18 21:14:58	pie3	plase
+2017-06-18 21:14:58	graff	pie3: now type:   env
+2017-06-18 21:15:08	graff	env
+2017-06-18 21:15:34	pie3	shouild i type env; i am still unclear about previous two commands
+2017-06-18 21:15:42	graff	yes
+2017-06-18 21:15:47	pie3	ok
+2017-06-18 21:15:54	exio4	pie3: do you know what environment variables are?
+2017-06-18 21:15:58	pie3	it gave me long list
+2017-06-18 21:16:04	pie3	i am trying to understand exio4
+2017-06-18 21:16:10	graff	that is the contents of your entire "environment"
+2017-06-18 21:16:17	pie3	oh i see
+2017-06-18 21:16:37	graff	if you look through them you will see PATH is just 1 of many
+2017-06-18 21:16:43	pie3	i cant find word PATH in that result
+2017-06-18 21:16:53	pie3	let me relook in details
+2017-06-18 21:17:03	pie3	ok found
+2017-06-18 21:17:08	pie3	with a complete path
+2017-06-18 21:17:32	pie3	so why path is very important/discussed among those environment vaariables,
+2017-06-18 21:17:38	-->	patientplatypus (~patientpl@2605:6000:e88e:bef4:816e:e2de:72f8:24df) has joined ##programming
+2017-06-18 21:17:42	-->	crissava (~crissava@2a02:2f0b:4000:128c:a5e5:a1aa:3bb6:5bcd) has joined ##programming
+2017-06-18 21:17:43	graff	yes a series of colon ":" delineated absolute path names
+2017-06-18 21:17:45	pie3	do you use other environment variables ever?
+2017-06-18 21:18:02	graff	pie3: another common one is CC
+2017-06-18 21:18:10	graff	yes I do.
+2017-06-18 21:18:43	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-18 21:18:45	pie3	CC is not there
+2017-06-18 21:18:45	<--	energizer (~energizer@unaffiliated/energizer) has quit (Max SendQ exceeded)
+2017-06-18 21:18:55	graff	but the environment is much smaller than what most people think. POSIX dictates that it must be under the total number of bytes oF f PATH_MAX itself, which is usually about 4096
+2017-06-18 21:18:57	exio4	pie3: environment variables are variables which are "always" there to give them a name, so you can use them `anywhere`, PATH is an environment variable which syas where apps are
+2017-06-18 21:19:12	exio4	pie3: it's a list of path(s) separated by ":"
+2017-06-18 21:19:20	graff	pie3: yes often times it is not
+2017-06-18 21:19:23	graff	env | grep mail
+2017-06-18 21:19:30	exio4	pie3: /bin:/usr/bin:/sbin:/usr/sbin -- to give an exampl
+2017-06-18 21:19:35	<--	aajjbb (~aajjbb@189.4.226.9) has quit (Ping timeout: 240 seconds)
+2017-06-18 21:19:54	graff	MAIL is usually there. it and a number of others are mandated by the POSIX shell specification
+2017-06-18 21:20:05	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-18 21:20:06	Sircle	Does anyone knows of a keyboard that is cherry speed silver but not with a metallic case?
+2017-06-18 21:20:06	<--	energizer (~energizer@unaffiliated/energizer) has quit (Max SendQ exceeded)
+2017-06-18 21:20:11	Sircle	Is this syntax correct? export const testFunc:object = (param1:string, param2:number):object => (param3:number):number => {   return 3; }
+2017-06-18 21:20:12	<--	abijeet (~abijeet@183.82.190.192) has quit (Quit: Leaving)
+2017-06-18 21:20:16	Sircle	Typescript ^
+2017-06-18 21:20:21	pie3	which apps? exio4
+2017-06-18 21:20:23	-->	kasisnu (~kasisnu@180.151.89.143) has joined ##programming
+2017-06-18 21:20:37	-->	sebmiser (~sebmeiste@199.115.93-10.ip.mltn.standardbroadband.ca) has joined ##programming
+2017-06-18 21:20:58	pie3	what is bin?
+2017-06-18 21:21:04	<--	protist (~protist@c-71-227-248-20.hsd1.wa.comcast.net) has quit (Quit: Konversation terminated!)
+2017-06-18 21:21:09	occultus	pie3: if you type the name of a program like cp, the system needs a full name of a file where 'cp' is. that could be /usr/bin/cp, /bin/cp, /usr/local/bin/cp, etc... "PATH
+2017-06-18 21:21:21	occultus	pie3: " is the list of folders that a program like cp could be in
+2017-06-18 21:21:38	graff	bin is one of the historical locations for storing binaries. bin == binaries
+2017-06-18 21:21:53	graff	you should never install your own work there, it is for the system
+2017-06-18 21:21:53	pie3	is it like program files in c drive in windows? occultus
+2017-06-18 21:21:56	exio4	pie3: it's a directory where binaries are often stored
+2017-06-18 21:22:01	occultus	pie3: not really. windows also has PATH
+2017-06-18 21:22:08	<--	patientplatypus (~patientpl@2605:6000:e88e:bef4:816e:e2de:72f8:24df) has quit (Remote host closed the connection)
+2017-06-18 21:22:11	pie3	i am trying to analogy
+2017-06-18 21:22:13	deniska	I like how plan9 has no PATH variable, it only looks at /bin
+2017-06-18 21:22:16	graff	windows path names all start with the drive. in unix path names start with a /
+2017-06-18 21:22:22	exio4	deniska: plan9 is weird
+2017-06-18 21:22:24	occultus	pie3: the analogy is that windows also has PATH that does the same thing
+2017-06-18 21:22:32	deniska	Need more stuff in /bin? Just union mount something else to /bin :)
+2017-06-18 21:22:41	pie3	occultus: i haavent yet path there
+2017-06-18 21:22:53	pie3	used
+2017-06-18 21:23:01	occultus	pie3: imagine typing C:\Windows\explorer.exe every time instead of just 'explorer'
+2017-06-18 21:23:03	<--	zergut (uid221522@taskhive/translator/zergut) has quit (Quit: Connection closed for inactivity)
+2017-06-18 21:23:10	pie3	ok
+2017-06-18 21:23:17	occultus	pie3: or on unix, typing /usr/bin/ls every time you wanted the ls command
+2017-06-18 21:23:29	pie3	so if all programs are being isntalled in bin; why one need to modify PATH variable?
+2017-06-18 21:23:30	graff	if ou want to use windows to try this, you can open up their command "cmd" it's a terminal running a shell, sort of
+2017-06-18 21:23:37	deniska	exio4: it's unfortunate plan9 didn't took off, it's so elegant :)
+2017-06-18 21:23:39	graff	just a reaaaallly bad one
+2017-06-18 21:23:49	pie3	graff: i dont have windows system npw
+2017-06-18 21:23:51	pie3	now
+2017-06-18 21:23:55	graff	thank god
+2017-06-18 21:24:08	pie3	what is recommended setting in PATH variable?
+2017-06-18 21:24:15	pie3	is my PATH set correctly in mint?
+2017-06-18 21:24:20	occultus	pie3: probably
+2017-06-18 21:24:24	pie3	how to verify?
+2017-06-18 21:24:30	pie3	or check
+2017-06-18 21:24:38	graff	pie3: you don't need to change it. but look: /home/cgraff1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:
+2017-06-18 21:24:42	occultus	pie3: if you can get to a desktop and run programs, it is probably correct
+2017-06-18 21:24:54	graff	see I put my home directory's bin in mine /home/cgraff1/bin
+2017-06-18 21:25:07	graff	at the beginning. so anything I stick there gets run first
+2017-06-18 21:25:10	pie3	do you mean ls command is part of bin? does it mean all commands i use at terminals are part of bin? including grep or wget etc? occultus
+2017-06-18 21:25:25	graff	this is how build systems that don't need root work. sort of
+2017-06-18 21:25:28	occultus	pie3: grep and wget are also in some folder called bin (sometimes there is multiple bin folders)
+2017-06-18 21:25:28	deniska	pie3: type `which ls`. It'll show where it is located
+2017-06-18 21:25:55	pie3	ok deniska
+2017-06-18 21:25:57	graff	grep and wget are never in /bin they are in /usr/bin
+2017-06-18 21:26:09	graff	totoally different bins
+2017-06-18 21:26:23	graff	occultus: not saying you are wrong
+2017-06-18 21:26:23	deniska	graff: just a historical quirk
+2017-06-18 21:26:54	deniska	The actual reason why /usr/bin is a thing is that unix guys went out of space on their first hard drive
+2017-06-18 21:27:05	deniska	And put some binaries on the second hard drive which was mounted as /usr
+2017-06-18 21:27:16	deniska	Short for "user", where home directories were located
+2017-06-18 21:27:17	pie3	i tried bin/wget in path. it said dont exist
+2017-06-18 21:27:26	pie3	while bin/grep exists
+2017-06-18 21:27:35	deniska	pie3: as before, type `which wget` to learn where is it
+2017-06-18 21:27:35	pie3	does it mean my default mint dont ahve wget program?
+2017-06-18 21:27:41	pie3	ok
+2017-06-18 21:27:44	graff	find /usr -name wget
+2017-06-18 21:27:47	<--	kasisnu (~kasisnu@180.151.89.143) has quit (Ping timeout: 255 seconds)
+2017-06-18 21:27:52	graff	find /usr -name 'wget'
+2017-06-18 21:28:22	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-18 21:28:25	graff	which wget
+2017-06-18 21:28:53	graff	pie3: I am going to go take a break and work on my yard for a bit. good luck and have fun
+2017-06-18 21:29:02	profsimm	I think HTTP/2 is a pretty cool guy. Eh represents everything as haedres and doesn't afraid of anything.
+2017-06-18 21:29:09	<--	vendoo (53f5e228@gateway/web/freenode/ip.83.245.226.40) has quit (Ping timeout: 260 seconds)
+2017-06-18 21:29:25	pie3	it says it is at /usr/bin/wget while grep is at /bin/grep
+2017-06-18 21:29:30	pie3	what is difference between them?
+2017-06-18 21:29:54	occultus	pie3: probably easier to not worry about that yet. just know there are several different bin folders
+2017-06-18 21:30:12	<--	rmxsantiago (~rmxsantia@2a02:8084:2360:4600:9c5d:cece:1116:7dee) has quit (Remote host closed the connection)
+2017-06-18 21:30:23	pie3	please finish that part in case if i dont came across that query again occultus
+2017-06-18 21:30:29	-->	SaliorMoon82 (~SailorMoo@unaffiliated/saliormoon82) has joined ##programming
+2017-06-18 21:30:37	-->	Fixer (~quassel@unaffiliated/fixer) has joined ##programming
+2017-06-18 21:30:51	pie3	graff: i may catch you later
+2017-06-18 21:31:18	<--	ghost43 (~daer@gateway/tor-sasl/daer) has quit (Ping timeout: 248 seconds)
+2017-06-18 21:31:21	graff	ah yeah I was wrong, grep is part of POSIX and maybe can be in /bin.
+2017-06-18 21:31:37	graff	but wget / fetch are not.
+2017-06-18 21:31:38	occultus	pie3: there's sortof almost a rule that /bin is "more important" (like needed to turn on the computer) and /usr/bin is "less important"
+2017-06-18 21:31:50	graff	pie3: yeah. .. leaving again
+2017-06-18 21:31:54	pie3	so all posix stuff  are direcly part of /bin? and non-posix stuff will be part of /usr/bin?
+2017-06-18 21:31:56	occultus	pie3: but even that's not always consistent
+2017-06-18 21:31:59	<--	badon (~badon@pdpc/supporter/active/badon) has left ##programming ("See also: ##business+investing ##prepping and #coins")
+2017-06-18 21:32:07	-->	zergut (uid221522@taskhive/translator/zergut) has joined ##programming
+2017-06-18 21:32:50	-->	Chords (~Some_Chor@pool-100-11-186-62.phlapa.fios.verizon.net) has joined ##programming
+2017-06-18 21:33:23	deniska	pie3: the /bin and /usr/bin distinction is just a historical quirk
+2017-06-18 21:33:37	deniska	pie3: some systems don't make a distinction between /bin and /usr/bin
+2017-06-18 21:33:56	pie3	i cant find /bin and /usr/bin exact words in path result
+2017-06-18 21:34:02	-->	asynclove (~andrew@cpe-98-26-59-175.nc.res.rr.com) has joined ##programming
+2017-06-18 21:34:17	pie3	usr needs to be replaced by my user name?
+2017-06-18 21:34:20	occultus	pie3: i don't know what you mean
+2017-06-18 21:34:55	pie3	home/veepie/bin:/home/veepie/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+2017-06-18 21:35:03	pie3	this is the result of path variable
+2017-06-18 21:35:09	occultus	pie3: well there's /usr/bin in there
+2017-06-18 21:35:10	pie3	where is /bin and /usr/bin
+2017-06-18 21:35:14	pie3	help me to find out
+2017-06-18 21:35:23	occultus	pie3: and there's also /bin
+2017-06-18 21:35:34	pie3	home/veepie/bin is usr/bin?
+2017-06-18 21:35:40	occultus	pie3: no
+2017-06-18 21:35:45	pie3	then?
+2017-06-18 21:35:50	occultus	pie3: /usr/bin is like halfway through the list
+2017-06-18 21:35:53	pie3	ok
+2017-06-18 21:35:54	pie3	found
+2017-06-18 21:35:56	nblade42	... /usr/bin:/sbin:/bin: ...
+2017-06-18 21:36:03	nblade42	Each component is separated by :
+2017-06-18 21:36:08	pie3	both are at half way
+2017-06-18 21:36:13	-->	ghost43 (~daer@gateway/tor-sasl/daer) has joined ##programming
+2017-06-18 21:36:21	nblade42	An easier way to read it is to type: echo $PATH | tr ':' '\n'
+2017-06-18 21:36:41	occultus	well i have to go for a bit (shower)
+2017-06-18 21:37:10	pie3	tr stands for tear?
+2017-06-18 21:37:57	<--	nunatak (~nunatak@unaffiliated/nunatak) has quit (Quit: Leaving)
+2017-06-18 21:37:58	GeDaMo	Translate
+2017-06-18 21:37:59	pie3	so is my path variable set correctly?
+2017-06-18 21:38:10	pie3	or do i need to modify?
+2017-06-18 21:38:13	<--	asynclove (~andrew@cpe-98-26-59-175.nc.res.rr.com) has quit (Ping timeout: 240 seconds)
+2017-06-18 21:38:25	pie3	actually path journey started while i started reading this article
+2017-06-18 21:38:32	pie3	still i have not finished reading it
+2017-06-18 21:38:36	pie3	https://opensource.com/article/17/6/set-path-linux
+2017-06-18 21:39:03	-->	rmxsantiago (~rmxsantia@2a02:8084:2360:4600:9c5d:cece:1116:7dee) has joined ##programming
+2017-06-18 21:39:52	<--	sampuka (~sampuka@x1-6-24-7f-20-00-22-92.cpe.webspeed.dk) has quit (Remote host closed the connection)
+2017-06-18 21:39:56	pie3	<pie3> so all posix stuff  are direcly part of /bin? and non-posix stuff will be part of /usr/bin?
+2017-06-18 21:39:58	pie3	what is posix?
+2017-06-18 21:40:50	<--	meshsmith (~quassel@ool-18be617d.dyn.optonline.net) has quit (Remote host closed the connection)
+2017-06-18 21:41:02	-->	Cohedrin (~textual@136.24.92.86) has joined ##programming
+2017-06-18 21:41:11	pilne	look at the names
+2017-06-18 21:41:13	deniska	pie3: a standard for unix-like systems
+2017-06-18 21:41:34	pilne	whereas /usr/bin is things the user (usr) installed
+2017-06-18 21:41:53	pilne	generally, it isn't really enforced hardcore everywhere, but that was the idea originally
+2017-06-18 21:42:01	pie3	i see
+2017-06-18 21:42:22	pie3	how wget become user installed? and grep became system installed?
+2017-06-18 21:42:29	graff	pie3: https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+2017-06-18 21:42:32	pie3	can you explain me with some example?
+2017-06-18 21:42:37	-->	nikitha (~rritec1@2405:204:6503:2c19:60dc:20ea:abfd:6cd1) has joined ##programming
+2017-06-18 21:42:44	pie3	i guess as you said it may not be hard core rule pilne
+2017-06-18 21:42:58	pilne	grep is probably part of the default system tools for things the system knows it has to do, while wget is usually optional and has to be installed by the user
+2017-06-18 21:43:03	graff	it's not a part of POSIX. grep is a part of POSIX
+2017-06-18 21:43:10	pie3	oh that is great link graff
+2017-06-18 21:43:10	graff	POSIX utilities are jus *important*
+2017-06-18 21:43:19	-->	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has joined ##programming
+2017-06-18 21:43:27	iodev	graff: agreed
+2017-06-18 21:43:38	iodev	you never know when you'll need that cat :D
+2017-06-18 21:43:42	pie3	can you share me list of posix utilities? graff
+2017-06-18 21:44:31	iodev	pie3: binutils - addr2line, strip, other like that
+2017-06-18 21:44:52	iodev	fs utils - cp, rm, ?shred?, cat, echo, etc.
+2017-06-18 21:44:54	pilne	just do a "ls" inside /bin
+2017-06-18 21:45:17	pie3	how to move to /bin? pilne
+2017-06-18 21:45:22	graff	pie3: http://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html
+2017-06-18 21:45:25	pilne	cd /bin
+2017-06-18 21:45:28	<--	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has quit (Remote host closed the connection)
+2017-06-18 21:45:36	pie3	ok
+2017-06-18 21:45:37	graff	POSIX is a little difficult to navigate. that is not the main entry point
+2017-06-18 21:46:11	graff	http://pubs.opengroup.org/onlinepubs/9699919799/ this is their main page for the 2016 edition
+2017-06-18 21:46:31	pie3	how sudo can become part of /usr/bin?
+2017-06-18 21:46:36	pie3	is it less important?
+2017-06-18 21:46:53	<--	diophant (~chatzilla@121-75-16-94.dyn.vf.net.nz) has quit (Ping timeout: 240 seconds)
+2017-06-18 21:47:07	graff	it has to be there. anything that can be exectuted by the user has to go into PATH or PATH has to be changed
+2017-06-18 21:47:15	iodev	pie3: posix is su, sudo is nice, but not default
+2017-06-18 21:47:22	graff	otherwise they'd have to invoke the tool by the "full path name"
+2017-06-18 21:47:29	pie3	yes i can find su in ls result at /bin
+2017-06-18 21:47:31	iodev	try su -c "test"
+2017-06-18 21:47:40	<--	monix_ (~heyalex@142.167.45.232) has quit (Ping timeout: 240 seconds)
+2017-06-18 21:47:44	pie3	but when i did which sudo; it resulted into /usr/bin
+2017-06-18 21:47:55	pie3	what is diff between su and sudo
+2017-06-18 21:48:02	-->	vendoo (53f5e228@gateway/web/freenode/ip.83.245.226.40) has joined ##programming
+2017-06-18 21:48:09	iodev	pie3: sudo is not necessary!
+2017-06-18 21:48:22	iodev	you can use su -c mostly instead of it
+2017-06-18 21:48:26	vendoo	hey once again guys :)
+2017-06-18 21:48:32	vendoo	iodev: how's it going?
+2017-06-18 21:48:33	iodev	vendoo: hello :D
+2017-06-18 21:48:35	pilne	sudo wraps some "niceties" around su
+2017-06-18 21:48:36	pie3	su is more powerful than sudo?
+2017-06-18 21:48:40	rindolf	vendoo: hi
+2017-06-18 21:48:43	-->	Adbray (~Adbray@2001:470:c692:666:dc26:de0c:1c3:6f41) has joined ##programming
+2017-06-18 21:48:45	-->	NeXTSUN (~textual@2601:83:8100:42cf:f554:960c:8a9f:48fe) has joined ##programming
+2017-06-18 21:48:48	iodev	pilne: right! but you can survive with su -c
+2017-06-18 21:48:49	vendoo	beaky: thanks for the pledge link, neat stuff, need to think about something for my project =)
+2017-06-18 21:48:55	pie3	ok pilne i got you ; some fancy features/addons?
+2017-06-18 21:48:57	pilne	it isn't a power thing, it is a convenience thing.
+2017-06-18 21:48:57	rindolf	vendoo: i'm looking for an html minifier
+2017-06-18 21:48:59	<--	profsimm (d5f0c550@gateway/web/freenode/ip.213.240.197.80) has quit (Ping timeout: 260 seconds)
+2017-06-18 21:49:11	-->	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has joined ##programming
+2017-06-18 21:49:20	iodev	rindolf: https://duckduckgo.com/?q=html+minifier&t=ffab&ia=web
+2017-06-18 21:49:20	vendoo	rindolf: hmm it's probably minimizer/optimizer/simplifier :P
+2017-06-18 21:49:27	vendoo	cool though =)
+2017-06-18 21:49:43	iodev	vendoo: nope it's called minifier, css minifier, html min, etc. (js also)
+2017-06-18 21:49:46	iodev	gtg now
+2017-06-18 21:49:51	vendoo	aha :)
+2017-06-18 21:49:52	vendoo	cya :)
+2017-06-18 21:50:16	-->	antena-cli (~antena@189.60.136.207) has joined ##programming
+2017-06-18 21:50:53	pie3	graff: what is opengroup?
+2017-06-18 21:51:06	Sircle	Does anyone knows of a keyboard that is cherry speed silver but not with a metallic case?
+2017-06-18 21:51:08	pie3	i cant undersand that link
+2017-06-18 21:51:25	graff	pie3: not many people do
+2017-06-18 21:51:53	pie3	ok second link is understooble
+2017-06-18 21:51:58	graff	pie3: the opengroup is the POSIX commitee
+2017-06-18 21:52:01	pie3	list of items which i was hunting
+2017-06-18 21:52:13	-->	systemfault (~rcyr@unaffiliated/rcyr) has joined ##programming
+2017-06-18 21:52:19	graff	yeah
+2017-06-18 21:52:32	-->	symm- (~symm-@95.65.81.202) has joined ##programming
+2017-06-18 21:52:34	pie3	POSIX working for linux only?
+2017-06-18 21:52:46	<--	kwladyka (~kwladyka@jedenzero4-jeden4piec.echostar.pl) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-06-18 21:53:06	-->	Jo-Anna2 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has joined ##programming
+2017-06-18 21:53:13	-->	australopithecus (18f600fd@gateway/web/freenode/ip.24.246.0.253) has joined ##programming
+2017-06-18 21:53:16	graff	linux, mac, netbsd, freebsd and parts of it on windows
+2017-06-18 21:53:25	pie3	su is not listed on that link; why? graff
+2017-06-18 21:53:42	pie3	so these utlities are avauilable on all those mentioend OS also?
+2017-06-18 21:53:53	graff	only if the OS is POSIX conformant
+2017-06-18 21:53:55	pie3	by default? or needs to installed separately?
+2017-06-18 21:53:57	pie3	ok
+2017-06-18 21:54:07	pie3	how to verify whether OS is POSIX compliant or not
+2017-06-18 21:54:14	-->	pecorade (~pecorade@176.32.19.48) has joined ##programming
+2017-06-18 21:54:15	graff	most are not
+2017-06-18 21:54:32	graff	it's really hard and you have to pay. they have a list of OS that have
+2017-06-18 21:54:40	<--	Anton_ (~aaaa@185.9.184.62) has quit (Ping timeout: 260 seconds)
+2017-06-18 21:54:42	pie3	pay to POSIX?
+2017-06-18 21:54:47	graff	they are mostly just experimental junk OS made by various wealthy people
+2017-06-18 21:54:47	-->	im0nde (~im0nde@2a03:2260:11e:301:c54:224a:62b3:ef25) has joined ##programming
+2017-06-18 21:54:49	<--	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has quit (Remote host closed the connection)
+2017-06-18 21:54:49	graff	yes
+2017-06-18 21:55:12	systemfault	You're confusing POSIX and UNIX
+2017-06-18 21:55:26	pie3	may be i have not touched yet UNIX
+2017-06-18 21:55:33	pie3	i dont know what is diff. between unix and linux
+2017-06-18 21:55:37	pie3	even i dont know what is linux
+2017-06-18 21:55:43	pie3	i know i am using linux mint
+2017-06-18 21:55:51	graff	pie3: have you ever programmed anything?
+2017-06-18 21:55:55	graff	like a script?
+2017-06-18 21:55:56	australopithecus	So I am learning object oriented programming and I set up a program that stores a bunch of objects "books" in an array. How can I check if that array is empty, in that no objects were added to it?
+2017-06-18 21:56:01	australopithecus	this is for java
+2017-06-18 21:56:04	-->	Gorock (~Gorock@p200300892F48B69121E01BE3F12DC718.dip0.t-ipconnect.de) has joined ##programming
+2017-06-18 21:56:05	pie3	wealthy people; do you mean posix people? graff
+2017-06-18 21:56:19	pie3	not much programmed graff
+2017-06-18 21:56:28	pie3	i learnt C while in college
+2017-06-18 21:56:28	graff	pie3: ok this is a channel for programmers
+2017-06-18 21:56:40	systemfault	UNIX is just a certification that you get if your OS is compliant with the spec of some company and pay the few hundred thousand dollars fee.
+2017-06-18 21:56:42	-->	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has joined ##programming
+2017-06-18 21:56:50	-->	kwladyka (~kwladyka@jedenzero4-jeden4piec.echostar.pl) has joined ##programming
+2017-06-18 21:56:59	graff	I don't mind it helping you, but it might irritate others. #linux or #posix might be better channels
+2017-06-18 21:57:13	pie3	so is that certification useful. how it helps? systemfault
+2017-06-18 21:57:21	pie3	why people pay that much fees otherwise
+2017-06-18 21:57:32	pie3	how to make any OS unix compliant?
+2017-06-18 21:57:41	systemfault	pie3: It doesn't... that why the only companies doing it are the big rich ones, like Apple
+2017-06-18 21:57:46	graff	yes
+2017-06-18 21:58:08	pie3	so what is linux? systemfault
+2017-06-18 21:58:15	pie3	is it non certified unix?
+2017-06-18 21:58:21	graff	nope
+2017-06-18 21:58:31	pie3	linux is not part of unix?
+2017-06-18 21:58:38	systemfault	pie3: A mostly POSIX compliant, non-UNIX operating system
+2017-06-18 21:58:50	graff	the opengroup owns the rights to the unix trademark
+2017-06-18 21:58:56	hattkunskapz	gnu is not unix
+2017-06-18 22:00:07	pecorade	hi
+2017-06-18 22:00:12	vendoo	graff: so i pushed a very little bit of guidance for zero ;)
+2017-06-18 22:00:13	rindolf	australopithecus: hi
+2017-06-18 22:00:17	pecorade	rindolf: :D
+2017-06-18 22:00:20	vendoo	graff: working on some more stuff :)
+2017-06-18 22:00:24	-->	harukomoto (~harukomot@93-41-20-223.ip79.fastwebnet.it) has joined ##programming
+2017-06-18 22:00:25	vendoo	pecorade: hey man, ltnc :P
+2017-06-18 22:00:25	rindolf	australopithecus: check if the length is 0
+2017-06-18 22:00:30	rindolf	pecorade: hi
+2017-06-18 22:00:46	graff	vendoo: great!
+2017-06-18 22:00:56	-->	andrewSC (~andrewSC@unaffiliated/andrewsc) has joined ##programming
+2017-06-18 22:00:57	rindolf	australopithecus: are you using an ArrayList?
+2017-06-18 22:01:13	-->	diophant (~chatzilla@121-75-18-11.dyn.vf.net.nz) has joined ##programming
+2017-06-18 22:01:23	rindolf	pecorade: sup?
+2017-06-18 22:01:51	dan01	So I wrote my kernel module, it compiles, but I can't insert it
+2017-06-18 22:01:56	<--	Technodrome (~textual@unaffiliated/technodrome) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-18 22:02:10	dan01	with modprob I get a lot of output and insmode says killed
+2017-06-18 22:02:12	pecorade	rindolf: I'm reading a book about AI and lua
+2017-06-18 22:02:13	<--	NeXTSUN (~textual@2601:83:8100:42cf:f554:960c:8a9f:48fe) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-06-18 22:02:20	dan01	any idea?
+2017-06-18 22:02:23	rindolf	pecorade: which one?
+2017-06-18 22:02:28	pecorade	I want to write a tool that can make my work less painful
+2017-06-18 22:02:42	australopithecus	rindolf thanks for the help I dont know what you mean about an ArrayList I tried: if (bookList.length == 0 || bookList == null)
+2017-06-18 22:02:47	pecorade	since I have to perform manual testing each time i add a new function
+2017-06-18 22:02:54	pecorade	including non-regression tests
+2017-06-18 22:02:56	<--	rmxsantiago (~rmxsantia@2a02:8084:2360:4600:9c5d:cece:1116:7dee) has quit (Remote host closed the connection)
+2017-06-18 22:02:56	australopithecus	which seems to be always true
+2017-06-18 22:03:02	-->	max123 (4b708cc3@gateway/web/freenode/ip.75.112.140.195) has joined ##programming
+2017-06-18 22:03:07	pecorade	We don't have an automation tool for that
+2017-06-18 22:03:22	GeDaMo	australopithecus: what type is 'bookList'?
+2017-06-18 22:03:24	australopithecus	rindolf my array isn't dynamic, I just set it to a fixed size
+2017-06-18 22:03:30	pecorade	rindolf: "Learning Game AI Programming with Lua"
+2017-06-18 22:03:33	rindolf	australopithecus: an arraylist is a container
+2017-06-18 22:03:52	australopithecus	Booklist is an array of objects: Book[] bookList = new Book[5];
+2017-06-18 22:03:54	rindolf	pecorade: ah
+2017-06-18 22:04:07	<--	antena-cli (~antena@189.60.136.207) has quit (Quit: KVIrc 4.2.0 Equilibrium http://www.kvirc.net/)
+2017-06-18 22:04:23	rindolf	australopithecus: then you need to keep track of the number of items there using a var
+2017-06-18 22:04:32	<--	NccT (~nONE@unaffiliated/ncct) has quit (Ping timeout: 268 seconds)
+2017-06-18 22:04:39	vendoo	pecorade: how's it going these days? :)
+2017-06-18 22:04:44	rindolf	australopithecus: but you shuld use an arraylist
+2017-06-18 22:04:54	vendoo	graff: yep, adjusted a couple of files + added a couple (README, OVERVIEW.txt) :)
+2017-06-18 22:05:06	australopithecus	thanks again for the help ok I will look up what an arraylist is :)
+2017-06-18 22:05:09	vendoo	graff: now looking at kern/syscall.h
+2017-06-18 22:05:18	max123	Hey guys, I keep getting an error:expression subscrip out of range if I type in a word that is less than the length of the hidden word. Any ideas on what is wrong? CODE:
+2017-06-18 22:05:21	max123	https://gist.github.com/anonymous/f3c32ccbd00b857adfbeb00190ea9b7d
+2017-06-18 22:05:39	rindolf	australopithecus: you're welcome
+2017-06-18 22:05:58	<--	ddoa (~ddoa@162.104.220.155) has quit (Quit: Leaving)
+2017-06-18 22:06:07	graff	vendoo: cool. I will take a look later this afternoon
+2017-06-18 22:06:22	<--	Jo-Anna2 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has quit (Ping timeout: 255 seconds)
+2017-06-18 22:06:40	pie3	<graff> find /usr -name wget
+2017-06-18 22:06:44	pie3	i exectuted that command
+2017-06-18 22:06:48	australopithecus	is ArrayList just a declaring a dynamic array
+2017-06-18 22:06:51	pie3	why it is taking longer to display result
+2017-06-18 22:06:56	pie3	what is that command for?
+2017-06-18 22:07:01	australopithecus	nvm
+2017-06-18 22:07:02	pie3	what should i look into the result?
+2017-06-18 22:07:23	rindolf	max123: https://gist.github.com/anonymous/f3c32ccbd00b857adfbeb00190ea9b7d#file-fbullcowgame-cpp-L69 - these lines seem suspcius
+2017-06-18 22:07:46	rindolf	max123: thanks for sharing the whole code though. :-)
+2017-06-18 22:07:47	-->	NeXTSUN (~textual@2601:83:8100:42cf:f554:960c:8a9f:48fe) has joined ##programming
+2017-06-18 22:08:12	rindolf	pie3: find traverses a dir tree
+2017-06-18 22:08:13	occultus	australopithecus: your code earlier was right, but you need to check for null first, then check if the length is 0
+2017-06-18 22:08:53	<--	schneu (~cholley@c83-248-29-35.bredband.comhem.se) has quit (Ping timeout: 240 seconds)
+2017-06-18 22:08:56	pie3	"<occultus> pie3: if you can get to a desktop and run programs, it is probably correct" can you explain me what does it mean?
+2017-06-18 22:09:05	australopithecus	what do  you mean occultus? two nested if statements or does order of conditions matter in java?
+2017-06-18 22:09:32	occultus	australopithecus: order matters with ||, the first true one stops
+2017-06-18 22:09:53	pie3	rindolf: please elaborate.
+2017-06-18 22:09:57	occultus	australopithecus: the way you wrote it, if it was null, you would have if ([null].length == 0 || ) which already throws an exception
+2017-06-18 22:09:57	australopithecus	thats really helpful thank you so much :) is this standard in most languages?
+2017-06-18 22:10:47	occultus	australopithecus: many languagues stop on the first true with ||, and the first false with &&. it's called short-circuiting
+2017-06-18 22:11:23	pilne	saves resource use
+2017-06-18 22:11:31	-->	Al_nz1 (~bigal.nz@27.123.22.82) has joined ##programming
+2017-06-18 22:11:36	occultus	pie3: i meant that if your PATH was actually wrong, you would probably have some trouble running programs and/or starting to your desktop
+2017-06-18 22:11:49	pie3	O
+2017-06-18 22:11:50	pie3	K
+2017-06-18 22:12:02	australopithecus	ok awesome thank you again
+2017-06-18 22:12:15	occultus	australopithecus: for arraylist instead of array, you would do the same thing -- if (list == null || list.size() == 0) but with .size() instead of .length
+2017-06-18 22:13:44	-->	acerbic (~acerbic@2602:30a:2cf9:4710:f27b:cbff:fe81:c6b3) has joined ##programming
+2017-06-18 22:13:44	-->	Leovale (~Leovale@23-91-132-8.cpe.pppoe.ca) has joined ##programming
+2017-06-18 22:14:25	-->	Wolfenstien (~Wolf98@69.54.129.63) has joined ##programming
+2017-06-18 22:14:43	pie3	<graff> env | grep mail no result for this command, why? occultus
+2017-06-18 22:14:58	<--	patientplatypus (~patientpl@cpe-70-113-64-66.austin.res.rr.com) has quit (Remote host closed the connection)
+2017-06-18 22:14:58	-->	aesycos (~aesycos@166.137.104.34) has joined ##programming
+2017-06-18 22:15:07	occultus	pie3: try with a -i between grep and mail
+2017-06-18 22:15:41	occultus	pie3: it's probably "MAIL" but grep is looking for "mail", the -i tells grep that any capitalization can be matched
+2017-06-18 22:15:57	<--	hfan (~hfan_____@cpe-70-124-145-147.austin.res.rr.com) has quit (Remote host closed the connection)
+2017-06-18 22:16:06	pie3	<deniska> Need more stuff in /bin? Just union mount something else to /bin :) how to do it?
+2017-06-18 22:16:42	occultus	pie3: don't do it
+2017-06-18 22:16:53	pie3	i ll not do it
+2017-06-18 22:17:00	pie3	just explain me how it is helpful/worst
+2017-06-18 22:17:18	<--	systemfault (~rcyr@unaffiliated/rcyr) has quit (Quit: Bye!)
+2017-06-18 22:17:38	occultus	pie3: it was probably a joke, but you almost never want to mess with /bin yourself
+2017-06-18 22:17:58	pie3	still no result occultus
+2017-06-18 22:18:03	max123	rindolf is the problem that MHWChar is not being set to the guess?
+2017-06-18 22:18:04	occultus	pie3: linux mint / the "apt" program does a fine job of it
+2017-06-18 22:18:08	<--	pxs (~pxs@93.85.9.255) has quit (Read error: Connection reset by peer)
+2017-06-18 22:18:13	-->	Coldblackice_ (~Cold@unaffiliated/coldblackice) has joined ##programming
+2017-06-18 22:18:19	occultus	pie3: env | grep -i mail didn't? you could try env | grep MAIL too
+2017-06-18 22:18:28	pie3	i tried both
+2017-06-18 22:18:32	pie3	no result
+2017-06-18 22:18:47	pie3	what shouild be the result?
+2017-06-18 22:18:50	rindolf	max123: no , it's suspicious that the loops are the same upper limit
+2017-06-18 22:18:53	pie3	tell me any other similar command
+2017-06-18 22:18:56	-->	TikityTik (~TikityTik@162.223.44.49) has joined ##programming
+2017-06-18 22:19:16	vendoo	pecorade: don't tell me you don't know who i am :P :D
+2017-06-18 22:19:28	vendoo	pecorade: secondary nick from a friend's place =)
+2017-06-18 22:19:39	occultus	pie3: printenv MAIL should do something
+2017-06-18 22:19:57	<--	aesycos (~aesycos@166.137.104.34) has quit (Ping timeout: 255 seconds)
+2017-06-18 22:20:15	pie3	no result occultus
+2017-06-18 22:20:17	pie3	still
+2017-06-18 22:20:18	-->	badon (~badon@pdpc/supporter/active/badon) has joined ##programming
+2017-06-18 22:20:20	<--	Coldblackice (~Cold@unaffiliated/coldblackice) has quit (Ping timeout: 260 seconds)
+2017-06-18 22:20:56	occultus	pie3: well unless it actually reall breaks something probably don't worry too much
+2017-06-18 22:21:13	-->	asynclove (~andrew@cpe-98-26-59-175.nc.res.rr.com) has joined ##programming
+2017-06-18 22:21:16	pie3	i am not worrying
+2017-06-18 22:21:20	<--	andrewSC (~andrewSC@unaffiliated/andrewsc) has quit (Ping timeout: 255 seconds)
+2017-06-18 22:21:20	pie3	just eaget to know the result
+2017-06-18 22:21:24	pie3	eager
+2017-06-18 22:21:29	pie3	of typed commands
+2017-06-18 22:22:56	-->	kasisnu (~kasisnu@180.151.89.143) has joined ##programming
+2017-06-18 22:24:25	-->	gde33 (~Gaby@546A1876.cm-12-3a.dynamic.ziggo.nl) has joined ##programming
+2017-06-18 22:25:14	pie3	can someone help me to explain /boot?
+2017-06-18 22:26:13	<--	asynclove (~andrew@cpe-98-26-59-175.nc.res.rr.com) has quit (Ping timeout: 240 seconds)
+2017-06-23 08:31:32	-->	yasser (~yasser@194.126.8.90) has joined ##programming
+2017-06-23 08:31:32	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-23 08:31:32	--	Topic set by _W_ (~w@irc.w-wins.com) on Sat, 12 Nov 2016 15:15:10
+2017-06-23 08:31:32	--	Channel ##programming: 702 nicks (1 op, 7 voices, 694 normals)
+2017-06-23 08:31:39	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-23 08:32:03	+vendu	my ram's with ecc error correction :)
+2017-06-23 08:32:15	Boohbah	Are you going to get a ryzen/threadripper/EPYC machine?
+2017-06-23 08:32:16	rindolf	Hi all
+2017-06-23 08:32:20	-->	django_ (~django_@unaffiliated/django-/x-8345756) has joined ##programming
+2017-06-23 08:33:42	+vendu	wow
+2017-06-23 08:33:44	+vendu	toni braxton - un-break my heart :)
+2017-06-23 08:34:06	+vendu	hey rindolf :)
+2017-06-23 08:34:26	rindolf	vendu: sup?
+2017-06-23 08:34:28	+vendu	rainbow - death alley driver :)
+2017-06-23 08:34:39	yasser	vendu:What does the + sign near you means?
+2017-06-23 08:34:39	+vendu	rindolf, hitting the pipe, listening to music :P
+2017-06-23 08:34:45	+vendu	rindolf, you?
+2017-06-23 08:34:53	rindolf	yasser: voice
+2017-06-23 08:34:59	vdamewood	I've build a better model than the one at Data General, for databases vegetable, animal, and mineral.
+2017-06-23 08:35:04	yasser	voice?
+2017-06-23 08:35:21	rindolf	yasser: yes - +v
+2017-06-23 08:35:28	vdamewood	The channel can be put into a mode so that only those with voice will be seen by others.
+2017-06-23 08:35:31	yasser	They can talk to each other?
+2017-06-23 08:35:46	rindolf	vendu: i just woke up
+2017-06-23 08:35:57	+vendu	rindolf, i've been up for 5 hours :)
+2017-06-23 08:36:06	vdamewood	I've been up for 18.
+2017-06-23 08:36:13	rindolf	vendu: ah
+2017-06-23 08:36:20	yasser	Is there a command for that?
+2017-06-23 08:36:33	+vendu	hmm only got one gary moore song
+2017-06-23 08:36:33	+vendu	still got the blues
+2017-06-23 08:36:54	--	Mode ##programming [+vvv rindolf vdamewood yasser] by ChanServ
+2017-06-23 08:37:01	+vendu	:)
+2017-06-23 08:37:07	+vendu	yasser, there you go :)
+2017-06-23 08:37:10	<--	django_ (~django_@unaffiliated/django-/x-8345756) has quit (Ping timeout: 260 seconds)
+2017-06-23 08:37:17	+vdamewood	You just wait for an op to do it for you.
+2017-06-23 08:37:20	jeaye	The channel giveth.
+2017-06-23 08:37:30	+vendu	hi' jeaye :)
+2017-06-23 08:37:46	+vendu	it's midsummer in finland
+2017-06-23 08:37:51	+vendu	almost 24 hours of sun :)
+2017-06-23 08:38:02	+yasser	Any plans for today?
+2017-06-23 08:38:09	<--	Chords (~Some_Chor@pool-100-11-186-62.phlapa.fios.verizon.net) has quit (Read error: Connection reset by peer)
+2017-06-23 08:38:16	+vdamewood	vendu: I'm pretty sure if you go a little bit north, you can get a total 24 hours of sun.
+2017-06-23 08:38:57	profsimm	Specs have these three terms:  MAY, SHOULD and MUST. I understand MAY and MUST. They mean "optional" and "required". What does SHOULD mean? "Sort of required"? It's absolutely useless in a spec I think.
+2017-06-23 08:38:57	-->	guardianx (~guardian@120.18.37.159) has joined ##programming
+2017-06-23 08:39:37	+vdamewood	profsimm: https://www.ietf.org/rfc/rfc2119.txt
+2017-06-23 08:39:51	-->	Jo-Anna (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has joined ##programming
+2017-06-23 08:40:38	<--	OtakuSenpai (~OtakuSenp@unaffiliated/otakusenpai) has quit (Ping timeout: 268 seconds)
+2017-06-23 08:42:13	-->	renlo (~loren.how@c-24-6-123-208.hsd1.ca.comcast.net) has joined ##programming
+2017-06-23 08:43:00	-->	piou (~piou@unaffiliated/piou) has joined ##programming
+2017-06-23 08:44:52	-->	schneu (~cholley@c83-248-29-35.bredband.comhem.se) has joined ##programming
+2017-06-23 08:44:57	<--	aidanh (~aidanh@unaffiliated/aidanh) has quit (Ping timeout: 268 seconds)
+2017-06-23 08:45:37	<--	Techy1 (6c43622c@gateway/web/freenode/ip.108.67.98.44) has quit (Quit: Page closed)
+2017-06-23 08:46:38	-->	OtakuSenpai (~OtakuSenp@unaffiliated/otakusenpai) has joined ##programming
+2017-06-23 08:46:38	<--	renlo (~loren.how@c-24-6-123-208.hsd1.ca.comcast.net) has quit (Ping timeout: 246 seconds)
+2017-06-23 08:46:50	-->	aidanh (~aidanh@unaffiliated/aidanh) has joined ##programming
+2017-06-23 08:47:12	-->	rootsudo (~rootsudo@112.198.70.188) has joined ##programming
+2017-06-23 08:47:39	<--	Jo-Anna (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has quit (Ping timeout: 255 seconds)
+2017-06-23 08:47:49	profsimm	vdamewood: I'm aware but I strongly believe SHOULD is a mistake
+2017-06-23 08:48:01	profsimm	vdamewood: I'm reading a spec that's 90% SHOULD. As if nothing in it matters.
+2017-06-23 08:49:07	+vdamewood	Hmm... maybe the spec is badly worded or not following RFC2119.
+2017-06-23 08:50:38	-->	Jo-Anna (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has joined ##programming
+2017-06-23 08:50:38	+vendu	hmm :)
+2017-06-23 08:52:33	-->	symm- (~symm-@95.65.81.202) has joined ##programming
+2017-06-23 08:52:57	Guest9834	"I am a nop"
+2017-06-23 08:53:31	<--	InPhase (~InPhase@unaffiliated/inphase) has quit (Ping timeout: 276 seconds)
+2017-06-23 08:54:10	<--	cyborg-one (~cyborg-on@37.203.30.90) has quit (Ping timeout: 276 seconds)
+2017-06-23 08:54:56	-->	v01d4lph4 (~silent_fr@103.248.86.222) has joined ##programming
+2017-06-23 08:55:22	+vendu	alrighty then, i have some relatively interesting new software / source code to share :)
+2017-06-23 08:55:23	+vendu	soon =)
+2017-06-23 08:55:37	<--	schneu (~cholley@c83-248-29-35.bredband.comhem.se) has quit (Ping timeout: 240 seconds)
+2017-06-23 08:55:39	+vendu	a new custom ISA with a software virtual machine :)
+2017-06-23 08:55:47	+vdamewood	10 GOTO 10
+2017-06-23 08:55:49	+vendu	and a small link-loading assembler :)
+2017-06-23 08:56:04	-->	damke (~damke@unaffiliated/damke) has joined ##programming
+2017-06-23 08:56:11	+vendu	vdamewood, :)
+2017-06-23 08:56:22	+vdamewood	I should make an ISA with an instruction JSLF Jump to Self (Jumps to the instruction itself).
+2017-06-23 08:56:32	+vendu	vdamewood, i'd be in favor of teaching kids assembly before anything :)
+2017-06-23 08:56:34	<--	aleph- (~hatter@gateway/tor-sasl/church-) has quit (Remote host closed the connection)
+2017-06-23 08:56:44	+vdamewood	Well, I guess jmp -4 works if the jmp instruction takes 4 bytes.
+2017-06-23 08:56:51	+vendu	vdamewood, =)
+2017-06-23 08:57:09	+vendu	vdamewood, i have the assembler for at&t syntax almost done though :)
+2017-06-23 08:57:25	-->	aleph- (~hatter@gateway/tor-sasl/church-) has joined ##programming
+2017-06-23 08:57:28	+vendu	so i can do something like ./zpm 1.asm
+2017-06-23 08:57:29	+vendu	:)
+2017-06-23 08:57:33	+vdamewood	I'm not a fan of AT&T syntax.
+2017-06-23 08:57:35	+vendu	to execute something like hello world :)
+2017-06-23 08:57:46	+vendu	vdamewood, http://hackrants.blogspot.com/ :)
+2017-06-23 08:58:02	systemfault	I'll use the AT&T syntax when I'll program a AT&T CPU...
+2017-06-23 08:58:04	+vendu	please check out the assembly resources post + feedback would be welcome :)
+2017-06-23 08:58:07	systemfault	For now, fuck you AT&T
+2017-06-23 08:58:22	<--	webdev007 (~webdev007@45.72.129.37) has quit (Quit: Leaving)
+2017-06-23 08:59:03	+vendu	vdamewood, it's some [early] documentation and example code for at&t syntax asm programming on my earlier virtual architecture :)
+2017-06-23 08:59:08	+vdamewood	Wow. The business landscape is nothing like it was 30 years ago.
+2017-06-23 08:59:08	-->	pmercado (~pmercado@191.112.142.90) has joined ##programming
+2017-06-23 08:59:27	+vdamewood	AT&T got broken up, then bought out by one of the companies broken off of it.
+2017-06-23 08:59:33	+vendu	vdamewood, wanna hear one of my mottos? =)
+2017-06-23 08:59:47	+vdamewood	vendu: Why not?
+2017-06-23 08:59:59	+vendu	vdamewood, why hack to live if/when you can live to hack? :)
+2017-06-23 09:00:08	-->	kingmanor (~kingmanor@static-72-82-151-130.cmdnnj.fios.verizon.net) has joined ##programming
+2017-06-23 09:00:49	+vendu	vdamewood, usr/tools/zas in zero repo is the beta-level assembler i wrote :)
+2017-06-23 09:01:04	+vendu	ad hoc input processing, of course =)
+2017-06-23 09:01:42	+vdamewood	Slurp!
+2017-06-23 09:01:50	ROBOKiTTY	what does Joel think about Python being even easier than Java?
+2017-06-23 09:02:09	+vendu	vdamewood, at&t syntax asm turned out to be next to trivial to parse :)
+2017-06-23 09:02:20	<--	loboverde (~LoboVerde@gateway/vpn/privateinternetaccess/loboverde) has quit
+2017-06-23 09:03:17	+vendu	vdamewood, it should be relatively easy to retarget to produce machine code for new architectures :)
+2017-06-23 09:03:39	piou	ROBOKiTTY: I would ask Joel about that, not a bunch of guys on irc...
+2017-06-23 09:03:58	<--	synja (~root@unaffiliated/synja) has quit (Remote host closed the connection)
+2017-06-23 09:04:07	ROBOKiTTY	I mean, I'm specifically thinking about an article he wrote back in 05
+2017-06-23 09:04:46	+vendu	hmm
+2017-06-23 09:05:07	ROBOKiTTY	on how Java was too easy a language and computer science education was no longer weeding out poor programmers
+2017-06-23 09:05:08	+vendu	vdamewood, i will eventually need to retarget some c compiler to my virtual architectures (and/or fpga-based soft processors) :)
+2017-06-23 09:05:19	<--	cogwheel (~cogwheel@WoWUIDev/WoWProgramming/morlando/cogwheel) has quit (Ping timeout: 255 seconds)
+2017-06-23 09:05:21	+vendu	vdamewood, tinycc perhaps :)
+2017-06-23 09:05:29	ROBOKiTTY	well, since then Python has become even more popular in computer science education, and it's even easier than Java
+2017-06-23 09:05:39	+vendu	vdamewood, we could hack a vector-based intermediate presentation a'
+2017-06-23 09:05:42	+vendu	a'la vcode :)
+2017-06-23 09:05:49	ROBOKiTTY	he's probably responded to that in the decade since 05
+2017-06-23 09:05:50	+vendu	to let us fine-tune code for SIMD :D
+2017-06-23 09:05:52	+yasser	Any of you guys draw UML diagrams while writting code for a big system to keep track of the structure?
+2017-06-23 09:06:05	ROBOKiTTY	so I'm wondering if anyone knows of what he wrote/said about that
+2017-06-23 09:06:21	-->	ringoger (~kvirc@1.87.244.103) has joined ##programming
+2017-06-23 09:06:31	+vendu	yasser, how big systems? i have "mid-size" but don't need such stuff (at least, not yet) :)
+2017-06-23 09:06:43	+vendu	e.g. zero is about 120 thousand lines of c + asm code now :)
+2017-06-23 09:06:46	+yasser	How do you keep trach of the structure?
+2017-06-23 09:06:53	-->	dan01 (~dan01@85.120.207.245) has joined ##programming
+2017-06-23 09:06:57	+yasser	track*
+2017-06-23 09:07:00	ROBOKiTTY	proper UML that would pass an exam, no, ad-hoc diagrams not meant for mortal comprehension, perhaps
+2017-06-23 09:07:09	+vendu	yasser, now THAT is a good question =)
+2017-06-23 09:07:17	+yasser	lol?
+2017-06-23 09:07:22	+vendu	i can keep track of most of the system in my mind :)
+2017-06-23 09:07:39	+yasser	If you had to work with it after a year or 2.
+2017-06-23 09:07:41	+vendu	i isolate it into smallish code files/modules :)
+2017-06-23 09:07:42	+yasser	What would happen then?
+2017-06-23 09:07:46	-->	hppavilion[1] (~dosgmowdo@58-0-174-206.gci.net) has joined ##programming
+2017-06-23 09:07:56	+vendu	yasser, parts of zero have copyright notices from 2004 :)
+2017-06-23 09:08:13	+vendu	still kinda managing it, i do refactor/revamp lots of code :)
+2017-06-23 09:08:31	+yasser	you use the smiley face alot.
+2017-06-23 09:08:39	+vendu	i guess it's gonna be the main project of my life one day :)
+2017-06-23 09:08:40	+yasser	That's quite the redundency.
+2017-06-23 09:08:57	<--	semele (~kvirc@1.87.244.103) has quit (Ping timeout: 255 seconds)
+2017-06-23 09:08:57	+vendu	yasser, i have a bit of very, very good weed here, so i'm smiling all the time :P
+2017-06-23 09:08:58	+vendu	=)
+2017-06-23 09:09:05	+yasser	haha
+2017-06-23 09:09:09	+vendu	hehe
+2017-06-23 09:09:20	ROBOKiTTY	https://github.com/vendu/OS-Zero
+2017-06-23 09:09:22	+vendu	yasser, http://vendu.twodots.nl/projects.html :)
+2017-06-23 09:09:36	+vendu	ROBOKiTTY, :)
+2017-06-23 09:09:49	<--	xff0x (~xff0x@27.110.45.75) has quit (Ping timeout: 255 seconds)
+2017-06-23 09:10:03	+yasser	That's a lot for one guy to manage.
+2017-06-23 09:10:27	+vendu	yasser, :)
+2017-06-23 09:10:43	+yasser	Lent me a portion of your mind please :)
+2017-06-23 09:10:45	+vendu	yasser, well
+2017-06-23 09:10:47	+vendu	hmm
+2017-06-23 09:10:49	+vendu	:)
+2017-06-23 09:10:53	+vendu	hehe
+2017-06-23 09:11:11	<--	nanoz (~nanoz@unaffiliated/nanoz) has quit (Ping timeout: 255 seconds)
+2017-06-23 09:11:16	+vendu	time to roll a joint :)
+2017-06-23 09:11:26	-->	BaneAliens (~BaneAlien@98.210.206.106) has joined ##programming
+2017-06-23 09:12:26	+yasser	hahaha, you even insert smiley faces in the commit messages xD
+2017-06-23 09:12:34	<--	BaneAliens (~BaneAlien@98.210.206.106) has left ##programming
+2017-06-23 09:12:47	+yasser	Such an overwhelming positive energy.
+2017-06-23 09:12:53	<--	bordeaux_facile (~a@128.199.208.178) has quit (Read error: Connection reset by peer)
+2017-06-23 09:12:54	+vendu	yep :)
+2017-06-23 09:12:56	+vendu	hehe
+2017-06-23 09:14:11	+vendu	yasser, usr/lib/zero might be one place worth looking at ;)
+2017-06-23 09:14:40	+vendu	that's kind of a catch-all library for some stuff + stuff shared in both my kernel and userland :)
+2017-06-23 09:15:46	+vendu	yasser, for one, i have a pretty nice collection of thread-related synchronization primitives either working or implemented but not fully tested and fixed :)
+2017-06-23 09:16:06	+vendu	so i'm probably gonna see about doing a new pthread implementation :)
+2017-06-23 09:16:39	<--	zergut (uid221522@taskhive/translator/zergut) has quit (Quit: Connection closed for inactivity)
+2017-06-23 09:16:44	-->	mikepinoy (mikepinoy@49.148.184.235) has joined ##programming
+2017-06-23 09:17:01	+yasser	I will be damned if I can remember all of this.
+2017-06-23 09:17:05	<--	NccT (~nONE@unaffiliated/ncct) has quit (Ping timeout: 255 seconds)
+2017-06-23 09:17:24	+vendu	https://github.com/vendu/OS-Zero/blob/master/usr/lib/zero/trix.h
+2017-06-23 09:17:26	+yasser	I am barely remembering the design patterns that I read on the bus today.
+2017-06-23 09:17:38	<--	pmercado (~pmercado@191.112.142.90) has quit (Ping timeout: 268 seconds)
+2017-06-23 09:19:00	<--	ogradyd (~Thunderbi@HSI-KBW-109-193-046-115.hsi7.kabel-badenwuerttemberg.de) has quit (Quit: ogradyd)
+2017-06-23 09:19:00	+vendu	yasser, http://vendu.twodots.nl/wizardcode.html :)
+2017-06-23 09:19:06	<--	Jo-Anna (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has quit (Ping timeout: 240 seconds)
+2017-06-23 09:19:15	+vendu	i (ab)use my custom single-word mutexes a lot in my project :)
+2017-06-23 09:19:17	<--	Kivak (~Kivak@unaffiliated/kivak) has quit (Ping timeout: 240 seconds)
+2017-06-23 09:19:32	+vendu	they basically run faster than pthread mutexes here ;)
+2017-06-23 09:19:55	-->	xcm (~xcm@ipa210.225.tellas.gr) has joined ##programming
+2017-06-23 09:19:59	+vendu	multiprocessor systems have changed the ball game :)
+2017-06-23 09:20:40	+vendu	yasser, i tend to "design" my software around the crucial data structures :)
+2017-06-23 09:20:43	+yasser	Woah, I am gonna dwell more into this in my free time. Good luck with your adventure. I have to start something like this myself someday :)
+2017-06-23 09:20:46	+vendu	for efficient memory access, for one
+2017-06-23 09:21:01	+vendu	yasser, thanks, peace =)
+2017-06-23 09:22:02	+vendu	yasser, mind if i ask how old you are? :)
+2017-06-23 09:22:12	<--	kingmanor (~kingmanor@static-72-82-151-130.cmdnnj.fios.verizon.net) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-23 09:22:16	<--	urodna (~urodna@unaffiliated/urodna) has quit (Quit: urodna)
+2017-06-23 09:22:17	+yasser	22
+2017-06-23 09:22:24	+vendu	yasser, 43 here :)
+2017-06-23 09:22:38	+yasser	Nice to meet you.
+2017-06-23 09:22:39	+vendu	i could, age-wise, be your father :P
+2017-06-23 09:22:42	+vendu	=)
+2017-06-23 09:23:33	+yasser	haha :)
+2017-06-23 09:25:01	+vendu	yasser, i privmsg'd you a link :)
+2017-06-23 09:25:01	+vendu	my book project recently got linked on hacker news :)
+2017-06-23 09:25:54	+yasser	I will check it out later. Thanks for everything.
+2017-06-23 09:30:04	--	irc: disconnected from server
+2017-06-23 09:30:56	-->	yasser (~yasser@194.126.8.90) has joined ##programming
+2017-06-23 09:30:56	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-23 09:30:56	--	Topic set by _W_ (~w@irc.w-wins.com) on Sat, 12 Nov 2016 15:15:10
+2017-06-23 09:30:56	--	Channel ##programming: 700 nicks (1 op, 9 voices, 690 normals)
+2017-06-23 09:31:00	+vendu	the basic idea is to implement a virtual machine (with extensive debugging features in comparison to hard-to-debug hardware) :)
+2017-06-23 09:31:06	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-23 09:31:30	+vendu	if we retarget a c compiler for it, we'd have a very nice tool to test our software with :)
+2017-06-23 09:31:54	<--	errst (~user@213.74.172.226) has quit (Ping timeout: 246 seconds)

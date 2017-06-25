@@ -1,0 +1,294 @@
+time 1497852921
+new [description:"test" entry:"1497852921" modified:"1497852921" status:"pending" uuid:"c8c6d88d-c8d2-4f23-b733-20e77325604f"]
+---
+time 1497852937
+old [description:"test" entry:"1497852921" modified:"1497852921" status:"pending" uuid:"c8c6d88d-c8d2-4f23-b733-20e77325604f"]
+new [description:"test" end:"1497852935" entry:"1497852921" modified:"1497852937" status:"deleted" uuid:"c8c6d88d-c8d2-4f23-b733-20e77325604f"]
+---
+time 1497852957
+new [description:"termite" entry:"1497852957" modified:"1497852957" project:"tools" status:"pending" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+---
+time 1497852995
+new [description:"mpv" entry:"1497852995" modified:"1497852995" project:"tools" status:"pending" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+---
+time 1497853024
+new [description:"ptpb pastebin" entry:"1497853024" modified:"1497853024" project:"tools" status:"pending" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+---
+time 1497853035
+new [description:"mpd music pastebin" entry:"1497853035" modified:"1497853035" project:"tools" status:"pending" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+---
+time 1497853075
+old [description:"mpd music pastebin" entry:"1497853035" modified:"1497853035" project:"tools" status:"pending" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+new [description:"mpd music with ncmpcpp to inteact with" entry:"1497853035" modified:"1497853075" project:"tools" status:"pending" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+---
+time 1497853133
+new [description:"mupdf instead of zathura?" entry:"1497853133" modified:"1497853133" project:"tools" status:"pending" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+---
+time 1497853166
+new [description:"mopidy music?" entry:"1497853166" modified:"1497853166" project:"tools" status:"pending" uuid:"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"]
+---
+time 1497930664
+new [description:"Latex Book" entry:"1497930664" modified:"1497930664" status:"pending" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+---
+time 1497930674
+old [description:"Latex Book" entry:"1497930664" modified:"1497930664" status:"pending" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+new [description:"Latex Book" entry:"1497930664" modified:"1497930674" start:"1497930674" status:"pending" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+---
+time 1497930708
+old [description:"Latex Book" entry:"1497930664" modified:"1497930674" start:"1497930674" status:"pending" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+new [description:"Latex Book" due:"1498165200" entry:"1497930664" modified:"1497930708" start:"1497930674" status:"pending" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+---
+time 1497930825
+new [description:"mvc" entry:"1497930825" modified:"1497930825" status:"pending" tags:"misc" uuid:"a054629e-2cec-4a76-97ac-b3c71efa11bf"]
+---
+time 1497931487
+new [description:"texdoc" entry:"1497931487" modified:"1497931487" status:"pending" uuid:"08437a17-f453-45f5-b0d1-b73c0e29939f"]
+---
+time 1497942199
+new [description:"swap the Xmedia-F*- with the F*-fn+F*- check the video tutorial for more info and use xmodmap if possible" entry:"1497942199" modified:"1497942199" status:"pending" tags:"misc" uuid:"c47b4372-feee-4974-bb25-bc2555bdcd55"]
+---
+time 1498037820
+new [description:"how to get the available network SSIDs" entry:"1498037820" modified:"1498037820" status:"pending" tags:"misc" uuid:"14070df9-e32c-432b-8d0b-90f45ad9167a"]
+---
+time 1498048150
+new [description:"download the arch wiki and put it in the pad" entry:"1498048150" modified:"1498048150" status:"pending" tags:"misc" uuid:"70eb7923-02ff-4ee2-9ffd-71b25fe59dff"]
+---
+time 1498071485
+old [description:"swap the Xmedia-F*- with the F*-fn+F*- check the video tutorial for more info and use xmodmap if possible" entry:"1497942199" modified:"1497942199" status:"pending" tags:"misc" uuid:"c47b4372-feee-4974-bb25-bc2555bdcd55"]
+new [description:"swap the Xmedia-F*- with the F*-fn+F*- check the video tutorial for more info and use xmodmap if possible" end:"1498071485" entry:"1497942199" modified:"1498071485" status:"completed" tags:"misc" uuid:"c47b4372-feee-4974-bb25-bc2555bdcd55"]
+---
+time 1498071485
+old [description:"how to get the available network SSIDs" entry:"1498037820" modified:"1498037820" status:"pending" tags:"misc" uuid:"14070df9-e32c-432b-8d0b-90f45ad9167a"]
+new [description:"how to get the available network SSIDs" end:"1498071485" entry:"1498037820" modified:"1498071485" status:"completed" tags:"misc" uuid:"14070df9-e32c-432b-8d0b-90f45ad9167a"]
+---
+time 1498101645
+new [description:"front,mainmatter for tex at P.54" entry:"1498101645" modified:"1498101645" status:"pending" tags:"misc" uuid:"78b4a03a-aba3-4be8-bdf7-5c777d064632"]
+---
+time 1498103882
+new [description:"swap the rest of the F keys" entry:"1498103882" modified:"1498103882" status:"pending" tags:"misc" uuid:"e93b7545-256c-48ae-ba6b-f88f3651c015"]
+---
+time 1498106180
+new [description:"Learn how to use vimperator" entry:"1498106180" modified:"1498106180" project:"firefox" status:"pending" uuid:"a15ce2a3-a2e5-44c5-88f7-be82d35800fa"]
+---
+time 1498106197
+new [description:"check for useful stuff in firefox" entry:"1498106197" modified:"1498106197" project:"firefox" status:"pending" uuid:"8fde9732-3833-42f5-8a33-f3f938d31526"]
+---
+time 1498106206
+new [description:"tutoiral about firefox?" entry:"1498106206" modified:"1498106206" project:"firefox" status:"pending" uuid:"1cb6f73d-9e3b-407a-a82a-5ad76a56055f"]
+---
+time 1498109390
+old [description:"swap the rest of the F keys" entry:"1498103882" modified:"1498103882" status:"pending" tags:"misc" uuid:"e93b7545-256c-48ae-ba6b-f88f3651c015"]
+new [description:"swap the rest of the F keys" end:"1498109390" entry:"1498103882" modified:"1498109390" status:"completed" tags:"misc" uuid:"e93b7545-256c-48ae-ba6b-f88f3651c015"]
+---
+time 1498109444
+new [description:"Mom, Wallet" entry:"1498109444" modified:"1498109444" status:"pending" tags:"misc" uuid:"10a7912a-55e3-4075-b445-faf526d8de80"]
+---
+time 1498109460
+old [description:"Mom, Wallet" entry:"1498109444" modified:"1498109444" status:"pending" tags:"misc" uuid:"10a7912a-55e3-4075-b445-faf526d8de80"]
+new [description:"Mom, Wallet" entry:"1498109444" modified:"1498109460" status:"pending" tags:"misc,dailyLife" uuid:"10a7912a-55e3-4075-b445-faf526d8de80"]
+---
+time 1498109545
+new [description:"modify weechat channels" entry:"1498109545" modified:"1498109545" status:"pending" tags:"misc" uuid:"67f31eaa-1e45-4380-a3c5-a73164795dd3"]
+---
+time 1498109711
+new [description:"zsh exec tasksh" entry:"1498109711" modified:"1498109711" status:"pending" tags:"tools" uuid:"053ef9f0-6ede-4a98-b945-109f54bac4ca"]
+---
+time 1498109764
+old [description:"termite" entry:"1497852957" modified:"1497852957" project:"tools" status:"pending" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+new [description:"termite" entry:"1497852957" modified:"1498109764" project:"tools" status:"pending" tags:"tools" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+---
+time 1498109766
+old [description:"mpv" entry:"1497852995" modified:"1497852995" project:"tools" status:"pending" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+new [description:"mpv" entry:"1497852995" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+---
+time 1498109766
+old [description:"ptpb pastebin" entry:"1497853024" modified:"1497853024" project:"tools" status:"pending" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+new [description:"ptpb pastebin" entry:"1497853024" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+---
+time 1498109766
+old [description:"mpd music with ncmpcpp to inteact with" entry:"1497853035" modified:"1497853075" project:"tools" status:"pending" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+new [description:"mpd music with ncmpcpp to inteact with" entry:"1497853035" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+---
+time 1498109766
+old [description:"mupdf instead of zathura?" entry:"1497853133" modified:"1497853133" project:"tools" status:"pending" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+new [description:"mupdf instead of zathura?" entry:"1497853133" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+---
+time 1498109766
+old [description:"mopidy music?" entry:"1497853166" modified:"1497853166" project:"tools" status:"pending" uuid:"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"]
+new [description:"mopidy music?" entry:"1497853166" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"]
+---
+time 1498109786
+old [description:"termite" entry:"1497852957" modified:"1498109764" project:"tools" status:"pending" tags:"tools" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+new [description:"termite" entry:"1497852957" modified:"1498109786" status:"pending" tags:"tools" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+---
+time 1498109786
+old [description:"mpv" entry:"1497852995" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+new [description:"mpv" entry:"1497852995" modified:"1498109786" status:"pending" tags:"tools" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+---
+time 1498109786
+old [description:"ptpb pastebin" entry:"1497853024" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+new [description:"ptpb pastebin" entry:"1497853024" modified:"1498109786" status:"pending" tags:"tools" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+---
+time 1498109786
+old [description:"mpd music with ncmpcpp to inteact with" entry:"1497853035" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+new [description:"mpd music with ncmpcpp to inteact with" entry:"1497853035" modified:"1498109786" status:"pending" tags:"tools" uuid:"47d73e5b-4a66-4f40-8e52-b1619129ee2f"]
+---
+time 1498109786
+old [description:"mupdf instead of zathura?" entry:"1497853133" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+new [description:"mupdf instead of zathura?" entry:"1497853133" modified:"1498109786" status:"pending" tags:"tools" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+---
+time 1498109786
+old [description:"mopidy music?" entry:"1497853166" modified:"1498109766" project:"tools" status:"pending" tags:"tools" uuid:"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"]
+new [description:"mopidy music?" entry:"1497853166" modified:"1498109786" status:"pending" tags:"tools" uuid:"559a5d40-d80d-41f5-9e0a-d58bde1a55bb"]
+---
+time 1498118112
+new [description:"get UML Distilled book" entry:"1498118112" modified:"1498118112" status:"pending" tags:"misc" uuid:"faa8e06a-1dca-47d2-b71e-74565743f6e6"]
+---
+time 1498136265
+new [description:"download shutter" entry:"1498136265" modified:"1498136265" status:"pending" tags:"misk" uuid:"8c93e0fa-0d5d-4745-a76c-412ac65e8832"]
+---
+time 1498139452
+new [description:"umlet or else check other stuff dia or w.e \/ Tex for uml." entry:"1498139452" modified:"1498139452" status:"pending" tags:"misc" uuid:"61cb633b-7653-48f9-a4f7-1af84afb0981"]
+---
+time 1498149805
+old [description:"Mom, Wallet" entry:"1498109444" modified:"1498109460" status:"pending" tags:"misc,dailyLife" uuid:"10a7912a-55e3-4075-b445-faf526d8de80"]
+new [description:"Mom, Wallet" end:"1498149805" entry:"1498109444" modified:"1498149805" status:"completed" tags:"misc,dailyLife" uuid:"10a7912a-55e3-4075-b445-faf526d8de80"]
+---
+time 1498149986
+old [description:"get UML Distilled book" entry:"1498118112" modified:"1498118112" status:"pending" tags:"misc" uuid:"faa8e06a-1dca-47d2-b71e-74565743f6e6"]
+new [description:"get UML Distilled book" end:"1498149985" entry:"1498118112" modified:"1498149986" status:"deleted" tags:"misc" uuid:"faa8e06a-1dca-47d2-b71e-74565743f6e6"]
+---
+time 1498158130
+old [description:"download shutter" entry:"1498136265" modified:"1498136265" status:"pending" tags:"misk" uuid:"8c93e0fa-0d5d-4745-a76c-412ac65e8832"]
+new [description:"download shutter" end:"1498158130" entry:"1498136265" modified:"1498158130" status:"completed" tags:"misk" uuid:"8c93e0fa-0d5d-4745-a76c-412ac65e8832"]
+---
+time 1498158315
+old [description:"mupdf instead of zathura?" entry:"1497853133" modified:"1498109786" status:"pending" tags:"tools" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+new [description:"mupdf instead of zathura?" end:"1498158315" entry:"1497853133" modified:"1498158315" status:"completed" tags:"tools" uuid:"f11476b1-f262-4aa1-9ecf-c2c5c9c83063"]
+---
+time 1498158427
+old [description:"mpv" entry:"1497852995" modified:"1498109786" status:"pending" tags:"tools" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+new [description:"mpv" end:"1498158427" entry:"1497852995" modified:"1498158427" status:"completed" tags:"tools" uuid:"6fbaeedb-6021-496a-a639-42a35bd6eea3"]
+---
+time 1498187837
+new [description:"static vs singleton" entry:"1498187837" modified:"1498187837" status:"pending" tags:"google" uuid:"aa437752-8ee6-4060-9716-b4ee4d75b561"]
+---
+time 1498297138
+old [description:"download the arch wiki and put it in the pad" entry:"1498048150" modified:"1498048150" status:"pending" tags:"misc" uuid:"70eb7923-02ff-4ee2-9ffd-71b25fe59dff"]
+new [description:"download the arch wiki and put it in the pad" end:"1498297136" entry:"1498048150" modified:"1498297138" status:"deleted" tags:"misc" uuid:"70eb7923-02ff-4ee2-9ffd-71b25fe59dff"]
+---
+time 1498297147
+old [description:"mvc" entry:"1497930825" modified:"1497930825" status:"pending" tags:"misc" uuid:"a054629e-2cec-4a76-97ac-b3c71efa11bf"]
+new [description:"mvc" end:"1498297145" entry:"1497930825" modified:"1498297147" status:"deleted" tags:"misc" uuid:"a054629e-2cec-4a76-97ac-b3c71efa11bf"]
+---
+time 1498310567
+old [description:"Latex Book" due:"1498165200" entry:"1497930664" modified:"1497930708" start:"1497930674" status:"pending" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+new [description:"Latex Book" due:"1498165200" end:"1498310567" entry:"1497930664" modified:"1498310567" status:"completed" tags:"books" uuid:"3453c4b1-c8e5-4d6a-8758-784f4026093f"]
+---
+time 1498310968
+old [description:"termite" entry:"1497852957" modified:"1498109786" status:"pending" tags:"tools" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+new [description:"termite" end:"1498310968" entry:"1497852957" modified:"1498310968" status:"completed" tags:"tools" uuid:"fe1bf6e5-6266-48c2-a214-490a41bfbd5c"]
+---
+time 1498371270
+new [description:"Read the bash guide" due:"1498424400" entry:"1498371270" modified:"1498371270" status:"pending" uuid:"c6c7da99-43ac-49cb-83ad-5dabea7c9723"]
+---
+time 1498371286
+new [description:"Wrapper around bastebin command" due:"1498424400" entry:"1498371286" modified:"1498371286" status:"pending" uuid:"c0270216-a0a6-4857-83d3-7614bb9f2ca7"]
+---
+time 1498377997
+new [description:"a note executable script" entry:"1498377997" modified:"1498377997" status:"pending" uuid:"9f00020e-f6d2-4176-9d57-9807f9bd52e1"]
+---
+time 1498381107
+new [description:"o arg1, arg2" entry:"1498381107" modified:"1498381107" project:"firefox" status:"pending" uuid:"6ffa7985-cd6c-4123-b9d9-997910472a2c"]
+---
+time 1498381122
+new [description:"w new window" entry:"1498381122" modified:"1498381122" project:"firefox" status:"pending" uuid:"10a5bd75-6bce-46af-b595-24ad9b48f2ad"]
+---
+time 1498381131
+new [description:"P tab from the clipboard" entry:"1498381131" modified:"1498381131" project:"firefox" status:"pending" uuid:"f39ac2f9-e405-41cd-9a15-2f194de1209a"]
+---
+time 1498392441
+new [description:"dotFiles" entry:"1498392441" modified:"1498392441" status:"pending" uuid:"93d57e76-4829-4843-bf13-804bfadb778a"]
+---
+time 1498392461
+new [description:"read general recommendation in arch wiki" entry:"1498392461" modified:"1498392461" status:"pending" uuid:"2644c124-93f2-4e34-aa0a-142f26e3d497"]
+---
+time 1498392807
+old [description:"Read the bash guide" due:"1498424400" entry:"1498371270" modified:"1498371270" status:"pending" uuid:"c6c7da99-43ac-49cb-83ad-5dabea7c9723"]
+new [description:"Read the bash guide" entry:"1498371270" modified:"1498392807" status:"pending" uuid:"c6c7da99-43ac-49cb-83ad-5dabea7c9723"]
+---
+time 1498392807
+old [description:"Wrapper around bastebin command" due:"1498424400" entry:"1498371286" modified:"1498371286" status:"pending" uuid:"c0270216-a0a6-4857-83d3-7614bb9f2ca7"]
+new [description:"Wrapper around bastebin command" entry:"1498371286" modified:"1498392807" status:"pending" uuid:"c0270216-a0a6-4857-83d3-7614bb9f2ca7"]
+---
+time 1498392826
+old [description:"o arg1, arg2" entry:"1498381107" modified:"1498381107" project:"firefox" status:"pending" uuid:"6ffa7985-cd6c-4123-b9d9-997910472a2c"]
+new [description:"o arg1, arg2" end:"1498392824" entry:"1498381107" modified:"1498392826" project:"firefox" status:"deleted" uuid:"6ffa7985-cd6c-4123-b9d9-997910472a2c"]
+---
+time 1498392826
+old [description:"w new window" entry:"1498381122" modified:"1498381122" project:"firefox" status:"pending" uuid:"10a5bd75-6bce-46af-b595-24ad9b48f2ad"]
+new [description:"w new window" end:"1498392826" entry:"1498381122" modified:"1498392826" project:"firefox" status:"deleted" uuid:"10a5bd75-6bce-46af-b595-24ad9b48f2ad"]
+---
+time 1498392826
+old [description:"P tab from the clipboard" entry:"1498381131" modified:"1498381131" project:"firefox" status:"pending" uuid:"f39ac2f9-e405-41cd-9a15-2f194de1209a"]
+new [description:"P tab from the clipboard" end:"1498392826" entry:"1498381131" modified:"1498392826" project:"firefox" status:"deleted" uuid:"f39ac2f9-e405-41cd-9a15-2f194de1209a"]
+---
+time 1498393010
+old [description:"static vs singleton" entry:"1498187837" modified:"1498187837" status:"pending" tags:"google" uuid:"aa437752-8ee6-4060-9716-b4ee4d75b561"]
+new [description:"static vs singleton" end:"1498393010" entry:"1498187837" modified:"1498393010" status:"completed" tags:"google" uuid:"aa437752-8ee6-4060-9716-b4ee4d75b561"]
+---
+time 1498401359
+old [description:"modify weechat channels" entry:"1498109545" modified:"1498109545" status:"pending" tags:"misc" uuid:"67f31eaa-1e45-4380-a3c5-a73164795dd3"]
+new [description:"modify weechat channels" end:"1498401359" entry:"1498109545" modified:"1498401359" status:"completed" tags:"misc" uuid:"67f31eaa-1e45-4380-a3c5-a73164795dd3"]
+---
+time 1498401372
+old [description:"zsh exec tasksh" entry:"1498109711" modified:"1498109711" status:"pending" tags:"tools" uuid:"053ef9f0-6ede-4a98-b945-109f54bac4ca"]
+new [description:"zsh exec tasksh" end:"1498401372" entry:"1498109711" modified:"1498401372" status:"completed" tags:"tools" uuid:"053ef9f0-6ede-4a98-b945-109f54bac4ca"]
+---
+time 1498401393
+old [description:"a note executable script" entry:"1498377997" modified:"1498377997" status:"pending" uuid:"9f00020e-f6d2-4176-9d57-9807f9bd52e1"]
+new [description:"a note executable script" end:"1498401393" entry:"1498377997" modified:"1498401393" status:"completed" uuid:"9f00020e-f6d2-4176-9d57-9807f9bd52e1"]
+---
+time 1498401405
+old [description:"Learn how to use vimperator" entry:"1498106180" modified:"1498106180" project:"firefox" status:"pending" uuid:"a15ce2a3-a2e5-44c5-88f7-be82d35800fa"]
+new [description:"Learn how to use vimperator" end:"1498401403" entry:"1498106180" modified:"1498401405" project:"firefox" status:"completed" uuid:"a15ce2a3-a2e5-44c5-88f7-be82d35800fa"]
+---
+time 1498401405
+old [description:"check for useful stuff in firefox" entry:"1498106197" modified:"1498106197" project:"firefox" status:"pending" uuid:"8fde9732-3833-42f5-8a33-f3f938d31526"]
+new [description:"check for useful stuff in firefox" end:"1498401405" entry:"1498106197" modified:"1498401405" project:"firefox" status:"completed" uuid:"8fde9732-3833-42f5-8a33-f3f938d31526"]
+---
+time 1498401405
+old [description:"tutoiral about firefox?" entry:"1498106206" modified:"1498106206" project:"firefox" status:"pending" uuid:"1cb6f73d-9e3b-407a-a82a-5ad76a56055f"]
+new [description:"tutoiral about firefox?" end:"1498401405" entry:"1498106206" modified:"1498401405" project:"firefox" status:"completed" uuid:"1cb6f73d-9e3b-407a-a82a-5ad76a56055f"]
+---
+time 1498412474
+old [description:"ptpb pastebin" entry:"1497853024" modified:"1498109786" status:"pending" tags:"tools" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+new [description:"ptpb pastebin" end:"1498412472" entry:"1497853024" modified:"1498412474" status:"completed" tags:"tools" uuid:"f4cf10a8-92e0-4c1c-a897-51374cb22fe3"]
+---
+time 1498412474
+old [description:"texdoc" entry:"1497931487" modified:"1497931487" status:"pending" uuid:"08437a17-f453-45f5-b0d1-b73c0e29939f"]
+new [description:"texdoc" end:"1498412474" entry:"1497931487" modified:"1498412474" status:"completed" uuid:"08437a17-f453-45f5-b0d1-b73c0e29939f"]
+---
+time 1498412474
+old [description:"Read the bash guide" entry:"1498371270" modified:"1498392807" status:"pending" uuid:"c6c7da99-43ac-49cb-83ad-5dabea7c9723"]
+new [description:"Read the bash guide" end:"1498412474" entry:"1498371270" modified:"1498412474" status:"completed" uuid:"c6c7da99-43ac-49cb-83ad-5dabea7c9723"]
+---
+time 1498412474
+old [description:"Wrapper around bastebin command" entry:"1498371286" modified:"1498392807" status:"pending" uuid:"c0270216-a0a6-4857-83d3-7614bb9f2ca7"]
+new [description:"Wrapper around bastebin command" end:"1498412474" entry:"1498371286" modified:"1498412474" status:"completed" uuid:"c0270216-a0a6-4857-83d3-7614bb9f2ca7"]
+---
+time 1498415862
+old [description:"umlet or else check other stuff dia or w.e \/ Tex for uml." entry:"1498139452" modified:"1498139452" status:"pending" tags:"misc" uuid:"61cb633b-7653-48f9-a4f7-1af84afb0981"]
+new [description:"umlet or else check other stuff dia or w.e \/ Tex for uml." end:"1498415862" entry:"1498139452" modified:"1498415862" status:"completed" tags:"misc" uuid:"61cb633b-7653-48f9-a4f7-1af84afb0981"]
+---
+time 1498415868
+old [description:"front,mainmatter for tex at P.54" entry:"1498101645" modified:"1498101645" status:"pending" tags:"misc" uuid:"78b4a03a-aba3-4be8-bdf7-5c777d064632"]
+new [description:"front,mainmatter for tex at P.54" end:"1498415868" entry:"1498101645" modified:"1498415868" status:"completed" tags:"misc" uuid:"78b4a03a-aba3-4be8-bdf7-5c777d064632"]
+---
+time 1498419328
+new [description:"dotfiles stow" entry:"1498419328" modified:"1498419328" status:"pending" uuid:"7948b2a9-0b9b-4e20-8d2a-cc611f9ba1ed"]
+---
+time 1498420897
+old [description:"dotFiles" entry:"1498392441" modified:"1498392441" status:"pending" uuid:"93d57e76-4829-4843-bf13-804bfadb778a"]
+new [description:"dotFiles" end:"1498420897" entry:"1498392441" modified:"1498420897" status:"completed" uuid:"93d57e76-4829-4843-bf13-804bfadb778a"]
+---

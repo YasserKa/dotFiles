@@ -1,0 +1,9 @@
+2017-06-16 10:42:02	--	irc: connecting to server chat.free.net/6667...
+2017-06-16 10:42:03	=!=	irc: address "chat.free.net" not found
+2017-06-16 10:42:03	=!=	irc: error: Name or service not known
+2017-06-16 10:42:03	--	irc: reconnecting to server in 10 seconds
+2017-06-16 10:42:13	--	irc: reconnecting to server...
+2017-06-16 10:42:13	--	irc: connecting to server chat.free.net/6667...
+2017-06-16 10:42:13	=!=	irc: address "chat.free.net" not found
+2017-06-16 10:42:13	=!=	irc: error: Name or service not known
+2017-06-16 10:42:13	--	irc: reconnecting to server in 20 seconds

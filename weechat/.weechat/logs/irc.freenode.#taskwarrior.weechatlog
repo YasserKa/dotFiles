@@ -1,0 +1,222 @@
+2017-06-18 20:33:06	-->	yasser (~yasser@78.40.183.234) has joined #taskwarrior
+2017-06-18 20:33:06	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-18 20:33:06	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-18 20:33:06	--	Channel #taskwarrior: 118 nicks (0 ops, 0 voices, 118 normals)
+2017-06-18 20:33:16	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-18 20:34:20	-->	ntnn (~ntnn@h2452363.stratoserver.net) has joined #taskwarrior
+2017-06-18 20:37:49	-->	yasser (~yasser@78.40.183.234) has joined #taskwarrior
+2017-06-18 20:37:49	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-18 20:37:49	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-18 20:37:49	--	Channel #taskwarrior: 118 nicks (0 ops, 0 voices, 118 normals)
+2017-06-18 20:37:57	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-18 20:40:29	-->	slayven (slayven@xover.htu.tuwien.ac.at) has joined #taskwarrior
+2017-06-18 20:45:31	--	apoll0 is now known as apollo
+2017-06-18 21:14:41	<--	agravier (~agravier@132.147.91.12) has quit (Quit: agravier)
+2017-06-18 21:28:53	<--	ArturShaik (~artur-sha@31.29.20.212) has quit (Ping timeout: 240 seconds)
+2017-06-18 22:18:14	-->	Haudegen (~quassel@178.115.237.87) has joined #taskwarrior
+2017-06-19 13:21:03	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-19 13:21:03	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-19 13:21:03	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-19 13:21:03	--	Channel #taskwarrior: 128 nicks (0 ops, 0 voices, 128 normals)
+2017-06-19 13:21:10	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-19 13:27:07	<--	raimue (~raimue@donkey.codingfarm.de) has quit (Quit: Disconnecting from stoned server.)
+2017-06-19 13:27:08	-->	raimue- (~raimue@donkey.codingfarm.de) has joined #taskwarrior
+2017-06-19 13:27:27	<--	Luuubb (lubimninja@gateway/shell/matrix.org/x-vzmquwnykxluoroj) has quit (Ping timeout: 264 seconds)
+2017-06-19 13:28:29	<--	task-git (~task-git@wbsch.de) has quit (Ping timeout: 246 seconds)
+2017-06-19 13:29:26	<--	andrey_utkin (~andrey_ut@decent.im) has quit (Excess Flood)
+2017-06-19 13:29:35	-->	andrey_utkin (~andrey_ut@decent.im) has joined #taskwarrior
+2017-06-19 13:34:39	-->	task-git (~task-git@wbsch.de) has joined #taskwarrior
+2017-06-19 13:40:11	-->	Luuubb (lubimninja@gateway/shell/matrix.org/x-nffryzsamovjgsjj) has joined #taskwarrior
+2017-06-19 14:19:29	--	irc: disconnected from server
+2017-06-19 14:20:04	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-19 14:20:04	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-19 14:20:04	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-19 14:20:05	--	Channel #taskwarrior: 128 nicks (0 ops, 0 voices, 128 normals)
+2017-06-19 14:20:12	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-19 14:25:56	--	irc: disconnected from server
+2017-06-19 14:26:42	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-19 14:26:43	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-19 14:26:43	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-19 14:26:43	--	Channel #taskwarrior: 128 nicks (0 ops, 0 voices, 128 normals)
+2017-06-19 14:26:50	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-19 14:32:34	--	irc: disconnected from server
+2017-06-19 14:33:04	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-19 14:33:04	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-19 14:33:04	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-19 14:33:05	--	Channel #taskwarrior: 127 nicks (0 ops, 0 voices, 127 normals)
+2017-06-19 14:33:12	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-19 14:36:58	<--	Haudegen (~quassel@178.115.237.87) has quit (Read error: Connection reset by peer)
+2017-06-19 14:39:28	<--	poet (~poet@118.185.64.122) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-19 14:43:39	<--	rjc (~rjc@unaffiliated/rjc) has quit (Quit: leaving)
+2017-06-19 14:44:48	-->	mactimes (~mactimes@unaffiliated/mactimes) has joined #taskwarrior
+2017-06-19 14:51:51	-->	poet (~poet@118.185.64.122) has joined #taskwarrior
+2017-06-19 14:55:16	-->	asmyers (~icarus127@128.177.89.240.available.zip.zayo.com) has joined #taskwarrior
+2017-06-19 14:58:44	-->	rjc (~rjc@unaffiliated/rjc) has joined #taskwarrior
+2017-06-19 15:01:43	-->	foobaaz (c1b780d2@gateway/web/freenode/ip.193.183.128.210) has joined #taskwarrior
+2017-06-19 15:05:05	<--	mr_kyd (~Einherjer@unaffiliated/mr-kyd/x-4253709) has quit (Quit: xXx)
+2017-06-19 15:05:35	-->	mr_kyd (~Einherjer@unaffiliated/mr-kyd/x-4253709) has joined #taskwarrior
+2017-06-19 15:15:49	<--	agravier (~agravier@132.147.91.12) has quit (Quit: agravier)
+2017-06-19 15:17:50	<--	foobaaz (c1b780d2@gateway/web/freenode/ip.193.183.128.210) has quit (Ping timeout: 260 seconds)
+2017-06-19 15:24:02	--	irc: disconnected from server
+2017-06-19 15:53:09	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-19 15:53:09	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-19 15:53:09	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-19 15:53:09	--	Channel #taskwarrior: 127 nicks (0 ops, 0 voices, 127 normals)
+2017-06-19 15:53:14	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-19 15:55:01	--	raimue- is now known as raimue
+2017-06-19 15:56:38	<--	mactimes (~mactimes@unaffiliated/mactimes) has quit (Ping timeout: 240 seconds)
+2017-06-19 15:58:17	-->	mactimes (~mactimes@unaffiliated/mactimes) has joined #taskwarrior
+2017-06-19 21:24:46	-->	yasser (~yasser@78.40.183.234) has joined #taskwarrior
+2017-06-19 21:24:46	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-19 21:24:46	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-19 21:24:46	--	Channel #taskwarrior: 124 nicks (0 ops, 0 voices, 124 normals)
+2017-06-19 21:24:52	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-19 21:25:11	-->	bbigras (~weechat@159.203.4.160) has joined #taskwarrior
+2017-06-19 21:25:35	-->	clavi (~clavi@v22017034422546657.goodsrv.de) has joined #taskwarrior
+2017-06-19 21:29:41	<--	ArturShaik (~artur-sha@31.29.20.212) has quit (Ping timeout: 240 seconds)
+2017-06-19 21:38:34	<--	agravier (~agravier@132.147.91.12) has quit (Quit: agravier)
+2017-06-19 21:39:15	-->	agravier (~agravier@132.147.91.12) has joined #taskwarrior
+2017-06-19 21:39:24	<--	agravier (~agravier@132.147.91.12) has quit (Client Quit)
+2017-06-20 08:40:42	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-20 08:40:42	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-20 08:40:42	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-20 08:40:42	--	Channel #taskwarrior: 120 nicks (0 ops, 0 voices, 120 normals)
+2017-06-20 08:40:48	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-20 09:00:07	<--	bbigras (~weechat@159.203.4.160) has quit (Quit: WeeChat 1.6)
+2017-06-20 09:00:57	-->	bbigras (~weechat@159.203.4.160) has joined #taskwarrior
+2017-06-20 09:11:08	parsnip	the app grows a config file http://sprunge.us/YiDe?ini
+2017-06-20 09:21:54	<--	theraspberry (~theraspbe@unaffiliated/theraspberry) has quit (Ping timeout: 260 seconds)
+2017-06-20 09:52:06	<--	supercow_ (~supercow@cpe-74-71-56-127.nyc.res.rr.com) has quit (Ping timeout: 260 seconds)
+2017-06-20 11:22:07	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-20 11:22:07	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-20 11:22:07	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-20 11:22:07	--	Channel #taskwarrior: 123 nicks (0 ops, 0 voices, 123 normals)
+2017-06-20 11:22:14	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-20 11:26:43	<--	agravier (~agravier@118.200.214.76) has quit (Quit: agravier)
+2017-06-20 11:27:59	-->	soeste (~soeste@141.76.91.240) has joined #taskwarrior
+2017-06-20 11:29:36	<--	supercow_ (~supercow@cpe-74-71-56-127.nyc.res.rr.com) has quit (Ping timeout: 258 seconds)
+2017-06-20 11:30:23	-->	vodka_ (~vodka@92-111-12-69.static.chello.nl) has joined #taskwarrior
+2017-06-20 11:38:17	--	irc: disconnected from server
+2017-06-20 11:57:35	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-20 11:57:35	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-20 11:57:35	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-20 11:57:35	--	Channel #taskwarrior: 122 nicks (0 ops, 0 voices, 122 normals)
+2017-06-20 11:57:43	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-20 11:57:47	-->	vodka_ (~vodka@92-111-12-69.static.chello.nl) has joined #taskwarrior
+2017-06-20 12:08:57	-->	RedNifre (~michaelzi@84.254.115.196) has joined #taskwarrior
+2017-06-20 12:09:40	RedNifre	Hey there, new user here. How can I increase the gap between task list columns to be 2 spaces instead of one?
+2017-06-20 12:10:27	RedNifre	How do I move a task to the top of the list?
+2017-06-20 12:13:21	ddeimeke	RedNifre: Put "column.padding=2" in your ~/.taskrc (default is "1")
+2017-06-20 12:14:21	RedNifre	thanks, that works.
+2017-06-20 12:14:33	ddeimeke	RedNifre: If your report is sorted by urgency you can increase urgency by "task x mod +next" with "x" as your task number.
+2017-06-20 12:17:30	RedNifre	I currently have the default settings, but it seems to sort by urgency. Oh, nice, guessing -next to unnext a task works, very intuitive :)
+2017-06-20 12:18:04	RedNifre	That's great, thanks a lot, I now have the minimal required feature set to get started with taskwarrior :)
+2017-06-20 12:18:53	RedNifre	how do I only view next todos? `task list next` finds no matches.
+2017-06-20 12:20:21	ddeimeke	RedNifre: task next
+2017-06-20 12:20:48	RedNifre	hm, that finds all tasks, not just those tagged with "next"
+2017-06-20 12:21:07	ddeimeke	RedNifre: As said +next increases urgency
+2017-06-20 12:21:36	ddeimeke	If you want to use another tag maybe "+n", you can use that for reports.
+2017-06-20 12:21:43	ddeimeke	task x mod !n
+2017-06-20 12:21:50	ddeimeke	task x mod +n
+2017-06-20 12:22:30	ddeimeke	task +n list
+2017-06-20 12:24:26	RedNifre	Hm, guess it's time to read all of the documentation now.
+2017-06-20 12:25:13	ddeimeke	RedNifre: It is a good idea, that is the reason it exists ...
+2017-06-20 12:27:06	RedNifre	Of course... it's just that I wanted to see that it is actually good before I spend too much time learning it. But I guess I reached that point by now so it's time to get serious about it.
+2017-06-20 12:27:49	RedNifre	How long did it take you to learn all the features that are relevant to your current workflow? (Assuming you're not a developer of taskwarrior)
+2017-06-20 12:29:22	ddeimeke	RedNifre: I am not a developer, but I am member of the team.
+2017-06-20 12:29:55	ddeimeke	RedNifre: I started with very basic commands and used more and more and now I found my way to handle tasks with Taskwarrior.
+2017-06-20 12:30:07	ddeimeke	RedNifre: This changes from time to time.
+2017-06-20 12:38:08	RedNifre	Can I run it on a server and talk to it using a cli client that works exactly like the regular cli tool and can I also talk to it using json api?
+2017-06-20 13:12:55	yasser	You can spend at least 5-10 minutes to get a fast overview in the official documentation.
+2017-06-20 13:14:35	--	irc: disconnected from server
+2017-06-20 13:39:07	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-20 13:39:07	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-20 13:39:07	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-20 13:39:07	--	Channel #taskwarrior: 123 nicks (0 ops, 0 voices, 123 normals)
+2017-06-20 13:39:13	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-20 21:40:04	-->	yasser (~yasser@78.40.183.234) has joined #taskwarrior
+2017-06-20 21:40:04	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-20 21:40:04	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-20 21:40:04	--	Channel #taskwarrior: 126 nicks (0 ops, 0 voices, 126 normals)
+2017-06-20 21:40:09	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-20 21:55:28	--	irc: disconnected from server
+2017-06-20 21:55:48	-->	yasser (~yasser@78.40.183.234) has joined #taskwarrior
+2017-06-20 21:55:48	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-20 21:55:48	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-20 21:55:48	--	Channel #taskwarrior: 126 nicks (0 ops, 0 voices, 126 normals)
+2017-06-20 21:55:58	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-21 08:40:17	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-21 08:40:17	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-21 08:40:17	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-21 08:40:17	--	Channel #taskwarrior: 120 nicks (0 ops, 0 voices, 120 normals)
+2017-06-21 08:40:24	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-21 08:42:57	-->	notizblock (~notizbloc@nblock.org) has joined #taskwarrior
+2017-06-22 07:44:50	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-22 07:44:51	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-22 07:44:51	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-22 07:44:51	--	Channel #taskwarrior: 121 nicks (0 ops, 0 voices, 121 normals)
+2017-06-22 07:44:57	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-22 08:06:42	-->	awwaiid (~awwaiid@66.111.62.89) has joined #taskwarrior
+2017-06-22 08:31:47	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-22 08:31:47	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-22 08:31:47	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-22 08:31:47	--	Channel #taskwarrior: 123 nicks (0 ops, 0 voices, 123 normals)
+2017-06-22 08:31:53	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-22 08:41:11	-->	maarhart (~Mutter@dyn-130-234-230-250.dynamic.jyu.fi) has joined #taskwarrior
+2017-06-22 08:43:46	<--	maarhart (~Mutter@dyn-130-234-230-250.dynamic.jyu.fi) has quit (Client Quit)
+2017-06-22 09:33:42	<--	bleader (~bleader@ratonland.org) has quit (Read error: Connection reset by peer)
+2017-06-22 09:55:59	-->	bleader (~bleader@ratonland.org) has joined #taskwarrior
+2017-06-22 09:58:25	<--	agravier (~agravier@132.147.91.12) has quit (Quit: agravier)
+2017-06-22 10:07:17	-->	Haudegen (~quassel@178.115.237.87) has joined #taskwarrior
+2017-06-22 10:37:21	-->	agravier (~agravier@132.147.91.12) has joined #taskwarrior
+2017-06-22 15:23:01	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-22 15:23:01	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-22 15:23:01	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-22 15:23:01	--	Channel #taskwarrior: 124 nicks (0 ops, 0 voices, 124 normals)
+2017-06-22 15:23:06	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-22 15:23:56	-->	frenchbeard (~frenchbea@194.250.138.97) has joined #taskwarrior
+2017-06-22 15:34:26	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-22 15:34:26	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-22 15:34:26	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-22 15:34:26	--	Channel #taskwarrior: 125 nicks (0 ops, 0 voices, 125 normals)
+2017-06-22 15:34:31	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-22 20:53:52	-->	yasser (~yasser@78.40.183.234) has joined #taskwarrior
+2017-06-22 20:53:52	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-22 20:53:52	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-22 20:53:52	--	Channel #taskwarrior: 125 nicks (0 ops, 0 voices, 125 normals)
+2017-06-22 20:53:57	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-22 20:54:36	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 240 seconds)
+2017-06-22 20:55:42	-->	awwaiid (~awwaiid@laozi.epfarms.org) has joined #taskwarrior
+2017-06-22 21:00:41	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 240 seconds)
+2017-06-22 21:06:38	-->	awwaiid (~awwaiid@66.111.62.89) has joined #taskwarrior
+2017-06-22 21:12:33	<--	awwaiid (~awwaiid@66.111.62.89) has quit (Ping timeout: 240 seconds)
+2017-06-22 21:13:48	-->	awwaiid (~awwaiid@laozi.epfarms.org) has joined #taskwarrior
+2017-06-22 21:15:25	<--	bleader (~bleader@ratonland.org) has quit (Read error: Connection reset by peer)
+2017-06-22 21:18:21	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 255 seconds)
+2017-06-23 08:22:56	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-23 08:22:56	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-23 08:22:56	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-23 08:22:56	--	Channel #taskwarrior: 124 nicks (0 ops, 0 voices, 124 normals)
+2017-06-23 08:23:02	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-23 08:23:53	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 255 seconds)
+2017-06-23 08:31:32	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-23 08:31:32	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-23 08:31:32	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-23 08:31:32	--	Channel #taskwarrior: 123 nicks (0 ops, 0 voices, 123 normals)
+2017-06-23 08:31:37	--	Channel created on Wed, 10 Jun 2009 17:26:25
+2017-06-23 08:40:56	-->	awwaiid (~awwaiid@laozi.epfarms.org) has joined #taskwarrior
+2017-06-23 08:50:56	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 255 seconds)
+2017-06-23 08:51:55	-->	awwaiid (~awwaiid@laozi.epfarms.org) has joined #taskwarrior
+2017-06-23 08:56:57	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Remote host closed the connection)
+2017-06-23 08:57:27	-->	awwaiid (~awwaiid@laozi.epfarms.org) has joined #taskwarrior
+2017-06-23 09:08:40	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 260 seconds)
+2017-06-23 09:15:06	-->	awwaiid (~awwaiid@laozi.epfarms.org) has joined #taskwarrior
+2017-06-23 09:19:00	--	ignatenkobrain_ is now known as ignatenkobrain
+2017-06-23 09:19:55	-->	xcm (~xcm@ipa210.225.tellas.gr) has joined #taskwarrior
+2017-06-23 09:25:01	<--	awwaiid (~awwaiid@laozi.epfarms.org) has quit (Ping timeout: 240 seconds)
+2017-06-23 09:30:04	--	irc: disconnected from server
+2017-06-23 09:30:56	-->	yasser (~yasser@194.126.8.90) has joined #taskwarrior
+2017-06-23 09:30:56	--	Topic for #taskwarrior is "taskwarrior.org -- Taskwarrior 2.5.1, Taskserver 1.1.0, Timewarrior 1.0.0 released -- channel logs --> https://botbot.me/freenode/taskwarrior/"
+2017-06-23 09:30:56	--	Topic set by djp (~djp@li458-146.members.linode.com) on Mon, 22 Aug 2016 18:44:51
+2017-06-23 09:30:56	--	Channel #taskwarrior: 125 nicks (0 ops, 0 voices, 125 normals)
+2017-06-23 09:31:04	--	Channel created on Wed, 10 Jun 2009 17:26:25
