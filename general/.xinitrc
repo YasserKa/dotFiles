@@ -12,5 +12,3 @@ compton -f &
 devilspie &
 unset f
 exec i3
-
-

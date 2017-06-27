@@ -2,6 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 syntax on
 
+set tabstop=4
 " Start searching while typing
 set incsearch
 " Show args

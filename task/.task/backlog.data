@@ -80,3 +80,9 @@
 {"description":"front,mainmatter for tex at P.54","end":"20170625T183748Z","entry":"20170622T032045Z","modified":"20170625T183748Z","status":"completed","tags":["misc"],"uuid":"78b4a03a-aba3-4be8-bdf7-5c777d064632"}
 {"description":"dotfiles stow","entry":"20170625T193528Z","modified":"20170625T193528Z","status":"pending","uuid":"7948b2a9-0b9b-4e20-8d2a-cc611f9ba1ed"}
 {"description":"dotFiles","end":"20170625T200137Z","entry":"20170625T120721Z","modified":"20170625T200137Z","status":"completed","uuid":"93d57e76-4829-4843-bf13-804bfadb778a"}
+{"description":"dotfiles stow","end":"20170626T064609Z","entry":"20170625T193528Z","modified":"20170626T064609Z","status":"completed","uuid":"7948b2a9-0b9b-4e20-8d2a-cc611f9ba1ed"}
+{"description":"do the builder,Factory method and Lazy initialization","due":"20170627T210000Z","entry":"20170627T070303Z","modified":"20170627T070303Z","status":"pending","uuid":"7849515c-bc24-4143-9a97-0b6ae2c686f3"}
+{"description":"read 2-3 chapters of vim book","due":"20170627T210000Z","entry":"20170627T070321Z","modified":"20170627T070321Z","status":"pending","uuid":"713fc9ef-6b68-443f-b847-99d6011eed0a"}
+{"description":"something for FOO","due":"20170627T210000Z","entry":"20170627T070906Z","modified":"20170627T070906Z","status":"pending","uuid":"bfd41ce7-ec7b-441a-af82-687ca6ae2a3a"}
+{"description":"do builder+abstract Factory","entry":"20170627T082635Z","modified":"20170627T082635Z","status":"pending","uuid":"35b1565b-80f0-4ce9-92a9-267ed44a827f"}
+{"description":"read something in arch-wiki","due":"20170627T210000Z","entry":"20170627T094427Z","modified":"20170627T094427Z","status":"pending","uuid":"bc566e4e-1a8e-48af-ae76-d81b82330599"}

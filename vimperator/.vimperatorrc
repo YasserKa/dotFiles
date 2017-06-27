@@ -10,3 +10,6 @@ noremap H gT
 noremap L gt
 
 inoremap <C-a> <C-Home><C-S-End>
+
+map < :tabmove!-1<CR>
+map > :tabmove!+1<CR>
