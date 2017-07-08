@@ -1,5 +1,5 @@
 # General
-alias ll='ls -alF'
+alias ll='ls -alh'
 alias c='clear'
 alias claer='clear'
 alias mkdir='mkdir -pv'
@@ -8,6 +8,8 @@ alias top='atop'
 alias reboot='shutdown -r'
 alias df='df -Tha --total'
 alias fhere='find . -name'
+alias less='/usr/share/vim/vim80/macros/less.sh'
+
 
 # Navigation
 alias back='cd $OLDPWD'
@@ -36,6 +38,13 @@ alias disks='lsblk -ido KNAME,TYPE,SIZE,MODEL'
 # start ssh-agent at start
 alias startx='ssh-agent startx'
 
+alias zathurac='zathura /home/yasser/Documents/Books/The\ C++\ Programming\ Language\ \[4th\ Edition\]\ -\ Bjarne\ Stroustrup.pdf & disown'
+
+#function rawc()
+#{
+#	RAW_NAME=
+#	cc $1
+#}
 function extract()      # Handy Extract Program
 {
     if [ -f $1 ] ; then

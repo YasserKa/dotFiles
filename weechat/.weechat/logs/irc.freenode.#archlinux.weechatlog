@@ -2561,3 +2561,373 @@
 2017-06-23 09:31:57	<--	jack-james (~jj@unaffiliated/jack-james) has quit (Ping timeout: 276 seconds)
 2017-06-23 09:32:00	<--	valeth1 (~valeth@188-23-71-61.adsl.highway.telekom.at) has quit (Ping timeout: 260 seconds)
 2017-06-23 09:32:06	-->	jackjames (~jj@unaffiliated/jack-james) has joined #archlinux
+2017-06-30 20:45:04	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-06-30 20:45:04	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/fkksz9 | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG"
+2017-06-30 20:45:04	--	Topic set by alad (~Alad@archlinux/op/alad) on Tue, 20 Jun 2017 19:20:14
+2017-06-30 20:45:04	--	Channel #archlinux: 1735 nicks (2 ops, 0 voices, 1733 normals)
+2017-06-30 20:45:07	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-06-30 20:45:24	<--	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has quit (Quit: WeeChat 1.9)
+2017-06-30 20:45:25	eschwartz	I am quite fond of imagemagick's `import`
+2017-06-30 20:45:42	andreyv	sangy: Then Arch is not a good choice anyway, because your software will require glibc version not older than Arch's, which is the latest one
+2017-06-30 20:45:52	-->	sebmiser (~sebmeiste@gateway/vpn/privateinternetaccess/sebmiser) has joined #archlinux
+2017-06-30 20:46:20	teraflops	imagemagick's import + slop is fine for me
+2017-06-30 20:46:31	eschwartz	sangy: you probably want to build in a Debian container then.
+2017-06-30 20:46:46	-->	Gathis (~TheBlack@unaffiliated/gathis) has joined #archlinux
+2017-06-30 20:46:47	-->	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has joined #archlinux
+2017-06-30 20:46:48	andreyv	and even if you try to link glibc statically, not all functions will work and it may require a newer kernel
+2017-06-30 20:46:49	<--	awidegreen (~awidegree@109-104-29-217.customers.ownit.se) has quit (Ping timeout: 260 seconds)
+2017-06-30 20:46:55	<--	cr4zypr0gr (~cr4zypr0g@115.178.208.181) has quit (Ping timeout: 246 seconds)
+2017-06-30 20:47:00	-->	alad (~Alad@archlinux/op/alad) has joined #archlinux
+2017-06-30 20:47:19	andreyv	sangy: You should set up an older environment for the build
+2017-06-30 20:47:59	andreyv	sangy: There is also crosstool-ng, which lets you create a toolchain targeting old distros like CentOS 6 etc.
+2017-06-30 20:48:06	sangy	let me check that out
+2017-06-30 20:48:11	amosbird	hmm
+2017-06-30 20:48:14	-->	orf_ (~orf_@host109-145-5-130.range109-145.btcentralplus.com) has joined #archlinux
+2017-06-30 20:48:24	amosbird	after upgrading, my volume keys stop working https://la.wentropy.com/vzZu
+2017-06-30 20:48:25	sangy	the problem is that I'm building a version of pacman, targetting a toolchain that's debian specific, in a debian container
+2017-06-30 20:48:31	amosbird	what might be the problem?
+2017-06-30 20:48:41	-->	patarr (~patarr@unaffiliated/patarr) has joined #archlinux
+2017-06-30 20:48:49	-->	GG_Phyduck (~GG_Phyduc@86.88.52.234) has joined #archlinux
+2017-06-30 20:48:52	sangy	I could probably figure out how to compile pacman on the debian container, but I was hoping I could just re-use my pkgbuild :P
+2017-06-30 20:48:54	alad	last i checked pacman didn't build on debian at all because they patched libarchive to death
+2017-06-30 20:49:19	sangy	statick libarchive it is :P
+2017-06-30 20:49:25	-->	cr4zypr0gr (~cr4zypr0g@126.119.12.65) has joined #archlinux
+2017-06-30 20:49:27	Erayaydin	Xorg log https://ptpb.pw/LpYN , xorg 10-synaptics.conf file https://ptpb.pw/ZEnj . Still no physical capability https://ptpb.pw/FRcs
+2017-06-30 20:49:46	sangy	maybe all of this is an exercise in futility... oh well
+2017-06-30 20:50:01	<--	xy2_ (~xy2_@177.245.16.93.rev.sfr.net) has quit (Read error: Connection reset by peer)
+2017-06-30 20:50:03	Erayaydin	Its show Synaptics Capabilities (358):	0, 0, 0, 1, 1, 1, 0 but my 1 week ago Arch installation its capability of physical button
+2017-06-30 20:50:07	alad	I know fbt pulled it off at one point
+2017-06-30 20:50:09	teraflops	Erayaydin: what's wrong with libinput?
+2017-06-30 20:50:13	<--	kristof (~kristof@unaffiliated/kristof) has quit (Ping timeout: 276 seconds)
+2017-06-30 20:50:16	-->	al2o3-cr (~al2o3-cr@unaffiliated/gr33n7007h) has joined #archlinux
+2017-06-30 20:50:20	Erayaydin	teraflops: Tap is working but physical not
+2017-06-30 20:50:41	sangy	alad: fbt? anything I can try to read about it? 
+2017-06-30 20:50:54	sangy	maybe the way to go is to make this other tool arch-compatible and just run on arch
+2017-06-30 20:50:55	Erayaydin	teraflops: Its show 0,0,0,1,1,1,0 but it should be 1,0,1,1,1,1,0 for capability. 1 week ago my arch installation good but now its look like I have no physical button
+2017-06-30 20:51:00	teraflops	Erayaydin: did you try to enable it? via xinput in terminal
+2017-06-30 20:51:03	alad	sangy, what's the tool?
+2017-06-30 20:51:06	-->	biax-laptop (~biax-lapt@96.30.69.164) has joined #archlinux
+2017-06-30 20:51:09	sangy	reprotest
+2017-06-30 20:51:14	sangy	does some calls to dpkg and whatnot
+2017-06-30 20:51:25	sangy	which I have *no way* to figure out how to compile
+2017-06-30 20:51:25	Erayaydin	teraflops: I tried xinput --set-prop but its say BadValue because of syntax. What should I do command
+2017-06-30 20:51:26	alad	:/
+2017-06-30 20:51:38	Erayaydin	teraflops: str? int? and format?
+2017-06-30 20:51:39	teraflops	Erayaydin: there's a wiki entry for libinput
+2017-06-30 20:51:42	sangy	sorry s/no way/no idea/
+2017-06-30 20:52:06	sangy	alad: it's hillarious, it calls dpkg to figure out the host's arch
+2017-06-30 20:52:16	alad	A+
+2017-06-30 20:52:18	sangy	I'm still confused as to why uname or anything else wouldn't work
+2017-06-30 20:52:21	Erayaydin	teraflops: I followed wiki but there is only button remapping
+2017-06-30 20:52:43	teraflops	I wonder which wiki are you referring to
+2017-06-30 20:52:51	Erayaydin	Wiki says "xinput set-prop device-number option-number setting " but its not effect for Capabilities because of option datatype
+2017-06-30 20:52:52	<--	batdog (~batdog@c-73-166-125-134.hsd1.tx.comcast.net) has quit (Ping timeout: 246 seconds)
+2017-06-30 20:52:52	eschwartz	sangy: sounds like a bugreport
+2017-06-30 20:52:54	-->	thiagoc (~thiagoc@unaffiliated/thiagoc) has joined #archlinux
+2017-06-30 20:53:01	Erayaydin	teraflops: https://wiki.archlinux.org/index.php/Libinput
+2017-06-30 20:53:03	@phrik	Title: libinput - ArchWiki (at wiki.archlinux.org)
+2017-06-30 20:53:14	sangy	eschwartz: on their side? I'm likely going to refactor/fix it myself likelty
+2017-06-30 20:53:16	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 258 seconds)
+2017-06-30 20:53:20	sangy	I just was super impatient to try repropacman
+2017-06-30 20:53:30	sangy	guess it'll have to wait until I fix this tool lmao
+2017-06-30 20:53:46	alad	sangy, what language is it written in?
+2017-06-30 20:53:56	 *	sangy had already setup a docker multi-stage build and everything for the container :[
+2017-06-30 20:54:05	teraflops	Erayaydin: you just want: xinput list  xinput list-props device-number and xinput set-prop device-number option-number setting 
+2017-06-30 20:54:06	eschwartz	sangy: As in, report it to them so you don't have to maintain your own out of tree patches in order to build it on a non-Debian system.
+2017-06-30 20:54:10	alad	sangy, btw. dpkg is in aur :P
+2017-06-30 20:54:21	eschwartz	alad: that's just mean
+2017-06-30 20:54:28	alad	eschwartz, I maintain it even ...
+2017-06-30 20:54:43	sangy	alad: it's mostly python from what I can see, but I wouldn't be surprised if there was some perl sprinkled around
+2017-06-30 20:54:48	eschwartz	sure, but encouraging people to install it when they don't have to? :p
+2017-06-30 20:54:52	sangy	lol... i could go that way, but I thin it's now time to do things right :P
+2017-06-30 20:54:59	Namarrgon	no one made a pacman flatpak package yet?
+2017-06-30 20:55:16	Namarrgon	(that's a mouthful)
+2017-06-30 20:55:20	-->	thymbahutymba_ (~quassel@79.18.202.112) has joined #archlinux
+2017-06-30 20:55:28	eschwartz	alad: to be sure, I totally approve of you maintaining it if only to prevent someone else from maintaining it *worse*. :D
+2017-06-30 20:55:29	sangy	eschwartz: ah, I'd be sending the patches to them so it gets integrated upstream. They were made aware of it two days ago ;P
+2017-06-30 20:55:36	alad	sangy, at least they didn't write it in bash or C, I guess
+2017-06-30 20:55:45	Erayaydin	teraflops: I used `xinput set-prop 14 357 1,0,1,1,1,1,0` command and its not throwed error. But xinput list-props shows 0,0,0.... for capabilities
+2017-06-30 20:55:49	Erayaydin	teraflops: I already set with xinput
+2017-06-30 20:56:03	alad	eschwartz, not that my maintaining is that great... thanks to the glory of git, i haven't seen the need to update it in like a year 
+2017-06-30 20:56:04	<--	im0nde (~im0nde@loiacono2.fo.FH-Koeln.DE) has quit (Ping timeout: 276 seconds)
+2017-06-30 20:56:08	sangy	alad: let's hope not, let me dig into it. I'll update you with good/bad news :P
+2017-06-30 20:56:09	<--	thymbahutymba (~quassel@host46-196-dynamic.51-79-r.retail.telecomitalia.it) has quit (Ping timeout: 260 seconds)
+2017-06-30 20:56:10	Erayaydin	Oh sorry teraflops its throw BadValue
+2017-06-30 20:56:15	teraflops	alad: eh I have dpkg installed :P
+2017-06-30 20:56:23	eschwartz	!grab teraflops
+2017-06-30 20:56:23	@phrik	eschwartz: Tada!
+2017-06-30 20:56:26	teraflops	and all the debian crap you can imagine
+2017-06-30 20:56:28	Erayaydin	`xinput set-prop 14 358 1,0,1,1,1,1,0` = X Error of failed request:  BadValue (integer parameter out of range for operation)
+2017-06-30 20:56:44	alad	teraflops, man installing debian crap was like the very first thing I did after completing my first arch installation
+2017-06-30 20:56:45	teraflops	vmdebootstrap included lol
+2017-06-30 20:57:11	-->	sergio (~sergio@kde/developer/smartins) has joined #archlinux
+2017-06-30 20:57:14	eschwartz	sangy: sure, sure. But it is disappointing that it sounds like they are waiting for you to fix it for them just because they have garbage debian-specific code.
+2017-06-30 20:57:19	eschwartz	!grab alad
+2017-06-30 20:57:20	@phrik	eschwartz: Bazinga!
+2017-06-30 20:57:31	-->	indeedwatson (uid108674@gateway/web/irccloud.com/x-ngihyaqbinwdgavb) has joined #archlinux
+2017-06-30 20:58:08	 *	eschwartz throws up in his mouth a little
+2017-06-30 20:58:10	<--	hardfalcon (~hardfalco@dyn-9023fd49368e7ad810034000.zemos.ipv6.ruhr-uni-bochum.de) has quit (Ping timeout: 255 seconds)
+2017-06-30 20:58:14	sangy	eschwartz: I kinda set myself up to it >,<, but yeah
+2017-06-30 20:58:21	-->	barmaley (~barmaley@94.228.207.169) has joined #archlinux
+2017-06-30 20:58:25	sangy	they were as surprised as I was to find those dpkg calls in there
+2017-06-30 20:58:29	sergio	can I use OpenGL from mesa without removing the nvidia one ? I just want to try if a bug I'm seeing is also reproduced on mesa
+2017-06-30 20:58:32	-->	batdog (~batdog@c-73-166-125-134.hsd1.tx.comcast.net) has joined #archlinux
+2017-06-30 20:58:36	sangy	I bit my tongue and didn't git blame
+2017-06-30 20:58:36	-->	n-iCe (~nice@Aircrack-NG/User/n-iCe) has joined #archlinux
+2017-06-30 20:58:47	eschwartz	sangy: omg they didn't even write it themselves?
+2017-06-30 20:58:56	sangy	eschwartz: or they don't remember lol
+2017-06-30 20:58:57	eschwartz	good job on the self-control tho
+2017-06-30 20:59:00	-->	SteveDeFacto (~SteveDeFa@ip72-201-98-227.ph.ph.cox.net) has joined #archlinux
+2017-06-30 20:59:30	<--	barmaley (~barmaley@94.228.207.169) has quit (Client Quit)
+2017-06-30 20:59:38	<--	otome (~otome@h-10-217-142.A328.priv.bahnhof.se) has quit (Quit: WeeChat 1.8)
+2017-06-30 20:59:58	sangy	eschwartz: stuff like this is what I"m talking about https://github.com/ReproducibleBuilds/reprotest/blob/master/reprotest/lib/adt_testbed.py#L147-L157
+2017-06-30 20:59:58	-->	otome (~otome@h-10-217-142.A328.priv.bahnhof.se) has joined #archlinux
+2017-06-30 21:00:00	@phrik	Title: reprotest/adt_testbed.py at master · ReproducibleBuilds/reprotest · GitHub (at github.com)
+2017-06-30 21:00:07	<--	kelnoky (~shao@ip1f104f74.dynamic.kabel-deutschland.de) has quit (Quit: WeeChat 1.9)
+2017-06-30 21:00:14	alad	sangy, what the fucking shit
+2017-06-30 21:00:15	sangy	this is the example I had brought up https://github.com/ReproducibleBuilds/reprotest/blob/master/reprotest/lib/adt_testbed.py#L216
+2017-06-30 21:00:16	@phrik	Title: reprotest/adt_testbed.py at master · ReproducibleBuilds/reprotest · GitHub (at github.com)
+2017-06-30 21:00:29	TheRoo	alad: lkl
+2017-06-30 21:00:30	sangy	alad: lol ikr
+2017-06-30 21:00:31	TheRoo	lol*
+2017-06-30 21:00:34	<--	boto (~boto@freebsd/contributor/boto) has quit (Quit: boto)
+2017-06-30 21:00:35	alad	earnestly, this is bound to ruin your day ^
+2017-06-30 21:00:52	<--	AbrarSyed (~AbrarSyed@2001:19f0:6400:8965:5400:ff:fe07:8777) has quit (Quit: All things are trivial once you've mastered them.)
+2017-06-30 21:01:28	-->	tschan (~tschan@p5B32DB3F.dip0.t-ipconnect.de) has joined #archlinux
+2017-06-30 21:01:29	<--	umoot (happyknowl@gateway/shell/matrix.org/x-hbbzxpawafvptaiz) has left #archlinux ("User left")
+2017-06-30 21:01:33	 *	eschwartz throws up in his mouth a *lot*
+2017-06-30 21:02:06	<--	lithiumpt (~lithiumpt@6530.hostserv.eu) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:02:23	sangy	this like "100% python" claim is incredibly misleading https://github.com/ReproducibleBuilds/reprotest/blob/master/reprotest/lib/adt_testbed.py#L682-L743
+2017-06-30 21:02:24	@phrik	Title: reprotest/adt_testbed.py at master · ReproducibleBuilds/reprotest · GitHub (at github.com)
+2017-06-30 21:02:35	sangy	that's why I woudln't be surprised if there was some perl somewhere in there
+2017-06-30 21:03:00	jelle	sangy: O
+2017-06-30 21:03:05	earnestly	alad: I've actually just given up
+2017-06-30 21:03:06	sangy	jelle: :O
+2017-06-30 21:03:34	-->	AbrarSyed (~AbrarSyed@2001:19f0:6400:8965:5400:ff:fe07:8777) has joined #archlinux
+2017-06-30 21:03:52	-->	OfficialBAMM (~OfficialB@5357A53C.cm-6-8c.dynamic.ziggo.nl) has joined #archlinux
+2017-06-30 21:03:53	<--	m0j0dj0dj0 (~m0j0dj0dj@unaffiliated/m0j0dj0dj0) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:04:05	<--	kalbasit (~kalbasit@unaffiliated/kalbasit) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:04:12	sangy	anyway. Hold my .vimrc, I'm going in
+2017-06-30 21:04:18	 *	sangy dives into the code
+2017-06-30 21:04:19	<--	cspack (~cspack@gateway/vpn/privateinternetaccess/cspack) has quit (Remote host closed the connection)
+2017-06-30 21:04:57	-->	DanielPowerNL (~DanielPow@134.153.73.192) has joined #archlinux
+2017-06-30 21:05:11	-->	cspack (~cspack@gateway/vpn/privateinternetaccess/cspack) has joined #archlinux
+2017-06-30 21:05:30	<--	cr4zypr0gr (~cr4zypr0g@126.119.12.65) has left #archlinux ("WeeChat 1.9")
+2017-06-30 21:05:54	Tom^	MacGyver: sadly the performance is a bit lacking in cs:go imo
+2017-06-30 21:06:09	eschwartz	sangy: and they have their inline bash scripts sometimes using concatenated python strings and sometimes using multiline strings. But why did they invoke an sh subprocess to echo the contents of a series of concatenated python strings to a file and chmod it so they can run it o_O
+2017-06-30 21:06:19	Tom^	MacGyver: but then i might just be a bit picky when i want it to run on my 144hz :p
+2017-06-30 21:06:33	-->	infides_afk (~infides@p4FE75F32.dip0.t-ipconnect.de) has joined #archlinux
+2017-06-30 21:06:34	<--	GI_Jack (~GI_Jack@pdpc/supporter/active/gi-jack) has quit (Quit: Leaving)
+2017-06-30 21:06:46	sangy	!grab eschwartz 
+2017-06-30 21:06:46	@phrik	sangy: Bazinga!
+2017-06-30 21:06:48	MacGyver	Tom^: It actually works just fine for me.
+2017-06-30 21:06:57	eschwartz	sangy: I suggest you rewrite the whole project from scratch for them, it'll be faster
+2017-06-30 21:07:04	sangy	lol
+2017-06-30 21:07:11	MacGyver	Tom^: As long as I remember to switch the scheduler to round-robin and use the CPUs I normally have isolcpu'd for the VM.
+2017-06-30 21:07:11	sangy	that module at least feels like it
+2017-06-30 21:07:20	sangy	for some reason I believe they are not aware of tmpfile
+2017-06-30 21:07:38	BrainDamage	maybe we're misinterpreting the term, "reproducible builds" don't refer about repeatability, rather the capability of such horrible software to self reproduce and infest a system
+2017-06-30 21:07:44	MacGyver	Tom^: The issue I'm *currently* having is that the drivers / firmware for the particular family of Radeon card I have (R9 390) is quite bugged.
+2017-06-30 21:07:52	MacGyver	Tom^: Unbind produces a kernel oops.
+2017-06-30 21:07:58	sangy	BrainDamage: I'd be with you on that, but the thing does work like a charm
+2017-06-30 21:07:58	Tom^	MacGyver: huh round robin?
+2017-06-30 21:08:06	Tom^	MacGyver: isolcpued?
+2017-06-30 21:08:06	eschwartz	It reminds me of my friend who is currently rewriting a series of perl management scripts into bash for the company he works at.
+2017-06-30 21:08:10	Tom^	MacGyver: HALP i want moar fps
+2017-06-30 21:08:18	eschwartz	Which also does shellscripts like that
+2017-06-30 21:08:20	MacGyver	Tom^: Yeah, so, normally I game in a qemu/kvm vm, right?
+2017-06-30 21:08:26	Tom^	MacGyver: oh ok
+2017-06-30 21:08:41	MacGyver	Tom^: In order to minimize the stutter for that, I boot with isolcpus=2-5,8-11.
+2017-06-30 21:08:54	MacGyver	Tom^: That basically means that linux won't schedule anything on those cores / hyperthreads.
+2017-06-30 21:09:07	-->	patarr (~patarr@unaffiliated/patarr) has joined #archlinux
+2017-06-30 21:09:08	eschwartz	*But* with the added benefit of all files using Windows line endings, and only working when copypasted into a GUI management console which then runs the perl scripts and in the process fixes the line endings.
+2017-06-30 21:09:15	MacGyver	Tom^: And libvirt pins its virtual CPU threads to those cores.
+2017-06-30 21:09:16	-->	kalbasit (~kalbasit@unaffiliated/kalbasit) has joined #archlinux
+2017-06-30 21:09:24	<--	diggzz (~diego@37.77.112.3) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:09:43	<--	sorin-mihai (~sorin-mih@unaffiliated/sorin-mihai) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:09:47	<--	DanielPowerNL (~DanielPow@134.153.73.192) has quit (Remote host closed the connection)
+2017-06-30 21:09:47	MacGyver	Tom^: Now if the VM *isn't* running, and you want to run something on those cores, you can taskset it to a single one of those cores explicitly under the default scheduler (SCHED_OTHER).
+2017-06-30 21:10:05	MacGyver	Tom^: If you use a *group* in taskset, under SCHED_OTHER, it will simply run everything on the lowest number in the group.
+2017-06-30 21:10:08	-->	DanielPowerNL (~DanielPow@134.153.73.192) has joined #archlinux
+2017-06-30 21:10:14	Tom^	MacGyver: right
+2017-06-30 21:10:19	-->	Guest49647 (~michael@unaffiliated/anu0) has joined #archlinux
+2017-06-30 21:10:35	<--	damke_ (~damke@unaffiliated/damke) has quit (Ping timeout: 268 seconds)
+2017-06-30 21:10:43	MacGyver	Tom^: But that's hella annoying for third party applications with multiple threads that come and go.
+2017-06-30 21:10:45	Tom^	which of none should really affect since im not running in a VM.
+2017-06-30 21:10:47	Tom^	heh
+2017-06-30 21:10:51	MacGyver	It actually worked fine for my scientific computing.
+2017-06-30 21:11:01	MacGyver	Tom^: But if you use a group in taskset, under SCHED_FIFO or SCHED_RR, it will distribute over the cores.
+2017-06-30 21:11:15	Tom^	unless ofc my sheduler sucks
+2017-06-30 21:11:27	MacGyver	Tom^: So I just start steam with chrt --rr 1 taskset "2-5,8-11" steam-native.
+2017-06-30 21:11:45	MacGyver	Tom^: And then all the gaming happens on those otherwise unoccupied cores.
+2017-06-30 21:11:56	Tom^	mmh
+2017-06-30 21:11:58	<--	Majora320 (~Majora320@unaffiliated/majora320) has quit (Quit: WeeChat 1.9)
+2017-06-30 21:12:18	MacGyver	Tom^: Whether this makes a difference for *your* workload; there's better ways of doing this if you're not using isolcpus the way I am.
+2017-06-30 21:12:35	MacGyver	Tom^: CPU groups or whatever it's called; I recall the term "shield".
+2017-06-30 21:12:38	Tom^	it probably shouldnt
+2017-06-30 21:12:41	amosbird	Hi, what command can put its args into clipboard? not echo | xclip
+2017-06-30 21:12:48	-->	bed7 (~bed7@2604:2000:22c0:f400:393e:e3c6:d2d1:13aa) has joined #archlinux
+2017-06-30 21:13:30	-->	narendraj9 (~user@182.70.95.13) has joined #archlinux
+2017-06-30 21:13:47	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:14:06	-->	mrbinaer (~mrbinaer@37.120.26.109) has joined #archlinux
+2017-06-30 21:14:14	-->	djapo (~archie@unaffiliated/djapo) has joined #archlinux
+2017-06-30 21:15:18	<--	Erayaydin (58f12b6e@gateway/web/freenode/ip.88.241.43.110) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:17:00	<--	knidos (~knidos@85.100.166.140) has quit (Quit: knidos)
+2017-06-30 21:17:08	-->	yith (yith@nat/redhat/x-saeuoghzdemxuyub) has joined #archlinux
+2017-06-30 21:17:31	-->	devpt (~devpt@unaffiliated/devpt) has joined #archlinux
+2017-06-30 21:18:30	-->	Arcaelyx (~Arcaelyx@pool-100-35-184-196.nwrknj.fios.verizon.net) has joined #archlinux
+2017-06-30 21:18:35	sangy	amosbird: elaborate? 
+2017-06-30 21:18:51	<--	yithian (yith@nat/redhat/x-bdjipsfkfwkdkylk) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:18:52	amosbird	mycommand "string to copy"
+2017-06-30 21:18:55	gmaciolek	Hm. I installed some MOTD/Fortune stuff, and now there are quotes every time I log out - where is *that* set up?
+2017-06-30 21:19:06	amosbird	ok, i just wrote a script to do that ...
+2017-06-30 21:19:09	sangy	like xclip but without using the pipe, you mean? 
+2017-06-30 21:19:16	<--	sergio (~sergio@kde/developer/smartins) has left #archlinux
+2017-06-30 21:19:19	gmaciolek	(Not quotes, actually. One quote, from The Simpsons, that I'd actualy rather not see constantly)
+2017-06-30 21:19:54	sangy	gmaciolek: is this logging out from a tty or from where/ 
+2017-06-30 21:20:00	-->	frenchbeard (~Nope@2a01cb0881912b00fa5971fffe917e81.ipv6.abo.wanadoo.fr) has joined #archlinux
+2017-06-30 21:20:48	rahtgaz	https://wiki.archlinux.org/index.php/Bash#Configuration_files
+2017-06-30 21:20:49	@phrik	Title: Bash - ArchWiki (at wiki.archlinux.org)
+2017-06-30 21:20:59	rahtgaz	or equivalent page if you are using zsh
+2017-06-30 21:22:13	amosbird	sangy: yeah
+2017-06-30 21:24:46	sangy	amosbird: oh, there is always xclip <<< "whatever" :P
+2017-06-30 21:26:11	-->	sec^nd (~second@unaffiliated/sec0nd) has joined #archlinux
+2017-06-30 21:26:57	--	irc: disconnected from server
+2017-06-30 21:27:17	-->	yasser1 (~yasser@78.40.183.234) has joined #archlinux
+2017-06-30 21:27:17	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/fkksz9 | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG"
+2017-06-30 21:27:17	--	Topic set by alad (~Alad@archlinux/op/alad) on Tue, 20 Jun 2017 19:20:17
+2017-06-30 21:27:18	--	Channel #archlinux: 1742 nicks (2 ops, 0 voices, 1740 normals)
+2017-06-30 21:27:28	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-06-30 21:27:46	<--	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has quit (Quit: Leaving)
+2017-06-30 21:27:51	-->	mcveri (~mcveri@unaffiliated/mcveri) has joined #archlinux
+2017-06-30 21:27:51	<--	n-iCe (~nice@Aircrack-NG/User/n-iCe) has quit (Read error: Connection reset by peer)
+2017-06-30 21:28:10	mcveri	Hey !
+2017-06-30 21:28:30	<--	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has quit (Quit: WeeChat 1.9)
+2017-06-30 21:28:38	-->	caveman (~caveman@unaffiliated/mahmoud) has joined #archlinux
+2017-06-30 21:28:51	caveman	where to find a list of recommended font installations?
+2017-06-30 21:29:25	<--	fomg-optimize (~fomg-opti@h82n3-vbg-a12.ias.bredband.telia.com) has quit (Quit: Leaving)
+2017-06-30 21:29:34	-->	patarr (~patarr@unaffiliated/patarr) has joined #archlinux
+2017-06-30 21:29:57	mcveri	what do you mean caveman ?
+2017-06-30 21:30:13	caveman	fonts. html looks terrible
+2017-06-30 21:30:29	<--	Bock (~bocaneri@about/linux/staff/sauvin) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:31:10	<--	yasser (~yasser@78.40.183.234) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:31:12	<--	therue (~therue@1-162-53-79.dynamic-ip.hinet.net) has quit (Quit: Leaving)
+2017-06-30 21:31:26	mcveri	You can change it from browser setting I think
+2017-06-30 21:31:44	<--	DanielPowerNL (~DanielPow@134.153.73.192) has quit (Read error: Connection reset by peer)
+2017-06-30 21:31:46	mcveri	if you want to list of usable ttf I think you can use yaourt for that
+2017-06-30 21:31:56	mcveri	yaourt -Ss ttf is working my machine 
+2017-06-30 21:32:09	earnestly	alad: Why
+2017-06-30 21:32:16	-->	DanielPowerNL (~DanielPow@134.153.73.192) has joined #archlinux
+2017-06-30 21:32:33	-->	neooo (~tarun@unaffiliated/neooo) has joined #archlinux
+2017-06-30 21:32:51	eschwartz	caveman: fonts are subjective, for instance I don't know anything about fonts and whatever was pulled in by pacman by default for ttf-font is what I use.
+2017-06-30 21:33:05	-->	ChimpMilitia (~joseph@24.172.19.100) has joined #archlinux
+2017-06-30 21:33:15	neooo	im confused as to which TRIM should I use with my SSD. Continuous or periodic?
+2017-06-30 21:33:21	alad	earnestly, hm?
+2017-06-30 21:33:24	mkoskar	caveman: have you seen the list on wiki? https://wiki.archlinux.org/index.php/Fonts#Font_packages
+2017-06-30 21:33:25	@phrik	Title: Fonts - ArchWiki (at wiki.archlinux.org)
+2017-06-30 21:33:32	-->	Rajsun (~TheUNName@42.61.235.93) has joined #archlinux
+2017-06-30 21:33:53	<--	ghishadow (~ghishadow@117.214.119.204) has quit (Quit: WeeChat 1.9)
+2017-06-30 21:33:59	<--	chandan (~chandan@122.171.59.73) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:34:59	<--	rnabinger (~rnabinger@unaffiliated/rnabinger) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:35:06	<--	transacid (~transacid@pdpc/supporter/professional/transacid) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:35:18	neooo	as I understand, continuous provides more speed BUT also causing problems for some people
+2017-06-30 21:35:26	MacGyver	Hrrm.
+2017-06-30 21:35:41	MacGyver	neooo: Continuous provides more speed in what sense?
+2017-06-30 21:35:57	MacGyver	neooo: You understand what TRIM does, right?
+2017-06-30 21:36:07	-->	rnabinger (~rnabinger@unaffiliated/rnabinger) has joined #archlinux
+2017-06-30 21:36:17	-->	cotko2 (~ahmed@89-212-138-82.static.t-2.net) has joined #archlinux
+2017-06-30 21:36:17	<--	cotko (~ahmed@199.116.72.155) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:36:23	tyzoid	caveman: If you just want to blanket install a bunch of fonts, look at `pacman -Ss ttf-`
+2017-06-30 21:36:39	neooo	Garbage collection right?>
+2017-06-30 21:36:43	MacGyver	neooo: Unless you write more data to the disk than there are trimmed sectors available since the last run of fstrim, there should be no difference and you actually take a performance hit on delete operations.
+2017-06-30 21:37:51	neooo	I've not ran fstrim till now
+2017-06-30 21:37:56	-->	Keniyal (~Keniyal@unaffiliated/keniyal) has joined #archlinux
+2017-06-30 21:38:09	neooo	installed new SSD as the older HDD failed
+2017-06-30 21:38:28	-->	dwhacksX220 (~dwhacksX2@S01066cb3114903ca.wk.shawcable.net) has joined #archlinux
+2017-06-30 21:39:29	<--	Elv1313 (~lepagee@modemcable215.93-160-184.mc.videotron.ca) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:39:48	neooo	MacGyver: what happens when I write more data than the trimmed sectors available?
+2017-06-30 21:40:34	MacGyver	Then performance of write operations degrades.
+2017-06-30 21:41:00	-->	mysterion (~nezinau@unaffiliated/unknwn) has joined #archlinux
+2017-06-30 21:41:36	neooo	and using continous trim reduces performance for delete operations? is that what u mean? why?
+2017-06-30 21:41:47	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:41:54	<--	caveman (~caveman@unaffiliated/mahmoud) has quit (Quit: caveman)
+2017-06-30 21:42:49	<--	tschan (~tschan@p5B32DB3F.dip0.t-ipconnect.de) has quit (Quit: Leaving)
+2017-06-30 21:43:39	-->	lithiumpt (~lithiumpt@6530.hostserv.eu) has joined #archlinux
+2017-06-30 21:43:44	-->	setty1 (~weechat@139.47.26.144) has joined #archlinux
+2017-06-30 21:44:10	<--	fersingb (~boris@gentoo/developer/kernelsensei) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:44:55	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:45:09	-->	m0j0dj0dj0 (~m0j0dj0dj@unaffiliated/m0j0dj0dj0) has joined #archlinux
+2017-06-30 21:45:29	neooo	oh dang. I git it now
+2017-06-30 21:45:34	<--	ryanvade (~ryanvade@97-91-226-233.dhcp.stls.mo.charter.com) has quit (Quit: ryanvade)
+2017-06-30 21:45:36	-->	opthomasprime (~thomas@pD9F761D5.dip0.t-ipconnect.de) has joined #archlinux
+2017-06-30 21:45:40	-->	doriclazar (18942a89@gateway/web/freenode/ip.24.148.42.137) has joined #archlinux
+2017-06-30 21:45:51	-->	patarr (~patarr@unaffiliated/patarr) has joined #archlinux
+2017-06-30 21:46:36	-->	tschan (~tschan@p5B32DB3F.dip0.t-ipconnect.de) has joined #archlinux
+2017-06-30 21:47:10	-->	wildlander (~wildlande@unaffiliated/wildlander) has joined #archlinux
+2017-06-30 21:47:19	<--	DanielPowerNL (~DanielPow@134.153.73.192) has quit (Quit: Leaving)
+2017-06-30 21:47:49	-->	fersingb (~boris@gentoo/developer/kernelsensei) has joined #archlinux
+2017-06-30 21:47:57	<--	sspencer (~sspencer@c-73-147-62-242.hsd1.va.comcast.net) has quit (Quit: sspencer)
+2017-06-30 21:47:57	-->	DanielPowerNL (~DanielPow@134.153.73.192) has joined #archlinux
+2017-06-30 21:48:12	<--	kalbasit (~kalbasit@unaffiliated/kalbasit) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:48:52	<--	mcveri (~mcveri@unaffiliated/mcveri) has left #archlinux ("Leaving")
+2017-06-30 21:49:48	-->	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has joined #archlinux
+2017-06-30 21:50:04	neooo	for months i feared installing packages from the AUR manually. I always used yaourt. So today I thought i should atleast know what yaourt does. Turns out its actually less hassle installing manually than using yaourt. 
+2017-06-30 21:50:06	<--	thunder-ltu (~thunder-l@78-63-128-166.static.zebra.lt) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:51:09	BrainDamage	don't mention the y-word here, it's a trigger word
+2017-06-30 21:51:38	neooo	So so the manually installed packages (and the ones installed using yaourt) get upgraded when I run 'pacman -Syu'
+2017-06-30 21:51:41	neooo	?
+2017-06-30 21:51:47	BrainDamage	no
+2017-06-30 21:52:39	neooo	BrainDamage: haha yeah. it was someone over here that told me to avoid yaourt and learn the manual build process. 
+2017-06-30 21:52:48	neooo	BrainDamage: so how do I update them?
+2017-06-30 21:52:59	-->	kalbasit (~kalbasit@unaffiliated/kalbasit) has joined #archlinux
+2017-06-30 21:53:14	rahtgaz	neo, read the wiki
+2017-06-30 21:53:32	neooo	oops, okay
+2017-06-30 21:53:33	rahtgaz	when you have more specific questions, shoot
+2017-06-30 21:54:47	sako	neooo: seems like you installed packages manually from the aur but missed the point on why someone told you to do so ;D - it was so you understand what yaourt or pacaur or insert aur management tool here is doing under the hood
+2017-06-30 21:55:03	-->	O00O (~isca@unaffiliated/zz0) has joined #archlinux
+2017-06-30 21:55:10	<--	Artefact2 (~Artefact2@unaffiliated/artefact2) has quit (Ping timeout: 246 seconds)
+2017-06-30 21:55:31	eto	is cower still popular?
+2017-06-30 21:56:03	neooo	so I hear pacaur is the more popular aur helper now?
+2017-06-30 21:57:00	<--	_ashbreeze_ (~mark@c-73-82-100-21.hsd1.ga.comcast.net) has quit (Remote host closed the connection)
+2017-06-30 21:57:04	sielicki	cower is still the only aur utility I use
+2017-06-30 21:57:05	<--	dandels (~dandels@unaffiliated/dandels) has quit (Quit: WeeChat 1.9)
+2017-06-30 21:57:06	<--	Hello71 (~Hello71@wikipedia/Hello71) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:57:11	alad	not this shit again
+2017-06-30 21:58:04	-->	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has joined #archlinux
+2017-06-30 21:58:14	-->	xy2_ (~xy2_@94.239.177.175) has joined #archlinux
+2017-06-30 21:58:28	<--	isca (~isca@unaffiliated/zz0) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:58:44	<--	Conder (~Conder@109-230-55-79.dynamic.orange.sk) has quit (Read error: Connection reset by peer)
+2017-06-30 22:00:05	mongy	lol
+2017-06-30 22:00:14	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 240 seconds)
+2017-06-30 22:00:25	<--	biax-laptop (~biax-lapt@96.30.69.164) has quit (Quit: quit)
+2017-06-30 22:00:27	-->	Artefact2 (~Artefact2@unaffiliated/artefact2) has joined #archlinux
+2017-06-30 22:00:44	-->	patarr (~patarr@unaffiliated/patarr) has joined #archlinux
+2017-06-30 22:00:59	<--	sedrosken (~sedrosken@static-204-62-58-150.ptr.shelbybb.com) has quit (Ping timeout: 240 seconds)
+2017-06-30 22:01:20	Foxboron	Man stripping down initramfs using luks is hard :/
+2017-06-30 22:01:40	-->	sz0 (uid110435@gateway/web/irccloud.com/x-uwxkhdvkxfmfngla) has joined #archlinux
+2017-06-30 22:01:41	BrainDamage	alad: see, this and more issues would be solved if only you'd have named your project aurautism
+2017-06-30 22:01:57	<--	dwhacksX220 (~dwhacksX2@S01066cb3114903ca.wk.shawcable.net) has quit (Ping timeout: 260 seconds)
+2017-06-30 22:02:20	alad	BrainDamage, perhaps if i had the same strange sense of humar as that guy who called his terminal emulator "cancer"
+2017-06-30 22:02:22	grazzolini	Foxboron: yep. and you're using systemd, aren't you?
+2017-06-30 22:02:23	alad	humor 
+2017-06-30 22:02:35	earnestly	alad: A sense of tumor
+2017-06-30 22:02:41	alad	._.
+2017-06-30 22:02:44	Foxboron	grazzolini: yes :/
+2017-06-30 22:02:53	<--	devpt (~devpt@unaffiliated/devpt) has quit (Quit: Leaving)
+2017-06-30 22:03:30	dxu	ooo i've always used yaourt and never had issues with it
+2017-06-30 22:03:36	mikkeloscar	Hello, I want to write a file with a multiline variable correctly indented. I have tried to illustrate it here: https://ptpb.pw/1wpL/sh any idea how to achieve this in bash?
+2017-06-30 22:03:37	<--	Keniyal (~Keniyal@unaffiliated/keniyal) has quit (Read error: Connection reset by peer)
+2017-06-30 22:03:37	@phrik	Title: pb (at ptpb.pw)
+2017-06-30 22:03:45	grazzolini	Foxboron: why?
+2017-06-30 22:04:16	Foxboron	grazzolini: Oh, inside the initramfs? No. i thought you meant inn general :p
+2017-06-30 22:04:47	grazzolini	Foxboron: you are not using any of the systemd- hooks then?
+2017-06-30 22:04:50	<--	yans (~yans@unaffiliated/yinsen) has quit (Ping timeout: 268 seconds)
+2017-06-30 22:04:56	Foxboron	grazzolini: nope
+2017-06-30 22:05:19	<--	arthcp (~arthcp@49.205.124.189) has quit (Ping timeout: 246 seconds)
+2017-06-30 22:05:25	grazzolini	Foxboron: well, you can probably start by stripping down the encrypt hook, for instance
+2017-06-30 22:05:33	Foxboron	But i'm struggeling to figure out what modules cryptsetup requires :/ currently it's unable to decrypt
+2017-06-30 22:05:34	grazzolini	Foxboron: you can remove the things you don't need it to do
+2017-06-30 22:05:42	<--	giotto-pi (~pi@HSI-KBW-46-223-254-10.hsi.kabel-badenwuerttemberg.de) has quit (Ping timeout: 260 seconds)
+2017-06-30 22:06:07	grazzolini	Foxboron: it needs the kernel crypto and whatever crypto you're using. also, whatever hashing algo too
+2017-06-30 22:06:30	-->	Hello71 (~Hello71@wikipedia/Hello71) has joined #archlinux
+2017-06-30 22:06:59	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 240 seconds)

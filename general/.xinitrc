@@ -8,7 +8,7 @@ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
 done
 
-compton -f &
+compton -f --inactive-dim 0.2 &
 devilspie &
 unset f
 exec i3

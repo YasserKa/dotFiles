@@ -6072,3 +6072,12 @@
 2017-06-23 09:30:26		perl scripts loaded: iset
 2017-06-23 09:30:26		script: 349 scripts for WeeChat 1.8
 2017-06-23 09:30:26		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
+2017-06-30 20:44:26		New key binding (context "default"): meta-meta-OQ => /bar scroll buflist * e
+2017-06-30 20:44:26		New key binding (context "default"): meta-meta-OP => /bar scroll buflist * b
+2017-06-30 20:44:26		New key binding (context "default"): meta-OQ => /bar scroll buflist * +100%
+2017-06-30 20:44:26		New key binding (context "default"): meta-OP => /bar scroll buflist * -100%
+2017-06-30 20:44:27		perl scripts loaded: iset
+2017-06-30 20:44:27		script: downloading list of scripts...
+2017-06-30 20:44:27		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, guile, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
+2017-06-30 20:44:28		script: 349 scripts for WeeChat 1.9
+2017-06-30 20:44:38	=!=	irc: command "join" must be executed on connected irc server

@@ -2,11 +2,22 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 syntax on
 
+" Makes a window appear while writting commands
+set wildmenu
+" Using C -> $ at the end
+set cpoptions+=$         
+" Moving in whitespace
+set virtualedit=all
+
 set tabstop=4
+set shiftwidth=4
+set number
+
 " Start searching while typing
 set incsearch
+
 " Show args
-args
+" args
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 " Syntastic options
@@ -45,6 +56,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'scrooloose/syntastic'
 
 Plugin 'Valloric/YouCompleteMe'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required

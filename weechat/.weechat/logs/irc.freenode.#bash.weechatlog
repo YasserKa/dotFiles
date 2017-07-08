@@ -1584,3 +1584,145 @@
 2017-06-23 09:30:58	--	Channel created on Sun, 26 Nov 2006 08:42:44
 2017-06-23 09:31:54	<--	monpocchi (~monpocchi@unaffiliated/monpocchi) has quit (Ping timeout: 268 seconds)
 2017-06-23 09:31:54	<--	Cthalupa (~cthulhu@47.186.18.56) has quit (Remote host closed the connection)
+2017-06-30 20:45:03	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-06-30 20:45:03	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-06-30 20:45:03	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-06-30 20:45:04	--	Channel #bash: 1248 nicks (1 op, 0 voices, 1247 normals)
+2017-06-30 20:45:04	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-06-30 20:45:05	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-06-30 20:45:10	-->	obiwan90 (~obiwan90@192.139.80.1) has joined #bash
+2017-06-30 20:47:59	<--	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has quit (Ping timeout: 240 seconds)
+2017-06-30 20:48:00	-->	Typhon (~Typhon@ipservice-092-211-210-096.092.211.pools.vodafone-ip.de) has joined #bash
+2017-06-30 20:48:43	-->	star_prone (~sviatovig@100.98.195.51) has joined #bash
+2017-06-30 20:50:25	<--	Poppabear (~Poppabear@eggheads/webdev/poppabear) has quit (Ping timeout: 246 seconds)
+2017-06-30 20:50:44	<--	blackbird1 (~blackbird@197.1.133.47) has quit (Remote host closed the connection)
+2017-06-30 20:50:46	-->	ahmedelgabri (~ahmedelga@gateway/vpn/privateinternetaccess/gabri) has joined #bash
+2017-06-30 20:51:35	<--	Cabanossi (~Cabanossi@pD9F85211.dip0.t-ipconnect.de) has quit (Ping timeout: 246 seconds)
+2017-06-30 20:52:38	-->	Cabanossi (~Cabanossi@pD9F85211.dip0.t-ipconnect.de) has joined #bash
+2017-06-30 20:53:10	<--	ahmed_elgabri (~ahmedelga@2a02:a441:9f5:1:289d:9b36:b8b7:69a3) has quit (Ping timeout: 255 seconds)
+2017-06-30 20:53:44	-->	cowl (~cowl@cpe-96-29-171-101.kya.res.rr.com) has joined #bash
+2017-06-30 20:54:07	<--	njbair (~njbair@104.231.114.145) has quit (Ping timeout: 276 seconds)
+2017-06-30 20:54:52	-->	njbair (~njbair@2605:a000:122d:c053:227:eff:fe0a:b289) has joined #bash
+2017-06-30 20:55:20	<--	thebope (~thebope@pdpc/supporter/student/thebope) has quit (Read error: Connection reset by peer)
+2017-06-30 20:55:31	-->	pheanex (~pheanex@2a0a-a540-4080-0-8cde-80f6-61ab-afa7.ipv6dyn.netcologne.de) has joined #bash
+2017-06-30 20:55:48	<--	star_prone (~sviatovig@100.98.195.51) has quit (Remote host closed the connection)
+2017-06-30 20:55:51	-->	thebope (~thebope@pdpc/supporter/student/thebope) has joined #bash
+2017-06-30 20:56:18	<--	cowl (~cowl@cpe-96-29-171-101.kya.res.rr.com) has quit (Read error: Connection reset by peer)
+2017-06-30 21:03:35	-->	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has joined #bash
+2017-06-30 21:03:53	<--	m0j0dj0dj0 (~m0j0dj0dj@unaffiliated/m0j0dj0dj0) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:04:25	-->	Emma_Gination (~Emma_Gina@188.120.85.7) has joined #bash
+2017-06-30 21:06:37	-->	ephlip (~etienne@2607:fad8:4:6:73a7:1276:e584:ab2a) has joined #bash
+2017-06-30 21:08:06	<--	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:10:37	<--	clavi (~clavi@v22017034422546657.goodsrv.de) has quit (Quit: ZNC - http://znc.in)
+2017-06-30 21:12:17	-->	star_prone (~sviatovig@86.125.23.110) has joined #bash
+2017-06-30 21:12:29	-->	monpocchi (~monpocchi@unaffiliated/monpocchi) has joined #bash
+2017-06-30 21:12:48	-->	bed7 (~bed7@2604:2000:22c0:f400:393e:e3c6:d2d1:13aa) has joined #bash
+2017-06-30 21:13:09	-->	Siduri (~g@2a02:8084:920:5a80:345c:58bc:d2d7:e15a) has joined #bash
+2017-06-30 21:13:41	-->	narendraj9 (~user@182.70.95.13) has joined #bash
+2017-06-30 21:15:42	<--	arortell (~arortell@d33-228.rt-bras.wnvl.centurytel.net) has quit (Quit: WeeChat 1.8)
+2017-06-30 21:16:40	-->	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has joined #bash
+2017-06-30 21:16:54	-->	Arcaelyx (~Arcaelyx@pool-100-35-184-196.nwrknj.fios.verizon.net) has joined #bash
+2017-06-30 21:17:53	-->	clavi (~clavi@185.162.248.121) has joined #bash
+2017-06-30 21:17:59	-->	n4dir (~user@2003:c4:3c5:e500:21a:4bff:fe48:96d9) has joined #bash
+2017-06-30 21:18:36	<--	discovered (~discovere@unaffiliated/discovered) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:18:46	-->	Chuguniy (~Chuguniy@46.246.89.243) has joined #bash
+2017-06-30 21:21:06	<--	marvin2 (~mrv@cpe-188-129-121-112.dynamic.amis.hr) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:21:41	<--	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has quit (Ping timeout: 246 seconds)
+2017-06-30 21:22:17	<--	dinfuehr (~dinfuehr@91-115-9-227.adsl.highway.telekom.at) has quit (Ping timeout: 268 seconds)
+2017-06-30 21:23:12	<--	__Yiota (~textual@CPE00fc8d8821e3-CM00fc8d8821e0.cpe.net.cable.rogers.com) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-30 21:23:22	-->	mel00010 (~mel00010@128-223-223-164-wireless.uoregon.edu) has joined #bash
+2017-06-30 21:23:50	-->	dinfuehr (~dinfuehr@91-113-36-241.adsl.highway.telekom.at) has joined #bash
+2017-06-30 21:24:19	<--	certainquirk (~certainqu@67.223.196.176) has quit (Quit: leaving)
+2017-06-30 21:25:34	-->	jdipierro (~jdipierro@198.20.222.4) has joined #bash
+2017-06-30 21:25:54	-->	Motika (~Motika@dhcp-108-168-82-139.cable.user.start.ca) has joined #bash
+2017-06-30 21:26:57	--	irc: disconnected from server
+2017-06-30 21:27:16	-->	yasser1 (~yasser@78.40.183.234) has joined #bash
+2017-06-30 21:27:17	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-06-30 21:27:17	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-06-30 21:27:17	--	Channel #bash: 1255 nicks (1 op, 0 voices, 1254 normals)
+2017-06-30 21:27:17	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-06-30 21:27:26	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-06-30 21:27:46	<--	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has quit (Quit: Leaving)
+2017-06-30 21:28:22	-->	Maskettaman (~Maskettam@86.86.206.16) has joined #bash
+2017-06-30 21:30:29	<--	Bock (~bocaneri@about/linux/staff/sauvin) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:31:10	<--	yasser (~yasser@78.40.183.234) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:31:29	<--	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has quit (Ping timeout: 246 seconds)
+2017-06-30 21:31:58	-->	Maskettaman_yo (~Maskettam@gateway/vpn/privateinternetaccess/maskettaman) has joined #bash
+2017-06-30 21:32:30	-->	pietv (~pietv@77.41.66.137) has joined #bash
+2017-06-30 21:33:40	-->	tables (~user@198-188-4-4.pasadena.edu) has joined #bash
+2017-06-30 21:33:46	<--	Maskettaman (~Maskettam@86.86.206.16) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:34:56	-->	jmill (~textual@2605:6000:101d:4011:2c8f:7a51:b28d:c00c) has joined #bash
+2017-06-30 21:34:59	<--	rnabinger (~rnabinger@unaffiliated/rnabinger) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:36:07	-->	rnabinger (~rnabinger@unaffiliated/rnabinger) has joined #bash
+2017-06-30 21:36:45	<--	lopid (~lopid@46.19.137.221) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:36:59	<--	IniGit (~Gernot@62-178-56-62.cable.dynamic.surfer.at) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:37:10	-->	maxime_ (~maxime@78.192.190.41) has joined #bash
+2017-06-30 21:38:24	-->	h12o (~h12o@210.135.213.163) has joined #bash
+2017-06-30 21:38:37	-->	_ADN_ (~username@2a02:c7d:5e18:200:8c10:68ef:2028:53d8) has joined #bash
+2017-06-30 21:39:19	-->	lopid (~lopid@46.19.137.221) has joined #bash
+2017-06-30 21:39:50	-->	moth (~moth@h156.169.191.173.dynamic.ip.windstream.net) has joined #bash
+2017-06-30 21:40:41	<--	inovas (~inovas@178.57.176.89) has quit (Read error: Connection reset by peer)
+2017-06-30 21:42:31	-->	Epx998- (~Epx998@searspoint.nvidia.com) has joined #bash
+2017-06-30 21:42:50	<--	Jadz1a (~jadzia@73.219.173.60) has quit (Quit: Leaving)
+2017-06-30 21:43:31	<--	h12o (~h12o@210.135.213.163) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:44:55	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:44:58	-->	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has joined #bash
+2017-06-30 21:45:03	-->	m0j0dj0dj0 (~m0j0dj0dj@unaffiliated/m0j0dj0dj0) has joined #bash
+2017-06-30 21:45:26	-->	energizer (~energizer@unaffiliated/energizer) has joined #bash
+2017-06-30 21:45:47	<--	Epx998 (~Epx998@searspoint.nvidia.com) has quit (Ping timeout: 258 seconds)
+2017-06-30 21:45:51	-->	inovas (~inovas@178.57.176.89) has joined #bash
+2017-06-30 21:47:10	-->	wildlander (~wildlande@unaffiliated/wildlander) has joined #bash
+2017-06-30 21:49:48	-->	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has joined #bash
+2017-06-30 21:50:56	-->	flowmode (~user@gateway/tor-sasl/flowmode) has joined #bash
+2017-06-30 21:51:31	<--	Cabanossi (~Cabanossi@pD9F85211.dip0.t-ipconnect.de) has quit (Ping timeout: 264 seconds)
+2017-06-30 21:51:40	-->	blackbird1 (~blackbird@197.1.133.47) has joined #bash
+2017-06-30 21:51:58	-->	mikecmpbll (~mikecmpbl@ruby/staff/mikecmpbll) has joined #bash
+2017-06-30 21:53:06	<--	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has quit (Quit: The Pwca has left the building)
+2017-06-30 21:53:14	-->	Cabanossi (~Cabanossi@217.248.82.17) has joined #bash
+2017-06-30 21:53:23	-->	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has joined #bash
+2017-06-30 21:54:11	-->	jacobmenke1 (~jacobmenk@c-68-56-142-36.hsd1.mi.comcast.net) has joined #bash
+2017-06-30 21:55:01	-->	blackbird_ (~blackbird@197.2.194.176) has joined #bash
+2017-06-30 21:55:20	<--	nickel_dime_look (~nickel_di@115.187.42.81) has quit (Remote host closed the connection)
+2017-06-30 21:56:16	<--	Emma_Gination (~Emma_Gina@188.120.85.7) has quit (Quit: Emma_Gination)
+2017-06-30 21:56:47	-->	matt8686 (~martin@92-147-191-90.dyn.estpak.ee) has joined #bash
+2017-06-30 21:57:04	<--	blackbird_ (~blackbird@197.2.194.176) has quit (Client Quit)
+2017-06-30 21:57:06	<--	Hello71 (~Hello71@wikipedia/Hello71) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:57:24	-->	blackbird_ (~blackbird@197.2.194.176) has joined #bash
+2017-06-30 21:57:44	<--	blackbird1 (~blackbird@197.1.133.47) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:58:25	Maskettaman_yo	probably a really bad question but if my script has a few `if elif` conditionals, and I want it to do nothing on the `else`, is it ok to do `:`?
+2017-06-30 21:58:30	--	Maskettaman_yo is now known as Maskettaman
+2017-06-30 21:58:38	-->	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has joined #bash
+2017-06-30 21:58:49	greycat	You can omit the else entirely.  But yeah, : is the no-op.
+2017-06-30 21:58:53	litheum	why don't you just leave it off?
+2017-06-30 21:58:59	Maskettaman	huh
+2017-06-30 21:59:06	Maskettaman	I thought the else was required
+2017-06-30 21:59:14	Maskettaman	neat
+2017-06-30 21:59:25	litheum	it's a little alarming to me that it didn't even occur to you to *try* to omit it :-)
+2017-06-30 21:59:28	kerframil	somebody else needs to read help if today
+2017-06-30 21:59:31	<--	fission6 (~textual@204.148.42.142) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-30 21:59:41	Maskettaman	well I did but I distinctly remember it erroring out then
+2017-06-30 21:59:45	Maskettaman	not this
+2017-06-30 21:59:47	greycat	I don't think there are any programming languages where "if" requires an "else".
+2017-06-30 21:59:48	Maskettaman	but in a past case
+2017-06-30 21:59:56	quiz96	is there any language requiring a default?
+2017-06-30 21:59:58	--	blackbird_ is now known as blackbird1
+2017-06-30 22:00:04	-->	Emma_Gination (~Emma_Gina@188.120.85.7) has joined #bash
+2017-06-30 22:00:15	<--	tables (~user@198-188-4-4.pasadena.edu) has quit (Ping timeout: 255 seconds)
+2017-06-30 22:00:17	greycat	m4 comes to mind, but I am very fuzzy on that
+2017-06-30 22:00:23	-->	skweek (~skweek@68-200-146-225.res.bhn.net) has joined #bash
+2017-06-30 22:01:23	kurahaupo	quiz96: some of the purely functional languages, where you have to present *some* value as the result of an expression
+2017-06-30 22:01:43	-->	Epx998 (~Epx998@searspoint.nvidia.com) has joined #bash
+2017-06-30 22:02:28	-->	Jadz1a (~jadzia@c-73-219-173-60.hsd1.ma.comcast.net) has joined #bash
+2017-06-30 22:02:36	<--	moetuning (~Jean-luc@61.68.66.145) has quit (Quit: thisisapartmessage)
+2017-06-30 22:02:53	-->	tables (~user@198.188.4.4) has joined #bash
+2017-06-30 22:03:29	<--	h12o (~h12o@210-135-213-163.parkcity.ne.jp) has quit (Ping timeout: 240 seconds)
+2017-06-30 22:03:36	<--	Epx998- (~Epx998@searspoint.nvidia.com) has quit (Ping timeout: 240 seconds)
+2017-06-30 22:03:53	<--	mlaine (mlaine@odin.sdf-eu.org) has quit (Quit: be back soon)
+2017-06-30 22:04:18	-->	mlaine (mlaine@odin.sdf-eu.org) has joined #bash
+2017-06-30 22:04:37	<--	mensvaga (~mensvaga@192.16.204.65) has left #bash
+2017-06-30 22:05:43	-->	qzo (~qzo@c-73-153-11-93.hsd1.co.comcast.net) has joined #bash
+2017-06-30 22:05:43	-->	DaVu (~David1977@unaffiliated/david1977) has joined #bash
+2017-06-30 22:05:47	-->	________ (uid108572@gateway/web/irccloud.com/x-fwnxfsmplnmcadbk) has joined #bash
+2017-06-30 22:06:16	<--	energizer (~energizer@unaffiliated/energizer) has quit (Ping timeout: 276 seconds)
+2017-06-30 22:06:32	-->	Hello71 (~Hello71@wikipedia/Hello71) has joined #bash
+2017-06-30 22:06:40	-->	energizer (~energizer@unaffiliated/energizer) has joined #bash

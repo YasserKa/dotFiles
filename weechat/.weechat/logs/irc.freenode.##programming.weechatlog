@@ -712,3 +712,267 @@
 2017-06-23 09:31:06	--	Channel created on Sun, 04 Feb 2007 07:23:51
 2017-06-23 09:31:30	+vendu	if we retarget a c compiler for it, we'd have a very nice tool to test our software with :)
 2017-06-23 09:31:54	<--	errst (~user@213.74.172.226) has quit (Ping timeout: 246 seconds)
+2017-06-30 20:45:04	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-06-30 20:45:04	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-30 20:45:04	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-06-30 20:45:04	--	Channel ##programming: 714 nicks (1 op, 18 voices, 695 normals)
+2017-06-30 20:45:11	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-30 20:45:52	-->	sebmiser (~sebmeiste@gateway/vpn/privateinternetaccess/sebmiser) has joined ##programming
+2017-06-30 20:46:02	-->	winsoff (~foo@216.117.236.42) has joined ##programming
+2017-06-30 20:46:03	<--	winsoff (~foo@216.117.236.42) has quit (Changing host)
+2017-06-30 20:46:03	-->	winsoff (~foo@unaffiliated/winsoff) has joined ##programming
+2017-06-30 20:46:17	-->	Electric_Sheep (~esheep_zn@2601:42:701:a510:65ff:18da:d73e:e37d) has joined ##programming
+2017-06-30 20:46:25	<--	ElectricSheep (~esheep_zn@71.225.69.61) has quit (Ping timeout: 255 seconds)
+2017-06-30 20:46:59	<--	tbsf (~tbsf@8.37.102.39) has quit (Remote host closed the connection)
+2017-06-30 20:47:25	-->	tbsf (~tbsf@8.37.102.39) has joined ##programming
+2017-06-30 20:47:35	<--	jan64 (~jan64@doz93.neoplus.adsl.tpnet.pl) has quit (Read error: Connection reset by peer)
+2017-06-30 20:47:42	-->	phinxy (~tehhhd@unaffiliated/phinxy) has joined ##programming
+2017-06-30 20:48:31	-->	junnu (~junnu@180.151.106.160) has joined ##programming
+2017-06-30 20:48:41	-->	patarr (~patarr@unaffiliated/patarr) has joined ##programming
+2017-06-30 20:48:41	<--	ario (~ario@76.11.74.136) has quit (Ping timeout: 260 seconds)
+2017-06-30 20:48:49	-->	GG_Phyduck (~GG_Phyduc@86.88.52.234) has joined ##programming
+2017-06-30 20:49:38	<--	junnu (~junnu@180.151.106.160) has quit (Client Quit)
+2017-06-30 20:49:40	-->	xenial-user (~puppy@67.234.214.209) has joined ##programming
+2017-06-30 20:50:30	<--	winsoff (~foo@unaffiliated/winsoff) has quit (Client Quit)
+2017-06-30 20:50:45	<--	xenial-user (~puppy@67.234.214.209) has quit (Quit: Leaving)
+2017-06-30 20:50:56	-->	velco (~chill@82.9.225.23) has joined ##programming
+2017-06-30 20:52:07	<--	tbsf (~tbsf@8.37.102.39) has quit (Ping timeout: 258 seconds)
+2017-06-30 20:53:16	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 258 seconds)
+2017-06-30 20:53:37	-->	Jo-Anna345 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has joined ##programming
+2017-06-30 20:54:07	<--	njbair (~njbair@104.231.114.145) has quit (Ping timeout: 276 seconds)
+2017-06-30 20:54:22	-->	xenial-user (~puppy@pa-67-234-214-209.dhcp.embarqhsd.net) has joined ##programming
+2017-06-30 20:54:52	-->	njbair (~njbair@2605:a000:122d:c053:227:eff:fe0a:b289) has joined ##programming
+2017-06-30 20:56:04	<--	im0nde (~im0nde@loiacono2.fo.FH-Koeln.DE) has quit (Ping timeout: 276 seconds)
+2017-06-30 20:56:49	<--	whiskyandcigars (~whiskyand@cpe-74-71-4-192.nyc.res.rr.com) has quit (Quit: whiskyandcigars)
+2017-06-30 20:56:57	-->	home (~home@107-179-232-140.cpe.teksavvy.com) has joined ##programming
+2017-06-30 20:56:57	<--	home (~home@107-179-232-140.cpe.teksavvy.com) has quit (Changing host)
+2017-06-30 20:56:57	-->	home (~home@unaffiliated/home) has joined ##programming
+2017-06-30 20:57:49	-->	electrostat (~dag@unaffiliated/electrostat) has joined ##programming
+2017-06-30 20:57:51	-->	notloc (040eaa7e@gateway/web/freenode/ip.4.14.170.126) has joined ##programming
+2017-06-30 20:58:18	-->	tbsf (~tbsf@8.37.102.39) has joined ##programming
+2017-06-30 20:59:56	-->	musicnate (~Thunderbi@S010630b5c2fb31cf.vc.shawcable.net) has joined ##programming
+2017-06-30 20:59:58	<--	minn (~minn@129-2-180-57.wireless.umd.edu) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:00:13	<--	musicnate (~Thunderbi@S010630b5c2fb31cf.vc.shawcable.net) has quit (Client Quit)
+2017-06-30 21:00:36	-->	musicnate (~Thunderbi@S010630b5c2fb31cf.vc.shawcable.net) has joined ##programming
+2017-06-30 21:01:09	-->	ddoa (~Derp@gateway/vpn/privateinternetaccess/ddoa) has joined ##programming
+2017-06-30 21:01:33	<--	millerti (~millerti@149.125.133.0) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-06-30 21:02:25	-->	BadUser (~user@197-36-179-94.pool.ukrtel.net) has joined ##programming
+2017-06-30 21:02:28	BadUser	Hi.
+2017-06-30 21:02:43	+Shayanjm	hi
+2017-06-30 21:03:10	<--	home (~home@unaffiliated/home) has quit (Ping timeout: 268 seconds)
+2017-06-30 21:03:11	BadUser	Can I change text after output?
+2017-06-30 21:03:17	<--	tbsf (~tbsf@8.37.102.39) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:03:25	BadUser	For example, in Tic Tac Toe CLI game.
+2017-06-30 21:03:26	notloc	I'd like some help building a .NET program, specifically https://github.com/zsims/hunt-and-peck . Using Visual Studio, it appears that I have some broken references. I'd really appreciate some guidance from a more experienced C# programmer.
+2017-06-30 21:04:09	<--	Rodya_ (~Rodya_@2601:46:4001:e0b4:e13b:5626:166d:d1cd) has quit (Remote host closed the connection)
+2017-06-30 21:04:47	+Shayanjm	BadUser: technically yes
+2017-06-30 21:05:02	BadUser	How?
+2017-06-30 21:05:03	+rindolf	BadUser: you can use ncurses or whatever
+2017-06-30 21:05:11	-->	tbsf (~tbsf@8.37.102.39) has joined ##programming
+2017-06-30 21:05:35	+Shayanjm	BadUser: you can also do it manually by using \r, which returns you to line start (so you can overwrite the line you just wrote to stdout)
+2017-06-30 21:05:46	+rindolf	notloc: there is ##charp
+2017-06-30 21:05:49	mabynogy	the avatar is funny https://github.com/zsims
+2017-06-30 21:05:49	+rindolf	notloc: there is ##csharp
+2017-06-30 21:05:55	notloc	The problem is that the broken reference appear to be missing dll files that I should have on Windows 7. The program uses th UI Automation API.
+2017-06-30 21:06:01	-->	home (~home@107-179-232-140.cpe.teksavvy.com) has joined ##programming
+2017-06-30 21:06:01	<--	home (~home@107-179-232-140.cpe.teksavvy.com) has quit (Changing host)
+2017-06-30 21:06:01	-->	home (~home@unaffiliated/home) has joined ##programming
+2017-06-30 21:06:07	notloc	Oh, thank you; I'll check in with them.
+2017-06-30 21:07:17	mrig	Interesting observation, a badly coded qsort still works, but is very inefficient.
+2017-06-30 21:07:25	-->	home__ (~home@107-179-232-140.cpe.teksavvy.com) has joined ##programming
+2017-06-30 21:07:48	<--	home__ (~home@107-179-232-140.cpe.teksavvy.com) has quit (Changing host)
+2017-06-30 21:07:48	-->	home__ (~home@unaffiliated/home) has joined ##programming
+2017-06-30 21:07:52	<--	home (~home@unaffiliated/home) has quit (Disconnected by services)
+2017-06-30 21:07:56	--	home__ is now known as home
+2017-06-30 21:07:59	mrig	Seems to be the case anyhoo ...
+2017-06-30 21:08:18	-->	ogradyd (~Thunderbi@HSI-KBW-109-193-046-115.hsi7.kabel-badenwuerttemberg.de) has joined ##programming
+2017-06-30 21:08:41	-->	Jo-Anna2 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has joined ##programming
+2017-06-30 21:09:07	-->	patarr (~patarr@unaffiliated/patarr) has joined ##programming
+2017-06-30 21:10:35	<--	damke_ (~damke@unaffiliated/damke) has quit (Ping timeout: 268 seconds)
+2017-06-30 21:10:48	<--	Jo-Anna345 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has quit (Remote host closed the connection)
+2017-06-30 21:11:50	-->	renloo (~loren.how@136.24.65.233) has joined ##programming
+2017-06-30 21:12:01	<--	SHC (~quassel@59.98.109.60) has quit (Remote host closed the connection)
+2017-06-30 21:12:19	<--	Anton_ (~aaaa@185.9.184.62) has quit (Read error: No route to host)
+2017-06-30 21:12:42	<--	wei2912 (~wei2912@unaffiliated/wei2912) has quit (Quit: Lost terminal)
+2017-06-30 21:12:48	-->	bed7 (~bed7@2604:2000:22c0:f400:393e:e3c6:d2d1:13aa) has joined ##programming
+2017-06-30 21:13:06	BadUser	Can I implement text like in Uplink in CLI?
+2017-06-30 21:13:20	BadUser	Please wait for video link.
+2017-06-30 21:13:47	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:14:36	-->	nblade42 (~Miranda_4@ptr-82npp64slcxyay6h16e.18120a2.ip6.access.telenet.be) has joined ##programming
+2017-06-30 21:14:53	BadUser	https://www.youtube.com/watch?v=EAQu0ngfs_8
+2017-06-30 21:14:58	BadUser	starting from 0:16
+2017-06-30 21:14:59	<--	siamesepizza (~siamesepi@73.109.60.216) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:15:18	BadUser	[text appears not immediately]
+2017-06-30 21:15:30	-->	asig3 (~asig3@213.143.60.26) has joined ##programming
+2017-06-30 21:15:59	<--	diegs_ (~diegs_@unaffiliated/diegs/x-9438211) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:16:18	BadUser	If yes, then how?
+2017-06-30 21:16:59	mrig	Not badly coded, but when there is a bug, tricky really.
+2017-06-30 21:18:16	+rindolf	BadUser: ncurses can do that
+2017-06-30 21:18:39	+rindolf	BadUser: just emit one char at a time
+2017-06-30 21:18:42	<--	NccT (~nONE@unaffiliated/ncct) has quit (Quit: Leaving)
+2017-06-30 21:19:58	<--	ocn (4f45b5bb@gateway/web/freenode/ip.79.69.181.187) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:20:56	-->	larumis (~NickServ@2.121.20.124) has joined ##programming
+2017-06-30 21:21:06	<--	marvin2 (~mrv@cpe-188-129-121-112.dynamic.amis.hr) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:21:44	<--	home (~home@unaffiliated/home) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:22:55	-->	junnu (~junnu@180.151.106.160) has joined ##programming
+2017-06-30 21:23:35	BadUser	Where can I read ncurses for C++ manual?
+2017-06-30 21:24:31	-->	sT331h0rs3 (~st331h0rs@83.102.217.246) has joined ##programming
+2017-06-30 21:25:11	<--	sT331h0rs3 (~st331h0rs@83.102.217.246) has quit (Client Quit)
+2017-06-30 21:25:16	-->	Menche (~menche@gateway/tor-sasl/menche) has joined ##programming
+2017-06-30 21:25:24	-->	symm- (~symm-@95.65.81.202) has joined ##programming
+2017-06-30 21:26:57	--	irc: disconnected from server
+2017-06-30 21:27:20	-->	yasser1 (~yasser@78.40.183.234) has joined ##programming
+2017-06-30 21:27:20	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-06-30 21:27:20	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-06-30 21:27:21	--	Channel ##programming: 718 nicks (1 op, 18 voices, 699 normals)
+2017-06-30 21:27:32	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-06-30 21:27:46	<--	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has quit (Quit: Leaving)
+2017-06-30 21:27:52	<--	ZexaronS (~zexpc@cpe-194-152-22-45.static.triera.net) has quit (Quit: Leaving)
+2017-06-30 21:27:59	mabynogy	http://invisible-island.net/ncurses/
+2017-06-30 21:28:22	mabynogy	I don't like it It's difficult to use
+2017-06-30 21:28:52	<--	davr0s (~textual@host81-153-35-152.range81-153.btcentralplus.com) has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+2017-06-30 21:29:09	mabynogy	https://github.com/nsf/termbox simpler
+2017-06-30 21:29:15	-->	unyu (~pyon@unaffiliated/pyon) has joined ##programming
+2017-06-30 21:29:34	-->	patarr (~patarr@unaffiliated/patarr) has joined ##programming
+2017-06-30 21:30:29	<--	Bock (~bocaneri@about/linux/staff/sauvin) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:30:59	<--	TheGreekOwl (~GreekOwl@2a02:587:482d:4f00:8450:4851:ff7a:67d7) has quit (Read error: Connection reset by peer)
+2017-06-30 21:31:00	Violinist	stop trolling every1
+2017-06-30 21:31:10	<--	yasser (~yasser@78.40.183.234) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:31:29	<--	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has quit (Ping timeout: 246 seconds)
+2017-06-30 21:31:46	mabynogy	ok
+2017-06-30 21:31:53	mabynogy	"the troll"
+2017-06-30 21:31:55	Violinist	good
+2017-06-30 21:32:20	mabynogy	he change hi nick
+2017-06-30 21:32:26	<--	broccolistem (~broccolis@gateway/vpn/privateinternetaccess/broccolistem) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-30 21:32:42	mabynogy	I see that > ~user@197-36-179-94.pool.ukrtel.net
+2017-06-30 21:32:48	airking	[A
+2017-06-30 21:32:50	-->	humdogm (~Humza@2601:2c1:4380:4ca0:b0c3:17ca:450:ef89) has joined ##programming
+2017-06-30 21:34:59	-->	marrenarre (~marrenarr@user18.217-10-109.netatonce.net) has joined ##programming
+2017-06-30 21:36:17	marrenarre	How do I specify special C compiler flags for files created by lex and yacc when using Autoconf/Automake?
+2017-06-30 21:37:10	-->	maxime_ (~maxime@78.192.190.41) has joined ##programming
+2017-06-30 21:38:08	<--	junnu (~junnu@180.151.106.160) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-30 21:38:27	-->	ario (~ario@76.11.74.136) has joined ##programming
+2017-06-30 21:39:01	-->	ocn (4f45b5bb@gateway/web/freenode/ip.79.69.181.187) has joined ##programming
+2017-06-30 21:39:14	<--	notloc (040eaa7e@gateway/web/freenode/ip.4.14.170.126) has quit (Quit: Page closed)
+2017-06-30 21:39:50	-->	moth (~moth@h156.169.191.173.dynamic.ip.windstream.net) has joined ##programming
+2017-06-30 21:40:52	-->	Jo-Anna2 (~Joanna345@68.111.72.145) has joined ##programming
+2017-06-30 21:41:25	-->	broccolistem (~broccolis@gateway/vpn/privateinternetaccess/broccolistem) has joined ##programming
+2017-06-30 21:41:31	mrig	BadUser ncurses for c :~ http://invisible-island.net/ncurses/ncurses.html
+2017-06-30 21:41:47	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:42:03	-->	whiskyandcigars (~whiskyand@cpe-74-71-4-192.nyc.res.rr.com) has joined ##programming
+2017-06-30 21:42:22	-->	Cohedrin_ (~textual@2603:3024:1c03:bc00:95e3:8053:68d:db5e) has joined ##programming
+2017-06-30 21:42:57	<--	ario (~ario@76.11.74.136) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:44:02	<--	whiskyandcigars (~whiskyand@cpe-74-71-4-192.nyc.res.rr.com) has quit (Client Quit)
+2017-06-30 21:44:22	-->	nibble_zero (~chatzilla@37.244.231.177) has joined ##programming
+2017-06-30 21:44:33	-->	minn (~minn@129-2-180-57.wireless.umd.edu) has joined ##programming
+2017-06-30 21:44:58	-->	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has joined ##programming
+2017-06-30 21:45:26	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-30 21:45:51	-->	patarr (~patarr@unaffiliated/patarr) has joined ##programming
+2017-06-30 21:46:02	-->	diegs_ (~diegs_@unaffiliated/diegs/x-9438211) has joined ##programming
+2017-06-30 21:47:10	-->	wildlander (~wildlande@unaffiliated/wildlander) has joined ##programming
+2017-06-30 21:47:25	-->	Mudstart (~mudstart@148.0.7.103) has joined ##programming
+2017-06-30 21:49:03	<--	mabynogy (~mabynogy@jem75-2-82-233-234-235.fbx.proxad.net) has quit (Quit: Leaving)
+2017-06-30 21:49:48	-->	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has joined ##programming
+2017-06-30 21:50:09	<--	electrostat (~dag@unaffiliated/electrostat) has quit (Quit: uwotm8)
+2017-06-30 21:50:19	nupogodi	hi programming
+2017-06-30 21:50:32	nupogodi	give me an answer to this simple interview problem
+2017-06-30 21:50:38	nupogodi	you have 2d array of binary values
+2017-06-30 21:50:47	nupogodi	you want to find the 'largest island'
+2017-06-30 21:51:14	nupogodi	i.e a contiguous block of values
+2017-06-30 21:51:32	nupogodi	my solution is simply a greedy algorithm with memoization
+2017-06-30 21:51:39	-->	electrostat (~dag@unaffiliated/electrostat) has joined ##programming
+2017-06-30 21:51:43	nupogodi	please find where my solution fails
+2017-06-30 21:52:02	bsrm_	post it?
+2017-06-30 21:52:20	nupogodi	post what? i'm talking about an algorithm not code
+2017-06-30 21:52:28	bsrm_	well that's not a solution
+2017-06-30 21:52:34	bsrm_	your idea would work fine
+2017-06-30 21:52:35	Tempus2	Well, you need an algoritm in order to find out. And rules to determain what belongs to an island and not.
+2017-06-30 21:52:36	quiz96	and you haven't defined an algorithm?
+2017-06-30 21:52:37	bsrm_	if you implement it properly
+2017-06-30 21:53:06	<--	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has quit (Quit: The Pwca has left the building)
+2017-06-30 21:53:14	bsrm_	i've had a similar interview question and I basically called a recursive function on each 'unseen' element of the original 2d array, and ran a recursive function on that element which checks its neighbors
+2017-06-30 21:53:23	-->	HarveyPwca (~HarveyPwc@ip-64-134-173-214.public.wayport.net) has joined ##programming
+2017-06-30 21:53:24	bsrm_	and then you mark each element as seen once you visit it
+2017-06-30 21:53:32	bsrm_	that's probably what you're getting at i'm guessing
+2017-06-30 21:53:44	nupogodi	lol ok my solution is to search the array left to right, top to bottom, for each node find the maximum island greedily (recursively), and memoize it so if you check the node again you don't do all that nonsense
+2017-06-30 21:53:55	bsrm_	yes that's exactly how I'd approach it
+2017-06-30 21:54:23	nupogodi	exactly. it's Run Length Encoding except binary
+2017-06-30 21:54:32	bsrm_	yes. so what's your question?
+2017-06-30 21:54:34	<--	humdogm (~Humza@2601:2c1:4380:4ca0:b0c3:17ca:450:ef89) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:54:38	bsrm_	you sound like you already know what to do
+2017-06-30 21:54:44	-->	ario (~ario@76.11.74.136) has joined ##programming
+2017-06-30 21:54:44	nupogodi	my question is why people didn't like my solution ;-)
+2017-06-30 21:54:48	bsrm_	who?
+2017-06-30 21:54:54	nupogodi	Amazon Canada.
+2017-06-30 21:55:00	Tempus2	He was at an interview.
+2017-06-30 21:55:11	bsrm_	i mean i've h ad t he exact same interview question from a startup once and they liked it
+2017-06-30 21:55:20	bsrm_	so maybe Amazon wanted something more optimized? hard to say
+2017-06-30 21:55:27	-->	Jo-Anna345 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has joined ##programming
+2017-06-30 21:55:38	nupogodi	I think memoizing after being greedy is kinda the most optimization you can do there
+2017-06-30 21:55:39	quiz96	maybe, this is a pretty brute force solution
+2017-06-30 21:55:51	+graff	bsrm_: i would not take it personally. these large companies seem to be condusting suvery-research along with their interview process
+2017-06-30 21:55:53	nupogodi	there is no way to quickly find a solution
+2017-06-30 21:55:57	bsrm_	I agree, i wouldn't
+2017-06-30 21:56:03	bsrm_	as  someone who failed an onsite interview monday :)
+2017-06-30 21:56:10	bsrm_	and also didnt know why they didnt like my solution
+2017-06-30 21:56:10	bsrm_	lol
+2017-06-30 21:56:13	+graff	essentially they are paying for thier own time by testing the limits of what people know
+2017-06-30 21:56:29	Tempus2	Maybe Amazon already have their hands on a more optimized way, and wanted people that would be able to think that way?
+2017-06-30 21:56:32	-->	Gasher (~gasher@ip-31-0-120-1.multi.internet.cyfrowypolsat.pl) has joined ##programming
+2017-06-30 21:56:38	nupogodi	lol of the 6 people I met, it went great with 5 of them, but the last group that met with me... I dunno, between this question and just in general, we did not gel
+2017-06-30 21:56:40	bsrm_	i've heard amazon is a shit place to work anyway so perhaps you dodged a bullet
+2017-06-30 21:56:51	+graff	i see people come in here a lot with all sort of weird tales, like writing arbitrary precision implementations on paper and other strange stuff
+2017-06-30 21:56:51	nupogodi	oh no I think I probably got the job lol
+2017-06-30 21:56:56	nupogodi	I won't know ntil last week
+2017-06-30 21:56:56	--	Gasher is now known as Guest33777
+2017-06-30 21:56:57	<--	abijeet (~abijeet@183.82.190.192) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:56:57	bsrm_	oh, okay
+2017-06-30 21:56:59	nupogodi	er next week
+2017-06-30 21:57:25	nupogodi	but yeah of the 6 people I met, 5 loved me, it went fine, I just can't understand why these last guys didn't like my thing
+2017-06-30 21:57:35	<--	Jo-Anna2 (~Joanna345@68.111.72.145) has quit (Remote host closed the connection)
+2017-06-30 21:57:46	bsrm_	he might've just been picky.
+2017-06-30 21:57:55	Tempus2	It was very explicit task too. Maybe he didn't like your face?
+2017-06-30 21:57:58	bsrm_	or something not-related to the algorithm itself peeved him
+2017-06-30 21:58:10	bsrm_	like your indentation scheme
+2017-06-30 21:58:26	Tempus2	Who knows.
+2017-06-30 21:58:31	bsrm_	i've learned it's best to basically forget about it unlss they gave you specific feedback
+2017-06-30 21:58:44	bsrm_	not worth worrying about what some nerd thinks of some algorithm you write on a whiteboard that you'll never need to know again
+2017-06-30 21:58:58	bsrm_	long as you can play their game and get the job
+2017-06-30 21:59:07	<--	Guest73958 (~gasher@37.248.157.79) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:59:13	Tempus2	I don't use indentation at all, so wouldn't get a job anywhere. Only 1 white-space between nodes.
+2017-06-30 21:59:20	+graff	there does seem to be a trend of wanting people to be able to do something interesting from scratch without a computer though
+2017-06-30 21:59:48	+graff	but i am not really sure even what you would do. i mean without the actual formulas and algorithms written out and anotated who would even care?
+2017-06-30 22:00:09	nupogodi	Amazon is pretty cool though, my interview process basically involved an online technical screening
+2017-06-30 22:00:14	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 240 seconds)
+2017-06-30 22:00:19	nupogodi	where you had access to a compiler and everything
+2017-06-30 22:00:31	nupogodi	the code I submitted passed all of their test cases
+2017-06-30 22:00:36	+graff	so perhaps that is another thing to thnk about. if you have not memorized how to write algorithms our formally the whole thing would look pretty stupid
+2017-06-30 22:00:38	bsrm_	yep....basically every company these days, not really great practice IMHO
+2017-06-30 22:00:44	-->	patarr (~patarr@unaffiliated/patarr) has joined ##programming
+2017-06-30 22:00:50	nupogodi	the actual interviewers in the on-site did not ask me any technical questions
+2017-06-30 22:00:59	bsrm_	that's bizarre
+2017-06-30 22:01:03	nupogodi	i mean they asked me problem solving questions but they didn't care if I had some syntax memorized or hwatever
+2017-06-30 22:01:07	bsrm_	internship or FT position?
+2017-06-30 22:01:18	nupogodi	full time sde II
+2017-06-30 22:01:22	bsrm_	interesting
+2017-06-30 22:01:26	nupogodi	so like, one level below 'senior'
+2017-06-30 22:01:56	nupogodi	i'm nearly 30 years old, professional for nearly 10 years, this isn't exactly my first rodeo
+2017-06-30 22:02:00	<--	DrBenway (~DrBenway@modemcable246.242-178-173.mc.videotron.ca) has quit (Remote host closed the connection)
+2017-06-30 22:02:09	bsrm_	maybe that's why
+2017-06-30 22:02:13	bsrm_	perhaps they care more about your experience
+2017-06-30 22:02:16	bsrm_	which makes sense
+2017-06-30 22:03:16	LKoen	was that the last interview? or will there be more?
+2017-06-30 22:03:44	nupogodi	so generally there are 3 interviews. 2 online/phone, 1 on-site
+2017-06-30 22:04:01	nupogodi	because i aced the online screening, i skipped the 2nd phone interview
+2017-06-30 22:04:08	nupogodi	so for me there are only 2
+2017-06-30 22:04:38	nupogodi	that's Amazon Canada though, Seattle does it differently
+2017-06-30 22:04:59	-->	Rodya_ (~Rodya_@2601:46:4001:e0b4:519e:ba90:5891:c26e) has joined ##programming
+2017-06-30 22:05:46	nupogodi	i can tell you that much, i'm under NDA for practically everything else
+2017-06-30 22:05:46	<--	On4r4p263 (~ouroboros@46.101.55.221) has quit (Read error: Connection reset by peer)
+2017-06-30 22:05:56	nupogodi	but it's no secret you can just look at Glassdoor
+2017-06-30 22:06:16	<--	energizer (~energizer@unaffiliated/energizer) has quit (Ping timeout: 276 seconds)
+2017-06-30 22:06:28	-->	Anton_ (~aaaa@185.9.184.62) has joined ##programming
+2017-06-30 22:06:40	-->	energizer (~energizer@unaffiliated/energizer) has joined ##programming
+2017-06-30 22:06:50	mrig	Oh I just had a nice idea for a program, will put that on the list of things to do ...
+2017-06-30 22:06:54	-->	rili (~rili@ADijon-553-1-16-15.w92-161.abo.wanadoo.fr) has joined ##programming
+2017-06-30 22:06:59	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 240 seconds)

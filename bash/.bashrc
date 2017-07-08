@@ -2,6 +2,12 @@
 # NOTE THAT IN ARCH THIS IS  WRONG :: see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Commands to be executed before the prompt is displayed
+# Save current working dir
+PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
+
+# Change to saved working dir
+[[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 

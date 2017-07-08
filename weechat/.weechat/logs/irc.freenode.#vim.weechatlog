@@ -1334,3 +1334,151 @@
 2017-06-23 09:30:58	--	Channel created on Sun, 26 Nov 2006 08:42:44
 2017-06-23 09:31:54	<--	monpocchi (~monpocchi@unaffiliated/monpocchi) has quit (Ping timeout: 268 seconds)
 2017-06-23 09:31:54	<--	Cthalupa (~cthulhu@47.186.18.56) has quit (Remote host closed the connection)
+2017-06-30 20:45:03	-->	yasser (~yasser@78.40.183.234) has joined #vim
+2017-06-30 20:45:03	--	Topic for #vim is "Vim 8.0.0646 http://www.vim.org | Don't ask to ask! | Use :help and :helpgrep | WIKI: http://vim.wikia.com | PASTE: http://vpaste.net/?ft=vim | https://www.vi-improved.org"
+2017-06-30 20:45:03	--	Topic set by ntnn on Sat, 17 Jun 2017 22:15:27
+2017-06-30 20:45:03	--	Channel #vim: 1153 nicks (0 ops, 0 voices, 1153 normals)
+2017-06-30 20:45:04	--	PvNotice(ChanServ): vim discussion .. www.vim.org, vim.sf.net, :help
+2017-06-30 20:45:04	--	URL for #vim: http://vi-improved.org
+2017-06-30 20:45:04	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-06-30 20:45:10	-->	obiwan90 (~obiwan90@192.139.80.1) has joined #vim
+2017-06-30 20:45:24	<--	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has quit (Quit: WeeChat 1.9)
+2017-06-30 20:45:31	yasser	Anyone here uses qtcreator?
+2017-06-30 20:45:52	-->	sebmiser (~sebmeiste@gateway/vpn/privateinternetaccess/sebmiser) has joined #vim
+2017-06-30 20:46:00	old1101	markzen, thanks I'll try
+2017-06-30 20:46:47	-->	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has joined #vim
+2017-06-30 20:47:42	-->	phinxy (~tehhhd@unaffiliated/phinxy) has joined #vim
+2017-06-30 20:48:35	-->	jwalton512 (~jwalton51@wsip-70-184-120-130.ph.ph.cox.net) has joined #vim
+2017-06-30 20:48:49	-->	GG_Phyduck (~GG_Phyduc@86.88.52.234) has joined #vim
+2017-06-30 20:48:58	pepper_chico	yasser: why ask here?
+2017-06-30 20:49:49	-->	andyhoang2 (~andyhoang@115.74.114.87) has joined #vim
+2017-06-30 20:50:03	yasser	Well, just giving it a shot. It's the first thought that it occured to me.
+2017-06-30 20:50:15	yasser	I apologize if I disturbed you in any way.
+2017-06-30 20:50:35	yasser	Yeah, I thought that it was acceptable since it got *vim* in it.
+2017-06-30 20:50:48	-->	ahmedelgabri (~ahmedelga@gateway/vpn/privateinternetaccess/gabri) has joined #vim
+2017-06-30 20:51:01	markzen	*vim* in it?
+2017-06-30 20:51:16	yasser	I am refering to my question.
+2017-06-30 20:51:20	yasser	Not the tool.
+2017-06-30 20:53:10	markzen	I guess it's syntax/plugin related
+2017-06-30 20:53:10	<--	ahmed_elgabri (~ahmedelga@2a02:a441:9f5:1:289d:9b36:b8b7:69a3) has quit (Ping timeout: 255 seconds)
+2017-06-30 20:53:43	<--	jwalton512 (~jwalton51@wsip-70-184-120-130.ph.ph.cox.net) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-30 20:55:18	-->	cespare (~cespare@ec2-34-205-71-255.compute-1.amazonaws.com) has joined #vim
+2017-06-30 20:55:20	<--	thebope (~thebope@pdpc/supporter/student/thebope) has quit (Read error: Connection reset by peer)
+2017-06-30 20:55:25	<--	andyhoang2 (~andyhoang@115.74.114.87) has quit (Ping timeout: 255 seconds)
+2017-06-30 20:55:51	-->	thebope (~thebope@pdpc/supporter/student/thebope) has joined #vim
+2017-06-30 20:56:04	<--	im0nde (~im0nde@loiacono2.fo.FH-Koeln.DE) has quit (Ping timeout: 276 seconds)
+2017-06-30 20:57:31	-->	indeedwatson (uid108674@gateway/web/irccloud.com/x-ngihyaqbinwdgavb) has joined #vim
+2017-06-30 20:58:57	<--	gxt (~gxt@b2b-78-94-156-186.unitymedia.biz) has quit (Ping timeout: 260 seconds)
+2017-06-30 20:59:11	-->	nZac (~Kingino@96-3-201-72-static.midco.net) has joined #vim
+2017-06-30 20:59:56	-->	musicnate (~Thunderbi@S010630b5c2fb31cf.vc.shawcable.net) has joined #vim
+2017-06-30 21:00:13	<--	musicnate (~Thunderbi@S010630b5c2fb31cf.vc.shawcable.net) has quit (Client Quit)
+2017-06-30 21:00:36	-->	musicnate (~Thunderbi@S010630b5c2fb31cf.vc.shawcable.net) has joined #vim
+2017-06-30 21:01:20	-->	derk0pf (~derk0pf@84.234.255.54.static.lyse.net) has joined #vim
+2017-06-30 21:02:53	pepper_chico	yasser: but your question has no "vim in it": "Anyone here uses qtcreator?"
+2017-06-30 21:03:10	lopid	maybe it was silent
+2017-06-30 21:03:11	LordRyan	how do I make Vim keep context for highlighting, for up to 1000 lines?
+2017-06-30 21:03:36	LordRyan	i have a very long multiline segment that doesn't get highlighted correctly
+2017-06-30 21:03:37	<--	minimalism (~none@unaffiliated/minimalism) has quit (Quit: minimalism)
+2017-06-30 21:03:52	-->	minimalism (~none@unaffiliated/minimalism) has joined #vim
+2017-06-30 21:03:55	<--	old1101 (~lfmet@191.35.192.88) has left #vim ("Leaving")
+2017-06-30 21:04:09	<--	Rodya_ (~Rodya_@2601:46:4001:e0b4:e13b:5626:166d:d1cd) has quit (Remote host closed the connection)
+2017-06-30 21:04:26	TheLemonMan	LordRyan, :h :syn-sync-minlines
+2017-06-30 21:04:26	digmbot	:help :syn-sync-minlines -> http://vimhelp.appspot.com/syntax.txt.html#%3Asyn-sync-minlines
+2017-06-30 21:04:50	lopid	also try :syn sync fromstart
+2017-06-30 21:05:01	<--	shinnya (~shinnya@129.180.210.220.dy.bbexcite.jp) has quit (Ping timeout: 268 seconds)
+2017-06-30 21:06:14	<--	derk0pf (~derk0pf@84.234.255.54.static.lyse.net) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:06:42	<--	TheLemonMan (~lemonboy@irssi/staff/TheLemonMan) has quit (Quit: "It's now safe to turn off your computer.")
+2017-06-30 21:07:52	LordRyan	lopid: can't find any docs of fromstart?
+2017-06-30 21:08:07	-->	darlan (~darlan@inf58-187.inf.ufsc.br) has joined #vim
+2017-06-30 21:08:25	lopid	it's in :syntax help
+2017-06-30 21:10:01	-->	pzsfjt (~pzsfjt@86.89.90.229) has joined #vim
+2017-06-30 21:10:18	-->	kipcakbegi (~kipcakbeg@78.190.121.140) has joined #vim
+2017-06-30 21:10:43	<--	kipcakbegi (~kipcakbeg@78.190.121.140) has quit (Quit: leaving)
+2017-06-30 21:11:24	-->	kipcakbegi (~kipcakbeg@78.190.121.140) has joined #vim
+2017-06-30 21:11:26	kipcakbegi	Hi all!
+2017-06-30 21:11:27	<--	dancinggrass (~dancinggr@167.205.71.109) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:12:33	-->	monpocchi (~monpocchi@unaffiliated/monpocchi) has joined #vim
+2017-06-30 21:12:34	-->	Haudegen (~quassel@178.115.237.87) has joined #vim
+2017-06-30 21:12:58	<--	tbodt (~textual@108-64-118-141.lightspeed.frokca.sbcglobal.net) has quit (Quit: My Mac has gone to sleep. ZZZzzz…)
+2017-06-30 21:13:20	-->	dancinggrass (~dancinggr@125.163.92.92) has joined #vim
+2017-06-30 21:13:36	<--	mattyw (~mattyw@host109-157-244-9.range109-157.btcentralplus.com) has quit (Quit: Leaving)
+2017-06-30 21:14:14	-->	djapo (~archie@unaffiliated/djapo) has joined #vim
+2017-06-30 21:14:38	-->	Elodin (~weechat@unaffiliated/padawan) has joined #vim
+2017-06-30 21:15:07	djapo	is there a way to reload all open files, buffers from disk? like what :e! does
+2017-06-30 21:15:49	lopid	:bufdo :e!
+2017-06-30 21:16:03	yasser	pepper_chico: Now that you mention it, yeah. I am losing it.
+2017-06-30 21:16:34	djapo	lopid: thanks!
+2017-06-30 21:16:40	lopid	welcomes!
+2017-06-30 21:17:00	<--	knidos (~knidos@85.100.166.140) has quit (Quit: knidos)
+2017-06-30 21:18:23	-->	erikw (~Erik@ip5f5bf18e.dynamic.kabel-deutschland.de) has joined #vim
+2017-06-30 21:18:33	djapo	lopid: one problem tho, for the windows i have open that are not focused, they seem to loose the syntax highlighting untill i do :e! on them individually
+2017-06-30 21:19:07	lopid	le odd. :bufdo :e! | windo :redraw
+2017-06-30 21:19:41	<--	kipcakbegi (~kipcakbeg@78.190.121.140) has quit (Quit: leaving)
+2017-06-30 21:21:06	<--	marvin2 (~mrv@cpe-188-129-121-112.dynamic.amis.hr) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:22:47	djapo	lopid: thats odd, i tried that and it goes thru all the buffers in one panel as if i was pressing :bn repeatedly and still only the focused panel has syntax highlighting
+2017-06-30 21:24:05	-->	guwop (~remi@109.10.235.53) has joined #vim
+2017-06-30 21:24:36	djapo	im connected to vim over ssh, not shure if that would have an effect
+2017-06-30 21:25:35	<--	leeN (~leeN@82.206.67.199) has quit (Remote host closed the connection)
+2017-06-30 21:26:57	--	irc: disconnected from server
+2017-06-30 21:27:16	-->	yasser1 (~yasser@78.40.183.234) has joined #vim
+2017-06-30 21:27:16	--	Topic for #vim is "Vim 8.0.0646 http://www.vim.org | Don't ask to ask! | Use :help and :helpgrep | WIKI: http://vim.wikia.com | PASTE: http://vpaste.net/?ft=vim | https://www.vi-improved.org"
+2017-06-30 21:27:16	--	Topic set by ntnn on Sat, 17 Jun 2017 22:15:27
+2017-06-30 21:27:16	--	Channel #vim: 1159 nicks (0 ops, 0 voices, 1159 normals)
+2017-06-30 21:27:17	--	PvNotice(ChanServ): vim discussion .. www.vim.org, vim.sf.net, :help
+2017-06-30 21:27:17	--	URL for #vim: http://vi-improved.org
+2017-06-30 21:27:24	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-06-30 21:27:46	<--	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has quit (Quit: Leaving)
+2017-06-30 21:28:16	-->	Maskettaman (~Maskettam@86.86.206.16) has joined #vim
+2017-06-30 21:28:30	<--	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has quit (Quit: WeeChat 1.9)
+2017-06-30 21:30:29	<--	Bock (~bocaneri@about/linux/staff/sauvin) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:31:10	<--	yasser (~yasser@78.40.183.234) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:31:12	<--	therue (~therue@1-162-53-79.dynamic-ip.hinet.net) has quit (Quit: Leaving)
+2017-06-30 21:31:58	-->	Maskettaman_yo (~Maskettam@gateway/vpn/privateinternetaccess/maskettaman) has joined #vim
+2017-06-30 21:32:48	<--	darlan (~darlan@inf58-187.inf.ufsc.br) has quit (Quit: Communi 3.5.0 - http://communi.github.com)
+2017-06-30 21:32:53	-->	jwalton512 (~jwalton51@wsip-68-15-181-69.ph.ph.cox.net) has joined #vim
+2017-06-30 21:33:46	<--	Maskettaman (~Maskettam@86.86.206.16) has quit (Ping timeout: 276 seconds)
+2017-06-30 21:34:29	jamessan	djapo: autocommands are disabled when using :bufdo to speed up processing
+2017-06-30 21:35:04	-->	jmill (~textual@2605:6000:101d:4011:2c8f:7a51:b28d:c00c) has joined #vim
+2017-06-30 21:35:26	jamessan	well, specifically the Syntax autocmd -- see :help :bufdo
+2017-06-30 21:35:26	digmbot	:help :bufdo -> http://vimhelp.appspot.com/windows.txt.html#%3Abufdo
+2017-06-30 21:36:17	-->	cotko2 (~ahmed@89-212-138-82.static.t-2.net) has joined #vim
+2017-06-30 21:36:17	<--	cotko (~ahmed@199.116.72.155) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:36:34	djapo	jamessan: oh, ok so its not a bug but a feature
+2017-06-30 21:36:45	<--	lopid (~lopid@46.19.137.221) has quit (Ping timeout: 260 seconds)
+2017-06-30 21:38:23	-->	tbodt (~textual@130.86.97.185) has joined #vim
+2017-06-30 21:39:06	-->	gumnos (~Gumnos@2602:30a:c00f:ac10:ba70:f4ff:fe1e:1ef2) has joined #vim
+2017-06-30 21:39:19	-->	lopid (~lopid@46.19.137.221) has joined #vim
+2017-06-30 21:39:31	<--	gumnos (~Gumnos@2602:30a:c00f:ac10:ba70:f4ff:fe1e:1ef2) has left #vim
+2017-06-30 21:39:34	-->	gumnos (~Gumnos@2602:30a:c00f:ac10:ba70:f4ff:fe1e:1ef2) has joined #vim
+2017-06-30 21:40:14	gumnos	Trying to build vim from source but `make` is failing. Git clone and `configure --prefix=$HOME/local/ --with-features=huge` seem to work
+2017-06-30 21:40:33	gumnos	But `make` gives me "No rule to make target 'auto/config.h'"
+2017-06-30 21:41:02	gumnos	is there something obvious I'm missing?
+2017-06-30 21:41:13	-->	cambid (~cambid@144-149-236-89.dyn.ftth.fcom.ch) has joined #vim
+2017-06-30 21:41:17	<--	buffal0 (~buffal0@108.191.201.92) has quit (Quit: Computer has gone to sleep. ZZZzzz…)
+2017-06-30 21:41:54	-->	Cohedrin_ (~textual@2603:3024:1c03:bc00:95e3:8053:68d:db5e) has joined #vim
+2017-06-30 21:42:01	-->	kaze` (~kaze`@weg38-1-82-237-37-15.fbx.proxad.net) has joined #vim
+2017-06-30 21:42:16	zippeurfou	I am having issue indenting and coloring json files. Anyone has a good plugin I could use?
+2017-06-30 21:43:32	-->	goodenou_ (~goodenoug@2605:e000:304a:9700:e0be:5dd7:2337:908b) has joined #vim
+2017-06-30 21:43:43	<--	enemykite (~enemykite@2603:301f:800:2d00:dcec:6916:bc5b:d96b) has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+2017-06-30 21:44:00	-->	andyhoang2 (~andyhoang@115.74.114.87) has joined #vim
+2017-06-30 21:44:55	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:46:52	-->	Mudstart (~mudstart@148.0.7.103) has joined #vim
+2017-06-30 21:47:42	-->	leeN (~leeN@82.206.67.199) has joined #vim
+2017-06-30 21:48:17	<--	griffindy (~textual@192.133.79.19) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-06-30 21:49:14	<--	andyhoang2 (~andyhoang@115.74.114.87) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:49:48	-->	Jesin (~Jesin@pool-72-83-231-252.washdc.fios.verizon.net) has joined #vim
+2017-06-30 21:50:06	<--	thunder-ltu (~thunder-l@78-63-128-166.static.zebra.lt) has quit (Ping timeout: 240 seconds)
+2017-06-30 21:51:57	--	gernot_ is now known as gernot
+2017-06-30 21:55:38	<--	j3r3mias (~j3r3mias@189.6.118.53) has quit (Ping timeout: 255 seconds)
+2017-06-30 21:56:49	<--	tonymec|away (~chatzilla@unaffiliated/tonymec) has quit (Remote host closed the connection)
+2017-06-30 21:58:04	-->	perrier-jouet (~perrier-j@modemcable234.166-226-192.mc.videotron.ca) has joined #vim
+2017-06-30 21:58:30	--	Maskettaman_yo is now known as Maskettaman
+2017-06-30 21:58:54	gumnos	any reason ./configure wouldn't make an auto/config.h file?
+2017-06-30 22:00:23	-->	skweek (~skweek@68-200-146-225.res.bhn.net) has joined #vim
+2017-06-30 22:03:22	<--	blazzy (~nickun@38.88.175.194) has quit (Ping timeout: 260 seconds)
+2017-06-30 22:04:59	-->	Rodya_ (~Rodya_@2601:46:4001:e0b4:519e:ba90:5891:c26e) has joined #vim
+2017-06-30 22:05:42	<--	giotto-pi (~pi@HSI-KBW-46-223-254-10.hsi.kabel-badenwuerttemberg.de) has quit (Ping timeout: 260 seconds)
+2017-06-30 22:05:51	-->	________ (uid108572@gateway/web/irccloud.com/x-fwnxfsmplnmcadbk) has joined #vim
+2017-06-30 22:06:25	<--	mnavrati (milan@nat/redhat/x-qcmfwntgtbxngsng) has quit (Quit: Leaving)
+2017-06-30 22:06:37	<--	kaze` (~kaze`@weg38-1-82-237-37-15.fbx.proxad.net) has quit (Ping timeout: 260 seconds)
+2017-06-30 22:07:06	-->	tclover__ (~tclover@dslb-188-109-183-109.188.109.pools.vodafone-ip.de) has joined #vim

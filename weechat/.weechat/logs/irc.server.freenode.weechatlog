@@ -2296,3 +2296,144 @@
 2017-06-23 09:30:44	--	User mode [+Zi] by yasser
 2017-06-23 09:30:56	--	#programming: ##programming :Forwarding to another channel
 2017-06-23 09:30:56	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-06-30 20:44:27	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-06-30 20:44:27	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-06-30 20:44:27	--	gnutls: receiving 2 certificates
+2017-06-30 20:44:28	--	 - certificate[1] info:
+2017-06-30 20:44:28	--	   - subject `CN=wilhelm.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x03351c4667a969d192c7e69189d5fc9e5aa1, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-05-22 05:03:00 UTC', expires `2017-08-20 05:03:00 UTC', pin-sha256="hTztvT1wvX2vE0v7dbiMg4jzrSfrk5LnQd3hwaG+TUc="
+2017-06-30 20:44:28	--	 - certificate[2] info:
+2017-06-30 20:44:28	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-06-30 20:44:28	--	gnutls: peer's certificate is trusted
+2017-06-30 20:44:28	--	irc: connected to chat.freenode.net/7000 (164.132.77.237)
+2017-06-30 20:44:28	--	wilhelm.freenode.net: *** Looking up your hostname...
+2017-06-30 20:44:28	--	wilhelm.freenode.net: *** Checking Ident
+2017-06-30 20:44:28	--	wilhelm.freenode.net: *** No Ident response
+2017-06-30 20:44:55	--	wilhelm.freenode.net: *** Couldn't look up your hostname
+2017-06-30 20:44:56	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-06-30 20:44:56	--	irc: client capability, requesting: sasl
+2017-06-30 20:44:56	--	irc: client capability, enabled: sasl
+2017-06-30 20:44:56	--	You are now logged in as yasserKaddoura. (yasser!yasser@78.40.183.234)
+2017-06-30 20:44:56	--	SASL authentication successful
+2017-06-30 20:44:57	--	Welcome to the freenode Internet Relay Chat Network yasser
+2017-06-30 20:44:57	--	MSG(nickserv): identify *************************
+2017-06-30 20:44:57	--	Your host is wilhelm.freenode.net[164.132.77.237/7000], running version ircd-seven-1.1.4
+2017-06-30 20:44:57	--	This server was created Wed Jan 4 2017 at 22:44:42 CET
+2017-06-30 20:44:57	--	wilhelm.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-06-30 20:44:57	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-06-30 20:44:57	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 CPRIVMSG CNOTICE SAFELIST :are supported by this server
+2017-06-30 20:44:57	--	ELIST=CTU WHOX ETRACE KNOCK :are supported by this server
+2017-06-30 20:44:57	--	There are 121 users and 90330 invisible on 28 servers
+2017-06-30 20:44:57	--	28 :IRC Operators online
+2017-06-30 20:44:57	--	70 :unknown connection(s)
+2017-06-30 20:44:57	--	48216 :channels formed
+2017-06-30 20:44:57	--	I have 5761 clients and 1 servers
+2017-06-30 20:44:57	--	5761 5902 :Current local users 5761, max 5902
+2017-06-30 20:44:57	--	90451 92681 :Current global users 90451, max 92681
+2017-06-30 20:44:57	--	Highest connection count: 5903 (5902 clients) (101969 connections received)
+2017-06-30 20:44:57	--	- wilhelm.freenode.net Message of the Day -
+2017-06-30 20:44:57	--	- Welcome to wilhelm.freenode.net in Strasbourg, France.
+2017-06-30 20:44:57	--	- Thanks to http://digitaltreemedia.co.uk/ for sponsoring
+2017-06-30 20:44:57	--	- this server!
+2017-06-30 20:44:57	--	-
+2017-06-30 20:44:57	--	- Welcome to freenode - supporting the free and open source
+2017-06-30 20:44:57	--	- software communities since 1998.
+2017-06-30 20:44:57	--	-
+2017-06-30 20:44:57	--	- By connecting to freenode you indicate that you have read and
+2017-06-30 20:44:57	--	- accept our policies as set out on http://www.freenode.net
+2017-06-30 20:44:57	--	- freenode runs an open proxy scanner. Please join #freenode for
+2017-06-30 20:44:57	--	- any network-related questions or queries, where a number of
+2017-06-30 20:44:57	--	- volunteer staff and helpful users will be happy to assist you.
+2017-06-30 20:44:57	--	-
+2017-06-30 20:44:57	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2017-06-30 20:44:57	--	- together with like-minded FOSS enthusiasts for talks and
+2017-06-30 20:44:57	--	- real-life collaboration.
+2017-06-30 20:44:57	--	-
+2017-06-30 20:44:57	--	- We would like to thank Private Internet Access
+2017-06-30 20:44:57	--	- (https://www.privateinternetaccess.com/) and the other
+2017-06-30 20:44:57	--	- organisations that help keep freenode and our other projects
+2017-06-30 20:44:57	--	- running for their sustained support.
+2017-06-30 20:44:57	--	-
+2017-06-30 20:44:57	--	- In particular we would like to thank the sponsor
+2017-06-30 20:44:57	--	- of this server, details of which can be found above.
+2017-06-30 20:44:57	--	-
+2017-06-30 20:44:57	--	- By connecting to freenode you indicate that you have read and
+2017-06-30 20:44:57	--	- agree with our policies and guidelines as published on
+2017-06-30 20:44:57	--	- https://freenode.net
+2017-06-30 20:44:57	--	End of /MOTD command.
+2017-06-30 20:44:57	--	User mode [+Zi] by yasser
+2017-06-30 20:45:04	--	#programming: ##programming :Forwarding to another channel
+2017-06-30 20:45:04	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-06-30 21:26:57	=!=	irc: reading data on socket: error -54 Error in the pull function.
+2017-06-30 21:26:57	--	irc: disconnecting from server...
+2017-06-30 21:26:57	--	irc: disconnected from server
+2017-06-30 21:26:57	--	irc: reconnecting to server in 10 seconds
+2017-06-30 21:27:07	--	irc: reconnecting to server...
+2017-06-30 21:27:07	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-06-30 21:27:07	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-06-30 21:27:07	--	gnutls: receiving 2 certificates
+2017-06-30 21:27:07	--	 - certificate[1] info:
+2017-06-30 21:27:07	--	   - subject `CN=hobana.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x035e9cf97ede232f733720818dd496f2f2db, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-05-22 05:11:00 UTC', expires `2017-08-20 05:11:00 UTC', pin-sha256="qGjybhoWpEOWQDIpxkHErogwzV3U0S8Dv7XmZdbkC6E="
+2017-06-30 21:27:07	--	 - certificate[2] info:
+2017-06-30 21:27:07	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-06-30 21:27:07	--	gnutls: peer's certificate is trusted
+2017-06-30 21:27:08	--	irc: connected to chat.freenode.net/7000 (81.18.73.123)
+2017-06-30 21:27:08	--	hobana.freenode.net: *** Looking up your hostname...
+2017-06-30 21:27:08	--	hobana.freenode.net: *** Checking Ident
+2017-06-30 21:27:08	--	hobana.freenode.net: *** Couldn't look up your hostname
+2017-06-30 21:27:08	--	hobana.freenode.net: *** No Ident response
+2017-06-30 21:27:08	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-06-30 21:27:08	--	irc: client capability, requesting: sasl
+2017-06-30 21:27:08	--	irc: nickname "yasser" is already in use, trying nickname "yasser1"
+2017-06-30 21:27:08	--	irc: client capability, enabled: sasl
+2017-06-30 21:27:09	--	You are now logged in as yasserKaddoura. (yasser1!yasser@78.40.183.234)
+2017-06-30 21:27:09	--	SASL authentication successful
+2017-06-30 21:27:10	--	Welcome to the freenode Internet Relay Chat Network yasser1
+2017-06-30 21:27:10	--	MSG(nickserv): identify *************************
+2017-06-30 21:27:10	--	Your host is hobana.freenode.net[81.18.73.123/7000], running version ircd-seven-1.1.4
+2017-06-30 21:27:10	--	This server was created Fri Jan 13 2017 at 00:03:11 UTC
+2017-06-30 21:27:10	--	hobana.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-06-30 21:27:10	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-06-30 21:27:10	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 ETRACE WHOX SAFELIST :are supported by this server
+2017-06-30 21:27:10	--	ELIST=CTU KNOCK CPRIVMSG CNOTICE :are supported by this server
+2017-06-30 21:27:10	--	There are 121 users and 90332 invisible on 28 servers
+2017-06-30 21:27:10	--	28 :IRC Operators online
+2017-06-30 21:27:10	--	48235 :channels formed
+2017-06-30 21:27:10	--	I have 5828 clients and 1 servers
+2017-06-30 21:27:10	--	5828 12000 :Current local users 5828, max 12000
+2017-06-30 21:27:10	--	90453 97718 :Current global users 90453, max 97718
+2017-06-30 21:27:10	--	Highest connection count: 12001 (12000 clients) (1122158 connections received)
+2017-06-30 21:27:10	--	- hobana.freenode.net Message of the Day -
+2017-06-30 21:27:10	--	- Welcome to hobana.freenode.net in Bucharest, Romania! Thank
+2017-06-30 21:27:10	--	- you to RCS-RDS for sponsoring this server!
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- Ion Hobana (1931-2011) was a Romanian science fiction writer,
+2017-06-30 21:27:10	--	- literary critic and ufologist. Ion Hobana is a literary
+2017-06-30 21:27:10	--	- pseudonym, the writer's real name being Aurelian Manta Rosie.
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- Welcome to freenode - supporting the free and open source
+2017-06-30 21:27:10	--	- software communities since 1998.
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- By connecting to freenode you indicate that you have read and
+2017-06-30 21:27:10	--	- accept our policies as set out on http://www.freenode.net
+2017-06-30 21:27:10	--	- freenode runs an open proxy scanner. Please join #freenode for
+2017-06-30 21:27:10	--	- any network-related questions or queries, where a number of
+2017-06-30 21:27:10	--	- volunteer staff and helpful users will be happy to assist you.
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2017-06-30 21:27:10	--	- together with like-minded FOSS enthusiasts for talks and
+2017-06-30 21:27:10	--	- real-life collaboration.
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- We would like to thank Private Internet Access
+2017-06-30 21:27:10	--	- (https://www.privateinternetaccess.com/) and the other
+2017-06-30 21:27:10	--	- organisations that help keep freenode and our other projects
+2017-06-30 21:27:10	--	- running for their sustained support.
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- In particular we would like to thank the sponsor
+2017-06-30 21:27:10	--	- of this server, details of which can be found above.
+2017-06-30 21:27:10	--	-
+2017-06-30 21:27:10	--	- By connecting to freenode you indicate that you have read and
+2017-06-30 21:27:10	--	- agree with our policies and guidelines as published on
+2017-06-30 21:27:10	--	- https://freenode.net
+2017-06-30 21:27:10	--	End of /MOTD command.
+2017-06-30 21:27:10	--	User mode [+Zi] by yasser1
+2017-06-30 21:27:17	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.

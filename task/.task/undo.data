@@ -311,3 +311,211 @@ new [description:"do builder+abstract Factory" entry:"1498551995" modified:"1498
 time 1498556667
 new [description:"read something in arch-wiki" due:"1498597200" entry:"1498556667" modified:"1498556667" status:"pending" uuid:"bc566e4e-1a8e-48af-ae76-d81b82330599"]
 ---
+time 1498576526
+old [description:"do the builder,Factory method and Lazy initialization" due:"1498597200" entry:"1498546983" modified:"1498546983" status:"pending" uuid:"7849515c-bc24-4143-9a97-0b6ae2c686f3"]
+new [description:"do the builder,Factory method and Lazy initialization" due:"1498597200" end:"1498576524" entry:"1498546983" modified:"1498576526" status:"completed" uuid:"7849515c-bc24-4143-9a97-0b6ae2c686f3"]
+---
+time 1498576526
+old [description:"read 2-3 chapters of vim book" due:"1498597200" entry:"1498547001" modified:"1498547001" status:"pending" uuid:"713fc9ef-6b68-443f-b847-99d6011eed0a"]
+new [description:"read 2-3 chapters of vim book" due:"1498597200" end:"1498576526" entry:"1498547001" modified:"1498576526" status:"completed" uuid:"713fc9ef-6b68-443f-b847-99d6011eed0a"]
+---
+time 1498576526
+old [description:"something for FOO" due:"1498597200" entry:"1498547346" modified:"1498547346" status:"pending" uuid:"bfd41ce7-ec7b-441a-af82-687ca6ae2a3a"]
+new [description:"something for FOO" due:"1498597200" end:"1498576526" entry:"1498547346" modified:"1498576526" status:"completed" uuid:"bfd41ce7-ec7b-441a-af82-687ca6ae2a3a"]
+---
+time 1498576544
+old [description:"do builder+abstract Factory" entry:"1498551995" modified:"1498551995" status:"pending" uuid:"35b1565b-80f0-4ce9-92a9-267ed44a827f"]
+new [description:"do builder+abstract Factory" end:"1498576544" entry:"1498551995" modified:"1498576544" status:"completed" uuid:"35b1565b-80f0-4ce9-92a9-267ed44a827f"]
+---
+time 1498595202
+old [description:"read something in arch-wiki" due:"1498597200" entry:"1498556667" modified:"1498556667" status:"pending" uuid:"bc566e4e-1a8e-48af-ae76-d81b82330599"]
+new [description:"read something in arch-wiki" due:"1498597200" end:"1498595202" entry:"1498556667" modified:"1498595202" status:"completed" uuid:"bc566e4e-1a8e-48af-ae76-d81b82330599"]
+---
+time 1498646552
+new [description:"download vimeom vim videos" entry:"1498646552" modified:"1498646552" status:"pending" uuid:"f0476860-278f-422a-8196-ae311aa7554d"]
+---
+time 1498646614
+new [description:"nicka about the fastest way in game dev. and ask if its better to do game dev at windows on linux\n" entry:"1498646614" modified:"1498646614" status:"pending" uuid:"8c6b0d40-8d50-473c-ae0d-fcd6975703a5"]
+---
+time 1498663367
+new [description:"more music yo" entry:"1498663367" modified:"1498663367" status:"pending" uuid:"caed2383-138e-4fd9-8050-5819df02d7d9"]
+---
+time 1498714589
+old [description:"download vimeom vim videos" entry:"1498646552" modified:"1498646552" status:"pending" uuid:"f0476860-278f-422a-8196-ae311aa7554d"]
+new [description:"download vimeom vim videos" end:"1498714586" entry:"1498646552" modified:"1498714589" status:"completed" uuid:"f0476860-278f-422a-8196-ae311aa7554d"]
+---
+time 1498714589
+old [description:"nicka about the fastest way in game dev. and ask if its better to do game dev at windows on linux\n" entry:"1498646614" modified:"1498646614" status:"pending" uuid:"8c6b0d40-8d50-473c-ae0d-fcd6975703a5"]
+new [description:"nicka about the fastest way in game dev. and ask if its better to do game dev at windows on linux\n" end:"1498714589" entry:"1498646614" modified:"1498714589" status:"completed" uuid:"8c6b0d40-8d50-473c-ae0d-fcd6975703a5"]
+---
+time 1498714589
+old [description:"more music yo" entry:"1498663367" modified:"1498663367" status:"pending" uuid:"caed2383-138e-4fd9-8050-5819df02d7d9"]
+new [description:"more music yo" end:"1498714589" entry:"1498663367" modified:"1498714589" status:"completed" uuid:"caed2383-138e-4fd9-8050-5819df02d7d9"]
+---
+time 1498714603
+new [description:"get tooth picks" entry:"1498714603" modified:"1498714603" status:"pending" uuid:"e0304fcd-4f06-4bf3-9637-4548b0d9b4f6"]
+---
+time 1498715892
+new [description:"download unreal-engine when you come back home" entry:"1498715892" modified:"1498715892" status:"pending" uuid:"9ccb7bd9-031a-4358-a721-e14fe9851fe6"]
+---
+time 1498794069
+old [description:"get tooth picks" entry:"1498714603" modified:"1498714603" status:"pending" uuid:"e0304fcd-4f06-4bf3-9637-4548b0d9b4f6"]
+new [description:"get tooth picks" end:"1498794069" entry:"1498714603" modified:"1498794069" status:"completed" uuid:"e0304fcd-4f06-4bf3-9637-4548b0d9b4f6"]
+---
+time 1498804101
+old [description:"download unreal-engine when you come back home" entry:"1498715892" modified:"1498715892" status:"pending" uuid:"9ccb7bd9-031a-4358-a721-e14fe9851fe6"]
+new [description:"download unreal-engine when you come back home" end:"1498804101" entry:"1498715892" modified:"1498804101" status:"completed" uuid:"9ccb7bd9-031a-4358-a721-e14fe9851fe6"]
+---
+time 1498838935
+new [description:"download more vimium stuff" entry:"1498838935" modified:"1498838935" status:"pending" uuid:"8b616540-5676-4aff-811a-732618936320"]
+---
+time 1498838944
+new [description:"put money in bank" entry:"1498838944" modified:"1498838944" status:"pending" uuid:"f5e64d58-4858-4c5d-9a79-0b12b746d0fb"]
+---
+time 1498839008
+new [description:"the phone call" entry:"1498839008" modified:"1498839008" status:"pending" uuid:"4f69ef2c-d07e-4cd0-8b3f-a993a93c6463"]
+---
+time 1498890892
+old [description:"download more vimium stuff" entry:"1498838935" modified:"1498838935" status:"pending" uuid:"8b616540-5676-4aff-811a-732618936320"]
+new [description:"download more vimium stuff" end:"1498890892" entry:"1498838935" modified:"1498890892" status:"completed" uuid:"8b616540-5676-4aff-811a-732618936320"]
+---
+time 1498890892
+old [description:"the phone call" entry:"1498839008" modified:"1498839008" status:"pending" uuid:"4f69ef2c-d07e-4cd0-8b3f-a993a93c6463"]
+new [description:"the phone call" end:"1498890892" entry:"1498839008" modified:"1498890892" status:"completed" uuid:"4f69ef2c-d07e-4cd0-8b3f-a993a93c6463"]
+---
+time 1498911175
+new [description:"xf86-video-intel" entry:"1498911175" modified:"1498911175" status:"pending" uuid:"87539586-5843-4918-8a54-6cb6f94768c6"]
+---
+time 1498914259
+new [description:"read the first part in Cpp" due:"1498942800" entry:"1498914259" modified:"1498914259" status:"pending" uuid:"730f2208-5a1a-4de7-9320-c4ebe2c689df"]
+---
+time 1498914276
+old [description:"xf86-video-intel" entry:"1498911175" modified:"1498911175" status:"pending" uuid:"87539586-5843-4918-8a54-6cb6f94768c6"]
+new [description:"xf86-video-intel" end:"1498914274" entry:"1498911175" modified:"1498914276" status:"deleted" uuid:"87539586-5843-4918-8a54-6cb6f94768c6"]
+---
+time 1499023069
+old [description:"read the first part in Cpp" due:"1498942800" entry:"1498914259" modified:"1498914259" status:"pending" uuid:"730f2208-5a1a-4de7-9320-c4ebe2c689df"]
+new [description:"read the first part in Cpp" due:"1498942800" end:"1499023069" entry:"1498914259" modified:"1499023069" status:"completed" uuid:"730f2208-5a1a-4de7-9320-c4ebe2c689df"]
+---
+time 1499023117
+new [description:"finish chapter 3" due:"1499115600" entry:"1499023117" modified:"1499023117" status:"pending" uuid:"97c54d78-3c65-4948-ac0b-8d12965eaebe"]
+---
+time 1499067233
+new [description:"download unity in the weekend" due:"1499461200" entry:"1499067233" modified:"1499067233" status:"pending" uuid:"2fed969f-aac2-4dc7-b746-3f27c135ef1d"]
+---
+time 1499067247
+old [description:"download unity in the weekend" due:"1499461200" entry:"1499067233" modified:"1499067233" status:"pending" uuid:"2fed969f-aac2-4dc7-b746-3f27c135ef1d"]
+new [description:"download unity in the weekend" due:"1499547600" entry:"1499067233" modified:"1499067247" status:"pending" uuid:"2fed969f-aac2-4dc7-b746-3f27c135ef1d"]
+---
+time 1499139357
+old [description:"finish chapter 3" due:"1499115600" entry:"1499023117" modified:"1499023117" status:"pending" uuid:"97c54d78-3c65-4948-ac0b-8d12965eaebe"]
+new [description:"finish chapter 3" due:"1499115600" end:"1499139357" entry:"1499023117" modified:"1499139357" status:"completed" uuid:"97c54d78-3c65-4948-ac0b-8d12965eaebe"]
+---
+time 1499148487
+new [description:"Finish chapter 4" due:"1499202000" entry:"1499148487" modified:"1499148487" status:"pending" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499148566
+old [description:"Finish chapter 4" due:"1499202000" entry:"1499148487" modified:"1499148487" status:"pending" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish chapter 4" due:"1499202000" entry:"1499148487" modified:"1499148566" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499148571
+new [description:"Finish chapter 4" due:"1499202000" entry:"1499148571" imask:"0" modified:"1499148566" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"68867f87-a91d-44e1-aa42-70cbff9eae32"]
+---
+time 1499148571
+old [description:"Finish chapter 4" due:"1499202000" entry:"1499148487" modified:"1499148566" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish chapter 4" due:"1499202000" entry:"1499148487" mask:"-" modified:"1499148571" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499148590
+old [description:"Finish chapter 4" due:"1499202000" entry:"1499148571" imask:"0" modified:"1499148566" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"68867f87-a91d-44e1-aa42-70cbff9eae32"]
+new [description:"Finish a chapter" due:"1499202000" entry:"1499148571" imask:"0" modified:"1499148590" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"68867f87-a91d-44e1-aa42-70cbff9eae32"]
+---
+time 1499148593
+old [description:"Finish chapter 4" due:"1499202000" entry:"1499148487" mask:"-" modified:"1499148571" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"-" modified:"1499148593" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499148616
+old [description:"download unity in the weekend" due:"1499547600" entry:"1499067233" modified:"1499067247" status:"pending" uuid:"2fed969f-aac2-4dc7-b746-3f27c135ef1d"]
+new [description:"download unity in the weekend" due:"1499547600" end:"1499148611" entry:"1499067233" modified:"1499148616" status:"deleted" uuid:"2fed969f-aac2-4dc7-b746-3f27c135ef1d"]
+---
+time 1499231636
+new [description:"Finish a chapter" due:"1499288400" entry:"1499231636" imask:"1" modified:"1499148593" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"a4026622-eb57-4007-ab7b-d5cf3cea7ad5"]
+---
+time 1499231636
+old [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"-" modified:"1499148593" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"--" modified:"1499231636" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499231647
+old [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"--" modified:"1499231636" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"+-" modified:"1499231647" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499231647
+old [description:"Finish a chapter" due:"1499202000" entry:"1499148571" imask:"0" modified:"1499148590" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"68867f87-a91d-44e1-aa42-70cbff9eae32"]
+new [description:"Finish a chapter" due:"1499202000" end:"1499231647" entry:"1499148571" imask:"0" modified:"1499231647" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"completed" uuid:"68867f87-a91d-44e1-aa42-70cbff9eae32"]
+---
+time 1499231672
+new [description:"Mena devs meeting 14th" entry:"1499231672" modified:"1499231672" status:"pending" uuid:"b0351786-a714-45e3-81e4-11d5e0835872"]
+---
+time 1499285095
+old [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"+-" modified:"1499231647" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"++" modified:"1499285095" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499285095
+old [description:"Finish a chapter" due:"1499288400" entry:"1499231636" imask:"1" modified:"1499148593" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"a4026622-eb57-4007-ab7b-d5cf3cea7ad5"]
+new [description:"Finish a chapter" due:"1499288400" end:"1499285095" entry:"1499231636" imask:"1" modified:"1499285095" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"completed" uuid:"a4026622-eb57-4007-ab7b-d5cf3cea7ad5"]
+---
+time 1499333510
+new [description:"mom for cartoon cups" entry:"1499333510" modified:"1499333510" status:"pending" uuid:"3c41adae-a9dd-4d23-9d87-e16544864245"]
+---
+time 1499407691
+new [description:"Finish a chapter" due:"1499374800" entry:"1499407691" imask:"2" modified:"1499285095" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+---
+time 1499407691
+new [description:"Finish a chapter" due:"1499461200" entry:"1499407691" imask:"3" modified:"1499285095" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+---
+time 1499407691
+old [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"++" modified:"1499285095" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"++--" modified:"1499407691" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499407857
+old [description:"Finish a chapter" due:"1499374800" entry:"1499407691" imask:"2" modified:"1499285095" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+new [description:"frequency=" due:"1499374800" entry:"1499407691" imask:"2" modified:"1499407857" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+---
+time 1499407869
+old [description:"Finish a chapter" due:"1499461200" entry:"1499407691" imask:"3" modified:"1499285095" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+new [description:"frequency=" due:"1499461200" entry:"1499407691" imask:"3" modified:"1499407869" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+---
+time 1499407869
+old [description:"Finish a chapter" due:"1499202000" entry:"1499148487" mask:"++--" modified:"1499407691" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"frequency=" due:"1499202000" entry:"1499148487" mask:"++--" modified:"1499407869" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499408053
+old [description:"frequency=" due:"1499202000" entry:"1499148487" mask:"++--" modified:"1499407869" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"recurd=" due:"1499202000" entry:"1499148487" mask:"++--" modified:"1499408053" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499408053
+old [description:"frequency=" due:"1499374800" entry:"1499407691" imask:"2" modified:"1499407857" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+new [description:"recurd=" due:"1499374800" entry:"1499407691" imask:"2" modified:"1499408053" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+---
+time 1499408053
+old [description:"frequency=" due:"1499461200" entry:"1499407691" imask:"3" modified:"1499407869" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+new [description:"recurd=" due:"1499461200" entry:"1499407691" imask:"3" modified:"1499408053" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+---
+time 1499408076
+old [description:"recurd=" due:"1499202000" entry:"1499148487" mask:"++--" modified:"1499408053" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"recurd=" due:"1499202000" entry:"1499148487" mask:"+++-" modified:"1499408076" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499408076
+old [description:"recurd=" due:"1499374800" entry:"1499407691" imask:"2" modified:"1499408053" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+new [description:"recurd=" due:"1499374800" end:"1499408076" entry:"1499407691" imask:"2" modified:"1499408076" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"completed" uuid:"b04fc8e5-5cd3-4615-b506-9135a50f08b2"]
+---
+time 1499408076
+old [description:"recurd=" due:"1499202000" entry:"1499148487" mask:"+++-" modified:"1499408076" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+new [description:"recurd=" due:"1499202000" entry:"1499148487" mask:"++++" modified:"1499408076" recur:"daily" status:"recurring" uuid:"4dabd500-2da6-4027-b14f-8107b1abc74d"]
+---
+time 1499408076
+old [description:"recurd=" due:"1499461200" entry:"1499407691" imask:"3" modified:"1499408053" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"pending" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+new [description:"recurd=" due:"1499461200" end:"1499408076" entry:"1499407691" imask:"3" modified:"1499408076" parent:"4dabd500-2da6-4027-b14f-8107b1abc74d" recur:"daily" status:"completed" uuid:"84fd7b7a-3730-4974-bcd9-3f0a8722ec99"]
+---
+time 1499426850
+new [description:"revise the exerices when you finish with the first chapter" entry:"1499426850" modified:"1499426850" status:"pending" uuid:"a64f8935-5de2-499e-b97c-6bc96d95733e"]
+---
