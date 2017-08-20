@@ -6081,3 +6081,21 @@
 2017-06-30 20:44:27		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, guile, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
 2017-06-30 20:44:28		script: 349 scripts for WeeChat 1.9
 2017-06-30 20:44:38	=!=	irc: command "join" must be executed on connected irc server
+2017-07-09 12:50:33		perl scripts loaded: iset
+2017-07-09 12:50:33		script: downloading list of scripts...
+2017-07-09 12:50:33		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, guile, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
+2017-07-09 12:50:35		script: 349 scripts for WeeChat 1.9
+2017-07-09 12:50:49	=!=	Error: unknown command "/bugger" (type /help for help)
+2017-07-26 20:07:10		perl scripts loaded: iset
+2017-07-26 20:07:10		script: downloading list of scripts...
+2017-07-26 20:07:10		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, guile, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
+2017-07-26 20:07:12		script: 349 scripts for WeeChat 1.9
+2017-07-26 20:08:11		perl scripts loaded: iset
+2017-07-26 20:08:11		script: 349 scripts for WeeChat 1.9
+2017-07-26 20:08:11		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, guile, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
+2017-07-27 20:49:32		perl scripts loaded: iset
+2017-07-27 20:49:32		script: downloading list of scripts...
+2017-07-27 20:49:32		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, guile, irc, logger, lua, perl, python, relay, ruby, script, tcl, trigger, xfer
+2017-07-27 20:49:35		script: 349 scripts for WeeChat 1.9
+2017-07-27 20:59:50	=!=	Error with command "/buffer progrmaming" (help on command: /help buffer)
+2017-07-27 21:01:36	=!=	Error with command "/buffer weechar" (help on command: /help buffer)

@@ -1726,3 +1726,354 @@
 2017-06-30 22:06:16	<--	energizer (~energizer@unaffiliated/energizer) has quit (Ping timeout: 276 seconds)
 2017-06-30 22:06:32	-->	Hello71 (~Hello71@wikipedia/Hello71) has joined #bash
 2017-06-30 22:06:40	-->	energizer (~energizer@unaffiliated/energizer) has joined #bash
+2017-07-09 12:50:48	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-07-09 12:50:48	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-07-09 12:50:48	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-07-09 12:50:49	--	Channel #bash: 1198 nicks (1 op, 0 voices, 1197 normals)
+2017-07-09 12:50:49	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-07-09 12:50:50	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-07-09 12:51:16	-->	aspence (~alistairs@host-84-13-231-214.opaltelecom.net) has joined #bash
+2017-07-26 20:07:18	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-07-26 20:07:18	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-07-26 20:07:18	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-07-26 20:07:19	--	Channel #bash: 1267 nicks (1 op, 0 voices, 1266 normals)
+2017-07-26 20:07:19	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-07-26 20:07:20	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-07-26 20:07:40	<--	legend (~killbill@123.201.208.144) has quit (Quit: legend)
+2017-07-26 20:08:19	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-07-26 20:08:19	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-07-26 20:08:19	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-07-26 20:08:19	--	Channel #bash: 1266 nicks (1 op, 0 voices, 1265 normals)
+2017-07-26 20:08:19	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-07-26 20:08:21	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-07-26 20:08:23	<--	fission6 (~textual@c-24-19-234-76.hsd1.wa.comcast.net) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-26 20:09:09	-->	thebope (~thebope@pdpc/supporter/student/thebope) has joined #bash
+2017-07-26 20:09:39	<--	CurryWurst (~CurryWurs@server.samoylyk.net) has quit (Remote host closed the connection)
+2017-07-26 20:09:51	-->	kpease (~kpease@72.22.182.166) has joined #bash
+2017-07-26 20:10:07	-->	anyofyou (~anyofyou@157.65.30.7) has joined #bash
+2017-07-26 20:10:09	<--	dpl (~dpl@37.229.93.215) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:10:41	<--	rgtk (~rgtk@78.10.161.253) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:11:00	<--	TomyWork (~tomy@85.199.84.100) has quit (Remote host closed the connection)
+2017-07-26 20:11:33	<--	inad922 (~inad925@78-131-82-48.pool.digikabel.hu) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:12:49	-->	ioan (~ioan@unaffiliated/ioan) has joined #bash
+2017-07-26 20:13:10	-->	WoodLeg (~WoodLeg@81.180.208.126) has joined #bash
+2017-07-26 20:13:37	<--	thebope (~thebope@pdpc/supporter/student/thebope) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:13:53	-->	password4 (~password@unaffiliated/password2) has joined #bash
+2017-07-26 20:14:27	<--	Mikee_C (~michaelc@2001:67c:1560:8007::aac:c07f) has quit (Ping timeout: 258 seconds)
+2017-07-26 20:14:59	ioan	rrdtool, I have two DS, temp and cpu, how do I update them both in one command?
+2017-07-26 20:15:05	<--	jj|2 (~j@84.164.195.178.dynamic.wline.res.cust.swisscom.ch) has quit (Read error: Connection reset by peer)
+2017-07-26 20:15:07	<--	gtristan (~tristanva@82-70-136-246.dsl.in-addr.zen.co.uk) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:15:22	<--	password8 (~password@unaffiliated/password2) has quit (Read error: Connection reset by peer)
+2017-07-26 20:17:11	-->	ravior (~crapitea@5-13-134-137.residential.rdsnet.ro) has joined #bash
+2017-07-26 20:17:47	<--	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:17:51	-->	rahtgaz (~rahtgaz@unaffiliated/rahtgaz) has joined #bash
+2017-07-26 20:17:54	-->	bhuvi_ (~quassel@117.98.178.213) has joined #bash
+2017-07-26 20:18:13	-->	kw21 (~kw21@D978E830.cm-3-1d.dynamic.ziggo.nl) has joined #bash
+2017-07-26 20:18:35	-->	ahmed_elgabri (~ahmedelga@2a02:a441:9f5:1:390a:b734:65bf:7162) has joined #bash
+2017-07-26 20:19:56	-->	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has joined #bash
+2017-07-26 20:20:03	greycat	The only rrdtool command I can find at the moment is this one:  rrdtool update "$rrd" -t pingmin:pingavg:pingmax "N:$stats"
+2017-07-26 20:20:18	<--	jathan (~jathan@201.99.106.102) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:20:28	greycat	I think my others all perished somewhere.
+2017-07-26 20:20:31	<--	MindSpark (~Mind@p5B2C450B.dip0.t-ipconnect.de) has quit (Remote host closed the connection)
+2017-07-26 20:20:37	-->	batch (~batch@unaffiliated/batch) has joined #bash
+2017-07-26 20:21:18	greycat	There's some code before that which makes me believe "stats" will contain three numbers with : between them.
+2017-07-26 20:21:37	-->	geirha (geirha@gina.it.ntnu.no) has joined #bash
+2017-07-26 20:22:18	ioan	thanks greycat, I think I found the answer: rrdtool update cpu_db.rrd --template temp:cpu N:$temp:$cpu
+2017-07-26 20:22:30	greycat	!umq
+2017-07-26 20:22:30	greybot	"$Use" "$More" "$Quotes" # see also !wordsplitting and !quotewhen
+2017-07-26 20:22:52	<--	Beeblebrox-BSD (~Beeblebro@24.133.238.42) has quit (Quit: Leaving)
+2017-07-26 20:22:52	<--	anyofyou (~anyofyou@157.65.30.7) has quit (Quit: WeeChat 1.9)
+2017-07-26 20:22:58	ioan	I will :-)
+2017-07-26 20:23:46	-->	m0viefreak (~asdf@unaffiliated/m0viefreak) has joined #bash
+2017-07-26 20:24:03	<--	ahmed_elgabri (~ahmedelga@2a02:a441:9f5:1:390a:b734:65bf:7162) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:24:56	<--	VikingHoarder (~VikingHoa@203.233.108.93.rev.vodafone.pt) has quit (Remote host closed the connection)
+2017-07-26 20:25:12	-->	zendeavor (~zendeavor@162-250-205-189-static.bbn.ken-tennwireless.com) has joined #bash
+2017-07-26 20:25:24	Smirnov	can i somehow check multiple directories with * and [[]] if a file exists? i want to say 'if any of these direct subdirectores have foo.bar' ? [[ -e */foo.bar ]] does not work
+2017-07-26 20:25:31	greycat	!faq 4
+2017-07-26 20:25:31	greybot	http://mywiki.wooledge.org/BashFAQ/004 -- How can I check whether a directory is empty or not?  How do I check for any *.mpg files, or count how many there are?
+2017-07-26 20:26:02	FrostyBytes	Smirnov: probably best addressed with a find grep combination
+2017-07-26 20:26:14	Camusensei	FrostyBytes: definitely not.
+2017-07-26 20:26:18	greycat	Only if you wanted to recurse, and then it would be just find, not grep.
+2017-07-26 20:26:28	konsolebox	Smirnov: shopt -s nullglob; files=(*/foo.bar); [[ ${#files[@]} -gt 0 ]] && echo "Not empy."
+2017-07-26 20:26:37	Camusensei	"if any of these direct subdirectores"
+2017-07-26 20:27:38	Camusensei	I like shorter:  files=(*/foo.bar); [[ -e $files ]] && echo not empty
+2017-07-26 20:27:50	greycat	needs nullglob
+2017-07-26 20:27:57	Camusensei	no
+2017-07-26 20:28:28	<--	password4 (~password@unaffiliated/password2) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:28:46	<--	karols146 (~karols146@205.201.55.6) has quit (Quit: WeeChat 1.7)
+2017-07-26 20:28:59	greycat	OK, needs nullglob if you want to do anything more than check whether the 0th element is an actual file.
+2017-07-26 20:29:18	greycat	(Or you need to check each element one by one, etc.)
+2017-07-26 20:29:23	-->	karols146 (~karols146@205.201.55.6) has joined #bash
+2017-07-26 20:29:26	Camusensei	it's not checking if it's an actual file, just if it exists
+2017-07-26 20:29:40	greycat	actual file-system-thing
+2017-07-26 20:29:41	Camusensei	could be a directory for ex.
+2017-07-26 20:29:48	Smirnov	but why do you need nullglob?
+2017-07-26 20:29:59	Smirnov	i'm running it locally and it seems to do the same thing without nullglob
+2017-07-26 20:30:09	greycat	Smirnov: if the glob matches nothing, it is not replaced.  You get the literal glob as the 0th array element.
+2017-07-26 20:30:10	izabera	do you know what nullglob does?
+2017-07-26 20:30:21	greycat	He didn't test well enough.
+2017-07-26 20:30:29	Smirnov	ahhh, ok
+2017-07-26 20:30:41	Smirnov	yep, there it is, thanks
+2017-07-26 20:32:15	-->	hseg (c3c0e516@gateway/web/freenode/ip.195.192.229.22) has joined #bash
+2017-07-26 20:32:19	Camusensei	I don't see a case where my code would fail compared to konsolebox's
+2017-07-26 20:32:22	hseg	How do I grep for a unicode codepoint?
+2017-07-26 20:32:32	hseg	e.g. 𝒩
+2017-07-26 20:33:03	geirha	grep 𝒩
+2017-07-26 20:33:08	Camusensei	does not work for me
+2017-07-26 20:33:10	hseg	Doesn't match
+2017-07-26 20:33:13	-->	TomyLobo2 (~TomyLobo@2a02:8109:87c0:20c:8410:ccc9:a614:68d4) has joined #bash
+2017-07-26 20:33:14	greycat	$'\unnnn' is a valid quoting thing in bash.
+2017-07-26 20:33:14	<--	cdg (~cdg@2602:30a:2e2d:b980:9c4a:d32f:2fb1:9708) has quit (Ping timeout: 258 seconds)
+2017-07-26 20:33:28	konsolebox	Camusensei: in this case it probably doesn't give a difference.
+2017-07-26 20:33:29	greycat	If you can't put the literal character in the command.
+2017-07-26 20:33:58	-->	Puggy (~FASDFSF@unaffiliated/fasdfsf) has joined #bash
+2017-07-26 20:34:01	hseg	Won't work, 𝒩 is U+1D4A9
+2017-07-26 20:34:20	greycat	oh, 8 hex characters...
+2017-07-26 20:34:30	Camusensei	# printf %s\\n 'foo' '𝒩' 'bar' | grep '𝒩' # works
+2017-07-26 20:34:31	shbot	Camusensei: 𝒩
+2017-07-26 20:34:47	greycat	grep $'\U0001D4A9'
+2017-07-26 20:34:50	geirha	~$ printf 'something 𝒩 something\nno match\n' | grep 𝒩
+2017-07-26 20:34:52	geirha	something 𝒩 something
+2017-07-26 20:34:56	geirha	wfm
+2017-07-26 20:35:22	Camusensei	somehow it doesn't work on my machine though
+2017-07-26 20:35:34	greycat	Is your locale set to something other than *.utf8?
+2017-07-26 20:35:35	geirha	what does ''locale'' output?
+2017-07-26 20:35:47	Camusensei	no
+2017-07-26 20:35:50	hseg	locale is en_US.UTF-8
+2017-07-26 20:35:55	Camusensei	en_US.UTF-8
+2017-07-26 20:35:59	greycat	If you're copy-pasting the character from an IRC client, I'm pretty sure it's utf8 incoming.
+2017-07-26 20:36:02	Camusensei	LC_ALL is empty thouygh
+2017-07-26 20:36:10	greycat	As it should be.
+2017-07-26 20:36:18	geirha	Hm. Works here with BSD grep at least. Maybe it's a problem with GNU grep
+2017-07-26 20:36:19	hseg	and echo $'\U0001D4A9' does print 𝒩
+2017-07-26 20:36:28	hseg	It is GNU grep
+2017-07-26 20:36:45	greycat	I get geirha's result.
+2017-07-26 20:36:49	Camusensei	geirha: BSD grep as well?
+2017-07-26 20:37:01	greycat	I get geirha's result on Debian 9, in urxvt.
+2017-07-26 20:37:11	geirha	~$ printf 'something 𝒩 something\nno match\n' | grep $'\U1D4A9'
+2017-07-26 20:37:13	geirha	something 𝒩 something
+2017-07-26 20:37:42	Camusensei	no, I get a correct result with GNU grep as well
+2017-07-26 20:37:49	Camusensei	on my gentoo box
+2017-07-26 20:38:05	greycat	Which machine did it fail on?
+2017-07-26 20:38:08	hseg	GNU grep on Cygwin fails
+2017-07-26 20:38:14	greycat	*snort* bwahahahaha
+2017-07-26 20:38:16	Camusensei	cygwin ^^
+2017-07-26 20:38:19	-->	jj|2 (~j@84.164.195.178.dynamic.wline.res.cust.swisscom.ch) has joined #bash
+2017-07-26 20:38:26	greycat	Christ, there are TWO of you?
+2017-07-26 20:38:46	Camusensei	funny heh? xD
+2017-07-26 20:38:48	hseg	What's so wrong with Cygwin that I get mocked each time I bring it up?
+2017-07-26 20:38:51	<--	cdown (~cdown@199.201.66.0) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:38:59	Smirnov	thanks guys, got it to work with nullglob
+2017-07-26 20:39:02	greycat	Hint: it's not the Cyg part.
+2017-07-26 20:39:04	djph	windows, generally
+2017-07-26 20:39:29	konsolebox	hseg: Cygwin is just an emulate-or so don't expect it to work as good as a real Linux terminal
+2017-07-26 20:39:34	hseg	Ah.
+2017-07-26 20:39:35	-->	thebope (~thebope@pdpc/supporter/student/thebope) has joined #bash
+2017-07-26 20:40:00	Camusensei	if it's only that then I think it unjustified, some people simply don't have the choice
+2017-07-26 20:40:06	hseg	Well, some of us are not fortunate enough to be able to run full linux systems, and have to make do with what we can sneak past people.
+2017-07-26 20:40:18	Camusensei	brother? xD
+2017-07-26 20:40:27	-->	legend (~killbill@123.201.208.144) has joined #bash
+2017-07-26 20:40:33	djph	"work"?
+2017-07-26 20:40:50	Camusensei	yes
+2017-07-26 20:41:12	greycat	Well, some things simply will not work correctly in that environment.  Nothing we can do about it.
+2017-07-26 20:41:23	hseg	No computer of my own, and my parents won't like dual-booting linux.
+2017-07-26 20:41:26	Camusensei	yep, file a bug if you have the time, hseg
+2017-07-26 20:41:37	konsolebox	hseg: virtualbox
+2017-07-26 20:41:46	<--	sleepee (~sleepee@24.55.74.192) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:41:53	Camusensei	not handy enough
+2017-07-26 20:42:03	greycat	Get some beaten-up old used PC and put Linux on it.
+2017-07-26 20:42:08	Cuzner	hseg: windows 10?
+2017-07-26 20:42:13	hseg	Cuzner: Yes
+2017-07-26 20:42:22	Cuzner	hseg: use Ubuntu Shell instead
+2017-07-26 20:42:24	<--	bapun (~bapun@103.14.198.22) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:42:25	hseg	konsolebox: greycat Have been considering both of those options
+2017-07-26 20:42:29	<--	magyar (~magyar@unaffiliated/magyar) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:42:30	-->	magyar_ (~magyar@unaffiliated/magyar) has joined #bash
+2017-07-26 20:42:32	<--	malina (~malina@unaffiliated/malina) has quit (Ping timeout: 276 seconds)
+2017-07-26 20:42:33	Cuzner	at least it's real bash4 there.
+2017-07-26 20:42:35	hseg	Cuzner: Haven't had time to check it out yet.
+2017-07-26 20:42:46	Cuzner	but you had time to install a 3rd party application?
+2017-07-26 20:42:57	hseg	That was before loss of time
+2017-07-26 20:43:00	Cuzner	you can install it through Windows Features in win10
+2017-07-26 20:43:09	Cuzner	takes ~30 seconds
+2017-07-26 20:43:15	konsolebox	Cuzner: Cygwin doesn't have a real bash4?
+2017-07-26 20:43:17	Camusensei	provided you have the correct w10 version
+2017-07-26 20:43:30	Cuzner	konsolebox: sorry, yes it does, but it's not a true shell
+2017-07-26 20:43:42	konsolebox	you mean, not a true terminal?
+2017-07-26 20:43:47	ammar2	a VM works too
+2017-07-26 20:43:52	Cuzner	GNU bash, version 4.3.46(2)-release (x86_64-pc-msys)
+2017-07-26 20:43:57	ammar2	I do most of my dev work in a VM on a windows machine
+2017-07-26 20:44:04	Camusensei	no, the terminal has nothing to do with it
+2017-07-26 20:44:13	<--	thebope (~thebope@pdpc/supporter/student/thebope) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:44:23	Camusensei	GNU bash, version 4.4.12(3)-release (x86_64-unknown-cygwin)
+2017-07-26 20:44:41	Cuzner	ammar2: I have an ubuntu, centos, rhel vm on this box, i still do most of my dev in cygwin or the ubuntu shell.
+2017-07-26 20:44:54	Cuzner	i really only use the vms to spin up docker environments and whatnot.
+2017-07-26 20:45:02	Cuzner	i run ansible most of the time in the ubuntu shell
+2017-07-26 20:45:06	<--	wandering_vagran (~wandering@45.64.238.188) has quit (Remote host closed the connection)
+2017-07-26 20:45:52	-->	Mista-D (~Mista_D@66.207.203.114) has joined #bash
+2017-07-26 20:46:30	<--	Laif (~mp@unaffiliated/laif) has quit (Read error: Connection reset by peer)
+2017-07-26 20:47:15	<--	itseris (~emikulin@76.77.65.2) has quit (Remote host closed the connection)
+2017-07-26 20:48:17	Mista-D	looking to find and replace a junk character in XML. Its interpreted as backspace while "cat". the string is  (78 08 78 HEX), vi shows it as "^?^H^?"  Please advise
+2017-07-26 20:48:25	Cuzner	looks like i need a new version of cygwin though, Camusensei has a newer version of bash...
+2017-07-26 20:48:28	-->	louisdk (~louisdk@212.178.176.210) has joined #bash
+2017-07-26 20:48:48	greycat	Mista-D: overstrike boldface?
+2017-07-26 20:49:07	greycat	Not sure why anyone would put overstrike boldface inside XML.
+2017-07-26 20:49:11	Camusensei	Mista-D: sed -n l
+2017-07-26 20:49:17	greycat	Not sure why anyone would put *anything* inside XML.
+2017-07-26 20:49:27	-->	karols141 (~karols146@205.201.55.5) has joined #bash
+2017-07-26 20:49:29	Cuzner	besides data?
+2017-07-26 20:49:38	Mista-D	greycat: my mistake, HEX is "7F 08 7F"
+2017-07-26 20:49:42	Camusensei	Mista-D: sed -n l
+2017-07-26 20:49:47	Cuzner	or is this a json vs. xml religious debate?
+2017-07-26 20:50:04	Cuzner	vs yml woot woot
+2017-07-26 20:50:07	<--	WoodLeg (~WoodLeg@81.180.208.126) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:50:24	Camusensei	vs csv or I won't participate in the debate
+2017-07-26 20:50:46	<--	YuGiOhJCJ (~YuGiOhJCJ@gateway/tor-sasl/yugiohjcj) has quit (Quit: YuGiOhJCJ)
+2017-07-26 20:50:58	-->	dpl (~dpl@37.229.93.215) has joined #bash
+2017-07-26 20:51:53	geirha	so ... what was the character supposed to be?
+2017-07-26 20:52:19	greycat	X BS X still looks like overstrike boldface to me, a la man pages being sent to line printers.
+2017-07-26 20:52:29	<--	karols146 (~karols146@205.201.55.6) has quit (Ping timeout: 268 seconds)
+2017-07-26 20:52:32	greycat	Could be concidence.
+2017-07-26 20:53:22	geirha	in that case, just view it with less instead of cat; problem solved
+2017-07-26 20:53:49	-->	karols146 (~karols146@205.201.55.7) has joined #bash
+2017-07-26 20:53:53	Camusensei	geirha: he/she wants find and replace
+2017-07-26 20:54:21	<--	louisdk (~louisdk@212.178.176.210) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:54:40	Camusensei	so if he/she just used sed -n l to get the character code he/she would be able to sed s/// it but either I'm ignored or it's ongoing
+2017-07-26 20:54:42	geirha	ah yes, the first thing the user asks for is *always* what the user wants
+2017-07-26 20:54:43	greycat	Can we get a clearer question so we don't have to guess?
+2017-07-26 20:55:30	Camusensei	actually "replace a junk character" could be translated to removed </anotherguess>
+2017-07-26 20:55:35	-->	mohsen_1 (~Mohsen@2.183.202.70) has joined #bash
+2017-07-26 20:55:41	emg	!psychic
+2017-07-26 20:55:41	greybot	Nope, still not psychic.
+2017-07-26 20:55:43	emg	damn
+2017-07-26 20:56:15	-->	gloomy (~luca@2-106-113-178-dynamic.dk.customer.tdc.net) has joined #bash
+2017-07-26 20:56:21	<--	dpl (~dpl@37.229.93.215) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:56:26	<--	polymorphisme (~Thunderbi@2a01:e35:2421:ea10:7627:eaff:fe50:a29b) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:56:27	<--	karols141 (~karols146@205.201.55.5) has quit (Ping timeout: 246 seconds)
+2017-07-26 20:56:28	hseg	I guess I'll use vim's search for those codepoints to work around the problem for the moment.
+2017-07-26 20:56:28	geirha	Can't even test your psychic power anymore either, now that the JREF doesn't do the million dollar challenge anymore :(
+2017-07-26 20:56:34	hseg	Thanks for the help.
+2017-07-26 20:56:45	hseg	Gotta go, bye!
+2017-07-26 20:56:47	<--	hseg (c3c0e516@gateway/web/freenode/ip.195.192.229.22) has quit
+2017-07-26 20:56:58	-->	louisdk (~louisdk@212.178.176.210) has joined #bash
+2017-07-27 20:49:55	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-07-27 20:49:55	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-07-27 20:49:55	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-07-27 20:49:56	--	Channel #bash: 1274 nicks (1 op, 0 voices, 1273 normals)
+2017-07-27 20:49:56	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-07-27 20:49:57	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-07-27 20:50:33	-->	karakedi (~eAC53C340@78.191.80.48) has joined #bash
+2017-07-27 20:50:34	<--	karakedi (~eAC53C340@78.191.80.48) has quit (Changing host)
+2017-07-27 20:50:34	-->	karakedi (~eAC53C340@unaffiliated/orphan) has joined #bash
+2017-07-27 20:50:58	<--	cores (chris@2600:3c03::f03c:91ff:fe73:e436) has quit (Ping timeout: 255 seconds)
+2017-07-27 20:51:08	<--	Klaus_Dieter (~klaus@x4db32418.dyn.telefonica.de) has quit (Quit: leaving)
+2017-07-27 20:51:19	-->	vuoto (~vuoto@80.71.142.118) has joined #bash
+2017-07-27 20:51:38	-->	Klaus_Dieter (~klaus@x4db32418.dyn.telefonica.de) has joined #bash
+2017-07-27 20:51:47	-->	cores (chris@2600:3c03::f03c:91ff:fe73:e436) has joined #bash
+2017-07-27 20:52:26	-->	m0viefreak (~asdf@unaffiliated/m0viefreak) has joined #bash
+2017-07-27 20:53:22	-->	jMrL_ (~jMrL@gateway/vpn/privateinternetaccess/jmrl) has joined #bash
+2017-07-27 20:54:15	-->	InterAl (~alonn@185.24.76.158) has joined #bash
+2017-07-27 20:54:26	<--	jMrL (~jMrL@gateway/vpn/privateinternetaccess/jmrl) has quit (Ping timeout: 248 seconds)
+2017-07-27 20:55:08	-->	bigfoot547 (~bigfoot54@unaffiliated/bigfoot547) has joined #bash
+2017-07-27 20:56:07	<--	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 240 seconds)
+2017-07-27 20:56:20	<--	bigfoot547 (~bigfoot54@unaffiliated/bigfoot547) has left #bash ("WeeChat > HexChat. strcmp tells all.")
+2017-07-27 20:57:53	-->	karols146 (~karols146@205.201.55.6) has joined #bash
+2017-07-27 20:58:09	<--	jMrL_ (~jMrL@gateway/vpn/privateinternetaccess/jmrl) has quit (Ping timeout: 248 seconds)
+2017-07-27 20:58:18	<--	alphor (~floor13@2001:19f0:5:14c:5400:ff:fe6e:276c) has quit (Quit: Bye!)
+2017-07-27 20:58:21	<--	ephlip (~etienne@2607:fad8:4:6:73a7:1276:e584:ab2a) has quit (Ping timeout: 246 seconds)
+2017-07-27 20:59:14	-->	alphor (~floor13@2001:19f0:5:14c:5400:ff:fe6e:276c) has joined #bash
+2017-07-27 20:59:27	-->	jMrL (~jMrL@gateway/vpn/privateinternetaccess/jmrl) has joined #bash
+2017-07-27 21:01:21	<--	mnemonic (~semeion@unaffiliated/semeion) has quit (Quit: WeeChat 1.9)
+2017-07-27 21:01:34	-->	kpease (~kpease@72.22.182.166) has joined #bash
+2017-07-27 21:01:40	-->	n4dir (~user@p200300C403CCC600021A4BFFFE4896D9.dip0.t-ipconnect.de) has joined #bash
+2017-07-27 21:02:20	<--	obiwan90 (~obiwan90@192.139.80.1) has quit (Ping timeout: 255 seconds)
+2017-07-27 21:02:57	-->	semeion (~semeion@unaffiliated/semeion) has joined #bash
+2017-07-27 21:03:13	-->	Sasazuka (~Sasazuka@unaffiliated/sasazuka) has joined #bash
+2017-07-27 21:04:12	-->	obiwan90 (~obiwan90@fwcs01.casalemedia.com) has joined #bash
+2017-07-27 21:04:52	<--	xaa (~xaa@2a02:a03f:2a70:6a00:909b:8442:da99:2271) has quit (Read error: Connection reset by peer)
+2017-07-27 21:04:54	<--	Vonter (~Vonter@49.207.61.52) has quit (Ping timeout: 260 seconds)
+2017-07-27 21:05:32	-->	ELFrederich (~ELFrederi@216.196.155.202) has joined #bash
+2017-07-27 21:06:07	-->	Paraxial (~Paraxial@cpc111117-wiga14-2-0-cust1368.18-3.cable.virginm.net) has joined #bash
+2017-07-27 21:06:15	ELFrederich	what's that Git thing where you can store all your favorite things on GitHub to easily re-create your bash environment from machine to machine?
+2017-07-27 21:06:28	-->	rovonovo_zoro (uid229900@gateway/web/irccloud.com/x-tdjadnbsphobrbja) has joined #bash
+2017-07-27 21:07:17	lopid	"dotfiles"?
+2017-07-27 21:07:28	izabera	git storeongithub
+2017-07-27 21:08:37	ELFrederich	lopid, that might be it... thanks
+2017-07-27 21:08:55	<--	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has quit (Quit: Leaving)
+2017-07-27 21:09:37	<--	vuoto (~vuoto@80.71.142.118) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:10:01	konsolebox	bash528: clear_env() { while IFS=' =' read _ _ var _; do unset "$var"; done < <(declare -px; declare -pFx); } ( set -- /bin/bash -lc '[exec] COMMAND [FIXED-ARGS] ["$@"] [REDIRECTIONS] [; ANOTHER COMMAND]' [-- "some" "args" "to" "inject"]; clear_env; exec "$@"; )
+2017-07-27 21:10:33	konsolebox	clear_env may need to be updated if declare -p changes in the future.
+2017-07-27 21:10:34	-->	vuoto (~vuoto@80.71.142.118) has joined #bash
+2017-07-27 21:11:11	<--	navidr (uid112413@gateway/web/irccloud.com/x-rfvcthkcspcmvrif) has quit (Quit: Connection closed for inactivity)
+2017-07-27 21:11:18	<--	strull (~strull@pD9F4ACD9.dip0.t-ipconnect.de) has quit (Remote host closed the connection)
+2017-07-27 21:11:22	dreisner	'compgen -A export' seems like a nicer format.
+2017-07-27 21:11:39	<--	wonderworld (~ww@ip-176-198-197-145.hsi05.unitymediagroup.de) has quit (Remote host closed the connection)
+2017-07-27 21:12:55	-->	jj|3 (~j@84.164.195.178.dynamic.wline.res.cust.swisscom.ch) has joined #bash
+2017-07-27 21:13:21	izabera	env - cmd
+2017-07-27 21:13:22	konsolebox	dreisner: yes it's nice. how about the functions?
+2017-07-27 21:13:46	izabera	# FOO=bar env - sh -c export
+2017-07-27 21:13:47	shbot	izabera: export PWD='/root'
+2017-07-27 21:13:54	<--	Paraxial (~Paraxial@cpc111117-wiga14-2-0-cust1368.18-3.cable.virginm.net) has quit (Remote host closed the connection)
+2017-07-27 21:14:56	<--	olalonde (uid136@gateway/web/irccloud.com/x-tqpikiuitlzdqhjc) has quit (Quit: Connection closed for inactivity)
+2017-07-27 21:15:03	<--	[diablo] (~textual@unaffiliated/miles/x-000000001) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-07-27 21:15:04	-->	j0z (uid44053@gateway/web/irccloud.com/x-ipugpqvpzcdfjevw) has joined #bash
+2017-07-27 21:15:15	-->	Lope (~Lope@8ta-229-120-40.telkomadsl.co.za) has joined #bash
+2017-07-27 21:15:45	dreisner	# exf() { :; }; export exf; declare -pFx
+2017-07-27 21:15:46	shbot	dreisner: no output
+2017-07-27 21:15:57	<--	relaxed (~relaxed@unaffiliated/relaxed) has quit (Quit: ⠠⠵)
+2017-07-27 21:15:57	greycat	export -f
+2017-07-27 21:16:01	konsolebox	izabera: (hands down)
+2017-07-27 21:16:10	konsolebox	dreisner: export -f
+2017-07-27 21:16:34	konsolebox	i'm pretty sure i knew that `env -` before.. oh well.
+2017-07-27 21:16:35	dreisner	shows how often i use that bizzaro feature...
+2017-07-27 21:17:56	-->	Paraxial (~Paraxial@cpc111117-wiga14-2-0-cust1368.18-3.cable.virginm.net) has joined #bash
+2017-07-27 21:18:06	-->	lumberjake (jshivers@nat/redhat/x-klsqkvypaldktokq) has joined #bash
+2017-07-27 21:18:47	izabera	it also shows that you don't use export without flags very often
+2017-07-27 21:19:37	dreisner	i barely use export at all...
+2017-07-27 21:20:01	greycat	True, it's rare outside of .bash_profile or the like.
+2017-07-27 21:20:19	<--	Paraxial (~Paraxial@cpc111117-wiga14-2-0-cust1368.18-3.cable.virginm.net) has quit (Read error: Connection reset by peer)
+2017-07-27 21:20:21	-->	kristian_on_linu (~kristian@0170201069.0.fullrate.ninja) has joined #bash
+2017-07-27 21:21:14	<--	Logg (~Logg@76.72.182.140) has quit (Ping timeout: 260 seconds)
+2017-07-27 21:21:24	-->	Paraxial (~Paraxial@cpc111117-wiga14-2-0-cust1368.18-3.cable.virginm.net) has joined #bash
+2017-07-27 21:21:27	<--	netman (~netman@185.94.249.77) has quit (Ping timeout: 246 seconds)
+2017-07-27 21:22:09	<--	karols146 (~karols146@205.201.55.6) has quit (Ping timeout: 248 seconds)
+2017-07-27 21:22:10	-->	Logg (~Logg@76.72.182.140) has joined #bash
+2017-07-27 21:22:15	izabera	one of those rare commands that nobody but a few experts know it even exists
+2017-07-27 21:22:32	<--	juvenal (~juvenal@201-1-114-148.dsl.telesp.net.br) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-27 21:22:57	-->	cyborg-one (~cyborg-on@212-178-9-227.broadband.tenet.odessa.ua) has joined #bash
+2017-07-27 21:24:49	-->	juvenal (~juvenal@201-1-114-148.dsl.telesp.net.br) has joined #bash
+2017-07-27 21:26:36	<--	Testerbit (~Maybe@unaffiliated/testerbit) has quit (Quit: Leaving)
+2017-07-27 21:30:11	kristian_on_linu	hi
+2017-07-27 21:30:37	<--	Bock (~bocaneri@about/linux/staff/sauvin) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:31:25	kristian_on_linu	I have files that are named 001-foo.bar 002-bar.bar and so on ... how do I make them be foo_ep01-foo.bar, foo_ep02-bar.bar?
+2017-07-27 21:31:42	greycat	!faq rename
+2017-07-27 21:31:43	greybot	http://mywiki.wooledge.org/BashFAQ/030 -- How can I rename all my *.foo files to *.bar, or convert spaces to underscores, or convert upper-case file names to lower case?
+2017-07-27 21:32:07	greycat	I'd do:  prename 's/^0/foo_ep/' *.bar
+2017-07-27 21:32:42	<--	Paraxial (~Paraxial@cpc111117-wiga14-2-0-cust1368.18-3.cable.virginm.net) has quit (Remote host closed the connection)
+2017-07-27 21:33:00	<--	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has quit (Ping timeout: 276 seconds)
+2017-07-27 21:33:36	kristian_on_linu	hi greycat
+2017-07-27 21:33:53	-->	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has joined #bash
+2017-07-27 21:35:10	-->	argus (~t7DS@177.205.83.18.dynamic.adsl.gvt.net.br) has joined #bash
+2017-07-27 21:36:44	<--	Al3xG0 (~t7DS@unaffiliated/al3xg0) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:39:38	konsolebox	# touch 001-foo.bar 002-bar.bar; for f in 0[0-9][0-9]-*.bar; do [[ $f =~ ^0([0-9][0-9])-(.*)[.]bar$ ]]; echo mv -- "$f" "${BASH_REMATCH[2]}_ep${BASH_REMATCH[1]}-${BASH_REMATCH[2]}.bar"; done
+2017-07-27 21:39:39	shbot	konsolebox: mv -- 001-foo.bar foo_ep01-foo.bar
+2017-07-27 21:39:39	shbot	konsolebox: mv -- 002-bar.bar bar_ep02-bar.bar
+2017-07-27 21:40:40	-->	MajPotatohead (~harold@unaffiliated/majpotatohead) has joined #bash
+2017-07-27 21:40:50	<--	MajPotatohead (~harold@unaffiliated/majpotatohead) has quit (Remote host closed the connection)
+2017-07-27 21:40:53	<--	S007 (spydar007@unaffiliated/spydar007) has quit (Ping timeout: 258 seconds)
+2017-07-27 21:41:14	<--	faisch (~faisch@194-96-121-82.adsl.highway.telekom.at) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:42:05	--	semeion is now known as mnemonic
+2017-07-27 21:42:17	<--	argus (~t7DS@177.205.83.18.dynamic.adsl.gvt.net.br) has quit (Remote host closed the connection)
+2017-07-27 21:42:25	<--	L00thar (~L00thar@dhcp-bc-4d-fb-f0-7e-e1.cpe.sourcecable.net) has quit (Ping timeout: 248 seconds)
+2017-07-27 21:42:27	-->	Al3xG0 (~t7DS@187.58.33.34) has joined #bash
+2017-07-27 21:42:27	<--	Al3xG0 (~t7DS@187.58.33.34) has quit (Changing host)
+2017-07-27 21:42:27	-->	Al3xG0 (~t7DS@unaffiliated/al3xg0) has joined #bash
+2017-07-27 21:43:18	-->	faisch (~faisch@194-96-127-17.adsl.highway.telekom.at) has joined #bash
+2017-07-27 21:43:33	<--	howdoi (uid224@gateway/web/irccloud.com/x-evpyefyyovqbeekp) has quit (Quit: Connection closed for inactivity)
+2017-07-27 21:45:44	<--	enki (~enki@dynamic-78-30-165-161.adsl.eunet.rs) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:45:56	<--	inovas (~inovas@178.57.162.187) has quit (Read error: Connection reset by peer)
+2017-07-27 21:46:01	kristian_on_linu	thanks, greycat ... looking into that now
+2017-07-27 21:46:12	-->	Guest9 (~textual@144.132-62-69.ftth.swbr.surewest.net) has joined #bash
+2017-07-27 21:46:16	-->	garFF (~garff@192.38.138.126) has joined #bash
+2017-07-27 21:47:21	-->	enki (~enki@dynamic-78-30-165-161.adsl.eunet.rs) has joined #bash
+2017-07-27 21:48:33	-->	ephlip (~etienne@32.60.111.250) has joined #bash

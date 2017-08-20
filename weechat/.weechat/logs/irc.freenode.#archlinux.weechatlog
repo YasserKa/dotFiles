@@ -2931,3 +2931,286 @@
 2017-06-30 22:06:07	grazzolini	Foxboron: it needs the kernel crypto and whatever crypto you're using. also, whatever hashing algo too
 2017-06-30 22:06:30	-->	Hello71 (~Hello71@wikipedia/Hello71) has joined #archlinux
 2017-06-30 22:06:59	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 240 seconds)
+2017-07-09 12:50:49	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-07-09 12:50:49	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/fkksz9 | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG"
+2017-07-09 12:50:49	--	Topic set by phrik (phrik@archlinux/bot/phrik) on Wed, 05 Jul 2017 20:42:35
+2017-07-09 12:50:49	--	Channel #archlinux: 1691 nicks (1 op, 0 voices, 1690 normals)
+2017-07-09 12:50:52	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-07-09 12:51:15	<--	mongy (~dean@unaffiliated/duffydack) has quit (Quit: leaving)
+2017-07-09 12:51:32	-->	DMdm (~|DM|@77-46-189-46.dynamic.isp.telekom.rs) has joined #archlinux
+2017-07-26 20:07:19	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-07-26 20:07:19	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/fkksz9 | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG | https://defectivebydesign.org/dayagainstdrm"
+2017-07-26 20:07:19	--	Topic set by MrElendig on Sun, 09 Jul 2017 13:14:43
+2017-07-26 20:07:19	--	Channel #archlinux: 1774 nicks (1 op, 0 voices, 1773 normals)
+2017-07-26 20:07:22	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-07-26 20:08:19	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-07-26 20:08:19	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/fkksz9 | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG | https://defectivebydesign.org/dayagainstdrm"
+2017-07-26 20:08:19	--	Topic set by MrElendig on Sun, 09 Jul 2017 13:14:43
+2017-07-26 20:08:19	--	Channel #archlinux: 1774 nicks (1 op, 0 voices, 1773 normals)
+2017-07-26 20:08:19	grawity	devs and admins generally expect log messages to be in English
+2017-07-26 20:08:21	grawity	but take a look at /usr/lib/systemd/catalog
+2017-07-26 20:08:23	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-07-26 20:08:38	<--	techno156 (~techno156@unaffiliated/techno156) has quit (Quit: Leaving)
+2017-07-26 20:08:45	<--	random-nick (~random-ni@unaffiliated/random-nick) has quit (Quit: quit)
+2017-07-26 20:08:47	<--	Keniyal (~Keniyal@unaffiliated/keniyal) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:09:22	-->	syslock (~syslock@dialin-ip-29-129.ilmenau.net) has joined #archlinux
+2017-07-26 20:09:40	<--	zero_note (~zero@host186-31-static.47-85-b.business.telecomitalia.it) has quit (Quit: Konversation terminated!)
+2017-07-26 20:10:09	<--	dpl (~dpl@37.229.93.215) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:10:16	-->	Kamilion (kamilion@botters/Kamilion) has joined #archlinux
+2017-07-26 20:11:27	-->	random-nick (~random-ni@unaffiliated/random-nick) has joined #archlinux
+2017-07-26 20:11:33	<--	inad922 (~inad925@78-131-82-48.pool.digikabel.hu) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:11:56	<--	frenchbeard (~Nope@80.12.43.135) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:12:25	-->	most1 (~most_ente@213-240-103-57.adsl.highway.telekom.at) has joined #archlinux
+2017-07-26 20:12:26	-->	cotko (~ahmed@199.116.72.155) has joined #archlinux
+2017-07-26 20:13:09	utack	anyone with plasma5 (+amd mesa) seing the transparency while dragging windows break lately?
+2017-07-26 20:13:30	utack	it works for a while when i switch between opengl2 and 3.1 but then it is not working again
+2017-07-26 20:13:32	<--	roomcayz (~roomcayz@83.175.146.185.koba.pl) has quit (Remote host closed the connection)
+2017-07-26 20:13:49	-->	lvkm (~lvkm@2a00:1fe8:1004:1:6df5:8f55:9d0d:45bd) has joined #archlinux
+2017-07-26 20:13:58	-->	roomcayz (~roomcayz@83.175.146.185.koba.pl) has joined #archlinux
+2017-07-26 20:14:27	<--	Avonis (~Avonis@unaffiliated/avonis) has quit (Quit: rip)
+2017-07-26 20:14:30	-->	dflyger (640f54c1@gateway/web/freenode/ip.100.15.84.193) has joined #archlinux
+2017-07-26 20:15:23	<--	most_enter (~most_ente@188-23-45-65.adsl.highway.telekom.at) has quit (Ping timeout: 246 seconds)
+2017-07-26 20:17:03	-->	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has joined #archlinux
+2017-07-26 20:17:11	<--	achird (~lvkm@2a00:1fe8:1004:1:1118:c5a7:d2ff:6dc2) has quit (Ping timeout: 276 seconds)
+2017-07-26 20:17:11	-->	ravior (~crapitea@5-13-134-137.residential.rdsnet.ro) has joined #archlinux
+2017-07-26 20:17:44	Introoter	utack: no issues here, try Xrendr aa the backend?
+2017-07-26 20:17:51	-->	rahtgaz (~rahtgaz@unaffiliated/rahtgaz) has joined #archlinux
+2017-07-26 20:17:53	Introoter	Xrender*
+2017-07-26 20:18:02	-->	lspw (~lspw@93-35-185-61.ip56.fastwebnet.it) has joined #archlinux
+2017-07-26 20:18:15	<--	sz0 (uid110435@gateway/web/irccloud.com/x-ztprxvmxuvoennaf) has quit (Quit: Connection closed for inactivity)
+2017-07-26 20:18:17	utack	Introoter i guess i could, but that is an unfortunate permanent solution to use i must say
+2017-07-26 20:18:37	Introoter	how is it unfortunate?
+2017-07-26 20:18:46	<--	rogorido (~rogorido@eduroam12212.uni-trier.de) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:18:50	beaky	hello ive accidentally removed myself from sudoers. also my root account is locked when i booted with single user mode. what do i do :<
+2017-07-26 20:19:10	Introoter	i mean, you get everything Xrender too, except the wobbly windows, for which if you cant live without, you can file a bug.
+2017-07-26 20:19:16	grawity	sulogin disallows logins to locked root? that's news
+2017-07-26 20:19:19	grawity	anyway, boot with 'systemd.debug-shell'
+2017-07-26 20:19:29	beaky	wow thanks will try that
+2017-07-26 20:19:35	grawity	it's on tty9
+2017-07-26 20:19:43	<--	poljar (~poljar@93-143-210-19.adsl.net.t-com.hr) has quit (Read error: Connection reset by peer)
+2017-07-26 20:19:45	utack	does xrender use the gpu Introoter ?
+2017-07-26 20:19:54	<--	watered (~water@2405:204:5087:8b1d:a022:c4ff:8429:52c7) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:20:02	Introoter	utack: well everything does
+2017-07-26 20:20:18	<--	jathan (~jathan@201.99.106.102) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:20:25	utack	ah
+2017-07-26 20:20:33	Introoter	all of those do, but the wobbly windows and magic lamp minimize is specific to opengl
+2017-07-26 20:20:37	-->	batch (~batch@unaffiliated/batch) has joined #archlinux
+2017-07-26 20:21:07	utack	beaky don't dink and root
+2017-07-26 20:21:15	-->	poljar (~poljar@93-143-149-184.adsl.net.t-com.hr) has joined #archlinux
+2017-07-26 20:21:26	-->	smlb (~smlb@unaffiliated/smlb) has joined #archlinux
+2017-07-26 20:21:50	Introoter	utack: i guess this is a glitch somewhere, please submit a bug report with speific information about your setup, and you can use xrender for now, it works equally well.
+2017-07-26 20:22:09	-->	Tazmain (~Tazmain@unaffiliated/tazmain) has joined #archlinux
+2017-07-26 20:22:10	beaky	yay thanks it worked \o/
+2017-07-26 20:22:41	beaky	utack yes will root safely from now on
+2017-07-26 20:22:53	<--	Lehthanis (~robbie@209.194.137.123) has quit (Read error: Connection reset by peer)
+2017-07-26 20:23:05	utack	Introoter i will check if it has been submitted so far, and see if my intel gpu machine does the same
+2017-07-26 20:23:39	-->	Lehthanis (~robbie@209.194.137.123) has joined #archlinux
+2017-07-26 20:24:02	-->	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has joined #archlinux
+2017-07-26 20:25:02	-->	egrain (thomas@31.204.155.215) has joined #archlinux
+2017-07-26 20:25:04	-->	vlatkoB_ (~IRC_clien@unaffiliated/vlatkob) has joined #archlinux
+2017-07-26 20:25:07	<--	thevishy (~nishant@49.207.58.9) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:25:12	-->	zendeavor (~zendeavor@162-250-205-189-static.bbn.ken-tennwireless.com) has joined #archlinux
+2017-07-26 20:25:13	<--	darkrow (~D4rKr0W@unaffiliated/d4rkr0w) has quit (Remote host closed the connection)
+2017-07-26 20:25:27	-->	cookiebow (~master@213-21-111-4.customer.t3.se) has joined #archlinux
+2017-07-26 20:27:00	cwre	colinjmatt: no, there's no libvirtd.service...
+2017-07-26 20:27:22	<--	floppydh (~floppydh@gateway/vpn/privateinternetaccess/floppydh) has quit (Quit: WeeChat 1.9)
+2017-07-26 20:27:24	-->	frvr (~florea@188.212.142.92) has joined #archlinux
+2017-07-26 20:27:49	<--	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has quit (Quit: WeeChat 1.9)
+2017-07-26 20:28:43	-->	Keniyal (~Keniyal@unaffiliated/keniyal) has joined #archlinux
+2017-07-26 20:28:49	<--	vlatkoB (~IRC_clien@unaffiliated/vlatkob) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:29:29	superfox_il_volp	hello, I'm trying to recover a dual boot linux / windows. In my /boot partition I see the usual iniramfs-linux.img and vmlinuz-linux + an EFI subdirectory with Boot, Microsoft and systemd entries
+2017-07-26 20:30:06	-->	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has joined #archlinux
+2017-07-26 20:30:11	cwre	superfox_il_volp: how are you EFI booting
+2017-07-26 20:30:17	cwre	systemd-boot?
+2017-07-26 20:31:14	superfox_il_volp	cwre: currently only the windows bootloader is active, skipping linux all together. But I am trying to restore systemd-boot
+2017-07-26 20:31:22	<--	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has quit (Quit: WeeChat 1.4)
+2017-07-26 20:31:41	utack	well if your uefi implementation is good you can select a efi file from there
+2017-07-26 20:31:52	Xiretza	otherwise step 0. with boot problems: boot from live media
+2017-07-26 20:31:58	utack	if not you can use the the installation instruction with a boot disc
+2017-07-26 20:31:59	utack	chroot
+2017-07-26 20:32:01	-->	watered (~water@2405:204:5087:8b1d:ce5:b8b6:8e6:55f7) has joined #archlinux
+2017-07-26 20:32:04	utack	and install systemd boot again
+2017-07-26 20:32:10	cwre	 Yeah
+2017-07-26 20:32:14	-->	sphrak (~niclas@host-85-30-183-143.sydskane.nu) has joined #archlinux
+2017-07-26 20:32:15	grawity	superfox_il_volp: do you mean the UEFI's main boot menu does not list "Linux Boot Manager"?
+2017-07-26 20:32:16	utack	without the part of the disc wiping...natrually
+2017-07-26 20:32:24	ashkitten	How can I disable keyboard wake for systemctl hibernate? It's annoying the crap out of me and I can't find a setting in my bios
+2017-07-26 20:32:34	-->	lacrymology (~lacrymolo@181.167.98.182) has joined #archlinux
+2017-07-26 20:32:36	-->	pythondude (~gis@24-230-49-234-dynamic.midco.net) has joined #archlinux
+2017-07-26 20:32:51	cwre	So can anyone explain why libvirt wouldn't be giving me a libvirtd server?
+2017-07-26 20:32:55	grawity	ashkitten: something involving /proc/acpi/wakeup?
+2017-07-26 20:32:57	-->	j12t (~j12t@c-50-161-66-197.hsd1.ca.comcast.net) has joined #archlinux
+2017-07-26 20:32:59	grawity	hibernate is S4
+2017-07-26 20:32:59	superfox_il_volp	utack: that is where I am now, I have tried to perform bootctl install with no effect
+2017-07-26 20:33:08	cwre	I've uninstalled and reinstalled a couple times. There's no errors being thrown.
+2017-07-26 20:33:26	superfox_il_volp	grawity: yep, it strictly boots windows without asking anything
+2017-07-26 20:33:26	<--	j12t (~j12t@c-50-161-66-197.hsd1.ca.comcast.net) has quit (Remote host closed the connection)
+2017-07-26 20:33:33	grawity	that's not what I meant
+2017-07-26 20:33:34	-->	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has joined #archlinux
+2017-07-26 20:33:35	-->	j12t (~j12t@c-50-161-66-197.hsd1.ca.comcast.net) has joined #archlinux
+2017-07-26 20:33:57	grawity	most firmwares don't ask anything unless you manually open the boot menu (via Esc or F8 or F12)
+2017-07-26 20:33:58	-->	patchobriar (~dan@dynamic-acs-24-101-176-170.zoominternet.net) has joined #archlinux
+2017-07-26 20:34:00	utack	i think i had this once...but i forgot how i solved it. there was some kind of error bottctl install threw when i used a verbose or something like that
+2017-07-26 20:34:03	Xiretza	superfox_il_volp: you could try "bootctl remove" then "bootctl install" again
+2017-07-26 20:34:05	<--	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has quit (Client Quit)
+2017-07-26 20:34:05	grawity	but is Linux in that menu, or not?
+2017-07-26 20:34:19	Xiretza	superfox_il_volp: otherwise use efibootmgr to push it to the top
+2017-07-26 20:34:19	<--	thymbahutymba (~quassel@host90-197-dynamic.51-79-r.retail.telecomitalia.it) has quit (Read error: Connection reset by peer)
+2017-07-26 20:34:36	tomty89	cwre: what exactly happend when you systemctl start libvirtd
+2017-07-26 20:34:47	<--	StCypher (~StCypher@2605:e000:935d:2700:70fd:c614:c06e:d785) has quit (Read error: Connection reset by peer)
+2017-07-26 20:34:49	cwre	tomty89: tells me the service doesn't exist
+2017-07-26 20:35:00	-->	thymbahutymba (~quassel@host90-197-dynamic.51-79-r.retail.telecomitalia.it) has joined #archlinux
+2017-07-26 20:35:24	grawity	?pkgfile libvirtd.service
+2017-07-26 20:35:25	@EMIYA	grawity: community/libvirt 3.5.0-1 (/usr/lib/systemd/system/libvirtd.service)
+2017-07-26 20:35:30	superfox_il_volp	grawity: if I understand you correctly, current situation is that I have a linux entry that starts windows and a windows entry (from the previous windows installation) that is corrupt. The two OS are on different disks.
+2017-07-26 20:35:41	<--	Sanderski (~kamil@87-207-174-81.dynamic.chello.pl) has quit (Quit: Konversation terminated!)
+2017-07-26 20:35:53	tomty89	cwre: does that file exist though?
+2017-07-26 20:35:56	grawity	hmm, doesn't sound likely
+2017-07-26 20:36:01	superfox_il_volp	Xiretza: that is what I've done before, and I lost the windows entry
+2017-07-26 20:36:02	-->	Motika (~Motika@dhcp-108-168-84-14.cable.user.start.ca) has joined #archlinux
+2017-07-26 20:36:06	patchobriar	Hey all, is it possible to set a static ip without purchasing one from either my isp or another site?
+2017-07-26 20:36:13	Xiretza	superfox_il_volp: wut? that's very weird
+2017-07-26 20:36:16	tomty89	cwre: what EMIYA spitted
+2017-07-26 20:36:17	cwre	tomty89: redownloading and installing give me a second
+2017-07-26 20:36:23	<--	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has quit (Quit: WeeChat 1.9)
+2017-07-26 20:36:27	Xiretza	patchobriar: no
+2017-07-26 20:36:28	grawity	patchobriar: generally no
+2017-07-26 20:36:35	Xiretza	patchobriar: well, not a public one at least
+2017-07-26 20:36:44	Khorne	Generally yes, unless you want it reachable from $outside
+2017-07-26 20:36:46	<--	cotko (~ahmed@199.116.72.155) has quit (Remote host closed the connection)
+2017-07-26 20:36:46	<--	lacrymology (~lacrymolo@181.167.98.182) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:36:48	Khorne	Then, no
+2017-07-26 20:36:54	grawity	for some ISPs it might be semi-static (i.e. not officially static but doesn't change anyway)
+2017-07-26 20:36:55	Khorne	Or go with v6 :)
+2017-07-26 20:37:06	grawity	but it's still up to the ISP to actually route any given address towards you
+2017-07-26 20:37:16	patchobriar	yea, reachable from outside is what I am going for. I appreciate the help
+2017-07-26 20:37:30	Xiretza	Khorne: I wrote to my ISP to give me something better than a transient /64 and they haven't replied yet, so much for that one
+2017-07-26 20:37:30	patchobriar	I can get one for like $5 us from my isp 
+2017-07-26 20:37:31	-->	cotko (~ahmed@199.116.72.155) has joined #archlinux
+2017-07-26 20:37:31	Khorne	patchobriar, dnydns
+2017-07-26 20:37:33	grawity	if you try to configure address X, but the ISP's systems think otherwise, you won't be using that
+2017-07-26 20:37:36	Khorne	dyndns*
+2017-07-26 20:37:41	<--	kishore96 (~kishore@122.178.55.131) has quit (Ping timeout: 268 seconds)
+2017-07-26 20:37:54	tomty89	Khorne: i don't think v6 means static though?
+2017-07-26 20:37:56	-->	jstein (~quassel@gentoo/developer/jstein) has joined #archlinux
+2017-07-26 20:37:57	Xiretza	patchobriar: or rent a cheap VPS with an included public v4 and tunnel it home
+2017-07-26 20:37:59	patchobriar	@Khorne thanks, I'll check it out
+2017-07-26 20:37:59	-->	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has joined #archlinux
+2017-07-26 20:38:00	<--	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has quit (Client Quit)
+2017-07-26 20:38:01	Khorne	tomty89, depends 
+2017-07-26 20:38:16	Khorne	patchobriar, wont give you an address, but a fixed name that gets updated with current addresses typically
+2017-07-26 20:38:18	-->	nocrno (~nocrno@c-71-227-179-44.hsd1.wa.comcast.net) has joined #archlinux
+2017-07-26 20:38:42	grawity	tomty89: it removes the primary need for dynamic addresses ... but cannot really force ISPs to go with static/persistent.
+2017-07-26 20:38:43	Khorne	patchobriar, i dont know what you are trying to achieve but typically thats a good way to make a machine reachable
+2017-07-26 20:38:50	grawity	Xiretza: is that from DHCP-PD?
+2017-07-26 20:38:51	<--	cdown (~cdown@199.201.66.0) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:39:03	tomty89	grawity: AFAIR the prefix(es) my ISP delegate changes from time to time
+2017-07-26 20:39:12	-->	pyfoo (~Thunderbi@gateway/vpn/privateinternetaccess/pyfoo) has joined #archlinux
+2017-07-26 20:39:13	grawity	do they change even if you remain online?
+2017-07-26 20:39:24	-->	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has joined #archlinux
+2017-07-26 20:39:25	Xiretza	grawity: I have no idea, the modem is pretty locked down, it just gets a new /64 prefix every time it reboots
+2017-07-26 20:39:44	-->	CaptainCrunch (~Unknown@HSI-KBW-046-005-000-064.hsi8.kabel-badenwuerttemberg.de) has joined #archlinux
+2017-07-26 20:39:52	Xiretza	and a single /64 is crap either way
+2017-07-26 20:40:18	-->	gigitux (~gigitux@host120-218-dynamic.244-95-r.retail.telecomitalia.it) has joined #archlinux
+2017-07-26 20:40:24	grawity	I wonder if your router itself responds to DHCP-PD
+2017-07-26 20:41:17	Xiretza	well I currently have to use the CM's router functionality because no PPPoE passthrough or anything
+2017-07-26 20:41:18	grawity	so that e.g. your PC could ask for its own /64 and the router would proxy that request
+2017-07-26 20:41:31	Xiretza	I highly doubt it
+2017-07-26 20:41:32	cwre	tomty89: yeah it's there.. Why isn't it moving to the apropriate dir?
+2017-07-26 20:41:36	patchobriar	@Khorne I am setting up a website. I have lamp server set up and domain name purchased, was just trying to save some bucks lol
+2017-07-26 20:41:40	grawity	hmm cable modems don't typically use PPPoE in the first place, do they?
+2017-07-26 20:42:12	 *	grawity still uses a bunch of tunnels for ipv6
+2017-07-26 20:42:15	patchobriar	Site is live on my home network
+2017-07-26 20:42:25	Khorne	patchobriar, meh https://lowendbox.com/
+2017-07-26 20:42:26	phrik	Title: Low End Box - Cheap VPS Hosting Providers Listing & Reviews (at lowendbox.com)
+2017-07-26 20:43:07	patchobriar	checking it out now
+2017-07-26 20:43:20	tomty89	cwre: i don't think that's the problem
+2017-07-26 20:43:27	cwre	tomty89: okay... 
+2017-07-26 20:43:28	-->	MetalGearSolid (~MetalGear@unaffiliated/metalgearsolid) has joined #archlinux
+2017-07-26 20:43:39	cwre	So why wouldn't I be able to access it?
+2017-07-26 20:43:47	grawity	patchobriar: protip: don't mix Arch and OpenVZ
+2017-07-26 20:43:55	Xiretza	grawity: well, whatever it uses, I can't get to it :P possibly PPPoA I suppose?
+2017-07-26 20:43:58	tomty89	cwre: perhaps you can try systemctl daemon-reload
+2017-07-26 20:44:05	<--	cookiebow (~master@213-21-111-4.customer.t3.se) has quit (Remote host closed the connection)
+2017-07-26 20:44:20	grawity	Xiretza: DOCSIS
+2017-07-26 20:44:32	superfox_il_volp	ouch, I see the error "not booted with EFI, skipping EFI variable setup"
+2017-07-26 20:44:38	cwre	tomty89: that worked.. .But why would I need to do that? I've not had that issue before.
+2017-07-26 20:44:47	Xiretza	grawity: I already see I have a lot to read up on a lot of protocols
+2017-07-26 20:44:47	superfox_il_volp	how is this supposed to work then?
+2017-07-26 20:44:50	tomty89	cwre: no idea *shrug*
+2017-07-26 20:44:59	cwre	#systemdprobs
+2017-07-26 20:45:02	grawity	Xiretza: not 100% sure, but afaik it can't be bridged with Ethernet
+2017-07-26 20:45:04	cwre	Thanks for the help
+2017-07-26 20:45:12	-->	Yomi (~yomi@ip72-209-10-215.ri.ri.cox.net) has joined #archlinux
+2017-07-26 20:45:18	tomty89	cwre: usually it's needed when a unit file is changed
+2017-07-26 20:45:19	cwre	VMware Player still failing with a segfault
+2017-07-26 20:45:28	cwre	Mmm, yeah maybe.
+2017-07-26 20:45:33	grawity	the 'A' in PPPoA is for ATM, which only DSL uses
+2017-07-26 20:45:51	tomty89	cwre: but newly placed unit files doesn't normally need that
+2017-07-26 20:46:09	cwre	tomty89: might be because I uninstalled it and then reinstalled it
+2017-07-26 20:46:23	-->	thunder-ltu (~thunder-l@78-63-128-166.static.zebra.lt) has joined #archlinux
+2017-07-26 20:46:24	-->	felipedvorak (~felipedvo@unaffiliated/felipedvorak) has joined #archlinux
+2017-07-26 20:46:27	tomty89	!shrug5
+2017-07-26 20:46:28	phrik	http://i.imgur.com/4lyXrC5.gif
+2017-07-26 20:46:33	tomty89	ugh gif
+2017-07-26 20:47:03	<--	frozengeek_ (~frozengee@77.109.115.82) has quit (Remote host closed the connection)
+2017-07-26 20:47:15	<--	itseris (~emikulin@76.77.65.2) has quit (Remote host closed the connection)
+2017-07-26 20:47:17	Khorne	I heard you like wasting traffic, so I've put gifs everywhere
+2017-07-26 20:47:21	<--	torcsa (~andi@37.120.103.49) has quit (Quit: Leaving)
+2017-07-26 20:47:33	 *	tomty89 proposes relocating all imgur factoid to ptpb or ix
+2017-07-26 20:47:34	grawity	!shrug5 =~ s/gif/wbm/
+2017-07-26 20:47:36	phrik	grawity: 🎉
+2017-07-26 20:47:36	<--	c_korn (~c_korn@2001:a61:112c:9b01:b0b1:442b:8691:3343) has quit (Quit: Leaving)
+2017-07-26 20:47:40	grawity	!shrug5 =~ s/wbm/webm/
+2017-07-26 20:47:41	phrik	grawity: Tada!
+2017-07-26 20:47:44	<--	uhmmm (~uhmmm@host105-210-static.1-79-b.business.telecomitalia.it) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:47:59	-->	lacrymology (~lacrymolo@181.167.98.182) has joined #archlinux
+2017-07-26 20:48:28	-->	louisdk (~louisdk@212.178.176.210) has joined #archlinux
+2017-07-26 20:48:39	tomty89	grawity: my point was, they should all be kaomoji!
+2017-07-26 20:48:51	earnestly	kaomoji is?
+2017-07-26 20:49:22	<--	luuuciano (~luuuciano@unaffiliated/luuuciano) has quit (Read error: Connection reset by peer)
+2017-07-26 20:49:35	tomty89	!shrug
+2017-07-26 20:49:36	phrik	¯\_(ツ)_/¯
+2017-07-26 20:49:46	<--	ChoromPotro (~nirjhor@unaffiliated/chorompotro) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:49:47	earnestly	I see
+2017-07-26 20:49:47	tomty89	i suppose that counts
+2017-07-26 20:49:52	tomty89	:P
+2017-07-26 20:50:08	earnestly	!dance4
+2017-07-26 20:50:09	phrik	ᕕ( ᐛ )ᕗ
+2017-07-26 20:50:15	<--	Keniyal (~Keniyal@unaffiliated/keniyal) has quit (Quit: Ok.)
+2017-07-26 20:50:39	demonicmaniac3	tomty89: face emoji?
+2017-07-26 20:50:47	-->	frenchbeard (~Nope@2a01cb0881912b00fa5971fffe917e81.ipv6.abo.wanadoo.fr) has joined #archlinux
+2017-07-26 20:50:58	-->	dpl (~dpl@37.229.93.215) has joined #archlinux
+2017-07-26 20:51:02	tomty89	demonicmaniac3: yeah pretty much
+2017-07-26 20:51:02	-->	PooMang (~PooMang@2602:306:3a64:5b90:503b:fc0b:a765:213) has joined #archlinux
+2017-07-26 20:51:06	-->	mtn (~mtn@unaffiliated/mtn) has joined #archlinux
+2017-07-26 20:51:43	<--	__monty__ (~toonn@unaffiliated/toonn) has left #archlinux
+2017-07-26 20:51:50	-->	Gathis (~TheBlack@unaffiliated/gathis) has joined #archlinux
+2017-07-26 20:52:06	<--	lacrymology (~lacrymolo@181.167.98.182) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:52:18	<--	DaBossDaChef (~DaBossDaC@p200300EBFBC55B0021EE0C7015ABF6CD.dip0.t-ipconnect.de) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:52:26	tomty89	demonicmaniac3: i wonder if its definition is limited to the text-based japanesy emoticons though.
+2017-07-26 20:52:41	demonicmaniac3	no idea i just literally translated kao
+2017-07-26 20:52:49	demonicmaniac3	i know some teensy weensy bitsy japanese :P
+2017-07-26 20:52:57	<--	colinjmatt (~colinjmat@88.202.186.235.adsl.inet-telecom.org) has quit (Remote host closed the connection)
+2017-07-26 20:53:11	superfox_il_volp	I finally managed to install systemd-boot. Now I have retained the entry for the Windows Boot loader, but it is corrupt.
+2017-07-26 20:53:28	grawity	wasn't there a definition limited to those which can be represented in Shift-JIS?
+2017-07-26 20:53:48	tomty89	grawity: sounds plausible
+2017-07-26 20:54:21	<--	roomcayz (~roomcayz@83.175.146.185.koba.pl) has quit (Quit: roomcayz)
+2017-07-26 20:54:21	<--	louisdk (~louisdk@212.178.176.210) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:54:23	superfox_il_volp	If I use the Windows recovery cd it overwrites the installation of systemd-boot but it does not resolve the entry
+2017-07-26 20:55:00	-->	t-ask (~t-ask@169.ip-37-187-176.eu) has joined #archlinux
+2017-07-26 20:55:03	superfox_il_volp	I wonder whether I need to physically disconnect the linux disk and then perform the recovery through windows.
+2017-07-26 20:55:17	-->	alexander-alzate (~alexander@191.98.110.84) has joined #archlinux
+2017-07-26 20:55:27	Tazmain	I would do that 
+2017-07-26 20:55:33	-->	mohsen_1 (~Mohsen@2.183.202.70) has joined #archlinux
+2017-07-26 20:55:56	tomty89	superfox_il_volp: wait, but systemd-boot can chainload windows?
+2017-07-26 20:55:59	-->	erkin (~erkin@unaffiliated/erkin) has joined #archlinux
+2017-07-26 20:56:07	grawity	remove the Windows entry with efibootmgr
+2017-07-26 20:56:14	tomty89	^^
+2017-07-26 20:56:16	grawity	then boot Windows via systemd-boot instead of directly
+2017-07-26 20:56:21	<--	dpl (~dpl@37.229.93.215) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:56:30	grawity	then use bootrec from Windows to fix the Windows entry
+2017-07-26 20:56:48	<--	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has quit (Quit: WeeChat 1.4)
+2017-07-26 20:56:58	-->	louisdk (~louisdk@212.178.176.210) has joined #archlinux
+2017-07-26 20:57:09	superfox_il_volp	okay let me try
+2017-07-26 20:57:12	-->	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has joined #archlinux

@@ -41,3 +41,31 @@
 2017-06-30 21:27:34	--	Channel created on Wed, 18 Apr 2007 13:51:07
 2017-06-30 21:31:10	<--	yasser (~yasser@78.40.183.234) has quit (Ping timeout: 276 seconds)
 2017-06-30 22:00:23	-->	skweek (~skweek@68-200-146-225.res.bhn.net) has joined #vimperator
+2017-07-09 12:50:49	-->	yasser (~yasser@78.40.183.234) has joined #vimperator
+2017-07-09 12:50:49	--	Topic for #vimperator is "Vimperator Labs - Writing efficient user interfaces for Mozilla based applications | https://github.com/vimperator/vimperator-labs/ | http://vimperator.org | vimperator 3.16.0 | muttator 1.4 | Mailing list: vimperator-labs@googlegroups.com"
+2017-07-09 12:50:49	--	Topic set by gkatsev (~gkatsev@oftn/oswg-board/gkatsev) on Sat, 18 Feb 2017 00:39:50
+2017-07-09 12:50:49	--	Channel #vimperator: 69 nicks (2 ops, 0 voices, 67 normals)
+2017-07-09 12:50:56	yasser	any one here uses C?
+2017-07-09 12:51:00	--	Channel created on Wed, 18 Apr 2007 13:51:07
+2017-07-09 12:51:32	yasser	I am checking it now, and I was thinking that checking on '\0' would be faster than using strlen.
+2017-07-09 12:52:22	yasser	ops wrong chat :P
+2017-07-09 12:52:27	yasser	buffer programming
+2017-07-26 20:07:19	-->	yasser (~yasser@78.40.183.234) has joined #vimperator
+2017-07-26 20:07:19	--	Topic for #vimperator is "Vimperator Labs - Writing efficient user interfaces for Mozilla based applications | https://github.com/vimperator/vimperator-labs/ | http://vimperator.org | vimperator 3.16.0 | muttator 1.4 | Mailing list: vimperator-labs@googlegroups.com"
+2017-07-26 20:07:19	--	Topic set by gkatsev (~gkatsev@oftn/oswg-board/gkatsev) on Sat, 18 Feb 2017 00:39:50
+2017-07-26 20:07:19	--	Channel #vimperator: 67 nicks (2 ops, 0 voices, 65 normals)
+2017-07-26 20:07:28	--	Channel created on Wed, 18 Apr 2007 13:51:07
+2017-07-26 20:08:07	yasser	\exit
+2017-07-26 20:08:19	-->	yasser (~yasser@78.40.183.234) has joined #vimperator
+2017-07-26 20:08:19	--	Topic for #vimperator is "Vimperator Labs - Writing efficient user interfaces for Mozilla based applications | https://github.com/vimperator/vimperator-labs/ | http://vimperator.org | vimperator 3.16.0 | muttator 1.4 | Mailing list: vimperator-labs@googlegroups.com"
+2017-07-26 20:08:19	--	Topic set by gkatsev (~gkatsev@oftn/oswg-board/gkatsev) on Sat, 18 Feb 2017 00:39:50
+2017-07-26 20:08:19	--	Channel #vimperator: 67 nicks (2 ops, 0 voices, 65 normals)
+2017-07-26 20:08:29	--	Channel created on Wed, 18 Apr 2007 13:51:07
+2017-07-26 20:20:43	-->	banttu (~bababan@197.232.18.245) has joined #vimperator
+2017-07-27 20:49:56	-->	yasser (~yasser@78.40.183.234) has joined #vimperator
+2017-07-27 20:49:56	--	Topic for #vimperator is "Vimperator Labs - Writing efficient user interfaces for Mozilla based applications | https://github.com/vimperator/vimperator-labs/ | http://vimperator.org | vimperator 3.16.0 | muttator 1.4 | Mailing list: vimperator-labs@googlegroups.com"
+2017-07-27 20:49:56	--	Topic set by gkatsev (~gkatsev@oftn/oswg-board/gkatsev) on Sat, 18 Feb 2017 00:39:50
+2017-07-27 20:49:56	--	Channel #vimperator: 65 nicks (2 ops, 0 voices, 63 normals)
+2017-07-27 20:50:05	--	Channel created on Wed, 18 Apr 2007 13:51:07
+2017-07-27 20:53:24	-->	craigp (~craigp@dsl-197-245-99-222.voxdsl.co.za) has joined #vimperator
+2017-07-27 20:56:07	<--	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 240 seconds)

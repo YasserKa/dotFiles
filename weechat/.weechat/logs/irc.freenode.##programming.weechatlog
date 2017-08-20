@@ -976,3 +976,369 @@
 2017-06-30 22:06:50	mrig	Oh I just had a nice idea for a program, will put that on the list of things to do ...
 2017-06-30 22:06:54	-->	rili (~rili@ADijon-553-1-16-15.w92-161.abo.wanadoo.fr) has joined ##programming
 2017-06-30 22:06:59	<--	patarr (~patarr@unaffiliated/patarr) has quit (Ping timeout: 240 seconds)
+2017-07-09 12:50:49	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-07-09 12:50:49	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-07-09 12:50:49	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-07-09 12:50:49	--	Channel ##programming: 701 nicks (1 op, 13 voices, 687 normals)
+2017-07-09 12:50:58	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-07-09 12:51:32	-->	DMdm (~|DM|@77-46-189-46.dynamic.isp.telekom.rs) has joined ##programming
+2017-07-09 12:52:12	DrIranian	yes vdamewood ???? :D
+2017-07-26 20:07:19	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-07-26 20:07:19	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-07-26 20:07:19	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-07-26 20:07:19	--	Channel ##programming: 733 nicks (1 op, 18 voices, 714 normals)
+2017-07-26 20:07:26	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-07-26 20:07:56	-->	dreadedfrog (~dreadedfr@ip-213-127-67-147.ip.prioritytelecom.net) has joined ##programming
+2017-07-26 20:08:19	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-07-26 20:08:19	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-07-26 20:08:19	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-07-26 20:08:19	--	Channel ##programming: 733 nicks (1 op, 18 voices, 714 normals)
+2017-07-26 20:08:27	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-07-26 20:08:29	Violinist	http://imgur.com/a/Lgr77
+2017-07-26 20:08:38	<--	techno156 (~techno156@unaffiliated/techno156) has quit (Quit: Leaving)
+2017-07-26 20:09:07	-->	n00b_unit (49253101@gateway/web/freenode/ip.73.37.49.1) has joined ##programming
+2017-07-26 20:09:23	-->	reedrichards-out (~reedricha@2600:1:c665:534a:d4ff:2ba8:89e6:dc83) has joined ##programming
+2017-07-26 20:09:38	<--	Atemu (~atemu@toronto.twg.ca) has quit (Read error: Connection reset by peer)
+2017-07-26 20:10:08	<--	Jo-Anna2 (~Joanna345@ip68-111-72-145.oc.oc.cox.net) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:10:09	<--	dpl (~dpl@37.229.93.215) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:11:12	-->	Atemu (~atemu@toronto.twg.ca) has joined ##programming
+2017-07-26 20:11:13	<--	AndChat|19361 (~reedricha@75-109-220-8.bcstcmtk02.com.dyn.suddenlink.net) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:11:22	Violinist	yeah that ninja went crazy
+2017-07-26 20:11:33	Violinist	i dotn know what happened to him
+2017-07-26 20:12:14	<--	savolla (~savolla@95.10.235.219) has quit (Ping timeout: 246 seconds)
+2017-07-26 20:12:49	<--	dreadedfrog (~dreadedfr@ip-213-127-67-147.ip.prioritytelecom.net) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:13:30	-->	CmdrO (~lind@71-90-38-30.dhcp.ftbg.wi.charter.com) has joined ##programming
+2017-07-26 20:14:27	<--	Mikee_C (~michaelc@2001:67c:1560:8007::aac:c07f) has quit (Ping timeout: 258 seconds)
+2017-07-26 20:14:33	CmdrO	sweet i've been invited to speak at a global CIO summit in Decemeber, travel and expenses paid. Mercedes and IKEA confirmed to keynote
+2017-07-26 20:14:36	<--	ddoa (~Derp@gateway/vpn/privateinternetaccess/ddoa) has quit (Ping timeout: 276 seconds)
+2017-07-26 20:15:09	-->	AndChat|19361 (~reedricha@75-109-220-8.bcstcmtk02.com.dyn.suddenlink.net) has joined ##programming
+2017-07-26 20:15:41	CmdrO	beaky: you ever get around to zeta?
+2017-07-26 20:16:11	+rindolf	CmdrO: was your ban from here lifted?
+2017-07-26 20:16:18	<--	reedrichards-out (~reedricha@2600:1:c665:534a:d4ff:2ba8:89e6:dc83) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:17:09	-->	nblade42 (~Miranda_4@ptr-82npp64oygis39t5jkx.18120a2.ip6.access.telenet.be) has joined ##programming
+2017-07-26 20:17:47	<--	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:18:06	<--	Waterpicker (~Waterpick@2602:306:35ba:ca40:648d:a964:c23:b0d9) has quit (Quit: Leaving)
+2017-07-26 20:18:18	Violinist	no hes still banned
+2017-07-26 20:18:59	-->	Waterpicker (~Waterpick@2602:306:35ba:ca40:9c49:f11b:2c0:1104) has joined ##programming
+2017-07-26 20:19:15	ps3	fk i cant remember how i accomplished the aria2c function
+2017-07-26 20:19:42	-->	interop_madness (~interop_m@firewall.technodat.co.at) has joined ##programming
+2017-07-26 20:19:49	CmdrO	rindolf: no but clearly I've sorted out my issues to some extent
+2017-07-26 20:19:49	<--	interop_madness (~interop_m@firewall.technodat.co.at) has quit (Changing host)
+2017-07-26 20:19:49	-->	interop_madness (~interop_m@unaffiliated/interop-madness/x-8858653) has joined ##programming
+2017-07-26 20:19:56	-->	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has joined ##programming
+2017-07-26 20:20:06	n00b_unit	Hi :)  Am new to game-engine & DirectX programming. There are these new image types I've never heard of: .DDS and .TGA . Are these legacy filetypes, or can I expect to see lots of these? Tnx.
+2017-07-26 20:20:09	CmdrO	I really need a place to be productive
+2017-07-26 20:20:18	<--	jathan (~jathan@201.99.106.102) has quit (Ping timeout: 260 seconds)
+2017-07-26 20:21:12	<--	Atemu (~atemu@toronto.twg.ca) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-07-26 20:21:43	+GeDaMo	n00b_unit: tga may be Targa, that's an old one
+2017-07-26 20:22:00	+GeDaMo	https://en.wikipedia.org/wiki/Truevision_TGA
+2017-07-26 20:22:35	Violinist	those are normal images
+2017-07-26 20:22:40	Violinist	not hard to deal with
+2017-07-26 20:22:57	Violinist	dds is a microsoft thing
+2017-07-26 20:23:32	Violinist	but still easily read
+2017-07-26 20:24:04	ps3	is $@ reliable
+2017-07-26 20:24:05	Violinist	you can just get a image lib that handles it
+2017-07-26 20:24:30	+rindolf	ps3: in bash?
+2017-07-26 20:24:31	Violinist	i mean handles all image forms ud get with your models
+2017-07-26 20:24:40	ps3	yea
+2017-07-26 20:24:55	ps3	in terms of specifying multiple arguments and flags'
+2017-07-26 20:24:57	-->	reedrichards-out (~reedricha@2600:1:c665:534a:6430:f51f:440c:7916) has joined ##programming
+2017-07-26 20:24:58	ps3	in terms of specifying multiple arguments and flags*
+2017-07-26 20:25:04	Violinist	i think i do a little extra for DDS i forgot
+2017-07-26 20:25:07	+rindolf	ps3: it is unique to the function
+2017-07-26 20:26:09	<--	zhalla_ (~zhalla@105.211.54.77.rev.vodafone.pt) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-26 20:26:12	-->	RiPPCLaW (~RiPPCLaW@unaffiliated/rippclaw) has joined ##programming
+2017-07-26 20:26:15	ps3	are there any alternatives to $@
+2017-07-26 20:26:30	SlashLife	What's wrong with $@?
+2017-07-26 20:26:31	ps3	that can hold more then 8 to 10 values
+2017-07-26 20:26:31	-->	backnforth (~backnfort@142.167.45.232) has joined ##programming
+2017-07-26 20:26:37	-->	zhalla_ (~zhalla@105.211.54.77.rev.vodafone.pt) has joined ##programming
+2017-07-26 20:26:44	SlashLife	ps3: man shift
+2017-07-26 20:27:03	n00b_unit	GeDaMo: yep, thats the TGA I was looking at. Raster-Graphics file-format
+2017-07-26 20:27:14	<--	AndChat|19361 (~reedricha@75-109-220-8.bcstcmtk02.com.dyn.suddenlink.net) has quit (Ping timeout: 255 seconds)
+2017-07-26 20:27:59	<--	_kk22kk_ (~kk22kk@115.99.72.130) has quit (Read error: Connection reset by peer)
+2017-07-26 20:28:11	n00b_unit	Violinist: tnx : will have to download the tools to open those filetypes then. Few programs know what to do with them, lol.
+2017-07-26 20:28:25	<--	interop_madness (~interop_m@unaffiliated/interop-madness/x-8858653) has quit (Quit: Leaving)
+2017-07-26 20:28:27	-->	bradfordli123 (~bradfordl@c-73-158-14-36.hsd1.ca.comcast.net) has joined ##programming
+2017-07-26 20:28:37	Violinist	anything will open tga
+2017-07-26 20:28:40	SlashLife	Aren't those Direct3D models and textures?
+2017-07-26 20:28:45	-->	altab (~altab@2a01:e35:8adc:92c0:dc9e:6aa4:d98b:532f) has joined ##programming
+2017-07-26 20:28:45	Violinist	try gimp or photoshop
+2017-07-26 20:28:53	SlashLife	^
+2017-07-26 20:28:58	SlashLife	Or get XnView and convert.
+2017-07-26 20:28:58	Violinist	DDS is an image format
+2017-07-26 20:29:03	SlashLife	Ah, okay.
+2017-07-26 20:29:10	+GeDaMo	imagemagick perhaps
+2017-07-26 20:29:25	Violinist	https://en.wikipedia.org/wiki/DirectDraw_Surface
+2017-07-26 20:29:52	Violinist	im not sure if ull be able to open dds tho
+2017-07-26 20:30:03	Violinist	actually i think gimp does
+2017-07-26 20:31:29	<--	zhalla_ (~zhalla@105.211.54.77.rev.vodafone.pt) has quit (Ping timeout: 276 seconds)
+2017-07-26 20:31:53	-->	kggr (~korggrodn@93.85.144.162) has joined ##programming
+2017-07-26 20:32:43	<--	tarkus (~tarkus@109.230.144.161) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-26 20:33:20	CmdrO	Print.NET!!!
+2017-07-26 20:33:24	n00b_unit	Violinist:  from Gimp2 on Windows "Unknown filetype"
+2017-07-26 20:33:41	SlashLife	XnView does DDS
+2017-07-26 20:34:04	-->	w4nt (~you_t@154.73.12.99) has joined ##programming
+2017-07-26 20:34:41	<--	Itqwe (~Itqwe@ARennes-656-1-194-191.w2-2.abo.wanadoo.fr) has quit (Ping timeout: 248 seconds)
+2017-07-26 20:34:47	<--	StCypher (~StCypher@2605:e000:935d:2700:70fd:c614:c06e:d785) has quit (Read error: Connection reset by peer)
+2017-07-26 20:34:57	<--	reedrichards-out (~reedricha@2600:1:c665:534a:6430:f51f:440c:7916) has quit (Quit: Bye)
+2017-07-26 20:35:34	--	flipchan_ is now known as flipchan
+2017-07-26 20:36:55	-->	impulse (~impulse@bas6-toronto06-76-69-136-60.dsl.bell.ca) has joined ##programming
+2017-07-26 20:37:21	w4nt	Hi. I am trying to write something that allows the user to pass a filename as an argument. The idea is '<command> --option somefile.ext'
+2017-07-26 20:37:25	n00b_unit	 I tried to open the .DDS file in Gimp2 while the rendering-engine was using it.  Renderer "Illegal operation" + crash. Do not recommend, lol.
+2017-07-26 20:37:55	w4nt	What data type would I use for 'somefile.ext'?
+2017-07-26 20:38:58	SlashLife	w4nt: A string?
+2017-07-26 20:39:00	Violinist	.txt
+2017-07-26 20:39:06	flipchan	what lang?
+2017-07-26 20:39:12	-->	pyfoo (~Thunderbi@gateway/vpn/privateinternetaccess/pyfoo) has joined ##programming
+2017-07-26 20:39:42	-->	insi (~insidious@gateway/vpn/privateinternetaccess/insidious15) has joined ##programming
+2017-07-26 20:39:43	yasser	char *string;
+2017-07-26 20:40:07	<--	aciniglio (~user@209.133.126.58) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:40:08	Duckle	w4nt: Most important. which language?
+2017-07-26 20:40:31	w4nt	sorry I didn't give details. Language is python2 and I want to pass the 'somefile.ext' as an argument to a function.
+2017-07-26 20:40:53	+rindolf	w4nt: see argparse
+2017-07-26 20:40:55	yasser	you don't need to specify the type?
+2017-07-26 20:41:07	Duckle	Python doesn't do types though
+2017-07-26 20:41:20	+rindolf	w4nt: https://docs.python.org/2/howto/argparse.html
+2017-07-26 20:41:21	SlashLife	Python is not my type. :|
+2017-07-26 20:42:30	Violinist	python is for nerds
+2017-07-26 20:42:40	yasser	:ban:
+2017-07-26 20:42:49	w4nt	rindolf: yes. I've read that. But I'm presently a bit confused about how to do  '<command> --option somefile.ext'.
+2017-07-26 20:43:14	yasser	is that in the command line?
+2017-07-26 20:44:14	w4nt	So I have a line that goes `argv = ['<command>', '--' + arg_option, arg_file]
+2017-07-26 20:44:18	yasser	you want to get the arguments of the user input?
+2017-07-26 20:44:21	Duckle	w4nt: All arguments passed to the python script exist in sys.argv
+2017-07-26 20:44:21	energizer	Will any OCR work on this number? https://imgur.com/a/IYDd4
+2017-07-26 20:44:28	yasser	http://www.tutorialspoint.com/python/python_command_line_arguments.htm ?
+2017-07-26 20:45:33	w4nt	Duckle: so it is wrong to use `argv` the way I'm doing.
+2017-07-26 20:45:47	Duckle	I don't know honestly
+2017-07-26 20:45:55	energizer	w4nt: use the `click` package
+2017-07-26 20:45:56	Duckle	I mainly do Python3, and picked it up relatively recently
+2017-07-26 20:46:02	Duckle	a few years ago
+2017-07-26 20:46:08	Duckle	haven't used it much though
+2017-07-26 20:46:27	renlo	Python has types
+2017-07-26 20:46:34	energizer	w4nt: http://click.pocoo.org/5/
+2017-07-26 20:46:55	Duckle	renlo: Sure, but not something you need to concern yourself with most of the time
+2017-07-26 20:47:15	<--	itseris (~emikulin@76.77.65.2) has quit (Remote host closed the connection)
+2017-07-26 20:47:40	Duckle	energizer: I am extremely envious that someone came up with such a brilliant acronym
+2017-07-26 20:48:07	Duckle	CLICK Command Line Interface Creation Kit
+2017-07-26 20:48:10	energizer	Duckle: heh no kidding
+2017-07-26 20:48:15	Duckle	it's just too good
+2017-07-26 20:48:20	SlashLife	Click, eh?
+2017-07-26 20:48:24	SlashLife	Idiotic.
+2017-07-26 20:48:28	-->	Rashad (~rashad@94.249.111.74) has joined ##programming
+2017-07-26 20:48:29	Duckle	lel
+2017-07-26 20:48:38	<--	D1ode (~Diode@2602:306:37a3:f670:7562:c5f:4526:6c92) has quit (Quit: Leaving)
+2017-07-26 20:48:45	ps3	$* seems to be reliableand it works even in $(...)
+2017-07-26 20:48:47	w4nt	energizer: I have to use argparse, so that won't work unfortunately. Thanks though :-)
+2017-07-26 20:49:25	energizer	w4nt: why do you have to?
+2017-07-26 20:49:26	SlashLife	ps3: Do you even know the difference between $@ and $*?
+2017-07-26 20:49:49	Violinist	array -------- ref
+2017-07-26 20:49:54	Violinist	:D
+2017-07-26 20:50:05	ps3	no
+2017-07-26 20:50:10	Violinist	yes
+2017-07-26 20:50:16	w4nt	Working on an open-source project that uses it :-)
+2017-07-26 20:50:25	+sbrg	evening
+2017-07-26 20:50:58	-->	dpl (~dpl@37.229.93.215) has joined ##programming
+2017-07-26 20:51:02	-->	PooMang (~PooMang@2602:306:3a64:5b90:503b:fc0b:a765:213) has joined ##programming
+2017-07-26 20:51:52	Violinist	w4nt, stop screwing around
+2017-07-26 20:53:01	Duckle	Speaking of python, how terrible is this last python code I did? https://github.com/dumle29/torrentGen/blob/master/check.py
+2017-07-26 20:53:11	Duckle	I mean, it works, but that doesn't mean it's good code :)
+2017-07-26 20:53:30	yasser	man, if it works, it's fine.
+2017-07-26 20:53:41	yasser	that's how the current industry works.
+2017-07-26 20:53:50	-->	dorp (~dorp@bzq-84-111-138-241.red.bezeqint.net) has joined ##programming
+2017-07-26 20:53:56	Rashad	If it's not broken, don't fix it.
+2017-07-26 20:54:00	Duckle	heh
+2017-07-26 20:54:05	Duckle	it was broken recently
+2017-07-26 20:54:05	Rashad	But clean code is much more maintainable.
+2017-07-26 20:54:07	SlashLife	ps3: So while you can't tell use what's wrong with $@, you know that $* is good for what you do, when you don't know the difference between $@ and $*?
+2017-07-26 20:54:11	w4nt	Violinist: how I am screwing around?
+2017-07-26 20:54:24	w4nt	If I've wasted your time, then I'm sorry
+2017-07-26 20:54:33	w4nt	Didn't mean to do so.
+2017-07-26 20:54:45	Duckle	but the reason it was broken was that the URL it was parsing drastically changed format, so regex instead of simple string splitting
+2017-07-26 20:55:02	Violinist	regex is ur friend
+2017-07-26 20:55:04	Duckle	w4nt: I think he was just joking around that working on FOSS is wasting time
+2017-07-26 20:55:29	SlashLife	*tell us
+2017-07-26 20:55:35	ps3	both do the same thing to me
+2017-07-26 20:55:41	-->	ruloStory (~ruloStory@177.239.17.79) has joined ##programming
+2017-07-26 20:55:42	w4nt	Duckle: understood. Thanks for clearing that up :-)
+2017-07-26 20:55:58	-->	erkin (~erkin@unaffiliated/erkin) has joined ##programming
+2017-07-26 20:56:13	-->	cogwheel (~cogwheel@WoWUIDev/WoWProgramming/morlando/cogwheel) has joined ##programming
+2017-07-26 20:56:21	<--	dpl (~dpl@37.229.93.215) has quit (Ping timeout: 240 seconds)
+2017-07-26 20:56:48	beaky	http://www.kframework.org/index.php/Main_Page how does this compare to e.g. coq or isabelle
+2017-07-27 20:49:56	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-07-27 20:49:56	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-07-27 20:49:56	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-07-27 20:49:56	--	Channel ##programming: 729 nicks (1 op, 19 voices, 709 normals)
+2017-07-27 20:50:03	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-07-27 20:50:26	-->	_Atom_ (~Atom@static-71-183-236-62.nycmny.fios.verizon.net) has joined ##programming
+2017-07-27 20:50:31	-->	yozi (~yozi@115.178.237.233) has joined ##programming
+2017-07-27 20:50:54	-->	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has joined ##programming
+2017-07-27 20:51:07	yasser	vendu: o/ how's zeroOS?
+2017-07-27 20:51:43	pie3	how do you download youtube video?
+2017-07-27 20:52:04	+graff	mrig: idk really. just messing around with it. i believe it's just for some visual appeal
+2017-07-27 20:52:31	+graff	mostly what i am looking for are simple ways to present a safer set of coding idioms with C
+2017-07-27 20:52:43	+graff	this one is not really ready, just experimenting
+2017-07-27 20:52:43	mrig	Not got into playing with macros yet, though the thought does pop into my mind from time to time.
+2017-07-27 20:52:51	yasser	I use youtube-dl in arch. pretty awesome. You can even get em as .mp3
+2017-07-27 20:53:04	+graff	yeah, well me mostly neither. so i am also trying to learn that a little
+2017-07-27 20:53:16	<--	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has quit (Client Quit)
+2017-07-27 20:53:26	mrig	to automate the increment of a variable names is one thought, not sure that that is possible or not.
+2017-07-27 20:53:26	+GeDaMo	pie3: http://www.clipconverter.cc/
+2017-07-27 20:53:58	+graff	mrig: yeah me neither, i am not sure what all is possible. just messing around
+2017-07-27 20:54:42	-->	nblade42 (~Miranda_4@ptr-82npp64oygis39t5jkx.18120a2.ip6.access.telenet.be) has joined ##programming
+2017-07-27 20:55:01	mrig	Plan on learning the networking protocols next and trying those out a bit.
+2017-07-27 20:55:30	+graff	i know a little bit about that, downloading files and making irc clients et cetera
+2017-07-27 20:55:41	-->	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has joined ##programming
+2017-07-27 20:55:44	<--	jrgilman (~jrgilman@72.36.113.146) has quit (Remote host closed the connection)
+2017-07-27 20:55:45	<--	insi (~insidious@gateway/vpn/privateinternetaccess/insidious15) has quit (Ping timeout: 240 seconds)
+2017-07-27 20:55:55	+graff	i have not made any servers though to speak of
+2017-07-27 20:56:06	mrig	Yes, it would be great to know a bit more about all this.
+2017-07-27 20:56:07	<--	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 240 seconds)
+2017-07-27 20:56:12	+graff	so just clients. fetching clients (wget) and irc clients
+2017-07-27 20:56:44	<--	Murii (~Murii@ca315.calcit.dedicated.server-hosting.expert) has quit (Ping timeout: 260 seconds)
+2017-07-27 20:56:44	<--	Brett[Air] (~Brett@60-242-28-91.static.tpgi.com.au) has quit (Ping timeout: 240 seconds)
+2017-07-27 20:57:18	Aven	hot
+2017-07-27 20:57:32	mrig	I cant imagine that any of it is that complicated, and nice to know.
+2017-07-27 20:57:40	<--	_Atom_ (~Atom@static-71-183-236-62.nycmny.fios.verizon.net) has quit (Remote host closed the connection)
+2017-07-27 20:58:04	<--	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has quit (Client Quit)
+2017-07-27 20:58:06	-->	nen (~koan@unaffiliated/koan) has joined ##programming
+2017-07-27 20:58:07	mrig	seen some interesting info on the parity algorithms, they look pretty cool.
+2017-07-27 20:58:18	<--	alphor (~floor13@2001:19f0:5:14c:5400:ff:fe6e:276c) has quit (Quit: Bye!)
+2017-07-27 20:58:21	mrig	real bit level stuff
+2017-07-27 20:58:37	<--	kasa (~koan@unaffiliated/koan) has quit (Ping timeout: 240 seconds)
+2017-07-27 20:58:51	<--	blueruu (836ba0e9@gateway/web/freenode/ip.131.107.160.233) has quit (Ping timeout: 260 seconds)
+2017-07-27 20:59:14	-->	alphor (~floor13@2001:19f0:5:14c:5400:ff:fe6e:276c) has joined ##programming
+2017-07-27 20:59:56	nblade42	How do you learn networking protocols. I was recently reading "Beej's Guide to Network Programming", but there is no explicit mention of protocols.
+2017-07-27 21:00:09	xiphias	i would not read that if I were you
+2017-07-27 21:00:20	-->	backnforth (~backnfort@142.167.45.232) has joined ##programming
+2017-07-27 21:01:08	+rindolf	nblade42: there is https://en.wikipedia.org/wiki/TCP/IP_Illustrated
+2017-07-27 21:01:20	-->	Dark_Fox|Home (~fdark@75-101-60-223.dsl.static.fusionbroadband.com) has joined ##programming
+2017-07-27 21:01:44	mrig	I have advanced programming in the unix environment and unix networking on the book shelf, old originals that I picked up for a tenner, the code examples are all in c, will just investigate
+2017-07-27 21:02:51	obrut	hell, yeah . Richard Stevens books :) classics :)
+2017-07-27 21:03:21	obrut	advanced programming in the unix environment was my bible on university :)
+2017-07-27 21:03:27	<--	pressure679 (~pressure6@host-194-177-240-94.adsl.gl) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:03:27	-->	Sasazuka (~Sasazuka@unaffiliated/sasazuka) has joined ##programming
+2017-07-27 21:03:45	<--	Dark_Fox|Mac (~fdark@204.14.239.82) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:04:06	mrig	obrut was recommended to me by a mathematician/programmer that I meet locally. He said just get the first editions and hack from there.
+2017-07-27 21:05:24	<--	jan64_ (~jan64@cnp69.neoplus.adsl.tpnet.pl) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:06:08	<--	devwop (~devwop@bl22-57-80.dsl.telepac.pt) has quit (Remote host closed the connection)
+2017-07-27 21:06:32	-->	devwop (~devwop@bl22-57-80.dsl.telepac.pt) has joined ##programming
+2017-07-27 21:06:55	mrig	He has been working in the business since the 80's, has the beard and the hat looks like Gandolf, He has actualy met Richard Feynman as he was at caltec in the 80's.
+2017-07-27 21:07:07	mrig	Rather cool I thought.
+2017-07-27 21:07:16	yasser	Anyone knows what is a non-graphical character?
+2017-07-27 21:07:35	+graff	yasser: 0
+2017-07-27 21:07:41	<--	dave0 (~dave@042.d.003.ncl.iprimus.net.au) has quit (Quit: dave's not here)
+2017-07-27 21:07:42	yasser	0?
+2017-07-27 21:07:47	xiphias	so
+2017-07-27 21:07:51	xiphias	who is familiar with directx here
+2017-07-27 21:07:57	<--	Sxuza (~textual@41.114.230.240) has quit (Quit: www.voiceoverradio.co.za)
+2017-07-27 21:08:00	+graff	anything in ascii that is a control character
+2017-07-27 21:08:01	mrig	yasser, they are the ones that you can not see, like enter.
+2017-07-27 21:08:09	yasser	ohhhh
+2017-07-27 21:08:36	yasser	so like /n /t /s /r EOF
+2017-07-27 21:08:53	+graff	EOF is not actually a character
+2017-07-27 21:08:55	<--	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has quit (Quit: Leaving)
+2017-07-27 21:09:06	+graff	and you mean \n, \t and \r
+2017-07-27 21:09:25	yasser	yup
+2017-07-27 21:09:32	mrig	well there are others that dont effect the screen at all too, like the print screen button
+2017-07-27 21:09:35	yasser	I am using /buffer so mixed up that
+2017-07-27 21:09:57	mrig	and the terminal bell :)
+2017-07-27 21:10:21	yasser	I always tried to see what happens when I use that character. \a was it? nothing happens.
+2017-07-27 21:10:40	mrig	\v is cool
+2017-07-27 21:11:24	-->	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has joined ##programming
+2017-07-27 21:12:06	+graff	if it not a control character and it is not a space then it is a non-graphical character
+2017-07-27 21:12:25	+graff	in the sense of the C standard library ctypes
+2017-07-27 21:12:50	yasser	btw, any idea how to detect a tab stop?
+2017-07-27 21:12:59	yasser	it's not \t right?
+2017-07-27 21:13:08	+graff	isgraph() checks for any printable character except space.
+2017-07-27 21:13:16	+graff	isprint() checks for any printable character including space.
+2017-07-27 21:13:36	<--	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has quit (Client Quit)
+2017-07-27 21:13:43	-->	dreadedfrog (~dreadedfr@ip-213-127-67-147.ip.prioritytelecom.net) has joined ##programming
+2017-07-27 21:13:52	+graff	yasser: you can detect a tab with if (a == '\t') yes that works
+2017-07-27 21:14:10	yasser	how to know the number if spaces used in that?
+2017-07-27 21:14:30	+graff	but a terminal tab stop itself is different.
+2017-07-27 21:14:33	-->	jan64 (~jan64@cnp69.neoplus.adsl.tpnet.pl) has joined ##programming
+2017-07-27 21:14:37	yasser	Exercise 1-20. Write a program detab that replaces tabs in the input with the proper number 
+2017-07-27 21:14:37	yasser	of blanks to space to the next tab stop. Assume a fixed set of tab stops, say every n columns. 
+2017-07-27 21:14:37	yasser	Should n be a variable or a symbolic parameter?  
+2017-07-27 21:14:46	yasser	I got that exercise
+2017-07-27 21:15:03	+graff	you may have to use a function like this if you are writing an editor: int vlencnt(int ch, int col) { if ( ch == '\t' ) return tabstop - (col % tabstop); return 1;
+2017-07-27 21:15:22	<--	devwop (~devwop@bl22-57-80.dsl.telepac.pt) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:15:26	-->	Rashad (~rashad@86.108.6.184) has joined ##programming
+2017-07-27 21:15:30	+graff	this basically is just a little API to tell you how deep you are into a tab stop
+2017-07-27 21:15:51	<--	Quietwalker (~Quietwalk@cpe-70-113-115-82.austin.res.rr.com) has quit (Ping timeout: 268 seconds)
+2017-07-27 21:16:08	-->	kggr (~korggrodn@93.85.135.34) has joined ##programming
+2017-07-27 21:16:08	-->	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has joined ##programming
+2017-07-27 21:16:30	yasser	wait's the value of tabstop?
+2017-07-27 21:16:52	<--	tarkus (~tarkus@109.230.144.161) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-27 21:16:53	mrig	cool graff I've noted that one.
+2017-07-27 21:16:55	yasser	whats*
+2017-07-27 21:17:06	+graff	where col is your number of terminal columns and ch is the character. tabstop in this case is a macro or global like: int tabstop = 8;
+2017-07-27 21:17:28	yasser	ah, so you decide on the number.
+2017-07-27 21:18:04	+graff	yeah but that can probably also be coordinated with the terminal. but that is more advanced
+2017-07-27 21:18:24	yasser	thanks, I did that already by deciding the number of spaces for the tab. I thought that I was wrong :)
+2017-07-27 21:18:36	mrig	ah just mulling that over, of course yes.
+2017-07-27 21:19:14	<--	workmad3 (~workmad3@ruby/staff/workmad3) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:19:32	yasser	when I asked a friend of mine about his opinion regarding the question. He started complaining how people are devided between tab and space users.
+2017-07-27 21:19:50	yasser	who cares if your code is clean \shrug
+2017-07-27 21:20:09	+graff	typical of people who tried to write an editor and failed to not like tabs or line wrapping
+2017-07-27 21:20:20	+graff	much easier without those two things
+2017-07-27 21:20:31	mrig	ha yes that makes sense!
+2017-07-27 21:20:49	-->	Rounin (~david@2001:4649:6266:0:28c:faff:fe3f:d44b) has joined ##programming
+2017-07-27 21:21:32	mrig	yasser, well if you lay out the code nicely, it is much easier to make vertical selections is terminal code editors.
+2017-07-27 21:21:38	mrig	in
+2017-07-27 21:22:21	yasser	yep, I use CTRL+V from time to time in vim.
+2017-07-27 21:22:26	<--	tbsf (~tbsf@mahan.viasat.com) has quit (Read error: Connection reset by peer)
+2017-07-27 21:22:29	<--	borkr (~borkr@static130-244.mimer.net) has quit (Quit: Leaving)
+2017-07-27 21:22:32	<--	juvenal (~juvenal@201-1-114-148.dsl.telesp.net.br) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-27 21:22:53	-->	tbsf (~tbsf@mahan.viasat.com) has joined ##programming
+2017-07-27 21:22:57	-->	cyborg-one (~cyborg-on@212-178-9-227.broadband.tenet.odessa.ua) has joined ##programming
+2017-07-27 21:23:06	-->	profsimm (d5f0c550@gateway/web/freenode/ip.213.240.197.80) has joined ##programming
+2017-07-27 21:23:24	profsimm	So I have an API where lots of processes short term access to a piece of state.
+2017-07-27 21:23:27	profsimm	Most only read.
+2017-07-27 21:23:37	profsimm	Some need to read and write with serializable consistency
+2017-07-27 21:23:53	<--	user2468 (~user2468@dyndsl-080-228-183-172.ewe-ip-backbone.de) has quit (Quit: Leaving)
+2017-07-27 21:24:00	profsimm	Unfortunately I can't know from the very start if they want to write or just read.
+2017-07-27 21:24:10	profsimm	So how to present the switch to API users?
+2017-07-27 21:25:28	-->	juvenal (~juvenal@201-1-114-148.dsl.telesp.net.br) has joined ##programming
+2017-07-27 21:25:52	-->	Murii (~murii@79.113.253.175) has joined ##programming
+2017-07-27 21:26:07	<--	mmlj4 (~mmlj4@47-48-196-90.static.gwnt.ga.charter.com) has quit (Ping timeout: 246 seconds)
+2017-07-27 21:26:35	-->	mmlj4 (~mmlj4@47-48-196-90.static.gwnt.ga.charter.com) has joined ##programming
+2017-07-27 21:29:10	-->	tarkus (~tarkus@109.230.144.161) has joined ##programming
+2017-07-27 21:29:45	<--	Baadier (~Baadier@169.255.34.248) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-07-27 21:30:03	<--	wootehfoot (~wootehfoo@cust-95-80-56-77.csbnet.se) has quit (Quit: moo)
+2017-07-27 21:30:16	<--	cagomez (~cagomez@sb0-cf9a61b1.dsl.impulse.net) has quit (Remote host closed the connection)
+2017-07-27 21:30:37	<--	Bock (~bocaneri@about/linux/staff/sauvin) has quit (Ping timeout: 240 seconds)
+2017-07-27 21:33:00	<--	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has quit (Ping timeout: 276 seconds)
+2017-07-27 21:33:53	-->	chachasmooth (~chachasmo@unaffiliated/chachasmooth) has joined ##programming
+2017-07-27 21:34:09	-->	Ace__ (9dbe0084@gateway/web/freenode/ip.157.190.0.132) has joined ##programming
+2017-07-27 21:34:17	-->	Storyteller (~Storytell@unaffiliated/storyteller) has joined ##programming
+2017-07-27 21:34:40	Ace__	could someone explain to me how the g++ works when compiling? the chain of commands it goes through?
+2017-07-27 21:34:50	-->	nibble_zero (~nibble_ze@37.244.231.177) has joined ##programming
+2017-07-27 21:35:52	-->	wootehfoot (~wootehfoo@cust-95-80-56-77.csbnet.se) has joined ##programming
+2017-07-27 21:38:09	-->	trigcode (~trigcode@unaffiliated/trigcode) has joined ##programming
+2017-07-27 21:38:28	trigcode	is there a channel on freenode for objective-c?
+2017-07-27 21:38:38	trigcode	if there is I cannot find it by listing channels
+2017-07-27 21:39:05	+GeDaMo	##objc possibly
+2017-07-27 21:39:27	trigcode	wow
+2017-07-27 21:39:40	trigcode	very few people there, but it is a channel that supports it
+2017-07-27 21:39:43	trigcode	thanks
+2017-07-27 21:40:18	<--	tbsf (~tbsf@mahan.viasat.com) has quit (Remote host closed the connection)
+2017-07-27 21:40:53	<--	Spydar007 (spydar007@unaffiliated/spydar007) has quit (Ping timeout: 258 seconds)
+2017-07-27 21:40:59	<--	trigcode (~trigcode@unaffiliated/trigcode) has left ##programming
+2017-07-27 21:42:04	-->	tbsf (~tbsf@mahan.viasat.com) has joined ##programming
+2017-07-27 21:44:02	<--	tbsf (~tbsf@mahan.viasat.com) has quit (Remote host closed the connection)
+2017-07-27 21:44:31	-->	tbsf (~tbsf@mahan.viasat.com) has joined ##programming
+2017-07-27 21:44:46	-->	jack_rabbit (~jack_rabb@c-98-228-48-226.hsd1.il.comcast.net) has joined ##programming
+2017-07-27 21:44:57	--	ObiWanToledo is now known as pain
+2017-07-27 21:45:05	<--	nibble_zero (~nibble_ze@37.244.231.177) has quit (Quit: ChatZilla 0.9.93 [Firefox 54.0.1/20170628075643])
+2017-07-27 21:45:13	--	pain is now known as t-pain
+2017-07-27 21:45:27	<--	tbsf (~tbsf@mahan.viasat.com) has quit (Read error: Connection reset by peer)
+2017-07-27 21:47:36	Violinist	objc is so wicked looking
+2017-07-27 21:48:07	<--	erkin (~erkin@unaffiliated/erkin) has quit (Quit: Ouch! Got SIGABRT, dying...)
+2017-07-27 21:48:11	<--	Murii (~murii@79.113.253.175) has quit (Remote host closed the connection)
+2017-07-27 21:48:24	+vendu	yasser, hello :)
+2017-07-27 21:48:29	+vendu	yasser, it's going slowly but kinda going :)
+2017-07-27 21:48:29	<--	PowerPcMAC (~textual@static-96-248-69-25.cmdnnj.fios.verizon.net) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-07-27 21:48:38	+vendu	although i've been working more on the processor design ideas =)

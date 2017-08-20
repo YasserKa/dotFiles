@@ -1,10 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/yasser/myProjects/testing/designPatterns/abstractFactory'
-let g:netrw_dirhist_2='/home/yasser/designPatterns/lazyInitialization'
-let g:netrw_dirhist_3='/home/yasser/designPatterns/factoryMethod'
-let g:netrw_dirhist_4='/home/yasser/designPatterns/abstractFactory'
-let g:netrw_dirhist_5='/home/yasser/designPatterns/composite'
-let g:netrw_dirhist_6='/etc/X11/xorg.conf.d'
-let g:netrw_dirhist_7='/home/yasser/myProjects/pathToGameDevelopment/learningC/introduction/fahrenheitAndCelsiusConversion'
-let g:netrw_dirhist_8='/home/yasser/myProjects/pathToGameDevelopment/learningC/helloWorld'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/srv/http/tempo/app/Helpers/SoapUI/Test'

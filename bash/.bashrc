@@ -40,11 +40,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
-
-
-
-
 # the prompt information
 export PS1="[\w]\$" 
 
@@ -66,7 +61,7 @@ color_prompt=yes
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
-        PS1='\[\033[0;34m\] \W\[\033[36m\] \$\[\033[33m\] '
+        PS1='\[\033[0;36m\] \W\[\033[34m\] \$\[\033[33m\] '
 unset color_prompt force_color_prompt
 
 # enable color support of ls and also add handy aliases

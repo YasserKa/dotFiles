@@ -15,6 +15,9 @@ alias less='/usr/share/vim/vim80/macros/less.sh'
 alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
+alias soap='cd /srv/http/tempo/app/Helpers/SoapUI'
+alias game='cd ~/myProjects/pathToGameDevelopment/C/'
+
 
 # Dictionary
 alias def='sdcv -c'
@@ -40,11 +43,12 @@ alias startx='ssh-agent startx'
 
 alias zathurac='zathura /home/yasser/Documents/Books/The\ C++\ Programming\ Language\ \[4th\ Edition\]\ -\ Bjarne\ Stroustrup.pdf & disown'
 
-#function rawc()
-#{
-#	RAW_NAME=
-#	cc $1
-#}
+function rawc()
+{
+	RAW_NAME=`echo $1 | cut -d. -f1`
+	g++ $1 -o $RAW_NAME && ./$RAW_NAME && rm $RAW_NAME
+}
+
 function extract()      # Handy Extract Program
 {
     if [ -f $1 ] ; then

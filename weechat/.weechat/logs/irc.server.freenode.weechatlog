@@ -2437,3 +2437,307 @@
 2017-06-30 21:27:10	--	End of /MOTD command.
 2017-06-30 21:27:10	--	User mode [+Zi] by yasser1
 2017-06-30 21:27:17	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-07-09 12:50:33	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-07-09 12:50:40	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-07-09 12:50:40	--	gnutls: receiving 2 certificates
+2017-07-09 12:50:40	--	 - certificate[1] info:
+2017-07-09 12:50:40	--	   - subject `CN=orwell.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x03a47352326211cb21ae3cc7b74967733f27, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-05-22 05:06:00 UTC', expires `2017-08-20 05:06:00 UTC', pin-sha256="cS0p93N/8xISMq5B6ujzOx6NrEYoG16JE7vUJwyBwZo="
+2017-07-09 12:50:40	--	 - certificate[2] info:
+2017-07-09 12:50:40	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-07-09 12:50:40	--	gnutls: peer's certificate is trusted
+2017-07-09 12:50:40	--	irc: connected to chat.freenode.net/7000 (185.30.166.38)
+2017-07-09 12:50:40	--	orwell.freenode.net: *** Looking up your hostname...
+2017-07-09 12:50:40	--	orwell.freenode.net: *** Checking Ident
+2017-07-09 12:50:40	--	orwell.freenode.net: *** Couldn't look up your hostname
+2017-07-09 12:50:40	--	orwell.freenode.net: *** No Ident response
+2017-07-09 12:50:40	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-07-09 12:50:40	--	irc: client capability, requesting: sasl
+2017-07-09 12:50:40	--	irc: client capability, enabled: sasl
+2017-07-09 12:50:41	--	You are now logged in as yasserKaddoura. (yasser!yasser@78.40.183.234)
+2017-07-09 12:50:41	--	SASL authentication successful
+2017-07-09 12:50:42	--	Welcome to the freenode Internet Relay Chat Network yasser
+2017-07-09 12:50:42	--	MSG(nickserv): identify *************************
+2017-07-09 12:50:42	--	Your host is orwell.freenode.net[185.30.166.38/7000], running version ircd-seven-1.1.4
+2017-07-09 12:50:42	--	This server was created Sat Jan 7 2017 at 12:04:42 EST
+2017-07-09 12:50:42	--	orwell.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-07-09 12:50:42	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-07-09 12:50:42	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 KNOCK CPRIVMSG CNOTICE :are supported by this server
+2017-07-09 12:50:42	--	SAFELIST ELIST=CTU ETRACE WHOX :are supported by this server
+2017-07-09 12:50:42	--	There are 115 users and 83816 invisible on 28 servers
+2017-07-09 12:50:42	--	27 :IRC Operators online
+2017-07-09 12:50:42	--	41 :unknown connection(s)
+2017-07-09 12:50:42	--	49044 :channels formed
+2017-07-09 12:50:42	--	I have 4996 clients and 1 servers
+2017-07-09 12:50:42	--	4996 6943 :Current local users 4996, max 6943
+2017-07-09 12:50:42	--	83931 97718 :Current global users 83931, max 97718
+2017-07-09 12:50:42	--	Highest connection count: 6944 (6943 clients) (1994434 connections received)
+2017-07-09 12:50:42	--	- orwell.freenode.net Message of the Day -
+2017-07-09 12:50:42	--	- Welcome to orwell.freenode.net in Amsterdam, NL.
+2017-07-09 12:50:42	--	- Thanks to http://www.hyperfilter.com/ for sponsoring
+2017-07-09 12:50:42	--	- this server!
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- ORWELL, GEORGE [1903 - 1950] Born in India, his mother
+2017-07-09 12:50:42	--	- moved him to England when he was one year old, and it
+2017-07-09 12:50:42	--	- was in England where he was educated and spent most of
+2017-07-09 12:50:42	--	- his life.  Orwell is perhaps best known for his novels
+2017-07-09 12:50:42	--	- Nineteen Eighty-Four and Animal Farm.
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- Welcome to freenode - supporting the free and open source
+2017-07-09 12:50:42	--	- software communities since 1998.
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- By connecting to freenode you indicate that you have read and
+2017-07-09 12:50:42	--	- accept our policies as set out on http://www.freenode.net
+2017-07-09 12:50:42	--	- freenode runs an open proxy scanner. Please join #freenode for
+2017-07-09 12:50:42	--	- any network-related questions or queries, where a number of
+2017-07-09 12:50:42	--	- volunteer staff and helpful users will be happy to assist you.
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2017-07-09 12:50:42	--	- together with like-minded FOSS enthusiasts for talks and
+2017-07-09 12:50:42	--	- real-life collaboration.
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- We would like to thank Private Internet Access
+2017-07-09 12:50:42	--	- (https://www.privateinternetaccess.com/) and the other
+2017-07-09 12:50:42	--	- organisations that help keep freenode and our other projects
+2017-07-09 12:50:42	--	- running for their sustained support.
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- In particular we would like to thank the sponsor
+2017-07-09 12:50:42	--	- of this server, details of which can be found above.
+2017-07-09 12:50:42	--	-
+2017-07-09 12:50:42	--	- By connecting to freenode you indicate that you have read and
+2017-07-09 12:50:42	--	- agree with our policies and guidelines as published on
+2017-07-09 12:50:42	--	- https://freenode.net
+2017-07-09 12:50:42	--	End of /MOTD command.
+2017-07-09 12:50:42	--	User mode [+Zi] by yasser
+2017-07-09 12:50:42	--	SaslServ (SaslServ@services.): 6 failed logins since last login.
+2017-07-09 12:50:42	--	SaslServ (SaslServ@services.): Last failed attempt from: yasser!~Thunderbi@91.106.63.232 on Jul 06 15:57:02 2017.
+2017-07-09 12:50:49	--	#programming: ##programming :Forwarding to another channel
+2017-07-09 12:50:49	--	programming: No such channel
+2017-07-09 12:50:49	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-07-26 20:07:10	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-07-26 20:07:11	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-07-26 20:07:11	--	gnutls: receiving 2 certificates
+2017-07-26 20:07:11	--	 - certificate[1] info:
+2017-07-26 20:07:11	--	   - subject `CN=orwell.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x03a47352326211cb21ae3cc7b74967733f27, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-05-22 05:06:00 UTC', expires `2017-08-20 05:06:00 UTC', pin-sha256="cS0p93N/8xISMq5B6ujzOx6NrEYoG16JE7vUJwyBwZo="
+2017-07-26 20:07:11	--	 - certificate[2] info:
+2017-07-26 20:07:11	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-07-26 20:07:11	--	gnutls: peer's certificate is trusted
+2017-07-26 20:07:11	--	irc: connected to chat.freenode.net/7000 (185.30.166.38)
+2017-07-26 20:07:11	--	orwell.freenode.net: *** Looking up your hostname...
+2017-07-26 20:07:11	--	orwell.freenode.net: *** Checking Ident
+2017-07-26 20:07:11	--	orwell.freenode.net: *** Couldn't look up your hostname
+2017-07-26 20:07:11	--	orwell.freenode.net: *** No Ident response
+2017-07-26 20:07:11	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-07-26 20:07:11	--	irc: client capability, requesting: sasl
+2017-07-26 20:07:11	--	irc: client capability, enabled: sasl
+2017-07-26 20:07:12	--	You are now logged in as yasserKaddoura. (yasser!yasser@78.40.183.234)
+2017-07-26 20:07:12	--	SASL authentication successful
+2017-07-26 20:07:12	--	Welcome to the freenode Internet Relay Chat Network yasser
+2017-07-26 20:07:12	--	MSG(nickserv): identify *************************
+2017-07-26 20:07:12	--	Your host is orwell.freenode.net[185.30.166.38/7000], running version ircd-seven-1.1.4
+2017-07-26 20:07:12	--	This server was created Sat Jan 7 2017 at 12:04:42 EST
+2017-07-26 20:07:12	--	orwell.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-07-26 20:07:12	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-07-26 20:07:12	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 KNOCK CPRIVMSG CNOTICE :are supported by this server
+2017-07-26 20:07:12	--	SAFELIST ELIST=CTU ETRACE WHOX :are supported by this server
+2017-07-26 20:07:12	--	There are 126 users and 90869 invisible on 29 servers
+2017-07-26 20:07:12	--	30 :IRC Operators online
+2017-07-26 20:07:12	--	52 :unknown connection(s)
+2017-07-26 20:07:12	--	51448 :channels formed
+2017-07-26 20:07:12	--	I have 5746 clients and 1 servers
+2017-07-26 20:07:12	--	5746 6943 :Current local users 5746, max 6943
+2017-07-26 20:07:12	--	90995 97718 :Current global users 90995, max 97718
+2017-07-26 20:07:12	--	Highest connection count: 6944 (6943 clients) (2207353 connections received)
+2017-07-26 20:07:12	--	- orwell.freenode.net Message of the Day -
+2017-07-26 20:07:12	--	- Welcome to orwell.freenode.net in Amsterdam, NL.
+2017-07-26 20:07:12	--	- Thanks to http://www.hyperfilter.com/ for sponsoring
+2017-07-26 20:07:12	--	- this server!
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- ORWELL, GEORGE [1903 - 1950] Born in India, his mother
+2017-07-26 20:07:12	--	- moved him to England when he was one year old, and it
+2017-07-26 20:07:12	--	- was in England where he was educated and spent most of
+2017-07-26 20:07:12	--	- his life.  Orwell is perhaps best known for his novels
+2017-07-26 20:07:12	--	- Nineteen Eighty-Four and Animal Farm.
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- Welcome to freenode - supporting the free and open source
+2017-07-26 20:07:12	--	- software communities since 1998.
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- By connecting to freenode you indicate that you have read and
+2017-07-26 20:07:12	--	- accept our policies as set out on http://www.freenode.net
+2017-07-26 20:07:12	--	- freenode runs an open proxy scanner. Please join #freenode for
+2017-07-26 20:07:12	--	- any network-related questions or queries, where a number of
+2017-07-26 20:07:12	--	- volunteer staff and helpful users will be happy to assist you.
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2017-07-26 20:07:12	--	- together with like-minded FOSS enthusiasts for talks and
+2017-07-26 20:07:12	--	- real-life collaboration.
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- We would like to thank Private Internet Access
+2017-07-26 20:07:12	--	- (https://www.privateinternetaccess.com/) and the other
+2017-07-26 20:07:12	--	- organisations that help keep freenode and our other projects
+2017-07-26 20:07:12	--	- running for their sustained support.
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- In particular we would like to thank the sponsor
+2017-07-26 20:07:12	--	- of this server, details of which can be found above.
+2017-07-26 20:07:12	--	-
+2017-07-26 20:07:12	--	- By connecting to freenode you indicate that you have read and
+2017-07-26 20:07:12	--	- agree with our policies and guidelines as published on
+2017-07-26 20:07:12	--	- https://freenode.net
+2017-07-26 20:07:12	--	End of /MOTD command.
+2017-07-26 20:07:12	--	User mode [+Zi] by yasser
+2017-07-26 20:07:19	--	#programming: ##programming :Forwarding to another channel
+2017-07-26 20:07:19	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-07-26 20:08:11	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-07-26 20:08:11	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-07-26 20:08:11	--	gnutls: receiving 2 certificates
+2017-07-26 20:08:11	--	 - certificate[1] info:
+2017-07-26 20:08:11	--	   - subject `CN=wolfe.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x032fa42a2faf52686f4aa92a00246a4673c8, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-05-22 05:12:00 UTC', expires `2017-08-20 05:12:00 UTC', pin-sha256="AqN5ELLbUmYnkmOq4cUW+lzecvnmU4Y+Mg7DQ4p3Kow="
+2017-07-26 20:08:11	--	 - certificate[2] info:
+2017-07-26 20:08:11	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-07-26 20:08:11	--	gnutls: peer's certificate is trusted
+2017-07-26 20:08:11	--	irc: connected to chat.freenode.net/7000 (193.10.255.100)
+2017-07-26 20:08:11	--	wolfe.freenode.net: *** Looking up your hostname...
+2017-07-26 20:08:11	--	wolfe.freenode.net: *** Checking Ident
+2017-07-26 20:08:11	--	wolfe.freenode.net: *** Couldn't look up your hostname
+2017-07-26 20:08:11	--	wolfe.freenode.net: *** No Ident response
+2017-07-26 20:08:11	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-07-26 20:08:11	--	irc: client capability, requesting: sasl
+2017-07-26 20:08:12	--	irc: client capability, enabled: sasl
+2017-07-26 20:08:12	--	You are now logged in as yasserKaddoura. (yasser!yasser@78.40.183.234)
+2017-07-26 20:08:12	--	SASL authentication successful
+2017-07-26 20:08:12	--	Welcome to the freenode Internet Relay Chat Network yasser
+2017-07-26 20:08:12	--	MSG(nickserv): identify *************************
+2017-07-26 20:08:12	--	Your host is wolfe.freenode.net[193.10.255.100/7000], running version ircd-seven-1.1.4
+2017-07-26 20:08:12	--	This server was created Wed Jan 18 2017 at 02:26:17 CET
+2017-07-26 20:08:12	--	wolfe.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-07-26 20:08:12	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-07-26 20:08:12	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 KNOCK SAFELIST ELIST=CTU :are supported by this server
+2017-07-26 20:08:12	--	WHOX CPRIVMSG CNOTICE ETRACE :are supported by this server
+2017-07-26 20:08:12	--	There are 126 users and 90848 invisible on 29 servers
+2017-07-26 20:08:12	--	30 :IRC Operators online
+2017-07-26 20:08:12	--	32 :unknown connection(s)
+2017-07-26 20:08:12	--	51451 :channels formed
+2017-07-26 20:08:12	--	I have 5848 clients and 1 servers
+2017-07-26 20:08:12	--	5848 6738 :Current local users 5848, max 6738
+2017-07-26 20:08:12	--	90974 97718 :Current global users 90974, max 97718
+2017-07-26 20:08:12	--	Highest connection count: 6739 (6738 clients) (847537 connections received)
+2017-07-26 20:08:12	--	- wolfe.freenode.net Message of the Day -
+2017-07-26 20:08:12	--	- Welcome to wolfe.freenode.net in Stockholm, SE.
+2017-07-26 20:08:12	--	- Thanks to http://nordu.net/ for sponsoring
+2017-07-26 20:08:12	--	- this server!
+2017-07-26 20:08:12	--	-
+2017-07-26 20:08:12	--	- WOLFE, GENE [1931-].  Prolific writer of short stories and
+2017-07-26 20:08:12	--	- novels. His best-known work is the multi-volume novel The
+2017-07-26 20:08:12	--	- Book of the New Sun. He has won multiple awards including
+2017-07-26 20:08:12	--	- the Nebula Award, the World Fantasy Award, The Campell
+2017-07-26 20:08:12	--	- Memorial Award and the Locus Award. He was awarded the World
+2017-07-26 20:08:12	--	- Fantasy Award for lifetime achievement in 1996.
+2017-07-26 20:08:12	--	-
+2017-07-26 20:08:12	--	- Welcome to freenode - supporting the free and open source
+2017-07-26 20:08:12	--	- software communities since 1998.
+2017-07-26 20:08:12	--	-
+2017-07-26 20:08:12	--	- By connecting to freenode you indicate that you have read and
+2017-07-26 20:08:12	--	- accept our policies as set out on http://www.freenode.net
+2017-07-26 20:08:12	--	- freenode runs an open proxy scanner. Please join #freenode for
+2017-07-26 20:08:13	--	- any network-related questions or queries, where a number of
+2017-07-26 20:08:13	--	- volunteer staff and helpful users will be happy to assist you.
+2017-07-26 20:08:13	--	-
+2017-07-26 20:08:13	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2017-07-26 20:08:13	--	- together with like-minded FOSS enthusiasts for talks and
+2017-07-26 20:08:13	--	- real-life collaboration.
+2017-07-26 20:08:13	--	-
+2017-07-26 20:08:13	--	- We would like to thank Private Internet Access
+2017-07-26 20:08:13	--	- (https://www.privateinternetaccess.com/) and the other
+2017-07-26 20:08:13	--	- organisations that help keep freenode and our other projects
+2017-07-26 20:08:13	--	- running for their sustained support.
+2017-07-26 20:08:13	--	-
+2017-07-26 20:08:13	--	- In particular we would like to thank the sponsor
+2017-07-26 20:08:13	--	- of this server, details of which can be found above.
+2017-07-26 20:08:13	--	-
+2017-07-26 20:08:13	--	- By connecting to freenode you indicate that you have read and
+2017-07-26 20:08:13	--	- agree with our policies and guidelines as published on
+2017-07-26 20:08:13	--	- https://freenode.net
+2017-07-26 20:08:13	--	End of /MOTD command.
+2017-07-26 20:08:13	--	User mode [+Zi] by yasser
+2017-07-26 20:08:19	--	#programming: ##programming :Forwarding to another channel
+2017-07-26 20:08:19	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-07-27 20:49:32	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-07-27 20:49:33	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-07-27 20:49:33	--	gnutls: receiving 2 certificates
+2017-07-27 20:49:33	--	 - certificate[1] info:
+2017-07-27 20:49:33	--	   - subject `CN=karatkievich.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x034af8bf887078d546e6ac4f58469b4f6b18, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-05-22 05:08:00 UTC', expires `2017-08-20 05:08:00 UTC', pin-sha256="obvkroeuB13U1CRq+9S+7Ijw9pIJda3fPgXF7iDmHQg="
+2017-07-27 20:49:33	--	 - certificate[2] info:
+2017-07-27 20:49:33	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-07-27 20:49:33	--	gnutls: peer's certificate is trusted
+2017-07-27 20:49:33	--	irc: connected to chat.freenode.net/7000 (64.86.243.181)
+2017-07-27 20:49:34	--	karatkievich.freenode.net: *** Looking up your hostname...
+2017-07-27 20:49:34	--	karatkievich.freenode.net: *** Checking Ident
+2017-07-27 20:49:34	--	karatkievich.freenode.net: *** Couldn't look up your hostname
+2017-07-27 20:49:34	--	karatkievich.freenode.net: *** No Ident response
+2017-07-27 20:49:34	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-07-27 20:49:34	--	irc: client capability, requesting: sasl
+2017-07-27 20:49:34	--	irc: client capability, enabled: sasl
+2017-07-27 20:49:49	=!=	irc: SASL authentication timeout
+2017-07-27 20:49:49	--	SASL authentication aborted
+2017-07-27 20:49:49	--	Welcome to the freenode Internet Relay Chat Network yasser
+2017-07-27 20:49:49	--	MSG(nickserv): identify *************************
+2017-07-27 20:49:49	--	Your host is karatkievich.freenode.net[64.86.243.181/7000], running version ircd-seven-1.1.4
+2017-07-27 20:49:49	--	This server was created Sun Jan 8 2017 at 22:54:39 EST
+2017-07-27 20:49:49	--	karatkievich.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-07-27 20:49:49	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-07-27 20:49:49	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 CPRIVMSG CNOTICE ETRACE :are supported by this server
+2017-07-27 20:49:49	--	KNOCK SAFELIST ELIST=CTU WHOX :are supported by this server
+2017-07-27 20:49:49	--	There are 127 users and 90883 invisible on 29 servers
+2017-07-27 20:49:49	--	29 :IRC Operators online
+2017-07-27 20:49:49	--	45 :unknown connection(s)
+2017-07-27 20:49:49	--	51460 :channels formed
+2017-07-27 20:49:49	--	I have 5807 clients and 1 servers
+2017-07-27 20:49:49	--	5807 6495 :Current local users 5807, max 6495
+2017-07-27 20:49:49	--	91010 97718 :Current global users 91010, max 97718
+2017-07-27 20:49:49	--	Highest connection count: 6496 (6495 clients) (720952 connections received)
+2017-07-27 20:49:49	--	- karatkievich.freenode.net Message of the Day -
+2017-07-27 20:49:49	--	- Welcome to karatkievich.freenode.net. Thanks to
+2017-07-27 20:49:49	--	- http://www.tatacommunications.com/ for sponsoring
+2017-07-27 20:49:49	--	- this server!
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- KARATKIEVICH, ULADZIMIR (1930-1984) was a Belarusian
+2017-07-27 20:49:49	--	- romantic writer. After his first published work was a poem
+2017-07-27 20:49:49	--	- in 1951, he followed up with novels, short stories, plays,
+2017-07-27 20:49:49	--	- essays, articles and screenplays. His probably most popular
+2017-07-27 20:49:49	--	- work is the novel 'King Stakh's Wild Hunt' (1964). Most his
+2017-07-27 20:49:49	--	- novels are about Belarus's past.  He won many national
+2017-07-27 20:49:49	--	- literary awards and influenced the Belarusian literature's
+2017-07-27 20:49:49	--	- development of historical themes.
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- Welcome to freenode - supporting the free and open source
+2017-07-27 20:49:49	--	- software communities since 1998.
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- By connecting to freenode you indicate that you have read and
+2017-07-27 20:49:49	--	- accept our policies as set out on http://www.freenode.net
+2017-07-27 20:49:49	--	- freenode runs an open proxy scanner. Please join #freenode for
+2017-07-27 20:49:49	--	- any network-related questions or queries, where a number of
+2017-07-27 20:49:49	--	- volunteer staff and helpful users will be happy to assist you.
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- You can meet us at FOSSCON (http://www.fosscon.org) where we get
+2017-07-27 20:49:49	--	- together with like-minded FOSS enthusiasts for talks and
+2017-07-27 20:49:49	--	- real-life collaboration.
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- We would like to thank Private Internet Access
+2017-07-27 20:49:49	--	- (https://www.privateinternetaccess.com/) and the other
+2017-07-27 20:49:49	--	- organisations that help keep freenode and our other projects
+2017-07-27 20:49:49	--	- running for their sustained support.
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- In particular we would like to thank the sponsor
+2017-07-27 20:49:49	--	- of this server, details of which can be found above.
+2017-07-27 20:49:49	--	-
+2017-07-27 20:49:49	--	- By connecting to freenode you indicate that you have read and
+2017-07-27 20:49:49	--	- agree with our policies and guidelines as published on
+2017-07-27 20:49:49	--	- https://freenode.net
+2017-07-27 20:49:49	--	End of /MOTD command.
+2017-07-27 20:49:49	--	User mode [+Zi] by yasser
+2017-07-27 20:49:50	--	NickServ (NickServ@services.): This nickname is registered. Please choose a different nickname, or identify via /msg NickServ identify <password>.
+2017-07-27 20:49:56	--	#archlinux: #archlinux-unregistered :Forwarding to another channel
+2017-07-27 20:49:56	--	#programming: ##programming :Forwarding to another channel
+2017-07-27 20:49:56	--	NickServ (NickServ@services.): You are now identified for yasserKaddoura.
