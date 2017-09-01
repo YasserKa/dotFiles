@@ -2,6 +2,8 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 syntax on
 
+" For YCM
+set encoding=utf-8
 " Makes a window appear while writting commands
 set wildmenu
 " Using C -> $ at the end

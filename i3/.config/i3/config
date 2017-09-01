@@ -235,7 +235,7 @@ focus_follows_mouse no
 
 # Resizing the border
 # Startup
-exec_always feh --bg-scale /home/yasser/Pictures/WallPapers/Blue_Bridge.jpg
+exec_always feh --bg-scale /home/yasser/Pictures/WallPapers/Blue_Black_1.jpg
 
 exec firefox
 exec rhythmbox
