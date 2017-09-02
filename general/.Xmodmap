@@ -247,6 +247,11 @@ keycode 253 =
 keycode 254 =
 keycode 255 =
 
+keycode 67 = XF86AudioMute
+keycode 68 = XF86AudioLowerVolume
+keycode 69 = XF86AudioRaiseVolume
+keycode 95 = XF86MonBrightnessDown
+keycode 96 = XF86MonBrightnessUp
 clear lock
 clear control
 keycode 66 = Control_L

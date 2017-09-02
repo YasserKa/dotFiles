@@ -1,0 +1,72 @@
+Installation:
+    -Get https://www.archlinux.org/releng/releases/    
+    -Get https://sourceforge.net/projects/win32diskimager/files/latest/download
+    -Go through http://www.wikihow.com/Install-Arch-Linux
+    -sudo pacman -S networkmanager
+    -systemctl enable networkmanager
+    -nmtui
+Add User:
+    -useradd -m <name>
+    -passwd <name>                                                        
+    -sign in as root
+    -open the sudoers file: /etc/sudoers
+    -add user below sudoers section same format as file
+I3:
+    -sudo pacman -S i3 xorg termite pactl feh lxappearance compton rofi pulseaudio alsa-utils alsa-plugins firefox git stow vim arc-gtk-theme i3lock
+    -add exec i3 in .xinitrc
+    -chmod .xinitrc 755
+    -sudo xinit .xinitrc
+    -git pull dotfiles, delete old files and stow
+    enable yaourt:
+        sudo vi /etc/pacman.conf    
+          [archlinuxfr]
+          SigLevel = Never
+        Server = http://repo.archlinux.fr/$arch
+	yaourt pkgbrowser
+    # 3. Disable GRUB delay 
+	Add the following to /etc/default/grub: 
+		# achieve the fastest possible boot: 
+		GRUB_FORCE_HIDDEN_MENU="true" 
+		Then put file 31_hold_shift to /etc/grub.d/. 
+		Download 31_hold_shift https://goo.gl/nac6Kp 
+	Make it executable, and regenerate the grub configuration: 
+		sudo chmod a+x /etc/grub.d/31_hold_shift 
+		sudo grub-mkconfig -o /boot/grub/grub.cfg
+	# 5. Set up firewall Install ufw: 
+		sudo pacman -S ufw 
+	Enable it. 
+		sudo ufw enable 
+	Check its status: 
+		sudo ufw status verbose 
+	Enable the start-up with the system: 
+		sudo systemctl enable ufw.service
+
+vim:
+	Get Vundle:
+		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+		vim :PluginInstall
+	sudo pacman -S cmake mono nodejs npm go cargo
+	gpg --keyserver pgp.mit.edu --recv-keys F7E48EDB
+	yaourt ncurses5 
+   	cd ~/.vim/bundle/YouCompleteMe	
+	./install.py --all
+
+Sync fastest mirrors:
+      sudo pacman -S reflector
+    sudo reflector --verbose --latest 5 --sort rate --save /etc/pacman.d/mirrorlistInstall programs:
+
+
+yaourt shutter perl-goo-canvas obs-studio-git light-git megasync
+
+pacman weechat vlc rhythembox kmail zathura zathura-pdf-popple yroutue-dl sdcv umlet thunderbird transmission-gtk xdg-utils nautilus playerctl devilspie xdg-user-dirs -S ttf-inconsolata 
+
+for sdcv 
+	-download dictionary -> https://web.archive.org/web/20140428003644/http://abloz.com/huzheng/stardict-dic/dict.org/stardict-dictd_www.dict.org_gcide-2.4.2.tar.bz2
+	-sudo mkdir -p /usr/share/stardict/dic/
+	-sudo tar -xvjf downloaded.tar.bz2 -C /usr/share/stardict/dic
+
+
+Problems: 
+vlc -> sudo pacman -S qt4
+xblacklight -> use light-git
+
