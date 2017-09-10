@@ -1,7 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/srv/http/tempo/app/Helpers/SoapUI/Test'
 let g:netrw_dirhist_2='/home/yasser/.config'
 let g:netrw_dirhist_3='/home/yasser/.config/i3'
 let g:netrw_dirhist_4='/home/yasser/.vim'
 let g:netrw_dirhist_5='/sys/class/backlight'
+let g:netrw_dirhist_6='/home/yasser/.devilspie'
+let g:netrw_dirhist_7='/home/yasser/Documents/notes/gameDevTools'
+let g:netrw_dirhist_8='/home/yasser'
+let g:netrw_dirhist_9='/home/yasser/Documents/notes'

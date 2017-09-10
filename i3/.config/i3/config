@@ -225,7 +225,7 @@ bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 # bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
 # Media player controls
-bindsym XF86AudioPlay exec startMusic
+bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
@@ -246,5 +246,6 @@ exec rhythmbox
 #exec slack
 #exec discord
 #exec skypeforlinux
-exec thunderbird
+#exec thunderbird
+exec kmail
 

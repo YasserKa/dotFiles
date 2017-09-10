@@ -2741,3 +2741,86 @@
 2017-07-27 20:49:56	--	#archlinux: #archlinux-unregistered :Forwarding to another channel
 2017-07-27 20:49:56	--	#programming: ##programming :Forwarding to another channel
 2017-07-27 20:49:56	--	NickServ (NickServ@services.): You are now identified for yasserKaddoura.
+2017-09-10 13:20:21	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2017-09-10 13:20:22	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2017-09-10 13:20:22	--	gnutls: receiving 2 certificates
+2017-09-10 13:20:22	--	 - certificate[1] info:
+2017-09-10 13:20:22	--	   - subject `CN=barjavel.freenode.net', issuer `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', serial 0x0304678b52a98f047620546f58958314d134, RSA key 4096 bits, signed using RSA-SHA256, activated `2017-07-17 05:02:00 UTC', expires `2017-10-15 05:02:00 UTC', pin-sha256="bFnj58vIMRePUHKVVm66438zdgYX5r9/Y4qVLKLiLbI="
+2017-09-10 13:20:22	--	 - certificate[2] info:
+2017-09-10 13:20:22	--	   - subject `CN=Let's Encrypt Authority X3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x0a0141420000015385736a0b85eca708, RSA key 2048 bits, signed using RSA-SHA256, activated `2016-03-17 16:40:46 UTC', expires `2021-03-17 16:40:46 UTC', pin-sha256="YLh1dUR9y6Kja30RrAn7JKnbQG/uEtLMkBgFF2Fuihg="
+2017-09-10 13:20:22	--	gnutls: peer's certificate is trusted
+2017-09-10 13:20:22	--	irc: connected to chat.freenode.net/7000 (195.154.200.232)
+2017-09-10 13:20:22	--	barjavel.freenode.net: *** Looking up your hostname...
+2017-09-10 13:20:22	--	barjavel.freenode.net: *** Checking Ident
+2017-09-10 13:20:22	--	barjavel.freenode.net: *** Couldn't look up your hostname
+2017-09-10 13:20:22	--	barjavel.freenode.net: *** No Ident response
+2017-09-10 13:20:22	--	irc: client capability, server supports: account-notify extended-join identify-msg multi-prefix sasl
+2017-09-10 13:20:22	--	irc: client capability, requesting: sasl
+2017-09-10 13:20:22	--	irc: client capability, enabled: sasl
+2017-09-10 13:20:23	--	You are now logged in as yasserKaddoura. (yasser!yasser@78.40.183.234)
+2017-09-10 13:20:23	--	SASL authentication successful
+2017-09-10 13:20:24	--	Welcome to the freenode Internet Relay Chat Network yasser
+2017-09-10 13:20:24	--	MSG(nickserv): identify *************************
+2017-09-10 13:20:24	--	Your host is barjavel.freenode.net[195.154.200.232/7000], running version ircd-seven-1.1.4
+2017-09-10 13:20:24	--	This server was created Sat Jan 7 2017 at 03:00:47 CET
+2017-09-10 13:20:24	--	barjavel.freenode.net ircd-seven-1.1.4 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+2017-09-10 13:20:24	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2017-09-10 13:20:24	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU WHOX :are supported by this server
+2017-09-10 13:20:24	--	ETRACE CPRIVMSG CNOTICE KNOCK :are supported by this server
+2017-09-10 13:20:24	--	There are 119 users and 81151 invisible on 30 servers
+2017-09-10 13:20:24	--	32 :IRC Operators online
+2017-09-10 13:20:24	--	76 :unknown connection(s)
+2017-09-10 13:20:24	--	52840 :channels formed
+2017-09-10 13:20:24	--	I have 5443 clients and 1 servers
+2017-09-10 13:20:24	--	5443 7620 :Current local users 5443, max 7620
+2017-09-10 13:20:24	--	81270 97718 :Current global users 81270, max 97718
+2017-09-10 13:20:24	--	Highest connection count: 7621 (7620 clients) (2365851 connections received)
+2017-09-10 13:20:24	--	- barjavel.freenode.net Message of the Day -
+2017-09-10 13:20:24	--	- Welcome to barjavel.freenode.net in Paris, FR, EU.
+2017-09-10 13:20:24	--	- Thanks to Bearstech (www.bearstech.com) for sponsoring
+2017-09-10 13:20:24	--	- this server!
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- BARJAVEL, RENE [1911-1985].  Born in Nyons, he was a
+2017-09-10 13:20:24	--	- science-fiction author, a journalist and a critic. He is
+2017-09-10 13:20:24	--	- credited with having written the first novel to introduce
+2017-09-10 13:20:24	--	- the Grandfather Paradox in time travel, in his 1943 work
+2017-09-10 13:20:24	--	- 'Le Voyageur imprudent'.
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	-   __                               _          _  _   _     _____     _______
+2017-09-10 13:20:24	--	-  / _|_ __ ___  ___ _ __   ___   __| | ___   _| || |_| |   |_ _\ \   / / ____|
+2017-09-10 13:20:24	--	- | |_| '__/ _ \/ _ \ '_ \ / _ \ / _` |/ _ \ |_  ..  _| |    | | \ \ / /|  _|
+2017-09-10 13:20:24	--	- |  _| | |  __/  __/ | | | (_) | (_| |  __/ |_      _| |___ | |  \ V / | |___
+2017-09-10 13:20:24	--	- |_| |_|  \___|\___|_| |_|\___/ \__,_|\___|   |_||_| |_____|___|  \_/  |_____|
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- October 28th - 29th, Bristol, United Kingdom - see http://freenode.live/
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- freenode #live is a community-focused live event designed to build and
+2017-09-10 13:20:24	--	- strengthen relationships between Free and Open Source Software (FOSS)
+2017-09-10 13:20:24	--	- developers and users. freenode live seeks to raise awareness of and
+2017-09-10 13:20:24	--	- promote FOSS alternatives to proprietary software.
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- Facilitating face-to-face interaction, creative workshops, talks and think
+2017-09-10 13:20:24	--	- tanks, freenode #live will bring developers and users together in a nurturing
+2017-09-10 13:20:24	--	- and dynamic environment stimulating the free exchange of ideas and
+2017-09-10 13:20:24	--	- information while fostering cross-project collaboration and dialogue for
+2017-09-10 13:20:24	--	- innovation.
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- Please join us in the #live channel on the freenode network, or send us an
+2017-09-10 13:20:24	--	- e-mail (2017-team@freenode.live) if you have any questions and would like to
+2017-09-10 13:20:24	--	- get involved! Further information will also be posted on the freenode.net
+2017-09-10 13:20:24	--	- website.
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- See https://freenode.live/ for more information and to get your tickets!
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- We hope to see you there!
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	-
+2017-09-10 13:20:24	--	- By connecting to freenode you indicate that you have read and
+2017-09-10 13:20:24	--	- agree with our policies and guidelines as published on
+2017-09-10 13:20:24	--	- https://freenode.net
+2017-09-10 13:20:24	--	End of /MOTD command.
+2017-09-10 13:20:24	--	User mode [+Zi] by yasser
+2017-09-10 13:20:31	--	#programming: ##programming :Forwarding to another channel
+2017-09-10 13:20:31	--	NickServ (NickServ@services.): You are already logged in as yasserKaddoura.
+2017-09-10 13:21:03	--	irc: disconnected from server

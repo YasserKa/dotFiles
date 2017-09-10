@@ -1,7 +1,5 @@
 #!/bin/sh
 
-#disable bell
-xset -b
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources

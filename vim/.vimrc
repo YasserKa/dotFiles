@@ -2,6 +2,8 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 syntax on
 
+" Chaneg tabs to spaces
+set expandtab
 " For YCM
 set encoding=utf-8
 " Makes a window appear while writting commands
@@ -11,9 +13,17 @@ set cpoptions+=$
 " Moving in whitespace
 set virtualedit=all
 
+set complete=.,w,b,t
+set textwidth=80
 set tabstop=4
 set shiftwidth=4
 set number
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Start searching while typing
 set incsearch

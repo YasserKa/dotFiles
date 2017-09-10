@@ -3214,3 +3214,12 @@
 2017-07-26 20:56:58	-->	louisdk (~louisdk@212.178.176.210) has joined #archlinux
 2017-07-26 20:57:09	superfox_il_volp	okay let me try
 2017-07-26 20:57:12	-->	einveru (~einveru@2001:579:4118:c:a0c2:871d:8f90:d2da) has joined #archlinux
+2017-09-10 13:20:30	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-09-10 13:20:30	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/XWFreH | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG"
+2017-09-10 13:20:30	--	Topic set by jelle (~jelle@archlinux/developer/jelle) on Mon, 14 Aug 2017 21:21:17
+2017-09-10 13:20:30	--	Channel #archlinux: 1662 nicks (1 op, 0 voices, 1661 normals)
+2017-09-10 13:20:32	innermous	is there any way to force make use the openssl-1.0 instead openssl-1.1 using "-lssl"?
+2017-09-10 13:20:34	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-09-10 13:20:43	<--	siidney (~siid@190.148.221.91) has quit (Remote host closed the connection)
+2017-09-10 13:20:43	sheep	innermous: why do you need to do this?
+2017-09-10 13:21:03	--	irc: disconnected from server
