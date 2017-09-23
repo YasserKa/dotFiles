@@ -1,0 +1,27 @@
+2017-09-21 20:54:52	-->	yasser (~yasser@78.40.183.234) has joined #unity3d
+2017-09-21 20:54:52	--	Topic for #unity3d is "Unity 2017.1 is out https://goo.gl/vJLjAv | Linux http://goo.gl/XaGjb6 | Patch releases http://unity3d.com/unity/qa/patch-releases | #unity3d-chat for off-topic discussion | Paste code to http://hastebin.com"
+2017-09-21 20:54:52	--	Topic set by Tak (~Tak@62.116.219.97) on Thu, 20 Jul 2017 14:52:22
+2017-09-21 20:54:52	--	Channel #unity3d: 151 nicks (1 op, 0 voices, 150 normals)
+2017-09-21 20:54:52	--	URL for #unity3d: http://unity3d.com/community
+2017-09-21 20:54:54	--	Channel created on Wed, 17 Oct 2007 09:15:32
+2017-09-21 20:55:12	yasser	Hey guys, anyone here uses vim while editing scripts in unity?
+2017-09-21 20:55:33	merpnderp_	Stupid that the debugger would make assumptions about how much precision I'd want to see from a float.
+2017-09-21 20:55:53	merpnderp_	yasser: I use vim mode in VSCode :)
+2017-09-21 20:56:12	yasser	Yeah, that's a plugin for vim.
+2017-09-21 20:56:18	<--	BruceTheHoon (~BruceTheH@host145-249-static.63-82-b.business.telecomitalia.it) has quit (Ping timeout: 240 seconds)
+2017-09-21 20:56:52	yasser	No, I am talking about pure vim. I was just wondering if you get to have all the autocompletetions if you use omnisharp
+2017-09-21 21:04:54	-->	Silvering (~textual@2a01:cb19:8ad0:6000:1e9:dba2:aec7:d200) has joined #unity3d
+2017-09-21 21:07:12	--	irc: disconnected from server
+2017-09-23 22:15:14	-->	yasser (~yasser@78.40.183.234) has joined #unity3d
+2017-09-23 22:15:14	--	Topic for #unity3d is "Unity 2017.1 is out https://goo.gl/vJLjAv | Linux http://goo.gl/XaGjb6 | Patch releases http://unity3d.com/unity/qa/patch-releases | #unity3d-chat for off-topic discussion | Paste code to http://hastebin.com"
+2017-09-23 22:15:14	--	Topic set by Tak (~Tak@62.116.219.97) on Thu, 20 Jul 2017 14:52:22
+2017-09-23 22:15:14	--	Channel #unity3d: 123 nicks (1 op, 0 voices, 122 normals)
+2017-09-23 22:15:14	--	URL for #unity3d: http://unity3d.com/community
+2017-09-23 22:15:16	--	Channel created on Wed, 17 Oct 2007 09:15:32
+2017-09-23 22:15:17	-->	Tylak (~Tylak@cpe-174-96-178-45.columbus.res.rr.com) has joined #unity3d
+2017-09-23 22:15:58	<--	Cabanossi (~Cabanossi@pC19F2D3A.dip0.t-ipconnect.de) has quit (Ping timeout: 264 seconds)
+2017-09-23 22:16:31	yasser	Any one knows how to set the script editor args in the prefs? I should use EditorPrefs.SetStrinng(,)?
+2017-09-23 22:16:50	-->	Cabanossi (~Cabanossi@pC19F2D3A.dip0.t-ipconnect.de) has joined #unity3d
+2017-09-23 22:24:27	<--	kevnls (~kevnls@c-73-157-174-172.hsd1.or.comcast.net) has quit (Ping timeout: 252 seconds)
+2017-09-23 22:29:26	-->	kevnls (~kevnls@c-73-157-174-172.hsd1.or.comcast.net) has joined #unity3d
+2017-09-23 22:34:49	--	irc: disconnected from server

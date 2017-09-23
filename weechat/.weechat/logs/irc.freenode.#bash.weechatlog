@@ -2084,3 +2084,122 @@
 2017-09-10 13:20:31	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
 2017-09-10 13:20:32	--	Channel created on Sun, 26 Nov 2006 08:42:44
 2017-09-10 13:21:03	--	irc: disconnected from server
+2017-09-20 18:45:46	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-09-20 18:45:46	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-20 18:45:46	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-20 18:45:46	--	Channel #bash: 1265 nicks (1 op, 0 voices, 1264 normals)
+2017-09-20 18:45:47	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-20 18:45:48	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-20 18:46:05	-->	neoncontrails (~neoncontr@2602:306:31a7:a1a0:50c2:27e4:7eb0:9467) has joined #bash
+2017-09-20 18:46:13	<--	BowBoy (~BowBoy@2607:fb90:2568:ac71:8706:1f06:292:ae27) has quit (Quit: AndroIRC - Android IRC Client ( http://www.androirc.com ))
+2017-09-20 18:46:40	<--	jrahmy (~jrahmy@107.170.181.251) has quit (Ping timeout: 248 seconds)
+2017-09-20 18:47:52	-->	TomyLobo (~TomyLobo@2a02:8109:87c0:20c:dcde:87c9:4eeb:97e3) has joined #bash
+2017-09-20 18:48:09	-->	well_laid_lawn (~Jean-luc@61.68.66.219) has joined #bash
+2017-09-20 18:48:26	-->	jrahmy (~jrahmy@107.170.181.251) has joined #bash
+2017-09-20 18:49:13	-->	BeerLover (~BeerBuddy@203.122.56.62) has joined #bash
+2017-09-20 18:53:33	<--	Jellyg00se (~Alfie@195.99.134.162) has quit (Quit: Leaving)
+2017-09-20 18:55:48	<--	Hello71 (Hello71@wikipedia/Hello71) has quit (Quit: brb)
+2017-09-20 18:56:09	-->	chartractegg (~chartract@ip68-98-5-113.ph.ph.cox.net) has joined #bash
+2017-09-20 18:56:14	-->	Masterphi (~Masterphi@199.192.105.248) has joined #bash
+2017-09-20 18:56:35	<--	steeze (~steeze@63.76.231.82) has quit (Quit: My Mac has gone to sleep. ZZZzzz…)
+2017-09-20 18:57:15	-->	Hello71 (Hello71@wikipedia/Hello71) has joined #bash
+2017-09-20 18:57:25	<--	chartractegg (~chartract@ip68-98-5-113.ph.ph.cox.net) has quit (Client Quit)
+2017-09-20 18:57:29	-->	ekinmur (~textual@unaffiliated/ekinmur) has joined #bash
+2017-09-20 18:58:47	<--	tax (~tax@2605:6000:1018:c1dc:e5c5:cbb8:e6b4:1d91) has quit (Ping timeout: 246 seconds)
+2017-09-20 18:58:57	<--	wonderworld (~ww@dslb-088-075-029-175.088.075.pools.vodafone-ip.de) has quit (Ping timeout: 260 seconds)
+2017-09-20 18:59:28	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Remote host closed the connection)
+2017-09-20 18:59:47	-->	adminseodwn (~archer@unaffiliated/remcwo9o) has joined #bash
+2017-09-20 18:59:59	--	jelly-home is now known as jelly
+2017-09-20 19:00:17	-->	BShaftoe12349 (~blahblah@ip72-197-237-155.sd.sd.cox.net) has joined #bash
+2017-09-20 19:00:23	-->	mkoskar (~mkoskar@unaffiliated/mkoskar) has joined #bash
+2017-09-20 19:01:36	<--	Chuguniy (~Chuguniy@80.232.218.96) has quit (Quit: Leaving)
+2017-09-20 19:01:52	<--	karakedi (~eAC53C340@unaffiliated/orphan) has quit (Ping timeout: 260 seconds)
+2017-09-20 19:02:10	<--	Cabanossi (~Cabanossi@pC19F2215.dip0.t-ipconnect.de) has quit (Ping timeout: 264 seconds)
+2017-09-20 19:03:12	-->	scryptophyte (~scryptoph@modemcable010.222-200-24.mc.videotron.ca) has joined #bash
+2017-09-20 19:03:12	<--	abba (~abba@46.189.77.18) has quit (Read error: Connection reset by peer)
+2017-09-20 19:04:04	scryptophyte	alias rm='mv "$@" ~/Del'       : "mv: cannot overwrite non-directory 'delme' with directory '/home/scryptophyte/Del'"
+2017-09-20 19:04:23	<--	jameser (~textual@125.37.176.135) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-09-20 19:04:49	-->	Cabanossi (~Cabanossi@pC19F2215.dip0.t-ipconnect.de) has joined #bash
+2017-09-20 19:05:00	scryptophyte	I want to move file to trash when executing the alias rm
+2017-09-20 19:05:06	scryptophyte	the trash being ~/Del
+2017-09-20 19:05:42	dreisner	scryptophyte: aliases don't take arguments. use a function.
+2017-09-20 19:05:46	-->	chartractegg (~chartract@gateway/vpn/privateinternetaccess/chartractegg) has joined #bash
+2017-09-20 19:05:55	scryptophyte	ok
+2017-09-20 19:06:09	-->	fission6 (~textual@204.148.42.142) has joined #bash
+2017-09-20 19:08:09	<--	diogenese (~diogenese@diogenese.velotech.net) has quit (Quit: Leaving)
+2017-09-20 19:08:56	-->	jarnos (~jarnos@2001:999:42:3b25:dcee:695:dc35:2) has joined #bash
+2017-09-20 19:09:41	-->	[r4] (~r4]@staticline-31-182-161-103.toya.net.pl) has joined #bash
+2017-09-20 19:09:48	twkm	good luck with that.
+2017-09-20 19:10:22	scryptophyte	took 2 line
+2017-09-20 19:10:27	scryptophyte	well 4
+2017-09-20 19:10:51	<--	mtcjayne (4baa8890@gateway/web/freenode/ip.75.170.136.144) has quit (Quit: Page closed)
+2017-09-20 19:12:11	twkm	i mean saving deleted files, not the mv itself.
+2017-09-20 19:12:16	<--	BeerLover (~BeerBuddy@203.122.56.62) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-20 19:12:48	<--	deekej (deekej@nat/redhat/x-ivscmufqneuasnyf) has quit (Remote host closed the connection)
+2017-09-20 19:12:51	scryptophyte	as in I'll need to empty the "saved" files once in a while?
+2017-09-20 19:12:56	twkm	though there are some gotcha's.
+2017-09-20 19:13:10	twkm	that's one thing.
+2017-09-20 19:13:48	<--	jlf (~jlf@pdpc/supporter/active/jlf) has quit (Ping timeout: 240 seconds)
+2017-09-20 19:13:51	scryptophyte	a cron job can be usefull
+2017-09-20 19:14:35	<--	HarveyPwca (~HarveyPwc@ip-64-134-173-34.public.wayport.net) has quit (Ping timeout: 240 seconds)
+2017-09-20 19:15:45	<--	snowcras_ (~textual@217.138.24.214) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-20 19:16:50	twkm	what about relative paths?  how about directories that became files or the reverse?
+2017-09-20 19:17:29	<--	b00jum (~boojum@unaffiliated/b00jum) has quit (Quit: That's all folks!)
+2017-09-20 19:17:30	<--	rcernin (rcernin@nat/redhat/x-rpecdmbbnrgbttyz) has quit (Quit: WeeChat 1.9)
+2017-09-20 19:17:31	-->	karakedi (~eAC53C340@78.184.184.227) has joined #bash
+2017-09-20 19:17:31	<--	karakedi (~eAC53C340@78.184.184.227) has quit (Changing host)
+2017-09-20 19:17:31	-->	karakedi (~eAC53C340@unaffiliated/orphan) has joined #bash
+2017-09-20 19:19:53	-->	zafu (~zafu@217-162-80-100.dynamic.hispeed.ch) has joined #bash
+2017-09-20 19:20:15	-->	HarveyPwca (~HarveyPwc@ip-64-134-173-34.public.wayport.net) has joined #bash
+2017-09-20 19:21:42	--	irc: disconnected from server
+2017-09-21 20:54:25	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-09-21 20:54:25	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-21 20:54:25	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-21 20:54:25	--	Channel #bash: 1254 nicks (1 op, 0 voices, 1253 normals)
+2017-09-21 20:54:26	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-21 20:54:29	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-21 20:55:10	-->	ekinmur (~textual@unaffiliated/ekinmur) has joined #bash
+2017-09-21 20:55:32	-->	TomyLobo (~TomyLobo@2a02:8109:87c0:20c:c960:7ab7:374c:c4ee) has joined #bash
+2017-09-21 20:58:18	-->	gentunian (~seba@unaffiliated/gentunian) has joined #bash
+2017-09-21 20:58:22	-->	apus (~tux@p5B142448.dip0.t-ipconnect.de) has joined #bash
+2017-09-21 21:00:11	-->	piterr (~Piotr@user-94-254-140-61.play-internet.pl) has joined #bash
+2017-09-21 21:00:22	-->	Sasazuka (~Sasazuka@unaffiliated/sasazuka) has joined #bash
+2017-09-21 21:02:17	<--	cyborg-one (~cyborg-on@176.119.126.153) has quit (Ping timeout: 260 seconds)
+2017-09-21 21:02:37	-->	Havde (~Havde_@55.92-220-69.customer.lyse.net) has joined #bash
+2017-09-21 21:07:12	--	irc: disconnected from server
+2017-09-23 22:14:47	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-09-23 22:14:47	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-23 22:14:47	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-23 22:14:47	--	Channel #bash: 1228 nicks (1 op, 0 voices, 1227 normals)
+2017-09-23 22:14:48	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-23 22:14:49	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-23 22:15:58	<--	Cabanossi (~Cabanossi@pC19F2D3A.dip0.t-ipconnect.de) has quit (Ping timeout: 264 seconds)
+2017-09-23 22:16:01	<--	mathys (~mathys@151.70.30.194) has quit (Max SendQ exceeded)
+2017-09-23 22:16:31	-->	Cabanossi (~Cabanossi@pC19F2D3A.dip0.t-ipconnect.de) has joined #bash
+2017-09-23 22:17:08	<--	skweek (~skweek@68-200-141-214.res.bhn.net) has quit (Ping timeout: 240 seconds)
+2017-09-23 22:17:33	<--	zub1n (~zub1n@unaffiliated/zub1n) has quit (Ping timeout: 246 seconds)
+2017-09-23 22:17:38	-->	__Yiota (~textual@2607:fea8:56df:fa6d:559b:e176:4227:d764) has joined #bash
+2017-09-23 22:18:57	<--	swift110 (~swift110@unaffiliated/swift110) has quit (Ping timeout: 252 seconds)
+2017-09-23 22:19:30	<--	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has quit (Remote host closed the connection)
+2017-09-23 22:19:55	-->	mluser-home (~mluser@cpe-24-31-168-101.columbus.res.rr.com) has joined #bash
+2017-09-23 22:20:13	-->	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has joined #bash
+2017-09-23 22:21:17	-->	well_laid_lawnch (~Jean-luc@118.102.127.71) has joined #bash
+2017-09-23 22:21:21	-->	moetunes (~Jean-luc@118.102.127.71) has joined #bash
+2017-09-23 22:21:44	<--	well_laid_lawnch (~Jean-luc@118.102.127.71) has quit (Client Quit)
+2017-09-23 22:23:19	-->	MACscr (~MACscr@c-73-9-230-5.hsd1.il.comcast.net) has joined #bash
+2017-09-23 22:23:37	<--	Amenadiel (Amenadiel@2a07:5741:0:c47::5) has quit (Quit: http://quassel-irc.org - Chat comfortably. Anywhere.)
+2017-09-23 22:23:43	<--	well_laid_lawn (~Jean-luc@107.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has quit (Ping timeout: 248 seconds)
+2017-09-23 22:23:48	-->	Amenadiel (Amenadiel@2a07:5741:0:c47::5) has joined #bash
+2017-09-23 22:23:49	-->	CHCl3 (~CHCl3@225.136.94.90.dynamic.jazztel.es) has joined #bash
+2017-09-23 22:24:17	<--	justanotheruser (~justanoth@unaffiliated/justanotheruser) has quit (Ping timeout: 246 seconds)
+2017-09-23 22:24:27	<--	moetuning (~Jean-luc@107.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has quit (Ping timeout: 252 seconds)
+2017-09-23 22:24:47	<--	widp (~tejaswidp@49.207.59.145) has quit (Ping timeout: 248 seconds)
+2017-09-23 22:27:51	-->	Hope_ (~Hope_@55.92-220-69.customer.lyse.net) has joined #bash
+2017-09-23 22:28:25	<--	zais (~internet@31.23.230.71) has quit (Ping timeout: 240 seconds)
+2017-09-23 22:28:25	<--	sillyslux (~sillyslux@m193-217-237-112.cust.tele2.hr) has quit (Ping timeout: 246 seconds)
+2017-09-23 22:30:05	<--	ivo_ (~ivo_@unaffiliated/ivo/x-7575225) has quit (Remote host closed the connection)
+2017-09-23 22:30:10	<--	CHCl3 (~CHCl3@225.136.94.90.dynamic.jazztel.es) has quit (Quit: Saliendo)
+2017-09-23 22:30:17	<--	gryffus (~gryffus@unaffiliated/gryffus) has quit (Quit: Konversation terminated!)
+2017-09-23 22:31:37	<--	chocorho (~chocorho@129-2-181-74.wireless.umd.edu) has quit (Quit: Leaving)
+2017-09-23 22:33:27	-->	jimmyrcom_ (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has joined #bash
+2017-09-23 22:34:49	--	irc: disconnected from server

@@ -1,0 +1,21 @@
+#!/bin/bash
+SAVE_TO="$HOME/Pictures/ScreenShots/";
+
+if [ ! -d "$SAVE_TO" ]
+then
+    echo "$SAVE_TO not found!"
+    echo "Creating $SAVE_TO"
+    mkdir -p $SAVE_TO;
+fi
+
+deepin-screenshot -n
+#FILE_NAME=`ls -v $SAVE_TO | tail -1`
+FILE_NAME=`ls /tmp | grep DeepinScreenshot`
+
+mv /tmp/$FILE_NAME $SAVE_TO
+
+PATH_TO_SHOT=$SAVE_TO$FILE_NAME
+echo $PATH_TO_SHOT
+
+curl -F c=@- https://ptpb.pw < $PATH_TO_SHOT
+

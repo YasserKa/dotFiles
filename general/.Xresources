@@ -4,7 +4,7 @@
 ! xterm*font: 7x14
 !xterm*faceName: DejaVu Sans Mono Book
 xterm*faceName: Hermit
-xterm*faceSize: 13
+xterm*faceSize: 15
 
 ! Make every shell a login shell (to include all necessary environment variables)
 xterm*loginshell: true

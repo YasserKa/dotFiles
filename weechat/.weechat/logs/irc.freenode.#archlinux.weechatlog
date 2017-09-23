@@ -3223,3 +3223,360 @@
 2017-09-10 13:20:43	<--	siidney (~siid@190.148.221.91) has quit (Remote host closed the connection)
 2017-09-10 13:20:43	sheep	innermous: why do you need to do this?
 2017-09-10 13:21:03	--	irc: disconnected from server
+2017-09-20 18:45:46	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-09-20 18:45:46	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/XWFreH | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG | AUR cleanup day 20 September"
+2017-09-20 18:45:46	--	Topic set by jelle (~jelle@archlinux/developer/jelle) on Fri, 15 Sep 2017 13:51:30
+2017-09-20 18:45:47	--	Channel #archlinux: 1729 nicks (1 op, 0 voices, 1728 normals)
+2017-09-20 18:45:50	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-09-20 18:45:50	-->	morado (~morado@vpn29.remoto.uam.es) has joined #archlinux
+2017-09-20 18:46:06	citazen	can we go back to dos?
+2017-09-20 18:46:08	<--	farseerfc (~farseerfc@archlinux/tu/farseerfc) has quit (Ping timeout: 248 seconds)
+2017-09-20 18:46:28	Aelius	is there any way to get dpms support (or an imitation thereof) into the default tty login? or is that strictly a displaymanager feature
+2017-09-20 18:46:38	-->	mabs (~mathieu@2a02:2788:1038:acb:aef8:c3b7:4603:3596) has joined #archlinux
+2017-09-20 18:46:42	-->	dviola (~diego@unaffiliated/dviola) has joined #archlinux
+2017-09-20 18:46:45	-->	linear (L@unaffiliated/linear) has joined #archlinux
+2017-09-20 18:47:14	einveru_	any thoughts as to why urxvt and termite opening to a directory not Home.. removed .bashrc but issue still persists.. where else should i check?
+2017-09-20 18:48:13	-->	well_laid_lawn (~Jean-luc@61.68.66.219) has joined #archlinux
+2017-09-20 18:48:15	-->	farseerfc (~farseerfc@archlinux/tu/farseerfc) has joined #archlinux
+2017-09-20 18:48:38	Namarrgon	how do you start them?
+2017-09-20 18:48:42	-->	jonathon (~jonathonf@unaffiliated/jonathon) has joined #archlinux
+2017-09-20 18:49:42	jonathon	what's the difference (if there is one) between "source=(git://..." and "source=(git+https://..." in a PKGBUILD? Which one is better to use?
+2017-09-20 18:49:45	citazen	einveru_: maybe this can help https://wiki.archlinux.org/index.php/GNOME/Tips_and_tricks#New_terminals_adopt_current_directory
+2017-09-20 18:49:46	phrik	Title: GNOME/Tips and tricks - ArchWiki (at wiki.archlinux.org)
+2017-09-20 18:49:52	einveru_	usually i3 shortcut mod+enter.. tried Rofi start too, same issue. Also checked i3 config, nothing seemingly incorrect. Issue started this morning
+2017-09-20 18:50:06	Namarrgon	how do you start i3?
+2017-09-20 18:50:09	<--	leofa (~leofa@dhcp-077-249-005-075.chello.nl) has quit (Quit: leofa)
+2017-09-20 18:50:19	<--	sadmansk (~Thunderbi@wn-campus-nat-129-97-124-10.dynamic.uwaterloo.ca) has quit (Ping timeout: 240 seconds)
+2017-09-20 18:50:31	-->	deusbellator (~kurayami@199.241.147.35) has joined #archlinux
+2017-09-20 18:50:38	-->	Avonis (~Avonis@unaffiliated/avonis) has joined #archlinux
+2017-09-20 18:50:49	-->	leofa (~leofa@dhcp-077-249-005-075.chello.nl) has joined #archlinux
+2017-09-20 18:50:52	<--	antims (uid220132@gateway/web/irccloud.com/x-aairfkacyjzkzkcl) has quit (Quit: Connection closed for inactivity)
+2017-09-20 18:50:55	einveru_	startx
+2017-09-20 18:50:57	Namarrgon	jonathon: "man PKGBUILD"
+2017-09-20 18:51:16	Namarrgon	einveru_: are you running that while cd'ed into ~?
+2017-09-20 18:51:20	-->	eee_whales (~eee_whale@static-84-9-21-176.vodafonexdsl.co.uk) has joined #archlinux
+2017-09-20 18:51:55	earnestly	jonathon: (https is better here as it'll use tls, git:// protocol doesn't)
+2017-09-20 18:52:01	jonathon	Namarrgon: the manpage doesn't tell me what the difference is
+2017-09-20 18:52:06	<--	morado (~morado@vpn29.remoto.uam.es) has quit (Quit: WeeChat 1.9)
+2017-09-20 18:52:10	jonathon	ah, ok
+2017-09-20 18:52:18	Namarrgon	pretty sure it does tell you that
+2017-09-20 18:52:25	-->	morado (~morado@vpn29.remoto.uam.es) has joined #archlinux
+2017-09-20 18:52:31	earnestly	Namarrgon: Yeah it does
+2017-09-20 18:52:40	-->	kurkale61 (~kurkale6k@62.232.85.2) has joined #archlinux
+2017-09-20 18:52:41	earnestly	It explains exactly this example and why https is prefered
+2017-09-20 18:52:48	<--	kurkale6ka (~kurkale6k@84.45.99.125) has quit (Ping timeout: 240 seconds)
+2017-09-20 18:52:57	einveru_	no, on login. And i rarely reboot, come to think of it, perhaps i should give that a run. Not using display manager so reboot takes me to tty and login from there
+2017-09-20 18:52:58	earnestly	Namarrgon: jonathon just doesn't read manuals
+2017-09-20 18:53:02	earnestly	!maxim4
+2017-09-20 18:53:04	phrik	Manuals are a waste of time.
+2017-09-20 18:53:06	jonathon	wow
+2017-09-20 18:53:11	<--	Avonis___ (~Avonis@unaffiliated/avonis) has quit (Ping timeout: 246 seconds)
+2017-09-20 18:53:19	jonathon	I mean, I'm reading it right now, so excuse the paste:
+2017-09-20 18:53:22	Namarrgon	einveru_: which directory do you run 'startx' from?
+2017-09-20 18:53:47	-->	computer2000 (~computer2@82.220.53.202) has joined #archlinux
+2017-09-20 18:53:55	jonathon	url
+2017-09-20 18:53:55	jonathon	           The URL to the VCS repository. This must include the VCS in the
+2017-09-20 18:53:55	jonathon	           URL protocol for makepkg to recognize this as a VCS source. If
+2017-09-20 18:53:55	jonathon	           the protocol does not include the VCS name, it can be added by
+2017-09-20 18:53:55	jonathon	           prefixing the URL with vcs+. For example, using a Git repository
+2017-09-20 18:53:56	jonathon	           over HTTPS would have a source URL in the form: git+https://....
+2017-09-20 18:54:04	-->	chaky (~chaky@gateway/tor-sasl/chaky) has joined #archlinux
+2017-09-20 18:54:07	earnestly	Yep
+2017-09-20 18:54:19	Namarrgon	all of use have the manpage locally
+2017-09-20 18:54:21	einveru_	well, when i do, it's on startup, and if would assume $home.. haven't rebooted this laptop in a week and the issue just started this morning.. let me give it a reboot now though
+2017-09-20 18:54:51	-->	Gi0_ (~Gi0@unaffiliated/gi0) has joined #archlinux
+2017-09-20 18:54:52	jonathon	nothing in there says what git:// does by default
+2017-09-20 18:55:05	<--	thinkpad2000 (~computer2@82.220.53.202) has quit (Ping timeout: 240 seconds)
+2017-09-20 18:55:24	earnestly	jonathon: Ah so your question was about the git protocol/scheme and not related to makepkg at all?
+2017-09-20 18:55:44	<--	einveru_ (~einveru@104.254.90.203) has quit (Quit: WeeChat 1.9)
+2017-09-20 18:55:47	earnestly	makepkg/pkgbuild only got involved as a vehicle I guess
+2017-09-20 18:55:48	<--	Hello71 (Hello71@wikipedia/Hello71) has quit (Quit: brb)
+2017-09-20 18:56:10	<--	Gi0 (~Gi0@unaffiliated/gi0) has quit (Ping timeout: 264 seconds)
+2017-09-20 18:56:19	-->	kurkale6ka (~kurkale6k@84.45.99.125) has joined #archlinux
+2017-09-20 18:56:43	jonathon	the question was, what's the difference. the answer was, git:// doesn't use TLS by default, git+https:// does. therefore, git_https:// is the better one to use
+2017-09-20 18:56:49	-->	topyli (~topyli@unaffiliated/topyli) has joined #archlinux
+2017-09-20 18:57:12	jonathon	we could have got there without a load of extra aggro
+2017-09-20 18:57:15	-->	Hello71 (Hello71@wikipedia/Hello71) has joined #archlinux
+2017-09-20 18:57:33	jaawerth	also it's not really a pkgbuild thing, it's a general application layer protocol thing
+2017-09-20 18:57:41	<--	apofis (~apofis@188.146.66.38.nat.umts.dynamic.t-mobile.pl) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-09-20 18:57:42	earnestly	jonathon: That sort of goes without saying though, doesn't it?  I suspected you might not know which is why I mentioned it, but if you're unfamiliar; see https://git-scm.com/book/en/v2/Git-Internals-Transfer-Protocols
+2017-09-20 18:57:43	phrik	Title: Git - Transfer Protocols (at git-scm.com)
+2017-09-20 18:58:02	<--	jalle (~Jockej@h-202-248.A328.priv.bahnhof.se) has quit (Quit: WeeChat 1.9)
+2017-09-20 18:58:15	jaawerth	I'm surprised that page doesn't even talk about git+ssh vs git+https
+2017-09-20 18:58:19	<--	[tinnotl] (~tinnotl@unaffiliated/tinnotl) has quit (Ping timeout: 240 seconds)
+2017-09-20 18:58:22	MacGyver	!aur3
+2017-09-20 18:58:24	phrik	https://wiki.archlinux.org/index.php/Arch_User_Repository#Git_repositories_for_AUR3_packages
+2017-09-20 18:58:49	<--	kurkale61 (~kurkale6k@62.232.85.2) has quit (Ping timeout: 240 seconds)
+2017-09-20 18:58:54	-->	einveru_ (~einveru@ip72-211-87-130.no.no.cox.net) has joined #archlinux
+2017-09-20 18:58:59	earnestly	jaawerth: "a general application layer protocol thing", exactly yeah
+2017-09-20 18:59:28	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Remote host closed the connection)
+2017-09-20 18:59:31	-->	jstsmthrgk (~jstsmthrg@178-190-180-115.adsl.highway.telekom.at) has joined #archlinux
+2017-09-20 18:59:38	einveru_	ah, that did the trick.. i recommend reboot to everyone all the time but when it comes to me i forget my own advice
+2017-09-20 18:59:41	earnestly	jonathon: In general, if you can use a protocol that is authenticated, like https, use it
+2017-09-20 18:59:47	-->	adminseodwn (~archer@unaffiliated/remcwo9o) has joined #archlinux
+2017-09-20 18:59:47	earnestly	Or ssh
+2017-09-20 18:59:49	earnestly	that's all
+2017-09-20 18:59:51	-->	xy2_ (~xy2_@94.239.253.5) has joined #archlinux
+2017-09-20 18:59:52	jaawerth	earnestly: it's interesting, though. Now that I think about it, the logic of said protocols (and how tehy can be combined) is just something I picked up via context after seeing it a few times without really paying attention
+2017-09-20 19:00:05	jaawerth	earnestly: but now that I go looking, I can't find it cleanly spelled out anywhere
+2017-09-20 19:00:21	-->	mkoskar (~mkoskar@unaffiliated/mkoskar) has joined #archlinux
+2017-09-20 19:00:29	-->	tbrock (~tbrock@208.66.24.126) has joined #archlinux
+2017-09-20 19:00:36	earnestly	jaawerth: grawity has a nice gist iirc; https://gist.github.com/grawity/4392747
+2017-09-20 19:00:37	phrik	Title: A comparison of protocols offered by GitHub (for #git on Freenode). · GitHub (at gist.github.com)
+2017-09-20 19:01:06	tbrock	hey all, pushing/pulling from the aur seems super slow
+2017-09-20 19:01:11	tbrock	is there any way to donate $ or server time
+2017-09-20 19:01:17	MacGyver	Unrelated to my phrik-query just now: There is/was a writeup somewhere on making a PKGBUILD for dotfiles / local configuration, but I can't find it. Any clue?
+2017-09-20 19:01:20	jaawerth	earnestly: that is nice, but even that omits the + protocols
+2017-09-20 19:01:25	-->	mmlb (~mmlb@c-73-245-40-158.hsd1.fl.comcast.net) has joined #archlinux
+2017-09-20 19:01:25	earnestly	jaawerth: Huh?
+2017-09-20 19:01:29	earnestly	jaawerth: The + protocols?
+2017-09-20 19:01:49	jaawerth	earnestly: yeah, like git+https://
+2017-09-20 19:01:52	<--	Keniyal (~Keniyal@unaffiliated/keniyal) has quit (Ping timeout: 255 seconds)
+2017-09-20 19:02:21	<--	brose (~brose@nat-tvwna-outside-visitornet2-b-229.princeton.org) has quit (Ping timeout: 240 seconds)
+2017-09-20 19:02:22	earnestly	jaawerth: That's a pkgbuild(5) thing, it only exists because makepkg can't magically figure out a https:// url is supposed to be passed off to git instead of handling it as a normal curl download
+2017-09-20 19:02:29	earnestly	And it is explained fairly well in said manual
+2017-09-20 19:02:32	jaawerth	earnestly: other package systems use that too
+2017-09-20 19:02:40	jaawerth	maybe it isn't actually in any url/protocol spec though
+2017-09-20 19:02:41	<--	techno_x64 (~techno_x6@gateway/vpn/privateinternetaccess/technox64/x-06346947) has quit (Quit: WeeChat 1.9)
+2017-09-20 19:02:41	earnestly	jaawerth: Prior art?
+2017-09-20 19:02:48	earnestly	Yeah, it's not a valid url or anything
+2017-09-20 19:03:04	earnestly	(Unless + is allowed in the scheme part, which it may...)
+2017-09-20 19:03:12	jaawerth	but I've seen it all over so I figured it was at this point. Well, I say "all over" but the only one that immediately comes to mind is npm
+2017-09-20 19:03:16	<--	strelox (~user@p200300754F12F4005DC005FC2C2D3914.dip0.t-ipconnect.de) has quit (Remote host closed the connection)
+2017-09-20 19:03:22	<--	computer2000 (~computer2@82.220.53.202) has quit (Ping timeout: 264 seconds)
+2017-09-20 19:03:35	-->	iNeedHealing (c556b039@gateway/web/freenode/ip.197.86.176.57) has joined #archlinux
+2017-09-20 19:03:39	alad	jonathon: don't insult our man pages mkay (particularly not when they do in fact give the answer you're looking for)
+2017-09-20 19:03:45	iNeedHealing	hi
+2017-09-20 19:03:52	-->	dhil (~dhil@dhcp-90-078.inf.ed.ac.uk) has joined #archlinux
+2017-09-20 19:03:56	jaawerth	earnestly: yeah now I'm curious if it's in the spec but not curious enough to go spec-spelunking atm
+2017-09-20 19:04:08	jonathon	alad: i'm not insulting the man page
+2017-09-20 19:04:14	jonathon	i don't know what makes you think that
+2017-09-20 19:04:15	--	troys is now known as troys_
+2017-09-20 19:04:16	jonathon	...
+2017-09-20 19:04:24	alad	lol
+2017-09-20 19:04:26	iNeedHealing	does anyone here use windows 10 ?
+2017-09-20 19:04:36	jonathon	all i wanted to know was what git:// does, and i was pointed ta the man page, and it doesn't say what git:// does
+2017-09-20 19:04:40	Namarrgon	!give iNeedHealing ask
+2017-09-20 19:04:41	phrik	iNeedHealing: Don't ask to ask, if anyone is here or alive, or uses something. Just ask, and we'll get moving along. Thanks.
+2017-09-20 19:04:48	earnestly	jonathon: Again, we assumed you knew https was authenticated while git:// wasn't, since it's well, a common thing to know about git and such
+2017-09-20 19:04:49	jonathon	but whatever
+2017-09-20 19:04:55	iNeedHealing	thanks Namarrgon 
+2017-09-20 19:04:59	<--	jonathon (~jonathonf@unaffiliated/jonathon) has left #archlinux ("Grief...")
+2017-09-20 19:05:00	iNeedHealing	but it's specific to windows 10
+2017-09-20 19:05:12	iNeedHealing	I can't shut down my computer in Windows 10
+2017-09-20 19:05:15	iNeedHealing	after installing grub
+2017-09-20 19:05:22	<--	amarasho1 (~Ashan_Kar@zprxo1.usr.onet.pl) has quit (Ping timeout: 260 seconds)
+2017-09-20 19:05:28	<--	einveru_ (~einveru@ip72-211-87-130.no.no.cox.net) has quit (Ping timeout: 255 seconds)
+2017-09-20 19:05:33	-->	a3Dman (~3Dman@unaffiliated/a3dman) has joined #archlinux
+2017-09-20 19:06:04	Namarrgon	uefi?
+2017-09-20 19:06:09	jaawerth	lol, and here I was talking about jonathon brought up a point that no official docs actually spell out the meanings of the protocol options anywhere (yes it can be reasoned out by context but you'd still expect docs)
+2017-09-20 19:06:10	iNeedHealing	bios
+2017-09-20 19:06:31	demize	earnestly, jaawerth: ascii alphabetical chars, +, and - are valid in schemes.
+2017-09-20 19:06:32	jaawerth	well, these docs https://docs.npmjs.com/files/package.json#git-urls-as-dependencies
+2017-09-20 19:06:34	phrik	Title: package.json | npm Documentation (at docs.npmjs.com)
+2017-09-20 19:06:47	-->	xon00z (~xon00z@095160158116.dynamic-ra-11.vectranet.pl) has joined #archlinux
+2017-09-20 19:06:48	Namarrgon	iNeedHealing: call MS support
+2017-09-20 19:07:07	-->	Lovot (~Lovot@c-68-62-202-43.hsd1.fl.comcast.net) has joined #archlinux
+2017-09-20 19:07:10	iNeedHealing	it's only after I installed grub
+2017-09-20 19:07:11	alad	alternatively, join #archlinux-paid
+2017-09-20 19:07:12	jaawerth	demize: yeah, I vaguely remember that being a part of the new application layer protocol stuff but I couldn't remember how much of it was standard and how much was simply a convention
+2017-09-20 19:07:30	iNeedHealing	before that it would shutdown
+2017-09-20 19:07:30	-->	elonus (~elonus@unaffiliated/elonus) has joined #archlinux
+2017-09-20 19:07:37	alad	iNeedHealing: ##windows
+2017-09-20 19:07:41	demize	"A URL-scheme string must be one ASCII alpha, followed by zero or more of ASCII alphanumeric, U+002B (+), U+002D (-), and U+002E (.)."
+2017-09-20 19:07:43	demize	Mmmh.
+2017-09-20 19:08:04	-->	chartractegg (~chartract@gateway/vpn/privateinternetaccess/chartractegg) has joined #archlinux
+2017-09-20 19:08:05	jaawerth	but is the meaning standardized? I'm guessing not
+2017-09-20 19:08:24	jaawerth	well. I mean, it could go either way. I'd rather it be standardized because there are really only certain ways it makes sense, lol
+2017-09-20 19:08:29	<--	Prior (~Prior@92k.de) has quit (Quit: WeeChat 1.9)
+2017-09-20 19:08:36	jaawerth	git+https, git+ssh makes perfect sense
+2017-09-20 19:08:38	alad	earnestly: hm it says "for example, using a Git repository over https ... git+https" which should imply that git without it doesn't use https. I guess it can mention it explicitely
+2017-09-20 19:08:51	demize	They have no inherent meaning.  They are just unregistered schemes.
+2017-09-20 19:09:21	<--	concast (~utkastare@utkastare.com) has quit (Quit: ZNC - http://znc.in)
+2017-09-20 19:09:29	<--	morado (~morado@vpn29.remoto.uam.es) has quit (Quit: WeeChat 1.9)
+2017-09-20 19:09:37	jaawerth	I suppose nobody's going to make git+ssh open something that is neither git nor ssh, heh
+2017-09-20 19:10:01	<--	cottoneyejim (~cottoneye@46.33.215.49) has quit (Ping timeout: 240 seconds)
+2017-09-20 19:10:22	-->	morado (~morado@vpn29.remoto.uam.es) has joined #archlinux
+2017-09-20 19:10:41	<--	n000g (~NRGDEAD@p54937731.dip0.t-ipconnect.de) has quit (Ping timeout: 248 seconds)
+2017-09-20 19:11:14	demize	earnestly: Seems the 1994 URL spec was much more lax in what was allowed.
+2017-09-20 19:11:17	-->	scryptophyte (~scryptoph@modemcable010.222-200-24.mc.videotron.ca) has joined #archlinux
+2017-09-20 19:11:22	<--	TamwynEopia (~Tamwyn@unaffiliated/tamwyn) has quit (Remote host closed the connection)
+2017-09-20 19:11:40	<--	Pelle` (~Pelle`@212.116.70.235) has quit (Read error: Connection reset by peer)
+2017-09-20 19:11:41	demize	  scheme                  ialpha   
+2017-09-20 19:11:43	demize	  ialpha                  alpha [ xalphas ] 
+2017-09-20 19:11:46	earnestly	demize: Everything back then followed the mantra of being liberal in what you accept and conservative in what you send
+2017-09-20 19:11:50	demize	  xalphas                 xalpha [ xalphas ]   
+2017-09-20 19:11:54	-->	ikon_msi (~ikon_msi@103.247.50.139) has joined #archlinux
+2017-09-20 19:11:55	scryptophyte	I've installed stuff from the aur with "makepkg -si PKGBUILD" was there a cleaner way to do it?
+2017-09-20 19:11:56	<--	Edu4rdSHL (~Edward@gateway/tor-sasl/edu4rdshl) has quit (Ping timeout: 248 seconds)
+2017-09-20 19:12:00	demize	  xalpha                  alpha | digit | safe | extra | escape   
+2017-09-20 19:12:14	<--	SolidSaltySwan (~SolidSalt@unaffiliated/solidsaltyswan) has quit (Quit: yes Kappa > /dev/sda)
+2017-09-20 19:12:15	demize	So it seems you could use any two escaped hex digits :p
+2017-09-20 19:12:38	earnestly	λ://
+2017-09-20 19:12:42	-->	newcoder (~newcoder@unaffiliated/newcoder) has joined #archlinux
+2017-09-20 19:12:48	newcoder	#archlinux-offtopic
+2017-09-20 19:12:52	demize	  safe                    $ | - | _ | @ | . | &  | + | - 
+2017-09-20 19:12:54	demize	  extra                  ! | * |  " |  ' | ( | )  | , 
+2017-09-20 19:12:56	newcoder	sorry
+2017-09-20 19:13:04	-->	SolidSaltySwan (~SolidSalt@unaffiliated/solidsaltyswan) has joined #archlinux
+2017-09-20 19:13:08	-->	apofis (~apofis@188.146.66.38.nat.umts.dynamic.t-mobile.pl) has joined #archlinux
+2017-09-20 19:13:17	demize	(foo!bar)$:baz :p
+2017-09-20 19:13:18	earnestly	demize: @>://
+2017-09-20 19:13:30	earnestly	Angry protocol
+2017-09-20 19:13:46	earnestly	Oh wait, can't use >
+2017-09-20 19:14:00	<--	morado (~morado@vpn29.remoto.uam.es) has quit (Client Quit)
+2017-09-20 19:14:14	<--	Dimtree (~dimtree@unaffiliated/dimtree) has quit (Quit: Peace)
+2017-09-20 19:14:16	-->	morado (~morado@vpn29.remoto.uam.es) has joined #archlinux
+2017-09-20 19:14:24	<--	pauper (~pauper@201.179.208.255) has quit (Quit: leaving)
+2017-09-20 19:14:26	<--	newcoder (~newcoder@unaffiliated/newcoder) has left #archlinux
+2017-09-20 19:14:31	-->	kaipee (~kaipee@78-33-179-134.static.enta.net) has joined #archlinux
+2017-09-20 19:15:15	<--	iNeedHealing (c556b039@gateway/web/freenode/ip.197.86.176.57) has quit (Quit: Page closed)
+2017-09-20 19:15:17	-->	jcbitter (~jcbitter@181.49.85.145) has joined #archlinux
+2017-09-20 19:15:35	Pantsu	scryptophyte: -c
+2017-09-20 19:15:38	Pantsu	:p
+2017-09-20 19:16:15	-->	fatal_exception (~jonathan@unaffiliated/anotherzero) has joined #archlinux
+2017-09-20 19:16:38	-->	pauper (~pauper@201.179.208.255) has joined #archlinux
+2017-09-20 19:17:02	-->	day__ (~Unknown@unaffiliated/day) has joined #archlinux
+2017-09-20 19:17:14	--	day__ is now known as daey
+2017-09-20 19:17:41	<--	autofsckk (~autofsckk@unaffiliated/autofsckk) has quit (Remote host closed the connection)
+2017-09-20 19:18:56	-->	Keniyal (~Keniyal@unaffiliated/keniyal) has joined #archlinux
+2017-09-20 19:19:16	<--	peaveyman (~gary@unaffiliated/peaveyman) has quit (Quit: WeeChat 1.9)
+2017-09-20 19:20:05	-->	doxxy (uid209547@gateway/web/irccloud.com/x-swrpepclcbqfhqum) has joined #archlinux
+2017-09-20 19:20:32	-->	Pelle` (~Pelle`@212.116.70.235) has joined #archlinux
+2017-09-20 19:21:13	-->	peaveyman (~gary@unaffiliated/peaveyman) has joined #archlinux
+2017-09-20 19:21:14	--	Satyam2345 is now known as satym
+2017-09-20 19:21:37	--	satym is now known as satyam
+2017-09-20 19:21:43	--	irc: disconnected from server
+2017-09-21 20:54:25	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-09-21 20:54:25	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/XWFreH | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG | AUR cleanup day 20 September"
+2017-09-21 20:54:25	--	Topic set by jelle (~jelle@archlinux/developer/jelle) on Fri, 15 Sep 2017 13:51:30
+2017-09-21 20:54:26	--	Channel #archlinux: 1714 nicks (2 ops, 0 voices, 1712 normals)
+2017-09-21 20:54:31	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-09-21 20:54:49	-->	fatal_exception (~jonathan@unaffiliated/anotherzero) has joined #archlinux
+2017-09-21 20:54:51	<--	eimis (~eimis@unaffiliated/eimis) has quit (Quit: Thanks everyone)
+2017-09-21 20:54:56	<--	toast99 (~couch@24.114.107.5) has quit (Client Quit)
+2017-09-21 20:55:06	<--	lognoz (~mark@173.209.53.189) has quit (Remote host closed the connection)
+2017-09-21 20:56:04	-->	currybullen (~currybull@h-205-136.A251.priv.bahnhof.se) has joined #archlinux
+2017-09-21 20:56:10	<--	hardfalcon (~hardfalco@host-241-242.zemos.ruhr-uni-bochum.de) has quit (Ping timeout: 264 seconds)
+2017-09-21 20:56:33	-->	toast99 (~couch@24.114.107.5) has joined #archlinux
+2017-09-21 20:57:34	-->	victorbrca (~victorbrc@unaffiliated/victorbrca) has joined #archlinux
+2017-09-21 20:57:36	<--	xy2_ (~xy2_@94.239.177.175) has quit (Read error: Connection reset by peer)
+2017-09-21 20:57:57	<--	toast99 (~couch@24.114.107.5) has quit (Client Quit)
+2017-09-21 20:58:08	<--	mitch0 (~mitch@178-164-237-50.pool.digikabel.hu) has quit (Ping timeout: 240 seconds)
+2017-09-21 20:58:32	-->	xy2_ (~xy2_@94.239.177.175) has joined #archlinux
+2017-09-21 20:58:45	-->	lognoz (~mark@173.209.53.189) has joined #archlinux
+2017-09-21 20:59:33	-->	kcning (~kcning@unaffiliated/kcning) has joined #archlinux
+2017-09-21 21:00:04	-->	toast99 (~couch@24.114.107.5) has joined #archlinux
+2017-09-21 21:01:06	<--	lucnx (~lucnx@2601:582:8601:39bf:1077:cd81:d6b0:c131) has quit (Quit: Mutter: www.mutterirc.com)
+2017-09-21 21:02:13	jelle	oh gewd
+2017-09-21 21:02:14	toast99	does anybody know the syntax to define a path in .pam_environment, cause I've tried (PATH="${PATH}:/home/my_user/bin") as well as (PATH=$PATH:/home/couch/panel) but neither work
+2017-09-21 21:02:36	jelle	Reventlov: sounds like the npm package is silleh and the code is crap :D
+2017-09-21 21:03:30	-->	sargosse (~sargosse@ARennes-658-1-117-54.w83-199.abo.wanadoo.fr) has joined #archlinux
+2017-09-21 21:03:31	-->	Keniyal (~Keniyal@unaffiliated/keniyal) has joined #archlinux
+2017-09-21 21:03:33	-->	jollydutchman (~alschaapm@141.161.133.131) has joined #archlinux
+2017-09-21 21:03:41	Namarrgon	toast99: 'man pam_env'
+2017-09-21 21:03:53	jollydutchman	I can't get PolKit to start
+2017-09-21 21:04:08	Namarrgon	toast99: only simple variable assignment is supported
+2017-09-21 21:04:23	Namarrgon	jollydutchman: what are you trying to do?
+2017-09-21 21:04:58	<--	b4dger (~b4dger@unaffiliated/b4dger) has quit (Quit: WeeChat 1.9)
+2017-09-21 21:05:10	<--	hiru (971a7ce7@gateway/web/freenode/ip.151.26.124.231) has quit (Quit: Page closed)
+2017-09-21 21:05:12	jollydutchman	Namarrgon: I'm trying to start PolKit. I essentially have a non-working desktop without it
+2017-09-21 21:05:21	jollydutchman	I can't even edit network connections
+2017-09-21 21:05:30	-->	lajaybird (~jaybird@utdpat241080.utdallas.edu) has joined #archlinux
+2017-09-21 21:05:32	Namarrgon	what gave you the idea that you have to start anything?
+2017-09-21 21:05:39	Commander_Cody	does someone know a good software that creates pictures of mouse movements?
+2017-09-21 21:05:41	<--	heze (~Miranda@109.188.121.109) has quit (Quit: heze)
+2017-09-21 21:05:47	Namarrgon	gimp :P
+2017-09-21 21:05:54	Pantsu	Commander_Cody: obs
+2017-09-21 21:05:56	jollydutchman	Namarrgon: It doesn't start on its own and it doesn't start when I say systemctl start polkit.service
+2017-09-21 21:06:06	jollydutchman	I have no PolKit functionality whatsoever
+2017-09-21 21:06:12	Namarrgon	jollydutchman: yes but what is the original problem?
+2017-09-21 21:06:22	-->	kolev (~kolev@74.200.44.13) has joined #archlinux
+2017-09-21 21:06:36	-->	awidegreen (~awidegree@109-104-29-217.customers.ownit.se) has joined #archlinux
+2017-09-21 21:06:37	jollydutchman	Well, I first noticed that the polkit service failed to start when LightDM kept shitting the bed
+2017-09-21 21:06:43	jollydutchman	Apparently the one depends on the other
+2017-09-21 21:06:44	<--	Gencade (c6d1a204@gateway/web/freenode/ip.198.209.162.4) has quit (Ping timeout: 260 seconds)
+2017-09-21 21:06:52	Namarrgon	post the logs
+2017-09-21 21:07:05	jollydutchman	I am able to start Xfce with startxfce4 and no DM, but I can't edit network connections using network-manager-applet
+2017-09-21 21:07:10	jollydutchman	It complains about lack of permissions
+2017-09-21 21:07:12	--	irc: disconnected from server
+2017-09-23 22:14:47	-->	yasser (~yasser@78.40.183.234) has joined #archlinux
+2017-09-23 22:14:47	--	Topic for #archlinux is "Welcome to Arch Linux, Good Luck: https://archlinux.org | Rules: https://goo.gl/XWFreH | Pastebins: https://ptpb.pw https://gist.github.com https://bpaste.net | Become an official Arch Tester: https://goo.gl/48qpvG | AUR cleanup day 20 September"
+2017-09-23 22:14:47	--	Topic set by jelle (~jelle@archlinux/developer/jelle) on Fri, 15 Sep 2017 13:51:30
+2017-09-23 22:14:47	--	Channel #archlinux: 1703 nicks (1 op, 0 voices, 1702 normals)
+2017-09-23 22:14:51	--	Channel created on Sun, 15 Feb 2004 07:08:31
+2017-09-23 22:15:06	-->	Krennic (~Krennic@ool-457e6535.dyn.optonline.net) has joined #archlinux
+2017-09-23 22:15:07	linuxconformer	deltasquared: how can i use sudo with my new user? putting the user in the sudoers file isn't correct right?
+2017-09-23 22:15:13	-->	morado1 (~morado@vpn166.remoto.uam.es) has joined #archlinux
+2017-09-23 22:15:32	-->	in1t3r (~shiva@unaffiliated/lordshiva) has joined #archlinux
+2017-09-23 22:15:35	alad	just add your user to the wheel group and uncomment the corresponding line in sudoers
+2017-09-23 22:15:40	alad	USING VISUDO
+2017-09-23 22:15:43	alad	^is very important
+2017-09-23 22:16:15	teraflops	oh, I like gnome 3.6
+2017-09-23 22:16:20	teraflops	26^
+2017-09-23 22:16:24	BrainDamage	ehh, it's not that problematic provided you keep root login working
+2017-09-23 22:16:24	linuxconformer	alad: the the "%wheel ALL=(ALL) ALL line">
+2017-09-23 22:16:26	<--	paininabox (~dustin@host-72-174-17-78.msl-mt.client.bresnan.net) has quit (Remote host closed the connection)
+2017-09-23 22:16:26	linuxconformer	*?
+2017-09-23 22:16:44	alad	BrainDamage: yeah just saving myself 20 minutes of time when he says his sudo is broken
+2017-09-23 22:16:45	BrainDamage	that way if you break sudo su still works and you can fix it
+2017-09-23 22:16:59	BrainDamage	k
+2017-09-23 22:17:07	earnestly	Use /etc/sudoers.d/ more seriously
+2017-09-23 22:17:21	alad	linuxconformer: yes. just like it says on the wiki
+2017-09-23 22:17:21	BrainDamage	i was just pointing out because i see that problem much overstated than it is
+2017-09-23 22:17:33	<--	zub1n (~zub1n@unaffiliated/zub1n) has quit (Ping timeout: 246 seconds)
+2017-09-23 22:17:37	<--	sly01 (~sly01@79.163.143.51.ipv4.supernova.orange.pl) has quit (Ping timeout: 255 seconds)
+2017-09-23 22:18:16	alad	true I guess, just don't lock your root account like certain distributions do.....
+2017-09-23 22:18:52	Mathisen	how to tell scrot to only screenshot one screen when using multiple ?
+2017-09-23 22:18:54	--	Elronnd is now known as vile_sewer_pygmy
+2017-09-23 22:19:04	--	vile_sewer_pygmy is now known as Elronnd
+2017-09-23 22:19:28	earnestly	Mathisen: With a bit of sideways thinking
+2017-09-23 22:19:30	<--	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has quit (Remote host closed the connection)
+2017-09-23 22:19:56	-->	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has joined #archlinux
+2017-09-23 22:20:01	-->	victorbrca (~victorbrc@unaffiliated/victorbrca) has joined #archlinux
+2017-09-23 22:20:21	earnestly	Mathisen: E.g. use https://ptpb.pw/dfgz/sh with `msize VGA-1' combined with `maim -g "$(msize VGA-1)" foobar.png' for example.
+2017-09-23 22:20:22	phrik	Title: pb (at ptpb.pw)
+2017-09-23 22:20:37	-->	zcb (~zcb@p508FA858.dip0.t-ipconnect.de) has joined #archlinux
+2017-09-23 22:20:57	-->	elgatov (~elgatov@19.red-88-19-181.staticip.rima-tde.net) has joined #archlinux
+2017-09-23 22:22:05	linuxconformer	how do i figure out which i3-gaps version (AUR) to use?]
+2017-09-23 22:22:10	-->	_chaky_ (~chaky@gateway/tor-sasl/chaky) has joined #archlinux
+2017-09-23 22:22:27	Mathisen	why cant everything just be easy.. :) second question then is there any other tool like shutter that is a but more "lightweight" and last time i tried to install shutter it crashed during aur build
+2017-09-23 22:23:43	<--	well_laid_lawn (~Jean-luc@107.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has quit (Ping timeout: 248 seconds)
+2017-09-23 22:25:00	<--	chaky (~chaky@gateway/tor-sasl/chaky) has quit (Ping timeout: 248 seconds)
+2017-09-23 22:25:02	--	_chaky_ is now known as chaky
+2017-09-23 22:25:46	zcb	hi, i have some issues with the llvm-libs and lib32-llvm-libs 5.0 version. not entirely sure if it's connected but my winecfg doesn't start anymore and a game i play via wine freezes my screen (sound still running). winecfg says something about an unhandled page fault. i tried rolling back all the patches that came with the system upgrade, however llvm-libs i can't roll back to version 4.x because it's in 
+2017-09-23 22:25:52	zcb	multilibs now
+2017-09-23 22:25:53	<--	cdchapman (~perturbed@73.98.169.158) has quit (Ping timeout: 248 seconds)
+2017-09-23 22:25:55	teraflops	Mathisen: what about maim?
+2017-09-23 22:26:02	 *	teraflops uses import :\
+2017-09-23 22:28:05	zcb	what i'm asking is, is there a way to get back to llvm-libs version 4 if multilib provides version 5 already?
+2017-09-23 22:28:26	-->	Natch (~Natch@h-155-122.A444.priv.bahnhof.se) has joined #archlinux
+2017-09-23 22:28:36	sajattack	use an old pkgbuild and set pacman to ignore updates?
+2017-09-23 22:29:10	zcb	hmm, how do i go about getting that old pkgbuild?
+2017-09-23 22:29:20	<--	bug2000 (~bug2000@unaffiliated/bug2000) has quit (Remote host closed the connection)
+2017-09-23 22:29:27	zcb	not too familiar with that sort of stuff tbh
+2017-09-23 22:29:37	sajattack	it might be in you .cache
+2017-09-23 22:30:05	<--	ivo_ (~ivo_@unaffiliated/ivo/x-7575225) has quit (Remote host closed the connection)
+2017-09-23 22:30:56	sajattack	are you looking for lib32 llvm-libs or just llvm-libs?
+2017-09-23 22:31:40	zcb	both actually
+2017-09-23 22:32:02	zcb	not sure if you can mix versions of the two and be fine
+2017-09-23 22:32:05	sajattack	dunno
+2017-09-23 22:32:17	crxxn	1
+2017-09-23 22:32:20	<--	crxxn (~ow@x4d03cdb4.dyn.telefonica.de) has quit (Quit: leaving)
+2017-09-23 22:32:29	sajattack	it looks like they're on aur so you can go to view changes to find the old pkgbuilds
+2017-09-23 22:32:32	zcb	i had an issue with some other lib where i updated the 64bit verion and not the 32 bit and stuff didn't work anymore
+2017-09-23 22:32:32	Mathisen	teraflops, i look into that
+2017-09-23 22:32:34	sajattack	download them and run makepkg
+2017-09-23 22:32:45	<--	tyzoid (~tyler@c-68-49-26-199.hsd1.mi.comcast.net) has quit (Read error: Connection reset by peer)
+2017-09-23 22:32:46	zcb	kk i'll check the aur
+2017-09-23 22:33:10	-->	Badger468 (~Badger467@dygkk0-b4xznjv-tpcbjt-4.rev.dnainternet.fi) has joined #archlinux
+2017-09-23 22:33:25	zcb	only found version 3.9 on first glance, but maybe a second look provides better results
+2017-09-23 22:33:46	sajattack	I have it up on another computer I'll link in a sec
+2017-09-23 22:33:46	-->	igordc (~root@box.igordcard.com) has joined #archlinux
+2017-09-23 22:33:59	teraflops	Mathisen: maim is a good tool
+2017-09-23 22:34:14	sajattack	https://git.archlinux.org/svntogit/packages.git/commit/trunk?h=packages/llvm&id=ee8cbd5f77582395da781e5e0a0fe4b86cb34ec0
+2017-09-23 22:34:15	phrik	Title: svntogit/packages.git - Git clone of the 'packages' repository (at git.archlinux.org)
+2017-09-23 22:34:21	<--	Fulgen_ (~Fulgen@078132114031.public.t-mobile.at) has quit (Ping timeout: 240 seconds)
+2017-09-23 22:34:28	teraflops	Mathisen: idk how it handles multiple monitors but they claim they do it
+2017-09-23 22:34:40	zcb	thanks
+2017-09-23 22:34:49	--	irc: disconnected from server
