@@ -2203,3 +2203,1347 @@
 2017-09-23 22:31:37	<--	chocorho (~chocorho@129-2-181-74.wireless.umd.edu) has quit (Quit: Leaving)
 2017-09-23 22:33:27	-->	jimmyrcom_ (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has joined #bash
 2017-09-23 22:34:49	--	irc: disconnected from server
+2017-09-24 15:04:22	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-09-24 15:04:22	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-24 15:04:22	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-24 15:04:22	--	Channel #bash: 1204 nicks (1 op, 0 voices, 1203 normals)
+2017-09-24 15:04:24	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-24 15:04:40	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-24 15:06:03	<--	narendraj9 (~user@113.193.135.61) has quit (Read error: Connection reset by peer)
+2017-09-24 15:06:21	<--	flux242 (~chatzilla@x59cc8761.dyn.telefonica.de) has quit (Quit: ChatZilla 0.9.93 [Firefox 55.0.2/20170816204344])
+2017-09-24 15:07:06	-->	narendraj9 (~user@113.193.135.61) has joined #bash
+2017-09-24 15:08:56	<--	a3Dman (~3Dman@unaffiliated/a3dman) has quit (Quit: Leaving...)
+2017-09-24 15:08:58	-->	jbud (~jbud@ip-24-54-73-229.user.start.ca) has joined #bash
+2017-09-24 15:09:07	<--	dah85 (~dah85@103.217.166.48) has quit (Quit: Leaving)
+2017-09-24 15:09:27	-->	karakedi (~eAC53C340@unaffiliated/orphan) has joined #bash
+2017-09-24 15:09:28	<--	jbud (~jbud@ip-24-54-73-229.user.start.ca) has left #bash
+2017-09-24 15:12:03	<--	taurgal (~taurgal@i16-les02-ntr-176-181-222-44.sfr.lns.abo.bbox.fr) has quit (Ping timeout: 252 seconds)
+2017-09-24 15:12:23	<--	Spades (~textual@213.207.159.58) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 15:12:39	--	irc: disconnected from server
+2017-09-24 17:51:34	-->	yasser (~yasser@78.40.183.234) has joined #bash
+2017-09-24 17:51:34	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-24 17:51:34	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-24 17:51:34	--	Channel #bash: 1205 nicks (1 op, 0 voices, 1204 normals)
+2017-09-24 17:51:34	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-24 17:51:36	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-24 17:52:38	-->	gtristan (~tristanva@110.11.179.89) has joined #bash
+2017-09-24 17:53:14	rindolf	DocScrutinizer05: hi, dont know
+2017-09-24 17:53:37	DocScrutinizer05	:-)
+2017-09-24 17:53:45	<--	_ng (~ngoldin@37.46.38.131) has quit (Ping timeout: 240 seconds)
+2017-09-24 17:54:32	-->	upperdeck (~upperdeck@n058152177168.netvigator.com) has joined #bash
+2017-09-24 17:54:47	-->	simka (~simka@188.146.41.238.nat.umts.dynamic.t-mobile.pl) has joined #bash
+2017-09-24 17:55:21	-->	OnkelTem (~onkeltem@unaffiliated/fantomas) has joined #bash
+2017-09-24 17:56:10	-->	\\Mr_C\\ (~mrc@cpe-75-187-160-45.neo.res.rr.com) has joined #bash
+2017-09-24 17:56:21	<--	Filystyn (~piotr@unaffiliated/filystyn) has quit (Quit: Konversation terminated!)
+2017-09-24 17:56:34	<--	YuGiOhJCJ (~YuGiOhJCJ@gateway/tor-sasl/yugiohjcj) has quit (Quit: YuGiOhJCJ)
+2017-09-24 17:57:31	-->	_ng (~ngoldin@37.46.38.131) has joined #bash
+2017-09-24 17:58:22	<--	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 17:59:11	-->	ChmEarl (~chmearl@unaffiliated/prymar56) has joined #bash
+2017-09-24 17:59:35	<--	upperdeck (~upperdeck@n058152177168.netvigator.com) has quit (Read error: Connection reset by peer)
+2017-09-24 17:59:50	-->	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has joined #bash
+2017-09-24 18:01:43	<--	berzerk0 (~123456@unaffiliated/berzerk0) has quit
+2017-09-24 18:01:55	-->	jarnos (~jarnos@2001:999:41:4634:d9a9:789c:137b:df1) has joined #bash
+2017-09-24 18:02:21	<--	taurgal (~taurgal@i16-les02-ntr-176-181-222-44.sfr.lns.abo.bbox.fr) has quit (Ping timeout: 240 seconds)
+2017-09-24 18:02:37	<--	luckman212 (~luckman21@unaffiliated/luckman212) has quit (Read error: Connection timed out)
+2017-09-24 18:03:13	-->	luckman212 (~luckman21@unaffiliated/luckman212) has joined #bash
+2017-09-24 18:03:18	<--	simka (~simka@188.146.41.238.nat.umts.dynamic.t-mobile.pl) has quit (Remote host closed the connection)
+2017-09-24 18:03:44	-->	simka (~simka@188.146.41.238.nat.umts.dynamic.t-mobile.pl) has joined #bash
+2017-09-24 18:03:50	ccl	hmm... i haven't gotten anything from bug bash since the first of the month
+2017-09-24 18:03:59	-->	upperdeck (~upperdeck@n058152177168.netvigator.com) has joined #bash
+2017-09-24 18:04:16	rindolf	ccl: https://lists.gnu.org/archive/html/bug-bash/2017-09/index.html
+2017-09-24 18:05:38	--	irc: disconnected from server
+2017-09-24 20:24:41	-->	yasser (~yasser@94.187.114.197) has joined #bash
+2017-09-24 20:24:41	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-24 20:24:41	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-24 20:24:41	--	Channel #bash: 1219 nicks (1 op, 0 voices, 1218 normals)
+2017-09-24 20:24:42	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-24 20:24:43	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-24 20:24:48	--	ZongvaX is now known as Zongva
+2017-09-24 20:25:11	BrainError404	xftroxgpx, Probably yes, what shopt?
+2017-09-24 20:25:31	xftroxgpx	BrainError404, can you paste yours? output of: shopt
+2017-09-24 20:25:51	BrainError404	autocd         	off
+2017-09-24 20:25:51	BrainError404	cdable_vars    	off
+2017-09-24 20:25:51	BrainError404	cdspell        	off
+2017-09-24 20:25:51	BrainError404	checkhash      	off
+2017-09-24 20:25:53	BrainError404	checkjobs      	off
+2017-09-24 20:25:55	BrainError404	checkwinsize   	on
+2017-09-24 20:25:56	--	Mode #bash [+b *!~brainerro@gateway/tor-sasl/brainerror404] by candide
+2017-09-24 20:26:00	xftroxgpx	oh shhh, I mean not here xD
+2017-09-24 20:26:08	xftroxgpx	like in a pastebin
+2017-09-24 20:26:15	fj49jf	BrainError404, sed '/^[0]/ s/0//g' -> '/^[0]' matches ONLY strings with a leading 0
+2017-09-24 20:26:36	-->	SimpleIRC_vThJs (~simpleirc@2600:380:6a11:e68f:a83b:7442:413c:38c5) has joined #bash
+2017-09-24 20:26:40	fj49jf	doesn't do anything to strings not matching the pattern
+2017-09-24 20:26:54	<--	SimpleIRC_vThJs (~simpleirc@2600:380:6a11:e68f:a83b:7442:413c:38c5) has quit (Quit: Simple IRC: The quit option.)
+2017-09-24 20:27:09	-->	dionysus69 (~Thunderbi@unaffiliated/dionysus69) has joined #bash
+2017-09-24 20:27:14	--	Mode #bash [-b *!~brainerro@gateway/tor-sasl/brainerror404] by candide
+2017-09-24 20:27:15	BrainError404	promptvars     	on
+2017-09-24 20:27:17	BrainError404	restricted_shell	off
+2017-09-24 20:27:19	BrainError404	shift_verbose  	off
+2017-09-24 20:27:21	fj49jf	lmao
+2017-09-24 20:27:21	pragma-	wtf
+2017-09-24 20:27:22	phogg	BrainError404: use a pastebin
+2017-09-24 20:27:23	xftroxgpx	dang it =)
+2017-09-24 20:27:24	BrainError404	sourcepath     	on
+2017-09-24 20:27:25	BrainError404	xpg_echo       	off
+2017-09-24 20:27:27	pragma-	it's stillg oing?
+2017-09-24 20:27:27	BrainError404	Ops
+2017-09-24 20:27:28	--	Mode #bash [+b *!~brainerro@gateway/tor-sasl/brainerror404] by candide
+2017-09-24 20:27:29	fj49jf	inb4 zline
+2017-09-24 20:27:35	xftroxgpx	he can't help it, it's his client now, buffering i guess
+2017-09-24 20:27:35	<--	drymer (~drymer@unaffiliated/drymer) has quit (Remote host closed the connection)
+2017-09-24 20:28:06	<--	BrainError404 (~BrainErro@gateway/tor-sasl/brainerror404) has left #bash
+2017-09-24 20:28:15	xftroxgpx	that flood protection thing
+2017-09-24 20:28:46	-->	drymer (~drymer@unaffiliated/drymer) has joined #bash
+2017-09-24 20:28:46	fj49jf	puts client in a chokehold to silence flooding q
+2017-09-24 20:30:15	pragma-	It's sad when people pick a low-esteem name and then try to live up to it.
+2017-09-24 20:30:33	DocScrutinizer	lol
+2017-09-24 20:30:42	xftroxgpx	it's extglob on, he needs
+2017-09-24 20:30:55	-->	MagePsycho (~razen@92.98.166.123) has joined #bash
+2017-09-24 20:30:59	fj49jf	nice spot
+2017-09-24 20:31:28	-->	luisehk (~luisehk@CableLink-189-219-74-3.Hosts.InterCable.net) has joined #bash
+2017-09-24 20:31:41	<--	blackyboy (~blackyboy@103.5.133.74) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-09-24 20:31:42	xftroxgpx	he can't join because ban, can candide pls unban maybe? :)
+2017-09-24 20:32:07	<--	faisch (~faisch@193-80-247-161.adsl.highway.telekom.at) has quit (Ping timeout: 260 seconds)
+2017-09-24 20:32:44	--	Mode #bash [-b *!~brainerro@gateway/tor-sasl/brainerror404] by candide
+2017-09-24 20:33:05	pragma-	wow, xftroxgpx is the bot whisperer
+2017-09-24 20:33:07	-->	BrainError404 (~BrainErro@gateway/tor-sasl/brainerror404) has joined #bash
+2017-09-24 20:33:13	BrainError404	Thanks
+2017-09-24 20:33:27	xftroxgpx	pragma-, maybe enough minutes passed since last offense? if that's a bot :D
+2017-09-24 20:33:49	xftroxgpx	(tbh, I thought hybrid)
+2017-09-24 20:33:53	-->	faisch (~faisch@192-164-249-9.adsl.highway.telekom.at) has joined #bash
+2017-09-24 20:34:02	pragma-	xftroxgpx: yes, the bot /msg'd BrainError404 that he was flooding, and gave him a paste site to use, and told him he would be unbanned in X minutes... 5 in this case, so he knew.
+2017-09-24 20:34:08	<--	Space_Man_ (~Space_Man@87-127-156-98.static.enta.net) has quit (Ping timeout: 240 seconds)
+2017-09-24 20:34:10	<--	chasmo77 (~chas77@158.183-62-69.ftth.swbr.surewest.net) has quit (Quit: It's just that easy)
+2017-09-24 20:34:24	-->	wonderworld (~ww@ip-88-152-174-32.hsi03.unitymediagroup.de) has joined #bash
+2017-09-24 20:34:27	xftroxgpx	pragma-, oh great
+2017-09-24 20:34:29	pragma-	(the first ban did the same, and lasted 1 minute)
+2017-09-24 20:34:36	-->	Space_Man_ (~Space_Man@87-127-156-98.static.enta.net) has joined #bash
+2017-09-24 20:34:36	xftroxgpx	makes sense now
+2017-09-24 20:34:59	BrainError404	Ehm sorry to bother
+2017-09-24 20:35:27	DocScrutinizer	nice bunch of bots you got here
+2017-09-24 20:35:28	xftroxgpx	BrainError404, so it still doesn't work and you have extglob on... I'm out of ideas then
+2017-09-24 20:37:15	xftroxgpx	if i turn extglob off, then it doesn't work
+2017-09-24 20:37:26	fj49jf	Does anyone know how to check if the any line in multiline variable $A1 are in multiline variable $A2?
+2017-09-24 20:37:28	xftroxgpx	shopt -s extglob
+2017-09-24 20:37:31	xftroxgpx	to turn on
+2017-09-24 20:37:49	xftroxgpx	then try this: foo="00001212"; echo ${foo##+(0)}
+2017-09-24 20:37:55	<--	coco (~coco@50-15-48-195.pool.dsl-net.ch) has quit (Quit: WeeChat 1.9.1)
+2017-09-24 20:37:56	DocScrutinizer	shopt -p extglob to check
+2017-09-24 20:38:14	xftroxgpx	DocScrutinizer, nice one thanks!
+2017-09-24 20:38:27	BrainError404	'/^[0]/ s/0//g' removes all the zero
+2017-09-24 20:39:01	BrainError404	xftroxgpx, Already tried
+2017-09-24 20:39:41	<--	luckman212 (~luckman21@unaffiliated/luckman212) has quit (Ping timeout: 240 seconds)
+2017-09-24 20:40:23	fj49jf	Yes you're right sorry, here
+2017-09-24 20:40:26	<--	karols146 (~karols146@185.135.2.20) has quit (Quit: WeeChat 1.8)
+2017-09-24 20:40:35	fj49jf	sed 's/^0\(.*\)/\1/' abc
+2017-09-24 20:40:44	fj49jf	Does that work for you?
+2017-09-24 20:40:58	-->	karols146 (~karols146@185.135.2.20) has joined #bash
+2017-09-24 20:42:06	BrainError404	Nope
+2017-09-24 20:42:06	-->	RixzZ (~RixzZ@unaffiliated/rixzz) has joined #bash
+2017-09-24 20:42:06	fj49jf	Ive got it working on two machines
+2017-09-24 20:42:06	fj49jf	https://superuser.com/questions/157344/delete-the-first-known-character-in-a-string-with-sed
+2017-09-24 20:42:07	xftroxgpx	fj49jf, echo '00001201020'|sed -re 's/^0+//g'
+2017-09-24 20:42:18	DocScrutinizer	ohmy
+2017-09-24 20:42:19	-->	batch (~batch@unaffiliated/batch) has joined #bash
+2017-09-24 20:42:25	-->	suNooBku (~suNooBku@unaffiliated/sunoobku) has joined #bash
+2017-09-24 20:42:45	xftroxgpx	don't need g, but you never know if multiline input xD
+2017-09-24 20:43:14	xftroxgpx	like: echo -e '00001201020\n002012320\n0002312001200'|sed -re 's/^0+//g'
+2017-09-24 20:43:25	<--	mmercer (~quassel@75.53.13.149) has quit (Remote host closed the connection)
+2017-09-24 20:43:32	DocScrutinizer	still nonsense
+2017-09-24 20:43:34	fj49jf	what does the + do?
+2017-09-24 20:43:39	xftroxgpx	DocScrutinizer, agreed
+2017-09-24 20:43:44	xftroxgpx	fj49jf, at least one
+2017-09-24 20:43:53	xftroxgpx	fj49jf, but you need sed -r
+2017-09-24 20:44:22	BrainError404	sed -re 's/^0+//g' seems to work
+2017-09-24 20:44:45	fj49jf	this bsd version doesn't have -r but an ubuntu box does hahahahah
+2017-09-24 20:45:02	fj49jf	BrainError404, awesome
+2017-09-24 20:45:29	BrainError404	Thanks ^_^
+2017-09-24 20:45:33	xftroxgpx	Side note, my previous suggestion doesn't work for like: foo=000012001002000; foo=${foo##0*0}; foo=${foo#0}; echo $foo  (it just clears everything for obvious reasons)
+2017-09-24 20:45:47	-->	luckman212 (~luckman21@unaffiliated/luckman212) has joined #bash
+2017-09-24 20:45:52	<--	batch (~batch@unaffiliated/batch) has quit (Client Quit)
+2017-09-24 20:45:53	-->	roadie (~user@87.116.181.81) has joined #bash
+2017-09-24 20:46:05	-->	Chuguniy (~Chuguniy@136.169.20.44) has joined #bash
+2017-09-24 20:46:07	-->	ncvvdoc (~jereny12@192.173.150.71) has joined #bash
+2017-09-24 20:46:48	<--	BitNova_ (~Bitnova@unaffiliated/bitnova) has quit (Ping timeout: 246 seconds)
+2017-09-24 20:47:12	<--	YuGiOhJCJ (~YuGiOhJCJ@gateway/tor-sasl/yugiohjcj) has quit (Quit: YuGiOhJCJ)
+2017-09-24 20:47:47	DocScrutinizer	#x=000345; echo ${x##+(0)}
+2017-09-24 20:47:51	DocScrutinizer	# x=000345; echo ${x##+(0)}
+2017-09-24 20:47:52	shbot	DocScrutinizer: 345
+2017-09-24 20:48:00	DocScrutinizer	# shopt -u extglob; x=000345; echo ${x##+(0)}
+2017-09-24 20:50:57	shbot	DocScrutinizer: 000345
+2017-09-24 20:50:57	<--	aclscsca (~jereny12@192.173.150.71) has quit (Ping timeout: 240 seconds)
+2017-09-24 20:50:57	DocScrutinizer	# shopt -p extglob
+2017-09-24 20:50:57	shbot	DocScrutinizer: shopt -s extglob
+2017-09-24 20:50:57	<--	berzerk0 (~123456@unaffiliated/berzerk0) has quit
+2017-09-24 20:52:10	<--	roadie (~user@87.116.181.81) has quit (Ping timeout: 255 seconds)
+2017-09-24 20:52:10	xftroxgpx	Well now this is interesting, if I do dmesg >somefifo & ps "$!"  will show bash ./myscript 's pid; but if I use >/dev/null then it's dmesg's pid, Does this make sense?
+2017-09-24 20:53:59	<--	iderik (~idk@h-1-197.A147.priv.bahnhof.se) has quit (Quit: iderik)
+2017-09-24 20:54:15	-->	berzerk0 (~berzerk0@unaffiliated/berzerk0) has joined #bash
+2017-09-24 20:55:18	xftroxgpx	as(s)ki(cki)ng for a friend :D
+2017-09-24 20:55:53	DocScrutinizer	yes, since subshell when redir
+2017-09-24 20:55:55	<--	Spades (~textual@213.207.159.58) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-09-24 20:56:25	<--	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-24 20:56:53	-->	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has joined #bash
+2017-09-24 20:57:26	xftroxgpx	DocScrutinizer, but not when redir to null or file, only to fifo
+2017-09-24 20:57:30	DocScrutinizer	race, i guess
+2017-09-24 20:57:46	xftroxgpx	what do you mean?
+2017-09-24 20:57:56	-->	Spades (~textual@213.207.159.58) has joined #bash
+2017-09-24 20:58:45	-->	glebihan_ (~glebihan@unaffiliated/glebihan) has joined #bash
+2017-09-24 20:59:14	-->	roadie (~user@87.116.181.81) has joined #bash
+2017-09-24 20:59:32	DocScrutinizer	>/dev/null is obviously faster to finish
+2017-09-24 20:59:42	xftroxgpx	see what i mean http://paste.ubuntu.com/25609113/
+2017-09-24 21:01:03	xftroxgpx	hmm
+2017-09-24 21:01:03	-->	glacial (~glacial@unaffiliated/glacial) has joined #bash
+2017-09-24 21:01:03	xftroxgpx	I'm using tail -f >somewhere  which doesn't finish though, the dmesg was an example I guess
+2017-09-24 21:01:03	-->	lumberjake_ (~jshivers@cpe-174-109-26-247.nc.res.rr.com) has joined #bash
+2017-09-24 21:01:03	xftroxgpx	so when somewhere is a fifo made via mkfifo, i can't get job's pid
+2017-09-24 21:01:03	xftroxgpx	aka tail's pid
+2017-09-24 21:01:06	xftroxgpx	but wheen somewhere is /dev/null or /tmp/somefile  then i can
+2017-09-24 21:03:42	DocScrutinizer	why di you want a job's PID to start with?
+2017-09-24 21:03:42	xftroxgpx	so I can kill&restart (tail) when I receive a SIGUSR1
+2017-09-24 21:03:42	DocScrutinizer	why?
+2017-09-24 21:03:42	<--	lumberjake (~jshivers@2606:a000:49cd:a300::1) has quit (Ping timeout: 246 seconds)
+2017-09-24 21:03:42	<--	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has quit (Remote host closed the connection)
+2017-09-24 21:03:42	xftroxgpx	I need that so that the perl which receives its input from tail can see EOF and thus flush whatever it matched thus far to stdout, else it keeps waiting for a few more lines
+2017-09-24 21:04:59	DocScrutinizer	xyz omega problem
+2017-09-24 21:04:59	xftroxgpx	lol
+2017-09-24 21:04:59	-->	gryffus (~gryffus@unaffiliated/gryffus) has joined #bash
+2017-09-24 21:04:59	-->	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has joined #bash
+2017-09-24 21:04:59	-->	Milijus (~Milijus__@73.85.205.45) has joined #bash
+2017-09-24 21:05:02	xftroxgpx	DocScrutinizer, link me? to make sure I'm reading the correct one
+2017-09-24 21:05:15	glacial	because FIFO should have both of its ends used (read end should be opened for reading and write end should be opened for writing) before a redirect like `>fifo' will take effect (i.e. will result in opened FD of write end of pipe, it will unfreeze and execution of the command will continue)
+2017-09-24 21:05:43	glacial	the `>fifo' is the thing that freezes
+2017-09-24 21:06:17	<--	Milijus_ (~Milijus__@73.85.205.45) has quit (Ping timeout: 246 seconds)
+2017-09-24 21:09:50	xftroxgpx	glacial, you're right, it actually works if I place the grep with & before the tail
+2017-09-24 21:09:51	<--	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has quit (Remote host closed the connection)
+2017-09-24 21:09:51	xftroxgpx	(since I don't care about grep's pid)
+2017-09-24 21:09:51	-->	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has joined #bash
+2017-09-24 21:09:51	<--	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has quit (Remote host closed the connection)
+2017-09-24 21:09:51	xftroxgpx	glacial, btw, how could I open the fifo like that beforehand? it seems like either way one of them would block
+2017-09-24 21:09:51	DocScrutinizer	what's wrong with e.g. fuser -k $fifo
+2017-09-24 21:09:51	xftroxgpx	(currently, grep)
+2017-09-24 21:09:51	-->	irc-5225225 (~weechat@gateway/tor-sasl/irc-5225225) has joined #bash
+2017-09-24 21:09:51	<--	subcache (~x@unaffiliated/subcache) has quit (Ping timeout: 264 seconds)
+2017-09-24 21:09:51	xftroxgpx	DocScrutinizer, you mean I should open a fifo and have the other program fuser -k thefifo SIGUSR1 ?
+2017-09-24 21:09:51	xftroxgpx	to send me the signal
+2017-09-24 21:10:02	<--	yasser (~yasser@94.187.114.197) has quit (Ping timeout: 260 seconds)
+2017-09-24 21:10:02	--	irc: disconnected from server
+2017-09-24 21:10:21	-->	yasser (~yasser@94.187.114.197) has joined #bash
+2017-09-24 21:10:21	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-24 21:10:21	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-24 21:10:21	--	Channel #bash: 1222 nicks (1 op, 0 voices, 1221 normals)
+2017-09-24 21:10:21	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-24 21:10:22	<--	mathys (~mathys@151.70.30.194) has quit (Quit: Leaving)
+2017-09-24 21:10:31	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-24 21:10:40	<--	Space_Man_ (~Space_Man@87-127-156-98.static.enta.net) has quit (Ping timeout: 248 seconds)
+2017-09-24 21:10:43	DocScrutinizer	>>I'm using tail -f >somewhere  which doesn't finish so when somewhere is a fifo made via mkfifo, i can't get job's pid<<
+2017-09-24 21:10:58	-->	Space_Man_ (~Space_Man@87-127-156-98.static.enta.net) has joined #bash
+2017-09-24 21:11:13	xftroxgpx	DocScrutinizer, oh riight.. let me think
+2017-09-24 21:11:13	DocScrutinizer	>>so I can kill&restart (tail)<<
+2017-09-24 21:11:43	xftroxgpx	DocScrutinizer, valid point my friend, valid point! :D
+2017-09-24 21:12:17	DocScrutinizer	toldya, xy problem
+2017-09-24 21:12:27	-->	simka (~simka@188.146.41.238.nat.umts.dynamic.t-mobile.pl) has joined #bash
+2017-09-24 21:12:35	xftroxgpx	yup
+2017-09-24 21:13:35	xftroxgpx	The XY problem is asking about your attempted solution rather than your actual problem.
+2017-09-24 21:13:35	xftroxgpx	That is, you are trying to solve problem X, and you think solution Y would work, but instead of asking about X when you run into trouble, you ask about Y.
+2017-09-24 21:13:59	<--	jiaming (~jiaming@180.173.140.45) has quit (Remote host closed the connection)
+2017-09-24 21:14:03	-->	Arcaelyx_ (~Arcaelyx@206.190.145.84.adsl.inet-telecom.org) has joined #bash
+2017-09-24 21:14:05	<--	Arcaelyx (~Arcaelyx@206.190.145.84.adsl.inet-telecom.org) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:14:34	xftroxgpx	more here: https://meta.stackexchange.com/a/66378
+2017-09-24 21:14:36	-->	jiaming (~jiaming@180.173.140.45) has joined #bash
+2017-09-24 21:15:07	twkm	more on our wiki too.
+2017-09-24 21:15:15	glacial	!xy
+2017-09-24 21:15:15	greybot	http://mywiki.wooledge.org/XyProblem -- "I want to do X, but I'm asking how to do Y..."
+2017-09-24 21:15:16	xftroxgpx	lol oops
+2017-09-24 21:16:23	xftroxgpx	methinks DocScrutinizer was right: > xyz omega problem
+2017-09-24 21:17:26	xftroxgpx	what I'm actually trying to do is show the file, number, error and 3 more lines after it :D to then easy copy paste filename in format: vim +line file with triple click and MMB paste it
+2017-09-24 21:17:44	-->	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has joined #bash
+2017-09-24 21:18:12	-->	BShaftoe12349 (~blahblah@ip72-197-237-155.sd.sd.cox.net) has joined #bash
+2017-09-24 21:18:20	<--	berzerk0 (~berzerk0@unaffiliated/berzerk0) has quit (Read error: Connection reset by peer)
+2017-09-24 21:18:24	-->	cyborg-one (~cyborg-on@130-0-60-134.broadband.tenet.odessa.ua) has joined #bash
+2017-09-24 21:18:24	<--	Spades (~textual@213.207.159.58) has quit (Quit: zzzZZZzzz…)
+2017-09-24 21:18:35	-->	Filystyn (~piotr@unaffiliated/filystyn) has joined #bash
+2017-09-24 21:18:48	<--	jiaming (~jiaming@180.173.140.45) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:19:22	<--	sydney_untangle (~sydney@supertux/sydney) has quit (Ping timeout: 260 seconds)
+2017-09-24 21:19:47	-->	sydney_untangle (~sydney@supertux/sydney) has joined #bash
+2017-09-24 21:19:49	-->	berzerk0 (~123456@unaffiliated/berzerk0) has joined #bash
+2017-09-24 21:20:53	-->	AquaL1te (~AquaL1te@unaffiliated/aqual1te) has joined #bash
+2017-09-24 21:23:48	<--	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 21:24:15	<--	almostdvs (~almostdvs@cpe-174-101-201-20.cinci.res.rr.com) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:25:35	xftroxgpx	DocScrutinizer, I guess I still can't fuser -k because that kills both tail and perl (grep in my examples, assuming I put a 'wait' somewhere before main script exits); and I don't want perl killed/restarted
+2017-09-24 21:25:40	-->	Guest90177 (~karstensr@107.161.122.237) has joined #bash
+2017-09-24 21:26:13	xftroxgpx	or maybe I can pick only tails, I see... :D
+2017-09-24 21:26:26	DocScrutinizer	trap "" SIGTERM
+2017-09-24 21:27:14	xftroxgpx	DocScrutinizer, I mean, I can still use fuser, but only pick the tail pid
+2017-09-24 21:27:23	DocScrutinizer	or pkill -f "the_full_tail_command"
+2017-09-24 21:28:13	xftroxgpx	presumably that wouldn't be good if I'm running multiple instances of the same script, if even by accident (assuming I use randomly named fifos too)
+2017-09-24 21:28:59	-->	format_c (~format_c@2a02:b98:f181:4094:6e62:6dff:fe4a:e47d) has joined #bash
+2017-09-24 21:28:59	<--	format_c (~format_c@2a02:b98:f181:4094:6e62:6dff:fe4a:e47d) has quit (Changing host)
+2017-09-24 21:28:59	-->	format_c (~format_c@unaffiliated/format-c/x-8927423) has joined #bash
+2017-09-24 21:29:10	xftroxgpx	Hey, Thanks for all the help, everyone!
+2017-09-24 21:29:18	<--	xftroxgpx (~xftroxgpx@unaffiliated/xftroxgpx) has quit (Quit: meout)
+2017-09-24 21:30:12	-->	obacht-heiss (~User@ip-62-143-188-143.hsi01.unitymediagroup.de) has joined #bash
+2017-09-24 21:31:16	-->	Cogitabundus (~NOBODY@122.15.77.139) has joined #bash
+2017-09-24 21:31:17	-->	n4dir (~user@200116b8085d9c00021a4bfffe4896d9.dip.versatel-1u1.de) has joined #bash
+2017-09-24 21:31:53	<--	obacht-heiss (~User@ip-62-143-188-143.hsi01.unitymediagroup.de) has quit (Remote host closed the connection)
+2017-09-24 21:32:15	-->	ahmedelgabri (~ahmedelga@2a02:a441:9f5:1:8c67:115e:1e65:9eb6) has joined #bash
+2017-09-24 21:32:18	<--	widp (~tejaswidp@49.207.57.65) has quit (Quit: WeeChat 1.4)
+2017-09-24 21:33:31	-->	elcmat_ (~elcmat@117.192.164.223) has joined #bash
+2017-09-24 21:33:44	-->	Milijus_ (~Milijus__@73.85.207.125) has joined #bash
+2017-09-24 21:34:25	<--	Milijus_ (~Milijus__@73.85.207.125) has quit (Max SendQ exceeded)
+2017-09-24 21:35:17	-->	Milijus_ (~Milijus__@73.85.207.125) has joined #bash
+2017-09-24 21:36:00	-->	Barones (~war@177.133.1.165) has joined #bash
+2017-09-24 21:36:13	<--	gryffus (~gryffus@unaffiliated/gryffus) has quit (Remote host closed the connection)
+2017-09-24 21:36:17	<--	Milijus (~Milijus__@73.85.205.45) has quit (Ping timeout: 248 seconds)
+2017-09-24 21:36:20	DocScrutinizer	http://paste.ubuntu.com/25609368
+2017-09-24 21:36:43	-->	gryffus (~gryffus@unaffiliated/gryffus) has joined #bash
+2017-09-24 21:36:49	<--	elcmat (~elcmat@unaffiliated/elcmat) has quit (Ping timeout: 248 seconds)
+2017-09-24 21:38:06	-->	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has joined #bash
+2017-09-24 21:38:06	<--	rcernin (~rcernin@81.19.10.20) has quit (Ping timeout: 248 seconds)
+2017-09-24 21:38:06	-->	Arcaelyx (~Arcaelyx@206.190.145.84.adsl.inet-telecom.org) has joined #bash
+2017-09-24 21:44:21	--	irc: disconnected from server
+2017-09-24 23:28:39	-->	yasser (~yasser@94.187.114.197) has joined #bash
+2017-09-24 23:28:39	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-24 23:28:39	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-24 23:28:39	--	Channel #bash: 1222 nicks (1 op, 0 voices, 1221 normals)
+2017-09-24 23:28:39	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-24 23:28:41	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-24 23:28:57	-->	FreEm1nD (freemindm@179.219.238.72) has joined #bash
+2017-09-24 23:29:05	-->	jnollette (~jnollette@unaffiliated/jnollette) has joined #bash
+2017-09-24 23:30:14	<--	AquaL1te (~AquaL1te@unaffiliated/aqual1te) has quit (Quit: leaving)
+2017-09-24 23:31:48	<--	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:31:53	<--	lkolstad (~ljk@c-24-16-12-195.hsd1.wa.comcast.net) has quit (Quit: WeeChat 1.9)
+2017-09-24 23:34:05	<--	e14 (~e14@c-71-232-16-110.hsd1.ma.comcast.net) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 23:36:35	<--	DeaDSouL (~DeaDSouL@62.215.90.67) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:37:06	<--	xistens3 (~e_xistens@unaffiliated/existense/x-7492840) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:37:36	-->	rcernin (~rcernin@81.19.10.20) has joined #bash
+2017-09-24 23:38:57	-->	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has joined #bash
+2017-09-24 23:41:03	-->	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has joined #bash
+2017-09-24 23:41:19	<--	MagePsycho (~razen@92.98.166.123) has quit (Quit: MagePsycho)
+2017-09-24 23:41:41	<--	cdown (~cdown@my83-216-89-150.cust.relish.net) has quit (Ping timeout: 255 seconds)
+2017-09-24 23:44:48	-->	safe (~safe@unaffiliated/safe) has joined #bash
+2017-09-24 23:44:54	-->	neoncontrails (~neoncontr@2001:579:e09c:101:996b:4874:1a17:b198) has joined #bash
+2017-09-24 23:45:47	trasckore	e36freak, alive?
+2017-09-24 23:46:26	<--	coco (~coco@50-15-48-195.pool.dsl-net.ch) has quit (Quit: WeeChat 1.9.1)
+2017-09-24 23:46:30	e36freak	yes, but leaving
+2017-09-24 23:46:36	trasckore	wait a second
+2017-09-24 23:46:41	e36freak	don't tell me what t odo
+2017-09-24 23:47:01	trasckore	ok, ignore me
+2017-09-24 23:47:10	-->	jab416171 (~jab416171@c-67-172-234-125.hsd1.ut.comcast.net) has joined #bash
+2017-09-24 23:47:12	e36freak	hurry up
+2017-09-24 23:47:49	trasckore	i ask somebody else: is there some easy way to make a short script: script on --> execute this other command
+2017-09-24 23:48:00	trasckore	script off --> execute this other command
+2017-09-24 23:48:13	-->	leerg319 (~alexey@94.19.176.250) has joined #bash
+2017-09-24 23:49:06	e36freak	case $1 in on) foo;; off) bar;;
+2017-09-24 23:49:32	trasckore	one line script?
+2017-09-24 23:49:55	geirha	you can put it on multiple lines if you like
+2017-09-24 23:50:08	trasckore	i need to introduce some line at the begin?
+2017-09-24 23:50:16	trasckore	for example "bin/sh"
+2017-09-24 23:50:44	geirha	!shebang
+2017-09-24 23:50:44	greybot	The top of a script MUST have a #! line, called 'shebang' or 'hashbang'. It tells the kernel what program to run your script with. We recommend `#!/usr/bin/env bash` (why: http://stackoverflow.com/a/733901/58803). http://mywiki.wooledge.org/BashGuide/CommandsAndArguments#Scripts http://www.in-ulm.de/~mascheck/various/shebang/
+2017-09-24 23:51:23	<--	Darcidride (~Darcidrid@2a01:e35:8b4a:ca10:beae:c5ff:fe98:bc9b) has quit (Remote host closed the connection)
+2017-09-24 23:51:32	trasckore	ok so i'll add: #!/usr/bin/env bash
+2017-09-24 23:52:48	<--	FreEm1nD (freemindm@179.219.238.72) has quit
+2017-09-24 23:53:32	kurahaupo	trasckore: unless you're on no publishing, use the direct path to bash on your system
+2017-09-24 23:53:33	trasckore	it does not work
+2017-09-24 23:53:34	-->	ahmedelgabri (~ahmedelga@2a02:a441:9f5:1:8c67:115e:1e65:9eb6) has joined #bash
+2017-09-24 23:53:56	trasckore	#!/usr/bin/env bash
+2017-09-24 23:53:56	trasckore	case $1 in on) proxy-switcher.sh;; off) proxy-switcher.sh 192.168.1.254:8080;;
+2017-09-24 23:54:13	trasckore	root@debian:/home# ./proxy off
+2017-09-24 23:54:13	trasckore	./proxy: riga 4: errore di sintassi: EOF non atteso
+2017-09-24 23:54:22	kurahaupo	trasckore: #!/bin/bash on most systems
+2017-09-24 23:54:28	trasckore	translation: sintax error
+2017-09-24 23:54:56	trasckore	same error
+2017-09-24 23:55:05	kurahaupo	trasckore: finish the "case" with "esac"
+2017-09-24 23:55:42	<--	ivo_ (~ivo_@unaffiliated/ivo/x-7575225) has quit (Remote host closed the connection)
+2017-09-24 23:55:56	kurahaupo	!keysearch env
+2017-09-24 23:55:57	-->	obiwan90 (~obiwan90@38.26.25.52) has joined #bash
+2017-09-24 23:56:22	<--	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 23:56:50	trasckore	command not found
+2017-09-24 23:57:06	trasckore	proxy-switcher.sh is in the same dir
+2017-09-24 23:57:23	-->	e14 (~e14@2601:184:4180:da74:985:7f9d:e3a8:9384) has joined #bash
+2017-09-25 00:04:38	--	irc: disconnected from server
+2017-09-25 12:33:33	-->	yasser (~yasser@94.187.114.197) has joined #bash
+2017-09-25 12:33:33	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-25 12:33:33	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-25 12:33:34	--	Channel #bash: 1232 nicks (1 op, 0 voices, 1231 normals)
+2017-09-25 12:33:34	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-25 12:33:35	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-25 12:35:54	-->	Anja (~Anja@103.197.161.103) has joined #bash
+2017-09-25 12:37:17	-->	murii (~murii@gw1.computervoice.ro) has joined #bash
+2017-09-25 12:38:16	-->	trasckore (~svevian_1@5.90.104.124) has joined #bash
+2017-09-25 12:38:18	trasckore	hi
+2017-09-25 12:38:25	trasckore	i'm trying to create /etc/bash/bash.rc
+2017-09-25 12:38:36	trasckore	but when i save i get an error about saving
+2017-09-25 12:38:40	trasckore	i'm on root user
+2017-09-25 12:38:53	trasckore	it happens both with vim and nano
+2017-09-25 12:39:42	alcohol	can you be more specific about the error?
+2017-09-25 12:39:45	trasckore	sure
+2017-09-25 12:40:11	trasckore	"no such file or directory"
+2017-09-25 12:40:16	alcohol	does /etc/bash exist?
+2017-09-25 12:40:34	alcohol	for me it is /etc/bash.bashrc/
+2017-09-25 12:40:43	trasckore	no
+2017-09-25 12:40:46	trasckore	ok
+2017-09-25 12:40:50	alcohol	or rather, that is the default global
+2017-09-25 12:41:02	alcohol	sorry, not a directory, just a file (/etc/bash.bashrc)
+2017-09-25 12:42:25	alcohol	and that file is called from /etc/profile
+2017-09-25 12:42:42	trasckore	alcohol, to take effect
+2017-09-25 12:42:46	alcohol	could just be my distro flavoring though, not sure if that is default bash convention
+2017-09-25 12:42:46	trasckore	i need to reboot?
+2017-09-25 12:42:51	alcohol	no
+2017-09-25 12:43:02	alcohol	but you might have to re-init your shell session
+2017-09-25 12:43:25	alcohol	depends on what you want to 'take efect'
+2017-09-25 12:44:00	geirha	vanilla bash does not source any global bashrc file from /etc
+2017-09-25 12:44:20	<--	Xatenev_ (~Xatenev@90.187.21.89) has left #bash ("Leaving")
+2017-09-25 12:44:25	alcohol	hmm, the manpage does list /etc/profile ?
+2017-09-25 12:44:31	<--	xcesariox (~xcesariox@2401:7400:6000:142f:826:a8d1:859b:ec2d) has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+2017-09-25 12:44:35	geirha	It's a silly compile-time option some distros like to enable for some reason
+2017-09-25 12:45:13	geirha	yes, /etc/profile gets read, but that has a different purpose from bashrc
+2017-09-25 12:47:10	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Ping timeout: 264 seconds)
+2017-09-25 12:47:29	<--	justanotheruser (~justanoth@unaffiliated/justanotheruser) has quit (Ping timeout: 255 seconds)
+2017-09-25 12:50:29	-->	bullybass (~qi@117.195.243.96) has joined #bash
+2017-09-25 12:50:29	bullybass	hi
+2017-09-25 12:50:29	bullybass	sudo -i; echo 29 >/sys/class/backlight/brightness
+2017-09-25 12:50:29	alcohol	yeah i'm still not quite sure how to setup my dotfiles nicely so they behave correctly for most scenarios :< (login shell vs interactive shell etc), and how bash comes into play with this etc
+2017-09-25 12:50:29	<--	BeerLover (~BeerBuddy@203.122.56.158) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-25 12:50:29	bullybass	instead of this how do I avoid sudo -i
+2017-09-25 12:50:29	Soliton	!sudo>
+2017-09-25 12:50:30	bullybass	and use sudo -c 'cmd'
+2017-09-25 12:50:30	greybot	sudo echo > file -- bash operations such as redirections & glob expansions are performed by the USER's bash, not by sudo. Consider: echo | sudo tee [-a] file, or sudo bash -c 'echo > file'
+2017-09-25 12:50:45	-->	cdown (~cdown@199.201.66.3) has joined #bash
+2017-09-25 12:51:32	alcohol	bullybass: you were almost there, -c is a bash flag, not sudo.
+2017-09-25 12:51:32	bullybass	what if I don't want to use tee but redirection?
+2017-09-25 12:51:32	alcohol	bullybass: the example given above does exactly that
+2017-09-25 12:51:32	bullybass	as bash -c does not have autocomplete
+2017-09-25 12:51:42	--	irc: disconnected from server
+2017-09-26 09:52:17	-->	yasser (~yasser@89.249.219.90) has joined #bash
+2017-09-26 09:52:17	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-26 09:52:17	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-26 09:52:17	--	Channel #bash: 1228 nicks (1 op, 0 voices, 1227 normals)
+2017-09-26 09:52:17	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-26 09:52:19	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-26 09:52:48	<--	CrazyH (~user@h166.1.187.173.dynamic.ip.windstream.net) has quit (Ping timeout: 248 seconds)
+2017-09-26 09:55:10	<--	brillenfux_ (~brillenfu@unaffiliated/brillenfux) has quit (Quit: Leaving)
+2017-09-26 09:55:15	<--	brillenfux (~brillenfu@unaffiliated/brillenfux) has quit (Quit: Leaving)
+2017-09-26 09:55:43	-->	brillenfux (~brillenfu@unaffiliated/brillenfux) has joined #bash
+2017-09-26 09:55:56	-->	jnollette (~jnollette@unaffiliated/jnollette) has joined #bash
+2017-09-26 10:01:42	-->	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has joined #bash
+2017-09-26 10:03:34	-->	pinux (~ppang@unaffiliated/ppang) has joined #bash
+2017-09-26 10:03:53	-->	sQVe (~sQVe@unaffiliated/sqve) has joined #bash
+2017-09-26 10:03:58	<--	babilen (~babilen@unaffiliated/babilen) has quit (Ping timeout: 264 seconds)
+2017-09-26 10:05:00	-->	babilen (~babilen@unaffiliated/babilen) has joined #bash
+2017-09-26 10:06:07	<--	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:06:13	<--	ppang (~ppang@unaffiliated/ppang) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:06:30	-->	max_m (~max_m@gateway/tor-sasl/maxm/x-47377621) has joined #bash
+2017-09-26 10:09:07	-->	Silmarilion (~Silmarili@188.93.81.145) has joined #bash
+2017-09-26 10:09:08	<--	damke__ (~damke@unaffiliated/damke) has quit (Quit: quit)
+2017-09-26 10:09:14	-->	AquaL1te (~AquaL1te@unaffiliated/aqual1te) has joined #bash
+2017-09-26 10:09:23	<--	sQVe (~sQVe@unaffiliated/sqve) has quit (Quit: WeeChat 1.9.1)
+2017-09-26 10:09:56	<--	arubi (~ese168@gateway/tor-sasl/ese168) has quit (Remote host closed the connection)
+2017-09-26 10:10:18	-->	TomyWork (~tomy@85.199.84.100) has joined #bash
+2017-09-26 10:10:22	-->	arubi (~ese168@gateway/tor-sasl/ese168) has joined #bash
+2017-09-26 10:11:47	-->	EgS (~egs@quassel/developer/egs) has joined #bash
+2017-09-26 10:12:08	-->	GPenguin (~gpenguin@p5B0B7E49.dip0.t-ipconnect.de) has joined #bash
+2017-09-26 10:13:00	-->	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has joined #bash
+2017-09-26 10:14:12	-->	scrimple (~rdain@195.30.121.97) has joined #bash
+2017-09-26 10:14:28	<--	atomi (~atomi@71-83-179-177.dhcp.lnbh.ca.charter.com) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:14:28	-->	tesseract (tesseract@nat/redhat/x-efaxpvkqgumnvuhb) has joined #bash
+2017-09-26 10:15:33	-->	CrazyH (~user@cpe-172-72-58-101.carolina.res.rr.com) has joined #bash
+2017-09-26 10:16:16	-->	DaVu (~kvirc@unaffiliated/david1977) has joined #bash
+2017-09-26 10:16:24	-->	sQVe (~sQVe@unaffiliated/sqve) has joined #bash
+2017-09-26 10:16:26	<--	sQVe (~sQVe@unaffiliated/sqve) has quit (Client Quit)
+2017-09-26 10:16:35	<--	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:16:48	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-26 10:17:12	<--	wigums (~wigums@unaffiliated/wigums) has quit (Ping timeout: 260 seconds)
+2017-09-26 10:19:50	<--	cart_man2 (~cart@105.27.205.70) has quit (Quit: Nettalk6 - www.ntalk.de)
+2017-09-26 10:20:49	-->	cart_man (~cart@105.27.205.70) has joined #bash
+2017-09-26 10:21:00	-->	jnollette_ (~jnollette@camel.aim.mn) has joined #bash
+2017-09-26 10:21:14	-->	sQVe (~sQVe@unaffiliated/sqve) has joined #bash
+2017-09-26 10:21:35	<--	sQVe (~sQVe@unaffiliated/sqve) has quit (Client Quit)
+2017-09-26 10:21:43	<--	jnollette (~jnollette@unaffiliated/jnollette) has quit (Quit: All your IRC are belong to ZNC)
+2017-09-26 10:22:03	<--	jnollette_ (~jnollette@camel.aim.mn) has quit (Client Quit)
+2017-09-26 10:22:05	<--	arubi (~ese168@gateway/tor-sasl/ese168) has quit (Remote host closed the connection)
+2017-09-26 10:22:11	-->	scrimple_ (~rdain@194.97.158.70) has joined #bash
+2017-09-26 10:22:11	<--	ogny (~orkun@unaffiliated/ogny) has quit (Quit: WeeChat 1.8)
+2017-09-26 10:22:13	-->	jnollette (~jnollette@unaffiliated/jnollette) has joined #bash
+2017-09-26 10:22:29	-->	ogny (~orkun@78.186.178.128) has joined #bash
+2017-09-26 10:22:29	<--	ogny (~orkun@78.186.178.128) has quit (Changing host)
+2017-09-26 10:22:29	-->	ogny (~orkun@unaffiliated/ogny) has joined #bash
+2017-09-26 10:22:38	-->	arubi (~ese168@gateway/tor-sasl/ese168) has joined #bash
+2017-09-26 10:23:15	-->	sQVe (~sQVe@unaffiliated/sqve) has joined #bash
+2017-09-26 10:23:19	-->	well_laid_lawn (~Jean-luc@115.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has joined #bash
+2017-09-26 10:24:05	<--	Anthaas (~Anthaas@unaffiliated/anthaas) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:24:35	<--	scrimple (~rdain@195.30.121.97) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:24:42	-->	murii (~murii@gw1.computervoice.ro) has joined #bash
+2017-09-26 10:24:50	<--	mkoskar (~mkoskar@unaffiliated/mkoskar) has quit (Quit: mkoskar)
+2017-09-26 10:24:56	<--	cart_man (~cart@105.27.205.70) has quit (Client Quit)
+2017-09-26 10:25:13	<--	sQVe (~sQVe@unaffiliated/sqve) has quit (Client Quit)
+2017-09-26 10:26:51	-->	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has joined #bash
+2017-09-26 10:30:22	-->	wigums (~wigums@unaffiliated/wigums) has joined #bash
+2017-09-26 10:32:14	<--	genericuser123 (~enter@43.225.32.90) has quit (Quit: Leaving)
+2017-09-26 10:32:19	<--	abba (~abba@46.189.77.18) has quit (Read error: Connection reset by peer)
+2017-09-26 10:32:27	-->	Lunatrius` (~Lunatrius@77.38.21.155) has joined #bash
+2017-09-26 10:32:44	-->	abba (~abba@46.189.77.18) has joined #bash
+2017-09-26 10:32:57	<--	bladdezz (~bladdezz@unaffiliated/bladdezz) has quit (Ping timeout: 260 seconds)
+2017-09-26 10:34:14	-->	sQVe (~sQVe@unaffiliated/sqve) has joined #bash
+2017-09-26 10:34:14	<--	sQVe (~sQVe@unaffiliated/sqve) has quit (Client Quit)
+2017-09-26 10:34:56	-->	sQVe (~sQVe@unaffiliated/sqve) has joined #bash
+2017-09-26 10:35:28	<--	Lunatrius (~Lunatrius@77.38.21.155) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:35:28	--	Lunatrius` is now known as Lunatrius
+2017-09-26 10:36:22	<--	GrailKn1ght (~GrailKnig@189.217.105.154) has quit (Ping timeout: 264 seconds)
+2017-09-26 10:36:28	<--	sQVe (~sQVe@unaffiliated/sqve) has quit (Client Quit)
+2017-09-26 10:37:16	gmcastil	hm...the following function works for testing for valid IP addresses, but my linter is giving me a syntax error on line 11 - any idea what is wrong? https://bpaste.net/show/057a36e91e47
+2017-09-26 10:37:44	-->	Anthaas (~Anthaas@unaffiliated/anthaas) has joined #bash
+2017-09-26 10:38:14	-->	ahmedelgabri (~ahmedelga@89.20.162.246.static.ef-service.nl) has joined #bash
+2017-09-26 10:38:30	-->	ledeni_ (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has joined #bash
+2017-09-26 10:38:41	gmcastil	(ignore the second { on line 2, thats a typo)
+2017-09-26 10:39:18	<--	mzf (~mzf@unaffiliated/mzf) has quit (Read error: Connection reset by peer)
+2017-09-26 10:39:39	-->	mzf (~mzf@unaffiliated/mzf) has joined #bash
+2017-09-26 10:40:04	<--	k0rrupt (~k0rrupt@cpc94240-ward11-2-0-cust230.10-2.cable.virginm.net) has quit (Quit: Going offline, see ya! (www.adiirc.com))
+2017-09-26 10:40:09	<--	bhuvi__ (~quassel@117.98.173.109) has quit (Ping timeout: 252 seconds)
+2017-09-26 10:40:38	-->	k0rrupt (~k0rrupt@cpc94240-ward11-2-0-cust230.10-2.cable.virginm.net) has joined #bash
+2017-09-26 10:40:56	<--	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has quit (Ping timeout: 255 seconds)
+2017-09-26 10:42:27	-->	zadock (~outsider@81.180.223.50) has joined #bash
+2017-09-26 10:43:40	-->	ts_ (~212@36.80.110.184) has joined #bash
+2017-09-26 10:43:40	<--	zadock (~outsider@81.180.223.50) has quit (Remote host closed the connection)
+2017-09-26 10:43:40	-->	SolarFlare (~SolarFlar@unaffiliated/samanthabdawn) has joined #bash
+2017-09-26 10:43:40	-->	chowbok (~chowbok@207.181.255.76) has joined #bash
+2017-09-26 10:45:15	yitz	!check
+2017-09-26 10:45:15	checkbot	gmcastil: Line 19: Expected a '}'. If you have one, try a ; or \n in front of it. Line 14: This } is literal. Check expression (missing ;/\n?) or quote it. Line 1: Couldn't parse this brace group. See http://shellcheck.net/?id=cb11899 for all 6 issues.
+2017-09-26 10:45:15	-->	cdg (~cdg@2600:1700:3120:40e0:e146:b725:c09:a8a3) has joined #bash
+2017-09-26 10:45:27	gmcastil	yitz: i did not know there was a checkbot
+2017-09-26 10:45:45	gmcastil	https://bpaste.net/show/df26a43d4df1
+2017-09-26 10:45:47	gmcastil	!check
+2017-09-26 10:45:47	checkbot	gmcastil: Line 14: Globs are ignored in [[ ]] except right of =/!=. Use a loop. Line 6: Brace expansions and globs are literal in assignments. Quote it or use an array. Line 11: Quote to prevent word splitting, or split robustly with mapfile or read -a. See http://shellcheck.net/?id=cb11947 for all 6 issues.
+2017-09-26 10:46:25	gmcastil	not sure i understand these messages though
+2017-09-26 10:46:45	<--	erdave (~erdave@201.243.137.150) has quit (Ping timeout: 252 seconds)
+2017-09-26 10:47:02	yitz	Which one(s)?
+2017-09-26 10:47:28	-->	OnkelTem (~onkeltem@unaffiliated/fantomas) has joined #bash
+2017-09-26 10:47:33	gmcastil	line 11 - when it says to quote, does it mean "($ip)" or ("$ip") ?
+2017-09-26 10:47:39	-->	tjt263_ (~tjt263@unaffiliated/tjt263) has joined #bash
+2017-09-26 10:47:42	gmcastil	and what does that accomplish?
+2017-09-26 10:48:45	-->	atomi (~atomi@71-83-179-177.dhcp.lnbh.ca.charter.com) has joined #bash
+2017-09-26 10:49:05	Ben64	what does ($ip) accomplish
+2017-09-26 10:49:30	<--	cdg (~cdg@2600:1700:3120:40e0:e146:b725:c09:a8a3) has quit (Ping timeout: 246 seconds)
+2017-09-26 10:49:33	yitz	!quotewhen > gmcastil
+2017-09-26 10:49:33	greybot	gmcastil: "Double quote" every literal that contains spaces/metacharacters and _every_ expansion: "$var", "$(command "$var")", "${array[@]}", "a & b". Use 'single quotes' for code or literal $'s: 'Costs $5 US', ssh host 'echo "$HOSTNAME"'. See http://mywiki.wooledge.org/Quotes , http://mywiki.wooledge.org/Arguments and http://wiki.bash-hackers.org/syntax/words .
+2017-09-26 10:49:37	gmcastil	Ben64: creates an array from the $ip variable, using the previously defined IFS of '.'
+2017-09-26 10:49:48	<--	aFeijo (~afeijo@201.21.37.116) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:51:09	<--	tjt263 (~tjt263@unaffiliated/tjt263) has quit (Ping timeout: 252 seconds)
+2017-09-26 10:51:28	yitz	# ip=12.34.56; IFS=. read -a fields <<< "$ip"; printf "%d\n" "${fields[1]}"
+2017-09-26 10:51:29	shbot	yitz: 34
+2017-09-26 10:51:48	yitz	!math > gmcastil
+2017-09-26 10:51:49	greybot	gmcastil: Add 7 to a variable: ((a+=7)) OR a=$((a+7)) OR let 'a+=7' # See http://mywiki.wooledge.org/ArithmeticExpression
+2017-09-26 10:51:56	yitz	!(( > gmcastil
+2017-09-26 10:51:56	greybot	gmcastil: ((...)) is an arithmetic command, which returns an exit status of 0 if the expression is nonzero, or 1 if the expression is zero. Also used as a synonym for "let", if side effects (assignments) are needed. See <http://mywiki.wooledge.org/ArithmeticExpression>.
+2017-09-26 10:52:07	yitz	![[
+2017-09-26 10:52:08	greybot	[[ is a bash keyword similar to (but more powerful than) the [ command. See <http://mywiki.wooledge.org/BashFAQ/031> and <http://mywiki.wooledge.org/BashGuide/TestsAndConditionals>. Unless you're writing for POSIX sh, we recommend [[.
+2017-09-26 10:54:32	-->	dionysus69 (~Thunderbi@unaffiliated/dionysus69) has joined #bash
+2017-09-26 11:01:33	--	irc: disconnected from server
+2017-09-26 11:02:01	-->	yasser (~yasser@89.249.219.90) has joined #bash
+2017-09-26 11:02:01	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-26 11:02:01	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-26 11:02:01	--	Channel #bash: 1241 nicks (1 op, 0 voices, 1240 normals)
+2017-09-26 11:02:01	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-26 11:02:12	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-26 11:04:16	<--	well_laid_lawn (~Jean-luc@115.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:04:54	<--	neoncontrails (~neoncontr@2602:306:31a7:a1a0:9122:6f23:5240:8c56) has quit (Ping timeout: 252 seconds)
+2017-09-26 11:05:52	<--	ZyX-I (~ZyX-I@broadband-77-37-230-77.moscow.rt.ru) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:07:11	-->	BobbyJr (~BobbyJr@robsworld.plus.com) has joined #bash
+2017-09-26 11:08:18	<--	batch (~batch@unaffiliated/batch) has quit (Quit: [Need input])
+2017-09-26 11:09:31	<--	dfee (~dfee@cpe-70-95-143-62.san.res.rr.com) has quit (Quit: WeeChat 1.9)
+2017-09-26 11:12:08	<--	ponyrider (~cf2iqx@unaffiliated/ponyrider) has quit (Ping timeout: 255 seconds)
+2017-09-26 11:12:20	-->	m4n (~m4n@14.142.104.170) has joined #bash
+2017-09-26 11:12:27	-->	widp (~tejaswidp@49.207.58.255) has joined #bash
+2017-09-26 11:12:41	<--	biancat_ (~biancat@c-73-70-236-46.hsd1.ca.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-26 11:13:47	<--	Zongva (~ole@185.101.32.43) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:15:48	-->	Floflobel (~Floflobel@cosium-152-18.fib.nerim.net) has joined #bash
+2017-09-26 11:17:33	Soliton	!ipv4
+2017-09-26 11:17:33	greybot	isdottedquad() [[ $1 = *.*.*.* && $1 != *.*.*.*.* && .$1. != *..* && $1 != *[!.[:digit:]]* && $1 != *[1-9][0-9][0-9][0-9]* && $1 != *[3-9][0-9][0-9]* && $1 != *2[6-9][0-9]* && $1 != *25[6-9]* ]]
+2017-09-26 11:17:36	-->	damke (~damke@unaffiliated/damke) has joined #bash
+2017-09-26 11:17:46	<--	acetakwas (~acetakwas@154.65.5.250) has quit (Read error: Connection reset by peer)
+2017-09-26 11:17:51	widp	Hello, I am using espeak to tell me when a command line task completes like this - command && espeak "Task complete".
+2017-09-26 11:18:16	widp	How do I go about making it say something when task fails, (apart from writing an if else statement)
+2017-09-26 11:19:09	Soliton	why do you need another way than an if else?
+2017-09-26 11:19:27	widp	I just wanted it to be a one liner adding to what I already have.
+2017-09-26 11:19:37	widp	I realize I can write a function, but is there anything simpler?
+2017-09-26 11:19:48	-->	neoncontrails (~neoncontr@2602:306:31a7:a1a0:6c4b:c0c1:af94:b150) has joined #bash
+2017-09-26 11:20:11	<--	teamcoltra (~textual@opennic/teamcoltra) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-26 11:20:17	<--	merzo (~merzo@42-31-132-95.pool.ukrtel.net) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:20:56	-->	FOBABALOLA_ (~FOBABALOL@41.245.198.49) has joined #bash
+2017-09-26 11:21:07	osse	widp: if command; then espeak "task complete"; else espeak "lol rekt n00b"; fi
+2017-09-26 11:21:18	-->	Zongva (~ole@185.101.32.42) has joined #bash
+2017-09-26 11:21:19	osse	one line \o/
+2017-09-26 11:21:24	Soliton	nothing simpler than writing a function that you just have to call.
+2017-09-26 11:22:33	-->	sillyslux (~sillyslux@m83-185-18-43.cust.tele2.hr) has joined #bash
+2017-09-26 11:22:42	widp	right, makes sense.
+2017-09-26 11:23:41	<--	energizer (~energizer@unaffiliated/energizer) has quit (Ping timeout: 264 seconds)
+2017-09-26 11:24:03	-->	Jellyg00se (~Alfie@195.99.134.162) has joined #bash
+2017-09-26 11:24:35	<--	neoncontrails (~neoncontr@2602:306:31a7:a1a0:6c4b:c0c1:af94:b150) has quit (Ping timeout: 255 seconds)
+2017-09-26 11:26:02	-->	mour (~mour@218.98.33.13) has joined #bash
+2017-09-26 11:26:11	<--	mour (~mour@218.98.33.13) has quit (Remote host closed the connection)
+2017-09-26 11:27:56	-->	wonderworld (~ww@ip-88-152-174-32.hsi03.unitymediagroup.de) has joined #bash
+2017-09-26 11:30:51	-->	beemo_ceniza (~beemo_cen@unaffiliated/beemo-ceniza/x-9577736) has joined #bash
+2017-09-26 11:34:02	-->	stoilkov (~stoilkov@95.111.120.130) has joined #bash
+2017-09-26 11:34:02	<--	\\Mr_C\\ (~mrc@cpe-75-187-160-45.neo.res.rr.com) has quit (Quit: .)
+2017-09-26 11:35:01	-->	merzo (~merzo@5-23-133-95.pool.ukrtel.net) has joined #bash
+2017-09-26 11:35:11	<--	A-Dawg (~A-Dawg@59-100-174-130.cust.static-ipl.aapt.com.au) has quit (Remote host closed the connection)
+2017-09-26 11:35:50	-->	A-Dawg (~A-Dawg@59-100-174-130.cust.static-ipl.aapt.com.au) has joined #bash
+2017-09-26 11:37:01	-->	iderik (~idk@h-1-197.A147.priv.bahnhof.se) has joined #bash
+2017-09-26 11:37:19	<--	m712 (~annoying@unaffiliated/thefam) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:38:55	<--	fatalhalt (~fatalhalt@c-67-163-60-93.hsd1.il.comcast.net) has quit (Quit: fatal halt)
+2017-09-26 11:38:55	-->	m712 (~annoying@unaffiliated/thefam) has joined #bash
+2017-09-26 11:39:52	-->	Ladus (~Lotheladu@175.79-161-186.customer.lyse.net) has joined #bash
+2017-09-26 11:39:53	-->	Andrew_M (~andrewm@gateb.cwwtf.bbc.co.uk) has joined #bash
+2017-09-26 11:40:01	<--	A-Dawg (~A-Dawg@59-100-174-130.cust.static-ipl.aapt.com.au) has quit (Ping timeout: 240 seconds)
+2017-09-26 11:41:12	<--	_ADN_ (~username@2a02:c7d:5e18:200:2d54:407f:93c4:2f0d) has quit (Ping timeout: 252 seconds)
+2017-09-26 11:44:14	-->	trijntje_ (3e8c8973@gateway/web/freenode/ip.62.140.137.115) has joined #bash
+2017-09-26 11:46:22	trijntje_	Is $EUID guaranteed to be set in bash? man bash says "initialized at shell startup. This variable is readonly", but I'm not sure if that means it will always be available
+2017-09-26 11:46:22	-->	well_laid_lawn (~Jean-luc@115.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has joined #bash
+2017-09-26 11:46:32	trijntje_	I don't want to use EUID in my script if it is possible that it's unset on some systems when using bash
+2017-09-26 11:46:53	-->	cognoscente (~cognoscen@c-73-65-130-75.hsd1.ut.comcast.net) has joined #bash
+2017-09-26 11:49:47	-->	neoncontrails (~neoncontr@2602:306:31a7:a1a0:bcc8:a8c8:c090:d0e3) has joined #bash
+2017-09-26 11:51:42	<--	cognoscente (~cognoscen@c-73-65-130-75.hsd1.ut.comcast.net) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:52:38	-->	remirol (~lorimer@gateway/vpn/privateinternetaccess/lorimer) has joined #bash
+2017-09-26 11:54:00	-->	tantamounter (~tantamoun@88.151.154.154) has joined #bash
+2017-09-26 11:54:25	-->	okamis (~okamis_@sessfw99-sesbfw99-92.ericsson.net) has joined #bash
+2017-09-26 11:54:55	<--	lorimer (~lorimer@gateway/vpn/privateinternetaccess/lorimer) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:55:07	-->	neoncont_ (~neoncontr@2602:306:31a7:a1a0:35d3:5d8f:8fc0:26db) has joined #bash
+2017-09-26 11:55:34	<--	neoncontrails (~neoncontr@2602:306:31a7:a1a0:bcc8:a8c8:c090:d0e3) has quit (Ping timeout: 264 seconds)
+2017-09-26 11:55:44	<--	Cabanossi (~Cabanossi@pC19F2244.dip0.t-ipconnect.de) has quit (Ping timeout: 246 seconds)
+2017-09-26 11:57:40	-->	Darcidride (~Darcidrid@2a01:e35:8b4a:ca10:beae:c5ff:fe98:bc9b) has joined #bash
+2017-09-26 11:57:45	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-26 11:58:07	-->	Cabanossi (~Cabanossi@pC19F2244.dip0.t-ipconnect.de) has joined #bash
+2017-09-26 11:58:21	-->	earlybird (~earlybird@unaffiliated/joj) has joined #bash
+2017-09-26 11:59:03	-->	_ADN_ (~username@5.148.34.186) has joined #bash
+2017-09-26 11:59:54	<--	OnkelTem (~onkeltem@unaffiliated/fantomas) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:59:55	<--	well_laid_lawn (~Jean-luc@115.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:59:55	<--	neoncont_ (~neoncontr@2602:306:31a7:a1a0:35d3:5d8f:8fc0:26db) has quit (Ping timeout: 246 seconds)
+2017-09-26 11:59:55	survietamine	trijntje_: doesn't readonly mean you cannot unset it?
+2017-09-26 11:59:55	survietamine	I'm using it in my scripts and find it reliable
+2017-09-26 12:01:10	<--	thomasross (~thomasros@69.17.174.21) has quit (Remote host closed the connection)
+2017-09-26 12:01:23	--	irc: disconnected from server
+2017-09-27 02:00:40	-->	yasser (~yasser@94.187.48.254) has joined #bash
+2017-09-27 02:00:40	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-27 02:00:40	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-27 02:00:40	--	Channel #bash: 1247 nicks (1 op, 0 voices, 1246 normals)
+2017-09-27 02:00:41	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-27 02:00:43	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-27 02:00:47	kurahaupo	lfowlr: sudo bash -c 'cat > file'
+2017-09-27 02:01:25	kurahaupo	lfowlr: cat does not open any output files; it assumes that stdout is already the correct target
+2017-09-27 02:02:04	lfowlr	what about echo data |sudo cat > file
+2017-09-27 02:02:06	-->	jimmyrcom (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has joined #bash
+2017-09-27 02:02:09	lfowlr	it works though
+2017-09-27 02:02:17	<--	teamcoltra (~textual@opennic/teamcoltra) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-27 02:02:22	pj	lfowlr: no, because the > file part is not done as root
+2017-09-27 02:02:35	<--	calamity_man (~calamity_@98.99.244.128) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:02:41	-->	kurahaupo_ (~kurahaupo@pa49-195-131-243.pa.nsw.optusnet.com.au) has joined #bash
+2017-09-27 02:02:51	<--	kurahaupo_ (~kurahaupo@pa49-195-131-243.pa.nsw.optusnet.com.au) has quit (Remote host closed the connection)
+2017-09-27 02:02:57	-->	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has joined #bash
+2017-09-27 02:02:57	<--	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has quit (Changing host)
+2017-09-27 02:02:57	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-27 02:03:08	pj	lfowlr: using tee is probably the simplest way to do it.
+2017-09-27 02:03:11	-->	kurahaupo_ (~kurahaupo@124-149-79-121.dyn.iinet.net.au) has joined #bash
+2017-09-27 02:03:12	<--	kurahaupo_ (~kurahaupo@124-149-79-121.dyn.iinet.net.au) has quit (Excess Flood)
+2017-09-27 02:03:14	<--	kurahaupo (~kurahaupo@124-149-79-121.dyn.iinet.net.au) has quit (Read error: Connection reset by peer)
+2017-09-27 02:03:21	<--	__heisen` (~heisenbug@ip-178-201-61-194.hsi08.unitymediagroup.de) has quit (Ping timeout: 246 seconds)
+2017-09-27 02:03:40	-->	kurahaupo (~kurahaupo@124-149-79-121.dyn.iinet.net.au) has joined #bash
+2017-09-27 02:03:45	-->	geggam_ (~geggam@216.9.187.253) has joined #bash
+2017-09-27 02:03:59	<--	Parraki (~Parraki@55.92-220-69.customer.lyse.net) has quit (Quit: Leaving)
+2017-09-27 02:04:16	<--	teamcoltra (~textual@opennic/teamcoltra) has quit (Client Quit)
+2017-09-27 02:05:05	lfowlr	i did sudo bash -c 'cat > file' ; but hte owner is not root
+2017-09-27 02:05:19	lfowlr	kurahaupo:
+2017-09-27 02:05:25	-->	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has joined #bash
+2017-09-27 02:05:25	<--	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has quit (Changing host)
+2017-09-27 02:05:25	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-27 02:06:23	lfowlr	sudo bash -c 'cat > file' why is it not done as root , and how can I check it is done as root or not
+2017-09-27 02:06:58	<--	geggam (~geggam@216.9.187.253) has quit (Ping timeout: 264 seconds)
+2017-09-27 02:07:24	<--	teamcoltra (~textual@opennic/teamcoltra) has quit (Client Quit)
+2017-09-27 02:08:23	koala_man	lfowlr: it's done as root, but it will not change the ownership of an existing file
+2017-09-27 02:08:43	-->	dysfigur- (~DANtheBEA@2a05:dfc7:dfc8:1d1::6a47) has joined #bash
+2017-09-27 02:08:46	eb0t	would you say that parameter expansion is the key to learning bash
+2017-09-27 02:08:51	-->	kurahaupo_ (~kurahaupo@pa49-195-131-243.pa.nsw.optusnet.com.au) has joined #bash
+2017-09-27 02:08:58	nchambers	I'd say learning bash is the key to learning bash
+2017-09-27 02:09:06	eb0t	because the woodlege site is just full of so much stuff, its hard to focus on anything in particular
+2017-09-27 02:09:24	lfowlr	koala_man: how'd i know that it 's done as root or not
+2017-09-27 02:09:26	eb0t	no way you will ever get through the wooledge docuentation
+2017-09-27 02:09:35	eb0t	so you need to focus on something.
+2017-09-27 02:09:38	koala_man	lfowlr: sudo bash -c 'whoami; cat > file'
+2017-09-27 02:09:45	eb0t	im thinking parameter expansion and then a few calls
+2017-09-27 02:09:46	lfowlr	but when I do echo data|sudo tee file; then the ownership is root
+2017-09-27 02:09:46	kurahaupo_	lfowlr: look at the file ownership afterwards
+2017-09-27 02:09:53	<--	jimmyrcom (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has quit (Ping timeout: 248 seconds)
+2017-09-27 02:10:21	kurahaupo_	lfowlr: why would you want to use cat there?
+2017-09-27 02:10:28	kurahaupo_	!uuoc
+2017-09-27 02:10:28	greybot	Useless Use of Cat (cat foo | grep bar). See http://www.iki.fi/era/unix/award.html#cat
+2017-09-27 02:10:34	<--	_adb (~abelleni@50.227.76.199) has quit (Read error: Connection reset by peer)
+2017-09-27 02:10:42	koala_man	lfowlr: I suspect that when it's not root, it's because you reused a filename that already existed.
+2017-09-27 02:10:46	-->	genericuser123 (~enter@43.225.32.90) has joined #bash
+2017-09-27 02:10:49	-->	A-Dawg (~A-Dawg@59-100-174-130.cust.static-ipl.aapt.com.au) has joined #bash
+2017-09-27 02:11:05	-->	jimmyrcom (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has joined #bash
+2017-09-27 02:11:32	<--	A-Dawg (~A-Dawg@59-100-174-130.cust.static-ipl.aapt.com.au) has quit (Remote host closed the connection)
+2017-09-27 02:11:50	-->	A-Dawg (~A-Dawg@59-100-174-130.cust.static-ipl.aapt.com.au) has joined #bash
+2017-09-27 02:12:03	lfowlr	I don't like tee kurahaupo_  and cat > works instead of tee, even though root is needed to modify the brightess file; so I assumes I am root
+2017-09-27 02:12:05	kurahaupo_	lfowlr: file ownership is set when the file is created. Overwriting it won't change that
+2017-09-27 02:12:32	lfowlr	koala_man: yes file is the same name reused
+2017-09-27 02:12:37	-->	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has joined #bash
+2017-09-27 02:12:37	<--	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has quit (Changing host)
+2017-09-27 02:12:37	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-27 02:12:39	nchambers	whats wrong with tee?
+2017-09-27 02:13:08	kurahaupo_	sudo dd of=file
+2017-09-27 02:13:10	lfowlr	wwwwhat's the fuck is wrong with echo bullshit | sudo cat > file
+2017-09-27 02:13:17	<--	kurahaupo (~kurahaupo@124-149-79-121.dyn.iinet.net.au) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:13:28	nchambers	the sudo cat there is pointless
+2017-09-27 02:13:43	koala_man	!check echo bullshit | sudo cat > file
+2017-09-27 02:13:43	checkbot	koala_man: Line 1: sudo doesn't affect redirects. Use ..| sudo tee file. See http://shellcheck.net/?id=cb67623
+2017-09-27 02:13:45	kurahaupo_	lfowlr: because the redirection is done BEFORE sudo
+2017-09-27 02:13:48	nchambers	might as well just do sudo echo > file
+2017-09-27 02:13:51	-->	Parraki (~Parraki@55.92-220-69.customer.lyse.net) has joined #bash
+2017-09-27 02:14:02	-->	geggam__ (~geggam@216.9.187.253) has joined #bash
+2017-09-27 02:14:15	yitz	Isn't there a factoid for that? Can't find it.
+2017-09-27 02:14:23	yitz	!sudo>
+2017-09-27 02:14:23	greybot	sudo echo > file -- bash operations such as redirections & glob expansions are performed by the USER's bash, not by sudo. Consider: echo | sudo tee [-a] file, or sudo bash -c 'echo > file'
+2017-09-27 02:14:49	nchambers	I feel like theres a pitfall for echo|sudo cat
+2017-09-27 02:15:39	kurahaupo_	lfowlr: consider « this_command_does_not_exist > some_new_file » -- in which case some_new_file will still be created
+2017-09-27 02:15:41	<--	ravndal (~weechat@unaffiliated/ravndal) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:16:26	nchambers	I guess its not. I think it would make a great pitfall though
+2017-09-27 02:16:31	-->	_mirko_ (~mirk0@unaffiliated/-mirko-/x-2946915) has joined #bash
+2017-09-27 02:16:40	glacial	sudo will not try to read password from pipe
+2017-09-27 02:16:47	<--	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:16:56	-->	geggam (~geggam@216.9.187.253) has joined #bash
+2017-09-27 02:17:13	-->	e14 (~e14@2601:184:4180:da74:8816:673:7752:b86) has joined #bash
+2017-09-27 02:17:14	Brilpikk3wyn	lfowlr, are you playing with /sys/class/backlight?
+2017-09-27 02:17:16	kurahaupo_	maybe we should make a point of showing examples like « echo blah | >file sudo cat »
+2017-09-27 02:17:19	<--	geggam_ (~geggam@216.9.187.253) has quit (Ping timeout: 248 seconds)
+2017-09-27 02:17:20	lfowlr	Brilpikk3wyn: yes
+2017-09-27 02:17:21	<--	FozzWorth_ (~FozzWorth@76.102.107.84) has quit (Read error: Connection reset by peer)
+2017-09-27 02:17:30	Brilpikk3wyn	https://ptpb.pw/APbCPy0QpSoPOlZysWtvaiHbAmMK.sh
+2017-09-27 02:17:37	Brilpikk3wyn	not an educational solution by any means
+2017-09-27 02:17:38	nchambers	kurahaupo_: why would that work better?
+2017-09-27 02:17:48	Brilpikk3wyn	but this is the 30sec script i use to set backlight
+2017-09-27 02:18:00	nchambers	![ > Brilpikk3wyn
+2017-09-27 02:18:00	greybot	Brilpikk3wyn: [ or test is the POSIX test command. It can do simple tests on files and strings. In bash, you should use the more powerful [[ instead and ban [ for sake of consistency. [[ can do pattern matching, is faster and safer to use. http://mywiki.wooledge.org/BashGuide/TestsAndConditionals http://mywiki.wooledge.org/BashFAQ/031
+2017-09-27 02:18:18	-->	roadie (~user@87.116.178.227) has joined #bash
+2017-09-27 02:18:23	kurahaupo_	nchambers: because then people's inclination to read from left to right would point them towards understanding that it won't do what they want
+2017-09-27 02:18:25	<--	Asmodee (~Asmodee@gateway/tor-sasl/asmodee) has quit (Remote host closed the connection)
+2017-09-27 02:18:30	-->	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has joined #bash
+2017-09-27 02:18:38	-->	hs0ucy (~hsoucy@cable-192.222.228.199.electronicbox.net) has joined #bash
+2017-09-27 02:19:07	<--	geggam__ (~geggam@216.9.187.253) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:19:50	<--	e14 (~e14@2601:184:4180:da74:8816:673:7752:b86) has quit (Client Quit)
+2017-09-27 02:20:08	-->	gugah (~gugah@181.28.219.193) has joined #bash
+2017-09-27 02:20:17	Brilpikk3wyn	greybot, that's why the script took 30sec instead of 1min ;)
+2017-09-27 02:20:20	nchambers	I mean, if I saw that and didn't know any better, I would still think >file sudo cat would work
+2017-09-27 02:20:22	kurahaupo_	lfowlr: put together the parts you already knew: 1. sudo grants root access to a particular program; 2. cat does not open any output files
+2017-09-27 02:20:26	Brilpikk3wyn	noted though, I didn't know [[ was faster
+2017-09-27 02:21:08	<--	_mirko_ (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:21:33	lfowlr	[ "$?" -ne "0" ] && 1>&2 printf '%s' "So .." what's 1>&2 doing after && ; it's not a valid cmd
+2017-09-27 02:21:52	nchambers	lfowlr: what makes you think its not valid?
+2017-09-27 02:22:10	sla3k	Hi, how would I go about using grep when I want to grep exact word, for example, there is a file in which I have multiple words line by line, ab, adc, abcd etc...when I do grep ab, it also matches abcd
+2017-09-27 02:22:31	lfowlr	1>&2 ;  what type of a cmd is that?
+2017-09-27 02:22:31	Brilpikk3wyn	looks valid to me
+2017-09-27 02:22:34	nchambers	# printf 'Hello, world!' | grep foo # won't print anything since it doesn't match foo
+2017-09-27 02:22:35	d4re	you not outputting anything at that point so why is 1>&2 there?
+2017-09-27 02:22:36	shbot	nchambers: no output
+2017-09-27 02:22:41	d4re	^
+2017-09-27 02:22:49	wedgie	sla3k: grep -w
+2017-09-27 02:22:49	nchambers	# printf 2>&1 'Hello, world!' | grep foo # will print because its redirected to stderr
+2017-09-27 02:22:51	shbot	nchambers: no output
+2017-09-27 02:22:55	nchambers	erm
+2017-09-27 02:22:57	nchambers	oh
+2017-09-27 02:22:57	Brilpikk3wyn	1>&2 redirects stdout to stderr
+2017-09-27 02:23:11	nchambers	# >&2 printf 'Hello, world!' | grep foo # will print because its redirected to stderr
+2017-09-27 02:23:11	Brilpikk3wyn	perfectly valid as far as i can see
+2017-09-27 02:23:12	sla3k	wedgie: cool, thanks
+2017-09-27 02:23:12	<--	roadie (~user@87.116.178.227) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:23:12	shbot	nchambers: Hello, world!
+2017-09-27 02:23:32	nchambers	lfowlr: its not a command. its a redirect
+2017-09-27 02:23:35	d4re	you can put that at the start of the command too?
+2017-09-27 02:23:35	<--	Parraki (~Parraki@55.92-220-69.customer.lyse.net) has quit (Quit: Leaving)
+2017-09-27 02:23:42	nchambers	sure
+2017-09-27 02:23:43	<--	plitter (~plitter@183.109.95.88.customer.cdi.no) has quit (Quit: WeeChat 1.9)
+2017-09-27 02:23:51	nchambers	# printf >&2 'you can really put it anywhere'
+2017-09-27 02:23:52	shbot	nchambers: you can really put it anywhere
+2017-09-27 02:23:59	d4re	heh didnt know thx
+2017-09-27 02:24:24	<--	geggam (~geggam@216.9.187.253) has quit (Read error: Connection reset by peer)
+2017-09-27 02:24:47	<--	rangotail (~rangotail@unaffiliated/rangotail) has quit (Quit: Leaving)
+2017-09-27 02:24:51	-->	geggam (~geggam@216.9.187.253) has joined #bash
+2017-09-27 02:25:06	koala_man	technically you don't even need a command
+2017-09-27 02:25:09	koala_man	# 1>&2
+2017-09-27 02:25:10	shbot	koala_man: no output
+2017-09-27 02:25:13	koala_man	perfectly valid
+2017-09-27 02:25:33	lfowlr	1>&2 echo something
+2017-09-27 02:25:38	lfowlr	# 1>&2 echo something
+2017-09-27 02:25:38	Delf	And for stderr to stdout…
+2017-09-27 02:25:40	shbot	lfowlr: something
+2017-09-27 02:25:47	<--	pedrovian (~pedrovian@58.78.237.31) has quit (Quit: Leaving)
+2017-09-27 02:25:52	Delf	# &>
+2017-09-27 02:25:53	shbot	Delf: bash: syntax error near unexpected token `newline'
+2017-09-27 02:25:58	Delf	# >&
+2017-09-27 02:25:59	shbot	Delf: bash: syntax error near unexpected token `newline'
+2017-09-27 02:26:04	Delf	w00t!?
+2017-09-27 02:26:04	koala_man	you do need a filename to complete it
+2017-09-27 02:26:11	nchambers	or fd
+2017-09-27 02:26:15	lfowlr	what the fuck it should be echo llla 1>&2 ; not the other way
+2017-09-27 02:26:36	nchambers	lfowlr: it can go anywhere. its just common practice to put it at the end
+2017-09-27 02:26:43	nchambers	it really doesn't make a difference thoguh
+2017-09-27 02:26:46	koala_man	it only has to go at the end for compound commands. in simple commands, they can be front, middle or back
+2017-09-27 02:27:44	lfowlr	kurahaupo_: what did you mean cat does not open any output files
+2017-09-27 02:27:57	nchambers	lfowlr: cat doesn't open files for writing
+2017-09-27 02:28:00	nchambers	it just writes to stdout
+2017-09-27 02:28:02	-->	e14 (~e14@2601:184:4180:da74:8816:673:7752:b86) has joined #bash
+2017-09-27 02:28:04	kurahaupo_	lfowlr: exactly what I said.
+2017-09-27 02:28:34	<--	kamellion (~robert@173-22-247-87.client.mchsi.com) has quit (Ping timeout: 264 seconds)
+2017-09-27 02:28:39	kurahaupo_	lfowlr: the ">file" is NOT part of the cat command; it never see it
+2017-09-27 02:28:44	<--	d4re (~d4re@gateway/tor-sasl/d4re) has quit (Ping timeout: 248 seconds)
+2017-09-27 02:30:00	<--	gffa (~unknown@unaffiliated/gffa) has quit (Quit: quit)
+2017-09-27 02:30:07	kurahaupo_	!uuoc > lfowlr
+2017-09-27 02:30:08	greybot	lfowlr: Useless Use of Cat (cat foo | grep bar). See http://www.iki.fi/era/unix/award.html#cat
+2017-09-27 02:30:08	<--	geggam (~geggam@216.9.187.253) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:30:12	<--	boutcheee520 (~jmurillo_@50-235-35-130-static.hfc.comcastbusiness.net) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:31:01	<--	e14 (~e14@2601:184:4180:da74:8816:673:7752:b86) has quit (Client Quit)
+2017-09-27 02:31:56	kurahaupo_	lfowlr: when the shell starts a command it removes all traces of the redirections. the program that runs does not seem very directions at all.
+2017-09-27 02:32:24	--	dysfigur- is now known as dysfigured
+2017-09-27 02:32:28	kurahaupo_	s/seem very /see the re/
+2017-09-27 02:32:52	-->	xin0x (glock@unaffiliated/xin0x) has joined #bash
+2017-09-27 02:33:25	-->	mson (uid110608@gateway/web/irccloud.com/x-zngklrilgurcjbvj) has joined #bash
+2017-09-27 02:33:35	lfowlr	cat foo | grep bar is useless; then which is the useful cmd for hat
+2017-09-27 02:33:35	<--	stoilkov (~stoilkov@95.111.120.130) has quit (Ping timeout: 255 seconds)
+2017-09-27 02:33:37	lfowlr	that
+2017-09-27 02:33:49	glacial	grep bar foo
+2017-09-27 02:34:07	glacial	grep takes a pattern and zero or more file names
+2017-09-27 02:34:16	-->	d4re (~d4re@gateway/tor-sasl/d4re) has joined #bash
+2017-09-27 02:36:35	<--	dakudos (~dakudos@c-174-51-19-4.hsd1.co.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:37:00	clemens3	if you dont know before if you change the grep to perl or it is a long list of pipes, the cat in the beginning is never wrong..
+2017-09-27 02:37:08	lfowlr	cat foo | grep file; no such file or directory: foo
+2017-09-27 02:37:12	<--	kurahaupo_ (~kurahaupo@pa49-195-131-243.pa.nsw.optusnet.com.au) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:37:20	<--	teamcoltra (~textual@opennic/teamcoltra) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-27 02:37:24	glacial	# <.bashrc  grep 'set +H'
+2017-09-27 02:37:25	shbot	glacial: set +H
+2017-09-27 02:37:28	lfowlr	so can we feed foo as the first argument of grep, and not second?
+2017-09-27 02:38:13	glacial	# grep 'set +H' -e hello
+2017-09-27 02:38:14	shbot	glacial: grep: set +H: No such file or directory
+2017-09-27 02:38:21	clemens3	egrep "regexp" "file"
+2017-09-27 02:38:22	glacial	what?
+2017-09-27 02:38:30	glacial	# grep .bashrc -e 'set +H'
+2017-09-27 02:38:31	shbot	glacial: set +H
+2017-09-27 02:39:08	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-27 02:39:22	glacial	but this will not work in any other operating system but GNU
+2017-09-27 02:39:27	<--	lfowlr (~jflqlfe@117.195.243.52) has quit (Quit: lfowlr)
+2017-09-27 02:40:01	glacial	(it will work in Windows though, both in WSL and Cygwin, which proves that Windows is GNU)
+2017-09-27 02:40:49	glacial	... because getopts in GNU libc handles options after first non-option argument as options, not as non-option arguments, as it happens in all other Unixes
+2017-09-27 02:40:59	clemens3	egrep "set +H" .bashrc will work on mac
+2017-09-27 02:41:00	<--	teamcoltra (~textual@opennic/teamcoltra) has quit (Client Quit)
+2017-09-27 02:41:20	glacial	not getopts, but getopt(3), function of C library
+2017-09-27 02:42:35	<--	dennisw (~dennis@128.42.234.112) has quit (Ping timeout: 255 seconds)
+2017-09-27 02:42:57	--	dmc is now known as namcap
+2017-09-27 02:43:48	-->	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has joined #bash
+2017-09-27 02:43:48	<--	teamcoltra (~textual@S01062c4d54754120.vc.shawcable.net) has quit (Changing host)
+2017-09-27 02:43:48	-->	teamcoltra (~textual@opennic/teamcoltra) has joined #bash
+2017-09-27 02:44:15	glacial	getopts (built-in command in bash) will look upon arguments after first non-option argument and see them as non-option arguments, even if they begin with '-'...
+2017-09-27 02:44:48	Delf	# for i in seat{0…3} ; do $i=() ; done
+2017-09-27 02:44:49	shbot	Delf: bash: syntax error near unexpected token `;'
+2017-09-27 02:45:02	<--	pasteban (~pasteban@157.146.251.23.bc.googleusercontent.com) has quit (Remote host closed the connection)
+2017-09-27 02:45:06	glacial	do we have a !… factoid?
+2017-09-27 02:45:11	glacial	!…
+2017-09-27 02:45:12	<--	unclutter (~unclutter@24.79-160-153.customer.lyse.net) has quit (Read error: Connection reset by peer)
+2017-09-27 02:45:24	Delf	# for i in seat{0,1,2,3} ; do $i=() ; done
+2017-09-27 02:45:25	shbot	Delf: bash: syntax error near unexpected token `;'
+2017-09-27 02:45:38	-->	pasteban (~pasteban@157.146.251.23.bc.googleusercontent.com) has joined #bash
+2017-09-27 02:46:28	<--	piterr (~Piotr@user-94-254-143-237.play-internet.pl) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:46:43	Delf	# for i in seat{0,1,2,3} ; do $i=("$RANDOM") ; done
+2017-09-27 02:46:44	shbot	Delf: bash: syntax error near unexpected token `"$RANDOM"'
+2017-09-27 02:46:51	glacial	Delf: the problem with … is that it is a single Unicode symbol for ellipsis.  you have to tweak your GUI client and turn off automatic replacement of ... with …
+2017-09-27 02:47:18	Delf	glacial: Understandable
+2017-09-27 02:47:23	glacial	Delf: in bash right syntax is  seat{0..3}
+2017-09-27 02:47:50	<--	hen- (~hen@unaffiliated/hen-) has quit (Quit: WeeChat 1.9)
+2017-09-27 02:48:04	Delf	How do I create a variable whose name is whatever is in $i in a for loop?
+2017-09-27 02:48:05	<--	SwiftMatt (~Objective@94.213.9.72.static.ip.tnltd.net) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-27 02:48:25	Delf	An array, not just variable
+2017-09-27 02:48:49	Brilpikk3wyn	you could use eval
+2017-09-27 02:48:57	Brilpikk3wyn	but that would be doing it wrong
+2017-09-27 02:48:59	pj	!eval
+2017-09-27 02:48:59	greybot	'eval' is a common misspelling of 'evil'. If eval is the answer, surely you are asking the wrong question. See http://mywiki.wooledge.org/BashFAQ/048
+2017-09-27 02:49:13	Delf	Hahha
+2017-09-27 02:49:42	Brilpikk3wyn	if you find yourself having to dynamically create variables, you should find a different way of doing it
+2017-09-27 02:49:48	<--	Pegasique (~ushiki@2.92.194.4) has quit (Ping timeout: 252 seconds)
+2017-09-27 02:50:02	<--	checkbot (~checkbot@157.146.251.23.bc.googleusercontent.com) has quit (Remote host closed the connection)
+2017-09-27 02:50:07	Delf	Such as, not dynamically creating variables?
+2017-09-27 02:50:13	Brilpikk3wyn	yes
+2017-09-27 02:50:23	glacial	# for seat in seat{0..3}; do  seat=${seat#s};  unset -- "$seat" && : "${!seat:-new contents}";  printf '%s''variable %s is now %s' "$comma" "$seat" "${!seat}";  comma=', ';  done;  printf %s\\n
+2017-09-27 02:50:23	<--	beemo_ceniza (~beemo_cen@unaffiliated/beemo-ceniza/x-9577736) has quit (Ping timeout: 248 seconds)
+2017-09-27 02:50:24	shbot	glacial: variable eat0 is now , variable eat1 is now , variable eat2 is now , variable eat3 is now
+2017-09-27 02:50:38	-->	checkbot (~checkbot@157.146.251.23.bc.googleusercontent.com) has joined #bash
+2017-09-27 02:50:43	glacial	forgot something somewhere
+2017-09-27 02:50:48	-->	dakudos (~dakudos@c-174-51-19-4.hsd1.co.comcast.net) has joined #bash
+2017-09-27 02:50:50	--	irc: disconnected from server
+2017-09-27 12:26:12	-->	yasser (~yasser@94.187.48.254) has joined #bash
+2017-09-27 12:26:12	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-27 12:26:12	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-27 12:26:12	--	Channel #bash: 1255 nicks (1 op, 0 voices, 1254 normals)
+2017-09-27 12:26:13	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-27 12:26:15	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-27 12:27:09	-->	plitter (~plitter@183.109.95.88.customer.cdi.no) has joined #bash
+2017-09-27 12:28:11	<--	myz1 (~13380@host31-53-77-248.range31-53.btcentralplus.com) has quit (Ping timeout: 246 seconds)
+2017-09-27 12:30:41	<--	wasanzy (~wasanzy@41.66.254.58) has quit (Ping timeout: 248 seconds)
+2017-09-27 12:31:41	-->	wasanzy (~wasanzy@41.242.137.170) has joined #bash
+2017-09-27 12:32:07	-->	shafox (~pbehera@125.18.28.214) has joined #bash
+2017-09-27 12:33:16	<--	hpt (~hpt@106.38.0.87) has quit (Quit: Lost terminal)
+2017-09-27 12:33:21	<--	Random832 (~random@unaffiliated/random832) has quit (Ping timeout: 252 seconds)
+2017-09-27 12:34:26	-->	`Cam (~textual@C-61-69-164-131.syd.connect.net.au) has joined #bash
+2017-09-27 12:35:37	--	angerctl is now known as Namarrgon
+2017-09-27 12:37:33	-->	MagePsycho (~razen@92.98.166.123) has joined #bash
+2017-09-27 12:38:51	<--	StephenS_ (stefika@2607:5300:60:7e7d::) has quit (Ping timeout: 252 seconds)
+2017-09-27 12:39:09	-->	mkoskar (~mkoskar@unaffiliated/mkoskar) has joined #bash
+2017-09-27 12:39:55	-->	StephenS (stefika@2607:5300:60:7e7d::) has joined #bash
+2017-09-27 12:41:43	-->	myz1 (~13380@81.171.97.55) has joined #bash
+2017-09-27 12:44:55	<--	murdoc` (~murdoc`@gateway/vpn/privateinternetaccess/murdoc/x-48760953) has quit (Remote host closed the connection)
+2017-09-27 12:45:15	-->	murdoc` (~murdoc`@gateway/vpn/privateinternetaccess/murdoc/x-48760953) has joined #bash
+2017-09-27 12:46:10	-->	BobbyJr (~BobbyJr@robsworld.plus.com) has joined #bash
+2017-09-27 12:46:28	-->	Random832 (~random@unaffiliated/random832) has joined #bash
+2017-09-27 12:46:58	<--	mohabaks (~mohabaks@gateway/tor-sasl/mohabaks) has left #bash ("WeeChat 1.9")
+2017-09-27 12:48:17	<--	MagePsycho (~razen@92.98.166.123) has quit (Ping timeout: 248 seconds)
+2017-09-27 12:48:36	-->	simka (~simka@188.146.43.247.nat.umts.dynamic.t-mobile.pl) has joined #bash
+2017-09-27 12:48:46	-->	MindSpark (~Mind@p548FF755.dip0.t-ipconnect.de) has joined #bash
+2017-09-27 12:48:58	-->	merzo (~merzo@95.67.66.254) has joined #bash
+2017-09-27 12:50:55	<--	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has quit (Remote host closed the connection)
+2017-09-27 12:51:04	-->	FernandoBasso (~Fernando-@2804:14d:3e83:133b:22e4:17ff:fe03:4657) has joined #bash
+2017-09-27 12:51:11	-->	cdown_ (~cdown@my83-216-89-150.cust.relish.net) has joined #bash
+2017-09-27 12:52:05	-->	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has joined #bash
+2017-09-27 12:52:48	<--	cdown (~cdown@199.201.66.3) has quit (Ping timeout: 240 seconds)
+2017-09-27 12:52:49	--	cdown_ is now known as cdown
+2017-09-27 12:53:14	<--	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has quit (Quit: Leaving)
+2017-09-27 12:55:19	-->	elcmat_ (~elcmat@117.192.162.179) has joined #bash
+2017-09-27 12:57:53	<--	elcmat (~elcmat@unaffiliated/elcmat) has quit (Ping timeout: 248 seconds)
+2017-09-27 12:59:00	<--	buyfn (~textual@93.84.45.198) has quit (Quit: My MacBook Air has gone to sleep. ZZZzzz…)
+2017-09-27 12:59:35	-->	Guest24 (~textual@93.84.45.198) has joined #bash
+2017-09-27 12:59:50	<--	Guest24 (~textual@93.84.45.198) has quit (Client Quit)
+2017-09-27 13:00:28	-->	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has joined #bash
+2017-09-27 13:01:21	<--	jcsmith (~jsmith39@74.193.233.33) has quit (Ping timeout: 240 seconds)
+2017-09-27 13:01:56	-->	rRru (~rRru@188.28.151.70.threembb.co.uk) has joined #bash
+2017-09-27 13:02:04	-->	Guest24 (~textual@93.84.45.198) has joined #bash
+2017-09-27 13:02:09	<--	Guest24 (~textual@93.84.45.198) has quit (Client Quit)
+2017-09-27 13:03:11	<--	osfe_ (~lemaire@nb-lemaire2.lal.in2p3.fr) has quit (Ping timeout: 248 seconds)
+2017-09-27 13:03:36	<--	ww_ (~ww@ip-88-152-174-32.hsi03.unitymediagroup.de) has quit (Remote host closed the connection)
+2017-09-27 13:04:17	<--	elcmat_ (~elcmat@117.192.162.179) has quit (Ping timeout: 260 seconds)
+2017-09-27 13:05:53	<--	BobbyJr (~BobbyJr@robsworld.plus.com) has quit (Ping timeout: 248 seconds)
+2017-09-27 13:09:46	<--	fiete (cbn2JfvOMn@qutebrowser/user/fiete) has quit (Remote host closed the connection)
+2017-09-27 13:09:59	<--	zouhair (~kvirc@24.105.78.94) has quit (Read error: Connection reset by peer)
+2017-09-27 13:10:18	-->	fiete (TQm7OgqJYK@qutebrowser/user/fiete) has joined #bash
+2017-09-27 13:12:30	--	irc: disconnected from server
+2017-09-28 11:59:11	-->	yasser (~yasser@94.187.90.177) has joined #bash
+2017-09-28 11:59:11	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-09-28 11:59:11	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-09-28 11:59:11	--	Channel #bash: 1255 nicks (1 op, 0 voices, 1254 normals)
+2017-09-28 11:59:11	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-09-28 11:59:13	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-09-28 12:00:21	<--	panta34 (~panta@109-93-150-154.dynamic.isp.telekom.rs) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:00:22	<--	_ADN_ (~username@5.148.34.186) has quit (Ping timeout: 260 seconds)
+2017-09-28 12:01:10	<--	thomasross (~thomasros@69.17.174.21) has quit (Remote host closed the connection)
+2017-09-28 12:01:36	-->	thomasross (~thomasros@69.17.174.21) has joined #bash
+2017-09-28 12:01:52	-->	Ceber (~cerberus@dslb-188-107-243-231.188.107.pools.vodafone-ip.de) has joined #bash
+2017-09-28 12:03:07	-->	plexigras (~plexigras@gateway/vpn/privateinternetaccess/plexigras) has joined #bash
+2017-09-28 12:03:28	<--	netj (~netj@c-98-207-40-41.hsd1.ca.comcast.net) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:03:37	-->	cdown (~cdown@199.201.66.3) has joined #bash
+2017-09-28 12:03:54	-->	netj (~netj@c-98-207-40-41.hsd1.ca.comcast.net) has joined #bash
+2017-09-28 12:05:01	<--	mweckbecker_ (matthias@odin.sdf-eu.org) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:05:05	-->	blingrang (~blingrang@unaffiliated/blingrang) has joined #bash
+2017-09-28 12:05:51	<--	blingrang (~blingrang@unaffiliated/blingrang) has quit (Max SendQ exceeded)
+2017-09-28 12:06:18	<--	mlaine (mlaine@odin.sdf-eu.org) has quit (Ping timeout: 252 seconds)
+2017-09-28 12:06:21	-->	blingrang (~blingrang@unaffiliated/blingrang) has joined #bash
+2017-09-28 12:08:28	<--	intcat (~zshlyk@gateway/tor-sasl/intcat) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:09:25	<--	waldow (~waldow@216.112.17.10.ptr.us.xo.net) has quit (Remote host closed the connection)
+2017-09-28 12:09:50	-->	eroux (~eroux@196-210-1-98.dynamic.isadsl.co.za) has joined #bash
+2017-09-28 12:10:16	-->	MindSpark (~Mind@p548FF408.dip0.t-ipconnect.de) has joined #bash
+2017-09-28 12:10:29	-->	taaperotassu (~taaperota@135.ip-51-255-207.eu) has joined #bash
+2017-09-28 12:10:35	<--	dexta (~D3XTA@host86-177-204-180.range86-177.btcentralplus.com) has quit (Quit: bbs)
+2017-09-28 12:10:39	-->	shafox (~pbehera@125.18.28.214) has joined #bash
+2017-09-28 12:10:55	-->	intcat (~zshlyk@gateway/tor-sasl/intcat) has joined #bash
+2017-09-28 12:11:10	-->	foul_owl (~foul_owl@97-126-91-199.tukw.qwest.net) has joined #bash
+2017-09-28 12:12:17	-->	_ADN_ (~username@5.148.34.186) has joined #bash
+2017-09-28 12:12:29	shafox	I have two files with names as::  DP2017-09-28_10-24-31.zip & DP2017-09-28_12-02-10.zip , How do I find which one is the latest based on the date-time it has in the name ?
+2017-09-28 12:12:58	-->	fatdragon (~fatdragon@cpe-107-184-105-188.socal.res.rr.com) has joined #bash
+2017-09-28 12:14:08	Riviera	shafox: [[ $filename1 > $filename2 ]]
+2017-09-28 12:14:25	geirha	shafox: files=(DP*.zip)   # last element of the array is the latest one
+2017-09-28 12:15:30	shafox	geirha, didn't get you.
+2017-09-28 12:17:12	geirha	# touch DP2017-09-28_10-24-31.zip DP2017-09-28_12-02-10.zip; files=( DP*.zip ); printf 'Files sorted by timestamp:\n'; printf '%s\n' "${files[@]}"
+2017-09-28 12:17:13	shbot	geirha: Files sorted by timestamp:
+2017-09-28 12:17:13	shbot	geirha: DP2017-09-28_10-24-31.zip
+2017-09-28 12:17:13	shbot	geirha: DP2017-09-28_12-02-10.zip
+2017-09-28 12:17:48	-->	Robin___ (~Damien@53570D23.cm-6-8a.dynamic.ziggo.nl) has joined #bash
+2017-09-28 12:17:48	<--	High_Priest (~hp@unaffiliated/high-priest/x-8117523) has quit (Quit: Leaving)
+2017-09-28 12:18:01	<--	blingrang (~blingrang@unaffiliated/blingrang) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:18:13	rond_	Hi! when I do "parallel -j 2 --retries 10000 -a in.in cat" and during this I create a file with filename matching the second line in in.in, I would expect that it's content would be read and another job would be run. But, unfortunately, parallel doesn't care that the appropriate file was created; both jobs run the same time, with the first one returning "no such file" and second one returning the content of the appropriate file.
+2017-09-28 12:18:16	rond_	 The question is: why isn't this content read in the second it could be? Why the hell this second job waits as long as the first one? The first one cannot execute command, so it's understandable it retries and retries, but the second one DO CAN execute command, so why it doesn't?
+2017-09-28 12:19:10	-->	dexta (~D3XTA@host86-177-204-180.range86-177.btcentralplus.com) has joined #bash
+2017-09-28 12:19:58	Robin___	!paste
+2017-09-28 12:19:58	greybot	Paste short snippets (<= 5 lines) in channel. Paste more using https://gist.github.com/ or http://sprunge.us/ (see !sprunge). Please don't use pastebin.com; it's full of ads and mangles whitespace. NEVER upload screen shots. Don't use a paste site that requires Javascript.
+2017-09-28 12:20:10	<--	fatdragon (~fatdragon@cpe-107-184-105-188.socal.res.rr.com) has quit (Ping timeout: 264 seconds)
+2017-09-28 12:20:56	-->	mlaine (mlaine@odin.sdf-eu.org) has joined #bash
+2017-09-28 12:20:56	-->	mweckbecker_ (matthias@odin.sdf-eu.org) has joined #bash
+2017-09-28 12:21:25	rond_	Robin___: I've pasted the code i'm running with description of the problem. What's vague here? I'd gladly explain some details :)
+2017-09-28 12:21:56	Robin___	rond_: oh, it was for me personally. im also gonna paste something
+2017-09-28 12:21:58	<--	shafox (~pbehera@125.18.28.214) has quit (Quit: This computer has gone to sleep)
+2017-09-28 12:22:06	-->	screenn (~screenn@212.3.124.242) has joined #bash
+2017-09-28 12:22:20	-->	blingrang (~blingrang@unaffiliated/blingrang) has joined #bash
+2017-09-28 12:22:31	-->	Bhootrk_ (~Bhootrk_@118.189.203.83) has joined #bash
+2017-09-28 12:22:35	<--	Bhootrk_ (~Bhootrk_@118.189.203.83) has quit (Max SendQ exceeded)
+2017-09-28 12:22:53	-->	AlexPortable (uid7568@gateway/web/irccloud.com/x-evfuzakyjnzmwfqd) has joined #bash
+2017-09-28 12:23:13	Riviera	rond_: Note that parallel is not really in the scope of #bash (bash is), in theory it's on-topic in #gnu. Just in case you do not get any other response. :)
+2017-09-28 12:23:19	-->	shafox (~pbehera@125.18.28.214) has joined #bash
+2017-09-28 12:23:42	<--	czart (~czart@accj89.neoplus.adsl.tpnet.pl) has quit (Ping timeout: 260 seconds)
+2017-09-28 12:24:36	Robin___	Hello! Someone wanna help me with a Makefile (vpath). It cant find my main.cpp. Makefile and treestructure included: https://gist.github.com/robvik/1eb48fa2ec6f1b219ccc28f9922b2c43 Thanks!
+2017-09-28 12:24:58	Riviera	!make > Robin___
+2017-09-28 12:24:58	greybot	Robin___: Make is not bash, and Makefiles are not scripts. Ask in ##workingset and read http://www.gnu.org/software/make/manual/ or the help documents of your version of make.
+2017-09-28 12:25:26	-->	czart (~czart@accj89.neoplus.adsl.tpnet.pl) has joined #bash
+2017-09-28 12:25:27	Robin___	ok thanks
+2017-09-28 12:25:31	rond_	Riviera: #gnu is rather silent... or dead :) is there any way to see archives of freenode channels? for example archive of this or #linux channel?
+2017-09-28 12:25:58	<--	hpt (~hpt@106.38.0.71) has quit (Quit: Lost terminal)
+2017-09-28 12:26:13	-->	iskorptix (~iskorptix@212-59-15-34.static.zebra.lt) has joined #bash
+2017-09-28 12:26:52	<--	cdown (~cdown@199.201.66.3) has quit (Remote host closed the connection)
+2017-09-28 12:27:06	Riviera	rond_: freenode policy is that public logs are forbidden unless publicly announced on a per-channel basis (e.g. via the on-join notice or the channel's topic); also then where the logs are published depends on each channel. This channel in particular is not publicly logged, at least not officially / renownedly.
+2017-09-28 12:27:31	rond_	Oh, ok
+2017-09-28 12:27:47	-->	rafi1 (Thunderbir@nat/redhat/x-quocnudsdepycwxu) has joined #bash
+2017-09-28 12:27:48	Riviera	rond_: and yeah, that's why I meant "in theory," am a bit skeptical that you'd receive help there. Perhaps the mailing list is your best shot.
+2017-09-28 12:28:01	<--	rafi (Thunderbir@nat/redhat/x-zjpghvrciyekhjfu) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:28:01	--	rafi1 is now known as rafi
+2017-09-28 12:28:06	-->	ShockingIsntIt2 (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has joined #bash
+2017-09-28 12:28:09	Riviera	but of course, feel free to wait if somebody here feels up for this issue. :)
+2017-09-28 12:28:31	<--	serhart (~serhart@2606:a000:4855:f400:7bba:5a74:e0d4:d0f8) has quit (Quit: serhart)
+2017-09-28 12:28:54	-->	cdown (~cdown@199.201.66.3) has joined #bash
+2017-09-28 12:29:08	Riviera	rond_: on the other hand, if you are in a hurry consider not using parallel at all but solving this problem manually.
+2017-09-28 12:29:12	Riviera	!parallel
+2017-09-28 12:29:12	greybot	parallel() { local workers=$1 handler=$2 w i; shift 2; local elements=("$@"); for (( w = 0; w < workers; ++w )); do for (( i = w; i < ${#elements[@]}; i += workers )); do "$handler" "${elements[i]}"; done & done; wait; }; parallel 5 md5 *.txt
+2017-09-28 12:29:25	Riviera	!pm > rond_: this document also has a section on executing tasks in parallel
+2017-09-28 12:29:26	greybot	rond_: this document also has a section on executing tasks in parallel: http://mywiki.wooledge.org/ProcessManagement
+2017-09-28 12:29:42	<--	xcm (~xcm@ipa210.225.tellas.gr) has quit (Remote host closed the connection)
+2017-09-28 12:29:44	-->	zh (~zh@unaffiliated/zh) has joined #bash
+2017-09-28 12:29:53	Riviera	rond_: maybe you can hack together the required functionality in bash
+2017-09-28 12:29:55	-->	xcm (~xcm@ipa210.225.tellas.gr) has joined #bash
+2017-09-28 12:30:09	<--	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:30:11	<--	osfe (~lemaire@nb-lemaire2.lal.in2p3.fr) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:30:13	Robin___	h4ckerm4n
+2017-09-28 12:30:41	-->	Tuor (~Tuor@unaffiliated/tuor) has joined #bash
+2017-09-28 12:31:19	Riviera	especially the recent addition -n to the wait builtin command comes in handy for these things
+2017-09-28 12:31:44	-->	osfe (~lemaire@nb-lemaire2.lal.in2p3.fr) has joined #bash
+2017-09-28 12:32:16	-->	Aussie_matt (~quassel@2001:8003:a736:1d00:222:15ff:fe99:bafd) has joined #bash
+2017-09-28 12:32:32	-->	^Jack^ (~jack@netblock-208-127-146-73.dslextreme.com) has joined #bash
+2017-09-28 12:32:42	<--	^Jack^ (~jack@netblock-208-127-146-73.dslextreme.com) has left #bash
+2017-09-28 12:32:43	<--	osfe (~lemaire@nb-lemaire2.lal.in2p3.fr) has quit (Read error: Connection reset by peer)
+2017-09-28 12:33:12	<--	BowBoy_ (~bow@142-196-100-242.res.bhn.net) has quit (Quit: Lost terminal)
+2017-09-28 12:33:36	<--	wget (~wget@unaffiliated/wget) has quit (Ping timeout: 246 seconds)
+2017-09-28 12:33:57	-->	wget (~wget@wget.be) has joined #bash
+2017-09-28 12:33:57	<--	wget (~wget@wget.be) has quit (Changing host)
+2017-09-28 12:33:57	-->	wget (~wget@unaffiliated/wget) has joined #bash
+2017-09-28 12:34:47	-->	jcsmith (~jsmith39@74.193.233.33) has joined #bash
+2017-09-28 12:35:36	<--	shafox (~pbehera@125.18.28.214) has quit (Quit: This computer has gone to sleep)
+2017-09-28 12:36:03	rond_	Riviera: i guess i would have to do something like this... but I feel like parallel should work in the way I expect it to work
+2017-09-28 12:36:49	-->	apus (~tux@p5B142DF1.dip0.t-ipconnect.de) has joined #bash
+2017-09-28 12:37:07	-->	Darcidride (~Darcidrid@dmt69-1-88-180-172-161.fbx.proxad.net) has joined #bash
+2017-09-28 12:37:35	<--	blingrang (~blingrang@unaffiliated/blingrang) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:38:02	<--	ponyrider (~cf2iqx@unaffiliated/ponyrider) has quit (Read error: Connection reset by peer)
+2017-09-28 12:38:08	-->	Matan[M] (~MatanM]@91.202.139.140) has joined #bash
+2017-09-28 12:38:32	<--	BowBoy (~BowBoy@142-196-100-242.res.bhn.net) has quit (Remote host closed the connection)
+2017-09-28 12:39:07	-->	ponyrider (~cf2iqx@unaffiliated/ponyrider) has joined #bash
+2017-09-28 12:39:42	-->	High_Priest (~hp@unaffiliated/high-priest/x-8117523) has joined #bash
+2017-09-28 12:39:49	Riviera	then mailing list :)
+2017-09-28 12:40:12	<--	moei (~moei@softbank221078042071.bbtec.net) has quit (Quit: Leaving...)
+2017-09-28 12:40:57	-->	rafi1 (Thunderbir@nat/redhat/x-xjjqldrdniulxlwt) has joined #bash
+2017-09-28 12:41:21	<--	rafi (Thunderbir@nat/redhat/x-quocnudsdepycwxu) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:41:21	--	rafi1 is now known as rafi
+2017-09-28 12:41:28	<--	Darcidride (~Darcidrid@dmt69-1-88-180-172-161.fbx.proxad.net) has quit (Ping timeout: 258 seconds)
+2017-09-28 12:41:46	<--	OnkelTem (~onkeltem@unaffiliated/fantomas) has quit (Quit: WeeChat 1.7)
+2017-09-28 12:43:14	rond_	Riviera: do you think that I should mail parallel@gnu.org or maybe bug-parallel@gnu.org ? I feel like the first one is better, altough I'm not 100% sure :p
+2017-09-28 12:44:33	-->	moei (~moei@softbank221078042071.bbtec.net) has joined #bash
+2017-09-28 12:45:03	-->	cousteau (~cousteau@unaffiliated/cousteau) has joined #bash
+2017-09-28 12:46:03	system16	ok now i know what is wildcards...it makes my life easier
+2017-09-28 12:46:11	survietamine	ahah
+2017-09-28 12:46:48	system16	like : cp -v blah/* /mnt/hp342
+2017-09-28 12:46:54	<--	techquila (~techquila@2407:7000:9b02:8e00::2) has quit (Ping timeout: 246 seconds)
+2017-09-28 12:47:06	system16	i mean -a
+2017-09-28 12:47:21	cousteau	hi, what does ~ mean?  So far I know ``~`` is my home and ``~user`` is user's home.  Now, I typed ``echo ~`` and hit tab, and got a lot of ~things.  Are all those users?
+2017-09-28 12:47:45	cousteau	or just some bash shortcuts?
+2017-09-28 12:48:08	cousteau	one of them is ~bin which resolves as /bin so my guess is shortcuts
+2017-09-28 12:49:46	Andrew_M	Tilde expansion
+2017-09-28 12:49:48	Andrew_M	http://wiki.bash-hackers.org/syntax/expansion/tilde
+2017-09-28 12:49:51	cousteau	thanks
+2017-09-28 12:49:52	-->	rafi1 (Thunderbir@nat/redhat/x-ukattfqtbhthmwuq) has joined #bash
+2017-09-28 12:49:54	<--	rafi (Thunderbir@nat/redhat/x-xjjqldrdniulxlwt) has quit (Ping timeout: 258 seconds)
+2017-09-28 12:49:56	--	rafi1 is now known as rafi
+2017-09-28 12:49:56	--	Mode #bash [+b *!thunderbir@nat/redhat/*] by candide
+2017-09-28 12:50:07	cousteau	I tried searching for ~ in bash's manpage.  It was not too effective.
+2017-09-28 12:51:46	<--	botho (~botho@82.212.171.116) has quit (Read error: Connection reset by peer)
+2017-09-28 12:53:11	-->	blingrang (~blingrang@unaffiliated/blingrang) has joined #bash
+2017-09-28 12:53:50	<--	cart_man (~cart@105.27.205.70) has quit (Quit: Nettalk6 - www.ntalk.de)
+2017-09-28 12:53:56	<--	x405 (~x405@pool-173-66-3-126.washdc.fios.verizon.net) has quit (Remote host closed the connection)
+2017-09-28 12:54:07	-->	cart_man (~cart@105.27.205.70) has joined #bash
+2017-09-28 12:55:08	<--	war_ (~war@189.27.10.221.dynamic.adsl.gvt.net.br) has quit (Read error: Connection reset by peer)
+2017-09-28 12:55:34	<--	ponyrider (~cf2iqx@unaffiliated/ponyrider) has quit (Ping timeout: 264 seconds)
+2017-09-28 12:57:11	<--	rafi (Thunderbir@nat/redhat/x-ukattfqtbhthmwuq) has quit (Ping timeout: 258 seconds)
+2017-09-28 12:57:28	<--	Arcaelyx_ (~Arcaelyx@206.190.145.84.adsl.inet-telecom.org) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:57:34	cousteau	Andrew_M, well, that didn't clarify my question, unless the answer is "yes, 'bin' is a pseudo-user"
+2017-09-28 12:57:38	-->	Arcaelyx (~Arcaelyx@206.190.145.84.adsl.inet-telecom.org) has joined #bash
+2017-09-28 12:57:43	-->	merzo (~merzo@95.67.66.254) has joined #bash
+2017-09-28 12:57:58	cousteau	(well, it told me about ~+ and ~- which I didn't know about; always nice to learn that)
+2017-09-28 12:59:30	cousteau	never mind; I eventually did ``cat /etc/passwd`` and it seems that yes, bin is a user
+2017-09-28 12:59:38	<--	zh (~zh@unaffiliated/zh) has quit (Quit: zh)
+2017-09-28 13:00:40	<--	roadie (~user@87.116.178.227) has quit (Read error: Connection reset by peer)
+2017-09-28 13:01:08	<--	ppang (~ppang@unaffiliated/ppang) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:01:15	Andrew_M	You can create dummy users in passwd, then append the directory you want it to point to, e.g.Desktop:x:999:999::/home/fredbloggs/Desktop/:/bin/bash
+2017-09-28 13:01:15	Andrew_M	Downloads:x:999:999::/home/fredbloggs/Downloads/:/bin/bash
+2017-09-28 13:01:29	<--	stoilkov (~stoilkov@95.111.120.130) has quit (Quit: stoilkov)
+2017-09-28 13:01:30	Andrew_M	maybe it's that?
+2017-09-28 13:01:49	<--	Cr0nz (cc28c289@gateway/web/cgi-irc/kiwiirc.com/ip.204.40.194.137) has quit (Quit: http://www.kiwiirc.com/ - A hand crafted IRC client)
+2017-09-28 13:01:59	selckin	a
+2017-09-28 13:02:12	-->	diqidoq (~diqidoq@x4db3829f.dyn.telefonica.de) has joined #bash
+2017-09-28 13:02:41	<--	mingdao (~mingdao@unaffiliated/mingdao) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:04:27	-->	mingdao (~mingdao@107-146-170-145.res.bhn.net) has joined #bash
+2017-09-28 13:04:40	<--	mingdao (~mingdao@107-146-170-145.res.bhn.net) has quit (Changing host)
+2017-09-28 13:04:41	-->	mingdao (~mingdao@unaffiliated/mingdao) has joined #bash
+2017-09-28 13:05:28	-->	ppang (~ppang@unaffiliated/ppang) has joined #bash
+2017-09-28 13:07:02	cousteau	yeah, maybe they created a bunch of users for convenience
+2017-09-28 13:07:07	-->	ponyrider (~cf2iqx@unaffiliated/ponyrider) has joined #bash
+2017-09-28 13:07:08	-->	\\Mr_C\\ (~mrc@cpe-75-187-160-45.neo.res.rr.com) has joined #bash
+2017-09-28 13:07:41	<--	ppang (~ppang@unaffiliated/ppang) has quit (Remote host closed the connection)
+2017-09-28 13:08:08	cousteau	...anyway, all this was because I wanted to see if there was some temporary user because I wanted to make a test to check something someone told me but I think I'll just ask it instead
+2017-09-28 13:09:02	<--	Cabanossi (~Cabanossi@pC19F2398.dip0.t-ipconnect.de) has quit (Ping timeout: 246 seconds)
+2017-09-28 13:09:05	<--	jcsmith (~jsmith39@74.193.233.33) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:09:11	cousteau	I was told that if you ssh to a computer where you're not logged in, run a program (in background), and log out, then all the programs run by you disappear because you're not logged in to that machine
+2017-09-28 13:10:25	cousteau	and I was too lazy to log out to test this with my user
+2017-09-28 13:10:42	-->	Olufunmilayo (~Olufunmil@unaffiliated/olufunmilayo) has joined #bash
+2017-09-28 13:11:24	djph	provided that you've used screen or nohup or similar to keep the alive after the hangup it'll keep running.  Well, and if systemd doesn't ignore your intentions ...
+2017-09-28 13:11:31	-->	Cabanossi (~Cabanossi@pC19F2398.dip0.t-ipconnect.de) has joined #bash
+2017-09-28 13:11:48	djph	however, without those "protections", jobs will quit when you hang up
+2017-09-28 13:12:33	-->	panta34 (~panta@109-93-150-154.dynamic.isp.telekom.rs) has joined #bash
+2017-09-28 13:13:10	-->	sk4r (~x@ip174-68-70-106.sd.sd.cox.net) has joined #bash
+2017-09-28 13:14:28	<--	skar (~x@ip174-68-70-106.sd.sd.cox.net) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:16:54	-->	DaVu (~kvirc@unaffiliated/david1977) has joined #bash
+2017-09-28 13:19:27	<--	batch (~batch@unaffiliated/batch) has quit (Quit: [Need input])
+2017-09-28 13:19:57	<--	apus (~tux@p5B142DF1.dip0.t-ipconnect.de) has quit (Quit: Konversation terminated!)
+2017-09-28 13:20:00	--	Mode #bash [-b *!thunderbir@nat/redhat/*] by candide
+2017-09-28 13:21:17	<--	ponyrider (~cf2iqx@unaffiliated/ponyrider) has quit (Ping timeout: 246 seconds)
+2017-09-28 13:22:43	-->	zh (~zh@unaffiliated/zh) has joined #bash
+2017-09-28 13:23:26	-->	ponyrider (~cf2iqx@unaffiliated/ponyrider) has joined #bash
+2017-09-28 13:24:03	-->	osfe (~lemaire@nb-lemaire2.lal.in2p3.fr) has joined #bash
+2017-09-28 13:26:56	<--	}ls{ (~kalle@unaffiliated/ls/x-8089558) has quit (Quit: real life interrupt)
+2017-09-28 13:28:04	-->	ppang (~ppang@unaffiliated/ppang) has joined #bash
+2017-09-28 13:30:11	<--	sph084 (~shenness@50.58.91.120) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:30:11	-->	nickel_dime_look (~nickel_di@157.119.106.47) has joined #bash
+2017-09-28 13:31:11	<--	gigetoo (~gigetoo@c83-250-32-22.bredband.comhem.se) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:31:30	-->	sph084 (~shenness@50.58.91.120) has joined #bash
+2017-09-28 13:32:16	-->	CHIPPY (~DJDRISCOL@173.218.36.94) has joined #bash
+2017-09-28 13:32:42	-->	adminseodwn (~archer@unaffiliated/remcwo9o) has joined #bash
+2017-09-28 13:33:23	-->	}ls{ (~kalle@unaffiliated/ls/x-8089558) has joined #bash
+2017-09-28 13:36:49	<--	CHIPPY (~DJDRISCOL@173.218.36.94) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:36:50	-->	calamity_man (~calamity_@67.182.142.222) has joined #bash
+2017-09-28 13:36:59	-->	smlb_ (~smlb@146.185.161.98) has joined #bash
+2017-09-28 13:37:13	<--	smlb (~smlb@unaffiliated/smlb) has quit (Quit: WeeChat 1.9)
+2017-09-28 13:37:51	-->	well_laid_lawn (~Jean-luc@115.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has joined #bash
+2017-09-28 13:38:44	--	smlb_ is now known as smlb
+2017-09-28 13:38:52	<--	smlb (~smlb@146.185.161.98) has quit (Changing host)
+2017-09-28 13:38:52	-->	smlb (~smlb@unaffiliated/smlb) has joined #bash
+2017-09-28 13:38:59	-->	wittysense (~wittysens@c-73-232-144-188.hsd1.tx.comcast.net) has joined #bash
+2017-09-28 13:40:49	-->	YuGiOhJCJ (~YuGiOhJCJ@gateway/tor-sasl/yugiohjcj) has joined #bash
+2017-09-28 13:41:21	<--	calamity_man (~calamity_@67.182.142.222) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:42:13	<--	Aussie_matt (~quassel@2001:8003:a736:1d00:222:15ff:fe99:bafd) has quit (Remote host closed the connection)
+2017-09-28 13:42:21	<--	Ladus (~Lotheladu@175.79-161-186.customer.lyse.net) has quit (Read error: Connection reset by peer)
+2017-09-28 13:43:45	<--	wittysense (~wittysens@c-73-232-144-188.hsd1.tx.comcast.net) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:44:00	<--	dre_ (~dre_@121-74-5-92.telstraclear.net) has quit (Remote host closed the connection)
+2017-09-28 13:44:00	-->	gigetoo (~gigetoo@c83-250-32-22.bredband.comhem.se) has joined #bash
+2017-09-28 13:44:42	-->	BeerLover (~BeerBuddy@203.122.56.158) has joined #bash
+2017-09-28 13:45:34	<--	smlb (~smlb@unaffiliated/smlb) has quit (Remote host closed the connection)
+2017-09-28 13:45:45	-->	smlb (~smlb@146.185.161.98) has joined #bash
+2017-09-28 13:45:45	<--	smlb (~smlb@146.185.161.98) has quit (Changing host)
+2017-09-28 13:45:45	-->	smlb (~smlb@unaffiliated/smlb) has joined #bash
+2017-09-28 13:47:36	<--	smlb (~smlb@unaffiliated/smlb) has quit (Remote host closed the connection)
+2017-09-28 13:48:04	-->	smlb (~smlb@unaffiliated/smlb) has joined #bash
+2017-09-28 13:48:51	<--	jameser (~textual@60.29.50.134) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-28 13:49:43	-->	SpikeHeron (~DutchIngr@static-97-66-214-165.earthlinkbusiness.net) has joined #bash
+2017-09-28 13:49:58	-->	rRru (~rRru@188.30.101.153.threembb.co.uk) has joined #bash
+2017-09-28 13:50:18	-->	shafox (~pbehera@125.18.28.214) has joined #bash
+2017-09-28 13:51:16	-->	[diablo] (~textual@unaffiliated/miles/x-000000001) has joined #bash
+2017-09-28 13:51:55	-->	leptone (~leptone@2601:643:8500:a401:d026:60bf:6487:4297) has joined #bash
+2017-09-28 13:52:00	<--	well_laid_lawn (~Jean-luc@115.37.194.203.dial.dynamic.acc01-tull-pth.comindico.com.au) has quit (Ping timeout: 258 seconds)
+2017-09-28 13:52:32	<--	netj (~netj@c-98-207-40-41.hsd1.ca.comcast.net) has quit (Remote host closed the connection)
+2017-09-28 13:52:49	-->	leptone_ (~leptone@2601:643:8500:a401:284d:105b:64b4:bab6) has joined #bash
+2017-09-28 13:53:38	<--	Robin___ (~Damien@53570D23.cm-6-8a.dynamic.ziggo.nl) has quit (Quit: Leaving)
+2017-09-28 13:55:34	-->	netj (~netj@c-98-207-40-41.hsd1.ca.comcast.net) has joined #bash
+2017-09-28 13:55:42	<--	SpikeHeron (~DutchIngr@static-97-66-214-165.earthlinkbusiness.net) has quit (Quit: WeeChat 1.9.1)
+2017-09-28 13:55:56	<--	leptone (~leptone@2601:643:8500:a401:d026:60bf:6487:4297) has quit (Ping timeout: 246 seconds)
+2017-09-28 13:56:42	rRru	printf "\141\n"   <-- output = "a"
+2017-09-28 13:56:43	rRru	i=141; printf "\$i\n"  <-- output = well, not "a", anyhow
+2017-09-28 13:56:43	rRru	Is it possible to have bash printf take a value stored in variable, and interpret it as an ascii code?
+2017-09-28 13:56:53	-->	SpikeHeron (~DutchIngr@static-97-66-214-165.earthlinkbusiness.net) has joined #bash
+2017-09-28 13:57:22	<--	leptone_ (~leptone@2601:643:8500:a401:284d:105b:64b4:bab6) has quit (Ping timeout: 258 seconds)
+2017-09-28 13:58:35	cousteau	rRru, printf "\\$i\\n"
+2017-09-28 13:58:42	cousteau	escape the damn escape characters!
+2017-09-28 13:59:02	cousteau	(it's not necessary if what comes after it is not a special thing, but just in case)
+2017-09-28 13:59:32	-->	FernandoBasso (~Fernando-@2804:14d:3e83:133b:22e4:17ff:fe03:4657) has joined #bash
+2017-09-28 13:59:36	cousteau	# i=141; printf "\\$i\\n"
+2017-09-28 13:59:37	shbot	cousteau: a
+2017-09-28 13:59:41	rRru	wow, ty
+2017-09-28 13:59:57	cousteau	well, I'm glad it worked; that would've been embarrassing
+2017-09-28 14:00:12	oskie	can you think of an algorithm that would quote a string for bash, in such a way that makes the string with quotes the shortest possible?
+2017-09-28 14:00:16	cousteau	rRru, otherwise "\$..." was just escaping the $
+2017-09-28 14:00:34	rRru	i hate printf, especially bash printf
+2017-09-28 14:00:46	cousteau	you were basically passing '$i\n' to it
+2017-09-28 14:00:53	oskie	e.g. ' => "'"   " => '"'
+2017-09-28 14:00:54	cousteau	rRru, that wasn't printf's fault
+2017-09-28 14:01:02	rRru	i know
+2017-09-28 14:01:14	cousteau	that was bash replacing the \$ with a $
+2017-09-28 14:01:58	cousteau	oskie, nonsense, the shortest way would be \' and \"
+2017-09-28 14:02:59	rRru	i would swear in a court of law i tried your form last night ~3am, and it wasn't working. was tearing my hair out. the 3am part may have been a factor
+2017-09-28 14:03:42	oskie	cousteau: ah, true of course!
+2017-09-28 14:03:50	cousteau	oskie, although I would think there's a program for that
+2017-09-28 14:04:02	FernandoBasso	I am reading about event designators. I can't relate anything there to !!:$
+2017-09-28 14:04:04	cousteau	rRru, maybe you were using single quotes
+2017-09-28 14:04:36	FernandoBasso	I know !$ is synonym for !!:$ because I have some old notes I made on shell history expansion.
+2017-09-28 14:04:36	<--	igemnace (~igemnace@110.55.108.39) has quit (Quit: WeeChat 1.9.1)
+2017-09-28 14:04:46	rRru	cousteau, iirc correctly, i tried every permutation in several alphabets, including ancient greek
+2017-09-28 14:04:52	cousteau	lol
+2017-09-28 14:05:25	cousteau	to be honest, I'm not sure that's the best thing to do
+2017-09-28 14:05:37	<--	wasanzy (~wasanzy@41.66.254.58) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:05:42	cousteau	the "\\$i\\n" one I mean, not the ancient greek one... well, not that one either
+2017-09-28 14:05:58	-->	jcsmith (~jsmith39@74.193.233.33) has joined #bash
+2017-09-28 14:06:11	FernandoBasso	Ah, found it in word designators.
+2017-09-28 14:06:39	<--	nickel_dime_look (~nickel_di@157.119.106.47) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:06:48	rRru	oh?
+2017-09-28 14:07:51	-->	xcm_ (~xcm@ipa210.225.tellas.gr) has joined #bash
+2017-09-28 14:07:51	--	xcm is now known as Guest27257
+2017-09-28 14:07:52	<--	Guest27257 (~xcm@ipa210.225.tellas.gr) has quit (Killed (tolkien.freenode.net (Nickname regained by services)))
+2017-09-28 14:07:52	--	xcm_ is now known as xcm
+2017-09-28 14:08:03	cousteau	yeah I was thinking on using %c or similar.  (But   printf %c 97   prints a 9)
+2017-09-28 14:08:46	<--	luckman212 (~luckman21@unaffiliated/luckman212) has quit (Ping timeout: 264 seconds)
+2017-09-28 14:09:09	-->	batch (~batch@unaffiliated/batch) has joined #bash
+2017-09-28 14:09:15	-->	BobbyJr (~BobbyJr@robsworld.plus.com) has joined #bash
+2017-09-28 14:09:43	rRru	dec > oct conversion would sort that out maybe
+2017-09-28 14:10:20	cousteau	FernandoBasso, https://www.gnu.org/software/bash/manual/html_node/Event-Designators.html -- they do mention that : is a thing, but they don't explain it.  Weird.
+2017-09-28 14:10:44	FernandoBasso	cousteau, Be a little below they talk about "word designators".
+2017-09-28 14:11:07	<--	max_m (~max_m@gateway/tor-sasl/maxm/x-47377621) has quit (Remote host closed the connection)
+2017-09-28 14:11:09	cousteau	ah right
+2017-09-28 14:11:12	FernandoBasso	(well, I was reading the thing in a single page)
+2017-09-28 14:11:12	<--	Vonter (~Vonter@49.207.48.28) has quit (Quit: Lost terminal)
+2017-09-28 14:11:24	cousteau	well it wasn't on the same page for me :)
+2017-09-28 14:11:31	FernandoBasso	Indeed :)
+2017-09-28 14:11:32	-->	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has joined #bash
+2017-09-28 14:11:44	FernandoBasso	Thanks for helping me out anyway. Much appreciated.
+2017-09-28 14:12:18	-->	nickel_dime_look (~nickel_di@157.119.106.203) has joined #bash
+2017-09-28 14:12:31	cousteau	yw :)  I had no idea personally; I just googled it because I was curious
+2017-09-28 14:12:34	armin	https://gist.github.com/01cd46793e0f68ecb5f4b58005f2f5cd - can anyone explain why with local i get a 0 and without a 1?
+2017-09-28 14:12:51	-->	jiaming (~jiaming@180.173.140.45) has joined #bash
+2017-09-28 14:13:37	<--	ShockingIsntIt2 (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:14:14	-->	luckman212 (~luckman21@unaffiliated/luckman212) has joined #bash
+2017-09-28 14:15:11	<--	neil_cn (~neil@113.57.172.122) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:16:24	-->	fatdragon (~fatdragon@cpe-107-184-105-188.socal.res.rr.com) has joined #bash
+2017-09-28 14:17:03	-->	max_m (~max_m@gateway/tor-sasl/maxm/x-47377621) has joined #bash
+2017-09-28 14:17:21	<--	jiaming (~jiaming@180.173.140.45) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:17:55	ccl	# help local | tail -n 3
+2017-09-28 14:17:56	shbot	ccl:     Exit Status:
+2017-09-28 14:17:56	shbot	ccl:     Returns success unless an invalid option is supplied, a variable
+2017-09-28 14:17:56	shbot	ccl:     assignment error occurs, or the shell is not executing a function.
+2017-09-28 14:19:50	<--	Stanley00 (7645d214@gateway/web/freenode/ip.118.69.210.20) has quit (Quit: Page closed)
+2017-09-28 14:20:13	<--	max_m (~max_m@gateway/tor-sasl/maxm/x-47377621) has quit (Remote host closed the connection)
+2017-09-28 14:20:25	-->	max_m (~max_m@gateway/tor-sasl/maxm/x-47377621) has joined #bash
+2017-09-28 14:20:59	armin	ccl: ty!
+2017-09-28 14:21:03	<--	semeion (~semeion@unaffiliated/semeion) has quit (Ping timeout: 252 seconds)
+2017-09-28 14:21:37	-->	steenman (~steenman@185.38.150.20) has joined #bash
+2017-09-28 14:21:41	<--	disi (~quassel@c-76-104-203-143.hsd1.wa.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:22:51	<--	fishcooker (~chika.tam@202.148.7.34) has quit (Quit: Leaving.)
+2017-09-28 14:24:58	<--	fatdragon (~fatdragon@cpe-107-184-105-188.socal.res.rr.com) has quit (Ping timeout: 258 seconds)
+2017-09-28 14:27:17	-->	Vonter (~Vonter@49.207.48.28) has joined #bash
+2017-09-28 14:29:32	<--	jelly (jelly@pdpc/supporter/active/jelly) has quit (Ping timeout: 255 seconds)
+2017-09-28 14:29:50	<--	zh (~zh@unaffiliated/zh) has quit (Read error: Connection reset by peer)
+2017-09-28 14:31:49	-->	semeion (~semeion@unaffiliated/semeion) has joined #bash
+2017-09-28 14:32:43	<--	beemo_ceniza (~beemo_cen@unaffiliated/beemo-ceniza/x-9577736) has quit (Remote host closed the connection)
+2017-09-28 14:33:34	<--	wget (~wget@unaffiliated/wget) has quit (Read error: Connection reset by peer)
+2017-09-28 14:34:04	<--	semeion (~semeion@unaffiliated/semeion) has quit (Read error: Connection reset by peer)
+2017-09-28 14:34:48	<--	berzerk0 (~123456@unaffiliated/berzerk0) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:35:10	-->	semeion (~semeion@unaffiliated/semeion) has joined #bash
+2017-09-28 14:35:17	-->	beemo_ceniza (~beemo_cen@unaffiliated/beemo-ceniza/x-9577736) has joined #bash
+2017-09-28 14:35:59	-->	jelly-home (jelly@pdpc/supporter/active/jelly) has joined #bash
+2017-09-28 14:36:02	-->	Chinesium (~Chinesium@148.197.250.153) has joined #bash
+2017-09-28 14:36:11	-->	berzerk0 (~123456@unaffiliated/berzerk0) has joined #bash
+2017-09-28 14:37:39	rRru	for ((i=97; i<123; ++i)); do x=`printf "%o\n" "$i"`; printf "\\$x\n"; done
+2017-09-28 14:37:40	rRru	Q1:  Is there a better way to load $x with the output of printf command?
+2017-09-28 14:37:40	rRru	Q2:  Can the two printf commands above be replaced by a single one?
+2017-09-28 14:37:58	-->	wget (~wget@unaffiliated/wget) has joined #bash
+2017-09-28 14:38:04	geirha	printf -v x %o "$i"
+2017-09-28 14:38:39	geirha	2: no
+2017-09-28 14:39:44	rRru	geirha: ty and ty!
+2017-09-28 14:39:47	geirha	# help printf | grep -A1 ' -v'
+2017-09-28 14:39:49	shbot	geirha:       -v var    assign the output to shell variable VAR rather than
+2017-09-28 14:39:49	shbot	geirha:                 display it on the standard output
+2017-09-28 14:41:28	-->	roadie (~user@87.116.178.227) has joined #bash
+2017-09-28 14:41:55	<--	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has quit (Remote host closed the connection)
+2017-09-28 14:43:03	cousteau	I think "$( ... )" is recommened over ` ... `
+2017-09-28 14:43:32	cousteau	rRru, ^
+2017-09-28 14:43:42	-->	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has joined #bash
+2017-09-28 14:45:07	<--	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has quit (Remote host closed the connection)
+2017-09-28 14:45:28	cousteau	printf "\\$(printf %o "$i")\n"   # on a single line, if you were not to follow geirha's advice which is clearly easier
+2017-09-28 14:45:37	-->	gableroux (~gableroux@confluencex.telenetinfo.com) has joined #bash
+2017-09-28 14:46:05	-->	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has joined #bash
+2017-09-28 14:46:19	-->	xin0x (glock@2600:3c01::f03c:91ff:fea8:535e) has joined #bash
+2017-09-28 14:46:19	<--	xin0x (glock@2600:3c01::f03c:91ff:fea8:535e) has quit (Changing host)
+2017-09-28 14:46:19	-->	xin0x (glock@unaffiliated/xin0x) has joined #bash
+2017-09-28 14:46:40	<--	sillyslux (~sillyslux@m213-101-169-179.cust.tele2.hr) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:46:54	rRru	ah! i had been using $((...)) and wondering why it was bad so went with `...` lol
+2017-09-28 14:46:58	cousteau	er never mind; I thought geirha's advice somehow caused printf to print raw stuff
+2017-09-28 14:47:08	geirha	chr=( [97]=a {b..z} ); for (( i = 97; i < 123; ++i )); do printf %s\\n "${chr[i]}"; done
+2017-09-28 14:47:10	cousteau	yeah, $(( )) is for math stuff
+2017-09-28 14:47:15	rRru	very happy to learn printf -v x
+2017-09-28 14:47:59	cousteau	# for i in {a..z}; do echo -n "$i"; done
+2017-09-28 14:47:59	system16	i just mounted my HDD but i cant access it if i sftp into my server using filezilla
+2017-09-28 14:48:01	shbot	cousteau: abcdefghijklmnopqrstuvwxyz
+2017-09-28 14:48:45	geirha	system16: Not a bash question
+2017-09-28 14:48:50	system16	how can i change the permissions of my HDD (sdb2
+2017-09-28 14:48:52	geirha	Try your OS channel
+2017-09-28 14:49:00	system16	it is a bash question
+2017-09-28 14:49:04	 *	cousteau is curious too because he's had similar problems
+2017-09-28 14:49:35	geirha	not really, but it depends on what filesystem it has
+2017-09-28 14:50:11	system16	NTFS
+2017-09-28 14:50:15	<--	BeerLover (~BeerBuddy@203.122.56.158) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-28 14:50:25	pj	this really has *NOTHING* to do with bash.
+2017-09-28 14:50:25	geirha	then ask your OS channel how to change ownership and or mode
+2017-09-28 14:51:21	cousteau	I'm with geirha here; it's something linux-related (or whatever's-your-OS-related), not bash-related
+2017-09-28 14:51:21	system16	ok but bash is a shell shell talks to my pc so it has something to do with bash
+2017-09-28 14:51:22	-->	illumi (~joakim@c-31-209-17-238.cust.bredband2.com) has joined #bash
+2017-09-28 14:51:36	-->	waldow (~waldow@cpe-76-94-67-88.socal.res.rr.com) has joined #bash
+2017-09-28 14:52:08	armin	system16: i'd rather say you use a keyboard to talk to your computer so you should ask your local hardware supplier for help.
+2017-09-28 14:52:09	cousteau	Yo, can someone help me?  I've been banned from Facebook.  I'm accessing Facebook by running ``firefox https://facebook.com`` in bash, so it's a bash-related question.
+2017-09-28 14:52:12	pj	and your PC is in house or office somewhere, why don't you ask the landlord because it has as much to do with him as with bash.
+2017-09-28 14:52:23	geirha	You can use bash to start a virtual machine running windows too, that doesn't make windows on-topic here
+2017-09-28 14:52:30	geirha	!bashis
+2017-09-28 14:52:30	greybot	Bash is a shell. That's a program which can do simple math, logic, I/O and run other programs. It's NOT a terminal, it's not a kernel, it doesn't manage the system's authentication or environment, it's not your OS and it's not X, KDE or Gnome.
+2017-09-28 14:53:04	<--	squishypebble (~Adium@75-131-165-200.dhcp.spbg.sc.charter.com) has quit (Quit: Leaving.)
+2017-09-28 14:53:12	<--	ledeni (~ledeni@c49-177-40-65.dandn3.vic.optusnet.com.au) has quit (Read error: Connection reset by peer)
+2017-09-28 14:53:42	<--	shafox (~pbehera@125.18.28.214) has quit (Quit: This computer has gone to sleep)
+2017-09-28 14:53:52	-->	dojzi (~joakim@c-31-209-17-238.cust.bredband2.com) has joined #bash
+2017-09-28 14:53:53	--	irc: disconnected from server
+2017-10-02 08:46:54	-->	yasser (~yasser@89.249.219.90) has joined #bash
+2017-10-02 08:46:54	--	Topic for #bash is "FAQ: http://mywiki.wooledge.org/BashFAQ | Guide: http://mywiki.wooledge.org/BashGuide | Ref: http://gnu.org/s/bash/manual | http://wiki.bash-hackers.org/ | http://mywiki.wooledge.org/Quotes | Check your script: http://www.shellcheck.net/ | Mailing list: https://lists.gnu.org/mailman/listinfo/help-bash | Devel: https://git.savannah.gnu.org/cgit/bash.git?h=devel"
+2017-10-02 08:46:54	--	Topic set by izabera on Sun, 21 May 2017 19:29:27
+2017-10-02 08:46:54	--	Channel #bash: 1194 nicks (1 op, 0 voices, 1193 normals)
+2017-10-02 08:46:54	--	PvNotice(ChanServ): Welcome to #bash, we discuss the GNU bash shell.  Be explicit if your question is about another shell.  Don't trust the Internet on bash, learn from the resources in the topic instead.
+2017-10-02 08:46:57	--	Channel created on Sun, 26 Nov 2006 08:42:44
+2017-10-02 08:52:45	<--	intcat (~zshlyk@gateway/tor-sasl/intcat) has quit (Remote host closed the connection)
+2017-10-02 08:57:03	-->	roadie (~user@87.116.178.227) has joined #bash
+2017-10-02 08:57:24	-->	intcat (~zshlyk@gateway/tor-sasl/intcat) has joined #bash
+2017-10-02 08:57:57	<--	dionysus69 (~Thunderbi@unaffiliated/dionysus69) has quit (Ping timeout: 258 seconds)
+2017-10-02 08:58:27	<--	schornacht (~schornach@42-2-1-212.static.netvigator.com) has quit (Remote host closed the connection)
+2017-10-02 09:01:15	-->	neoncont_ (~neoncontr@wsip-184-183-165-29.sd.sd.cox.net) has joined #bash
+2017-10-02 09:01:37	-->	mel00010 (~mel00010@128-223-223-9-wireless.uoregon.edu) has joined #bash
+2017-10-02 09:02:23	-->	cdg (~cdg@2600:1700:3120:40e0:983c:7f9d:e135:ccc) has joined #bash
+2017-10-02 09:02:35	<--	Pegasique (~ushiki@2.92.194.4) has quit (Ping timeout: 246 seconds)
+2017-10-02 09:04:34	<--	stevenm (~stevenm@195.62.218.30) has quit (Ping timeout: 264 seconds)
+2017-10-02 09:04:38	<--	neoncontrails (~neoncontr@mobile-166-170-44-183.mycingular.net) has quit (Ping timeout: 255 seconds)
+2017-10-02 09:05:47	<--	Lunatrius (~Lunatrius@77.38.21.155) has quit (Ping timeout: 260 seconds)
+2017-10-02 09:06:46	<--	cdg (~cdg@2600:1700:3120:40e0:983c:7f9d:e135:ccc) has quit (Ping timeout: 258 seconds)
+2017-10-02 09:08:20	<--	mel00010 (~mel00010@128-223-223-9-wireless.uoregon.edu) has quit (Ping timeout: 255 seconds)
+2017-10-02 09:09:11	-->	TestUser760 (~5f2a4c36@pc-freak.net) has joined #bash
+2017-10-02 09:09:20	<--	diegoksp (~diegoksp@190.153.194.178) has quit (Quit: Leaving)
+2017-10-02 09:09:43	-->	d4rkl0rd (~d4rkl0rd@14.139.187.101) has joined #bash
+2017-10-02 09:10:25	<--	d4rkl0rd (~d4rkl0rd@14.139.187.101) has quit (Remote host closed the connection)
+2017-10-02 09:11:11	-->	Maroloccio (~marolocci@164.red-81-33-164.dynamicip.rima-tde.net) has joined #bash
+2017-10-02 09:11:35	<--	gentunian (~seba@unaffiliated/gentunian) has quit (Ping timeout: 240 seconds)
+2017-10-02 09:11:36	<--	sazawal (~sazawal@2a02:810d:1480:861:70b8:34c9:6309:5313) has quit (Quit: Ex-Chat)
+2017-10-02 09:11:36	<--	TestUser760 (~5f2a4c36@pc-freak.net) has quit (Client Quit)
+2017-10-02 09:11:40	--	irc: disconnected from server

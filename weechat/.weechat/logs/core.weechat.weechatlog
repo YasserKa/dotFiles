@@ -6121,3 +6121,49 @@
 2017-09-23 22:14:34		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
 2017-09-23 22:14:41		script: 349 scripts for WeeChat 1.9
 2017-09-23 22:34:49		perl: scripts unloaded
+2017-09-24 15:04:08		perl scripts loaded: iset
+2017-09-24 15:04:08		script: 349 scripts for WeeChat 1.9
+2017-09-24 15:04:08		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-24 15:12:11	=!=	Error with command "/buffer programmig" (help on command: /help buffer)
+2017-09-24 15:12:39		perl: scripts unloaded
+2017-09-24 17:51:20		perl scripts loaded: iset
+2017-09-24 17:51:20		script: 349 scripts for WeeChat 1.9
+2017-09-24 17:51:20		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-24 18:05:38		perl: scripts unloaded
+2017-09-24 20:17:43		perl scripts loaded: iset
+2017-09-24 20:17:43		script: 349 scripts for WeeChat 1.9
+2017-09-24 20:17:43		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-24 21:45:31		perl: scripts unloaded
+2017-09-24 23:28:30		perl scripts loaded: iset
+2017-09-24 23:28:30		script: downloading list of scripts...
+2017-09-24 23:28:30		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-24 23:28:31		script: 349 scripts for WeeChat 1.9
+2017-09-25 00:05:08		perl: scripts unloaded
+2017-09-25 12:33:19		perl scripts loaded: iset
+2017-09-25 12:33:19		script: 349 scripts for WeeChat 1.9
+2017-09-25 12:33:19		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-25 12:47:34	=!=	Error with command "/buffer /weechat" (help on command: /help buffer)
+2017-09-25 12:51:42		perl: scripts unloaded
+2017-09-26 09:52:06		perl scripts loaded: iset
+2017-09-26 09:52:06		script: downloading list of scripts...
+2017-09-26 09:52:06		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-26 09:52:07		script: 349 scripts for WeeChat 1.9.1
+2017-09-26 12:01:22		perl: scripts unloaded
+2017-09-27 02:00:26		perl scripts loaded: iset
+2017-09-27 02:00:26		script: 349 scripts for WeeChat 1.9.1
+2017-09-27 02:00:26		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-27 02:50:50		perl: scripts unloaded
+2017-09-27 12:25:54		perl scripts loaded: iset
+2017-09-27 12:25:54		script: downloading list of scripts...
+2017-09-27 12:25:54		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-27 12:25:56		script: 349 scripts for WeeChat 1.9.1
+2017-09-27 13:12:30		perl: scripts unloaded
+2017-09-28 11:58:53		perl scripts loaded: iset
+2017-09-28 11:58:53		script: 349 scripts for WeeChat 1.9.1
+2017-09-28 11:58:53		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-09-28 14:53:53		perl: scripts unloaded
+2017-10-02 08:46:46		perl scripts loaded: iset
+2017-10-02 08:46:46		script: downloading list of scripts...
+2017-10-02 08:46:46		Plugins loaded: alias, aspell, buflist, charset, exec, fifo, irc, logger, lua, perl, python, relay, ruby, script, trigger, xfer
+2017-10-02 08:46:46		script: 349 scripts for WeeChat 1.9.1
+2017-10-02 09:11:40		perl: scripts unloaded

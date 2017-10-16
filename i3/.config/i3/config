@@ -38,7 +38,6 @@ bindsym $mod+Shift+q kill
 workspace_auto_back_and_forth yes
 bindsym $mod+z workspace back_and_forth
 
-
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -73,7 +72,6 @@ bindsym $mod+Shift+v split h
 # split in vertical orientation
 bindsym $mod+v split v
 
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -102,7 +100,6 @@ set $workspace5 "5: "
 set $workspace8 "8: "
 set $workspace9 "9: "
 set $workspace10 "10: "
-
 
 # switch to work4space44
 bindsym $mod+1 workspace $workspace1
@@ -177,7 +174,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-
 set $bg-color 	             #39889b
 set $bg-color-bar 	     #2f343f
 set $inactive-bg-color       #213523
@@ -203,7 +199,7 @@ bar {
         colors {
             background $bg-color
                 separator #757575
-                #                  border                 background             text
+#                  border                 background             text
                 focused_workspace  $bg-color-bar          $bg-color-bar          $text-color
                 inactive_workspace $inactive-bg-color-bar $inactive-bg-color-bar $inactive-text-color
                 urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
@@ -211,7 +207,6 @@ bar {
 }
 
 bindsym $mod+shift+x exec i3lock --color "$bg-color"
-
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -246,4 +241,3 @@ exec firefox
 exec rhythmbox
 #exec zathura
 exec claws-mail
-

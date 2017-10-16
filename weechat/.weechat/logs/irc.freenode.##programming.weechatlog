@@ -1635,3 +1635,2000 @@
 2017-09-23 22:34:24	txdv	rindolf: what git ui are you using?
 2017-09-23 22:34:33	rindolf	txdv: the cmdline
 2017-09-23 22:34:49	--	irc: disconnected from server
+2017-09-24 15:04:23	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-09-24 15:04:23	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-24 15:04:23	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-24 15:04:23	--	Channel ##programming: 697 nicks (1 op, 9 voices, 687 normals)
+2017-09-24 15:04:30	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-24 15:04:33	rindolf	rosa: Segmentation fault (core dumped)
+2017-09-24 15:04:43	rosa	its not C
+2017-09-24 15:04:48	rosa	its bash
+2017-09-24 15:04:56	rindolf	rosa: better use while true ; instead of recursion
+2017-09-24 15:05:04	rindolf	rosa: and it segfaulted
+2017-09-24 15:05:20	rindolf	rosa: bash is written in C
+2017-09-24 15:06:39	ongy	rather sad that it segfaults on that though
+2017-09-24 15:06:48	rindolf	rosa: see http://www.shlomifish.org/Files/files/text/teste.bash.txt
+2017-09-24 15:07:29	-->	nipple1146 (~nipple114@c83-252-211-228.bredband.comhem.se) has joined ##programming
+2017-09-24 15:08:26	-->	zergut (uid221522@taskhive/translator/zergut) has joined ##programming
+2017-09-24 15:10:25	<--	rockman37 (~rockman37@iceland.sdf.org) has quit (Quit: leaving)
+2017-09-24 15:11:19	rosa	it works fine for me
+2017-09-24 15:11:21	rosa	count=0 ; spinner=(' / ' '---' ' \ ' ' | ' ' / ' '---' ' \ ' ' | ') ; while true ; do for i in ${!spinner[@]} ; do printf '%b\r' "$i = ${spinner[i]}" ; sleep 0.1 ; done ; done
+2017-09-24 15:12:22	-->	bhayanakmaut8 (~bhayanakm@1.186.4.186) has joined ##programming
+2017-09-24 15:12:39	--	irc: disconnected from server
+2017-09-24 17:51:34	-->	yasser (~yasser@78.40.183.234) has joined ##programming
+2017-09-24 17:51:34	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-24 17:51:34	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-24 17:51:34	--	Channel ##programming: 714 nicks (1 op, 9 voices, 704 normals)
+2017-09-24 17:51:42	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-24 17:53:23	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-09-24 17:53:46	-->	m92 (~m92@178-222-123-93.dynamic.isp.telekom.rs) has joined ##programming
+2017-09-24 17:53:50	anEpiov	jak2000: #html
+2017-09-24 17:55:22	-->	_Atom_ (~Atom@2604:2000:f085:8800:18ea:4784:43fb:b838) has joined ##programming
+2017-09-24 17:55:25	-->	django_ (~django_@unaffiliated/django-/x-8345756) has joined ##programming
+2017-09-24 17:56:13	-->	Gencade (~ck@50-82-74-178.client.mchsi.com) has joined ##programming
+2017-09-24 17:56:40	rosa	nullathon
+2017-09-24 17:57:28	rindolf	rosa: what?
+2017-09-24 17:58:03	rosa	nullathon
+2017-09-24 17:58:15	rindolf	sigh
+2017-09-24 17:58:26	rindolf	what does it mean?
+2017-09-24 17:58:42	<--	Fekinox (~Zen@cpe-74-72-183-234.nyc.res.rr.com) has quit (Ping timeout: 260 seconds)
+2017-09-24 17:58:55	rosa	idk
+2017-09-24 17:59:54	rindolf	rosa: then who does?
+2017-09-24 18:00:41	sir_galahad_ad	?
+2017-09-24 18:00:46	<--	_Atom_ (~Atom@2604:2000:f085:8800:18ea:4784:43fb:b838) has quit (Remote host closed the connection)
+2017-09-24 18:00:47	-->	wootehfoot (~THALL@cust-95-80-56-77.csbnet.se) has joined ##programming
+2017-09-24 18:01:07	mentalita	hahaha
+2017-09-24 18:01:16	rindolf	sir_galahad_ad: what?
+2017-09-24 18:01:25	-->	_Atom_ (~Atom@2604:2000:f085:8800:18ea:4784:43fb:b838) has joined ##programming
+2017-09-24 18:01:43	<--	berzerk0 (~123456@unaffiliated/berzerk0) has quit
+2017-09-24 18:02:01	<--	hoto (~user@46.249.235.200) has quit (Ping timeout: 240 seconds)
+2017-09-24 18:02:17	-->	Fekinox (~Zen@cpe-74-72-183-234.nyc.res.rr.com) has joined ##programming
+2017-09-24 18:03:05	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Ping timeout: 240 seconds)
+2017-09-24 18:03:15	sir_galahad_ad	idk
+2017-09-24 18:03:16	sir_galahad_ad	:D
+2017-09-24 18:03:17	<--	ezekielnoob (~ezekielno@120.28.111.154) has quit (Quit: ezekielnoob)
+2017-09-24 18:03:36	-->	rtmanpages (~rtmanpage@171.sub-174-204-2.myvzw.com) has joined ##programming
+2017-09-24 18:04:10	<--	ElectricSheep (~esheep_zn@2601:42:701:a510:a55c:5289:ecc8:12ca) has quit (Read error: Connection reset by peer)
+2017-09-24 18:04:30	rmbeer	rosa, $ time (count=0 ; spinner=(" ☻/\n/| \n/ \\\\\033[3F" " ☻>\n/| \n/ \\\\\x1b[3F") ; while true ; do for i in ${!spinner[@]} ; do echo -e "${spinner[i]}" ; let count++ ; sleep 1 ; done ; done)
+2017-09-24 18:04:54	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-09-24 18:05:38	--	irc: disconnected from server
+2017-09-24 20:24:42	-->	yasser (~yasser@94.187.114.197) has joined ##programming
+2017-09-24 20:24:42	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-24 20:24:42	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-24 20:24:42	--	Channel ##programming: 710 nicks (1 op, 9 voices, 700 normals)
+2017-09-24 20:24:50	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-24 20:24:53	rmbeer	with 35k one can give up a new enterprise, why paying in one consulting?
+2017-09-24 20:25:12	-->	adzr (~adzr@89-73-139-176.dynamic.chello.pl) has joined ##programming
+2017-09-24 20:25:36	liste	rmbeer: well he can ask quotations from other companies too, the price will be the same
+2017-09-24 20:25:56	liste	rmbeer: he already has a company, that's why he needs the software consulting services
+2017-09-24 20:26:33	<--	m8 (~m8@unaffiliated/m8) has quit (Read error: Connection reset by peer)
+2017-09-24 20:27:00	-->	m8 (~m8@unaffiliated/m8) has joined ##programming
+2017-09-24 20:27:09	rmbeer	if you raise a company, then you do not need a consultant...
+2017-09-24 20:27:13	-->	Rashad (~rashad@212.34.22.67) has joined ##programming
+2017-09-24 20:27:29	liste	rmbeer: of course companies need consulting services
+2017-09-24 20:27:35	liste	they can't do everything by themselves
+2017-09-24 20:28:07	RudyValencia	So I'm working on a VB.net project in VS2017 and when I double-click the form it doesn't go to the code's [FormName]_Load function, how do I get that back?
+2017-09-24 20:28:28	<--	xtrntr (~Thunderbi@124.197.85.197) has quit (Ping timeout: 240 seconds)
+2017-09-24 20:28:38	liste	rmbeer: that's why companies like Accenture and Capgemini exist
+2017-09-24 20:28:46	<--	raunico3 (~raunicola@82.78.174.156) has quit (Quit: KVIrc 4.0.4 Insomnia http://www.kvirc.net/)
+2017-09-24 20:29:15	-->	jgoohu (~Mutter@cpe-75-81-140-117.kc.res.rr.com) has joined ##programming
+2017-09-24 20:30:03	ongy	capgemini is actually known?
+2017-09-24 20:30:19	liste	ongy: at least where I live
+2017-09-24 20:30:23	rmbeer	as head of the company, you know how to raise it, you know how to keep it and you know how to delegate it, without any help from a consultant... it is preferable to hire programmers, distributors, administrators, etc.  They serve more.
+2017-09-24 20:30:43	ongy	liste: one of my profs has some relation with them, so I've heard of them. but never without him around
+2017-09-24 20:30:49	rmbeer	mmmm... seem a bad translate...
+2017-09-24 20:31:13	rindolf	ongy: hi, i got a reply for my bug report
+2017-09-24 20:31:13	liste	rmbeer: yes, hiring an in-house developer is an option, but hiring is very expensive
+2017-09-24 20:31:21	liste	rmbeer: sometimes outsourcing is cheaper
+2017-09-24 20:31:29	liste	which kinda sucks though
+2017-09-24 20:31:34	<--	m8 (~m8@unaffiliated/m8) has quit (Read error: Connection reset by peer)
+2017-09-24 20:31:55	rindolf	RudyValencia: hi
+2017-09-24 20:32:03	RudyValencia	hey
+2017-09-24 20:32:06	ongy	rindolf: cool, what did they say?
+2017-09-24 20:32:10	liste	in outsourcing there's always an inherent conflict of interest
+2017-09-24 20:32:13	rindolf	RudyValencia: does it happen in a new project
+2017-09-24 20:32:20	RudyValencia	no, not that I'm aware of
+2017-09-24 20:32:20	rindolf	RudyValencia: does it happen in a new project?
+2017-09-24 20:32:32	RudyValencia	rindolf: ^
+2017-09-24 20:32:40	rindolf	ongy: that it is a known problem
+2017-09-24 20:32:45	rindolf	RudyValencia: ah
+2017-09-24 20:32:52	-->	quant4243 (~Thunderbi@p20030063281B5DD5FDDBAD51E38BF9D9.dip0.t-ipconnect.de) has joined ##programming
+2017-09-24 20:32:55	ongy	lol, any plans to fix it?
+2017-09-24 20:33:09	rindolf	RudyValencia: does it happen if you restart VS?
+2017-09-24 20:33:12	RudyValencia	in a new project it just goes right to form_load
+2017-09-24 20:33:24	rindolf	ongy: don;t think so
+2017-09-24 20:33:30	ongy	... quality software
+2017-09-24 20:33:40	RudyValencia	oh, if I undo and then double-click it does that
+2017-09-24 20:33:43	<--	davr0s (~textual@host81-155-67-232.range81-155.btcentralplus.com) has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+2017-09-24 20:33:48	rmbeer	i need buy programmers...
+2017-09-24 20:33:56	<--	quant4242 (~Thunderbi@p20030063281B5DB8FDA7EA5EDF31AF2A.dip0.t-ipconnect.de) has quit (Ping timeout: 246 seconds)
+2017-09-24 20:33:57	--	quant4243 is now known as quant4242
+2017-09-24 20:33:57	rmbeer	no consultant...
+2017-09-24 20:34:03	rmbeer	:'(
+2017-09-24 20:34:21	rindolf	RudyValencia: does what?
+2017-09-24 20:34:53	RudyValencia	it doesn't bring up the form's code and only an undo operation appears
+2017-09-24 20:34:58	gde33	https://news.ycombinator.com/item?id=15309393
+2017-09-24 20:35:50	+beaky	i spend 0 productive hours weekly
+2017-09-24 20:37:06	ongy	I think I got 10 last week
+2017-09-24 20:37:11	RudyValencia	I can replicate the problem even with a new project on my VS2017 (this is actually for a friend)
+2017-09-24 20:37:52	gde33	beaky: that article might explain why
+2017-09-24 20:37:52	rindolf	gde33: wow
+2017-09-24 20:38:05	+beaky	gde33: is it because im unemployed and dumb :<
+2017-09-24 20:38:16	gde33	rindolf: I expected it to be a shit article :P
+2017-09-24 20:38:23	rmbeer	ok!! i not need programmers!! i'm perfect!! i can make wow and quake alone!! NOT NEED HELP!!! Dx
+2017-09-24 20:38:48	rindolf	RudyValencia: ppl keep asking us about problems with VS
+2017-09-24 20:39:04	rindolf	well, that and other IDEs
+2017-09-24 20:39:05	RudyValencia	Yeah, it's probably a bug I think
+2017-09-24 20:39:10	RudyValencia	seems like it anyway
+2017-09-24 20:39:27	<--	bsdnoob (~bsdnoob__@2405:204:9621:5ddf:56be:2fff:a896:c5da) has quit (Remote host closed the connection)
+2017-09-24 20:39:33	gde33	beaky: just go do stuff. Dumb people are great at that. Just look at richard branson. You probably have twice the iq points.
+2017-09-24 20:39:36	rmbeer	uh... i gained an ignore...
+2017-09-24 20:39:47	-->	TikityTik (~TikityTik@162.223.44.49) has joined ##programming
+2017-09-24 20:39:48	+beaky	isnt richard branson a genius
+2017-09-24 20:39:58	gde33	nope
+2017-09-24 20:40:39	gde33	I always enjoy seeing someone without any potential accomplish great things
+2017-09-24 20:42:06	rosa	why doesnt this work? http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/mouse.html
+2017-09-24 20:42:16	rosa	it does nothing when i clock on any of the options
+2017-09-24 20:42:20	rosa	click*
+2017-09-24 20:42:22	+beaky	rosa: does the terminal you use support the mouse
+2017-09-24 20:42:31	rosa	idk
+2017-09-24 20:42:43	rosa	hwo do i know if it supports the mouse
+2017-09-24 20:43:13	+beaky	'damn why does my terminal not respond to these clicks'... 'oh im using alacritty'.... *ripgreps source* 'oh theres no right mouse button support'. i love rust
+2017-09-24 20:43:14	-->	ackpacket3 (~ackpacket@c-24-5-3-14.hsd1.ca.comcast.net) has joined ##programming
+2017-09-24 20:43:42	rosa	i using terminology
+2017-09-24 20:43:45	+beaky	but now i added in right clicking everything Just Works(tm)
+2017-09-24 20:43:50	+beaky	what is terminology
+2017-09-24 20:44:30	-->	adminseodwn (~archer@unaffiliated/remcwo9o) has joined ##programming
+2017-09-24 20:45:20	<--	adminseodwn (~archer@unaffiliated/remcwo9o) has quit (Max SendQ exceeded)
+2017-09-24 20:46:06	xeno	beaky: words and their meanings
+2017-09-24 20:47:08	xeno	rosa: terminal capatibilities can be determined by termcap - to a certain degree at least
+2017-09-24 20:50:57	<--	backnforth (~backnfort@47.54.169.203) has quit (Ping timeout: 255 seconds)
+2017-09-24 20:50:57	+beaky	yes also infocmp/
+2017-09-24 20:50:57	rosa	https://imgur.com/8NLk7A9
+2017-09-24 20:50:57	rosa	https://imgur.com/bckuApM
+2017-09-24 20:50:57	-->	axs221__ (~axs221@2601:805:8200:63a5:dc36:a561:1bd0:1a9) has joined ##programming
+2017-09-24 20:50:57	rosa	that terminology
+2017-09-24 20:50:57	<--	berzerk0 (~123456@unaffiliated/berzerk0) has quit
+2017-09-24 20:51:25	-->	davr0s (~textual@host81-155-67-232.range81-155.btcentralplus.com) has joined ##programming
+2017-09-24 20:52:10	-->	patche (~patche@128.193.248.142) has joined ##programming
+2017-09-24 20:52:29	<--	axs221_ (~axs221@2601:805:8200:63a5:d4ed:cbc3:9bb:f145) has quit (Ping timeout: 255 seconds)
+2017-09-24 20:53:25	<--	LKoen (~LKoen@2a01:e35:2eed:a430:d98b:4c05:8d2:232b) has quit (Remote host closed the connection)
+2017-09-24 20:53:30	--	patche is now known as _sebbot
+2017-09-24 20:54:15	-->	berzerk0 (~berzerk0@unaffiliated/berzerk0) has joined ##programming
+2017-09-24 20:57:26	-->	pmercado (~pmercado@191.112.149.184) has joined ##programming
+2017-09-24 20:57:26	rosa	https://imgur.com/0bjEVo3
+2017-09-24 20:57:31	gde33	rindolf: are you still reading?
+2017-09-24 20:57:50	-->	Mrmojo1001 (~warirc@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has joined ##programming
+2017-09-24 20:58:35	rindolf	gde33: no
+2017-09-24 20:58:42	gde33	oh ok
+2017-09-24 20:58:52	rindolf	gde33: i just read the first few comments
+2017-09-24 20:59:05	gde33	rindolf: the article is facinating
+2017-09-24 20:59:08	rmbeer	rosa, are you playing with a terminal?
+2017-09-24 20:59:18	gde33	rindolf: the title is a link yk
+2017-09-24 20:59:27	rindolf	gde33: yes, i do
+2017-09-24 20:59:27	rosa	https://imgur.com/NvQji70
+2017-09-24 21:01:03	<--	Mrmojo1001 (~warirc@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has quit (Remote host closed the connection)
+2017-09-24 21:01:03	<--	hoto7` (~user@ip-240-133-230-46.dialup.ice.net) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:01:03	-->	krowar (~krowar@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has joined ##programming
+2017-09-24 21:01:03	<--	krowar (~krowar@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has quit (Remote host closed the connection)
+2017-09-24 21:01:40	-->	fitboy (~funboy15@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has joined ##programming
+2017-09-24 21:03:42	<--	Rashad (~rashad@212.34.22.67) has quit (Quit: ChatZilla 0.9.92-rdmsoft [XULRunner 35.0.1/20150122214805])
+2017-09-24 21:03:42	xeno	pretty
+2017-09-24 21:03:42	<--	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has quit (Remote host closed the connection)
+2017-09-24 21:03:42	<--	fitboy (~funboy15@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has quit (Max SendQ exceeded)
+2017-09-24 21:03:42	xeno	what's the background for the name "jemalloc"?
+2017-09-24 21:03:42	<--	axs221__ (~axs221@2601:805:8200:63a5:dc36:a561:1bd0:1a9) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 21:04:59	-->	FFears (~FFears@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has joined ##programming
+2017-09-24 21:04:59	-->	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has joined ##programming
+2017-09-24 21:04:59	rosa	anyway why wont the mouse work in the application when it works fine in the terminal
+2017-09-24 21:05:43	<--	FFears (~FFears@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has quit (Max SendQ exceeded)
+2017-09-24 21:05:43	-->	purplex88 (~purplex88@unaffiliated/purplex88) has joined ##programming
+2017-09-24 21:06:17	-->	a (~McAlliste@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has joined ##programming
+2017-09-24 21:09:50	--	a is now known as Guest76576
+2017-09-24 21:09:50	<--	squeakytoy (~squeakyto@h87-96-232-70.cust.se.alltele.net) has quit (Ping timeout: 264 seconds)
+2017-09-24 21:09:50	rosa	doesnt work in konsole
+2017-09-24 21:09:50	rosa	either
+2017-09-24 21:09:50	<--	adzr (~adzr@89-73-139-176.dynamic.chello.pl) has quit (Quit: adzr)
+2017-09-24 21:09:50	-->	Xatenev (~Xatenev@2a02:8108:9e3f:b2fc:f4e6:75ee:86b1:982e) has joined ##programming
+2017-09-24 21:09:51	Xatenev	Hi
+2017-09-24 21:09:51	-->	squeakytoy (~squeakyto@h87-96-232-70.cust.se.alltele.net) has joined ##programming
+2017-09-24 21:09:51	<--	Guest76576 (~McAlliste@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has quit (Max SendQ exceeded)
+2017-09-24 21:09:51	<--	SaganMan (~deepthoug@unaffiliated/saganman) has quit (Quit: WeeChat 1.6)
+2017-09-24 21:09:51	<--	elanimus_ (~elanimus@197.156.95.132) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:09:51	-->	Satsuki (~Satsuki@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has joined ##programming
+2017-09-24 21:10:02	<--	yasser (~yasser@94.187.114.197) has quit (Ping timeout: 260 seconds)
+2017-09-24 21:10:02	--	irc: disconnected from server
+2017-09-24 21:10:27	-->	yasser (~yasser@94.187.114.197) has joined ##programming
+2017-09-24 21:10:27	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-24 21:10:27	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-24 21:10:28	--	Channel ##programming: 708 nicks (1 op, 9 voices, 698 normals)
+2017-09-24 21:10:37	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-24 21:11:16	-->	guccimeow (~guccimeow@CPE-121-223-6-217.lnse2.cha.bigpond.net.au) has joined ##programming
+2017-09-24 21:11:19	Xatenev	rindolf: panda
+2017-09-24 21:11:34	rmbeer	i need programmers of C/C++, someone offers?
+2017-09-24 21:11:51	rindolf	Xatenev: pan-do
+2017-09-24 21:11:56	<--	Satsuki (~Satsuki@ARennes-656-1-283-105.w109-218.abo.wanadoo.fr) has quit (Max SendQ exceeded)
+2017-09-24 21:12:02	rindolf	rmbeer: are you paying?
+2017-09-24 21:12:19	rmbeer	rindolf, obviously.
+2017-09-24 21:12:34	rindolf	rmbeer: how much?
+2017-09-24 21:12:36	Xatenev	rindolf: how are you? =) had a nice weekend?
+2017-09-24 21:12:41	-->	compuderp (43aa87aa@gateway/web/freenode/ip.67.170.135.170) has joined ##programming
+2017-09-24 21:12:43	rindolf	Xatenev: quite
+2017-09-24 21:13:07	rmbeer	rindolf, the 35k for the consultant.
+2017-09-24 21:13:38	Xatenev	that sounds really low for a consultant - but of course it may be totally different in your country than in mine
+2017-09-24 21:13:45	anEpiov	rmbeer: I want that job.
+2017-09-24 21:13:52	anEpiov	rmbeer: where at?
+2017-09-24 21:14:01	<--	ackpacket3 (~ackpacket@c-24-5-3-14.hsd1.ca.comcast.net) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:14:37	<--	nikio_ (~nikio_@unaffiliated/nikio/x-5064535) has quit (Ping timeout: 255 seconds)
+2017-09-24 21:15:18	Xatenev	rindolf: I am going through a C book right now. The old C declaration of functiuon is really odd
+2017-09-24 21:15:20	Xatenev	lol
+2017-09-24 21:15:33	<--	Manjana_ (~Manjana@52d3c766.dynamic-ip.k-net.dk) has quit (Quit: Going offline, see ya! (www.adiirc.com))
+2017-09-24 21:15:58	<--	guccimeow (~guccimeow@CPE-121-223-6-217.lnse2.cha.bigpond.net.au) has quit (Ping timeout: 264 seconds)
+2017-09-24 21:16:17	-->	SwiftMatt (~Objective@c-73-153-161-194.hsd1.co.comcast.net) has joined ##programming
+2017-09-24 21:16:28	-->	Rashad (~rashad@212.34.22.67) has joined ##programming
+2017-09-24 21:16:28	rmbeer	anEpiov, https://bitbucket.org/rmbeer/killdll and https://bitbucket.org/rmbeer/tododb
+2017-09-24 21:16:44	-->	CoolBreeze (~CoolBreez@83-49-51.netrun.cytanet.com.cy) has joined ##programming
+2017-09-24 21:16:46	rmbeer	complete it
+2017-09-24 21:17:09	rindolf	Xatenev: yes they are
+2017-09-24 21:17:14	<--	SwiftMatt (~Objective@c-73-153-161-194.hsd1.co.comcast.net) has quit (Client Quit)
+2017-09-24 21:18:20	<--	berzerk0 (~berzerk0@unaffiliated/berzerk0) has quit (Read error: Connection reset by peer)
+2017-09-24 21:18:24	-->	cyborg-one (~cyborg-on@130-0-60-134.broadband.tenet.odessa.ua) has joined ##programming
+2017-09-24 21:18:40	compuderp	I'm working on my resume and I have some experience I'd like to use, but I'm not sure how to specify it...  So I worked on some projects with 2 different development teams using the same technology and I'd like to list this experience as something like Software Consultant, but it was unpaid work which would payout upon commercial success.  How could I list these experiences to appear more professional?
+2017-09-24 21:19:08	Rounin	You don't have to say whether it was paid at all
+2017-09-24 21:19:15	Rounin	Just list what you did or whatever
+2017-09-24 21:19:17	Xatenev	compuderp: you simply have one page where you list your project you worked on
+2017-09-24 21:19:21	<--	goiko (~goiko@unaffiliated/goiko) has quit (Ping timeout: 240 seconds)
+2017-09-24 21:19:22	Xatenev	compuderp: nobody cares whether you have been paid or not
+2017-09-24 21:19:32	Xatenev	compuderp: I have one page in my resume like: 'Projects I worked on'
+2017-09-24 21:19:45	Xatenev	compuderp: title - small description - technologies involverd - link to the project
+2017-09-24 21:19:49	-->	berzerk0 (~123456@unaffiliated/berzerk0) has joined ##programming
+2017-09-24 21:20:36	compuderp	Xatenev: so would you list the experience under the work experience section?
+2017-09-24 21:20:47	-->	patientplatypus (~patientpl@67-198-78-45.dyn.grandenetworks.net) has joined ##programming
+2017-09-24 21:20:49	-->	goiko (~goiko@unaffiliated/goiko) has joined ##programming
+2017-09-24 21:20:58	Xatenev	compuderp: I dont know what a 'work experience section' is but it sounds good atleast
+2017-09-24 21:21:11	-->	hamologist (~jordan@2605:a000:1619:144:8c71:d6d0:c36b:ef6a) has joined ##programming
+2017-09-24 21:21:13	Xatenev	compuderp: I guess you are following some kind of tutorial "How you resume should look"
+2017-09-24 21:21:25	<--	hamologist (~jordan@2605:a000:1619:144:8c71:d6d0:c36b:ef6a) has left ##programming ("WeeChat 1.4")
+2017-09-24 21:21:31	-->	SwiftMatt (~Objective@c-73-153-161-194.hsd1.co.comcast.net) has joined ##programming
+2017-09-24 21:21:34	Xatenev	I just added an extra page that I keep sending with my other resume
+2017-09-24 21:21:36	Xatenev	additionally basicallx
+2017-09-24 21:21:37	Xatenev	y
+2017-09-24 21:21:48	compuderp	Xatenev: I suppose so, kind of following what the traditional understanding of a resume is
+2017-09-24 21:22:18	Xatenev	Basically when i go to some company I have:
+2017-09-24 21:22:30	Xatenev	covering letter - resume - projects i worked on
+2017-09-24 21:22:35	-->	elanimus_ (~elanimus@197.156.95.178) has joined ##programming
+2017-09-24 21:22:41	-->	jordan1 (~hamologis@2605:a000:1619:144:8c71:d6d0:c36b:ef6a) has joined ##programming
+2017-09-24 21:22:44	Xatenev	and some additional shit like  instructor license and stuff
+2017-09-24 21:22:49	<--	_Atom_ (~Atom@2604:2000:f085:8800:c11a:9e3a:ac31:4e5c) has quit (Remote host closed the connection)
+2017-09-24 21:22:53	compuderp	What structure do you use for your resume?
+2017-09-24 21:23:01	woggle	compuderp: If you had an actual contract saying that you should be paid, I don't think people would dispute that it's a job...
+2017-09-24 21:23:31	Xatenev	compuderp: umm
+2017-09-24 21:24:02	Xatenev	compuderp: "my person" - "professional" - "apprenticeship" - "languages" - "it skills" - "other skills" - "interests & hobbies"
+2017-09-24 21:24:16	<--	Rashad (~rashad@212.34.22.67) has quit (Remote host closed the connection)
+2017-09-24 21:24:37	Xatenev	professional == work experience
+2017-09-24 21:24:40	-->	Guest90177 (~karstensr@107.161.122.237) has joined ##programming
+2017-09-24 21:24:46	-->	xtrntr (~Thunderbi@124.197.85.197) has joined ##programming
+2017-09-24 21:25:39	-->	axs221_ (~axs221@2601:805:8200:63a5:ed0d:3440:ecf2:6905) has joined ##programming
+2017-09-24 21:25:44	-->	bavi (~bavi@2602:304:6f4c:bdd0:ac8b:7988:69de:488) has joined ##programming
+2017-09-24 21:26:16	compuderp	that sounds good, but how do you show where you put in the time invested in such projects you worked on?
+2017-09-24 21:26:21	-->	llinguini (~llinguini@host-1-182.ilur711elm.urbana.il.us.clients.pavlovmedia.net) has joined ##programming
+2017-09-24 21:26:34	Xatenev	compuderp: I dont list that
+2017-09-24 21:29:04	compuderp	Xatenev: would you put self employed somewhere or not at all?
+2017-09-24 21:29:17	<--	xtrntr (~Thunderbi@124.197.85.197) has quit (Ping timeout: 260 seconds)
+2017-09-24 21:29:23	+beaky	i want to be
+2017-09-24 21:29:25	Xatenev	sure thats your work experience isnt it?
+2017-09-24 21:29:43	Xatenev	compuderp: So usually you are saying: Employed in company X 12.02.2016 - 14.04.2017
+2017-09-24 21:29:52	Xatenev	Self employed 14.04.2017 - 24.09.2017  or whatever
+2017-09-24 21:29:59	<--	TheBombMaker (~TheBombMa@unaffiliated/thebombmaker) has quit (Read error: Connection reset by peer)
+2017-09-24 21:30:01	compuderp	Xatenev: yeah, that's the format I use
+2017-09-24 21:30:16	-->	nikio_ (~nikio_@unaffiliated/nikio/x-5064535) has joined ##programming
+2017-09-24 21:30:25	-->	TheBombMaker (~TheBombMa@unaffiliated/thebombmaker) has joined ##programming
+2017-09-24 21:30:29	<--	abiogenesis (~quassel@p54944D91.dip0.t-ipconnect.de) has quit (Read error: Connection reset by peer)
+2017-09-24 21:31:11	<--	patientplatypus (~patientpl@67-198-78-45.dyn.grandenetworks.net) has quit (Remote host closed the connection)
+2017-09-24 21:31:12	<--	jan64 (~jan64@79.184.162.54.ipv4.supernova.orange.pl) has quit (Read error: Connection reset by peer)
+2017-09-24 21:31:16	-->	Cogitabundus (~NOBODY@122.15.77.139) has joined ##programming
+2017-09-24 21:31:29	compuderp	Well, off to eat breakfast.  Thanks for the help, Xatenev
+2017-09-24 21:32:05	<--	SwiftMatt (~Objective@c-73-153-161-194.hsd1.co.comcast.net) has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+2017-09-24 21:32:25	-->	Rashad (~rashad@212.34.22.67) has joined ##programming
+2017-09-24 21:32:54	<--	Zaab1t (~Zaab1t@x1-6-40-65-a3-e9-47-b2.cpe.webspeed.dk) has quit (Quit: gnight)
+2017-09-24 21:32:56	-->	idscipuls (~idscipuls@cpc92880-cmbg19-2-0-cust915.5-4.cable.virginm.net) has joined ##programming
+2017-09-24 21:33:31	-->	elcmat_ (~elcmat@117.192.164.223) has joined ##programming
+2017-09-24 21:33:31	Rashad	Delayed startup should be built into windows.
+2017-09-24 21:33:44	-->	bhayanakmaut9 (~bhayanakm@1.186.7.81) has joined ##programming
+2017-09-24 21:33:55	-->	jan64 (~jan64@79.184.162.54.ipv4.supernova.orange.pl) has joined ##programming
+2017-09-24 21:34:52	<--	bhayanakmaut8 (~bhayanakm@1.186.7.81) has quit (Ping timeout: 255 seconds)
+2017-09-24 21:35:17	--	idscipuls is now known as idscip
+2017-09-24 21:36:38	rindolf	Rashad: windows is not open source
+2017-09-24 21:36:49	<--	elcmat (~elcmat@unaffiliated/elcmat) has quit (Ping timeout: 248 seconds)
+2017-09-24 21:36:50	Rashad	I am considering installing linux.
+2017-09-24 21:37:08	rindolf	Rashad: so good luck convincing MS to implement this
+2017-09-24 21:38:06	rindolf	Rashad: ah
+2017-09-24 21:38:06	Rashad	rindolf: I think it's bad for their marketing anyway.
+2017-09-24 21:38:06	Rashad	"Since the OS is so slow..." oops!
+2017-09-24 21:38:06	<--	axs221_ (~axs221@2601:805:8200:63a5:ed0d:3440:ecf2:6905) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-24 21:38:06	-->	the_2nd (~the_2nd@2a02:8070:418d:d200:be5f:f4ff:fe08:eb05) has joined ##programming
+2017-09-24 21:44:22	--	irc: disconnected from server
+2017-09-24 23:28:39	-->	yasser (~yasser@94.187.114.197) has joined ##programming
+2017-09-24 23:28:39	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-24 23:28:39	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-24 23:28:39	--	Channel ##programming: 712 nicks (1 op, 9 voices, 702 normals)
+2017-09-24 23:28:47	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-24 23:28:52	-->	mu5t (~LadyG@201.127.160.246) has joined ##programming
+2017-09-24 23:28:56	+exio4	most time I am sleepy I simply stop processing time and space properly, and hours are slower and slower
+2017-09-24 23:28:57	-->	FreEm1nD (freemindm@179.219.238.72) has joined ##programming
+2017-09-24 23:29:02	Remavas-Hex	Travel into the future now -- just use alcohol and sleep deprivation! (May lead to injuries and amnesia)
+2017-09-24 23:29:05	-->	jnollette (~jnollette@unaffiliated/jnollette) has joined ##programming
+2017-09-24 23:29:08	deniska	with videos it's noticable because you have a timestamp in the corner
+2017-09-24 23:29:24	deniska	during "normal" activities you won't notice 10 seconds of zombie mode
+2017-09-24 23:29:25	rindolf	i recall falling asleep during a meeting at work
+2017-09-24 23:29:34	+exio4	haha
+2017-09-24 23:29:36	deniska	others won't too unless you do something stupid during that time
+2017-09-24 23:29:40	rindolf	woke up shortly afterwards
+2017-09-24 23:30:09	deniska	I never really drank myself not to remember things I did before
+2017-09-24 23:30:20	-->	hio (~Wand@62-46-34-65.adsl.highway.telekom.at) has joined ##programming
+2017-09-24 23:30:23	deniska	(some may say that I just don't remember that due to drinking too much)
+2017-09-24 23:30:43	+exio4	I never drank enough alcohol for that
+2017-09-24 23:30:55	+exio4	last time I drank enough to have trouble walking I simply stopped
+2017-09-24 23:30:56	LastTalon	If you didn't remember something how would you know you didn't remember it?
+2017-09-24 23:31:02	deniska	but anyway, for me alcohol doesn't work like a sleepy pill
+2017-09-24 23:31:03	-->	aoeu (ade77bda@gateway/web/freenode/ip.173.231.123.218) has joined ##programming
+2017-09-24 23:31:06	-->	Cohedrin_ (~textual@136.24.92.86) has joined ##programming
+2017-09-24 23:31:11	xeno	alcohol works differently yeah
+2017-09-24 23:31:12	deniska	LastTalon: 1) youtube evidence :)
+2017-09-24 23:31:12	+exio4	I remember stopping, quite a few times LastTalon
+2017-09-24 23:31:20	hio	how do U prevent hackers from copying my program and stealing it?
+2017-09-24 23:31:26	LastTalon	exio4, but what if yone time you didn't?
+2017-09-24 23:31:33	LastTalon	How would you know?
+2017-09-24 23:31:33	+exio4	and friends have never told me otherwise
+2017-09-24 23:31:35	<--	xtrntr (~Thunderbi@124.197.85.197) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:31:36	LastTalon	:P
+2017-09-24 23:31:37	xeno	LastTalon: that's fully possible, you've never blacked out?
+2017-09-24 23:31:38	deniska	hio: there's no way to prevent, only to make it harder
+2017-09-24 23:31:53	<--	lkolstad (~ljk@c-24-16-12-195.hsd1.wa.comcast.net) has quit (Quit: WeeChat 1.9)
+2017-09-24 23:31:59	aoeu	hio: you piece of greedy shit, you don't
+2017-09-24 23:32:02	+exio4	hio: well, there's a way, simply never delete the program
+2017-09-24 23:32:08	+exio4	s/never//
+2017-09-24 23:32:10	rindolf	hio: see https://github.com/shlomif/Freenode-programming-channel-FAQ/blob/master/FAQ.mdwn#how-do-i-hideobscureencrypt-my-source-code-to-prevent-end-users-from-learning-how-it-works
+2017-09-24 23:32:15	+exio4	hio: if you cannot have it, neither will they
+2017-09-24 23:32:18	aoeu	you can't own data
+2017-09-24 23:32:38	LastTalon	xeno, I've never blacked out actually. I have a strange high alcohol tolerance. It doesn't do anything for a long time and it suddenly hits.
+2017-09-24 23:32:48	deniska	Well, sometimes I drink that much that I fall asleep almost immediately after touching the bed
+2017-09-24 23:33:05	+exio4	I can have alcohol effects without drinking alcohol
+2017-09-24 23:33:22	+exio4	my body is cool, I had hallucinations the other day, didn't even take any drug before you say that
+2017-09-24 23:33:25	deniska	but I never did something I don't remember (or at least I wasn't presented with the evidence of)
+2017-09-24 23:33:29	 *	rindolf never drinks
+2017-09-24 23:33:30	xeno	LastTalon: example: waking up in the morning in a crap condition, trying to remember what happened the day before and the only thing you remember is a foggy ghost standing sideways in a doorway going "holy crap!" before opting for another public bathroom - then you know there's things you're missing :)
+2017-09-24 23:33:53	+exio4	xeno: if you are with friends, they are likely to carry you home/somewhere decently
+2017-09-24 23:34:02	LastTalon	xeno, nah. Thats what I mean. I stay very lucid for a really long time when I drink.
+2017-09-24 23:34:18	deniska	I had some short but intense fever a couple days ago, I hallucinated a bit
+2017-09-24 23:34:24	LastTalon	I usually end up being a sort of watchdog for the group.
+2017-09-24 23:34:32	LastTalon	Make sure people don't do stupid shit.
+2017-09-24 23:34:34	<--	hintss (hintss@wheatfield.hintss.pw) has quit (Ping timeout: 264 seconds)
+2017-09-24 23:34:37	deniska	And it wasn't visual or audial or any of that stuff
+2017-09-24 23:34:44	deniska	I don't even know how to describe it
+2017-09-24 23:34:48	aoeu	will LSD trigger mental conditions?
+2017-09-24 23:34:49	deniska	Conceptual hallucination?
+2017-09-24 23:35:04	Remavas-Hex	If you take enough of it, of course
+2017-09-24 23:35:10	LastTalon	aoeu, define mental condition.
+2017-09-24 23:35:29	Remavas-Hex	it will cause a mental condition we call 'high'
+2017-09-24 23:35:30	Remavas-Hex	:P
+2017-09-24 23:35:33	LastTalon	You mean shit like ptsd? Its entirely possible.
+2017-09-24 23:35:54	-->	GDiaX (~cupoftea@188.251.57.44) has joined ##programming
+2017-09-24 23:35:54	LastTalon	If you have mental conditions like that its pretty easy to have a bad trip.
+2017-09-24 23:35:55	deniska	does LSD make you high in a traditional sense though?
+2017-09-24 23:36:16	-->	PinealGlandOptic (~PinealGla@82.144.205.57) has joined ##programming
+2017-09-24 23:36:21	Remavas-Hex	hm, interesting question
+2017-09-24 23:36:47	deniska	I never tried it (or any other mind altering substance besides alcohol), so I don't really know
+2017-09-24 23:37:06	<--	xistens3 (~e_xistens@unaffiliated/existense/x-7492840) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:37:12	Remavas-Hex	from wikipedia: LSD may trigger panic attacks or feelings of extreme anxiety, known familiarly as a "bad trip." Review studies suggest that LSD likely plays a role in precipitating the onset of acute psychosis in previously healthy individuals with an increased likelihood in individuals who have a family history of schizophrenia.[7][35] There is evidence that people with severe mental illnesses like schizophrenia have a higher likelihood
+2017-09-24 23:37:13	Remavas-Hex	of experiencing adverse effects from taking LSD.[35]
+2017-09-24 23:37:24	Remavas-Hex	sry for copy-pasting :P
+2017-09-24 23:37:27	--	f00fSteR is now known as f00f[away]
+2017-09-24 23:37:38	-->	aoeu_ (ade77bda@gateway/web/freenode/ip.173.231.123.218) has joined ##programming
+2017-09-24 23:37:38	LastTalon	deniska, suppose it depends how technical you want to get about the terms I suppose.
+2017-09-24 23:37:50	-->	hintss (hintss@wheatfield.hintss.pw) has joined ##programming
+2017-09-24 23:38:32	--	f00f[away] is now known as f00fSteR
+2017-09-24 23:38:33	-->	vjacob (~vjacob@87.73.97.94) has joined ##programming
+2017-09-24 23:38:57	-->	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has joined ##programming
+2017-09-24 23:39:32	<--	aoeu (ade77bda@gateway/web/freenode/ip.173.231.123.218) has quit (Disconnected by services)
+2017-09-24 23:39:37	--	aoeu_ is now known as aoeu
+2017-09-24 23:39:43	buggaboosanchez	Does anyone know of a terminal ((other than gnome) that has the following features? Has tabs, ability to name tabs (via gui, hotkeys, and bash command on its own command line), and ability to contol the terminal's  behavior via the command line - so you can script terminal behavior mixed with other commands ?  I been looking at doing these kinnd of things with gnome but it doesn't look like its really geared for that and I'd like to try
+2017-09-24 23:39:45	buggaboosanchez	something new anyway. Thanks
+2017-09-24 23:40:03	<--	aoeu (ade77bda@gateway/web/freenode/ip.173.231.123.218) has quit (Client Quit)
+2017-09-24 23:41:28	LastTalon	What do you mean by scripting the terminal behavior?
+2017-09-24 23:41:32	-->	aoeu (ade77bda@gateway/web/freenode/ip.173.231.123.218) has joined ##programming
+2017-09-24 23:41:53	aoeu	i'm schizophrenic probably
+2017-09-24 23:42:00	aoeu	but i want LSD for enlightenement
+2017-09-24 23:42:18	-->	D_A_N (~dan185@2602:301:771a:50a0:8848:58a3:2ae7:41e6) has joined ##programming
+2017-09-24 23:43:57	<--	patientplatypus (~patientpl@67-198-78-45.dyn.grandenetworks.net) has quit (Remote host closed the connection)
+2017-09-24 23:44:48	-->	safe (~safe@unaffiliated/safe) has joined ##programming
+2017-09-24 23:45:33	-->	ryjen (~ryjen@d172-218-40-173.bchsia.telus.net) has joined ##programming
+2017-09-24 23:46:42	+beaky	buggaboosanchez yes tmux can do all that; it's not a terminal though
+2017-09-24 23:46:59	f00fSteR	buggaboosanchez : have you some tmux young one, and congrats on the start of your journey of enlighment
+2017-09-24 23:47:09	xeno	any of you got proposals for some radical new music that fits well with Rust and category theory?
+2017-09-24 23:47:30	-->	TheBombMaker (~TheBombMa@24.48.10.203) has joined ##programming
+2017-09-24 23:47:30	<--	TheBombMaker (~TheBombMa@24.48.10.203) has quit (Changing host)
+2017-09-24 23:47:30	-->	TheBombMaker (~TheBombMa@unaffiliated/thebombmaker) has joined ##programming
+2017-09-24 23:47:32	<--	GDiaX (~cupoftea@188.251.57.44) has quit (Ping timeout: 260 seconds)
+2017-09-24 23:47:51	f00fSteR	aoeu : englighment staerts from within, start by using a terminal multiplexor like tmux
+2017-09-24 23:47:56	xeno	possibly also fitting with neo4j
+2017-09-24 23:48:27	-->	GDiaX (~cupoftea@188.251.57.44) has joined ##programming
+2017-09-24 23:48:29	LastTalon	Lol.
+2017-09-24 23:48:34	f00fSteR	xeno : yes, https://soundcloud.com/simon_hendrickx/despacito-ft-emie
+2017-09-24 23:49:06	LastTalon	Tmux is The Way?
+2017-09-24 23:49:07	xeno	f00fSteR: there's a #JustinBieber tag there :/
+2017-09-24 23:49:18	aoeu	f00fSteR: i'm a .NET developer
+2017-09-24 23:49:24	-->	nv_ (~VM@c-76-127-128-13.hsd1.ma.comcast.net) has joined ##programming
+2017-09-24 23:49:29	rmbeer	rm #JustinBieber
+2017-09-24 23:49:52	f00fSteR	Lol
+2017-09-24 23:50:10	-->	cagmz (~cagmz@cpe-104-34-174-123.socal.res.rr.com) has joined ##programming
+2017-09-24 23:50:10	-->	JenElizabeth (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has joined ##programming
+2017-09-24 23:50:17	nv_	why does print(“A”) > file.txt create a file of 2 bytes n python
+2017-09-24 23:50:23	nv_	wheras in perl in creates a file of one byte
+2017-09-24 23:50:30	buggaboosanchez	LastTalon: For example - suppose I've just launched my terminal so I have one open window with one tab : Now I want to write out ( not from file but on the command line ) a command that will do the following - Open 3 new tabs in the same window, name the first new tab NewTab1 the second NewTab2 and the third NewTab3, then in the first I want run ls on the working dir, the second I want to initialize and empty git repo and in the third I want to
+2017-09-24 23:50:33	buggaboosanchez	create a new file called MyFile, finally I want to switch to the seconed (new) tab.  <--- that is a phony / arbitrary example and way more complex than I may ever need but it exhibits the sort of thing I'm thinking of doing.   ( to also control the terminal with the terminal - and integrate that with any other bash commands  I wish ).
+2017-09-24 23:50:50	<--	axs221_ (~axs221@2607:fb90:58b7:269d:0:3:5b74:a701) has quit (Read error: Connection reset by peer)
+2017-09-24 23:50:59	rmbeer	nv_, you can found the response in ghex command
+2017-09-24 23:51:00	buggaboosanchez	beaky: I've heard of tmux - I should finally play with it  :)
+2017-09-24 23:51:01	xeno	f00fSteR: I love the song (the original, not the justin bieber'ed crap), but have heard it a trillion times, so I guess I can only listen to this once or twice - got another?
+2017-09-24 23:51:16	-->	axs221 (~axs221@98.220.182.71) has joined ##programming
+2017-09-24 23:51:17	<--	EdgyMC_69 (4fa39b7f@gateway/web/freenode/ip.79.163.155.127) has quit (Quit: Page closed)
+2017-09-24 23:51:18	rmbeer	buggaboosanchez, in pastebin, please...
+2017-09-24 23:51:21	buggaboosanchez	f00fSteR: thx
+2017-09-24 23:51:38	buggaboosanchez	I'm excited about a lot of things but this one takes the cake
+2017-09-24 23:51:38	Amun_Ra	nv_: python's print has implicit eol
+2017-09-24 23:52:03	nv_	ahh ok
+2017-09-24 23:52:10	nv_	so it’s not an encoding thing right?
+2017-09-24 23:52:24	Amun_Ra	nv_: print('A', end='')
+2017-09-24 23:52:25	f00fSteR	If I was god I'd have madd what you'd call streams of knowledge. If I did, I'd want to try em all out in sepereate universes, thus I'd create microcosm's of myself. The man behind the One Terminal hailed all the various tmux sessions. I suppose after awhile we'd be having this discvussion right here. But is that ad-homily, did we just not start the birth of creation right there. Maybe, who knows?
+2017-09-24 23:52:48	<--	FreEm1nD (freemindm@179.219.238.72) has quit
+2017-09-24 23:52:48	buggaboosanchez	f00fSteR:  Thanks for the terminology "terminal multiplexor"
+2017-09-24 23:52:50	Amun_Ra	nv_: no, check pydoc3 print
+2017-09-24 23:53:13	nv_	thank you
+2017-09-24 23:53:14	f00fSteR	xeno : was that the justin beiber version ?
+2017-09-24 23:53:16	<--	nv_ (~VM@c-76-127-128-13.hsd1.ma.comcast.net) has quit (Quit: nv_)
+2017-09-24 23:53:21	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:53:26	xeno	f00fSteR: nope
+2017-09-24 23:53:31	-->	guccimeow (~guccimeow@CPE-121-223-6-217.lnse2.cha.bigpond.net.au) has joined ##programming
+2017-09-24 23:53:36	buggaboosanchez	rmbeer: sorry
+2017-09-24 23:53:40	f00fSteR	nekomune : the kid seems to have the voice of a sexy tenage think britney spears... if that's the case I'm scared for the youth of today
+2017-09-24 23:54:35	<--	ryjen (~ryjen@d172-218-40-173.bchsia.telus.net) has quit (Ping timeout: 240 seconds)
+2017-09-24 23:55:20	+exio4	f00fSteR: that song cover is bae
+2017-09-24 23:55:40	LastTalon	f00fSteR, https://www.youtube.com/watch?v=7kOKDdocGyc
+2017-09-24 23:55:42	<--	ivo_ (~ivo_@unaffiliated/ivo/x-7575225) has quit (Remote host closed the connection)
+2017-09-24 23:56:05	<--	hio (~Wand@62-46-34-65.adsl.highway.telekom.at) has quit (Quit: Leaving)
+2017-09-24 23:56:22	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-09-24 23:57:13	f00fSteR	exio4 isn't it sick? Wish it felt like the first time I heard it tho -like all drugs.
+2017-09-24 23:57:22	f00fSteR	The first time was always the best.
+2017-09-24 23:57:25	+exio4	yeah
+2017-09-24 23:57:40	f00fSteR	LastTalon, interesting
+2017-09-24 23:57:41	-->	user____2 (~user@host-212-139-116-235.static.as9105.net) has joined ##programming
+2017-09-24 23:57:46	+exio4	f00fSteR: did you get it from this channel? I linked it a few days ago
+2017-09-24 23:57:52	+exio4	like, four times, I felt in love with it
+2017-09-24 23:57:57	+exio4	fell
+2017-09-24 23:58:08	<--	guccimeow (~guccimeow@CPE-121-223-6-217.lnse2.cha.bigpond.net.au) has quit (Ping timeout: 248 seconds)
+2017-09-24 23:58:08	<--	schneu (~cholley@c83-248-29-35.bredband.comhem.se) has quit (Ping timeout: 248 seconds)
+2017-09-24 23:58:09	f00fSteR	Of course.?
+2017-09-24 23:58:11	+exio4	it sounds nothing like Despacito
+2017-09-24 23:58:18	f00fSteR	No idea, I thought I had found it on reddit
+2017-09-24 23:58:31	+exio4	Spotify recommended it to me
+2017-09-24 23:58:38	+exio4	haha
+2017-09-24 23:58:38	-->	axs221_ (~axs221@2601:805:8200:63a5:9887:eefd:2070:f075) has joined ##programming
+2017-09-24 23:58:38	+exio4	might be popular
+2017-09-25 00:04:38	--	irc: disconnected from server
+2017-09-25 12:33:34	-->	yasser (~yasser@94.187.114.197) has joined ##programming
+2017-09-25 12:33:34	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-25 12:33:34	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-25 12:33:34	--	Channel ##programming: 711 nicks (1 op, 8 voices, 702 normals)
+2017-09-25 12:33:34	merijn	rockman37: Like I said, depends on the kinds of diagrams you draw :)
+2017-09-25 12:33:40	rindolf	foan: "boot"?
+2017-09-25 12:33:41	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-25 12:33:42	rockman37	merijn: Indeed.
+2017-09-25 12:33:59	rockman37	rindolf: Like a shoe.
+2017-09-25 12:34:02	foan	merijn: ahhh TikZ good days during thesis writing spending hours on end to make cool graphics 10/10 would do again
+2017-09-25 12:34:12	<--	MoarSpaceFi (~Forgot_my@65.126.126.193) has quit (Quit: Leaving)
+2017-09-25 12:34:18	foan	rindolf: I have dual boot, just meant on windows
+2017-09-25 12:34:22	rindolf	foan: ah
+2017-09-25 12:34:30	-->	jokoon (~jokoon@2a01:e35:2e08:9f10:8929:5866:7e74:8bf0) has joined ##programming
+2017-09-25 12:35:04	rindolf	foan: most IDEs kinda suck in my exp
+2017-09-25 12:36:10	rts-sander	intellij is the best IDE
+2017-09-25 12:36:24	foan	rindolf: wait is VSCode an IDE haha I did not even read it thoroughly, well I do most of the programming on linux anyway just need something that I can quick fix some files on windows from time to time so thought about getting something seamlessly integrated into windows and VSCode came to mind, recommendations are of course welcome!
+2017-09-25 12:36:25	yasser	jetbrains!
+2017-09-25 12:36:36	yasser	I use vim, but if I were to use something I would use that.
+2017-09-25 12:36:41	yasser	But it's a bit costy.
+2017-09-25 12:36:52	rts-sander	quality comes at a price
+2017-09-25 12:37:02	yasser	yup.
+2017-09-25 12:37:17	-->	murii (~murii@gw1.computervoice.ro) has joined ##programming
+2017-09-25 12:37:20	yasser	vim is free, but required time. Everything got a price.
+2017-09-25 12:37:27	yasser	requires*
+2017-09-25 12:38:06	rindolf	foan: http://www.shlomifish.org/humour/bits/Atom-Text-Editor-edits-2_000_001-bytes/
+2017-09-25 12:38:14	<--	danslo (~daniel@546800BE.cm-12-1a.dynamic.ziggo.nl) has quit (Remote host closed the connection)
+2017-09-25 12:38:31	yasser	Everyone I know who used to use atom switched to VScode.
+2017-09-25 12:39:13	rts-sander	I only use vim when I need to edit something on a server or for really big files
+2017-09-25 12:39:44	foan	rindolf: https://i.imgur.com/Cxo3XxG.gif good one hahaha
+2017-09-25 12:39:48	rts-sander	sublime text 3 was recently released
+2017-09-25 12:39:56	grouse	rindolf, sad thing is I'm reading that and I'm not 100% convinced it's not real
+2017-09-25 12:40:27	foan	I do use ST3 on linux it's aesthetically pleasing
+2017-09-25 12:40:27	-->	DevAntoine (~DevAntoin@46.29.126.206) has joined ##programming
+2017-09-25 12:41:06	<--	Sigyn (sigyn@freenode/utility-bot/sigyn) has quit (Quit: NO HEARTBEAT, NO SERVICE.)
+2017-09-25 12:41:41	-->	Sigyn (sigyn@freenode/utility-bot/sigyn) has joined ##programming
+2017-09-25 12:41:51	merijn	<- grumpy vim curmudgeon
+2017-09-25 12:42:15	foan	what would you recommend on windows? atom? vscode?
+2017-09-25 12:42:18	-->	Karyon (~Karyon@unaffiliated/karyon) has joined ##programming
+2017-09-25 12:42:21	merijn	foan: Vim :p
+2017-09-25 12:42:37	grouse	basically asking to choose between red apple and green apple; they're practically the same
+2017-09-25 12:42:41	merijn	I used gvim for years on Windows (before I stopped coding on vim)
+2017-09-25 12:42:55	merijn	eh
+2017-09-25 12:42:56	rindolf	foan: :)
+2017-09-25 12:42:56	foan	I have trouble with vim... last time I got stuck there without food and water for two days...
+2017-09-25 12:42:58	<--	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has quit (Ping timeout: 264 seconds)
+2017-09-25 12:43:00	merijn	stopped coding on windows :)
+2017-09-25 12:43:01	rindolf	grouse: heh
+2017-09-25 12:43:16	sj1k	foan, Install the food and water plugins.
+2017-09-25 12:43:22	<--	adsc (1f180acd@gateway/web/freenode/ip.31.24.10.205) has quit (Quit: Page closed)
+2017-09-25 12:43:46	rindolf	foan: :q
+2017-09-25 12:43:53	--	bokonu is now known as monoko
+2017-09-25 12:43:56	rts-sander	:q!!!!! >:(
+2017-09-25 12:44:27	rindolf	rts-sander: can i borrow a "!"?
+2017-09-25 12:44:38	grouse	i still wanna see a proper editor project based on vim but not just a vim clone, might have to make it myself at this point
+2017-09-25 12:44:40	rts-sander	rindolf: sure 15% interest
+2017-09-25 12:44:57	rockman37	grouse: What's improper about vim?
+2017-09-25 12:45:10	rts-sander	based on vim but not a vim clone?
+2017-09-25 12:45:13	rockman37	grouse: Or do you just want to see someone base something on it?
+2017-09-25 12:45:14	rts-sander	what does that mean
+2017-09-25 12:45:23	Xatenev_	when I do tar -hcfz /tmp/output/my.tar.gz /tmp/folder it seems to extract into ./tmp/folder later on
+2017-09-25 12:45:25	grouse	rockman37, interface is terrible, ancient backend and vimscript for extensions is a situation no one wants
+2017-09-25 12:45:30	Xatenev_	how would I make it extract 'folder' only?
+2017-09-25 12:45:32	merijn	rockman37: I guess he means: "modal editing"
+2017-09-25 12:45:58	rockman37	grouse: Vim wouldn't be vim without the interface...
+2017-09-25 12:46:01	grouse	rockman37, and in general yes, I'd like to see what might come out of looking at vim, learning from it, and cutting out cruft, and modernising it (read: not electron)
+2017-09-25 12:46:08	rockman37	grouse: I must agree that I don't like vimscript much, though.
+2017-09-25 12:46:13	grouse	rockman37, no one does
+2017-09-25 12:46:16	yasser	If I were to recommend a text editor it would be VScode. I didn't try anything else, but everyone I know likes it.
+2017-09-25 12:46:22	rockman37	grouse: Probably something like elvis.
+2017-09-25 12:46:23	merijn	grouse: Still better than JS :p
+2017-09-25 12:46:39	-->	rizzo (~RizzoTheR@p4FFED10E.dip0.t-ipconnect.de) has joined ##programming
+2017-09-25 12:46:47	--	monoko is now known as d0048
+2017-09-25 12:46:49	grouse	merijn, yknow, I'm not convinced. but then I haven't used JS much in the past few years, while I have been trying to use vimscript to write some custom functionality. it's all terrible
+2017-09-25 12:47:05	SPEEDRAC1ST	grouse: I meant everything web related. including various backend tasks. those companies are centered around their web parts
+2017-09-25 12:47:06	ongy	neovim at least fixes the vimscript situation
+2017-09-25 12:47:08	merijn	grouse: You can script vim in Python or Ruby too
+2017-09-25 12:47:29	<--	justanotheruser (~justanoth@unaffiliated/justanotheruser) has quit (Ping timeout: 255 seconds)
+2017-09-25 12:47:38	grouse	rockman37, and nah. the core idea of vim's interface (chords, sequences, motions etc) that's good, but the implementation is... somewhat terrible
+2017-09-25 12:47:59	rockman37	grouse: Yeah, fair enough, but it's 'good enough'.
+2017-09-25 12:48:04	rockman37	grouse: Which is the problem, I guess.
+2017-09-25 12:48:07	grouse	merijn, I've looked at that, and don't really like the bindings, and it just seems to add another layer of badness
+2017-09-25 12:50:29	<--	Rashad (~rashad@213.139.53.18) has quit (Quit: ChatZilla 0.9.92-rdmsoft [XULRunner 35.0.1/20150122214805])
+2017-09-25 12:50:29	merijn	grouse: Sure, I'm not saying it's good :p
+2017-09-25 12:50:29	rts-sander	"based on my experience with exactly one editor I can make a nuanced recommendation" ok lol
+2017-09-25 12:50:29	grouse	merijn, granted not really tried to do anything proper with it
+2017-09-25 12:50:29	rockman37	I don't actually mind elisp as an extension language.
+2017-09-25 12:50:29	-->	Karyon_ (~Karyon@unaffiliated/karyon) has joined ##programming
+2017-09-25 12:50:29	grouse	elisp definitely beats vimscript that's for sure
+2017-09-25 12:50:29	grouse	I'd personally prefer something a bit more procedural and imperative though cause that's just what I'm comfortable with :p
+2017-09-25 12:50:29	ongy	extending vim feels very imperative
+2017-09-25 12:50:30	-->	Serpent7776 (~Serpent77@90-156-68-175.internetia.net.pl) has joined ##programming
+2017-09-25 12:50:30	SPEEDRAC1ST	mniip: facebook does use haskell, but it's negligble in the context of their overall codebase
+2017-09-25 12:50:30	ongy	which is why I didn't like it much...
+2017-09-25 12:50:30	rockman37	Unfortunately emacs took a lot more elisp to get the way I like than vim did vimscript.
+2017-09-25 12:50:45	mniip	SPEEDRAC1ST, I'd like to see you estimate what percent does their web frontend take up in their codebase
+2017-09-25 12:51:32	SPEEDRAC1ST	mniip: my source is a friend who works for them. he's not a programmer though, but DevOps
+2017-09-25 12:51:32	-->	django_ (~django_@unaffiliated/django-/x-8345756) has joined ##programming
+2017-09-25 12:51:32	-->	uksio (~uksio@p2003008DAC328A0C3842616DF1A2030F.dip0.t-ipconnect.de) has joined ##programming
+2017-09-25 12:51:32	SPEEDRAC1ST	mniip: web app is not just front end. I never said front end only
+2017-09-25 12:51:32	<--	Karyon (~Karyon@unaffiliated/karyon) has quit (Ping timeout: 240 seconds)
+2017-09-25 12:51:42	--	irc: disconnected from server
+2017-09-26 09:52:17	-->	yasser (~yasser@89.249.219.90) has joined ##programming
+2017-09-26 09:52:17	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-26 09:52:17	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-26 09:52:17	--	Channel ##programming: 692 nicks (1 op, 11 voices, 680 normals)
+2017-09-26 09:52:25	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-26 09:52:48	<--	CrazyH (~user@h166.1.187.173.dynamic.ip.windstream.net) has quit (Ping timeout: 248 seconds)
+2017-09-26 09:53:10	<--	Dalila (~Dalila@unaffiliated/dalila) has quit (Quit: Dalila)
+2017-09-26 09:53:20	+beaky	there's errno 127 http://sbexr.rabexc.org/latest/sources/2d/137df34f59553d.html "key expired" #define EKEYEXPIRED 127 /* Key has expired */
+2017-09-26 09:55:48	rockman37	That seems quite specific.
+2017-09-26 09:55:56	-->	jnollette (~jnollette@unaffiliated/jnollette) has joined ##programming
+2017-09-26 09:56:24	rockman37	This was postfix/sendmail, but the error might have been from sh. Not sure. Either way, it was transient.
+2017-09-26 09:57:36	+beaky	yes used with signed kernel modules http://www.oracle.com/technetwork/articles/servers-storage-admin/signed-kernel-modules-1891111.html
+2017-09-26 09:57:40	+beaky	or could it be selinux
+2017-09-26 09:57:44	-->	gambl0re (~gambl0re@unaffiliated/gambl0re) has joined ##programming
+2017-09-26 09:58:21	<--	Taelia_ (~Taelia@s559570f8.adsl.online.nl) has quit (Ping timeout: 252 seconds)
+2017-09-26 09:59:46	rockman37	I'm not on Linux :p
+2017-09-26 09:59:46	-->	Xatenev (~Xatenev@business-90-187-21-89.pool2.vodafone-ip.de) has joined ##programming
+2017-09-26 09:59:47	Xatenev	hello
+2017-09-26 09:59:47	+beaky	oh then disregard all that
+2017-09-26 09:59:53	+beaky	where r u man
+2017-09-26 10:00:01	+beaky	freebsd?
+2017-09-26 10:00:14	-->	kirua (~kirua@unaffiliated/kirua) has joined ##programming
+2017-09-26 10:00:20	rockman37	NetBSD in this case, but I run Free too.
+2017-09-26 10:00:32	-->	TheGreekOwl (~GreekOwl@2a02:587:4814:d600:adbe:3ce6:565f:52ff) has joined ##programming
+2017-09-26 10:00:32	rockman37	Xatenev: Panda.
+2017-09-26 10:00:37	<--	TheGreekOwl (~GreekOwl@2a02:587:4814:d600:adbe:3ce6:565f:52ff) has quit (Client Quit)
+2017-09-26 10:00:57	-->	TheGreekOwl (~GreekOwl@2a02:587:4814:d600:adbe:3ce6:565f:52ff) has joined ##programming
+2017-09-26 10:02:34	-->	jaak_ (~textual@79.142.255.46) has joined ##programming
+2017-09-26 10:03:35	+beaky	man sh: A full search of the directories in PATH is per-formed only if the command is not found in the hash table.  If the search is unsuccessful, the shell prints an error message and returns an exit status of 127.
+2017-09-26 10:03:49	-->	guccimeow (~guccimeow@CPE-121-223-6-217.lnse2.cha.bigpond.net.au) has joined ##programming
+2017-09-26 10:04:05	<--	Raging_Hog (~heikki@193.64.112.22) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:04:05	nostalgiccloud	I'm tired
+2017-09-26 10:04:07	nostalgiccloud	night guys
+2017-09-26 10:04:14	-->	Raging_Hog (~heikki@193.64.112.22) has joined ##programming
+2017-09-26 10:04:47	--	f00fSteR is now known as f00f[away]
+2017-09-26 10:05:21	FManTropyx	good night
+2017-09-26 10:05:46	FManTropyx	I think I will bed too, but not sleep :)
+2017-09-26 10:06:01	-->	ackpacket3 (~ackpacket@c-24-5-3-14.hsd1.ca.comcast.net) has joined ##programming
+2017-09-26 10:06:07	<--	govg (~govg@unaffiliated/govg) has quit (Ping timeout: 260 seconds)
+2017-09-26 10:06:10	rockman37	beaky: Indeed, but I'm not sure how to tell if the 127 comes from sh or from the command it invoked.
+2017-09-26 10:06:20	<--	badon (~badon@pdpc/supporter/active/badon) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:06:21	-->	davr0s (~textual@host81-155-67-232.range81-155.btcentralplus.com) has joined ##programming
+2017-09-26 10:06:25	-->	biberu (~biberu@c-dfd571d5.08-441-7570702.cust.bredbandsbolaget.se) has joined ##programming
+2017-09-26 10:06:41	--	ackpacket3 is now known as ackpacket
+2017-09-26 10:06:52	<--	ackpacket (~ackpacket@c-24-5-3-14.hsd1.ca.comcast.net) has quit (Changing host)
+2017-09-26 10:06:52	-->	ackpacket (~ackpacket@unaffiliated/ackpacket) has joined ##programming
+2017-09-26 10:07:02	+beaky	definitely comes from sh
+2017-09-26 10:07:27	+beaky	"If a command is not found, the child process created to execute it returns a status of 127."
+2017-09-26 10:07:49	-->	govg (~govg@unaffiliated/govg) has joined ##programming
+2017-09-26 10:08:42	-->	Folkol (~Folkol@h-160-222.A137.corp.bahnhof.se) has joined ##programming
+2017-09-26 10:09:08	<--	damke__ (~damke@unaffiliated/damke) has quit (Quit: quit)
+2017-09-26 10:09:27	-->	s-q-n (~szu@46.238.214.108) has joined ##programming
+2017-09-26 10:11:01	ongy	so? nobody prevents the actual child from returning 127
+2017-09-26 10:11:09	<--	horny-sama (~hetzer@unaffiliated/horny-sama) has quit (Quit: Leaving)
+2017-09-26 10:11:46	<--	guccimeow (~guccimeow@CPE-121-223-6-217.lnse2.cha.bigpond.net.au) has quit (Ping timeout: 264 seconds)
+2017-09-26 10:12:05	<--	kirua (~kirua@unaffiliated/kirua) has quit (Remote host closed the connection)
+2017-09-26 10:13:00	<--	gambl0re (~gambl0re@unaffiliated/gambl0re) has quit (Ping timeout: 255 seconds)
+2017-09-26 10:14:35	-->	asmcoder (~asmcoder@2405:204:319d:3315:6836:29e:a43:74a8) has joined ##programming
+2017-09-26 10:15:33	-->	CrazyH (~user@cpe-172-72-58-101.carolina.res.rr.com) has joined ##programming
+2017-09-26 10:15:33	Xatenev	"Signed is simply not safe for binary manipulation."
+2017-09-26 10:15:33	Xatenev	Can somebody explain that quote to me :p
+2017-09-26 10:15:43	Xatenev	why is that the case
+2017-09-26 10:16:07	rockman37	Out of context, does it have to do with the way a signed number is represented being platform-specific?
+2017-09-26 10:17:18	Xatenev	The original discussion was about http://php.net/manual/de/function.pack.php offered no signed-short big endian?
+2017-09-26 10:17:37	Xatenev	was about why*
+2017-09-26 10:17:46	<--	Qu4ntum (~Qu4ntum@unaffiliated/qu4ntum) has quit (Quit: Qu4ntum)
+2017-09-26 10:18:46	rockman37	I don't know PHP (or German), so I can't help there much.
+2017-09-26 10:18:52	liste	Xatenev: could be a 1's complement vs 0's complement thing
+2017-09-26 10:19:02	-->	badon (~badon@pdpc/supporter/active/badon) has joined ##programming
+2017-09-26 10:19:03	Xatenev	rockman37, well you can change the language
+2017-09-26 10:19:06	Xatenev	rockman37, just saying .p
+2017-09-26 10:19:20	liste	Xatenev: but in any case, if you swap two bytes, and then swap them back, the result is identical
+2017-09-26 10:19:21	Xatenev	rockman37, and the question has nothing to do iwth PHP so...
+2017-09-26 10:19:47	liste	Xatenev: so the "swapping being unsafe" argument sounds like bullshit
+2017-09-26 10:20:49	-->	SuperJen (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has joined ##programming
+2017-09-26 10:20:49	Xatenev	liste, Hm
+2017-09-26 10:20:49	Xatenev	liste, scrolling up in the conv to find more :p
+2017-09-26 10:20:49	Xatenev	liste, "Swapping the bytes of a signed number could cause unwanted values to appear."
+2017-09-26 10:20:53	-->	Felishia (3eed2022@gateway/web/freenode/ip.62.237.32.34) has joined ##programming
+2017-09-26 10:21:00	-->	jnollette_ (~jnollette@camel.aim.mn) has joined ##programming
+2017-09-26 10:21:00	Felishia	:o
+2017-09-26 10:21:07	liste	let's make a little experiment. a 8-bit 1's complement number, -5
+2017-09-26 10:21:12	liste	it's 1111 1011
+2017-09-26 10:21:13	Felishia	:D
+2017-09-26 10:21:17	liste	now let's swap the nybbles
+2017-09-26 10:21:22	liste	1011 1111
+2017-09-26 10:21:36	Felishia	what does that mean?
+2017-09-26 10:21:36	liste	that's -65
+2017-09-26 10:21:43	<--	jnollette (~jnollette@unaffiliated/jnollette) has quit (Quit: All your IRC are belong to ZNC)
+2017-09-26 10:21:50	Felishia	I came in the middle of someting
+2017-09-26 10:21:52	rockman37	Xatenev: I see. Since you mentioned discussion, I assumed there was some discussion in German on that page.
+2017-09-26 10:22:03	<--	jnollette_ (~jnollette@camel.aim.mn) has quit (Client Quit)
+2017-09-26 10:22:03	Xatenev	rockman37, nono
+2017-09-26 10:22:12	rockman37	Xatenev: o ok
+2017-09-26 10:22:13	-->	jnollette (~jnollette@unaffiliated/jnollette) has joined ##programming
+2017-09-26 10:22:15	-->	ympek (~ympek@ate74.neoplus.adsl.tpnet.pl) has joined ##programming
+2017-09-26 10:22:24	Xatenev	rockman37, just a quote out of an IRC convo
+2017-09-26 10:23:06	liste	Xatenev: I think the problem is that PHP's signed integer can have arbitrary number of bits
+2017-09-26 10:23:50	<--	aosfields (~aosfields@2601:246:4e04:2000:81cb:4fff:cd09:d11) has quit (Ping timeout: 255 seconds)
+2017-09-26 10:23:59	liste	Xatenev: so if you swap the bits around, you don't always know whether to extend the sign bits with 0 or 1
+2017-09-26 10:24:33	Xatenev	liste, becuase the size of an integer is platform dependent?
+2017-09-26 10:24:37	liste	Xatenev: yes
+2017-09-26 10:24:42	-->	murii (~murii@gw1.computervoice.ro) has joined ##programming
+2017-09-26 10:25:20	<--	Nowyouseeme (~Nowyousee@123.201.218.165) has quit (Quit: Leaving)
+2017-09-26 10:26:05	<--	Amalynn (~Amalynn@unaffiliated/amalynn) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:26:51	-->	Jen (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has joined ##programming
+2017-09-26 10:26:51	-->	schneu (~cholley@2001:6b0:2:2801:de53:3741:6e7d:d256) has joined ##programming
+2017-09-26 10:26:51	Xatenev	liste, in C they are platform dependent too right
+2017-09-26 10:26:51	Xatenev	liste, so I guess its a genreal problem
+2017-09-26 10:27:15	Xatenev	or not problem but.. its the way it is
+2017-09-26 10:27:16	Xatenev	:
+2017-09-26 10:27:16	Xatenev	.p
+2017-09-26 10:27:19	Xatenev	liste, thank you
+2017-09-26 10:27:51	-->	rindolf (~rindolf@IGLD-84-229-87-207.inter.net.il) has joined ##programming
+2017-09-26 10:28:43	<--	SuperJen (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has quit (Ping timeout: 240 seconds)
+2017-09-26 10:29:50	-->	WarumD (~textual@2-233-31-122.ip215.fastwebnet.it) has joined ##programming
+2017-09-26 10:30:10	-->	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has joined ##programming
+2017-09-26 10:30:14	-->	squeakytoy2 (~squeakyto@h87-96-232-70.cust.se.alltele.net) has joined ##programming
+2017-09-26 10:30:51	liste	Xatenev: you're welcome
+2017-09-26 10:31:12	<--	freddylisbon (~fjalexand@12.38.215.141) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:32:14	-->	freddylisbon (~fjalexand@12.38.215.141) has joined ##programming
+2017-09-26 10:32:48	<--	Fekinox (~Zen@cpe-74-72-183-234.nyc.res.rr.com) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:32:48	<--	Dr-G (~Dr-G@unaffiliated/dr-g) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:32:48	<--	squeakytoy (~squeakyto@h87-96-232-70.cust.se.alltele.net) has quit (Ping timeout: 248 seconds)
+2017-09-26 10:33:06	-->	Fekinox (~Zen@cpe-74-72-183-234.nyc.res.rr.com) has joined ##programming
+2017-09-26 10:33:08	-->	aosfields (~aosfields@71.194.3.30) has joined ##programming
+2017-09-26 10:33:50	<--	aosfields (~aosfields@71.194.3.30) has quit (Remote host closed the connection)
+2017-09-26 10:33:54	rindolf	hi all
+2017-09-26 10:34:03	rockman37	Hi rindolf
+2017-09-26 10:34:14	rindolf	rockman37: sup?
+2017-09-26 10:34:40	rockman37	rindolf: panda
+2017-09-26 10:34:46	-->	drabard (systemd-ti@host-213-5-210-87.wtvk.pl) has joined ##programming
+2017-09-26 10:34:51	rindolf	rockman37: ah
+2017-09-26 10:34:55	liste	panda's up? how'd he get there?
+2017-09-26 10:35:46	rockman37	C'mon everyone! Panda's up!
+2017-09-26 10:36:24	Xatenev	liste, climbing
+2017-09-26 10:36:32	Xatenev	they can climb trees
+2017-09-26 10:37:22	rindolf	rockman37: I have new fonts' trouble on my Mageia Cauldron system
+2017-09-26 10:37:28	-->	DevAntoine (~DevAntoin@46.29.126.206) has joined ##programming
+2017-09-26 10:37:44	-->	Ouchy`w (~Ouchy@c-174-59-115-31.hsd1.pa.comcast.net) has joined ##programming
+2017-09-26 10:38:09	rockman37	rindolf: Trouble with new fonts?
+2017-09-26 10:38:23	rindolf	rockman37: no - a new trouble
+2017-09-26 10:39:01	rockman37	That's worse :(
+2017-09-26 10:39:29	-->	Dr-G (~Dr-G@unaffiliated/dr-g) has joined ##programming
+2017-09-26 10:40:29	<--	bradfordli123 (~bradfordl@c-73-158-14-36.hsd1.ca.comcast.net) has quit (Remote host closed the connection)
+2017-09-26 10:40:56	<--	Jen (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has quit (Ping timeout: 255 seconds)
+2017-09-26 10:41:19	-->	im0nde (~im0nde@pD95F1122.dip0.t-ipconnect.de) has joined ##programming
+2017-09-26 10:43:40	iawc	trouble = new trouble ();
+2017-09-26 10:45:15	-->	sammyg (~sammyg@unaffiliated/sammyg) has joined ##programming
+2017-09-26 10:47:00	<--	ezekielnoob (~ezekielno@120.28.111.154) has quit (Quit: ezekielnoob)
+2017-09-26 10:48:54	-->	lowin (~lowin@unaffiliated/lowin) has joined ##programming
+2017-09-26 10:51:04	-->	JenElizabeth (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has joined ##programming
+2017-09-26 10:51:13	rockman37	double trouble;
+2017-09-26 10:51:34	iawc	Dunkin' donut double.
+2017-09-26 10:51:46	rockman37	I hate that kind.
+2017-09-26 10:51:59	--	f00f[away] is now known as f00fSteR
+2017-09-26 10:52:38	<--	LooneyTunes (~james@2601:647:4d00:ab16:24bd:4fe4:93ab:2781) has quit (Ping timeout: 255 seconds)
+2017-09-26 10:55:15	--	f00fSteR is now known as f00f[away]
+2017-09-26 10:55:23	rockman37	I wonder how many people have tested this: https://xkcd.com/323/
+2017-09-26 10:55:26	<--	Folkol (~Folkol@h-160-222.A137.corp.bahnhof.se) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-26 11:01:33	--	irc: disconnected from server
+2017-09-26 11:02:08	-->	yasser (~yasser@89.249.219.90) has joined ##programming
+2017-09-26 11:02:08	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-26 11:02:08	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-26 11:02:08	--	Channel ##programming: 707 nicks (1 op, 11 voices, 695 normals)
+2017-09-26 11:02:11	adsc	because a bad test is no test at all
+2017-09-26 11:02:12	rockman37	liste: Shall I expect to find this on kickstarter soon?
+2017-09-26 11:02:17	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-26 11:02:30	<--	zergut (uid221522@taskhive/translator/zergut) has quit (Quit: Connection closed for inactivity)
+2017-09-26 11:02:52	<--	Betal (~Betal@unaffiliated/betal) has quit (Remote host closed the connection)
+2017-09-26 11:02:55	liste	rockman37: nah, I think most people still prefer the whiskey
+2017-09-26 11:03:14	<--	schneu (~cholley@2001:6b0:2:2801:de53:3741:6e7d:d256) has quit (Ping timeout: 246 seconds)
+2017-09-26 11:03:17	iawc	Activation with CD key.
+2017-09-26 11:03:24	rockman37	liste: I do :)
+2017-09-26 11:05:29	-->	hakra (~sammyg@unaffiliated/sammyg) has joined ##programming
+2017-09-26 11:06:02	iawc	Nah, week on end, it's another forfeit.
+2017-09-26 11:09:04	<--	sammyg (~sammyg@unaffiliated/sammyg) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:09:04	<--	FManTropyx (~fooman@37-136-77-33.rev.dnainternet.fi) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:10:05	-->	ogradyd (~Thunderbi@2a02:8070:88ac:21f0:ecdc:bee4:67b6:aa18) has joined ##programming
+2017-09-26 11:10:35	<--	ackpacket (~ackpacket@unaffiliated/ackpacket) has quit (Ping timeout: 240 seconds)
+2017-09-26 11:12:07	-->	zergut (uid221522@taskhive/translator/zergut) has joined ##programming
+2017-09-26 11:12:08	<--	ympek (~ympek@ate74.neoplus.adsl.tpnet.pl) has quit (Ping timeout: 240 seconds)
+2017-09-26 11:13:32	-->	merijn (~merijn@wcw-staff-145-18-168-89.wireless.uva.nl) has joined ##programming
+2017-09-26 11:14:40	-->	acidjnk (~acidjnk22@p4FFBD583.dip0.t-ipconnect.de) has joined ##programming
+2017-09-26 11:17:36	-->	damke (~damke@unaffiliated/damke) has joined ##programming
+2017-09-26 11:17:46	<--	acetakwas (~acetakwas@154.65.5.250) has quit (Read error: Connection reset by peer)
+2017-09-26 11:18:20	<--	badon (~badon@pdpc/supporter/active/badon) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:19:02	<--	hppavilion[1] (~dosgmowdo@93-231-58-66.gci.net) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:19:23	+beaky	are there books like norvig's paip, but for embedded development
+2017-09-26 11:19:45	-->	schneu (~cholley@liv811l.fsc.chalmers.se) has joined ##programming
+2017-09-26 11:21:35	--	ibouvousaime is now known as wustenqualle
+2017-09-26 11:22:50	-->	personlearner (259d265b@gateway/web/freenode/ip.37.157.38.91) has joined ##programming
+2017-09-26 11:23:41	<--	energizer (~energizer@unaffiliated/energizer) has quit (Ping timeout: 264 seconds)
+2017-09-26 11:23:41	personlearner	Can someone please tell me what I would use the Decorator Design pattern and not just call the `super()` method
+2017-09-26 11:23:41	personlearner	what's the difference?
+2017-09-26 11:23:41	-->	badon (~badon@pdpc/supporter/active/badon) has joined ##programming
+2017-09-26 11:23:41	personlearner	I don't see the use of injected the same type and it extends
+2017-09-26 11:24:21	-->	interop_madness (~interop_m@firewall.technodat.co.at) has joined ##programming
+2017-09-26 11:24:21	<--	interop_madness (~interop_m@firewall.technodat.co.at) has quit (Changing host)
+2017-09-26 11:24:21	-->	interop_madness (~interop_m@unaffiliated/interop-madness/x-8858653) has joined ##programming
+2017-09-26 11:25:46	-->	drptbl (~drptbl@213-241-25-178.static.ip.netia.com.pl) has joined ##programming
+2017-09-26 11:25:57	+vendu	hello planet :)
+2017-09-26 11:26:08	benny-innofaith	Planet: Hello Vendu :)
+2017-09-26 11:26:10	+vendu	does anyone know of a short book/paper on "basics" of compiler implementation? :)
+2017-09-26 11:26:13	+vendu	benny-innofaith, hello :)
+2017-09-26 11:26:14	-->	_26thmeusoc (~26thmeuso@p4FC5BF5D.dip0.t-ipconnect.de) has joined ##programming
+2017-09-26 11:26:31	+vendu	i have a book on concurrent pascal on minicomputers, but not sure where it is :)
+2017-09-26 11:26:56	+vendu	i think i short of figured out register allocation last night :)
+2017-09-26 11:27:00	+vendu	sort*
+2017-09-26 11:28:02	merijn	vendu: Depends which aspect of compilers you're interested in :)
+2017-09-26 11:28:39	+vendu	merijn, implementing a simple c compiler, first for my own virtual architecture :)
+2017-09-26 11:29:49	+vendu	i.e. the backend code generator would spit out vm assembly :)
+2017-09-26 11:29:49	+vendu	i have some stuff such as very simple tokeniser
+2017-09-26 11:29:49	+vendu	i know how to handle and evaluate c expression's with dijsktra's shunting yard algo :)
+2017-09-26 11:29:49	+vendu	i'm writing down notes + code for register allocation
+2017-09-26 11:29:49	+vendu	oh
+2017-09-26 11:29:49	<--	jadew (~razvan@unaffiliated/jadew) has quit (Ping timeout: 240 seconds)
+2017-09-26 11:29:49	+vendu	merijn, let me show you something that might be interesting =)
+2017-09-26 11:30:05	merijn	vendu: Sadly I only have a positive recommendation about the type checking side of things. And a negative recommendation for the Dragon book (it is severely dated and wastes too much time on minutiae of parsing)
+2017-09-26 11:30:29	+vendu	https://github.com/vendu/OS-Zero/blob/master/usr/tools/valhalla/vpu/v0/doc/C_PROGRAMS.txt <- early, might have mistakes, but it's a start :)
+2017-09-26 11:30:41	adsc	personlearner: https://stackoverflow.com/questions/4842978/decorator-pattern-versus-sub-classing
+2017-09-26 11:30:51	merijn	Most compiler courses I'm familiar with (including ours) use a small syllabus combined with lots of hands-on coding over a specific book
+2017-09-26 11:30:55	+vendu	merijn, oh i have a small assembler too :)
+2017-09-26 11:31:07	+vendu	which doesn't use anything external for parsing/grammar etc. :P
+2017-09-26 11:31:20	+vendu	so it's ad hoc (luckily, assembly isn't hard to parse)
+2017-09-26 11:31:22	personlearner	Thanks :(
+2017-09-26 11:31:27	+vendu	for the most part, c isn't either :)
+2017-09-26 11:31:43	merijn	vendu: Are you hand-writing the parser, using flex/bison, or using ANTLR?
+2017-09-26 11:31:53	+vendu	merijn, by hand :)
+2017-09-26 11:31:56	merijn	C is easy-peasy to parse. C++ is hell :)
+2017-09-26 11:34:02	+vendu	i think
+2017-09-26 11:34:02	+vendu	:)
+2017-09-26 11:34:02	+vendu	merijn, yup :)
+2017-09-26 11:34:02	+vendu	merijn, check out the link above and tell me what you think :)
+2017-09-26 11:34:02	+vendu	merijn, i'm kinda setting up to document something i haven't documented very clearly in any single place before :)
+2017-09-26 11:34:02	+vendu	the close relation of c and asm/machine :)
+2017-09-26 11:34:02	+vendu	haven't see*
+2017-09-26 11:34:02	+vendu	n
+2017-09-26 11:34:02	merijn	vendu: I know a couple of blogposts on writing a basic imperative compiler in Haskell using LLVM. Not directly useful for handwriting something, but might give you some idea on how to structure/implement things: http://www.stephendiehl.com/llvm/
+2017-09-26 11:34:02	+vendu	merijn, llvm is a quite-possible target, yes :)
+2017-09-26 11:34:02	<--	Felishia (3eed2022@gateway/web/freenode/ip.62.237.32.34) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:34:02	+vendu	merijn, or something like "vcode"; a vector-based intermediate presentation :)
+2017-09-26 11:34:02	<--	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has quit (Ping timeout: 246 seconds)
+2017-09-26 11:34:02	+vendu	now let me extend that doc i just linked a bit
+2017-09-26 11:34:02	+vendu	:D
+2017-09-26 11:34:02	Xatenev	vendu, merijn do you think writing your own small compiler is a good exercise to get a better foundation on the basics?
+2017-09-26 11:34:02	+vendu	i'm in the mood for writing and hacking :)
+2017-09-26 11:34:05	+vendu	Xatenev, most likely very good :)
+2017-09-26 11:34:12	+vendu	Xatenev, did you catch my link above?
+2017-09-26 11:34:21	Xatenev	vendu, eh I guess not
+2017-09-26 11:34:35	+vendu	Xatenev, https://github.com/vendu/OS-Zero/blob/master/usr/tools/valhalla/vpu/v0/doc/C_PROGRAMS.txt
+2017-09-26 11:34:37	merijn	Xatenev: I think taking a compiler course was one of the single most useful things I've done in my degree.
+2017-09-26 11:34:41	+vendu	very early, but might be worth checking out now and again =)
+2017-09-26 11:34:47	merijn	Xatenev: (I help TA it now)
+2017-09-26 11:35:05	merijn	Xatenev: Students consistently rate it as both one of the hardest and most educational things they've done
+2017-09-26 11:35:07	adsc	personlearner: why the sad fave?
+2017-09-26 11:35:22	Xatenev	vendu, I will read it today evening at home, thank oyu
+2017-09-26 11:35:45	Xatenev	merijn, sounds cool, I guess I will try to write my own small compiler if its really as useful as you say
+2017-09-26 11:35:48	merijn	vendu: There's a couple of book recommendations at the bottom of our course page. I have to admit I haven't read any of them, but they're better than nothing I suppose
+2017-09-26 11:36:45	Xatenev	merijn, might help out to get a better view on the basics =)
+2017-09-26 11:36:45	merijn	vendu: https://staff.science.uva.nl/c.u.grelck/teaching/coco1718.html
+2017-09-26 11:36:45	+beaky	parsing C: http://dangerousprototypes.com/blog/wp-content/media/2011/11/PIC16F1827BoardTitle.jpg versus parsing C++: https://blog.adafruit.com/wp-content/uploads/2010/07/wholeLottaStripboard_cc.jpg
+2017-09-26 11:36:45	<--	_26thmeusoc (~26thmeuso@p4FC5BF5D.dip0.t-ipconnect.de) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-09-26 11:36:45	merijn	Xatenev: Once you know how to write a compiler, every programming problem looks like a language problem ;)
+2017-09-26 11:36:45	Xatenev	heh
+2017-09-26 11:36:45	+beaky	versus parsing xml: http://www.bigmessowires.com/wiring/BMOW%20Photos%20004.jpg
+2017-09-26 11:36:45	-->	phenoptik (~phenoptik@108-226-181-110.lightspeed.hstntx.sbcglobal.net) has joined ##programming
+2017-09-26 11:37:07	-->	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has joined ##programming
+2017-09-26 11:37:19	<--	m712 (~annoying@unaffiliated/thefam) has quit (Ping timeout: 248 seconds)
+2017-09-26 11:37:24	Xatenev	merijn, vendu What do you think are good resources to learn how RAM/CPU/PC genreal stuff works?
+2017-09-26 11:37:49	+vendu	beaky, =)
+2017-09-26 11:37:51	merijn	vendu: Honestly, the code generation (especially if you're comfortable with C and a bit of assembly) is mostly trivial and self-explanatory (register allocation is a bitch, but plenty of stuff has been written on that and if you target a VM you can pretend it doesn't exist)
+2017-09-26 11:38:55	-->	m712 (~annoying@unaffiliated/thefam) has joined ##programming
+2017-09-26 11:38:55	merijn	Xatenev: Tanenbaum's "Structured Computer Organization" is a good intro into how RAM/CPU/hardware works
+2017-09-26 11:38:59	--	f00f[away] is now known as f00fSteR
+2017-09-26 11:39:32	<--	personlearner (259d265b@gateway/web/freenode/ip.37.157.38.91) has quit (Quit: Page closed)
+2017-09-26 11:39:33	Xatenev	merijn, thank you
+2017-09-26 11:39:46	merijn	Xatenev: And his book "Operating Systems: Design & Implementation" is an excellent intro into the basics of (*nix) operating systems (filesystems, virtual memory, paging, process management, scheduling, etc.)
+2017-09-26 11:39:48	<--	Folkol (~Folkol@h-160-222.A137.corp.bahnhof.se) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-26 11:39:49	+beaky	parsing natural language: https://hivizme.files.wordpress.com/2012/06/cable-mess.jpg
+2017-09-26 11:39:52	-->	Ladus (~Lotheladu@175.79-161-186.customer.lyse.net) has joined ##programming
+2017-09-26 11:40:06	merijn	Xatenev: Most of the stuff should be applicable to any modern operating system, tbh (including windows)
+2017-09-26 11:40:15	-->	jan64 (~jan64@79.184.146.32.ipv4.supernova.orange.pl) has joined ##programming
+2017-09-26 11:40:31	<--	jan64 (~jan64@79.184.146.32.ipv4.supernova.orange.pl) has quit (Read error: Connection reset by peer)
+2017-09-26 11:40:53	merijn	And really, all his books were always (for me) both 1) very readable and 2) very enlightening
+2017-09-26 11:41:06	liste	beaky: do you know Attempto Controlled English?
+2017-09-26 11:41:07	Xatenev	merijn, thank you
+2017-09-26 11:41:11	iawc	All on top.  Can't go any less.
+2017-09-26 11:41:12	Xatenev	merijn, I will get all of those and read them
+2017-09-26 11:41:13	merijn	Bonus of the OS one, it uses MINIX as specific example and the MINIX source is very readable and clean
+2017-09-26 11:41:20	--	f00fSteR is now known as f00f[away]
+2017-09-26 11:41:38	+beaky	A man tries-on a new tie. If the tie pleases his wife then the man buys it.
+2017-09-26 11:41:40	-->	v4ult (~V4ult@217.138.14.202) has joined ##programming
+2017-09-26 11:41:57	-->	guccimeow (~guccimeow@CPE-58-165-37-15.lns1.lon.bigpond.net.au) has joined ##programming
+2017-09-26 11:42:32	-->	HcsOmot (~HcsOmot@45.77.98.117) has joined ##programming
+2017-09-26 11:42:35	-->	DocTator (~doron@cpe-24-168-40-249.hvc.res.rr.com) has joined ##programming
+2017-09-26 11:42:43	liste	a good example :D
+2017-09-26 11:43:05	DocTator	hey guys, im just learning awk and bash scripting
+2017-09-26 11:43:07	-->	grouse (~grouse@80.71.2.213) has joined ##programming
+2017-09-26 11:43:10	DocTator	gonna be learning C++ soon
+2017-09-26 11:43:16	rockman37	DocTator: Cool.
+2017-09-26 11:43:19	+beaky	nice
+2017-09-26 11:43:23	rockman37	Well, the first half :p
+2017-09-26 11:43:29	liste	ACE+a restricted input method (not free-text) could be workable
+2017-09-26 11:43:30	Xatenev	awk & bash are so awful
+2017-09-26 11:43:30	Xatenev	holy
+2017-09-26 11:43:31	Xatenev	:D
+2017-09-26 11:43:36	DocTator	lol
+2017-09-26 11:43:37	+beaky	why not learn lisp
+2017-09-26 11:43:40	rockman37	Xatenev: Really?
+2017-09-26 11:43:41	merijn	Xatenev: wut?
+2017-09-26 11:43:42	grouse	Xatenev, panda
+2017-09-26 11:43:45	merijn	Xatenev: awk is amazing
+2017-09-26 11:43:45	DocTator	just wanna be able to automate stuff, really.
+2017-09-26 11:43:46	liste	awk's not that horrible IMO
+2017-09-26 11:43:51	merijn	bash is shite
+2017-09-26 11:43:54	liste	merijn++
+2017-09-26 11:43:58	Xatenev	merijn, bash is shit - awk is.. decent compared to sed atleast
+2017-09-26 11:43:58	+beaky	is lisp shite too? :<
+2017-09-26 11:44:02	Xatenev	i wouldnt call it good
+2017-09-26 11:44:03	Xatenev	lol
+2017-09-26 11:44:05	rockman37	Bash is pretty arcane.
+2017-09-26 11:44:08	-->	norayr (~noch@46.162.196.54) has joined ##programming
+2017-09-26 11:44:17	Xatenev	grouse, panda
+2017-09-26 11:44:22	DocTator	you guys recommend lisp then?
+2017-09-26 11:44:26	-->	jan64 (~jan64@79.184.146.32.ipv4.supernova.orange.pl) has joined ##programming
+2017-09-26 11:44:26	adsc	DocTator: why C++? it's a bit overkill for automation
+2017-09-26 11:44:45	DocTator	adsc : the idea being if i learn C++ higher level languages won't be so tough to pick up on
+2017-09-26 11:44:46	adsc	something like python would be far better for that imo
+2017-09-26 11:44:57	grouse	DocTator, do it, c++ all the things
+2017-09-26 11:44:58	adsc	or perl even
+2017-09-26 11:45:02	DocTator	trying to get chops in programming and sysadmin
+2017-09-26 11:45:02	grouse	DocTator, or better yet, start with c
+2017-09-26 11:45:30	 *	iawc yaps
+2017-09-26 11:46:22	liste	DocTator: for sysadmin, bash and perl are the traditional choices, and python and ruby are contenders
+2017-09-26 11:46:22	Xatenev	merijn, I ordered both books #letsgo
+2017-09-26 11:46:22	<--	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:46:22	DocTator	liste : ever hear of Haskell?
+2017-09-26 11:46:25	Xatenev	merijn, I'll be a low-level warrior in 2 months
+2017-09-26 11:46:27	<--	guccimeow (~guccimeow@CPE-58-165-37-15.lns1.lon.bigpond.net.au) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:46:49	<--	rts-sander (54f1c05d@gateway/web/freenode/ip.84.241.192.93) has quit (Ping timeout: 260 seconds)
+2017-09-26 11:46:51	liste	DocTator: yes, it's great, but it's not very often used for sysadmin. if you want to try it for admin stuff, try Turtle
+2017-09-26 11:47:07	Xatenev	merijn, In what order do you recommend those two books?
+2017-09-26 11:47:10	DocTator	turtle? that's a new one, I'll look into that.
+2017-09-26 11:47:22	liste	DocTator: it's a Haskell library for doing shell stuff
+2017-09-26 11:47:23	+vendu	Xatenev, i'd start from hyde's write great code, volume one - understanding the machine
+2017-09-26 11:47:29	+vendu	very good, even inexpensive book :)
+2017-09-26 11:47:31	grouse	Xatenev, which books?
+2017-09-26 11:47:36	liste	DocTator: https://hackage.haskell.org/package/turtle
+2017-09-26 11:47:36	iawc	Twofish or blowfish encryption...
+2017-09-26 11:48:18	DocTator	liste : cool, thanks! :)
+2017-09-26 11:48:48	<--	hakra (~sammyg@unaffiliated/sammyg) has quit (Quit: Hmm...)
+2017-09-26 11:49:10	Xatenev	grouse, I asked what books are recommended to get a better foundation in the low level stuff and merijn recommended "Operating Systems Design and Implementation, " and "STRUCTURED
+2017-09-26 11:49:10	Xatenev	COMPUTER ORGANIZATION"
+2017-09-26 11:49:20	merijn	Xatenev: Depends on your interest. Although knowing some hardware basics might help understand some of the OS choices
+2017-09-26 11:49:24	grouse	Xatenev, ah
+2017-09-26 11:49:27	liste	DocTator: note that it's a little bit more work to get started with than eg. bash
+2017-09-26 11:49:29	DocTator	im learning operating systems theory right now
+2017-09-26 11:49:39	DocTator	we're messing with assembler based "how is memory partitioned" lol
+2017-09-26 11:49:42	<--	Dreg (~Dreg@fr33project.org) has quit (Quit: Dreg)
+2017-09-26 11:49:51	--	f00f[away] is now known as f00fSteR
+2017-09-26 11:49:54	DocTator	its like everything about hard drives, but inside RAM.
+2017-09-26 11:50:06	grouse	Xatenev, on that note I've heard very good things about "Computer Systems: A Programmer's Perspective". it's on my list for the next month or so but no first hand experience yet
+2017-09-26 11:50:07	-->	b_ray (~b_ray@2605:a601:1153:f900:4b3:730:d50d:92b8) has joined ##programming
+2017-09-26 11:50:15	DocTator	combined with everything you've ever wanted to know about why BSODs actually happen.
+2017-09-26 11:50:21	-->	Dreg (~Dreg@fr33project.org) has joined ##programming
+2017-09-26 11:50:22	--	f00fSteR is now known as f00f[away]
+2017-09-26 11:50:28	+beaky	what is virtual memory
+2017-09-26 11:50:41	DocTator	swap space.
+2017-09-26 11:50:45	grouse	Xatenev, ISBN-13: 978-0136108047
+2017-09-26 11:50:47	grouse	Xatenev, fwiw
+2017-09-26 11:50:57	DocTator	you can pretend you have more ram than you actually have.
+2017-09-26 11:50:58	+vendu	Xatenev, the hyde book is quite practical :)
+2017-09-26 11:51:00	Xatenev	grouse, its on my pc already
+2017-09-26 11:51:01	Xatenev	grouse, heh
+2017-09-26 11:51:06	grouse	Xatenev, well fancy that :P
+2017-09-26 11:51:10	DocTator	well, rathe, you can make your computer think you have more RAM than you actually have
+2017-09-26 11:51:27	merijn	Virtual memory is so much more than making your computer think you have more RAM than you have
+2017-09-26 11:51:28	mniip	how would I approach this practical task
+2017-09-26 11:51:36	merijn	That is why it was invented, but not what makes it useful today
+2017-09-26 11:51:37	Xatenev	vendu, grouse merijn I  will read all of the books
+2017-09-26 11:51:38	+beaky	ye surely virtual memory is more than merely being swap space
+2017-09-26 11:51:38	<--	Kol (Kol@S0106bcd1656621da.vc.shawcable.net) has quit
+2017-09-26 11:51:41	grouse	Xatenev, merijn I assume that's the tenenbaum one right?
+2017-09-26 11:51:41	Xatenev	vendu, grouse merijn thanks
+2017-09-26 11:51:45	Xatenev	grouse, yep
+2017-09-26 11:51:47	--	f00f[away] is now known as f00fSteR
+2017-09-26 11:51:47	merijn	grouse: Yeah
+2017-09-26 11:51:47	Xatenev	all the tanenbaum things
+2017-09-26 11:52:17	--	f00fSteR is now known as f00f[away]
+2017-09-26 11:52:32	merijn	grouse: I'm probably biased due to my degree including like 5 courses based on his books. But I do think he is very readable, entertaining, and educational
+2017-09-26 11:52:36	<--	Cohedrin_ (~textual@136.24.92.86) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-26 11:52:45	mniip	I have a continuous function R^3->R and I need to visualize its zero, which is a surface (2 degrees of freedom)
+2017-09-26 11:52:59	grouse	merijn, fair, having some trouble actually finding that one in the uk tbh
+2017-09-26 11:53:09	Xatenev	grouse, I can link you if you want
+2017-09-26 11:53:10	mniip	how would I go about procedurally generating a mesh if all I can do is probe the function at any point
+2017-09-26 11:53:11	Xatenev	grouse, :d
+2017-09-26 11:53:12	--	f00f[away] is now known as f00fSteR
+2017-09-26 11:53:15	grouse	Xatenev, do et
+2017-09-26 11:53:21	Xatenev	grouse, which of those two?
+2017-09-26 11:53:30	grouse	Xatenev, eh both i guess
+2017-09-26 11:53:45	--	f00fSteR is now known as f00f[away]
+2017-09-26 11:53:45	-->	Rashad (~rashad@212.34.22.187) has joined ##programming
+2017-09-26 11:53:51	grouse	I have a 2 week hiatus coming up, I'm stocking up :P
+2017-09-26 11:53:57	Xatenev	grouse, https://mcdtu.files.wordpress.com/2017/03/tanenbaum_woodhull_operating-systems-design-implementation-3rd-edition.pdf https://eleccompengineering.files.wordpress.com/2014/07/structured_computer_organization_5th_edition_801_pages_2007_.pdf
+2017-09-26 11:54:04	-->	Wizek_ (~Wizek@catv-89-132-132-110.catv.broadband.hu) has joined ##programming
+2017-09-26 11:54:13	grouse	ah, pdfs. I wanted physical copies :(
+2017-09-26 11:54:17	Xatenev	o
+2017-09-26 11:54:25	Xatenev	grouse, you can print them?
+2017-09-26 11:54:26	Xatenev	:d
+2017-09-26 11:54:28	<--	b_ray (~b_ray@2605:a601:1153:f900:4b3:730:d50d:92b8) has quit (Ping timeout: 240 seconds)
+2017-09-26 11:54:30	grouse	lol
+2017-09-26 11:54:31	merijn	Oh, while I'm dropping book recommendations: "Network Security: Private Communication in a Public World" by Kaufman, Perlman, and Speciner is one of the funniest educational books I've read
+2017-09-26 11:54:33	grouse	yeah hang on let me just go and print 1000 pages
+2017-09-26 11:54:46	Xatenev	grouse, :'D
+2017-09-26 11:55:07	Xatenev	grouse, right now im imaging a cute panda that has 1000 pages of papre flying around him
+2017-09-26 11:55:18	Xatenev	he is trying to sort them
+2017-09-26 11:55:30	adsc	no he is too lazy
+2017-09-26 11:55:36	Xatenev	adsc, true
+2017-09-26 11:55:48	Xatenev	adsc, he tries to eat them maybe? because the paper is out of bamboo
+2017-09-26 11:56:11	adsc	he just sits around lazily, looking at nothing through his dumb eyes
+2017-09-26 11:56:12	Xatenev	merijn, seems you read a lot of educational stuff
+2017-09-26 11:56:16	grouse	merijn, how on earth did they make security funny
+2017-09-26 11:56:51	merijn	grouse: Witty writing :p
+2017-09-26 11:57:01	merijn	Xatenev: I'm just remembering the highlights from my degree :p
+2017-09-26 11:57:06	grouse	merijn, mmmm im dubious :p
+2017-09-26 11:57:22	+vendu	Xatenev, http://vendu.twodots.nl/wizardcode.html is not finished but worth "every cent" :)
+2017-09-26 11:57:33	grouse	merijn, lucky, all the books we were given to read were either garbage or written by the professors and also garbage
+2017-09-26 11:57:42	+vendu	merijn, grouse, Xatenev, speaking of JIT, let me find you guys a link =)
+2017-09-26 11:57:47	Xatenev	vendu, im unsure what thta is
+2017-09-26 11:57:56	Xatenev	vendu, oh its a book too
+2017-09-26 11:58:02	grouse	merijn, oh except the AI course that one was aight, and for C we were just told to get K&R which I suppose is aight
+2017-09-26 11:58:02	Xatenev	vendu, your book?
+2017-09-26 11:58:03	+vendu	https://yle.fi/uutiset/3-9096257
+2017-09-26 11:58:09	-->	LKoen (~LKoen@2a01:e35:2eed:a430:6593:a30b:4ca:dae) has joined ##programming
+2017-09-26 11:58:14	+vendu	Xatenev, yeah my lazily on-going book project :)
+2017-09-26 11:58:15	merijn	grouse: Well, the abundance of Tanenbaum books might be due to him being on staff, but they're still good ;)
+2017-09-26 11:58:16	-->	KieronWiltshire (~kieronwil@109-170-222-121.xdsl.murphx.net) has joined ##programming
+2017-09-26 11:58:18	+vendu	Xatenev, it's a freebie :)
+2017-09-26 11:58:24	Xatenev	vendu, cool
+2017-09-26 11:58:31	adsc	grouse: how else are professors gonna survive, if they can't sell their crappy books to their students?
+2017-09-26 11:58:32	grouse	merijn, fair enough. well I'll get to them eventually
+2017-09-26 11:58:36	+vendu	someone called it "a nice set of musings and notes"
+2017-09-26 11:58:37	+vendu	:)
+2017-09-26 11:58:42	adsc	I mean, no one else is going to buy their crappy books
+2017-09-26 11:59:00	grouse	adsc, oh i dno, from their really rather impresssive wages at the university?
+2017-09-26 11:59:55	adsc	shhhh
+2017-09-26 11:59:55	grouse	adsc, or maybe from doing some actual real world work every once in a while? :P
+2017-09-26 11:59:55	adsc	but they already profess
+2017-09-26 11:59:59	grouse	adsc, and in e.g. US maybe from the billions of dollars from tuition? :D
+2017-09-26 12:00:02	-->	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has joined ##programming
+2017-09-26 12:00:13	Xatenev	vendu, its on my list
+2017-09-26 12:00:24	Xatenev	but I guess with all the books that have been recommended im busy until end of the year. lmoa
+2017-09-26 12:00:26	Xatenev	lmao*
+2017-09-26 12:00:31	-->	rts-sander (8d001a12@gateway/web/freenode/ip.141.0.26.18) has joined ##programming
+2017-09-26 12:00:41	grouse	vendu, should probably have mentioned that that's slightly nsfw :p
+2017-09-26 12:00:42	adsc	don't tuition dollars go to the shareholders of the private universities?
+2017-09-26 12:00:45	-->	aesycos (~aesycos@2600:380:b168:9800:7a58:ab17:4267:4a11) has joined ##programming
+2017-09-26 12:00:46	LKoen	if you read 30 pages a day, it won't take so long, Xatenev
+2017-09-26 12:00:53	grouse	adsc, tbh fuck knows, never had to worry about tuition
+2017-09-26 12:01:10	Xatenev	LKoen, If i read 30 pages a day it will probably take that time
+2017-09-26 12:01:12	adsc	yeah, glad we don't have that crap here in Europe
+2017-09-26 12:01:18	Xatenev	LKoen, I think all the books that have been recommended are around 4000-5000 pages
+2017-09-26 12:01:23	--	irc: disconnected from server
+2017-09-27 02:00:41	-->	yasser (~yasser@94.187.48.254) has joined ##programming
+2017-09-27 02:00:41	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-27 02:00:41	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-27 02:00:41	--	Channel ##programming: 718 nicks (1 op, 10 voices, 707 normals)
+2017-09-27 02:00:49	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-27 02:01:06	-->	f00fSteR (~textual@cpe-66-108-63-185.nyc.res.rr.com) has joined ##programming
+2017-09-27 02:01:22	<--	gehn (~gehn@gateway/vpn/privateinternetaccess/gehn) has quit (Quit: Leaving)
+2017-09-27 02:02:05	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:02:06	-->	jimmyrcom (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has joined ##programming
+2017-09-27 02:02:55	rosa	i need help
+2017-09-27 02:03:37	-->	forexample (~mkurma@97-115-1-82.ptld.qwest.net) has joined ##programming
+2017-09-27 02:03:46	<--	permafleek (~mkurma@97-115-1-82.ptld.qwest.net) has quit (Read error: Connection reset by peer)
+2017-09-27 02:04:14	-->	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has joined ##programming
+2017-09-27 02:04:44	<--	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has quit (Client Quit)
+2017-09-27 02:04:46	--	f00fSteR is now known as f00f[away]
+2017-09-27 02:04:48	--	f00f[away] is now known as f00fSteR
+2017-09-27 02:04:52	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-09-27 02:04:59	-->	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has joined ##programming
+2017-09-27 02:05:03	--	f00fSteR is now known as f00f[away]
+2017-09-27 02:05:18	patientplatypus	someone please halp https://gist.github.com/patientplatypus/3c37900f4d5cb1d94b7be05585e22e94
+2017-09-27 02:05:19	--	f00f[away] is now known as f00fSteR
+2017-09-27 02:05:24	patientplatypus	haaaallllp
+2017-09-27 02:05:31	--	f00fSteR is now known as f00f[away]
+2017-09-27 02:05:41	<--	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has quit (Client Quit)
+2017-09-27 02:06:00	-->	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has joined ##programming
+2017-09-27 02:06:14	<--	BearishMushroom (~BearishMu@c-82-209-154-59.cust.bredband2.com) has quit (Read error: Connection reset by peer)
+2017-09-27 02:08:02	<--	Munt (~Munt@gateway/vpn/privateinternetaccess/munt) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:08:19	<--	vivid (~ViViD@unaffiliated/vivid) has quit (Quit: Leaving)
+2017-09-27 02:08:43	-->	dysfigur- (~DANtheBEA@2a05:dfc7:dfc8:1d1::6a47) has joined ##programming
+2017-09-27 02:09:12	<--	backnforth (~backnfort@47.54.169.203) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:09:40	-->	vivid (~ViViD@unaffiliated/vivid) has joined ##programming
+2017-09-27 02:09:53	<--	jimmyrcom (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has quit (Ping timeout: 248 seconds)
+2017-09-27 02:10:07	--	f00f[away] is now known as f00fSteR
+2017-09-27 02:10:18	--	f00fSteR is now known as f00f[away]
+2017-09-27 02:10:30	<--	samort7 (~samort7@141.133.106.68) has quit (Quit: Leaving)
+2017-09-27 02:10:34	--	f00f[away] is now known as f00fSteR
+2017-09-27 02:10:48	--	f00fSteR is now known as f00f[away]
+2017-09-27 02:10:59	--	f00f[away] is now known as f00fSteR
+2017-09-27 02:11:05	-->	jimmyrcom (~fold@71-11-240-211.dhcp.dntn.tx.charter.com) has joined ##programming
+2017-09-27 02:12:13	--	f00fSteR is now known as f00f[away]
+2017-09-27 02:14:55	<--	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has quit (Quit: WeeChat 1.9)
+2017-09-27 02:14:58	<--	f00f[away] (~textual@cpe-66-108-63-185.nyc.res.rr.com) has quit (Quit: to the depths -i go)
+2017-09-27 02:15:14	-->	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has joined ##programming
+2017-09-27 02:15:34	-->	Munt (~Munt@gateway/vpn/privateinternetaccess/munt) has joined ##programming
+2017-09-27 02:15:41	<--	ravndal (~weechat@unaffiliated/ravndal) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:16:02	<--	_Atom_ (~Atom@2604:2000:f085:8800:4170:9501:408e:642) has quit (Remote host closed the connection)
+2017-09-27 02:16:17	-->	_mirko_ (~mirk0@unaffiliated/-mirko-/x-2946915) has joined ##programming
+2017-09-27 02:16:24	-->	_Atom_ (~Atom@2604:2000:f085:8800:4170:9501:408e:642) has joined ##programming
+2017-09-27 02:16:47	<--	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 260 seconds)
+2017-09-27 02:18:16	-->	mirk0 (~mirk0@unaffiliated/-mirko-/x-2946915) has joined ##programming
+2017-09-27 02:18:35	<--	jak2000 (~jak2000@189.231.137.187) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:18:45	-->	aosfields (~aosfields@2601:246:4e04:2000:c063:17e5:8025:83fe) has joined ##programming
+2017-09-27 02:19:26	<--	kerrhau (~kerrhau@unaffiliated/aceahmedmoh) has quit (Client Quit)
+2017-09-27 02:20:08	-->	gugah (~gugah@181.28.219.193) has joined ##programming
+2017-09-27 02:21:08	<--	_mirko_ (~mirk0@unaffiliated/-mirko-/x-2946915) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:22:29	-->	aleph- (~hatter@unaffiliated/church-) has joined ##programming
+2017-09-27 02:22:41	<--	elanimus_ (~elanimus@213.55.114.252) has quit (Ping timeout: 248 seconds)
+2017-09-27 02:23:08	-->	ryjen (~ryjen@d172-218-40-173.bchsia.telus.net) has joined ##programming
+2017-09-27 02:23:49	+graff	vendu ping!!!!
+2017-09-27 02:24:05	 *	graff wonders if Thar transfers pings to vendu while he os offline
+2017-09-27 02:24:11	+graff	Thor *
+2017-09-27 02:24:18	 *	graff dances with rosa 
+2017-09-27 02:24:26	+graff	what the heck do you need now :D
+2017-09-27 02:25:00	-->	elanimus_ (~elanimus@213.55.114.252) has joined ##programming
+2017-09-27 02:25:17	+graff	rosa: kidding btw, i am somewhat satisfied with your progress. But i think it may take some years before you go back over this client and really make it production quality
+2017-09-27 02:25:47	<--	pedrovian (~pedrovian@58.78.237.31) has quit (Quit: Leaving)
+2017-09-27 02:25:55	-->	Parraki (~Parraki@55.92-220-69.customer.lyse.net) has joined ##programming
+2017-09-27 02:25:56	+graff	i am still perfecting my terminal applications. mostly i switched to writing my own version of curses / /lib/libcurses.so
+2017-09-27 02:26:56	+graff	because I just got tired of testing my bizarre new libraries by making my program non-standard. so i put in 4 months and tried to make it all portable using curses, and implement a curses subset
+2017-09-27 02:27:06	<--	ryjen (~ryjen@d172-218-40-173.bchsia.telus.net) has quit (Client Quit)
+2017-09-27 02:27:08	-->	mizu_no_oto_work (~textual@c-24-60-15-130.hsd1.ma.comcast.net) has joined ##programming
+2017-09-27 02:27:47	+graff	it's still a work in progress. but nice. i hope you have time to check it out and maybe modify it someday
+2017-09-27 02:29:01	<--	Alina-malina (~Alina-mal@37.157.223.81) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:29:11	rosa	lol
+2017-09-27 02:29:47	rosa	n cool
+2017-09-27 02:30:07	rosa	also i think i just made shbot o.o
+2017-09-27 02:30:57	-->	Alina-malina (~Alina-mal@37.157.223.81) has joined ##programming
+2017-09-27 02:31:34	-->	Tsoulus (~tsoulus@cust-95-80-51-194.csbnet.se) has joined ##programming
+2017-09-27 02:31:40	<--	_Atom_ (~Atom@2604:2000:f085:8800:4170:9501:408e:642) has quit (Remote host closed the connection)
+2017-09-27 02:32:21	<--	acidjnk (~acidjnk22@p4FFBD583.dip0.t-ipconnect.de) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:32:24	--	dysfigur- is now known as dysfigured
+2017-09-27 02:33:17	-->	jcbitter (~jcbitter@181.49.86.209) has joined ##programming
+2017-09-27 02:33:19	sir_galahad_ad	get out
+2017-09-27 02:33:56	<--	darkSeid_ (~textual@2a02:c7d:281c:e200:60b7:cc10:b9c0:e1e3) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-27 02:36:12	<--	Tsoulus (~tsoulus@cust-95-80-51-194.csbnet.se) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:36:12	<--	symm- (~symm-@95.65.81.202) has quit (Ping timeout: 240 seconds)
+2017-09-27 02:36:53	<--	CoolCmos (~CoolCmos@97-84-158-111.dhcp.bycy.mi.charter.com) has quit (Quit: irc2go)
+2017-09-27 02:37:06	rosa	my cat was sitting on my laptop ._.
+2017-09-27 02:37:56	rosa	n lol
+2017-09-27 02:39:00	mentalita	hahaha
+2017-09-27 02:40:42	<--	rmbeer (~rmbeer@unaffiliated/rmbeer) has quit (Remote host closed the connection)
+2017-09-27 02:41:34	+graff	once you have a basic client a bot is actually simpler
+2017-09-27 02:42:04	+graff	i mean it is always simpler, just might not be apparent at first until one gets the hang of parsing irc protocol
+2017-09-27 02:42:27	 *	graff distracts kitty with a laser pointer
+2017-09-27 02:42:47	-->	rmbeer (~rmbeer@unaffiliated/rmbeer) has joined ##programming
+2017-09-27 02:43:01	-->	jkbbwr (~jakob@141.0.154.182) has joined ##programming
+2017-09-27 02:43:30	jkbbwr	Anyone got any good starting places for formal verification
+2017-09-27 02:43:41	-->	ravndal (~weechat@unaffiliated/ravndal) has joined ##programming
+2017-09-27 02:44:15	+graff	jkbbwr: nothing you don't already know, use coq. also read sedgewick's algorithms book and see how he proves the r-way tries
+2017-09-27 02:44:22	 *	ROBOKiTTY leaps on a graff
+2017-09-27 02:44:34	jkbbwr	graff: I think you misunderestimate what I know
+2017-09-27 02:44:37	-->	badon (~badon@pdpc/supporter/active/badon) has joined ##programming
+2017-09-27 02:45:01	<--	unyu (~pyon@unaffiliated/pyon) has quit (Remote host closed the connection)
+2017-09-27 02:45:06	-->	DrBenway (~DrBenway@modemcable246.242-178-173.mc.videotron.ca) has joined ##programming
+2017-09-27 02:45:21	-->	unyu (~pyon@unaffiliated/pyon) has joined ##programming
+2017-09-27 02:45:31	+graff	sorry, not a proofs guy. but i did like sedgewick's "proofs" for the r-way trie
+2017-09-27 02:45:56	+graff	i mean because i felt that i could understand them, and maybe do something similiar :p
+2017-09-27 02:46:07	-->	Cucumber (~Cucumber@2601:182:200:2673:dd66:bb3c:85be:b101) has joined ##programming
+2017-09-27 02:46:14	Cucumber	Anyone familiar with webdesign?
+2017-09-27 02:46:36	+graff	jkbbwr: not sure what that means. but I don't underestimate you. i just have a very didactic communication style
+2017-09-27 02:46:51	Cucumber	I need to center some pictures and the navigation
+2017-09-27 02:47:11	-->	winsoff (~Preboris@unaffiliated/winsoff) has joined ##programming
+2017-09-27 02:47:15	winsoff	Okay, I'm an idiot.
+2017-09-27 02:47:24	+graff	that is what got Ovid banned from Rome by Ceaser... "carmen et error" "a poem and a mistake"
+2017-09-27 02:47:24	-->	xx2 (~xx2@212.253.8.72) has joined ##programming
+2017-09-27 02:47:30	winsoff	What's the actual difference between a pointer and a dereferenced pointer in C++ when it's an r-value?
+2017-09-27 02:47:30	+graff	didacticism
+2017-09-27 02:48:37	-->	guccimeow (~guccimeow@CPE-58-165-37-15.lns1.lon.bigpond.net.au) has joined ##programming
+2017-09-27 02:48:55	<--	doMynation (~doMynatio@modemcable032.253-177-173.mc.videotron.ca) has quit (Quit: My MacBook has gone to sleep. ZZZzzz…)
+2017-09-27 02:48:59	+graff	winsoff: a "dereferenced pointer" is just a pointer that gets set to something else
+2017-09-27 02:49:22	+graff	gets set to another point, hence losing any relationship with the original thing it pointed to
+2017-09-27 02:49:28	+graff	pointer*
+2017-09-27 02:50:03	winsoff	I guess I'm just wondering if I need to dereference pointers to access data members, or if that's pass-by-copy.
+2017-09-27 02:50:12	-->	gehn (~gehn@gateway/vpn/privateinternetaccess/gehn) has joined ##programming
+2017-09-27 02:50:27	ROBOKiTTY	an r-value is a temporary
+2017-09-27 02:50:50	--	irc: disconnected from server
+2017-09-27 12:26:13	-->	yasser (~yasser@94.187.48.254) has joined ##programming
+2017-09-27 12:26:13	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-27 12:26:13	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-27 12:26:13	--	Channel ##programming: 717 nicks (1 op, 9 voices, 707 normals)
+2017-09-27 12:26:19	grouse	stand up tall, arms in air, and roar?
+2017-09-27 12:26:21	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-27 12:26:30	liste	try to look as big as possible ;)
+2017-09-27 12:26:36	merijn	liste: Depends on the bear
+2017-09-27 12:26:50	grouse	school didn't teach me that, that film with uhh
+2017-09-27 12:26:57	grouse	anthony hopkins
+2017-09-27 12:27:08	merijn	liste: Brown bear: make yourself big, make noise, try and scare them off, don't turn your back.
+2017-09-27 12:27:19	liste	I was taught to play dead
+2017-09-27 12:27:20	merijn	Hit/kick if they approach
+2017-09-27 12:27:22	grouse	iirc grisly is run the fuck away?
+2017-09-27 12:27:24	liste	:D
+2017-09-27 12:27:26	merijn	liste: Grizzly's are play dead
+2017-09-27 12:27:32	 *	macrobat backs away slowly
+2017-09-27 12:27:32	grouse	ah, maybe not then
+2017-09-27 12:27:37	merijn	liste: Fight back if/wehn they start eating you
+2017-09-27 12:27:46	merijn	Since at that point you've got nothing to lose
+2017-09-27 12:27:50	<--	norayr (~noch@46.162.196.54) has quit (Ping timeout: 246 seconds)
+2017-09-27 12:27:58	merijn	grouse: A grizzly will outrun you, tbh
+2017-09-27 12:28:10	grouse	http://www.imdb.com/title/tt0119051/
+2017-09-27 12:28:14	grouse	that's the film i was thinking of
+2017-09-27 12:28:27	grouse	that film taught me about makeshift compasses and bears
+2017-09-27 12:29:00	merijn	liste: Brown bears are "small" enough that you can intimidate them and that they're at least wary of getting into trouble, so you just gotta seem more trouble than your worth
+2017-09-27 12:29:00	grouse	i was 7 or something, and it also scared me shitless
+2017-09-27 12:29:05	<--	grublet (~grublet@cpe-74-141-170-9.kya.res.rr.com) has quit (Ping timeout: 240 seconds)
+2017-09-27 12:29:25	merijn	liste: Grizzlies are big enough that nothing you do is going to intimidate them, so hence "play dead and hope for the best"
+2017-09-27 12:29:37	-->	chomwitt (~chomwitt@2a02:587:dc09:f100:b0bf:371c:4dd8:59d3) has joined ##programming
+2017-09-27 12:29:44	grouse	similar thing with moose btw
+2017-09-27 12:29:55	merijn	Moose are terrifying
+2017-09-27 12:29:55	grouse	moose will fuck you up if you threaten their kids
+2017-09-27 12:30:01	merijn	1200kg of anger...
+2017-09-27 12:30:07	Xatenev	liste, merijn trying to be friends with the bear
+2017-09-27 12:30:12	Xatenev	and then you ride home on him
+2017-09-27 12:30:24	grouse	also any antler animal in antler skin shedding season si metal as fuck
+2017-09-27 12:30:51	rts-sander	they all bow down to an angry human with a shotgun though
+2017-09-27 12:30:56	merijn	grouse: Word
+2017-09-27 12:31:09	merijn	rts-sander: Honestly...I would not take my chances in shotgun vs grizzly
+2017-09-27 12:31:22	merijn	rts-sander: Unless you're shooting slugs it'll probably only piss them off
+2017-09-27 12:32:01	<--	MoarSpaceFi (~Forgot_my@65.126.126.193) has quit (Ping timeout: 240 seconds)
+2017-09-27 12:32:19	grouse	merijn, I kinda wanna take a city boy out on a trip in the forest in that season and watch them shit their pants seeing a beautiful deer with hanging bloody skin all over their antlers
+2017-09-27 12:32:19	rts-sander	a shotgun can shoot slugs
+2017-09-27 12:32:33	merijn	grouse: We have a forest/park nearby and one of the farm restaurants keeps deer there. So you've got these adorable deer at a family restaurant covered in blood and looking metal ;)
+2017-09-27 12:32:41	grouse	niiiiiiice
+2017-09-27 12:33:21	<--	Random832 (~random@unaffiliated/random832) has quit (Ping timeout: 252 seconds)
+2017-09-27 12:33:40	merijn	rts-sander: Sure, but I'm not sure people would consider slugs the default ammo when imagining shotguns
+2017-09-27 12:34:19	grouse	yknow what, I think I'd go with pepper spray as my weapon of choice vs bears
+2017-09-27 12:34:27	grouse	assuming they're not somehow immune to the effects
+2017-09-27 12:34:32	Xatenev	going out on a bear snipe trip - just taking my mcmillan tac-50 quickly
+2017-09-27 12:34:34	Xatenev	lol
+2017-09-27 12:34:39	rts-sander	I'd shit all over myself so the bear won't eat me
+2017-09-27 12:35:01	merijn	grouse: Cars work well, apparently :p
+2017-09-27 12:35:11	grouse	merijn, pffffffft
+2017-09-27 12:35:25	merijn	grouse: Yosemite is covered in "slowdown!" "caution!" "don't hit the bears!" signs, since apparently so many die getting hit
+2017-09-27 12:35:31	grouse	have to imagine any kind of bear pepper sprayed blind will probably fuck off pretty fast though right?
+2017-09-27 12:35:45	grouse	and it has the benefit of not hurting them long term
+2017-09-27 12:38:09	rts-sander	but you're depriving them of food, they'll die of starvation
+2017-09-27 12:38:21	grouse	good point
+2017-09-27 12:38:24	<--	PtxDK_ (~quassel@2a01:7c8:aac3:591:89e4:50d3:5dc8:d0ad) has quit (Remote host closed the connection)
+2017-09-27 12:39:59	-->	PtxDK (~quassel@2a01:7c8:aac3:591:daf:c064:ebc2:8b7a) has joined ##programming
+2017-09-27 12:40:05	-->	Tsoulus (~tsoulus@cust-95-80-51-194.csbnet.se) has joined ##programming
+2017-09-27 12:40:36	grouse	merijn, sounds like bears need to stay the fuck off the roads :P
+2017-09-27 12:41:56	-->	Durbley_ (~Durbley@c-73-148-179-151.hsd1.fl.comcast.net) has joined ##programming
+2017-09-27 12:44:28	<--	Tsoulus (~tsoulus@cust-95-80-51-194.csbnet.se) has quit (Ping timeout: 240 seconds)
+2017-09-27 12:45:08	<--	Durbley (~Durbley@c-73-148-179-151.hsd1.fl.comcast.net) has quit (Ping timeout: 255 seconds)
+2017-09-27 12:46:52	-->	Random832 (~random@unaffiliated/random832) has joined ##programming
+2017-09-27 12:48:05	-->	strainwrld (~strainwrl@a79-168-45-41.cpe.netcabo.pt) has joined ##programming
+2017-09-27 12:49:16	--	bukonu is now known as yunfan
+2017-09-27 12:50:49	Xatenev	How are you people organizign your database migrations with other people?
+2017-09-27 12:50:55	<--	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has quit (Remote host closed the connection)
+2017-09-27 12:51:03	-->	_26thmeusoc (~26thmeuso@p4FC5BF5D.dip0.t-ipconnect.de) has joined ##programming
+2017-09-27 12:51:09	liste	Xatenev: using a database migration system
+2017-09-27 12:51:18	liste	and git flow
+2017-09-27 12:51:29	Xatenev	liste, Well we have no real migrations.
+2017-09-27 12:51:39	liste	Xatenev: then what do you have?
+2017-09-27 12:51:40	Xatenev	liste, so right now it ends up being weird SQL scripts "migrations" laying around in some weir folder
+2017-09-27 12:51:45	Xatenev	weird
+2017-09-27 12:51:51	Xatenev	which is awful lol
+2017-09-27 12:51:54	liste	yeah, sounds shitty
+2017-09-27 12:52:05	-->	ahrs (~quassel@gateway/vpn/privateinternetaccess/ahrs) has joined ##programming
+2017-09-27 12:52:06	liste	use a proper migration system
+2017-09-27 12:52:25	Xatenev	but arent migration systems usually bound to an application?
+2017-09-27 12:52:34	Xatenev	problem is, we have like 40 different microservices
+2017-09-27 12:52:42	liste	not necessarily
+2017-09-27 12:52:43	Xatenev	they all run "alone" they arent bound to any of the other microservices
+2017-09-27 12:52:50	Xatenev	but they all togethre end up beign one big application
+2017-09-27 12:52:54	liste	some migration systems are in-app
+2017-09-27 12:52:59	liste	some are offline
+2017-09-27 12:53:13	liste	with most you have a choice
+2017-09-27 12:53:34	liste	https://flywaydb.org/ works great on command line
+2017-09-27 12:53:51	Xatenev	liste, and where would you put the migrations?
+2017-09-27 12:53:58	Xatenev	liste, create another repository where the migrations are saved in?
+2017-09-27 12:54:20	liste	Xatenev: I'd keep each migration in the repository it's tied to
+2017-09-27 12:54:37	Xatenev	heh, that doesnt suite us I guess
+2017-09-27 12:54:59	liste	any other way becomes unreliable - the db and program version *will* get ut of sync
+2017-09-27 12:55:09	Xatenev	hm :\
+2017-09-27 12:55:19	-->	elcmat_ (~elcmat@117.192.162.179) has joined ##programming
+2017-09-27 12:55:24	Xatenev	liste, can you give flyway a script whree it should look for migrations?
+2017-09-27 12:55:28	liste	why doesn't it suite us?
+2017-09-27 12:55:30	liste	Xatenev: sure
+2017-09-27 12:55:39	Xatenev	liste, so we dont end up doing "cd repo; flyway migrate; cd repo2; flyway migrate;
+2017-09-27 12:55:43	Xatenev	lol
+2017-09-27 12:55:56	liste	ofc you should script that
+2017-09-27 12:56:04	liste	s/us/you
+2017-09-27 12:56:14	liste	maybe take it as part of your build process
+2017-09-27 12:56:58	Xatenev	yea it will be part of it later on
+2017-09-27 12:57:01	liste	though tbh your process sounds kinda broken if you have microservices that are not actually independent
+2017-09-27 12:57:09	Xatenev	they are actually independent
+2017-09-27 12:57:13	Xatenev	the only thing they depend on is the database
+2017-09-27 12:57:51	Xatenev	well.. and a "base" service that delivers common functions
+2017-09-27 12:57:53	<--	elcmat (~elcmat@unaffiliated/elcmat) has quit (Ping timeout: 248 seconds)
+2017-09-27 12:58:03	liste	do you have distributed transactions?
+2017-09-27 12:58:34	 *	Xatenev googles
+2017-09-27 12:58:38	liste	...
+2017-09-27 12:58:45	Xatenev	:D
+2017-09-27 12:58:48	rts-sander	we use doctrine for migrations
+2017-09-27 12:58:48	rts-sander	it's pretty nice
+2017-09-27 12:58:54	 *	liste is out
+2017-09-27 12:59:00	<--	buyfn (~textual@93.84.45.198) has quit (Quit: My MacBook Air has gone to sleep. ZZZzzz…)
+2017-09-27 12:59:11	<--	Peteri (~Fredrik@client237-117.wireless.umu.se) has quit (Ping timeout: 255 seconds)
+2017-09-27 12:59:43	liste	yeah, I won't go work at wherever Xatenev is working :D
+2017-09-27 13:00:15	grouse	liste, but if you did you'd have so many low hanging apples to fix that you'd become a rockstar
+2017-09-27 13:00:18	Xatenev	liste, well I guess we dont have distributed transactions
+2017-09-27 13:00:29	Xatenev	liste, because we dont have multiple physical systems
+2017-09-27 13:00:57	<--	RumpledElf (~rumpledel@drupal.org/user/173054/view) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-27 13:01:03	-->	Ice_Strike (~Ice_Strik@host213-120-117-212.in-addr.btopenworld.com) has joined ##programming
+2017-09-27 13:01:04	liste	Xatenev: but you have multiple services that don't share the transaction
+2017-09-27 13:01:12	Xatenev	liste, It seems like everybody in IRC is working at a godly place where everyting works perfect and people are only using the best state-of-the-art technologies
+2017-09-27 13:01:13	Xatenev	I cant believe that tho
+2017-09-27 13:01:14	Xatenev	lol
+2017-09-27 13:01:14	liste	and one thing involves multiple transactions
+2017-09-27 13:01:55	liste	what if one transaction succeeds and other fails? your db is in inconsistent state
+2017-09-27 13:02:07	<--	_26thmeusoc (~26thmeuso@p4FC5BF5D.dip0.t-ipconnect.de) has quit (Quit: Textual IRC Client: www.textualapp.com)
+2017-09-27 13:02:11	-->	RumpledElf (~rumpledel@drupal.org/user/173054/view) has joined ##programming
+2017-09-27 13:02:28	Xatenev	liste, which would only happen if the services would dependend on the transactions of the other microesrvice
+2017-09-27 13:02:31	Xatenev	liste, which isnt the case
+2017-09-27 13:03:00	liste	but does the action in the app depend on multiple services?
+2017-09-27 13:03:07	liste	without the services depending on each other
+2017-09-27 13:03:16	Xatenev	umm depends
+2017-09-27 13:03:19	Xatenev	basically in the frontend you can pick a module
+2017-09-27 13:03:30	<--	rts-sander (8d001a12@gateway/web/freenode/ip.141.0.26.18) has quit (Ping timeout: 260 seconds)
+2017-09-27 13:03:38	liste	so it can depend on multiple services
+2017-09-27 13:03:38	Xatenev	and most things you do inside that module is inside one of these services usually
+2017-09-27 13:04:17	<--	elcmat_ (~elcmat@117.192.162.179) has quit (Ping timeout: 260 seconds)
+2017-09-27 13:04:23	Xatenev	sure it might be possible that the db is in a incosistent state if whatever happens
+2017-09-27 13:04:35	liste	...so the whole point of the db is defeated
+2017-09-27 13:04:39	Xatenev	xDD
+2017-09-27 13:04:41	Xatenev	bullshit
+2017-09-27 13:05:04	Xatenev	there will always be edge cases where the DB might get into an incosistent state
+2017-09-27 13:05:12	liste	no, DB's give guarantees
+2017-09-27 13:05:15	Xatenev	it doesnt
+2017-09-27 13:05:18	Xatenev	some
+2017-09-27 13:05:20	Xatenev	but not all
+2017-09-27 13:05:41	liste	and nobody in their right mind would use a db without guarantees for anything that matters
+2017-09-27 13:05:46	Xatenev	your server provider has a crash and looses half of their data. whoops rip db
+2017-09-27 13:05:54	Xatenev	you always depend on things to work
+2017-09-27 13:07:36	grouse	and if that happened you'd be damned sure I'd hold the server provider responsible for that lost data. that's the guarantee
+2017-09-27 13:07:49	Xatenev	sure, your still fucked though
+2017-09-27 13:08:17	grouse	well, it implies a responsibility on the side of the server provider, which implies they work hard on making sure that doesn't happen, and/or mitigating loss with redundancies and automated backup
+2017-09-27 13:09:07	-->	_Atom_ (~Atom@2604:2000:f085:8800:9dad:bbd1:203d:e9ae) has joined ##programming
+2017-09-27 13:09:11	liste	and if the server crashes, you end up with a consistent state - the state of the last backup
+2017-09-27 13:09:13	-->	GeDaMo (~GeDaMo@212.225.120.83) has joined ##programming
+2017-09-27 13:09:13	<--	GeDaMo (~GeDaMo@212.225.120.83) has quit (Changing host)
+2017-09-27 13:09:13	-->	GeDaMo (~GeDaMo@unaffiliated/gedamo) has joined ##programming
+2017-09-27 13:09:29	liste	data is lost, yes, but you can predict the operation of the program in the future
+2017-09-27 13:09:39	<--	Folkol (~Folkol@h-160-222.A137.corp.bahnhof.se) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-27 13:09:46	liste	and you can be sure the data is correct even if it is old
+2017-09-27 13:10:01	liste	if you have inconsistent data, it can bite you back later
+2017-09-27 13:10:11	Xatenev	my only point is, your saying a db in an incosistent state "defeats the whole purpose of a db" is bullshit
+2017-09-27 13:10:16	Xatenev	usualyl it ends up being, a customer calls
+2017-09-27 13:10:23	CoJaBo	DBs only garantee that if the hardware actually works correctly. Often, it doesn't.
+2017-09-27 13:10:39	Xatenev	Im getting an error in XYZ - we take a look, oh theres a weird row in the DB for some reason, delete it
+2017-09-27 13:10:53	Xatenev	sure its better if it doesnt happen, but it doesnt defeat th ewhole purpose of a db lol
+2017-09-27 13:11:18	Xatenev	it takes like 30 minutes per month MAX
+2017-09-27 13:11:19	-->	benny-innofaith (~benny@46.44.159.70) has joined ##programming
+2017-09-27 13:11:31	liste	well if I didn't want ACID guarantees, I could well pick something else, like just filesystem storage, k/v store or mongo
+2017-09-27 13:11:56	grouse	Xatenev, it kinda does, because one of the core principles of using a database is that they mitigate, predict and prepare for things that can leave the database in a consistent state
+2017-09-27 13:12:21	grouse	Xatenev, if your database doesn't do that, you might as well run around with floppies
+2017-09-27 13:12:29	liste	CoJaBo: well a database can mitigate some HW failures in software, using eg. checksums
+2017-09-27 13:12:30	--	irc: disconnected from server
+2017-09-28 11:59:11	-->	yasser (~yasser@94.187.90.177) has joined ##programming
+2017-09-28 11:59:11	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-09-28 11:59:11	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-09-28 11:59:11	--	Channel ##programming: 716 nicks (1 op, 13 voices, 702 normals)
+2017-09-28 11:59:19	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-09-28 11:59:26	grouse	merijn, easy: stop using social media
+2017-09-28 11:59:36	+liste	grouse: yeah. well younger people are worse developers in general IME
+2017-09-28 11:59:50	grouse	liste, yeah that's a wisdom thing though
+2017-09-28 11:59:50	+liste	I guess that's due to experience
+2017-09-28 12:00:09	merijn	grouse: that brings all sorts of logistical issues with it :\
+2017-09-28 12:00:15	<--	elisa87 (~elisa87@2601:19b:b00:a700:14de:cbb7:d71f:d39f) has quit (Remote host closed the connection)
+2017-09-28 12:00:18	+liste	and Zuckerberg seems to imply that you should hire only young developers
+2017-09-28 12:00:21	grouse	liste, he's obviously dumb as fuck for saying only hire young people cause they're smarter, but depending on your definition of smart...
+2017-09-28 12:00:55	-->	djeck (~djeck@37.168.202.41) has joined ##programming
+2017-09-28 12:01:07	merijn	liste: That's why facebook's codebase is such a fucking mess :)
+2017-09-28 12:01:15	grouse	merijn, do what they did in that southpark epsiode last season and get a social media filter slave who reads all your stuff and just gives you the good things
+2017-09-28 12:01:50	merijn	grouse: I think "young people are smarter" is SV speak for "they're gullible enough that we can pay them a fraction of their worth without them noticing"
+2017-09-28 12:01:53	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:02:02	grouse	merijn, haha probably quite accurate
+2017-09-28 12:02:14	grouse	merijn, https://www.youtube.com/watch?v=sXQkXXBqj_U from that same episode
+2017-09-28 12:04:00	grouse	there's a lot of things we just get worse at as we grow older though, and the brain's no different. it's sad times growing old
+2017-09-28 12:04:18	+liste	merijn: Hacker News seems to agree with you https://news.ycombinator.com/item?id=15350245 (though it's about hours, not money)
+2017-09-28 12:04:30	+exio4	liste: that's rude
+2017-09-28 12:04:37	merijn	liste: Only the parts that are not to busy sucking Paul Graham's dick
+2017-09-28 12:04:42	+exio4	I am young and suck at developing apps because I am lazy, not due to my age
+2017-09-28 12:05:10	+liste	exio4: I'm lazy too, but now I suck a tiny iota less than when I was 20
+2017-09-28 12:05:18	grouse	liste, merijn yeah I mean that seems obvious. Juniors always have trouble gauging what they're worth because they don't have the experience to say, and the taboo of discussing salary with friends and co-workers doesn't help
+2017-09-28 12:05:19	-->	rizzo (~RizzoTheR@p4FFED10E.dip0.t-ipconnect.de) has joined ##programming
+2017-09-28 12:05:30	+exio4	liste: simply because you got more experience :p
+2017-09-28 12:05:48	+exio4	liste: and the older you are the more likely it is to have more experience
+2017-09-28 12:05:53	+liste	exio4: yep
+2017-09-28 12:06:03	+liste	and more experience usually means better developer
+2017-09-28 12:06:17	grouse	imagine there's a bell curve there though
+2017-09-28 12:06:19	merijn	liste, grouse: A few weeks ago Paul Graham was (once again) proclaiming the superiority of the SV startup model and wondering why BBC's tech writing was so "anti-startup/anti-SV" and he concludes "it's because Europe are anti-startup luddites", rather than the more obvious and plausible "tech people in Europe don't the SV startup model, because it's just exploitation of gullible young people"
+2017-09-28 12:06:44	+liste	merijn: I'm so happy to be in Europe
+2017-09-28 12:06:51	grouse	liste, I'd imagine there's a certain average age where you just can't keep up and start falling behind. that's when you go into project management :P
+2017-09-28 12:06:51	merijn	liste: Word
+2017-09-28 12:07:02	-->	Sadale (~Sadale@unaffiliated/sadale) has joined ##programming
+2017-09-28 12:07:22	merijn	grouse: And yet I see professors here in their 60s who manage to keep up just fine
+2017-09-28 12:08:26	grouse	merijn, maybe. hell I don't know, I don't know many old programmers and the ones I know of have all more or less moved into more management/director oriented jobs
+2017-09-28 12:08:38	merijn	Just gotta avoid the hype web-bubble and then you notice the actual development of technology isn't all that earth shatteringly rapid
+2017-09-28 12:09:25	grouse	don't necessarily mean the ability to learn more things, but also the ability to keep a large system in your head and reason about it
+2017-09-28 12:09:27	-->	Wizek_ (~Wizek@catv-89-132-132-110.catv.broadband.hu) has joined ##programming
+2017-09-28 12:09:58	merijn	grouse: That's why all the older/more experienced people are the ones espousing functional programming :p
+2017-09-28 12:10:07	merijn	grouse: Because they can't be arsed keeping all that state in mind
+2017-09-28 12:10:16	grouse	merijn, hah, maybe
+2017-09-28 12:10:38	+exio4	I am not old nor experienced and I like functional programming for the same reason
+2017-09-28 12:10:45	+exio4	I don't age well apparently
+2017-09-28 12:10:53	merijn	exio4: Or you're pre-aged :p
+2017-09-28 12:10:56	<--	Condor (~condor@unaffiliated/condor) has quit (Quit: Ciao!)
+2017-09-28 12:10:58	grouse	in any case it's a rather irrelevant topic. everyone's different and got different skillsets and perspective and it's all useful in some way
+2017-09-28 12:11:00	-->	eroux (~eroux@196-210-1-98.dynamic.isadsl.co.za) has joined ##programming
+2017-09-28 12:11:01	+exio4	I will probs die at 40 if I keep aging at this rate
+2017-09-28 12:11:13	merijn	I've been a grumpy old man since I was 10
+2017-09-28 12:11:13	+exio4	mid-life crisis at twenty
+2017-09-28 12:11:48	+exio4	I need to write this for uni and I am really late <_<
+2017-09-28 12:12:13	-->	Rasekov (~Rasekov@159.133.117.91.dynamic.reverse-mundo-r.com) has joined ##programming
+2017-09-28 12:12:39	benny-innofaith	Oh no! I missed my mid-life crisis! *panic*
+2017-09-28 12:12:58	<--	Rasekov_ (~Rasekov@159.133.117.91.dynamic.reverse-mundo-r.com) has quit (Ping timeout: 264 seconds)
+2017-09-28 12:13:01	<--	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:14:39	<--	djeck (~djeck@37.168.202.41) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:15:01	gaqwas	merijn, what's "SV"?
+2017-09-28 12:15:07	grouse	silicon valley
+2017-09-28 12:15:08	merijn	Man...this whole "descriptive variable names" thing is making my haskell way too verbose
+2017-09-28 12:15:15	gaqwas	grouse, thanks
+2017-09-28 12:15:52	gaqwas	merijn, well, I was *born* a grumpy old man
+2017-09-28 12:15:55	grouse	merijn, yeah we definitely need to start incorporating subscripts and superscripts and bold and italics and greek and latin letters to our programming, full on maths!
+2017-09-28 12:16:07	-->	xff0x (~xff0x@27.110.45.75) has joined ##programming
+2017-09-28 12:16:13	rts-sander	lol
+2017-09-28 12:16:17	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:16:29	grouse	merijn, everyone knows compression makes things more efficient and this would compress our code a ton!
+2017-09-28 12:16:37	merijn	grouse: Naah, classic Haskell is "I find the first 26 variables are easy to name, after that it becomes harder!"
+2017-09-28 12:16:47	grouse	merijn, aaab?
+2017-09-28 12:17:11	merijn	grouse: If you're not writing alphabet soup it's way too practical to be interesting anyway!
+2017-09-28 12:17:38	grouse	merijn, definitely. hell why stop there, let's just start numbering our variables with a prefix
+2017-09-28 12:17:43	-->	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has joined ##programming
+2017-09-28 12:17:54	grouse	merijn, and then we can limit ourselves to a very narrow set of variables
+2017-09-28 12:17:59	+liste	merijn: how about greek letters?
+2017-09-28 12:18:16	+liste	or whatever alphabet ℵ is from (phoenician?)
+2017-09-28 12:18:20	grouse	merijn, and while we're at it function names are too verbose, we could just give them hexadecimal number identifiers
+2017-09-28 12:18:29	 *	grouse re-invents ASM
+2017-09-28 12:18:37	merijn	grouse: Keep going and you might invent De Bruijn indices from first principles :)
+2017-09-28 12:19:05	-->	Folkol_alt (~Folkol@h-160-222.A137.corp.bahnhof.se) has joined ##programming
+2017-09-28 12:19:38	+exio4	haha
+2017-09-28 12:19:44	--	f00fSteR is now known as f00f[away]
+2017-09-28 12:20:32	+liste	oh, hebrew
+2017-09-28 12:20:47	merijn	Man...I need to get like an intern or bachelor student to write tests for me, this shit is way to tedious
+2017-09-28 12:21:29	grouse	don't forget to write tests for your tests
+2017-09-28 12:21:49	<--	Tsoulus (~tsoulus@2001:6b0:2:2801:258c:f635:39b4:3554) has quit (Remote host closed the connection)
+2017-09-28 12:21:51	grouse	merijn, has it helped you find any bugs yet? ;)
+2017-09-28 12:22:14	-->	Tsoulus (~tsoulus@2001:6b0:2:2801:258c:f635:39b4:3554) has joined ##programming
+2017-09-28 12:22:17	merijn	grouse: No, because I'm still writing them :p
+2017-09-28 12:22:26	grouse	merijn, awww
+2017-09-28 12:22:31	-->	Bhootrk_ (~Bhootrk_@118.189.203.83) has joined ##programming
+2017-09-28 12:22:35	<--	Bhootrk_ (~Bhootrk_@118.189.203.83) has quit (Max SendQ exceeded)
+2017-09-28 12:22:41	<--	intx (intx@unaffiliated/intx) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:22:58	grouse	merijn, just remember, when a test fails, just change the test and go "well the constraints changed"
+2017-09-28 12:23:05	-->	Bhootrk_ (~Bhootrk_@118.189.203.83) has joined ##programming
+2017-09-28 12:23:21	-->	flaviodesousa (~flaviodes@213.187.85.7) has joined ##programming
+2017-09-28 12:25:45	-->	Karyon (~Karyon@unaffiliated/karyon) has joined ##programming
+2017-09-28 12:26:54	<--	Tsoulus (~tsoulus@2001:6b0:2:2801:258c:f635:39b4:3554) has quit (Ping timeout: 258 seconds)
+2017-09-28 12:28:04	<--	grouse (~grouse@80.71.2.213) has quit (Remote host closed the connection)
+2017-09-28 12:28:06	-->	ShockingIsntIt2 (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has joined ##programming
+2017-09-28 12:29:03	rindolf	א
+2017-09-28 12:29:33	rindolf	liste: your aleph is strange
+2017-09-28 12:29:37	-->	blip99 (~blip-@unaffiliated/blip-) has joined ##programming
+2017-09-28 12:29:40	merijn	liste: ...
+2017-09-28 12:29:42	<--	xcm (~xcm@ipa210.225.tellas.gr) has quit (Remote host closed the connection)
+2017-09-28 12:29:45	merijn	eh s/liste/rindolf
+2017-09-28 12:29:57	merijn	rindolf: You used unicode rtl, didn't you?
+2017-09-28 12:30:03	-->	xcm (~xcm@ipa210.225.tellas.gr) has joined ##programming
+2017-09-28 12:30:09	<--	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:30:09	rindolf	merijn: yes
+2017-09-28 12:30:48	merijn	rindolf: irssi/my terminal is confused and transposing the start of my middle shell with the chat part of irssi >.<
+2017-09-28 12:30:49	<--	Folkol_alt (~Folkol@h-160-222.A137.corp.bahnhof.se) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-28 12:31:26	rindolf	merijn: ah. :(
+2017-09-28 12:31:49	rindolf	merijn: that is one reason why I prefer hexchat
+2017-09-28 12:32:38	-->	grouse (~grouse@80.71.2.213) has joined ##programming
+2017-09-28 12:34:16	--	f00f[away] is now known as f00fSteR
+2017-09-28 12:34:41	<--	ympek (~ympek@ekw205.internetdsl.tpnet.pl) has quit (Ping timeout: 240 seconds)
+2017-09-28 12:34:57	+liste	rindolf: how is it strange?
+2017-09-28 12:35:08	rts-sander	it's difficult to find inters willing to only write tests
+2017-09-28 12:35:10	<--	Wraz (~noneofyou@82.8.7.51.dyn.plus.net) has quit (Ping timeout: 264 seconds)
+2017-09-28 12:35:16	rts-sander	nobody likes writing tests
+2017-09-28 12:35:26	+liste	(I can't even see it, it's not in this font and apparently putty doesn't do proper font fallback)
+2017-09-28 12:35:28	rts-sander	even worse is writing tests for someone else's code
+2017-09-28 12:35:28	+exio4	I am willing to write tests, how much do you pay_
+2017-09-28 12:35:29	+exio4	?
+2017-09-28 12:35:33	merijn	rts-sander: Which is why I normally don't :p
+2017-09-28 12:35:40	-->	djeck (~djeck@37.168.202.41) has joined ##programming
+2017-09-28 12:35:53	+exio4	I need to make $2k in a few months
+2017-09-28 12:36:02	+exio4	so, I will write tests, if that's what it takes
+2017-09-28 12:36:09	rindolf	liste: it does not look the same as the hebrew one
+2017-09-28 12:36:21	+liste	rindolf: it's probably some math variant
+2017-09-28 12:36:27	-->	pokEarl (~pokEarl@2002:d98a:68e:0:1071:5c17:d581:9044) has joined ##programming
+2017-09-28 12:36:40	+liste	U+2135
+2017-09-28 12:36:54	+liste	https://unicode-table.com/en/2135/
+2017-09-28 12:37:37	rts-sander	for the right amount of money of course
+2017-09-28 12:37:42	-->	m_t (~m_t@p57B3C3BB.dip0.t-ipconnect.de) has joined ##programming
+2017-09-28 12:37:54	rts-sander	all else being equal programmers tend to like developing new stuff better
+2017-09-28 12:39:00	-->	Folkol_alt (~Folkol@h-160-222.A137.corp.bahnhof.se) has joined ##programming
+2017-09-28 12:39:10	<--	blip99 (~blip-@unaffiliated/blip-) has quit (Ping timeout: 258 seconds)
+2017-09-28 12:40:12	<--	moei (~moei@softbank221078042071.bbtec.net) has quit (Quit: Leaving...)
+2017-09-28 12:41:46	<--	OnkelTem (~onkeltem@unaffiliated/fantomas) has quit (Quit: WeeChat 1.7)
+2017-09-28 12:43:18	<--	TechnoCrunch (~TechnoCru@101.100.137.146) has quit (Read error: Connection reset by peer)
+2017-09-28 12:44:01	<--	AndroUser2 (~androirc@124.217.189.102) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:44:15	-->	zaherdirkey (~zaherdirk@37.48.209.65) has joined ##programming
+2017-09-28 12:44:21	rindolf	rts-sander: i like writing tests.
+2017-09-28 12:44:33	-->	moei (~moei@softbank221078042071.bbtec.net) has joined ##programming
+2017-09-28 12:44:55	rindolf	liste: ah
+2017-09-28 12:46:39	<--	djeck (~djeck@37.168.202.41) has quit (Ping timeout: 248 seconds)
+2017-09-28 12:46:41	<--	adsc (1f180acd@gateway/web/freenode/ip.31.24.10.205) has quit (Quit: Page closed)
+2017-09-28 12:48:52	-->	glosoli (~glosoli@unaffiliated/glosoli) has joined ##programming
+2017-09-28 12:50:04	grouse	rindolf, what do you like about it?
+2017-09-28 12:51:29	rindolf	grouse: it is ok
+2017-09-28 12:51:43	merijn	rindolf: Good, you can write mine! :)
+2017-09-28 12:51:45	rindolf	grouse: i try not to hate things i need to do
+2017-09-28 12:51:55	merijn	The only tests I like writing QuickCheck tests...
+2017-09-28 12:52:11	rindolf	merijn: are you paying?
+2017-09-28 12:52:14	merijn	rindolf: I don't *need* to write tests, so... :p
+2017-09-28 12:52:19	-->	Serpent7776 (~Serpent77@90-156-68-175.internetia.net.pl) has joined ##programming
+2017-09-28 12:52:22	grouse	rindolf, that's fair, but you said you liked it, hence my curiosity :P
+2017-09-28 12:52:56	merijn	rindolf: Well, I can pay you in natura by tutoring your Haskell. Which is probably a prerequisite before writing tests in it anyway :p
+2017-09-28 12:53:56	<--	x405 (~x405@pool-173-66-3-126.washdc.fios.verizon.net) has quit (Remote host closed the connection)
+2017-09-28 12:54:38	rindolf	merijn: i want cash
+2017-09-28 12:56:31	grouse	merijn, quick, he didn't specify currency, give him a few yen or smoething!
+2017-09-28 12:58:07	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Ping timeout: 260 seconds)
+2017-09-28 12:58:27	<--	ZWeil (~ZWeil@2601:602:9b03:c1ae:7800:69b0:7d45:5f4b) has quit (Remote host closed the connection)
+2017-09-28 12:59:50	-->	Tsoulus (~tsoulus@2001:6b0:2:2801:9525:b228:7824:1554) has joined ##programming
+2017-09-28 12:59:50	-->	Brett_ (~Brett@60-242-28-91.static.tpgi.com.au) has joined ##programming
+2017-09-28 13:00:11	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-09-28 13:00:39	-->	pdefreitas (~pdefreita@193.137.28.206) has joined ##programming
+2017-09-28 13:01:04	--	f00fSteR is now known as f00f[away]
+2017-09-28 13:01:18	-->	Sadale (~Sadale@unaffiliated/sadale) has joined ##programming
+2017-09-28 13:02:43	<--	bradfordli123 (~bradfordl@c-73-158-14-36.hsd1.ca.comcast.net) has quit (Remote host closed the connection)
+2017-09-28 13:03:46	+exio4	pay him with DOGE
+2017-09-28 13:04:49	<--	Brett_ (~Brett@60-242-28-91.static.tpgi.com.au) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:05:13	-->	Karyon_ (~Karyon@unaffiliated/karyon) has joined ##programming
+2017-09-28 13:05:32	<--	schneu (~cholley@2001:6b0:2:2801:de53:3741:6e7d:d256) has quit (Ping timeout: 246 seconds)
+2017-09-28 13:06:25	<--	kaxing (~kaxing@175.41.48.77) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:06:35	-->	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has joined ##programming
+2017-09-28 13:06:44	<--	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has quit (Remote host closed the connection)
+2017-09-28 13:06:50	-->	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has joined ##programming
+2017-09-28 13:07:38	<--	asmcoder (~asmcoder@2405:204:319d:3315:bdb8:1eaf:627d:b2db) has quit (Ping timeout: 246 seconds)
+2017-09-28 13:08:13	<--	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has quit (Remote host closed the connection)
+2017-09-28 13:08:33	<--	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:08:41	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:08:55	rindolf	exio4: :)
+2017-09-28 13:08:58	-->	asmcoder (~asmcoder@2405:204:319d:3315:bdb8:1eaf:627d:b2db) has joined ##programming
+2017-09-28 13:09:04	<--	Karyon (~Karyon@unaffiliated/karyon) has quit (Ping timeout: 258 seconds)
+2017-09-28 13:09:32	-->	cucumber (1fc1df82@gateway/web/freenode/ip.31.193.223.130) has joined ##programming
+2017-09-28 13:09:33	+exio4	DOGE is much cooler than YENs
+2017-09-28 13:09:52	-->	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has joined ##programming
+2017-09-28 13:10:24	cucumber	Anyone here use IntelliJ? I created an .html file but I'm not getting any syntax highlighting and it is driving me crazy. Other html files I have created have the highlighting but this one doesnt. Anyone know what might be the problem?
+2017-09-28 13:10:42	-->	GeDaMo (~GeDaMo@212.225.120.83) has joined ##programming
+2017-09-28 13:10:42	<--	GeDaMo (~GeDaMo@212.225.120.83) has quit (Changing host)
+2017-09-28 13:10:42	-->	GeDaMo (~GeDaMo@unaffiliated/gedamo) has joined ##programming
+2017-09-28 13:10:49	reynir	did you name it .hmtl ?
+2017-09-28 13:10:58	-->	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has joined ##programming
+2017-09-28 13:11:30	<--	dbedrenko (~Spaghetti@ks23645.kimsufi.com) has left ##programming ("peace")
+2017-09-28 13:11:43	cucumber	reynir: Yes, but itðs like IntelliJ is not getting that it's an html file
+2017-09-28 13:12:15	reynir	well, if you named it .hmtl then how should it guess you meant .html?
+2017-09-28 13:12:21	<--	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has quit (Remote host closed the connection)
+2017-09-28 13:12:48	-->	Brett_ (~Brett@60-242-28-91.static.tpgi.com.au) has joined ##programming
+2017-09-28 13:13:17	<--	asmcoder (~asmcoder@2405:204:319d:3315:bdb8:1eaf:627d:b2db) has quit (Ping timeout: 258 seconds)
+2017-09-28 13:13:53	<--	xff0x (~xff0x@27.110.45.75) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:14:01	-->	asmcoder (~asmcoder@2405:204:319d:3315:bdb8:1eaf:627d:b2db) has joined ##programming
+2017-09-28 13:14:14	cucumber	I didnt name it hmtl, it's named html.. i just read what you wrote fast
+2017-09-28 13:14:19	+exio4	it is 7:15 AM
+2017-09-28 13:14:25	+exio4	I have to get it done by 11 AM
+2017-09-28 13:14:30	+exio4	damn, I am FKD
+2017-09-28 13:14:39	cucumber	it has a '.html' ending. File system says it's no different than any other html files in the project
+2017-09-28 13:14:59	cucumber	I usually don't use IntelliJ so I'm kinda lost trying to figure this one out
+2017-09-28 13:16:41	<--	asmcoder (~asmcoder@2405:204:319d:3315:bdb8:1eaf:627d:b2db) has quit (Max SendQ exceeded)
+2017-09-28 13:17:33	benny-innofaith	Check if you have community or paid support.
+2017-09-28 13:18:02	-->	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has joined ##programming
+2017-09-28 13:18:29	<--	Brett_ (~Brett@60-242-28-91.static.tpgi.com.au) has quit (Ping timeout: 246 seconds)
+2017-09-28 13:18:54	-->	iAreBaboon (~blip-@unaffiliated/blip-) has joined ##programming
+2017-09-28 13:19:30	-->	asmcoder (~asmcoder@2405:204:319d:3315:bdb8:1eaf:627d:b2db) has joined ##programming
+2017-09-28 13:19:47	<--	permafleek (~mkurma@97-115-1-82.ptld.qwest.net) has quit (Read error: Connection reset by peer)
+2017-09-28 13:20:35	GeDaMo	cucumber: have you asked in #idea-users ?
+2017-09-28 13:21:00	cucumber	Nope, thanks for pointing out the channel
+2017-09-28 13:21:31	-->	Sadale (~Sadale@unaffiliated/sadale) has joined ##programming
+2017-09-28 13:21:55	-->	schneu (~cholley@liv811l.fsc.chalmers.se) has joined ##programming
+2017-09-28 13:24:21	<--	kronoc (~kronoc@223.ip-137-74-167.eu) has left ##programming
+2017-09-28 13:25:00	<--	obZen (~quassel@pool-108-41-173-47.nycmny.fios.verizon.net) has quit (Remote host closed the connection)
+2017-09-28 13:28:09	<--	Guest837 (~pronet@41.188.180.198) has quit (Quit: Leaving)
+2017-09-28 13:29:51	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:30:04	reynir	exio4: "KFD"?
+2017-09-28 13:30:33	+exio4	FKD
+2017-09-28 13:30:40	+exio4	add vowels and C
+2017-09-28 13:30:56	reynir	fsck'd
+2017-09-28 13:31:02	+exio4	p much
+2017-09-28 13:31:08	+exio4	but s and ' aren't vowels
+2017-09-28 13:31:15	reynir	what do you have to deliver
+2017-09-28 13:31:33	<--	Folkol_alt (~Folkol@h-160-222.A137.corp.bahnhof.se) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-28 13:31:50	+exio4	a small monograph
+2017-09-28 13:32:16	-->	CHIPPY (~DJDRISCOL@173.218.36.94) has joined ##programming
+2017-09-28 13:32:42	-->	adminseodwn (~archer@unaffiliated/remcwo9o) has joined ##programming
+2017-09-28 13:32:44	GeDaMo	Is that one third of a trigraph? :P
+2017-09-28 13:33:02	+exio4	i wish
+2017-09-28 13:33:07	+exio4	but i cannot even type right now
+2017-09-28 13:33:14	reynir	int FKD(int aeu, char yio[]) { return 0; }
+2017-09-28 13:33:25	reynir	added C and vowels
+2017-09-28 13:33:33	+exio4	and i have writers block due to anxiety and hunger, will solve the last one in a bit
+2017-09-28 13:34:20	reynir	have a beer with your breakfast!
+2017-09-28 13:34:46	+exio4	energy drink, actually
+2017-09-28 13:35:06	+exio4	with painkillers
+2017-09-28 13:35:33	-->	thalunil (~thalunil@duke.kallisti.at) has joined ##programming
+2017-09-28 13:35:39	-->	saintbruno_ (~saintbrun@dynamic-acs-24-239-99-170.zoominternet.net) has joined ##programming
+2017-09-28 13:36:30	-->	_pronet_ (~pronet@unaffiliated/-pronet-/x-6508958) has joined ##programming
+2017-09-28 13:36:43	-->	justasking (~justaskin@pptp-212-201-70-1.pptp.stw-bonn.de) has joined ##programming
+2017-09-28 13:36:49	<--	CHIPPY (~DJDRISCOL@173.218.36.94) has quit (Ping timeout: 248 seconds)
+2017-09-28 13:38:28	<--	saintbruno (~saintbrun@dynamic-acs-24-239-99-170.zoominternet.net) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:38:35	<--	Guest48671 (~W@unaffiliated/floatingpoint) has quit (Read error: Connection reset by peer)
+2017-09-28 13:38:54	-->	Guest48671 (~W@cpe-66-68-135-149.austin.res.rr.com) has joined ##programming
+2017-09-28 13:38:54	<--	Guest48671 (~W@cpe-66-68-135-149.austin.res.rr.com) has quit (Changing host)
+2017-09-28 13:38:54	-->	Guest48671 (~W@unaffiliated/floatingpoint) has joined ##programming
+2017-09-28 13:39:12	-->	rawruw (~rawrew@gateway/tor-sasl/rawrew) has joined ##programming
+2017-09-28 13:39:47	rindolf	bleh , seems like there is a heisenbug
+2017-09-28 13:39:51	rindolf	i hate those
+2017-09-28 13:42:21	<--	Ladus (~Lotheladu@175.79-161-186.customer.lyse.net) has quit (Read error: Connection reset by peer)
+2017-09-28 13:42:53	rindolf	reynir: heh
+2017-09-28 13:43:00	-->	Tazmain (~Tazmain@unaffiliated/tazmain) has joined ##programming
+2017-09-28 13:44:00	<--	dre_ (~dre_@121-74-5-92.telstraclear.net) has quit (Remote host closed the connection)
+2017-09-28 13:45:05	-->	GenteelBen (~GenteelBe@cpc111801-lutn14-2-0-cust55.9-3.cable.virginm.net) has joined ##programming
+2017-09-28 13:45:08	<--	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has quit (Remote host closed the connection)
+2017-09-28 13:45:37	-->	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has joined ##programming
+2017-09-28 13:46:24	-->	NateRiver (~NateRiver@m213-102-241-188.cust.tele2.hr) has joined ##programming
+2017-09-28 13:46:24	<--	NateRiver (~NateRiver@m213-102-241-188.cust.tele2.hr) has quit (Excess Flood)
+2017-09-28 13:46:36	-->	NateRiver (~NateRiver@m213-102-241-188.cust.tele2.hr) has joined ##programming
+2017-09-28 13:46:41	+beaky	damn havent opened up my humidor in a while hope my cigars arent molded / beetle'd over .
+2017-09-28 13:46:43	-->	veek (~veek@unaffiliated/veek) has joined ##programming
+2017-09-28 13:48:04	-->	cdt5050 (~cdt5050@173-20-227-72.client.mchsi.com) has joined ##programming
+2017-09-28 13:48:42	-->	Sadale (~Sadale@unaffiliated/sadale) has joined ##programming
+2017-09-28 13:49:05	-->	Sampuka (~Sampuka@x1-6-24-7f-20-00-22-92.cpe.webspeed.dk) has joined ##programming
+2017-09-28 13:49:11	-->	throwout (47c66bc9@gateway/web/freenode/ip.71.198.107.201) has joined ##programming
+2017-09-28 13:49:32	throwout	How would you determine whether a programming book is good or bad?
+2017-09-28 13:50:05	<--	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has quit (Ping timeout: 258 seconds)
+2017-09-28 13:50:34	cdt5050	You read it.
+2017-09-28 13:50:48	rindolf	throwout: by reading it?
+2017-09-28 13:50:56	+beaky	reading the book. asking people who've read the book. background of the authors & publishers.
+2017-09-28 13:51:02	gaqwas	throwout, if the author goes straight to the point
+2017-09-28 13:51:13	rindolf	throwout: there are several aspects ob books being  good or bad
+2017-09-28 13:51:24	cdt5050	gaqwas: that means TAOCP is bad.
+2017-09-28 13:51:30	Tazmain	Read the back page as well
+2017-09-28 13:51:33	Tazmain	and google the author
+2017-09-28 13:51:36	Tazmain	and reviews
+2017-09-28 13:52:13	Tazmain	this article is kind of scary when it has in that they found 10k ways for toyota cars to just accelerate on their own https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/?single_page=true
+2017-09-28 13:52:15	+beaky	most of all: is the book what you want for you
+2017-09-28 13:52:26	gaqwas	cdt5050, I haven't read TAOCP, but if it doesn't go straight to the point, my opinion will probably be that it's a bad book
+2017-09-28 13:52:26	+beaky	Tazmain: lol was just reading that article
+2017-09-28 13:52:34	Tazmain	beaky, lol really?
+2017-09-28 13:52:39	benny-innofaith	It also depends on the definition of good. What is truly good?
+2017-09-28 13:52:58	+beaky	i love leslie lamport wish they would link his tutorial on TLA+ https://lamport.azurewebsites.net/video/intro.html
+2017-09-28 13:53:45	Tazmain	that page looks like it came from 2004
+2017-09-28 13:54:06	+beaky	i wonder why they've never mentioned coq
+2017-09-28 13:54:57	Tazmain	coq ?
+2017-09-28 13:55:04	<--	iAreBaboon (~blip-@unaffiliated/blip-) has quit (Ping timeout: 258 seconds)
+2017-09-28 13:55:18	merijn	Tazmain: Theorem prover/programming language
+2017-09-28 13:55:26	Tazmain	ooh
+2017-09-28 13:55:36	+beaky	yes coq is another tool in the 'build invulnerable software for the apocalypse' toolshed http://www.michaelburge.us/2017/08/25/writing-a-formally-verified-porn-browser-in-coq.html
+2017-09-28 13:55:41	throwout	is it possible that you could find a more brilliant way to explain  something that you read from a poorly written book?
+2017-09-28 13:56:00	merijn	Tazmain: If you're curious about that, there's an excellent free book on formal verification of programs using Coq
+2017-09-28 13:56:25	+beaky	yes they've recently 'revamped' it too https://www.cis.upenn.edu/~bcpierce/sf/current/index.html
+2017-09-28 13:56:28	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 240 seconds)
+2017-09-28 13:56:39	+beaky	im still in part 1 lol
+2017-09-28 13:57:06	Tazmain	merijn, not 100% what that does or is used for.
+2017-09-28 13:57:06	+beaky	wish they linked bret victor's lecture too (or all his website) https://vimeo.com/36579366
+2017-09-28 13:57:33	-->	hio (~Wand@192-164-98-122.adsl.highway.telekom.at) has joined ##programming
+2017-09-28 13:57:53	merijn	Tazmain: Basically, "I hate writing tests, what if I could just prove it did the correct thing, then I don't have to write tests!" :p
+2017-09-28 13:58:35	merijn	Tazmain: So it's all about how do you prove properties about a program. Trivial beginner examples would be things like "prove that reversing a list twice indeed produces the original list again"
+2017-09-28 13:59:01	merijn	Tazmain: It starts from proving really simple things and build up to modelling and proving things on more complex imperative programs
+2017-09-28 13:59:03	cdt5050	merijn: coq is a prolog?
+2017-09-28 13:59:28	+beaky	Tazmain: coq lets you write formal specs & interactively prove such specs (i.e. the 'verification' approach mentioned in that atlatinc article), extract your running code from that, and results in an (almost) end-to-end certification of correctness in the resultant software artifact.
+2017-09-28 13:59:43	merijn	cdt5050: I can honestly say that I can't think of a single thing those two have in common, beyond things like "named identifiers exists"
+2017-09-28 14:00:03	cdt5050	merijn: prolog is writing code by writing proofs of what you want your program to do.
+2017-09-28 14:00:08	+beaky	yes both coq and prolog are pretty 'interactive' to wrok with
+2017-09-28 14:00:17	--	f00f[away] is now known as f00fSteR
+2017-09-28 14:00:37	merijn	cdt5050: I know, I've done prolog
+2017-09-28 14:00:51	merijn	cdt5050: But it's not similar to what I was referring to :)
+2017-09-28 14:00:52	+beaky	coq even more interactive where the proofs are like playing a game to get it proven correct
+2017-09-28 14:01:35	--	f00fSteR is now known as f00f[away]
+2017-09-28 14:03:21	+beaky	(you might not even need laborious interactive proofs & get most of the way there just by what the nice type system lets you define & construct in a sound & expressive manner. i.e. proof by construction)
+2017-09-28 14:03:27	Tazmain	merijn, that sounds awesome
+2017-09-28 14:03:56	+beaky	yes it sounds badass until you open the book and spend like 8 chapters proving 1+1=2
+2017-09-28 14:03:58	-->	teta (c6b8e7fe@gateway/web/freenode/ip.198.184.231.254) has joined ##programming
+2017-09-28 14:04:00	--	f00f[away] is now known as f00fSteR
+2017-09-28 14:04:05	Tazmain	lol
+2017-09-28 14:04:13	Tazmain	well it's a difficult problem is it not ?
+2017-09-28 14:04:16	teta	I have a java project which uses Logger class but has no log4j.xml
+2017-09-28 14:04:21	teta	what would happen in this case?
+2017-09-28 14:04:25	+beaky	(and then the chapter after that, you finally get to write a compiler for a algol-like language!)
+2017-09-28 14:04:30	merijn	Tazmain: The two most prominent examples of it in use are probably CompCert (formally verified C compiler for embedded/safety critical systems, like flight computers. And L4 (a formally verifed microkernel used in L4Linux)
+2017-09-28 14:05:00	merijn	Tazmain: https://www.absint.com/compcert/
+2017-09-28 14:05:05	<--	b1n4ry (~b1ng4@92-111-16-130.static.chello.nl) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:05:52	--	f00fSteR is now known as f00f[away]
+2017-09-28 14:05:58	--	f00f[away] is now known as f00fSteR
+2017-09-28 14:06:04	Tazmain	it seems like the biggest issue though starts at the requirements for software
+2017-09-28 14:06:08	merijn	Tazmain: They are now working on verified optimisation passes (i.e. optimisations that provably do not change the programs behaviour), which is a game changer for critical systems, because currently everyone basically uses -O0 since the optimizers in gcc/clang are way too buggy
+2017-09-28 14:06:12	Tazmain	and then design and datastructures
+2017-09-28 14:06:29	Tazmain	o.0 that's bad
+2017-09-28 14:06:52	Tazmain	merijn, didn't even mention visual C++ compiler :D
+2017-09-28 14:07:06	+beaky	Tazmain yes that still seems to be teh biggest unsolved mystery left hanging in that article (even after that bret victor & lamport stuff)
+2017-09-28 14:07:07	merijn	Tazmain: Sure, this kinda stuff probably won't affect the hellscape that is the modern web, since the upfront costs are so high. But for things like software in cars/nuclear reactors/planes that kinda thing becomes kinda important ;)
+2017-09-28 14:07:36	+beaky	verified optimization passes nice
+2017-09-28 14:07:51	--	xcm is now known as Guest27257
+2017-09-28 14:07:52	<--	Guest27257 (~xcm@ipa210.225.tellas.gr) has quit (Killed (tolkien.freenode.net (Nickname regained by services)))
+2017-09-28 14:07:54	+beaky	i didnt realizet he optimizers were that buggy
+2017-09-28 14:07:59	-->	xcm (~xcm@ipa210.225.tellas.gr) has joined ##programming
+2017-09-28 14:08:02	Tazmain	well , cars ... are just issues, since the computer vision used for self driving is in javascript
+2017-09-28 14:08:08	--	f00fSteR is now known as f00f[away]
+2017-09-28 14:08:11	+beaky	(even after reading that big list of 'common optimization bugs in c++ compilers')
+2017-09-28 14:08:14	Tazmain	beaky, neither did I
+2017-09-28 14:08:15	merijn	Tazmain: And just knowing a bit of the basics on proving things about programs can help a lot. It helps you learn how to structure your programs so it's easier to prove things, which as a side-effect makes it easier to people to reason about them
+2017-09-28 14:08:28	+beaky	lol javascript vision
+2017-09-28 14:08:42	--	f00f[away] is now known as f00fSteR
+2017-09-28 14:08:44	merijn	People who claims compilers aren't buggy just don't pay enough attention to what their compiler is doing ;)
+2017-09-28 14:08:59	merijn	Also, 90% of people are invoking UB left and right anyway, so the compiler can do whatever it wants
+2017-09-28 14:09:03	+beaky	haha
+2017-09-28 14:09:15	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Ping timeout: 258 seconds)
+2017-09-28 14:09:33	--	f00fSteR is now known as f00f[away]
+2017-09-28 14:09:42	+beaky	yes maybe i need to actually read the -O2 asm output and see if there's weird missed optimizations and things
+2017-09-28 14:10:15	+Batholith	yes, do that for a large project
+2017-09-28 14:10:19	Tazmain	I just started asm programming.
+2017-09-28 14:10:31	Tazmain	I find it surprisingly fun
+2017-09-28 14:10:38	+beaky	Batholith wont i go insane
+2017-09-28 14:10:43	+Batholith	yes, beaky
+2017-09-28 14:10:46	merijn	beaky: Yes
+2017-09-28 14:10:50	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-09-28 14:11:11	+beaky	hmm maybe waiting for verified optimization passes is best for my sanity
+2017-09-28 14:11:19	grouse	merijn, the discovery of time travel will be by a compiler optimising UB
+2017-09-28 14:11:32	-->	ShockingIsntIt (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has joined ##programming
+2017-09-28 14:11:37	merijn	grouse: Already done
+2017-09-28 14:11:37	<--	Jak_o_Shadows (~Jak@unaffiliated/jak-o-shadows/x-0479135) has quit (Ping timeout: 260 seconds)
+2017-09-28 14:11:40	Tazmain	I think at uni the courses should teach data scrutures and asm
+2017-09-28 14:11:46	grouse	merijn, wait what
+2017-09-28 14:11:48	-->	Jak_o_Shadows (~Jak@unaffiliated/jak-o-shadows/x-0479135) has joined ##programming
+2017-09-28 14:11:52	merijn	grouse: https://blogs.msdn.microsoft.com/oldnewthing/20140627-00/?p=633
+2017-09-28 14:12:17	+beaky	yes time travel was already discovered by VMware and vms clocks being non-monotonic and stuff
+2017-09-28 14:12:22	+beaky	woah
+2017-09-28 14:12:33	grouse	merijn, hah, did not know of that! let's just pretend I made that reference intentionally :P
+2017-09-28 14:12:35	+beaky	lol
+2017-09-28 14:12:49	merijn	grouse: You should read the article, it's rather interesting :)
+2017-09-28 14:12:55	-->	davr0s (~textual@host81-155-67-232.range81-155.btcentralplus.com) has joined ##programming
+2017-09-28 14:12:57	+beaky	if only we can all be like raymond chen
+2017-09-28 14:12:57	<--	Nowyouseeme (~Nowyousee@123.201.156.179) has quit (Read error: Connection reset by peer)
+2017-09-28 14:12:58	grouse	merijn, yeah i am
+2017-09-28 14:13:13	+beaky	(what if merijn is raymond chen)
+2017-09-28 14:13:15	Tazmain	beaky, who is he ?
+2017-09-28 14:13:35	-->	Nowyouseeme (~Nowyousee@203.187.235.200) has joined ##programming
+2017-09-28 14:13:37	<--	ShockingIsntIt2 (~ShockingI@ip68-0-178-69.tc.ph.cox.net) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:14:02	+beaky	microsoft master programmer who has seen and understood every bug encountered out there in the depths & history of the MS codebase
+2017-09-28 14:14:11	--	f00f[away] is now known as f00fSteR
+2017-09-28 14:14:23	Tazmain	seriously >? holy &^%#
+2017-09-28 14:14:39	Tazmain	C++ coder or what ?
+2017-09-28 14:15:22	<--	SuperJen (~JenElizab@cpc76794-brmb10-2-0-cust542.1-3.cable.virginm.net) has quit (Ping timeout: 264 seconds)
+2017-09-28 14:15:22	+liste	https://blogs.msdn.microsoft.com/oldnewthing/ raymond's blog
+2017-09-28 14:15:36	teta	I have a java project which uses Logger class but has no log4j.xml [13:04] <teta> what would happen in this case?
+2017-09-28 14:15:39	+liste	I guess that's what he's most known for
+2017-09-28 14:16:02	+beaky	calling him 'c++ coder' would kinda be like calling sir tim berners lee 'html coder'
+2017-09-28 14:16:12	-->	Sadale (~Sadale@unaffiliated/sadale) has joined ##programming
+2017-09-28 14:16:20	+liste	beaky: though he didn't invent C++
+2017-09-28 14:16:26	+beaky	o
+2017-09-28 14:16:26	-->	garden_goat (~kjac@30835008a.pa.net.dtu.dk) has joined ##programming
+2017-09-28 14:17:04	Tazmain	beaky, then what is his language he codes in ?
+2017-09-28 14:17:04	garden_goat	What is the best library for parsing everything in certificates (preferably in python)
+2017-09-28 14:17:11	<--	cdt5050 (~cdt5050@173-20-227-72.client.mchsi.com) has quit (Remote host closed the connection)
+2017-09-28 14:17:34	-->	zhalla_ (~zhalla@105.211.54.77.rev.vodafone.pt) has joined ##programming
+2017-09-28 14:19:10	-->	LKoen (~LKoen@2a01:e35:2eed:a430:5843:2121:10f0:f382) has joined ##programming
+2017-09-28 14:19:19	+beaky	c, c++, c#, powershell, visual basic professional https://blogs.msdn.microsoft.com/oldnewthing/20050930-10/?p=33983/
+2017-09-28 14:19:32	grouse	merijn, fuuuuuuuuun
+2017-09-28 14:19:55	Xatenev	merijn, how do you know facebooks codebase is shit
+2017-09-28 14:19:58	-->	_Atom_ (~Atom@2604:2000:f085:8800:e5a6:b260:4e20:1b81) has joined ##programming
+2017-09-28 14:20:03	Tazmain	beaky, ah okay I figured it was just C/C++ since MS code base :p
+2017-09-28 14:20:16	merijn	grouse: I'm honestly convinced I've never written a file with more than 30 lines of C that didn't contain AT LEAST 10+ bugs/potential UB conditions
+2017-09-28 14:20:30	stefan27	UB?
+2017-09-28 14:20:33	merijn	Xatenev: https://www.darkcoding.net/software/facebooks-code-quality-problem/
+2017-09-28 14:20:34	Xatenev	stefan27, undefined behavior
+2017-09-28 14:20:37	merijn	stefan27: Undefined behaviour
+2017-09-28 14:20:41	grouse	merijn, yehhh, there are a lot of really absurd ones that you just look at and go "but come on"
+2017-09-28 14:20:49	rts-sander	stefan27: Undefined behaviouor
+2017-09-28 14:20:54	stefan27	all right
+2017-09-28 14:21:01	grouse	rts-sander, behaviourouour?
+2017-09-28 14:21:01	-->	TheDcoder (~TheDcoder@unaffiliated/thedcoder) has joined ##programming
+2017-09-28 14:21:03	+beaky	merijn: yes its why im astounded that things like freebsd source files are hundreds of lines long per file, and gnu source files are thousands per file.
+2017-09-28 14:21:06	+liste	Xatenev: thanks for the nightmares last night ;9
+2017-09-28 14:21:08	+liste	;)
+2017-09-28 14:21:12	rts-sander	behavioure
+2017-09-28 14:21:16	+beaky	how do they guarantee all that is UB-free and 100% bug-free
+2017-09-28 14:21:25	Xatenev	liste, ;)
+2017-09-28 14:21:30	Tazmain	beaky, they know what they are doing? Just a guess
+2017-09-28 14:21:47	TheDcoder	Hi, I was not sure where I should go for this, but can anyone identify the format of this timestamp?: "13151065426665274"
+2017-09-28 14:21:55	grouse	beaky, compilers are getting better at warning when it detects undefined behaviour
+2017-09-28 14:21:56	+liste	(jk, I just saw a dream of someone trying to shove me in a meat grinder, nothing about Xatenev's codebase)
+2017-09-28 14:22:00	TheDcoder	It isn't the Unix Epoch timestamp
+2017-09-28 14:22:08	merijn	beaky: They don't. All operating systems are riddled with bugs
+2017-09-28 14:22:21	grouse	beaky, but know? guarantee? yeah no practically impossible
+2017-09-28 14:22:41	Xatenev	TheDcoder, Probably that timestamp is formatted in microseconds ?
+2017-09-28 14:22:51	-->	cdt5050 (~cdt5050@173-20-227-72.client.mchsi.com) has joined ##programming
+2017-09-28 14:22:53	TheDcoder	maybe, let me check
+2017-09-28 14:22:53	Xatenev	TheDcoder, Then it would point towards the 4th september
+2017-09-28 14:23:18	TheDcoder	it should be more recent
+2017-09-28 14:23:19	Xatenev	liste, i was being chased by a black big animal
+2017-09-28 14:23:25	Xatenev	liste, it might be a panda but im not sure
+2017-09-28 14:23:26	grouse	Xatenev, panda?
+2017-09-28 14:23:31	Tazmain	grouse, lets not forget that intel CPU microcode also contains bugs now.
+2017-09-28 14:23:32	+exio4	I am tired man
+2017-09-28 14:23:48	grouse	Tazmain, "now"? implying CPUs haven't had bugs since the dawn of time?
+2017-09-28 14:24:04	Tazmain	grouse, well we are finding them now. and more of them.
+2017-09-28 14:24:15	cdt5050	"bugs".
+2017-09-28 14:24:23	cdt5050	Implying they weren't put there by NSA plants.
+2017-09-28 14:24:24	merijn	Tazmain: Lol...
+2017-09-28 14:24:27	+PlanckWalk	If that was microseconds since Unix epoch, it would represent something in 2386
+2017-09-28 14:24:35	merijn	Tazmain: Lemme tell you about the Intel floating point bug...
+2017-09-28 14:24:37	GeDaMo	https://en.wikipedia.org/wiki/MOS_Technology_6502#Bugs_and_quirks
+2017-09-28 14:24:38	Xatenev	PlanckWalk, ?
+2017-09-28 14:24:40	Xatenev	PlanckWalk, I dont think so
+2017-09-28 14:24:51	Tazmain	merijn, which gen? and what happens ?
+2017-09-28 14:24:54	+liste	https://www.wolframalpha.com/input/?i=13151065426665274+microseconds+since+epoch wolfram alpha is nice for figuring out things like that
+2017-09-28 14:24:55	merijn	Tazmain: https://en.wikipedia.org/wiki/Pentium_FDIV_bug
+2017-09-28 14:25:04	TheDcoder	PlanckWalk, that is too far fetched in the future
+2017-09-28 14:25:06	--	Mode ##programming [-C] by Sterling
+2017-09-28 14:25:10	merijn	Tazmain: 1994
+2017-09-28 14:25:11	--	CTCP requested by Sterling: VERSION
+2017-09-28 14:25:11	--	CTCP reply to Sterling: VERSION WeeChat 1.9.1 (Sep 23 2017)
+2017-09-28 14:25:13	--	Mode ##programming [+C] by Sterling
+2017-09-28 14:25:22	Tazmain	o.o that's bad
+2017-09-28 14:25:38	merijn	Tazmain: That sorta shit has been happening since the invention of the microprocessor
+2017-09-28 14:25:40	+PlanckWalk	That's definitely odd
+2017-09-28 14:25:51	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 248 seconds)
+2017-09-28 14:26:40	+exio4	microprocessors are built by humans
+2017-09-28 14:26:45	-->	workmad3 (~workmad3@ruby/staff/workmad3) has joined ##programming
+2017-09-28 14:26:53	+exio4	and they are insanely complex and doing many many things at once, and really fast
+2017-09-28 14:26:54	+liste	TheDcoder's timestamp could be microseconds since 1601, for whatever reason
+2017-09-28 14:26:55	Tazmain	and yet we trust these devices to drive our cars
+2017-09-28 14:27:04	+liste	https://www.wolframalpha.com/input/?i=13151065426665274+microseconds+since+1601
+2017-09-28 14:27:18	Tazmain	exio4, they are designed by humans, built by factory robots *
+2017-09-28 14:27:21	grouse	exio4, are you sure? what if they're built by AI and the bugs are intentional to make sure we always need them to make better CPUs? *tinfoil*
+2017-09-28 14:27:26	+liste	then it'd date 4 hours ago
+2017-09-28 14:27:55	+liste	https://stackoverflow.com/questions/10849717/what-is-the-significance-of-january-1-1601 here's why
+2017-09-28 14:27:56	TheDcoder	Wow that is close
+2017-09-28 14:28:04	TheDcoder	thanks liste
+2017-09-28 14:28:05	+exio4	1 hour in the future
+2017-09-28 14:28:42	+liste	TheDcoder: no problem
+2017-09-28 14:28:42	TheDcoder	1601 is Win32 Epoch
+2017-09-28 14:28:53	TheDcoder	You learn something new everyday :P
+2017-09-28 14:29:09	TheDcoder	I should have know that Unix Epoch ≠ Win32 Epoch
+2017-09-28 14:29:12	grouse	implying time existed before 1970? pfffft
+2017-09-28 14:29:18	grouse	#theonetrueepoch
+2017-09-28 14:29:32	+liste	grouse: it did, it's just negative time ;)
+2017-09-28 14:29:32	<--	jelly (jelly@pdpc/supporter/active/jelly) has quit (Ping timeout: 255 seconds)
+2017-09-28 14:29:42	+liste	when everyone walked backwards
+2017-09-28 14:29:50	grouse	liste, no wonder people were do negative back then
+2017-09-28 14:29:52	+exio4	and there were no colors!
+2017-09-28 14:29:55	+liste	and classes ended before they started
+2017-09-28 14:30:04	+PlanckWalk	So that timestamp is missing a digit?
+2017-09-28 14:30:19	TheDcoder	By the way, for those interested, those are the timestamps are from the "Bookmarks" file used by Chrome(ium)
+2017-09-28 14:30:56	+PlanckWalk	Since it's supposed to be based on 100 ns intervals, not microseconds?
+2017-09-28 14:31:05	-->	cannap (~cannap@132.142.5.85.dynamic.wline.res.cust.swisscom.ch) has joined ##programming
+2017-09-28 14:31:05	-->	Sadale (~Sadale@unaffiliated/sadale) has joined ##programming
+2017-09-28 14:31:49	+liste	PlanckWalk: FILETIME uses 100ns intervals, Chrome may use something else
+2017-09-28 14:32:37	TheDcoder	Since it is cross-platform, it might be using something independent of Windows
+2017-09-28 14:33:12	TheDcoder	Of course I am not qualified to speak regarding this matter, I am just some BASIC programmer trying to do his job
+2017-09-28 14:33:29	+exio4	I don't understand how the human body works
+2017-09-28 14:33:43	+exio4	the brain is so powerful, and I hate it
+2017-09-28 14:34:03	+liste	exio4: well you're not a physician :) no need to understand it
+2017-09-28 14:34:18	+liste	nah, some other urges are more powerful than the brain
+2017-09-28 14:34:42	<--	TheDcoder (~TheDcoder@unaffiliated/thedcoder) has left ##programming ("<Insert Generic Part Message>")
+2017-09-28 14:34:48	<--	berzerk0 (~123456@unaffiliated/berzerk0) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:35:04	-->	jelly-home (jelly@pdpc/supporter/active/jelly) has joined ##programming
+2017-09-28 14:35:41	+exio4	liste: still
+2017-09-28 14:35:47	+exio4	I don't know how I am alive :D
+2017-09-28 14:36:11	-->	berzerk0 (~123456@unaffiliated/berzerk0) has joined ##programming
+2017-09-28 14:36:59	<--	throwout (47c66bc9@gateway/web/freenode/ip.71.198.107.201) has quit (Quit: Page closed)
+2017-09-28 14:37:15	-->	cagmz_ (~cagmz@cpe-104-34-174-123.socal.res.rr.com) has joined ##programming
+2017-09-28 14:39:43	-->	rsx (~rsx@ppp-46-244-248-57.dynamic.mnet-online.de) has joined ##programming
+2017-09-28 14:40:07	-->	cagmez__ (~cagmz@cpe-104-34-174-123.socal.res.rr.com) has joined ##programming
+2017-09-28 14:40:11	<--	cagmz (~cagmz@cpe-104-34-174-123.socal.res.rr.com) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:41:26	<--	xorro (~x@pa49-197-238-213.pa.qld.optusnet.com.au) has quit (Quit: ChatZilla 0.9.92 [Firefox 53.0.3/20170518000419])
+2017-09-28 14:41:34	`3m	liste: Like Coca-Cola.
+2017-09-28 14:41:35	<--	Sadale (~Sadale@unaffiliated/sadale) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:41:52	-->	xorro (~x@pa49-197-238-213.pa.qld.optusnet.com.au) has joined ##programming
+2017-09-28 14:42:41	<--	cagmz_ (~cagmz@cpe-104-34-174-123.socal.res.rr.com) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:43:22	adminseodwn	I cant seem to set breakpoint on strcpy in gdb. this is the code : https://gist.github.com/anonymous/7e984611253769ab95629f7953152881
+2017-09-28 14:43:31	adminseodwn	after running program in gdb, breakpoint strcpy never appears.
+2017-09-28 14:44:52	<--	cagmez__ (~cagmz@cpe-104-34-174-123.socal.res.rr.com) has quit (Ping timeout: 260 seconds)
+2017-09-28 14:45:17	<--	Wizek_ (~Wizek@catv-89-132-132-110.catv.broadband.hu) has quit (Ping timeout: 246 seconds)
+2017-09-28 14:45:50	<--	cdt5050 (~cdt5050@173-20-227-72.client.mchsi.com) has quit (Remote host closed the connection)
+2017-09-28 14:46:23	+exio4	coca cola is what I am drinking right now
+2017-09-28 14:47:03	<--	RumpledElf (~rumpledel@drupal.org/user/173054/view) has quit (Quit: My iMac has gone to sleep. ZZZzzz…)
+2017-09-28 14:50:01	-->	b_ray (~b_ray@2605:a601:1153:f900:9085:7fca:c3ca:ee70) has joined ##programming
+2017-09-28 14:50:32	-->	SevenTwenty (~SevenTwen@static-71-182-137-162.pitbpa.fios.verizon.net) has joined ##programming
+2017-09-28 14:51:18	-->	Wizek_ (~Wizek@catv-89-132-132-110.catv.broadband.hu) has joined ##programming
+2017-09-28 14:51:46	 *	`3m cawfee
+2017-09-28 14:52:22	--	f00fSteR is now known as f00f[away]
+2017-09-28 14:52:26	-->	wedr (32ffae32@gateway/web/freenode/ip.50.255.174.50) has joined ##programming
+2017-09-28 14:52:35	<--	zem (~krikkit@cpe-94-253-194-166.zg2.cable.xnet.hr) has quit (Ping timeout: 240 seconds)
+2017-09-28 14:52:37	--	f00f[away] is now known as f00fSteR
+2017-09-28 14:52:57	<--	_Atom_ (~Atom@2604:2000:f085:8800:e5a6:b260:4e20:1b81) has quit (Remote host closed the connection)
+2017-09-28 14:53:32	-->	_Atom_ (~Atom@2604:2000:f085:8800:e5a6:b260:4e20:1b81) has joined ##programming
+2017-09-28 14:53:53	--	irc: disconnected from server
+2017-10-02 08:46:54	-->	yasser (~yasser@89.249.219.90) has joined ##programming
+2017-10-02 08:46:54	--	Topic for ##programming is "Community Chat & Programming/Computer Science Discussion | If you have a question, don't ask to ask, just ask! | Paste > 2 lines to a pastebin such as http://ideone.com | Channel rules: http://tinyurl.com/2lb-programming | Colour codes filtered again because idiets."
+2017-10-02 08:46:54	--	Topic set by _W_ on Sat, 12 Nov 2016 15:15:09
+2017-10-02 08:46:54	--	Channel ##programming: 692 nicks (1 op, 9 voices, 682 normals)
+2017-10-02 08:47:03	--	Channel created on Sun, 04 Feb 2007 07:23:51
+2017-10-02 08:48:06	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Ping timeout: 240 seconds)
+2017-10-02 08:48:23	 *	rockman37 doesn't
+2017-10-02 08:50:02	<--	Chords (~Some_Chor@host-128-175-216-234.student.udel.edu) has quit (Ping timeout: 260 seconds)
+2017-10-02 08:50:04	Gencade	visual studio
+2017-10-02 08:50:07	 *	Gencade cringes
+2017-10-02 08:50:15	Gencade	the dark side
+2017-10-02 08:50:52	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-10-02 08:51:17	+liste	VS is a fine IDE
+2017-10-02 08:51:25	Gencade	liste: it runs very badly
+2017-10-02 08:51:27	+liste	especially with ReSharper
+2017-10-02 08:51:30	Gencade	and is super heavy
+2017-10-02 08:51:58	+liste	Gencade: nah, it's not that much heavier than other full-blown IDEs, like Eclipse
+2017-10-02 08:52:13	+liste	or NetBeans
+2017-10-02 08:53:18	snowmancantcode	it aint that slow
+2017-10-02 08:53:40	-->	soryy708 (6d419e95@gateway/web/freenode/ip.109.65.158.149) has joined ##programming
+2017-10-02 08:53:44	soryy708	Hey
+2017-10-02 08:53:50	snowmancantcode	sorry
+2017-10-02 08:54:10	snowmancantcode	welcome soryy708
+2017-10-02 08:54:30	soryy708	Development environment is different from production environment in a few ways. How do you manage that difference? Through environment variables and conditional execution? Or through source control?
+2017-10-02 08:54:32	+exio4	Visual Studio was quite slow on my desktop
+2017-10-02 08:54:42	yasser	There are alternatives to VS.
+2017-10-02 08:54:56	+exio4	I guess because I ran it in a VM without proper GPU accel
+2017-10-02 08:54:57	soryy708	Yeah, I have an i7 and visual studio is slow.
+2017-10-02 08:54:59	+exio4	but it was slow
+2017-10-02 08:55:09	Gencade	I knew i wasn't crazy
+2017-10-02 08:55:15	soryy708	They actually started working on VS Code because visual studio is slow.
+2017-10-02 08:55:19	yasser	For instance unity developers use Monodeve instead of VS.
+2017-10-02 08:55:24	<--	Cosmonaut (~Cosmonaut@unaffiliated/tendies) has quit (Quit: WeeChat 1.9.1)
+2017-10-02 08:55:26	yasser	You can use Rider.
+2017-10-02 08:55:30	<--	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has quit (Client Quit)
+2017-10-02 08:55:38	Gencade	mfw no community version of rider
+2017-10-02 08:55:42	Gencade	tfw*
+2017-10-02 08:55:50	-->	_pronet_ (~pronet@unaffiliated/-pronet-/x-6508958) has joined ##programming
+2017-10-02 08:55:59	ShinigamiBlack	I love Visual Studio, and I ended up finding it. There is an About Box template for Windows Forms.
+2017-10-02 08:55:59	+liste	exio4: yeah, I can see how VM would slow it down
+2017-10-02 08:56:17	+liste	yasser: I've done unity development with both MonoDevelop and VS and would pick VS any day
+2017-10-02 08:56:20	<--	mu5t (~LadyG@189.155.186.180) has quit (Quit: Leaving)
+2017-10-02 08:56:21	+liste	MonoDevelop is horrible
+2017-10-02 08:56:25	ShinigamiBlack	I freaking hate VS Code
+2017-10-02 08:56:41	soryy708	ShinigamiBlack: Too different from vim?
+2017-10-02 08:56:42	yasser	Monodevelop is just an alternative.
+2017-10-02 08:56:44	Gencade	I like vscode, it's the only thing MS has put out that isn't bloated to all hell
+2017-10-02 08:57:11	ShinigamiBlack	soryy708, I don't use VIM, lol. I have limited development experience but but VS Code is too light for my tastes
+2017-10-02 08:57:13	yasser	Not every machine can handle VS.
+2017-10-02 08:57:18	hug	> not bloated
+2017-10-02 08:57:21	hug	> electron
+2017-10-02 08:57:21	hug	k
+2017-10-02 08:57:33	soryy708	ShinigamiBlack: VS Code is as light as you want it to be. It's extremely customizable.
+2017-10-02 08:57:34	ShinigamiBlack	yasser, my computer is 5 years old and I run VS fine
+2017-10-02 08:57:38	Gencade	hug: oh hush electron hate is a meme
+2017-10-02 08:57:52	soryy708	ShinigamiBlack: Learn to use your tools ;)
+2017-10-02 08:58:08	hug	Gencade: Y'know the thing about cliches...
+2017-10-02 08:58:11	ShinigamiBlack	soryy708, VS Code is a tool I won't be using anytime soon I don't think
+2017-10-02 08:58:18	yasser	I use vim because I am a masochist.
+2017-10-02 08:58:18	-->	Belxjander (~Belxjande@sourcemage/Mage/Abh-Elementalist) has joined ##programming
+2017-10-02 08:58:35	+exio4	I liked VS for writing C#/F#
+2017-10-02 08:58:45	Gencade	does sublime stand a chance now that the new version is out?
+2017-10-02 08:58:50	soryy708	In the church of Emacs, running Vim is not a sin. It's a penance.
+2017-10-02 08:58:54	Gencade	Haven't bothered to try it
+2017-10-02 08:58:55	ShinigamiBlack	exio4, that is what I use it for, C#
+2017-10-02 08:59:59	yasser	I know of a few people who used to use atom and sublime and got hooked to VScode when they tried it.
+2017-10-02 09:00:26	yasser	That was half a year ago, so I am not sure how things are now.
+2017-10-02 09:00:28	Gencade	yeah I really haven't found a reason to use atom or sublime since I switched
+2017-10-02 09:00:53	+exio4	how much is a trip from Amsterdam to Helsinki?
+2017-10-02 09:01:09	-->	Gluesticky (~nobody@unaffiliated/gluesticky) has joined ##programming
+2017-10-02 09:02:17	-->	Raging_Hog (~heikki@193.64.112.22) has joined ##programming
+2017-10-02 09:02:36	soryy708	So how do you set up the difference between production and development?
+2017-10-02 09:03:02	systemfault	VSCode is great
+2017-10-02 09:03:02	+PlanckWalk	soryy708: Step 1: don't develop on the production servers.
+2017-10-02 09:03:14	+PlanckWalk	Step 2: try to minimize the differences, no maximize.
+2017-10-02 09:04:05	<--	urodna (~urodna@unaffiliated/urodna) has quit (Quit: urodna)
+2017-10-02 09:04:11	+PlanckWalk	E.g. if your application needs access to external servers, either duplicate them or fake them.
+2017-10-02 09:04:35	soryy708	PlanckWalk: Thanks for the pointers. I'm looking for insight on how to set it up.
+2017-10-02 09:05:20	soryy708	I thought about 2 approaches: One is to add a ton of conditional execution based on an environment variable. The other approach is to make different branches in source control, where the files are somewhat different from branch to branch.
+2017-10-02 09:06:00	+PlanckWalk	soryy708: Trying to set up difference source code is a world of grief.
+2017-10-02 09:06:02	+PlanckWalk	Don't do it.
+2017-10-02 09:06:02	-->	harai (~b@d108-180-7-49.bchsia.telus.net) has joined ##programming
+2017-10-02 09:06:18	soryy708	PlanckWalk: What?
+2017-10-02 09:06:23	<--	OLNSaEzBA (~g2fk2F2@216.243.47.15) has quit (Ping timeout: 248 seconds)
+2017-10-02 09:06:50	+PlanckWalk	The idea is that the production servers will be running code identical to your shiny new development code, when it's complete.
+2017-10-02 09:07:08	+PlanckWalk	The external configuration may be different, but try to minimize those differences as well.
+2017-10-02 09:07:38	soryy708	I'm trying to decide on how to manage that difference. Through environment variables, or through source control.
+2017-10-02 09:07:40	<--	vilez (~supra@ti0040a400-3225.bb.online.no) has quit (Quit: Going offline, see ya! (www.adiirc.com))
+2017-10-02 09:08:33	+PlanckWalk	Definitely not source control.  Preferably not through environment variables either.
+2017-10-02 09:08:43	soryy708	How would you rather do it then?
+2017-10-02 09:09:31	+PlanckWalk	Ideally, a virtual machine (or cluster of virtual machines) that is internally as close to identical as possible to the production environment.
+2017-10-02 09:10:08	soryy708	PlanckWalk: What does it have to do with difference in source code?
+2017-10-02 09:10:13	+PlanckWalk	Nothing at all.
+2017-10-02 09:10:21	+PlanckWalk	There should be no differences in source code.
+2017-10-02 09:10:31	soryy708	PlanckWalk: There has to be.
+2017-10-02 09:10:33	+PlanckWalk	Nope
+2017-10-02 09:11:12	+exio4	the only changes should be the ones you are testing/developing
+2017-10-02 09:11:21	+PlanckWalk	If you have hardcoded resources in your source code that have to be changed between production.testing/production, get them out.  It's going to break something.
+2017-10-02 09:11:31	+PlanckWalk	Err, development/testing/production
+2017-10-02 09:11:40	--	irc: disconnected from server
