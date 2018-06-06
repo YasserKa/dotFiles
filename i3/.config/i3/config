@@ -237,7 +237,7 @@ focus_follows_mouse no
 # Startup
 exec_always feh --bg-scale /home/yasser/Pictures/WallPapers/Blue_Black_1.jpg
 
-exec firefox
+exec firefox http://localhost/wordpress/index.php/makerspace/
 exec rhythmbox
 #exec zathura
 exec claws-mail
