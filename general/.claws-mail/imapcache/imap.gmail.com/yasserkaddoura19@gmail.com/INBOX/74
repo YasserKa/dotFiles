@@ -1,0 +1,528 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp1688338vkd;
+        Thu, 9 Aug 2018 03:14:38 -0700 (PDT)
+X-Received: by 2002:aca:ebd8:: with SMTP id j207-v6mr1535993oih.206.1533809678888;
+        Thu, 09 Aug 2018 03:14:38 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1533809678; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=VEAMdJyuOHGENxo4H2Por1htoZaQQrDKi4+SQNMZdF8iV7aEdl0CHpjL2YxFB+cn97
+         /nonZDC33HwI5877Y4nXYn/nwuOrUfIcbOhvtxh+IsJAz0zg83LmTNXNvQ0yiQUqlBj3
+         X/jh3gAspNADI7O88/rhTveG98QvJfGUmc/evJeMBNl0aba34w4bKO30CmhSjvZAFFle
+         7UlbpcqSid1eWdt32SjyIdjhMHHyJN1EMTlrgiDHMthuCBn7b5QjWmIURn6oX/vF2f0d
+         yONU5NNOW7PYuWpUwJnBu0Et+kT+yAONE9HetLBHTDzgj5miW3oIP35p7A74XJd0/jTM
+         fQiA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:date:list-unsubscribe:subject:to:from:mime-version
+         :dkim-signature:arc-authentication-results:arc-message-signature
+         :delivered-to:arc-authentication-results;
+        bh=RqHf/QMlcvAikaVaRjTXkBwQRkXr8hWLHKg49IFbyO4=;
+        b=dCy+FGGcqTnOKQIX2RUaJVubHVuywbEpCdzSCxQHBYtcRjqaSkC413FWvLzergnfNw
+         Xbb8qRtWRv3tRoIPHkocARlYAeUMp7VM7iZfcvJuf0qCk20sgYodGkLwH+AwdqutN6rD
+         DBg9hnU9lkesddKwqWg7wDwOk+kblmJVyGNv0a0eGNSHT1twhqzJ7ffRi4cih5A1gpSv
+         guyzLtoX+z2+sob1yflI8Bi70Bj6B6ZSGOPgKRdzxEdyBJB3YWwPIbjz6V/GKwmdMW6j
+         dBXycWs5UVmNHUq9M6KCT6iiIsF02qYwSJ0e6VFq8rR4NgAOW7dvGFrtnVgg1KIUkKaz
+         Emow==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@quora.com header.s=mail header.b=VINS0fcR;
+       arc=pass (i=1 spf=pass spfdomain=quora.com dkim=pass dkdomain=quora.com dmarc=pass fromdomain=quora.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=quora.com
+Return-Path: <yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id d3-v6sor3347158oib.112.2018.08.09.03.14.38
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Thu, 09 Aug 2018 03:14:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@quora.com header.s=mail header.b=VINS0fcR;
+       arc=pass (i=1 spf=pass spfdomain=quora.com dkim=pass dkdomain=quora.com dmarc=pass fromdomain=quora.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=quora.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:delivered-to:dkim-signature:mime-version:from:to
+         :subject:list-unsubscribe:date:message-id;
+        bh=RqHf/QMlcvAikaVaRjTXkBwQRkXr8hWLHKg49IFbyO4=;
+        b=nCIFfHnoXbdEmC2L6F53rvcPbRXr+G6eFutXknoHC73o9I+8scpFPnZyqkKJMfcR4V
+         OE+txo+q+nN8rq4bv1uJg5RdfVzWaGw6yklWLubiiL6PRelllG5k6dGnqu1zNSTjESME
+         oYLJ/sDxJITdbm7VWVDUixS2CJPlX2nby2E1iO8LjJRURtaidPWhlI6cT2u5GyR+fBVX
+         0SZpgj6tG/cYfc23KL4CBo3/A3c5zeL0FySdyNVRMu2RaVRnaglHs2N+F+ciRtP43mtg
+         U8rZs7xS80qcbJgxPmVNxOl1Zg6b9UHca7k3uI2D/owB05ano6Dd1IPsIaNr4qc33rBo
+         5RKw==
+X-Gm-Message-State: AOUpUlFor/kmvz1roY3ysjVa8hi8Zc65LtZLTcZ7b/3qsDnQaz92pkoE
+	or3iXhsnk7NESa0PV/gjY44KdwQl1KUnaGOHrAYu4EvYqkRzzRk=
+X-Received: by 2002:aca:a56:: with SMTP id 83-v6mr1559632oik.57.1533809678501;
+        Thu, 09 Aug 2018 03:14:38 -0700 (PDT)
+X-Forwarded-To: yasserkaddoura19@gmail.com
+X-Forwarded-For: yasserkaddouralearn@gmail.com yasserkaddoura19@gmail.com
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a8a:b46:0:0:0:0:0 with SMTP id i6-v6csp1852185ocv;
+        Thu, 9 Aug 2018 03:14:37 -0700 (PDT)
+X-Google-Smtp-Source: AA+uWPxdiCb05YVMH5bLNL/sNmY76ip3gr53zF7cEa9Dc2/+HVjNhs97Tk1V5Ynn7gZMh/I+R2Nw
+X-Received: by 2002:a0c:becb:: with SMTP id f11-v6mr1145723qvj.217.1533809677463;
+        Thu, 09 Aug 2018 03:14:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1533809677; cv=none;
+        d=google.com; s=arc-20160816;
+        b=RRoYQykqrUqw+4SsWDgTfEymwuGsJJlH3cuH37ou2Y7uVENUTtwF6X5tQlCZ/sdIZd
+         D9K/iD9Z8OU6mB2jO9ogTISPpdW3V4+X4I/KqeOd96uIZCoZ0YS1dvoEB5IWu2+wsSjX
+         Csm9c27iJoHsHYKYGNd/ADFRh4eZhngJf2IKwebVxpHkvNiNert2AKWaKWzWD0HJx3bO
+         afN78eL098JQSmEty0SLroswF3WeXlQIXmm+hf6ckUNdAX3imTdeeyxdyxCk/87sZhIZ
+         COiz3Vun1kCMGrxh+RjSq39V9j15/geIiNECRzMgDCsG+B8XXmqRHjUza8+UV7meFJtF
+         y0cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:date:list-unsubscribe:subject:to:from:mime-version
+         :dkim-signature:arc-authentication-results;
+        bh=RqHf/QMlcvAikaVaRjTXkBwQRkXr8hWLHKg49IFbyO4=;
+        b=TIz96o2BOOK3i9+KM+48IrEGb/+DpFvXDEF8J/oHDqpt0CGWwvbqwK0AbBkmB/drnG
+         K9SKwnYWsb4H7J219ofrBwkV/brTvR4McYVjlozHDEZ955udUVsTFJOHwUMlSvfjdTJP
+         Ls1/fnkMAIs2JcR8Rp7Wr0VMZsa5mbynU+lw6f9BPPGn03fLO0whdNwVL5M9qTfcxv/H
+         m7ru3XjImCBoAuyQUFYMM8Y7jMjHNfEXi2ym/cJ/d6RnA9ox4lktjC+zD27loOMm9BUt
+         pqNZqeuiboL+cr3yaqdVVb3Mlu+jmv8B+6DMbIcSE1q20OcnvXpjorXNyOPbYlsOvIQG
+         J8vw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@quora.com header.s=mail header.b=VINS0fcR;
+       spf=pass (google.com: domain of bounce@quora.com designates 52.7.141.42 as permitted sender) smtp.mailfrom=bounce@quora.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=quora.com
+Return-Path: <bounce@quora.com>
+Received: from o17.pigeon.quora.com (o17.pigeon.quora.com. [52.7.141.42])
+        by mx.google.com with ESMTPS id o39-v6si24626qto.245.2018.08.09.03.14.37
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 09 Aug 2018 03:14:37 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce@quora.com designates 52.7.141.42 as permitted sender) client-ip=52.7.141.42;
+Received: 
+	by pigeon-at-10007 (OpenSMTPD) with ESMTP id eb1528a0
+	for <yasserkaddouralearn@gmail.com>;
+	Thu, 9 Aug 2018 10:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=quora.com; h=
+	content-type:mime-version:from:to:subject:list-unsubscribe:date
+	:message-id; s=mail; bh=BMox57JSEkbD4Fz4uDw+T8KloPk=; b=VINS0fcR
+	IvQ1Gwv8a1/TvU5m3/3rWt3iy/b3LwJBwbA/43WWiPDmKPtGQB8icntydIVF7jRb
+	Nlu+LPZL8u86KMsf1cEPra0yfR9xB9e0PuCRox0FVC8EejwXHnJEfIhYqVszZY1T
+	z0fxmj7/CI+OPe2BATHS9C6qICO2nx8ETb4=
+Content-Type: multipart/alternative;
+ boundary="===============5873891945445163726=="
+MIME-Version: 1.0
+From: Quora <answer-noreply@quora.com>
+To: yasserkaddouralearn@gmail.com
+Subject: =?utf-8?q?New_answer_to_=22What_are_some_amazing_psychology_and_mind_tricks?=
+ =?utf-8?q?=3F=22?=
+X-SMTPAPI: {"unique_args": null}
+List-Unsubscribe: <https://www.quora.com/email_optout/notif_optout?code=830e8f24163bf857f1dde91211980b3d&email=yasserkaddouralearn%40gmail.com&snid=3065750571&type=4>
+Date: Thu, 09 Aug 2018 10:14:36 +0000
+Message-ID: <d33d551048046dd7e3c61c6880778fad832a92091aff2d79@msgid.quora.com>
+
+--===============5873891945445163726==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+New Answer
+
+-----
+
+Olivia Dey answered the question "What are some amazing psychology and mind=
+ tricks?":
+
+"This is something which I have read in the internet and it's fantastic to =
+apply on people and see their reactions. This works most of the times. Exce=
+ptional cases are there ofcourse.
+
+So=E2=80=A6..Ready????
+
+1.
+
+2.
+
+3=E2=80=A6.GO=E2=80=A6
+
+Read the passage below fast and aloud:
+
+=E2=80=9CThe signal was given, the pistol exploded
+
+and so did the runners on hearing the
+
+the sound, but the youngest among them
+
+stumbled and staggered and he fell on his
+
+knees to the ground.=E2=80=9D
+
+Read it????
+
+Go back and read it again fast and aloud!!!=E2=80=A6.
+
+Probably you read it wrong.
+
+Go back and read the passage again, but now slowly, word by word.
+
+Did you find the mistake????
+
+=E2=80=9CThe signal was given, the pistol exploded
+
+and so did the runners on hearing the
+
+the sound, but the youngest among them
+
+stumbled and staggered and he fell on his
+
+knees to the ground.=E2=80=9D
+
+You missed out the second =E2=80=98the=E2=80=99, didn't you????
+
+Well, it's not your fault. It's your brain and your eyes and their weird re=
+lationship!
+
+Your eyes read both the =E2=80=98the=E2=80=99, but, because of the position=
+ing of the words, your brain interpreted it only once!!!
+
+Funny eh?????
+
+If you already knew it, fair enough, if you didn't, go apply on people and =
+see their reactions!!! The trick is simple, but, works on people most of th=
+e times.
+
+Cheers!!!"
+
+
+To see the question page with all answers, visit:
+https://www.quora.com/qemail/track_click?aoid=3D3ioU1rjNTnr&aoty=3D16&aty=
+=3D4&click_pos=3D0&ct=3D1533809673951417&et=3D103&id=3Df7443d0e16024ed08bd7=
+2bbd97ac9b59&notif_url=3D%2FWhat-are-some-amazing-psychology-and-mind-trick=
+s%2Fanswer%2FOlivia-Dey-3&request_id=3D4&src=3D1&st=3D1533809673956890&stor=
+ies=3D3065750571&uid=3DY7hTG2gCvDP&v=3D0
+
+
+
+We sent you this email because you want answers to this question. To stop w=
+anting answers, click this link:=20
+https://www.quora.com/qemail/track_click?aoid=3DYEvgtT59drF&aoty=3D2&aty=3D=
+12&click_pos=3D0&ct=3D1533809673951417&et=3D103&id=3Df7443d0e16024ed08bd72b=
+bd97ac9b59&request_id=3D4&src=3D1&st=3D1533809673956890&stories=3D306575057=
+1&uid=3DY7hTG2gCvDP&v=3D0
+
+-----
+To control which emails we send you, visit: https://www.quora.com/qemail/tr=
+ack_click?aoid&aoty=3D14&aty=3D4&click_pos=3D0&ct=3D1533809673951417&et=3D1=
+03&id=3Df7443d0e16024ed08bd72bbd97ac9b59&request_id=3D4&src=3D1&st=3D153380=
+9673956890&stories=3D3065750571&uid=3DY7hTG2gCvDP&v=3D0
+
+To unsubscribe from these emails, visit: https://www.quora.com/email_optout=
+/notif_optout?code=3D830e8f24163bf857f1dde91211980b3d&email=3Dyasserkaddour=
+alearn%40gmail.com&snid=3D3065750571&type=3D4
+--===============5873891945445163726==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional //en" "http://www=
+.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd"><html><head><style type=3D"t=
+ext/css">@media screen and (max-width:480px){.background_inner{padding:0!im=
+portant;background:#fff!important}.container{padding:0 8px 16px!important}.=
+footer_container{border-top:1px solid #e2e2e2!important}.AnnualThankYouEmai=
+l .background_inner{padding:10px 0!important}.polish_background_inner{paddi=
+ng:10px 0!important}.polish_header_logo img.header_logo_img{width:118px!imp=
+ortant;height:40px!important}.polish_header_title{font-size:16px!important;=
+padding-top:0!important;padding-bottom:5px!important}.polish_question_text{=
+line-height:1.3!important}.polish_story .voters_list,.polish_story .user_li=
+nk{line-height:1.5!important}.polish_story .truncated_q_text,.polish_story =
+.qtext_para{line-height:1.5!important}.polish_story .content_header{padding=
+:6px 0!important}.EndOfYearLookbackEmail .stat_large{font-size:28px!importa=
+nt}.EndOfYearLookbackEmail .content_text{text-align:center!important}.EndOf=
+YearLookbackEmail .half_column{width:100%!important}.EndOfYearLookbackEmail=
+ .img_wrapper{margin:10px auto!important}.TopicDigestEmail .topic_digest_he=
+ader_logo img.polish_header_logo_img{width:89px!important;height:30px!impor=
+tant}.TopicDigestEmail .topic_digest_header_title{font-size:16px!important;=
+padding-top:0!important;padding-bottom:5px!important}.email_app_link-conten=
+t{display:block!important;text-align:center!important}.email_app_link-text,=
+.email_app_link-badges_wrapper{display:block!important}.email_app_link-text=
+{padding-bottom:0!important;box-sizing:border-box!important}.email_app_link=
+-badges_wrapper{padding-left:10px!important}}</style></head><body><html>
+<head></head>
+<body style=3D"-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; ma=
+rgin:0; padding:0; background-color:#eee; width:100%" bgcolor=3D"#eeeeee" w=
+idth=3D"100%">
+<table class=3D"Email NewAnswerEmail EmailComponent NotifEmail background" =
+cellpadding=3D"0" border=3D"0" style=3D'border-collapse:collapse; mso-table=
+-lspace:0; mso-table-rspace:0; background:#eee; font-family:"Helvetica Neue=
+", Helvetica, Arial, sans-serif; font-size:13px; height:auto; text-align:le=
+ft; width:100%' height=3D"auto" align=3D"left" width=3D"100%"><tbody><tr><t=
+d class=3D"polish_background_inner" align=3D"center" valign=3D"top" style=
+=3D"border-collapse:collapse; background:#fff; padding:0"><table cellpaddin=
+g=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-collapse:collapse; m=
+so-table-lspace:0; mso-table-rspace:0"><tbody>
+<tr>
+<td class=3D"container" align=3D"left" style=3D"border-collapse:collapse; b=
+ackground:#fff; border-radius:4px; height:100%; padding:21px 0 0; width:525=
+px; box-shadow:0 2px 3px #d6d7d7" height=3D"100%" width=3D"525"><table clas=
+s=3D"polish_container_inner" style=3D"border-collapse:collapse; mso-table-l=
+space:0; mso-table-rspace:0; border:0; cellpadding:0; cellspacing:0; width:=
+100%" width=3D"100%"><tbody>
+<tr><td class=3D"polish_header" style=3D"border-collapse:collapse">
+<span style=3D"color:white; display:block; font-size:1px"></span><table cel=
+lpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" style=3D"borde=
+r-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0"><tbody>
+<tr><td class=3D"polish_header_logo" style=3D"border-collapse:collapse; tex=
+t-align:center" align=3D"center"><a href=3D"https://www.quora.com/qemail/tr=
+ack_click?aoid&amp;aoty=3D7&amp;aty=3D4&amp;click_pos=3D0&amp;ct=3D15338096=
+73951417&amp;et=3D103&amp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;request=
+_id=3D4&amp;src=3D1&amp;st=3D1533809673956890&amp;stories=3D3065750571&amp;=
+uid=3DY7hTG2gCvDP&amp;v=3D0" style=3D"color:#2b6dad; text-decoration:none">=
+<img class=3D"header_logo_img" src=3D"https://qsf.ec.quoracdn.net/-3-images=
+.logo.WordmarkLogo_bg_592x200_4x.png-26-7caedaafc3c8ba2d.png" alt=3D"Quora"=
+ style=3D"-ms-interpolation-mode:bicubic; outline:0; text-decoration:none; =
+border:0; height:50px; width:148px" height=3D"50" width=3D"148"></a></td></=
+tr>
+<tr><td class=3D"polish_header_title" style=3D'border-collapse:collapse; te=
+xt-align:center; color:#333; font-family:Georgia, Times, "Times New Roman",=
+ "Hiragino Kaku Gothic Pro", "Meiryo", serif; font-size:19px; font-weight:4=
+00; padding-bottom:10px; padding-top:2px' align=3D"center">New Answer</td><=
+/tr>
+<tr><td style=3D"border-collapse:collapse"><table class=3D"polish_header_wr=
+apper" style=3D"border-collapse:collapse; mso-table-lspace:0; mso-table-rsp=
+ace:0; border:0; cellpadding:0; margin-bottom:20px; width:100%" width=3D"10=
+0%"><tbody><tr>
+<td style=3D"border-collapse:collapse"></td>
+<td class=3D"polish_header_line" style=3D"border-collapse:collapse; border-=
+bottom:1px solid #b92b27; height:1px; width:198px" height=3D"1" width=3D"19=
+8"></td>
+<td style=3D"border-collapse:collapse"></td>
+</tr></tbody></table></td></tr>
+</tbody></table>
+</td></tr>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+<tr class=3D"body_container" id=3D"simple-content-row"><td class=3D"body_co=
+ntent" bgcolor=3D"#ffffff" style=3D"border-collapse:collapse; background-co=
+lor:#fff; border-radius:4px; padding:15px 20px"><table style=3D"border-coll=
+apse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%" cellpadd=
+ing=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%"><tbody><tr>
+<td style=3D"border-collapse:collapse"><table style=3D"border-collapse:coll=
+apse; mso-table-lspace:0; mso-table-rspace:0; width:100%" cellpadding=3D"0"=
+ cellspacing=3D"0" border=3D"0" width=3D"100%"><tbody>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+<tr><td class=3D"question_title" style=3D"border-collapse:collapse"><a href=
+=3D"https://www.quora.com/qemail/track_click?aoid=3D3ioU1rjNTnr&amp;aoty=3D=
+16&amp;aty=3D4&amp;click_pos=3D0&amp;ct=3D1533809673951417&amp;et=3D103&amp=
+;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;notif_url=3D%2FWhat-are-some-ama=
+zing-psychology-and-mind-tricks%2Fanswer%2FOlivia-Dey-3&amp;request_id=3D4&=
+amp;src=3D1&amp;st=3D1533809673956890&amp;stories=3D3065750571&amp;uid=3DY7=
+hTG2gCvDP&amp;v=3D0" style=3D"color:#155fad; text-decoration:none; display:=
+block; font-size:18px; font-weight:bold">What are some amazing psychology a=
+nd mind tricks?</a></td></tr>
+<tr class=3D"email_content" style=3D"display:block; padding-bottom:20px"><t=
+d style=3D"border-collapse:collapse; margin-top:0; margin-bottom:0"><table =
+class=3D"digest_table narrow_answer_column" cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"border-collapse:collapse; mso-table-lspace:0; mso-table-rsp=
+ace:0; margin-top:4px"><tbody>
+<tr><td class=3D"content_header" style=3D"border-collapse:collapse; padding=
+:8px 0"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"bo=
+rder-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0"><tbody><tr>
+<td class=3D"content_header_photo" style=3D"border-collapse:collapse"><a hr=
+ef=3D"https://www.quora.com/qemail/track_click?aoid=3Dd6ZDKJEr3Ei&amp;aoty=
+=3D3&amp;aty=3D4&amp;click_pos=3D1&amp;ct=3D1533809673951417&amp;et=3D103&a=
+mp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;request_id=3D4&amp;src=3D1&amp=
+;st=3D1533809673956890&amp;stories=3D3065750571&amp;uid=3DY7hTG2gCvDP&amp;v=
+=3D0" style=3D"color:#2b6dad; text-decoration:none"><div id=3D"fplSOJ">
+<div class=3D"hover_menu hidden white_bg show_nub" id=3D"__w2_OD2Op7M_menu"=
+><div class=3D"hover_menu_contents" id=3D"__w2_OD2Op7M_menu_contents"> </di=
+v></div>
+<span class=3D"photo_tooltip Photo HoverMenu IdentityPhoto" id=3D"__w2_OD2O=
+p7M_link" style=3D"color:#333"><img class=3D"profile_photo_img" src=3D"http=
+s://qph.ec.quoracdn.net/main-thumb-192590715-50-iekogkorctkrewigwcmzprfayvy=
+vajew.jpeg" alt=3D"Olivia Dey" style=3D"-ms-interpolation-mode:bicubic; out=
+line:0; text-decoration:none; border:0; border-radius:100px; display:block;=
+ height:40px; width:40px; border-style:none" height=3D"40" width=3D"40"></s=
+pan>
+</div></a></td>
+<td class=3D"content_header_text" style=3D"border-collapse:collapse; paddin=
+g-left:8px"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=
+=3D"border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0"><tbod=
+y>
+<td style=3D"border-collapse:collapse"></td>
+<tr><td style=3D"border-collapse:collapse">
+<a class=3D"user_link" href=3D"https://www.quora.com/qemail/track_click?aoi=
+d=3Dd6ZDKJEr3Ei&amp;aoty=3D3&amp;aty=3D4&amp;click_pos=3D1&amp;ct=3D1533809=
+673951417&amp;et=3D103&amp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;reques=
+t_id=3D4&amp;src=3D1&amp;st=3D1533809673956890&amp;stories=3D3065750571&amp=
+;uid=3DY7hTG2gCvDP&amp;v=3D0" style=3D"color:#333; text-decoration:none; fo=
+nt-weight:bold">Olivia Dey</a><span style=3D"color:#333">, Physics teacher,=
+ traveller, bookworm</span>
+</td></tr>
+<tr><td class=3D"answer_details" style=3D"border-collapse:collapse"><a href=
+=3D"https://www.quora.com/qemail/track_click?aoid=3DFbyH7fNu18A&amp;aoty=3D=
+1&amp;aty=3D4&amp;click_pos=3D1&amp;ct=3D1533809673951417&amp;et=3D103&amp;=
+id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;request_id=3D4&amp;src=3D1&amp;st=
+=3D1533809673956890&amp;stories=3D3065750571&amp;uid=3DY7hTG2gCvDP&amp;v=3D=
+0" style=3D"color:#2b6dad; text-decoration:none">Written 3m ago</a></td></t=
+r>
+</tbody></table></td>
+</tr></tbody></table></td></tr>
+<tr><td class=3D"item_content" style=3D'border-collapse:collapse; color:#33=
+3; display:block; font-family:Georgia, Times, "Times New Roman", "Hiragino =
+Kaku Gothic Pro", "Meiryo", serif; font-size:15px; line-height:1.4'><div cl=
+ass=3D"text_reset item_content with_margin_below" style=3D'color:#333; disp=
+lay:block; font-family:Georgia, Times, "Times New Roman", "Hiragino Kaku Go=
+thic Pro", "Meiryo", serif; font-size:15px; line-height:1.4'><div id=3D"Pkz=
+YtO"><div class=3D"truncated_para_breaks expanded_q_text TruncatedAnswerFor=
+Email TruncatedAnswerForNewAnswerEmail TruncatedAnswer TruncatedQText" id=
+=3D"__w2_NuICGER_truncated"><span class=3D"rendered_qtext" style=3D"color:#=
+333"><p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; m=
+argin-bottom:1em">This is something which I have read in the internet and i=
+t's fantastic to apply on people and see their reactions. This works most o=
+f the times. Exceptional cases are there ofcourse.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">So=E2=80=A6..Ready????</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">1.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">2.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">3=E2=80=A6.GO=E2=80=A6</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Read the passage below fast and aloud:</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>=E2=80=9CThe signal was given, the pistol exploded</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>and so did the runners on hearing the</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>the sound, but the youngest among them</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>stumbled and staggered and he fell on his</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>knees to the ground.=E2=80=9D</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Read it????</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Go back and read it again fast and aloud!!!=E2=80=A6.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Probably you read it wrong.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Go back and read the passage again, but now slowly, word by wo=
+rd.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Did you find the mistake????</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>=E2=80=9CThe signal was given, the pistol exploded</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>and so did the runners on hearing </i><b><i>the</i></b></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><b><i>the</i></b><i> sound, but the youngest among them</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>stumbled and staggered and he fell on his</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em"><i>knees to the ground.=E2=80=9D</i></p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">You missed out the second =E2=80=98the=E2=80=99, didn't you???=
+?</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Well, it's not your fault. It's your brain and your eyes and t=
+heir weird relationship!</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Your eyes read both the <i>=E2=80=98the=E2=80=99, </i>but, bec=
+ause of the positioning of the words, your brain interpreted it only once!!=
+!</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Funny eh?????</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">If you already knew it, fair enough, if you didn't, go apply o=
+n people and see their reactions!!! The trick is simple, but, works on peop=
+le most of the times.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Cheers!!!</p></span></div></div></div></td></tr>
+</tbody></table></td></tr>
+<tr><td style=3D"border-collapse:collapse"><table class=3D"AnswerVoteButton=
+s AnswerSurvey" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"b=
+order-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; border:1px=
+ solid #e2e2e2; box-shadow:0 1px 1px 0 rgba(200, 200, 200, 0.2); margin:32p=
+x auto; text-align:center" align=3D"center"><tbody>
+<tr><td class=3D"main_text" style=3D"border-collapse:collapse; font-size:15=
+px; font-weight:bold; line-height:1.4; padding:16px 8px 8px">Is this a usef=
+ul answer to your question?</td></tr>
+<tr><td class=3D"subtitle_text" style=3D"border-collapse:collapse; color:#9=
+99; font-size:13px; padding:0 16px 4px">
+<span class=3D"lock_wrapper" style=3D"color:#333; margin-right:4px"><img sr=
+c=3D"https://qsf.ec.quoracdn.net/-3-images.email.locked.png-26-db830b7c250b=
+44dc.png" alt=3D"Private" style=3D"-ms-interpolation-mode:bicubic; outline:=
+0; text-decoration:none"></span>Your feedback is private.</td></tr>
+<tr><td class=3D"responses" style=3D"border-collapse:collapse; padding:8px =
+8px 16px">
+<span style=3D"color:#333"><a class=3D"response_button positive_action" hre=
+f=3D"https://www.quora.com/qemail/track_click?aoid=3DFbyH7fNu18A&amp;aoty=
+=3D1&amp;aty=3D1&amp;click_pos=3D1&amp;ct=3D1533809673951417&amp;et=3D103&a=
+mp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;request_id=3D4&amp;src=3D1&amp=
+;st=3D1533809673956890&amp;stories=3D3065750571&amp;uid=3DY7hTG2gCvDP&amp;v=
+=3D0" style=3D"color:#168de9; text-decoration:none; border:1px solid #168de=
+9; border-radius:3px; box-shadow:0 1px 1px 0 rgba(200, 200, 200, 0.2); curs=
+or:pointer; display:inline-block; font-size:15px; line-height:1.4; margin:8=
+px; min-width:100px; outline:0; padding:12px 16px; text-align:center" align=
+=3D"center">Yes</a></span><span style=3D"color:#333"><a class=3D"response_b=
+utton negative_action" href=3D"https://www.quora.com/qemail/track_click?aoi=
+d=3DFbyH7fNu18A&amp;aoty=3D1&amp;aty=3D2&amp;click_pos=3D1&amp;ct=3D1533809=
+673951417&amp;et=3D103&amp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;reques=
+t_id=3D4&amp;src=3D1&amp;st=3D1533809673956890&amp;stories=3D3065750571&amp=
+;uid=3DY7hTG2gCvDP&amp;v=3D0" style=3D"color:#168de9; text-decoration:none;=
+ border:1px solid #168de9; border-radius:3px; box-shadow:0 1px 1px 0 rgba(2=
+00, 200, 200, 0.2); cursor:pointer; display:inline-block; font-size:15px; l=
+ine-height:1.4; margin:8px; min-width:100px; outline:0; padding:12px 16px; =
+text-align:center" align=3D"center">No</a></span>
+</td></tr>
+</tbody></table></td></tr>
+</tbody></table></td>
+<td class=3D"w30" style=3D"border-collapse:collapse"> </td>
+</tr></tbody></table></td></tr>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+</tbody></table></td>
+<td align=3D"center" style=3D"border-collapse:collapse"></td>
+</tr>
+<tr class=3D"polish_footer_section" style=3D"margin-top:16px"><td class=3D"=
+footer_container_wrapper" style=3D"border-collapse:collapse; max-width:525p=
+x"><table class=3D"footer_container" cellpadding=3D"0" cellspacing=3D"0" bo=
+rder=3D"0" style=3D"border-collapse:collapse; mso-table-lspace:0; mso-table=
+-rspace:0; color:#999; font-size:11px; padding-top:16px; text-align:center;=
+ width:100%" align=3D"center" width=3D"100%"><tr><td style=3D"border-collap=
+se:collapse"><div class=3D"footer_text_wrapper" style=3D"padding:25px 20px">
+<div>
+<span style=3D"color:#999; display:block; padding-bottom:8px">We sent you t=
+his email because you follow the question. </span><a class=3D"unwanted_answ=
+ers" href=3D"https://www.quora.com/qemail/track_click?aoid=3DYEvgtT59drF&am=
+p;aoty=3D2&amp;aty=3D12&amp;click_pos=3D0&amp;ct=3D1533809673951417&amp;et=
+=3D103&amp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;request_id=3D4&amp;src=
+=3D1&amp;st=3D1533809673956890&amp;stories=3D3065750571&amp;uid=3DY7hTG2gCv=
+DP&amp;v=3D0" style=3D"color:#999; text-decoration:underline; display:block=
+; padding-bottom:8px">Unfollow this Question</a>
+</div>
+<div>
+<span style=3D"color:#999; display:block; padding-bottom:8px">This email wa=
+s sent by Quora (650 Castro Street #450, Mountain View, CA 94041). </span><=
+span style=3D"color:#999; display:block; padding-bottom:8px">If you don't w=
+ant to receive these emails in the future, please <a class=3D"unsubscribe_l=
+ink" href=3D"https://www.quora.com/email_optout/notif_optout?code=3D830e8f2=
+4163bf857f1dde91211980b3d&amp;email=3Dyasserkaddouralearn%40gmail.com&amp;s=
+nid=3D3065750571&amp;type=3D4" style=3D"color:#999; text-decoration:underli=
+ne">unsubscribe</a>.<img class=3D"tracking_img" width=3D"1" height=3D"1" sr=
+c=3D"https://www.quora.com/qemail/mark_read?ct=3D1533809673951417&amp;et=3D=
+103&amp;id=3Df7443d0e16024ed08bd72bbd97ac9b59&amp;request_id=3D4&amp;src=3D=
+1&amp;st=3D1533809673956890&amp;stories=3D3065750571&amp;uid=3DY7hTG2gCvDP&=
+amp;v=3D0" style=3D"-ms-interpolation-mode:bicubic; outline:0; text-decorat=
+ion:none"></span>
+</div>
+</div></td></tr></table></td></tr>
+</tbody></table></td></tr></tbody></table>
+<style type=3D"text/css">h1 a:active {color:red}
+h2 a:active {color:red}
+h3 a:active {color:red}
+h4 a:active {color:red}
+h5 a:active {color:red}
+h6 a:active {color:red}
+h1 a:visited {color:purple}
+h2 a:visited {color:purple}
+h3 a:visited {color:purple}
+h4 a:visited {color:purple}
+h5 a:visited {color:purple}
+h6 a:visited {color:purple}</style>
+</body>
+</html>
+</body></html>
+--===============5873891945445163726==--

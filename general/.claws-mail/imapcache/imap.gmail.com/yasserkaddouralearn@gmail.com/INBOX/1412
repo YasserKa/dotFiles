@@ -1,0 +1,464 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a02:b002:0:0:0:0:0 with SMTP id p2-v6csp3271550jah;
+        Fri, 25 May 2018 08:26:16 -0700 (PDT)
+X-Google-Smtp-Source: ADUXVKI73hJmLowZW+cBH6suP2qV0Ou0N3rsHlcFx2UHFBBh92XZU+CUkfeOeo1wHiO+fOpy4QAP
+X-Received: by 2002:a6b:b806:: with SMTP id i6-v6mr2463382iof.21.1527261976564;
+        Fri, 25 May 2018 08:26:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1527261976; cv=none;
+        d=google.com; s=arc-20160816;
+        b=vCBl2i8HQk4aPcRU8xzEKLm5hpef1GTjtlOT60xNrK/OkqeU30erzsoVwL4JxZXsLC
+         LiBEq91lrr9VR/brp/PJbK2914UK4SjHOBJWDd7u5Qj06/2rCMQdg7mrhGj66sjuLbLL
+         NrQ7TBzE+leqjTgeRtGntoPRUh1sa+SnS6IUxY6GJ/zOf0l+0XqRauafgsZPqMYYxN7D
+         tl/S9sm5bntqq+dImbH/c5L5zID2rAHc2mOPcDNQPD6GiNQ55y6ds0NtQ/6o6xVNpGDp
+         46+5+62cpmF/OlbBpVPqXwrXnoQGB9IgYTBxmSFlMsIV/z3SPQkp2Izkh91oSHBbAXin
+         RHZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:list-id:reply-to:mime-version
+         :list-unsubscribe:date:subject:to:from:domainkey-signature
+         :dkim-signature:arc-authentication-results;
+        bh=qIqblCHda+buxGDjoe8ViZtJWYcXI7X7aUR0Ah6NNc0=;
+        b=nh0hknFUy4z3lJsa4txahD6pbUmc/kkgSc002nuMFmjC6G0TMJ6f3TLSf2oEf2JORx
+         rzQSAXRJsy4kiEuUBmTMwfSc19Q0QJg7aoOhxdm4HFIP6Y4GpF4xRbN1scuSyvtSt1FY
+         uN8d+9bAJL5ck4QpOYY2vaF4WOtmKKpOHmBGEvFp2Fb7ivKZdXRJiL7QMF9K4L73GFY/
+         kpVr+Jxac55uDQ7EqRNk1VLScJz7D7gRv95RFhDUr8W6pOGBYSMlvuBP4hnrrEZ6GLL/
+         P0/m/OvpcVHqxnaT4tb3MPiitR4vHYU9vdnNIwaBWaL/Ysg/LEpM64K/sL2RI4J684kE
+         gSYw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@email.vimeo.com header.s=200608 header.b=j7wPGmmN;
+       spf=pass (google.com: domain of bounce-989_html-318773746-3872027-6167586-3441@bounce.email.vimeo.com designates 199.122.125.183 as permitted sender) smtp.mailfrom=bounce-989_HTML-318773746-3872027-6167586-3441@bounce.email.vimeo.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=vimeo.com
+Return-Path: <bounce-989_HTML-318773746-3872027-6167586-3441@bounce.email.vimeo.com>
+Received: from mta2.email.vimeo.com (mta2.email.vimeo.com. [199.122.125.183])
+        by mx.google.com with ESMTP id a69-v6si6770301itc.142.2018.05.25.08.26.15
+        for <yasserkaddouralearn@gmail.com>;
+        Fri, 25 May 2018 08:26:16 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-989_html-318773746-3872027-6167586-3441@bounce.email.vimeo.com designates 199.122.125.183 as permitted sender) client-ip=199.122.125.183;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@email.vimeo.com header.s=200608 header.b=j7wPGmmN;
+       spf=pass (google.com: domain of bounce-989_html-318773746-3872027-6167586-3441@bounce.email.vimeo.com designates 199.122.125.183 as permitted sender) smtp.mailfrom=bounce-989_HTML-318773746-3872027-6167586-3441@bounce.email.vimeo.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=vimeo.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=200608; d=email.vimeo.com;
+ h=From:To:Subject:Date:List-Unsubscribe:MIME-Version:Reply-To:List-ID:Message-ID:Content-Type; i=vimeo@email.vimeo.com;
+ bh=UTvzHDoEz/VD02QbNWKLiEu3UR0=;
+ b=j7wPGmmNCZ6agOvD5GtS16DRjwgyGGEQsrWTClCJMSvnjh6/gHCovP7B0oK9rwAj/AL1lhwMzSPs
+   zt/Nf3v1+fzKYdFM2Ql2NfiPhNcLP4Vj02qXxUCJSH1hpucJ7/JrtS0MtIUjqAE9+3H+AxSMRFEJ
+   AtxX8w51eJiQ3IVvjvc=
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=200608; d=email.vimeo.com;
+ b=Y9GI/5BzBOZoUKzKNUzk/O2O0nHc6Kxr9KWA8P4X+Vt18wflBZomwWcfAwWuyjooDJQna0jyVUL2
+   bRluGeWu10uEGw0INHnsY1T/YoX2ANBhTrYATbaXV3b0rwaYkp76Pxe9QSZgpDy4gId74TjAlCu8
+   Ax9D3EHxT/6rru9pb4M=;
+Received: by mta2.email.vimeo.com id h10lhg163hsd for <yasserkaddouralearn@gmail.com>; Fri, 25 May 2018 14:49:32 +0000 (envelope-from <bounce-989_HTML-318773746-3872027-6167586-3441@bounce.email.vimeo.com>)
+From: "Vimeo" <vimeo@email.vimeo.com>
+To: <yasserkaddouralearn@gmail.com>
+Subject: Updates to our Privacy Policy
+Date: Fri, 25 May 2018 08:49:31 -0600
+List-Unsubscribe: <mailto:leave-fd411d787c0b5c392848-fe2117717d63037e721076-fe9217787266047f72-fe8812717363017573-ff3317747165@leave.email.vimeo.com>
+MIME-Version: 1.0
+Reply-To: "Vimeo" <reply-fe9217787266047f72-989_HTML-318773746-6167586-3441@email.vimeo.com>
+List-ID: <6167586.xt.local>
+X-CSA-Complaints: whitelistcomplaints@eco.de
+x-job: 6167586_3872027
+Message-ID: <0eb13bc2-b4a8-4f82-bbe5-0bcb0833f428@ind1s06mta1283.xt.local>
+Feedback-ID: 6167586:3872027:199.122.125.183:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="pteIdYYmeVD4=_?:"
+
+This is a multi-part message in MIME format.
+
+--pteIdYYmeVD4=_?:
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+Vimeo
+
+https://click.email.vimeo.com/?qs=4be61731a4103bbc3563388e9283e9e5888f9f0e5aa8da8b751b2611df3261118ac6b8b57d0017881b63217a424d37742b6417420794693aadfbf31584d2133e 
+
+
+Hi yasserKaddoura,
+
+
+We're committed to helping creators around the world host, manage, and share their videos in the best way possible. And to help ensure that Vimeo and all our members are compliant with the EU's General Data Protection Regulation (GDPR), we've updated some of our policies.
+ 
+
+
+As part of our continued commitment to your privacy, we've updated our 
+https://click.email.vimeo.com/?qs=4be61731a4103bbc465f29ca7e6c65736b94a710a550a8b2ad9a574e1c7120d7ba707f0a62554909e922bad0cc90150aedb4addd98232242bf2faa87c4a29cf8 
+Privacy Policy , effective as of May 25, 2018. Our changes reflect our self-certification with the EU-US and Swiss-US Privacy Shield frameworks, and our compliance with the GDPR. We provide more information about these changes in our new 
+https://click.email.vimeo.com/?qs=4be61731a4103bbc95805f30349aee558bda29a0e42c2e2b0160a8adc05da0922c5e1e75da6b779f67300d49d67d1828d7658e6d3243334eb89a8afb1be2d7cd 
+Data Transfer Statement . We've also updated our cookie policy. 
+
+
+We hope these changes make the shift to GDPR easier, and your use of Vimeo more seamless. If you have any questions, please write to us at privacy@vimeo.com. 
+
+
+https://click.email.vimeo.com/?qs=4be61731a4103bbcaed533afc1f2724ae12f689546fefcf1bac81478b36e60545c14d20b9a9be9a2efbea60f93c69a200012d1ad309955c9 
+
+https://click.email.vimeo.com/?qs=4be61731a4103bbc9e4d39f7bfac19e3f37cb51cbc026a59aad2345f76541bcb5945bc3308347eaac5b4823406e777db7f17fe4a5b5d5553 
+
+https://click.email.vimeo.com/?qs=4be61731a4103bbc0e8ed3488634cf544f4aa8fea059bd19b63917304fd919b6074c4ec950eb680b6afa267a8dbcdcb25a7a608dc65594e6 
+
+https://click.email.vimeo.com/?qs=4be61731a4103bbc8c15e9cd9362a137cae9c9805f17759e7331694f260cdf3d6062b63e7da6f7c0042363f587d12a82c57c30655f25daa7 
+
+https://view.email.vimeo.com/?qs=213a52bde94823b90b77a786784accd52d97a520591e5e965682768d7b4a0f2a75e48a9f93c1a8bc6ea84f13e4753506bb049d4003f8380dc02be7d00d192ae9a3baf2e900af0eaebf816b511885c119 
+View this email in your browser.  &trade; + (c) Vimeo, Inc. 555 West 18th Street, New York, NY 10011. All rights
+reserved.
+
+https://pages.email.vimeo.com/preferences?User_ID=No8H8bMZNg9mtlkEP6QNKw**&JobID=3872027&SegmentCode=32253 
+Unsubscribe 
+
+
+
+
+
+--pteIdYYmeVD4=_?:
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+<!---->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vimeo</title>
+    <style type="text/css">
+        /* Client-specific Styles */
+
+        #outlook a {
+            padding: 0;
+        }
+
+        /* Force Outlook to provide a "view in browser" menu link. */
+
+        body {
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Prevent Webkit and Windows Mobile platforms from changing default font sizes, while not breaking desktop design. */
+
+        .ExternalClass {
+            width: 100%;
+        }
+
+        /* Force Hotmail to display emails at full width */
+
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
+            line-height: 100%;
+        }
+
+        /* Force Hotmail to display normal line spacing.  */
+
+        #backgroundTable {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            line-height: 100% !important;
+        }
+
+        img {
+            outline: none;
+            text-decoration: none;
+            border: none;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        a img {
+            border: none;
+        }
+
+        .image_fix {
+            display: block;
+        }
+
+        p {
+            margin: 0px 0px !important;
+        }
+
+        table td {
+            border-collapse: collapse;
+        }
+
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: -1pt;
+            mso-table-rspace: -1pt;
+        }
+
+        .mobilelink a {
+            text-decoration: none;
+            color: #7b8084;
+        }
+        
+        .bg-rollover:hover {
+background-color: #3fa46a !important;
+border-radius: 4px !important;
+}
+
+        /*STYLES*/
+
+        /*IPHONE STYLES*/
+
+        @media only screen and (max-width: 480px) {
+
+            table[class=devicewidth] {
+                width: 320px!important;
+            }
+            td[class=devicewidth] {
+                width: 320px!important;
+            }
+            table[class=devicewidthinner] {
+                width: 320px!important;
+            }
+            img[class=colorlogo] {
+                width: 320px!important;
+                height: 5px!important;
+            }
+            td[class=textpad] {
+                padding-left: 30px !important;
+                padding-right: 28px !important;
+            }
+            table[class=devicewidthsocial] {
+                width: 210px!important;
+                text-align: center!important;
+                padding-left: 60px!important;
+            }
+            td[class=social] {
+                padding-left: 0px!important;
+                padding-right: 0px!important;
+                padding-bottom: 20px!important;
+                padding-top: 30px!important;
+            }
+            td[class=devicewidthfoot] {
+                width: 320px!important;
+
+                padding-left: 20px!important;
+                padding-right: 20px!important;
+            }
+            td[class=devicewidthtext] {
+                width: 280px!important;
+                padding-left: 20px!important;
+                padding-right: 20px!important;
+                line-height: 24px!important;
+            }
+            td[class=devicewidthlist] {
+                width: 280px!important;
+                padding-right: 20px!important;
+                padding-left: 0px!important;
+                line-height: 18px!important;
+            }
+            table[class=devicewidthcta] {
+                width: 280px!important;
+            }
+            table[class=devicewidthbutton] {
+                width: 280px!important;
+                background-color: #f8f9fc!important;
+            }
+            img[class=hero] {
+                width: 100%!important;
+
+            }
+            td[class=hero] {
+                padding-left: 50px!important;
+
+            }
+
+        }
+    </style>
+</head>
+
+<body leftmargin="0" rightmargin="0" marginwidth="0" topmargin="0" bottommargin="0" marginheight="0" offset="0" bgcolor="#f8f9fc"><style type="text/css">
+div.preheader 
+{ display: none !important; } 
+</style>
+<div class="preheader" style="font-size: 1px; display: none !important;">We’re committed to helping creators around the world host, manage, and share their videos in the best way possible. And to help ensure that Vimeo and all our members are compliant with the EU’s General Data Protection Regulation (GDPR), we’ve updated some of our policies.</div>
+
+    <table cellpadding="0" cellspacing="0" border="0" height="2" width="100%">
+        <tr>
+            <td background="https://image.email.vimeo.com/lib/fe8812717363017573/m/1/ColorBar2.png" bgcolor="#F8F9FC" height="2" style="background-size:cover; background-repeat:no-repeat; line-height:2px;">
+                <!--[if gte mso 9]>
+                    <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;height:2px;">
+                      <v:fill type="tile" src="https://image.email.vimeo.com/lib/fe8812717363017573/m/1/ColorBar2.png" color="#F8F9FC" />
+                      <v:textbox inset="0,0,0,0">
+                    <![endif]-->
+                <div>
+                </div>
+                <!--[if gte mso 9]>
+                      </v:textbox>
+                    </v:rect>
+                    <![endif]-->
+            </td>
+        </tr>
+    </table>
+    <!-- Start of preheader -->
+    <table width="100%" bgcolor="#F8F9FC" cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
+        <tr>
+            <td>
+                <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
+                    <tr>
+                        <td width="100%" height="30">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%">
+                            <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth" style="border-left: 1px; border-style-left: dotted;">
+
+                                <tr>
+                                    <td align="center" width="640" height="30" style="color: #99aabb; font: normal 11px Arial, sans-serif;">
+                                        <img src="https://click.email.vimeo.com/open.aspx?ffcb10-fe9217787266047f72-fdec15777263067a7d117173-fe8812717363017573-ff551d787c-fe2117717d63037e721076-ff3317747165" width="1" height="1">
+                                            <a  href="https://click.email.vimeo.com/?qs=4be61731a4103bbc7d4728e28d73c1e49aea30cea8b73a5428164e4e938dccabb9b673ae20f97c4a45bbd2bd907805473249d2203bed1a77a64fdee14d3fa9e5" style="color:#2288cc;text-decoration:none"
+                                                target="_blank">
+                                                <img src="http://a.vimeocdn.com/si/email/Vimeo_445566.png" alt="Vimeo" width="110"
+                                                    height="32" border="0" style="border:none; font-family:Arial,sans-serif; color:#000001; font-weight:bold; font-size:42px; font-style:italic;"/>
+                                            </a>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%" height="30">
+
+                        </td>
+                    </tr>
+                </table>
+          
+    <!-- End of preheader -->
+
+   
+    <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
+
+        <tr>
+            <td width="100%">
+                <table bgcolor="#ffffff" width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
+					<tr>
+						<td height="40">
+						</td>
+					</tr>	
+                    <tr>
+                        <td align="center">
+                              
+								 <table width="640" align="center" cellpadding="0" cellspacing="0" border="0" class="devicewidth">
+                                    	 
+										<tr>
+											<td style="background-color:#ffffff; color:#445566;font-family: Helvetica, Arial, sans-serif; font-size:15px;line-height:24px; padding-left:80px;padding-right:80px;padding-top:20px;padding-bottom:20px;"
+                                        class="textpad" align="left">
+                                        Hi yasserKaddoura,<br /><br />
+We're committed to helping creators around the world host, manage, and share their videos in the best way possible. And to help ensure that Vimeo and all our members are compliant with the EU's General Data Protection Regulation (GDPR), we've updated some of our policies.
+ <br /><br />
+As part of our continued commitment to your privacy, we've updated our <a style="color: #00adef; text-decoration: none;" href="https://click.email.vimeo.com/?qs=4be61731a4103bbc465f29ca7e6c65736b94a710a550a8b2ad9a574e1c7120d7ba707f0a62554909e922bad0cc90150aedb4addd98232242bf2faa87c4a29cf8" target="_blank">Privacy Policy</a>, effective as of May 25, 2018. Our changes reflect our self-certification with the EU-US and Swiss-US Privacy Shield frameworks, and our compliance with the GDPR. We provide more information about these changes in our new <a style="color: #00adef; text-decoration: none;" href="https://click.email.vimeo.com/?qs=4be61731a4103bbc95805f30349aee558bda29a0e42c2e2b0160a8adc05da0922c5e1e75da6b779f67300d49d67d1828d7658e6d3243334eb89a8afb1be2d7cd" target="_blank">Data Transfer Statement</a>. We've also updated our cookie policy. <br /><br />
+We hope these changes make the shift to GDPR easier, and your use of Vimeo more seamless. If you have any questions, please write to us at <a  style="color: #00adef; text-decoration: none;" href="mailto:privacy@vimeo.com">privacy@vimeo.com</a>. 
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+					<tr>
+		             <td width="100%" height="40"></td>
+		          </tr>	
+                </table>
+            </td>
+        </tr>
+		  
+    </table>
+
+  
+
+
+    <!-- footer -->
+    <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth" bgcolor="#f8f9fc">
+
+        <tr>
+            <td width="100%" class="socialfoot">
+
+                <!--start of footer-->
+                <table align="center" cellpadding="0" cellspacing="0" border="0" width="120" class="devicewidthsocial" bgcolor="#f8f9fc">
+                    <tr>
+                        <td valign="top" style="padding-top: 35px;padding-right:0px; " class="social" align="center">
+                            <a  href="https://click.email.vimeo.com/?qs=4be61731a4103bbca23b874d53ee94acabf2ae1c2b59bbc5bfc9ddc9be123d10910311b31e4be8ee713720e7618a800d95471da7f50d3e3f">
+                                <img src="http://a.vimeocdn.com/si/email/Facebook-icon@4x.png" style="border-style: none;" width="24" height="24" alt="Facebook"
+                                />
+                            </a>
+                        </td>
+                        <td valign="top" style="padding-top: 35px;padding-right:0px; " class="social" align="center">
+                            <a  href="https://click.email.vimeo.com/?qs=4be61731a4103bbc2295094136bd0ecd64232366d2e43c5a7cde7c06ea7cf9180b1d7e227264cbd89376cd783c49acab15a667bdfac33999">
+                                <img src="http://a.vimeocdn.com/si/email/Twitter-icon@4x.png" style="border-style: none;" width="24" height="24" alt="Twitter"
+                                />
+                            </a>
+                        </td>
+                        <td valign="top" style="padding-top: 35px;padding-right:0px; " align="center" class="social">
+                            <a  href="https://click.email.vimeo.com/?qs=4be61731a4103bbc5cda811c97b5ceddbddbe79dd8f69ae0bf4a56a98c04efe1a378f7926f3291a8c5cd9803f45b0ff5b7368acb657bd003">
+                                <img src="http://a.vimeocdn.com/si/email/Tumblr-icon@4x.png" style="border-style: none;" width="24" height="24" alt="Tumblr"
+                                />
+                            </a>
+                        </td>
+                        <td valign="top" style="padding-top: 35px; padding-right:0px; " align="center" class="social">
+                            <a  href="https://click.email.vimeo.com/?qs=4be61731a4103bbcd9464b11e9fb575ab3d7ecf374bd446664e03a4266f2b1a864472725818da46cc7d357a91f4c78e940d898e381ec0193">
+                                <img src="http://a.vimeocdn.com/si/email/Instagram-icon@4x.png" style="border-style: none;" width="24" height="24" alt="Instagram"
+                                />
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <table width="640" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
+
+                    <tr>
+                        <td width="100%">
+                            <table align="center" cellpadding="0" cellspacing="0" border="0" width="480" class="devicewidth">
+
+                                <tr>
+                                    <td class="devicewidthfoot" style="font-family: Helvetica,Arial,sans-serif; font-size: 10px; color:#445566; line-height: 16px; padding-left: 40px; padding-top:15px; padding-right:40px; padding-bottom:20px; text-align:center">
+
+                                        <strong>
+                                            <a  style="color:#445566; text-decoration:none;" href="https://view.email.vimeo.com/?qs=213a52bde94823b90b77a786784accd52d97a520591e5e965682768d7b4a0f2a75e48a9f93c1a8bc6ea84f13e4753506bb049d4003f8380dc02be7d00d192ae9d401683a7e7c527b26254354806a1669">View this email in your browser.</a>
+                                        </strong>
+                                      
+                                        <br/> &trade; + &copy; Vimeo, Inc. 555 West 18th Street, New York, NY 10011. All rights
+                                        reserved.
+                                        <br/>
+  <strong>
+                                            <a alias="view_email_url" style="color:#445566; text-decoration:none;" href="https://pages.email.vimeo.com/preferences?User_ID=No8H8bMZNg9mtlkEP6QNKw**&JobID=3872027&SegmentCode=32253">Unsubscribe</a>
+                                        </strong>
+                                       
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </td>
+        </tr>
+
+    </table>
+    <!-- end footer -->
+
+</td>
+</tr>
+
+</table>
+
+
+</body>
+
+</html>
+
+--pteIdYYmeVD4=_?:--
+

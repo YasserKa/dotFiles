@@ -1,0 +1,908 @@
+Delivered-To: yasser.kaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp3820755vkd;
+        Mon, 30 Jul 2018 09:54:36 -0700 (PDT)
+X-Google-Smtp-Source: AAOMgpdz+GM3CSXjtvbyFTFwIIO+CC4m/iSlfMuqf3Yk7yVRI/VL/tVySUOeqsXLitUOsc/evo0B
+X-Received: by 2002:a24:d41:: with SMTP id 62-v6mr116209itx.14.1532969676801;
+        Mon, 30 Jul 2018 09:54:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1532969676; cv=none;
+        d=google.com; s=arc-20160816;
+        b=dj3kIAGXPwAwFIednOyQYC30g5rJpGld1j/hLy3nYgO1N/HRtiJWKCmQTFkQtSiZ5V
+         fph+g1OZX3cWYgxwxGLZ8eF6K+iv3PJSoaKzINin081G4/vpopzr7T7GwiieJtrkv2HV
+         Cibs1ShcPZttv3DRypNL9doAVn3vVQ0XiDDbHgAaPJ/fBBoXqjQ8VRr7dyQvotr9upPV
+         GmwR1iYKrZPZYCXL6Fpka/t/tYetP61JG8WfJJgW6eWrlsBY65dvBbaLcIo3n5XsyuUM
+         VDFDNzspPPtgKY4Kqfv2bgy3DWDeBGv58nZNqr0D/o/scfajXZo9hghrn8562fnp/obF
+         FNRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:list-id:reply-to:mime-version:date:subject
+         :to:from:domainkey-signature:dkim-signature
+         :arc-authentication-results;
+        bh=zry+JTJ9KEx+Hvxq8WWYcdNFXBGcEh+QKA510sXUenk=;
+        b=qNoqfKx5bmRFHNB2/nZbBJ4s16tX8/Mvo+ZZW4HjaHrMW7iwn0j+CtZN2ELISYlMyb
+         NLL6eK4yn2lqXPGMSXcte5qKQJogj6kgNYMqxxv8mYr/9/WYW+bALx6Khx7N/obYmnsa
+         wFFlx2b9r1NalSUR7bz/vUfee9fejP+67Dilcb9Fm7UW7vE2Dzryga45vD3TITC27GT9
+         aD8crwkCjPlT5TBuHiIFmaxknYxHU9jsVuKz/zTRiemh9zMYNzP6MpBgj8y5s1lzhv16
+         89u55FIC8fZbexg1dtPLaEpeCk0jnik7wOr+cBh7crv++yl2/mceFUyLqmSD3+m9KhJE
+         27Kg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@send.grammarly.com header.s=200608 header.b=YfTXE9Wj;
+       spf=pass (google.com: domain of bounce-342_html-277405702-1839291-7003478-352122@bounce.send.grammarly.com designates 13.111.6.89 as permitted sender) smtp.mailfrom=bounce-342_HTML-277405702-1839291-7003478-352122@bounce.send.grammarly.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=grammarly.com
+Return-Path: <bounce-342_HTML-277405702-1839291-7003478-352122@bounce.send.grammarly.com>
+Received: from mta3.send.grammarly.com (mta3.send.grammarly.com. [13.111.6.89])
+        by mx.google.com with ESMTPS id y19-v6si7033146ioa.168.2018.07.30.09.54.36
+        for <yasser.kaddoura19@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 30 Jul 2018 09:54:36 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-342_html-277405702-1839291-7003478-352122@bounce.send.grammarly.com designates 13.111.6.89 as permitted sender) client-ip=13.111.6.89;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@send.grammarly.com header.s=200608 header.b=YfTXE9Wj;
+       spf=pass (google.com: domain of bounce-342_html-277405702-1839291-7003478-352122@bounce.send.grammarly.com designates 13.111.6.89 as permitted sender) smtp.mailfrom=bounce-342_HTML-277405702-1839291-7003478-352122@bounce.send.grammarly.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=grammarly.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=200608; d=send.grammarly.com;
+ h=From:To:Subject:Date:MIME-Version:Reply-To:List-ID:Message-ID:Content-Type; i=info@send.grammarly.com;
+ bh=u98SVGFW4s3wRIskEQXClBTaut0=;
+ b=YfTXE9WjZgfLOtDMERCoRZ6wTLdBwaD6LeedweddiAiZpQhDTRHwgfz7T0MGJyJ4SKHrt/4Yy4Fx
+   n728FXNW0LBl00b9KvNfacShvLS6w0+9MmmuocVcj41IhUCI0U/jDVKPKm/UqaAwWRjN6TPrsojh
+   eep0NLOjy/347FKckXQ=
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=200608; d=send.grammarly.com;
+ b=s3n9SNhrab3/6WdND5Z79uKN+qLXTNuBKQVi0Y8pIyLFb9hiHpIVQCpGp5iuLlUoeekUeiSmzbx4
+   3vZaKET3Rwgu+nt6ZYfawkc1iI0377uZwpzAxCr/2R1t2H2N27VMz/K4gl/0kSNLQCbdprXCEuvY
+   nPJtoKKOM64dQYN8+v0=;
+Received: by mta3.send.grammarly.com id hbt1co163hsr for <yasser.kaddoura19@gmail.com>; Mon, 30 Jul 2018 16:54:36 +0000 (envelope-from <bounce-342_HTML-277405702-1839291-7003478-352122@bounce.send.grammarly.com>)
+From: "Grammarly" <info@send.grammarly.com>
+To: <yasser.kaddoura19@gmail.com>
+Subject: You + Grammarly = Ready for Action
+Date: Mon, 30 Jul 2018 10:54:36 -0600
+MIME-Version: 1.0
+Reply-To: "No Reply" <reply-fe8e1578766d067474-342_HTML-277405702-7003478-352122@send.grammarly.com>
+List-ID: <7003478.xt.local>
+X-CSA-Complaints: whitelistcomplaints@eco.de
+x-job: 7003478_1839291
+Message-ID: <659ac2aa-110a-419c-ab25-57bee86ce2d7@ind1s06mta990.xt.local>
+Feedback-ID: 7003478:1839291:13.111.6.89:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="m6Xc07dSw8lR=_?:"
+
+This is a multi-part message in MIME format.
+
+--m6Xc07dSw8lR=_?:
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+
+Grammarly Weekly InsightsOpen for helpful details on how to get started. 
+
+ 
+
+https://click.send.grammarly.com/?qs=78e5c003727dd5f821acca0d18dc916f4ccfb5668e463536dbb9d3b1f7332ffc7d6c969fd7c56b0e68f205b0e8387d8d4cc44518a67ff7f1 
+
+ 
+ 
+
+https://click.send.grammarly.com/?qs=7ab7a3642f9cd06e5eaa29c32249262b7b9639ea9dbcc08ac06d8d8cdcdf3a9c306d9d0e3fd8850852292d62f3ff7bfa55ad228592c6c5f1 
+
+ 
+Write the Future
+ 
+Writing opens a line of communication between you and other people.And when you commit to improving your writing, you open yourself up to better conversations, remarkable accomplishments, and healthier relationships. Grammarly will help you succeed.
+ 
+ 
+
+https://click.send.grammarly.com/?qs=7ab7a3642f9cd06e5eaa29c32249262b7b9639ea9dbcc08ac06d8d8cdcdf3a9c306d9d0e3fd8850852292d62f3ff7bfa55ad228592c6c5f1 
+Planning any important writing
+projects soon?
+
+https://click.send.grammarly.com/?qs=7ab7a3642f9cd06e5eaa29c32249262b7b9639ea9dbcc08ac06d8d8cdcdf3a9c306d9d0e3fd8850852292d62f3ff7bfa55ad228592c6c5f1 
+VISIT THE ALL-NEW GRAMMARLY EDITOR
+https://click.send.grammarly.com/?qs=7ab7a3642f9cd06e5eaa29c32249262b7b9639ea9dbcc08ac06d8d8cdcdf3a9c306d9d0e3fd8850852292d62f3ff7bfa55ad228592c6c5f1 
+&#062;
+
+ 
+
+ 
+
+ 
+
+ 
+Grammarly Works Where You Work
+ 
+Grammarly offers clear, effective, mistake-free writing across multiple devices, browsers, and apps.
+
+You&rsquo;ve already decided on the browser extension. So, here&rsquo;s a list of other free products you can install to access Grammarly wherever you write:
+ 
+ 
+Grammarly&rsquo;s Mobile Keyboard
+Android and iOS
+https://click.send.grammarly.com/?qs=b1008d6ebb1797bd22e5baabd9ad4901a74b97e15e4a66874f27299f3ea3de11d5b17c0fd0dc06681ce7b23180be6bd6b52b075d5cb08a47 
+INSTALL
+https://click.send.grammarly.com/?qs=b1008d6ebb1797bd22e5baabd9ad4901a74b97e15e4a66874f27299f3ea3de11d5b17c0fd0dc06681ce7b23180be6bd6b52b075d5cb08a47 
+   &#062;
+
+ 
+
+ 
+ 
+Grammarly for MS Office (R)
+Windows Only
+https://click.send.grammarly.com/?qs=e2b60b58acc41d5cddc59b93442220b02df2955b1ddb93d6b9fdf728a7c598b82e9149afc80a2295c05ba6df255404448dd786b4a8c455a1 
+INSTALL
+https://click.send.grammarly.com/?qs=e2b60b58acc41d5cddc59b93442220b02df2955b1ddb93d6b9fdf728a7c598b82e9149afc80a2295c05ba6df255404448dd786b4a8c455a1 
+   &#062;
+
+ 
+
+ 
+ 
+Grammarly&rsquo;s Native App
+Windows and macOS
+https://click.send.grammarly.com/?qs=6877bd98cea810a5d2ad9186b8cbd4561e42b4b0807df6a0606b61af1c0e4d15633f3440e476652bcf176c992c1462433ed27e7e16ffbd04 
+INSTALL
+https://click.send.grammarly.com/?qs=6877bd98cea810a5d2ad9186b8cbd4561e42b4b0807df6a0606b61af1c0e4d15633f3440e476652bcf176c992c1462433ed27e7e16ffbd04 
+   &#062;
+
+ 
+
+ 
+
+ 
+
+ 
+How to Use Grammarly 
+ 
+
+ 
+  
+Easy Editing
+ 
+Hover your mouse over an underlined word to see suggestions. (On your phone, suggestions are displayed along the top of your keyboard). You can apply a suggestion with one click or expand it to learn more.
+
+ 
+  
+Custom Settings
+ 
+Log in at 
+https://click.send.grammarly.com/?qs=78e5c003727dd5f821acca0d18dc916f4ccfb5668e463536dbb9d3b1f7332ffc7d6c969fd7c56b0e68f205b0e8387d8d4cc44518a67ff7f1 
+Grammarly.com or visit Account Settings in the mobile app to choose your preferred dialect, edit your personal dictionary, and more.
+
+ 
+  
+Handy Shortcuts
+ 
+Double-click words for synonym suggestions. You can toggle key features of the Grammarly browser extension by clicking the green G next to your address bar. 
+
+ 
+
+ 
+
+ 
+Your Email Preference Settings
+ 
+ We care about earning and keeping your trust, so we wanted to let you know that you&rsquo;re signed up to receive the following emails from Grammarly:
+ 
+-Weekly Progress Reports 
+ 
+-Product Updates
+ 
+-Premium Offers
+
+ 
+You can update your email preference settings at any time(we will include this link at the bottom of every email we send you).
+ 
+ 
+
+https://click.send.grammarly.com/?qs=1d9893a2810ac60b7d0403df9641b19bac3db2a0c22ab68dce34373df8e462ced80915f08edd8e3d2a375e87d9754f7ab1f763bff914170ba3aa456ebad055f4 
+VISIT EMAIL PREFERENCE SETTINGS
+https://click.send.grammarly.com/?qs=1d9893a2810ac60b7d0403df9641b19bac3db2a0c22ab68dce34373df8e462ced80915f08edd8e3d2a375e87d9754f7ab1f763bff914170ba3aa456ebad055f4 
+&#062;
+
+ 
+
+ 
+
+ 
+
+
+
+ 
+
+Want to unlock all checks and features?
+ 
+Grammarly Premium includes pro features like vocabulary enhancement, conciseness suggestions, and plagiarism checks.
+ 
+
+https://click.send.grammarly.com/?qs=bc9b0c9dd027ae5b41ee240e7d8b8364c687f7e0d752ea80a5ddaec4281dfb3dc1e24f12b3c39a60ae44a6c26bc933fab3cda32316f15164 
+Learn More 
+
+ 
+
+ 
+
+
+
+ 
+
+https://click.send.grammarly.com/?qs=b3c57b1ed70eeed3aef47b4870d28ec8b1b027e1119d7bbab9e7a898cbe4e5e5c1282ba4b3f6554c2ad6460e090b8a8ef09b479b8d4cb892 
+
+https://click.send.grammarly.com/?qs=9a842372b304d990c012c9d51177c2f94f7fa72cdab3172cd6859003a5f26994261b58c46fb3aed0458b65017f3026d28875fa0cdab16fd9 
+
+https://click.send.grammarly.com/?qs=9d078096571e5ba15714a75669b87fd69828c05363222a24c4f31e55b65acc58f4ca6e8bf9ee155de6124d598520146efd04c51c35eaf612 
+
+https://click.send.grammarly.com/?qs=a105d283996074aa5e32fa17ac5097bc698bd9bfc4afdc8b66bab1c8fa8de28b95b5cea530c402ffbee3e26d49131b356c0cfb637aede5b5 
+
+https://click.send.grammarly.com/?qs=61db3cc639578108a28d8b46445fb1d52217a17aba14326d35302fe34e838d29123fe1d2839526a2ab24d891ff1dcd603cd465c106b5007c 
+
+
+
+ 
+
+https://click.send.grammarly.com/?qs=2a595ada121ccc3877dbde17775cd994e2c4bd889535c117b93d22dc57fa31bfef469d02c354dc3793d9befa1678a2cb7c30970a2518a7b6 
+Upgrade to Grammarly Premium    
+https://click.send.grammarly.com/?qs=bc9b0c9dd027ae5b41ee240e7d8b8364c687f7e0d752ea80a5ddaec4281dfb3dc1e24f12b3c39a60ae44a6c26bc933fab3cda32316f15164 
+Learn more 
+
+
+ 
+
+ 
+
+https://view.send.grammarly.com/?qs=0e3847166b791f8814dbc2bcc5a921ddf001334ca823c5f4248c587017f6eaf0930989f4fbf156b8644697c9c38a3c718e87cd611d83e626f8cb8a90963b4b9e0062aab21047b95683bfd7c4ee91e078 
+View Web Version   - 
+https://click.send.grammarly.com/?qs=1d9893a2810ac60b7d0403df9641b19bac3db2a0c22ab68dce34373df8e462ced80915f08edd8e3d2a375e87d9754f7ab1f763bff914170ba3aa456ebad055f4 
+Email Preferences  -  
+https://click.send.grammarly.com/?qs=1d9893a2810ac60b7d0403df9641b19bac3db2a0c22ab68dce34373df8e462ced80915f08edd8e3d2a375e87d9754f7ab1f763bff914170ba3aa456ebad055f4 
+Unsubscribe 
+ 
+ You received this email to confirm your new account registration with Grammarly. If you'd like to modify which emails you receive from us in the future, please click "Email Preferences" above.
+ 
+(c) 2018 Grammarly, Inc. - 548 Market St. #35410 - San Francisco, CA 94104
+ 
+
+
+
+
+
+--m6Xc07dSw8lR=_?:
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1">
+        <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="format-detection" content="email=no">
+        <meta name="x-apple-disable-message-reformatting">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;">
+        <title>Grammarly Weekly Insights</title>
+        
+<style type="text/css">a {text-decoration:none;}a[x-apple-data-detectors] {color:inherit !important;text-decoration:none !important;font-size:inherit !important;font-family:inherit !important;font-weight:inherit !important;line-height: inherit !important;}* { padding:0px; margin:0px;}html {-webkit-text-size-adjust:none; -webkit-font-smoothing:antialiased;}a {outline:0;}img {display:block;}td {mso-line-height-rule:exactly;}.outlookFix {text-decoration:underline;}@font-face {font-family:'Akkurat';font-style:normal;font-weight:400;src:url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-regular.eot?#iefix');src:url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-regular.eot?#iefix')
+ format('eot'),url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-regular.woff2') format('woff2'),url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-regular.woff') format('woff'),url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-regular.ttf') format('truetype');}@font-face {font-family:'Akkurat';font-style:normal;font-weight:700;src:url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-bold.eot?#iefix');src:url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-bold.eot?#iefix') format('eot'),url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-bold.woff2')
+ format('woff2'),url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-bold.woff') format('woff'),url('http://grammarly-marketing.s3.amazonaws.com/emails-images/fonts/akkurat-bold.ttf') format('truetype');}/* Base Media Queries */@media only screen and (max-width:480px) {* { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; -webkit-font-smoothing:antialiased;}/*Stop iproducts from auto-resizing text*/.height {height:auto !important;}.hide {display:none !important;}.w100P {width:100% !important;height:auto !important;}.w95 {width:95% !important;}.font28 {font-size:28px !important;}.img-width {width:150px !important;}.show {display:block !important; max-height:none !important; overflow:visible !important; line-height:normal !important;}}</style>
+    </head>
+    <img src="https://click.send.grammarly.com/open.aspx?ffcb10-fe8e1578766d067474-fe1c1d7772620c7d7c1772-fe9213707567007a7d-ff66177477-fe2d167772600478721472-fed017757765067f" width="1" height="1">
+    <body  bgcolor="#F5F6FB" style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; -webkit-font-smoothing: antialiased; padding:0px;"><style type="text/css">
+div.preheader 
+{ display: none !important; } 
+</style>
+<div class="preheader" style="font-size: 1px; display: none !important;">It’s time to write the future. And it starts with you.</div>
+    <table width="100%" height="0" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"
+            style="display:none; color: #f2f2f2; font-size:1px; line-height: 1px;">
+            <tr>
+                <td align="center" style="display:none; color: #f2f2f2; font-size:1px; line-height: 1px;">Open for helpful details on how to get started. 
+                </td>
+            </tr>
+        </table>
+        <!--[if t]><![endif]--><!--[if t]><![endif]--><!--[if t]><![endif]-->
+        <table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" bgcolor="#F5F6FB"  style="margin:0 auto;">
+            <tr>
+                <td align="center">
+                    <table cellpadding="0" cellspacing="0" border="0" align="center" width="540" class="w100P">
+                        <tr>
+              <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td align="center">
+                <table width="100%" bgcolor="#F5F6FB" cellpadding="0" cellspacing="0" border="0" align="center" class="w95" style="min-width: 95%;">
+                  <tr>
+                    <td align="left" valign="top" style="text-align: left"><a href="https://click.send.grammarly.com/?qs=fa144abdd6e9c527e0204cc128d4f4c937df82d0fdd3f70a16eb960a75400d9105c3b6bb3619df7d6f633da36e3abe0c2059024ccbf86c80" target="_blank"><img class="height img-width" src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/34fc90a3-58ef-4243-abfd-997ded806ad2.png" width="171" height="40" style="width:152px; height:36px; max-width:237px; font-family:Helvetica, arial, sans-serif; font-size:24px; line-height:40px;" alt="Grammarly" border="0"></a></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+                        <!--Spacer-->
+                        <tr>
+                            <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <!--SPACER END -->
+                        <!-- Write the Future Begin -->
+                        <tr>
+              <td align="center" class="w100P">
+                <table cellpadding="0" cellspacing="0" border="0" class="w100P" bgcolor="#FFFFFF" width="100%">
+                  <tr>
+                    <td align="center">
+                      <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center"><a href="https://click.send.grammarly.com/?qs=1c2a26a0a661f73eca38e4096ccd7dde59cdbe600045510f9454d2e949ceaed30c96c3af627b382ececeeee7979f9e472755471473d8a2e6" target="_blank"><img src="https://s3.amazonaws.com/grammarly-marketing/emails-images/welcome-hero%402x.gif" border="0" alt="" title="" height="328" width="459" class="w100P" style="display: block;"></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td class="font28" align="left" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td class="font28" align="left" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"><![endif]-->Write the Future</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Writing opens a line of communication between you and other people.  And when you commit to improving your writing, you open yourself up to better conversations, remarkable accomplishments, and healthier relationships. Grammarly will help you succeed.</td>
+                        </tr>
+                        <tr>
+                          <td class="hide" bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="hide" align="center" valign="middle">
+                          <table bgcolor="F4F5FB" cellpadding="0" cellspacing="0" border="0" width="100%" style="-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;min-width: 100%;">
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="F4F5FB" align="center" style="min-width: 100%;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="90%" style="min-width: 90%;">
+                                  <tr>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="95%" align="left" valign="top" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:bold;min-width: 90%;"><a href="https://click.send.grammarly.com/?qs=1c2a26a0a661f73eca38e4096ccd7dde59cdbe600045510f9454d2e949ceaed30c96c3af627b382ececeeee7979f9e472755471473d8a2e6" style="color:#1C1E29;text-decoration: none;" target="_blank"><span style="color:#1C1E29;text-decoration: none;"><!--<![endif]--><!--[if gte mso 9]><td width="95%" align="left" valign="top" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:bold;min-width: 90%;"><![endif]-->Planning any important writing</span></a> <br class="show" style="display: none; max-height: 0px; overflow:hidden; line-height:0px;">projects soon?<br>
+<a href="https://click.send.grammarly.com/?qs=1c2a26a0a661f73eca38e4096ccd7dde59cdbe600045510f9454d2e949ceaed30c96c3af627b382ececeeee7979f9e472755471473d8a2e6" style="color:#4C7AF1;font-size: 11px;text-decoration: none;" target="_blank"><span style="color:#4C7AF1;text-decoration: none;letter-spacing: 0.8px;">VISIT THE ALL-NEW GRAMMARLY EDITOR</span></a></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 5%;"><!--<![endif]--><!--[if gte mso 9]><td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 5%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=1c2a26a0a661f73eca38e4096ccd7dde59cdbe600045510f9454d2e949ceaed30c96c3af627b382ececeeee7979f9e472755471473d8a2e6" style="color:#8189A9;text-decoration: none;" target="_blank"><span style="color:#8189A9;text-decoration: none;">&#062;</span></a></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                          </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /COMMENT -->
+                  <!--Spacer-->
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <!--SPACER END -->
+                </table>
+              </td>
+            </tr>
+            <!-- Write the Future End-->
+            <!--Works Where You Work-->
+            <tr>
+              <td align="center" class="w100P">
+                <table cellpadding="0" cellspacing="0" border="0" class="w100P" bgcolor="#FFFFFF" width="100%">
+                  <tr>
+                    <td align="center">
+                      <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <td bgcolor="#ffffff" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:24px;line-height:normal;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:24px;line-height:normal;font-weight:bold;"><![endif]-->Grammarly Works Where You Work</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                      </table>
+                        <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Grammarly offers clear, effective, mistake-free writing across multiple devices, browsers, and apps.<br><br>You&rsquo;ve already decided on the browser extension. So, here&rsquo;s a list of other free products you can install to access Grammarly wherever you write:</td>
+                        </tr>
+                      </table>
+                      <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="middle" style="min-width: 100%;">
+                          <table bgcolor="F4F5FB" cellpadding="0" cellspacing="0" border="0" width="100%" style="-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border-left: solid 5px #15C39A;min-width: 100%;">
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="F4F5FB" align="center" style="min-width: 100%;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="90%" style="min-width: 90%;">
+                                  <tr>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="80%" align="left" valign="top" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 80%;"><!--<![endif]--><!--[if gte mso 9]><td width="80%" align="left" valign="top" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 80%;"><![endif]--><strong>Grammarly&rsquo;s Mobile Keyboard</strong><br><span style="color:#8189A9;text-decoration: none;font-size: 11px;">Android and iOS</span></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><!--<![endif]--><!--[if gte mso 9]><td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=d7ae30d48282d6e030694046633d45d9f6ac975ddba122a95f6f4c4975e2ff371f56c44950c83307339cedf7c0d88221701badd853a2683f" style="color:#8189A9;text-decoration: none;font-size: 10px;" target="_blank"><span style="color:#4C7AF1;font-size: 11px; text-decoration: none;">INSTALL</span></a></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 5%;"><!--<![endif]--><!--[if gte mso 9]><td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 5%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=d7ae30d48282d6e030694046633d45d9f6ac975ddba122a95f6f4c4975e2ff371f56c44950c83307339cedf7c0d88221701badd853a2683f" style="color:#8189A9;text-decoration: none;font-size: 10px;" target="_blank">&nbsp;&nbsp;<span style="color:#8189A9;text-decoration: none;font-size:16px;">&#062;</span></a></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                          </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="middle">
+                          <table bgcolor="F4F5FB" cellpadding="0" cellspacing="0" border="0" width="100%" style="-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border-left: solid 5px #309FC5;min-width: 100%;">
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="F4F5FB" align="center" style="min-width: 100%;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="90%" style="min-width: 90%;">
+                                  <tr>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="80%" align="left" valign="top" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 80%;"><!--<![endif]--><!--[if gte mso 9]><td width="80%" align="left" valign="top" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 80%;"><![endif]--><strong>Grammarly for MS Office <sup>&reg;</sup></strong><br><span style="color:#8189A9;text-decoration: none;font-size: 11px;">Windows Only</span></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><!--<![endif]--><!--[if gte mso 9]><td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=d5e0f809df6a626ca7d1d063ed67c3a85a79073ae899e00e403d108ef96480213e25d296a744433e459abc2fa623e221c4c627e3b4456162" style="color:#8189A9;text-decoration: none;font-size: 10px;" target="_blank"><span style="color:#4C7AF1;font-size: 11px; text-decoration: none;">INSTALL</span></a></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><!--<![endif]--><!--[if gte mso 9]><td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=d5e0f809df6a626ca7d1d063ed67c3a85a79073ae899e00e403d108ef96480213e25d296a744433e459abc2fa623e221c4c627e3b4456162" style="color:#8189A9;text-decoration: none;font-size: 10px;" target="_blank">&nbsp;&nbsp;<span style="color:#8189A9;text-decoration: none;font-size:16px;">&#062;</span></a></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                          </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="middle">
+                          <table bgcolor="F4F5FB" cellpadding="0" cellspacing="0" border="0" width="100%" style="-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border-left: solid 5px #4C7AF1;min-width: 100%;">
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="F4F5FB" align="center" style="min-width: 100%;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="90%" style="min-width: 90%;">
+                                  <tr>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="80%" align="left" valign="top" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 80%;"><!--<![endif]--><!--[if gte mso 9]><td width="80%" align="left" valign="top" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;min-width: 80%;"><![endif]--><strong>Grammarly&rsquo;s Native App</strong><br><span style="color:#8189A9;text-decoration: none;font-size: 11px;">Windows and macOS</span></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><!--<![endif]--><!--[if gte mso 9]><td width="15%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 15%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=32b95c7e5d02680d8a81a178cd64f2567b908cc517d3f91e3dc3f9162a2805c3dc35d824eae4635e21eac7b98da3b89326116b88a461a400" style="color:#8189A9;text-decoration: none;font-size: 10px;" target="_blank"><span style="color:#4C7AF1;font-size: 11px; text-decoration: none;">INSTALL</span></a></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 5%;"><!--<![endif]--><!--[if gte mso 9]><td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;line-height:150%;font-weight:normal;vertical-align: middle;min-width: 5%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=32b95c7e5d02680d8a81a178cd64f2567b908cc517d3f91e3dc3f9162a2805c3dc35d824eae4635e21eac7b98da3b89326116b88a461a400" style="color:#8189A9;text-decoration: none;font-size: 10px;" target="_blank">&nbsp;&nbsp;<span style="color:#8189A9;text-decoration: none;font-size:16px;">&#062;</span></a></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                            </tr>
+                          </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /COMMENT -->
+                  <!--Spacer-->
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <!--SPACER END -->
+                </table>
+              </td>
+            </tr>
+            <!--Works Where You Work End-->
+            <!--How to US Grammarly-->
+            <tr>
+              <td align="center" class="w100P">
+                <table cellpadding="0" cellspacing="0" border="0" class="w100P" bgcolor="#FFFFFF" width="100%">
+                  <tr>
+                    <td align="center">
+                      <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <td bgcolor="#ffffff" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:28px;line-height:normal;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:28px;line-height:normal;font-weight:bold;"><![endif]-->How to Use Grammarly </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center"><a href="#"><img src="https://s3.amazonaws.com/grammarly-marketing/emails-images/demo-cutted%402x.gif" border="0" alt="" title="" width="459" height="259" class="w100P" style="display: block;"></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                              <tr>
+                                <td width="33" align="left" valign="top"><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/EasyEditing.png" border="0" alt="" title="" height="30" width="29" style="display: block;"></td>
+                                <td width="20" align="left" valign="top">&nbsp;</td>
+                                <td align="left" valign="top">
+                                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                    <td height="5" style="line-height:5px; font-size:5px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:18px;line-height:150%;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:150%;font-weight:bold;"><![endif]-->Easy Editing</td>
+                                    </tr>
+                                    <tr>
+                                    <td bgcolor="#ffffff" class="" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Hover your mouse over an underlined word to see suggestions. (On your phone, suggestions are displayed along the top of your keyboard). You can apply a suggestion with one click or expand it to learn more.</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                              <tr>
+                                <td width="33" align="left" valign="top"><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/CustomSettings.png" alt="" width="33" height="32" style="display: block;" title="" border="0"></td>
+                                <td width="20" align="left" valign="top">&nbsp;</td>
+                                <td align="left" valign="top">
+                                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                    <td height="5" style="line-height:5px; font-size:5px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:18px;line-height:150%;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:150%;font-weight:bold;"><![endif]-->Custom Settings</td>
+                                    </tr>
+                                    <tr>
+                                    <td bgcolor="#ffffff" class="" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Log in at <a href="https://click.send.grammarly.com/?qs=fa144abdd6e9c527e0204cc128d4f4c937df82d0fdd3f70a16eb960a75400d9105c3b6bb3619df7d6f633da36e3abe0c2059024ccbf86c80" target="_blank" style="color:#3B3E4D;text-decoration: none;"><span style="color:#3B3E4D;text-decoration: none;">Grammarly.com</span></a> or visit Account Settings in the mobile app to choose your preferred dialect, edit your personal dictionary, and more.</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="left" valign="top">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                              <tr>
+                                <td width="33" align="left" valign="top"><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/HandyShortcuts.png" border="0" alt="" title="" height="35" width="30" style="display: block;"></td>
+                                <td width="20" align="left" valign="top">&nbsp;</td>
+                                <td align="left" valign="top">
+                                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                    <td height="5" style="line-height:5px; font-size:5px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:18px;line-height:150%;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:150%;font-weight:bold;"><![endif]-->Handy Shortcuts</td>
+                                    </tr>
+                                    <tr>
+                                    <td bgcolor="#ffffff" class="" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Double-click words for synonym suggestions. You can toggle key features of the Grammarly browser extension by clicking the green G next to your address bar. </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /COMMENT -->
+                  <!--Spacer-->
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <!--SPACER END -->
+                </table>
+              </td>
+            </tr>
+            <!--How to US Grammarly End-->
+            <!--Email Preference Settings-->
+            <tr>
+              <td align="center" class="w100P">
+                <table cellpadding="0" cellspacing="0" border="0" class="w100P" bgcolor="#FFFFFF" width="100%">
+                  <tr>
+                    <td align="center">
+                      <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <td bgcolor="#ffffff" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:24px;line-height:normal;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:24px;line-height:normal;font-weight:bold;"><![endif]-->Your Email Preference Settings</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                              <tr>
+                                <td width="75" align="left" valign="top"><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/EmailPrefSettings.png" border="0" alt="" title="" height="153" width="75" style="display: block;"></td>
+                                <td width="35" align="left" valign="top">&nbsp;</td>
+                                <td align="left" valign="top">
+                                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                      <!--[if !mso]><!-- -->
+                                      <td colspan="3" align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td colspan="3" align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->We care about earning and keeping your trust, so we wanted to let you know that you&rsquo;re signed up to receive the following emails from Grammarly:</td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="3" bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <td align="left" valign="top" width="10"></td>
+                                      <!--[if !mso]><!-- -->
+                                      <td width="20" align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->&bull;</td>
+                                        <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Weekly Progress Reports </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="3" bgcolor="#ffffff" class="" height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <td align="left" valign="top" width="10"></td>
+                                      <!--[if !mso]><!-- -->
+                                      <td width="20" align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->&bull;</td>
+                                        <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Product Updates</td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="3" bgcolor="#ffffff" class="" height="15" style="line-height:15px; font-size:15px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                      <td align="left" valign="top" width="10"></td>
+                                      <!--[if !mso]><!-- -->
+                                      <td width="20" align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->&bull;</td>
+                                        <!--[if !mso]><!-- -->
+                                      <td align="left" valign="top" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" valign="top" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Premium Offers</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->You can update your email preference settings at any time  (we will include this link at the bottom of every email we send you).</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="middle">
+                          <table bgcolor="F4F5FB" cellpadding="0" cellspacing="0" border="0" width="100%" style="-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;min-width:100%;">
+                            <tr>
+                              <td height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="F4F5FB" align="center" style="min-width:100%;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="90%" style="min-width:90%;">
+                                  <tr>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="95%" align="left" valign="middle" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:normal;font-weight:bold;min-width: 95%;"><!--<![endif]--><!--[if gte mso 9]><td width="95%" align="left" valign="middle" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:normal;font-weight:bold;min-width: 95%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=b520b78dbfe28422a3c77f060cb8fc441484f3aaa6bcb72871947155be934a94ca1fa5bec5f7a66819e2018ab51682f147f5404da26201f2cc19203a853fbced" style="color:#4C7AF1;font-size: 11px;text-decoration: none;" target="_blank"><span style="color:#4C7AF1;text-decoration: none;letter-spacing: 0.8px;">VISIT EMAIL PREFERENCE SETTINGS</span></a></td>
+                                    <!--[if !mso]><!-- -->
+                                    <td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:normal;font-weight:normal;min-width: 5%;"><!--<![endif]--><!--[if gte mso 9]><td width="5%" align="right" valign="middle" style="color:#8189A9;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:normal;font-weight:normal;min-width: 5%;"><![endif]--><a href="https://click.send.grammarly.com/?qs=b520b78dbfe28422a3c77f060cb8fc441484f3aaa6bcb72871947155be934a94ca1fa5bec5f7a66819e2018ab51682f147f5404da26201f2cc19203a853fbced" style="color:#8189A9;text-decoration: none;" target="_blank"><span style="color:#8189A9;text-decoration: none;">&#062;</span></a></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td height="10" style="line-height:10px; font-size:10px;">&nbsp;</td>
+                            </tr>
+                          </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /COMMENT -->
+                  <!--Spacer-->
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <!--SPACER END -->
+                </table>
+              </td>
+            </tr>
+            <!--Email Preference Settings End-->
+            <!--Unlock Features-->
+            
+            <tr>
+              <td align="center" class="w100P">
+                <table cellpadding="0" cellspacing="0" border="0" class="w100P" bgcolor="#FFFFFF" width="100%" style="min-width: 100%;">
+                  <tr>
+                    <td align="center">
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="min-width: 100%;">
+                        <tr>
+                          <td align="left" valign="top">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: solid 5px #F6BC41;min-width: 100%;">
+                              <tr>
+                                <td align="left" valign="top">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td align="right" valign="top" width="56"><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/UnlockFeatures.png" border="0" alt="" title="" height="59" width="56" style="display: block;"></td>
+                        </tr>
+                      </table>
+                      <table width="85%" cellpadding="0" cellspacing="0" border="0" class="w95">
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#1C1E29;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:18px;line-height:normal;font-weight:bold;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#1C1E29;font-family:Helvetica,Arial,sans-serif;font-size:18px;line-height:normal;font-weight:bold;"><![endif]-->Want to unlock all checks and features?</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        
+                        <tr>
+                          <!--[if !mso]><!-- -->
+                          <td align="left" style="color:#3B3E4D;font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><!--<![endif]--><!--[if gte mso 9]><td align="left" style="color:#3B3E4D;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"><![endif]-->Grammarly Premium includes pro features like vocabulary enhancement, conciseness suggestions, and plagiarism checks.</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" class="" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" valign="middle">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <!--[if !mso]><!-- -->
+                                <td width="241" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#F6BC41"><a href="https://click.send.grammarly.com/?qs=68a93468ba0a47b56e1cf3cae9179cce55dac0e1c2077e982522c0f9dc1d5fabc0bf82e17f0d1a5332b897ae4dfffb64cf6d4089fdc4d0d4" target="_blank" style="font-family:Akkurat,Helvetica,Arial,sans-serif;font-size:11px;line-height:normal;font-weight:bold;color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; padding: 12px 0px; border: 1px solid #F6BC41; display: inline-block;text-transform: uppercase; width:241px;">Learn More</a></td>
+                                <!--<![endif]--><!--[if gte mso 9]>
+<td width="241" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#F6BC41"><a href="#" target="_blank" style="font-family:Helvetica,Arial,sans-serif;font-size:11px;line-height:normal;font-weight:bold;color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; padding: 12px 0px; border: 1px solid #F6BC41; display: inline-block;text-transform: uppercase; width:241px;">Learn More</a></td><![endif]-->
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /COMMENT -->
+                  <!--Spacer-->
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <!--SPACER END -->
+                </table>
+              </td>
+            </tr>
+            
+            <!--Unlock Features End-->
+            <tr>
+              <td align="center">
+                <table cellpadding="0" cellspacing="0" border="0" width="520" class="w100P">
+                  <tr>
+                    <td align="center" style="border-bottom:#A6ADC9 solid 1px;" width="520" class="w100P">
+                      <table cellpadding="0" cellspacing="0" border="0" width="100%" class="w100P" bgcolor="#F5F6FB">
+                        <tr>
+                          <td bgcolor="#F5F6FB" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:120%;font-weight:normal;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=8e59bef9db6f5948b4bcdfdbc423113355b7f794c9b93d926ad47547a512511732b998930a9bac485de7896bab4703036e18a67633c2ab87" style="text-decoration: none;" ><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Facebook_icon_BlueGrey.png" border="0" width="11" height="20" style="width: 11px; height: 20px; max-width: 20px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#3b5998;font-weight:bold" alt=" f"></a></td>
+                                <td width="20" class="hide"></td>
+                                <td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=db2b2d159cdb4ae824531054f6b5e7fd5eda3208abe155c5f4441b1dc44a034c3bca4c6c188fb78419b33acda325fc446ebd74548b30ca9f" style="text-decoration: none;" ><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Instagram_icon_BlueGrey.png" border="0" width="26" height="25" style="width: 26px; height: 25px; max-width: 26px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#00aced;font-weight:bold" alt=" i"></a></td>
+                                <td width="20" class="hide"></td>
+                                <td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=a480a9569e881a4db1e191cc4476cf815ada36b595ecf5646d13486faf6ba2fd54e1cc41025d8aac53a8ad9edb6c7475d3ddf79fe89e4c2f" style="text-decoration: none;" ><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/LinkedIn_icon_BlueGrey.png" border="0" width="19" height="18" style="width: 19px; height: 18px; max-width: 19px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#007bb6;font-weight:bold" alt=" in"></a></td>
+                                <td width="20" class="hide"></td>
+                                <td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=4eaef82351cb12484e2c1829082c9dd4071dac06a506d8cc17810510ac6950e817255cff6eb4f8878480d3ea04328b4acee44893259ef274" style="text-decoration: none;" ><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Twitter_icon_BlueGrey.png" border="0" width="23" height="20" style="width: 23px; height: 20px; max-width: 23px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#00aced;font-weight:bold" alt=" t"></a></td>
+                                <td width="20" class="hide"></td>
+                                <td align="left" width="24"> <a href="https://click.send.grammarly.com/?qs=717a69ddfddb19e66dc25313e88465e813494799499618a0adae70f0212afbe991bb4386bf0354cdf0820e727e79ff6bfe955a80059e0899" style="text-decoration: none;" ><img src="https://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Pinterest_icon_BlueGrey.png" border="0" width="21" height="25" style="width: 21px; height: 25px; max-width: 21px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#cb2027;font-weight:bold" alt=" p"></a></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        
+                          <tr>
+                          <td align="left" height="20" valign="top" style="font-size:1px; line-height:1px;" colspan="2">&nbsp;</td>
+                          </tr>
+
+                          <tr>
+                            <td align="center" style="font-family: Helvetica, arial, sans-serif; font-size: 14px; line-height: 21px;color: #A6ADC9;"><a href="https://click.send.grammarly.com/?qs=9a3561d11e08c6dd397911026a3e89b53e99b325f2b9e93312a6110b914d569aafb1fa61f549c392898fc7c39aaab6ad9ef496d53dd5789c" style="color: #414141; text-decoration:none;border-bottom:1px solid #A6ADC9; white-space: nowrap" class="hover" alis="ftr-upgrade-premium">Upgrade to Grammarly Premium</a>&nbsp;&nbsp;&nbsp;<a href="https://click.send.grammarly.com/?qs=b132c883d48e1b288f33cc831edeb990c4d29993d1c9632a51832f8911250ab39889eaca1271047b04b29a39717849fce2e14b7995390f8b" style="color: #A6ADC9; text-decoration:none;border-bottom: 1px solid #A6ADC9; white-space: nowrap" class="hover" >Learn more</a></td>
+                          </tr>
+                        
+                        <tr>
+                          <td bgcolor="#F5F6FB" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                        </tr>
+                        
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="top" style="font-family: Helvetica, arial, sans-serif; font-size: 13px; line-height: 20px;color: #A6ADC9; padding-left: 45px; padding-right: 45px"> <a href="https://view.send.grammarly.com/?qs=0e3847166b791f8814dbc2bcc5a921ddf001334ca823c5f4248c587017f6eaf0930989f4fbf156b8644697c9c38a3c718e87cd611d83e626f8cb8a90963b4b9efec750cdd4e56185771e53a0d80208a9" style="text-decoration: underline; color: #A6ADC9; white-space: nowrap" class="hover" >View Web Version</a> <span class="hide">&nbsp;&nbsp;&bull;&nbsp;</span> <a href="https://click.send.grammarly.com/?qs=02da89ec203694653ad00c519b7f42e14f9968353f590d98736dbb79b450a69ab2c1cdc928c7dbccf8138f7ddddf8d9d573e46a95461ba76a143f8b5468f7f3f"  style="text-decoration: underline; color: #A6ADC9; white-space: nowrap" class="hover">Email Preferences</a> <span class="hide">&nbsp;&bull;&nbsp;&nbsp;</span> 
+<a href="https://click.send.grammarly.com/?qs=8e2ecc1ee8e4fe1f090f06c56c252fa1fcd5fa3fbb0744d4853e565f1c380aa1ca7d61b7a9e152a0310c8891e583ee114466368248831bc22a66a0336a191290"  style="text-decoration: underline; color: #A6ADC9; white-space: nowrap" class="hover">Unsubscribe
+</a></td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="color:#A6ADC9;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:120%;font-weight:normal;"> You received this email to confirm your new account registration with Grammarly. If you'd like to modify which emails you receive from us in the future, please click "Email Preferences" above.</td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" valign="top" style="font-family: Helvetica, arial, sans-serif; font-size: 13px; line-height: 20px;color: #A6ADC9;">&copy; 2018 Grammarly, Inc. &bull; 548 Market St. #35410 &bull; San Francisco, CA 94104</td>
+                  </tr>
+                  <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+   <img src="https://gnar.grammarly.com/email-pixel?&userId=729081353&email=yasser.kaddoura19@gmail.com&templateName=Default%20Welcome%20for%20All%20New%20Freemium%20Users&sentTime=7/30/2018%2010:54:36%20AM" width="1" height="1" border="0" style="display:none"/>
+  </body>
+</html>
+
+--m6Xc07dSw8lR=_?:--
+

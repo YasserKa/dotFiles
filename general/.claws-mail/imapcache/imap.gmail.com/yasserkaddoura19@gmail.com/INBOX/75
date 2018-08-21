@@ -1,0 +1,846 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp1696095vkd;
+        Thu, 9 Aug 2018 03:24:15 -0700 (PDT)
+X-Received: by 2002:aca:524a:: with SMTP id g71-v6mr1501461oib.351.1533810255802;
+        Thu, 09 Aug 2018 03:24:15 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1533810255; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=LLePPyWivIwwUIjiJE1sshurTiI14nNZ4o2WaSGlHc0bAGV7xVpdrUeeWbRYcMpaPP
+         Hlll4InyH5x9GZOP1yxDbHensrwhg9KuO5F9JnNbvFVEvlW1x80p53bsKU6WMKtYYVd+
+         S+2gkXZuwwaiegWb7vedpszAcsngrM8e2r5Hh+wOGLBzoiBq/xwR1o2gJJX4QUAVeUXO
+         0nOdohBaTMLqzdIK+8ghphqvgr9mu1dgl49buHZCfhTh9wcrtCPJIse19lUbYuXA9gy0
+         U+gBJkKQeBw3s5ByOKAHBVrHinS1XseMb2l7KNgxEezZSkw/GLde7Ed+JrK1qmooCSHn
+         4ZhA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:date:list-unsubscribe:subject:to:from:mime-version
+         :dkim-signature:arc-authentication-results:arc-message-signature
+         :delivered-to:arc-authentication-results;
+        bh=CdI5D+peMBzhojoie7SE1Nu9fo7rPQl6xaOH0QJkVK4=;
+        b=HtNidnoO4K2IiluWeVg7gkWjA/v463uibXRpKxqGPyOB/7H3waGWmV0EJQfQXT85bg
+         fXRiezossnMCKsLa326x7MmHvt3QahcrBrWluYgP1Kn5Lb8nT2btYGC92Xwa40omC98M
+         Ta1dfHCIxHp9vzZB73EYeuw2qkr2OfIFCmbji1/b/dRJtUbqqP0a2Yitmn9s7i+z+z2r
+         gw9/VlIv4vCn8VDk2nZVofnOLWrGwkq4xZ6/ji4iRPNHuZlJqD3l6/vxJdHuPeyebKKY
+         qLYPkDs76FqWqBbIPNs24A3H9AggQN/392Rc6IbQa/Inf34+IM7w/K2dMeJNtpURZzQg
+         Ra3g==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@quora.com header.s=mail header.b=u7yJ5izz;
+       arc=pass (i=1 spf=pass spfdomain=quora.com dkim=pass dkdomain=quora.com dmarc=pass fromdomain=quora.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=quora.com
+Return-Path: <yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id s131-v6sor3669240oif.271.2018.08.09.03.24.15
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Thu, 09 Aug 2018 03:24:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@quora.com header.s=mail header.b=u7yJ5izz;
+       arc=pass (i=1 spf=pass spfdomain=quora.com dkim=pass dkdomain=quora.com dmarc=pass fromdomain=quora.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=quora.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:delivered-to:dkim-signature:mime-version:from:to
+         :subject:list-unsubscribe:date:message-id;
+        bh=CdI5D+peMBzhojoie7SE1Nu9fo7rPQl6xaOH0QJkVK4=;
+        b=r7N4RpMJFi6gI47m+Gu9xaTFqgQoQBMzaxFOpdFLCUplG5sJXmZJjQZj2F8gkDQ73Y
+         OZ5s+6vqFICP50ONLYMOXgH3JXY9v0W4AjQ2TMcdPc8Jk2jgmu6juc76Y0CZ9MRJa8ir
+         huO/VC+776EmXveLb2+9AckHdxNpbbXF5O1Jd8ogyMJ0882o824tJs2QV1zlriFcbXnm
+         BJQVMK8VH+ifE14yuGkSCYDpkbslOvvxrseV1lRpnESt0MFIErCk5cv6RWjpIkzkuPeq
+         SnW35bwjctSPnpdaRRkCiMXzcZdGwXe+4n3Vh67wLQogqqX7OKO5WhKPNsFRWa9rhQ1u
+         72hg==
+X-Gm-Message-State: AOUpUlG/qhcvRjQavpDVWVB1a+DDhkSet00Ld8fxyhVVpy1hmdU9QWz+
+	zxE1K6kn3QbkBzteVMMM2uBEvQciJPdEDAjEWx3jVb6XZnvBgYo=
+X-Received: by 2002:aca:4204:: with SMTP id p4-v6mr1370170oia.242.1533810255382;
+        Thu, 09 Aug 2018 03:24:15 -0700 (PDT)
+X-Forwarded-To: yasserkaddoura19@gmail.com
+X-Forwarded-For: yasserkaddouralearn@gmail.com yasserkaddoura19@gmail.com
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a8a:b46:0:0:0:0:0 with SMTP id i6-v6csp1860241ocv;
+        Thu, 9 Aug 2018 03:24:13 -0700 (PDT)
+X-Google-Smtp-Source: AA+uWPy4XS/tghRZa0dej9J5ddZ7WmWYutwX3kOHp2FNc/YE+y18hyBcQh8ELlkKMk51DqV/4dLq
+X-Received: by 2002:ac8:4402:: with SMTP id j2-v6mr1307851qtn.233.1533810253830;
+        Thu, 09 Aug 2018 03:24:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1533810253; cv=none;
+        d=google.com; s=arc-20160816;
+        b=WcLJ3p7yGCpqhY7IDbmyUW3U+qt2IOtf2pFQ+oeDCt/4L0Hhy3KOXC+35Y5fLk/+Ty
+         wRASZTEw0AIZbP/5Hdt55A7P0B17aRvDSd/UD1zboCpBaxgHOT/E3V4bk4x5Dy2ta4wg
+         3+rww67hBsV618Dd0afLs1BasP+Ms2VQeFBsfP5xHVRFqPNtFW85Pq/RMAxDk4Vlur0F
+         mczgHCueEY852/jO44t2d1OKaXMbuQSi35p/Z7T745XIho6b9XSOwt6CRPEAW2dpDvwv
+         j7SLcIqmHLhG3ie7jqxU4Q6rFMV8e/S86r+HKRb4/m8pOBRH2ZqgBdl0JMYGC/qhb36O
+         YaWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:date:list-unsubscribe:subject:to:from:mime-version
+         :dkim-signature:arc-authentication-results;
+        bh=CdI5D+peMBzhojoie7SE1Nu9fo7rPQl6xaOH0QJkVK4=;
+        b=yVLpulutZxWgwLWgqY2ENf35yFw/3aT9IunudVmecdO/nMXB/1fb4gxL6o4le5WNSw
+         juuxel1HdrS72d2T1aTeVsobIGUAppO4B3PFTPelBPpnLDOWil+ku+FHJUJI5vrC6eZ1
+         AWPv9cYfPGHfQqTJh6IEv+Ku1WQ9ZGZN2cMVb8OBIQ4aTGA1gFRSl3gBQ5MrklFwGw1T
+         BTcyF6z+vnaxgFF3v0OfkJS5CKXKIFhP//fg9StZ+/cUTsvtfYlNKwXRIvq2L961kusl
+         ZoGLzTUAjSspI+AK6cdJiRzciLHN/rhAy3tJM/dTGOxkXofvCb+NQQPSN1oBYt++0Nkj
+         5w2g==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@quora.com header.s=mail header.b=u7yJ5izz;
+       spf=pass (google.com: domain of bounce@quora.com designates 52.5.84.244 as permitted sender) smtp.mailfrom=bounce@quora.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=quora.com
+Return-Path: <bounce@quora.com>
+Received: from o6.pigeon.quora.com (o6.pigeon.quora.com. [52.5.84.244])
+        by mx.google.com with ESMTPS id q6-v6si2495327qvh.274.2018.08.09.03.24.13
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 09 Aug 2018 03:24:13 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce@quora.com designates 52.5.84.244 as permitted sender) client-ip=52.5.84.244;
+Received: 
+	by pigeon-at-10004 (OpenSMTPD) with ESMTP id 21daa7d8
+	for <yasserkaddouralearn@gmail.com>;
+	Thu, 9 Aug 2018 10:24:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=quora.com; h=
+	content-type:mime-version:from:to:subject:list-unsubscribe:date
+	:message-id; s=mail; bh=HwSKuW+T4NvwB9tIsjwyhRcI5EQ=; b=u7yJ5izz
+	kFAtKc65LNwYckr3H2qSI63RrZuXEwwBd2NzK5lFrHYkJGptT8lRsTm1v6xxtNNU
+	isV4mEZJLoKxwnLpSkTYPZtj/IjiH6XYi0yEvXK8g2ilsCygUGbA8i4w/Ffiftl9
+	8C9NaPq3otq7VsgiMYVboSrnOptjr7xNFNw=
+Content-Type: multipart/alternative;
+ boundary="===============1746559597591552763=="
+MIME-Version: 1.0
+From: Quora <answer-noreply@quora.com>
+To: yasserkaddouralearn@gmail.com
+Subject: =?utf-8?q?New_answer_to_=22What_are_some_amazing_psychology_and_mind_tricks?=
+ =?utf-8?q?=3F=22?=
+X-SMTPAPI: {"unique_args": null}
+List-Unsubscribe: <https://www.quora.com/email_optout/notif_optout?code=830e8f24163bf857f1dde91211980b3d&email=yasserkaddouralearn%40gmail.com&snid=3065759479&type=4>
+Date: Thu, 09 Aug 2018 10:24:13 +0000
+Message-ID: <312488b9ed027811f736a029db402a0d2be2927c45a99a79@msgid.quora.com>
+
+--===============1746559597591552763==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+New Answer
+
+-----
+
+Jolie Johnson answered the question "What are some amazing psychology and m=
+ind tricks?":
+
+"It is said that the pilots of the US air force after the Korean war massiv=
+ely passed training, during which they were trained to resist the psycholog=
+ical effects of the enemy. It is also said that psychological torture is mu=
+ch more effective than physical torture: the human psyche recovers from suc=
+h an impact for a long time... And they say that the CIA has developed a wh=
+ole system of"non-human impact". These are just some examples from the"tort=
+ure Report".
+
+The intelligence Committee of the us Senate in 2014 published a shortened v=
+ersion of its study on the use of torture in the CIA. The public document c=
+ontains 528 pages describing CIA "enhanced interrogation techniques".
+
+Methods of psychological and physical impact on prisoners were developed by=
+ psychologists who previously collaborated with the school of survival in e=
+mergency conditions of the US air force.
+
+According to the human rights research Center of the Americas, psychologica=
+l torture should meet the following four criteria:
+
+1. Suffering;
+
+2. Punishment;
+
+3. Duration;
+
+4. The absence of direct physical violence.
+
+Lack of sleep
+
+Lack of sleep us state Department, torture, us, CIA
+
+Sleep deprivation is a form of torture where a prisoner is deprived of slee=
+p for a long time. Sleep is vital for humans and animals. It is not yet cle=
+ar how long a person can stay awake. Today, the set record belongs to Randy=
+ Gardner, who was awake for 264.4 hours without the use of stimulants.
+
+Methods, depriving of sleep, play loud blasting music, bright strobe lights=
+, and the placement of man on step of the podium, from which, falling, he r=
+eceives an electric shock... After a certain period of time without sleep, =
+hallucinations begin. If the lack of sleep becomes permanent for several mo=
+nths, it leads to mental illness.
+
+Other, lighter, consequences may include deterioration of emotional state. =
+David Dinges, Professor of psychology and Director of experimental psychiat=
+ry at the University of Pennsylvania, argues that "when a person is deprive=
+d of sleep, he ceases to experience positive emotions. He may claim to be h=
+appy =E2=80=94 but he doesn't really experience anything."
+
+Ostracism
+
+Ostracism, the U.S. state Department, torture, United States, CIA
+
+Social stigma is a form of psychological torture, which is rooted in the Mi=
+ddle ages. Do you remember the term "pillory"? Here we are: the first menti=
+on of this beautiful device dates back to 1274. So this torture has a long =
+history.
+
+Shameful pole with holes for the head and hands of the man was installed in=
+ the most crowded place: in the shopping area or at the town hall. It allow=
+ed to humiliate the guilty, to scold him, to throw stones at him and even s=
+ometimes to beat.
+
+An interesting case occurred in 1703, when Danielle Defo was sentenced to a=
+ "pillory" for libel. However, public opinion of him as a hero was so high =
+that he was thrown flowers, not dirt or excrement.
+
+15 most sophisticated psychological torture of the us state Department, tor=
+ture, us, CIA
+
+At a time when Saddam Hussein was in power, one of the most famous prisons =
+in the world was Abu Ghraib. After Hussein was overthrown, it housed the us=
+ military prison. It turned out that the us army mocked the captive Iraqis.=
+ A nationwide scandal broke out and eleven soldiers were convicted of crime=
+s.
+
+One of the forms of torture used in Abu Ghraib was forced nudity. Male pris=
+oners were forcibly stripped naked and forced to stand in front of others i=
+n which the mother gave birth.
+
+In Arab culture, nudity and nudity in front of others are humiliating for m=
+en.
+
+Insulation
+
+The isolation of the US state Department, torture, United States, CIA
+
+One of the favorite methods of psychological pressure is the long-term isol=
+ation of the prisoner. A former prisoner, Gairat Bahir, recalled:
+
+- If you don't cooperate, they lock you in a box as long as the coffin, whe=
+re there is no oxygen. No light. You feel like you're being buried alive.
+
+Isolation or solitary confinement is used in some US prisons.
+
+What are the consequences of such a conclusion for a person? In the infamou=
+s 'pit of despair' experience of the macaques, conducted in the 1950s, psyc=
+hologist Harry Harlow found that in a day or two the animals ' became deepl=
+y restless, indifferent, or anxious. Roamed the cage, crippling themselves =
+or swaying madly from side to side, not responding."
+
+Sound
+
+Sound torture is used to influence prisoners with loud music or white noise=
+. Compared to physical torture, so-called "no touch" torture could be consi=
+dered more humane, but it is no less effective.
+
+Like the infamous pillar, sound torture has a long history =E2=80=94 let's =
+say we know an Aztec form of torture called the death whistle.
+
+The CIA playlist often contains singles such as Enter Sandman's Metallica, =
+the hit Rage Against the Machine - Killing in the Name of or even Deicide, =
+and their unforgettable F*ck Your God. What about the most popular song in =
+Guantanamo? - "I love you" by Barney.
+
+In the school of survival in difficult conditions continuously sound "Steps=
+" by Rudyard Kipling.
+
+Sergeant mark Hadsell of Psychological operations States that if a person h=
+as never listened to heavy metal, he is not able to sustain the day and nig=
+ht with this music =E2=80=94 "the brain and the body begin to lose their fu=
+nctions. The thought slows down and the will is broken."
+
+Drug manipulation
+
+Manipulation with drugs, the US state Department, torture, United States, C=
+IA
+
+Drug use, especially hallucinogens, was often used in psychological torture=
+. In the infamous program called Project MK-ULTRA, the CIA experimented wit=
+h controlling mental activity. These experiments contained drugs to " weake=
+n the will of the individual through control of mental operations."
+
+MK means that the project was organized for CIA technical services, while "=
+Ultra" is usually used to refer to secret intelligence data from the second=
+ world war.
+
+The most common drug is LSD, although the Agency has also experimented with=
+ the development of truth sera. The CIA's own website gives a report on the=
+ types of drugs used to establish the truth: different serums, including sc=
+opolamine and various barbiturates.
+
+- There is no such magical means as in the movies. Barbiturates, by reducin=
+g defense mechanisms, can sometimes be useful in interrogation, but even in=
+ the best cases they will cause illusions, fantasies, distorted speech, etc.
+
+Fake death.
+
+Fake the death of the US state Department, torture, United States, CIA
+
+Remember how the great Russian writer Fyodor Dostoevsky described his exper=
+iences when he was waiting for the death penalty, at the last moment was re=
+placed by a link? This experience changed his whole life...
+
+Until now, this type of psychological impact is considered one of the most =
+effective and widely used in practice in various countries. From staging th=
+e shooting and hanging to partial "strangulation" or "drowning".
+
+Another form is "waiting" for death-being on the so-called "death penalty l=
+ist". To say that the consequences are irreversible inmates are suicidal, o=
+r have become a different kind of mania.
+
+Extreme temperature
+
+Extreme temperatures us state Department, torture, us, CIA
+
+The use of extreme temperatures is one of the "enhanced interrogation" opti=
+ons used by the CIA and the FBI. Despite the fact that this torture include=
+s physical impact, it is considered psychological because it has a mental i=
+mpact.
+
+Temperature reduction is also used for sleep deprivation. However, hypother=
+mia is a common side effect, this form of torture has a high mortality rate=
+ - up to 50%. Lowering the temperature could affect the memory of the priso=
+ners are suffering from amnesia. Using extremely high temperatures can lead=
+ to thermal shock. Even if the necessary conditions are met, heat stroke is=
+ usually fatal, so this form of torture can no longer be regarded as psycho=
+logical.
+
+Fear
+
+Fear of us state Department, torture, us, CIA
+
+The use of fears and phobias of prisoners can be effective, but not always =
+feasible. The placement of arachnophobes in the same cell with spiders is o=
+ne of the forms of such torture. It involves a deep knowledge of the victim=
+, so it is unlikely to be used in the "official" setting.
+
+Military psychologists questioned detainees in Guantanamo to understand whi=
+ch of the phobias were used: the phobias of nudity, the phobias of enclosed=
+ space, the phobias of darkness...
+
+Tactile deprivation
+
+Tactile deprivation, the US state Department, torture, United States, CIA
+
+Sensory deprivation is an extreme form of psychological torture. This means=
+ you can't hear, see, or touch anything. Imagine yourself trapped in a soun=
+dproof chamber.
+
+Microsoft has this =E2=80=94 they are testing equipment there. The noise le=
+vel inside is a record-20.35 decibels. To make the camera even quieter, Mic=
+rosoft says, is impossible because of moving air particles that collide wit=
+h each other. Talking inside the room, completely isolated from the outside=
+ noise, is very difficult, there is a feeling that you are shouting into th=
+e pillow. Microsoft uses the audio lab to improve its own products. For exa=
+mple, it can enhance the "hearing" of the voice assistant when the user acc=
+esses a Windows device from the other end of the room, and tablets and lapt=
+ops-to learn to perceive subtle signals.
+
+In the case of psychological torture, it doesn't look so nice. Jos=C3=A9 Pa=
+dilla was found guilty of aiding and abetting terrorists in 2007. In prison=
+, he was subjected to sensory deprivation for several weeks. For 3.5 years =
+he was kept in a cell without natural light, there was no clock or calendar=
+."
+
+
+To see the question page with all answers, visit:
+https://www.quora.com/qemail/track_click?aoid=3DV8h81put04u&aoty=3D16&aty=
+=3D4&click_pos=3D0&ct=3D1533810252145631&et=3D103&id=3D1c334a7774164ca7bc0f=
+c4651a6d32c0&notif_url=3D%2FWhat-are-some-amazing-psychology-and-mind-trick=
+s%2Fanswer%2FJolie-Johnson-7&request_id=3D4&src=3D1&st=3D1533810252148982&s=
+tories=3D3065759479&uid=3DY7hTG2gCvDP&v=3D0
+
+
+
+We sent you this email because you want answers to this question. To stop w=
+anting answers, click this link:=20
+https://www.quora.com/qemail/track_click?aoid=3DYEvgtT59drF&aoty=3D2&aty=3D=
+12&click_pos=3D0&ct=3D1533810252145631&et=3D103&id=3D1c334a7774164ca7bc0fc4=
+651a6d32c0&request_id=3D4&src=3D1&st=3D1533810252148982&stories=3D306575947=
+9&uid=3DY7hTG2gCvDP&v=3D0
+
+-----
+To control which emails we send you, visit: https://www.quora.com/qemail/tr=
+ack_click?aoid&aoty=3D14&aty=3D4&click_pos=3D0&ct=3D1533810252145631&et=3D1=
+03&id=3D1c334a7774164ca7bc0fc4651a6d32c0&request_id=3D4&src=3D1&st=3D153381=
+0252148982&stories=3D3065759479&uid=3DY7hTG2gCvDP&v=3D0
+
+To unsubscribe from these emails, visit: https://www.quora.com/email_optout=
+/notif_optout?code=3D830e8f24163bf857f1dde91211980b3d&email=3Dyasserkaddour=
+alearn%40gmail.com&snid=3D3065759479&type=3D4
+--===============1746559597591552763==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional //en" "http://www=
+.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd"><html><head><style type=3D"t=
+ext/css">@media screen and (max-width:480px){.background_inner{padding:0!im=
+portant;background:#fff!important}.container{padding:0 8px 16px!important}.=
+footer_container{border-top:1px solid #e2e2e2!important}.AnnualThankYouEmai=
+l .background_inner{padding:10px 0!important}.polish_background_inner{paddi=
+ng:10px 0!important}.polish_header_logo img.header_logo_img{width:118px!imp=
+ortant;height:40px!important}.polish_header_title{font-size:16px!important;=
+padding-top:0!important;padding-bottom:5px!important}.polish_question_text{=
+line-height:1.3!important}.polish_story .voters_list,.polish_story .user_li=
+nk{line-height:1.5!important}.polish_story .truncated_q_text,.polish_story =
+.qtext_para{line-height:1.5!important}.polish_story .content_header{padding=
+:6px 0!important}.EndOfYearLookbackEmail .stat_large{font-size:28px!importa=
+nt}.EndOfYearLookbackEmail .content_text{text-align:center!important}.EndOf=
+YearLookbackEmail .half_column{width:100%!important}.EndOfYearLookbackEmail=
+ .img_wrapper{margin:10px auto!important}.TopicDigestEmail .topic_digest_he=
+ader_logo img.polish_header_logo_img{width:89px!important;height:30px!impor=
+tant}.TopicDigestEmail .topic_digest_header_title{font-size:16px!important;=
+padding-top:0!important;padding-bottom:5px!important}.email_app_link-conten=
+t{display:block!important;text-align:center!important}.email_app_link-text,=
+.email_app_link-badges_wrapper{display:block!important}.email_app_link-text=
+{padding-bottom:0!important;box-sizing:border-box!important}.email_app_link=
+-badges_wrapper{padding-left:10px!important}}</style></head><body><html>
+<head></head>
+<body style=3D"-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; ma=
+rgin:0; padding:0; background-color:#eee; width:100%" bgcolor=3D"#eeeeee" w=
+idth=3D"100%">
+<table class=3D"EmailComponent NewAnswerEmail Email NotifEmail background" =
+cellpadding=3D"0" border=3D"0" style=3D'border-collapse:collapse; mso-table=
+-lspace:0; mso-table-rspace:0; background:#eee; font-family:"Helvetica Neue=
+", Helvetica, Arial, sans-serif; font-size:13px; height:auto; text-align:le=
+ft; width:100%' height=3D"auto" align=3D"left" width=3D"100%"><tbody><tr><t=
+d class=3D"polish_background_inner" align=3D"center" valign=3D"top" style=
+=3D"border-collapse:collapse; background:#fff; padding:0"><table cellpaddin=
+g=3D"0" cellspacing=3D"0" border=3D"0" style=3D"border-collapse:collapse; m=
+so-table-lspace:0; mso-table-rspace:0"><tbody>
+<tr>
+<td class=3D"container" align=3D"left" style=3D"border-collapse:collapse; b=
+ackground:#fff; border-radius:4px; height:100%; padding:21px 0 0; width:525=
+px; box-shadow:0 2px 3px #d6d7d7" height=3D"100%" width=3D"525"><table clas=
+s=3D"polish_container_inner" style=3D"border-collapse:collapse; mso-table-l=
+space:0; mso-table-rspace:0; border:0; cellpadding:0; cellspacing:0; width:=
+100%" width=3D"100%"><tbody>
+<tr><td class=3D"polish_header" style=3D"border-collapse:collapse">
+<span style=3D"color:white; display:block; font-size:1px"></span><table cel=
+lpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%" style=3D"borde=
+r-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0"><tbody>
+<tr><td class=3D"polish_header_logo" style=3D"border-collapse:collapse; tex=
+t-align:center" align=3D"center"><a href=3D"https://www.quora.com/qemail/tr=
+ack_click?aoid&amp;aoty=3D7&amp;aty=3D4&amp;click_pos=3D0&amp;ct=3D15338102=
+52145631&amp;et=3D103&amp;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;request=
+_id=3D4&amp;src=3D1&amp;st=3D1533810252148982&amp;stories=3D3065759479&amp;=
+uid=3DY7hTG2gCvDP&amp;v=3D0" style=3D"color:#2b6dad; text-decoration:none">=
+<img class=3D"header_logo_img" src=3D"https://qsf.ec.quoracdn.net/-3-images=
+.logo.WordmarkLogo_bg_592x200_4x.png-26-7caedaafc3c8ba2d.png" alt=3D"Quora"=
+ style=3D"-ms-interpolation-mode:bicubic; outline:0; text-decoration:none; =
+border:0; height:50px; width:148px" height=3D"50" width=3D"148"></a></td></=
+tr>
+<tr><td class=3D"polish_header_title" style=3D'border-collapse:collapse; te=
+xt-align:center; color:#333; font-family:Georgia, Times, "Times New Roman",=
+ "Hiragino Kaku Gothic Pro", "Meiryo", serif; font-size:19px; font-weight:4=
+00; padding-bottom:10px; padding-top:2px' align=3D"center">New Answer</td><=
+/tr>
+<tr><td style=3D"border-collapse:collapse"><table class=3D"polish_header_wr=
+apper" style=3D"border-collapse:collapse; mso-table-lspace:0; mso-table-rsp=
+ace:0; border:0; cellpadding:0; margin-bottom:20px; width:100%" width=3D"10=
+0%"><tbody><tr>
+<td style=3D"border-collapse:collapse"></td>
+<td class=3D"polish_header_line" style=3D"border-collapse:collapse; border-=
+bottom:1px solid #b92b27; height:1px; width:198px" height=3D"1" width=3D"19=
+8"></td>
+<td style=3D"border-collapse:collapse"></td>
+</tr></tbody></table></td></tr>
+</tbody></table>
+</td></tr>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+<tr class=3D"body_container" id=3D"simple-content-row"><td class=3D"body_co=
+ntent" bgcolor=3D"#ffffff" style=3D"border-collapse:collapse; background-co=
+lor:#fff; border-radius:4px; padding:15px 20px"><table style=3D"border-coll=
+apse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%" cellpadd=
+ing=3D"0" cellspacing=3D"0" border=3D"0" width=3D"100%"><tbody><tr>
+<td style=3D"border-collapse:collapse"><table style=3D"border-collapse:coll=
+apse; mso-table-lspace:0; mso-table-rspace:0; width:100%" cellpadding=3D"0"=
+ cellspacing=3D"0" border=3D"0" width=3D"100%"><tbody>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+<tr><td class=3D"question_title" style=3D"border-collapse:collapse"><a href=
+=3D"https://www.quora.com/qemail/track_click?aoid=3DV8h81put04u&amp;aoty=3D=
+16&amp;aty=3D4&amp;click_pos=3D0&amp;ct=3D1533810252145631&amp;et=3D103&amp=
+;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;notif_url=3D%2FWhat-are-some-ama=
+zing-psychology-and-mind-tricks%2Fanswer%2FJolie-Johnson-7&amp;request_id=
+=3D4&amp;src=3D1&amp;st=3D1533810252148982&amp;stories=3D3065759479&amp;uid=
+=3DY7hTG2gCvDP&amp;v=3D0" style=3D"color:#155fad; text-decoration:none; dis=
+play:block; font-size:18px; font-weight:bold">What are some amazing psychol=
+ogy and mind tricks?</a></td></tr>
+<tr class=3D"email_content" style=3D"display:block; padding-bottom:20px"><t=
+d style=3D"border-collapse:collapse; margin-top:0; margin-bottom:0"><table =
+class=3D"digest_table narrow_answer_column" cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"border-collapse:collapse; mso-table-lspace:0; mso-table-rsp=
+ace:0; margin-top:4px"><tbody>
+<tr><td class=3D"content_header" style=3D"border-collapse:collapse; padding=
+:8px 0"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"bo=
+rder-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0"><tbody><tr>
+<td class=3D"content_header_photo" style=3D"border-collapse:collapse"><a hr=
+ef=3D"https://www.quora.com/qemail/track_click?aoid=3DF367VvvHSSB&amp;aoty=
+=3D3&amp;aty=3D4&amp;click_pos=3D1&amp;ct=3D1533810252145631&amp;et=3D103&a=
+mp;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;request_id=3D4&amp;src=3D1&amp=
+;st=3D1533810252148982&amp;stories=3D3065759479&amp;uid=3DY7hTG2gCvDP&amp;v=
+=3D0" style=3D"color:#2b6dad; text-decoration:none"><div id=3D"ZLWaAW">
+<div class=3D"hover_menu hidden white_bg show_nub" id=3D"__w2_FDAvj0K_menu"=
+><div class=3D"hover_menu_contents" id=3D"__w2_FDAvj0K_menu_contents"> </di=
+v></div>
+<span class=3D"photo_tooltip Photo HoverMenu IdentityPhoto" id=3D"__w2_FDAv=
+j0K_link" style=3D"color:#333"><img class=3D"profile_photo_img" src=3D"http=
+s://qph.ec.quoracdn.net/main-thumb-563692847-50-sqocktpvtnzipkxmrlrhtwpupqs=
+salog.jpeg" alt=3D"Jolie Johnson" style=3D"-ms-interpolation-mode:bicubic; =
+outline:0; text-decoration:none; border:0; border-radius:100px; display:blo=
+ck; height:40px; width:40px; border-style:none" height=3D"40" width=3D"40">=
+</span>
+</div></a></td>
+<td class=3D"content_header_text" style=3D"border-collapse:collapse; paddin=
+g-left:8px"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=
+=3D"border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0"><tbod=
+y>
+<td style=3D"border-collapse:collapse"></td>
+<tr><td style=3D"border-collapse:collapse"><a class=3D"user_link" href=3D"h=
+ttps://www.quora.com/qemail/track_click?aoid=3DF367VvvHSSB&amp;aoty=3D3&amp=
+;aty=3D4&amp;click_pos=3D1&amp;ct=3D1533810252145631&amp;et=3D103&amp;id=3D=
+1c334a7774164ca7bc0fc4651a6d32c0&amp;request_id=3D4&amp;src=3D1&amp;st=3D15=
+33810252148982&amp;stories=3D3065759479&amp;uid=3DY7hTG2gCvDP&amp;v=3D0" st=
+yle=3D"color:#333; text-decoration:none; font-weight:bold">Jolie Johnson</a=
+></td></tr>
+<tr><td class=3D"answer_details" style=3D"border-collapse:collapse"><a href=
+=3D"https://www.quora.com/qemail/track_click?aoid=3Dz3IkgqlRs1H&amp;aoty=3D=
+1&amp;aty=3D4&amp;click_pos=3D1&amp;ct=3D1533810252145631&amp;et=3D103&amp;=
+id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;request_id=3D4&amp;src=3D1&amp;st=
+=3D1533810252148982&amp;stories=3D3065759479&amp;uid=3DY7hTG2gCvDP&amp;v=3D=
+0" style=3D"color:#2b6dad; text-decoration:none">Written 1m ago</a></td></t=
+r>
+</tbody></table></td>
+</tr></tbody></table></td></tr>
+<tr><td class=3D"item_content" style=3D'border-collapse:collapse; color:#33=
+3; display:block; font-family:Georgia, Times, "Times New Roman", "Hiragino =
+Kaku Gothic Pro", "Meiryo", serif; font-size:15px; line-height:1.4'><div cl=
+ass=3D"text_reset item_content with_margin_below" style=3D'color:#333; disp=
+lay:block; font-family:Georgia, Times, "Times New Roman", "Hiragino Kaku Go=
+thic Pro", "Meiryo", serif; font-size:15px; line-height:1.4'><div id=3D"Uln=
+vBK"><div class=3D"truncated_para_breaks expanded_q_text TruncatedAnswerFor=
+NewAnswerEmail TruncatedAnswer TruncatedAnswerForEmail TruncatedQText" id=
+=3D"__w2_vMl4I7i_truncated"><span class=3D"rendered_qtext" style=3D"color:#=
+333"><p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; m=
+argin-bottom:1em">It is said that the pilots of the US air force after the =
+Korean war massively passed training, during which they were trained to res=
+ist the psychological effects of the enemy. It is also said that psychologi=
+cal torture is much more effective than physical torture: the human psyche =
+recovers from such an impact for a long time... And they say that the CIA h=
+as developed a whole system of"non-human impact". These are just some examp=
+les from the"torture Report".</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">The intelligence Committee of the us Senate in 2014 published =
+a shortened version of its study on the use of torture in the CIA. The publ=
+ic document contains 528 pages describing CIA "enhanced interrogation techn=
+iques".</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Methods of psychological and physical impact on prisoners were=
+ developed by psychologists who previously collaborated with the school of =
+survival in emergency conditions of the US air force.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">According to the human rights research Center of the Americas,=
+ psychological torture should meet the following four criteria:</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">1. Suffering;</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">2. Punishment;</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">3. Duration;</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">4. The absence of direct physical violence.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Lack of sleep</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Lack of sleep us state Department, torture, us, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Sleep deprivation is a form of torture where a prisoner is dep=
+rived of sleep for a long time. Sleep is vital for humans and animals. It i=
+s not yet clear how long a person can stay awake. Today, the set record bel=
+ongs to Randy Gardner, who was awake for 264.4 hours without the use of sti=
+mulants.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Methods, depriving of sleep, play loud blasting music, bright =
+strobe lights, and the placement of man on step of the podium, from which, =
+falling, he receives an electric shock... After a certain period of time wi=
+thout sleep, hallucinations begin. If the lack of sleep becomes permanent f=
+or several months, it leads to mental illness.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Other, lighter, consequences may include deterioration of emot=
+ional state. David Dinges, Professor of psychology and Director of experime=
+ntal psychiatry at the University of Pennsylvania, argues that "when a pers=
+on is deprived of sleep, he ceases to experience positive emotions. He may =
+claim to be happy =E2=80=94 but he doesn't really experience anything."</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Ostracism</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Ostracism, the U.S. state Department, torture, United States, =
+CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Social stigma is a form of psychological torture, which is roo=
+ted in the Middle ages. Do you remember the term "pillory"? Here we are: th=
+e first mention of this beautiful device dates back to 1274. So this tortur=
+e has a long history.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Shameful pole with holes for the head and hands of the man was=
+ installed in the most crowded place: in the shopping area or at the town h=
+all. It allowed to humiliate the guilty, to scold him, to throw stones at h=
+im and even sometimes to beat.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">An interesting case occurred in 1703, when Danielle Defo was s=
+entenced to a "pillory" for libel. However, public opinion of him as a hero=
+ was so high that he was thrown flowers, not dirt or excrement.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">15 most sophisticated psychological torture of the us state De=
+partment, torture, us, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">At a time when Saddam Hussein was in power, one of the most fa=
+mous prisons in the world was Abu Ghraib. After Hussein was overthrown, it =
+housed the us military prison. It turned out that the us army mocked the ca=
+ptive Iraqis. A nationwide scandal broke out and eleven soldiers were convi=
+cted of crimes.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">One of the forms of torture used in Abu Ghraib was forced nudi=
+ty. Male prisoners were forcibly stripped naked and forced to stand in fron=
+t of others in which the mother gave birth.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">In Arab culture, nudity and nudity in front of others are humi=
+liating for men.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Insulation</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">The isolation of the US state Department, torture, United Stat=
+es, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">One of the favorite methods of psychological pressure is the l=
+ong-term isolation of the prisoner. A former prisoner, Gairat Bahir, recall=
+ed:</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">- If you don't cooperate, they lock you in a box as long as th=
+e coffin, where there is no oxygen. No light. You feel like you're being bu=
+ried alive.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Isolation or solitary confinement is used in some US prisons.<=
+/p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">What are the consequences of such a conclusion for a person? I=
+n the infamous 'pit of despair' experience of the macaques, conducted in th=
+e 1950s, psychologist Harry Harlow found that in a day or two the animals '=
+ became deeply restless, indifferent, or anxious. Roamed the cage, cripplin=
+g themselves or swaying madly from side to side, not responding."</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Sound</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Sound torture is used to influence prisoners with loud music o=
+r white noise. Compared to physical torture, so-called "no touch" torture c=
+ould be considered more humane, but it is no less effective.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Like the infamous pillar, sound torture has a long history =E2=
+=80=94 let's say we know an Aztec form of torture called the death whistle.=
+</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">The CIA playlist often contains singles such as Enter Sandman'=
+s Metallica, the hit Rage Against the Machine - Killing in the Name of or e=
+ven Deicide, and their unforgettable F*ck Your God. What about the most pop=
+ular song in Guantanamo? - "I love you" by Barney.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">In the school of survival in difficult conditions continuously=
+ sound "Steps" by Rudyard Kipling.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Sergeant mark Hadsell of Psychological operations States that =
+if a person has never listened to heavy metal, he is not able to sustain th=
+e day and night with this music =E2=80=94 "the brain and the body begin to =
+lose their functions. The thought slows down and the will is broken."</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Drug manipulation</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Manipulation with drugs, the US state Department, torture, Uni=
+ted States, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Drug use, especially hallucinogens, was often used in psycholo=
+gical torture. In the infamous program called Project MK-ULTRA, the CIA exp=
+erimented with controlling mental activity. These experiments contained dru=
+gs to " weaken the will of the individual through control of mental operati=
+ons."</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">MK means that the project was organized for CIA technical serv=
+ices, while "Ultra" is usually used to refer to secret intelligence data fr=
+om the second world war.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">The most common drug is LSD, although the Agency has also expe=
+rimented with the development of truth sera. The CIA's own website gives a =
+report on the types of drugs used to establish the truth: different serums,=
+ including scopolamine and various barbiturates.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">- There is no such magical means as in the movies. Barbiturate=
+s, by reducing defense mechanisms, can sometimes be useful in interrogation=
+, but even in the best cases they will cause illusions, fantasies, distorte=
+d speech, etc.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Fake death.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Fake the death of the US state Department, torture, United Sta=
+tes, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Remember how the great Russian writer Fyodor Dostoevsky descri=
+bed his experiences when he was waiting for the death penalty, at the last =
+moment was replaced by a link? This experience changed his whole life...</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Until now, this type of psychological impact is considered one=
+ of the most effective and widely used in practice in various countries. Fr=
+om staging the shooting and hanging to partial "strangulation" or "drowning=
+".</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Another form is "waiting" for death-being on the so-called "de=
+ath penalty list". To say that the consequences are irreversible inmates ar=
+e suicidal, or have become a different kind of mania.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Extreme temperature</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Extreme temperatures us state Department, torture, us, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">The use of extreme temperatures is one of the "enhanced interr=
+ogation" options used by the CIA and the FBI. Despite the fact that this to=
+rture includes physical impact, it is considered psychological because it h=
+as a mental impact.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Temperature reduction is also used for sleep deprivation. Howe=
+ver, hypothermia is a common side effect, this form of torture has a high m=
+ortality rate - up to 50%. Lowering the temperature could affect the memory=
+ of the prisoners are suffering from amnesia. Using extremely high temperat=
+ures can lead to thermal shock. Even if the necessary conditions are met, h=
+eat stroke is usually fatal, so this form of torture can no longer be regar=
+ded as psychological.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Fear</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Fear of us state Department, torture, us, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">The use of fears and phobias of prisoners can be effective, bu=
+t not always feasible. The placement of arachnophobes in the same cell with=
+ spiders is one of the forms of such torture. It involves a deep knowledge =
+of the victim, so it is unlikely to be used in the "official" setting.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Military psychologists questioned detainees in Guantanamo to u=
+nderstand which of the phobias were used: the phobias of nudity, the phobia=
+s of enclosed space, the phobias of darkness...</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Tactile deprivation</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Tactile deprivation, the US state Department, torture, United =
+States, CIA</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Sensory deprivation is an extreme form of psychological tortur=
+e. This means you can't hear, see, or touch anything. Imagine yourself trap=
+ped in a soundproof chamber.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">Microsoft has this =E2=80=94 they are testing equipment there.=
+ The noise level inside is a record-20.35 decibels. To make the camera even=
+ quieter, Microsoft says, is impossible because of moving air particles tha=
+t collide with each other. Talking inside the room, completely isolated fro=
+m the outside noise, is very difficult, there is a feeling that you are sho=
+uting into the pillow. Microsoft uses the audio lab to improve its own prod=
+ucts. For example, it can enhance the "hearing" of the voice assistant when=
+ the user accesses a Windows device from the other end of the room, and tab=
+lets and laptops-to learn to perceive subtle signals.</p>
+<p class=3D"qtext_para" style=3D"margin:1em 0; display:inline-block; margin=
+-bottom:1em">In the case of psychological torture, it doesn't look so nice.=
+ Jos=C3=A9 Padilla was found guilty of aiding and abetting terrorists in 20=
+07. In prison, he was subjected to sensory deprivation for several weeks. F=
+or 3.5 years he was kept in a cell without natural light, there was no cloc=
+k or calendar.</p></span></div></div></div></td></tr>
+</tbody></table></td></tr>
+<tr><td style=3D"border-collapse:collapse"><table class=3D"AnswerVoteButton=
+s AnswerSurvey" cellpadding=3D"0" cellspacing=3D"0" border=3D"0" style=3D"b=
+order-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; border:1px=
+ solid #e2e2e2; box-shadow:0 1px 1px 0 rgba(200, 200, 200, 0.2); margin:32p=
+x auto; text-align:center" align=3D"center"><tbody>
+<tr><td class=3D"main_text" style=3D"border-collapse:collapse; font-size:15=
+px; font-weight:bold; line-height:1.4; padding:16px 8px 8px">Is this a usef=
+ul answer to your question?</td></tr>
+<tr><td class=3D"subtitle_text" style=3D"border-collapse:collapse; color:#9=
+99; font-size:13px; padding:0 16px 4px">
+<span class=3D"lock_wrapper" style=3D"color:#333; margin-right:4px"><img sr=
+c=3D"https://qsf.ec.quoracdn.net/-3-images.email.locked.png-26-db830b7c250b=
+44dc.png" alt=3D"Private" style=3D"-ms-interpolation-mode:bicubic; outline:=
+0; text-decoration:none"></span>Your feedback is private.</td></tr>
+<tr><td class=3D"responses" style=3D"border-collapse:collapse; padding:8px =
+8px 16px">
+<span style=3D"color:#333"><a class=3D"response_button positive_action" hre=
+f=3D"https://www.quora.com/qemail/track_click?aoid=3Dz3IkgqlRs1H&amp;aoty=
+=3D1&amp;aty=3D1&amp;click_pos=3D1&amp;ct=3D1533810252145631&amp;et=3D103&a=
+mp;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;request_id=3D4&amp;src=3D1&amp=
+;st=3D1533810252148982&amp;stories=3D3065759479&amp;uid=3DY7hTG2gCvDP&amp;v=
+=3D0" style=3D"color:#168de9; text-decoration:none; border:1px solid #168de=
+9; border-radius:3px; box-shadow:0 1px 1px 0 rgba(200, 200, 200, 0.2); curs=
+or:pointer; display:inline-block; font-size:15px; line-height:1.4; margin:8=
+px; min-width:100px; outline:0; padding:12px 16px; text-align:center" align=
+=3D"center">Yes</a></span><span style=3D"color:#333"><a class=3D"response_b=
+utton negative_action" href=3D"https://www.quora.com/qemail/track_click?aoi=
+d=3Dz3IkgqlRs1H&amp;aoty=3D1&amp;aty=3D2&amp;click_pos=3D1&amp;ct=3D1533810=
+252145631&amp;et=3D103&amp;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;reques=
+t_id=3D4&amp;src=3D1&amp;st=3D1533810252148982&amp;stories=3D3065759479&amp=
+;uid=3DY7hTG2gCvDP&amp;v=3D0" style=3D"color:#168de9; text-decoration:none;=
+ border:1px solid #168de9; border-radius:3px; box-shadow:0 1px 1px 0 rgba(2=
+00, 200, 200, 0.2); cursor:pointer; display:inline-block; font-size:15px; l=
+ine-height:1.4; margin:8px; min-width:100px; outline:0; padding:12px 16px; =
+text-align:center" align=3D"center">No</a></span>
+</td></tr>
+</tbody></table></td></tr>
+</tbody></table></td>
+<td class=3D"w30" style=3D"border-collapse:collapse"> </td>
+</tr></tbody></table></td></tr>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+<tr><td style=3D"border-collapse:collapse"></td></tr>
+</tbody></table></td>
+<td align=3D"center" style=3D"border-collapse:collapse"></td>
+</tr>
+<tr class=3D"polish_footer_section" style=3D"margin-top:16px"><td class=3D"=
+footer_container_wrapper" style=3D"border-collapse:collapse; max-width:525p=
+x"><table class=3D"footer_container" cellpadding=3D"0" cellspacing=3D"0" bo=
+rder=3D"0" style=3D"border-collapse:collapse; mso-table-lspace:0; mso-table=
+-rspace:0; color:#999; font-size:11px; padding-top:16px; text-align:center;=
+ width:100%" align=3D"center" width=3D"100%"><tr><td style=3D"border-collap=
+se:collapse"><div class=3D"footer_text_wrapper" style=3D"padding:25px 20px">
+<div>
+<span style=3D"color:#999; display:block; padding-bottom:8px">We sent you t=
+his email because you follow the question. </span><a class=3D"unwanted_answ=
+ers" href=3D"https://www.quora.com/qemail/track_click?aoid=3DYEvgtT59drF&am=
+p;aoty=3D2&amp;aty=3D12&amp;click_pos=3D0&amp;ct=3D1533810252145631&amp;et=
+=3D103&amp;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;request_id=3D4&amp;src=
+=3D1&amp;st=3D1533810252148982&amp;stories=3D3065759479&amp;uid=3DY7hTG2gCv=
+DP&amp;v=3D0" style=3D"color:#999; text-decoration:underline; display:block=
+; padding-bottom:8px">Unfollow this Question</a>
+</div>
+<div>
+<span style=3D"color:#999; display:block; padding-bottom:8px">This email wa=
+s sent by Quora (650 Castro Street #450, Mountain View, CA 94041). </span><=
+span style=3D"color:#999; display:block; padding-bottom:8px">If you don't w=
+ant to receive these emails in the future, please <a class=3D"unsubscribe_l=
+ink" href=3D"https://www.quora.com/email_optout/notif_optout?code=3D830e8f2=
+4163bf857f1dde91211980b3d&amp;email=3Dyasserkaddouralearn%40gmail.com&amp;s=
+nid=3D3065759479&amp;type=3D4" style=3D"color:#999; text-decoration:underli=
+ne">unsubscribe</a>.<img class=3D"tracking_img" width=3D"1" height=3D"1" sr=
+c=3D"https://www.quora.com/qemail/mark_read?ct=3D1533810252145631&amp;et=3D=
+103&amp;id=3D1c334a7774164ca7bc0fc4651a6d32c0&amp;request_id=3D4&amp;src=3D=
+1&amp;st=3D1533810252148982&amp;stories=3D3065759479&amp;uid=3DY7hTG2gCvDP&=
+amp;v=3D0" style=3D"-ms-interpolation-mode:bicubic; outline:0; text-decorat=
+ion:none"></span>
+</div>
+</div></td></tr></table></td></tr>
+</tbody></table></td></tr></tbody></table>
+<style type=3D"text/css">h1 a:active {color:red}
+h2 a:active {color:red}
+h3 a:active {color:red}
+h4 a:active {color:red}
+h5 a:active {color:red}
+h6 a:active {color:red}
+h1 a:visited {color:purple}
+h2 a:visited {color:purple}
+h3 a:visited {color:purple}
+h4 a:visited {color:purple}
+h5 a:visited {color:purple}
+h6 a:visited {color:purple}</style>
+</body>
+</html>
+</body></html>
+--===============1746559597591552763==--

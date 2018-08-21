@@ -1,0 +1,87 @@
+Delivered-To: yassser.kaddoura@gmail.com
+Received: by 10.223.146.134 with SMTP id 6csp610534wrn;
+        Sat, 23 Sep 2017 05:10:22 -0700 (PDT)
+X-Received: by 10.107.170.12 with SMTP id t12mr2623943ioe.73.1506168622707;
+        Sat, 23 Sep 2017 05:10:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1506168622; cv=none;
+        d=google.com; s=arc-20160816;
+        b=CWJYR9Kee3PCgfWIv9uoDBuk/rwuxGRBtOQ4S2ZNT9Chs6m4abkOIoIwLIMlKMOJ2X
+         KYcaaaj2C9ScAdsSvQhlLA8NOvPdQAwxlDUDUSy+CStCZPVsvO78NyhpfYE3W0Lyxi+1
+         PrmuATtQVPLzNZrCNU/reTq/ohHrZKro91KqR8Vk7mYrSbNxzz6nk5PkLcGwPYpcPvMp
+         XjJ0GH8soGglo29y+48du08YqOrv5zS+O2JTHk/26Xx+nyvbycBi7ME7YCPAo/YlvkPA
+         BAFV5GiudsvJrXXMlXb/6MmBmNCV9COcAjVD2wj5Ckf0kSmJvl99LWpgQz3SrByXgU8P
+         +X2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature
+         :arc-authentication-results;
+        bh=wk0KQa6acZ952t7RL4OeGbqQDsLGOwms3csrMS8H0+s=;
+        b=PFBJD83DcA3K3TdUY+msaHHFVnuX/it8CgOcf5JaNn5KyYIInvoV2+CduU/6IIifW+
+         7AogyDPFmrhDuepsbMHtLwn0q1DQRWnP51C5xt6vM0lpUzm39USeEffKLtqaYh9ud5NX
+         H2Vws9nH0tq8VyUqaW2gd5iYxTD+NwBR15kT4xCX4haLHxumSH5+NE17LjGFe70ta5vV
+         WRBtNNoubcW9whhsaRf9aOJd+pGaIqT8KqZbA03OH6cnwjB79OmS9T3pj/vziR9nMMgJ
+         2VnnznU8nWEYyxwaURolCqzRNm0EsDlQ6o19lULLm1epQM6Pd7o2XJEoqjaG+gDFt16a
+         kl3A==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=k8CZGloq;
+       spf=pass (google.com: domain of yasserkaddouralearn@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=yasserkaddouralearn@gmail.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmail.com
+Return-Path: <yasserkaddouralearn@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id b123sor945389iti.30.2017.09.23.05.10.22
+        for <yassser.kaddoura@gmail.com>
+        (Google Transport Security);
+        Sat, 23 Sep 2017 05:10:22 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20161025 header.b=k8CZGloq;
+       spf=pass (google.com: domain of yasserkaddouralearn@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=yasserkaddouralearn@gmail.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=wk0KQa6acZ952t7RL4OeGbqQDsLGOwms3csrMS8H0+s=;
+        b=k8CZGloqZPdGG5qLzlHUG+uWgwHs72SJzJ80gfR2NA3MNjIBEC+EkBi1S4jhL+J2rs
+         hSD3tvrWdO+4Mce2eLk+cdilKN3FE9pY2wxXevIbRR7O5lmTc2Le4etm/jHTjOD6cWvG
+         VlZQ6+jJ+YBct9yo70XwzOHN9IGYDIe4i6zymfT+260kgii4tdMRKw4290QFrbZFiTI6
+         QkW7/jzqjnfwi9+ecgGzcAsoIACyVccwV+uOfHned4CymMULK7zI1MRsu/0R6LfkUC2E
+         2JdN+OrOm+gQ/lUirD4MmbbocOgnfR87PvqQrMPZ/R1osF/ek62RWGi0ZzLnQYt1gGAj
+         JpgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=wk0KQa6acZ952t7RL4OeGbqQDsLGOwms3csrMS8H0+s=;
+        b=guSPKVzTQjoxdHIKNdQUIcOyhrB3TeZpFNNrG3vgjO2h54Fcq2Aobj5VPN2m8Sbo2g
+         EMPyotoMw9m9Ugi0YIaKzUYJccA4YHs3x13eKZXzSrCBIuWzuSCO/cyyS4SUdFtkMzJu
+         uFmLxO+tCF6Ej/MLEwqk3S4qS+7qLcaqfyzhUs4+tXlKVgbFiEEsBHPOdJaY0WDdzJbM
+         DEzSTZzX1aNfCGWruKwlWzkeeTyMzkwp3qqdWczQFmoyZbRYPfCIJk5DTOnAXP6HZQnE
+         bApjOWSKDAkcFAXLB1afPyMKppGkM+aE1AGgcjThKdj8rb4RtWTOWjYjdmnCVhwo/lZP
+         N2pA==
+X-Gm-Message-State: AHPjjUgfhHEd6krIwztFzXhCkqdE+tDbBds66EtDKo10Zq1/NpclMnMk
+	0jv0y9YQcsJEFSpmO2SrLY3JIWa2YR1QvH+Wz/g=
+X-Google-Smtp-Source: AOwi7QCTzaO+fhNkVk3+ZnCleL/3VeyrY9QOkD5g1WVTuYNZ4unAanrFDvMEMjfiGmCpa2np4ddpRivE9ZJO7JER8XI=
+X-Received: by 10.36.82.145 with SMTP id d139mr10513366itb.86.1506168622162;
+ Sat, 23 Sep 2017 05:10:22 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 10.2.137.153 with HTTP; Sat, 23 Sep 2017 05:09:41 -0700 (PDT)
+From: Yasser Kaddoura <yasserkaddouralearn@gmail.com>
+Date: Sat, 23 Sep 2017 15:09:41 +0300
+Message-ID: <CAKdV5m02oC8dSAUNccmDOTvpER5Kv+FXcXs=fi+1mAyhp8aAOw@mail.gmail.com>
+Subject: trust
+To: Yasser Kaddoura <yassser.kaddoura@gmail.com>
+Content-Type: multipart/alternative; boundary="001a11448be6b226f00559da35c5"
+
+--001a11448be6b226f00559da35c5
+Content-Type: text/plain; charset="UTF-8"
+
+-- 
+Yours truly,
+Yasser Kaddoura,
++961 81 750 315
+
+--001a11448be6b226f00559da35c5
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><br clear="all"><br>-- <br><div class="gmail_signature" data-smartmail="gmail_signature"><div dir="ltr"><div><span style="font-size:12.8px">Yours truly,</span><br></div>Yasser Kaddoura,<div>+961 81 750 315</div></div></div>
+</div>
+
+--001a11448be6b226f00559da35c5--

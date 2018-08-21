@@ -1,0 +1,536 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 10.2.59.83 with SMTP id i19csp1291480jaf;
+        Wed, 11 Apr 2018 16:42:38 -0700 (PDT)
+X-Google-Smtp-Source: AIpwx489VDWuwdSdED7XyxEFzaProEsTqoL9bhsP3bkUY3U7Z9Pn/PUwwWBit2/QXT7iM7o1XUDn
+X-Received: by 2002:aca:4e45:: with SMTP id c66-v6mr4147098oib.190.1523490158725;
+        Wed, 11 Apr 2018 16:42:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1523490158; cv=none;
+        d=google.com; s=arc-20160816;
+        b=w5ydI3kEmpf+yAogRwm1a/aF8ZaVlNSdL3I06/6GTUkzYwO00zLawsSnBHhM/7qkGH
+         fhdCLH9y9lWifOcLPlg3YNBLUKf5vMOHYtynqO+EYzz1HLwDZrOtUcQWYLP0DKAn5o+8
+         Jrlmf9shnic7ZLkst2QZaEesfDwbMI69beMCTnBWHB2E/vlA0Atk87X6aE5l0ay4lIn5
+         Sd95zb30BM2kdVyIXa9D0OUg9+UIyyJhdGNdzJATxeDcn/w7ad/YEmLgLbeQ/LCgxWWU
+         m0RNnk8UyvGukbZ2ce87c9I3MY3HEYcSsJuq6c4YJ2hcOzsSL0HW9jJxdKUCnPJWnfxJ
+         m5zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:feedback-id:subject:reply-to:from:to:date
+         :content-transfer-encoding:mime-version:dkim-signature
+         :dkim-signature:arc-authentication-results;
+        bh=Xv6kA3opbtugx5uTNiRSNqNm96UWHwSuKXaznlPgusc=;
+        b=F9iArDQ1g01OZZ8RgJTmRezdtGqfpQ9G/KfUTD89atKxkGv9c37LJnjaKvRAhzdyhi
+         rakLt3hXpmlDx7tgBnfvfglgjw0Dkxxx+u8O+2g+1IN4eChiIHHwq8BDiUg0/fJ8J1SM
+         BcJN0dAuuPyXh9DLbKBPhHM/kVrGIQU862407Du0vmwJY3lGQuWqq3tsGHmIgpAmEJbd
+         s0MdwhbPFIm8w0hJuZwHMk/Adq+NmM1dUpSBpQz+45AmPiXP2+cVFf32ye9pBpu+GEQo
+         8kBvBHLESMpcOBbisLZnGXihTE6397Q+AlP4O5hSrzyb9bpLI1n3su/N2wol0a4wK9xa
+         cmBg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@go.surveymonkey.com header.s=surveymonkey header.b=k6UjctuX;
+       dkim=pass header.i=@responsys.net header.s=oraclersys header.b=WyHIuuqd;
+       spf=pass (google.com: domain of survey.3445@envfrm.rsys2.com designates 12.130.138.182 as permitted sender) smtp.mailfrom=survey.3445@envfrm.rsys2.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=go.surveymonkey.com
+Return-Path: <survey.3445@envfrm.rsys2.com>
+Received: from omptrans.go.surveymonkey.com (omptrans.go.surveymonkey.com. [12.130.138.182])
+        by mx.google.com with ESMTPS id k132-v6si793107oia.147.2018.04.11.16.42.38
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 11 Apr 2018 16:42:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of survey.3445@envfrm.rsys2.com designates 12.130.138.182 as permitted sender) client-ip=12.130.138.182;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@go.surveymonkey.com header.s=surveymonkey header.b=k6UjctuX;
+       dkim=pass header.i=@responsys.net header.s=oraclersys header.b=WyHIuuqd;
+       spf=pass (google.com: domain of survey.3445@envfrm.rsys2.com designates 12.130.138.182 as permitted sender) smtp.mailfrom=survey.3445@envfrm.rsys2.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=go.surveymonkey.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=surveymonkey; d=go.surveymonkey.com;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Date:To:From:Reply-To:
+ Subject:Feedback-ID:Message-ID; i=surveymonkey@go.surveymonkey.com;
+ bh=Xv6kA3opbtugx5uTNiRSNqNm96UWHwSuKXaznlPgusc=;
+ b=k6UjctuXQaqEy8VNLOYf3gO0mN9plSySxX2Vt8hITwBem+h5Y0E2H3C1Y1Wt8COj6mc+VdCpWf59
+   VCRgfhN0uPIUu4hXQUuXJBEvrZ/vUNbn3ON23r11swsLPkueH9JULoCgSo5Z8dfqUgUovT4yqvkK
+   +PGcLuAh5/E3dhIC/dM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=oraclersys; d=responsys.net;
+ h=MIME-Version:Content-Type:Content-Transfer-Encoding:Date:To:From:Reply-To:
+ Subject:Feedback-ID:Message-ID;
+ bh=Xv6kA3opbtugx5uTNiRSNqNm96UWHwSuKXaznlPgusc=;
+ b=WyHIuuqds0CIWWNafOZJ2bXPRa6FFrs1i9F4Lc6xZ0rOyn9RHFtlYtBRka1280tBysD7kvcKD7iE
+   MjxqXITAHMNeRcku8SWe/HqdjfBqS8lG/b6VGLMOmAJzHZWzVMr76FhM+9+02+Gx8dwx1GD204B2
+   PW4CCDdgE9gthbf3uuw=
+Received: by omptrans.go.surveymonkey.com id hpqems2b610o for <yasserkaddouralearn@gmail.com>; Wed, 11 Apr 2018 16:17:05 -0700 (envelope-from <survey.3445@envfrm.rsys2.com>)
+X-CSA-Complaints: whitelist-complaints@eco.de
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 11 Apr 2018 16:17:05 -0700
+To: yasserkaddouralearn@gmail.com
+From: =?UTF-8?B?U3VydmV5TW9ua2V5?= <surveymonkey@go.surveymonkey.com>
+Reply-To: =?UTF-8?B?U3VydmV5TW9ua2V5?= <reply@go.surveymonkey.com>
+Subject: Updates to our Privacy Policy and Terms of Use
+Feedback-ID: 3445:143394:oraclersys
+X-sgxh1: PHkkLjsHKKhmjHtLHjgxnuHptQJhu
+X-rext: 5.interact2.Ens5Y3NEWbJqmBqEWSnMn6OgIDffiCEJolIcuHFoP_T6xDlvo0
+X-cid: survey.132930
+Message-ID: <0.1.C9.864.1D3D1EB34BD67F0.0@omptrans.go.surveymonkey.com>
+
+<=21DOCTYPE HTML PUBLIC =22-//W3C//DTD HTML 4=2E01 Transitional//EN=22 =22h=
+ttp://www=2Ew3=2Eorg/TR/html4/loose=2Edtd=22>
+<html lang=3D=22en=22>
+<head>
+<meta http-equiv=3D=22Content-Type=22 content=3D=22text/html; charset=3DUTF=
+-8=22>
+<meta name=3D=22viewport=22 content=3D=22width=3Ddevice-width, initial-scal=
+e=3D1=22>
+<meta http-equiv=3D=22X-UA-Compatible=22 content=3D=22IE=3Dedge=22>
+<title>SurveyMonkey</title>
+<style type=3D=22text/css=22>
+=23outlook a =7Bpadding:0;=7D
+body=7Bwidth:100% =21important; -webkit-text-size-adjust:100%; -ms-text-siz=
+e-adjust:100%; margin:0; padding:0;=7D
+a:link =7Bcolor:=232C9AB7;=7D      /* unvisited link */
+a:visited =7Bcolor:=232C9AB7;=7D  /* visited link */
+a:hover =7Bcolor:=232C9AB7;=7D  /* mouse over link */
+a:active =7Bcolor:=232C9AB7;=7D  /* selected link */
+a =7Btext-decoration: none;=7D
+a img =7Bborder:none;=7D
+=2EExternalClass =7Bwidth:100%;=7D
+=23backgroundTable =7Bmargin:0; padding:0; width:100% =21important; =7D
+img =7Boutline:none; text-decoration:none; -ms-interpolation-mode: bicubic;=
+=7D
+span=2Eyshortcuts =7B color:=23333333; background-color:none; border:none;=
+=7D
+span=2Eyshortcuts:hover,
+span=2Eyshortcuts:active,
+span=2Eyshortcuts:focus =7Bcolor:=23333333; background-color:none; border:n=
+one;=7D
+=40media screen and (max-width: 599px) =7Btable=5Bid=3D=22spacer-600=22=5D =
+=7Bdisplay: none =21important;=7D=7D
+=2Egmailfix =7Bdisplay:none;display:none=21important;=7D
+=2Efull-width-bg=7Bwidth:100% =21important; =7D
+=40media only screen and (max-width: 500px)
+=7B
+	*=5Bclass=3Dhide=5D =7B display:none =21important; =7D
+	*=5Bclass=3DtableRebrand=5D =7B width:100% =21important; =7D
+	*=5Bclass=3DspacerHeight=5D =7B width:100% =21important; height:52px =21im=
+portant; =7D
+	*=5Bclass=3DtablePadRebrand=5D =7B width:100% =21important; padding-top:20=
+px; padding-bottom:20px; =7D
+	*=5Bclass=3Dtable90Rebrand=5D =7B width:90% =21important; =7D
+	*=5Bclass=3DtablePadLRRebrand=5D =7B width:100% =21important; padding-left=
+:20px =21important; padding-right:20px =21important; =7D
+	*=5Bclass=3Dh1mobileRebrand=5D =7Bfont-size:35px =21important; line-height=
+:37px =21important; =7D
+	*=5Bclass=3Dh2mobileRebrand=5D =7Bfont-size:28px =21important; line-height=
+:31px =21important; =7D
+=7D</style>
+</head>
+<body>
+
+<table class=3D=22table=22 width=3D=22100%=22 border=3D=220=22 cellpadding=
+=3D=220=22 cellspacing=3D=220=22 bgcolor=3D=22=23F4F5F5=22>
+	<tr>
+		<td class=3D=22tableWhiteBackground=22 style=3D=22border-collapse: collap=
+se;=22 width=3D=22600=22 bgcolor=3D=22=23F4F5F5=22 valign=3D=22top=22 align=
+=3D=22center=22>=20
+		<table class=3D=22table=22 width=3D=22600=22 border=3D=220=22 cellpadding=
+=3D=220=22 cellspacing=3D=220=22>
+			<tr>
+				<td style=3D=22border-collapse: collapse;=22 class=3D=22tableCenter=22 =
+width=3D=22219=22 height=3D=2270=22 bgcolor=3D=22=23F4F5F5=22 align=3D=22le=
+ft=22 valign=3D=22middle=22><a target=3D=22_blank=22 href=3D=22https://go=
+=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gzc2X%3DYQpglLjHJlTQGgkY5UvG4Iczbu7zb=
+G41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXtpKX%3DUDTBAR&_ei_=3DEolaGGF4SNMvxFF=
+7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9VZF-Tg0D_AFlQbAhoKeELZTIRB3S9F6=
+eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=2E=22><img style=3D=22outline:no=
+ne; text-decoration:none; color:=2340a9a8; -ms-interpolation-mode: bicubic;=
+=22 src=3D=22https://static=2Ecdn=2Eresponsys=2Enet/i2/responsysimages/surv=
+ey/contentlibrary/GDPR/Privacy_Policy/images/sm-logo-green=2Epng=22 width=
+=3D=2245=22 border=3D=220=22 alt=3D=22=22 /></a></td>
+				<td class=3D=22hide=22 style=3D=22border-collapse: collapse;=22 align=
+=3D=22right=22 valign=3D=22middle=22 width=3D=22381=22 bgcolor=3D=22=23F4F5=
+F5=22>
+				<font style=3D=22text-decoration:none; color:=23A4A4A4; font-size:13px;=
+ font-family:helvetica, arial, sans-serif;=22>
+				</font>
+				</td>
+			</tr>
+		</table>
+		<table class=3D=22table=22 width=3D=22604=22 border=3D=220=22 cellpadding=
+=3D=220=22 cellspacing=3D=220=22>
+			<tr>
+				<td class=3D=22table=22 style=3D=22border-collapse: collapse;=22 width=
+=3D=22600=22 height=3D=2215=22 bgcolor=3D=22=2300BF6F=22><img class=3D=22ta=
+ble=22 style=3D=22outline:none; text-decoration:none; -ms-interpolation-mod=
+e: bicubic; display:block;=22 src=3D=22https://static=2Ecdn=2Eresponsys=2En=
+et/i2/responsysimages/survey/contentlibrary/GDPR/Privacy_Policy/images/spac=
+er=2Egif=22 width=3D=22600=22 height=3D=2215=22 alt=3D=22=22/></td>
+			</tr>
+		</table>
+		<table class=3D=22table90=22 width=3D=22600=22 border=3D=220=22 cellpaddi=
+ng=3D=220=22 cellspacing=3D=220=22>
+			<tr>
+				<td class=3D=22table=22 colspan=3D=223=22 style=3D=22border-collapse: c=
+ollapse;=22 width=3D=22600=22 height=3D=2235=22 bgcolor=3D=22=23FFFFFF=22><=
+img class=3D=22tableHeight20=22 style=3D=22outline:none; text-decoration:no=
+ne; -ms-interpolation-mode: bicubic; display:block;=22 src=3D=22https://sta=
+tic=2Ecdn=2Eresponsys=2Enet/i2/responsysimages/survey/contentlibrary/GDPR/P=
+rivacy_Policy/images/spacer=2Egif=22 width=3D=22600=22 height=3D=2235=22 al=
+t=3D=22=22/></td>
+			</tr>
+			<tr>
+				<td class=3D=22hide=22 style=3D=22border-collapse: collapse;=22 width=
+=3D=2240=22 height=3D=223=22 bgcolor=3D=22=23FFFFFF=22><img style=3D=22outl=
+ine:none; text-decoration:none; -ms-interpolation-mode: bicubic; display:bl=
+ock;=22 src=3D=22https://static=2Ecdn=2Eresponsys=2Enet/i2/responsysimages/=
+survey/contentlibrary/GDPR/Privacy_Policy/images/spacer=2Egif=22 width=3D=
+=2240=22 height=3D=223=22 alt=3D=22=22/></td>
+				<td class=3D=22table=22 style=3D=22border-collapse: collapse; line-heig=
+ht:24px;=22 width=3D=22600=22 height=3D=223=22 align=3D=22left=22 valign=3D=
+=22top=22 bgcolor=3D=22=23FFFFFF=22>
+				<font style=3D=22text-decoration:none; color:=23333E48; font-size:16px;=
+ font-weight:400; font-family:helvetica, arial, sans-serif;=22>
+                    <p>At SurveyMonkey, we value privacy and transparency, =
+so we wanted to let you know about some changes we=E2=80=99re making to our=
+ <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gzc2X%3DYQpgl=
+LjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXtpKX%3DUDTBA=
+S&_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9VZF-Tg0=
+D_AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=2E=22 ta=
+rget=3D=22_blank=22 style=3D=22text-decoration:none; color:=23007FAA; font-=
+size:16px; font-weight:bold; font-family:helvetica, arial, sans-serif;=22>P=
+rivacy Policy</a> and <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_=
+ri_=3DX0Gzc2X%3DYQpglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2A=
+zf9tNhRVXtpKX%3DUDTBAT&_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peif=
+vvLVfB7kaNuEc9VZF-Tg0D_AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss=
+23Myn1ZVxmn8=2E=22 target=3D=22_blank=22 style=3D=22text-decoration:none; c=
+olor:=23007FAA; font-size:16px; font-weight:bold; font-family:helvetica, ar=
+ial, sans-serif;=22>Terms of Use</a> that will go into effect on May 15, 20=
+18=2E</p>
+                   =20
+                  =20
+                   =20
+Here=E2=80=99s a quick summary of the updates:
+
+				</font>
+	=09
+				<br/><br/>
+			=09
+				<table class=3D=22table90=22 width=3D=22450=22 border=3D=220=22 cellpad=
+ding=3D=220=22 cellspacing=3D=220=22>
+					<tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+                            <font style=3D=22text-decoration:none; color:=
+=23333E48; font-size:16px; font-family:helvetica, arial, sans-serif;=22>We =
+created a new <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0=
+Gzc2X%3DYQpglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRV=
+XtpKX%3DUDTBAU&_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7k=
+aNuEc9VZF-Tg0D_AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZV=
+xmn8=2E=22 target=3D=22_blank=22 style=3D=22text-decoration:none; color:=23=
+007FAA; font-size:16px; font-weight:bold; font-family:helvetica, arial, san=
+s-serif;=22>Legal Center</a> to make it easy for you to find legal and priv=
+acy information=2E=20
+						</font>
+						</td>
+					</tr>
+					<tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+                            <font style=3D=22text-decoration:none; color:=
+=23333E48; font-size:16px; font-family:helvetica, arial, sans-serif;=22>We =
+added a <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gzc2X%=
+3DYQpglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXtpKX%=
+3DUDTBAW&_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9=
+VZF-Tg0D_AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=
+=2E=22 target=3D=22_blank=22 style=3D=22text-decoration:none; color:=23007F=
+AA; font-size:16px; font-weight:bold; font-family:helvetica, arial, sans-se=
+rif;=22>Privacy Basics</a> page with a snapshot of how we handle personal i=
+nformation and data=2E=20
+						</font>
+						</td>
+					</tr>
+					<tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+						<font style=3D=22text-decoration:none; color:=23333E48; font-size:16p=
+x; font-family:helvetica, arial, sans-serif;=22>We added a detailed descrip=
+tion of our security practices with data processing terms that explain how =
+customers can audit our security=2E
+						</font>
+						</td>
+					</tr>
+					<tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+						<font style=3D=22text-decoration:none; color:=23333E48; font-size:16p=
+x; font-family:helvetica, arial, sans-serif;=22>We consolidated Wufoo=E2=80=
+=99s Terms of Use into SurveyMonkey=E2=80=99s Terms of Use=2E
+						</td>
+					</tr>
+                    <tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+						<font style=3D=22text-decoration:none; color:=23333E48; font-size:16p=
+x; font-family:helvetica, arial, sans-serif;=22>In preparation for upcoming=
+ changes to data protection laws in Europe, we added information in our <a =
+href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gzc2X%3DYQpglLjHJ=
+lTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXtpKX%3DUDTBAY&_e=
+i_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9VZF-Tg0D_AF=
+lQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=2E=22 target=
+=3D=22_blank=22 style=3D=22text-decoration:none; color:=23007FAA; font-size=
+:16px; font-weight:bold; font-family:helvetica, arial, sans-serif;=22>Help =
+Center</a> on how to exercise rights around your data and how to control th=
+e use of your personal information through our services=2E We also explaine=
+d how we can help you with data requests you might receive from respondents=
+=2E
+
+						</font>
+						</td>
+					</tr>
+                    <tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+						<font style=3D=22text-decoration:none; color:=23333E48; font-size:16p=
+x; font-family:helvetica, arial, sans-serif;=22>We included information on =
+how we use machine learning technology to provide customers with more accur=
+ate analysis of their data as well as how we use cookies and other tracking=
+ technologies to personalize the information you receive from us=2E
+						</font>
+						</td>
+					</tr>
+                    <tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+						<font style=3D=22text-decoration:none; color:=23333E48; font-size:16p=
+x; font-family:helvetica, arial, sans-serif;=22>We explain how we use aggre=
+gated respondent data to identify trends and improve our products and servi=
+ces=2E
+						</font>
+						</td>
+					</tr>
+                    <tr>
+						<td class=3D=22table10=22 width=3D=2220=22 style=3D=22border-collapse=
+: collapse;=22 bgcolor=3D=22=23ffffff=22 align=3D=22left=22 valign=3D=22top=
+=22><font style=3D=22text-decoration:none; color:=23333E48; font-size:21px;=
+ font-weight:bold; font-family:helvetica, arial, sans-serif;=22>&bull;</fon=
+t></td>
+						<td class=3D=22table90=22 style=3D=22border-collapse: collapse; line-=
+height: 24px; padding-bottom:20px;=22 bgcolor=3D=22=23ffffff=22 align=3D=22=
+left=22 valign=3D=22top=22>
+						<font style=3D=22text-decoration:none; color:=23333E48; font-size:16p=
+x; font-family:helvetica, arial, sans-serif;=22>We added details on how we =
+work with trusted partners and online sources to improve the quality of per=
+sonal information we have about users, understand how users interact with o=
+ur site, and understand the types of services our users are interested in=2E
+
+						</font>
+						</td>
+					</tr>
+				</table>
+			=09
+				<br/>
+			=09
+				<font style=3D=22text-decoration:none; color:=23333E48; font-size:16px;=
+ font-weight:400; font-family:helvetica, arial, sans-serif;=22>
+Thanks for using SurveyMonkey=2E
+<br><br>
+The SurveyMonkey Team=09
+				<br>
+				</font>
+			=09
+		=09
+				<img class=3D=22tableHeight20=22 src=3D=22https://static=2Ecdn=2Erespon=
+sys=2Enet/i2/responsysimages/survey/contentlibrary/GDPR/Privacy_Policy/imag=
+es/spacer=2Egif=22 width=3D=221=22 height=3D=2230=22 alt=3D=22=22/></td>
+				<td class=3D=22hide=22 style=3D=22border-collapse: collapse;=22 width=
+=3D=2240=22 height=3D=223=22 bgcolor=3D=22=23FFFFFF=22><img style=3D=22outl=
+ine:none; text-decoration:none; -ms-interpolation-mode: bicubic; display:bl=
+ock;=22 src=3D=22https://static=2Ecdn=2Eresponsys=2Enet/i2/responsysimages/=
+survey/contentlibrary/GDPR/Privacy_Policy/images/spacer=2Egif=22 width=3D=
+=2240=22 height=3D=223=22 alt=3D=22=22/></td>
+			</tr>
+		</table>
+		<table class=3D=22table=22 width=3D=22100%=22 border=3D=220=22 cellpaddin=
+g=3D=220=22 cellspacing=3D=220=22 bgcolor=3D=22=23F4F5F5=22>
+			<tr>
+				<td class=3D=22hide=22 style=3D=22border-collapse: collapse;=22 width=
+=3D=2250%=22 bgcolor=3D=22=23F4F5F5=22>&nbsp;</td>
+				<td class=3D=22table=22 style=3D=22border-collapse: collapse;=22 width=
+=3D=22600=22 bgcolor=3D=22=23F4F5F5=22 valign=3D=22top=22 align=3D=22center=
+=22>
+				<table class=3D=22table90=22 width=3D=22530=22 border=3D=220=22 cellpad=
+ding=3D=220=22 cellspacing=3D=220=22 bgcolor=3D=22=23F4F5F5=22>
+					<tr>
+						<td class=3D=22table=22 style=3D=22border-collapse: collapse;=22 widt=
+h=3D=22530=22 height=3D=2220=22 bgcolor=3D=22=23F4F5F5=22><img class=3D=22t=
+able=22 style=3D=22outline:none; text-decoration:none; -ms-interpolation-mo=
+de: bicubic; display:block;=22 src=3D=22https://static=2Ecdn=2Eresponsys=2E=
+net/i2/responsysimages/survey/contentlibrary/GDPR/Privacy_Policy/images/spa=
+cer=2Egif=22 width=3D=22530=22 height=3D=2220=22 alt=3D=22=22/></td>
+					</tr>
+                    <br>
+					<tr>
+						<td class=3D=22table=22 style=3D=22border-collapse: collapse; padding=
+-left: 5px; padding-right: 5px;=22 width=3D=22530=22 height=3D=222=22 bgcol=
+or=3D=22=23F4F5F5=22 valign=3D=22top=22 align=3D=22left=22>
+						<font style=3D=22text-decoration:none; color:=23A7A7A7; font-size:13p=
+x; font-family:helvetica, arial, sans-serif;=22>
+						This e-mail was sent to yasserkaddouralearn=40gmail=2Ecom=2E You rece=
+ived this email because you signed up for a SurveyMonkey account=2E=20
+                        <br /> =20
+						<br />
+						<a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/optout?_ri_=3DX0Gzc2=
+X%3DYQpglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhR&_ei_=
+=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9VZF-Tg0D_AFlQ=
+bAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=22 target=3D=
+=22_blank=22 style=3D=22text-decoration:none; font-weight:bold; color:=23A7=
+A7A7; font-size:13px; font-family:helvetica, arial, sans-serif;=22>Unsubscr=
+ibe</a> =7C <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gz=
+c2X%3DYQpglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXt=
+pKX%3DUDTBAA&_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaN=
+uEc9VZF-Tg0D_AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxm=
+n8=2E=22 target=3D=22_blank=22 style=3D=22text-decoration:none; color:=23A7=
+A7A7; font-size:13px; font-family:helvetica, arial, sans-serif;=22>Privacy<=
+/a> =7C <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gzc2X%=
+3DYQpglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXtpKX%=
+3DUDTBAB&_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9=
+VZF-Tg0D_AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=
+=2E=22 target=3D=22_blank=22 style=3D=22text-decoration:none; color:=23A7A7=
+A7; font-size:13px; font-family:helvetica, arial, sans-serif;=22>Help</a> =
+=7C <a href=3D=22https://go=2Esurveymonkey=2Ecom/pub/cc?_ri_=3DX0Gzc2X%3DYQ=
+pglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXtpKX%3DUD=
+TBYA&_ei_=3DEtV3dwlhG5yTWxZBcmgTtjVKpCutMrGpgi7PzwobNAuRcrYzezekSuJjUQiJww_=
+T_NQqs3zhngfkq6Dts8S-JxCqbdHIjqSfiUzTjwWxElMTBUH7oCaeG8ORwFvMvt3mZ2mb89Y6nE=
+Awu5WFf2tHY3DqX_wo2PVxjhp4xzyVAxpoD9kMOOf3lEwjpGoCSLprdcimslPQNT3S95pi8dmu5=
+WGxkTzHZxEsJ0iVkJl9xSmot6_-kZDfZxucAiZil3Crh0zQqaCnn95Dp9-Q7AddHLTLOmfzdEPT=
+F-ABSoAnseXtXEScc_xg78RJvQiVpU979GKW2v8BCN2zupKnvcOltvYaJaZ9OsHIP0P1UW-KB7W=
+casH7RUpT8BVzHJz3u5cDtKPl65COhWOlYDGYFd4JF_d6EBsw3Nn5CTOwYK92HD2ipxucUF-5eD=
+kEgacIWLBAANKL_5A6mgD1hri37EIeexGDwykrA85liY9NcnYYl7-TdXbr2GQtBZBkNFqxrMYu5=
+aw8m_jSqJw40FRsV8Jk4uDdz0sylrIJe2VzrTStNT5lAPG_OUi4r5Y_qio-vF3cTYL3d6CLtU5o=
+INlFTP2o4HCuJHomjb5SkEQKttKBDb6bjJVXTgPqfDnBbhozhYnpdKVdyuPUmO_V2W6wKgh5-i3=
+0wnrCvxYjseZsi4xp_Qycb0sFDjc0EBxIfZVEgqQ5eIFXg0=2E=22 target=3D=22_blank=22=
+ style=3D=22text-decoration:none; color:=23A7A7A7; font-size:13px; font-fam=
+ily:helvetica, arial, sans-serif;=22>View in browser</a>
+
+						<br /><br />
+
+<div class=3D=22notranslate=22>
+&copy; 2018 SurveyMonkey Europe UC,&nbsp;2 Shelbourne Buildings,&nbsp;2nd F=
+loor,&nbsp;Shelbourne Road,&nbsp;Ballsbridge,&nbsp;Dublin 4,&nbsp;Ireland=2E
+  </div>
+						</font>
+						<br/><br/>
+						</td>
+					</tr>
+				</table>
+				</td>
+				<td class=3D=22hide=22 style=3D=22border-collapse: collapse;=22 width=
+=3D=2250%=22 bgcolor=3D=22=23F4F5F5=22>&nbsp;</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+<div class=3D=22notranslate=22>
+<img src=3D=22https://pixel=2Emonitor1=2Ereturnpath=2Enet/pixel=2Egif?r=3Dc=
+b7a24d6edd9144c009a8c97530c8b8d2d1c048a&campaign=3DSM_CRM_MKTG_PA&c=3Dsurve=
+y=2E132930&s=3D104001616&country=3DLB&language=3DEn&engagement=3DNone&sourc=
+e=3Danonweb=22 width=3D=221=22 height=3D=221=22>
+
+<img src=3D=22https://surveymonkey=2Esp1=2Econvertro=2Ecom/view/vt/v1/surve=
+ymonkey/1/cvo=2Egif?cvosrc=3Demail=2Eresponsys=2ESM_CRM_MKTG_PA=2E&cvo_cid=
+=3Dsurvey=2E132930&cvo_campaign=3DRE_=22 width=3D=221=22 height=3D=221=22>
+
+<img src=3D=22https://pixel=2Eapp=2Ereturnpath=2Enet/pixel=2Egif?r=3Dcb7a24=
+d6edd9144c009a8c97530c8b8d2d1c048a&c=3Dsurvey=2E132930=22 width=3D=221=22 h=
+eight=3D=221=22 >	</div>=09
+    <=21-- prevent gmail app from auto-resizing email -->
+
+  <table width=3D=22700=22 border=3D=220=22 cellpadding=3D=220=22 cellspaci=
+ng=3D=220=22 class=3D=22table=22 id=3D=22spacer-600=22 style=3D=22width:600=
+px;max-width:600px;min-width:600px=22>
+    <tbody>
+      <tr>
+        <td bgcolor=3D=22=23F4F5F5=22><img src=3D=22https://static=2Ecdn=2E=
+responsys=2Enet/i2/responsysimages/survey/contentlibrary/GDPR/Privacy_Polic=
+y/images/spacer=2Egif=22 border=3D=220=22 width=3D=22700=22 height=3D=221=
+=22 hspace=3D=220=22 vspace=3D=220=22 style=3D=22width:700px;min-width:700p=
+x=22></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class=3D=22gmailfix=22 style=3D=22white-space:nowrap; font:15px cour=
+ier; line-height:0;=22>
+
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div><br>
+  <table cellpadding=3D=220=22 cellspacing=3D=220=22 style=3D=22border: 0px=
+; padding: 0px; margin: 0px; position: absolute; display: none; float: left=
+=22>
+    <tbody>
+      <tr>
+        <td height=3D=221=22 style=3D=22font-size: 1px; line-height: 1px; p=
+adding: 0px;=22>
+          <br>
+        </td>
+      </tr>
+    </tbody>
+  </table><table cellpadding=3D=220=22 cellspacing=3D=220=22 style=3D=22bor=
+der: 0px; padding: 0px; margin: 0px; position: absolute; display: none; flo=
+at: left=22>
+<tr>
+<td height=3D=221=22 style=3D=22font-size: 1px; line-height: 1px; padding: =
+0px;=22>
+<br><img src=3D=22http://go=2Esurveymonkey=2Ecom/pub/as?_ri_=3DX0Gzc2X%3DYQ=
+pglLjHJlTQGgkY5UvG4Iczbu7zbG41gfgAwnb9MMp8GchtbJmazghyX2Azf9tNhRVXHkMX%3Dw&=
+_ei_=3DEolaGGF4SNMvxFF7KucKuWNhzJq0fS49nGX-Nak88peifvvLVfB7kaNuEc9VZF-Tg0D_=
+AFlQbAhoKeELZTIRB3S9F6eFIncX_4uSXLv6ISZwpGNN-_1gjGss23Myn1ZVxmn8=2E=22></im=
+g>
+</td>
+</tr>
+</table></body>
+</html>
+
+

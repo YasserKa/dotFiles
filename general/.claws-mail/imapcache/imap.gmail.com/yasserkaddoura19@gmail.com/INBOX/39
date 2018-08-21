@@ -1,0 +1,351 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:2e50:0:0:0:0:0 with SMTP id u77-v6csp433288vku;
+        Wed, 25 Jul 2018 01:41:24 -0700 (PDT)
+X-Received: by 2002:aed:224d:: with SMTP id o13-v6mr20068437qtc.422.1532508084621;
+        Wed, 25 Jul 2018 01:41:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1532508084; cv=none;
+        d=google.com; s=arc-20160816;
+        b=wUHqbvOPQXMp/MH6ASUORwJQR6Hzw0j29hWNCHNkUg5H+52C5HfK2vh0oItuSPbABI
+         9l7yxhNDX26BqzxRqZGDwfEoKxcMvweEx7f6e6+nqjyMikYx3SEWZ0cqLpfpkuv9u40f
+         k3Lj3I6+VKGsT6HhYoiSUqOaBio1l1wZNfTZGR6QH4n/+zMkhqhLzQZxD9ilO6lfW1Qi
+         w56fuVxJUgtzvo3BvAdxIDCkeSyZ730M/PjTQ8H12BSCWGehViqRsbYa5W3F8w0QFScX
+         k+OTIwmxIOtqFUW/42Nfx213OBjClhMdrPaVlzOUmbBvjrJJIljYq+X1se9HFRf1WP0e
+         6mtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:message-id:feedback-id:reply-to:date:mime-version
+         :dkim-signature:arc-authentication-results;
+        bh=AhxJ+52lSkJ6ovD4zjkPkmiYEgaezBspUUTI4zajtEo=;
+        b=LFscwaMWvx5zAWDdwI9UQDCsapP4HcDV8EOWGtrXUE7D0oUQKYzYjk8FSYrYYjN6w2
+         BqnC5q5HnBwmpTD9cXI6a9LsavMdtWdw0sgqGcXNWc4SYAumXTu8vQzY2KcyGu/ltiRg
+         3v+mN8AslYboRtDCmOQMghThOvnSWjHMECsB7jfChdUZpjHgD0lDCKKo9CABRH5vH3D9
+         B6EwRnC8kaStwKvWmG7OP+vyuqcDD0J2uIyLAmsBrTh71O5rZPPPvdJTx+gKwf/vLxx6
+         C1hf8vCc1oa+xUPN/mxHkqjQyjvYbKZ1fJExuO4IXxw20YzpW+dYHS+OxsV5Htizs32I
+         NDoA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@google.com header.s=20161025 header.b=EWOlARQO;
+       spf=pass (google.com: domain of 3tddyww0keguforxg-qruhsobjrrjoh.frpbdvvhundggrxudemjpdlo.frp@scoutcamp.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3tDdYWw0KEGUFORXG-QRUHSObJRRJOH.FRPbDVVHUNDGGRXUDemJPDLO.FRP@scoutcamp.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=google.com
+Return-Path: <3tDdYWw0KEGUFORXG-QRUHSObJRRJOH.FRPbDVVHUNDGGRXUDemJPDLO.FRP@scoutcamp.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id e62-v6sor7311603qkj.26.2018.07.25.01.41.24
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Wed, 25 Jul 2018 01:41:24 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3tddyww0keguforxg-qruhsobjrrjoh.frpbdvvhundggrxudemjpdlo.frp@scoutcamp.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@google.com header.s=20161025 header.b=EWOlARQO;
+       spf=pass (google.com: domain of 3tddyww0keguforxg-qruhsobjrrjoh.frpbdvvhundggrxudemjpdlo.frp@scoutcamp.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3tDdYWw0KEGUFORXG-QRUHSObJRRJOH.FRPbDVVHUNDGGRXUDemJPDLO.FRP@scoutcamp.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=google.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:date:reply-to:feedback-id:message-id:subject:from:to;
+        bh=AhxJ+52lSkJ6ovD4zjkPkmiYEgaezBspUUTI4zajtEo=;
+        b=EWOlARQOpVwLFENxjW+ibx73mLB3WSiBUPHlEwFtxSDxepFOA2deGNY1bE2EeHts3a
+         hJvGeJJUAxnmVOjmr9uommPsZ5/+Zm5B50zaRz1vFKNPxF8OfeMxazrQSoYlNEu+azey
+         /5WHnSsx6BnxmMR3cBsZpVFdHT0T22wPfP2tqDmg7hBy90/aDgivJyoccPvXkS3BjHik
+         jMI/xefcRG/+HSSuQBq1JKzMiG7FgVSZkn4rkQvJuAQuILxD39Zb+wRlhOIoP5jTSOKN
+         GH3kAanCeIScznIpT7e7cV8W9W3DCERpHTasDjxdm6Bn6F2ulbR7RF43cbIFfKO65UVo
+         mzWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:date:reply-to:feedback-id
+         :message-id:subject:from:to;
+        bh=AhxJ+52lSkJ6ovD4zjkPkmiYEgaezBspUUTI4zajtEo=;
+        b=MQWvaEKKrPFYPEgP8gKvk/T5goQ04UkLeuGs2QtYaaKe9ynq8hpwtL1x5QHctwyvQt
+         LGxqAwFQ00g1I9iO0XvCgddfDRCQ1WT50zoHjR8UWDaZVB3IBtUcrYLxfLgUcPCi+hS4
+         MbEd/HjI4DTDFRe1aYyr0j3xArpGc5ksHj/4mz7jcSbESiyODCzBsVuSvMPh2PLv+mx/
+         OinazuQFpNykjD3qh5m6JIr6FiHGX1q/qaGbm4Fict91IV3YRlfNYScJyTOteuLr4qYY
+         8plxM+r3qJf1eAxNKDy9vfii99SMeMSKjtDWigDp0HT2c2JxqjmMjwAyO9IO8UnuYlEY
+         d81Q==
+X-Gm-Message-State: AOUpUlF5+OoNp+Z5Y4+PrRCa9bBxndV3Fapx1JaTdWAnrGdWzF3Q5c8S
+	7fvB8Xjyef1ikSY=
+X-Google-Smtp-Source: AAOMgpeUqDevnse2vDVB+Zrii7xukzyednVjEGkma2YcAoiYBqOmHiMJ3jZgaGzJkavpcErmJWqqOzk=
+MIME-Version: 1.0
+X-Received: by 2002:a37:29c1:: with SMTP id p62-v6mr11850063qkp.56.1532508084375;
+ Wed, 25 Jul 2018 01:41:24 -0700 (PDT)
+Date: Wed, 25 Jul 2018 01:41:24 -0700
+Reply-To: The Google Cloud Team <cloud-noreply@google.com>
+X-Google-Id: 253356
+Feedback-ID: Len:D2062018:C20060652:gamma
+X-Notifications: GAMMA:<a06cb8025a5ea772.1532508084070.110354466.20060652.en.34c86e2e19977253@google.com>
+Message-ID: <a06cb8025a5ea772.1532508084070.110354466.20060652.en.34c86e2e19977253@google.com>
+Subject: You have a new Google account for MakerBrane
+From: The Google Cloud Team <cloud-noreply@google.com>
+To: yasserkaddoura19@gmail.com
+Content-Type: multipart/alternative; boundary="000000000000fc11260571ced717"
+
+--000000000000fc11260571ced717
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+V2VsY29tZSB0byB5b3VyIG5ldyBHb29nbGUgQWNjb3VudCBmb3IgTWFrZXJCcmFuZQ0KDQpIZWxs
+byBZYXNzZXIsDQoNCllvdSBoYXZlIGEgbmV3IEdvb2dsZSBBY2NvdW50IHdpdGggdGhlIE1ha2Vy
+QnJhbmUgb3JnYW5pemF0aW9uLg0KDQpTaWduIGluIHRvIHlvdXIgR29vZ2xlIEFjY291bnQgdG8g
+YWNjZXNzIHRoZSBHb29nbGUgc2VydmljZXMgeW91ciAgDQpvcmdhbml6YXRpb24gcHJvdmlkZXMu
+IElmIHlvdXIgb3JnYW5pemF0aW9uIGhhcyBHIFN1aXRlLCBHb29nbGUgc2VydmljZXMgIA0KbWF5
+IGluY2x1ZGUgYnVzaW5lc3MtZ3JhZGUgdmVyc2lvbnMgb2YgR29vZ2xlIERyaXZlLCBHbWFpbCwg
+YW5kIG90aGVyICANCkdvb2dsZSBzZXJ2aWNlcyB5b3UgY2FuIHVzZSB0byBjb2xsYWJvcmF0ZSB3
+aXRoIHlvdXIgdGVhbS4NCg0KWW91ciB1c2VybmFtZTogeWFzc2VyQG1ha2VyYnJhbmUuY29tDQoN
+ClBhc3N3b3JkOiBDbGljayBTaWduIGluIGJlbG93IHRvIHNldCB5b3VyIHBhc3N3b3JkIGFuZCBz
+aWduIGluLiBUbyBrZWVwICANCnlvdXIgYWNjb3VudCBzZWN1cmUsIGZvbGxvdyB0aGVzZSBwYXNz
+d29yZCBndWlkZWxpbmVzLg0KDQoNCg0KU2lnbiBpbg0KDQoNCg0KRm9yIHlvdXIgc2VjdXJpdHks
+IHRoZSByZXNldCBwYXNzd29yZCBsaW5rIGV4cGlyZXMgYWZ0ZXIgNDggaG91cnMuIEFmdGVyICAN
+CnRoYXQsIHBsZWFzZSBjb250YWN0IHlvdXIgYWRtaW5pc3RyYXRvciBmb3IgeW91ciBwYXNzd29y
+ZC4NCg0KUmVnYXJkcywNCg0KVGhlIEdvb2dsZSBDbG91ZCBUZWFtDQoNCg0KDQoNCkdvb2dsZSBD
+bG91ZCBsb2dvDQrCqSAyMDE4IEdvb2dsZSBMTEMgMTYwMCBBbXBoaXRoZWF0cmUgUGFya3dheSwg
+TW91bnRhaW4gVmlldywgQ0EgOTQwNDMNCg0KWW91J3JlIHJlY2VpdmluZyB0aGlzIG1hbmRhdG9y
+eSBlbWFpbCBzZXJ2aWNlIGFubm91bmNlbWVudCB0byB1cGRhdGUgeW91ICANCmFib3V0IGltcG9y
+dGFudCBjaGFuZ2VzIHRvIHlvdXIgR29vZ2xlIENsb3VkIHByb2R1Y3Qgb3IgYWNjb3VudC4NCg0K
+DQoNCg0KDQo=
+--000000000000fc11260571ced717
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+<!doctype html public "- / /w3c / /dtd xhtml 1.0 transitional / /en" "http:=
+ / /www.w3.org /tr /xhtml1 /dtd /xhtml1-transitional.dtd">
+
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en" st=
+yle=3D"background:#F8F9FA!important">
+  <head>
+   =20
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width">
+    <title>Important message regarding your Google Cloud product</title>
+    <style>@media only screen{html{min-height:100%;background:#fafafa}}@med=
+ia only screen and (max-width:640px){.small-float-center{margin:0 auto!impo=
+rtant;float:none!important;text-align:center!important}}@media only screen =
+and (max-width:640px){table.body img{width:auto;height:auto}table.body cent=
+er{min-width:0!important}table.body .container{width:344px!important}table.=
+body .columns{height:auto!important;-moz-box-sizing:border-box;-webkit-box-=
+sizing:border-box;box-sizing:border-box;padding-left:40px!important;padding=
+-right:40px!important}table.body .columns .columns{padding-left:0!important=
+;padding-right:0!important}table.body .collapse .columns{padding-left:0!imp=
+ortant;padding-right:0!important}th.small-1{display:inline-block!important;=
+width:8.33333%!important}th.small-3{display:inline-block!important;width:25=
+%!important}th.small-4{display:inline-block!important;width:33.33333%!impor=
+tant}th.small-6{display:inline-block!important;width:50%!important}th.small=
+-8{display:inline-block!important;width:66.66667%!important}th.small-9{disp=
+lay:inline-block!important;width:75%!important}th.small-12{display:inline-b=
+lock!important;width:100%!important}.columns th.small-12{display:block!impo=
+rtant;width:100%!important}table.menu{width:100%!important}table.menu td,ta=
+ble.menu th{width:auto!important;display:inline-block!important}table.menu.=
+vertical td,table.menu.vertical th{display:block!important}table.menu[align=
+=3Dcenter]{width:auto!important}}</style>
+  </head>
+  <body style=3D"-moz-box-sizing:border-box;-ms-text-size-adjust:100%;-webk=
+it-box-sizing:border-box;-webkit-text-size-adjust:100%;Margin:0;background:=
+#F8F9FA!important;box-sizing:border-box;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:inherit=
+;margin:0;min-width:100%;padding:0;width:100%!important">
+    <span class=3D"preheader" style=3D"color:#fafafa;display:none!important=
+;font-size:1px;line-height:1px;max-height:0;max-width:0;mso-hide:all!import=
+ant;opacity:0;overflow:hidden;visibility:hidden"></span>
+    <table class=3D"body" style=3D"Margin:0;background:#F8F9FA!important;bo=
+rder-collapse:collapse;border-spacing:0;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;height:100%;line-he=
+ight:inherit;margin:0;padding:0;vertical-align:top;width:100%">
+      <tr style=3D"padding:0;vertical-align:top">
+        <td class=3D"center" align=3D"center" valign=3D"top" style=3D"-moz-=
+hyphens:none;-webkit-hyphens:none;Margin:0;border-collapse:collapse!importa=
+nt;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;font-size:14=
+px;font-weight:400;hyphens:none;line-height:inherit;margin:0;padding:0;vert=
+ical-align:top;word-wrap:keep-all">
+          <center data-parsed=3D"" style=3D"min-width:600px;width:100%">
+           =20
+            <table align=3D"center" class=3D"container float-center" style=
+=3D"Margin:0 auto;background:#fafafa;border-collapse:collapse;border-spacin=
+g:0;float:none;margin:0 auto;padding:0;text-align:left;vertical-align:top;w=
+idth:600px"><tbody><tr style=3D"padding:0;vertical-align:top"><td style=3D"=
+-moz-hyphens:none;-webkit-hyphens:none;Margin:0;border-collapse:collapse!im=
+portant;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;font-si=
+ze:14px;font-weight:400;hyphens:none;line-height:inherit;margin:0;padding:0=
+;vertical-align:top;word-wrap:keep-all">
+              <table class=3D"row header" style=3D"background:#F8F9FA;borde=
+r-collapse:collapse;border-spacing:0;display:table;font-size:12px;padding:0=
+;position:relative;vertical-align:top;width:100%"><tbody><tr style=3D"paddi=
+ng:0;vertical-align:top">
+                <th class=3D"small-12 large-12 columns first last" style=3D=
+"Margin:0 auto;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;=
+font-size:14px;font-weight:400;line-height:inherit;margin:0 auto;padding:0;=
+padding-bottom:0;padding-left:40px;padding-right:40px;padding-top:12px;widt=
+h:560px"><table style=3D"border-collapse:collapse;border-spacing:0;margin-b=
+ottom:24px;padding:0;vertical-align:top;width:100%"><tr style=3D"padding:0;=
+vertical-align:top"><th style=3D"Margin:0;color:#3C4043;font-family:Roboto,=
+Helvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:inher=
+it;margin:0;padding:0">
+           =20
+                  <img src=3D"https://storage.googleapis.com/support-kms-pr=
+od/MjxzSX6vYQe5qvDgeYlW3sPxLoGyywV7EHSC" style=3D"-ms-interpolation-mode:bi=
+cubic;clear:both;display:block;margin-top:24px;max-height:30px;max-width:10=
+0%;outline:0;text-decoration:none;width:auto">
+           =20
+                </th>
+<th class=3D"expander" style=3D"Margin:0;color:#3C4043;font-family:Roboto,H=
+elvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:inheri=
+t;margin:0;padding:0!important;visibility:hidden;width:0"></th></tr></table=
+></th>
+              </tr></tbody></table>
+           =20
+              <table class=3D"row info" style=3D"align-items:center;backgro=
+und:#fff;border-collapse:collapse;border-color:#E8EAED;border-spacing:0;bor=
+der-style:solid;border-width:1px;display:table;padding:0;position:relative;=
+vertical-align:top;width:100%"><tbody><tr style=3D"padding:0;vertical-align=
+:top">
+                <th class=3D"small-12 large-12 columns first last" style=3D=
+"Margin:0 auto;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;=
+font-size:14px;font-weight:400;line-height:inherit;margin:0 auto;padding:0;=
+padding-bottom:0;padding-left:40px;padding-right:40px;width:560px"><table s=
+tyle=3D"border-collapse:collapse;border-spacing:0;padding:0;vertical-align:=
+top;width:100%"><tr style=3D"padding:0;vertical-align:top"><th style=3D"Mar=
+gin:0;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;font-size=
+:14px;font-weight:400;line-height:inherit;margin:0;padding:0"> <h2 style=3D=
+"Margin:0;Margin-bottom:8px;color:#3C4043;font-family:Google Sans,Helvetica=
+,Arial,sans-serif;font-size:24px;font-weight:700;line-height:40px;margin:0;=
+margin-bottom:24px;margin-top:20px;padding:0;word-wrap:normal">Welcome to y=
+our new Google Account for MakerBrane</h2>
+
+<p style=3D"Margin:0;Margin-bottom:16px;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;ma=
+rgin:0;margin-bottom:16px;padding:0">Hello Yasser,</p>
+
+<p style=3D"Margin:0;Margin-bottom:16px;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;ma=
+rgin:0;margin-bottom:16px;padding:0">You have a new Google Account with the=
+ MakerBrane organization.</p>
+
+<p style=3D"Margin:0;Margin-bottom:16px;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;ma=
+rgin:0;margin-bottom:16px;padding:0">Sign in to your Google Account to acce=
+ss the Google services your organization provides. If your organization has=
+ G=C2=A0Suite, Google services may include business-grade versions of Googl=
+e Drive, Gmail, and other Google services you can use to collaborate with y=
+our team.</p>
+
+<p style=3D"Margin:0;Margin-bottom:16px;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;ma=
+rgin:0;margin-bottom:16px;padding:0"><strong>Your username:</strong> yasser=
+@makerbrane.com</p>
+
+<p style=3D"Margin:0;Margin-bottom:16px;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;ma=
+rgin:0;margin-bottom:16px;padding:0"><strong>Password:</strong> Click <stro=
+ng>Sign in</strong> below to set your password and sign in. To keep your ac=
+count secure, follow <a href=3D"https://www.google.com/appserve/mkt/p/APDk4=
+sOm523UcA3_m475TPP0ZJB5OfWCr_KXqY3k62cZiXMqenCIwV4XC9pPCzT5gwmh0DV8_KRK35RS=
+lmkOoA89HATI6CTh75DuwwrQLKkqKZn_pRTCDw" style=3D"Margin:0;color:#1A73E8;fon=
+t-family:Roboto,Helvetica,Arial,sans-serif;font-weight:400;line-height:24px=
+;margin:0;padding:0;text-decoration:none">these password guidelines</a>.</p=
+>
+
+<div class=3D"account-info">
+  <table class=3D"button radius" style=3D"Margin:9px 0 24px 0;border-collap=
+se:collapse;border-spacing:0;margin:9px 0 24px 0;padding:0;vertical-align:t=
+op;width:auto;margin-left:auto;margin-right:auto;">
+    <tbody>
+      <tr style=3D"padding:0;vertical-align:top">
+        <td style=3D"-moz-hyphens:none;-webkit-hyphens:none;Margin:0;border=
+-collapse:collapse!important;color:#3C4043;font-family:Roboto,Helvetica,Ari=
+al,sans-serif;font-size:14px;font-weight:400;hyphens:none;line-height:inher=
+it;margin:0;padding:0;vertical-align:top;word-wrap:keep-all">
+        <table style=3D"border-collapse:collapse;border-spacing:0;padding:0=
+;vertical-align:top;width:100%">
+          <tbody>
+            <tr style=3D"padding:0;vertical-align:top">
+              <td style=3D"-moz-hyphens:none;-webkit-hyphens:none;Margin:0;=
+background:#2979ff;border:none;border-collapse:collapse!important;border-ra=
+dius:3px;color:#fff;font-family:Roboto,Helvetica,Arial,sans-serif;font-size=
+:14px;font-weight:400;hyphens:none;line-height:inherit;margin:0;padding:0;v=
+ertical-align:top;word-wrap:keep-all"><a href=3D"https://www.google.com/app=
+serve/mkt/p/APDk4sPC3qjDGx-f2mFR2-1CGRw9WEDEMhhdiwBI2owqegBVxdHdSuv6Mdy_zxc=
+tYQ4VvZWWIL2PpPCXczCBvzicw6fTD-V-87FmwR5U2kgdK41gtRoMktKOQo_tzX0-y0BLGvZyav=
+xnxoYStN2NrWwylsT8DoXuVsCTCrLfUZ3K7oK3cUbC9foRcH_mZ2OIYaVz1EY" style=3D"Mar=
+gin:0;border:0 solid #2979ff;border-radius:3px;color:#fff;display:inline-bl=
+ock;font-family:Roboto,Helvetica,Arial,sans-serif;font-size:14px;font-weigh=
+t:500;line-height:24px;margin:0;padding:8px 16px 8px 16px;text-decoration:n=
+one">Sign in</a></td>
+            </tr>
+          </tbody>
+        </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p style=3D"Margin:0;Margin-bottom:16px;color:#3C4043;font-family:Roboto,He=
+lvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:24px;ma=
+rgin:0;margin-bottom:16px;padding:0">For your security, the reset password =
+link expires after 48 hours. After that, please contact your <a href=3D"htt=
+ps://www.google.com/appserve/mkt/p/APDk4sO3cUgJthwouia4VD8eu-k_6fURk_Ldam6p=
+DX7f2LU8BxxvX7c6FKbc2b40YBerjfOTwXkEtquUN9XTsxSqYNCuAqMOVLO6GFon9r-iBurCwDW=
+2dJWmOWSRXR4Mw76K4CLF0Seh8PhWx5BOB26Dvp6e" style=3D"Margin:0;color:#1A73E8;=
+font-family:Roboto,Helvetica,Arial,sans-serif;font-weight:400;line-height:2=
+4px;margin:0;padding:0;text-decoration:none">administrator</a> for your pas=
+sword.</p>
+
+<p style=3D"margin-top:8px;color:#3C4043;font-family:Google Sans,Helvetica,=
+Arial,sans-serif;font-size:14px;font-weight:700;line-height:24px;margin:0;m=
+argin-bottom:0px;padding:0">Regards,</p>
+
+<p style=3D"Margin:0;color:#3C4043;font-family:Google Sans,Helvetica,Arial,=
+sans-serif;font-size:14px;font-weight:700;line-height:24px;margin:0;margin-=
+bottom:24px;padding:0">The Google Cloud Team</p>
+             </th></tr></table></th>
+            </tr></tbody></table>
+           =20
+            <table class=3D"row footer" style=3D"background:#F8F9FA;border-=
+collapse:collapse;border-spacing:0;display:table;margin-top:24px;padding:0;=
+position:relative;vertical-align:top;width:100%"><tbody><tr style=3D"paddin=
+g:0;vertical-align:top">
+              <th class=3D"small-12 large-12 columns first last" style=3D"M=
+argin:0 auto;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;fo=
+nt-size:14px;font-weight:400;line-height:inherit;margin:0 auto;padding:0;pa=
+dding-bottom:0;padding-left:40px;padding-right:40px;width:560px"><table sty=
+le=3D"border-collapse:collapse;border-spacing:0;padding:0;vertical-align:to=
+p;width:100%"><tr style=3D"padding:0;vertical-align:top"><th style=3D"Margi=
+n:0;color:#3C4043;font-family:Roboto,Helvetica,Arial,sans-serif;font-size:1=
+4px;font-weight:400;line-height:inherit;margin:0;padding:0">
+           =20
+                <img src=3D"https://storage.googleapis.com/support-kms-prod=
+/Yd1rPlunjtOKzNDXcw3eFmVCjI828xhBZqQy" height=3D"30px" alt=3D"Google Cloud =
+logo" style=3D"-ms-interpolation-mode:bicubic;clear:both;display:block;marg=
+in-bottom:14px;max-width:100%;outline:0;text-decoration:none;width:auto">
+                <p style=3D"Margin:0;Margin-bottom:16px;color:#6C737F;font-=
+family:Roboto,Helvetica,Arial,sans-serif;font-size:12px;font-weight:400;lin=
+e-height:16px;margin:0;margin-bottom:14px;padding:0">
+            =C2=A9 2018  Google LLC=C2=A01600 Amphitheatre Parkway, Mountai=
+n View, CA 94043
+                </p>
+                <p style=3D"Margin:0;Margin-bottom:16px;color:#6C737F;font-=
+family:Roboto,Helvetica,Arial,sans-serif;font-size:12px;font-weight:400;lin=
+e-height:16px;margin:0;margin-bottom:14px;padding:0">
+            <em>You=E2=80=99re receiving this mandatory email service annou=
+ncement to update you about important changes to your Google Cloud product =
+or account.</em>
+            </p>
+            </th>
+<th class=3D"expander" style=3D"Margin:0;color:#3C4043;font-family:Roboto,H=
+elvetica,Arial,sans-serif;font-size:14px;font-weight:400;line-height:inheri=
+t;margin:0;padding:0!important;visibility:hidden;width:0"></th></tr></table=
+></th>
+            </tr></tbody></table>
+            </td></tr></tbody></table>
+           =20
+          </center>
+        </td>
+      </tr>
+    </table>
+    <!-- prevent Gmail on iOS font size manipulation -->
+   <div style=3D"display:none;white-space:nowrap;font:15px courier;line-hei=
+ght:0"> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 </div=
+>
+  <img height=3D"1" width=3D"3" src=3D"https://www.google.com/appserve/mkt/=
+img/APDk4sNglGDkMLp6slDmeUGThrp1t1mT9kPkjdUFxpAStyAm.gif"></body>
+</html>
+
+
+--000000000000fc11260571ced717--

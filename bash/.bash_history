@@ -1998,3 +1998,73 @@ vim config.php
 c
 vim config.php 
 shutdown
+dillo
+cd ~
+ls
+cd dotfiles/
+git add .
+ls
+git status
+git unstage
+git checkout 
+git checkout --
+git discard
+git unstage
+git --help
+/unstage
+git checkout .
+git status
+git reset HEAD
+git status
+vim ~/.bash_aliases 
+ls
+vim bash/.bash_profile 
+vim bash/.bash_aliases 
+cd ..
+cp .bash_aliases .bash_aliases.tmp
+cp .bash_profile .bash_profile.tmp
+cd dotfiles/
+stow bash/
+cd ..
+stow .bash_aliases
+ls
+ll
+rm .bash_aliases.tmp 
+rm .bash_profile.tmp 
+mv .bash* dotfiles/bash/
+cd dotfiles/
+stow bash/
+git status
+ls
+ll
+cd ..
+ll
+vim .viminfo
+rm .viminf*
+ls
+ll
+rm .sdcv_history*
+ls
+ll
+rm .python_history*
+ls
+ll
+rm .sw*
+ls
+ll
+rm .rnd
+rm parts/ -R
+ls
+ll
+ls
+l
+ll
+cd dotfiles/
+ls
+git add .
+git commit -m "pushing for virtual machine in VB"
+git push origin amster
+git push origin master
+ls
+vim ~/.bash_aliases 
+note edit archInstall

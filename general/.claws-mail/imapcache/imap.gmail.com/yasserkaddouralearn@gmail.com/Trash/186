@@ -1,0 +1,379 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a02:b044:0:0:0:0:0 with SMTP id q4-v6csp4144896jah;
+        Tue, 8 May 2018 04:06:06 -0700 (PDT)
+X-Google-Smtp-Source: AB8JxZoYnQCJ1D11M8qBOEhkzGdf9uy/DTSvgtFFlx4Z/1g9013FVb2pfMegPP0S9WtjkD/6xCCj
+X-Received: by 2002:aed:3e3a:: with SMTP id l55-v6mr38259929qtf.4.1525777566812;
+        Tue, 08 May 2018 04:06:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1525777566; cv=none;
+        d=google.com; s=arc-20160816;
+        b=Te0m8IxrWja8bZepByovCIAGT3FG6YMm8c18bvZjuw6u6D3dFFxPUC3gEVu/GCL3O3
+         I512XySf1cR+ZMC5kNn7UOn8pMk041xpfLxDyde3IAv3k5jSwZotmfrjRBJ7P/AErqWc
+         TBaRmqNg2eJ4NHtbaXFppgiRHjRytYOxo/fo9Kg/tSC/Z1GnLgMh3KZtHZPSTZpNonyh
+         N4YhDw5xLpC26paXTNfP7kJey9KxqJJPAtCGn/auKFBd7El4M0VIm+EQZGjWzz0SpX3a
+         FvAA7vjj8cRXShLki5N5wumlzA7bwEQAQ8tfaesaUMmyRSo14r4TnLaBtbo6AAWDJt5t
+         JeiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:to:subject:reply-to:mime-version:list-unsubscribe:from
+         :feedback-id:date:dkim-signature:dkim-signature
+         :arc-authentication-results;
+        bh=sZ6zpwMoOVWlWOcyXEZe8hjt2+NOS1Qi89qiNGq7pPo=;
+        b=e096GZc66xYajI0je2L31ycXojPW9G2xX7gUlKaBdkHz5xnjiEgvO1QC1U2oHZkrKV
+         l2W6edg1/nCYNwX2O9ufoV+PUnHLtHFquBB+A+ATrQOmvE/RxSaKjG5u4zCkZXt/mfBv
+         ey8l5cbaEhXCx/ydSj327dk1TUvWPH0tRA2Wn8r0OS9MxtrImi50Yo0EyiqL6PnIXGHo
+         TEIfQ9VbQ5JsR1N4J1Ps/Xix0+kf/HhPzZkW+VdaukP0uO8qsexR6GodWj9AjxsoMISD
+         TBtuBezs6ZKZpZ3ewYLGWA8g5WqNamByhrGZFblmV/MOQWAyiK/daafQcMdBB/RLM3nt
+         k48w==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@stackoverflow.email header.s=s1 header.b=IyNAkpBk;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=XEVyjqeZ;
+       spf=pass (google.com: domain of bounces+5841141-a4af-yasserkaddouralearn=gmail.com@em.stackoverflow.email designates 168.245.32.199 as permitted sender) smtp.mailfrom=bounces+5841141-a4af-yasserkaddouralearn=gmail.com@em.stackoverflow.email;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=stackoverflow.email
+Return-Path: <bounces+5841141-a4af-yasserkaddouralearn=gmail.com@em.stackoverflow.email>
+Received: from o16824532x199.outbound-mail.sendgrid.net (o16824532x199.outbound-mail.sendgrid.net. [168.245.32.199])
+        by mx.google.com with ESMTPS id a16si616459qkc.208.2018.05.08.04.06.06
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 08 May 2018 04:06:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+5841141-a4af-yasserkaddouralearn=gmail.com@em.stackoverflow.email designates 168.245.32.199 as permitted sender) client-ip=168.245.32.199;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@stackoverflow.email header.s=s1 header.b=IyNAkpBk;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=XEVyjqeZ;
+       spf=pass (google.com: domain of bounces+5841141-a4af-yasserkaddouralearn=gmail.com@em.stackoverflow.email designates 168.245.32.199 as permitted sender) smtp.mailfrom=bounces+5841141-a4af-yasserkaddouralearn=gmail.com@em.stackoverflow.email;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=stackoverflow.email
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; 
+	d=stackoverflow.email; 
+	h=content-type:from:list-unsubscribe:mime-version:reply-to:subject:to; 
+	s=s1; bh=piK7f7OYkU0Bon6XSRhhQIYXS1M=; b=IyNAkpBkiIP+d71CfPnTcmh
+	2QSA83K6/dEJDZFp68dlX8LlB0+q4oMYR5y/0P6aIuNoWKQ4tT/VyFuxEEwJF8P6
+	yIbUfa804YuzNS0bEDNN3BB7ioXwBZs0Z/AIbsVdHFNeBIMOHixiLRnnAbT2YaZX
+	inC0tg9wwLj8FQdMoLpg=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=sendgrid.info; 
+	h=content-type:from:list-unsubscribe:mime-version:reply-to:subject:to:x-feedback-id; 
+	s=smtpapi; bh=piK7f7OYkU0Bon6XSRhhQIYXS1M=; b=XEVyjqeZj64HTKu61B
+	AZ+94+3Fj9mKUH2ZTpOmVC7r+lTR272A63TKgjcpJ3PwozrcoJirooEfsp74/AGR
+	fROQBkfduIZEs6qwvPNQFhlmTkCMpYsMzI8aCKqUEA85J+2B6Vlx+kSqWE4fh6PW
+	YBdKK4/vtyiTAcq0S9/9hGFMs=
+Received: by filter0562p1iad2.sendgrid.net with SMTP id filter0562p1iad2-28329-5AF1846A-22
+        2018-05-08 11:05:14.340313207 +0000 UTC
+Received: from NTg0MTE0MQ (ec2-34-228-231-244.compute-1.amazonaws.com [34.228.231.244])
+	by ismtpd0030p1mdw1.sendgrid.net (SG) with HTTP id JjU8J4_kQs6OTrUfm8ocGA
+	for <yasserkaddouralearn@gmail.com>; Tue, 08 May 2018 11:05:14.171 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=d6373f9f85f18b9dcaa91c4b16cc5f3f83f1c347b97bf44d2dd839950efa
+Date: Tue, 08 May 2018 11:05:14 +0000 (UTC)
+Feedback-ID: 418351:293260:7013:iterable
+From: "Stack Overflow" <do-not-reply@stackoverflow.email>
+List-Unsubscribe: <https://itr-links.stackoverflow.email/e/eh?_t=3603a3d8f3104ca5bd7015a5845f7fb7&_m=d026b274a4c648168ca37587e11ba951&_e=cktWdAQREvMmGEKW3_zE2dg0dXoBFtKxuSQmE_v97pyFbyJO4iUhY5gCyRuedS9EkwboVHrIP_8DLwf-5ej4HnF53uJStkijI_bT4WiDYfVy5s3WOnefno_ED64YFeEndqUZIHmorTRIdbqT_rgtoihWkhNeruJXvjFX0uZkNta4J_3yO1bOfEk77qVfSMco_juK-O_8b0Q9dCujqxY6wyL-lgpndbt-2KwQcwq69u2BuJpHdFdNP7VFq_NwP7NchgQWHvxwwDImKqzv-T0FqoL-zvRaJRkifkN6R5mof9mlPQjIgYqKviQNAU67ZgJ2FANTsxTCjQ6LVbPAwyp7kuRnS2xkzmuOA4dhFUuncLtd9n9O64IxjDGpAUTbgTF3Y-uJF8VhXpyqoXuXTECymg%3D%3D>,<mailto:unsubscribe+293260+418351@iterable.com>
+Mime-Version: 1.0
+Reply-To: do-not-reply@stackoverflow.email
+Subject: Announcing Stack Overflow for Teams
+To: yasserkaddouralearn@gmail.com
+X-Campaign-ID: 293260
+X-Message-ID: d026b274a4c648168ca37587e11ba951
+Message-ID: <JjU8J4_kQs6OTrUfm8ocGA@ismtpd0030p1mdw1.sendgrid.net>
+X-SG-EID: bf9PIOVHMRg7Q2XUrrM1QxQwQnZXY/L/cn6ogx1zhg+lD+vW8/D2rHEv1hxDf3fawOAj0DqAG6Ix0B
+ t9fzX+IbEgiEfwP6xYNCI77+OPnM6orVO4W66viDHQykAmLE6dX5Al/oS8CHx8WXHj+XkHT4K87o7J
+ 6TateyifoI9V6TeasGb5+8Q3cQU6SoxVKNk+R3YoVRSIqBCcA/aHfbzwPuEVWrb9nTcwRCHWS97Gq8
+ 5I4l5HROh9lx3sWj+RFCD8
+X-SG-ID: SmDFk6fVVFXrSNgMN4Q94ew0V8MAnGfQ8N4mg0+S7r/Q5iNNX1cmhVPPhD+AbjS26G3DhTLV7SlEc+
+ Xj09hZcJ+DkwPGbcuSCYCDAQh/ppscaqs56m2pYwOyjUfKa6WeVtKlcMA8YV+q3b0b53FATUyTF8co
+ K+zvQf+x1/0NeFc=
+X-Feedback-ID: 5841141:Cam037aKOWMAbKDhFi8w9ovNChQcWTWVFlPwYkN6sc0=:Cam037aKOWMAbKDhFi8w9ovNChQcWTWVFlPwYkN6sc0=:SG
+
+--d6373f9f85f18b9dcaa91c4b16cc5f3f83f1c347b97bf44d2dd839950efa
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+
+Get to know our new private Q&A product  <> Stack Overflow for Teams
+
+A new way to Q&A
+
+Learn More  <https://stackoverflow.com/teams> Hi Yasser Kaddoura,
+
+Your team already knows and loves Stack Overflow. They don=E2=80=99t need a=
+nother=20
+tool they won=E2=80=99t use. Get everything that 50 million people already =
+love about=20
+Stack Overflow in a private, secure environment.
+
+Stack Overflow for Teams is a private, secure home for your team=E2=80=99s =
+questions=20
+and answers. No more digging through stale wikis and lost emails=E2=80=94gi=
+ve your team=20
+back the time it needs to build better products.
+
+Learn More  <https://stackoverflow.com/teams>  To find out why we built Sta=
+ck=20
+Overflow for Teams,read our blog post=20
+<https://stackoverflow.blog/2018/05/03/stack-overflow-for-teams-is-now-avai=
+lable>
+.  You're receiving this email because you are opted in to Stack Overflow=
+=20
+company, product and feature announcements. Unsubscribe from emails like th=
+is=20
+<https://itr-links.stackoverflow.email/e/eh?_t=3D3603a3d8f3104ca5bd7015a584=
+5f7fb7&_m=3Dd026b274a4c648168ca37587e11ba951&_e=3DcktWdAQREvMmGEKW3_zE2dg0d=
+XoBFtKxuSQmE_v97pyFbyJO4iUhY5gCyRuedS9EkwboVHrIP_8DLwf-5ej4HnF53uJStkijI_bT=
+4WiDYfVy5s3WOnefno_ED64YFeEndqUZIHmorTRIdbqT_rgtoihWkhNeruJXvjFX0uZkNta4J_3=
+yO1bOfEk77qVfSMco_juK-O_8b0Q9dCujqxY6wyL-lgpndbt-2KwQcwq69u2BuJpHdFdNP7VFq_=
+NwP7NchgQWHvxwwDImKqzv-T0FqoL-zvRaJRkifkN6R5mof9mlPQjIgYqKviQNAU67ZgJ2FANTs=
+xTCjQ6LVbPAwyp7kuRnS2xkzmuOA4dhFUuncLtd9n9O64IxjDGpAUTbgTF3Y-uJF8VhXpyqoXuX=
+TECymg%3D%3D>
+=C2=A0=C2=A0=C2=A0=C2=A0Edit email settings=20
+<https://stackoverflow.email/subscriptions/manage?iterable=3D1&id=3D9948669=
+&auth=3D4fb509e11d90c027b22c40e3c115312d71e35d8ea127928978c1387be40d4b1a&bu=
+cketId=3D1&campaignId=3D293260&templateId=3D418351&messageId=3Dd026b274a4c6=
+48168ca37587e11ba951&email=3Dyasserkaddouralearn%40gmail.com>
+=C2=A0=C2=A0=C2=A0=C2=A0Leave feedback <https://meta.stackoverflow.com>=C2=
+=A0=C2=A0=C2=A0=C2=A0Privacy=20
+<https://stackexchange.com/legal/privacy-policy> =C2=A0 Stack=C2=A0Overflow=
+, 110 William=20
+Street, 28th Floor, New York, NY 10038 <3=20=
+
+--d6373f9f85f18b9dcaa91c4b16cc5f3f83f1c347b97bf44d2dd839950efa
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+Mime-Version: 1.0
+
+<!DOCTYPE html> <html lang=3D"en" xmlns=3D"http://www.w3.org/1999/xhtml" xm=
+lns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:v=3D"urn:schemas-mi=
+crosoft-com:vml"> <head> <title></title> <!-- The title tag shows in email =
+notifications, like Android 4.4. --> <meta charset=3D"utf-8"> <!-- utf-8 wo=
+rks for most cases --> <meta name=3D"viewport" content=3D"width=3Ddevice-wi=
+dth"> <!-- Forcing initial-scale shouldn't be necessary --> <meta http-equi=
+v=3D"X-UA-Compatible" content=3D"IE=3Dedge"> <!-- Use the latest (edge) ver=
+sion of IE rendering engine --> <meta name=3D"x-apple-disable-message-refor=
+matting"> <!-- Disable auto-scale in iOS 10 Mail entirely --> <!-- Desktop =
+Outlook chokes on web font references and defaults to Times New Roman, so w=
+e force a safe fallback font. --> <!--[if mso]><style>*{font-family:sans-se=
+rif!important}</style><![endif]--> <!-- All other clients get the webfont r=
+eference; some will render the font and others will silently fail to the fa=
+llbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-s=
+upport-in-email/ --> <!--[if !mso]><!--> <link href=3D"https://fonts.google=
+apis.com/css?family=3DRoboto+Slab:400,700" rel=3D"stylesheet"> <!--<![endif=
+]--> <!-- CSS Reset --> <style type=3D"text/css">html,body{margin:0 auto!im=
+portant;padding:0!important;height:100%!important;width:100%!important}*{-m=
+s-text-size-adjust:100%;-webkit-text-size-adjust:100%}div[style*=3D"margin:=
+ 16px 0"]{margin:0!important}table,td{mso-table-lspace:0!important;mso-tabl=
+e-rspace:0!important}table{border-spacing:0!important;border-collapse:colla=
+pse!important;table-layout:fixed!important;margin:0 auto!important}table ta=
+ble table{table-layout:auto}img{-ms-interpolation-mode:bicubic}*[x-apple-da=
+ta-detectors],.unstyle-auto-detected-links *,.aBn{border-bottom:0!important=
+;cursor:default!important;color:inherit!important;text-decoration:none!impo=
+rtant;font-size:inherit!important;font-family:inherit!important;font-weight=
+:inherit!important;line-height:inherit!important}.a6S{display:none!importan=
+t;opacity:.01!important}img.g-img+div{display:none!important}.button-link{t=
+ext-decoration:none!important}.has-markdown a,.has-markdown a:visited{color=
+:#07c!important;text-decoration:none!important}@media only screen and (min-=
+device-width:320px) and (max-device-width:374px){.email-container{min-width=
+:320px!important}}@media only screen and (min-device-width:375px) and (max-=
+device-width:413px){.email-container{min-width:375px!important}}@media only=
+ screen and (min-device-width:414px){.email-container{min-width:414px!impor=
+tant}}</style> <!-- Reset list spacing because Outlook ignores much of our =
+inline CSS. --> <!--[if mso]><style type=3D"text/css">ul,ol{margin:0!import=
+ant}li{margin-left:30px!important}li.list-item-first{margin-top:15px!import=
+ant}li.list-item-last{margin-bottom:15px!important}</style><![endif]--> <!-=
+- Progressive Enhancements --> <style type=3D"text/css">.button-td,.button-=
+a,.post-tag{transition:all 100ms ease-in}.button-td-primary:hover,.button-a=
+-primary:hover{background:#07c!important;border-color:#07c!important}.butto=
+n-td-white:hover,.button-a-white:hover{background:rgba(255,255,255,.7)!impo=
+rtant;border-color:rgba(255,255,255,.7)!important}.post-tag:hover{border-co=
+lor:#cee0ed!important;background:#cee0ed!important}@media screen and (max-w=
+idth:680px){.fluid{width:100%!important;max-width:100%!important;height:aut=
+o!important;margin-left:auto!important;margin-right:auto!important}.stack-c=
+olumn,.stack-column-center{display:block!important;width:100%!important;max=
+-width:100%!important;direction:ltr!important}.stack-column-center{text-ali=
+gn:center!important}.hide-on-mobile{display:none!important;max-height:0!imp=
+ortant;overflow:hidden!important;visibility:hidden!important}.sm-p{padding:=
+20px!important}.sm-pt{padding-top:20px!important}.sm-pb{padding-bottom:20px=
+!important}.sm-pr{padding-right:20px!important}.sm-pl{padding-left:20px!imp=
+ortant}.sm-px{padding-left:20px!important;padding-right:20px!important}.sm-=
+py{padding-top:20px!important;padding-bottom:20px!important}.sm-mb{margin-b=
+ottom:20px!important}.sm-fs34{font-size:34px!important;line-height:34px!imp=
+ortant}}</style> </head> <!-- The email background color is defined in thre=
+e places, just below. If you chance one, remember to change the others. 1. =
+body tag: for most email clients 2. center tag: for Gmail and Inbox mobile =
+apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast,=
+ freenet, Mail.ru, Orange.fr 3. mso conditional: For Windows 10 Mail --> <b=
+ody width=3D"100%" style=3D"margin: 0; background: #f3f3f5; mso-line-height=
+-rule: exactly;"><span style=3D"color:transparent;visibility:hidden;display=
+:none;opacity:0;height:0;width:0;font-size:0;">Get to know our new private =
+Q&A product</span><img src=3D"https://itr-links.stackoverflow.email/e/eo?_t=
+=3D3603a3d8f3104ca5bd7015a5845f7fb7&amp;_m=3Dd026b274a4c648168ca37587e11ba9=
+51&amp;_e=3Dj3w3KIjDo2DhOSsfZbfPAmB17JhQiGuRv0O3rQh4fPqswqIeT9vzQBEzac2sq1F=
+hafIKnGuEqz-oIQjH7ozBXg3ZJC3bWhvGiMW1Ubrj-cXA5nCmvjmuhuOmnAIfwvrPWK_8p1HN-U=
+aO7HDa2x471l5pxAvezGN-_J2NTxYveZm8SVirv3sh5OMUiYkMIww0" style=3D"border:0;w=
+idth:1px;height:1px;border-width:0px!important;display:none!important;line-=
+height:0!important;" width=3D"1" height=3D"1"/> <center style=3D"width: 100=
+%; background: #f3f3f5; text-align: left;"> <!--[if mso | IE]><table role=
+=3D"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D=
+"100%" style=3D"background-color: #f3f3f5;"> <tr> <td><![endif]--> <div cla=
+ss=3D"email-container" style=3D"max-width: 680px; margin: auto;"> <!--[if m=
+so]><table role=3D"presentation" aria-hidden=3D"true" cellspacing=3D"0" cel=
+lpadding=3D"0" border=3D"0" width=3D"680" align=3D"center"> <tr> <td><![end=
+if]--> <table aria-hidden=3D"true" border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" role=3D"presentation" style=3D"max-width:680px; width:100%"> <!-- =
+HTML Content with Image Background : BEGIN --> <tr> <td style=3D"background=
+-image: url('https://itr-images.stackoverflow.email/5cf91cf7-964e-4941-879b=
+-886d5742c578/backgroundteams.png'); background-position: bottom center; ba=
+ckground-size: cover; background-color: #43347D; text-align: center;"> <!--=
+[if gte mso 9]><v:image xmlns:v=3D"urn:schemas-microsoft-com:vml" fill=3D"t=
+rue" stroke=3D"false" style=3D"border: 0; display: inline-block; width: 680=
+px; height: 410px;" src=3D"https://itr-images.stackoverflow.email/5cf91cf7-=
+964e-4941-879b-886d5742c578/backgroundteams.png"/> <v:rect xmlns:v=3D"urn:s=
+chemas-microsoft-com:vml" fill=3D"true" stroke=3D"false" style=3D"border: 0=
+; display: inline-block; position: absolute; width: 680px; height: 410px;">=
+ <v:fill opacity=3D"0%" color=3D"#43347D"/><![endif]--> <div> <table align=
+=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presen=
+tation"> <tr> <td style=3D"padding: 30px 30px; text-align: center;" class=
+=3D"sm-py"> <a href=3D"hhttps://stackoverflow.com/"><img src=3D"https://itr=
+-images.stackoverflow.email/7b6e1e90-ccfd-499b-b0da-556e3af019d1/LogoWhite.=
+png" alt=3D"Stack Overflow" border=3D"0" height=3D"30" width=3D"150"></a> <=
+/td> </tr> <tr> <td style=3D"padding: 0 20px 20px; text-align: center;"> <i=
+mg src=3D"https://itr-images.stackoverflow.email/0014a679-2769-4dc8-a0a7-99=
+53846f59eb/qanda.png" alt=3D"Stack Overflow for Teams" border=3D"0" height=
+=3D"" width=3D"297" style=3D"display: block; margin: auto; width: 100%; max=
+-width: 297px; height: auto;"> </td> </tr> <tr> <td style=3D"padding: 0 20p=
+x 25px; text-align: center;"> <h1 style=3D"margin: 0 0 15px; font-weight: b=
+old; font-size: 43px; line-height: 43px; color: #ffffff; font-family: 'Robo=
+to Slab', arial, sans-serif;" class=3D"sm-fs34">Stack Overflow for Teams</h=
+1> <p style=3D"margin: 0; font-size: 21px; line-height: 21px; color: #fffff=
+f; font-family: 'Roboto Slab', arial, sans-serif;">A new way to Q&amp;A</p>=
+ </td> </tr> <tr> <td style=3D"text-align: center; padding-bottom: 50px;"> =
+<!-- Button : BEGIN --> <table align=3D"center" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" role=3D"presentation" align=3D"center"> <tr> <td clas=
+s=3D"button-td button-td-white" style=3D"border-radius: 4px; background: #f=
+fffff; text-align: center;"> <a class=3D"button-a button-a-white" href=3D"h=
+ttps://itr-links.stackoverflow.email/u/click?_t=3D3603a3d8f3104ca5bd7015a58=
+45f7fb7&_m=3Dd026b274a4c648168ca37587e11ba951&_e=3DcktWdAQREvMmGEKW3_zE2bRc=
+z2JRjKSYcJrcBOGNmAZuAWikts6xfMvMmGMgzN8btdV9AUerLCB_Bwnw1ELRPZq9ZG3cb11M0R1=
+Qm9UduX7kGP5F5X7EUu-Lluc21FiLGpENDSLQqg1Mv3vvjlANS-71EG5bYoCmV6dw6M2yNV1EAd=
+QFLmBj4llUOhVALzeQ4HTKzZ6xm2wI9_-JP6TkO8oVDnWFjZk9rwZ4MOrswvG4aIfzl6L7U1ny_=
+Jhp2KXaB7vSYfxOAdpXVU_vXkTVh92YYan1nXKVcLtmeUkOEe61TW33JDbFCz4F9Ok0H2yScmRW=
+B8ylp99lQQPk4lZx8QnOM8hzrIPGAdTqAptLpIlSD67FdJPrpJRiIv32VUjP" style=3D"back=
+ground: #ffffff; border: 1px solid #ffffff; box-shadow: 0 0 0 0 rgba(0,149,=
+255,0); font-family: arial, sans-serif; font-size: 17px; line-height: 17px;=
+ text-align: center; text-decoration: none; padding: 13px 17px; display: bl=
+ock; border-radius: 4px;"><span class=3D"button-link" style=3D"color:#43347=
+D">Learn More</span> </a> </td> </tr> </table> <!-- Button : END --> </td> =
+</tr> </table> </div> <!--[if gte mso 9]></v:textbox> </v:rect><![endif]-->=
+ </td> </tr> <!-- Hero, Centered : END --> <!-- General Email Body : BEGIN =
+--> <tr> <td style=3D"padding: 15px 30px 30px; background-color: #ffffff;" =
+class=3D"sm-px sm-pb"> <table border=3D"0" cellpadding=3D"0" cellspacing=3D=
+"0" role=3D"presentation" style=3D"width:100%;"> <!-- Rich Text : BEGIN -->=
+ <tr> <td style=3D"padding-bottom: 30px; font-family: arial, sans-serif; fo=
+nt-size: 17px; line-height: 24px; color: #54595F; text-align: left;" class=
+=3D"sm-pb"> <p style=3D"margin: 0 0 15px 0;">Hi Yasser Kaddoura,</p> <p sty=
+le=3D"margin: 0 0 15px 0;">Your team already knows and loves Stack Overflow=
+. They don=E2=80=99t need another tool they won=E2=80=99t use. Get everythi=
+ng that 50 million people already love about Stack Overflow in a private, s=
+ecure environment.</p> <p style=3D"margin: 0;"><strong style=3D"color: #242=
+629;">Stack Overflow for Teams</strong> is a private, secure home for your =
+team=E2=80=99s questions and answers. No more digging through stale wikis a=
+nd lost emails&mdash;give your team back the time it needs to build better =
+products.</p> </td> </tr> <!-- Rich Text : END --> <!-- Button Row : BEGIN =
+--> <tr> <td style=3D"padding-bottom: 30px;" class=3D"sm-pb"> <!-- Button :=
+ BEGIN --> <table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation"> <tr> <td class=3D"button-td button-td-primary=
+" style=3D"border-radius: 4px; background: #0095ff; text-align: center;"> <=
+a class=3D"button-a button-a-primary" href=3D"https://itr-links.stackoverfl=
+ow.email/u/click?_t=3D3603a3d8f3104ca5bd7015a5845f7fb7&_m=3Dd026b274a4c6481=
+68ca37587e11ba951&_e=3DcktWdAQREvMmGEKW3_zE2bRcz2JRjKSYcJrcBOGNmAZuAWikts6x=
+fMvMmGMgzN8btdV9AUerLCB_Bwnw1ELRPZq9ZG3cb11M0R1Qm9UduX7kGP5F5X7EUu-Lluc21Fi=
+LGpENDSLQqg1Mv3vvjlANS-71EG5bYoCmV6dw6M2yNV0rSHXIy_cik2tIdW5N_MwqzzdkI3J0VF=
+qn-JY4V5Tft81VTb4Eyk00rGtTN0_fkhpxudReNinsnt1-2d3zMSFQeVWqxeGWSsussVXPM4LHv=
+VW8reYpeYZu_8JVnZRFs52RpXifjKbw5_RilyTRVfYj8znLL2GXCYM0pUk6Ti2q9t8PzKwpKt_4=
+mwfdQGU4y3K1oaNqrGffCt8kR5FcvOsI" style=3D"background: #0095FF; border: 1px=
+ solid #0077cc; box-shadow: inset 0 1px 0 0 rgba(102,191,255,.75), 0 0 0 0 =
+rgba(0,149,255,0); font-family: arial, sans-serif; font-size: 17px; line-he=
+ight: 17px; text-align: center; text-decoration: none; padding: 13px 17px; =
+display: block; border-radius: 4px;"><span class=3D"button-link" style=3D"c=
+olor:#ffffff">Learn More</span> </a> </td> </tr> </table> <!-- Button : END=
+ --> </td> </tr> <!-- Button Row : END --> <!-- Blog Article : BEGIN --> <t=
+r> <td> <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"pre=
+sentation" style=3D"width: 100%"> <tr> <td style=3D"border-radius: 4px; bor=
+der: 1px solid #D6D8DB; padding: 12px;"> <table border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" role=3D"presentation" align=3D"left"> <tr> <td style=
+=3D"vertical-align: top;"> <img src=3D"https://itr-images.stackoverflow.ema=
+il/d067095f-6bec-4322-952e-606169da4d19/iconblogpost.png" alt=3D"blost post=
+" height=3D"22" width=3D"22" style=3D"display: block; padding-right: 12px;"=
+> </td> <td style=3D"vertical-align: middle; font-family: arial, sans-serif=
+; font-size: 15px; line-height: 19px; color: #54595F; text-align: left;"> T=
+o find out why we built Stack Overflow for Teams, <a href=3D"https://stacko=
+verflow.blog/2018/05/03/stack-overflow-for-teams-is-now-available" style=3D=
+"color: #0077CC; text-decoration: none;">read our blog post</a>. </td> </tr=
+> </table> </td> </tr> </table> </td> </tr> <!-- Blog Article : END --> </t=
+able> </td> </tr> <!-- Footer : BEGIN --> <tr> <td style=3D"padding: 30px;"=
+ class=3D"sm-p"> <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" role=3D"presentation"> <!-- Subscription Info : BEGIN --> <tr>=
+ <td style=3D"padding-bottom: 10px; font-size: 12px; font-family: arial, sa=
+ns-serif; line-height: 126%; color: #93999F; text-align: left;"> You're rec=
+eiving this email because you are opted in to Stack Overflow company, produ=
+ct and feature announcements. </td> </tr> <tr> <td style=3D"font-size: 12px=
+; line-height: 126%; font-family: arial, sans-serif; color: #93999F; text-a=
+lign: left;"><a href=3D"https://itr-links.stackoverflow.email/e/eh?_t=3D360=
+3a3d8f3104ca5bd7015a5845f7fb7&_m=3Dd026b274a4c648168ca37587e11ba951&_e=3Dck=
+tWdAQREvMmGEKW3_zE2dg0dXoBFtKxuSQmE_v97pyFbyJO4iUhY5gCyRuedS9EkwboVHrIP_8DL=
+wf-5ej4HnF53uJStkijI_bT4WiDYfVy5s3WOnefno_ED64YFeEndqUZIHmorTRIdbqT_rgtoihW=
+khNeruJXvjFX0uZkNta4J_3yO1bOfEk77qVfSMco_juK-O_8b0Q9dCujqxY6w6uVFfhuTI-KWjU=
+cSIzaWLS61Rc5ZVKdrs1hjeBwfN5HoIJDKjqfWWz6SwJHUz24OEQQo1JBrufSQZ5GDUKwUIc228=
+h1P2PnAxuYPUn39FleNy-ePzG9inQuvEPFvF6IM_N-NItdxJQRPfBzafOBKTjzbEYHv9SCNp7J2=
+stnzxxiUYOM5Q-TzfEIhKHUARPK82l7ZW8Wk_DLQqmqEXU8sdGmNKN2gTbmS-42SaSV8YPdNa_W=
+clFTrAiYoFim9AB53geyiVXmN11AHCfdhsdkx26FTCti8GmbGrH7Tzc0ZaoX" style=3D"colo=
+r:#93999F; text-decoration:underline;">Unsubscribe from emails like this</a=
+>&nbsp;&nbsp;&nbsp;&nbsp;<a href=3D"https://itr-links.stackoverflow.email/u=
+/click?_t=3D3603a3d8f3104ca5bd7015a5845f7fb7&_m=3Dd026b274a4c648168ca37587e=
+11ba951&_e=3DcktWdAQREvMmGEKW3_zE2dg0dXoBFtKxuSQmE_v97pyFbyJO4iUhY5gCyRuedS=
+9EBMw1mVXZ5P8krmOFYGmgFn6KuC8TU6cs68r-0HzH-4jhuk-FFkQnnZVugQD-WVM2mqJkK00V8=
+JMdeCGtZtteLZGkax-_sJ-qJrjKB2FFlMUpBJqOLn2NyBrzYO6lDlenIuJVeuqMD1QwTFvZnHBf=
+8x_9ZmodWUoODDt3w46uXw_kmlMugS2fN66QemtKt0T4eUtdMPGs0GwmhSt0qQPfWWxVBzlII2A=
+o02i6LCyYkADo9aoujB7mxCQQm6cAK_AddKMrBR6fFX-gWEMErZPyEjf4i5W0I86hK2JTfkYQcG=
+W1KeuLUnr135QnAENtrlU7EbKarF419bwfiwkkJ94AezhcuA3ZMCWvxVZGj5sRKEKl08Qgc7IoW=
+oBMXwAvxQup_mHWmaKlCvpByUfI6AfpEnopfDFoaXhDDQTieLY08kSosC4gdwzW_37sz0vyU7jm=
+OyACtoO-A1kp_XYSC6pkaYMA2Wuz6tEB87_IwJ4glhdwO9-2Ryf9msDdC_laQtHonFH31xmTRTN=
+Ckkecqz0S-80alKyysvumh4ECswT28Urgt3ZBRWKhW4VkvzIR0G5YC6NkAdMxTPYctiG9z6mlwH=
+xeEsqkKEAf4rSeM-8lDZz9GTLHH2HuzJ8qvLCg2GE9" style=3D"color:#93999F; text-de=
+coration:underline;">Edit email settings</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=
+=3D"https://itr-links.stackoverflow.email/u/click?_t=3D3603a3d8f3104ca5bd70=
+15a5845f7fb7&_m=3Dd026b274a4c648168ca37587e11ba951&_e=3DcktWdAQREvMmGEKW3_z=
+E2ToEErUV95PR-fFpPULXyhjZCL2SGHpDLOuOSLp_ebzVg5m9e9JdfonYn5aJ7F-UtpJzLYvd-z=
+S6g38rfbM_y2cC5xlckxFjKPZID57SLyCb5Wu84AC_91iPLK2yT3MBOZvmBkxKWpBuktN1mVqjM=
+dOwolF1vT8EyRkYFTV7iKm6Elp0mQAC8sZEr0oqRiay2axLfpigth9iKvQ52k95AKP3seV2nzQR=
+dJP-VTA5h0BVq9gcCZG5_JOdWvqmQUTQNNKX_0stWBcACdVojgIoO3Le-QNW5ZFVFYJY-u_a1N-=
+FJbJpF12E_TGrZRSIwI15PQtchaDAclqF2LFyZGBhjotsRbBwX_3RZFiceympdCz9" style=3D=
+"color:#93999F; text-decoration:underline;">Leave feedback</a>&nbsp;&nbsp;&=
+nbsp;&nbsp;<a href=3D"https://itr-links.stackoverflow.email/u/click?_t=3D36=
+03a3d8f3104ca5bd7015a5845f7fb7&_m=3Dd026b274a4c648168ca37587e11ba951&_e=3Dc=
+ktWdAQREvMmGEKW3_zE2fMOjRio4-8IkCD3iuTqkx3stXDzjPUVlxM26Jao-cF6dAgdJ2Adg7DH=
+tDyQX2FKwvL4VxCFGXE1Gt_iDs7zmBDyjii-5EgSVu15pPB_Ik4XqvfGEUI8rqNods2jaCoRvsQ=
+QCfHBRep9ARZiz4wQpAdj3yIFk1JXYa_p_RytYitk3_OVqV1Y8OEANOvQUkf_tiibwGrZ7oXee3=
+TV0XXy5CObehlHQiq19LhxSdyPmN0qSPYTDk_Ca535ZwInj4P8nOh--XO-ozsh-6nRvzzkYV1oZ=
+IXSTRT_Bxsa1fTVI5UsYhsiGeF7Ml6x6nIde0lJZ9Zzq7o28mVotNhWHAgXxSyex-D_AvtG1s5_=
+M8Z1A_QYJti7-uWMvq3ynpy1GpnY7Q%3D%3D" style=3D"color:#93999F; text-decorati=
+on:underline;">Privacy</a></td> </tr> <!-- Subscription Info : BEGIN --> <!=
+-- HR line : BEGIN --> <tr> <td style=3D"padding: 30px 0;" valign=3D"middle=
+" width=3D"100%"> <table aria-hidden=3D"true" border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0" role=3D"presentation" style=3D"width:100%"> <tr> <td he=
+ight=3D"1" width=3D"100%" style=3D"font-size: 0; line-height: 0; border-top=
+: 1px solid #D6D8DB;">&nbsp;</td> </tr> </table> </td> </tr> <!-- HR line :=
+ END --> <!-- Sender Info : BEGIN --> <tr> <td style=3D"padding-bottom: 5px=
+; text-align: left;"> <img src=3D"https://itr-images.stackoverflow.email/be=
+aeaa3d-e475-4bc4-ba83-98d7465c97e6/LogoSm2x.png" align=3D"left" alt=3D"Stac=
+k Overflow" border=3D"0" width=3D"111" height=3D"22" style=3D"display: bloc=
+k;"> </td> </tr> <tr> <td class=3D"unstyle-auto-detected-links" style=3D"pa=
+dding-bottom: 5px; font-size: 12px; line-height:16px; font-family: arial, s=
+ans-serif; color: #93999F; text-align: left;"><strong>Stack&nbsp;Overflow</=
+strong>, 110 William Street, 28th Floor, New York, NY 10038</td> </tr> <!--=
+ Sender Info : END --> <!-- Heart : BEGIN --> <tr> <td> <!-- Adjust the pad=
+ding so that it matches the rest of the footer. The heart should at least b=
+e left-aligned with the lines above. --> <table align=3D"left" border=3D"0"=
+ cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=3D"backgro=
+und:#ffffff; border-radius:1px; line-height:0px"> <tr> <td> <div style=3D"b=
+order-radius: 1px; border: 1px solid #D6D9DC; padding: 4px 6px 3px 6px; fon=
+t-size: 11px; line-height: 11px; font-family: Consolas, monospace; color: #=
+E06C77;" title=3D"because we care">&lt;3</div> </td> </tr> </table> </td> <=
+/tr> <!-- Heart : END --> </table> </td> </tr> <!-- Footer : END --> </tabl=
+e> </div> <!--[if mso | IE]></td> </tr> </table><![endif]--> </center> </bo=
+dy> </html>=
+
+--d6373f9f85f18b9dcaa91c4b16cc5f3f83f1c347b97bf44d2dd839950efa--

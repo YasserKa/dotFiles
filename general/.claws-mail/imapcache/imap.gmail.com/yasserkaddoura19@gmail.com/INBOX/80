@@ -1,0 +1,113 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp2771897vkd;
+        Fri, 10 Aug 2018 01:37:09 -0700 (PDT)
+X-Google-Smtp-Source: AA+uWPxpeF31DWBm6JlQuhQmo1ykMHTRf9kSEc0mdxVuMixV0hqWmBp187/X2ji9KTF/DWMckabF
+X-Received: by 2002:a17:902:9348:: with SMTP id g8-v6mr5259788plp.302.1533890229880;
+        Fri, 10 Aug 2018 01:37:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1533890229; cv=none;
+        d=google.com; s=arc-20160816;
+        b=zcPzB+/TGSORdxPd7ue4aTKsSLzRrDKzHvjTWcG8mP5Q//GsVB7QLnwbyn0NK9nTxL
+         75V0tObvCPd1PphN9wCOEgvHUXQNIzDHBac0srsBNtjcmGcQaL0+b5N5S/q381kwQYjZ
+         KueL0svyAxCBEe2s+/symTZZ3XrNMOeDz4SnUMZOwnfzfS1EUhhmWlhCaG+Mb31C4NkH
+         w9Rlw2qbm4nrM4R8QG5gLULxffvw5CT0tQF0h1JCN2khieYHZC6JAG8buM4ps2W3t7vp
+         msCaXRJ6QbOUL0ZB7AbJ+uHgXwU0wBcIddubCYTZRFnYXSgDBe6DR9g25tYkIvHeTigW
+         8qDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:mime-version:date:content-transfer-encoding:message-id
+         :subject:to:from:dkim-signature:dkim-signature
+         :arc-authentication-results;
+        bh=FIuJmHARvcZX0hDRRp4vkqvEPdt7A2waldH2V5c6Xdg=;
+        b=P06LAeYy/oCB9LiWD9eePw6mF6w81TZ82de1tEgNcGZft6vSLO/UYYHlTh7jrYNTJj
+         pbUihpFDgvbPL9+IWruHUm8ryTt3LkaBTHL2ViYKyvFeacYjUG3B0FRxXj1iFYzv5Ifk
+         EhNoy3efkU41UVOJ03XV1Z66MHv2vK1mLIE15Akn+/vU7b/zQNgnAJl10h4KmFpJbPo8
+         AwGq+wBaNcsVV4k3pGghO2tWnDJMq/LcSMOLbdvRz5nUne53Fkbka+YcC15TTvryzsE8
+         46ATliQ1PlVobjndOq3d0eZyCY8lemJHxz0k79xfNLF+OkoU+NQSJWs6lbkXTNTr99c2
+         qOMA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@npmjs.com header.s=nsu4syumhuvqjh53wxqpvqtiodtv7wlm header.b=NZudgJjP;
+       dkim=pass header.i=@amazonses.com header.s=7v7vs6w47njt4pimodk5mmttbegzsi6n header.b=e71fB3kP;
+       spf=pass (google.com: domain of 0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com designates 54.240.27.52 as permitted sender) smtp.mailfrom=0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com
+Return-Path: <0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com>
+Received: from a27-52.smtp-out.us-west-2.amazonses.com (a27-52.smtp-out.us-west-2.amazonses.com. [54.240.27.52])
+        by mx.google.com with ESMTPS id 200-v6si9652992pgf.378.2018.08.10.01.37.09
+        for <yasserkaddoura19@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Fri, 10 Aug 2018 01:37:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com designates 54.240.27.52 as permitted sender) client-ip=54.240.27.52;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@npmjs.com header.s=nsu4syumhuvqjh53wxqpvqtiodtv7wlm header.b=NZudgJjP;
+       dkim=pass header.i=@amazonses.com header.s=7v7vs6w47njt4pimodk5mmttbegzsi6n header.b=e71fB3kP;
+       spf=pass (google.com: domain of 0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com designates 54.240.27.52 as permitted sender) smtp.mailfrom=0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=nsu4syumhuvqjh53wxqpvqtiodtv7wlm; d=npmjs.com; t=1533890229;
+	h=Content-Type:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version;
+	bh=FIuJmHARvcZX0hDRRp4vkqvEPdt7A2waldH2V5c6Xdg=;
+	b=NZudgJjPMSFDYJ0xlBtPaqnaGZw03ZCPEZ7bcmb+1DmQ6piE7QJZoXtiz+9nVvlh
+	57gAo5bBWpKPDijAoa8EjPDoyxKRandmQLa9K2xPTIDueB3EKSMOkqmw9Nb0QOpinZr
+	rVGqDzDfPjPF7MYUvfLFNTl6y/VxaJwEpJ3zCm6A=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=7v7vs6w47njt4pimodk5mmttbegzsi6n; d=amazonses.com; t=1533890229;
+	h=Content-Type:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Feedback-ID;
+	bh=FIuJmHARvcZX0hDRRp4vkqvEPdt7A2waldH2V5c6Xdg=;
+	b=e71fB3kPONgcC+FzTNSSl/t3n9ZKdDXCwIzHrUY3r6AK1D/hOsTdWgm0nXK16Bad
+	rOSx5py9K4NoZn6Rjg8Bt9B5elg1L7ZbJMMb9cb2YxOfIOz8ZVdIVOCkmIpKvadzZWn
+	E+sbpWKFsWT4npsxl/OrMo/9bdaAGpn0hGAAOFio=
+Content-Type: text/plain; charset=utf-8
+From: "npm, Inc." <support@npmjs.com>
+To: Yasser Kaddoura <yasserkaddoura19@gmail.com>
+Subject: Welcome to npm!
+Message-ID: <0101016522fb7526-219abce3-bd0c-4913-81b4-76790a534a3b-000000@us-west-2.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 10 Aug 2018 08:37:09 +0000
+MIME-Version: 1.0
+X-SES-Outgoing: 2018.08.10-54.240.27.52
+Feedback-ID: 1.us-west-2.QCkaiySqYRi/EL0Tazamf+JqrrCR4Lz8hTmrIIHnXTM=:AmazonSES
+
+Hi Yasser Kaddoura!
+
+Welcome to npm.
+
+npm makes it easy for developers to =
+create, share, and discover packages of code and reuse them in new ways. =
+The more packages we all create, the more efficient and creative everyone =
+becomes =E2=80=94 so we=E2=80=99re glad you=E2=80=99re here!=20
+
+
+YOUR ACCOUNT
+
+Your npmjs.com account is =E2=80=9CYasser Kaddoura=E2=80=9D. =
+Log in at https://go.npm.me/login
+If you ever forget your password, you can=
+ reset it at https://go.npm.me/forgot
+
+
+GETTING STARTED
+
+Everything =E2=80=94 from the basics of publishing & installing with the =
+command-line interface, to the juicy stuff like scopes & teams =E2=80=94 is=
+ here: https://go.npm.me/docs. Dive in!
+
+
+NEED HELP?
+
+Have a question? Run into trouble? We=E2=80=99re always happy to lend a =
+hand.
+
+Create a support ticket at https://go.npm.me/support, tweet us a =
+question at https://go.npm.me/npm_support, or drop us a line at =
+support@npmjs.com. (You can also reply to this message).
+
+
+BRING US TO WORK
+
+You can combine public & private packages, manage group permissions, =
+mirror the registry behind your firewall, and more. Take a look!: =
+https://go.npm.me/features
+
+
+Thanks for joining the community. =
+Can=E2=80=99t wait to see what you build=E2=80=A6
+
+
+
+npm =E2=99=A5 you!

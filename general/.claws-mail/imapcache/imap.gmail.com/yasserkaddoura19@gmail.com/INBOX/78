@@ -1,0 +1,239 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp2639905vkd;
+        Thu, 9 Aug 2018 22:36:42 -0700 (PDT)
+X-Received: by 2002:aca:2311:: with SMTP id e17-v6mr5584982oie.47.1533879401954;
+        Thu, 09 Aug 2018 22:36:41 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1533879401; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=qZwmtOSaEf4XGE/Ki1/FxrfqEiNu3tYAvTzKKkqedWqwpwyCC5nNoZkAzQIZPXGy0z
+         2+rB/fY0grXu9YNaSIBBj6Mr85rfsenk2reiEIVEGSItRoqTFo4yRQRhuvvZPG9YhGp2
+         upCKDO4xKWgAegKC53tAn1bdHkGLnYh7Ls+otOTA8/g5q2kaKzv2ULcq9wlMhAfCGnO9
+         /kZum/iF5NHMv429kh1XL87/N5VZo6MlIdtT/1ddST6HhtnJuyjYOdpRs1q2/JjQVEAJ
+         nPkApW2qSy3I9ytBRP31S+b5xKUxittPbOaug6mKHP3BjoJBoQCLJLo6I/n2U2l3oKRU
+         bZTQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:message-id:feedback-id:date:mime-version
+         :dkim-signature:arc-authentication-results:arc-message-signature
+         :delivered-to:arc-authentication-results;
+        bh=/RQsjuBLb2aJ26unpONY9Hv56YuPsJkW+JIO3hR1f4s=;
+        b=hmvWVtMI+xggmlxO3ssRFDhaAHmvG/MiqzXqBvhCICWy5Og5o+l2pc5AtoBJHSuzwW
+         7zeNqfjTs2UAlCiSaAo+aqc+PN1/ZFw7LIyY5vAN6hhwt3yhYaUaCNYlHWzcWBT0XlB2
+         n95levgzVcaq+i3L/WvPt+E/tkFjMDZSrv6WUxmH9fKk7JL/qTPkUVQJouQYD9Pi5FiI
+         kYMGQgu4aTWxnVkVx8L+WFvkYqIUtQjGla5EnVG2vXzce5Eigay8FtA2RC/zVXIZPW+Q
+         9aqxpwcKDOetUg9JwRiGWg+ywLMsr7Z75w39TNC/CIe2aE2ii7US4/CKVwMOUoHoaT5X
+         sQVA==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@accounts.google.com header.s=20161025 header.b=imSgYlPS;
+       arc=pass (i=1 spf=pass spfdomain=gaia.bounces.google.com dkim=pass dkdomain=accounts.google.com dmarc=pass fromdomain=accounts.google.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=accounts.google.com
+Return-Path: <yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id w2-v6sor4486011oib.315.2018.08.09.22.36.41
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Thu, 09 Aug 2018 22:36:41 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@accounts.google.com header.s=20161025 header.b=imSgYlPS;
+       arc=pass (i=1 spf=pass spfdomain=gaia.bounces.google.com dkim=pass dkdomain=accounts.google.com dmarc=pass fromdomain=accounts.google.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=accounts.google.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:delivered-to:dkim-signature:mime-version:date
+         :feedback-id:message-id:subject:from:to;
+        bh=/RQsjuBLb2aJ26unpONY9Hv56YuPsJkW+JIO3hR1f4s=;
+        b=c0ajFnkhwmRH0qzbjqY3t9RC+boOE/OiR59EJoiYnhl2scEE1JthNiq5VhkaOIRmvu
+         iqO+pMypGyk6WC9NklRHkSovehVXVY0dMfXhV2cwy2wbg4B766U3X/MhaFo8Yn4qNOBC
+         OgB1HoNH3JaWsQ5dueN2gDAhs047HpdufU3nF2Dm2Bc+CceBXjr8reSoWCRIakUMyhPs
+         kIQGceAGQWow94i8vZNe5xJ7LJ6ecOFn8Ig4yWh9Kr7hGx9B+qSH0Yp1iw3VGVrB4kul
+         XZ4h02u7nS316xiHkfceubuelhkWyJTminMzsutoA72d70VBEuKUceyIFsU7vF8pxvv5
+         qA9Q==
+X-Gm-Message-State: AOUpUlEHu2Cv9+J0pEpwSU0dVK584bUmYpOHPc9/tZRcr31118jv2Dtu
+	ky1w1uY2Qwx9WtQ/7D5NBO9Cvzl3SsfG/3DoNXzSSLAeI1pIFNI=
+X-Received: by 2002:aca:7c5:: with SMTP id 188-v6mr5549446oih.58.1533879401708;
+        Thu, 09 Aug 2018 22:36:41 -0700 (PDT)
+X-Forwarded-To: yasserkaddoura19@gmail.com
+X-Forwarded-For: yasserkaddouralearn@gmail.com yasserkaddoura19@gmail.com
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a8a:b46:0:0:0:0:0 with SMTP id i6-v6csp2871588ocv;
+        Thu, 9 Aug 2018 22:36:40 -0700 (PDT)
+X-Received: by 2002:a37:c557:: with SMTP id p84-v6mr4678865qki.331.1533879400516;
+        Thu, 09 Aug 2018 22:36:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1533879400; cv=none;
+        d=google.com; s=arc-20160816;
+        b=JfhTlPf7UUDStlEYevwpS+RAXUjr/JwxYsneqXcLJnqtJt9OQ3m6LPgsPEotkiPGwC
+         pyB7Rb+UW4OGOs4c/3w+tQMuK80w0MuBMr0W4ka6m9ZiNb/VEupWUpUUle4bVG7x3y6x
+         RQe4WKpqZtaI64GuW4ZSxbjVM8xPKtl84dEMSMtsi6PoBilB2xV3jnKHIaMGrDyjICJC
+         APuARA4xYvttSGERUMlHdneVFdaFxmjubMjjEWe7tHCwLLcjaCREM6BuvopSgeAT1M7e
+         Jmgk+Os+MwUcWpLaNAc/huncxI6KZ10/yQq5UUvEpDJ+wuVxiA8MFtWtnoGhd1CQbi+C
+         AjZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:message-id:feedback-id:date:mime-version
+         :dkim-signature:arc-authentication-results;
+        bh=/RQsjuBLb2aJ26unpONY9Hv56YuPsJkW+JIO3hR1f4s=;
+        b=LcZroSZoKe3tREbezcjY5tgMMmx87dl0vnG9aZv9RUGJ238s//LlvJcwFrXIaUvSWr
+         QcHI3xB4LtWZ+OP8+AOnGA+Lh36UJM72Rl28fM2K4BWyyN0wSGVMikwPzSb5/svx5UAj
+         1bRIFt68XsMYrfI3aMmp6FZeTGpAjZqyn6y4gqgdgIRZoqLJiArQPMkq1cgzlZ7q/wOl
+         RmCv82SLmwJbsEEKT9QE2k6Ds1gisfAMM7JxgiGw6bFQcPj1fnm76kqucD7b+kyO/+to
+         VhEJyYxdUxPHaB9bg5tZYak7BDe/fT6D7oG63PAoXtxr4Eswm6fEP8S58U8d/R5VjMeN
+         obuQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@accounts.google.com header.s=20161025 header.b=imSgYlPS;
+       spf=pass (google.com: domain of 3acrtwwgtaecwx-0nyu7jllx3w21.pxxpun.lxv@gaia.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3aCRtWwgTAEcwx-0nyu7jllx3w21.pxxpun.lxv@gaia.bounces.google.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=accounts.google.com
+Return-Path: <3aCRtWwgTAEcwx-0nyu7jllx3w21.pxxpun.lxv@gaia.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id q10-v6sor4813644qkc.53.2018.08.09.22.36.40
+        for <yasserkaddouralearn@gmail.com>
+        (Google Transport Security);
+        Thu, 09 Aug 2018 22:36:40 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3acrtwwgtaecwx-0nyu7jllx3w21.pxxpun.lxv@gaia.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=accounts.google.com; s=20161025;
+        h=mime-version:date:feedback-id:message-id:subject:from:to;
+        bh=/RQsjuBLb2aJ26unpONY9Hv56YuPsJkW+JIO3hR1f4s=;
+        b=imSgYlPSPTWPGnbuAnbKf0KEGiqhukekU+zlnBfhBpYguGgXx0QVZKSpqREDfJR66a
+         7xa2vV6D9RlGuxvLtqFN70ona5JAoZcA+2T0CxJXrKuhNn8ZhSQTBrWGvBwACxmOt2Mt
+         HmZT/+z9tWMFHu62m8a80yryUR2we1foBNdW8w5l79H8oyjg5MFuzaEYRc1bG2OgSdQv
+         ESdmYgzojkviMlghrZfatRIdFZJdRqrSM3nbT+SQtyFwChN19tfUnn2eARX5157+TSfT
+         NB6UKFd0ZMvHOi/RFyAisMeTIjZ0Q9eyn9ZkV9EmWO8/5CHWmmTMoVPIajt16pS5VRPr
+         TK2w==
+X-Google-Smtp-Source: AA+uWPycvezQMlQaXqhIvGPyBJbXBT/iqNvo6Mcja5O5bp+Nbt2PNnZyQawf/x8X2jcHxVNtheQgFzgtVIS2TJWrjV7tGA==
+MIME-Version: 1.0
+X-Received: by 2002:a37:34c7:: with SMTP id b190-v6mr2655553qka.44.1533879400193;
+ Thu, 09 Aug 2018 22:36:40 -0700 (PDT)
+Date: Fri, 10 Aug 2018 05:36:38 +0000 (UTC)
+X-Account-Notification-Type: 127-RECOVERY
+Feedback-ID: 127-RECOVERY:account-notifier
+X-Notifications: aae101b4ae000000
+Message-ID: <4fZAcb02f0mVrJzWJXWAmA.0@notifications.google.com>
+Subject: Security alert for your linked Google account
+From: Google <no-reply@accounts.google.com>
+To: yasserkaddouralearn@gmail.com
+Content-Type: multipart/alternative; boundary="000000000000c6e14c05730e201b"
+
+--000000000000c6e14c05730e201b
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+UXVvcmEgY29ubmVjdGVkIHRvIHlvdXIgR29vZ2xlIEFjY291bnQNCg0KDQoNCllvdSByZWNlaXZl
+ZCB0aGlzIG1lc3NhZ2UgYmVjYXVzZSB5YXNzZXJrYWRkb3VyYWxlYXJuQGdtYWlsLmNvbSBpcyBs
+aXN0ZWQNCmFzIHRoZSByZWNvdmVyeSBlbWFpbCBmb3IgeWFzc2VyLmthZGRvdXJhMTlAZ21haWwu
+Y29tLiBJZg0KeWFzc2VyLmthZGRvdXJhMTlAZ21haWwuY29tIGlzIG5vdCB5b3VyIEdvb2dsZSBB
+Y2NvdW50LCBjbGljayBoZXJlIHRvDQpkaXNjb25uZWN0DQo8aHR0cHM6Ly9hY2NvdW50cy5nb29n
+bGUuY29tL0FjY291bnREaXNhdm93P2FkdD1BT1g4a2lvNlV0M09oVk5JcTBGbmhaeG5jNkdHWnNB
+T1psZktZamlraUVaV1lURGNSaF9BSjAwS1FRYzJ3Z1NFZkVuRnp5WkdBVmhxTWcmcmZuPTEyNz4N
+CmZyb20gdGhhdCBhY2NvdW50IGFuZCBzdG9wIHJlY2VpdmluZyBlbWFpbHMuDQoNCg0KDQpIaSBZ
+YXNzZXIsDQoNClF1b3JhIG5vdyBoYXMgYWNjZXNzIHRvIHlvdXIgR29vZ2xlIEFjY291bnQgeWFz
+c2VyLmthZGRvdXJhMTlAZ21haWwuY29tLg0KDQpRdW9yYSBjYW46DQoNCiAgICAtIFZpZXcgeW91
+ciBjb250YWN0cw0KDQoNCllvdSBzaG91bGQgb25seSBnaXZlIHRoaXMgYWNjZXNzIHRvIGFwcHMg
+eW91IHRydXN0LiBSZXZpZXcgb3IgcmVtb3ZlIGFwcHMNCmNvbm5lY3RlZCB0byB5b3VyIGFjY291
+bnQgYW55IHRpbWUgYXQgTXkgQWNjb3VudA0KPGh0dHBzOi8vbXlhY2NvdW50Lmdvb2dsZS5jb20v
+cGVybWlzc2lvbnM+Lg0KDQpMZWFybiBtb3JlIDxodHRwczovL3N1cHBvcnQuZ29vZ2xlLmNvbS9h
+Y2NvdW50cy9hbnN3ZXIvMzQ2NjUyMT4gYWJvdXQgd2hhdA0KaXQgbWVhbnMgdG8gY29ubmVjdCBh
+biBhcHAgdG8geW91ciBhY2NvdW50Lg0KVGhlIEdvb2dsZSBBY2NvdW50cyB0ZWFtDQoNCg0KDQpU
+aGlzIGVtYWlsIGNhbid0IHJlY2VpdmUgcmVwbGllcy4gRm9yIG1vcmUgaW5mb3JtYXRpb24sIHZp
+c2l0IHRoZSBHb29nbGUNCkFjY291bnRzIEhlbHAgQ2VudGVyIDxodHRwczovL3N1cHBvcnQuZ29v
+Z2xlLmNvbS9hY2NvdW50cy9hbnN3ZXIvMzQ2NjUyMT4uDQoNCg0KDQpZb3UgcmVjZWl2ZWQgdGhp
+cyBtYW5kYXRvcnkgZW1haWwgc2VydmljZSBhbm5vdW5jZW1lbnQgdG8gdXBkYXRlIHlvdSBhYm91
+dA0KaW1wb3J0YW50IGNoYW5nZXMgdG8geW91ciBHb29nbGUgcHJvZHVjdCBvciBhY2NvdW50Lg0K
+DQrCqSAyMDE4IEdvb2dsZSBMTEMsIDE2MDAgQW1waGl0aGVhdHJlIFBhcmt3YXksIE1vdW50YWlu
+IFZpZXcsIENBIDk0MDQzLCBVU0ENCjE1MzM4NzkzOTgwMDAwMDANCg==
+--000000000000c6e14c05730e201b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html lang=3Den><head><meta content=3D"date=3Dno" name=3D"format-detection"=
+><meta content=3D"email=3Dno" name=3D"format-detection"><style>.awl a {colo=
+r: #FFFFFF; text-decoration: none;}.abml a {color: #000000; font-family: Ro=
+boto-Medium,Helvetica,Arial,sans-serif; font-weight: bold; text-decoration:=
+ none;}.adgl a {color: rgba(0, 0, 0, 0.87); text-decoration: none;}.afal a =
+{color: #b0b0b0; text-decoration: none;}@media screen and (min-width: 600px=
+) {.v2sp {padding: 6px 30px 0px;} .v2rsp {padding: 0px 10px;}}</style></hea=
+d><body bgcolor=3D"#FFFFFF" style=3D"margin: 0; padding: 0;"><table border=
+=3D0 cellpadding=3D0 cellspacing=3D0 height=3D"100%" style=3D"min-width: 34=
+8px;" width=3D"100%"><Tbody><tr height=3D32px></tr><tr align=3Dcenter><td w=
+idth=3D32px></td><td><table border=3D0 cellpadding=3D0 cellspacing=3D0 styl=
+e=3D"max-width: 600px;"><Tbody><tr><td><table border=3D0 cellpadding=3D0 ce=
+llspacing=3D0 width=3D"100%"><Tbody><tr><td align=3Dleft><img height=3D32 s=
+rc=3D"https://www.gstatic.com/accountalerts/email/googlelogo_color_188x64dp=
+.png" style=3D"display: block; width: 92px; height: 32px;" width=3D92></td>=
+<td align=3Dright><img height=3D32 src=3D"https://www.gstatic.com/accountal=
+erts/email/keyhole.png" style=3D"display: block; width: 32px; height: 32px;=
+" width=3D32></td></tr></Tbody></table></td></tr><tr height=3D16></tr><tr><=
+td><table bgcolor=3D"#4184F3" border=3D0 cellpadding=3D0 cellspacing=3D0 st=
+yle=3D"min-width: 332px; max-width: 600px; border: 1px solid #F0F0F0; borde=
+r-bottom: 0; border-top-left-radius: 3px; border-top-right-radius: 3px;" wi=
+dth=3D"100%"><Tbody><tr><td colspan=3D3 height=3D72px></td></tr><tr><td wid=
+th=3D32px></td><td style=3D"font-family: Roboto-Regular,Helvetica,Arial,san=
+s-serif; font-size: 24px; color: #FFFFFF; line-height: 1.25; min-width: 300=
+px;"><a class=3Dawl style=3D"text-decoration: none; color: #FFFFFF;">Quora<=
+/a> connected to your Google&nbsp;Account</td><td width=3D32px></td></tr><t=
+r><td colspan=3D3 height=3D18px></td></tr></Tbody></table></td></tr><tr><td=
+><table bgcolor=3D"#FFFFFF" border=3D0 cellpadding=3D0 cellspacing=3D0 styl=
+e=3D"min-width: 332px; max-width: 600px; border: 1px solid #F0F0F0; border-=
+top: 0;" width=3D"100%"><Tbody><tr><td colspan=3D3 height=3D18px></td></tr>=
+<tr><td width=3D32px></td><td style=3D"font-family: Roboto-Regular,Helvetic=
+a,Arial,sans-serif; font-size: 13px; color: #202020; line-height: 1.5;">You=
+ received this message because <a>yasserkaddouralearn@gmail.com</a> is list=
+ed as the recovery email for <a>yasser.kaddoura19@gmail.com</a>. If <a>yass=
+er.kaddoura19@gmail.com</a> is not your Google Account, <a data-meta-key=3D=
+disavow href=3D"https://accounts.google.com/AccountDisavow?adt=3DAOX8kio6Ut=
+3OhVNIq0FnhZxnc6GGZsAOZlfKYjikiEZWYTDcRh_AJ00KQQc2wgSEfEnFzyZGAVhqMg&amp;rf=
+n=3D127" style=3D"text-decoration: none; color: #4285F4;" target=3D"_blank"=
+>click here to disconnect</a> from that account and stop receiving emails.<=
+/td><td width=3D10px></td></tr><tr><td colspan=3D3 height=3D18px></td></tr>=
+</Tbody></table></td></tr><tr><td><table bgcolor=3D"#FAFAFA" border=3D0 cel=
+lpadding=3D0 cellspacing=3D0 style=3D"min-width: 332px; max-width: 600px; b=
+order: 1px solid #F0F0F0; border-bottom: 1px solid #C0C0C0; border-top: 0; =
+border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;" width=3D"=
+100%"><Tbody><tr height=3D16px><td rowspan=3D3 width=3D32px></td><td></td><=
+td rowspan=3D3 width=3D32px></td></tr><tr><td><table border=3D0 cellpadding=
+=3D0 cellspacing=3D0 style=3D"min-width: 300px;"><Tbody><tr><td style=3D"fo=
+nt-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 13px; colo=
+r: #202020; line-height: 1.5;padding-bottom: 4px;">Hi Yasser,</td></tr><tr>=
+<td style=3D"font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-s=
+ize: 13px; color: #202020; line-height: 1.5;padding: 4px 0;"><br><a class=
+=3Dabml style=3D"font-family: Roboto-Medium,Helvetica,Arial,sans-serif; fon=
+t-weight: bold;text-decoration: none; color: #000000;">Quora</a> now has ac=
+cess to your Google Account <a class=3Dabml style=3D"font-family: Roboto-Me=
+dium,Helvetica,Arial,sans-serif; font-weight: bold;text-decoration: none; c=
+olor: #000000;">yasser.kaddoura19@gmail.com</a>.<br><br><a class=3Dabml sty=
+le=3D"font-family: Roboto-Medium,Helvetica,Arial,sans-serif; font-weight: b=
+old;text-decoration: none; color: #000000;">Quora</a> can:<ul style=3D"marg=
+in: 0;"><li>View your contacts</li></ul><br>You should only give this acces=
+s to apps you trust. Review or remove apps connected to your account any ti=
+me at <a href=3D"https://myaccount.google.com/permissions" style=3D"text-de=
+coration: none; color: #4285F4;" target=3D"_blank">My Account</a>.<br><br><=
+a href=3D"https://support.google.com/accounts/answer/3466521" style=3D"text=
+-decoration: none; color: #4285F4;" target=3D"_blank">Learn more</a> about =
+what it means to connect an app to your account.</td></tr><tr><td style=3D"=
+font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 13px; co=
+lor: #202020; line-height: 1.5; padding-top: 28px;">The Google Accounts tea=
+m</td></tr><tr height=3D16px></tr><tr><td><table style=3D"font-family: Robo=
+to-Regular,Helvetica,Arial,sans-serif; font-size: 12px; color: #B9B9B9; lin=
+e-height: 1.5;"><Tbody><tr><td>This email can't receive replies. For more i=
+nformation, visit the <a data-meta-key=3Dhelp href=3D"https://support.googl=
+e.com/accounts/answer/3466521" style=3D"text-decoration: none; color: #4285=
+F4;" target=3D"_blank">Google Accounts Help Center</a>.</td></tr></Tbody></=
+table></td></tr></Tbody></table></td></tr><tr height=3D32px></tr></Tbody></=
+table></td></tr><tr height=3D16></tr><tr><td style=3D"max-width: 600px; fon=
+t-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 10px; color=
+: #BCBCBC; line-height: 1.5;"></td></tr><tr><td><table style=3D"font-family=
+: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 10px; color: #66666=
+6; line-height: 18px; padding-bottom: 10px"><Tbody><tr><td>You received thi=
+s mandatory email service announcement to update you about important change=
+s to your Google product or account.</td></tr><tr height=3D6px></tr><tr><td=
+><div style=3D"direction: ltr; text-align: left">&copy; 2018 Google LLC, 16=
+00 Amphitheatre Parkway, Mountain View, CA 94043, USA</div><div style=3D"di=
+splay: none !important; mso-hide:all; max-height:0px; max-width:0px;">15338=
+79398000000</div></td></tr></Tbody></table></td></tr></Tbody></table></td><=
+td width=3D32px></td></tr><tr height=3D32px></tr></Tbody></table><img heigh=
+t=3D1 src=3D"https://notifications.googleapis.com/email/a.gif?t=3DAFG8qyW6P=
+l-mv3dJ6-SFhIJ2VL8-HurxuK5zXqCCRlrVLKn1D-xNjqunUNEFvki5l929vY5OeEM_1y_rs8vr=
+UMbD6zatVl1T2ZlR5P_cEWQ7K7eC-xTbEP5IuvQnRcEfjABBZtZpsrqFS5rNyC0gU1SzNLg6WZy=
+k5f3h2qOBdMcz9eRKzEA3nzJQOlAJjpRcUN3P3HhZ05gdDROD6mb49Ckt_UXLmC-YSOMVHC438h=
+ob920EHBqju5o4SXCXd245jzij" width=3D1></body></html>
+--000000000000c6e14c05730e201b--

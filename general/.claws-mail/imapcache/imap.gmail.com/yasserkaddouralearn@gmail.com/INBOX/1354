@@ -1,0 +1,341 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 10.2.59.83 with SMTP id i19csp2198389jaf;
+        Sat, 14 Apr 2018 15:49:06 -0700 (PDT)
+X-Google-Smtp-Source: AIpwx48i/ijIbyWCXZMwN5WjVvJ/mcbpjGgdTpuunCoOzCE68SAg8L+HyjuBQRTRGBAFWPs8x66r
+X-Received: by 2002:a24:e00f:: with SMTP id c15-v6mr11284949ith.9.1523746146452;
+        Sat, 14 Apr 2018 15:49:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1523746146; cv=none;
+        d=google.com; s=arc-20160816;
+        b=R2X/ubh02x4wfXADO1OxtFDUWzZ8ArCbgQBl4bYUTheg8rf89Vq599thiHrdApfrWb
+         SWbecKcD1V/cPvVeH/e0xUB6qlTfPK0XjP1oDhiEBccPUxEqGmc1LBVVaqYS6aHel5sh
+         BnFfwYvPJa+3q0rUUfNba/wQ0D7q1Gx7fI+OEEB+j6RtNlk+gyL8xbKCTsorwoGB8mGR
+         IjR32KNrVTi4SSMKUDXANh+F10SGwtKykpTU62J38IFHd9WotNoR7GE9ABtfTXSmOcdI
+         6BGo0LjtwzAJaqBZKWxnnJWY8EQhKt1h+xJcn0rme4c1nbmyQ9MHpbJroeHyH6D2oMIR
+         gZfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:list-id:reply-to:mime-version
+         :list-unsubscribe:date:subject:to:from:domainkey-signature
+         :dkim-signature:arc-authentication-results;
+        bh=A3nD+rsy4AGi3LJwYkcXlHsX4BP8pdzk2ENyM0jIXis=;
+        b=0YXYGLtXGDB6X0tBY/2qdR+GaDNG4nZyZX3/4HeaQPt7DvnWPAXo6X/QukuRqO/Bye
+         k8c7MVGRL7dVgOZ/P/+eqnA07dAiOP5LfR6W7UwOAd1Zzuzb/l9DW82/U3scmUUe1ZwB
+         CFHri55W7tGWBvYmAEpVCoYCmgGzgxlRrnznA+kLp+vyB+mWLO+lLFz7KGw5Z7QdlC+6
+         TdjSGYQ1xbhTE6F2gZyYiII7zqqIeUjiD9VJMQy5ogTsW2Jx4oxAdYx1ci6yQ7UHJ5Nv
+         khLYlUiKm2s7FLgYWwtq3oUXLQXM/HvoMUCjl9/MhfdBv5jPG+LNZK/4frtmAFvg5iZV
+         uwiQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@sfmarketing.twitch.tv header.s=10dkim1 header.b=qn1SxR/6;
+       spf=pass (google.com: domain of bounce-15_html-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv designates 13.111.20.163 as permitted sender) smtp.mailfrom=bounce-15_HTML-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=twitch.tv
+Return-Path: <bounce-15_HTML-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv>
+Received: from mta.sfmarketing.twitch.tv (mta.sfmarketing.twitch.tv. [13.111.20.163])
+        by mx.google.com with ESMTPS id 126-v6si2795461itw.71.2018.04.14.15.49.05
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 14 Apr 2018 15:49:06 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-15_html-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv designates 13.111.20.163 as permitted sender) client-ip=13.111.20.163;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@sfmarketing.twitch.tv header.s=10dkim1 header.b=qn1SxR/6;
+       spf=pass (google.com: domain of bounce-15_html-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv designates 13.111.20.163 as permitted sender) smtp.mailfrom=bounce-15_HTML-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=twitch.tv
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=10dkim1; d=sfmarketing.twitch.tv;
+ h=From:To:Subject:Date:List-Unsubscribe:MIME-Version:Reply-To:List-ID:Message-ID:Content-Type; i=twitch@sfmarketing.twitch.tv;
+ bh=ivjPuHSTYWq6GKJgd8MXgD4+UP8=;
+ b=qn1SxR/6kL3r0O2TC4MVN7H2uEorKaOORJvGZvAsDpCaHnJVdpMGnjSKBTsFQ4bPmaEHt7vUqBBO
+   xyPB9TMzA/6ziMNd2AO9iL8xU9CavXA3b7UKnpl35KfnrrN68cRGLJPR7IJyH3Yths0vrUyypIHt
+   khtkGKTvKqMQtkaohMtIol2n7q4Gco6bYzkzZa7CWLQ6ytt03W1fnUzrE6Qe6zAAz2ao99Mafg95
+   ewgaqUVd6yKLGAO+SIwXIBCC651OMHrhqUWmqCQ/9wqioVrxCs7V5I4f0SvFFxwfMURkYiSlbjAt
+   Zgq+59gmc5N47BKYkTEy5t2ECPU8aJLCjkT53g==
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=10dkim1; d=sfmarketing.twitch.tv;
+ b=L37eLDYWIsV4b30+lO+sPjbNDOQTDea5v5t/vHuEscTH/BV7OzyEny43TMGiIVuO7yf1zrB22mDU
+   s952VDsH+1q4myTxVH/1Y+Kx8KGApQWTW9Pt+6LJNdadJEUNsiho7GcfX4DqOj2b0sM4YkDLwYRL
+   8+iktxhyrAoGvkszigWDQoQ9n/9KSzVFMF9Iw0uv98g6VGY7hAwyLNn2QaTxchGZ9atuDNW1PiSd
+   bfB276CMinS7Ud6HT9PvZvVTgDOu/7T277NwXP4KhnZw3FC34OxZZmE9yhAHdbfC+WANq54jsFIl
+   z+flDWm+8hU4JRmLOSb2OX6ouNkfXuVqopl2Vw==;
+Received: by mta.sfmarketing.twitch.tv id hqa2m4163hso for <yasserkaddouralearn@gmail.com>; Sat, 14 Apr 2018 19:42:55 +0000 (envelope-from <bounce-15_HTML-61541942-2505-100002038-1565@bounce.sfmarketing.twitch.tv>)
+From: "Twitch" <twitch@sfmarketing.twitch.tv>
+To: <yasserkaddouralearn@gmail.com>
+Subject: Unlock the ultimate Overwatch experience.
+Date: Sat, 14 Apr 2018 13:42:55 -0600
+List-Unsubscribe: <mailto:leave-fd8515751a3c402029-fe5f1271706005747116-ff3316757561-fe4115707564047f751778-ff2e15757361@leave.sfmarketing.twitch.tv>
+MIME-Version: 1.0
+Reply-To: "Consumer Marketing" <reply-ff3316757561-15_HTML-61541942-100002038-1565@sfmarketing.twitch.tv>
+List-ID: <100001874.xt.local>
+X-CSA-Complaints: whitelistcomplaints@eco.de
+x-job: 100002038_2505
+Message-ID: <d7d23b3f-fafe-467f-8a32-835d8687728d@dfw1s10mta69.xt.local>
+Feedback-ID: 100002038:2505:13.111.20.163:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="JvErauKLJOhP=_?:"
+
+This is a multi-part message in MIME format.
+
+--JvErauKLJOhP=_?:
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Unlock the ultimate Overwatch experience.&#xA0;
+&#xA0;
+
+ 
+&#xA0;
+
+&#xA0;
+
+ The Overwatch League All-Access Pass on Twitch
+ &#xA0;
+
+http://click.sfmarketing.twitch.tv/?qs=30fe1dd8fc9b3b4bc7f823fda9f797199591406e100d24fd685ae4c47c53bb73d421030213c6a697f9446317952e2f0c32069033a9670109 
+Get it Today: $29.99 
+
+http://click.sfmarketing.twitch.tv/?qs=30fe1dd8fc9b3b4bc7f823fda9f797199591406e100d24fd685ae4c47c53bb73d421030213c6a697f9446317952e2f0c32069033a9670109 
+Or only $19.99 with Twitch Prime 
+&#xA0;
+
+
+ Overwatch fans, the new best way to watch and play your favorite game
+ is here. With insider access, unique in-game items, and special content
+ you can only see on Twitch, the Overwatch League All-Access Pass was built
+ from the ground up just for you.
+ 
+
+	- Access Passholder-only private chat rooms where you can talk with others about the match
+	- Take a peek inside the minds of the players with “Behind the Screens”, a weekly series of videos where players break down a top match from the previous week
+	- Submit questions in chat to the pros during post-match interviews
+	- See what others can’t with the Command Center, a unique multiview stream complete with player facecams, new stats, alternate in-game views, backstage cameras, and more
+	- Show your team colors with exclusive emotes and chat badges you can use on any Twitch stream
+	- Unlock early access to in-game skins, sprays, and player icons&#xA0;
+
+
+ To kick Stage 3 off right, Command Center, Behind the Screens, and
+ post-match interviews are available for everyone to preview for free
+ from now until May 15th. Tune in to 
+http://click.sfmarketing.twitch.tv/?qs=30fe1dd8fc9b3b4b90699fa7642093ded8ab6acab325c0776f184e1f1af508168b3d1b2ebc9db2f7629011c10a9a6a8f89f7e4d134affe1a 
+twitch.tv/OverwatchLeague 
+ today where we’ll be revealing even more in-game content included with the
+ Overwatch League All-Access Pass on Twitch.
+ 
+
+
+ Overwatch League matches stream on Twitch Wednesday through Saturday;
+ now, get more Overwatch 24/7 with the All-Access Pass. If you’re a Twitch
+ Prime member, you can enjoy all these Passholder perks for $10 off when you buy through May 7*.
+ 
+
+http://click.sfmarketing.twitch.tv/?qs=30fe1dd8fc9b3b4bc7f823fda9f797199591406e100d24fd685ae4c47c53bb73d421030213c6a697f9446317952e2f0c32069033a9670109 
+Get it Today: $29.99 
+
+http://click.sfmarketing.twitch.tv/?qs=30fe1dd8fc9b3b4bc7f823fda9f797199591406e100d24fd685ae4c47c53bb73d421030213c6a697f9446317952e2f0c32069033a9670109 
+Or only $19.99 with Twitch Prime 
+
+*
+http://click.sfmarketing.twitch.tv/?qs=30fe1dd8fc9b3b4b0e218cd51c634b61e0c7e7d7027199a6147f8c029cd685db10fcbc17a21d3567f3c671d481ea6165e36516c31452344e 
+Terms & conditions may apply 
+&#xA0;
+
+&#xA0;
+
+http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d9c66059f8c2925093e661f8e3ac94fd734d7103d392d9331869841c128cbb80577fee26e20500c3439d8776033bb1151 
+    
+http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d64355369228bcfa414420405e6a54f12b3df27b042c54615973485b56c16207356802be3585f62d9eeef5f561da38ad8 
+
+
+ You're receiving this email because you're a valued member of the Twitch community.
+
+
+ To stop receiving emails from Twitch, 
+http://click.sfmarketing.twitch.tv/unsub_center.aspx?qs=bbb6693eb730696fe6d80f81bbcb115798ac12c95e11d272cfbd91883e22c598ff0c65f2267600cd39f5f5e66f9ec4c65333555e874f31248a43cf958d58c9a6 
+unsubscribe from this list .
+
+ You can also 
+http://click.sfmarketing.twitch.tv/subscription_center.aspx?qs=bbb6693eb730696fe6d80f81bbcb115798ac12c95e11d272cfbd91883e22c598e675d9aac4434d4bfa14fe6e9a4cea92004263322c8d3a79e47de16d90abb2ab 
+update subscription preferences  or 
+http://click.sfmarketing.twitch.tv/profile_center.aspx?qs=bbb6693eb730696fbb192ee9550fde3c2f83e0fdfce4ae0b93b9f3d2dfaadf7c0ce34eb9cbd073f62cc6b75a55117f8d6ca80e9ac1203af90be0fd9294ae58bb 
+update your profile .
+(c) 2018
+ Twitch, All rights reserved.
+
+Our mailing address is:
+
+225 Bush St. Suite 600, 
+
+San Francisco, CA, 94104 US
+
+
+
+ 
+
+                                                             
+
+--JvErauKLJOhP=_?:
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" style="background:#E5E3E8!important">
+  <head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Unlock the ultimate Overwatch experience.</title>
+    
+<style>@media only screen{html{min-height:100%;background:#e5e3e8}}@media only screen and (max-width:600px){.small-float-center{margin:0 auto!important;float:none!important;text-align:center!important}}@media only screen and (max-width:600px){.hide-for-large{display:block!important;width:auto!important;overflow:visible!important;max-height:none!important;font-size:inherit!important;line-height:inherit!important}}@media only screen and (max-width:600px){table.body table.container .hide-for-large,table.body table.container .row.hide-for-large{display:table!important;width:100%!important}}@media only screen and (max-width:600px){table.body table.container .show-for-large{display:none!important;width:0;mso-hide:all;overflow:hidden}}@media only screen and (max-width:600px){table.body
+ img{width:auto;height:auto}table.body center{min-width:0!important}table.body .container{width:95%!important}table.body .columns{height:auto!important;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;padding-left:20px!important;padding-right:20px!important}table.body .columns .columns{padding-left:0!important;padding-right:0!important}table.body .collapse .columns{padding-left:0!important;padding-right:0!important}th.small-4{display:inline-block!important;width:33.33333%!important}th.small-6{display:inline-block!important;width:50%!important}th.small-8{display:inline-block!important;width:66.66667%!important}th.small-12{display:inline-block!important;width:100%!important}.columns
+ th.small-12{display:block!important;width:100%!important}table.button.small-expanded{width:100%!important}table.button.small-expanded table{width:100%}table.button.small-expanded table a{text-align:center!important;width:100%!important;padding-left:0!important;padding-right:0!important}}@media screen and (max-width:596px){.header-v2{margin:0 0 10px 0}.header-v2 .columns{display:table-cell!important}}@media screen and (max-width:596px){.pd-x-75{padding:inherit}}@media screen and (max-width:596px){.pd-x-55{padding:inherit}}@media screen and (max-width:596px){.small-40-to-60{width:65px!important;height:65px!important}}</style>
+  </head>
+  <body style="-moz-box-sizing:border-box;-ms-text-size-adjust:100%;-webkit-box-sizing:border-box;-webkit-text-size-adjust:100%;Margin:0;background:#E5E3E8!important;box-sizing:border-box;color:#322F37;font-family:'Helvetica Neue',Arial,Geneva,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;min-width:100%;padding:0;text-align:left;width:100%!important"><style type="text/css">
+div.preheader 
+{ display: none !important; } 
+</style>
+<div class="preheader" style="font-size: 1px; display: none !important;">The Overwatch League All-Access Pass is available now.</div>
+    <span class="preheader" style="color:#e5e3e8;display:none!important;font-size:1px;line-height:1px;max-height:0;max-width:0;mso-hide:all!important;opacity:0;overflow:hidden;visibility:hidden"></span>
+    <table class="body" style="Margin:0;background:#E5E3E8!important;border-collapse:collapse;border-spacing:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;height:100%;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;width:100%">
+      <tr style="padding:0;text-align:left;vertical-align:top">
+        <td class="center" align="center" valign="top" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">
+          <center data-parsed="" style="min-width:580px;width:100%">
+
+
+
+                <table class="spacer float-center" style="Margin:0 auto;border-collapse:collapse;border-spacing:0;float:none;margin:0 auto;padding:0;text-align:center;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="10px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:400;hyphens:auto;line-height:10px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                <table align="center" class="container float-center" style="Margin:0 auto;background:#fff;border-collapse:collapse;border-spacing:0;float:none;margin:0 auto;padding:0;text-align:center;vertical-align:top;width:580px"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">
+                  <!-- Header -->
+                  <table class="row header purple collapse" style="background:#8a8a8a;background-attachment:scroll;background-color:#6441A4;background-image:none;background-position:top left;background-repeat:repeat;border-collapse:collapse;border-spacing:0;display:table;padding:0;position:relative;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top">
+                    <th class="flush small-12 large-12 columns first last" style="Margin:0 auto;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0 auto;padding:0;padding-bottom:0!important;padding-left:0;padding-right:0;padding-top:0!important;text-align:left;width:590px"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top"><th style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left">
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="20px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:400;hyphens:auto;line-height:20px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                      <a href=" "https://www.twitch.tv"  style="Margin:0;color:#6441A4;font-family:Helvetica,Arial,sans-serif;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">
+                        <img class="float-center" src="https://s.jtvnw.net/jtv_user_pictures/hosted_images/twitch-email-logomark.png" width="120" height="40" alt="Twitch" style="-ms-interpolation-mode:bicubic;Margin:0 auto;border:none;clear:both;display:block;float:none;height:40px!important;margin:0 auto;max-width:100%;outline:0;text-align:center;text-decoration:none;width:120px!important">
+                      </a>
+
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="20px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:400;hyphens:auto;line-height:20px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+                    </th>
+<th class="expander" style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0!important;text-align:left;visibility:hidden;width:0"></th></tr></table></th>
+                  </tr></tbody></table>
+                  <!-- End Header -->
+                  <!-- Hero Image -->
+                  <table class="row collapse" style="border-collapse:collapse;border-spacing:0;display:table;padding:0;position:relative;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top">
+                    <th class="flush small-12 large-12 columns first last" style="Margin:0 auto;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0 auto;padding:0;padding-bottom:0!important;padding-left:0;padding-right:0;padding-top:0!important;text-align:left;width:590px"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top"><th style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left">
+                      <center data-parsed="" style="min-width:520px;width:100%">
+                        <img src="https://s.jtvnw.net/jtv_user_pictures/hosted_images/owl_announcement_header.jpg" class="float-center" alt="Overwatch League!" align="center" style="-ms-interpolation-mode:bicubic;Margin:0 auto;clear:both;display:block;float:none;margin:0 auto;max-width:100%;outline:0;text-align:center;text-decoration:none;width:auto">
+                      </center>
+                    </th>
+<th class="expander" style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0!important;text-align:left;visibility:hidden;width:0"></th></tr></table></th>
+                  </tr></tbody></table>
+                  <!-- End Hero Image -->
+
+                  <!-- Main Content -->
+                  <table class="row" style="border-collapse:collapse;border-spacing:0;display:table;padding:0;position:relative;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top">
+                    <th class="show-for-large small-12 large-1 columns first" style="Margin:0 auto;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0 auto;padding:0;padding-bottom:16px;padding-left:20px;padding-right:10px;padding-top:20px;text-align:left;width:28.33px"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top"><th style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left"></th></tr></table></th>
+                    <th class="small-12 large-10 columns" style="Margin:0 auto;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0 auto;padding:0;padding-bottom:16px;padding-left:10px;padding-right:10px;padding-top:20px;text-align:left;width:463.33px"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top"><th style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left">
+
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="25px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:25px;font-weight:400;hyphens:auto;line-height:25px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                      <h2 class="text-center" style="Margin:0;Margin-bottom:10px;color:inherit;font-family:Helvetica,Arial,sans-serif;font-size:24px;font-weight:400;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:center;word-wrap:normal">
+                        The Overwatch League All-Access Pass on Twitch
+                      </h2>
+
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="10px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:400;hyphens:auto;line-height:10px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                      <center data-parsed="" style="min-width:423.33px;width:100%">
+                        <table class="button large float-center" style="Margin:0 0 16px 0;border-collapse:collapse;border-spacing:0;cursor:hand;float:none;font-weight:300;margin:0 0 16px 0;padding:0;text-align:center;vertical-align:top;width:auto"><tr style="padding:0;text-align:left;vertical-align:top"><td style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top">
+<td style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;background:#6441A4;border:2px solid #6441A4;border-collapse:collapse!important;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word"><a href="http://click.sfmarketing.twitch.tv/?qs=51a31557aa9431685a3eae197de4eb9ecc88c391fee4d99dbafbed588629e6412a6b6c13ce69bd4c2a9d4f218b6e107bc6096c13afba29cb61477b417f1fd9ea"    data-linkto="https://" style="Margin:0;border:0 solid #6441A4;border-radius:3px;color:#fff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:regular;line-height:1.3;margin:0;padding:10px 55px 10px 55px;text-align:left;text-decoration:none">Get it Today: $29.99</a></td></tr></table></td></tr></table>
+                      </center>
+
+                      <p class="text-center sz-13" style="Margin:0;Margin-bottom:10px;color:#322F37;font-family:Helvetica,Arial,Verdana,'Trebuchet MS';font-size:13px;font-weight:400;line-height:24px;margin:0;margin-bottom:10px;padding:0;padding-bottom:10px;text-align:center"><a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d861ec2081ab5cb0631f2bf845e427f474c6294f7f4828181c64159f1e38b2667d388f097959ec1fb88baabe6e81e5cfb31cfeb8413976c28"   data-linkto="https://" style="Margin:0;color:#6441A4;font-family:Helvetica,Arial,sans-serif;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">Or only $19.99 with Twitch Prime</a></p>
+
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="15px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;hyphens:auto;line-height:15px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                      <p class="" style="Margin:0;Margin-bottom:10px;color:#322F37;font-family:Helvetica,Arial,Verdana,'Trebuchet MS';font-size:16px;font-weight:400;line-height:24px;margin:0;margin-bottom:10px;padding:0;padding-bottom:10px;text-align:left">
+                        Overwatch fans, the new best way to watch and play your favorite game
+                        is here. With insider access, unique in-game items, and special content
+                        you can only see on Twitch, the Overwatch League All-Access Pass was built
+                        from the ground up just for you.
+                      </p>
+
+                      <ul>
+                        <li style="margin-bottom:5px">Access Passholder-only private chat rooms where you can talk with others about the match</li>
+                        <li style="margin-bottom:5px">Take a peek inside the minds of the players with “Behind the Screens”, a weekly series of videos where players break down a top match from the previous week</li>
+                        <li style="margin-bottom:5px">Submit questions in chat to the pros during post-match interviews</li>
+                        <li style="margin-bottom:5px">See what others can’t with the Command Center, a unique multiview stream complete with player facecams, new stats, alternate in-game views, backstage cameras, and more</li>
+                        <li style="margin-bottom:5px">Show your team colors with exclusive emotes and chat badges you can use on any Twitch stream</li>
+                        <li style="margin-bottom:5px">Unlock early access to in-game skins, sprays, and player icons</li>
+                      </ul>
+
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="15px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:400;hyphens:auto;line-height:15px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                      <p style="Margin:0;Margin-bottom:10px;color:#322F37;font-family:Helvetica,Arial,Verdana,'Trebuchet MS';font-size:16px;font-weight:400;line-height:24px;margin:0;margin-bottom:10px;padding:0;padding-bottom:10px;text-align:left">
+                        To kick Stage 3 off right, Command Center, Behind the Screens, and
+                        post-match interviews are available for everyone to preview for free
+                        from now until May 15th. Tune in to <a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d33c46f44a9322aaa52def622e632959ebc77467838db5db8bf0852acb276e3eb5596afbc46254c015360e53c129e6e204e71a5319d2faded"   data-linkto="https://" style="Margin:0;color:#6441A4;font-family:Helvetica,Arial,sans-serif;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">twitch.tv/OverwatchLeague</a>
+                        today where we’ll be revealing even more in-game content included with the
+                        Overwatch League All-Access Pass on Twitch.
+                      </p>
+
+                      <p style="Margin:0;Margin-bottom:10px;color:#322F37;font-family:Helvetica,Arial,Verdana,'Trebuchet MS';font-size:16px;font-weight:400;line-height:24px;margin:0;margin-bottom:10px;padding:0;padding-bottom:10px;text-align:left">
+                        Overwatch League matches stream on Twitch Wednesday through Saturday;
+                        now, get more Overwatch 24/7 with the All-Access Pass. If you’re a Twitch
+                        Prime member, you can enjoy all these Passholder perks for $10 off when you buy through May 7*.
+                      </p>
+
+                      <center data-parsed="" style="min-width:423.33px;width:100%">
+                        <table class="button large float-center" style="Margin:0 0 16px 0;border-collapse:collapse;border-spacing:0;cursor:hand;float:none;font-weight:300;margin:0 0 16px 0;padding:0;text-align:center;vertical-align:top;width:auto"><tr style="padding:0;text-align:left;vertical-align:top"><td style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top">
+<td style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;background:#6441A4;border:2px solid #6441A4;border-collapse:collapse!important;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word"><a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d63aa6cdadb92c4922ecd13a432ae13bf3e2734869694536e95f7bf58bdbc3a2bc0cc44e98ff00f7ee57222b2641b262953625f72929fe286"    data-linkto="https://" style="Margin:0;border:0 solid #6441A4;border-radius:3px;color:#fff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:regular;line-height:1.3;margin:0;padding:10px 55px 10px 55px;text-align:left;text-decoration:none">Get it Today: $29.99</a></td></tr></table></td></tr></table>
+                      </center>
+
+                      <p class="text-center sz-13" style="Margin:0;Margin-bottom:10px;color:#322F37;font-family:Helvetica,Arial,Verdana,'Trebuchet MS';font-size:13px;font-weight:400;line-height:24px;margin:0;margin-bottom:10px;padding:0;padding-bottom:10px;text-align:center"><a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0dd35b68cbcfd929d2bd6bc565ba809b3bf4b19525fc3a7a05262c0814ab103c0175555963a2cae25b7b0a47710a40a5724751486102ef0275"   data-linkto="https://" style="Margin:0;color:#6441A4;font-family:Helvetica,Arial,sans-serif;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">Or only $19.99 with Twitch Prime</a></p>
+
+                      <p class="sz-13" style="Margin:0;Margin-bottom:10px;color:#322F37;font-family:Helvetica,Arial,Verdana,'Trebuchet MS';font-size:13px;font-weight:400;line-height:24px;margin:0;margin-bottom:10px;padding:0;padding-bottom:10px;text-align:left">*<a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d5913a40485966133528f8813dc12bda6c63751b8e564397b4b8427655b7b865a33c2b4040d20df380f185afb17199435c5a741d880cabad8"   data-linkto="https://" style="Margin:0;color:#6441A4;font-family:Helvetica,Arial,sans-serif;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none">Terms & conditions may apply</a></p>
+
+                      <table class="spacer" style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="25px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:25px;font-weight:400;hyphens:auto;line-height:25px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+                    </th></tr></table></th>
+                    <th class="show-for-large small-12 large-1 columns last" style="Margin:0 auto;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0 auto;padding:0;padding-bottom:16px;padding-left:10px;padding-right:20px;padding-top:20px;text-align:left;width:28.33px"><table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%"><tr style="padding:0;text-align:left;vertical-align:top"><th style="Margin:0;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:1.3;margin:0;padding:0;text-align:left"></th></tr></table></th>
+                  </tr></tbody></table>
+                  <!-- End Main Content -->
+
+                </td></tr></tbody></table>
+
+                <table class="spacer float-center" style="Margin:0 auto;border-collapse:collapse;border-spacing:0;float:none;margin:0 auto;padding:0;text-align:center;vertical-align:top;width:100%"><tbody><tr style="padding:0;text-align:left;vertical-align:top"><td height="30px" style="-moz-hyphens:auto;-webkit-hyphens:auto;Margin:0;border-collapse:collapse!important;color:#322F37;font-family:Helvetica,Arial,sans-serif;font-size:30px;font-weight:400;hyphens:auto;line-height:30px;margin:0;mso-line-height-rule:exactly;padding:0;text-align:left;vertical-align:top;word-wrap:break-word">&#xA0;</td></tr></tbody></table>
+
+                <!-- Footer/Unsub -->
+                <tr>
+        <td align="center" valign="top" width="100%">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="padding-top: 10px;" class="footertable">
+
+    <tr>
+      <td align="center" style="font-family: Helvetica, Arial; font-size: 11px; color:#706a7c"><br><a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d9c66059f8c2925093e661f8e3ac94fd734d7103d392d9331869841c128cbb80577fee26e20500c3439d8776033bb1151"><img src="http://image.sfmarketing.twitch.tv/lib/fe4115707564047f751778/m/1/1b0915f0-7b0d-4b71-acb1-cc3502eba52b.png" height="20" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://click.sfmarketing.twitch.tv/?qs=5b52965bd966ec0d64355369228bcfa414420405e6a54f12b3df27b042c54615973485b56c16207356802be3585f62d9eeef5f561da38ad8"><img src="http://image.sfmarketing.twitch.tv/lib/fe4115707564047f751778/m/1/5704f784-e997-4ddb-8902-ba4aa48db8ab.png" height="20" border="0"></a>
+      <br>
+<br>
+  You're receiving this email because you're a valued member of the Twitch community.<br>
+
+    To stop receiving emails from Twitch, <a  href="http://click.sfmarketing.twitch.tv/unsub_center.aspx?qs=bbb6693eb730696fe6d80f81bbcb115798ac12c95e11d272cfbd91883e22c598ff0c65f2267600cd39f5f5e66f9ec4c65333555e874f31248a43cf958d58c9a6" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-weight: normal;text-decoration: underline;">unsubscribe from this list</a>.<br>
+                    You can also <a href="http://click.sfmarketing.twitch.tv/subscription_center.aspx?qs=bbb6693eb730696fe6d80f81bbcb115798ac12c95e11d272cfbd91883e22c598e675d9aac4434d4bfa14fe6e9a4cea92004263322c8d3a79e47de16d90abb2ab" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-weight: normal;text-decoration: underline;">update subscription preferences</a> or <a href="http://click.sfmarketing.twitch.tv/profile_center.aspx?qs=bbb6693eb730696fbb192ee9550fde3c2f83e0fdfce4ae0b93b9f3d2dfaadf7c0ce34eb9cbd073f62cc6b75a55117f8d6ca80e9ac1203af90be0fd9294ae58bb" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-weight: normal;text-decoration: underline;">update your profile</a>.<br>
+<i>&copy; 2018
+ Twitch, All rights reserved.</i><br>
+<br>
+<b style="color: #606060;">Our mailing address is:</b><br>
+225 Bush St. Suite 600, <br>
+San Francisco, CA, 94104 US
+
+
+
+        </td>
+    </tr>
+                <!-- End Footer/Unsub -->
+
+
+          </center>
+        </td>
+      </tr>
+    </table>
+    <!-- prevent Gmail on iOS font size manipulation -->
+    <div style="display:none;white-space:nowrap;font:15px courier;line-height:0"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </div>
+  </body><img src="http://click.sfmarketing.twitch.tv/open.aspx?ffcb10-ff3316757561-fe6212727460027f7712-fe4115707564047f751778-ff991575-fe5f1271706005747116-ff2e15757361" width="1" height="1">
+</html>
+
+--JvErauKLJOhP=_?:--
+

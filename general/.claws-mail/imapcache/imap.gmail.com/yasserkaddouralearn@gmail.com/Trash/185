@@ -1,0 +1,149 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 10.2.59.83 with SMTP id i19csp1487817jaf;
+        Wed, 11 Apr 2018 21:41:02 -0700 (PDT)
+X-Google-Smtp-Source: AIpwx4/IE6byAlLF1EpTSSL/EiAhrz6j5V5oav0lj4gW/pthvvWG7VkMREIU/Uz1TmQDP3VOHOkS
+X-Received: by 10.55.214.7 with SMTP id t7mr10262211qki.341.1523508062469;
+        Wed, 11 Apr 2018 21:41:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1523508062; cv=none;
+        d=google.com; s=arc-20160816;
+        b=UKxeNzZfuThnSt3ASSdqxkdinDUiqRGsP8JGJbGBDi5K47zH3GrIlMo0CJ1s7GoCL+
+         F1+IkSXAyPHqGnVoc73Hs9E0Tz6wiRh+XEcY5ArSTzUZBafVPeSWJ94/hVmAUpewr4Pa
+         hKcJTgOGPcGAYZ/qCFdtG3/BbB8S2Z3wzez34QpeyvOxmm3cWIhKH+j59Lct8E2IYTvK
+         sINj+lu7lfhOdemzRBfspv4i82sWLKCIQ1BjTmp585W5V4PDfU1u9Qeb66Tp07837W8O
+         8ElHGDnF5cNDk1u7z9b1fhh2MJDD+bVaTmJl2kU960M14it3FNWfUslp928fkPYg54WJ
+         xlRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:subject:to:from:date:content-transfer-encoding
+         :content-disposition:mime-version:dkim-signature:domainkey-signature
+         :arc-authentication-results;
+        bh=InClRZ/rRmJXWNg+fraeIoABkEfObOn4alEf+FRbSOM=;
+        b=TNLiCCiPNqdb4EuQP0cgDepX0f3UqaMvgug7r1Akgxep4Wh/ZNywz8CjMdUvr8kZ+Q
+         ge4QsOxb48WCAsCddSvAp225pRenFwkrtrTvMaBTsM2vQXbPXoa8aycIgJnfj6TbhGk2
+         yi3eFSoovH/JIOGlP9mD7+EaadMivxWGL40WPcSqI6qhMG6yyjRDKC7d2SVRps/Qx0Cr
+         4+YyQQUAWaWi1AvrvgbggNjB8xntqHSBVLBLy/dgSutVMcepP79tsZeorGJSHdpd/S8U
+         9KdEve4jJZNjqzbkkAkd1WgQJiZ5Yf8coz98LH8PSjNocGALwVZrqXCjRdN46ibxkNRj
+         BlEA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@zamzar.com header.s=mar2011 header.b=GT5KEj8N;
+       spf=pass (google.com: domain of convertedfiles@zamzar.com designates 75.126.4.36 as permitted sender) smtp.mailfrom=convertedFiles@zamzar.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=zamzar.com
+Return-Path: <convertedFiles@zamzar.com>
+Received: from www76.zamzar.com (www76.zamzar.com. [75.126.4.36])
+        by mx.google.com with ESMTP id s125si2345748qkc.74.2018.04.11.21.41.02
+        for <yasserkaddouralearn@gmail.com>;
+        Wed, 11 Apr 2018 21:41:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of convertedfiles@zamzar.com designates 75.126.4.36 as permitted sender) client-ip=75.126.4.36;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@zamzar.com header.s=mar2011 header.b=GT5KEj8N;
+       spf=pass (google.com: domain of convertedfiles@zamzar.com designates 75.126.4.36 as permitted sender) smtp.mailfrom=convertedFiles@zamzar.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=zamzar.com
+Received: from localhost.localdomain ([127.0.0.1]) by www76.zamzar.com with Microsoft SMTPSVC(8.5.9600.16384);
+	 Wed, 11 Apr 2018 23:41:02 -0500
+DomainKey-Signature: a=rsa-sha1; c=simple; d=zamzar.com; h=mime-version
+	:content-transfer-encoding:content-type:date:from:to:subject; q=
+	dns; s=mar2011; b=Ncsfq719YOIWZF+EC/RLY16x+eKQwYFwmPLf16z5uAh42n
+	7aZcqHnGv/pkhQOr2vav4BAxjPwxeV4TI/lOuJKutNov2jPfaI55Z/zh1h5d/MqA
+	y4BRH7sfDvY+NtLlKQEGEtV+uwrgbRLF0TErALG0O0bz/F4s6ELA/V4JxVd9E=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zamzar.com; h=
+	mime-version:content-transfer-encoding:content-type:date:from:to
+	:subject; s=mar2011; bh=InClRZ/rRmJXWNg+fraeIoABkEfObOn4alEf+FRb
+	SOM=; b=GT5KEj8N1WHiGuw84t+rnWHdz3Uz5zxXvS355PDoeArmgCC2PLJBxgic
+	QK4olR93Gd3m40g0Q4oGf1jbiFELplHVrEVGecVkQb7q3nRhmkF+90IYNjF1v+qO
+	oLzMDtv65s+UcrucCIA+/68yvyHBZ8m+bbJdI/VREE9m9RcLob8=
+MIME-Version: 1.0
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html
+X-Mailer: MIME::Lite 3.027 (F2.6; A2.07; B2.23; Q2.21)
+Date: Wed, 11 Apr 2018 23:41:02 -0500
+From: Zamzar Conversions <convertedFiles@zamzar.com>
+To: yasserkaddouralearn@gmail.com
+Subject: Converted file from Zamzar: What-Every-Body-Is-Saying-An-Ex-FBI-Agent-s-Guide-to-Speed-Reading-People.epub
+Return-Path: convertedFiles@zamzar.com
+Message-ID: <ZAM76clWXSZ3Zs3Mpw6000345b1@www76.zamzar.com>
+X-OriginalArrivalTime: 12 Apr 2018 04:41:02.0436 (UTC) FILETIME=[75FBCA40:01D3D218]
+
+<html><style>.mainBody {font-family:Arial, Helvetica, sans-serif;font-size:=
+12px;color:#000000;margin:0px auto;padding:0px;}.mainBody a {font-family:Ar=
+ial, Helvetica, sans-serif;font-size:12px;color:#003399;}.mainBody a:hover =
+{color:#000000;}.smallHeaderGreen {overflow: hidden; padding: 0px 0px 0px 0=
+px; color: #84A943; font-weight: bold; font-size: 1.4em;}</style><body clas=
+s=3D'body'><a href=3D'https://www.zamzar.com/'><img src=3D'https://www.zamz=
+ar.com/images/zamzar-logo-email-v2.jpg' border=3D'0' width=3D'227' height=
+=3D'57'/></a><span class=3D'mainBody'>
+<h2 class=3D'smallHeaderGreen'>Hello from Zamzar !</h2><p style=3D'margin: =
+1em 0px;'>The file you submitted for conversion is now available for downlo=
+ad from Zamzar - all files will be stored for <b>1 day</b> from receipt of =
+this mail.</p><p style=3D'margin: 1em 0px;'><div style=3D'width:440px;min-h=
+eight:25px;border-radius:5px;border:2px solid #818096;background:rgb(221,23=
+8,255);'><br><span style=3D'padding-left:20px; font-size:16px;font-weight:b=
+old;'> &nbsp;&nbsp;Grab a Zamzar account !</span><br><br><ul><li style=3D'l=
+ist-style:none;'>In <b>less than a minute</b> and you'll get:<br><span styl=
+e=3D'font-size:4px;'>&nbsp;</span></li><li>Faster conversions (usually deli=
+vered in less than 5 minutes)</li><li>Larger conversions - up to 2GB in siz=
+e</li><li>Personal inbox to manage and store up to 100GB of your files</li>=
+<li>Your files will no longer expire after 24 hours</li><li>No intrusive ad=
+verts</li><li>And much more ...</li><li style=3D'list-style:none;'><br><spa=
+n style=3D'font-size:4px;'>&nbsp;</span><span style=3D'font-size:14px;font-=
+weight:bold;'>Sign up at: <a rel=3D'nofollow' target=3D'_blank' href=3D'htt=
+ps://www.zamzar.com/signup/?utm_source=3Dz&amp;utm_medium=3De&amp;utm_campa=
+ign=3D1#go'>https://www.zamzar.com/signup/</a></span></li></ul><br><br></di=
+v></p>
+<p style=3D'margin: 1em 0px;'>Or click on the following link to download yo=
+ur converted file:<br/> <a href=3D'https://www.zamzar.com/getFiles.php?uid=
+=3Dc61aad1cc9e5b6c1812742df8028eaef-f466b5d85b9a714&targetID=3DpmVo4ovEokmj=
+aZ3aE0P2tw_I_I'>https://www.zamzar.com/getFiles.php?uid=3Dc61aad1cc9e5b6c18=
+12742df8028eaef-f466b5d85b9a714&targetID=3DpmVo4ovEokmjaZ3aE0P2tw_I_I</a></=
+p><p style=3D'margin: 1em 0px;'>The following file was successfully convert=
+ed from <b>epub</b> to <b>pdf</b> format:</p>
+<p style=3D'margin: 1em 0px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>What-E=
+very-Body-Is-Saying-An-Ex-FBI-Agent-s-Guide-to-Speed-Reading-People.epub</b=
+><br/></p><div style=3D'width: 740px;min-height: 25px;-webkit-border-radius=
+: 2px;-moz-border-radius: 2px;border-radius: 5px;border: 2px solid #818096;=
+background: rgb(223, 249, 194);-webkit-box-shadow: #B3B3B3 2px 2px 2px;-moz=
+-box-shadow: #B3B3B3 2px 2px 2px;box-shadow: #B3B3B3 2px 2px 2px;'><p>&nbsp=
+;&nbsp;&nbsp;Need to <b>automate file conversion</b>? Check out the <b><a h=
+ref=3D'https://developers.zamzar.com/?utm_source=3Dz&amp;utm_medium=3De&amp=
+;utm_campaign=3D2' target=3D'_blank'>Developer API</a></b> - convert 1000's=
+ of formats in a few lines of simple code.</span></div><p style=3D'margin: =
+1em 0px;'>Please do not reply to this automatically-generated email. If you=
+ have any questions, please email <a href=3Dmailto:support@zamzar.com?Subje=
+ct=3DFileSupport>support@zamzar.com</a></p>
+<p style=3D'margin: 1em 0px;'>Thanks again for using Zamzar - <a href=3D'ht=
+tps://www.zamzar.com/'>https://www.zamzar.com/</a> - Free online file conve=
+rsion</p></span><div style=3D'clear:both;width:770px;margin:0px;padding:5px=
+ 0px 5px 0px;background-color:rgb(128,161,202);color:rgb(255,255,255);'><ta=
+ble cellspacing=3D'0' cellpadding=3D'0' border=3D'0' width=3D'770'><tr><td>=
+&nbsp;</td><td align=3D'left'><a href=3D'https://www.zamzar.com/' style=3D'=
+color:rgb(255,255,255);text-decoration:none;font-weight:bold;font-family:Ta=
+homa,sans serif;font-size:11px;'><span style=3D'color:rgb(255,255,255);text=
+-decoration:none;font-weight:bold;font-family:Tahoma,sans serif;font-size:1=
+1px;'>Home</span></a>
+<span style=3D'color:rgb(255,255,255);font-weight:bold;'>&#124;</span> <a h=
+ref=3D'https://www.zamzar.com/company.php' style=3D'color:rgb(255,255,255);=
+text-decoration:none;font-weight:bold;font-family:Tahoma,sans serif;font-si=
+ze:11px;'><span style=3D'color:rgb(255,255,255);text-decoration:none;font-w=
+eight:bold;font-family:Tahoma,sans serif;font-size:11px;'>About Us</span></=
+a> <span style=3D'color:rgb(255,255,255);font-weight:bold;'>&#124;</span> <=
+a href=3D'https://www.zamzar.com/advertise.php' style=3D'color:rgb(255,255,=
+255);text-decoration:none;font-weight:bold;font-family:Tahoma,sans serif;fo=
+nt-size:11px;'><span style=3D'color:rgb(255,255,255);text-decoration:none;f=
+ont-weight:bold;font-family:Tahoma,sans serif;font-size:11px;'>Advertise</s=
+pan></a>
+<span style=3D'color:rgb(255,255,255);font-weight:bold;'>&#124;</span> <a h=
+ref=3D'https://www.zamzar.com/tos.php' style=3D'color:rgb(255,255,255);text=
+-decoration:none;font-weight:bold;font-family:Tahoma,sans serif;font-size:1=
+1px;'><span style=3D'color:rgb(255,255,255);text-decoration:none;font-weigh=
+t:bold;font-family:Tahoma,sans serif;font-size:11px;'>Terms of Service</spa=
+n></a>
+<span style=3D'color:rgb(255,255,255);font-weight:bold;'>&#124;</span> <a h=
+ref=3D'https://www.zamzar.com/privacy.php' style=3D'color:rgb(255,255,255);=
+text-decoration:none;font-weight:bold;font-family:Tahoma,sans serif;font-si=
+ze:11px;'><span style=3D'color:rgb(255,255,255);text-decoration:none;font-w=
+eight:bold;font-family:Tahoma,sans serif;font-size:11px;'>Privacy</span></a=
+></td><td align=3D'right' valign=3D'bottom'><a href=3D'https://www.zamzar.c=
+om/' style=3D'color:rgb(255,255,255);text-decoration:none;font-weight:bold;=
+font-family:Tahoma,sans serif;font-size:11px;'><span style=3D'color:rgb(255=
+,255,255);text-decoration:none;font-weight:bold;font-family:Tahoma,sans ser=
+if;font-size:11px;'>&copy; Zamzar 2006-2018</span></a></td><td>&nbsp;&nbsp;=
+</td></tr></table></div></body></html>

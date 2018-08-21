@@ -1,0 +1,82 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a02:b051:0:0:0:0:0 with SMTP id q17-v6csp1702563jah;
+        Fri, 1 Jun 2018 22:35:53 -0700 (PDT)
+X-Google-Smtp-Source: ADUXVKIjcoeXXiUdzKknCcGtuOBPciy/C4U+E5pYMgpJm1zoJHEI0ZG1HDRycttUrpF85h4eaSHI
+X-Received: by 2002:a37:d746:: with SMTP id m67-v6mr12626693qki.267.1527917753794;
+        Fri, 01 Jun 2018 22:35:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1527917753; cv=none;
+        d=google.com; s=arc-20160816;
+        b=OKItUaFaRuK00n7xylPtbGf2ZomK4yr+nk3tQeZG1CCJ8AIxXsjXH/8w3a2wjWSpoY
+         krFAK3VfooDoBRsD4gverJZUUPLGb/giFaxlbicMqYLmGOfRIuFsoX92LWN3siPQUV6N
+         qqDuHynyQjHxAhjDzOb1L5iHquXo8u/YwfVxM9nYhuAG0pyoxtOpYJGI+TLoeHtVvpaa
+         fdhk1X1BAW1EAWZhW0+8rifHCX7ULDaCAOF/SnDMHmMCCMllU2EhbzirfVyiWeUhw8GX
+         OHU58SIO7as0m5ZBc4QxKnkyg9bP+EO1XBzzZRth+ys/qOCcx8xqo+GoMji9nI3XpCyc
+         zohQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:subject:from:to:message-id:sender:date
+         :content-transfer-encoding:dkim-signature:dkim-signature
+         :arc-authentication-results;
+        bh=EDpa4nTthnPuCXLj15oUc61SBE4CaUVaDUzRhqYitxI=;
+        b=oO6YMc6xZR5HjiVBICJ4YrceUsg9WRuFAXbp5BG3dkV83L5w2HUGGI3OGfuWWHkGjE
+         0L6ZeA+HZaOGmonttetlOwz9DPAuYiKsn9FRKTJV3evzoG2EW91EqIbAKt/0US0tMCO0
+         4eAZIm9vwoLkxisuDfgIgzxrk+7hUS4fYStASHcDS84TsPF5dqRNMlL81UxoFnALgbTz
+         j1cyuwqdVj4o677jrnGSD27h3jr27+bmobtsqEamHLnzPOjWyCGhdXko1QlFIfXBOVxB
+         h+k3I5lWuLEQX8/jwYJ5O4TUgVJUqW7Tv/Jl6NsInCtVICEzTi7D0p24EHnzCgqZKaQw
+         R/YQ==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@simplenote.com header.s=mailo header.b=byf04Muh;
+       dkim=pass header.i=@mailgun.org header.s=mg header.b=qE3HzsPI;
+       spf=pass (google.com: domain of bounce+e973f6.bdc773-yasserkaddouralearn=gmail.com@simplenote.com designates 184.173.105.116 as permitted sender) smtp.mailfrom=bounce+e973f6.bdc773-yasserkaddouralearn=gmail.com@simplenote.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=simplenote.com
+Return-Path: <bounce+e973f6.bdc773-yasserkaddouralearn=gmail.com@simplenote.com>
+Received: from p116.mailgun.us (p116.mailgun.us. [184.173.105.116])
+        by mx.google.com with UTF8SMTPS id b36-v6si2096049qtb.302.2018.06.01.22.35.53
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 01 Jun 2018 22:35:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce+e973f6.bdc773-yasserkaddouralearn=gmail.com@simplenote.com designates 184.173.105.116 as permitted sender) client-ip=184.173.105.116;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@simplenote.com header.s=mailo header.b=byf04Muh;
+       dkim=pass header.i=@mailgun.org header.s=mg header.b=qE3HzsPI;
+       spf=pass (google.com: domain of bounce+e973f6.bdc773-yasserkaddouralearn=gmail.com@simplenote.com designates 184.173.105.116 as permitted sender) smtp.mailfrom=bounce+e973f6.bdc773-yasserkaddouralearn=gmail.com@simplenote.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=simplenote.com
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=simplenote.com; q=dns/txt;
+ s=mailo; t=1527917753; h=Mime-Version: Content-Type: Subject: From: To:
+ Message-Id: Sender: Date: Content-Transfer-Encoding: X-Feedback-Id;
+ bh=EDpa4nTthnPuCXLj15oUc61SBE4CaUVaDUzRhqYitxI=; b=byf04MuhbXoGwGRHR4uJzF9/tCw1ghkBACA6FPaka4def7/PqvOPV+0squOogdskIrcvo1fx
+ CHF6aj65q+fB7ZcGZ6VBk1wTUoK3kCeEdMcvgL4GKp8qiLtuGlUfHrT0doPKYjJtfEthWBdp
+ KOClHR13eSarJdut7vvfpRz4nqk=
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mailgun.org; q=dns/txt; s=mg;
+ t=1527917753; h=Mime-Version: Content-Type: Subject: From: To:
+ Message-Id: Sender: Date: Content-Transfer-Encoding: X-Feedback-Id;
+ bh=EDpa4nTthnPuCXLj15oUc61SBE4CaUVaDUzRhqYitxI=; b=qE3HzsPIxCaUefVqPnP3F/E4wzjP5fI/KnvUs7HwAPeVtYr+/5oMG8JjKtTknMwmCcZBvFEJ
+ zwqx0Pa3SjsRnkK0uHfhs9ypz0HXIL/uUTJQt62wDxPmtA+LXeNcySjKPV7YJb9A3ix6a1j4
+ ADy/nUL1k9nKRp33kOlyKdPNC64=
+X-Feedback-Id: 56d4874d803267fb73ce20e8:mailgun
+X-Mailgun-Sending-Ip: 184.173.105.116
+X-Mailgun-Sid: WyI3MThmZSIsICJ5YXNzZXJrYWRkb3VyYWxlYXJuQGdtYWlsLmNvbSIsICJiZGM3NzMiXQ==
+Content-Transfer-Encoding: 7bit
+Received: by luna.mailgun.net with HTTP; Sat, 02 Jun 2018 05:35:53 +0000
+Date: Sat, 02 Jun 2018 05:35:53 +0000
+Sender: support@simplenote.com
+Message-Id: <20180602053553.1.FB3CDFCD502EE1B0@simplenote.com>
+To: yasserkaddouralearn@gmail.com
+From: Simplenote Support <support@simplenote.com>
+Subject: Simplenote Account Notification
+Content-Type: text/plain; charset="ascii"
+Mime-Version: 1.0
+
+Welcome to Simplenote!
+
+Thanks for creating a Simplenote account. What happens now? Well, Simplenote will automatically backup your notes for you. Your latest changes are safely stored online in case you lose your device, damage it, or buy a new one.
+
+Your account also lets you see and change your notes on more than one device. If you haven't already, you can download Simplenote here:
+http://simplenote.com
+
+If your device isn't supported yet, you can always use a browser to access your notes on the web:
+https://app.simplenote.com
+
+Get the latest news by following us on Twitter:
+http://twitter.com/simplenoteapp
+
+The Simplenote Team

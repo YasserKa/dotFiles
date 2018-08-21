@@ -1,0 +1,286 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:2e50:0:0:0:0:0 with SMTP id u77-v6csp3060550vku;
+        Tue, 17 Jul 2018 01:03:03 -0700 (PDT)
+X-Received: by 2002:aca:41d7:: with SMTP id o206-v6mr544988oia.172.1531814583648;
+        Tue, 17 Jul 2018 01:03:03 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1531814583; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=NYkYALYlXCl4c+R/t/2y/P0XegENQpISDDOhIvbHX2oPeSMlY4fw5eur9HkiYiemaP
+         umi69Mav3QVKIJAkeZoLW21ScEoluk0BtGsri8/G3QMQGL7Edmvpr721EH+yRCF7HHda
+         XEEiPOiRnLQVFdXprfXFmFu9hjMxKYW+pekcJqbqCfa+sBBR5Z4AEn2klh/p+OV3jVP9
+         XWEiaxlMawo18jVC8WbxGeGCBc1sPY9SVia5YySlSI/ggWOcmtz1C2VFpE+VlQDFL8Ao
+         MnsvaoHw0eiuJvzHT3dalzg28CEVCPRrAaUUiRBu3ko/+lc0aCYd8jcmNoG3EyWtKS7S
+         b1Pg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:subject:to:from:date:dkim-signature:message-id
+         :arc-authentication-results:arc-message-signature:delivered-to
+         :arc-authentication-results;
+        bh=caAEPhjD2s5IIdmG1XZXZ3NwFI+g0rG3SOJ03rq/MF0=;
+        b=QgN1TBDzOTFbHRxhCcrvuvcsGvLPJPcosKOTe0aQ910yo0FT4yi51aKkBOeg5vZrae
+         xlE2KMUS+Yitm2iaSgfvyXgNxadzyvL82LWDZhBQ9O/AazofDA8HtBXay9QsMIxah0cY
+         4TUpKdVolFpwLXJsXYA8wKacH8El7vp1BU3JZZei/CnBFFt+a2Ztdh8hssKvGcyMjqRo
+         KpY7t3FntGilbWEaB6ejFHbIV17AMU4LL/AfKWZ4+n0cUu0wOqeDrOi+xpFWmPsq/Wmk
+         tjMeCqfh0Kdn3PVLWONb8lkzju/H5RSSlTfAlGl6xQ1Q2Xk6aZ/xLB8o7qQxM0pkvP7v
+         dDZg==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=fail header.i=@aliexpress.com header.s=s1024 header.b=RGkG8RIg;
+       arc=pass (i=1 spf=pass spfdomain=notice.aliexpress.com dkim=pass dkdomain=aliexpress.com dmarc=pass fromdomain=aliexpress.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=fail (p=QUARANTINE sp=QUARANTINE dis=NONE arc=pass) header.from=aliexpress.com
+Return-Path: <yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id e3-v6sor196661oig.111.2018.07.17.01.03.03
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Tue, 17 Jul 2018 01:03:03 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=fail header.i=@aliexpress.com header.s=s1024 header.b=RGkG8RIg;
+       arc=pass (i=1 spf=pass spfdomain=notice.aliexpress.com dkim=pass dkdomain=aliexpress.com dmarc=pass fromdomain=aliexpress.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=fail (p=QUARANTINE sp=QUARANTINE dis=NONE arc=pass) header.from=aliexpress.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:delivered-to:message-id:dkim-signature:date:from
+         :to:subject:mime-version;
+        bh=caAEPhjD2s5IIdmG1XZXZ3NwFI+g0rG3SOJ03rq/MF0=;
+        b=TumDcuU249PkrzwLEAC79TbXKX5DovM1ohJi8UcgZi8Y/mbO1np33Pzo3eFVQGGqbq
+         Z2mrNhh7bGj6i6q/09t85f+3BieYybwGWvAERuhmqy5oMt9S4QniOC57TEHFPTMcUWWu
+         1hnkb3uvPMLNqmU21NOnbnd1sr6GTLVqUyzZc7HeeIsk308OiltdqefxkuVBc4eaFiPN
+         mW2kqKIZrbbLzegB9thuseIea0L12XF7djVUlPy1iU2Q+lsjT4/dGGIcjBdYjZflwDQO
+         dKHftfT8fz+yfDpAyi93fFivsNKt21j0DXVE5PeKBKSaGUA0V7qakdSQkQRLAnkRqDV7
+         DEKw==
+X-Gm-Message-State: AOUpUlFLY8V/HampCsH84skchpQZ3l8XcTQsPCawdPlhzyEDeMWfWh/A
+	qeEE6N4d2VTPN7yMHuwdiG5zES5GZw2sWuxRcBN3PFomseY/qUs=
+X-Received: by 2002:aca:5dc5:: with SMTP id r188-v6mr596526oib.320.1531814583234;
+        Tue, 17 Jul 2018 01:03:03 -0700 (PDT)
+X-Forwarded-To: yasserkaddoura19@gmail.com
+X-Forwarded-For: yasserkaddouralearn@gmail.com yasserkaddoura19@gmail.com
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:ac9:7dc8:0:0:0:0:0 with SMTP id j8-v6csp3228853ocv;
+        Tue, 17 Jul 2018 01:03:02 -0700 (PDT)
+X-Google-Smtp-Source: AAOMgpf10MtjiJo3GfnMWkl0Adgj8aR+hVehboyff7FV8m1aUMaOAFjrIrMS3UtsVpV/mr33lWcR
+X-Received: by 2002:a17:902:9a06:: with SMTP id v6-v6mr607366plp.21.1531814582282;
+        Tue, 17 Jul 2018 01:03:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1531814582; cv=none;
+        d=google.com; s=arc-20160816;
+        b=zpaU3L6IeQc5DxxSjP7EJ7eyfg6FajDB6uu9ZWE4YhLh747skl/tlmQo+X76wFzyvO
+         VJK0aIb6F/Kva8i9+JY8mTmaWpBrcXFwC0DHUAu3BU7iVnB/qDcPm6tcfwCkuBTbnrTH
+         sgnT/vovnZKgOQFdmFOHDcvnY30FhnVt+KJqFdx9sVQ+sd9KVPDHbKHIRCwg/mMpxd2j
+         86B63ldOTMtxisBtAmolVoMR3YMQYAV0vXDuVLa8VmyAi3QeOq3DuQieIKzVVwRgc67J
+         fxDQsux7uEgSAXZi8+6gAyPjrW+nx73c0kFAfeb+r58LIygQKo6gZIeRsAj/2d0GHUno
+         lhVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:subject:to:from:date:dkim-signature:message-id
+         :arc-authentication-results;
+        bh=caAEPhjD2s5IIdmG1XZXZ3NwFI+g0rG3SOJ03rq/MF0=;
+        b=M8yQLfgrbWWYbsrwXMBbWzI1HD9nKbiAmYr3b5MweaOOGCctpNR6/cwdMAjN5Vp9/i
+         0OIFfZxL3qDRkD7aVC7QTrGO/PMqTHa0zeqvN0XueWkI82DxGd+ZUEdLtUhFBsJBD86c
+         u6FupWdAZ65QSEnSGIT4wO8q8tiW1MG4nRGi68nBaMzR9i0QQFRqhGvXj75Cnz7JKcEz
+         DeA7vgfeHy42FkjNnKGNOT/BMvphPUD1Exw2s/5UFQvUIMh0PNFPArZEUvMq1q2BmvV4
+         dR4WNhB+I5pnf28/0f8wkb37XwXCRymCFDSki8+flpoxeVvt5VDF71iGIbZP1E4NSuHN
+         MOcw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@aliexpress.com header.s=s1024 header.b=RGkG8RIg;
+       spf=pass (google.com: domain of transaction@notice.aliexpress.com designates 115.124.22.29 as permitted sender) smtp.mailfrom=transaction@notice.aliexpress.com;
+       dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=aliexpress.com
+Return-Path: <transaction@notice.aliexpress.com>
+Received: from out22-29.mail.alibaba.com (out22-29.mail.alibaba.com. [115.124.22.29])
+        by mx.google.com with ESMTP id j185-v6si353435pgc.419.2018.07.17.01.03.01
+        for <yasserkaddouralearn@gmail.com>;
+        Tue, 17 Jul 2018 01:03:02 -0700 (PDT)
+Received-SPF: pass (google.com: domain of transaction@notice.aliexpress.com designates 115.124.22.29 as permitted sender) client-ip=115.124.22.29;
+Message-ID: <5b4da2b6.1c69fb81.8e5f9.d3c3SMTPIN_ADDED_BROKEN@mx.google.com>
+X-Google-Original-Message-ID: de53c2b0f85547c59401afe8210e50a1
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=aliexpress.com; s=s1024;
+	t=1531814581; h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=caAEPhjD2s5IIdmG1XZXZ3NwFI+g0rG3SOJ03rq/MF0=;
+	b=RGkG8RIgOoMa1/YYN+KuiPL3COFJKybQLliGgXJPjMoimX4hHu9//N/9u6SSY1SPdnPu7HOX1naFqV6lmgmoL4FKUVmHJlVNzokLmvWK9rI9isAkJQZO/pb+Kg5GZHtxRcUUWakx/BP0gRNt6Psvowpdcna7qj19+LnRDWpsrsM=
+X-EnvId:43370295944
+Received: from alibaba-jstorm-docker011185164006.center.et15(100.68.64.199)
+          by smtp.aliyun-inc.com(127.0.0.1);
+          Tue, 17 Jul 2018 16:03:01 +0800
+Date: Tue, 17 Jul 2018 16:03:00 +0800 (CST)
+From: transaction@notice.aliexpress.com
+To: yasserkaddouralearn@gmail.com
+Subject: =?UTF-8?Q?Order_Id_92560000568684=C2=A0-_Packag?=
+ =?UTF-8?Q?e_arrived_in_destination_country?=
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_326739256_1832630310.1531814580987"
+
+------=_Part_326739256_1832630310.1531814580987
+Content-Type: text/html;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<style type=3D"text/css">
+<!--
+.STYLE1 {
+=09font-family: Arial, Helvetica, sans-serif;
+=09font-size: 12px;
+}
+.STYLE6 {
+=09font-family: Arial, Helvetica, sans-serif;
+=09font-size: 14px;
+}
+.STYLE8 {
+=09font-size: 14px;
+=09color: #666666;
+}
+.STYLE9 {font-family: Arial, Helvetica, sans-serif; font-size: 14px; color:=
+ #666666; }
+.STYLE10 {font-size: 16px}
+.STYLE11 {font-size: 18}
+.STYLE12 {font-family: Arial, Helvetica, sans-serif; font-size: 16px; color=
+: #666666; }
+-->
+</style>
+<table width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" style=3D"backgrou=
+nd:#efefef;" align=3D"center" height=3D"auto"><tbody><tr><td><!--header--><=
+table id=3D"header" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=
+=3D"700" bgcolor=3D"#efefef" align=3D"center" height=3D"68"><tbody><tr heig=
+ht=3D"20"><td width=3D"150">&nbsp;</td><td width=3D"548">&nbsp;</td></tr><t=
+r><td height=3D"32" valign=3D"bottom" width=3D"150"><a href=3D"http://www.a=
+liexpress.com?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-0=
+7-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other" tar=
+get=3D"_blank"><img style=3D"VERTICAL-ALIGN: bottom" border=3D"0" alt=3D"al=
+iexpress.com" src=3D"http://gtms01.alicdn.com/tps/i1/TB1RvclHFXXXXaQXpXXxT2=
+CGpXX-160-40.png" width=3D"160" height=3D"40" /></a></td><td style=3D"COLOR=
+: #ccc" class=3D"global-nav" height=3D"32" valign=3D"bottom" width=3D"548" =
+align=3D"right"><a style=3D"PADDING-BOTTOM: 0px; PADDING-LEFT: 4px; PADDING=
+-RIGHT: 4px; FONT-FAMILY: arial; COLOR: #666; FONT-SIZE: 11px; TEXT-DECORAT=
+ION: none; PADDING-TOP: 0px" href=3D"http://trade.alibaba.com/order_list.ht=
+m?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&rowan_m=
+sg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other">My Orders</a> |=
+ <a style=3D"PADDING-BOTTOM: 0px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; FO=
+NT-FAMILY: arial; COLOR: #666; FONT-SIZE: 11px; TEXT-DECORATION: none; PADD=
+ING-TOP: 0px" href=3D"http://www.aliexpress.com/help/home.html#center?trace=
+log=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&rowan_msg_id=
+=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other" target=3D"_blank">He=
+lp</a> | <a style=3D"PADDING-BOTTOM: 0px; PADDING-LEFT: 4px; PADDING-RIGHT:=
+ 4px; FONT-FAMILY: arial; COLOR: #666; FONT-SIZE: 11px; TEXT-DECORATION: no=
+ne; PADDING-TOP: 0px" href=3D"http://www.aliexpress.com/buyerprotection/ind=
+ex.html?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&r=
+owan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other" target=3D=
+"_blank">Buyer Protection</a></td></tr><tr height=3D"11"><td width=3D"150">=
+&nbsp;</td><td width=3D"548">&nbsp;</td></tr></tbody></table></td></tr></tb=
+ody></table><table style=3D"background: rgb(239, 239, 239);" align=3D"cente=
+r" border=3D"0" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tbody><=
+tr><td><table class=3D"content                                             =
+        " style=3D"background: rgb(255, 255, 255); border: 1px solid rgb(22=
+1, 221, 221);" align=3D"center" border=3D"0" width=3D"700" cellpadding=3D"0=
+" cellspacing=3D"0"><tbody><tr><td height=3D"20"></td></tr><tr><td><!-- con=
+t start --><table align=3D"center" border=3D"0" width=3D"96%" cellpadding=
+=3D"0" cellspacing=3D"0"><tbody><tr><td height=3D"20"><span style=3D"font-f=
+amily:Arial;"><br /></span></td></tr><tr><td style=3D"color: rgb(255, 102, =
+0); line-height: 32px; font-size: 24px;" valign=3D"top"><span class=3D"STYL=
+E11" style=3D"font-family:Arial;">Order Id&nbsp;92560000568684&nbsp;- Packa=
+ge arrived in destination country</span></td>
+</tr><tr><td height=3D"14"><span style=3D"font-family:Arial;"><br /></span>=
+</td></tr><tr><td style=3D"color: rgb(102, 102, 102); line-height: 40px; fo=
+nt-size: 18px;" valign=3D"top"><span class=3D"STYLE10" style=3D"font-family=
+:Arial;">Dear Yasser Kaddoura,</span></td>
+</tr><tr><td style=3D"line-height: 18px;"><p class=3D"STYLE6 STYLE8"><span =
+class=3D"STYLE12">Package arrived in destination country, for more informat=
+ion you can track it here.</span></p>
+    <p align=3D"center" class=3D"STYLE9">ORDER NUMBER:92560000568684.</p>
+                        <p align=3D"center" class=3D"STYLE9"> TRACKING NUMB=
+ER :RB571176097SG.</p>
+                        <p align=3D"center" class=3D"STYLE1"><span class=3D=
+"STYLE6" style=3D"color:#666666;"><a href=3D"http://track.aliexpress.com/lo=
+gisticsdetail.htm?tradeId=3D92560000568684&tracelog=3Drowan&rowan_id1=3Ddes=
+tinationArrive_1_en_US_2018-07-17&rowan_msg_id=3Dde53c2b0f85547c59401afe821=
+0e50a1&ck=3Din_edm_other"> View detail tracking information </a></span></p>
+                        <tr>
+                      <td style=3D"line-height: 18px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td style=3D"line-height: 18px;"><p style=3D"LINE-HEI=
+GHT: 18px; FONT-FAMILY: arial; COLOR: rgb(102, 102, 102); FONT-SIZE: 16px">=
+Sincerely, </p>
+                        <p style=3D"LINE-HEIGHT: 18px; FONT-FAMILY: arial; =
+COLOR: rgb(102, 102, 102); FONT-SIZE: 16px">AliExpress.com</p>
+                        <p style=3D"LINE-HEIGHT: 18px; FONT-FAMILY: arial; =
+COLOR: rgb(102, 102, 102); FONT-SIZE: 16px">2018-07-17 01:03 </p>
+                        <p style=3D"LINE-HEIGHT: 18px; FONT-FAMILY: arial; =
+COLOR: rgb(102, 102, 102); FONT-SIZE: 16px">This is an automated system ema=
+il. Please do not reply to this email.</p>                      </td>
+    </tr>
+</tbody>
+</table><!-- cont end --></td></tr><tr><td height=3D"20">&nbsp;</td></tr></=
+tbody></table></td></tr></tbody></table><table style=3D"BACKGROUND: #efefef=
+" border=3D"0" cellpadding=3D"0" width=3D"100%" align=3D"center" height=3D"=
+auto" cellspacig=3D"0"><tbody><tr><td><!--footer--> <table style=3D"BACKGRO=
+UND: #efefef" border=3D"0" cellpadding=3D"0" width=3D"100%" align=3D"center=
+" height=3D"auto" cellspacig=3D"0"><tbody><tr><td><!--footer--><table class=
+=3D"footer            " border=3D"0" cellspacing=3D"0" cellpadding=3D"0" wi=
+dth=3D"700" bgcolor=3D"#efefef" align=3D"center" height=3D"165"><tbody><tr>=
+<td style=3D"LINE-HEIGHT: 18px; FONT-FAMILY: arial; COLOR: #999; FONT-SIZE:=
+ 11px; padding:10px 0px 10px 0px;" valign=3D"bottom"><p align=3D"center"><a=
+ href=3D"http://sale.aliexpress.com/download_app_guide.htm?ck=3Din_edm_noti=
+ce_end&tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&ro=
+wan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1" target=3D"_blank"><img src=
+=3D"https://img.alicdn.com/tps/TB16YAKKFXXXXcoXXXXXXXXXXXX-700-150.jpg" alt=
+=3D"AliExpress App" width=3D"700" height=3D"150" border=3D"0"></a></p></td>=
+</tr>
+=09<tr><td style=3D"LINE-HEIGHT: 18px; FONT-FAMILY: arial; COLOR: #999; FON=
+T-SIZE: 11px" valign=3D"bottom">
+                        <p>Site Access: <a style=3D"FONT-FAMILY: arial; COL=
+OR: #999; FONT-SIZE: 11px; TEXT-DECORATION: underline" href=3D"http://www.A=
+liExpress.com?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-0=
+7-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other" tar=
+get=3D"_blank">Homepage</a> <span style=3D"color:#999999;">|</span> <a styl=
+e=3D"FONT-FAMILY: arial; COLOR: #999; FONT-SIZE: 11px; TEXT-DECORATION: und=
+erline" href=3D"http://trade.alibaba.com/order_list.htm?tracelog=3Drowan&ro=
+wan_id1=3DdestinationArrive_1_en_US_2018-07-17&rowan_msg_id=3Dde53c2b0f8554=
+7c59401afe8210e50a1&ck=3Din_edm_other">My Orders</a> <span style=3D"color:#=
+999999;">|</span> <a style=3D"FONT-FAMILY: arial; COLOR: #999; FONT-SIZE: 1=
+1px; TEXT-DECORATION: underline" href=3D"http://www.aliexpress.com/buyerpro=
+tection/index.html?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2=
+018-07-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other=
+" target=3D"_blank">Buy Protection</a> <span style=3D"color:#999999;">|</sp=
+an> <a style=3D"FONT-FAMILY: arial; COLOR: #999; FONT-SIZE: 11px; TEXT-DECO=
+RATION: underline" href=3D"http://www.aliexpress.com/help/newContactUs.htm?=
+tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&rowan_msg=
+_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other" target=3D"_blank"=
+>Help Center</a> <span style=3D"color:#999999;">|</span> <a style=3D"FONT-F=
+AMILY: arial; COLOR: #999; FONT-SIZE: 11px; TEXT-DECORATION: underline" hre=
+f=3D"http://www.aliexpress.com/help/newContactUs.htm?tracelog=3Drowan&rowan=
+_id1=3DdestinationArrive_1_en_US_2018-07-17&rowan_msg_id=3Dde53c2b0f85547c5=
+9401afe8210e50a1&ck=3Din_edm_other" target=3D"_blank">Contact Us</a><br />
+                          <a style=3D"COLOR: #999; TEXT-DECORATION: underli=
+ne" href=3D"http://us.my.alibaba.com/user/company/forget_password_input_ema=
+il.htm?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&ro=
+wan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other" target=3D"=
+_blank">Forgot your password? in French</a> <br />
+                          This email was sent to  <br />
+                          You are receiving this email because you are a re=
+gistered member of <a style=3D"FONT-FAMILY: arial; COLOR: #999; FONT-SIZE: =
+11px; TEXT-DECORATION: underline" href=3D"http://www.AliExpress.com?tracelo=
+g=3Drowan&rowan_id1=3DdestinationArrive_1_en_US_2018-07-17&rowan_msg_id=3Dd=
+e53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_other">AliExpress.com</a>. <br =
+/>
+                          Read our <a style=3D"COLOR: #999; TEXT-DECORATION=
+: underline" href=3D" http://www.alibaba.com/help/safety_security/policies_=
+rules/others/001.html?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_U=
+S_2018-07-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_ot=
+her" target=3D"_blank">Privacy Policy</a> and <a style=3D"COLOR: #999; TEXT=
+-DECORATION: underline" href=3D"http://www.alibaba.com/help/safety_security=
+/policies_rules/others/002.html?tracelog=3Drowan&rowan_id1=3DdestinationArr=
+ive_1_en_US_2018-07-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=
+=3Din_edm_other" target=3D"_blank">Terms of Use</a> if you have any questio=
+ns. <br />
+                          <a style=3D"FONT-FAMILY: arial; COLOR: #999; FONT=
+-SIZE: 11px; TEXT-DECORATION: underline" href=3D"http://www.aliexpress.com/=
+help/home.html#contact?tracelog=3Drowan&rowan_id1=3DdestinationArrive_1_en_=
+US_2018-07-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1&ck=3Din_edm_o=
+ther">AliExpress Service Center</a><br />
+                          Alibaba.com Hong Kong Limited, 26/F Tower One, Ti=
+mes Square1 Matheson Street Causeway Bay, Hong Kong.</p></td></tr></tbody><=
+/table><!---footer----><!--test--></td></tr></tbody></table><!---footer----=
+><!--test--></td></tr></tbody></table><br />
+<div style=3D"display:none"><img style=3D"display:none" src=3D"http://gm.mm=
+stat.com/ae.edm.edm_open?tracelog=3Drowan-trade-platform-destinationArrive_=
+1_en_US-2018-07-17&rowan_msg_id=3Dde53c2b0f85547c59401afe8210e50a1"/></div>
+------=_Part_326739256_1832630310.1531814580987--

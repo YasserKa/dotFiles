@@ -1,0 +1,154 @@
+Return-Path: <3O5xyWxQKBiA9NERA-OD6NAO-JKNALHUCKKCHA.8KIU6OOANI6GAN7N6JA.8KI@doclist.bounces.google.com>
+X-Original-To: yasser@makerbrane.com
+Delivered-To: x16771060@pdx1-sub0-mail-mx9.dreamhost.com
+Received: from vade-backend10.dreamhost.com (fltr-in2.mail.dreamhost.com [66.33.205.213])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pdx1-sub0-mail-mx9.dreamhost.com (Postfix) with ESMTPS id DFE3080BCF
+	for <yasser@makerbrane.com>; Tue, 14 Aug 2018 02:09:16 -0700 (PDT)
+Received: from mail-qt0-f199.google.com (mail-qt0-f199.google.com [209.85.216.199])
+	by vade-backend10.dreamhost.com (Postfix) with ESMTPS id 9C9E840001801
+	for <yasser@makerbrane.com>; Tue, 14 Aug 2018 02:09:16 -0700 (PDT)
+Authentication-Results: vade-backend10.dreamhost.com; dkim=pass
+	reason="2048-bit key; unprotected key"
+	header.d=google.com header.i=@google.com header.b=ec3iKrTc;
+	dkim-adsp=pass; dkim-atps=neutral
+Received: by mail-qt0-f199.google.com with SMTP id j9-v6so15022278qtn.22
+        for <yasser@makerbrane.com>; Tue, 14 Aug 2018 02:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=mime-version:reply-to:references:message-id:date:subject:from:to:cc;
+        bh=On9/Lgqe2cMEsI2THjgmABn7h0ietUftsFDIJAZtaP0=;
+        b=ec3iKrTcoMDk+2+hT6iZcthmcDgKL9bz9C93a6H0kxUzuxePJOhAB9SEXkX4Vkm9Au
+         ky+DirOP7c5CObxT7tFuRM0ZqFHe0TnJ64SNgwaStmpeCQOJTEpozoUsuIGyc5UAPSZM
+         GIpYFpreP0NI1jh3cy72TcOgyW7+Ia4iMmKdtpIsBOu3x/NIOke+Yieik6u/6ZNeppZP
+         b1BHrWbrjSmoLjd0sRhZLK0xNJgpW1SNf8kOpNXX3wMxUr1lwLPBcHIzOUxg/bvS5E2p
+         ALODX+GO9hAcIOUex8oFDuTfY5IijAoriJIDJOWaRb6dj2np0okKWrFuGKjB/q3GVZYi
+         2X2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:references:message-id:date
+         :subject:from:to:cc;
+        bh=On9/Lgqe2cMEsI2THjgmABn7h0ietUftsFDIJAZtaP0=;
+        b=Cz4HKspeWPaLtuvuCR3EyBjOW6ZemSsFwL4e5qZ4TvlqzpA9B0GBrJaHNdvoGz+oif
+         knhn97puyb2eirRm8nJCIsyvqCA+8kJNeLfKgcZVNe0gAPRDmpNKgfqxc9lbozA3iM2j
+         3K4s8HwqaQ5OBMt2y1FwcejyUPbfU/TYM6AETCzjTDhLf72fILHdQJXouS+BvLSS8r8M
+         KIHMZrwsYuE3PanDnyfvJ9gPTpsP8KJAsVaSOoTQT/TPTsYuKpDfegLweik/HJ/1RjiB
+         PQ4nbIIW/Kq2yBU8m9+l6i5xxOz6Yke2qetJuKfidbF8Rj+QjqKcZd5stGtszV0C2+aD
+         69tA==
+X-Gm-Message-State: AOUpUlGAoMSp6o6TvnZaIRtoFDIDWQlMBqvBi00K14jrD8sWWNbFVORd
+	/zMspLcxDkLuiCk9/1uqBgg5nzhh8KYVayO3
+X-Google-Smtp-Source: AA+uWPzkMYg5ozAIoJD7TvoiNr7+qaMVISeCkbrZmmQCGKXwrsb52XWZuVHxRz8/Gub46kMa0izVW27cUsM=
+MIME-Version: 1.0
+X-Received: by 2002:a0c:e601:: with SMTP id z1-v6mr11055189qvm.33.1534237755819;
+ Tue, 14 Aug 2018 02:09:15 -0700 (PDT)
+Reply-To: Jad Khater <jadk@makerbrane.com>
+X-No-Auto-Attachment: 1
+References: <45ae55ea-c8df-4b42-8f77-b845084194a2@docs-share.google.com>
+Message-ID: <0000000000006fe29305736190af@google.com>
+Date: Tue, 14 Aug 2018 09:09:15 +0000
+Subject: MakerSpace - Invitation to collaborate
+From: "Jad Khater (via Google Drive)" <drive-shares-noreply@google.com>
+To: yasser@makerbrane.com
+Cc: ayssar@makerbrane.com
+Content-Type: multipart/alternative; boundary="0000000000006fe27805736190ac"
+X-VR-STATUS: OK
+X-VR-SCORE: 30
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrudehgdduvdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucggtfgfnhhsuhgsshgtrhhisggvpdfftffgtefojffquffvnecuuegrihhlohhuthemuceftddtnecuogfuuhhsphgvtghtkfhmghffohhmrghinhculdeftddmnecujfgurhepgghrfhfkfffuhffvtgesrgdtreertddtjeenucfhrhhomhepfdflrgguucfmhhgrthgvrhculdhvihgrucfiohhoghhlvgcuffhrihhvvgdmfdcuoegurhhivhgvqdhshhgrrhgvshdqnhhorhgvphhlhiesghhoohhglhgvrdgtohhmqeenucffohhmrghinhepghhoohhglhgvrdgtohhmnecukfhppedvtdelrdekhedrvdduiedrudelleenucfrrghrrghmpehmohguvgepshhmthhppdhhvghlohepmhgrihhlqdhqthdtqdhfudelledrghhoohhglhgvrdgtohhmpdhinhgvthepvddtledrkeehrddvudeirdduleelpdhrvghtuhhrnhdqphgrthhhpedflfgrugcumfhhrghtvghrucdlvhhirgcuifhoohhglhgvucffrhhivhgvmddfuceoughrihhvvgdqshhhrghrvghsqdhnohhrvghplhihsehgohhoghhlvgdrtghomheqpdhmrghilhhfrhhomhepfefqheighighgifsmfeuihetlefpgffttedqqfffiefptefqqdflmffptefnjfgfvefmmfevjfetrdekmffkfgeiqffqtefpkfeiifetpfejpfeilfetrdekmffkseguohgtlhhishhtrdgsohhunhgtvghsrdhgohhoghhlvgdrtghomhdpnhhrtghpthhtoh
+ ephigrshhsvghrsehmrghkvghrsghrrghnvgdrtgh
+
+--0000000000006fe27805736190ac
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+
+I've shared an item with you:
+
+MakerSpace
+https://drive.google.com/drive/folders/1XvYbppCOegcrnTjtkcbgJ7YsXUl0eyJi?usp=sharing&ts=5b729c3b
+
+It's not an attachment -- it's stored online. To open this item, just click  
+the link above.
+
+--0000000000006fe27805736190ac
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><script type=3D"application/json" data-scope=3D"in=
+boxmarkup" nonce=3D"MCaAyJVM0AbKhcXHo8r+jFCBOPs">{"publisher":{"api_key":"1=
+e6ef4c2b3e67680225868caeb59b7ad","name":"Google Drive"},"api_version":"1.0"=
+,"updates":{"snippets":[{"icon":"PERSON","message":"Jad Khater has invited =
+you to organize, add, \u0026 edit this folder"}],"action":{"name":"Open","u=
+rl":"https://drive.google.com/drive/folders/1XvYbppCOegcrnTjtkcbgJ7YsXUl0ey=
+Ji?usp\u003dsharing_eid\u0026ts\u003d5b729c3b"}},"entity":{"main_image_url"=
+:"https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/smartmail/bt_=
+google_drive_1600dp_r2.png","external_key":"1XvYbppCOegcrnTjtkcbgJ7YsXUl0ey=
+Ji","avatar_image_url":"https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E=
+5CD71C11/smartmail/bt_google_drive_avatar_224dp_r1.png","subtitle":"shared =
+by Jad Khater","action":{"name":"Open","url":"https://drive.google.com/driv=
+e/folders/1XvYbppCOegcrnTjtkcbgJ7YsXUl0eyJi"},"title":"MakerSpace"}}</scrip=
+t><div style=3D"width: 100%; padding: 24px 0 16px 0; background-color: #f5f=
+5f5; text-align: center;"><div style=3D"display: inline-block; width: 90%; =
+max-width: 680px;min-width: 280px; text-align: left; font-family: Roboto,Ar=
+ial,Helvetica,sans-serif;"><div style=3D"height: 0px;" dir=3D"ltr"></div><d=
+iv style=3D"display: block; padding: 0 2px;"><div style=3D"display: block; =
+background: #fff; height: 2px;"></div></div><div style=3D"border-left: 1px =
+solid #f0f0f0; border-right: 1px solid #f0f0f0;"><div style=3D"padding: 24p=
+x 32px 24px 32px; background:#fff; border-right: 1px solid #eaeaea; border-=
+left: 1px solid #eaeaea;" dir=3D"ltr"><div style=3D"font-size: 14px; line-h=
+eight: 18px; color: #444;"><a href=3D"mailto:jadk@makerbrane.com" style=3D"=
+color:inherit;text-decoration:none">jadk@makerbrane.com</a> has invited you=
+ to <b>contribute to</b> the following shared folder:</div><div style=3D"he=
+ight: 10px;"></div><div style=3D"font-size: 18px; display: table;"><div sty=
+le=3D"display: table-row; border-bottom: 4px solid #fff;"><span style=3D"di=
+splay: table-cell;"><div style=3D"height: 32px;"><img src=3D"https://ssl.gs=
+tatic.com/docs/documents/share/images/services/folder-3.png" aria-label=3D"=
+Folder" style=3D"vertical-align: middle; max-width: 24px;"/></div></span><s=
+pan style=3D"display: table-cell; padding-left: 12px; word-break: break-wor=
+d;"><a href=3D"https://drive.google.com/drive/folders/1XvYbppCOegcrnTjtkcbg=
+J7YsXUl0eyJi?usp=3Dsharing_eil&amp;ts=3D5b729c3b" style=3D"color: #3367d6; =
+text-decoration: none; vertical-align: middle;">MakerSpace</a><div itemprop=
+=3D"action" itemscope itemtype=3D"http://schema.org/ViewAction"><meta itemp=
+rop=3D"url" content=3D"https://drive.google.com/drive/folders/1XvYbppCOegcr=
+nTjtkcbgJ7YsXUl0eyJi?usp=3Dsharing_eil&amp;ts=3D5b729c3b"></div></span></di=
+v></div><div style=3D"height: 32px;"></div><div><a href=3D"https://drive.go=
+ogle.com/drive/folders/1XvYbppCOegcrnTjtkcbgJ7YsXUl0eyJi?usp=3Dsharing_eip&=
+amp;ts=3D5b729c3b" target=3D"_blank" style=3D"background-color: #4d90fe; bo=
+rder: 1px solid #3079ed; border-radius: 2px; color: white; display: inline-=
+block; font-family: Roboto,Arial,Helvetica,sans-serif; font-size: 11px; fon=
+t-weight: bold; height: 29px; line-height: 29px; min-width: 54px; outline: =
+0px; padding: 0 8px; text-align: center; text-decoration: none">Open</a></d=
+iv></div></div><table style=3D"width: 100%; border-collapse: collapse;" rol=
+e=3D"presentation"><tr><td style=3D"padding: 0px;"><table style=3D"border-c=
+ollapse: collapse; width: 3px;" role=3D"presentation"><tr height=3D"1"><td =
+width=3D"1" bgcolor=3D"#f0f0f0" style=3D"padding: 0px;"></td><td width=3D"1=
+" bgcolor=3D"#eaeaea" style=3D"padding: 0px;"></td><td width=3D"1" bgcolor=
+=3D"#e5e5e5" style=3D"padding: 0px;"></td></tr><tr height=3D"1"><td width=
+=3D"1" bgcolor=3D"#f0f0f0" style=3D"padding: 0px;"></td><td width=3D"1" bgc=
+olor=3D"#eaeaea" style=3D"padding: 0px;"></td><td width=3D"1" bgcolor=3D"#e=
+aeaea" style=3D"padding: 0px;"></td></tr><tr height=3D"1"><td width=3D"1" b=
+gcolor=3D"#f5f5f5" style=3D"padding: 0px;"></td><td width=3D"1" bgcolor=3D"=
+#f0f0f0" style=3D"padding: 0px;"></td><td width=3D"1" bgcolor=3D"#f0f0f0" s=
+tyle=3D"padding: 0px;"></td></tr></table></td><td style=3D"width: 100%; pad=
+ding: 0px;"><div style=3D"height: 1px; width: auto; border-top: 1px solid #=
+ddd; background:#eaeaea; border-bottom: 1px solid #f0f0f0;"></div></td><td =
+style=3D"padding: 0px;"><table style=3D"border-collapse: collapse; width: 3=
+px;" role=3D"presentation"><tr height=3D"1"><td width=3D"1" bgcolor=3D"#e5e=
+5e5" style=3D"padding: 0px;"></td><td width=3D"1" bgcolor=3D"#eaeaea" style=
+=3D"padding: 0px;"></td><td width=3D"1" bgcolor=3D"#f0f0f0" style=3D"paddin=
+g: 0px;"></td></tr><tr height=3D"1"><td width=3D"1" bgcolor=3D"#eaeaea" sty=
+le=3D"padding: 0px;"></td><td width=3D"1" bgcolor=3D"#eaeaea" style=3D"padd=
+ing: 0px;"></td><td width=3D"1" bgcolor=3D"#f0f0f0" style=3D"padding: 0px;"=
+></td></tr><tr height=3D"1"><td width=3D"1" bgcolor=3D"#f0f0f0" style=3D"pa=
+dding: 0px;"></td><td width=3D"1" bgcolor=3D"#f0f0f0" style=3D"padding: 0px=
+;"></td><td width=3D"1" bgcolor=3D"#f5f5f5" style=3D"padding: 0px;"></td></=
+tr></table></td></tr></table><table style=3D"padding: 14px 10px 0 10px;" ro=
+le=3D"presentation" dir=3D"ltr"><tr><td style=3D"width: 100%; font-size:11p=
+x; font-family: Roboto,Arial,Helvetica,sans-serif; color:#646464; line-heig=
+ht: 20px; min-height: 40px; vertical-align: middle;">Google Drive: Have all=
+ your files within reach from any device. <br/>Google LLC, 1600 Amphitheatr=
+e Parkway, Mountain View, CA 94043, USA</td><td style=3D"padding-left: 20px=
+; vertical-align: middle;"><a href=3D"https://drive.google.com" target=3D"_=
+blank"><img src=3D"https://www.gstatic.com/images/branding/googlelogo/1x/go=
+oglelogo_tm_black54_color_96x40dp.png" width=3D"96" alt=3D"Logo for Google =
+Drive" border=3D"0"></a></td></tr></table></div></div></body></html>
+--0000000000006fe27805736190ac--
+

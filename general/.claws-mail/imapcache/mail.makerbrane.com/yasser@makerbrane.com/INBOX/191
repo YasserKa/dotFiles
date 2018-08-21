@@ -1,0 +1,199 @@
+Return-Path: <3JfxzWwgTBs478-By95Iuww8E7DC.08805y.w86IuCCyB6u4yBvBu7y.w86@gaia.bounces.google.com>
+X-Original-To: yasser@makerbrane.com
+Delivered-To: x16771060@pdx1-sub0-mail-mx9.dreamhost.com
+Received: from vade-backend9.dreamhost.com (fltr-in2.mail.dreamhost.com [66.33.205.213])
+	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by pdx1-sub0-mail-mx9.dreamhost.com (Postfix) with ESMTPS id E0DCA80E36
+	for <yasser@makerbrane.com>; Wed, 15 Aug 2018 03:10:45 -0700 (PDT)
+Received: from mail-it0-f69.google.com (mail-it0-f69.google.com [209.85.214.69])
+	by vade-backend9.dreamhost.com (Postfix) with ESMTPS id 958C144733818
+	for <yasser@makerbrane.com>; Wed, 15 Aug 2018 03:10:45 -0700 (PDT)
+Authentication-Results: vade-backend9.dreamhost.com; dkim=pass
+	reason="2048-bit key; unprotected key"
+	header.d=accounts.google.com header.i=@accounts.google.com
+	header.b=T/uDzms5; dkim-adsp=pass; dkim-atps=neutral
+Received: by mail-it0-f69.google.com with SMTP id a10-v6so872694itc.9
+        for <yasser@makerbrane.com>; Wed, 15 Aug 2018 03:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=accounts.google.com; s=20161025;
+        h=mime-version:date:feedback-id:message-id:subject:from:to;
+        bh=yQnMez5pFLz/xeaZeMocNC8r835mtM5QR2FaTYS3XkE=;
+        b=T/uDzms5OCGHW7WW/GGV+R8MLjXTU74jLaJs44lXyHv6/XobHzbEvaNk2qhFpDAoDX
+         Pj36+IvCjLTb+jC4xnG9jUrafKyIqotvNx4nwKatjKLpiIY/wy49nS2mt5F6VCEvGBVt
+         e80qhdD3ZlCgIKsQQ40VCRnIAvC9CKmLt3XUt5YlDEnIX0mWadzg4nYOMVH/RkagaGcc
+         JBSNapfeyB4R+i3bneQJjurE6EfDvGTjFkOeTkGsKe1BXWqmdqjwDL+UdDisnUJk9yVR
+         DGtq+mL5uOzn391AH8/t7iteFfj9ot8KeGaDkPLSmHGep8TK8cWczhvLcCo1V5Otrx2W
+         ookg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:date:feedback-id:message-id:subject
+         :from:to;
+        bh=yQnMez5pFLz/xeaZeMocNC8r835mtM5QR2FaTYS3XkE=;
+        b=s3UUpSXrmxc9Y/zWLh9zJkcnZ8ChU11mF/DDs3Ax9AwLSP3YKbLn74rBWoyG6Cw2Rc
+         zRCao2sisJjL7Fzwp+LrJ9nnoUbYWApA1qgnoBiUq7jwdnJ7WW9VbLjxpwiZqBBPFOg0
+         xr96fXLEd9kQGjwrAI5sffG6gUlr5Y3Gw6L4cFlpCQZvxdnzJQQ4GXWd7k03riyxXiCi
+         xCjlop05kUXxu/7EEDal/Ps0Cj4uj6uyjKI2ityOQwM1hrXa1N3L1r2rBdJONDalPXgw
+         zb6tzWzVPNOXgxi629HbO33D0hufdmlOIpMfCb/QMT12R813ncCuePUn6DpifVCd4PGa
+         tswQ==
+X-Gm-Message-State: AOUpUlFb1pA3Z3f8alQ40C8U3RKS7X2cUXbSP0RpZuwOJbCv9wuMHeam
+	NHUIHYXRDHX2maM2lNNYJh+bHLAaScbd
+X-Google-Smtp-Source: AA+uWPxMuhAIU8SQM++U7jA4uNlIt3qwyopS5XHYqCk3uyhTLbPr/zcNS7CVowQMmuMJg9bFYgBUEj1ldic3+T12LqjDTA==
+MIME-Version: 1.0
+X-Received: by 2002:a6b:d210:: with SMTP id q16-v6mr11689818iob.137.1534327845000;
+ Wed, 15 Aug 2018 03:10:45 -0700 (PDT)
+Date: Wed, 15 Aug 2018 10:10:43 +0000 (UTC)
+X-Account-Notification-Type: 31-anexp#hsc-control_b
+Feedback-ID: 31-anexp#hsc-control_b:account-notifier
+X-Notifications: c67398d26e000000
+Message-ID: <YWiImaf8oZHH9XcBfdolKw.0@notifications.google.com>
+Subject: Security alert
+From: Google <no-reply@accounts.google.com>
+To: yasser@makerbrane.com
+Content-Type: multipart/alternative; boundary="0000000000002b97c70573768adf"
+X-VR-STATUS: OK
+X-VR-SCORE: 30
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtjedrudejgddvkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucggtfgfnhhsuhgsshgtrhhisggvpdfftffgtefojffquffvnecuuegrihhlohhuthemuceftddtnecuogfuuhhsphgvtghtkfhmghffohhmrghinhculdeftddmnecujfgurhepggffkffuhffvtgesrgdtreertddtjeenucfhrhhomhepifhoohhglhgvuceonhhoqdhrvghplhihsegrtggtohhunhhtshdrghhoohhglhgvrdgtohhmqeenucffohhmrghinhepghhoohhglhgvrdgtohhmnecukfhppedvtdelrdekhedrvddugedrieelnecurfgrrhgrmhepmhhouggvpehsmhhtphdphhgvlhhopehmrghilhdqihhttddqfheiledrghhoohhglhgvrdgtohhmpdhinhgvthepvddtledrkeehrddvudegrdeiledprhgvthhurhhnqdhprghthhepifhoohhglhgvuceonhhoqdhrvghplhihsegrtggtohhunhhtshdrghhoohhglhgvrdgtohhmqedpmhgrihhlfhhrohhmpeeflfhfgiiihgifghfvuehsgeejkedqueihleehkfhufiifkefgjeffvedrtdekkedtheihrdifkeeikfhuveevhieuiehugeihuehvuehujeihrdifkeeisehgrghirgdrsghouhhntggvshdrghhoohhglhgvrdgtohhmpdhnrhgtphhtthhopeihrghsshgvrhesmhgrkhgvrhgsrhgrnhgvrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+
+--0000000000002b97c70573768adf
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Content-Transfer-Encoding: base64
+
+WWFzc2VyIEthZGRvdXJhDQoNCk5ldyBkZXZpY2Ugc2lnbmVkIGluIHRvDQp5YXNzZXJAbWFrZXJi
+cmFuZS5jb20NCllvdXIgR29vZ2xlIEFjY291bnQgd2FzIGp1c3Qgc2lnbmVkIGluIHRvIGZyb20g
+YSBuZXcgV2luZG93cyBkZXZpY2UuIFlvdSdyZQ0KZ2V0dGluZyB0aGlzIGVtYWlsIHRvIG1ha2Ug
+c3VyZSBpdCB3YXMgeW91Lg0KDQoNCg0KQ2hlY2sgYWN0aXZpdHkNCjxodHRwczovL2FjY291bnRz
+Lmdvb2dsZS5jb20vQWNjb3VudENob29zZXI/RW1haWw9eWFzc2VyQG1ha2VyYnJhbmUuY29tJmNv
+bnRpbnVlPWh0dHBzOi8vbXlhY2NvdW50Lmdvb2dsZS5jb20vYWxlcnQvbnQvMTUzNDMyNzg0MzAw
+MD9yZm4lM0QzMSUyNnJmbmMlM0QxJTI2ZWlkJTNENTM5Mjg5MzU4MTE1NDMzMTE0OCUyNmV0JTNE
+MCUyNmFzYWUlM0QyJTI2YW5leHAlM0Roc2MtY29udHJvbF9iPg0KPGh0dHBzOi8vYWNjb3VudHMu
+Z29vZ2xlLmNvbS9BY2NvdW50Q2hvb3Nlcj9FbWFpbD15YXNzZXJAbWFrZXJicmFuZS5jb20mY29u
+dGludWU9aHR0cHM6Ly9teWFjY291bnQuZ29vZ2xlLmNvbS9hbGVydC9udC8xNTM0MzI3ODQzMDAw
+P3JmbiUzRDMxJTI2cmZuYyUzRDElMjZlaWQlM0Q1MzkyODkzNTgxMTU0MzMxMTQ4JTI2ZXQlM0Qw
+JTI2YXNhZSUzRDIlMjZhbmV4cCUzRGhzYy1jb250cm9sX2I+DQoNCg0KWW91IHJlY2VpdmVkIHRo
+aXMgZW1haWwgdG8gbGV0IHlvdSBrbm93IGFib3V0IGltcG9ydGFudCBjaGFuZ2VzIHRvIHlvdXIN
+Ckdvb2dsZSBBY2NvdW50IGFuZCBzZXJ2aWNlcy4NCsKpIDIwMTggR29vZ2xlIExMQywxNjAwIEFt
+cGhpdGhlYXRyZSBQYXJrd2F5LCBNb3VudGFpbiBWaWV3LCBDQSA5NDA0MywgVVNBDQoxNTM0MzI3
+ODQzMDAwMDAwDQo=
+--0000000000002b97c70573768adf
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html lang=3D"en"><head><meta name=3D"format-detection" content=3D"date=3Dn=
+o"/><meta name=3D"format-detection" content=3D"email=3Dno"/><style>.awl a {=
+color: #FFFFFF; text-decoration: none;}.abml a {color: #000000; font-family=
+: Roboto-Medium,Helvetica,Arial,sans-serif; font-weight: bold; text-decorat=
+ion: none;}.adgl a {color: rgba(0, 0, 0, 0.87); text-decoration: none;}.afa=
+l a {color: #b0b0b0; text-decoration: none;}@media screen and (min-width: 6=
+00px) {.v2sp {padding: 6px 30px 0px;} .v2rsp {padding: 0px 10px;}}</style><=
+/head><body style=3D"margin: 0; padding: 0;" bgcolor=3D"#FFFFFF"><table wid=
+th=3D"100%" height=3D"100%" style=3D"min-width: 348px;" border=3D"0" cellsp=
+acing=3D"0" cellpadding=3D"0"><tr height=3D"32px"></tr><tr align=3D"center"=
+><td><table border=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"paddi=
+ng-bottom: 20px; max-width: 600px; min-width: 220px;"><tr><td><table cellpa=
+dding=3D"0" cellspacing=3D"0"><tr><td></td><td><table width=3D"100%" border=
+=3D"0" cellspacing=3D"0" cellpadding=3D"0" style=3D"direction: ltr; padding=
+-bottom: 7px;"><tr><td align=3D"left"><img width=3D"92" height=3D"32" src=
+=3D"https://www.gstatic.com/accountalerts/email/googlelogo_color_188x64dp.p=
+ng" style=3D"width: 92px; height: 32px;"></td><td align=3D"right" style=3D"=
+font-family: Roboto-Light,Helvetica,Arial,sans-serif;">Yasser Kaddoura</td>=
+<td align=3D"right" width=3D"35"><img width=3D"28" height=3D"28" style=3D"w=
+idth: 28px; height: 28px; border-radius: 50%;;" src=3D"https://www.gstatic.=
+com/accountalerts/email/anonymous_profile_photo.png"></td></tr></table></td=
+><td></td></tr><tr><td style=3D"background:url('https://www.gstatic.com/acc=
+ountalerts/email/hodor/4-corner-nw.png') top left no-repeat;" width=3D"6" h=
+eight=3D"5"><!--[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsoft-com=
+:vml" fill=3D"true" stroke=3D"false" style=3D"width:6px; height: 5px;"><v:f=
+ill type=3D"tile" src=3D"https://www.gstatic.com/accountalerts/email/hodor/=
+4-corner-nw.png" color=3D"#ffffff" /><v:textbox style=3D"mso-fit-shape-to-t=
+ext:true" inset=3D"0,0,0,0"><![endif]--><div></div><!--[if gte mso 9]></v:t=
+extbox></v:rect><![endif]--></td><td style=3D"background:url('https://www.g=
+static.com/accountalerts/email/hodor/4-pixel-n.png') top center repeat-x;" =
+height=3D"5"><!--[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsoft-co=
+m:vml" fill=3D"true" stroke=3D"false" style=3D"height: 5px;"><v:fill type=
+=3D"tile" src=3D"https://www.gstatic.com/accountalerts/email/hodor/4-pixel-=
+n.png" color=3D"#ffffff" /><v:textbox style=3D"mso-fit-shape-to-text:true" =
+inset=3D"0,0,0,0"><![endif]--><div></div><!--[if gte mso 9]></v:textbox></v=
+:rect><![endif]--></td><td style=3D"background:url('https://www.gstatic.com=
+/accountalerts/email/hodor/4-corner-ne.png') top right no-repeat;" width=3D=
+"6" height=3D"5"><!--[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsof=
+t-com:vml" fill=3D"true" stroke=3D"false" style=3D"width: 6px; height: 39px=
+;"><v:fill type=3D"tile" src=3D"https://www.gstatic.com/accountalerts/email=
+/hodor/4-corner-ne.png" color=3D"#ffffff" /><v:textbox style=3D"mso-fit-sha=
+pe-to-text:true" inset=3D"0,0,0,0"><![endif]--><div></div><!--[if gte mso 9=
+]></v:textbox></v:rect><![endif]--></td></tr><tr><td style=3D"background:ur=
+l('https://www.gstatic.com/accountalerts/email/hodor/4-pixel-w.png') center=
+ left repeat-y;" width=3D"6"><!--[if gte mso 9]><v:rect xmlns:v=3D"urn:sche=
+mas-microsoft-com:vml" fill=3D"true" stroke=3D"false" style=3D"width: 6px;"=
+><v:fill type=3D"tile" src=3D"https://www.gstatic.com/accountalerts/email/h=
+odor/4-pixel-w.png" color=3D"#ffffff" /><v:textbox style=3D"mso-fit-shape-t=
+o-text:true" inset=3D"0,0,0,0"><![endif]--><div></div><!--[if gte mso 9]></=
+v:textbox></v:rect><![endif]--></td><td><div style=3D"font-family: Roboto-R=
+egular,Helvetica,Arial,sans-serif;padding-left: 20px; padding-right: 20px;b=
+order-bottom: thin solid #f0f0f0; color: rgba(0,0,0,0.87); font-size: 24px;=
+padding-bottom: 38px;padding-top: 40px;text-align: center; word-break: brea=
+k-word;"><div class=3D"v2sp">New device signed in&nbsp;to<br><a style=3D"fo=
+nt-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.87=
+); font-size: 16px; line-height: 1.8;">yasser@makerbrane.com</a></div></div=
+><div style=3D"font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font=
+-size: 13px; color: rgba(0,0,0,0.87); line-height: 1.6;padding-left: 20px; =
+padding-right: 20px;padding-bottom: 32px; padding-top: 24px;"><div class=3D=
+"v2sp">Your Google Account was just signed in to from a new Windows device.=
+ You're getting this email to make sure it was you.<div style=3D"padding-to=
+p: 24px; text-align: center;"><a href=3D"https://accounts.google.com/Accoun=
+tChooser?Email=3Dyasser@makerbrane.com&amp;continue=3Dhttps://myaccount.goo=
+gle.com/alert/nt/1534327843000?rfn%3D31%26rfnc%3D1%26eid%3D5392893581154331=
+148%26et%3D0%26asae%3D2%26anexp%3Dhsc-control_b" target=3D"_blank" style=3D=
+"display:inline-block; text-decoration: none;"><table border=3D"0" cellspac=
+ing=3D"0" cellpadding=3D"0" style=3D"background-color: #4184F3; border-radi=
+us: 2px; min-width: 90px;"><tbody><tr style=3D"height: 6px;"></tr><tr><td s=
+tyle=3D"padding-left: 8px; padding-right: 8px; text-align: center;"><a href=
+=3D"https://accounts.google.com/AccountChooser?Email=3Dyasser@makerbrane.co=
+m&amp;continue=3Dhttps://myaccount.google.com/alert/nt/1534327843000?rfn%3D=
+31%26rfnc%3D1%26eid%3D5392893581154331148%26et%3D0%26asae%3D2%26anexp%3Dhsc=
+-control_b" target=3D"_blank" style=3D"font-family: Roboto-Regular,Helvetic=
+a,Arial,sans-serif; color: #ffffff; font-weight: 400; line-height: 20px; te=
+xt-decoration: none;font-size: 13px;text-transform: uppercase;">Check activ=
+ity</a></td></tr><tr style=3D"height: 6px;"></tr></tbody></table></a></div>=
+</div></div></td><td style=3D"background:url('https://www.gstatic.com/accou=
+ntalerts/email/hodor/4-pixel-e.png') center left repeat-y;" width=3D"6"><!-=
+-[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsoft-com:vml" fill=3D"t=
+rue" stroke=3D"false" style=3D"width: 6px;"><v:fill type=3D"tile" src=3D"ht=
+tps://www.gstatic.com/accountalerts/email/hodor/4-pixel-e.png" color=3D"#ff=
+ffff" /><v:textbox style=3D"mso-fit-shape-to-text:true" inset=3D"0,0,0,0"><=
+![endif]--><div></div><!--[if gte mso 9]></v:textbox></v:rect><![endif]--><=
+/td></tr><tr><td style=3D"background:url('https://www.gstatic.com/accountal=
+erts/email/hodor/4-corner-sw.png') top left no-repeat;" width=3D"6" height=
+=3D"5"><!--[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsoft-com:vml"=
+ fill=3D"true" stroke=3D"false" style=3D"width: 6px;"><v:fill type=3D"tile"=
+ src=3D"https://www.gstatic.com/accountalerts/email/hodor/4-corner-sw.png" =
+color=3D"#ffffff" /><v:textbox style=3D"mso-fit-shape-to-text:true" inset=
+=3D"0,0,0,0"><![endif]--><div></div><!--[if gte mso 9]></v:textbox></v:rect=
+><![endif]--></td><td style=3D"background:url('https://www.gstatic.com/acco=
+untalerts/email/hodor/4-pixel-s.png') top center repeat-x" height=3D"5"><!-=
+-[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsoft-com:vml" fill=3D"t=
+rue" stroke=3D"false" style=3D"width: 6px;"><v:fill type=3D"tile" src=3D"ht=
+tps://www.gstatic.com/accountalerts/email/hodor/4-pixel-s.png" color=3D"#ff=
+ffff" /><v:textbox style=3D"mso-fit-shape-to-text:true" inset=3D"0,0,0,0"><=
+![endif]--><div></div><!--[if gte mso 9]></v:textbox></v:rect><![endif]--><=
+/td><td style=3D"background:url('https://www.gstatic.com/accountalerts/emai=
+l/hodor/4-corner-se.png') top left no-repeat;" width=3D"6" height=3D"5"><!-=
+-[if gte mso 9]><v:rect xmlns:v=3D"urn:schemas-microsoft-com:vml" fill=3D"t=
+rue" stroke=3D"false" style=3D"width: 6px;"><v:fill type=3D"tile" src=3D"ht=
+tps://www.gstatic.com/accountalerts/email/hodor/4-corner-se.png" color=3D"#=
+ffffff" /><v:textbox style=3D"mso-fit-shape-to-text:true" inset=3D"0,0,0,0"=
+><![endif]--><div></div><!--[if gte mso 9]></v:textbox></v:rect><![endif]--=
+></td></tr><tr><td></td><td><div style=3D"text-align: left;"><div style=3D"=
+font-family: Roboto-Regular,Helvetica,Arial,sans-serif;color: rgba(0,0,0,0.=
+54); font-size: 12px; line-height: 20px; padding-top: 10px;"><div>You recei=
+ved this email to let you know about important changes to your Google Accou=
+nt and services.</div><div style=3D"direction: ltr;">&copy; 2018 Google LLC=
+,<a class=3D"afal" style=3D"font-family: Roboto-Regular,Helvetica,Arial,san=
+s-serif;color: rgba(0,0,0,0.54); font-size: 12px; line-height: 20px; paddin=
+g-top: 10px;">1600 Amphitheatre Parkway, Mountain View, CA 94043, USA</a></=
+div></div><div style=3D"display: none !important; mso-hide:all; max-height:=
+0px; max-width:0px;">1534327843000000</div></div></td><td></td></tr></table=
+></td></tr></table></td></tr><tr height=3D"32px"></tr></table></body></html=
+>
+--0000000000002b97c70573768adf--
+

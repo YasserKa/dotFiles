@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foldercheckarray>
+    <branch name="popup">
+        <folderitem identifier="#imap/makerbrane/INBOX" />
+    </branch>
+    <branch name="trayicon">
+        <folderitem identifier="#imap/makerbrane/INBOX" />
+        <folderitem identifier="#mh/Mailbox/inbox" />
+    </branch>
+</foldercheckarray>

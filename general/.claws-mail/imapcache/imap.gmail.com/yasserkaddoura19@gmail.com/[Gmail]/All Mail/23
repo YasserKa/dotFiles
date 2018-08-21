@@ -1,0 +1,414 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a50:8c61:0:0:0:0:0 with SMTP id p88-v6csp686029edp;
+        Mon, 2 Jul 2018 20:14:56 -0700 (PDT)
+X-Received: by 2002:aca:3002:: with SMTP id w2-v6mr17456677oiw.29.1530587696330;
+        Mon, 02 Jul 2018 20:14:56 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1530587696; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=mrd8LCr7hdVnuoSp24pAnH84C5i0Pn7lT6ZMNMNqZFG2iVcZfpmVXrdh0kxMLbctdj
+         FcfSYXq2h0OxyLbcN38SehegfgITTLF3aAYtJzitnZ38mEVZnVpZ5yMhdWxqkcrr87XQ
+         5vPTJTQu+0jj1zzisnwwz+LBM7hQG/iMI86P2eMTEyeiKgoqd98vBB0VlTiavl8PZZYw
+         EMpRm4x1IaCQXkySmvrXj4EvM9SkOcx5TL7nxcFXAh8POeTzUYxSV2VWBCPkrUxXg602
+         QImn3mazIYI/nuClsoCy4qWoeSkP9ohYilS3746mgcXPPS5FF/4YkXVhbF5hTtAPGdvy
+         6naA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:content-transfer-encoding:auto-submitted
+         :date:subject:from:to:mime-version:dkim-signature:dkim-signature
+         :arc-authentication-results:arc-message-signature:delivered-to
+         :arc-authentication-results;
+        bh=zq2XM/Qtc0EwleIpFzFx62LXXBuulpCVVYXo51/3Vws=;
+        b=Sxp+DHL0rOdO2QVXo8chEcH+qM+2E/jPNIEV31YVEJY6WQzutkMbh4QxmFhVjpPHKS
+         Yc2isZ2jSVH0k8z0fYJHs+Os2oI0qZsBBj+Fq24r6Dz0aeiyJOKYaROBgW1bvrolQcRR
+         o0vMYif3aZEiCWzCTbnt1dXGqWqArDAuvl/6dMiKgv1OrcGBg/8RT0Tlv7PFgh7Cxjz8
+         e36q3wMlhjLzFq6cC8qU40mfNF8ntFC+IFLLh315KfYRbpED0WVdeOf07CZPh9Us5SiN
+         IzfQzvmb1Utvket+B69KcYe6ahG1mguargKKx0dz4ePR3oIj20mc7MpqbC/vkpKeIRN/
+         aawA==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@gamedev.net header.s=ug4r7w5kxdijdnrfecx2i3sacnwcnhbp header.b="eq3GIJ/u";
+       dkim=pass header.i=@amazonses.com header.s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug header.b=B4ZEj3p7;
+       arc=pass (i=1 spf=pass spfdomain=amazonses.com dkim=pass dkdomain=gamedev.net dkim=pass dkdomain=amazonses.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com"
+Return-Path: <yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id m10-v6sor53182oik.295.2018.07.02.20.14.56
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Mon, 02 Jul 2018 20:14:56 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gamedev.net header.s=ug4r7w5kxdijdnrfecx2i3sacnwcnhbp header.b="eq3GIJ/u";
+       dkim=pass header.i=@amazonses.com header.s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug header.b=B4ZEj3p7;
+       arc=pass (i=1 spf=pass spfdomain=amazonses.com dkim=pass dkdomain=gamedev.net dkim=pass dkdomain=amazonses.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com"
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:delivered-to:dkim-signature:dkim-signature
+         :mime-version:to:from:subject:date:auto-submitted
+         :content-transfer-encoding:message-id:feedback-id;
+        bh=zq2XM/Qtc0EwleIpFzFx62LXXBuulpCVVYXo51/3Vws=;
+        b=r+cI8CN7k489W/+Mdp7aw6GDiqe7bMRelIPkNTKML4CRWfQw0oTeKxCGg8h5uyMliL
+         ydBwNAxyhBOCETIWDJzUva7VLW/6NamgDVH6UqHdAy8/eRDfVCfLP7e2PxWnula9fOJw
+         Uff4N660+6xuUMHKPo80BuHH3iOHU7BJVwGhWppx0P6E78Mgc12j2WzCk3lpENkjE9c6
+         JNPn+jNkxSHhJTHCphKY6MV7kTqgMwmaDTgmPJpxfSgDOZruQMvXoFw2PQaCkn3jxs03
+         bbBCfpKhqP8obGRZlLGQALI3vj6LeL6zTGgcAVPua0u9aLNHgTXVlgpozEm+rabadaIk
+         tdvA==
+X-Gm-Message-State: APt69E1ZvO1gRnl7wxqcSLpBppqhBkciyfPxyqjEukAk94luteBJbj9P
+	cHEod3SG6mmuRYTR811Nr8C3qeJbb1bkbAoPB0DiOEEt85958CA=
+X-Received: by 2002:aca:a56:: with SMTP id 83-v6mr19770473oik.57.1530587695895;
+        Mon, 02 Jul 2018 20:14:55 -0700 (PDT)
+X-Forwarded-To: yasserkaddoura19@gmail.com
+X-Forwarded-For: yasserkaddouralearn@gmail.com yasserkaddoura19@gmail.com
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:ac9:61cc:0:0:0:0:0 with SMTP id b12-v6csp628675ock;
+        Mon, 2 Jul 2018 20:14:54 -0700 (PDT)
+X-Google-Smtp-Source: AAOMgpdEP7sTZ/JMd0lqQHfV33GcqjEO+uFqj23MNzWTyC15L/e3KTLZ0O2mbGeP5VgguuHpqaJ5
+X-Received: by 2002:a37:ef0f:: with SMTP id j15-v6mr23550463qkk.399.1530587694905;
+        Mon, 02 Jul 2018 20:14:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1530587694; cv=none;
+        d=google.com; s=arc-20160816;
+        b=CFboeDq0/Ren33zghMJKIFV6VHyR+ch/frwtjxNy2RVt6fRUpH7KEqBvpeim+xdC7m
+         M6qPPc8aoj+8emRDOU6LJC69+JficM8XSb83IBdVgCS2ZyMIRdIUqR1yD5A8c/icjk/c
+         BeS2lAu/3+gB/YEAASBXjdf+82Pesg+QN+d67NFXQu1EBpresqyZlKE7gGd262Pj9HJi
+         Kcdi9KOhU6W3WDDKuyLaoEQ3QKKQslhWbCPqI7Dt3nwLFYU4wD72dmyct+SF6n1i8qKx
+         aQ9yDbdsMA66CqqUeG4tRG2Vlmuamx7zYyrBDHaxrkItsUchxtP60A9q+XoBw2j0DMFd
+         UWaA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:content-transfer-encoding:auto-submitted
+         :date:subject:from:to:mime-version:dkim-signature:dkim-signature
+         :arc-authentication-results;
+        bh=zq2XM/Qtc0EwleIpFzFx62LXXBuulpCVVYXo51/3Vws=;
+        b=p4B4K3YvVxAVz6rCd6UpnO3xJ+R6d0PW6Ybfmva4Z/I1jOeIX5ej1B9LTITLw+tzn2
+         8m7fJvAFGWGSbFuH3zJMDRFNZSozk6w5jED5eNRe5xs7wMKj1LCJChWAPGNZKSTAB6Xk
+         ytn4Ok8kgQCb8J+ub73RPCL+3jzmbKOjGSo1oNRONcMHMQnAGp1S82qbF2rZWJ3Wy9pL
+         uHfZtZ/OgptUtsZtdqto3r3VfaBNOTuUkQSLbSHTyr6+JcAf6UV/8cvqY9VwzDIjB1pc
+         jswzLqCeQqMXxWrS8fvSbqtOWsrbrb6wMnwP3uBxUVgucuO5DoV3uaNDUINynIKLcKT2
+         z4iw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@gamedev.net header.s=ug4r7w5kxdijdnrfecx2i3sacnwcnhbp header.b="eq3GIJ/u";
+       dkim=pass header.i=@amazonses.com header.s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug header.b=B4ZEj3p7;
+       spf=pass (google.com: domain of 010001645e22c4d5-94af563f-3110-41ec-ba3f-805593093268-000000@amazonses.com designates 54.240.9.116 as permitted sender) smtp.mailfrom=010001645e22c4d5-94af563f-3110-41ec-ba3f-805593093268-000000@amazonses.com
+Return-Path: <010001645e22c4d5-94af563f-3110-41ec-ba3f-805593093268-000000@amazonses.com>
+Received: from a9-116.smtp-out.amazonses.com (a9-116.smtp-out.amazonses.com. [54.240.9.116])
+        by mx.google.com with ESMTPS id d11-v6si81819qvj.230.2018.07.02.20.14.54
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Mon, 02 Jul 2018 20:14:54 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 010001645e22c4d5-94af563f-3110-41ec-ba3f-805593093268-000000@amazonses.com designates 54.240.9.116 as permitted sender) client-ip=54.240.9.116;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=ug4r7w5kxdijdnrfecx2i3sacnwcnhbp; d=gamedev.net; t=1530587694;
+	h=MIME-Version:To:From:Subject:Date:Content-Type:Content-Transfer-Encoding:Message-ID;
+	bh=BjydEvFEURDwEygHUxP/3MYiJJkg0avGhzT5fXqEIwo=;
+	b=eq3GIJ/uNUNrRNB3sQKGEvv5JjU/lkUEd38DjQKFFwgPhZ19am9Ruvi19K55proX
+	2cNm071pyz9uc2KZaVTyyuCS7XJ6FCsDNrdLeWGFq4uXqFf+yrvOEjLJAnOoVqhjniP
+	MtRaESfP+r0IZbvmRbjWUooFxNnsXqyYKc4PhCLE=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug; d=amazonses.com; t=1530587694;
+	h=MIME-Version:To:From:Subject:Date:Content-Type:Content-Transfer-Encoding:Message-ID:Feedback-ID;
+	bh=BjydEvFEURDwEygHUxP/3MYiJJkg0avGhzT5fXqEIwo=;
+	b=B4ZEj3p7LKpUKLFDVIYy2+cVTkTHEFhndVCCznpENyhxejVoYTdPQbQjmTK1Jm6j
+	H8TxoOKHLqk/rNNxT7wm9vUu6OtnO2aKD60+gPs2CBkxL0lPnQDg15y0WBD7EOUndVd
+	LrcQPMsoxmfHk3iSgmThg0IE+6w18OwFN8b7QHCk=
+MIME-Version: 1.0
+To: yasserkaddouralearn@gmail.com
+From: =?UTF-8?B?R2FtZURldi5uZXQ=?= <support@gamedev.net>
+Subject: =?UTF-8?B?TmV3IERldmljZSBMb2dpbg==?=
+Date: Tue, 3 Jul 2018 03:14:54 +0000
+Auto-Submitted: auto-generated
+Content-Type: multipart/alternative; boundary="--==_mimepart_66e8768014e23aabeed3134b27337755"; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Message-ID: <010001645e22c4d5-94af563f-3110-41ec-ba3f-805593093268-000000@email.amazonses.com>
+X-SES-Outgoing: 2018.07.03-54.240.9.116
+Feedback-ID: 1.us-east-1.OyMTUb9ynvPABBB9ukjt9Ov9X0bRTBbvf7t2L9ZW6oI=:AmazonSES
+
+
+----==_mimepart_66e8768014e23aabeed3134b27337755
+Content-Type: text/plain; charset=UTF-8
+
+
+Hi Yasser Kaddoura,
+
+You just logged in from a device we haven't seen you use before.
+
+Device: Linux
+Browser: Firefox
+
+Estimated Location*: Beirut, Beyrouth, Lebanon
+* Locations are approximate and may include nearby towns, especially on a mobile network. In some cases, the location may be unknown or not accurate, especially if the connection was made through a VPN.
+
+If this was you, please ignore this email. Otherwise, you should secure your account immediately.
+
+Review Activity &amp; Secure Account: https://www.gamedev.net/settings/devices/
+
+-----
+
+
+https://www.gamedev.net/privacy/
+
+GameDev.net
+----==_mimepart_66e8768014e23aabeed3134b27337755
+Content-Type: text/html; charset=UTF-8
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title></title>
+		<style type="text/css">
+		
+			#outlook a {padding:0;}
+			body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;} 
+			.ExternalClass {width:100%;}
+			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+			#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
+
+			img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;} 
+			a img {border:none;} 
+			.image_fix {display:block;}
+
+			p {margin: 1em 0;}
+
+			h1 { color: white !important; }
+			h2, h3, h4, h5, h6 {color: #333333 !important;}
+
+			h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+				color: red !important;
+			}
+
+			h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+				color: purple !important;
+			}
+
+			table td {border-collapse: collapse;}
+
+			table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+
+			a {color: #4a8aca;}
+			
+			/* Unhides cells that we set to hide in the HTML in case the client doesn't support style properly */
+			*[class~=hidePhone] {
+			    display : block !important;
+			    width : auto !important;
+			    max-height: inherit !important;
+			    overflow : visible !important;
+			    float : none !important;
+			}
+
+			*[class~=hidePhone][width="30"] {
+				width: 30px !important;
+			}
+
+			*[class~=hidePhone][width="40"] {
+				width: 40px !important;
+			}
+
+			td[class~=hidePhone] {
+				display: table-cell !important;
+			}
+
+			@media only screen and (max-device-width: 480px) {
+				a[href^="tel"], a[href^="sms"] {
+					text-decoration: none;
+					color: blue;
+					pointer-events: none;
+					cursor: default;
+				}
+
+				.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
+					text-decoration: default;
+					color: orange !important;
+					pointer-events: auto;
+					cursor: default;
+				}
+
+				#userPhoto, .hidePhone, *[class~=hidePhone], td[class~=hidePhone] {
+					display: none !important;
+				}
+
+				.responsive_table > tr > td, .responsive_table > tbody > tr > td,
+				.responsive_table > tr, .responsive_table > tbody > tr {
+					display: block;
+					text-align: left;
+				}
+
+				html[dir="rtl"] .responsive_table > tr > td, html[dir="rtl"] .responsive_table > tbody > tr > td,
+				html[dir="rtl"] .responsive_table > tr, html[dir="rtl"] .responsive_table > tbody > tr {
+					text-align: right;
+				}
+
+				.responsive_row {
+					margin-bottom: 10px;
+				}
+
+				.responsive_fullwidth {
+					width: 100% !important;
+				}
+			}
+
+			@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+				a[href^="tel"], a[href^="sms"] {
+					text-decoration: none;
+					color: blue;
+					pointer-events: none;
+					cursor: default;
+				}
+
+				.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
+					text-decoration: default;
+					color: orange !important;
+					pointer-events: auto;
+					cursor: default;
+				}
+			}
+		</style>
+	</head>
+  <!-- bgcolor="#f1f1f1" -->
+	<body bgcolor='#2a2a2a' style='direction: ltr'>
+		<table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor='#2a2a2a'><!--bgcolor="#f1f1f1">-->
+			<tr height='25'>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+			</tr>
+			<tr>
+				<td dir='ltr' valign="top"><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr' valign='middle' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 30px; font-weight: 300; color: #262e33; line-height: 48px; padding-left: 10px;">
+					<a href='https://www.gamedev.net/' style='text-decoration: none; color: #fff; border: 0;'><!--color: #262e33;-->
+						
+						
+						
+                            <img src='https://www.gamedev.net/uploads/email/gamedev-logo-white-400x81.png' alt="GameDev.net" width='360' height='73'/>
+						
+					</a>
+				</td>
+				<td dir='ltr' valign="top"><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+			</tr>
+			<tr height='25'>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+			</tr>
+			<tr>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr' width='800' id='main' bgcolor='#ffffff' style='border-top: 10px solid #1875a8; line-height: 1.5;'>
+					<table width='100%' cellpadding='20'>
+						<tr>
+							<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 15px; color: #333333; line-height: 21px">
+								
+								
+									<strong style='font-size: 17px'>Hi Yasser Kaddoura,</strong>
+									<br />
+								
+
+								
+<br />
+You just logged in from a device we haven't seen you use before.
+<br />
+<br />
+<table width='100%' cellpadding='15' cellspacing='0' border='0' style='background: #f9f9f9;'>
+	<tr>
+		<td dir='ltr'>
+			<table width='100%' cellpadding='0' cellspacing='0' border='0' style='background: #f9f9f9;' class='responsive_table'>
+				<tr class='responsive_row' height="35">
+					<td dir='ltr' width='150' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;"><strong>Device</strong></td>
+					<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f9f9f9">
+							<tr>
+								<td dir='ltr' width="40" valign="top" class='hidePhone' style='width: 0; max-height: 0; overflow: hidden; float: left;'>
+									
+										<img src="https://www.gamedev.net/applications/core/interface/logos/devices/pc.png" width="30" height="30" alt="Linux" style='border: 0; vertical-align: middle;'>
+									
+								</td>
+								<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;">
+									Linux
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr class='responsive_row' height="35">
+					<td dir='ltr' width='150' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;"><strong>Browser</strong></td>
+					<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f9f9f9">
+							<tr>
+								
+									<td dir='ltr' width="40" valign="top" class='hidePhone' style='width: 0; max-height: 0; overflow: hidden; float: left;'>
+                                        
+                                        &nbsp;<img src="https://www.gamedev.net/applications/core/interface/logos/browsers/Firefox.png" width="20" height="20" alt="Firefox" style='border: 0; vertical-align: middle;'>
+									</td>
+								
+								<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;">
+									Firefox
+								</td>
+							</tr>
+						</table>
+					</td>
+					</td>
+				</tr>
+				
+				
+					<tr class='responsive_row' height="35">
+						<td dir='ltr' width='150' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;"><strong>Estimated Location*</strong></td>
+						<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 14px;">
+							Beirut, Beyrouth, Lebanon
+						</td>
+					</tr>
+				
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td dir='ltr' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 10px;">
+			* Locations are approximate and may include nearby towns, especially on a mobile network. In some cases, the location may be unknown or not accurate, especially if the connection was made through a VPN.
+		</td>
+	</tr>
+</table>
+<br />
+If this was you, please ignore this email. Otherwise, you should secure your account immediately.
+<br /><br />
+<table width='100%' cellpadding='15' cellspacing='0' border='0' style='background: #f9f9f9;'>
+	<tr>
+		<td dir='ltr' align='center'>
+			
+				<a href='https://www.gamedev.net/settings/devices/' style="color: #ffffff; font-family: 'Helvetica Neue', helvetica, sans-serif; text-decoration: none; font-size: 14px; background: #1875a8; line-height: 32px; padding: 0 10px; display: inline-block; border-radius: 3px;">Review Activity &amp; Secure Account</a>
+			
+		</td>
+	</tr>
+</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+			</tr>
+			<tr height='25'>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				<td dir='ltr'><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+			</tr>
+			
+			
+				<tr>
+					<td dir='ltr' valign="top"><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+					<td dir='ltr' valign='middle' align='center' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 12px; line-height: 18px; padding-left: 10px;">
+						<a href='https://www.gamedev.net/privacy/' style='color: #4a8aca; text-decoration: none;  display: inline-block'>Click here to view our privacy policy</a>
+					</td>
+					<td dir='ltr' valign="top"><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				</tr>
+			
+			
+				<tr>
+					<td dir='ltr' valign="top"><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+					<td dir='ltr' valign='top' width='800' align='center' style="font-family: 'Helvetica Neue', helvetica, sans-serif; font-size: 12px; color: #bdbdbd; line-height: 18px; padding-left: 10px;">
+						GameDev.net
+					</td>
+					<td dir='ltr' valign="top"><img src='https://www.gamedev.net/applications/core/interface/email/spacer.png' width='1' height='1' alt=''></td>
+				</tr>
+			
+		</table>
+	</body>
+</html>
+
+----==_mimepart_66e8768014e23aabeed3134b27337755--
+

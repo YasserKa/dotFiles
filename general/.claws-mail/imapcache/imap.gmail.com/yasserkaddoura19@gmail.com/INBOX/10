@@ -1,0 +1,1329 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a17:90a:9f92:0:0:0:0 with SMTP id o18-v6csp8044999pjp;
+        Thu, 28 Jun 2018 10:11:34 -0700 (PDT)
+X-Google-Smtp-Source: ADUXVKIk/fYmKgqZTb0aEGfzx0S7F3X435C5junXYn/2K/2p4zAwf0AvQLopX8lofn46BCl6S6oi
+X-Received: by 2002:a25:77d2:: with SMTP id s201-v6mr5703468ybc.415.1530205894342;
+        Thu, 28 Jun 2018 10:11:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1530205894; cv=none;
+        d=google.com; s=arc-20160816;
+        b=0Nlq2APwM4pBzPDEBxWjwbjjkddjKrXw8eoSUM7NBhMWXEu450rN0Bvx/+KtyCNSvZ
+         L9qvGSA8LiYNlVNsxeS0NSH5MjcrzWNLF6WaEUcbjneQfQk3o+qSWoAkvlWmKztXR8FR
+         WdtIYb/KzoNl9nI9tlE+BIpC8mQpzGN5uywFfZe/PgqVISVyV+byZAE9EiHx72RK9TaN
+         JBHUI1jpAEHSy41MhtSnRjMhFYKtmUN49xpWReeCeMn9npSRCTK+gwQXyJkpIC80kz5L
+         nKcycudnU+zHgCmyyoftzcimZx29xDcU7aavGS2ICMY4Ssen/QSSK5tpqohF6fViqGU5
+         gknA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:list-unsubscribe-post:list-unsubscribe:precedence
+         :list-id:feedback-id:message-id:date:to:reply-to:from:subject
+         :dkim-signature:dkim-signature:arc-authentication-results;
+        bh=JzpbHxKaRSTfWkY6JZtV3QhAkselez+sjGrKBPiF0/U=;
+        b=j9LteTfa+oQFv6+kEmEeMMSwfiCmyPjVZplAppwJu6rwbkFUVYrhs1UmT5sqY9LHFT
+         vXhCdvD76DJ67GAELUIvSE4qi0xcVq7rRuWRA3jbFxwwkgVKpqaoxi3WJld84lb6nBgF
+         XI9BvG+5UZ4HnYjc2M7yyxqZd0g4x1HdNRbrTpHkwSoSW/ii7xPZk2l7tDIeD3bt7m9I
+         GvHqVCrp4xZkurjv3D8vH1MO9lFCDP2uNUVloq7jqVArIdxdKtrMozHEfHiRCiKq91Cj
+         3f3E2KRVLGz3RSER9olwVnvEo5WH7WB8zyRfuDsFE/qkttDVXoMui+4dXN8h4wYVdcOA
+         CVLg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@waitbutwhy.com header.s=k1 header.b=zCg1yc1V;
+       dkim=pass header.i=@automations.mcsv.net header.s=k1 header.b=RLdvV8fY;
+       spf=pass (google.com: domain of bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net designates 198.2.190.215 as permitted sender) smtp.mailfrom="bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=waitbutwhy.com
+Return-Path: <bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net>
+Received: from mail215.suw12.mcsv.net (mail215.suw12.mcsv.net. [198.2.190.215])
+        by mx.google.com with ESMTPS id c81-v6si1617224ywb.526.2018.06.28.10.11.34
+        for <yasserkaddoura19@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 28 Jun 2018 10:11:34 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net designates 198.2.190.215 as permitted sender) client-ip=198.2.190.215;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@waitbutwhy.com header.s=k1 header.b=zCg1yc1V;
+       dkim=pass header.i=@automations.mcsv.net header.s=k1 header.b=RLdvV8fY;
+       spf=pass (google.com: domain of bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net designates 198.2.190.215 as permitted sender) smtp.mailfrom="bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net";
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=waitbutwhy.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=k1; d=waitbutwhy.com;
+ h=Subject:From:Reply-To:To:Date:Message-ID:List-ID:List-Unsubscribe:
+ Content-Type:MIME-Version; i=contact@waitbutwhy.com;
+ bh=JzpbHxKaRSTfWkY6JZtV3QhAkselez+sjGrKBPiF0/U=;
+ b=zCg1yc1VJFw53NGU6zPJs++qgGFB0LHwOHgQHLag3MpvY9CsoPxIlv1sKkh6N+s7Rwi4HcGjtzkw
+   QBFHlhKtPaIFNZZ2Gke7cli5Q55rHabkclU+z06qhi0irx2EpG/sbDwD8mhyLXfU8sscXKFxDx1Z
+   gXTcUiQTvkQfO1bt6hw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=k1; d=automations.mcsv.net;
+ h=Subject:From:Reply-To:To:Date:Message-ID:Feedback-ID:List-ID:
+ List-Unsubscribe:Content-Type:MIME-Version;
+ bh=JzpbHxKaRSTfWkY6JZtV3QhAkselez+sjGrKBPiF0/U=;
+ b=RLdvV8fYWfGRuUym2IhQvU5fCfyejmoxV0Fv/BZf3nvD3tBbkerMVmRKfRjyOfoTc57KPpXDWAvo
+   +Z0CLVQ3yRsPJpQRB9Z4PJZ5+QkLmE9FqCfS9G6LOxmXKI4JenysbH0HZFkL0Nq9MkhX25LaPpAa
+   o4GNEp4gSKTUSZQTUEt3h5WGL6eopPS3KtZ8NmvHDw/yZqYDwoI4Auv7tTXvNRFUdgWTPl7caVz2
+   sWzGE6KpM6VEFjZ6tf2MWfppEb/2oehKPmiJ4BBbzujJBX0nkuhKpE+5fBlC1hWvG0OEPfXYmpex
+   mi2S/gfaIU85xKiL+hu8rCyOPiTS43E4SnJYIA==
+Received: from (127.0.0.1) by mail215.suw12.mcsv.net id h6kbcc2ddl4r for <yasserkaddoura19@gmail.com>; Thu, 28 Jun 2018 17:11:34 +0000 (envelope-from <bounce-mc.us7_19375579.191309-yasserkaddoura19=gmail.com@mail215.suw12.mcsv.net>)
+Subject: =?utf-8?Q?Welcome?=
+From: =?utf-8?Q?Wait=20But=20Why?= <contact@waitbutwhy.com>
+Reply-To:  <us7-47d8792f46-02b9de6b48@conversation01.mailchimpapp.com>
+To: <yasserkaddoura19@gmail.com>
+Date: Thu, 28 Jun 2018 17:11:34 +0000
+Message-ID: <250cab41702ae3ef7a2c1c965.762a8ed730.20180628171114.2dbb29919e.83287edf@mail215.suw12.mcsv.net>
+X-Mailer: MailChimp Mailer - **CID2dbb29919e762a8ed730**
+X-Campaign: mailchimp250cab41702ae3ef7a2c1c965.2dbb29919e
+X-campaignid: mailchimp250cab41702ae3ef7a2c1c965.2dbb29919e
+X-Report-Abuse: Please report abuse for this campaign here: http://www.mailchimp.com/abuse/abuse.phtml?u=250cab41702ae3ef7a2c1c965&id=2dbb29919e&e=762a8ed730
+X-MC-User: 250cab41702ae3ef7a2c1c965
+Feedback-ID: 19375579:19375579.191309:us7:mc
+List-ID: 250cab41702ae3ef7a2c1c965mc list <250cab41702ae3ef7a2c1c965.30373.list-id.mcsv.net>
+Precedence: bulk
+X-Auto-Response-Suppress: OOF, AutoReply
+X-Accounttype: pd
+List-Unsubscribe: <https://waitbutwhy.us7.list-manage.com/unsubscribe?u=250cab41702ae3ef7a2c1c965&id=5b568bad0b&e=762a8ed730&c=2dbb29919e>, <mailto:unsubscribe-mc.us7_250cab41702ae3ef7a2c1c965.2dbb29919e-762a8ed730@mailin.mcsv.net?subject=unsubscribe>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+x-mcda: FALSE
+Content-Type: multipart/alternative; boundary="_----------=_MCPart_1210662848"
+MIME-Version: 1.0
+
+This is a multi-part message in MIME format
+
+--_----------=_MCPart_1210662848
+Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Transfer-Encoding: quoted-printable
+
+Everybody likes to be welcomed.
+
+https://waitbutwhy.com?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AU=
+TO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-=
+54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID]
+
+
+** Welcome to Wait But Why's email list!
+------------------------------------------------------------
+I'm Tim=2C the guy who writes the posts and draws the 4th-grade-level draw=
+ings. Thanks for liking whichever post you just read enough to subscribe t=
+o our list.
+
+We're going to use this email list to send you two things: new stuff and o=
+ld stuff. For new stuff=2C we'll send you each new post as it comes out. T=
+hese will almost always come to you on weekdays. For old stuff=2C I've wri=
+tten about 100 posts so far=2C and you probably haven't read that many of=
+ them=E2=80=94so we went through and picked out our 36 favorites=2C and we=
+'ll send you one of those a week=2C every Sunday morning.
+
+That's about it. It's a very unannoying=2C un-promo-y email list.
+
+Also here's another thing and it's important so I'm bolding it: Save us fr=
+om the icky folders. Without a little help from you=2C we're probably head=
+ed for your spam folder with all the creepy emails or if you have Gmail=2C=
+ your Promotions tab=2C with all the most annoying emails that no one want=
+s to hang out with. You can save us by adding contact@waitbutwhy.com (mail=
+to:contact@waitbutwhy.com) to your address book. Or in Gmail=2C just drag=
+ any one of our emails from the Promotions tab up into the Primary tab=2C=
+ and when it asks you if you want to do this for future WBW emails=2C clic=
+k Yes.
+
+Wait two other bold things:
+
+We don't have ads of any kind so you're our sugar mama. Wait But Why is su=
+pported by reader pledges=E2=80=94that's why we can exist. If you like WBW=
+=2C consider a small monthly pledge on our Patreon page (https://www.patre=
+on.com/waitbutwhy?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WE=
+LCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-=
+54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID]) =E2=80=94even $1/month is a huge=
+ help. For another way to support the site=2C check out our store (https:/=
+/store.waitbutwhy.com/?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AU=
+TO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-=
+54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID]) or our PDFs (https://gumroa=
+d.com/waitbutwhy?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WEL=
+COME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-54657767=
+&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID]) .
+
+Besides the site=2C there are three other very predictable places you can=
+ find us on the internet=2C where I'm pretty sure we're also unannoying:
+
+Facebook (http://facebook.com/waitbutwhy?utm_source=3DMain+List&utm_campai=
+gn=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2d=
+bb29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+Twitter (http://twitter.com/waitbutwhy?utm_source=3DMain+List&utm_campaign=
+=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb=
+29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+Instagram (http://instagram.com/waitbutwhy?utm_source=3DMain+List&utm_camp=
+aign=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-=
+2dbb29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+Okay and finally=E2=80=94you can reply to any email from us and we'll see=
+ it. Feel free to write to us with any thoughts=2C feedback=2C suggestions=
+=2C hatred=2C etc. anytime by replying directly to any Wait But Why email.=
+ We read every email=2C but because we get a lot of them=2C we unfortunate=
+ly can't respond to all of them. For our individual email addresses or mor=
+e info about contacting us=2C go here (https://waitbutwhy.com/contact?utm_=
+source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Dema=
+il&utm_term=3D0_5b568bad0b-2dbb29919e-54657767&mc_cid=3D2dbb29919e&=
+mc_eid=3D[UNIQID]) .
+
+Thanks again for subscribing! Of course=2C you can break up with this list=
+ anytime if you decide you're over it=E2=80=94just click the link at the v=
+ery bottom of any of our emails to remove yourself from the list and hurt=
+ our feelings. (Or=2C if you only want to receive new posts=2C there's als=
+o a link to unsubscribe from just the old posts.)
+
+Enjoy!
+
+Tim
+
+P.S. I want to send you from here into a WBW post=2C but the problem is th=
+at there are a bunch of different kinds of WBW posts=2C and I don't know w=
+hat mood you're in. So click on whichever one best matches your current mo=
+od:
+
+I=E2=80=99m in an intense=2C learn-y mood. (https://waitbutwhy.com/artific=
+ial-intelligence-revolution-1?utm_source=3DMain+List&utm_campaign=3D2dbb29=
+919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-=
+54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m in a philosophical=2C self-improving mood. (https://waitbutwhy=
+=2Ecom/religion-for-the-nonreligious?utm_source=3DMain+List&utm_campaign=3D2=
+dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb2991=
+9e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m in a giggly mood. (https://waitbutwhy.com/the-great-perils-of-=
+social-interaction?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_W=
+ELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-=
+54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m in a cry-y mood. (https://waitbutwhy.com/the-tail-end?utm_sour=
+ce=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&u=
+tm_term=3D0_5b568bad0b-2dbb29919e-54657767&mc_cid=3D2dbb29919e&mc_e=
+id=3D[UNIQID])
+
+I=E2=80=99m in a numbers-y nerdish mood. (https://waitbutwhy.com/from-1-to=
+-1000000?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WELCOME&utm=
+_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-54657767&mc_cid=
+=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m in an existential crisis-y mood. (https://waitbutwhy.com/fermi=
+-paradox?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WELCOME&utm=
+_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-54657767&mc_cid=
+=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m in a super-into-Elon-Musk mood. (https://waitbutwhy.com/2017/0=
+3/elon-musk-post-series.html?utm_source=3DMain+List&utm_campaign=3D2dbb299=
+19e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-=
+54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m in a mood to watch Tim talk about his personal shortcomings on=
+ stage. (https://waitbutwhy.com/my-ted-talk?utm_source=3DMain+List&utm_cam=
+paign=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b=
+-2dbb29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I don=E2=80=99t want to read anything or watch a video but fine I=E2=80=99=
+ll look at an infographic. (http://waitbutwhy.com/2013/08/putting-time-in-=
+perspective.html?utm_source=3DMain+List&utm_campaign=3D2dbb29919e-AUTO_WEL=
+COME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb29919e-54657767=
+&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+I=E2=80=99m going on vacation soon and want to put like 40 WBW posts on my=
+ e-reader with one click. (http://amzn.to/2xweS2c?utm_source=3DMain+List&u=
+tm_campaign=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b56=
+8bad0b-2dbb29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+** (http://www.twitter.com/waitbutwhy?utm_source=3DMain+List&utm_campaign=
+=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb=
+29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+** (http://www.facebook.com/waitbutwhy?utm_source=3DMain+List&utm_campaign=
+=3D2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb=
+29919e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+** (http://instagram.com/waitbutwhy?utm_source=3DMain+List&utm_campaign=3D=
+2dbb29919e-AUTO_WELCOME&utm_medium=3Demail&utm_term=3D0_5b568bad0b-2dbb299=
+19e-54657767&mc_cid=3D2dbb29919e&mc_eid=3D[UNIQID])
+you're receiving this email because you signed up for the wbw newsletter.
+if you want to opt out of this series but stay subscribed for new posts=2C=
+ ** click here (https://waitbutwhy.us7.list-manage.com/automation/remove?u=
+id=3D250cab41702ae3ef7a2c1c965&cid=3D94835349fd&eid=3D762a8ed730)
+=2E
+If you=E2=80=99re fully over me and want to unsubscribe from all wbw email=
+s=2C ** click here (https://waitbutwhy.us7.list-manage.com/unsubscribe?u=
+=3D250cab41702ae3ef7a2c1c965&id=3D5b568bad0b&e=3D762a8ed730&c=3D2dbb29919e)
+=2E
+
+copyright =C2=A9 2018 Wait But Why=2C all rights reserved.
+Wait But Why
+5716 Corsa Ave
+Suite 110
+Westlake Village=2C CA 91362-7354
+USA
+--_----------=_MCPart_1210662848
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:schemas-micros=
+oft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office">
+=09<head>
+=09=09<!-- NAME: 1 COLUMN -->
+=09=09<!--[if gte mso 15]>
+=09=09<xml>
+=09=09=09<o:OfficeDocumentSettings>
+=09=09=09<o:AllowPNG/>
+=09=09=09<o:PixelsPerInch>96</o:PixelsPerInch>
+=09=09=09</o:OfficeDocumentSettings>
+=09=09</xml>
+=09=09<![endif]-->
+=09=09<meta charset=3D"UTF-8">
+        <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+        <meta name=3D"viewport" content=3D"width=3Ddevice-width=2C initial=
+-scale=3D1">
+=09=09<title>Welcome</title>
+
+    <style type=3D"text/css">
+=09=09p{
+=09=09=09margin:10px 0;
+=09=09=09padding:0;
+=09=09}
+=09=09table{
+=09=09=09border-collapse:collapse;
+=09=09}
+=09=09h1=2Ch2=2Ch3=2Ch4=2Ch5=2Ch6{
+=09=09=09display:block;
+=09=09=09margin:0;
+=09=09=09padding:0;
+=09=09}
+=09=09img=2Ca img{
+=09=09=09border:0;
+=09=09=09height:auto;
+=09=09=09outline:none;
+=09=09=09text-decoration:none;
+=09=09}
+=09=09body=2C#bodyTable=2C#bodyCell{
+=09=09=09height:100%;
+=09=09=09margin:0;
+=09=09=09padding:0;
+=09=09=09width:100%;
+=09=09}
+=09=09.mcnPreviewText{
+=09=09=09display:none !important;
+=09=09}
+=09=09#outlook a{
+=09=09=09padding:0;
+=09=09}
+=09=09img{
+=09=09=09-ms-interpolation-mode:bicubic;
+=09=09}
+=09=09table{
+=09=09=09mso-table-lspace:0pt;
+=09=09=09mso-table-rspace:0pt;
+=09=09}
+=09=09.ReadMsgBody{
+=09=09=09width:100%;
+=09=09}
+=09=09.ExternalClass{
+=09=09=09width:100%;
+=09=09}
+=09=09p=2Ca=2Cli=2Ctd=2Cblockquote{
+=09=09=09mso-line-height-rule:exactly;
+=09=09}
+=09=09a[href^=3Dtel]=2Ca[href^=3Dsms]{
+=09=09=09color:inherit;
+=09=09=09cursor:default;
+=09=09=09text-decoration:none;
+=09=09}
+=09=09p=2Ca=2Cli=2Ctd=2Cbody=2Ctable=2Cblockquote{
+=09=09=09-ms-text-size-adjust:100%;
+=09=09=09-webkit-text-size-adjust:100%;
+=09=09}
+=09=09.ExternalClass=2C.ExternalClass p=2C.ExternalClass td=2C.ExternalCla=
+ss div=2C.ExternalClass span=2C.ExternalClass font{
+=09=09=09line-height:100%;
+=09=09}
+=09=09a[x-apple-data-detectors]{
+=09=09=09color:inherit !important;
+=09=09=09text-decoration:none !important;
+=09=09=09font-size:inherit !important;
+=09=09=09font-family:inherit !important;
+=09=09=09font-weight:inherit !important;
+=09=09=09line-height:inherit !important;
+=09=09}
+=09=09#bodyCell{
+=09=09=09padding:10px;
+=09=09}
+=09=09.templateContainer{
+=09=09=09max-width:600px !important;
+=09=09=09border:0;
+=09=09}
+=09=09a.mcnButton{
+=09=09=09display:block;
+=09=09}
+=09=09.mcnImage{
+=09=09=09vertical-align:bottom;
+=09=09}
+=09=09.mcnTextContent{
+=09=09=09word-break:break-word;
+=09=09}
+=09=09.mcnTextContent img{
+=09=09=09height:auto !important;
+=09=09}
+=09=09.mcnDividerBlock{
+=09=09=09table-layout:fixed !important;
+=09=09}
+=09=09body=2C#bodyTable{
+=09=09=09background-color:#eeeeee;
+=09=09}
+=09=09#bodyCell{
+=09=09=09border-top:0;
+=09=09}
+=09=09.templateContainer{
+=09=09=09border:0;
+=09=09}
+=09=09h1{
+=09=09=09color:#202020;
+=09=09=09font-family:Arial=2C 'Helvetica Neue'=2C Helvetica=2C sans-serif;
+=09=09=09font-size:26px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:125%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:left;
+=09=09}
+=09=09h2{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:22px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:125%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:left;
+=09=09}
+=09=09h3{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:20px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:125%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:left;
+=09=09}
+=09=09h4{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:18px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:125%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:left;
+=09=09}
+=09=09#templatePreheader{
+=09=09=09background-color:#ffffff;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:1px none #b3b3b3;
+=09=09=09padding-top:10px;
+=09=09=09padding-bottom:5px;
+=09=09}
+=09=09#templatePreheader .mcnTextContent=2C#templatePreheader .mcnTextCont=
+ent p{
+=09=09=09color:#000000;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:10px;
+=09=09=09line-height:100%;
+=09=09=09text-align:left;
+=09=09}
+=09=09#templatePreheader .mcnTextContent a=2C#templatePreheader .mcnTextCo=
+ntent p a{
+=09=09=09color:#cccccc;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateHeader{
+=09=09=09background-color:#ffffff;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:contain;
+=09=09=09border-top:0;
+=09=09=09border-bottom:1px none ;
+=09=09=09padding-top:px;
+=09=09=09padding-bottom:px;
+=09=09}
+=09=09#templateHeader .mcnTextContent=2C#templateHeader .mcnTextContent p{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:16px;
+=09=09=09line-height:150%;
+=09=09=09text-align:left;
+=09=09}
+=09=09#templateHeader .mcnTextContent a=2C#templateHeader .mcnTextContent=
+ p a{
+=09=09=09color:#2BAADF;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateBody{
+=09=09=09background-color:#ffffff;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:2px solid #EAEAEA;
+=09=09=09padding-top:0;
+=09=09=09padding-bottom:9px;
+=09=09}
+=09=09#templateBody .mcnTextContent=2C#templateBody .mcnTextContent p{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:16px;
+=09=09=09line-height:150%;
+=09=09=09text-align:left;
+=09=09}
+=09=09#templateBody .mcnTextContent a=2C#templateBody .mcnTextContent p a{
+=09=09=09color:#2BAADF;
+=09=09=09font-weight:bold;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateFooter{
+=09=09=09background-color:#fafafa;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:0;
+=09=09=09padding-top:0px;
+=09=09=09padding-bottom:0px;
+=09=09}
+=09=09#templateFooter .mcnTextContent=2C#templateFooter .mcnTextContent p{
+=09=09=09color:#656565;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:12px;
+=09=09=09line-height:100%;
+=09=09=09text-align:center;
+=09=09}
+=09=09#templateFooter .mcnTextContent a=2C#templateFooter .mcnTextContent=
+ p a{
+=09=09=09color:#6e6e6e;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09@media only screen and (min-width:768px){
+=09=09.templateContainer{
+=09=09=09width:600px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09body=2Ctable=2Ctd=2Cp=2Ca=2Cli=2Cblockquote{
+=09=09=09-webkit-text-size-adjust:none !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09body{
+=09=09=09width:100% !important;
+=09=09=09min-width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#bodyCell{
+=09=09=09padding-top:10px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImage{
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnCartContainer=2C.mcnCaptionTopContent=2C.mcnRecContentContainer=
+=2C.mcnCaptionBottomContent=2C.mcnTextContentContainer=2C.mcnBoxedTextCont=
+entContainer=2C.mcnImageGroupContentContainer=2C.mcnCaptionLeftTextContent=
+Container=2C.mcnCaptionRightTextContentContainer=2C.mcnCaptionLeftImageCon=
+tentContainer=2C.mcnCaptionRightImageContentContainer=2C.mcnImageCardLeftT=
+extContentContainer=2C.mcnImageCardRightTextContentContainer=2C.mcnImageCa=
+rdLeftImageContentContainer=2C.mcnImageCardRightImageContentContainer{
+=09=09=09max-width:100% !important;
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnBoxedTextContentContainer{
+=09=09=09min-width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageGroupContent{
+=09=09=09padding:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnCaptionLeftContentOuter .mcnTextContent=2C.mcnCaptionRightConten=
+tOuter .mcnTextContent{
+=09=09=09padding-top:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageCardTopImageContent=2C.mcnCaptionBottomContent:last-child .=
+mcnCaptionBottomImageContent=2C.mcnCaptionBlockInner .mcnCaptionTopContent=
+:last-child .mcnTextContent{
+=09=09=09padding-top:18px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageCardBottomImageContent{
+=09=09=09padding-bottom:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageGroupBlockInner{
+=09=09=09padding-top:0 !important;
+=09=09=09padding-bottom:0 !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageGroupBlockOuter{
+=09=09=09padding-top:9px !important;
+=09=09=09padding-bottom:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnTextContent=2C.mcnBoxedTextContentColumn{
+=09=09=09padding-right:18px !important;
+=09=09=09padding-left:18px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageCardLeftImageContent=2C.mcnImageCardRightImageContent{
+=09=09=09padding-right:18px !important;
+=09=09=09padding-bottom:0 !important;
+=09=09=09padding-left:18px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcpreview-image-uploader{
+=09=09=09display:none !important;
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h1{
+=09=09=09font-size:22px !important;
+=09=09=09line-height:125% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h2{
+=09=09=09font-size:20px !important;
+=09=09=09line-height:125% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h3{
+=09=09=09font-size:18px !important;
+=09=09=09line-height:125% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h4{
+=09=09=09font-size:16px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnBoxedTextContentContainer .mcnTextContent=2C.mcnBoxedTextContent=
+Container .mcnTextContent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templatePreheader{
+=09=09=09display:block !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templatePreheader .mcnTextContent=2C#templatePreheader .mcnTextCont=
+ent p{
+=09=09=09font-size:12px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateHeader .mcnTextContent=2C#templateHeader .mcnTextContent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateBody .mcnTextContent=2C#templateBody .mcnTextContent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateFooter .mcnTextContent=2C#templateFooter .mcnTextContent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}</style></head>
+    <body style=3D"height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-=
+size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #eeeeee=
+;">
+=09=09<!--
+-->
+=09=09<!--[if !gte mso 9]><!----><span class=3D"mcnPreviewText" style=3D"=
+display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0p=
+x; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">Everybody=
+ likes to be welcomed.</span><!--<![endif]-->
+=09=09<!--
+-->
+        <center>
+            <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspa=
+cing=3D"0" height=3D"100%" width=3D"100%" id=3D"bodyTable" style=3D"border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;pad=
+ding: 0;width: 100%;background-color: #eeeeee;">
+                <tr>
+                    <td align=3D"center" valign=3D"top" id=3D"bodyCell" st=
+yle=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-te=
+xt-size-adjust: 100%;height: 100%;margin: 0;padding: 10px;width: 100%;bord=
+er-top: 0;">
+                        <!-- BEGIN TEMPLATE // -->
+=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellspacing=3D"0" c=
+ellpadding=3D"0" width=3D"600" style=3D"width:600px;">
+=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09<td align=3D"center" valign=3D"top" width=3D"600" style=
+=3D"width:600px;">
+=09=09=09=09=09=09<![endif]-->
+                        <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%" class=3D"templateContainer" style=3D"border-collapse=
+: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;border: 0;max-width: 600px !importa=
+nt;">
+                            <tr>
+                                <td valign=3D"top" id=3D"templatePreheader=
+" style=3D"background:#ffffff none no-repeat center/cover;mso-line-height-=
+rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;ba=
+ckground-color: #ffffff;background-image: none;background-repeat: no-repea=
+t;background-position: center;background-size: cover;border-top: 0;border-=
+bottom: 1px none #b3b3b3;padding-top: 10px;padding-bottom: 5px;"><table bo=
+rder=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcn=
+ImageBlock" style=3D"min-width: 100%;border-collapse: collapse;mso-table-l=
+space: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-s=
+ize-adjust: 100%;">
+    <tbody class=3D"mcnImageBlockOuter">
+            <tr>
+                <td valign=3D"top" style=3D"padding: 0px;mso-line-height-r=
+ule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" c=
+lass=3D"mcnImageBlockInner">
+                    <table align=3D"left" width=3D"100%" border=3D"0" cell=
+padding=3D"0" cellspacing=3D"0" class=3D"mcnImageContentContainer" style=
+=3D"min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-ta=
+ble-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+">
+                        <tbody><tr>
+                            <td class=3D"mcnImageContent" valign=3D"top" s=
+tyle=3D"padding-right: 0px;padding-left: 0px;padding-top: 0;padding-bottom=
+: 0;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust:=
+ 100%;-webkit-text-size-adjust: 100%;">
+
+                                    <a href=3D"https://waitbutwhy.us7.list=
+-manage.com/track/click?u=3D250cab41702ae3ef7a2c1c965&id=3Db836250b52&e=3D=
+762a8ed730" title=3D"" class=3D"" target=3D"_blank" style=3D"mso-line-hei=
+ght-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100=
+%;">
+                                        <img align=3D"center" alt=3D"" src=
+=3D"https://gallery.mailchimp.com/250cab41702ae3ef7a2c1c965/images/41154d4=
+2-1509-4e5d-9227-3f6d956b8137.png" width=3D"600" style=3D"max-width: 600px=
+;padding-bottom: 0;display: inline !important;vertical-align: bottom;borde=
+r: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mo=
+de: bicubic;" class=3D"mcnImage">
+                                    </a>
+
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table></td>
+                            </tr>
+                            <tr>
+                                <td valign=3D"top" id=3D"templateHeader" s=
+tyle=3D"background:#ffffff none no-repeat center/contain;mso-line-height-r=
+ule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;bac=
+kground-color: #ffffff;background-image: none;background-repeat: no-repeat=
+;background-position: center;background-size: contain;border-top: 0;border=
+-bottom: 1px none;padding-top: px;padding-bottom: px;"></td>
+                            </tr>
+                            <tr>
+                                <td valign=3D"top" id=3D"templateBody" sty=
+le=3D"background:#ffffff none no-repeat center/cover;mso-line-height-rule:=
+ exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;backgro=
+und-color: #ffffff;background-image: none;background-repeat: no-repeat;bac=
+kground-position: center;background-size: cover;border-top: 0;border-botto=
+m: 2px solid #EAEAEA;padding-top: 0;padding-bottom: 9px;"><table border=3D=
+"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnTextBlo=
+ck" style=3D"min-width: 100%;border-collapse: collapse;mso-table-lspace: 0=
+pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adju=
+st: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 100%;min-width: 100%;border-collapse: col=
+lapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 10=
+0%;-webkit-text-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContent=
+Container">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 1=
+8px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;word-break: break-word;color: #202020;font-family: Helve=
+tica;font-size: 16px;line-height: 150%;text-align: left;">
+
+                            <h2 class=3D"null" style=3D"display: block;mar=
+gin: 0;padding: 0;color: #202020;font-family: Helvetica;font-size: 22px;fo=
+nt-style: normal;font-weight: bold;line-height: 125%;letter-spacing: norma=
+l;text-align: left;">Welcome to Wait But Why's email list!</h2>
+<br>
+I'm Tim=2C the guy who writes the posts and draws the 4th-grade-level draw=
+ings. Thanks for liking whichever post you just read enough to subscribe t=
+o our list.<br>
+<br>
+We're going to use this email list to send you two things: new stuff and o=
+ld stuff. For new stuff=2C we'll send you each new post as it comes out. T=
+hese will almost always come to you on weekdays. For old stuff=2C I've wri=
+tten about 100 posts so far=2C and you probably haven't read that many of=
+ them=E2=80=94so we went through and picked out our 36 favorites=2C and we=
+'ll send you one of those a week=2C every Sunday morning (EST).<br>
+<br>
+That's about it. It's a very unannoying=2C un-promo-y email list.<br>
+<br>
+<strong>Also here's another thing and it's important so I'm bolding it: Sa=
+ve us from the icky folders.&nbsp;</strong>Without a little help from you=
+=2C we're probably headed for your spam folder with all the creepy emails=
+ or if you have Gmail=2C your Promotions tab=2C with all the most annoying=
+ emails that no one wants to hang out with. You can save us by adding <a h=
+ref=3D"mailto:contact@waitbutwhy.com" target=3D"_blank" style=3D"mso-line-=
+height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust:=
+ 100%;color: #2BAADF;font-weight: bold;text-decoration: underline;">contac=
+t@waitbutwhy.com</a> to your address book. Or in Gmail=2C just drag any on=
+e of our emails from the Promotions tab up into the Primary tab=2C and whe=
+n it asks you if you want to do this for future WBW emails=2C click Yes.<b=
+r>
+<br>
+Wait two other bold things:<br>
+<br>
+<strong>We don't have ads of any kind so you're our sugar mama. </strong>W=
+ait But Why is supported by reader pledges=E2=80=94that's why we can exist=
+=2E If you like WBW=2C consider a small monthly pledge on our <a href=3D"htt=
+ps://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41702ae3ef7a2c1c=
+965&id=3De2181e94e2&e=3D762a8ed730" target=3D"_blank" style=3D"mso-line-h=
+eight-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 1=
+00%;color: #2BAADF;font-weight: bold;text-decoration: underline;"><strong>=
+Patreon page</strong></a>=E2=80=94even $1/month is a huge help. For anothe=
+r way to support the site=2C check out <a href=3D"https://waitbutwhy.us7.l=
+ist-manage.com/track/click?u=3D250cab41702ae3ef7a2c1c965&id=3D4467ba4a5e&e=
+=3D762a8ed730" target=3D"_blank" style=3D"mso-line-height-rule: exactly;-=
+ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;fo=
+nt-weight: bold;text-decoration: underline;"><strong>our store</strong></a=
+> or <a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250=
+cab41702ae3ef7a2c1c965&id=3D2d44e23a78&e=3D762a8ed730" target=3D"_blank"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;color: #2BAADF;font-weight: bold;text-decoration:=
+ underline;"><strong>our PDFs</strong></a>.<br>
+<br>
+<strong>Besides the site=2C there are three other very predictable places=
+ you can find us on the internet=2C where I'm pretty sure we're also </str=
+ong><strong>unannoying</strong><strong>:</strong><br>
+<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3Da814979e57&e=3D762a8ed730" target=3D"_blank" style=
+=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;color: #2BAADF;font-weight: bold;text-decoration: underl=
+ine;"><strong>Facebook</strong></a><br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3Ddd1462a7e2&e=3D762a8ed730" target=3D"_blank" style=
+=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;color: #2BAADF;font-weight: bold;text-decoration: underl=
+ine;"><strong>Twitter</strong></a><br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3Db25b78dff0&e=3D762a8ed730" target=3D"_blank" style=
+=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;color: #2BAADF;font-weight: bold;text-decoration: underl=
+ine;"><strong>Instagram</strong></a><br>
+<br>
+Okay and finally=E2=80=94you can reply to any email from us and we'll see=
+ it. Feel free to write to us with any thoughts=2C feedback=2C suggestions=
+=2C hatred=2C etc. anytime by replying directly to any Wait But Why email.=
+ We read every email=2C but because we get a lot of them=2C we unfortunate=
+ly can't respond to all of them. For our individual email addresses or mor=
+e info about contacting us=2C go <a href=3D"https://waitbutwhy.us7.list-ma=
+nage.com/track/click?u=3D250cab41702ae3ef7a2c1c965&id=3D1d2816be2b&e=3D=
+762a8ed730" target=3D"_blank" style=3D"mso-line-height-rule: exactly;-ms-tex=
+t-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #2BAADF;font-wei=
+ght: bold;text-decoration: underline;"><strong>here</strong></a>.<br>
+<br>
+Thanks again for subscribing! Of course=2C you can break up with this list=
+ anytime if you decide you're over it=E2=80=94just click the link at the v=
+ery bottom of any of our emails to remove yourself from the list and hurt=
+ our feelings. (Or=2C if you only want to receive new posts=2C there's als=
+o a link to unsubscribe from just the old posts.)<br>
+<br>
+Enjoy!<br>
+<br>
+Tim<br>
+<br>
+P.S. I want to send you from here into a WBW post=2C but the problem is th=
+at there are a bunch of different kinds of WBW posts=2C and I don't know w=
+hat mood you're in. So click on whichever one best matches your current mo=
+od:<br>
+<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D538cd20a51&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in an intense=2C learn-y mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3De3ab5258f1&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in a philosophical=2C self-improving mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D56436339c9&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in a giggly mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D34f2e70b37&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in a cry-y mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D0812c6f39f&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in a numbers-y nerdish mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D79be9d3e8f&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in an existential crisis-y mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3Dfc853dd105&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in a super-into-Elon-Musk mood.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D09a0fb94ab&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ in a mood to watch Tim talk about his personal shortcomings on stage.</a>=
+<br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3Dd915187071&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I don=E2=80=
+=99t want to read anything or watch a video but fine I=E2=80=99ll look at=
+ an infographic.</a><br>
+&nbsp;<br>
+<a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=3D250cab41=
+702ae3ef7a2c1c965&id=3D67a2c432f7&e=3D762a8ed730" style=3D"mso-line-heigh=
+t-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+color: #2BAADF;font-weight: bold;text-decoration: underline;">I=E2=80=99m=
+ going on vacation soon and want to put like 40 WBW posts on my e-reader w=
+ith one click.</a><br>
+&nbsp;
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+                            </tr>
+                            <tr>
+                                <td valign=3D"top" id=3D"templateFooter" s=
+tyle=3D"background:#fafafa none no-repeat center/cover;mso-line-height-rul=
+e: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;backg=
+round-color: #fafafa;background-image: none;background-repeat: no-repeat;b=
+ackground-position: center;background-size: cover;border-top: 0;border-bot=
+tom: 0;padding-top: 0px;padding-bottom: 0px;"><table border=3D"0" cellpadd=
+ing=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowBlock" style=
+=3D"min-width: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-ta=
+ble-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;=
+">
+    <tbody class=3D"mcnFollowBlockOuter">
+        <tr>
+            <td align=3D"center" valign=3D"top" style=3D"padding: 9px;mso-=
+line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adj=
+ust: 100%;" class=3D"mcnFollowBlockInner">
+                <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" wi=
+dth=3D"100%" class=3D"mcnFollowContentContainer" style=3D"min-width: 100%;=
+border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-=
+text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td align=3D"center" style=3D"padding-left: 9px;padding-right: 9px=
+;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;">
+            <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%" style=3D"min-width: 100%;border-collapse: collapse;mso-table-lsp=
+ace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;" class=3D"mcnFollowContent">
+                <tbody><tr>
+                    <td align=3D"center" valign=3D"top" style=3D"padding-t=
+op: 9px;padding-right: 9px;padding-left: 9px;mso-line-height-rule: exactly=
+;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                        <table align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" style=3D"border-collapse: collapse;mso-table-lspa=
+ce: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size=
+-adjust: 100%;">
+                            <tbody><tr>
+                                <td align=3D"center" valign=3D"top" style=
+=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;">
+                                    <!--[if mso]>
+                                    <table align=3D"center" border=3D"0" c=
+ellspacing=3D"0" cellpadding=3D"0">
+                                    <tr>
+                                    <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactl=
+y;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcn=
+FollowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=
+=3D250cab41702ae3ef7a2c1c965&id=3Da5cc7007ad&e=3D762a8ed730" target=3D"_b=
+lank" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-w=
+ebkit-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.co=
+m/icons/social-block-v2/outline-color-twitter-48.png" style=3D"display: bl=
+ock;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpo=
+lation-mode: bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactl=
+y;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcn=
+FollowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=
+=3D250cab41702ae3ef7a2c1c965&id=3D5f17e8e048&e=3D762a8ed730" target=3D"_b=
+lank" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-w=
+ebkit-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.co=
+m/icons/social-block-v2/outline-color-facebook-48.png" style=3D"display: b=
+lock;border: 0;height: auto;outline: none;text-decoration: none;-ms-interp=
+olation-mode: bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 0;padding-bottom: 9px;mso-line-height-rule: exactly;-=
+ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcnFol=
+lowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://waitbutwhy.us7.list-manage.com/track/click?u=
+=3D250cab41702ae3ef7a2c1c965&id=3Db25b78dff0&e=3D762a8ed730" target=3D"_b=
+lank" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-w=
+ebkit-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.co=
+m/icons/social-block-v2/outline-color-instagram-48.png" style=3D"display:=
+ block;border: 0;height: auto;outline: none;text-decoration: none;-ms-inte=
+rpolation-mode: bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                    <!--[if mso]>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"1=
+00%" class=3D"mcnTextBlock" style=3D"min-width: 100%;border-collapse: coll=
+apse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100=
+%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 100%;min-width: 100%;border-collapse: col=
+lapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 10=
+0%;-webkit-text-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContent=
+Container">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 1=
+8px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helve=
+tica;font-size: 12px;line-height: 100%;text-align: center;">
+
+                            <span style=3D"font-size:12px"><strong><span s=
+tyle=3D"color:#808080">if you want to opt out of this series but stay subs=
+cribed </span></strong></span><strong><span style=3D"color:#808080"><span=
+ style=3D"font-size:12px">for</span></span></strong><span style=3D"font-si=
+ze:12px"><strong><span style=3D"color:#808080"> new posts=2C </span><u><a=
+ href=3D"https://waitbutwhy.us7.list-manage.com/automation/remove?uid=3D25=
+0cab41702ae3ef7a2c1c965&cid=3D94835349fd&eid=3D762a8ed730" target=3D"_blank"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;color: #6e6e6e;font-weight: normal;text-decoration=
+: underline;"><span style=3D"color:#808080">click here</span></a></u></str=
+ong><span style=3D"color:#808080"><strong>.</strong></span></span><br>
+<br>
+<span style=3D"color:#808080"><span style=3D"font-size:10px">you're receiv=
+ing this email because you signed up for the wbw newsletter. you can&nbsp;=
+</span></span><span style=3D"font-size:10px"><span style=3D"color:#808080"=
+><a href=3D"https://waitbutwhy.us7.list-manage.com/profile?u=3D250cab41702=
+ae3ef7a2c1c965&id=3D5b568bad0b&e=3D762a8ed730" target=3D"_blank" style=3D"ms=
+o-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-a=
+djust: 100%;color: #6e6e6e;font-weight: normal;text-decoration: underline;=
+">update your email address</a>=2C&nbsp;or=2C&nbsp;</span></span><span sty=
+le=3D"font-size:10px"><span style=3D"color:#808080">if you=E2=80=99re full=
+y over me and want to unsubscribe from all wbw emails=2C&nbsp;</span><a hr=
+ef=3D"https://waitbutwhy.us7.list-manage.com/unsubscribe?u=3D250cab41702ae=
+3ef7a2c1c965&id=3D5b568bad0b&e=3D762a8ed730&c=3D2dbb29919e" target=3D"_blank=
+" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;color: #6e6e6e;font-weight: normal;text-decoratio=
+n: underline;"><span style=3D"color:#808080">click here</span></a><span st=
+yle=3D"color:#808080">.</span></span><br>
+<br>
+<span style=3D"color:#808080"><span style=3D"font-size:10px">copyright =C2=
+=A9 2018 Wait But Why=2C all rights reserved.</span><br>
+<span style=3D"font-size:10px"><div class=3D"vcard"><span class=3D"org fn"=
+>Wait But Why</span><div class=3D"adr"><div class=3D"street-address">5716=
+ Corsa Ave</div><div class=3D"extended-address">Suite 110</div><span class=
+=3D"locality">Westlake Village</span>=2C <span class=3D"region">CA</span>=
+  <span class=3D"postal-code">91362-7354</span></div><br><a href=3D"//wait=
+butwhy.us7.list-manage.com/vcard?u=3D250cab41702ae3ef7a2c1c965&id=3D5b568b=
+ad0b" class=3D"hcard-download">Add us to your address book</a></div> </spa=
+n></span>
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+                            </tr>
+                        </table>
+=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09</td>
+=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09</table>
+=09=09=09=09=09=09<![endif]-->
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+    <img src=3D"https://waitbutwhy.us7.list-manage.com/track/open.php?u=3D=
+250cab41702ae3ef7a2c1c965&id=3D2dbb29919e&e=3D762a8ed730" height=3D"1" wi=
+dth=3D"1"></body>
+</html>
+--_----------=_MCPart_1210662848--

@@ -1,0 +1,3382 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 10.2.81.198 with SMTP id s189csp2708204jaa;
+        Mon, 12 Mar 2018 00:31:32 -0700 (PDT)
+X-Google-Smtp-Source: AG47ELuOB2bcc8m35pTurQBqcGe8IL811hwPvr8NvGmt1ZDW6YWP1g8azHqgWlCBJOUeESh9XBBJ
+X-Received: by 10.36.77.143 with SMTP id l137mr7758198itb.118.1520839892490;
+        Mon, 12 Mar 2018 00:31:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1520839892; cv=none;
+        d=google.com; s=arc-20160816;
+        b=gMpXwUyvRRemJpb77u2R3JPbnR5YB1BIwpYMgTktsYgVfZCkI5Y9bXvuJ8hMhkaccV
+         uEoNy+ZdoAM/APZSzUHVOgm67+AElhJN9a9f0s9+W88q4VxFx2lIM0aV2yJPGyQZQ337
+         +mU+Cy53uflODmhEUstqUmq8jHuyC4fBMXtOGNBGHHjA66Y6G6xZO4sJmzH2YMKjcKOw
+         76Qo8rXFXao15kOjSwGKBfjZJHNr2EuM/U3czFDxwbIRTCFP39DCAii7v3hPaUlVbtR1
+         LIezg4H8f1aAxaVxxFsaR1DE3zf4noKNjQUkq82NWW+CffY9R80o21O6u+VDNvGy9lrC
+         2c4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=message-id:list-unsubscribe:date:subject:to:from:mime-version
+         :dkim-signature:arc-authentication-results;
+        bh=NkU4z5HtcZoCwMoVCQ827NPHiKqq2bO2yq8hHH9dZpw=;
+        b=fydAWP00R3s0s46sbfwYzQS9IbsBitHyVTjilSZjGyFkDcnBh9mZQxGdLKw04z6Xzw
+         JdF8741m9VK7Sm5qixqyMSA1FjPcFkZmj4rQaMRGXZjHMYfJFL1qB2ebFIMhiaoa1xDb
+         LO/dkXTut7mq33y/NOUJY4X9tA8IqToOLwu1ihem7h3Z1XxzKrAwOHPcI9pkuxGxfanl
+         kxv7SD+x9l8oN4dd/oD/4E6Q39IGdpP8reI+0d3V7u//c3XmyVmzm+Zl4mVTM8nVRFEz
+         XZOIMa2ZzNU4uWmO+NtngOUiBAfy6qojt1RQNjkKEexyu1mKrNt5xBtRgXVEmln3sJgJ
+         QNlw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@sendgrid.net header.s=smtpapi header.b=AjSEl4ZW;
+       spf=pass (google.com: domain of bounces+4740376-49ca-yasserkaddouralearn=gmail.com@sendgrid.net designates 167.89.72.20 as permitted sender) smtp.mailfrom=bounces+4740376-49ca-yasserkaddouralearn=gmail.com@sendgrid.net
+Return-Path: <bounces+4740376-49ca-yasserkaddouralearn=gmail.com@sendgrid.net>
+Received: from o5.dlv9.klaviyomsv.com (o5.dlv9.klaviyomsv.com. [167.89.72.20])
+        by mx.google.com with ESMTPS id j140si3559425itb.100.2018.03.12.00.31.31
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Mar 2018 00:31:32 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+4740376-49ca-yasserkaddouralearn=gmail.com@sendgrid.net designates 167.89.72.20 as permitted sender) client-ip=167.89.72.20;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@sendgrid.net header.s=smtpapi header.b=AjSEl4ZW;
+       spf=pass (google.com: domain of bounces+4740376-49ca-yasserkaddouralearn=gmail.com@sendgrid.net designates 167.89.72.20 as permitted sender) smtp.mailfrom=bounces+4740376-49ca-yasserkaddouralearn=gmail.com@sendgrid.net
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=sendgrid.net; 
+	h=content-type:mime-version:from:to:subject:list-unsubscribe:x-feedback-id; 
+	s=smtpapi; bh=N7HH+UwwfFcasGPZgTNtPZFHaSs=; b=AjSEl4ZW4H9krJ6zXF
+	k2BMxngaHHyJQcw6T71j6I+fi5egwr5n1se+ugMAaHBtCc5STdOa3SKsBv0cU9VO
+	Kch7H14D4yGthQ//F2A9w+c4DBvFg5YfAyU3MlIvFwA0FCtvb5RNZYoDrA3mwnNC
+	jS+AErmtp6USwQdvjcHLf6tpE=
+Received: by filter0504p1mdw1.sendgrid.net with SMTP id filter0504p1mdw1-13593-5AA62CD2-11
+        2018-03-12 07:31:30.256913025 +0000 UTC
+Received: from qw-email-sending-0b5576177a038f972.localdomain (ec2-54-81-226-185.compute-1.amazonaws.com [54.81.226.185])
+	by ismtpd0005p1iad1.sendgrid.net (SG) with ESMTP id HuUQ8SDSRIuH6L4Ika8cow
+	for <yasserkaddouralearn@gmail.com>; Mon, 12 Mar 2018 07:31:30.077 +0000 (UTC)
+Received: from qw-email-sending-0b5576177a038f972.servers.clovesoftware.com (localhost [127.0.0.1])
+	by qw-email-sending-0b5576177a038f972.localdomain (Postfix) with ESMTP id E51811C8087
+	for <yasserkaddouralearn@gmail.com>; Mon, 12 Mar 2018 07:31:29 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8850727786301401193=="
+MIME-Version: 1.0
+From: HarvardX <harvardx-news@harvard.edu>
+To: Yasser kaddoura <yasserkaddouralearn@gmail.com>
+Subject: Professional Certificate: Data Science
+Date: Mon, 12 Mar 2018 07:31:30 +0000 (UTC)
+X-Kmail-Account: APWNu4
+X-Kmail-Message: H8jVtj
+X-Kmail-Relay: [APWNu4.krelaymail.com]:587
+X-Kmail-Ops: Q6rski
+List-Unsubscribe: <https://manage.kmail-lists.com/subscriptions/unsubscribe?a=APWNu4&c=Q6rski&r=6s6NH6d&m=H8jVtj&k=e56e84a546f50c0e81d1ef938e17bafe>
+Message-Id: <20180312073129.E51811C8087@qw-email-sending-0b5576177a038f972.localdomain>
+X-SG-EID: bf9PIOVHMRg7Q2XUrrM1QxQwQnZXY/L/cn6ogx1zhg/lGD+/5nGzrWXbbexZguLXArU3X39H8Zig2D
+ ymIkzWvOTSjbBN8o1juu+dMiwHTqYTE59kgk8tzeMO1qZLBXlnvxU15jNw1DgS7HiAgCWvHdCNUkr5
+ jg5pA37ufOjbTWCUwdpodgmrlzCxo/0n7+u6dLi+DuregCSmFd1etVpQF0CfMbyRzTe2E23AfQyL7S
+ M=
+X-SG-ID: SBwR90D05tjy2td57hrBiGbL/PijVNIQU/M4dTUIZawsu+1pz0mMeN9POYc/kdPhel84AVzOXGkMQ1
+ /gbc1TXK1unEFLsKa2Z34UgOfPGEYRAmG9e9Ah1lumYLt7vM34
+X-Feedback-ID: 4740376:R0D5xwIb6Ks0I6F7Z0/JCHgiLh3Gjg1x3T4dheE9OCU=:R0D5xwIb6Ks0I6F7Z0/JCHgiLh3Gjg1x3T4dheE9OCU=:SG
+
+--===============8850727786301401193==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+Learn R,=C2=A0data analysis techniques, and statistical concepts=C2=A0while=
+ persuing a
+professional certificate in data=C2=A0science.=C2=A0
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuKLiyUs-2B6iaUT1okqwsJG-2FDfSYbL3D0-2Ff-2BawhPwy7ciwZmrjmR9Wg8Pc68=
+OD9RsP-2BAh297B02mp8fTlJA-2FXXpvRhYgzlptNQz8TmIazutT6y_Bw8ZSeJeZ0ugNeULT6I9=
+8c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVn=
+H9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5W=
+fZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9ErL2DMVVj5scO-2F1tN-2B1pAIkS=
+loNkYOqfb8P9sUz5M-2BNuT7SxufPjPU-2FWpKUykhKoY8ZHo-2F33xQgwmbJ2nw3jlPUjKmfac=
+0MmHRgtAGChnk2F2pgZhFpRPmZtFhO2P1IFx7e9KRJUB1bfpPPPgWw-2BYE-3D
+g&utm_content=3Demail-harvardx-data-science&utm_campaign=3Dharvardx>
+
+Professional Certificate Program
+
+A series of career-oriented courses to develop in-demand skills.
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jckh-2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA=
+6hqllmnRTIFYWnRNFGvFAguZg87g2m70sOef7C7ctmRdC5BL_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Pn65hxFcdb4IrfYsRwidA0Mdkci-2Fknwb=
+TK7xt3L8f8EMJx0xuIYTEuq4AfgCF5jpu5317piTRU2DYvY660SNauXIAdQod7wCKb201jnPk5P=
+N-2F64dIWlUW91EuxO1-2BZ3FGVBGXikJmSZz5vbPjYFMQ8-3D
+ail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scienc=
+e&utm_camp
+aign=3Dharvardx>
+
+Data Science
+
+Learn key data science essentials, including R and machine learning, through
+real-world case studies to jumpstart your career as a data=C2=A0scientist.
+
+Pursue the Program | $491 USD
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jckh-2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA=
+6hqllmnRTIFYWnRNFGvFAguZg87g2m70sOef7C7ctmRdC5BL_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9O5dAXhlr46RSvIOj-2BAqyFu7xHXwvh2QC=
+0U9YOw5m2O1EqzfhxutEImAkgITmNBd-2FQFM1oqqqhFGHl8-2BFGiidjwpzZ99LDW0F094jo3Y=
+XCCEs0VHVKVvV8O3Kg5C47VHuLknXK6Tb3woY1L4J-2B9yZsc-3D
+ail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scienc=
+e&utm_camp
+aign=3Dharvardx>
+
+The demand for skilled data science practitioners in industry, academia, and
+government is rapidly growing. The HarvardX Data Science program prepares y=
+ou
+with the necessary knowledge base and useful skills to tackle real-world da=
+ta
+analysis challenges.
+
+The program covers concepts such as probability, inference, regression, and
+machine learning and helps you develop an essential skill set that includes=
+ R
+programming, data wrangling with dplyr, data visualization with ggplot2, fi=
+le
+organization with Unix/Linux, version control with git and GitHub, and
+reproducible document preparation with RStudio.
+
+Courses included
+
+These courses can also be taken individually.
+Audit the course for free or earn a Verified=C2=A0Certificate.
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTRsElppdqMUIwT9MhidiD=
+hHd-2BGDgrVGp-2FKEoUwn8SNsLJoHCoPubaNS1A0zC-2F7DVW_Bw8ZSeJeZ0ugNeULT6I98c7U=
+L8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mF=
+sQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg=
+2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9D8xCi4n9tY7j8WyU0A6fQx9xaHdJ1rIC=
+qggr7RRuSaolf0LIttGncUucRn84Q-2FriNo8gbu7W20ZCXjiqmootGjW1PwC1qqBSJRRbSA98l=
+8HaijxokYBumzb45wJZgqLX6FsDKQFIOLpAkOWa27wR-2F8-3D
+email&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scie=
+nce&utm_ca
+mpaign=3Dharvardx>
+
+R Basics
+
+Learn the basic building blocks of R.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTRsElppdqMUIwT9MhidiD=
+hHd-2BGDgrVGp-2FKEoUwn8SNsLJoHCoPubaNS1A0zC-2F7DVW_Bw8ZSeJeZ0ugNeULT6I98c7U=
+L8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mF=
+sQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg=
+2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Kayc6rJ-2FF5kfqm89f5CBtKsXEqvCcn=
+mzWJPisEOVAFvKiFQmakVyKFKThvuWOn-2Bga-2BV-2BAV0ezBH7M63abu0Kk-2BdPFLTChN7SF=
+AxxgVphsNitorKhNUoyUswZRoQzpjP62tN5S50EqELWs0mt4RbhQA-3D
+email&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scie=
+nce&utm_ca
+mpaign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBT82HAvprkPAEBpVPixCBR=
+uTanTpIBSM8VSsNZHPwfw2V-2BKn7xZVuU1ghqMt-2Fs6Hwt_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9AQ8AehrLlhjoylZwurp-2BGfqYrqe6vAbh=
+pcrcPAc6jl-2BMD2bnZ3xkqLRqORAnmu6li52wXTEBHvOEmFIGInhonhxDBRUuLjBEwGVrj0DrZ=
+RRufk-2Ba-2FjU5W8i8BadE16KzKToIc-2F5-2Ftj-2B6tAAgahUuGo-3D
+ce=3Demail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data=
+-science&utm
+_campaign=3Dharvardx>
+
+Visualization
+
+Learn basic data visualization principles.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBT82HAvprkPAEBpVPixCBR=
+uTanTpIBSM8VSsNZHPwfw2V-2BKn7xZVuU1ghqMt-2Fs6Hwt_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9OJVvkj3vjjAdOVZgdlQ13-2B16spVXlUXt=
+CAgLjHa6yxogF2ht-2BSQqb4CAFBxpPHLRkiOGGUjX-2FYwfBwkhbaC9lKxDKkLYJ4-2FKiDgMj=
+d0NmXPKAi7rXvF-2F9FLWWAECtzNoVDHuYz6G5POy1bukX6AtCE-3D
+ce=3Demail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data=
+-science&utm
+_campaign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTao4UwNzYcwZCghD-2Fy4=
+BGF6gdtBQzeHjU6G8pgV3eH7Db1ATXdZ46JDbOQ85jMLAg_Bw8ZSeJeZ0ugNeULT6I98c7UL8vI=
+VvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmH=
+C3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY5=
+8LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9BEedcsGBglvavI1HYQiORWB28sGR-2BDJlTQ=
+GvXjgdkUylhh5y3EgWo9CIzYgtaBhz5SOi3mCydWnAdD9SKkco41tQTuYwOVtcYdLwrfUdUK6VT=
+bpFY0goxCCWFKu5HLo9tBJK5Gf-2FpAcvBdEnUAGHK4-3D
+=3Demail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-s=
+cience&utm_c
+ampaign=3Dharvardx>
+
+Probability
+
+Gain foundational knowledge in probability=C2=A0theory.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTao4UwNzYcwZCghD-2Fy4=
+BGF6gdtBQzeHjU6G8pgV3eH7Db1ATXdZ46JDbOQ85jMLAg_Bw8ZSeJeZ0ugNeULT6I98c7UL8vI=
+VvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmH=
+C3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY5=
+8LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9C9me1c2UeAJdrmEST-2FGczNOMxYsuhXYtm0=
+yhdmLbFe5RszbVwVWVeMhe92F7NAKqCYnLmN06j-2BEIQnT6azIM6sgnZP1EZNuHra3wuZWiUY2=
+NNOnuBxw1V0J7U0EMwhEOY411qTb9j9X2SCCtZFkhl4-3D
+=3Demail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-s=
+cience&utm_c
+ampaign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTHaL26iNTN3doTCBD54tt=
+0mP4ipqrhSlVSHrQw05AKCM4lSBRnHht8HA-2BrkcWGjka_Bw8ZSeJeZ0ugNeULT6I98c7UL8vI=
+VvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmH=
+C3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY5=
+8LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9IG4XhDnDeqgwP8nkeB-2FQwVrTK-2FAqOleV=
+1Pr3SmVUWN4hBge589JbYpaEV8PEJW4atvy81-2FLnDP1ah1zIgkBXQMFnfzIXCKognWQo4bmhC=
+Cww08l-2FgGcvGuv7y3rO7eB0suFr3DQ7KiWvOQ3K-2Fq4o40-3D
+rtner-marketing&utm_content=3Demail-harvardx-&utm_campaign=3Dharvardx>
+
+Inference and Modeling
+
+Two critical stats tools for data analysis.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTHaL26iNTN3doTCBD54tt=
+0mP4ipqrhSlVSHrQw05AKCM4lSBRnHht8HA-2BrkcWGjka_Bw8ZSeJeZ0ugNeULT6I98c7UL8vI=
+VvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmH=
+C3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY5=
+8LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9P3F-2BiUucpexTPAT6Jf1uPl-2FqlCuG3UfT=
+WnbnMDJUBAJqNWC4pRG-2Bxe6nKLsmQcf11jafj1GDFco89awMx5sPopUUMhYxMtS0oQefkcOUh=
+Igfwj45LD3QykEYats90hIDyw4vXfdGJ-2F36-2BMnh4dsVNo-3D
+rtner-marketing&utm_content=3Demail-harvardx-&utm_campaign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBT3KRYw56c7K4k86JDhHKY=
+TNkKkSYgSZ6Yi5xTh-2BEvedM-2B7OZOV2amXJjYknGdgPqD_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9HaWoFbajxQ4PL02xIFp9YISQjeWKPwJxrR=
+1rW94uaImIS4IpK5bUtNFW2EmRehswCexENwjFuVj-2BxOYE7EpVwHPFJGomh-2FQgGbBR5y-2B=
+-2BAnq64bf3m8C-2FcerpxF4vCwEytflGld-2FXA5qjip54vII10w-3D
+_source=3Demail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx=
+-data-scienc
+e&utm_campaign=3Dharvardx>
+
+Productivity Tools
+
+Learn GitHub, git, Unix/Linux and RStudio.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBT3KRYw56c7K4k86JDhHKY=
+TNkKkSYgSZ6Yi5xTh-2BEvedM-2B7OZOV2amXJjYknGdgPqD_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9ByFqnbdyyTuGyHNh2PGNzrAWnAWsLz1e5z=
+Ad5OPAvfc3mXE-2FOwsAcrclO93RY5K2FGNaE3VeFwHf7mU-2F-2BhnKsNXFBmRy94rAUF-2F8V=
+ztAXarRX-2BUdvfaE2B3mYPvMLrs5aeJMBd-2FQSqmsuqwV2KbIRY-3D
+_source=3Demail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx=
+-data-scienc
+e&utm_campaign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTj4YDEEv7lXsl3l7gnI0R=
+Ct5Jvn6J08cHXSBCExXfaXDnLj-2F-2BE7dNepL4vZZZN5y1_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9EMxCdq3xV3SHWdK0vOMHNQx2di2GlkPEUE=
+0Hx44edwvDQyf5vCKU5DSuv610k7ZoGqc51hLgth0P3PdaJg3isr3RT1RlFBbcrWHmHP9jqNlSU=
+5D5ja5rmfMCFzxjzm6SbLWmwz51FIbRypt-2BrzbZiQ-3D
+mail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scien=
+ce&utm_cam
+paign=3Dharvardx>
+
+Wrangling
+
+Convert raw data=C2=A0for further analysis.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTj4YDEEv7lXsl3l7gnI0R=
+Ct5Jvn6J08cHXSBCExXfaXDnLj-2F-2BE7dNepL4vZZZN5y1_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9IZA0Fw1-2FopFMVfgaK-2F7oDIxrmhc11c=
+T8pTVwygfk4XgeG7BMo9tvD-2Bxng4HrtUAWIRh1B-2FjOaurSIMBelwB-2FpTss9A-2FwXlXLZ=
+DVRE4vz9bQzTCxZ3n3K26c56AeBhCxDQZSSgpfQE0lZZztlHH3ET4-3D
+mail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scien=
+ce&utm_cam
+paign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTgE6Wd-2B0W5N4NftBSXP=
+Jut78TLZ2RHc-2BxlGDt95yQf3KYKBmFPerqF6-2BDriExGAyI_Bw8ZSeJeZ0ugNeULT6I98c7U=
+L8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mF=
+sQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg=
+2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9POBTLDkBvlqZdJ5sOe8k986LRDS-2BCF=
+8fZ5LQy6jwLxPO-2F9nBUBKvebGNSaiKLjJVLB-2Bb-2B31TMgA7U58H-2BtBI7QB-2B8TS2MJR=
+2ZQyGRY1R6GnQ06RGUWg4q-2BaW9KZ9uGQDQZkbUhnr4jULOJCeqyIdg4-3D
+edium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-science&utm_cam=
+paign=3Dharv
+ardx>
+
+Linear Regression
+
+Examine the relationships between variables.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTgE6Wd-2B0W5N4NftBSXP=
+Jut78TLZ2RHc-2BxlGDt95yQf3KYKBmFPerqF6-2BDriExGAyI_Bw8ZSeJeZ0ugNeULT6I98c7U=
+L8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mF=
+sQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg=
+2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9CCERdRZQBlshiZTIlwDA-2Fb-2BkMqpn=
+mISMuNHzdVLzHKpFL69DrsPFEaaBttFIH5raoX0LwhdMhr0DEK9FyIG0extBInIWJXhXB9t1sY0=
+goaonzecGYPeg03tTI3IpEnsUwIZQiiaZLOfdZWGKQBL-2F7s-3D
+edium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-science&utm_cam=
+paign=3Dharv
+ardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTk2qLeF-2FkU-2BcqUreL=
+Ol5nBhXwxfdU6DtpKdB0Q9skaxNCsMR3FuLfD4H5LGhpkRpY_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9JdPwFX49Jqo84yCLBgcBVyG7gV6byqRL2-=
+2FVTBXNlNtx6E1zwxT3Cy9nD0oazF-2B3h1XvtfFd2xVa68mePrxZKkbF7ywPcJhUa31xfC9p5n=
+Gb7o3-2B8iaphyEgVgq9tYLoIHjxZRX-2B4kwLZaLPkPxa83M-3D
+dium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-science&utm_camp=
+aign=3Dharva
+rdx>
+
+Machine Learning
+
+Build a movie recommendation system.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTk2qLeF-2FkU-2BcqUreL=
+Ol5nBhXwxfdU6DtpKdB0Q9skaxNCsMR3FuLfD4H5LGhpkRpY_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9C5377kxqKMG6tRCGuS91rXAn4x3cQzNFCh=
+rPq3eVJHuYoYG2NI-2BqHh-2BAB1fKu1ILO0M40HmGjmSvtYZzjybehD94p1EWI3-2BeNevwNQE=
+A98e7a-2FowZP01yPFuTXave5JdpwrR9W99u13MtJnLiRhwuw-3D
+dium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-science&utm_camp=
+aign=3Dharva
+rdx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTa1CBT1rv8ZrPpY992CjR=
+su1N6nyqwomFwVEzjlPLdbqsxrCltA0jYRZ8bKVWvEMx_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVv=
+CcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3=
+iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58L=
+XvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9DM5cwShCwbFn0pBb-2FdEt1IAG2UGYA1kuq9U7=
+UjOE9FFgYkKEtpTKieeovmEIKQPQSqenZsSdr2rGSzsXw09cUE-2Fp1glQ8gZgTUNZke9XXgucW=
+enOTQf0mDii6QfH8Ng3hqCyGNugI-2F2NFtmAT8g5fE-3D
+tner-marketing&utm_content=3Demail-harvardx-data-science&utm_campaign=3Dhar=
+vardx>
+
+Capstone
+
+Show what you=E2=80=99ve learned from this=C2=A0series.
+
+Learn more
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTa1CBT1rv8ZrPpY992CjR=
+su1N6nyqwomFwVEzjlPLdbqsxrCltA0jYRZ8bKVWvEMx_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVv=
+CcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3=
+iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58L=
+XvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9A-2FsX98YtCN6P6cRXXo1BGACWeSB1qabfWoaV=
+jDRQaZ2jAy2wqAn9ZJLiRyit9rGyrsvcu-2FETGti-2Bv1dMutOdoIhVi83kmNKF6syjrCFx3xG=
+0QuCefxkf83UNJOBDe3Tno7KoxWM9zdRJZdXcZOkFqU-3D
+tner-marketing&utm_content=3Demail-harvardx-data-science&utm_campaign=3Dhar=
+vardx>
+
+Pursue the Program | $491 USD
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jckh-2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA=
+6hqllmnRTIFYWnRNFGvFAguZg87g2m70sOef7C7ctmRdC5BL_Bw8ZSeJeZ0ugNeULT6I98c7UL8=
+vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQ=
+mHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2d=
+Y58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9GSrz6Un4D53AitXHrSxzTOfruAUFHF1OE2=
+F6Bez-2F8A-2BgowZadxagiKH4QdPOF317JwSNKakAoq7S4AYK6D33yDqJZ52PntBX3fjozE-2B=
+02QTNgHqPOR7ngOJnYPpUq3E6dpKHrwODbqm4cik3OLQTb0-3D
+ail&utm_medium=3Dpartner-marketing&utm_content=3Demail-harvardx-data-scienc=
+e&utm_camp
+aign=3Dharvardx>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3Da53TX2xAbHQz1=
+Jx5t0BR0jFdVldi1ARgjbYiMwcMx0GjEGK-2FjVFLu6CXUjqXkyCw_Bw8ZSeJeZ0ugNeULT6I98=
+c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH=
+9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5Wf=
+Zlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Cg5-2Ff7m1UCw37YW-2FfDv-2Fo-2=
+BDzcGrMnQZUxWOcYA8IxR75W1npx32pb-2FrV7TQGzSKxcTFu8dpeJ33CGva0nqW4lLjHL0COxk=
+M4xo00GiTxoqq1njb6yuQBjY9-2FkC2TH4KuoUetqeri3rK522QAVgZkLk-3D>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3Da53TX2xAbHQz1=
+Jx5t0BR0nafglG499Ybt9DxSOIimxIcX93u1dwtkCm-2BDBISOWNa_Bw8ZSeJeZ0ugNeULT6I98=
+c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH=
+9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5Wf=
+Zlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9KHQEdNlTXDW5l9pJySDnwKJmOIHiW=
+BORoyQiElr2rl-2Bj7kXNNFpUozYJbZRlNNmrGBuB9geSfHU4beIJKBgBoaMSTWu9HTPfDPuYBC=
+YnjH2UiMCsRwxUO0gS1y6Lvvdtiee1wyzhA1yO2Pm5fAf7wE-3D>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuOw5Q6Alacs0onXx9rbT2ZIlY3L3DMVcYTxeR5XoqNf6rbGsRgEnw4zH5xuwD-2FJV=
+aw-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdU=
+GCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDiz=
+Obn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS=
+9BJG7Vhjs6SXzT6N7gMjY5U6-2FtjAyZF30vx7Zxe-2BP-2FFPXpRCw5nMhAlPDChG-2BlsRy1Y=
+sJUn4poZiIkdWwwVsUWgitIi-2FKKIpdRjcEoZer7iG-2BSn6Lt2Bnxpy1nhdG1TKcbzZ8F6nye=
+btWYCu3Gi7fB0-3D>
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuIv0TcN97bQEIqwJnjNKx7sqks0pmiGxW6bwo1jgikiTGuarNFkadBs2mhUUHzYUVA=
+-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGC=
+ProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizOb=
+n39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9I=
+Sndv9vxdsfpzWRv3m1Fl8do8yoOa2SVPiWljj-2BQmlMyZ8YkDhK2gYLLJwHS3uX5vf-2FnN6Xf=
+tIJHHglGz058c86s9iG17SEs3yDCqM6QN3jcjNBHvSGLmfyeh5b-2BgdG9XjKTu6AGBa-2BLWK8=
+t5g7qKE-3D>
+
+You are receiving this email because you signed up for emails from
+Harvard=C2=A0University.
+Provide Feedback
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuGLQXq1-2FePtKzvpiFHHsepSfX6UV1w88Ffz4XxHhFVqMja4CQBA2HaaETcjnUZHu=
+0sCkl3y63d9DaB1i4mSwHXL09jQ-2BCFyvuIW38pUl1PLw_Bw8ZSeJeZ0ugNeULT6I98c7UL8vI=
+VvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmH=
+C3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY5=
+8LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9KafHBfQ5Z8uHOKpfgX0VozHjuMI-2FdBrn9j=
+9uVKZH849IBRcfKjls7VhiVEHewf-2B5Tu-2FENE9zoKQpfqAlQlJJot2MWJkp8Y6falYI5BP6E=
+Myk51eQ8pIuwMlqydcbEupjsNenYLh4lvtIrTlbc66L1g-3D>
+
+Having trouble with this email?
+View in Your Browser
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuEkds-2B0dGLvwWLqGS0eYMCqim1JL3LsPO2vl2yCYEsu75nVgtW5tUDpc39TRazSH=
+6MlsBbX9UU7UZk-2Fe5jsvjJGJ7TVbCjE5U-2FT-2B2mI9vbU4Y8YVcRUWfvsrQlUR4fuKm96UM=
+y3h5snVUpRz3j8zhbC4u-2BMQgcq0IvGiGWYLLHAT_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcV=
+ty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4=
+YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvO=
+c4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9AyblVwg00QKRZhxDE3keYunbetpO3QzBrKxHFrc4U=
+BquNYqo39niX5B7XkS8k2B8jEYO2pTj-2FVfhjt3lDTQUc5Iuvk97eVy7rZRrERZ7-2FiufgFdb=
+XTnksiSTwXRUndl-2B94egJ9wJ9d2deXLC0SICt8-3D>
+
+No longer want to receive these messages?
+Unsubscribe
+<http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-2FpBGfahx8=
+zud9PNJJZuEkds-2B0dGLvwWLqGS0eYMCqim1JL3LsPO2vl2yCYEsu7Q6mO-2FPJKgIbFb-2BkB=
+rq9FLJTpGkHFpgrlNg0e93P7nH24JWR22uHuGKiPrAvoDWDamuhoQiu3No4bMSftSTXTFeFl-2F=
+IgKMpmpFhAyKuTXKfu3pjOslm9uwzKcbFGuxNo1_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty=
+6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4Yw=
+BOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4=
+xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Ldz5mcHXglEq8RUFJQSSi1jHQKeAm-2FwpdElNV0rHo=
+KnJyKB4kE3BUilvstOH-2FjASUb-2B6oX5QtU-2F8-2F7z47JN9ERbzU7OhX-2FgOfxIYWYc5dY=
+lx8tS4FV49OCn-2FTUUuTixsv9MPvZEBj7KoNLw2LVbMRY-3D>
+
+HarvardX
+125 Mt Auburn St Cambridge, MA 02138
+
+
+--===============8850727786301401193==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml">
+<head>
+<meta content=3D"text/html; charset=3Dutf-8" http-equiv=3D"Content-Type" />
+<meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-scale=3D1"=
+ />
+<title></title>
+
+<style type=3D"text/css">@media yahoo{.kmHide,.kmMobileOnly,.kmMobileHeader=
+StackDesktopNone,.kmMobileWrapHeaderDesktopNone{display:none;font-size:0 !i=
+mportant;line-height:0 !important;mso-hide:all !important;max-height:0 !imp=
+ortant;max-width:0 !important;width:0 !important}}@media only screen and (m=
+ax-width:480px){body,table,td,p,a,li,blockquote{-webkit-text-size-adjust:no=
+ne !important}body{width:100% !important;min-width:100% !important}td[id=3D=
+bodyCell]{padding:10px !important}table.kmMobileHide{display:none !importan=
+t}table.kmDesktopOnly,td.kmDesktopOnly,th.kmDesktopOnly,tr.kmDesktopOnly,td=
+.kmDesktopWrapHeaderMobileNone{display:none !important}table.kmMobileOnly{d=
+isplay:table !important}tr.kmMobileOnly{display:table-row !important}td.kmM=
+obileOnly,td.kmDesktopWrapHeader,th.kmMobileOnly{display:table-cell !import=
+ant}tr.kmMobileNoAlign,table.kmMobileNoAlign{float:none !important;text-ali=
+gn:initial !important;vertical-align:middle !important;table-layout:fixed !=
+important}tr.kmMobileCenterAlign{float:none !important;text-align:center !i=
+mportant;vertical-align:middle !important;table-layout:fixed !important}td.=
+kmButtonCollection{padding-left:9px !important;padding-right:9px !important=
+;padding-top:9px !important;padding-bottom:9px !important}td.kmMobileHeader=
+StackDesktopNone,img.kmMobileHeaderStackDesktopNone,td.kmMobileHeaderStack{=
+display:block !important;margin-left:auto !important;margin-right:auto !imp=
+ortant;padding-bottom:9px !important;padding-right:0 !important;padding-lef=
+t:0 !important}td.kmMobileWrapHeader,td.kmMobileWrapHeaderDesktopNone{displ=
+ay:inline-block !important}td.kmMobileHeaderSpacing{padding-right:10px !imp=
+ortant}td.kmMobileHeaderNoSpacing{padding-right:0 !important}table.kmDeskto=
+pAutoWidth{width:inherit !important}table.kmMobileAutoWidth{width:100% !imp=
+ortant}table[class=3DkmTextContentContainer]{width:100% !important}table[cl=
+ass=3DkmBoxedTextContentContainer]{width:100% !important}td[class=3DkmImage=
+Content]{padding-left:0 !important;padding-right:0 !important}img[class=3Dk=
+mImage],img.kmImage{width:100% !important}td.kmMobileStretch{padding-left:0=
+ !important;padding-right:0 !important}table[class=3DkmSplitContentLeftCont=
+entContainer],table.kmSplitContentLeftContentContainer,table[class=3DkmSpli=
+tContentRightContentContainer],table.kmSplitContentRightContentContainer,ta=
+ble[class=3DkmColumnContainer],td[class=3DkmVerticalButtonBarContentOuter] =
+table[class=3DkmButtonBarContent],td[class=3DkmVerticalButtonCollectionCont=
+entOuter] table[class=3DkmButtonCollectionContent],table[class=3DkmVertical=
+Button],table[class=3DkmVerticalButtonContent]{width:100% !important}td[cla=
+ss=3DkmButtonCollectionInner]{padding-left:9px !important;padding-right:9px=
+ !important;padding-top:9px !important;padding-bottom:9px !important}td[cla=
+ss=3DkmVerticalButtonIconContent],td[class=3DkmVerticalButtonTextContent],t=
+d[class=3DkmVerticalButtonContentOuter]{padding-left:0 !important;padding-r=
+ight:0 !important;padding-bottom:9px !important}table[class=3DkmSplitConten=
+tLeftContentContainer] td[class=3DkmTextContent],table[class=3DkmSplitConte=
+ntRightContentContainer] td[class=3DkmTextContent],table[class=3DkmColumnCo=
+ntainer] td[class=3DkmTextContent],table[class=3DkmSplitContentLeftContentC=
+ontainer] td[class=3DkmImageContent],table[class=3DkmSplitContentRightConte=
+ntContainer] td[class=3DkmImageContent],table.kmSplitContentLeftContentCont=
+ainer td.kmImageContent,table.kmSplitContentRightContentContainer td.kmImag=
+eContent{padding-top:9px !important}td[class=3D"rowContainer kmFloatLeft"],=
+td.rowContainer.kmFloatLeft,td[class=3D"rowContainer kmFloatLeft firstColum=
+n"],td.rowContainer.kmFloatLeft.firstColumn,td[class=3D"rowContainer kmFloa=
+tLeft lastColumn"],td.rowContainer.kmFloatLeft.lastColumn{float:left;clear:=
+both;width:100% !important}table[class=3DtemplateContainer],table[class=3D"=
+templateContainer brandingContainer"],div[class=3DtemplateContainer],div[cl=
+ass=3D"templateContainer brandingContainer"],table[class=3DtemplateRow]{max=
+-width:600px !important;width:100% !important}h1{font-size:40px !important;=
+line-height:1.1 !important}h2{font-size:32px !important;line-height:1.1 !im=
+portant}h3{font-size:24px !important;line-height:1.1 !important}h4{font-siz=
+e:18px !important;line-height:1.1 !important}td[class=3DkmTextContent]{font=
+-size:14px !important;line-height:1.3 !important}td[class=3DkmTextBlockInne=
+r] td[class=3DkmTextContent]{padding-right:18px !important;padding-left:18p=
+x !important}table[class=3D"kmTableBlock kmTableMobile"] td[class=3DkmTable=
+BlockInner]{padding-left:9px !important;padding-right:9px !important}table[=
+class=3D"kmTableBlock kmTableMobile"] td[class=3DkmTableBlockInner] [class=
+=3DkmTextContent]{font-size:14px !important;line-height:1.3 !important;padd=
+ing-left:4px !important;padding-right:4px !important}}</style>
+<!--[if mso]>
+    <style>
+=20=20=20=20=20=20
+      .templateContainer {
+        border: 0px none #AAAAAA;
+        background-color: #FFFFFF;
+=20=20=20=20=20=20=20=20
+          border-radius: 0px;
+=20=20=20=20=20=20=20=20
+      }
+      #brandingContainer {
+        background-color: transparent !important;
+        border: 0;
+      }
+=20=20=20=20=20=20
+=20=20=20=20=20=20
+      .templateContainerInner {
+        padding: 0px;
+      }
+=20=20=20=20=20=20
+    </style>
+  <![endif]-->
+</head>
+<body style=3D"margin:0;padding:0;background-color:#EEE">
+<center>
+<table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=
+=3D"bodyTable" width=3D"100%" data-upload-file-url=3D"/ajax/email-editor/fi=
+le/upload" data-upload-files-url=3D"/ajax/email-editor/files/upload" style=
+=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-la=
+yout:auto;padding:0;background-color:#EEE;height:100%;margin:0;width:100%">
+<tbody>
+<tr>
+<td align=3D"center" id=3D"bodyCell" valign=3D"top" style=3D"border-collaps=
+e:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:auto;padding-=
+top:0;padding-left:20px;padding-bottom:20px;padding-right:20px;border-top:0=
+;height:100%;margin:0;width:100%">
+<!--[if !mso]><!-->
+<div class=3D"templateContainer" style=3D"border:0 none #AAA;background-col=
+or:#FFF;border-radius:0;display: table; width:600px">
+<div class=3D"templateContainerInner" style=3D"padding:0">
+<!--<![endif]-->
+<!--[if mso]>
+              <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=
+=3D"templateContainer"  width=3D"600" style=3D"border-collapse:collapse;mso=
+-table-lspace:0;mso-table-rspace:0;">
+              <tbody>
+                <tr>
+                  <td class=3D"templateContainerInner" style=3D"border-coll=
+apse:collapse;mso-table-lspace:0;mso-table-rspace:0;">
+            <![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" styl=
+e=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-l=
+ayout:fixed">
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" style=3D"border-colla=
+pse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;font-size:11px;colo=
+r:#888888;padding-bottom:9px;text-align:center;padding-right:18px;padding-l=
+eft:18px;padding-top:9px;background-color:#eeeeee;'>
+<p style=3D"margin:0;padding-bottom:0">Learn R,=C2=A0data analysis techniqu=
+es, and statistical concepts=C2=A0while persuing a professional certificate=
+ in data=C2=A0science.=C2=A0</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner" style=3D"border-collapse:collapse;mso-table=
+-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px;padding-top:21p=
+x;padding-bottom:23px;background-color:#eeeeee;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuKLiyUs-2B6iaUT1okqwsJG-2FDfSYbL3D0-2Ff-2BawhPwy7ciwZmrj=
+mR9Wg8Pc68OD9RsP-2BAh297B02mp8fTlJA-2FXXpvQC-2BSbEGRYP-2BZTqCZcXdavCieQHhdb=
+ums5GV6aO1y-2FOhoh1johstou7ISM0zoNSpkYaykBCoAX92xGbsFFLbcK-2F-2F80w74MIYh-2=
+BgrU-2Bm8GlYjw-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Yw=
+ij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2=
+FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-=
+2FxBGNUqAGhS9Fv086JLBJvFMErUR92TvdaYZvN2FY-2Fkk8b6Z5aN12AH8R2Ues7pPCyRewMBT=
+9wT8xgZpAF7fKZ-2Br-2BY6BFhjAQdrInfpwtp5ScxPB5ei6xfzp1gvhncXbpGZzE6EVM35w8F4=
+-2F3cauQAOiMsHMoMDInI-3D" target=3D"_self" style=3D"word-wrap:break-word;ma=
+x-width:100%;color:#15C;font-weight:normal;text-decoration:underline">
+<img align=3D"center" alt=3D"HarvardX" class=3D"kmImage" src=3D"https://d3k=
+81ch9hvuctc.cloudfront.net/company/APWNu4/images/bbd392ca-7171-4cfc-aa3b-75=
+c04fe04bc1.png" width=3D"200" style=3D"border:0;height:auto;line-height:100=
+%;outline:none;text-decoration:none;max-width:100%;padding-bottom:0;display=
+:inline;vertical-align:top;font-size:12px;width:100%;max-width:200px;paddin=
+g:0px;background-color:#eeeeee;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" style=3D"border-colla=
+pse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<h3 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:24px;font-style:normal;font-weight:bold;line-height:1.1;letter-spa=
+cing:0;margin:0;margin-bottom:12px;text-align:left;text-align: center;'><sp=
+an style=3D"color:#9a1f60;">Professional Certificate Program</span></h3>
+<p style=3D"margin:0;padding-bottom:0;text-align: center;"><span style=3D"c=
+olor:#9a1f60;"><em>A series of career-oriented courses to develop in-demand=
+ skills.</em></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0px=
+;padding-right:0px;padding-left:0px;padding-bottom:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding:0;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jckh-2BhGRQoxuFcsFO2JT-2Bep-2ByFQBH=
+bzE7FYsgpA6hqllmnRTIFYWnRNFGvFAguZg86pcl5y7pKopER24diQscWGgeeFOnmzE2VEgXzYL=
+7v65TBVlW-2BAH-2FrRGE4fKByUCPhT8pLMTOvOBoEIGaZjrEq-2BqsLcK4siRIC4BeZhJb4zx-=
+2FNHCv7HlU2R10dNpX5RtjZQ3J1V5ObYREXt1lawUaX-2B_Bw8ZSeJeZ0ugNeULT6I98c7UL8vI=
+VvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmH=
+C3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY5=
+8LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9NDt8qAfUXsYzYGN6PNozHJ-2FmKWuFugcHmV=
+k4HKjBGEmzuXraDhoZKAFEpXDWzNBGjRDObnIqEt9ZH77u-2F2ZPpWRaZww8Tkyk289Ve7o8Zyw=
+irsWKWR1HY5peVyrQt0-2BAqTJGZzmDzByhd7fp1gxgRk-3D" target=3D"_self" style=3D=
+"word-wrap:break-word;max-width:100%;color:#15C;font-weight:normal;text-dec=
+oration:underline">
+<img align=3D"left" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvuct=
+c.cloudfront.net/company/APWNu4/images/2be0b9be-35e2-4f29-9bb7-5e31d3a52756=
+.jpeg" width=3D"600" style=3D"border:0;height:auto;line-height:100%;outline=
+:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline;v=
+ertical-align:top;font-size:12px;width:100%;margin-right:0;max-width:800px;=
+padding:0;border-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed;background-color:#98235F">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:17px;pa=
+dding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<h3 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:24px;font-style:normal;font-weight:bold;line-height:1.1;letter-spa=
+cing:0;margin:0;margin-bottom:12px;text-align:left;text-align: center;'>Dat=
+a Science</h3>
+<p style=3D"margin:0;padding-bottom:0;text-align: center;"><em>Learn key da=
+ta science essentials, including R and machine learning, through real-world=
+ case studies to jumpstart your career as a data=C2=A0scientist.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"center" class=3D"kmButtonBlockInner" style=3D"b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:18px;pad=
+ding-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#0F7F12;bord=
+er-width:2px;background-color:#0F7F12;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#FFFFFF;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jckh-=
+2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA6hqllmnRTIFYWnRNFGvFAguZg86pcl5y7pK=
+opER24diQscWGgeeFOnmzE2VEgXzYL7v65TBVlW-2BAH-2FrRGE4fKByUCPhT8pLMTOvOBoEIGa=
+ZjrEq-2BqsLcK4siRIC4BeZhJb4zx-2FNHCv7HlU2R10dNpX5RtjZQ3J1V5ObYREXt1lawUaX-2=
+B_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBs=
+KLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zV=
+UlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9EASUgo=
+kOTcqw9N3Y1Nl0YEbU3-2B2VhElX93bPW-2FK95htpPpV5XHbNHQ2wcT9eIUlkCkAPc9hm5P21R=
+DwbbB5aByh-2BFwZ3JtO72NCb0DLXRQ36Mjf1uv9DVMd9hFOmxtzFkkbHlVr3Hbg3cnoENkWVsw=
+-3D" target=3D"_self" style=3D'word-wrap:break-word;max-width:100%;font-wei=
+ght:normal;line-height:100%;text-align:center;text-decoration:underline;col=
+or:#15C;font-family:"Helvetica Neue", Arial;font-size:16px;text-decoration:=
+none; display: inline-block; padding-top:15px;padding-bottom:15px;font-size=
+:16px;color:#FFFFFF;letter-spacing:0px;font-weight:bold;padding-left:15px;p=
+adding-right:15px;font-family:"Helvetica Neue", Arial; ;'>Pursue the Progra=
+m | $491 USD</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#FFFFFF;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jck=
+h-2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA6hqllmnRTIFYWnRNFGvFAguZg86pcl5y7=
+pKopER24diQscWGgeeFOnmzE2VEgXzYL7v65TBVlW-2BAH-2FrRGE4fKByUCPhT8pLMTOvOBoEI=
+GaZjrEq-2BqsLcK4siRIC4BeZhJb4zx-2FNHCv7HlU2R10dNpX5RtjZQ3J1V5ObYREXt1lawUaX=
+-2B_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCPro=
+BsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39=
+zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9GsaO=
+TgntFZNnAVDHmqIFimOydRiT8JTtqmkpfNi2Zuu2ekD1ByjiG-2Fobb7wW1akdTaqUdTZwCDssy=
+vlZ0HU1lG19ZGTp14hlaH069sm6Ky-2BUGJcQE-2FMwhTnEihTX5Tac-2Fc8HqcNnVEN6AUp8GU=
+5y08-3D" target=3D"_self" style=3D"text-decoration:none;padding-top:15px;pa=
+dding-bottom:15px;font-size:16px;color:#FFFFFF;letter-spacing:0px;font-weig=
+ht:bold;padding-left:15px;padding-right:15px;font-family:&quot;Helvetica Ne=
+ue&quot;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-15px;ma=
+rgin-right:-15px;">Pursue the Program | $491 USD</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k kmDesktopOnly" width=3D"100%" style=3D"border-collapse:collapse;mso-table=
+-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:1em">The demand for skilled data scienc=
+e practitioners in industry, academia, and government is <strong>rapidly gr=
+owing</strong>. The HarvardX Data Science program prepares you with the nec=
+essary knowledge base and useful skills to tackle real-world data analysis =
+challenges.</p>
+<p style=3D"margin:0;padding-bottom:0">The program covers concepts such as =
+probability, inference, regression, and machine learning and helps you <str=
+ong>develop an essential skill set</strong> that includes R programming, da=
+ta wrangling with dplyr, data visualization with ggplot2, file organization=
+ with Unix/Linux, version control with git and GitHub, and reproducible doc=
+ument preparation with RStudio.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmDesktopOnly" style=3D"border-collapse:collapse;mso-ta=
+ble-lspace:0;mso-table-rspace:0;table-layout:fixed;background-color:#EEEEEE=
+">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmDesktopOnly" style=3D"border-collapse:collapse;mso-ta=
+ble-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:10px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:17px;pa=
+dding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<h3 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:24px;font-style:normal;font-weight:bold;line-height:1.1;letter-spa=
+cing:0;margin:0;margin-bottom:12px;text-align:left;text-align: center;'>Cou=
+rses included</h3>
+<p style=3D"margin:0;padding-bottom:0;text-align: center;"><em>These course=
+s can also be taken individually.</em><br />
+<em>Audit the course for free or <strong>earn a Verified=C2=A0Certificate</=
+strong>.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmDesktopOnly" style=3D"border-collapse:collapse;mso-ta=
+ble-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:18px;padding-=
+bottom:18px;padding-left:0px;padding-right:0px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed;border-top-width:3px;border-top-styl=
+e:solid;border-top-color:#9A1F60;">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft firstColumn" valign=3D"top" width=3D"=
+33%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:=
+0;table-layout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:10px;padding-=
+bottom:0px;padding-left:0px;padding-right:0px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed;border-top-width:3px;border-top-styl=
+e:solid;border-top-color:#9A1F60;">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTRsElppdqMU=
+IwT9MhidiDhHd-2BGDgrVGp-2FKEoUwn8SNsK9ljrhOW3qZF1ZwpP4QdCF0y3yqWoQGLaU2Gw8t=
+aRNgC0zAg4Dm1QC0jyt6NxWPWoaGgHj81J29zkDWOHMeD4KmVUIDTE8xOsdQ2HZvdKsWxT-2B-2=
+B48vmdfi9Vpr891LVXIg7FNkCELGreLPIyNi5R3q_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVt=
+y6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4Y=
+wBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc=
+4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9PK31GWwvrgxuy2N9znn5DsoTJY0FX6ind5x5HFA93G=
+rPUoctgTr4MBvVwX8ERmXU5YGnw6HL5z-2B4Su24xxTjghjEEwonOAmSg5V7VOyBHsXBU2uQJXN=
+R4uBKRmjrTJ9q6-2BVGMPrwJZkyfVQMcsN-2FLQ-3D" target=3D"_self" style=3D"word-=
+wrap:break-word;max-width:100%;color:#15C;font-weight:normal;text-decoratio=
+n:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/2d65818d-54c5-4358-bcb9-b56378f391=
+91.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>R Basics</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Learn the basic building blocks =
+of R.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTRsElppdqMUIwT9MhidiDhHd-2BGDgrVGp-2FKEoUwn8SNsK9ljrhOW3=
+qZF1ZwpP4QdCF0y3yqWoQGLaU2Gw8taRNgC0zAg4Dm1QC0jyt6NxWPWoaGgHj81J29zkDWOHMeD=
+4KmVUIDTE8xOsdQ2HZvdKsWxT-2B-2B48vmdfi9Vpr891LVXIg7FNkCELGreLPIyNi5R3q_Bw8Z=
+SeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPD=
+vGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqN=
+R7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Ni7udlBrNH0-=
+2F7oBx4-2FQOrbfRe0cgpxZgRFeoSvXLqZJHDCkkBnu5KaE4RQqGV4LPYniGbjjYeGGZhYALlTX=
+wooDYQ-2FVJWG4ICdj8XodC-2FrUxaZHZrpiDbNjSkfm1MPiXmuLBBl4sHHCx8oP0nzTlRU-3D"=
+ target=3D"_self" style=3D'word-wrap:break-word;max-width:100%;font-weight:=
+normal;line-height:100%;text-align:center;text-decoration:underline;color:#=
+15C;font-family:"Helvetica Neue", Arial;font-size:16px;text-decoration:none=
+; display: inline-block; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTRsElppdqMUIwT9MhidiDhHd-2BGDgrVGp-2FKEoUwn8SNsK9ljrhO=
+W3qZF1ZwpP4QdCF0y3yqWoQGLaU2Gw8taRNgC0zAg4Dm1QC0jyt6NxWPWoaGgHj81J29zkDWOHM=
+eD4KmVUIDTE8xOsdQ2HZvdKsWxT-2B-2B48vmdfi9Vpr891LVXIg7FNkCELGreLPIyNi5R3q_Bw=
+8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMY=
+PDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgL=
+qNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9DXD-2B3F8-=
+2BLuZj8LIJYRMB0HyhJ3WWy41-2B8yToifL-2FX97hOJi1t2NNOJSLOmTymY85o9lrS53A5mmE1=
+uyadoyghiFyOWz1W4PzIir1tXKKd6sj3XheA4v-2BSoB6i-2BGCTZOFNRJVO-2Bex63-2FNHRQW=
+LZNnLA-3D" target=3D"_self" style=3D"text-decoration:none;padding-top:15px;=
+padding-bottom:15px;font-size:16px;color:#891324;letter-spacing:0px;font-we=
+ight:bold;padding-left:15px;padding-right:15px;font-family:&quot;Helvetica =
+Neue&quot;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-15px;=
+margin-right:-15px;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" width=3D"33%" style=
+=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-la=
+yout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBT82HAvprkPA=
+EBpVPixCBRuTanTpIBSM8VSsNZHPwfw2XW3UXAHso6T01CTZ4W8s1roI8MEjEwQA-2BBvpkV0Ga=
+3tdSBuEmUzhEBUQMeAKUVBwjj9ivLIZFgaiHmusuFD3eoOkVBvy7Cl0SfacV1YUiC8ej1u3JtMk=
+kXIrvODw5QTcfy-2FPH6bzsUL-2B3KU5Uw0RRG_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6=
+Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwB=
+OyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4x=
+I3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9DEF3g87cKVXanxjTHz6hxtnJrFKKsDJZvDndHdpFrMH-=
+2FVJeYHlcAtHqlERJgC3GOhk8QwIKlOATICphUzhZOd8yjNM-2Fa6II7YEzpgmZW9NgMLtXQk1h=
+U8k8aQ1YFHcRKhbRzIJAgfrT-2BQx-2Fhp5J1po-3D" target=3D"_self" style=3D"word-=
+wrap:break-word;max-width:100%;color:#15C;font-weight:normal;text-decoratio=
+n:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/5f51e2a3-3224-455f-8e7c-91f082dc96=
+5e.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Visualization</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Learn basic data visualization p=
+rinciples.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBT82HAvprkPAEBpVPixCBRuTanTpIBSM8VSsNZHPwfw2XW3UXAHso6T01=
+CTZ4W8s1roI8MEjEwQA-2BBvpkV0Ga3tdSBuEmUzhEBUQMeAKUVBwjj9ivLIZFgaiHmusuFD3eo=
+OkVBvy7Cl0SfacV1YUiC8ej1u3JtMkkXIrvODw5QTcfy-2FPH6bzsUL-2B3KU5Uw0RRG_Bw8ZSe=
+JeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvG=
+leXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7=
+y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9AV-2BkzlMy-2Bj=
+LM7PhbPIzNzJ9xNN6cDsGckzf3LlN-2BEL68qwTKxgja957yo2l2fP9RiTif48VlCxvFeMHzLxR=
+saU32QMJBHikBugMKIWcWCF7UxVeXQ7d8vESMLJchJTOyk2LQbyKxHOOccyFl9LF7C4-3D" tar=
+get=3D"_self" style=3D'word-wrap:break-word;max-width:100%;font-weight:norm=
+al;line-height:100%;text-align:center;text-decoration:underline;color:#15C;=
+font-family:"Helvetica Neue", Arial;font-size:16px;text-decoration:none; di=
+splay: inline-block; padding-top:15px;padding-bottom:15px;font-size:16px;co=
+lor:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;padding-r=
+ight:15px;font-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBT82HAvprkPAEBpVPixCBRuTanTpIBSM8VSsNZHPwfw2XW3UXAHso6T=
+01CTZ4W8s1roI8MEjEwQA-2BBvpkV0Ga3tdSBuEmUzhEBUQMeAKUVBwjj9ivLIZFgaiHmusuFD3=
+eoOkVBvy7Cl0SfacV1YUiC8ej1u3JtMkkXIrvODw5QTcfy-2FPH6bzsUL-2B3KU5Uw0RRG_Bw8Z=
+SeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPD=
+vGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqN=
+R7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9DkO2pfUKGE-2=
+FNz563m4ADnndyMb1Ft8Ja2eZeN2HbuquAnr9IHyzZgot4fhR28Y5pBHTvsJ2MNtLYmrh99c-2F=
+Me0wg-2BVLk-2BkbyuG2X0yIUa2-2BOgEjivpexWZqhyqjXju5yxBN4NJ8-2BhwoKb12Nx8O5jY=
+-3D" target=3D"_self" style=3D"text-decoration:none;padding-top:15px;paddin=
+g-bottom:15px;font-size:16px;color:#891324;letter-spacing:0px;font-weight:b=
+old;padding-left:15px;padding-right:15px;font-family:&quot;Helvetica Neue&q=
+uot;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-15px;margin=
+-right:-15px;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"rowContainer kmFloatLeft lastColumn" valign=3D"top" width=3D"3=
+3%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0=
+;table-layout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTao4UwNzYcw=
+ZCghD-2Fy4BGF6gdtBQzeHjU6G8pgV3eH7Ca1UmU0FYEgJRw-2B06crB4jx5hm4bhnBL1VBOnL-=
+2BRPDyPTGsljAu-2BT8x8zCWxHSGsefeo-2F-2FqHbsE1XUkmDWQPyu3vQWchYhZHODMNOz-2Fr=
+6vnqc6fyBdrKACZ0-2FpZ4kn8a86-2BNikYv8iileK4rWL2CeP_Bw8ZSeJeZ0ugNeULT6I98c7U=
+L8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mF=
+sQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg=
+2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9CEc-2Boj0B-2FZV9hwtvtDNGxlArDK3s=
+PMwa-2BG6lDaflKIKqF46TNBgq85P1rN8FrpztAITdzr-2BBRjCjQlB0klYKDHUs0mw3yslkyto=
+zsQgSvEacdlCaFHz5S21sjJisJNNOGMxSpSztMSEatWT9at66Fg-3D" target=3D"_self" st=
+yle=3D"word-wrap:break-word;max-width:100%;color:#15C;font-weight:normal;te=
+xt-decoration:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/3b4d81cd-9f3a-4e98-b600-5463b38fa8=
+e2.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Probability</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Gain foundational knowledge in p=
+robability=C2=A0theory.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTao4UwNzYcwZCghD-2Fy4BGF6gdtBQzeHjU6G8pgV3eH7Ca1UmU0FYEg=
+JRw-2B06crB4jx5hm4bhnBL1VBOnL-2BRPDyPTGsljAu-2BT8x8zCWxHSGsefeo-2F-2FqHbsE1=
+XUkmDWQPyu3vQWchYhZHODMNOz-2Fr6vnqc6fyBdrKACZ0-2FpZ4kn8a86-2BNikYv8iileK4rW=
+L2CeP_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCP=
+roBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn=
+39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Jq=
+iDYjA99TOMilFkQegO1HOYFlBMaDJ5IeMQTw9CSp4jh60Dmdsvq2FwevQWGmmc55zgGnlL3zIh1=
+RYts0OOAvCEVw5wJB3ONl2h7ewLVdtV1ORhW539xWMMMZDZp3wd-2FQNYXT-2FXyeRCUGBvcWDu=
+ws-3D" target=3D"_self" style=3D'word-wrap:break-word;max-width:100%;font-w=
+eight:normal;line-height:100%;text-align:center;text-decoration:underline;c=
+olor:#15C;font-family:"Helvetica Neue", Arial;font-size:16px;text-decoratio=
+n:none; display: inline-block; padding-top:15px;padding-bottom:15px;font-si=
+ze:16px;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px=
+;padding-right:15px;font-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTao4UwNzYcwZCghD-2Fy4BGF6gdtBQzeHjU6G8pgV3eH7Ca1UmU0FY=
+EgJRw-2B06crB4jx5hm4bhnBL1VBOnL-2BRPDyPTGsljAu-2BT8x8zCWxHSGsefeo-2F-2FqHbs=
+E1XUkmDWQPyu3vQWchYhZHODMNOz-2Fr6vnqc6fyBdrKACZ0-2FpZ4kn8a86-2BNikYv8iileK4=
+rWL2CeP_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUG=
+CProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizO=
+bn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9=
+AOf6YBkfv1V2-2FCv00wtw2kyZIGksQW2EWtc4adyEo85wUu-2Fq7WmmMXgs-2FPvSFtmlfXFYh=
+jBt69RYZAYMCbDnW3jQS4-2BUJpcmrLjIYYJlC1Lmx2fXFfGSZWDYgp3kV0-2FXc9Nv9y8ZSx5z=
+X9fsKgezSI-3D" target=3D"_self" style=3D"text-decoration:none;padding-top:1=
+5px;padding-bottom:15px;font-size:16px;color:#891324;letter-spacing:0px;fon=
+t-weight:bold;padding-left:15px;padding-right:15px;font-family:&quot;Helvet=
+ica Neue&quot;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-1=
+5px;margin-right:-15px;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" style=3D"border-colla=
+pse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft firstColumn" valign=3D"top" width=3D"=
+33%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:=
+0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTHaL26iNTN3=
+doTCBD54tt0mP4ipqrhSlVSHrQw05AKCPrIyNCg5M30oC4UMZtHan7zUKa7f73deBudv6-2BpV2=
+Beekd1kYkQMFvddSXAT2z-2Fjbs9ZwtHh8kyGWbRNvqDuTSQn2UXMlO6OUTQTkiDagrNA-3D-3D=
+_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsK=
+LMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVU=
+lgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9NL5oYoE=
+Z6J3ndESgi3qhsoJEMaJlwj-2FcG8SC1J-2FRGGw-2BrXktaXCkiuII-2BJ9dm-2F4uYVSC-2Fs=
+HAxI4aAmVerWvCSUAjmetpQmV4CZjUtkLnm3jgcsUIUcQ4tJg6jLrQQ4dYc0H4YOipz1-2Bx5hw=
+hnieBiQ-3D" target=3D"_self" style=3D"word-wrap:break-word;max-width:100%;c=
+olor:#15C;font-weight:normal;text-decoration:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/daa4f69c-19e0-4a75-801f-f254eea3e8=
+cd.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Inference and Modelin=
+g</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Two critical stats tools for dat=
+a analysis.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTHaL26iNTN3doTCBD54tt0mP4ipqrhSlVSHrQw05AKCPrIyNCg5M30oC=
+4UMZtHan7zUKa7f73deBudv6-2BpV2Beekd1kYkQMFvddSXAT2z-2Fjbs9ZwtHh8kyGWbRNvqDu=
+TSQn2UXMlO6OUTQTkiDagrNA-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPc=
+pX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMF=
+G3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtV=
+DHI9PE9nY-2FxBGNUqAGhS9MAP-2FiDymZFCT8NAR-2FUNKs413lw71BGMx23wsREmzEANC97gz=
+-2FnK-2B9UmzDGH8-2BgMZb93V5rYvRRUfD6szlm4-2BaYrLIBQe0BvN7Ql6-2BoH9ofJe1KX8b=
+abRJhmIbxI-2FKCeK9bf3X-2FsHQW61SwFFBpVcZ8-3D" target=3D"_self" style=3D'wor=
+d-wrap:break-word;max-width:100%;font-weight:normal;line-height:100%;text-a=
+lign:center;text-decoration:underline;color:#15C;font-family:"Helvetica Neu=
+e", Arial;font-size:16px;text-decoration:none; display: inline-block; paddi=
+ng-top:15px;padding-bottom:15px;font-size:16px;color:#891324;letter-spacing=
+:0px;font-weight:bold;padding-left:15px;padding-right:15px;font-family:"Hel=
+vetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTHaL26iNTN3doTCBD54tt0mP4ipqrhSlVSHrQw05AKCPrIyNCg5M30=
+oC4UMZtHan7zUKa7f73deBudv6-2BpV2Beekd1kYkQMFvddSXAT2z-2Fjbs9ZwtHh8kyGWbRNvq=
+DuTSQn2UXMlO6OUTQTkiDagrNA-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9vo=
+PcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzd=
+MFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRX=
+tVDHI9PE9nY-2FxBGNUqAGhS9LUZy3bGpbXB5vx9kcILFwwFhI80hHNXTD-2BmOq4lJYIOHnL29=
+iHTblQ-2FDGzg8rtywoySZ8U2s0iYvBZC6VrUFHZqaImHr11GC9xgKwT4e6msUM-2FjfYO8WbxW=
+EDLODzzLwWABL50PvOq0XJ1kiQpGyto-3D" target=3D"_self" style=3D"text-decorati=
+on:none;padding-top:15px;padding-bottom:15px;font-size:16px;color:#891324;l=
+etter-spacing:0px;font-weight:bold;padding-left:15px;padding-right:15px;fon=
+t-family:&quot;Helvetica Neue&quot;, Arial;; margin-top:-15px;margin-bottom=
+:-15px;margin-left:-15px;margin-right:-15px;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" width=3D"33%" style=
+=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-la=
+yout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBT3KRYw56c7K=
+4k86JDhHKYTNkKkSYgSZ6Yi5xTh-2BEvedPAun75l-2FR4CgcQ8a-2BOSXVroRoLU8fl2CvQXuJ=
+Oqw2xkEh8Eclj5Jn0TpT0tCAXp2J6CF8GwYJNrSwd-2BnMpC1lF9SLfO-2BOU6HhHlqOb4gfm-2=
+BtAghFWMn3Lh2Qxfq5RSvIZXV9zJR5CRsJU6VhzCPn6b_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVv=
+CcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3=
+iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58L=
+XvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9L-2B6CeP1VI13uRJssifPxaGXkWfV0QseHbIGN=
+9FXdJ8fbzC3owc3-2FUEWm3bYQIc3-2BPTAHVGQgh6pqYVQJf1vXjIkfpBbREtW2HUJXCgmDgm3=
+tLkl8k2hWqHGwt1crQbH9lJ8mt18Y6HQCQbrWnB97bQ-3D" target=3D"_self" style=3D"w=
+ord-wrap:break-word;max-width:100%;color:#15C;font-weight:normal;text-decor=
+ation:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/cd5e86db-0e17-4a8a-96d0-15eee7a785=
+33.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Productivity Tools</h=
+4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Learn GitHub, git, Unix/Linux an=
+d RStudio.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBT3KRYw56c7K4k86JDhHKYTNkKkSYgSZ6Yi5xTh-2BEvedPAun75l-2FR=
+4CgcQ8a-2BOSXVroRoLU8fl2CvQXuJOqw2xkEh8Eclj5Jn0TpT0tCAXp2J6CF8GwYJNrSwd-2Bn=
+MpC1lF9SLfO-2BOU6HhHlqOb4gfm-2BtAghFWMn3Lh2Qxfq5RSvIZXV9zJR5CRsJU6VhzCPn6b_=
+Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKL=
+MYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUl=
+gLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9CMGATxp9=
+GhkqOMtNMeJfNvHMT-2B-2B0W7ZFNejuX-2BJh6Ibh70GY0XhnwX4WXHsSgop48Q25ASf-2BP8f=
+spekktCXlgg-2BLJAZBMbz7tHay-2BMhQrD-2FTzIBn3ovgd5uAXEwWermP-2FznDLQ8p1xA64-=
+2Fw3mm7tU0-3D" target=3D"_self" style=3D'word-wrap:break-word;max-width:100=
+%;font-weight:normal;line-height:100%;text-align:center;text-decoration:und=
+erline;color:#15C;font-family:"Helvetica Neue", Arial;font-size:16px;text-d=
+ecoration:none; display: inline-block; padding-top:15px;padding-bottom:15px=
+;font-size:16px;color:#891324;letter-spacing:0px;font-weight:bold;padding-l=
+eft:15px;padding-right:15px;font-family:"Helvetica Neue", Arial; ;'>Learn m=
+ore</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBT3KRYw56c7K4k86JDhHKYTNkKkSYgSZ6Yi5xTh-2BEvedPAun75l-2=
+FR4CgcQ8a-2BOSXVroRoLU8fl2CvQXuJOqw2xkEh8Eclj5Jn0TpT0tCAXp2J6CF8GwYJNrSwd-2=
+BnMpC1lF9SLfO-2BOU6HhHlqOb4gfm-2BtAghFWMn3Lh2Qxfq5RSvIZXV9zJR5CRsJU6VhzCPn6=
+b_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBs=
+KLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zV=
+UlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Lbg0y2=
+Ow3-2BU41PzkQc5awM4rfnQWOhSVIVIldDQBpUdhtVkbXIaOGHuVNv049ZenFY3MEyTpOrgJXxq=
+1w86MZa4TSfqJsWpKeEbCiiSfwEeDlyc66nC7KH5TFenFnX7hSoX0RT-2Fp6VC-2FQhxmINQJ9k=
+-3D" target=3D"_self" style=3D"text-decoration:none;padding-top:15px;paddin=
+g-bottom:15px;font-size:16px;color:#891324;letter-spacing:0px;font-weight:b=
+old;padding-left:15px;padding-right:15px;font-family:&quot;Helvetica Neue&q=
+uot;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-15px;margin=
+-right:-15px;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"rowContainer kmFloatLeft lastColumn" valign=3D"top" width=3D"3=
+3%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0=
+;table-layout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTj4YDEEv7lX=
+sl3l7gnI0RCt5Jvn6J08cHXSBCExXfaXAt-2BExXONi1z6ZxwmiSDfEKa-2Fi5Hga1Lr2J8sTGV=
+UpG85qvFJiLX4oBLv07Vj-2B2tk7KB8m2-2Bw4JYfNfd0UDKrsGgjMwUw0RqZ75OYb6bwiDwcfO=
+YAC558Wpu17ISfnqifZ-2FLTk1oPu4yrz9RQFQo8vA_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCc=
+Vty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV=
+4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXv=
+Oc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9BRqer00W4JZSSVp7X7WnCdXstGFtvigo65g0m28W=
+cZg-2BTri47jlYeaOcPbtLPUd9hgnsB2LhgsSiRgE4BlB4Kdq4jTb743DXZFBQw96Gy7nOHfeVR=
+EyJoz-2B0z6kdddZA-2FFxEQFGtdp9WE-2Fj3y56MMA-3D" target=3D"_self" style=3D"w=
+ord-wrap:break-word;max-width:100%;color:#15C;font-weight:normal;text-decor=
+ation:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/e29396b4-2a84-4b2d-80d5-84bbe1518a=
+6b.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Wrangling</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Convert raw data=C2=A0for furthe=
+r analysis.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTj4YDEEv7lXsl3l7gnI0RCt5Jvn6J08cHXSBCExXfaXAt-2BExXONi1z=
+6ZxwmiSDfEKa-2Fi5Hga1Lr2J8sTGVUpG85qvFJiLX4oBLv07Vj-2B2tk7KB8m2-2Bw4JYfNfd0=
+UDKrsGgjMwUw0RqZ75OYb6bwiDwcfOYAC558Wpu17ISfnqifZ-2FLTk1oPu4yrz9RQFQo8vA_Bw=
+8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMY=
+PDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgL=
+qNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9LvQiKRTTVW=
+14nnSlFZfyKtI00dPIbqEwVj6nNIB4Qg2s6EOf-2BnLxqaue3o2-2FmMB0B0YX7IA1rzNI03TCW=
+KL2hsWXpw4qiudDvDHlhDl27wS-2FuQH7SIcp73qpU9OgiZuoGc7dI6c1flic4vFiPO9Awg-3D"=
+ target=3D"_self" style=3D'word-wrap:break-word;max-width:100%;font-weight:=
+normal;line-height:100%;text-align:center;text-decoration:underline;color:#=
+15C;font-family:"Helvetica Neue", Arial;font-size:16px;text-decoration:none=
+; display: inline-block; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTj4YDEEv7lXsl3l7gnI0RCt5Jvn6J08cHXSBCExXfaXAt-2BExXONi=
+1z6ZxwmiSDfEKa-2Fi5Hga1Lr2J8sTGVUpG85qvFJiLX4oBLv07Vj-2B2tk7KB8m2-2Bw4JYfNf=
+d0UDKrsGgjMwUw0RqZ75OYb6bwiDwcfOYAC558Wpu17ISfnqifZ-2FLTk1oPu4yrz9RQFQo8vA_=
+Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKL=
+MYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUl=
+gLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9MTpxDPwc=
+BWZiCOU9xQc4XX25sbxlEmI6uQcg279ob5IAhzP9jCfTw86LK-2BXAhgGHu3n-2BDqKQMFdpfLn=
+XGjNeW4do1jSMu9-2B3bdYg1782Ngis0YMKJCuvNnVjT4evwTlkdxxYEM0wN2iNpZHw8kOeQw-3=
+D" target=3D"_self" style=3D"text-decoration:none;padding-top:15px;padding-=
+bottom:15px;font-size:16px;color:#891324;letter-spacing:0px;font-weight:bol=
+d;padding-left:15px;padding-right:15px;font-family:&quot;Helvetica Neue&quo=
+t;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-15px;margin-r=
+ight:-15px;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft firstColumn" valign=3D"top" width=3D"=
+33%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:=
+0;table-layout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTgE6Wd-2B0W=
+5N4NftBSXPJut78TLZ2RHc-2BxlGDt95yQf3LsDz7s-2FvcDSPDEDRSEb7N-2ByeqkQjpFwB6eV=
+jCJzqFC6gCcS5O3wWT0cRXyKHXSa1jtRpltpsez9n0Ebd44bntpRgg852aMDuTYw-2Bwz5K8gIR=
+JDd-2FdS6jF66PD-2FsV0YS-2FI-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPc=
+pX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMF=
+G3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtV=
+DHI9PE9nY-2FxBGNUqAGhS9HK3uIflnBnDDbd05BWbmrvY8d39JBFAz1WEPLiw-2F0O0Qco-2BG=
+u1ITuB1hwRe8FFMKBYxvj4-2FzVVSj2eIzGrDObxYtBkKdn1oUduXSPgUAdthym6hnZI4u-2BfI=
+NIO3x4hJZsl35XYPpsEc242NhJOQqhE-3D" target=3D"_self" style=3D"word-wrap:bre=
+ak-word;max-width:100%;color:#15C;font-weight:normal;text-decoration:underl=
+ine">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/9c5e1ec1-43ef-4177-874a-2ac60f0128=
+81.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Linear Regression</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Examine the relationships betwee=
+n variables.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTgE6Wd-2B0W5N4NftBSXPJut78TLZ2RHc-2BxlGDt95yQf3LsDz7s-2F=
+vcDSPDEDRSEb7N-2ByeqkQjpFwB6eVjCJzqFC6gCcS5O3wWT0cRXyKHXSa1jtRpltpsez9n0Ebd=
+44bntpRgg852aMDuTYw-2Bwz5K8gIRJDd-2FdS6jF66PD-2FsV0YS-2FI-3D_Bw8ZSeJeZ0ugNe=
+ULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q=
+9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUh=
+LuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9JAg3TjMNgs2m18f795tf05=
+Rowh2lx1M5xDXVQ8hdyGCbF-2FIw2kNP7Fb4io8IXC-2FTpYhqGbT3YDNG-2FEx4H3DrQt35T7Y=
+gTJFmFPVgKJ6JvxxO9atj7vH7Q22xiXmRTwCinLhAxXtg7StzQu7uAliH2g-3D" target=3D"_=
+self" style=3D'word-wrap:break-word;max-width:100%;font-weight:normal;line-=
+height:100%;text-align:center;text-decoration:underline;color:#15C;font-fam=
+ily:"Helvetica Neue", Arial;font-size:16px;text-decoration:none; display: i=
+nline-block; padding-top:15px;padding-bottom:15px;font-size:16px;color:#891=
+324;letter-spacing:0px;font-weight:bold;padding-left:15px;padding-right:15p=
+x;font-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTgE6Wd-2B0W5N4NftBSXPJut78TLZ2RHc-2BxlGDt95yQf3LsDz7s-=
+2FvcDSPDEDRSEb7N-2ByeqkQjpFwB6eVjCJzqFC6gCcS5O3wWT0cRXyKHXSa1jtRpltpsez9n0E=
+bd44bntpRgg852aMDuTYw-2Bwz5K8gIRJDd-2FdS6jF66PD-2FsV0YS-2FI-3D_Bw8ZSeJeZ0ug=
+NeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ3=
+8Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2O=
+UhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9OW27m4am53Cs-2BDtSTy=
+LTkmJthmPEjchYHiB2NlbApZym4g6-2BVlTPcKdHWg6NO6gapp-2BPEUo49pfeHL1jH2hmJdRXh=
+5CR7x06Nok-2BUwZU1J4RsTNAWNhf0SlGrcMYkgzNxO6BOz4xd9T2XlTxSa1ElQ-3D" target=
+=3D"_self" style=3D"text-decoration:none;padding-top:15px;padding-bottom:15=
+px;font-size:16px;color:#891324;letter-spacing:0px;font-weight:bold;padding=
+-left:15px;padding-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial=
+;; margin-top:-15px;margin-bottom:-15px;margin-left:-15px;margin-right:-15p=
+x;">Learn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" width=3D"33%" style=
+=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-la=
+yout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTk2qLeF-2Fk=
+U-2BcqUreLOl5nBhXwxfdU6DtpKdB0Q9skaxOHEW6K7PIAOpnwQz6RCmA2Zx-2BfwAfyo6hyWyv=
+P4Xq09YVOly0wn-2FKNpwfZ75HqgQBq4RqpXtAoEPXeJ4aB9TPNdguV4gUN0zPbUSylobk53wqG=
+-2FaH0445B6Z8X4my8mUg-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWm=
+P7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUD=
+lp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE=
+9nY-2FxBGNUqAGhS9FB-2F7I02nS7srMgpZFyMKJVzu83xpb-2BNi7JhzL7zERW77ziJsUPRFIi=
+psyhEhPeoHXmRViYlkJ-2FvPu9rj61ECLUDT7iLkNN44mUvz3625CW4JBkGVWdI5j3UJiGFbjtP=
+6PTToxeNdZcTbWeZF5eSzdo-3D" target=3D"_self" style=3D"word-wrap:break-word;=
+max-width:100%;color:#15C;font-weight:normal;text-decoration:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/24efdffd-5ecc-4068-b81f-6ff669a592=
+9b.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Machine Learning</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Build a movie recommendation sys=
+tem.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTk2qLeF-2FkU-2BcqUreLOl5nBhXwxfdU6DtpKdB0Q9skaxOHEW6K7PI=
+AOpnwQz6RCmA2Zx-2BfwAfyo6hyWyvP4Xq09YVOly0wn-2FKNpwfZ75HqgQBq4RqpXtAoEPXeJ4=
+aB9TPNdguV4gUN0zPbUSylobk53wqG-2FaH0445B6Z8X4my8mUg-3D_Bw8ZSeJeZ0ugNeULT6I9=
+8c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVn=
+H9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5W=
+fZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9GckUdP6FYcbLOmLQZ49dHkEikeWZ=
+sPIMIqqhQtC9TxgtIk3RqaS9fzIlJx6F-2FaslotfvyRDqxZEMbhNVOF-2BtNXTrhY-2FBTHsrj=
+QQIR1LXzhDiehwwHf8EIyOhsXm4HMa60-2FuzYsXH7754ix0pU3r2aU-3D" target=3D"_self=
+" style=3D'word-wrap:break-word;max-width:100%;font-weight:normal;line-heig=
+ht:100%;text-align:center;text-decoration:underline;color:#15C;font-family:=
+"Helvetica Neue", Arial;font-size:16px;text-decoration:none; display: inlin=
+e-block; padding-top:15px;padding-bottom:15px;font-size:16px;color:#891324;=
+letter-spacing:0px;font-weight:bold;padding-left:15px;padding-right:15px;fo=
+nt-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTk2qLeF-2FkU-2BcqUreLOl5nBhXwxfdU6DtpKdB0Q9skaxOHEW6K7=
+PIAOpnwQz6RCmA2Zx-2BfwAfyo6hyWyvP4Xq09YVOly0wn-2FKNpwfZ75HqgQBq4RqpXtAoEPXe=
+J4aB9TPNdguV4gUN0zPbUSylobk53wqG-2FaH0445B6Z8X4my8mUg-3D_Bw8ZSeJeZ0ugNeULT6=
+I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxn=
+VnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv=
+5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Fm3tTUYjkUqybI3vvjdcUtgQZf=
+K7i-2F174Wkr9XX8hcxJl-2BbFBzB0Vn-2F1ID4vSmTO2Ir1z69yZC5-2FxIJYS3rNsyLXEAjg-=
+2BpUCkBGXc0a2MWixO3VJroyfGSzWXD99orvzs4vy11gKznczfIGgiJuO0M-3D" target=3D"_=
+self" style=3D"text-decoration:none;padding-top:15px;padding-bottom:15px;fo=
+nt-size:16px;color:#891324;letter-spacing:0px;font-weight:bold;padding-left=
+:15px;padding-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;; ma=
+rgin-top:-15px;margin-bottom:-15px;margin-left:-15px;margin-right:-15px;">L=
+earn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td class=3D"rowContainer kmFloatLeft lastColumn" valign=3D"top" width=3D"3=
+3%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0=
+;table-layout:fixed">
+<!--[if !mso]><!-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmMobileOnly" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;display:none;background-c=
+olor:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!--<![endif]-->
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmImageBlo=
+ck" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed;min-width:100%">
+<tbody class=3D"kmImageBlockOuter">
+<tr>
+<td class=3D"kmImageBlockInner kmMobileStretch" style=3D"border-collapse:co=
+llapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:9px=
+;padding-top:0px;padding-right:0px;padding-left:0px;" valign=3D"top">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmImageContentContainer" width=3D"100%" style=3D"border-collapse:colla=
+pse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;min-width:100%=
+">
+<tbody>
+<tr>
+<td class=3D"kmImageContent" valign=3D"top" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;padding:0;font-=
+size:0;padding-top:0px;padding-bottom:0;padding-left:9px;padding-right:9px;=
+text-align: center;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPHPDezGtoPh1Qp6sNtumBTa1CBT1rv8Z=
+rPpY992CjRsu1N6nyqwomFwVEzjlPLdbqgyXjEeh3jDBpvmFqJTa8ZLGTjy71pWQfrgoWJEXzFc=
+c-2FlrtNKvOn-2BV5q0P663T4S0YfwUevp4X2cT7mPrPWx3N8n-2B2gcYBYgn0r-2Fuiw3Nv2wj=
+oIbksFDuyBihLzmk8jE-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7=
+Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp=
+-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9n=
+Y-2FxBGNUqAGhS9MpTsVl3vBuv8je-2BfUIjnKR0w8WAcHMMf0dXx-2BIniqZVXqcB2EHvxpDO-=
+2FLv-2BnqK0HiFx4yZ9EEBzhvkdDIQoyw-2FhyjBiz12l54u8aBYDTCtUymJGqskOEYscdEyEw8=
+KjeHFyL5fAKXVM2MbUbBjJkfQ-3D" target=3D"_self" style=3D"word-wrap:break-wor=
+d;max-width:100%;color:#15C;font-weight:normal;text-decoration:underline">
+<img align=3D"center" alt=3D"" class=3D"kmImage" src=3D"https://d3k81ch9hvu=
+ctc.cloudfront.net/company/APWNu4/images/93ca070f-fa27-48d1-b67b-1af5377ee1=
+d7.jpeg" width=3D"162" style=3D"border:0;height:auto;line-height:100%;outli=
+ne:none;text-decoration:none;max-width:100%;padding-bottom:0;display:inline=
+;vertical-align:top;font-size:12px;width:100%;max-width:800px;padding:0;bor=
+der-width:0;" />
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:9px;pad=
+ding-bottom:0px;padding-left:18px;padding-right:18px;'>
+<h4 style=3D'color:#222;display:block;font-family:"Helvetica Neue", Arial;f=
+ont-size:18px;font-style:normal;font-weight:italic;line-height:1.1;letter-s=
+pacing:0;margin:0;margin-bottom:10px;text-align:left'>Capstone</h4>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;padding-top:0px;pad=
+ding-bottom:9px;padding-left:18px;padding-right:18px;'>
+<p style=3D"margin:0;padding-bottom:0"><em>Show what you=E2=80=99ve learned=
+ from this=C2=A0series.</em></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"left" class=3D"kmButtonBlockInner" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:27px;paddi=
+ng-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#891324;bord=
+er-width:2px;background-color:#FFFFFF;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#891324;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6QlnyPH=
+PDezGtoPh1Qp6sNtumBTa1CBT1rv8ZrPpY992CjRsu1N6nyqwomFwVEzjlPLdbqgyXjEeh3jDBp=
+vmFqJTa8ZLGTjy71pWQfrgoWJEXzFcc-2FlrtNKvOn-2BV5q0P663T4S0YfwUevp4X2cT7mPrPW=
+x3N8n-2B2gcYBYgn0r-2Fuiw3Nv2wjoIbksFDuyBihLzmk8jE-3D_Bw8ZSeJeZ0ugNeULT6I98c=
+7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9=
+mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZ=
+lg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9JmEjvsv2oM3Ivj6vkSrPjKQ6Hjarz1=
+Fhy0znRIX4TdJnikr7iRkzP7-2FtIdrGFoRww42xR-2FFcTZPt4hmkiJ2tIFgNTE30zbRozZtdu=
+cMttiHk0su0tpQWXdoiyTDfw-2BGdtwZ5zUgPR-2Ba0oBCAMSeJWs-3D" target=3D"_self" =
+style=3D'word-wrap:break-word;max-width:100%;font-weight:normal;line-height=
+:100%;text-align:center;text-decoration:underline;color:#15C;font-family:"H=
+elvetica Neue", Arial;font-size:16px;text-decoration:none; display: inline-=
+block; padding-top:15px;padding-bottom:15px;font-size:16px;color:#891324;le=
+tter-spacing:0px;font-weight:bold;padding-left:15px;padding-right:15px;font=
+-family:"Helvetica Neue", Arial; ;'>Learn more</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuOr0Mtr-2FkchUEMbzB6Qlny=
+PHPDezGtoPh1Qp6sNtumBTa1CBT1rv8ZrPpY992CjRsu1N6nyqwomFwVEzjlPLdbqgyXjEeh3jD=
+BpvmFqJTa8ZLGTjy71pWQfrgoWJEXzFcc-2FlrtNKvOn-2BV5q0P663T4S0YfwUevp4X2cT7mPr=
+PWx3N8n-2B2gcYBYgn0r-2Fuiw3Nv2wjoIbksFDuyBihLzmk8jE-3D_Bw8ZSeJeZ0ugNeULT6I9=
+8c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVn=
+H9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5W=
+fZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9DQW-2Flj0ct6fTy7HeP06x-2F1W2=
+53gm5L67rcxahfl6MEz-2F9O2FXRpf6H5mUtcz1Oa-2Boq-2BTxmqQ8A6WimjZtnd3PzqwaSmex=
+FHnY8gRyjhRCNCVkgbkP5wiQvUUlY2QkYYzSYNEoirfwVCXleYiFJun9E-3D" target=3D"_se=
+lf" style=3D"text-decoration:none;padding-top:15px;padding-bottom:15px;font=
+-size:16px;color:#891324;letter-spacing:0px;font-weight:bold;padding-left:1=
+5px;padding-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;; marg=
+in-top:-15px;margin-bottom:-15px;margin-left:-15px;margin-right:-15px;">Lea=
+rn more</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" style=3D"border-colla=
+pse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed;background-color:#EEEEEE">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmButtonBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;ms=
+o-table-rspace:0;table-layout:fixed;width: 100% !important">
+<tbody class=3D"kmButtonBlockOuter">
+<tr>
+<td valign=3D"top" align=3D"center" class=3D"kmButtonBlockInner" style=3D"b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;min-width:60px;padding:9px 18px;padding-top:9;padding-bottom:9px;padd=
+ing-left:18;padding-right:18;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"" class=3D=
+"kmButtonContentContainer" style=3D"border-collapse:separate;mso-table-lspa=
+ce:0;mso-table-rspace:0;table-layout:fixed;border-top-left-radius:5px;borde=
+r-top-right-radius:5px;border-bottom-right-radius:5px;border-bottom-left-ra=
+dius:5px;background-color:#999;border-style:solid;border-color:#0F7F12;bord=
+er-width:2px;background-color:#0F7F12;border-radius:5px;">
+<tbody>
+<tr>
+<!--[if !mso]><!-->
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent" style=3D'b=
+order-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:=
+fixed;color:white;font-family:"Helvetica Neue", Arial;font-size:16px;color:=
+#FFFFFF;letter-spacing:0px;font-size:16px;font-family:"Helvetica Neue", Ari=
+al;font-weight:bold;'>
+<a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.klav=
+iyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jckh-=
+2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA6hqllmnRTIFYWnRNFGvFAguZg86pcl5y7pK=
+opER24diQscWGgeeFOnmzE2VEgXzYL7v65TBVlW-2BAH-2FrRGE4fKByUCPhT8pLMTOvOBoEIGa=
+ZjrEq-2BqsLcK4siRIC4BeZhJb4zx-2FNHCv7HlU2R10dNpX5RtjZQ3J1V5ObYREXt1lawUaX-2=
+B_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBs=
+KLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zV=
+UlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Mh0C7G=
+QmzHHnhjsf-2FeCPEJu2Qg5inOxHIxAh2GtmeXnLBZDPBZ-2FrdTb3SnQN-2BRLH50ukZPb3dEz=
+iE6BNv6o-2FRN2F4NGyg8oLL76T41hkrXeWN30HrqdfFlvWRRSwBQxxb3QOCJl9aAtzA3Vsp8tC=
+5Q-3D" target=3D"_self" style=3D'word-wrap:break-word;max-width:100%;font-w=
+eight:normal;line-height:100%;text-align:center;text-decoration:underline;c=
+olor:#15C;font-family:"Helvetica Neue", Arial;font-size:16px;text-decoratio=
+n:none; display: inline-block; padding-top:15px;padding-bottom:15px;font-si=
+ze:16px;color:#FFFFFF;letter-spacing:0px;font-weight:bold;padding-left:15px=
+;padding-right:15px;font-family:"Helvetica Neue", Arial; ;'>Pursue the Prog=
+ram | $491 USD</a>
+</td>
+<!--<![endif]-->
+<!--[if mso]>
+<td align=3D"center" valign=3D"middle" class=3D"kmButtonContent"
+  style=3D"padding:15px; padding-top:15px;padding-bottom:15px;font-size:16p=
+x;color:#FFFFFF;letter-spacing:0px;font-weight:bold;padding-left:15px;paddi=
+ng-right:15px;font-family:&quot;Helvetica Neue&quot;, Arial;">
+  <a class=3D"kmButton" title=3D"" href=3D"http://harvard-university.trk.kl=
+aviyomail.com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuHycYYr8gUN0wb0zzjdt7Jck=
+h-2BhGRQoxuFcsFO2JT-2Bep-2ByFQBHbzE7FYsgpA6hqllmnRTIFYWnRNFGvFAguZg86pcl5y7=
+pKopER24diQscWGgeeFOnmzE2VEgXzYL7v65TBVlW-2BAH-2FrRGE4fKByUCPhT8pLMTOvOBoEI=
+GaZjrEq-2BqsLcK4siRIC4BeZhJb4zx-2FNHCv7HlU2R10dNpX5RtjZQ3J1V5ObYREXt1lawUaX=
+-2B_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCPro=
+BsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39=
+zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9HahW=
+MGBnVb8PAx1eta-2B7P3PWOs-2FHD4V9jGVPUBPpZqgr-2BOEWmjA-2FctaUSXJ1lfHSuPD616j=
+2Kno-2ByLM3GzAAR4fboCujjNTDHJb2hAvPyGnss9K5jmjThJLcjAiwlhhDXWYk9JrfmesMo-2B=
+f1UE8uxQ-3D" target=3D"_self" style=3D"text-decoration:none;padding-top:15p=
+x;padding-bottom:15px;font-size:16px;color:#FFFFFF;letter-spacing:0px;font-=
+weight:bold;padding-left:15px;padding-right:15px;font-family:&quot;Helvetic=
+a Neue&quot;, Arial;; margin-top:-15px;margin-bottom:-15px;margin-left:-15p=
+x;margin-right:-15px;">Pursue the Program | $491 USD</a>
+</td>
+<![endif]-->
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:18px;padding-=
+bottom:0px;padding-left:0px;padding-right:0px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed;border-top-width:3px;border-top-styl=
+e:solid;border-top-color:#9A1F60;">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"templateRo=
+w" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"rowContainer kmFloatLeft" valign=3D"top" style=3D"border-colla=
+pse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmButtonBa=
+rBlock" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmButtonBarOuter">
+<tr>
+<td class=3D"kmButtonBarInner" align=3D"center" valign=3D"top" style=3D"bor=
+der-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fi=
+xed;padding-top:20px;padding-bottom:9px;background-color:#eeeeee;padding-le=
+ft:9px;padding-right:9px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmButtonBa=
+rContentContainer" width=3D"100%" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td align=3D"center" style=3D"border-collapse:collapse;mso-table-lspace:0;m=
+so-table-rspace:0;table-layout:fixed;padding-left:9px;padding-right:9px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmButtonBa=
+rContent" style=3D'border-collapse:collapse;mso-table-lspace:0;mso-table-rs=
+pace:0;table-layout:fixed;font-family:"Helvetica Neue", Arial'>
+<tbody>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
+lapse:collapse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td valign=3D"top" style=3D"border-collapse:collapse;mso-table-lspace:0;mso=
+-table-rspace:0;table-layout:fixed">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspac=
+e:0;table-layout:fixed">
+<tbody>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-right:10px;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3Da53=
+TX2xAbHQz1Jx5t0BR0jFdVldi1ARgjbYiMwcMx0GjEGK-2FjVFLu6CXUjqXkyCw_Bw8ZSeJeZ0u=
+gNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ=
+38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2=
+OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9P87foK1tGeL5xM5HYjt=
+s4nEeVr1oKjZ8jou2Uk1BSEHsJ-2Fvr6ECL1Fp21cNsn6d0lVZPb4bXl-2F8-2BewD-2Bfn4Ak4=
+PZ-2B6pOLT8OgYmltGE6mcTEMoBaS5vyvPQAzfBeNxbZhCbyYhS1c-2Fmo-2Fb9ZAi4gKI-3D" =
+target=3D"_blank" style=3D"word-wrap:break-word;max-width:100%;color:#15C;f=
+ont-weight:normal;text-decoration:underline"><img src=3D"https://d3k81ch9hv=
+uctc.cloudfront.net/assets/email/buttons/subtle/facebook_96.png" alt=3D"Fac=
+ebook" class=3D"kmButtonBlockIcon" width=3D"48" style=3D"border:0;height:au=
+to;line-height:100%;outline:none;text-decoration:none;max-width:100%;width:=
+48px; max-width:48px; display:block;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if gte mso 6]></td><td align=3D"left" valign=3D"top"><![endif]-->
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspac=
+e:0;table-layout:fixed">
+<tbody>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-right:10px;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3Da53=
+TX2xAbHQz1Jx5t0BR0nafglG499Ybt9DxSOIimxIcX93u1dwtkCm-2BDBISOWNa_Bw8ZSeJeZ0u=
+gNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ=
+38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2=
+OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9HK7FlM6wnYsRXDstEj4=
+4CVsYnpsH6yJAGO8rZ75mxEl0n88dZ6GuDD6ZiGtoFEAV7RxRE5PYIea0B7v4zgyFQ4yxx8qBIZ=
+pdesb3JcamLa2LnmXlNpNqLBvSzKiNt7wmP6mJId8Rm7I7divUeTjTZw-3D" target=3D"_bla=
+nk" style=3D"word-wrap:break-word;max-width:100%;color:#15C;font-weight:nor=
+mal;text-decoration:underline"><img src=3D"https://d3k81ch9hvuctc.cloudfron=
+t.net/assets/email/buttons/subtle/twitter_96.png" alt=3D"Twitter" class=3D"=
+kmButtonBlockIcon" width=3D"48" style=3D"border:0;height:auto;line-height:1=
+00%;outline:none;text-decoration:none;max-width:100%;width:48px; max-width:=
+48px; display:block;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if gte mso 6]></td><td align=3D"left" valign=3D"top"><![endif]-->
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspac=
+e:0;table-layout:fixed">
+<tbody>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-right:10px;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuOw5Q6Alacs0onXx9rbT2ZIlY3L3DMVcYTxeR5XoqNf6rbGsRgEnw4zH=
+5xuwD-2FJVaw-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij=
+0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2Fk=
+EcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2F=
+xBGNUqAGhS9BFXgJ8vSx7U4B-2BECl-2Flkq7H-2Bx-2BSf2NPNeB8ApZkMJU-2FjOMVxWq6ALd=
+5QRVNDMY9zRO2ItQan6qaaclIqAExzkzhJ2vtti6kl-2Fi64SCoOk-2BagFy48T0-2BkG9re3QR=
+fRFvlF1JuCO4buQsDMRjksQHueA-3D" target=3D"_blank" style=3D"word-wrap:break-=
+word;max-width:100%;color:#15C;font-weight:normal;text-decoration:underline=
+"><img src=3D"https://d3k81ch9hvuctc.cloudfront.net/assets/email/buttons/su=
+btle/youtube_96.png" alt=3D"YouTube" class=3D"kmButtonBlockIcon" width=3D"4=
+8" style=3D"border:0;height:auto;line-height:100%;outline:none;text-decorat=
+ion:none;max-width:100%;width:48px; max-width:48px; display:block;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if gte mso 6]></td><td align=3D"left" valign=3D"top"><![endif]-->
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspac=
+e:0;table-layout:fixed">
+<tbody>
+<tr>
+<td align=3D"center" valign=3D"top" style=3D"border-collapse:collapse;mso-t=
+able-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuIv0TcN97bQEIqwJnjNKx7sqks0pmiGxW6bwo1jgikiTGuarNFkadBs2=
+mhUUHzYUVA-3D-3D_Bw8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0V=
+CCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEc=
+VgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxB=
+GNUqAGhS9Ae79UQRxVcTnWtxLB4qbBrmMmuqZkyWD89bCFhe6h74O0N-2FcQgKZlbnzLXFU4vMP=
+5McMNUM6JgORIBCINc104mERZBYm0OMgC7fM2RHxJyWEltKE3ZKl9Hdm2XwzxF31Cr-2Fguiqdy=
+UBN5n6-2FvSldRo-3D" target=3D"_blank" style=3D"word-wrap:break-word;max-wid=
+th:100%;color:#15C;font-weight:normal;text-decoration:underline"><img src=
+=3D"https://d3k81ch9hvuctc.cloudfront.net/assets/email/buttons/subtle/linke=
+din_96.png" alt=3D"LinkedIn" class=3D"kmButtonBlockIcon" width=3D"48" style=
+=3D"border:0;height:auto;line-height:100%;outline:none;text-decoration:none=
+;max-width:100%;width:48px; max-width:48px; display:block;" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<!--[if gte mso 6]></td><td align=3D"left" valign=3D"top"><![endif]-->
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"kmTextBloc=
+k" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0;mso-=
+table-rspace:0;table-layout:fixed">
+<tbody class=3D"kmTextBlockOuter">
+<tr>
+<td class=3D"kmTextBlockInner" valign=3D"top" style=3D"border-collapse:coll=
+apse;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;">
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" clas=
+s=3D"kmTextContentContainer" width=3D"100%" style=3D"border-collapse:collap=
+se;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr>
+<td class=3D"kmTextContent" valign=3D"top" style=3D'border-collapse:collaps=
+e;mso-table-lspace:0;mso-table-rspace:0;table-layout:fixed;color:#222;font-=
+family:"Helvetica Neue", Arial;font-size:14px;line-height:1.3;letter-spacin=
+g:0;text-align:left;max-width:100%;word-wrap:break-word;font-size:11px;colo=
+r:#222222;padding-bottom:9px;text-align:center;padding-right:18px;padding-l=
+eft:18px;padding-top:9px;background-color:#eeeeee;'>
+<p style=3D"margin:0;padding-bottom:1em">You are receiving this email becau=
+se you signed up for emails from Harvard=C2=A0University.
+<br />
+<a href=3D"http://harvard-university.trk.klaviyomail.com/wf/click?upn=3DW0-=
+2FpBGfahx8zud9PNJJZuGLQXq1-2FePtKzvpiFHHsepSfX6UV1w88Ffz4XxHhFVqMja4CQBA2Ha=
+aETcjnUZHu0sCkl3y63d9DaB1i4mSwHXL09jQ-2BCFyvuIW38pUl1PLw_Bw8ZSeJeZ0ugNeULT6=
+I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYPDvGleXbJ38Q9sxn=
+VnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLqNR7y2cI2OUhLuVv=
+5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9KT7PI4nzMfplf0YF-2F-2B-2BE=
+kTQR3WeA5YsM4P2Jhh5VOL2ksb9akSSFpVE862UHcIOFgixZ4yojHa-2B81vXsGX2DOzwFQUoRv=
+Z1SQ9A1dmsy4YqCsBWX3p27thbAfrKJ7NH9Xl-2B-2FUIxv4UornE-2Bk9PZZ2A-3D" style=
+=3D"word-wrap:break-word;max-width:100%;color:#15C;font-weight:normal;text-=
+decoration:underline">Provide Feedback</a></p>
+<p style=3D"margin:0;padding-bottom:1em">Having trouble with this email?<br=
+ />
+<a class=3D"unsubscribe-link" style=3D"color:#1155CC;font-weight:normal;tex=
+t-decoration:underline;" href=3D"http://harvard-university.trk.klaviyomail.=
+com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuEkds-2B0dGLvwWLqGS0eYMCqim1JL3LsP=
+O2vl2yCYEsu75nVgtW5tUDpc39TRazSH6MlsBbX9UU7UZk-2Fe5jsvjJGJ7TVbCjE5U-2FT-2B2=
+mI9vbU4Y8YVcRUWfvsrQlUR4fuKm96UMy3h5snVUpRz3j8zhbC4u-2BMQgcq0IvGiGWYLLHAT_B=
+w8ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLM=
+YPDvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlg=
+LqNR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9Iz3qNog1K=
+aMWgGMJNY6nOiiw2COnZsXGGfyBaQon1LEAYUbtwKiU0Kg6cvqxX0mhaQiHCLwmqJi757SD4WWp=
+3N78Kil-2BfY9Ip0VZ0aU5CqxhUxfbSS1EJ1YKdrLYUpfjQOV0oyR4tYArZ6muqK6pso-3D">Vi=
+ew in Your Browser</a></p>
+<p style=3D"margin:0;padding-bottom:1em">No longer want to receive these me=
+ssages?<br />
+<a class=3D"unsubscribe-link" style=3D"color:#1155CC;font-weight:normal;tex=
+t-decoration:underline;" href=3D"http://harvard-university.trk.klaviyomail.=
+com/wf/click?upn=3DW0-2FpBGfahx8zud9PNJJZuEkds-2B0dGLvwWLqGS0eYMCqim1JL3LsP=
+O2vl2yCYEsu7Q6mO-2FPJKgIbFb-2BkBrq9FLJTpGkHFpgrlNg0e93P7nH24JWR22uHuGKiPrAv=
+oDWDamuhoQiu3No4bMSftSTXTFeFl-2FIgKMpmpFhAyKuTXKfu3pjOslm9uwzKcbFGuxNo1_Bw8=
+ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYP=
+DvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLq=
+NR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9EHmM-2Fx7Lk=
+KPNAyGktOxaYXl4Q4KtTLwsd8-2FiRjavpHQy2cMmlNvSIfZlSkUS5kh1-2BospvYxGPuSiRnMb=
+QwFoqyLsLB3c-2BR2RKdS9q-2FmrXEh8WewpOYuId9lddnbwOAi8h8AffCQOXiGtLfzMnP8AdI-=
+3D">Unsubscribe</a></p>
+<p style=3D"margin:0;padding-bottom:0">HarvardX<br />
+125 Mt Auburn St Cambridge, MA 02138</p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" clas=
+s=3D"kmDividerBlock kmDesktopOnly" style=3D"border-collapse:collapse;mso-ta=
+ble-lspace:0;mso-table-rspace:0;table-layout:fixed;background-color:#EEEEEE=
+">
+<tbody class=3D"kmDividerBlockOuter">
+<tr>
+<td class=3D"kmDividerBlockInner" style=3D"border-collapse:collapse;mso-tab=
+le-lspace:0;mso-table-rspace:0;table-layout:fixed;padding-top:20px;">
+<table class=3D"kmDividerContent" border=3D"0" cellpadding=3D"0" cellspacin=
+g=3D"0" width=3D"100%" style=3D"border-collapse:collapse;mso-table-lspace:0=
+;mso-table-rspace:0;table-layout:fixed">
+<tbody>
+<tr><td style=3D"border-collapse:collapse;mso-table-lspace:0;mso-table-rspa=
+ce:0;table-layout:fixed"><span></span></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+<!--[if !mso]><!-->
+</div>
+</div>
+<!--<![endif]-->
+<!--[if mso]>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            <![endif]-->
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+
+<img src=3D"http://harvard-university.trk.klaviyomail.com/wf/open?upn=3DBw8=
+ZSeJeZ0ugNeULT6I98c7UL8vIVvCcVty6Q0A9voPcpX5KWmP7Ywij0VCCfFaPdUGCProBsKLMYP=
+DvGleXbJ38Q9sxnVnH9mFsQmHC3iV4YwBOyDpzdMFG3VvUDlp-2FkEcVgGkVDizObn39zVUlgLq=
+NR7y2cI2OUhLuVv5WfZlg2dY58LXvOc4xI3UaRXtVDHI9PE9nY-2FxBGNUqAGhS9L1E1sN-2FNE=
+o9ZFIsyGpHhk2BgeNI9LbnrjBqeZgsCPqusdR9Kr8SnmcbXxzxSzqgVBdKf1akKWxFrOzGx2-2B=
+JSADVZ9JQyB6DcAhjnj9vn3ZIsBozT7xBVz5Ws-2BPfX5nCQHLG9yxJVi6N-2BmnLMA4UnVU-3D=
+" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"height:1px !impor=
+tant;width:1px !important;border-width:0 !important;margin-top:0 !important=
+;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !import=
+ant;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !i=
+mportant;padding-left:0 !important;"/>
+</body>
+</html>
+
+
+--===============8850727786301401193==--

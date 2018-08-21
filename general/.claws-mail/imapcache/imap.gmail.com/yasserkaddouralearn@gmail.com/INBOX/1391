@@ -1,0 +1,1952 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a02:b014:0:0:0:0:0 with SMTP id p20-v6csp2280354jah;
+        Tue, 15 May 2018 09:03:11 -0700 (PDT)
+X-Google-Smtp-Source: AB8JxZqXDQQI6HxCp9GfPeBXASO32yVYmIglqR7X82A17kjLFIx0WfOdkbx9dnkwUPoxaqYu6vS7
+X-Received: by 2002:a81:29d1:: with SMTP id p200-v6mr6724590ywp.424.1526400191381;
+        Tue, 15 May 2018 09:03:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1526400191; cv=none;
+        d=google.com; s=arc-20160816;
+        b=HPgWi+DFWKchjvuQlvJ+nBj6/5bz/zZh3Rokqqjq3neM0lhLyGUkWOlNtlti5ilQyg
+         88KyiTUH7z6KGs2dQOdJN7AO4mKZxzi0cELYUURSBPYbIEyxHnpC2/HLVggla07wo7rb
+         DBKjLmhXIdVE0dywZHeE+fPsUs9FcaC6AUAnrT8ES0WTAPxaJK6654/lA+JmgQx/Ag75
+         WteBoHo/8C1kvV5FQB2yh4KSq2oczg1TQh1i9GdxzDPdHawus0zOMy5EqnI6nn5xriVy
+         11K7cdKHv0jKanf63F29ExYHGBp5Q+Ip1IaBiM+SGvS4a6AV8t6yIfvWyNpGec859Ha0
+         TBUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=mime-version:sender:list-unsubscribe-post:list-unsubscribe:list-id
+         :feedback-id:message-id:date:to:reply-to:from:subject:dkim-signature
+         :dkim-signature:arc-authentication-results;
+        bh=P/J859e7k2hv4cu+YSMQwyaNC09JU1Q91dUSHiA3jlo=;
+        b=ST5V5ZUOcyNETJGvzFdgcmn/vW/j3C5GBR9aP9LMAjz3J9K3fOYMm5jh7tN7UTxwN9
+         xm3cPp/iDxntwc7who6DpJX1n8AMlfidp7rswvo4POvBNIVafhJeKnLu0la8zH8/oYt9
+         XkyvrJNAWfdaBtl7P3nu6MXbJ5ijLmJ7djRyWWYjsMK2yrP4AV6wycNw/YqEY2plbBnp
+         D1TYsLwMJaFWiHGu4/Th6kU7ZV4Rq5PoLqwJM0i6fTamaPtDVC/CHyc0aRINJLNh+uCY
+         02LckkA8gFdmjaEGs4b7LqcCXLXZ/ASrHuunvc2N/ORm/Gyqu3AmONjFGVZ0O9+IwuCS
+         fiUg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@mail227.atl121.mcsv.net header.s=k1 header.b=hahcHK5D;
+       dkim=pass header.i=@gmail.mcsv.net header.s=k1 header.b=py3WdylV;
+       spf=pass (google.com: domain of bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net designates 198.2.131.227 as permitted sender) smtp.mailfrom=bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net
+Return-Path: <bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net>
+Received: from mail227.atl121.mcsv.net (mail227.atl121.mcsv.net. [198.2.131.227])
+        by mx.google.com with ESMTPS id l26-v6si109691ybj.62.2018.05.15.09.03.11
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 15 May 2018 09:03:11 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net designates 198.2.131.227 as permitted sender) client-ip=198.2.131.227;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@mail227.atl121.mcsv.net header.s=k1 header.b=hahcHK5D;
+       dkim=pass header.i=@gmail.mcsv.net header.s=k1 header.b=py3WdylV;
+       spf=pass (google.com: domain of bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net designates 198.2.131.227 as permitted sender) smtp.mailfrom=bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=k1; d=mail227.atl121.mcsv.net;
+ h=Subject:From:Reply-To:To:Date:Message-ID:List-ID:List-Unsubscribe:Sender:
+ Content-Type:MIME-Version;
+ i=rozen=3Dmateriacollective.com@mail227.atl121.mcsv.net;
+ bh=P/J859e7k2hv4cu+YSMQwyaNC09JU1Q91dUSHiA3jlo=;
+ b=hahcHK5D3lTwBy0fGKFMQeYvT8/h1ll4nr5JH3ktylcQA3EDX8303Qi2wZ7tCziZYhP0gC6fWazn
+   UzJQpJDbMPnBiABjnTbe9q0Tv8KwRAPHuaAqnLoNFpU8VIfYnbs5LJijod3ZiSMTjqXvsldko+47
+   G+Muwxv4nG6k1fWvkeE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=k1; d=gmail.mcsv.net;
+ h=Subject:From:Reply-To:To:Date:Message-ID:Feedback-ID:List-ID:
+ List-Unsubscribe:Sender:Content-Type:MIME-Version;
+ bh=P/J859e7k2hv4cu+YSMQwyaNC09JU1Q91dUSHiA3jlo=;
+ b=py3WdylVGDznEJlTboPlYeh9kesWRP+b/Kqz1C3EKq6r0InnMxrdxlVYrDNe1lCkte3F1j4QCyrq
+   ONV5TqzoFd4PrVaSHIR423yuCh3A8sRx15UC3jCjrEx1pQ1MPAJLh0ika9QmE6f9WEJSj9SNxaj3
+   nRedInGr3Y9yWcyx/l0=
+Received: from (127.0.0.1) by mail227.atl121.mcsv.net id hvc2bu2ddl46 for <yasserkaddouralearn@gmail.com>; Tue, 15 May 2018 16:02:41 +0000 (envelope-from <bounce-mc.us8_29713591.1826109-yasserkaddouralearn=gmail.com@mail227.atl121.mcsv.net>)
+Subject: =?utf-8?Q?=F0=9F=8E=B6=F0=9F=8E=AE=C2=A0New=20The=20Legend=20of=20Zelda=20Album=3A=20Ballads=20of=20Hyrule=20by=20Rozen?=
+From: =?utf-8?Q?Rozen?= <rozen@materiacollective.com>
+Reply-To: =?utf-8?Q?Rozen?= <rozen@materiacollective.com>
+To: <yasserkaddouralearn@gmail.com>
+Date: Tue, 15 May 2018 16:02:41 +0000
+Message-ID: <88fba713e0ffec86d24c5995c.2fb627a623.20180515160106.9854a11540.84bf475a@mail227.atl121.mcsv.net>
+X-Mailer: MailChimp Mailer - **CID9854a115402fb627a623**
+X-Campaign: mailchimp88fba713e0ffec86d24c5995c.9854a11540
+X-campaignid: mailchimp88fba713e0ffec86d24c5995c.9854a11540
+X-Report-Abuse: Please report abuse for this campaign here: http://www.mailchimp.com/abuse/abuse.phtml?u=88fba713e0ffec86d24c5995c&id=9854a11540&e=2fb627a623
+X-MC-User: 88fba713e0ffec86d24c5995c
+Feedback-ID: 29713591:29713591.1826109:us8:mc
+List-ID: 88fba713e0ffec86d24c5995cmc list <88fba713e0ffec86d24c5995c.591889.list-id.mcsv.net>
+X-Accounttype: ff
+List-Unsubscribe: <https://audio.us8.list-manage.com/unsubscribe?u=88fba713e0ffec86d24c5995c&id=2c64e10e88&e=2fb627a623&c=9854a11540>, <mailto:unsubscribe-mc.us8_88fba713e0ffec86d24c5995c.9854a11540-2fb627a623@mailin.mcsv.net?subject=unsubscribe>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Sender: "Rozen" <rozen=materiacollective.com@mail227.atl121.mcsv.net>
+x-mcda: FALSE
+Content-Type: multipart/alternative; boundary="_----------=_MCPart_1931358225"
+MIME-Version: 1.0
+
+This is a multi-part message in MIME format
+
+--_----------=_MCPart_1931358225
+Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Transfer-Encoding: quoted-printable
+
+Arranger Rozen follows up 2017's smash-hit Sins of Hyrule with an all-new=
+ contemplative orchestral journey coming soon to digital=2C CD=2C and viny=
+l
+
+DON'T MISS OUT on this Limited Release with majestic remixes from The Lege=
+nd of Zelda.
+View this email in your browser (https://mailchi.mp/020f4c4369c0/new-the-l=
+egend-of-zelda-album-ballads-of-hyrule-by-rozen?e=3D2fb627a623)
+
+
+** BALLADS OF HYRULE
+Offers Majestic Spin on The Legend of Zelda
+------------------------------------------------------------
+
+Arranger Rozen follows up 2017's smash-hit Sins of Hyrule with an all-new=
+ contemplative orchestral journey coming soon to digital=2C CD=2C and viny=
+l
+
+Get your limited edition CD and Vinyl here. (https://audio.us8.list-manage=
+=2Ecom/track/click?u=3D88fba713e0ffec86d24c5995c&id=3Da0f243b388&e=3D=
+2fb627a623)
+
+
+** https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5=
+995c&id=3De0d125d3f8&e=3D2fb627a623
+------------------------------------------------------------
+
+Materia Collective is thrilled to announce Ballads of Hyrule=2C a collecti=
+on of orchestral arrangements from The Legend of Zelda series=2C envisione=
+d as an adventurous night walk across the lands of Hyrule. While Ballads o=
+f Hyrule makes for a perfect companion to 2017's smash-hit Sins of Hyrule=
+ album=2C which provided an epic retelling the mythology of The Legend of=
+ Zelda. Ballads of Hyrule is licensed and available for pre-order ahead of=
+ the May 1=2C 2018 release in digital and CD formats as well as limited ed=
+ition vinyl:
+
+Ballads of Hyrule Buy on Bandcamp (https://audio.us8.list-manage.com/track=
+/click?u=3D88fba713e0ffec86d24c5995c&id=3Dc810305e72&e=3D2fb627a623)
+
+Ballads of Hyrule includes several fan-favorite tracks from across the ser=
+ies=2C such as "Song of Storms" and "Zelda's Lullaby" from Ocarina of Time=
+=2C "Ballad of the Windfish" from Link's Awakening=2C "Outset Island" and=
+ "Dragon Roost Island" from Wind Waker=2C and "Kass's Theme" from Breath o=
+f the Wild." The full track list for Ballads of Hyrule is as follows:
+
+01. Fairy's Tears
+02. Ballad of the Windfish
+03. Lost in the Wind
+04. Sheik's Devotion
+05. Kass's Theme
+06. Moonlit Stroll on Dragoon Roost Island
+07. Zora's Domain
+08. Serenade of Water
+09. Kakariko Village
+10. Stables ~ Epona
+11. Come Visit From Time to Time
+12. Song of Storms
+13. Nayru's Love
+14. Din's Fire
+15. Farore's Wind
+
+"Ballads of Hyrule is the spiritual antithesis to Sins of Hyrule=2C" expla=
+ins arranger Rozen. "The goal is to draw you into the more contemplative s=
+ide of the lands of Hyrule; a nocturnal walk that feeds on the gifts left=
+ by the three goddesses: Nayru=2C Farore and Din=2C captured in nature."
+
+
+**
+LIMITED EDITION VINYL AVAILABLE
+ONLY A FEW UNITS LEFT!
+
+https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5995=
+c&id=3D3c310b069c&e=3D2fb627a623
+------------------------------------------------------------
+
+click here to order album (https://audio.us8.list-manage.com/track/click?u=
+=3D88fba713e0ffec86d24c5995c&id=3Df6eb8c5f0b&e=3D2fb627a623)
+
+Premium vinyl pressing of Ballads of Hyrule. Includes digital download.
+
+Includes unlimited streaming of Ballads of Hyrule via the free Bandcamp ap=
+p=2C plus high-quality download in MP3=2C FLAC and more.
+shipping out on or around July 16=2C 2018
+edition of 500
+
+
+Learn more on the official Ballads of Hyrule website:
+https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5995=
+c&id=3Da4161f6aef&e=3D2fb627a623 (https://audio.us8.list-manage.com/=
+track/click?u=3D88fba713e0ffec86d24c5995c&id=3D81bb3bf2ab&e=3D=
+2fb627a623)
+
+
+** 01
+------------------------------------------------------------
+
+
+** SINS
+------------------------------------------------------------
+OF HYRULE
+Get the Album (https://audio.us8.list-manage.com/track/click?u=3D88fba713e=
+0ffec86d24c5995c&id=3D236d6c008a&e=3D2fb627a623)
+https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5995=
+c&id=3D0133a7c0c8&e=3D2fb627a623
+
+
+** 02
+------------------------------------------------------------
+
+
+** FOLLOW
+------------------------------------------------------------
+Rozen (https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d=
+24c5995c&id=3Da0e20f2edd&e=3D2fb627a623)
+https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5995=
+c&id=3D83d03aa947&e=3D2fb627a623
+
+
+** 03
+------------------------------------------------------------
+
+
+** FOLLOW
+------------------------------------------------------------
+Reven (https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d=
+24c5995c&id=3Dbe82916e47&e=3D2fb627a623)
+https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5995=
+c&id=3Dab2a77bb67&e=3D2fb627a623
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+** (https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c=
+5995c&id=3D04e17cad6b&e=3D2fb627a623)
+** (https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c=
+5995c&id=3D545408ce13&e=3D2fb627a623)
+** (https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c=
+5995c&id=3De9dcff444c&e=3D2fb627a623)
+** (https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c=
+5995c&id=3D3ce73b8ee7&e=3D2fb627a623)
+=C2=A9 2017 Materia Collective LLC
+=E2=93=85 2017 Materia Collective LLC under exclusive license from Rozen A=
+udio
+
+The Legend of Zelda properties are =C2=A9 Nintendo. Rozen=2C Materia Colle=
+ctive LLC and its artists in no way affiliated=2C associated=2C authorized=
+=2C endorsed by=2C or in any way officially connected to Nintendo with res=
+pect to this album. Musical compositions are =C2=A9 1998 Nintendo and are=
+ used with permission. Mechanical licensing facilitated by re:discover=2C=
+ Inc. d/b/a Loudr.
+
+Want to change how you receive these emails?
+You can ** update your preferences (https://audio.us8.list-manage.com/prof=
+ile?u=3D88fba713e0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623)
+or ** unsubscribe from this list (https://audio.us8.list-manage.com/unsubs=
+cribe?u=3D88fba713e0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623&c=3D9854a=
+11540)
+
+
+This email was sent to yasserkaddouralearn@gmail.com (mailto:yasserkaddouralearn@gmail.com)
+why did I get this? (https://audio.us8.list-manage.com/about?u=3D88fba713e=
+0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623&c=3D9854a11540)     unsubscr=
+ibe from this list (https://audio.us8.list-manage.com/unsubscribe?u=3D88fb=
+a713e0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623&c=3D9854a11540)     upd=
+ate subscription preferences (https://audio.us8.list-manage.com/profile?u=
+=3D88fba713e0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623)
+Rozen Audio . 815 1st Ave #323 . Seattle=2C WA 98104 . USA
+
+Email Marketing Powered by MailChimp
+http://www.mailchimp.com/monkey-rewards/?utm_source=3Dfreemium_newsletter&=
+utm_medium=3Demail&utm_campaign=3Dmonkey_rewards&aid=3D88fba713e0ffec86d24=
+c5995c&afl=3D1
+--_----------=_MCPart_1931358225
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:schemas-micros=
+oft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:office">
+=09<head>
+=09=09<!-- NAME: MEMBER WELCOME -->
+=09=09<!--[if gte mso 15]>
+=09=09<xml>
+=09=09=09<o:OfficeDocumentSettings>
+=09=09=09<o:AllowPNG/>
+=09=09=09<o:PixelsPerInch>96</o:PixelsPerInch>
+=09=09=09</o:OfficeDocumentSettings>
+=09=09</xml>
+=09=09<![endif]-->
+=09=09<meta charset=3D"UTF-8">
+        <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+        <meta name=3D"viewport" content=3D"width=3Ddevice-width=2C initial=
+-scale=3D1">
+=09=09<title>=F0=9F=8E=B6=F0=9F=8E=AE=C2=A0New The Legend of Zelda Album:=
+ Ballads of Hyrule by Rozen</title>
+
+    <style type=3D"text/css">
+=09=09p{
+=09=09=09margin:10px 0;
+=09=09=09padding:0;
+=09=09}
+=09=09table{
+=09=09=09border-collapse:collapse;
+=09=09}
+=09=09h1=2Ch2=2Ch3=2Ch4=2Ch5=2Ch6{
+=09=09=09display:block;
+=09=09=09margin:0;
+=09=09=09padding:0;
+=09=09}
+=09=09img=2Ca img{
+=09=09=09border:0;
+=09=09=09height:auto;
+=09=09=09outline:none;
+=09=09=09text-decoration:none;
+=09=09}
+=09=09body=2C#bodyTable=2C#bodyCell{
+=09=09=09height:100%;
+=09=09=09margin:0;
+=09=09=09padding:0;
+=09=09=09width:100%;
+=09=09}
+=09=09.mcnPreviewText{
+=09=09=09display:none !important;
+=09=09}
+=09=09#outlook a{
+=09=09=09padding:0;
+=09=09}
+=09=09img{
+=09=09=09-ms-interpolation-mode:bicubic;
+=09=09}
+=09=09table{
+=09=09=09mso-table-lspace:0pt;
+=09=09=09mso-table-rspace:0pt;
+=09=09}
+=09=09.ReadMsgBody{
+=09=09=09width:100%;
+=09=09}
+=09=09.ExternalClass{
+=09=09=09width:100%;
+=09=09}
+=09=09p=2Ca=2Cli=2Ctd=2Cblockquote{
+=09=09=09mso-line-height-rule:exactly;
+=09=09}
+=09=09a[href^=3Dtel]=2Ca[href^=3Dsms]{
+=09=09=09color:inherit;
+=09=09=09cursor:default;
+=09=09=09text-decoration:none;
+=09=09}
+=09=09p=2Ca=2Cli=2Ctd=2Cbody=2Ctable=2Cblockquote{
+=09=09=09-ms-text-size-adjust:100%;
+=09=09=09-webkit-text-size-adjust:100%;
+=09=09}
+=09=09.ExternalClass=2C.ExternalClass p=2C.ExternalClass td=2C.ExternalCla=
+ss div=2C.ExternalClass span=2C.ExternalClass font{
+=09=09=09line-height:100%;
+=09=09}
+=09=09a[x-apple-data-detectors]{
+=09=09=09color:inherit !important;
+=09=09=09text-decoration:none !important;
+=09=09=09font-size:inherit !important;
+=09=09=09font-family:inherit !important;
+=09=09=09font-weight:inherit !important;
+=09=09=09line-height:inherit !important;
+=09=09}
+=09=09.templateContainer{
+=09=09=09max-width:600px !important;
+=09=09}
+=09=09a.mcnButton{
+=09=09=09display:block;
+=09=09}
+=09=09.mcnImage=2C.mcnRetinaImage{
+=09=09=09vertical-align:bottom;
+=09=09}
+=09=09.mcnTextContent{
+=09=09=09word-break:break-word;
+=09=09}
+=09=09.mcnTextContent img{
+=09=09=09height:auto !important;
+=09=09}
+=09=09.mcnDividerBlock{
+=09=09=09table-layout:fixed !important;
+=09=09}
+=09=09body=2C#bodyTable{
+=09=09=09background-color:#4f3070;
+=09=09}
+=09=09#bodyCell{
+=09=09=09border-top:0;
+=09=09}
+=09=09h1{
+=09=09=09color:#202020;
+=09=09=09font-family:Georgia;
+=09=09=09font-size:30px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:normal;
+=09=09=09line-height:125%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:left;
+=09=09}
+=09=09h2{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:24px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:150%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:center;
+=09=09}
+=09=09h3{
+=09=09=09color:#989898;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:24px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:150%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:center;
+=09=09}
+=09=09h4{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:18px;
+=09=09=09font-style:normal;
+=09=09=09font-weight:bold;
+=09=09=09line-height:200%;
+=09=09=09letter-spacing:normal;
+=09=09=09text-align:center;
+=09=09}
+=09=09#templatePreheader{
+=09=09=09background-color:#ffffff;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:0;
+=09=09=09padding-top:9px;
+=09=09=09padding-bottom:9px;
+=09=09}
+=09=09#templatePreheader .mcnTextContent=2C#templatePreheader .mcnTextCont=
+ent p{
+=09=09=09color:#656565;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:12px;
+=09=09=09line-height:150%;
+=09=09=09text-align:left;
+=09=09}
+=09=09#templatePreheader .mcnTextContent a=2C#templatePreheader .mcnTextCo=
+ntent p a{
+=09=09=09color:#656565;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateHeader{
+=09=09=09background-color:#fcf9f2;
+=09=09=09background-image:url("https://gallery.mailchimp.com/88fba713e0ffe=
+c86d24c5995c/images/a05e5511-58b7-4584-9538-cbd28b119824.jpg");
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:0;
+=09=09=09padding-top:140px;
+=09=09=09padding-bottom:80px;
+=09=09}
+=09=09#templateHeader .mcnTextContent=2C#templateHeader .mcnTextContent p{
+=09=09=09color:#ffffff;
+=09=09=09font-family:'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C s=
+ans-serif;
+=09=09=09font-size:18px;
+=09=09=09line-height:150%;
+=09=09=09text-align:left;
+=09=09}
+=09=09#templateHeader .mcnTextContent a=2C#templateHeader .mcnTextContent=
+ p a{
+=09=09=09color:#f30000;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateBody{
+=09=09=09background-color:#2d2136;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:0;
+=09=09=09padding-top:80px;
+=09=09=09padding-bottom:80px;
+=09=09}
+=09=09#templateBody .mcnTextContent=2C#templateBody .mcnTextContent p{
+=09=09=09color:#a689c2;
+=09=09=09font-family:'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C s=
+ans-serif;
+=09=09=09font-size:16px;
+=09=09=09line-height:150%;
+=09=09=09text-align:center;
+=09=09}
+=09=09#templateBody .mcnTextContent a=2C#templateBody .mcnTextContent p a{
+=09=09=09color:#934cd6;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateColumns{
+=09=09=09background-color:#000000;
+=09=09=09background-image:url("https://gallery.mailchimp.com/88fba713e0ffe=
+c86d24c5995c/images/31c6555d-bc27-45a1-8d87-d6fd5a422002.jpg");
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:0;
+=09=09=09padding-top:220px;
+=09=09=09padding-bottom:50px;
+=09=09}
+=09=09#templateColumns .columnContainer .mcnTextContent=2C#templateColumns=
+ .columnContainer .mcnTextContent p{
+=09=09=09color:#202020;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:16px;
+=09=09=09line-height:200%;
+=09=09=09text-align:center;
+=09=09}
+=09=09#templateColumns .columnContainer .mcnTextContent a=2C#templateColum=
+ns .columnContainer .mcnTextContent p a{
+=09=09=09color:#202020;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09=09#templateFooter{
+=09=09=09background-color:#291f33;
+=09=09=09background-image:none;
+=09=09=09background-repeat:no-repeat;
+=09=09=09background-position:center;
+=09=09=09background-size:cover;
+=09=09=09border-top:0;
+=09=09=09border-bottom:0;
+=09=09=09padding-top:60px;
+=09=09=09padding-bottom:60px;
+=09=09}
+=09=09#templateFooter .mcnTextContent=2C#templateFooter .mcnTextContent p{
+=09=09=09color:#FFFFFF;
+=09=09=09font-family:Helvetica;
+=09=09=09font-size:12px;
+=09=09=09line-height:150%;
+=09=09=09text-align:center;
+=09=09}
+=09=09#templateFooter .mcnTextContent a=2C#templateFooter .mcnTextContent=
+ p a{
+=09=09=09color:#FFFFFF;
+=09=09=09font-weight:normal;
+=09=09=09text-decoration:underline;
+=09=09}
+=09@media only screen and (min-width:768px){
+=09=09.templateContainer{
+=09=09=09width:600px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09body=2Ctable=2Ctd=2Cp=2Ca=2Cli=2Cblockquote{
+=09=09=09-webkit-text-size-adjust:none !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09body{
+=09=09=09width:100% !important;
+=09=09=09min-width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.columnWrapper{
+=09=09=09max-width:100% !important;
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnRetinaImage{
+=09=09=09max-width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImage{
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnCartContainer=2C.mcnCaptionTopContent=2C.mcnRecContentContainer=
+=2C.mcnCaptionBottomContent=2C.mcnTextContentContainer=2C.mcnBoxedTextCont=
+entContainer=2C.mcnImageGroupContentContainer=2C.mcnCaptionLeftTextContent=
+Container=2C.mcnCaptionRightTextContentContainer=2C.mcnCaptionLeftImageCon=
+tentContainer=2C.mcnCaptionRightImageContentContainer=2C.mcnImageCardLeftT=
+extContentContainer=2C.mcnImageCardRightTextContentContainer=2C.mcnImageCa=
+rdLeftImageContentContainer=2C.mcnImageCardRightImageContentContainer{
+=09=09=09max-width:100% !important;
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnBoxedTextContentContainer{
+=09=09=09min-width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageGroupContent{
+=09=09=09padding:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnCaptionLeftContentOuter .mcnTextContent=2C.mcnCaptionRightConten=
+tOuter .mcnTextContent{
+=09=09=09padding-top:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageCardTopImageContent=2C.mcnCaptionBottomContent:last-child .=
+mcnCaptionBottomImageContent=2C.mcnCaptionBlockInner .mcnCaptionTopContent=
+:last-child .mcnTextContent{
+=09=09=09padding-top:18px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageCardBottomImageContent{
+=09=09=09padding-bottom:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageGroupBlockInner{
+=09=09=09padding-top:0 !important;
+=09=09=09padding-bottom:0 !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageGroupBlockOuter{
+=09=09=09padding-top:9px !important;
+=09=09=09padding-bottom:9px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnTextContent=2C.mcnBoxedTextContentColumn{
+=09=09=09padding-right:18px !important;
+=09=09=09padding-left:18px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnImageCardLeftImageContent=2C.mcnImageCardRightImageContent{
+=09=09=09padding-right:18px !important;
+=09=09=09padding-bottom:0 !important;
+=09=09=09padding-left:18px !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcpreview-image-uploader{
+=09=09=09display:none !important;
+=09=09=09width:100% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h1{
+=09=09=09font-size:22px !important;
+=09=09=09line-height:125% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h2{
+=09=09=09font-size:20px !important;
+=09=09=09line-height:125% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h3{
+=09=09=09font-size:18px !important;
+=09=09=09line-height:125% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09h4{
+=09=09=09font-size:16px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09.mcnBoxedTextContentContainer .mcnTextContent=2C.mcnBoxedTextContent=
+Container .mcnTextContent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templatePreheader{
+=09=09=09display:block !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templatePreheader .mcnTextContent=2C#templatePreheader .mcnTextCont=
+ent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateHeader .mcnTextContent=2C#templateHeader .mcnTextContent p{
+=09=09=09font-size:16px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateBody .mcnTextContent=2C#templateBody .mcnTextContent p{
+=09=09=09font-size:16px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateColumns .columnContainer .mcnTextContent=2C#templateColumns=
+ .columnContainer .mcnTextContent p{
+=09=09=09font-size:16px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}=09@media only screen and (max-width: 480px){
+=09=09#templateFooter .mcnTextContent=2C#templateFooter .mcnTextContent p{
+=09=09=09font-size:14px !important;
+=09=09=09line-height:150% !important;
+=09=09}
+
+}</style><!--[if !mso]><!--><link href=3D"https://fonts.googleapis.com/cs=
+s?family=3DLato:400=2C400i=2C700=2C700i|Merriweather:400=2C400i=2C700=2C70=
+0i|Merriweather+Sans:400=2C400i=2C700=2C700i|Source+Sans+Pro:400=2C400i=2C=
+700=2C700i" rel=3D"stylesheet"><!--<![endif]--></head>
+    <body style=3D"height: 100%;margin: 0;padding: 0;width: 100%;-ms-text-=
+size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #4f3070=
+;">
+        <!--
+-->
+        <!--[if !gte mso 9]><!----><span class=3D"mcnPreviewText" style=
+=3D"display:none; font-size:0px; line-height:0px; max-height:0px; max-widt=
+h:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;">Arran=
+ger Rozen follows up 2017's smash-hit Sins of Hyrule with an all-new conte=
+mplative orchestral journey coming soon to digital=2C CD=2C and vinyl</spa=
+n><!--<![endif]-->
+        <!--
+-->
+        <center>
+            <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspa=
+cing=3D"0" height=3D"100%" width=3D"100%" id=3D"bodyTable" style=3D"border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;height: 100%;margin: 0;pad=
+ding: 0;width: 100%;background-color: #4f3070;">
+                <tr>
+                    <td align=3D"center" valign=3D"top" id=3D"bodyCell" st=
+yle=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-te=
+xt-size-adjust: 100%;height: 100%;margin: 0;padding: 0;width: 100%;border-=
+top: 0;">
+                        <!-- BEGIN TEMPLATE // -->
+                        <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%" style=3D"border-collapse: collapse;mso-table-lspace:=
+ 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-ad=
+just: 100%;">
+                            <tr>
+=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" id=3D"template=
+Preheader" style=3D"background:#ffffff none no-repeat center/cover;mso-lin=
+e-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust=
+: 100%;background-color: #ffffff;background-image: none;background-repeat:=
+ no-repeat;background-position: center;background-size: cover;border-top:=
+ 0;border-bottom: 0;padding-top: 9px;padding-bottom: 9px;">
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellspacin=
+g=3D"0" cellpadding=3D"0" width=3D"600" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" width=3D"60=
+0" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"templateContainer" style=
+=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px=
+ !important;">
+=09=09=09=09=09=09=09=09=09=09<tr>
+                                =09=09=09<td valign=3D"top" class=3D"prehe=
+aderContainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust=
+: 100%;-webkit-text-size-adjust: 100%;"><table border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnTextBlock" style=3D"min-w=
+idth: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"390" style=3D"width:390px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 390px;border-collapse: collapse;mso-table=
+-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text=
+-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding: 0px 18px 9px;font-family: &quot;Source Sans Pro&quot;=2C &quo=
+t;Helvetica Neue&quot;=2C Helvetica=2C Arial=2C sans-serif;mso-line-height=
+-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;w=
+ord-break: break-word;color: #656565;font-size: 12px;line-height: 150%;tex=
+t-align: left;">
+
+                            DON'T MISS OUT on this Limited Release with ma=
+jestic remixes from The Legend of Zelda.
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"210" style=3D"width:210px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 210px;border-collapse: collapse;mso-table=
+-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text=
+-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContentContainer">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding: 0px 18px 9px;font-family: &quot;Source Sans Pro&quot;=2C &quo=
+t;Helvetica Neue&quot;=2C Helvetica=2C Arial=2C sans-serif;mso-line-height=
+-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;w=
+ord-break: break-word;color: #656565;font-size: 12px;line-height: 150%;tex=
+t-align: left;">
+
+                            <a href=3D"https://mailchi.mp/020f4c4369c0/new=
+-the-legend-of-zelda-album-ballads-of-hyrule-by-rozen?e=3D2fb627a623" target=
+=3D"_blank" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 1=
+00%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text=
+-decoration: underline;">View this email in your browser</a>
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09</td>
+                            </tr>
+=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" id=3D"template=
+Header" style=3D"background:#fcf9f2 url(&quot;https://gallery.mailchimp.co=
+m/88fba713e0ffec86d24c5995c/images/a05e5511-58b7-4584-9538-cbd28b119824.jp=
+g&quot;) no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-siz=
+e-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #fcf9f2;ba=
+ckground-image: url(https://gallery.mailchimp.com/88fba713e0ffec86d24c5995=
+c/images/a05e5511-58b7-4584-9538-cbd28b119824.jpg);background-repeat: no-r=
+epeat;background-position: center;background-size: cover;border-top: 0;bor=
+der-bottom: 0;padding-top: 140px;padding-bottom: 80px;">
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellspacin=
+g=3D"0" cellpadding=3D"0" width=3D"600" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" width=3D"60=
+0" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"templateContainer" style=
+=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px=
+ !important;">
+=09=09=09=09=09=09=09=09=09=09<tr>
+                                =09=09=09<td valign=3D"top" class=3D"heade=
+rContainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 1=
+00%;-webkit-text-size-adjust: 100%;"></td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09</td>
+                            </tr>
+=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" id=3D"template=
+Body" style=3D"background:#2d2136 none no-repeat center/cover;mso-line-hei=
+ght-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100=
+%;background-color: #2d2136;background-image: none;background-repeat: no-r=
+epeat;background-position: center;background-size: cover;border-top: 0;bor=
+der-bottom: 0;padding-top: 80px;padding-bottom: 80px;">
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellspacin=
+g=3D"0" cellpadding=3D"0" width=3D"600" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" width=3D"60=
+0" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"templateContainer" style=
+=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px=
+ !important;">
+=09=09=09=09=09=09=09=09=09=09<tr>
+                                =09=09=09<td valign=3D"top" class=3D"bodyC=
+ontainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100=
+%;-webkit-text-size-adjust: 100%;"><table border=3D"0" cellpadding=3D"0" c=
+ellspacing=3D"0" width=3D"100%" class=3D"mcnTextBlock" style=3D"min-width:=
+ 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0p=
+t;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 100%;min-width: 100%;border-collapse: col=
+lapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 10=
+0%;-webkit-text-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContent=
+Container">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 1=
+8px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;word-break: break-word;color: #a689c2;font-family: 'Lato=
+'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C sans-serif;font-size: 16px;=
+line-height: 150%;text-align: center;">
+
+                            <h2 style=3D"display: block;margin: 0;padding:=
+ 0;color: #202020;font-family: Helvetica;font-size: 24px;font-style: norma=
+l;font-weight: bold;line-height: 150%;letter-spacing: normal;text-align: c=
+enter;"><span style=3D"color:#E6E6FA">BALLADS OF HYRULE<br>
+Offers Majestic Spin on The Legend of Zelda</span></h2>
+
+<p style=3D"margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #a689c2;font-fa=
+mily: 'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C sans-serif;font-=
+size: 16px;line-height: 150%;text-align: center;"><em>Arranger Rozen follo=
+ws up 2017's smash-hit Sins of Hyrule with an all-new contemplative orches=
+tral journey coming soon to digital=2C CD=2C and vinyl</em><br>
+<br>
+<a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffe=
+c86d24c5995c&id=3Dd2f07d90f7&e=3D2fb627a623" target=3D"_blank" style=3D"m=
+so-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-=
+adjust: 100%;color: #934cd6;font-weight: normal;text-decoration: underline=
+;"><span style=3D"color:#934cd6"><span style=3D"font-family:merriweather s=
+ans=2Chelvetica neue=2Chelvetica=2Carial=2Csans-serif"><strong>Get your li=
+mited edition CD and Vinyl here.</strong></span></span></a></p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"1=
+00%" class=3D"mcnTextBlock" style=3D"min-width: 100%;border-collapse: coll=
+apse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100=
+%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 100%;min-width: 100%;border-collapse: col=
+lapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 10=
+0%;-webkit-text-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContent=
+Container">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 1=
+8px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;word-break: break-word;color: #a689c2;font-family: 'Lato=
+'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C sans-serif;font-size: 16px;=
+line-height: 150%;text-align: center;">
+
+                            <h2 style=3D"display: block;margin: 0;padding:=
+ 0;color: #202020;font-family: Helvetica;font-size: 24px;font-style: norma=
+l;font-weight: bold;line-height: 150%;letter-spacing: normal;text-align: c=
+enter;"><a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba=
+713e0ffec86d24c5995c&id=3D6a69d50c90&e=3D2fb627a623" target=3D"_blank" st=
+yle=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-te=
+xt-size-adjust: 100%;color: #934cd6;font-weight: normal;text-decoration: u=
+nderline;"><img data-file-id=3D"2761189" height=3D"334" src=3D"https://gal=
+lery.mailchimp.com/88fba713e0ffec86d24c5995c/_compresseds/148f0d64-f855-40=
+92-bc44-dc81fcc13d90.jpg" style=3D"border: 0px;width: 500px;height: 334px;=
+margin: 0px;outline: none;text-decoration: none;-ms-interpolation-mode: bi=
+cubic;" width=3D"500"></a></h2>
+
+<p style=3D"margin: 10px 0;padding: 0;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #a689c2;font-fa=
+mily: 'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C sans-serif;font-=
+size: 16px;line-height: 150%;text-align: center;">Materia Collective is th=
+rilled to announce&nbsp;<em><strong>Ballads of Hyrule</strong></em>=2C&nbs=
+p;a collection of orchestral arrangements from&nbsp;<em>The Legend of Zeld=
+a</em>&nbsp;series=2C envisioned as an adventurous night walk across the l=
+ands of Hyrule. While&nbsp;<em><strong>Ballads of Hyrule</strong></em>&nbs=
+p;makes for a&nbsp;perfect companion to 2017's smash-hit&nbsp;<em>Sins of=
+ Hyrule&nbsp;</em>album=2C which provided an epic retelling the mythology=
+ of&nbsp;<em>The Legend of Zelda</em>.&nbsp;<em><strong>Ballads of Hyrule<=
+/strong></em>&nbsp;is licensed and available for pre-order ahead of the Ma=
+y 1=2C 2018 release in digital and CD formats as well as limited edition v=
+inyl:<br>
+<br>
+<a alt=3D"http://music.rozen.audio/album/ballads-of-hyrule" data-saferedir=
+ecturl=3D"https://www.google.com/url?hl=3Den&amp;q=3Dhttp://r20.rs6.net/tn=
+=2Ejsp?t%3Dw664cz7ab.0.0.wd4vwaoab.0%26id%3Dpreview%26r%3D3%26p%3Dhttp%253A%=
+252F%252Fmusic.rozen.audio%252Falbum%252Fballads-of-hyrule&amp;source=3Dgm=
+ail&amp;ust=3D1526483931131000&amp;usg=3DAFQjCNHMKVw29Xqdndv86cwgIrHKxHwY7=
+g" href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffe=
+c86d24c5995c&id=3D6d5f22c11b&e=3D2fb627a623" shape=3D"rect" target=3D"_bl=
+ank" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-we=
+bkit-text-size-adjust: 100%;color: #934cd6;font-weight: normal;text-decora=
+tion: underline;"><em>Ballads of Hyrule</em>&nbsp;Buy on Bandcamp</a><br>
+<br>
+<em><strong>Ballads of Hyrule</strong></em>&nbsp;includes several fan-favo=
+rite tracks from across the series=2C such as "Song of Storms" and "Zelda'=
+s Lullaby" from&nbsp;<em>Ocarina of Time</em>=2C "Ballad of the Windfish"=
+ from&nbsp;<em>Link's Awakening</em>=2C "Outset Island" and "Dragon Roost=
+ Island" from&nbsp;<em>Wind Waker</em>=2C and "Kass's Theme" from&nbsp;<em=
+>Breath of the Wild</em>." The full track list for&nbsp;<em><strong>Ballad=
+s of Hyrule</strong></em>&nbsp;is as follows:<br>
+<br>
+01. Fairy's Tears<br>
+02. Ballad of the Windfish<br>
+03. Lost in the Wind<br>
+04. Sheik's Devotion<br>
+05. Kass's Theme<br>
+06. Moonlit Stroll on Dragoon Roost Island<br>
+07. Zora's Domain<br>
+08. Serenade of Water<br>
+09. Kakariko Village<br>
+10. Stables ~ Epona<br>
+11. Come Visit From Time to Time<br>
+12. Song of Storms<br>
+13. Nayru's Love<br>
+14. Din's Fire<br>
+15. Farore's Wind<br>
+<br>
+"<em>Ballads of Hyrule</em>&nbsp;is the spiritual antithesis to<em>&nbsp;S=
+ins of Hyrule</em>=2C" explains arranger Rozen. "The goal is to draw you i=
+nto the more contemplative side of the lands of Hyrule; a nocturnal walk t=
+hat feeds on the gifts left by the three goddesses: Nayru=2C Farore and Di=
+n=2C captured in nature."</p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"1=
+00%" class=3D"mcnTextBlock" style=3D"min-width: 100%;border-collapse: coll=
+apse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100=
+%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 100%;min-width: 100%;border-collapse: col=
+lapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 10=
+0%;-webkit-text-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContent=
+Container">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 1=
+8px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;word-break: break-word;color: #a689c2;font-family: 'Lato=
+'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C sans-serif;font-size: 16px;=
+line-height: 150%;text-align: center;">
+
+                            <h2 style=3D"display: block;margin: 0;padding:=
+ 0;color: #202020;font-family: Helvetica;font-size: 24px;font-style: norma=
+l;font-weight: bold;line-height: 150%;letter-spacing: normal;text-align: c=
+enter;"><br>
+<span style=3D"color:#E6E6FA"><font face=3D"merriweather sans=2C helvetica=
+ neue=2C helvetica=2C arial=2C sans-serif">LIMITED EDITION VINYL AVAILABLE=
+<br>
+ONLY A FEW&nbsp;UNITS LEFT!</font></span><br>
+<br>
+<a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffe=
+c86d24c5995c&id=3D089250dddd&e=3D2fb627a623" target=3D"_blank" style=3D"m=
+so-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-=
+adjust: 100%;color: #934cd6;font-weight: normal;text-decoration: underline=
+;"><img data-file-id=3D"2761193" height=3D"312" src=3D"https://gallery.mai=
+lchimp.com/88fba713e0ffec86d24c5995c/images/a612cd9a-8ecd-499b-9b4f-6545c6=
+60b541.jpg" style=3D"border: 0px initial;width: 500px;height: 312px;margin=
+: 0px;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;=
+" width=3D"500"></a></h2>
+
+<p style=3D"text-align: center;margin: 10px 0;padding: 0;mso-line-height-r=
+ule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;col=
+or: #a689c2;font-family: 'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=
+=2C sans-serif;font-size: 16px;line-height: 150%;"><a href=3D"https://audi=
+o.us8.list-manage.com/track/click?u=3D88fba713e0ffec86d24c5995c&id=3Dfb7e5=
+68951&e=3D2fb627a623" target=3D"_blank" style=3D"mso-line-height-rule: ex=
+actly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #93=
+4cd6;font-weight: normal;text-decoration: underline;">click here to order=
+ album</a><br>
+&nbsp;</p>
+
+<div>Premium vinyl pressing of Ballads of Hyrule. Includes digital downloa=
+d.&nbsp;<br>
+<br>
+Includes unlimited streaming of&nbsp;<em>Ballads of Hyrule</em>&nbsp;via t=
+he free Bandcamp app=2C plus high-quality download in MP3=2C FLAC and more=
+=2E<br>
+shipping out on or around&nbsp;July 16=2C 2018<br>
+edition of 500&nbsp;</div>
+
+<p style=3D"text-align: left;margin: 10px 0;padding: 0;mso-line-height-rul=
+e: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color=
+: #a689c2;font-family: 'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=2C=
+ sans-serif;font-size: 16px;line-height: 150%;">&nbsp;</p>
+
+<p style=3D"text-align: center;margin: 10px 0;padding: 0;mso-line-height-r=
+ule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;col=
+or: #a689c2;font-family: 'Lato'=2C 'Helvetica Neue'=2C Helvetica=2C Arial=
+=2C sans-serif;font-size: 16px;line-height: 150%;">Learn more on the offic=
+ial&nbsp;<em><strong>Ballads of Hyrule</strong></em>&nbsp;website:<br>
+<a alt=3D"http://glorytomankind.com/" data-saferedirecturl=3D"https://www.=
+google.com/url?hl=3Den&amp;q=3Dhttp://r20.rs6.net/tn.jsp?t%3Ddzgbeg8ab.0.0=
+=2Ewd4vwaoab.0%26id%3Dpreview%26r%3D3%26p%3Dhttp%253A%252F%252Fglorytomankin=
+d.com%252F&amp;source=3Dgmail&amp;ust=3D1504288371625000&amp;usg=3DAFQjCNE=
+y0E_5SGnzGPjrUHXqwmJnS9wzfg" href=3D"https://audio.us8.list-manage.com/tra=
+ck/click?u=3D88fba713e0ffec86d24c5995c&id=3Df540aa00f4&e=3D2fb627a623" sh=
+ape=3D"rect" target=3D"_blank" style=3D"mso-line-height-rule: exactly;-ms-=
+text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #934cd6;font-=
+weight: normal;text-decoration: underline;">http://balladsofhyrule.com/</a=
+></p>
+
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09</td>
+                            </tr>
+=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" id=3D"template=
+Columns" style=3D"background:#000000 url(&quot;https://gallery.mailchimp.c=
+om/88fba713e0ffec86d24c5995c/images/31c6555d-bc27-45a1-8d87-d6fd5a422002.j=
+pg&quot;) no-repeat center/cover;mso-line-height-rule: exactly;-ms-text-si=
+ze-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #000000;b=
+ackground-image: url(https://gallery.mailchimp.com/88fba713e0ffec86d24c599=
+5c/images/31c6555d-bc27-45a1-8d87-d6fd5a422002.jpg);background-repeat: no-=
+repeat;background-position: center;background-size: cover;border-top: 0;bo=
+rder-bottom: 0;padding-top: 220px;padding-bottom: 50px;">
+=09=09=09=09=09=09=09=09=09<table border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" width=3D"100%" class=3D"templateContainer" style=3D"border-collap=
+se: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adj=
+ust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px !important;">
+                                        <tr>
+                                            <td valign=3D"top" style=3D"ms=
+o-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-a=
+djust: 100%;">
+=09=09=09=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" c=
+ellspacing=3D"0" cellpadding=3D"0" width=3D"600" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" wi=
+dth=3D"200" style=3D"width:200px;">
+=09=09=09=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09=09=09=09<table align=3D"left" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" width=3D"200" class=3D"columnWrapper" sty=
+le=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0p=
+t;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td valign=3D"top" class=3D"colu=
+mnContainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust:=
+ 100%;-webkit-text-size-adjust: 100%;"><table border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" width=3D"100%" class=3D"mcnImageCardBlock" style=3D"b=
+order-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-t=
+ext-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnImageCardBlockOuter">
+        <tr>
+            <td class=3D"mcnImageCardBlockInner" valign=3D"top" style=3D"p=
+adding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px=
+;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;">
+
+
+
+<table align=3D"right" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"mcnImageCardTopContent" width=3D"100%" style=3D"background-color: #=
+FFFFFF;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0=
+pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class=3D"mcnTextContent" valign=3D"top" style=3D"padding: 18px=
+ 18px 0px;color: #202020;text-align: center;mso-line-height-rule: exactly;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: brea=
+k-word;font-family: Helvetica;font-size: 16px;line-height: 200%;" width=3D=
+"146">
+            <h3 style=3D"display: block;margin: 0;padding: 0;color: #98989=
+8;font-family: Helvetica;font-size: 24px;font-style: normal;font-weight: b=
+old;line-height: 150%;letter-spacing: normal;text-align: center;">01</h3>
+
+<h4 style=3D"display: block;margin: 0;padding: 0;color: #202020;font-famil=
+y: Helvetica;font-size: 18px;font-style: normal;font-weight: bold;line-hei=
+ght: 200%;letter-spacing: normal;text-align: center;">SINS</h4>
+<strong>OF HYRULE</strong><br>
+<a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffe=
+c86d24c5995c&id=3D515aa526cb&e=3D2fb627a623" target=3D"_blank" style=3D"m=
+so-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-=
+adjust: 100%;color: #202020;font-weight: normal;text-decoration: underline=
+;">Get the Album</a>
+        </td>
+    </tr>
+    <tr>
+        <td class=3D"mcnImageCardTopImageContent" align=3D"center" valign=
+=3D"top" style=3D"padding-top: 9px;padding-right: 0px;padding-bottom: 0px;=
+padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%=
+;-webkit-text-size-adjust: 100%;">
+
+
+            <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D8=
+8fba713e0ffec86d24c5995c&id=3D491130f9ce&e=3D2fb627a623" title=3D"" class=
+=3D"" target=3D"_blank" style=3D"mso-line-height-rule: exactly;-ms-text-si=
+ze-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+            <img alt=3D"" src=3D"https://gallery.mailchimp.com/88fba713e0f=
+fec86d24c5995c/images/a612cd9a-8ecd-499b-9b4f-6545c660b541.jpg" width=3D"1=
+64" style=3D"max-width: 1200px;border: 0;height: auto;outline: none;text-d=
+ecoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" c=
+lass=3D"mcnImage">
+
+            </a>
+
+        </td>
+    </tr>
+</tbody></table>
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" wi=
+dth=3D"200" style=3D"width:200px;">
+=09=09=09=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09=09=09=09<table align=3D"left" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" width=3D"200" class=3D"columnWrapper" sty=
+le=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0p=
+t;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td valign=3D"top" class=3D"colu=
+mnContainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust:=
+ 100%;-webkit-text-size-adjust: 100%;"><table border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" width=3D"100%" class=3D"mcnImageCardBlock" style=3D"b=
+order-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-t=
+ext-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnImageCardBlockOuter">
+        <tr>
+            <td class=3D"mcnImageCardBlockInner" valign=3D"top" style=3D"p=
+adding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px=
+;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;">
+
+
+
+<table align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cla=
+ss=3D"mcnImageCardTopContent" width=3D"100%" style=3D"background-color: #F=
+FFFFF;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0p=
+t;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class=3D"mcnTextContent" valign=3D"top" style=3D"padding: 18px=
+ 18px 0px;color: #202020;text-align: center;mso-line-height-rule: exactly;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: brea=
+k-word;font-family: Helvetica;font-size: 16px;line-height: 200%;" width=3D=
+"146">
+            <h3 style=3D"display: block;margin: 0;padding: 0;color: #98989=
+8;font-family: Helvetica;font-size: 24px;font-style: normal;font-weight: b=
+old;line-height: 150%;letter-spacing: normal;text-align: center;">02</h3>
+
+<h4 style=3D"display: block;margin: 0;padding: 0;color: #202020;font-famil=
+y: Helvetica;font-size: 18px;font-style: normal;font-weight: bold;line-hei=
+ght: 200%;letter-spacing: normal;text-align: center;">FOLLOW</h4>
+<a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffe=
+c86d24c5995c&id=3D31819030f6&e=3D2fb627a623" target=3D"_blank" style=3D"m=
+so-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-=
+adjust: 100%;color: #202020;font-weight: normal;text-decoration: underline=
+;">Rozen</a>
+        </td>
+    </tr>
+    <tr>
+        <td class=3D"mcnImageCardTopImageContent" align=3D"center" valign=
+=3D"top" style=3D"padding-top: 9px;padding-right: 0px;padding-bottom: 0px;=
+padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%=
+;-webkit-text-size-adjust: 100%;">
+
+
+            <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D8=
+8fba713e0ffec86d24c5995c&id=3Db49d496d46&e=3D2fb627a623" title=3D"" class=
+=3D"" target=3D"_blank" style=3D"mso-line-height-rule: exactly;-ms-text-si=
+ze-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+            <img alt=3D"" src=3D"https://gallery.mailchimp.com/88fba713e0f=
+fec86d24c5995c/images/d3f1c952-7fc9-4838-afdd-0e2bbe053588.jpg" width=3D"1=
+64" style=3D"max-width: 300px;border: 0;height: auto;outline: none;text-de=
+coration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" cl=
+ass=3D"mcnImage">
+
+            </a>
+
+        </td>
+    </tr>
+</tbody></table>
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" wi=
+dth=3D"200" style=3D"width:200px;">
+=09=09=09=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09=09=09=09<table align=3D"left" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" width=3D"200" class=3D"columnWrapper" sty=
+le=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0p=
+t;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+=09=09=09=09=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09=09=09=09=09=09<td valign=3D"top" class=3D"colu=
+mnContainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust:=
+ 100%;-webkit-text-size-adjust: 100%;"><table border=3D"0" cellpadding=3D"=
+0" cellspacing=3D"0" width=3D"100%" class=3D"mcnImageCardBlock" style=3D"b=
+order-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-t=
+ext-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnImageCardBlockOuter">
+        <tr>
+            <td class=3D"mcnImageCardBlockInner" valign=3D"top" style=3D"p=
+adding-top: 9px;padding-right: 18px;padding-bottom: 9px;padding-left: 18px=
+;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;">
+
+
+
+<table align=3D"right" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" cl=
+ass=3D"mcnImageCardTopContent" width=3D"100%" style=3D"background-color: #=
+FFFFFF;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0=
+pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td class=3D"mcnTextContent" valign=3D"top" style=3D"padding: 18px=
+ 18px 0px;color: #202020;text-align: center;mso-line-height-rule: exactly;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: brea=
+k-word;font-family: Helvetica;font-size: 16px;line-height: 200%;" width=3D=
+"146">
+            <h3 style=3D"display: block;margin: 0;padding: 0;color: #98989=
+8;font-family: Helvetica;font-size: 24px;font-style: normal;font-weight: b=
+old;line-height: 150%;letter-spacing: normal;text-align: center;">03</h3>
+
+<h4 style=3D"display: block;margin: 0;padding: 0;color: #202020;font-famil=
+y: Helvetica;font-size: 18px;font-style: normal;font-weight: bold;line-hei=
+ght: 200%;letter-spacing: normal;text-align: center;">FOLLOW</h4>
+<a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88fba713e0ffe=
+c86d24c5995c&id=3D0de00a904b&e=3D2fb627a623" target=3D"_blank" style=3D"m=
+so-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-=
+adjust: 100%;color: #202020;font-weight: normal;text-decoration: underline=
+;">Reven</a>
+        </td>
+    </tr>
+    <tr>
+        <td class=3D"mcnImageCardTopImageContent" align=3D"center" valign=
+=3D"top" style=3D"padding-top: 9px;padding-right: 0px;padding-bottom: 0px;=
+padding-left: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%=
+;-webkit-text-size-adjust: 100%;">
+
+
+            <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D8=
+8fba713e0ffec86d24c5995c&id=3Dd33ec4844b&e=3D2fb627a623" title=3D"" class=
+=3D"" target=3D"_blank" style=3D"mso-line-height-rule: exactly;-ms-text-si=
+ze-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+            <img alt=3D"" src=3D"https://gallery.mailchimp.com/88fba713e0f=
+fec86d24c5995c/images/8011cb5f-8d92-486d-85aa-c7feb073bef9.jpg" width=3D"1=
+64" style=3D"max-width: 574px;border: 0;height: auto;outline: none;text-de=
+coration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" cl=
+ass=3D"mcnImage">
+
+            </a>
+
+        </td>
+    </tr>
+</tbody></table>
+
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+=09=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09</td>
+                            </tr>
+                            <tr>
+=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" id=3D"template=
+Footer" style=3D"background:#291f33 none no-repeat center/cover;mso-line-h=
+eight-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 1=
+00%;background-color: #291f33;background-image: none;background-repeat: no=
+-repeat;background-position: center;background-size: cover;border-top: 0;b=
+order-bottom: 0;padding-top: 60px;padding-bottom: 60px;">
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellspacin=
+g=3D"0" cellpadding=3D"0" width=3D"600" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<tr>
+=09=09=09=09=09=09=09=09=09<td align=3D"center" valign=3D"top" width=3D"60=
+0" style=3D"width:600px;">
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09=09<table align=3D"center" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"templateContainer" style=
+=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;=
+-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;max-width: 600px=
+ !important;">
+=09=09=09=09=09=09=09=09=09=09<tr>
+                                =09=09=09<td valign=3D"top" class=3D"foote=
+rContainer" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 1=
+00%;-webkit-text-size-adjust: 100%;"><table border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowBlock" style=3D"min-wi=
+dth: 100%;border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace=
+: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnFollowBlockOuter">
+        <tr>
+            <td align=3D"center" valign=3D"top" style=3D"padding: 9px;mso-=
+line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adj=
+ust: 100%;" class=3D"mcnFollowBlockInner">
+                <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" wi=
+dth=3D"100%" class=3D"mcnFollowContentContainer" style=3D"min-width: 100%;=
+border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-=
+text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+    <tbody><tr>
+        <td align=3D"center" style=3D"padding-left: 9px;padding-right: 9px=
+;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;">
+            <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%" style=3D"min-width: 100%;border-collapse: collapse;mso-table-lsp=
+ace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-siz=
+e-adjust: 100%;" class=3D"mcnFollowContent">
+                <tbody><tr>
+                    <td align=3D"center" valign=3D"top" style=3D"padding-t=
+op: 9px;padding-right: 9px;padding-left: 9px;mso-line-height-rule: exactly=
+;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                        <table align=3D"center" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" style=3D"border-collapse: collapse;mso-table-lspa=
+ce: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size=
+-adjust: 100%;">
+                            <tbody><tr>
+                                <td align=3D"center" valign=3D"top" style=
+=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;">
+                                    <!--[if mso]>
+                                    <table align=3D"center" border=3D"0" c=
+ellspacing=3D"0" cellpadding=3D"0">
+                                    <tr>
+                                    <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactl=
+y;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcn=
+FollowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88=
+fba713e0ffec86d24c5995c&id=3Db0a8c97597&e=3D2fb627a623" target=3D"_blank"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.com/ico=
+ns/social-block-v2/light-facebook-48.png" style=3D"display: block;border:=
+ 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode=
+: bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactl=
+y;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcn=
+FollowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88=
+fba713e0ffec86d24c5995c&id=3De322c46e00&e=3D2fb627a623" target=3D"_blank"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.com/ico=
+ns/social-block-v2/light-twitter-48.png" style=3D"display: block;border: 0=
+;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode:=
+ bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 10px;padding-bottom: 9px;mso-line-height-rule: exactl=
+y;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcn=
+FollowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88=
+fba713e0ffec86d24c5995c&id=3Db06b96f2c1&e=3D2fb627a623" target=3D"_blank"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.com/ico=
+ns/social-block-v2/light-youtube-48.png" style=3D"display: block;border: 0=
+;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode:=
+ bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top=
+">
+                                        <![endif]-->
+
+
+                                            <table align=3D"left" border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" style=3D"display: inline;border=
+-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-s=
+ize-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                <tbody><tr>
+                                                    <td valign=3D"top" sty=
+le=3D"padding-right: 0;padding-bottom: 9px;mso-line-height-rule: exactly;-=
+ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class=3D"mcnFol=
+lowContentItemContainer">
+                                                        <table border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%" class=3D"mcnFollowCon=
+tentItem" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-tab=
+le-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"=
+>
+                                                            <tbody><tr>
+                                                                <td align=
+=3D"left" valign=3D"middle" style=3D"padding-top: 5px;padding-right: 10px;=
+padding-bottom: 5px;padding-left: 9px;mso-line-height-rule: exactly;-ms-te=
+xt-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                    <table=
+ align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"=
+" style=3D"border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspac=
+e: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                                        <t=
+body><tr>
+
+                                                                         =
+       <td align=3D"center" valign=3D"middle" width=3D"24" class=3D"mcnFol=
+lowIconContent" style=3D"mso-line-height-rule: exactly;-ms-text-size-adjus=
+t: 100%;-webkit-text-size-adjust: 100%;">
+                                                                         =
+           <a href=3D"https://audio.us8.list-manage.com/track/click?u=3D88=
+fba713e0ffec86d24c5995c&id=3D4715d25632&e=3D2fb627a623" target=3D"_blank"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;"><img src=3D"https://cdn-images.mailchimp.com/ico=
+ns/social-block-v2/light-spotify-48.png" style=3D"display: block;border: 0=
+;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode:=
+ bicubic;" height=3D"24" width=3D"24" class=3D""></a>
+                                                                         =
+       </td>
+
+
+                                                                        </=
+tr>
+                                                                    </tbod=
+y></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+
+                                    <!--[if mso]>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"1=
+00%" class=3D"mcnTextBlock" style=3D"min-width: 100%;border-collapse: coll=
+apse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100=
+%;-webkit-text-size-adjust: 100%;">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td valign=3D"top" class=3D"mcnTextBlockInner" style=3D"paddin=
+g-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webki=
+t-text-size-adjust: 100%;">
+              =09<!--[if mso]>
+=09=09=09=09<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" style=3D"width:100%;">
+=09=09=09=09<tr>
+=09=09=09=09<![endif]-->
+=09=09=09
+=09=09=09=09<!--[if mso]>
+=09=09=09=09<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+=09=09=09=09<![endif]-->
+                <table align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" style=3D"max-width: 100%;min-width: 100%;border-collapse: col=
+lapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 10=
+0%;-webkit-text-size-adjust: 100%;" width=3D"100%" class=3D"mcnTextContent=
+Container">
+                    <tbody><tr>
+
+                        <td valign=3D"top" class=3D"mcnTextContent" style=
+=3D"padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 1=
+8px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-=
+size-adjust: 100%;word-break: break-word;color: #FFFFFF;font-family: Helve=
+tica;font-size: 12px;line-height: 150%;text-align: center;">
+
+                            =C2=A9 2017 Materia Collective LLC&nbsp;<br>
+=E2=93=85 2017 Materia Collective LLC under exclusive license from Rozen A=
+udio&nbsp;<br>
+<br>
+The Legend of Zelda properties are =C2=A9 Nintendo. Rozen=2C Materia Colle=
+ctive LLC and its artists in no way affiliated=2C associated=2C authorized=
+=2C endorsed by=2C or in any way officially connected to Nintendo with res=
+pect to this album. Musical compositions are =C2=A9 1998 Nintendo and are=
+ used with permission. Mechanical licensing facilitated by re:discover=2C=
+ Inc. d/b/a Loudr.<br>
+<br>
+Want to change how you receive these emails?<br>
+You can <a href=3D"https://audio.us8.list-manage.com/profile?u=3D88fba713e=
+0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623" style=3D"mso-line-height-ru=
+le: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;colo=
+r: #FFFFFF;font-weight: normal;text-decoration: underline;">update your pr=
+eferences</a> or <a href=3D"https://audio.us8.list-manage.com/unsubscribe?=
+u=3D88fba713e0ffec86d24c5995c&id=3D2c64e10e88&e=3D2fb627a623&c=3D9854a11540"=
+ style=3D"mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit=
+-text-size-adjust: 100%;color: #FFFFFF;font-weight: normal;text-decoration=
+: underline;">unsubscribe from this list</a><br>
+&nbsp;
+                        </td>
+                    </tr>
+                </tbody></table>
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</td>
+=09=09=09=09<![endif]-->
+
+=09=09=09=09<!--[if mso]>
+=09=09=09=09</tr>
+=09=09=09=09</table>
+=09=09=09=09<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+=09=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<!--[if (gte mso 9)|(IE)]>
+=09=09=09=09=09=09=09=09=09</td>
+=09=09=09=09=09=09=09=09=09</tr>
+=09=09=09=09=09=09=09=09=09</table>
+=09=09=09=09=09=09=09=09=09<![endif]-->
+=09=09=09=09=09=09=09=09</td>
+                            </tr>
+                        </table>
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+                <center>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" wi=
+dth=3D"100%" id=3D"canspamBarWrapper" style=3D"background-color:#FFFFFF; b=
+order-top:1px solid #E5E5E5;">
+                    <tr>
+                        <td align=3D"center" valign=3D"top" style=3D"paddi=
+ng-top:20px; padding-bottom:20px;">
+                            <table border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" id=3D"canspamBar">
+                                <tr>
+                                    <td align=3D"center" valign=3D"top" st=
+yle=3D"color:#606060; font-family:Helvetica=2C Arial=2C sans-serif; font-s=
+ize:11px; line-height:150%; padding-right:20px; padding-bottom:5px; paddin=
+g-left:20px; text-align:center;">
+                                        This email was sent to <a href=3D"=
+mailto:yasserkaddouralearn@gmail.com" target=3D"_blank" style=3D"color:#404040 !importa=
+nt;">yasserkaddouralearn@gmail.com</a>
+                                        <br />
+                                        <a href=3D"https://audio.us8.list-=
+manage.com/about?u=3D88fba713e0ffec86d24c5995c&id=3D2c64e10e88&e=3D=
+2fb627a623&c=3D9854a11540" target=3D"_blank" style=3D"color:#404040 !important;"><e=
+m>why did I get this?</em></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=3D"https://a=
+udio.us8.list-manage.com/unsubscribe?u=3D88fba713e0ffec86d24c5995c&id=3D2c=
+64e10e88&e=3D2fb627a623&c=3D9854a11540" style=3D"color:#404040 !important;">=
+unsubscribe from this list</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=3D"https://a=
+udio.us8.list-manage.com/profile?u=3D88fba713e0ffec86d24c5995c&id=3D2c64e1=
+0e88&e=3D2fb627a623" style=3D"color:#404040 !important;">update subscription=
+ preferences</a>
+                                        <br />
+                                        Rozen Audio &middot; 815 1st Ave #=
+323 &middot; Seattle=2C WA 98104 &middot; USA
+                                        <br />
+                                        <br />
+                                        <a href=3D"http://www.mailchimp.co=
+m/monkey-rewards/?utm_source=3Dfreemium_newsletter&utm_medium=3Demail&utm_=
+campaign=3Dmonkey_rewards&aid=3D88fba713e0ffec86d24c5995c&afl=3D1"><img sr=
+c=3D"https://cdn-images.mailchimp.com/monkey_rewards/MC_MonkeyReward_18.pn=
+g" border=3D"0" alt=3D"Email Marketing Powered by MailChimp" title=3D"Mail=
+Chimp Email Marketing" width=3D"139" height=3D"54"></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <style type=3D"text/css">
+                    @media only screen and (max-width: 480px){
+                        table#canspamBar td{font-size:14px !important;}
+                        table#canspamBar td a{display:block !important; ma=
+rgin-top:10px !important;}
+                    }
+                </style>
+            </center><img src=3D"https://audio.us8.list-manage.com/track/o=
+pen.php?u=3D88fba713e0ffec86d24c5995c&id=3D9854a11540&e=3D2fb627a623" hei=
+ght=3D"1" width=3D"1"></body>
+</html>
+--_----------=_MCPart_1931358225--

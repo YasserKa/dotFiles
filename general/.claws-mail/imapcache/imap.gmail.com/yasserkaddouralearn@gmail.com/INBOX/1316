@@ -1,0 +1,1238 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 10.2.147.231 with SMTP id z94csp6533745jah;
+        Wed, 28 Feb 2018 06:12:27 -0800 (PST)
+X-Google-Smtp-Source: AG47ELtK6ZdgEyc0/TKQqrr6HMSMMCs3/oQFs8r/j3xi5SKPAuRBaE0G12lKnNGAVdHy7FAykEE/
+X-Received: by 10.55.169.146 with SMTP id s140mr29319860qke.139.1519827147840;
+        Wed, 28 Feb 2018 06:12:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1519827147; cv=none;
+        d=google.com; s=arc-20160816;
+        b=vFMVs0py94neDKU/YaxcLH0/WD41NN010r9SPjO3HfixIhZpUrkPVmCbjmqpbphiLm
+         +0SacLCfZBOZoAnMLdfANI/ZWQaDdar0A1/K9eOnCSEiEje9iSye5UEHkPLAyLthU83L
+         Nf++OYQQtCcRwwtX94vhYAgdDAXEqaxoriLsY6CBPJhUtjSHOVKvQJsNMKElu2Y2oOsL
+         VBxLcHLsXj+Wwpehld/VLzRcgv+C+zougo2exHuEj9oQ9f1xzjADnCVjtFo+3fw5LRDZ
+         GThUvGTkgAZTdT/PVydaxXat6zpqRP993Wr0CRmg0VsZGlQlIZcbCo3Q639JEXf67f92
+         EY/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=list-unsubscribe:precedence:form-sub:subject:message-id:to:reply-to
+         :mime-version:from:date:dkim-signature:dkim-signature
+         :arc-authentication-results;
+        bh=qsUm+ndQKeyo3S/Luja3IRp+B2K6/yYQs0Ywm5FM8go=;
+        b=RgzbyRXoglbcwnWlWtfLJQtzg/uNElZmDVghAnnhz5gvYcjnumTmJ+3k2UShp3cavO
+         KOp3kOU2VCmxTxQoilBlN/5Y5BqIfxIbnEvXNnudJgN6yqOz267vzD8CgpqNZg6bRM9d
+         wottz7u7p8aRImZHUT3uJj/TRkL2gLHSSpsaLMH9KictkoH1el0zm+xwdS9IBE1rVOdz
+         97tIQRpJ2GSSB9nysNveVD8tlwul3xKrHLbIwCv6RFlm7oiBuGpGBEm5yo5iVsHSc5r5
+         LfA4zVbEARQYJOQ2NFpSWc6B+9C2rRzYlhCbjNrcZfYaeRnhLxZs3tepiUtsgTn+5SN2
+         2N/g==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@axosoft.com header.s=smtpapi header.b=IMM/p+Ah;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=wiBeLf1O;
+       spf=pass (google.com: domain of bounces+1611873-f199-yasserkaddouralearn=gmail.com@mail8.shared.hubspot.com designates 198.37.146.119 as permitted sender) smtp.mailfrom=bounces+1611873-f199-yasserkaddouralearn=gmail.com@mail8.shared.hubspot.com
+Return-Path: <bounces+1611873-f199-yasserkaddouralearn=gmail.com@mail8.shared.hubspot.com>
+Received: from o4.mail8.shared.hubspot.com (o4.mail8.shared.hubspot.com. [198.37.146.119])
+        by mx.google.com with ESMTPS id p18si1813663qkl.227.2018.02.28.06.12.27
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 28 Feb 2018 06:12:27 -0800 (PST)
+Received-SPF: pass (google.com: domain of bounces+1611873-f199-yasserkaddouralearn=gmail.com@mail8.shared.hubspot.com designates 198.37.146.119 as permitted sender) client-ip=198.37.146.119;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@axosoft.com header.s=smtpapi header.b=IMM/p+Ah;
+       dkim=pass header.i=@sendgrid.info header.s=smtpapi header.b=wiBeLf1O;
+       spf=pass (google.com: domain of bounces+1611873-f199-yasserkaddouralearn=gmail.com@mail8.shared.hubspot.com designates 198.37.146.119 as permitted sender) smtp.mailfrom=bounces+1611873-f199-yasserkaddouralearn=gmail.com@mail8.shared.hubspot.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=axosoft.com; 
+	h=content-type:from:mime-version:reply-to:to:subject:list-unsubscribe; 
+	s=smtpapi; bh=RsX8eWF67DaYG4coLU4aearw1iA=; b=IMM/p+AhLTYo/z6gQy
+	p9WpncguTb/2otawtcSC62FqiE29XPF26t+6rxcHU3j18yc75kmYqLCKzTqufa4C
+	lwoyf/nW5IrhpIX0dzT5jeZf75G7Pl6Lh+USkk3K9394H3FNuNBt0ppLx6ctDW1E
+	92GYV6nV39rUGe/j4WdVsfB78=
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; d=sendgrid.info; 
+	h=content-type:from:mime-version:reply-to:to:subject:list-unsubscribe:x-feedback-id; 
+	s=smtpapi; bh=RsX8eWF67DaYG4coLU4aearw1iA=; b=wiBeLf1OpkCHFUUyZZ
+	EDWAFoHPXoKbnGEatBR8QU9yJke1DyUtS2nThd400u+J0292LWWUuImFXoOrGbH7
+	ierkPNGa1ZXzW5nI6XpV8CcXS9DbTDdNXWD7DlZ0mcZO2YpXBGiW/+jfDOy71Tdl
+	mOihncqzFApxLg1F0Egw5bME8=
+Content-Type: multipart/alternative; boundary=5d0e01cadf51895af278bac798a56b3750c6bdb3c4baaf825382cec19346
+Date: Wed, 28 Feb 2018 14:12:26 +0000 (UTC)
+From: "GitKraken" <gitkraken@axosoft.com>
+Mime-Version: 1.0
+Reply-to: gitkraken@axosoft.com
+To: yasserkaddouralearn@gmail.com
+Message-Id: <1519827146013.e3ecea72-b17b-47c6-8e94-00253a253a7b@mail8.shared.hubspot.com>
+Subject: =?UTF-8?B?QWNjZXNzIEdsbyBib2FyZHMgaW4gcHJpdmF0ZSBiZXRhIPCfjoY=?=
+X-HubSpot-Message-Id: <1519827146013.e3ecea72-b17b-47c6-8e94-00253a253a7b@mail8.shared.hubspot.com>
+Form-Sub: v=1; ip4=34.235.241.x
+Precedence: bulk
+X-Report-Abuse-To: abuse@hubspot.com (see https://www.hubspot.com/abuse-complaints)
+X-HubSpot-MID: CiRlM2VjZWE3Mi1iMTdiLTQ3YzYtOGU5NC0wMDI1M2EyNTNhN2IQ/aAhGJmyASAAKIzNih0wlvWaAjodeWFzc2Vya2FkZG91cmFsZWFybkBnbWFpbC5jb21AnaqH5p0sSPECWiA0YWNkNmZlYzQ3ZjMzNjgwMDcxMGUyY2UyOTI3YjdlNGUAAJ5CcKjFkh+AAQCKASRiZGJkNDQ1Zi1hNzI2LTM5YjgtYmY0Yy0yMGU5MDlkNDY4NjaYAQGgAQCoAQiwAQDAAf3Lih3IAQHSARVnaXRrcmFrZW5AYXhvc29mdC5jb23iAQpnb29nbGUuY29t6AEB8AEEgAIBiAIB
+List-unsubscribe: <mailto:1a1mjprei7ixvknt5w15uf2crcq3kukz892jgiv7x60t@m.hsms08.com?subject=unsubscribe>, <http://email.axosoft.com/hs/manage-preferences/unsubscribe-all?d=eyJlYSI6Inlhc3NlcmthZGRvdXJhbGVhcm5AZ21haWwuY29tIiwiZWMiOjYwOTkxMTE2LCJzdWJzY3JpcHRpb25JZCI6NDYzNTI4NiwiZXQiOjE1MTk4MjcxNDYwMTMsImV1IjoiZTNlY2VhNzItYjE3Yi00N2M2LThlOTQtMDAyNTNhMjUzYTdiIn0%3D&v=1>
+X-SG-EID: bf9PIOVHMRg7Q2XUrrM1QxQwQnZXY/L/cn6ogx1zhg8vKcUf801EBOQOsPeEn+Hp915mo504prx9GG
+ BAw47w/lLJ1eVHBeUMLjj0AD1y6IfkbKLiItZUXvbhjhY7i5udFHGyqTA87+HPqFN9JAtwVbHh6Dsu
+ scpaDXTDhHmdA1ebFqEWqmbfGnkf2l5CS1hR3KeW/5DTR50w1C22mpG3DPjPSLb+SxHNVPrP0afWD0
+ 4=
+X-SG-ID: BaKDar+VrkG/S9kwb9JXA61kUGvrmjP/XZkTI2oktCviLTIQXwaSHTJBSg7Cpm97YRjqnFB6gxUNA3
+ 2I8Cgaqx8LpTH1PmPl+Q1T1uIXYcy2tOTU8usUpEhPRWEzp+WLp2YnYYOZBuwvUUm0asAnc2uMWyql
+ cygEZqz839/qBtdIpT+OYQI+btHGIHGs7V+Uw8QXvc8+q1pCSH0cM+onXUWFJtjtP5Z5B11X/3ttpM
+ wXbDwmso8rwjy5/44sbfVdY12MspICux5QBFhJuyBfBa7AMOrUVIfk63+00wl2FqCCV5GQrSoK20m7
+ TStZFCurre/sbUAIzjDbjFpyvKzD7SVPTY5cxYcbe90hzg71Z1eUAUfvJi8VYH8Wr9UDgFdOQTcjic
+ cw9nxueffY+WRf/eNXUpBiBADcz0803GSGlRvCnFpRaGNjdcaehgmh3jVN0C8eYNujiYPEPB62pA3l
+ HnandCbCoU3OjhxbHdB3Jjw=
+X-Feedback-ID: 1611873:B/cyGK79zqG1gCMkXewzK3M4etoBPLdmcWzj6hpdpVE=:B/cyGK79zqG1gCMkXewzK3M4etoBPLdmcWzj6hpdpVE=:SG
+
+--5d0e01cadf51895af278bac798a56b3750c6bdb3c4baaf825382cec19346
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+
+An integrated, easy-to-use, task and issue tracking system that you can acc=
+ess from inside of GitKraken....
+
+Not rendering correctly? View this email as a web page here (http://email.a=
+xosoft.com/e1t/sc2/Mm-nFbkLdF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8hWtXm6dtrWNf1CYJM=
+H03 ) .
+
+GitKraken logo
+
+(http://email.axosoft.com/e1t/sc2/Mm-nFbkLdF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8hW=
+tXm6dtrWNf1CYJMH13 )
+
+Git Gloing
+
+(http://email.axosoft.com/e1t/sc2/Mm-nFbkLdF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8hW=
+tXm6dtrWNf1CYJMH23 )
+
+Have you heard about Glo boards?
+
+It's the new way to track tasks and issues from inside GitKraken, a browser=
+, or in the Atom and Visual Studio Code plugins!
+
+Glo boards (http://email.axosoft.com/e1t/sc2/Mm-nFbkLdF0W7H0c_K7pGt9TW7fP4p=
+S6g_tgKW8hWtXm6dtrWNf1CYJMH33 ) make operations faster so developers can ge=
+t back to writing code and designing great software. You can reduce context=
+ switching by eliminating the need to go from one application to another to=
+ update the status of an item or to log a new bug, and you'll find that it'=
+s easy to collaborate in real-time.
+
+Glo boards are currently in private beta for GitKraken Pro users. So, if yo=
+u want to start using Glo boards now, upgrade to Pro!
+
+Upgrade to Pro to Access Glo (http://email.axosoft.com/e1t/sc2/Mm-nFbkLdF0W=
+7H0c_K7pGt9TW7fP4pS6g_tgKW8hWtXm6dtrWNf1CYJMH43 )
+
+Once you're a Pro customer, you can access Glo boards inside GitKraken, on =
+the Glo website (http://email.axosoft.com/e1t/sc2/Mm-nFbkLdF0W7H0c_K7pGt9TW=
+7fP4pS6g_tgKW8hWtXm6dtrWNf1CYJMH53 ) , through the Visual Studio Code plugi=
+n (http://email.axosoft.com/e1t/sc2/Mm-nFbkLdF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8=
+hWtXm6dtrWNf1CYJMH63 )  or the Atom plugin (http://email.axosoft.com/e1t/sc=
+2/Mm-nFbkLdF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8hWtXm6dtrWNf1CYJMH73 ) .
+
+State of software development survey
+
+We partnered with Coding Sans to create a survey for tech leaders to get a =
+better understanding of how tech companies (small and large) hire and retai=
+n talent, manage software development, experiment with outsourcing and ensu=
+re code quality. Take the survey (http://email.axosoft.com/e1t/sc2/Mm-nFbkL=
+dF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8hWtXm6dtrWNf1CYJMH83 ) !
+
+Cheers,
+
+Keif and the GitKraken Team
+
+Axosoft, LLC.
+13835 N. Northsight Blvd.
+Suite 205
+Scottsdale,
+AZ
+85260
+USA
+
+You received this email because you are subscribed to GitKraken Glo Updates=
+ from Axosoft, LLC.
+
+Update your email preferences (http://email.axosoft.com/hs/manage-preferenc=
+es/unsubscribe?d=3DeyJlYSI6Inlhc3NlcmthZGRvdXJhbGVhcm5AZ21haWwuY29tIiwiZWMi=
+OjYwOTkxMTE2LCJzdWJzY3JpcHRpb25JZCI6NDYzNTI4NiwiZXQiOjE1MTk4MjcxNDYwMTMsImV=
+1IjoiZTNlY2VhNzItYjE3Yi00N2M2LThlOTQtMDAyNTNhMjUzYTdiIn0%3D&v=3D1&_hsenc=3D=
+p2ANqtz-9Y2QeoVB6bI7Bgtwavl0P3y5q91DRg9VPpt7mBSJNerpdgV5gAMP073CklAVtFj0vLh=
+CohE5tPWjSTv7-m_U8GSkiAAPM-0gS0lm_DM2EfMKXWg0E&_hsmi=3D60991116 ) to choose=
+ the types of emails you receive.
+
+Unsubscribe from all future emails (http://email.axosoft.com/hs/manage-pref=
+erences/unsubscribe-all?d=3DeyJlYSI6Inlhc3NlcmthZGRvdXJhbGVhcm5AZ21haWwuY29=
+tIiwiZWMiOjYwOTkxMTE2LCJzdWJzY3JpcHRpb25JZCI6NDYzNTI4NiwiZXQiOjE1MTk4MjcxND=
+YwMTMsImV1IjoiZTNlY2VhNzItYjE3Yi00N2M2LThlOTQtMDAyNTNhMjUzYTdiIn0%3D&v=3D1&=
+_hsenc=3Dp2ANqtz-9Y2QeoVB6bI7Bgtwavl0P3y5q91DRg9VPpt7mBSJNerpdgV5gAMP073Ckl=
+AVtFj0vLhCohE5tPWjSTv7-m_U8GSkiAAPM-0gS0lm_DM2EfMKXWg0E&_hsmi=3D60991116 )=
+
+--5d0e01cadf51895af278bac798a56b3750c6bdb3c4baaf825382cec19346
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+Mime-Version: 1.0
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org=
+/TR/xhtml1/DTD/xhtml1-strict.dtd"><!-- start coded_template: id:4763259283 =
+path:Custom/email/responsive_email/GitKraken_2017.html --><html xmlns=3D"ht=
+tp://www.w3.org/1999/xhtml"><head>
+        <title>Access Glo boards in private beta </title>
+        <meta property=3D"og:title" content=3D"Access Glo boards in private=
+ beta ">
+        <meta name=3D"twitter:title" content=3D"Access Glo boards in privat=
+e beta ">
+        <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Du=
+tf-8">
+        <meta name=3D"description" content=3D"Find out how to access our in=
+tegrated, easy-to-use, task and issue tracking system from inside GitKraken=
+!">
+=20=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20
+         <style type=3D"text/css" id=3D"hs-inline-css">
+        /*<![CDATA[*/
+            /* everything in this node will be inlined */
+            /* =3D=3D=3D=3D Page Styles =3D=3D=3D=3D */
+=20=20=20=20=20=20=20=20=20=20=20=20
+            body, #backgroundTable {
+                background-color: #141422; /* Use body to determine backgro=
+und color */
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            #templateTable {
+                width: 600px;
+                background-color: #262633;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+                color:#d0d0d2;
+                display:block;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight:bold;
+                line-height:100%;
+                margin-top:0;
+                margin-right:0;
+                margin-bottom:10px;
+                margin-left:0;
+                text-align:left;
+            }
+            h1, .h1 {
+                font-size:30px;
+            }
+            h2, .h2 {
+                font-size:24px;
+            }
+            h3, .h3 {
+                font-size:19px;
+            }
+            h4, .h4 {
+                font-size:17px;
+            }
+            h5, .h5 {
+                font-size:15px;
+            }
+            h6, .h6 {
+                font-size:13px;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            a {
+                border-style: none;
+                color: #d8c13a;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            p,ol,ul,li {
+                color: #d0d0d2;
+            }
+            ol,ul {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            li {
+                margin-bottom: 10px;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            ul.dl-list li {
+                margin-bottom: 5px;
+            }
+            /* =3D=3D=3D=3D Header Styles =3D=3D=3D=3D */
+            #headerTable {
+                background-color: #141422;
+                color:#d0d0d2;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size:10px;
+                line-height:120%;
+                text-align:right;
+                border-collapse: separate !important;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            #headerTable a:link, #headerTable a:visited, /* Yahoo! Mail Ove=
+rride */ #headerTable a .yshortcuts /* Yahoo! Mail Override */{
+                font-weight:normal;
+                text-decoration:underline;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            /* =3D=3D=3D=3D Template Wrapper Styles =3D=3D=3D=3D */
+            #contentCell {
+                padding: 0!important;
+                background-color: #141422;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            #contentCell a {
+                color: #d8c13a;
+            }
+            #contentCell a:hover {
+                color: #d8c13a;
+                text-decoration: none;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20=20
+            #contentTableOuter {
+                border-collapse: separate !important;
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                background-color: #262633;
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+            }
+            #contentTableInner {
+                width: 600px;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            /* =3D=3D=3D=3D Body Styles =3D=3D=3D=3D */
+=20=20=20=20=20=20=20=20=20=20=20=20
+            .bodyContent {
+                color:#d0d0d2;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 15px;
+                line-height:150%;
+                text-align:left;
+                padding: 0;
+            }
+            .bodyContent#below-banner-content {
+                padding-top: 25px;
+            }
+            td.light-inner {=20
+                background-color: #262633;=20
+            }=20
+            td.dark-inner {=20
+                background-color: #141422;=20
+            }=20
+            td.padded-h {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            td.padded-v {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            /* =3D=3D=3D=3D Column Styles =3D=3D=3D=3D */
+            table.columnContentTable {
+                border-collapse:separate !important;
+                border-spacing:0;
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                background-color: #262633;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            td[class~=3D"columnContent"] {
+                color:#d0d0d2;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size:15px;
+                line-height:120%;
+                padding-top:20px;
+                padding-right:20px;
+                padding-bottom:20px;
+                padding-left:20px;
+            }
+            /* =3D=3D=3D=3D Footer Styles =3D=3D=3D=3D */
+=20=20=20=20=20=20=20=20=20=20=20=20
+            #footerTable {
+                background-color: #141422;
+            }
+            #footerTable a {
+                color: #d8c13a!important;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            #footerTable {
+                color:#d8c13a!important;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size:12px;
+                line-height:120%;
+                padding-top:20px;
+                padding-right:20px;
+                padding-bottom:20px;
+                padding-left:20px;
+                text-align:center;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            .footer-cell a {
+                color: #d8c13a!important;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            #footerTable a:link, #footerTable a:visited, /* Yahoo! Mail Ove=
+rride */ #footerTable a .yshortcuts /* Yahoo! Mail Override */{
+                font-weight:normal;
+                text-decoration:underline;
+            }
+            .hs-image-social-sharing-24 {
+                max-width: 24px;
+                max-height: 24px;
+            }
+            /* =3D=3D=3D=3D Standard Resets =3D=3D=3D=3D */
+            .ExternalClass{
+                width:100%;
+            } /* Force Hotmail to display emails at full width */
+            .ExternalClass, .ExternalClass p, .ExternalClass span, .Externa=
+lClass font, .ExternalClass td, .ExternalClass div {
+                line-height: 100%;
+            } /* Force Hotmail to display normal line spacing */
+            body, table, td, p, a, li, blockquote{
+                -webkit-text-size-adjust:100%;
+                -ms-text-size-adjust:100%;
+            } /* Prevent WebKit and Windows mobile changing default text si=
+zes */
+            table, td {
+                mso-table-lspace:0pt;
+                mso-table-rspace:0pt;
+            } /* Remove spacing between tables in Outlook 2007 and up */
+=20=20=20=20=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20=20=20=20
+            .article-content p {
+                margin-top: 0;
+                margin-bottom: 2em;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            img {
+                vertical-align: bottom;
+                -ms-interpolation-mode:bicubic;
+                border: none;
+                border-style: none;
+            } /* Allow smoother rendering of resized image in Internet Expl=
+orer */
+            a img {
+                border-style: none;
+            }
+            .logoContainer img {
+                height: auto !important;
+                width: 240px !important;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            .article-image img {
+                width: 100%;
+                height: auto;
+                margin-bottom: 10px;
+            }
+            .header-image img {
+                width: 600px;
+                height: auto;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            /* Reset Styles */
+            body {
+                margin:0;
+                padding:0;
+            }
+            table {
+                border-collapse:collapse !important;
+            }
+            body, #backgroundTable, #bodyCell{
+                height:100% !important;
+                margin:0;
+                padding:0;
+                width:100% !important;
+            }
+            a:link, a:visited {
+                border-bottom: none;
+            }
+=20=20=20=20=20=20=20=20=20=20=20=20
+            /* iOS automatically adds a link to addresses */
+            /* Style the footer with the same color as the footer text */
+            #footer a {
+                color: #2a3e51;;
+                -webkit-text-size-adjust: none;
+                text-decoration: underline;
+                font-weight: normal
+            }
+=20=20=20=20
+            /* Hide preview text on rendering */
+            #preview_text {
+                display: none;
+            }
+        /*]]>*/
+    </style>
+         <style type=3D"text/css">
+        /*<![CDATA[*/
+            /* =3D=3D=3D=3D Mobile Styles =3D=3D=3D=3D */
+=20=20=20=20=20=20=20=20=20=20=20=20
+            /* Constrain email width for small screens */
+            @media screen and (max-width: 650px) {
+                table[id=3D"backgroundTable"] {
+                    width: 95% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                table[id=3D"templateTable"] {
+                    max-width:600px !important;
+                    width:100% !important;
+                }
+                table[id=3D"contentTableInner"] {
+                    max-width:600px !important;
+                    width:100% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20
+                /* Makes image expand to take 100% of width*/
+                img {
+                    width: 100% !important;
+                    height: auto !important;
+                }
+                #contentCell {
+                    padding: 0px 10px !important;
+                }
+                #headerTable {
+                    padding-right: 15.0px !important;
+                }
+            }
+            @media only screen and (max-width: 480px) {
+                /* =3D=3D=3D=3D Client-Specific Mobile Styles =3D=3D=3D=3D =
+*/
+                body, table, td, p, a, li, blockquote{
+                    -webkit-text-size-adjust:none !important;
+                } /* Prevent Webkit platforms from changing default text si=
+zes */
+                body{
+                    width:100% !important;
+                    min-width:100% !important;
+                } /* Prevent iOS Mail from adding padding to the body */
+                /* =3D=3D=3D=3D Mobile Reset Styles =3D=3D=3D=3D */
+                td[id=3D"bodyCell"] {
+                    padding:10px !important;
+                }
+                /* =3D=3D=3D=3D Mobile Template Styles =3D=3D=3D=3D */
+=20=20=20=20
+                table[id=3D"templateTable"] {
+                    max-width:600px !important;
+                    width:100% !important;
+                }
+                table[id=3D"contentTableInner"] {
+                    max-width:600px !important;
+                    width:100% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                /* =3D=3D=3D=3D Image Alignment Styles =3D=3D=3D=3D */
+                h1, .h1 {
+                    font-size:26px !important;
+                    line-height:125% !important;
+                }
+                h2, .h2 {
+                    font-size:20px !important;
+                    line-height:125% !important;
+                }
+                h3, .h3 {
+                    font-size:15px !important;
+                    line-height:125% !important;
+                }
+                h4, .h4 {
+                    font-size:13px !important;
+                    line-height:125% !important;
+                }
+                h5, .h5 {
+                    font-size:11px !important;
+                    line-height:125% !important;
+                }
+                h6, .h6 {
+                    font-size:10px !important;
+                    line-height:125% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                .hide {
+                    display:none !important;
+                } /* Hide to save space */
+                /* =3D=3D=3D=3D Body Styles =3D=3D=3D=3D */
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                td[class=3D"bodyContent"] {
+                    font-size:16px !important;
+                    line-height:145% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                /* =3D=3D=3D=3D Footer Styles =3D=3D=3D=3D */
+                td[id=3D"footerTable"]{
+                    padding-left: 0px !important;
+                    padding-right: 0px !important;
+                    font-size:12px !important;
+                    line-height:145% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                /* =3D=3D=3D=3D Image Alignment Styles =3D=3D=3D=3D */
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                table[class=3D"alignImageTable"] {
+                    width: 100% !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                td[class=3D"imageTableTop"] {
+                    display: none !important;
+                    /*padding-top: 10px !important;*/
+                }
+                td[class=3D"imageTableRight"] {
+                    display: none !important;
+                }
+                td[class=3D"imageTableBottom"] {
+                    padding-bottom: 10px !important;
+                }
+                td[class=3D"imageTableLeft"] {
+                    display: none !important;
+                }
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                /* =3D=3D=3D=3D Column Styles =3D=3D=3D=3D */
+                td[class~=3D"column"] {
+                    display: block !important;
+                    width: 100% !important;
+                    padding-top: 0 !important;
+                    padding-right: 0 !important;
+                    padding-bottom: 0 !important;
+                    padding-left: 0 !important;
+                }
+                td[class~=3DcolumnContent] {
+                    font-size:14px !important;
+                    line-height:145% !important;
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                    padding-top: 10px !important;
+                    padding-right: 10px !important;
+                    padding-bottom: 10px !important;
+                    padding-left: 10px !important;
+                }
+                #contentCell {
+                    padding: 0px !important;
+                }
+                #headerTable {
+                    padding-right: 15.0px !important;
+                }
+            }
+            #preview_text {
+                display: none;
+            }
+        /*]]>*/
+    </style>
+        <!-- http://www.emailon@cid.com/blog/details/C13/ensure_that_your_e=
+ntire_email_is_rendered_by_default_in_the_iphone_ipad -->
+        <!--                                                               =
+                                                      -->
+        <!--                                                               =
+                                                      -->
+        <!--                            _/    _/            _/          _/_=
+/_/                        _/                         -->
+        <!--                           _/    _/  _/    _/  _/_/_/    _/    =
+    _/_/_/      _/_/    _/_/_/_/                      -->
+        <!--                          _/_/_/_/  _/    _/  _/    _/    _/_/ =
+   _/    _/  _/    _/    _/                           -->
+        <!--                         _/    _/  _/    _/  _/    _/        _/=
+  _/    _/  _/    _/    _/                            -->
+        <!--                        _/    _/    _/_/_/  _/_/_/    _/_/_/   =
+ _/_/_/      _/_/        _/_/                         -->
+        <!--                                                               =
+_/                                                    -->
+        <!--                                                              _=
+/                                                     -->
+        <!--                                                               =
+                                                      -->
+        <!--                                                 Extra White Sp=
+ace!                                                  -->
+        <!--                                                               =
+                                                      -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - =
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <meta name=3D"generator" content=3D"HubSpot"><meta property=3D"og:url" =
+content=3D"http://email.axosoft.com/access-glo-boards-in-private-beta"><met=
+a name=3D"x-apple-disable-message-reformatting"></head>
+    <body leftmargin=3D"0" marginwidth=3D"0" topmargin=3D"0" marginheight=
+=3D"0" offset=3D"0" style=3D"background-color:#141422; font-family:'Helveti=
+ca Neue', Helvetica, Arial, sans-serif; -webkit-text-size-adjust:100%; -ms-=
+text-size-adjust:100%; height:100% !important; margin:0; padding:0; width:1=
+00% !important" bgcolor=3D"#141422" height=3D"100% !important" width=3D"100=
+% !important">
+        <!-- Preview text (text which appears right after subject) -->
+        <div id=3D"preview_text" style=3D"display:none!important">An integr=
+ated, easy-to-use, task and issue tracking system that you can access from =
+inside of GitKraken....</div>
+        <!--  The  backgroundTable table manages the color of the backgroun=
+d and then the templateTable maintains the body of=20
+        the email template, including preheader & footer. This is the only =
+table you set the width of to, everything else is set to=20
+        100% and in the CSS above. Having the width here within the table i=
+s just a small win for Lotus Notes. -->
+        <!-- Begin backgroundTable -->=20=20
+        <table align=3D"center" bgcolor=3D"#141422" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" height=3D"100% !important" width=3D"100% !importa=
+nt" id=3D"backgroundTable" style=3D"-webkit-text-size-adjust:100%; -ms-text=
+-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-colla=
+pse:collapse !important; background-color:#141422; font-family:'Helvetica N=
+eue', Helvetica, Arial, sans-serif; height:100% !important; margin:0; paddi=
+ng:0; width:100% !important">
+            <tbody><tr>
+                <td align=3D"center" valign=3D"top" id=3D"bodyCell" style=
+=3D"-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lsp=
+ace:0pt; mso-table-rspace:0pt; height:100% !important; margin:0; padding:0;=
+ width:100% !important" height=3D"100% !important" width=3D"100% !important=
+"> <!-- When nesting tables within a TD, align center keeps it well, center=
+ed. -->
+                    <!-- Begin Template Container -->
+                    <!-- This holds everything together in a nice container=
+ -->
+                    <table border=3D"0" cellpadding=3D"0" cellspacing=3D"0"=
+ id=3D"templateTable" style=3D"-webkit-text-size-adjust:100%; -ms-text-size=
+-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:c=
+ollapse !important; width:600px; background-color:#262633; -webkit-font-smo=
+othing:antialiased" width=3D"600" bgcolor=3D"#262633">
+                        <tbody><tr>
+                            <td align=3D"center" valign=3D"top" style=3D"-w=
+ebkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0p=
+t; mso-table-rspace:0pt">
+                                <!-- Begin Template Preheader -->
+                                <div class=3D"header-container-wrapper">
+        </div><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%" id=3D"headerTable" style=3D"-webkit-text-size-adjust:100%; -ms-te=
+xt-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; background=
+-color:#141422; color:#d0d0d2; font-family:'Helvetica Neue', Helvetica, Ari=
+al, sans-serif; font-size:10px; line-height:120%; text-align:right; border-=
+collapse:separate !important" bgcolor=3D"#141422" align=3D"right">
+                                    <tbody><tr>
+            <td align=3D"left" valign=3D"top" class=3D"bodyContent" width=
+=3D"100%" colspan=3D"12" style=3D"-webkit-text-size-adjust:100%; -ms-text-s=
+ize-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#d0d0d2;=
+ font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px=
+; line-height:150%; text-align:left; padding:0">
+                <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" wid=
+th=3D"100%" class=3D"templateColumnWrapper" style=3D"-webkit-text-size-adju=
+st:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:=
+0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align=3D"center" valign=3D"top" colspan=3D"12" =
+width=3D"100.0%" class=3D"column" style=3D"-webkit-text-size-adjust:100%; -=
+ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; text-=
+align:center; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; f=
+ont-size:15px; line-height:1.5em; color:#d0d0d2">
+                            <div class=3D"widget-span widget-type-email_vie=
+w_as_web_page " style=3D"" data-widget-type=3D"email_view_as_web_page">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20
+                                    <div style=3D"padding-top: 15px; font-f=
+amily: Geneva, Verdana, Arial, Helvetica, sans-serif; text-align: center; f=
+ont-size: 12px; line-height: 1.5em; color: #e75225">
+                                        <center>
+                                            Not rendering correctly? View t=
+his email as a web page <a border=3D"0" class=3D"hubspot-mergetag" style=3D=
+"border-style:none; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100=
+%; color:#e75225; text-decoration:underline; white-space:nowrap" data-viewa=
+swebpage=3D"true" href=3D"http://email.axosoft.com/e1t/c/*V4nszp1Qn2KsN3zqc=
+TKDSs_t0/*W1w31lK4SrTHCW5zLrJf82gmQC0/5/f18dQhb0S2Dl2p37FjV1xQ8s1GV3sxVz91b=
+f1rnLcgN5J555NsHSbQW4hzP3t6zSPm9W1nsx472RFMKbW5m-Gbw5NZ_WWVkC44m4ZTk4KW21DK=
+Vl4qTQ3KW5-8Z8B7DqmrcW74svF397gv6GW66j8Nf4GJ83CN1MsmySRL4hbVqKfkG7mFKt_W16t=
+pQd69v5YCVglNZc4N2V1qN8ckFGPfZF7ZV7vWpb1kp9MCN79g1wNyXcBTW2GySvW94H2HhW5lnN=
+yJ7FDPKDW5l6yTn2M9Y-hW3kYfDh6lrK9qW6bzfCY4mcMpsW4l9H2V7LbwT4VvkvCS3C42RdN2G=
+Whvf-fdPPW6c5Dk749wbt5V2KX-W1Qj_kNW4ynRCr8qzpYhW2r4XXT2ZKdCpW7-1_T21d7fC3W4=
+W-pwr8LhGv7W1h7jVZ7Y1NXkW3sF6kf5vwz3jW5qB5Sk1QWjd4W3K-bDw6HBw_hW2yLg8p48m_5=
+VW80xY9S5wrr5zW4DR80s79bdmdW80GYMd12yk_dW5xxHyM69bxK0W6MT3lv5jh43YW2rG13Y7K=
+R-phW6dLHXq303sxlW19cmKQ4ZBx5JW4LgWkJ2_RrY6W7dWXDh9gW4B9N96XjF8-YbgTW3PQ_Rz=
+8mWXmTW1pYgpV2WgTjsW19FKrk6NWvj8W3Kwf6s3L7QkMW5RsMkN4G1jZTW8d0Ybw9m1fy9W7Vs=
+0h49jJcRFW3rZ8g54gJfGJW4RczSb95m46Df6Nppm302" data-hs-link-id=3D"0" target=
+=3D"_blank">here</a>.
+                                        </center>
+                                    </div>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20
+                                <div class=3D"logoContainer dark-inner" sty=
+le=3D"padding-top: 15px; padding-bottom: 15px; font-family: Geneva, Verdana=
+, Arial, Helvetica, sans-serif; text-align: center; font-size: 9px; line-he=
+ight: 1.34em; color: #d0d0d2">
+                                    <center>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                        <a border=3D"0" href=3D"http://emai=
+l.axosoft.com/e1t/c/*V4nszp1Qn2KsN3zqcTKDSs_t0/*V2lctF59vbShVSdcR-8BY-lr0/5=
+/f18dQhb0SbTS8XJ9qWW8LBxn95D47MtW243x4x1FW0-pW7wTZPH9hyl7bW5q9cPw8yym7NW5yM=
+B435vLD0tW3MyCVL1nPLDMW81gM8-7d-tJnVQJ99n8tsRJtW8m9PdD6MRk8YW8p-glf3HntbQW5=
+5nSC91VJH71W2pfWxY1T4BRJW5D8zFF6bJ-pxW7nwG0k6bnMRgN57MxLCs1b-pW7R0x1433FK-y=
+MqPkxDnjZC8W4hsfpb1FzlkzW4gVbk58TJgGQW56vWqq9fcM3sW4zqrLy7pYVykN4Pnn1MjJ4RD=
+N1GbXMxpDGBbW1tkLm46rGVqkW8_vfz41Y8_5LW1N568x6pGGy-W6kr4zq7rCVwRW8SnRJC1whp=
+V-W59MCXG7nXks6W2GFVwv8-_Rb4W53l4DX7nZXsWW3H7Msk7wfVwbW7lzcg853NYtcW4PLwTV7=
+pB0wRW1T1hm26DrFjkW1m2HqL79YmpbW5Y5JXY5h2jCDW1bDs3c7zKRdNW9bQTMw5xFqw-W8ZPg=
+v88CGCVcW98-rBN5dlC9WW6n7p423bchSBW4Q-5SV4Hzl-9f4WJfW_11" style=3D"border-s=
+tyle:none; color:#d8c13a; -webkit-text-size-adjust:100%; -ms-text-size-adju=
+st:100%" data-hs-link-id=3D"0" target=3D"_blank">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                    <!--[if gte mso 9]>
+                                        <img border=3D"0" src=3D"https://cd=
+n2.hubspot.net/hubfs/544893/gitkraken/logos/logo-gk-h-light.png" width=3D"2=
+40" alt=3D"GitKraken logo">
+                                        <span style=3D"width:0px; height:0p=
+x; overflow:hidden; display:none; visibility:hidden; mso-hide:all;">
+                                    <![endif]-->
+                                        <img border=3D"0" src=3D"https://cd=
+n2.hubspot.net/hubfs/544893/gitkraken/logos/logo-gk-h-light.png?t=3D1518471=
+571649" alt=3D"GitKraken logo" style=3D"vertical-align:bottom; -ms-interpol=
+ation-mode:bicubic; border:none; border-style:none; height:auto !important;=
+ width:240px !important" height=3D"auto !important" width=3D"240px !importa=
+nt">
+                                        <!--[if gte mso 9]>
+                                        </span>
+                                    <![endif]-->
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                        </a>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                    </center>
+                                </div>
+                            </div><!--end widget-span -->
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+<!--end header wrapper -->
+                                </tbody></table>
+                                <!-- End Template Preheader -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align=3D"center" valign=3D"top" id=3D"conte=
+ntCell" style=3D"-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; =
+mso-table-lspace:0pt; mso-table-rspace:0pt; padding:0 !important; backgroun=
+d-color:#141422" bgcolor=3D"#141422">
+                                <!-- Begin Template Wrapper -->
+                                <!-- This separates the preheader which usu=
+ally contains the "open in browser, etc" content
+                                from the actual body of the email. Can alte=
+rnatively contain the footer too, but I choose not
+                                to so that it stays outside of the border. =
+-->
+                                <table border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" width=3D"100%" id=3D"contentTableOuter" style=3D"-webkit-text-=
+size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-tabl=
+e-rspace:0pt; border-collapse:separate !important; background-color:#262633=
+" bgcolor=3D"#262633">
+                                    <tbody><tr>
+                                        <td align=3D"center" valign=3D"top"=
+ style=3D"-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-tab=
+le-lspace:0pt; mso-table-rspace:0pt">
+                                            <div class=3D"body-container-wr=
+apper">
+        </div><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D=
+"contentTableInner" style=3D"-webkit-text-size-adjust:100%; -ms-text-size-a=
+djust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:col=
+lapse !important; width:600px" width=3D"600">
+                                                <tbody><tr>
+            <td align=3D"left" valign=3D"top" class=3D"bodyContent" width=
+=3D"100%" colspan=3D"12" style=3D"-webkit-text-size-adjust:100%; -ms-text-s=
+ize-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#d0d0d2;=
+ font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px=
+; line-height:150%; text-align:left; padding:0">
+                <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" wid=
+th=3D"100%" class=3D"templateColumnWrapper" style=3D"-webkit-text-size-adju=
+st:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:=
+0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align=3D"left" valign=3D"top" colspan=3D"12" wi=
+dth=3D"100.0%" class=3D"column header-image" style=3D"-webkit-text-size-adj=
+ust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace=
+:0pt; text-align:left; font-family:'Helvetica Neue', Helvetica, Arial, sans=
+-serif; font-size:15px; line-height:1.5em; color:#d0d0d2">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                <center>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                    <a border=3D"0" href=3D"http://email.ax=
+osoft.com/e1t/c/*V4nszp1Qn2KsN3zqcTKDSs_t0/*W5M0yy72hhlsnW9jZYt_1MGldp0/5/f=
+18dQhb0SbTV8XJbXvW8LBxn95D47MtW243x4x1FW0-pW7wTZPH5G1v4FW2K4R9r8ZkjSfW5pXB0=
+h2LWkwSW2Nmhsg6yRLXYW5mZ50N8HbRxPN8k1dMQpSBF3W8Wj41S8T7Rz0W3nq8Bt4c-D68W1T9=
+KBQ2yJF1WVYT2jk19FRrTW41TlcR3Tw-3WW68Kwdg4Dl4vzW3sxskS96lgmtW2MV04_94q7cqW6=
+VKJl21hC_8gW5lppF55nmRjmW93CBWk72kVz-W3NTTkp2Gl-51W4JSXqh9530JRW6jTYTn2cDqy=
+4W5MhQYQ58xMdvW9fssbz59sZMCN7w3rg_5YW-pN1SfnFMrNXHLW2Q184Q76f0NnW1gctJF9dc-=
+KgW7tK_dL49Rn6TW2NdSbY1TW845W4c9fgl1gH8h8Ms3n2p_Z-TrW3fWXV-4FG0MbN45Ly2MkwR=
+QsW8c5rg-1D9jSLN7p8Zq93WGCpW1rmGls7zHVvRW1cLmJq1Ngx1fW51bhQW1Tq_P5W5v_TrZ56=
+fF_dW88XdGn6KW7XXW2B9zzr7_mDhhW2-zyFj1NsfDKS1Kz6RHx81102" style=3D"border-s=
+tyle:none; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:=
+#d8c13a" data-hs-link-id=3D"0" target=3D"_blank">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                    <img border=3D"0" src=3D"https://cdn2.h=
+ubspot.net/hub/544893/hubfs/KeepCalmKeif-Social%20(1).jpg?t=3D1518471571649=
+&amp;width=3D2132&amp;name=3DKeepCalmKeif-Social%20(1).jpg" width=3D"600" a=
+lt=3D"Git Gloing" srcset=3D"https://cdn2.hubspot.net/hub/544893/hubfs/KeepC=
+almKeif-Social%20(1).jpg?t=3D1518471571649&amp;width=3D2132&amp;name=3DKeep=
+CalmKeif-Social%20(1).jpg 2132w, https://cdn2.hubspot.net/hub/544893/hubfs/=
+KeepCalmKeif-Social%20(1).jpg?t=3D1518471571649&amp;width=3D4264&amp;name=
+=3DKeepCalmKeif-Social%20(1).jpg 4264w" sizes=3D"(max-width: 2132px) 100vw,=
+ 2132px" style=3D"vertical-align:bottom; -ms-interpolation-mode:bicubic; bo=
+rder:none; border-style:none; width:600px; height:auto" height=3D"auto">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                    </a>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+                                </center>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20=20
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr>
+            <td align=3D"left" valign=3D"top" id=3D"below-banner-content" c=
+lass=3D"bodyContent light-inner padded-h" width=3D"100%" colspan=3D"12" sty=
+le=3D"-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-l=
+space:0pt; mso-table-rspace:0pt; color:#d0d0d2; font-family:'Helvetica Neue=
+', Helvetica, Arial, sans-serif; font-size:15px; line-height:150%; text-ali=
+gn:left; padding:0; background-color:#262633; padding-left:20px; padding-ri=
+ght:20px; padding-top:25px" bgcolor=3D"#262633">
+                <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" wid=
+th=3D"100%" class=3D"templateColumnWrapper" style=3D"-webkit-text-size-adju=
+st:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:=
+0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align=3D"left" valign=3D"top" colspan=3D"12" wi=
+dth=3D"100.0%" class=3D"column" style=3D"-webkit-text-size-adjust:100%; -ms=
+-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; text-al=
+ign:left; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-=
+size:15px; line-height:1.5em; color:#d0d0d2">
+                            <div class=3D"widget-span widget-type-email_bod=
+y " style=3D"" data-widget-type=3D"email_body">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20
+                                <div id=3D"hs_cos_wrapper_hs_email_body" cl=
+ass=3D"hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" =
+style=3D"color: inherit; font-size: inherit; line-height: inherit;" data-hs=
+-cos-general-type=3D"widget" data-hs-cos-type=3D"rich_text"><h2 style=3D"co=
+lor:#d0d0d2; display:block; font-family:'Helvetica Neue', Helvetica, Arial,=
+ sans-serif; font-weight:bold; line-height:100%; margin-top:0; margin-right=
+:0; margin-bottom:10px; margin-left:0; text-align:left; font-size:24px" ali=
+gn=3D"left">Have you heard about Glo boards?</h2>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"font-weight: 400;"><span>It's =
+the new way to track tasks and issues from inside GitKraken, a browser, or =
+in the Atom and Visual Studio Code plugins!&nbsp;</span></span></p>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"background-color: transparent;=
+ font-size: inherit;"><a href=3D"http://email.axosoft.com/e1t/c/*V4nszp1Qn2=
+KsN3zqcTKDSs_t0/*VTwwhF51CsB-W3xqCKb2HjgBp0/5/f18dQhb0SnGT6Z7wZkW4LPd5T2S0s=
+KMW3Ljtqz4XrbTlW3hHhbc5Cgxh0VnQ9Qq8-tRWGVpCq6z8Z2Q0BW6xh7d733FVBRW8Wm1s995Z=
+btSW4dNZjL2M6JxzVWP9Db1WwlxpW2MznrN5nbq6BVGXpVf3-Q9rRW36Q7Q64c2Rr9W53Y4Lw1X=
+Hf1XW55nSC91VJH71VXTx9h1kXfytW1SdKWJ1m2sXxW8Xl1bl8W1LZ3W1rXw5V6rGW7HW55T8N8=
+7w3wPSW1NC3Kc1F6KV3W1ZVJbM4-ZgqWVt_vmr4ckvQVN539Zy2zFXHKW58kjlL7zMTflW7xv5t=
+z7MLV2JW7NC3wv7MGGjTW7CS12w7JQ29YW28Pw0n1Fs6N2W7l5g50762phNW1zzSpw1K_Wt7W7z=
+PMvw7ljWKZW1fwLWn6JtZyTW1YSBl_28KxcsW1gKl6f7zHvXYW6vm6bw5nZd0bN7Jp4dQcWbVfN=
+4Wpz-0yZJwdW7btwSY5Zt2RxVMJGGd4cx_xBW8SKcBc9hbf0-V10Nbd5x6QZXW1Lnj6P41SWbXW=
+7gZz3b9k_4V8W4dl-lX3MpB07W6fnxMd13fYwcMcTSRKcSJ8Pf53N4jN02" style=3D"border=
+-style:none; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; colo=
+r:#d8c13a" data-hs-link-id=3D"0" target=3D"_blank">Glo boards</a> make oper=
+ations faster so developers can get back to writing code and designing grea=
+t software. You can reduce context switching by eliminating the need to go =
+from one application to another to update the status of an item or to log a=
+ new bug, and you'll find that it's easy to collaborate in real-time.</span=
+></p>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"font-weight: 400;"><span>Glo b=
+oards are currently in private beta&nbsp;for GitKraken Pro users. So, if yo=
+u want to start using Glo boards now, upgrade to Pro!</span></span></p>
+<center><!--HubSpot Call-to-Action Code --><span class=3D"hs-cta-wrapper" d=
+ata-hs-img-pg=3D"ecd4ce03-ac33-4bc2-9964-d2e7f0a24339" id=3D"hs-cta-wrapper=
+-ecd4ce03-ac33-4bc2-9964-d2e7f0a24339"><span class=3D"hs-cta-node hs-cta-ec=
+d4ce03-ac33-4bc2-9964-d2e7f0a24339" id=3D"hs-cta-ecd4ce03-ac33-4bc2-9964-d2=
+e7f0a24339"><a   href=3D"http://email.axosoft.com/e1t/c/*V4nszp1Qn2KsN3zqcT=
+KDSs_t0/*W4MhK3t2gRfZnW7GYc4H8tN0sw0/5/f18dQhb0S4JY2f8FNGW12P5684V2RhMW4-TK=
+Ts4NyrxQW6TqCVV8nWNGLW7JDptK1PXS_tW7wmMWB87d8KJW9bcYN_5nDZZBVgjXZq11kwqfN21=
+3FqZfTSC0W4c1YLS5Wb1P1W73kYjQ5QKsWVW5Ss4g28KqZcDW7G0L973Z1dbgW2TyXTx1q6fnJW=
+4K8mnM2KxCJnVjS4s68SdY71W7jV_Qc2TvgXMW4f3PKv4xyX5kVGrVz81qgdzdV25DHJ76CR2dW=
+3z8YY-54psVVN1lWg9Q1m609N5DhMX8d5rzPW1ll8vx3dkHDsW8WNSg11YfgZCVmwvF641Bd1ZW=
+7JnKKT37pl4JW7Rwr0W3Y1qN1W1FVNLp81XD-BW6zQ7sR5nPSBlW4j9f3c2D4JCpW2mTxKy8yq0=
+QnW7nmcmy7xMzjFW95y6dF14v6FdW2MmbRs7Bv4ZRW8FgwXG7q18hcW6z0P795NFQGYW2nDhJd7=
+F3tDwW8b9dBt164RjlW6vT9LH1kqnt4W2R18PL48Pk0CW4YKyRJ6D1G3xW1vNQLs8yHzmgW2lXZ=
+-S1VXk4tW60DcQv581gg3W8npBDJ5z5N49N2_h_sD6nwW5W84KWKM3FdH2wW8M5zrH2jxHFhN6B=
+SwNKjDq1hW2-5Fq936ZQF6W6SbD1224v-glVWW_6L8ZdLNSW21TcQ_8DbXSVW7KPN4P5my3GrW1=
+3FVSG6r783QW3vly5v4PXFdkW4Gxfr53vbqtcW1zvTsJ6pFXbvN2sKfZqq2Xk0V6FmLS4Gv9shW=
+3hy3KP7cqd3bW4pDKsL7m-yMQVyt0Rh7tPW_VW97d2-J4YPZWFN6w1_TLzB5mCW6WrCS12vBPLn=
+V5jQFv52J2kP103" target=3D"_blank" style=3D"border-style:none; -webkit-text=
+-size-adjust:100%; -ms-text-size-adjust:100%; color:#d8c13a" data-hs-link-i=
+d=3D"0"><img class=3D"hs-cta-img" id=3D"hs-cta-img-ecd4ce03-ac33-4bc2-9964-=
+d2e7f0a24339" style=3D"vertical-align:bottom; -ms-interpolation-mode:bicubi=
+c; border:none; border-style:none; border-width:0px; width:auto !important;=
+ max-width:100% !important" mce_noresize=3D"1" src=3D"https://cta-image-cms=
+2.hubspot.com/ctas/v2/public/cs/il/?pg=3Decd4ce03-ac33-4bc2-9964-d2e7f0a243=
+39&amp;pid=3D544893&amp;ecid=3DACsprvspUq8x7Qao9S7QsDtIqtN0IJ_W5AfkRVGcLRLP=
+LszgAftXdSFyqo3e-2tbP_FWhJKs681z&amp;hseid=3D60991116&amp;hsic=3Dfalse" alt=
+=3D"Upgrade to Pro to Access Glo" width=3D"auto !important"></a></span></sp=
+an><!-- end HubSpot Call-to-Action Code --></center>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"background-color: transparent;=
+ color: inherit; font-size: inherit;">Once you're a Pro customer, you can a=
+ccess Glo boards</span><span style=3D"background-color: transparent; font-s=
+ize: inherit;">&nbsp;<span>inside GitKraken, on the&nbsp;</span><a href=3D"=
+http://email.axosoft.com/e1t/c/*V4nszp1Qn2KsN3zqcTKDSs_t0/*W4nq8Cq2q7Lc8W52=
+3Ys65-BqVb0/5/f18dQhb0SbTV8XJbXvW8LBxn95D47MtW243x4x1FW0-pW7wTZPH5G1v4FW2K4=
+R9r8ZkjPLVpDmh_2NmhsgW6yRLXY5mZ50NW7Lcy7h8HbRxPN8k1dMQpSBF3W8Wj41S8T7Rz0W3n=
+q8Bt4c-D68W1T9KBQ2yJF1WVYT2jk19FRrTW41TlcR3Tw-3WW68Kwdg4Dl4vzW3sxskS96lgmtW=
+2MV04_94q7cqW6VKJl21hC_8gW5lppF55nmRjmW93CBWk72kVz-W3NTTkp2Gl-51W4JSXqh9530=
+JRW6jTYTn2cDtlPW5MhQYQ58xMdvW9fssbz59sZMCN7w3rg_5YW-pN1SfnFMrNXHLW2Q184Q76f=
+0NnW1gctJF9dc-KgW7tK_dL49Rn6TW2NdSbY1TW845W4c9fgl1gH8h8Ms3n2p_Z-TrW3fWXV-4F=
+G0MbN45Ly2MkwRQsW8c5rg-1D9jSLN7p8Zq93WGCpW1rmGls7zHVvRW1cLqw61Ngx1fW51bhQW1=
+Tq_P5W5v_TrZ56fF_dW88XdGn6KW7XXW2B9zzr7_mDhhW2-zyFj1NsfDKS8G13Mj4tc102" sty=
+le=3D"border-style:none; -webkit-text-size-adjust:100%; -ms-text-size-adjus=
+t:100%; color:#d8c13a" data-hs-link-id=3D"0" target=3D"_blank">Glo website<=
+/a><span>,</span><span>&nbsp;through the<span>&nbsp;</span></span><a href=
+=3D"http://email.axosoft.com/e1t/c/*V4nszp1Qn2KsN3zqcTKDSs_t0/*W3ZGYwq7LG9R=
+-W2lDNS22pCFGH0/5/f18dQhb0SfHv4y991fV4v1S75H0XxdN7sCxgNtMxY1W6BlzkM1Vq7GqVL=
+DpF18BTcvgVNcTm38w1CbYW3Gvgyj67hlK1W8tzLx78TPYt8W8tyv7S5xcx4JW1NBQQY3N1L3_W=
+5y5jh-1rfXlzW1kRpb77ZClVFW6fChH-8q5FTlVMP9z23Sl3HZVQJJn63Lqnm_W1SL2lz2GRw4Y=
+W3HtrQn2K4XMjW8tzC3F8q-1vlW2VS0cM3xdkVzVRFkK45G18KhW3y9KYQ3dgtNkN3XMZXVFNDT=
+sV_Zx7j8sDy6YVNg25Z17hSmqV_wJPT5PpSDhW5JTl3L68mV7fW6b4gdk68crGBW5Wy75H62vD-=
+4W4my6ZB3gVS2tW5k53Pd4T_l9MW377gq73r_PSxW5RsB_H5kxm6TW2w13k741T2dkW3VJ8Dd4m=
+pBY4W2wrKlr5PfymlW3DCP3-1qPB2fW61HDhd3KQw4fW1xc29V25MbwVN4rpXPKrX3l1W6VztMM=
+6xmvqXW7d04x150D_2MW5drWQb1p8hJBN60CkDXm-mSdW1wRS6N5cWyL8W3n-TYg46j9GcW8bGq=
+_S8Lf3dvW4BBRds1QCrJDN6zCW0PrVprCW56gBW-3S-hlnf4MwrXK04" style=3D"border-st=
+yle:none; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; color:#=
+d8c13a" data-hs-link-id=3D"0" target=3D"_blank">Visual Studio Code plugin</=
+a><span>&nbsp;or the&nbsp;</span><a href=3D"http://email.axosoft.com/e1t/c/=
+*V4nszp1Qn2KsN3zqcTKDSs_t0/*W3cYgjX2G6CYxW2Z1Twm47q_Z20/5/f18dQhb0SfHq4y991=
+fV4v1S75H0XxdN7sCxgNtMxY1W6BlzkM1SrC8dVLDpF18BTcvgVNcTm38w1CbYW3Gvgyj67hlK1=
+W8tzLx78TPYt8W8tyv7S5xcx4JW1NBQQY3N1L3_W5y5jh-1rfXlzW1kRpb77ZClVFW6fChH-8q5=
+FTlVMP9z23Sl3HZVQJJn63Lqnm_W1SL2lz2GRw4YW3HtrQn2K4XMjW8tzC3F8q-1vlW2VS0cM3x=
+dkVzVRFkK45G18KhW3y9KYQ3dgtNkN3XMZXVFNDTsV_Zx7j8sDy6YVNg25Z17hSmqV_wJPT5PpS=
+DhW5JTl3L68mV7fW6b4gdk68crGBW5Wy75H62vD-4W4my6ZB3gVS2tW5k53Pd4T_l9MW377gq73=
+r_PSxW5RsB_H5kxm6TW2w13k741T2dkW3VJ8Dd4mpBY4W2wrKlr5PfymlW3DCP3-1qPB2fW61HP=
+qg50CGsyW6Q1Q3V8xX9zKMrPpMvrJh2DW15W-s551S8RtW2yRdNG1wpcNQW8r3--q8nh5PcN9ch=
+TvX215_BW1J7MZJ3vL7MMW83JPk45dPc72W9lRThm8sJxjZW7sRb1t37GbJQN26wV0qrLh9QVrH=
+RWN1R5zdN102" style=3D"border-style:none; -webkit-text-size-adjust:100%; -m=
+s-text-size-adjust:100%; color:#d8c13a" data-hs-link-id=3D"0" target=3D"_bl=
+ank">Atom plugin</a><span>.</span></span></p>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%">&nbsp;</p>
+<h3 style=3D"color:#d0d0d2; display:block; font-family:'Helvetica Neue', He=
+lvetica, Arial, sans-serif; font-weight:bold; line-height:100%; margin-top:=
+0; margin-right:0; margin-bottom:10px; margin-left:0; text-align:left; font=
+-size:19px" align=3D"left"><span style=3D"background-color: transparent; fo=
+nt-size: inherit;"><span>State of software development survey</span></span>=
+</h3>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"background-color: transparent;=
+ font-size: inherit;"><span>We partnered with Coding Sans to create a surve=
+y for tech leaders to get a better understanding of how tech companies (sma=
+ll and large) hire and retain talent, manage software development, experime=
+nt with outsourcing and ensure code quality.&nbsp;</span></span><a href=3D"=
+http://email.axosoft.com/e1t/c/*V4nszp1Qn2KsN3zqcTKDSs_t0/*W5mjbWF1QY9QSW6C=
+1Snt3wMk--0/5/f18dQhb0SmhZ8Z990-W8827N01V2S58W4872fP3hP1YPW5FGXHn5MyjZgW1wc=
+xHq7K0lNCW2Xr85J1LltCLW7RB4_K2FGKF3W7qc7rW7C3Rv_W7TRyfs20X7MRW1L4LKy1MkvB3W=
+2KDbbk7zNLMPW2LBs_L32SxY-W2Vv3cs1G8MxxW1Bb4rM7PHKjvW6sjW5H7MpjNTW7mtNyQ1QMp=
+q2W8XyNXM8TzY3-N1CrKFCkn66gVZ759W3jpr1rVNgm9B2-DBF_W3zbSY28DV2KnW3RmqQ03xbd=
+djW3vbq6C3kKSMDW5v7Ncq8hJGvdW32ymbn10pm2GW5qKP0S5hjQ6XN8zXc_BNzKYPN5qQ-2pjG=
+XPKW63VMwD57prHMW3kYc044p7yDTW2B2PzS37-SgBW65Hzpk64PZqyW5MZh7x3dP2VgN5PZ4wh=
+7PCDPN4QDgwJWWkxGW326FX03SD1c9W1tPMv340-LJ9W6TrlKl5rbr6PN9gTJs99XfwsD7s2GRz=
+mPTf4RXwvC03" style=3D"border-style:none; -webkit-text-size-adjust:100%; -m=
+s-text-size-adjust:100%; color:#d8c13a; background-color:transparent; font-=
+size:inherit" bgcolor=3D"transparent" data-hs-link-id=3D"0" target=3D"_blan=
+k">Take the survey</a><span style=3D"background-color: transparent; font-si=
+ze: inherit;">!&nbsp;</span></p>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%">&nbsp;</p>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"font-weight: 400;">Cheers,</sp=
+an></p>
+<p style=3D"margin-bottom: 1em; color:#d0d0d2; -webkit-text-size-adjust:100=
+%; -ms-text-size-adjust:100%"><span style=3D"font-weight: 400;">Keif and th=
+e GitKraken Team</span></p></div>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+                            </div><!--end widget-span -->
+                        </td>
+                    </tr>
+                </tbody></table>
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
+            </td>
+        </tr>
+=20=20=20=20=20=20=20=20
+        <tr>
+            <td align=3D"left" valign=3D"top" class=3D"bodyContent padded-h=
+ padded-v" width=3D"100%" colspan=3D"12" style=3D"-webkit-text-size-adjust:=
+100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt=
+; color:#d0d0d2; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif=
+; font-size:15px; line-height:150%; text-align:left; padding:0; padding-lef=
+t:20px; padding-right:20px; padding-top:20px; padding-bottom:20px">
+                <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" wid=
+th=3D"100%" class=3D"templateColumnWrapper" style=3D"-webkit-text-size-adju=
+st:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:=
+0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align=3D"left" valign=3D"top" colspan=3D"12" wi=
+dth=3D"100.0%" class=3D"column" style=3D"-webkit-text-size-adjust:100%; -ms=
+-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; text-al=
+ign:left; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-=
+size:15px; line-height:1.5em; color:">
+                            <div class=3D"widget-span widget-type-social_sh=
+aring " style=3D"padding: 10px 0px 0px 0px; text-align: right; " data-widge=
+t-type=3D"social_sharing">
+                                <div class=3D"layout-widget-wrapper">
+                                <div id=3D"hs_cos_wrapper_Social_Sharing" c=
+lass=3D"hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_social_sha=
+ring" style=3D"color: inherit; font-size: inherit; line-height: inherit;" d=
+ata-hs-cos-general-type=3D"widget" data-hs-cos-type=3D"social_sharing"></di=
+v>
+                                </div><!--end layout-widget-wrapper -->
+                            </div><!--end widget-span -->
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+<!--end body wrapper -->
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                                <!-- End Template Wrapper -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align=3D"center" valign=3D"top" style=3D"-w=
+ebkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0p=
+t; mso-table-rspace:0pt">
+                                <!-- Begin Template Footer -->
+                                <div class=3D"footer-container-wrapper">
+=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
+=20=20=20=20=20=20=20=20
+        </div><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%" id=3D"footerTable" style=3D"-webkit-text-size-adjust:100%; -ms-te=
+xt-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-col=
+lapse:collapse !important; background-color:#141422; color:#d8c13a !importa=
+nt; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:1=
+2px; line-height:120%; padding-top:20px; padding-right:20px; padding-bottom=
+:20px; padding-left:20px; text-align:center" bgcolor=3D"#141422" align=3D"c=
+enter">
+                                    <tbody><tr>
+            <td align=3D"left" valign=3D"top" class=3D"bodyContent" width=
+=3D"100%" colspan=3D"12" style=3D"-webkit-text-size-adjust:100%; -ms-text-s=
+ize-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#d0d0d2;=
+ font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px=
+; line-height:150%; text-align:left; padding:0">
+                <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" wid=
+th=3D"100%" class=3D"templateColumnWrapper" style=3D"-webkit-text-size-adju=
+st:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:=
+0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align=3D"left" valign=3D"top" colspan=3D"12" wi=
+dth=3D"100.0%" class=3D"column footer-cell dark-inner" style=3D"-webkit-tex=
+t-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-ta=
+ble-rspace:0pt; background-color:#141422; text-align:left; font-family:'Hel=
+vetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:1.5=
+em; color:#d0d0d2" bgcolor=3D"#141422">
+                            <div class=3D"widget-span widget-type-email_can=
+_spam " style=3D"" data-widget-type=3D"email_can_spam">
+                                <p id=3D"footer" style=3D"margin-bottom: 1e=
+m; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; font-family:Ge=
+neva, Verdana, Arial, Helvetica, sans-serif; text-align:center; font-size:1=
+2px; line-height:1.34em; color:#d0d0d2; display:block" align=3D"center">
+                                    Axosoft, LLC.
+                                    13835 N. Northsight Blvd.
+                                    Suite 205
+                                    Scottsdale,
+                                    AZ
+                                    85260
+                                    USA
+                                    <br><br>
+                                    You received this email because you are=
+ subscribed to GitKraken Glo Updates from Axosoft, LLC.
+                                    <br><br>
+                                    Update your <a border=3D"0" class=3D"hu=
+bspot-mergetag" data-unsubscribe=3D"true" href=3D"http://email.axosoft.com/=
+hs/manage-preferences/unsubscribe?d=3DeyJlYSI6Inlhc3NlcmthZGRvdXJhbGVhcm5AZ=
+21haWwuY29tIiwiZWMiOjYwOTkxMTE2LCJzdWJzY3JpcHRpb25JZCI6NDYzNTI4NiwiZXQiOjE1=
+MTk4MjcxNDYwMTMsImV1IjoiZTNlY2VhNzItYjE3Yi00N2M2LThlOTQtMDAyNTNhMjUzYTdiIn0=
+%3D&amp;v=3D1&amp;_hsenc=3Dp2ANqtz--4zH8_b1-QqtnC5D2YByOPZbM_SVwjqxSncomUCT=
+Eu2x2UNXxq3Zh97tSKQQq6i4p201_x4s-zWJFnXbdNNSlr7BmXmlrmuZ0ehXeKlXZXY7Bn0iQ&a=
+mp;_hsmi=3D60991116" style=3D"border-style:none; -ms-text-size-adjust:100%;=
+ -webkit-text-size-adjust:none; font-weight:normal; text-decoration:underli=
+ne; whitespace:nowrap; color:#d8c13a" data-hs-link-id=3D"0" target=3D"_blan=
+k">email preferences</a> to choose the types of emails you receive.
+                                    <br><br>
+                                     <a border=3D"0" class=3D"hubspot-merge=
+tag" data-unsubscribe=3D"true" href=3D"http://email.axosoft.com/hs/manage-p=
+references/unsubscribe-all?d=3DeyJlYSI6Inlhc3NlcmthZGRvdXJhbGVhcm5AZ21haWwu=
+Y29tIiwiZWMiOjYwOTkxMTE2LCJzdWJzY3JpcHRpb25JZCI6NDYzNTI4NiwiZXQiOjE1MTk4Mjc=
+xNDYwMTMsImV1IjoiZTNlY2VhNzItYjE3Yi00N2M2LThlOTQtMDAyNTNhMjUzYTdiIn0%3D&amp=
+;v=3D1&amp;_hsenc=3Dp2ANqtz--4zH8_b1-QqtnC5D2YByOPZbM_SVwjqxSncomUCTEu2x2UN=
+Xxq3Zh97tSKQQq6i4p201_x4s-zWJFnXbdNNSlr7BmXmlrmuZ0ehXeKlXZXY7Bn0iQ&amp;_hsm=
+i=3D60991116" style=3D"border-style:none; -ms-text-size-adjust:100%; -webki=
+t-text-size-adjust:none; font-weight:normal; text-decoration:underline; whi=
+tespace:nowrap; color:#d8c13a" data-hs-link-id=3D"0" target=3D"_blank">Unsu=
+bscribe from all future emails</a>=20
+                                </p>
+                            </div><!--end widget-span -->
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+<!--end footer wrapper -->
+                                    <tr>
+                                        <td style=3D"-webkit-text-size-adju=
+st:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:=
+0pt"></td>
+                                    </tr>
+                                </tbody></table>
+                                <!-- End Template Footer -->
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <!-- End Template Container -->
+                </td>
+            </tr>
+        </tbody></table>
+=20=20=20=20
+<!-- end coded_template: id:4763259283 path:Custom/email/responsive_email/G=
+itKraken_2017.html -->
+<img src=3D"http://email.axosoft.com/e1t/o/*W4r_Y9n5hl7X4V1Q9PQ6znLdv0/*W6G=
+rqND1W1CyxW3QbpBv377N6x0/5/f18dQhb0J6M17CbqW8P2DFy5SZbn1W6wcL3Y1-Xz_wW1Q3ff=
+d1xWM0jW2xMf7Y26rPR9W2F3VMt3j6kqJW4rvH4Q3K8QnyW3H4rBV49HRZ3W3zgDDq3P3Q7wW3Z=
+sjYm3_44g-MZy6J8kLdF0W7H0c_K7pGt9TW7fP4pS6g_tgKW8hWtXm6dtrWNW1D3mn76dywW810=
+1" alt=3D"" width=3D"1" height=3D"1" border=3D"0" style=3D"display:none!imp=
+ortant;min-height:1px!important;width:1px!important;border-width:0!importan=
+t;margin-top:0!important;margin-bottom:0!important;margin-right:0!important=
+;margin-left:0!important;padding-top:0!important;padding-bottom:0!important=
+;padding-right:0!important;padding-left:0!important"><style>@media print{#_=
+hs { background-image: url('http://email.axosoft.com/e1t/o/*W4r_Y9n5hl7X4V1=
+Q9PQ6znLdv0/*W1V33Jf3f0SZwW2lpZ0H31SwLX0/5/f18dQhb0SkX45gqt8ZW4LPd5T2S0sKMW=
+3Ljtqz4XrbTlW3jWN2X5PKRglVslmXx56s_NLW6VzCP06xmvqXW7d04x150D_69W6254Ty6bwtb=
+XVyqXXV5CkwTkW96L4_f61lQ4CW23tfbD4bPNQJW782-SM4Lj59JW6SFFtf8_dB9XW7bqPF97Cc=
+bYdW1MKd9k4PFrsl101');}} div.OutlookMessageHeader {background-image:url('ht=
+tp://email.axosoft.com/e1t/o/*W4r_Y9n5hl7X4V1Q9PQ6znLdv0/*W3vx09l6djKG3W2xp=
+2L71R4Y2w0/5/f18dQhb0SkX35gpFcJW4LPd5T2S0sKMW3Ljtqz4XrbTlW3kpB3s2p_p05N1Jjh=
+t4rPC_jVrJh2D41MHKXW51S8Rt2yRdNGW1xRjkV50MSW_W2y44tG6P4lCXW4vgKM119Ph-WW6Px=
+M6v4GNfFNW49wR8X2gVcPZW9g2LvV5SqqBcW1QYYj-37yqxzN8z0B041Z0rpf3jrPtb03')} ta=
+ble.moz-email-headers-table {background-image:url('http://email.axosoft.com=
+/e1t/o/*W4r_Y9n5hl7X4V1Q9PQ6znLdv0/*W3vx09l6djKG3W2xp2L71R4Y2w0/5/f18dQhb0S=
+kX35gpFcJW4LPd5T2S0sKMW3Ljtqz4XrbTlW3kpB3s2p_p05N1Jjht4rPC_jVrJh2D41MHKXW51=
+S8Rt2yRdNGW1xRjkV50MSW_W2y44tG6P4lCXW4vgKM119Ph-WW6PxM6v4GNfFNW49wR8X2gVcPZ=
+W9g2LvV5SqqBcW1QYYj-37yqxzN8z0B041Z0rpf3jrPtb03')} blockquote #_hs {backgro=
+und-image:url('http://email.axosoft.com/e1t/o/*W4r_Y9n5hl7X4V1Q9PQ6znLdv0/*=
+W3vx09l6djKG3W2xp2L71R4Y2w0/5/f18dQhb0SkX35gpFcJW4LPd5T2S0sKMW3Ljtqz4XrbTlW=
+3kpB3s2p_p05N1Jjht4rPC_jVrJh2D41MHKXW51S8Rt2yRdNGW1xRjkV50MSW_W2y44tG6P4lCX=
+W4vgKM119Ph-WW6PxM6v4GNfFNW49wR8X2gVcPZW9g2LvV5SqqBcW1QYYj-37yqxzN8z0B041Z0=
+rpf3jrPtb03')} #MailContainerBody #_hs {background-image:url('http://email.=
+axosoft.com/e1t/o/*W4r_Y9n5hl7X4V1Q9PQ6znLdv0/*W3vx09l6djKG3W2xp2L71R4Y2w0/=
+5/f18dQhb0SkX35gpFcJW4LPd5T2S0sKMW3Ljtqz4XrbTlW3kpB3s2p_p05N1Jjht4rPC_jVrJh=
+2D41MHKXW51S8Rt2yRdNGW1xRjkV50MSW_W2y44tG6P4lCXW4vgKM119Ph-WW6PxM6v4GNfFNW4=
+9wR8X2gVcPZW9g2LvV5SqqBcW1QYYj-37yqxzN8z0B041Z0rpf3jrPtb03')}</style><div i=
+d=3D"_hs"></div></body></html>=
+
+--5d0e01cadf51895af278bac798a56b3750c6bdb3c4baaf825382cec19346--

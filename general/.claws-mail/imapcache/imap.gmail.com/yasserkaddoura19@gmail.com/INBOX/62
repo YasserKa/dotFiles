@@ -1,0 +1,998 @@
+Delivered-To: yasser.kaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp3375632vkd;
+        Mon, 6 Aug 2018 13:51:43 -0700 (PDT)
+X-Google-Smtp-Source: AAOMgpdD7v31cl0RFQuZCznex3NSOx0lMN/ZCQ6AEW5K5EywTNmWvMbAUAMpkX9WFhABTSvhHGlK
+X-Received: by 2002:a02:b468:: with SMTP id w37-v6mr13661162jaj.18.1533588703367;
+        Mon, 06 Aug 2018 13:51:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1533588703; cv=none;
+        d=google.com; s=arc-20160816;
+        b=UIOeqissZxSG3DMuqnZH+jLuFVl+7L9w1Xov8ndM6zRIuh8wDt8j+FMw2FchMtlrWN
+         L0nAIjo9bnnvFbpr2rVog6kOn/P/zACMSKtmz1eoefZkCnctLSQ/YEiD8X1+lR+wRLk5
+         YAomgTsCM77QWA2DKxppw8NarIkAOpd4Lz/tOEc7QLL2IJmBkKyPpV/LQCoSBc0zVRzx
+         JhDeMHbkx/xdkG2Ls9toY0D7koSIhAd5in4iwBQm+Z4rCprIwF4QduXMjde+gmVxhWXi
+         2BK8lz8jx+5MyLi24e5f17Z+ZYkwVTPITkGXg/R1yGDZqvMCAVRcgVway3IerIBP3a7T
+         rkvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:list-id:reply-to:mime-version
+         :list-unsubscribe:date:subject:to:from:dkim-signature
+         :arc-authentication-results;
+        bh=h/HaITj3hZea3Asvo80rbQN2Zxz8btHs+yhJaf6msho=;
+        b=S0A3fXvLkTI8rUldMdIPdm4WB/FxSe03Ti8Wz519XHBcKpldChsspdbI+peCzm1rdD
+         og1AIqcES1qmL7kotolv9hKd/g1yxxRm1TI2Oal0XOkdIT+xStufqOCk4nKiuNyfjoHf
+         tnANMoPfechxGTlE0Vg8HpPmjqZaLUj9izE+z4EcJjrmzrc9DgKxQ2cDJQYOgSRtZAhg
+         knrHXcJ8MOlJfyASuGIVkm7kssYD04Pz9YUxLwY7f4YgNGbS18/4R9LEvGKSv95l7sL5
+         kIxQY98OM5GyvQ4Az5AXMEvWx64nIPPO4MYyjOYjAKV/TsUNbtuUOhed0yMuaIuQaqSa
+         7Rjw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@send.grammarly.com header.s=200608 header.b=E53zi7Ff;
+       spf=pass (google.com: domain of bounce-342_html-277405702-1917545-7003478-19415@bounce.send.grammarly.com designates 199.122.124.187 as permitted sender) smtp.mailfrom=bounce-342_HTML-277405702-1917545-7003478-19415@bounce.send.grammarly.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=grammarly.com
+Return-Path: <bounce-342_HTML-277405702-1917545-7003478-19415@bounce.send.grammarly.com>
+Received: from mta2.send.grammarly.com (mta2.send.grammarly.com. [199.122.124.187])
+        by mx.google.com with ESMTPS id 126-v6si9193141iow.204.2018.08.06.13.51.43
+        for <yasser.kaddoura19@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 06 Aug 2018 13:51:43 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-342_html-277405702-1917545-7003478-19415@bounce.send.grammarly.com designates 199.122.124.187 as permitted sender) client-ip=199.122.124.187;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@send.grammarly.com header.s=200608 header.b=E53zi7Ff;
+       spf=pass (google.com: domain of bounce-342_html-277405702-1917545-7003478-19415@bounce.send.grammarly.com designates 199.122.124.187 as permitted sender) smtp.mailfrom=bounce-342_HTML-277405702-1917545-7003478-19415@bounce.send.grammarly.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=grammarly.com
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=200608; d=send.grammarly.com;
+ h=From:To:Subject:Date:List-Unsubscribe:MIME-Version:Reply-To:List-ID:Message-ID:Content-Type; i=info@send.grammarly.com;
+ bh=7/wNWkF+Fm0iFY1cRsfkwI5dmz0=;
+ b=E53zi7FfrYkiWNYR7bH3O65OlxHB7e+w616bNa5P1tINCC4WOThv+Q08/eMCIA6LG8UPLttH5xTU
+   6jiBQakYQH9EitlfS2R19qLLPvbyXHJ3Ej5rxrBP+oNU7eDLfqPf+IM75XCWQ4dpO053cEupqipH
+   i3Q8gyjX0q9RBDEcsY8=
+Received: by mta2.send.grammarly.com id hd2qim163hs9 for <yasser.kaddoura19@gmail.com>; Mon, 6 Aug 2018 20:52:58 +0000 (envelope-from <bounce-342_HTML-277405702-1917545-7003478-19415@bounce.send.grammarly.com>)
+From: "Grammarly Insights" <info@send.grammarly.com>
+To: <yasser.kaddoura19@gmail.com>
+Subject: Your Weekly Progress Report + Stories & Tips
+Date: Mon, 06 Aug 2018 14:51:41 -0600
+List-Unsubscribe: <mailto:leave-fd521774770b5c392848-fe2d167772600478721472-fe8f15797463017970-fe9213707567007a7d-fefb1579716501@leave.send.grammarly.com>
+MIME-Version: 1.0
+Reply-To: "No Reply" <reply-fe8f15797463017970-342_HTML-277405702-7003478-19415@send.grammarly.com>
+List-ID: <7003478.xt.local>
+X-CSA-Complaints: whitelistcomplaints@eco.de
+x-job: 7003478_1917545
+Message-ID: <fc7d3060-6f7c-4016-978a-bae92573c7b2@ind1s06mta1055.xt.local>
+Feedback-ID: 7003478:1917545:199.122.124.187:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="oTwMvhqX6gOx=_?:"
+
+This is a multi-part message in MIME format.
+
+--oTwMvhqX6gOx=_?:
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+
+
+Grammarly Weekly Insights 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d29acfc14377ebe91cd442b53f87dbec6f31b556dc5ab36e7586cd7310753849119be6123b046cef6ae1ed80b2ceba36e4fe377114b96ca77 
+Visit My Editor &rarr; 
+
+ 
+ 
+
+
+
+JULY 30 &#45; AUGUST 05
+
+
+
+
+ 
+ Your Weekly Writing Update
+ 
+ It seems that you had no writing activity with Grammarly last week. Just to be safe, please make sure you are logged in so that we can populate this email with cool stats including personal records and achievements.
+ 
+
+ 
+
+
+ 
+ 
+Grammarly writing streak
+ 
+0 weeks
+ 1
+
+Next Achievement
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d3ac3c9c7ecdceee81049eeae26c20414d3c173eb641aeb6e15811a7e078801a0cf19944ab0c6aebcbdf33fc09c8880a4c55f6764b724e85f 
+See all achievements  &rsaquo;
+
+ 
+
+ 
+ 
+ Productivity 
+
+ 
+
+No activity detected for last week. 
+Please make sure you are 
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d29acfc14377ebe91cd442b53f87dbec6f31b556dc5ab36e7586cd7310753849119be6123b046cef6ae1ed80b2ceba36e4fe377114b96ca77 
+logged in .
+
+ 
+ 
+
+https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a8556c0024eb3e23576e2c6f786589e31c645273e1c95355dc1cb0a175fd187b9dabe9a6dc969378ecb57ccebd90557af1b4f7c902f17564d80253a328653da79aca1e230307b3211ff3c04a6cd4cb6a12b34d002ede4f40138a468893e44991344e218dc403151bf9a2619993a28a5142935872997bf2cabd85eb9ef6f69029e84ff92798f872a9e8d16de3e305a9de7f4d5322b1459159ee41ff4223cc7109ee7d9fa54d558d2c5d4864d21ba1aa262fb473d6c19e6b511429c39a3b64af695d62ece7fc7ed4d39f2d0b1b039b8be2679 
+  Share
+https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a8556c0024eb3e23576e2c6f786589e31c645273e1c95355dc1cb0a175fd187b9da04d73b72c05c6f08a9d93f0a776eab97fa8f3fb50b939820494e4b9c983e3e48897202d05e2556c6c20854a1132c54ddeaa8f9a60223ab84879a1539772a50e728e82f5e0cbfbb6973a3ca6d2cfd6060c1eeb9b4ca5f63e8a77a0571ff56cf68ca6fed9ea9f3e79166fc478cca3b6ed86b080acf6e9eba374447a6c5629abe84687bb6a5610d4733b079dd51ae29afad0fd08d4196f25c363f17b9f9ae8d2c897414798add7aab4f09551219c52c65fe 
+  Share
+
+ 
+ 0
+ words checked
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ Jul 15 22 Jul 29 05
+
+ 
+
+ 
+ 
+ Mastery
+
+ 
+
+No activity detected for last week. 
+Please make sure you are 
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d29acfc14377ebe91cd442b53f87dbec6f31b556dc5ab36e7586cd7310753849119be6123b046cef6ae1ed80b2ceba36e4fe377114b96ca77 
+logged in .
+
+ 
+ 
+
+https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a85c9cbf8a71caae3dee312615a9fad92c079120cf62a73254990099c4ff1e5994afc6d85878bdc8207a40018da3c5e418fb70daefaaba67d99ba602ee6d9cfbe905bb7707c41b5992ef42cdf990ffe9422a3712f57a26a9b62c27f8138fb8f16cd4336d1fe1f52da4c1d520cb207a3b2d654280b4a57abe985c16a507b8d0538abb430b28a337c646f8bda1af69b698af4b5586e24efa341a3d63d0f3835af82a8e77bccf196a37b4a08fa477198b8e8b8609fdee7b5b4bfd2f375dfecc1d6183ae0e96c76f01161c35917753ee04b6a24 
+  Share
+https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a85c9cbf8a71caae3dee312615a9fad92c079120cf62a732549405f9f00a0ffa4efb31172b0a5fef47c3d3660581c515de56d33e62fdffdb40a92479769b3c68e0459d784244372480504e9d4e16156999084b077f4ac51e4ca19a345690c7fe36f6ebe1377853d7456a0ab732359275023eb366bbb4aeacefc0017d6f236cdcf7fb4bdf01c07f2c3c91bdb0945d7bcf2237ac267108cea2a0cafd30a4060df54fbac2e6432ead52ee72fdd7f928749915507ee03106e4cf75694b335332021d115db86b9ea41b4a09f060de6650ce3bcf1 
+  Share
+
+ 
+
+0
+
+
+alerts shown
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ Jul 15 22 Jul 29 05
+
+ 
+
+ 
+ 
+ vocabulary 
+
+ 
+
+No activity detected for last week. 
+Please make sure you are 
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d29acfc14377ebe91cd442b53f87dbec6f31b556dc5ab36e7586cd7310753849119be6123b046cef6ae1ed80b2ceba36e4fe377114b96ca77 
+logged in .
+
+ 
+ 
+
+https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a858c566f40cb54020d4619d7d33ab28285f4a9ff878af7fb94d3f443cb26cd432b1eb04568b7004311c5c2bd0b2f82386daf6791688ab76ace5c1b9003187e07d65896cd1ef3f3df75c34ee131ea99e5571d914d3a38b6126e1ab78d47d43e26e03fe0be7e9bc4fabce19e5abb0513bfc762845116dbdec702f5046decead4df5812bb61acc808886055825d62e82df4cacddca6bbd96a10869bf85f7529e35cdd51160550c6857552124e6f3dd236d15c27d19ee29235dc95d6b0f8d0fcc4fc7e5d15a19f5e0f17b0479c559e31b1ee1e 
+  Share
+https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a858c566f40cb54020d4619d7d33ab28285f4a9ff878af7fb94d3f443cb26cd432bd44dff9ef2d70b1881a1955697bca434690484acd3d0a031e47d7613091a02da09e8ad96da8e0452ebcd313dc11939da217f89212243f2cabe3f279c9c20eff37b1bca913f8e0d41d4c5b118c4efcb83360be280b413a9655322060f85c4e6de182f6fb9ff7e7569880a143d44ccaf949adbeacf09845a3dde62f7db647a024999409d911817b8e75ba154915d227bc35f12a10f1d2110b057b5094b1fd4e23b4efbdff8bd8ce8b3729210dd2eef2def 
+  Share
+
+ 
+ 0
+ unique words used
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ Jul 15 22 Jul 29 05
+
+ 
+
+
+
+Try Grammarly&rsquo;s mobile keyboard&#8212;available now. It&rsquo;s free!
+
+ 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13db3b7be2c596ad08f897f01dcc56e46e3ca28b29f5e03a9c1979bb50603d6447d4cb9e1276d81e4da4c296d79ca8cfb233fe87b097074a256 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dec94f8f57ce2b807d232b881e2cbd343b25028be5d515ceb9a28b07e3a0bdc59af710cf4df8930893edfe5bc2697d77c1ad06581c2fe5f22 
+
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+this week's stories & tips
+ 
+ 
+ 
+
+How To
+
+ 
+
+https://click.send.grammarly.com/?qs=5753f20499b22b45fce2f011113fea157bc86e624860d26cd3f898914cd80b22ca9476419b1d2f29a7dd341262720ce886ddc728a18b2513d35931bbbce669c5 
+How to Speak Up and Find Your Voice in Meetings 
+
+https://click.send.grammarly.com/?qs=5753f20499b22b45fce2f011113fea157bc86e624860d26cd3f898914cd80b22ca9476419b1d2f29a7dd341262720ce886ddc728a18b2513d35931bbbce669c5 
+> 
+
+ 
+
+Product
+
+ 
+
+https://click.send.grammarly.com/?qs=5753f20499b22b45bd976aa6d89e4b8be614fa0d5d67795c571826ff86688a0decc405996243371e4cf7b8846685587603b0817b783cef8bf17e440e3330d780 
+Grammarly Spotlight: How to Select Your English Dialect 
+
+https://click.send.grammarly.com/?qs=5753f20499b22b45bd976aa6d89e4b8be614fa0d5d67795c571826ff86688a0decc405996243371e4cf7b8846685587603b0817b783cef8bf17e440e3330d780 
+> 
+
+ 
+
+
+Company
+
+ 
+
+https://click.send.grammarly.com/?qs=5753f20499b22b45b37abf8b5eaa2a212a61d77f454cded52048f9807c837f5d6806a85acabc209ea1cfce1dab2b01da91b6e91c525210b000fcbd9051b23921 
+Grammarly IRL: How Matt Halfhill Made Kicks Nice to Write About 
+
+https://click.send.grammarly.com/?qs=5753f20499b22b45b37abf8b5eaa2a212a61d77f454cded52048f9807c837f5d6806a85acabc209ea1cfce1dab2b01da91b6e91c525210b000fcbd9051b23921 
+> 
+
+ 
+
+
+
+
+ 
+
+
+ 
+ 
+ Where you're protected,
+ Yasser Kaddoura
+ 
+ Fully protect yourself from writing mistakes
+ by activating all 6 Grammarly features. 
+ 
+
+ 
+ Browser Extension https://click.send.grammarly.com/?qs=b011b0e630c0b13dd6cf2d751cfa6d02c9c02752cad9aa1db12657a6f1419fa6c2e3ca3580c7774ad73fcfdf042dcd4bde89dd43f42685a3 
+Activate  
+
+ 
+Mobile Keyboard 
+
+ 
+ Native Desktop App https://click.send.grammarly.com/?qs=b011b0e630c0b13d95aeffb71a26356d8138143e28e93af9eb661f250ff2818239439e390d206ba2a3535b0db2aa985ef8de87049cbb84d840f05cf0c6348f56 
+Activate  
+
+ 
+ MS Office Add-in https://click.send.grammarly.com/?qs=b011b0e630c0b13d2fbe4847b9f429bd7c35e98d2e3ad728bc8b06743d89634d9e80a855aafac4fc918455bb6a7696434b643b8d6de2095ca0a6fad005c01c39 
+Activate  
+
+ 
+ Premium Checks https://click.send.grammarly.com/?qs=b011b0e630c0b13d5016aea0a531706520c8c3137e16644a0352c38b951951d1a8efd7885b8e654102b6caab2f6b72d964f29b0530b738c5f447793d8d2780ec 
+Activate  
+
+ 
+ Basic Checks
+
+ 
+
+ 
+
+ 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d51a8529345540156f8cce2d788bc077a9a6d8cc8f834da09cbe1544026a336a847c799e0a7ba845180a1fec8f70adfee 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d33110eb402c0f809f72e66ebdfa5a003fea8af1bb8da96e346b11a3094a62b36622937966413f701fcd774bc8377de6a 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d5bff9be3002e0c6da78b5ccfa9c8b67856e22e3d7bedafa8cbdbe18d28726f89ab68011d86796379af37d07ad3cc350a 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d98e391745c3a2ad2b3de67e3c6390bf05737a6fdedbaa95beb0150aaa3e8cb2cc9ab60be6e7b7584bce4e3b4ab8ac97b 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dfe7c116c28dfddd33fcfce298326a406014db53dda0193521f030d2c2a96673ac9d212f8c626e95b237b674cd64a5e1f 
+
+ 
+ https://click.send.grammarly.com/?qs=b011b0e630c0b13d5016aea0a531706520c8c3137e16644a0352c38b951951d1a8efd7885b8e654102b6caab2f6b72d964f29b0530b738c5f447793d8d2780ec 
+ Upgrade to Grammarly Premium      
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d2eff1e2a0c60c463277b417d3bb11dfa6faa230d3a0e41835bc661598a8f5c5743f15f5561ee7454ec32c68e8043318ab65bcf9b2e423721 
+ Learn more  
+  
+
+ 
+ https://view.send.grammarly.com/?qs=8f9ad44a1ed0df55183eb14fc2795b88939aefe83ae5ae6a1dbea5e99ffa38e5fd2161307323add06035f82f8e6ade88e86fc1719412d37ab7f9f509c0d8c6cba2272d0a458acdeb7bd6cc85f9f6991b 
+View Web Version   - 
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d002f30addd640ab12a0845e091a420134f9c74fb683938afead1d4911629f8d83f4357f4f8ae655db97ff921c0c13ac8571a285dc573ac1f 
+Email Preferences  -  
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d002f30addd640ab12a0845e091a420134f9c74fb683938afead1d4911629f8d83f4357f4f8ae655db97ff921c0c13ac8571a285dc573ac1f 
+Unsubscribe 
+ 
+  We hope you enjoy monitoring your weekly writing trends. But if you no longer wish to receive Grammarly Insights emails, you may change your preferences by clicking the link above.
+ 
+(c) 2018 Grammarly, Inc. - 548 Market St. #35410 - San Francisco, CA 94104
+ 
+
+
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dd667f23c73bbf0bfd82b0f272be3a190c65206b887b587732e94a082d65d332c2b6d859486d88abe41a2528e07e383fa65cbe730d51df377 
+Click to check out my full recap. 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dcb119caab5f137cdb20a12f2f87e3d8eb2c3dbba0b18220e1234db2421783189e10fb82f45bcb8c7e7ff65706f5030e5 
+Get your free account 
+
+ 
+ 
+ Productivity 
+
+ 
+ You were more productive than 
+0% of Grammarly users.
+ 
+ 
+ 0
+ words checked
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ Jul 15 22 Jul 29 05
+
+ 
+
+
+
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dd667f23c73bbf0bfd82b0f272be3a190c65206b887b587732e94a082d65d332c2b6d859486d88abe41a2528e07e383fa65cbe730d51df377 
+Click to check out my full recap. 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dcb119caab5f137cdb20a12f2f87e3d8eb2c3dbba0b18220e1234db2421783189e10fb82f45bcb8c7e7ff65706f5030e5 
+Get your free account 
+
+ 
+ 
+ accuracy
+
+ 
+ No activity detected for last week. 
+Please make sure you are 
+https://click.send.grammarly.com/?qs=b011b0e630c0b13d29acfc14377ebe91cd442b53f87dbec6f31b556dc5ab36e7586cd7310753849119be6123b046cef6ae1ed80b2ceba36e4fe377114b96ca77 
+logged in .
+ 
+ 
+ 0
+ correction made
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ Jul 15 22 Jul 29 05
+
+ 
+
+
+
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dd667f23c73bbf0bfd82b0f272be3a190c65206b887b587732e94a082d65d332c2b6d859486d88abe41a2528e07e383fa65cbe730d51df377 
+Click to check out my full recap. 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dcb119caab5f137cdb20a12f2f87e3d8eb2c3dbba0b18220e1234db2421783189e10fb82f45bcb8c7e7ff65706f5030e5 
+Get your free account 
+
+ 
+ 
+ 
+ vocabulary 
+
+ 
+ You used more unique words than 
+0% of Grammarly users.
+ 
+ 
+ 
+ 0
+ unique word used
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+ Jul 15 22 Jul 29 05
+
+ 
+
+ 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dd667f23c73bbf0bfd82b0f272be3a190c65206b887b587732e94a082d65d332c2b6d859486d88abe41a2528e07e383fa65cbe730d51df377 
+Click to check out my full recap. 
+
+https://click.send.grammarly.com/?qs=b011b0e630c0b13dcb119caab5f137cdb20a12f2f87e3d8eb2c3dbba0b18220e1234db2421783189e10fb82f45bcb8c7e7ff65706f5030e5 
+Get your free account 
+
+ 
+
+
+
+
+
+--oTwMvhqX6gOx=_?:
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="x-apple-disable-message-reformatting">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;">
+        <title>Grammarly Weekly Insights</title>
+        <style type="text/css">
+        * { padding: 0px; margin: 0px;}
+        html {-webkit-text-size-adjust: none; -webkit-font-smoothing: antialiased;}
+        a {outline: 0;}
+        img {display: block;}
+        td {mso-line-height-rule: exactly;}
+        .outlookFix {text-decoration: underline;}
+        /* Base Media Queries */
+        @media (max-width: 480px) {
+        * { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; -webkit-font-smoothing: antialiased;}/*Stop iproducts from auto-resizing text*/
+        .container{width:318px !important}.height{height:auto !important}.hide{display:none !important}.w100P{width:100% !important}.mob-header{width:80px !important}.w95{width:95% !important}.font8{font-size:8px !important}.font9{font-size:9px !important}.font10{font-size:10px !important}.font12{font-size:12px !important}.font15{font-size:15px !important}.new-record-resize{width:70px !important;height:auto !important}.W100P{width:100% !important;height:auto !important}/ .width{width:318px !important}.W300{width:300px !important}.paddingsides{padding:0 5px 0 5px !important}.padd-left-15{padding-left:15px !important}.padd-top{padding-top:30px !important}.font25{font-size:20px !important;vertical-align:middle !important}.font55{font-size:40px !important;vertical-align:bottom
+ !important}.img-width{width:150px !important}.mob-btn-size{width: 50px !important; height: 22px !important; padding-top:5px !important;}.img50P{width: 50px !important;}.img75P{width: 75px !important;}.img15P{width: 15px !important;}.mob-right-graph{width:45% !important}.mob-left-graph{width:55% !important;padding-left:10px !important}
+        .show {display: block !important; max-height: none !important; overflow:visible !important; line-height:normal !important;}.showTable {display: inline-block !important;}
+        }
+        </style>
+    </head>
+    <img src="https://click.send.grammarly.com/open.aspx?ffcb10-fe8f15797463017970-fe1c1d7772620c7d7c1772-fe9213707567007a7d-ff66177477-fe2d167772600478721472-fefb1579716501" width="1" height="1">
+    <body  bgcolor="#F5F6FB" style="-webkit-text-size-adjust: none; -ms-text-size-adjust: none; -webkit-font-smoothing: antialiased; padding:0px;"><style type="text/css">
+div.preheader 
+{ display: none !important; } 
+</style>
+<div class="preheader" style="font-size: 1px; display: none !important;">It seems that you had no writing activity with Grammarly last week. Just to be safe, please make sure you are logged in so that we can populate this email with cool stats including personal records and achievements.</div>
+
+        <!--[if t]><![endif]--><!--[if t]><![endif]--><!--[if t]><![endif]-->
+        <table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" bgcolor="#F5F6FB" class="W100P" style="margin:0 auto;">
+            <tr>
+                <td align="center">
+                    <table cellpadding="0" cellspacing="0" border="0" width="550" class="w100P">
+                        <tr><td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr><tr><td align="center"><table width="100%" bgcolor="#F5F6FB" cellpadding="0" cellspacing="0" border="0" align="center" class="w95"><tr><td align="left" valign="top" style="text-align: left"> <img class="height img-width" src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/34fc90a3-58ef-4243-abfd-997ded806ad2.png" width="171" height="40" style="width:171px; height:40px; max-width:237px; font-family:Helvetica, arial, sans-serif; font-size:24px; line-height:40px;" alt="Grammarly" border="0"></td><td align="right" valign="center" style="font-family: Helvetica, arial, sans-serif; font-size: 14px; line-height: 21px;color: #28B473;"> 
+<a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e308166cf2fa1a4cf1d2706d4f6e708ca914bab22c87d46e25ec1f9d9f44b2603b51a1119a5aefb16e84fe1aa832fef468f82e3d416ea07a39b17" style="color: #4CBAF6; text-decoration:none; white-space: nowrap" class="hover" alis="ftr-upgrade-premium">Visit My Editor&nbsp;&rarr;</a></td></tr></table></td></tr>
+                        <!--Spacer-->
+                        <tr>
+                            <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                        </tr>
+                        <!--SPACER END -->
+                        <!-- COMMENT -->
+                        <tr><td align="center" class="w100P"><table cellpadding="0" cellspacing="0" border="0" class="w100P" bgcolor="#FFFFFF" width="100%"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" class="w100P">
+                            <tr>
+                                <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="color:#C7CED9;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:150%;font-weight:normal;">
+                                    <table cellpadding="0" cellspacing="0" border="0">
+                                        
+                                        <tr>
+                                            <td width="100%" align="center" style="color:#C7CED9;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:150%;font-weight:normal;text-align: center;">
+                                                JULY 30 &#45; AUGUST 05
+                                            </td>
+                                            <td width="60" class="hide"></td>
+                                            <td width="60"></td>
+                                            <td width="100"></td>
+                                            
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td bgcolor="#ffffff" height="5" style="line-height:5px; font-size:5px;">&nbsp;</td></tr><tr><td width="480" align="center" style="color:#555C6A;font-family:Helvetica,Arial,sans-serif;font-size:25px;line-height:150%;font-weight:normal;"> Your Weekly Writing Update</td></tr><tr><td bgcolor="#ffffff" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr><td width="480" align="center" style="color:#555C6A;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:150%;font-weight:normal;"> It seems that you had no writing activity with Grammarly last week. Just to be safe, please make sure you are logged in so that we can populate this email with cool stats including personal records and achievements.</td></tr><tr><td bgcolor="#ffffff" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr></table></td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <!-- /COMMENT -->
+                <!--Spacer-->
+                <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                </tr>
+                <!--SPACER END -->
+                
+                <tr><td align="center" class="w100P"><table cellpadding="0" cellspacing="0" border="0" class="w95" bgcolor="#FFFFFF" width="100%"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td bgcolor="#ffffff" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr><tr><td width="480" style="color:#555C6A;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td valign="middle" align="left" width="280" height="45"><table cellpadding="0" cellspacing="0" border="0"><tr><td colspan="3" bgcolor="#ffffff" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr>
+<td valign="top" style="color:#555C6A;font-family:Helvetica,Arial,sans-serif;font-size:14px;text-transform:uppercase;line-height:normal;font-weight:bold;">Grammarly writing streak</td><td width="20"></td></tr><tr><td colspan="3" bgcolor="#ffffff" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr><td colspan="3" style="color:#28C47C;font-family:Helvetica,Arial,sans-serif;font-size:24px;line-height:150%;font-weight:normal;">0 weeks</td></tr></table></td><td width="80"></td><td valign="middle" style="border-left:#F5F5F5 1px solid;" width="200" align="right"><table cellpadding="0" cellspacing="0" border="0" class="padd-left-15"><tr><td valign="middle" align="center" height="65"><table cellpadding="0" cellspacing="0" border="0"><tr><td background="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-1-0.png" bgcolor="#ffffff" width="50" height="45" valign="top"> <!--[if gte mso 9]> 
+<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:50px;height:45px;"> <v:fill type="tile" src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-1-0.png" color="#ffffff" /> <v:textbox inset="0,0,0,0"> <![endif]--><div>
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td height="45" valign="middle" align="center" style="color:#C7CED9;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:normal;font-weight:bold;"> 1</td></tr></table></div> <!--[if gte mso 9]> </v:textbox> </v:rect> <![endif]--></td></tr></table></td></tr><tr><td class="font9" align="center" style="color:#C7CED9;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:normal;font-weight:normal;">Next Achievement</td></tr><tr><td class="font9" align="center" style="color:#4CBAF6;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:normal;font-weight:normal;"> 
+<a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e30815f2699c93cea032376a8b23f76ed11e2337a0a1792d8687a4f06548cd8ed8a9b9d33ad336e543b7edb749b3bf08009be1af5a0e301c4b29c" target="_blank"  style="color:#4CBAF6; text-decoration:none;">See all achievements</a></td><td align="left" style="color:#4CBAF6;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:normal;font-weight:normal;">&nbsp;<a href="#" target="_blank" alias="" style="color:#4CBAF6; text-decoration:none;"><span style="font-size:22px;">&rsaquo;</span></a></td></tr></table></td></tr></table></td></tr><tr><td bgcolor="#ffffff" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr></table></td></tr></table></td></tr>
+                <tr>
+                    <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                </tr>
+                <!-- COMMENT -->
+                <tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="100%"><tr><td class="mob-left-graph" valign="top" align="left" bgcolor="#FFFFFF" width="342" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td><td align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"><table cellpadding="0" cellspacing="0" border="0" width="95%"><tr>
+<td class="font12" align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase; letter-spacing:1px;"> Productivity</td> </tr></table></td></tr>
+                <tr>
+                    <td colspan="2" bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="30" class="hide"></td>
+                    <td class="font12" align="left" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:150%;font-weight:normal;">
+                        No activity detected for last week. <br>Please make sure you are <a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e308166cf2fa1a4cf1d2706d4f6e708ca914bab22c87d46e25ec1f9d9f44b2603b51a1119a5aefb16e84fe1aa832fef468f82e3d416ea07a39b17" style="color: #4CBAF6; text-decoration:none; white-space: nowrap" class="hover" >logged in</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="hide" colspan="2" bgcolor="#FFFFFF" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+                </tr>
+                <tr><td width="30" class="hide"></td><td align="left" valign="top"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="left"><table cellpadding="0" cellspacing="0" border="0"><td width="80" height="29" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#FFFFFF">
+<a href="https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a8556c0024eb3e23576e2c6f786589e31c645273e1c95355dc1cb0a175fd187b9dabe9a6dc969378ecb57ccebd90557af1b4f7c902f17564d80253a328653da79aca1e230307b3211ff3c04a6cd4cb6a12b34d002ede4f40138a468893e44991344fc95d1f972624f6da1afae54508942f578895803cb45fe8f1759850a33074d7997639773b42d1a0150600437c6f194d7a2ba8787c850a238c6edbdf043ccd5e7a38d5c20f76690fc2f795f4352ca8ebe1eb5e1635b67aed504e27f1b5cf2d6056aff1939322ddb84ea90a05c360dd47a" target="_blank" style="font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; width:80px; height: 29px; vertical-align:middle; border: 1px solid #e9ecf0; display: inline-block; padding-top:5px;"> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-51-facebook.png" alt="" height="15" style="display:inline-block; padding-top:3px;" title="" border="0">&nbsp;&nbsp;<div style="color:#C7CED9; display:inline-block; vertical-align:top; line-height:185%;">Share</div> </a></td></table></td><td width="10"></td><td align="left"><table cellpadding="0" cellspacing="0" border="0"><td width="80" height="29" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#FFFFFF">
+<a href="https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a8556c0024eb3e23576e2c6f786589e31c645273e1c95355dc1cb0a175fd187b9da04d73b72c05c6f08a9d93f0a776eab97fa8f3fb50b939820494e4b9c983e3e48897202d05e2556c6c20854a1132c54ddeaa8f9a60223ab84879a1539772a50e728e82f5e0cbfbb69ea2c6ea83fec1de108ca214c7e262e973a7ca9ee7c74c8159e07e9d0324c0a7bbf71d57350daafe8e00d4ae2677f17e0a0145b24c9841d961f4503706f6df88c19bbeba63fde81f0310756cfac4e97b4ac7bd29600f9e3c671b1c35f6680bdff65ee6aab41617b4f" target="_blank" style="font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; width:80px; height: 29px; vertical-align:middle; border: 1px solid #e9ecf0; display: inline-block; padding-top:5px;"> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-51-twitter.png" alt="" height="15" style="display:inline-block; padding-top:3px;" title="" border="0">&nbsp;&nbsp;<div style="color:#C7CED9; display:inline-block; vertical-align:top; line-height:185%;">Share</div> </a></td></table></td></tr>
+                </table></td></tr></table></td><td class="mob-right-graph" valign="top" align="right" bgcolor="#4CBAF6" width="208" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#4CBAF6" height="67" style="line-height:67px; font-size:67px;">&nbsp;</td></tr><tr><td align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"> 0</td></tr><tr><td align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"> words checked</td></tr><tr><td colspan="2" bgcolor="#4CBAF6" height="37" style="line-height:37px; font-size:37px;">&nbsp;</td></tr>
+                
+                <tr><td valign="bottom" width="160" colspan="2" align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="right" valign="bottom" bgcolor="#4CBAF6" width="100%" height="40"><table cellspacing="0" cellpadding="0" border="0" align="right"><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" align="right"><tr><td width="2"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr>
+<td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr>
+<td width="100%" bgcolor="#67c4f7" height="1" style="line-height:1px; font-size:1px;">&nbsp;</td></tr></table></td></tr><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%" style=""><tr><td bgcolor="#4CBAF6" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr><tr><td width="160" align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="5"></td><td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 15</td><td width="25"></td><td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 22</td><td width="15"></td>
+<td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 29</td><td width="20"></td><td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 05</td></tr></table></td></tr></table></td><td width="15"></td><td width="15" class="hide"></td></tr><tr><td colspan="2" bgcolor="#4CBAF6" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr>
+            </table></td></tr></table></td></tr>
+            <!-- /COMMENT -->
+            <tr>
+                <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+            </tr>
+            <!-- COMMENT -->
+            <tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="100%"><tr><td class="mob-left-graph" valign="top" align="left" bgcolor="#FFFFFF" width="342" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td><td align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"><table cellpadding="0" cellspacing="0" border="0" width="85%"><tr>
+<td class="font12" align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase; letter-spacing:1px;"> Mastery</td></tr></table></td></tr><tr><td colspan="2" bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr>
+            <tr>
+                <td width="30" class="hide"></td>
+                <td class="font12" align="left" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:150%;font-weight:normal;">
+                    No activity detected for last week. <br>Please make sure you are <a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e308166cf2fa1a4cf1d2706d4f6e708ca914bab22c87d46e25ec1f9d9f44b2603b51a1119a5aefb16e84fe1aa832fef468f82e3d416ea07a39b17" style="color: #4CBAF6; text-decoration:none; white-space: nowrap" class="hover" >logged in</a>.
+                </td>
+            </tr>
+            <tr>
+                <td class="hide" colspan="2" bgcolor="#FFFFFF" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+            </tr>
+            <tr><td width="30" class="hide"></td><td align="left" valign="top"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="left"><table cellpadding="0" cellspacing="0" border="0"><td width="80" height="29" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#FFFFFF"> 
+<a href="https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a85c9cbf8a71caae3dee312615a9fad92c079120cf62a73254990099c4ff1e5994afc6d85878bdc8207a40018da3c5e418fb70daefaaba67d99ba602ee6d9cfbe905bb7707c41b5992ef42cdf990ffe9422a3712f57a26a9b62c27f8138fb8f16cd3cd9864e580ce0ecc595d50a07d49d817dc62466e3422d1dc54681b9ebf73a1609186d4a48fdd2dedf7cf793b0f8b28222b3733fa8b5a51dfc83534c17026be5015ab831c36b167ee7891a7c1c59cdbf82b63064167609328a73c3c2e6d29089de082bd8cb975ebbd81e7d47360f40c9" target="_blank" style="font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; width:80px; height: 29px; vertical-align:middle; border: 1px solid #e9ecf0; display: inline-block; padding-top:5px;"> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-51-facebook.png" alt="" width="8" height="15" style="display:inline-block; padding-top:3px;" title="" border="0">&nbsp;&nbsp;<div style="color:#C7CED9; display:inline-block; vertical-align:top; line-height:185%;">Share</div> </a></td></table></td><td width="10"></td><td align="left"><table cellpadding="0" cellspacing="0" border="0"><td width="80" height="29" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#FFFFFF"> 
+<a href="https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a85c9cbf8a71caae3dee312615a9fad92c079120cf62a732549405f9f00a0ffa4efb31172b0a5fef47c3d3660581c515de56d33e62fdffdb40a92479769b3c68e0459d784244372480504e9d4e16156999084b077f4ac51e4ca19a345690c7fe36f225887849b01698d47e660b29082f0501303bf552e604459d84e13e5e216453b8b80ad51b8841fe3a1e4171e258a39af9f1c5d2b58fb79817707da21e4b0043cb315505382d28dbe6531927d453150acd0f68387f71e948eaef9e9c56b0899a3129f01b57084a593fab88bb391ed256d" target="_blank" style="font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; width:80px; height: 29px; vertical-align:middle; border: 1px solid #e9ecf0; display: inline-block; padding-top:5px;"> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-51-twitter.png" alt="" width="17" height="15" style="display:inline-block; padding-top:3px;" title="" border="0">&nbsp;&nbsp;<div style="color:#C7CED9; display:inline-block; vertical-align:top; line-height:185%;">Share</div> </a></td></table></td></tr></table></td></tr>
+        </table></td><td class="mob-right-graph" valign="top" align="right" bgcolor="#49A0F5" width="208" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95">
+        <tr>
+            <td colspan="2" bgcolor="#49A0F5" height="67" style="line-height:67px; font-size:67px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;">
+                0
+            </td>
+        </tr>
+        <tr>
+            <td align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;">
+                alerts shown
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" bgcolor="#49A0F5" height="37" style="line-height:37px; font-size:37px;">&nbsp;</td>
+        </tr>
+        
+        <tr><td valign="bottom" width="160" colspan="2" align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="right" valign="bottom" bgcolor="#49A0F5" width="100%" height="40"><table cellspacing="0" cellpadding="0" border="0" align="right"><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" align="right"><tr><td width="2"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr>
+<td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr>
+<td width="100%" bgcolor="#64AEF6" height="1" style="line-height:1px; font-size:1px;">&nbsp;</td></tr></table></td></tr><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%" style=""><tr><td bgcolor="#49A0F5" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr><tr><td width="160" align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="5"></td><td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 15</td><td width="25"></td><td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 22</td><td width="15"></td>
+<td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 29</td><td width="20"></td><td valign="bottom" align="right" style="color:#C8E2FC;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 05</td></tr></table></td></tr></table></td><td width="15"></td><td width="15" class="hide"></td></tr><tr><td colspan="2" bgcolor="#49A0F5" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr>
+    </table></td></tr></table></td></tr>
+    <!-- /COMMENT -->
+    <tr>
+        <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+    </tr>
+    <!-- Vocabulary -->
+    <tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="100%"><tr><td class="mob-left-graph" valign="top" align="left" bgcolor="#FFFFFF" width="342"><table cellpadding="0" cellspacing="0" border="0" class="w95">
+        <tr>
+            <td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+        </tr>
+        <tr><td width="30" class="hide"></td><td align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"><table cellpadding="0" cellspacing="0" border="0" width="85%"><tr><td class="font12" align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase; letter-spacing:1px;"> vocabulary</td> </tr></table></td></tr>
+        <tr>
+            <td colspan="2" bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td width="30" class="hide"></td>
+            <td class="font12" align="left" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:150%;font-weight:normal;">
+                No activity detected for last week. <br>Please make sure you are <a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e308166cf2fa1a4cf1d2706d4f6e708ca914bab22c87d46e25ec1f9d9f44b2603b51a1119a5aefb16e84fe1aa832fef468f82e3d416ea07a39b17" style="color: #4CBAF6; text-decoration:none; white-space: nowrap" class="hover" >logged in</a>.
+            </td>
+        </tr>
+        <tr>
+            <td class="hide" colspan="2" bgcolor="#FFFFFF" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+        </tr>
+        <tr><td width="30" class="hide"></td><td align="left" valign="top"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="left"><table cellpadding="0" cellspacing="0" border="0"><td width="80" height="29" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#FFFFFF"> 
+<a href="https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a858c566f40cb54020d4619d7d33ab28285f4a9ff878af7fb94d3f443cb26cd432b1eb04568b7004311c5c2bd0b2f82386daf6791688ab76ace5c1b9003187e07d65896cd1ef3f3df75c34ee131ea99e5571d914d3a38b6126e1ab78d47d43e26e0455dbe1685f0ad8a941ec916848b8a32370189ac8655a28c67873ae8941e2a0e6734e794405f8f79cd388274ee0a44a7ba461df122bdc9f12e23b0995b2a1cf9ca4e1eeef2dc189636c7cf0f58511e125cb04056d90895261a6f940537794b72bbb275322976234cbe6492705b49a900" target="_blank" style="font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; width:80px; height: 29px; vertical-align:middle; border: 1px solid #e9ecf0; display: inline-block; padding-top:5px;"> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-51-facebook.png" alt="" width="8" height="15" style="display:inline-block; padding-top:3px;" title="" border="0">&nbsp;&nbsp;<div style="color:#C7CED9; display:inline-block; vertical-align:top; line-height:185%;">Share</div> </a></td></table></td><td width="10"></td><td align="left"><table cellpadding="0" cellspacing="0" border="0"><td width="80" height="29" align="center" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;" bgcolor="#FFFFFF"> 
+<a href="https://pages.send.grammarly.com/Publish.aspx?qs=71b8883ce06d4a858c566f40cb54020d4619d7d33ab28285f4a9ff878af7fb94d3f443cb26cd432bd44dff9ef2d70b1881a1955697bca434690484acd3d0a031e47d7613091a02da09e8ad96da8e0452ebcd313dc11939da217f89212243f2cabe3f279c9c20eff34c779bfd73f17269f4dd3875f32e1d30668d3d3035eabed28b4632ad267b4d025ee93e92dca1c3bfe9054537a73873284082a8be2d7f34a9f3e35ef15378f3b96dbc0654cdb56858be57be0f54acc5c8926de824658f9664d475dd7c024dd0b331f2490d876b28db5648102fdc8fdaf5" target="_blank" style="font-size: 13px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; width:80px; height: 29px; vertical-align:middle; border: 1px solid #e9ecf0; display: inline-block; padding-top:5px;"> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-51-twitter.png" alt="" width="17" height="15" style="display:inline-block; padding-top:3px;" title="" border="0">&nbsp;&nbsp;<div style="color:#C7CED9; display:inline-block; vertical-align:top; line-height:185%;">Share</div> </a></td></table></td></tr></table></td></tr>
+    </table>
+</td>
+<td class="mob-right-graph" valign="top" align="right" bgcolor="#6D62E4" width="208" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#6D62E4" height="67" style="line-height:67px; font-size:67px;">&nbsp;</td></tr><tr><td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"> 0</td></tr><tr><td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"> unique words used</td></tr><tr><td colspan="2" bgcolor="#6D62E4" height="37" style="line-height:37px; font-size:37px;">&nbsp;</td></tr>
+
+<tr><td valign="bottom" width="160" colspan="2" align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="right" valign="bottom" bgcolor="#6D62E4" width="100%" height="40"><table cellspacing="0" cellpadding="0" border="0" align="right"><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" align="right"><tr><td width="2"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr>
+<td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr>
+<td width="100%" bgcolor="#837AE8" height="1" style="line-height:1px; font-size:1px;">&nbsp;</td></tr></table></td></tr><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%" style=""><tr><td bgcolor="#6D62E4" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr><tr><td width="160" align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="5"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 15</td><td width="25"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 22</td><td width="15"></td>
+<td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 29</td><td width="20"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 05</td></tr></table></td></tr></table></td><td width="15"></td><td width="15" class="hide"></td></tr><tr><td colspan="2" bgcolor="#6D62E4" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr>
+</table></td></tr></table></td></tr>
+<!-- /Vocabulary -->
+<!-- /COMMENT -->
+
+<tr>
+    <td>
+    <div style="display: none; max-height: 0px; overflow: hidden; line-height: 0px;" class="show">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="display: none;" class="showTable">
+        <tr>
+            <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+        </tr>
+        <!-- COMMENT -->
+        <tr>
+            <td bgcolor="#15C39A" height="5" style="line-height:5px; font-size:5px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" class="w100P" bgcolor="#FFFFFF">
+                <table cellpadding="0" cellspacing="0" border="0" class="w100P showTable" width="100%" style="display: none;">
+                    <tr>
+                        <td width="22.5"></td>
+                        <td width="12.5"></td>
+                        <td align="left" width="110">
+                            <a 
+                                title="">
+                                <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-116-Stats-App-1.png" width="110" title="" border="0" style="display:block;" class="img75P height">
+                            </a>
+                        </td>
+                        <td align="left" valign="middle" width="250">
+                            <table cellpadding="0" cellspacing="0" border="0" style="display: none;" class="showTable">
+                                <tr>
+                                    <td valign="top" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:32px; letter-spacing: 0px; font-weight:normal;" class="font12">
+                                       Try Grammarly&rsquo;s mobile keyboard&#8212;available now. <b>It&rsquo;s free</b>!
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#ffffff" height="5" style="line-height:5px; font-size:5px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" width="100%" class="w100P">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="w100P showTable" style="display: none;">
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <a target="_blank" href="https://click.send.grammarly.com/?qs=5753f20499b22b45f8267f62b6b985ab4d5a5aaf1e1874bdc8e93bf3b14153551ffb9eee949d2d297fe7748d084fff2d90557eaeb902331ba80f96ed1e1b1b9c"><img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/10262017-GRAM-105-01.png" alt="Download on the app store" title="Download on the app store" alias="APPLE_STORE" class="height" width="130" height="39" border="0" style="display:block;"></a>
+                                                </td>
+                                                <td width="10"></td>
+                                                <td valign="top" align="left" class="padd-left-15">
+                                                    <a target="_blank" href="https://click.send.grammarly.com/?qs=5753f20499b22b45843edf5510b84e259187de735b49e76f851d634c3f350ec866b4e95e209e8d925846b4db1d0f9a14e7eded6130db5bb08aa7413548927bea"><img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/12072017-GRAM-116-01.png" alt="Get it on google play" title="Get it on google play" alias="GOOGLE_PLAY_STORE" class="height" width="130" height="39" border="0" style="display:block;"></a>
+                                                </td>
+                                                <td width="20"></td>
+                                                <!-- <td align="left" valign="middle" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:19px; letter-spacing: 0px; font-weight:normal;" class="font10">
+                                                    It's free
+                                                </td> -->
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#ffffff" height="5" style="line-height:5px; font-size:5px;">&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="22.5" class="hide"></td>
+                        <td width="22.5"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff" height="36" style="line-height:36px; font-size:36px;">&nbsp;</td>
+        </tr>
+    </table>
+    </div
+    </td>
+    </tr>
+    
+
+    
+    <tr>
+        <td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+    </tr>
+ <!-- RSS Blog Feed -->
+
+    <!-- COMMENT -->
+    <tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="85%"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td align="center" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:150%;font-weight:normal;"> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-131-IMG-1.png" width="75" height="70" alias="" border="0" style="display:block;"></td></tr><tr><td bgcolor="#FFFFFF" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr>
+<td align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform:uppercase;letter-spacing: .78px;"> this week's stories &amp; tips</td></tr><tr><td bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td width="100%" bgcolor="#F5F5F5" height="2" style="line-height:2px; font-size:2px;">&nbsp;</td></tr><tr><td bgcolor="#FFFFFF" height="22" style="line-height:22px; font-size:22px;">&nbsp;</td></tr><tr><td width="100%" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="470" class="w100P"><tr><td align="left">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="color:#28C47C;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:15px;font-weight:bold;text-transform:uppercase;letter-spacing: 1px;">
+                How To
+            </td>
+        </tr>
+    </table>
+    <!--Spacer-->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td height="6" style="line-height:6px; font-size:6px;">&nbsp;</td>
+        </tr>
+    </table>
+    <!--SPACER END -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:24px;letter-spacing: 0px;">
+                <a href="https://click.send.grammarly.com/?qs=5753f20499b22b4547f18fca883c1f5118787001f861bf4e5d9d6ffdbae230dea3f30f274548513aadb335291c788285b3a96a35ac090d38c3ea2473bd2e98b9" target="_blank"  style="text-decoration: none;color:#2E3543;">How to Speak Up and Find Your Voice in Meetings</a>
+            </td>
+        </tr>
+    </table>
+</td>
+<td width="20"></td>
+<td align="left" style="font-family:Helvetica,Arial,sans-serif;font-size:30px;line-height:normal;letter-spacing: 0px;">
+    <a href="https://click.send.grammarly.com/?qs=5753f20499b22b4547f18fca883c1f5118787001f861bf4e5d9d6ffdbae230dea3f30f274548513aadb335291c788285b3a96a35ac090d38c3ea2473bd2e98b9" target="_blank"  style="text-decoration: none;color:#A6ADC9;">></a>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" height="18" style="line-height:18px; font-size:18px;">&nbsp;</td>
+</tr>
+<tr>
+<td width="100%" bgcolor="#F5F5F5" height="2" style="line-height:2px; font-size:2px;">&nbsp;</td>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" height="22" style="line-height:22px; font-size:22px;">&nbsp;</td>
+</tr>
+<tr>
+<td width="100%" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;">
+<table cellpadding="0" cellspacing="0" border="0" width="470" class="w100P">
+<tr>
+<td align="left">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="color:#28C47C;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:15px;font-weight:bold;text-transform:uppercase;letter-spacing: 1px;">
+                Product
+            </td>
+        </tr>
+    </table>
+    <!--Spacer-->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td height="6" style="line-height:6px; font-size:6px;">&nbsp;</td>
+        </tr>
+    </table>
+    <!--SPACER END -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:24px;letter-spacing: 0px;">
+                <a href="https://click.send.grammarly.com/?qs=5753f20499b22b455c3d4b80c399ae2eec538ae7e64153ddccef729308d5b101f781523107898f4e861ae87da349c51523b7d30ba66eaadea06665931f0fb9f2" target="_blank"  style="text-decoration: none;color:#2E3543;">Grammarly Spotlight: How to Select Your English Dialect</a>
+            </td>
+        </tr>
+    </table>
+</td>
+<td width="20"></td>
+<td align="left" style="font-family:Helvetica,Arial,sans-serif;font-size:30px;line-height:normal;letter-spacing: 0px;">
+    <a href="https://click.send.grammarly.com/?qs=5753f20499b22b455c3d4b80c399ae2eec538ae7e64153ddccef729308d5b101f781523107898f4e861ae87da349c51523b7d30ba66eaadea06665931f0fb9f2" target="_blank"  style="text-decoration: none;color:#A6ADC9;">></a>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" height="18" style="line-height:18px; font-size:18px;">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="100%" bgcolor="#F5F5F5" height="2" style="line-height:2px; font-size:2px;">&nbsp;</td>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" height="22" style="line-height:22px; font-size:22px;">&nbsp;</td>
+</tr>
+<tr>
+<td width="100%" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;">
+<table cellpadding="0" cellspacing="0" border="0" width="470" class="w100P">
+<tr>
+<td align="left">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="color:#28C47C;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:15px;font-weight:bold;text-transform:uppercase;letter-spacing: 1px;">
+                Company
+            </td>
+        </tr>
+    </table>
+    <!--Spacer-->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td height="6" style="line-height:6px; font-size:6px;">&nbsp;</td>
+        </tr>
+    </table>
+    <!--SPACER END -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            <td style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:24px;letter-spacing: 0px;">
+                <a href="https://click.send.grammarly.com/?qs=5753f20499b22b45d8fee08ce48c06e13853f1d220085576714f993b11fa25dde0ba18734d631c80c1b17cccf05465a2901d4e2b51922d084307d92f42ab7547" target="_blank"  style="text-decoration: none;color:#2E3543;">Grammarly IRL: How Matt Halfhill Made Kicks Nice to Write About</a>
+            </td>
+        </tr>
+    </table>
+</td>
+<td width="20"></td>
+<td align="left" style="font-family:Helvetica,Arial,sans-serif;font-size:30px;line-height:normal;letter-spacing: 0px;">
+    <a href="https://click.send.grammarly.com/?qs=5753f20499b22b45d8fee08ce48c06e13853f1d220085576714f993b11fa25dde0ba18734d631c80c1b17cccf05465a2901d4e2b51922d084307d92f42ab7547" target="_blank"  style="text-decoration: none;color:#A6ADC9;">></a>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td bgcolor="#FFFFFF" height="18" style="line-height:18px; font-size:18px;">&nbsp;</td>
+</tr>
+
+</table></td></tr></table></td></tr>
+<!-- /COMMENT -->
+<tr>
+<td bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td>
+</tr>
+
+<tr>
+<td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td>
+</tr>
+<tr><td align="center" class="w100P" bgcolor="#555C6A"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="85%"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td bgcolor="#555C6A" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td bgcolor="#555C6A" align="center" style="color:#FFFFFF;font-family:Helvetica,Arial,sans-serif;font-size:24px;line-height:150%;font-weight:normal;"> Where you're protected,<br> Yasser Kaddoura</td></tr><tr><td bgcolor="#555C6A" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr>
+<td bgcolor="#555C6A" align="center" style="color:#BBBDC3;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;font-weight:normal;"> Fully protect yourself from writing mistakes<br> by activating all 6 Grammarly features. </td></tr><tr><td bgcolor="#555C6A" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr><td bgcolor="#ffffff" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="85%"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td width="350" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+<td width="178" align="left" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> Browser Extension</td><td width="172" align="right"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr> <td width="20"></td><td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e30811dd455d1a6e180e00fba262ef6cfb31813a97d3ba9686f3b7c5fc0ae4e070ed6159fb6b356444b36640374b3af5f1e31" style="text-decoration:underline; color:#28C47C; font-size:12px;">Activate</a></td> <td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-12.png" width="56" height="25" border="0" style="display:block;"></td></tr></table></td></tr></table></td>
+</tr><tr><td colspan="3" bgcolor="#FFFFFF" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr><td width="350" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="178" align="left" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;">Mobile Keyboard</td><td width="172" align="right"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="20"></td><td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;">&nbsp;</td><td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;">
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-12.png" width="56" height="25" border="0" style="display:block;"></td></tr></table></td></tr></table></td></tr><tr><td colspan="3" bgcolor="#FFFFFF" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr>
+<tr><td width="350" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="178" align="left" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> Native Desktop App</td><td width="172" align="right"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr> <td width="20"></td><td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> 
+<a href="https://click.send.grammarly.com/?qs=5753f20499b22b45fe4521731fcc39a3a4c57cc12171a7f1b4980f68aa890fc571cd7163285dd708baae9a23e22af719590a84759acdec6563eeeeacff9f3a08" style="text-decoration:underline; color:#28C47C; font-size:12px;">Activate</a></td> <td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-12.png" width="56" height="25" border="0" style="display:block;"></td></tr></table></td></tr></table></td></tr><tr><td colspan="3" bgcolor="#FFFFFF" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr><td width="350" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+<td width="178" align="left" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> MS Office Add-in</td><td width="172" align="right"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr> <td width="20"></td><td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <a href="https://click.send.grammarly.com/?qs=5753f20499b22b45ac0fbf8e5076ffff214f242a9a6c1ae5398754b72202578f2b3a4643c5955acc4fbe6eaebbac110b226de9bb188c55e3186c5b78e920c596" style="text-decoration:underline; color:#28C47C; font-size:12px;">Activate</a></td> <td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-12.png" width="56" height="25" border="0" style="display:block;"></td></tr></table></td>
+</tr></table></td></tr><tr><td colspan="3" bgcolor="#FFFFFF" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr><td width="350" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="178" align="left" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> Premium Checks</td><td width="172" align="right"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr> <td width="20"></td><td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> 
+<a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e30811d1cb377e508386d2411e209ffdcc3d7f2afd8a54f67953d64a45322930ebbde6626909ee68ded48ec1e723b053df955d1c96210cd019d66" style="text-decoration:underline; color:#28C47C; font-size:12px;">Activate</a></td> <td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-12.png" width="56" height="25" border="0" style="display:block;"></td></tr></table></td></tr></table></td></tr><tr><td colspan="3" bgcolor="#FFFFFF" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr><tr><td width="350" class="w95" align="center" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+<td width="178" align="left" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> Basic Checks</td><td width="172" align="right"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+<td align="right" style="color:#2E3543;font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:150%;font-weight:normal;"> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-IMG-11.png" width="56" height="25" border="0" style="display:block;"></td></tr></table></td></tr></table></td></tr><tr><td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr></table></td></tr><tr><td bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr></table></td></tr></table></td></tr>
+<tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" width="520" class="w100P"><tr><td align="center" style="border-bottom:#D6D6D6 solid 1px;" width="520" class="w100P"><table cellpadding="0" cellspacing="0" border="0" width="100%" class="w100P" bgcolor="#F5F6FB"><tr><td bgcolor="#F5F6FB" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td></tr><tr><td align="center" style="color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:120%;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d34d9c5e9cf88cb214632a98b51049fa8b1673f158bc2e21f6983bd80ada9732189e1ec5528eef691a52166ea04b837ce" style="text-decoration: none;" >
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Facebook.png" border="0" width="12" height="24" style="width: 12px; height: 24px; max-width: 24px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#3b5998;font-weight:bold" alt=" f"></a></td><td width="20" class="hide"></td><td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d208b6a3771e632ab34ced5acf76f34970ceacf6801d1c6a8b9100ecde49d90aef14507484892ae3b59a1865e48ceaff2" style="text-decoration: none;" ><img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Instagram.png" border="0" width="26" height="25" style="width: 26px; height: 25px; max-width: 26px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#00aced;font-weight:bold" alt=" i">
+</a></td><td width="20" class="hide"></td><td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13db1862f0de23e00880947c2f9db34c2e8ef9127e209dc7a58f8a488574631e1f7af364a79c09cadb9b394b7944e31beb4" style="text-decoration: none;" ><img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/LinkedIn.png" border="0" width="19" height="18" style="width: 19px; height: 18px; max-width: 19px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#007bb6;font-weight:bold" alt=" in"></a></td><td width="20" class="hide"></td><td align="left" width="64"> <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d6915b22460580c4ecb34ea239b4c952a6c2937a17d871bb3334eb16fe767efbfd6cf81775528f5d268a28b5cc782a6e0" style="text-decoration: none;" >
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Twitter.png" border="0" width="23" height="20" style="width: 23px; height: 20px; max-width: 23px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#00aced;font-weight:bold" alt=" t"></a></td><td width="20" class="hide"></td><td align="left" width="24"> <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d584c7f46e04c3e9b0094997924e75970239c0e03d8f5d7ed11c41de559e0b8b113d7c77bfbfd4b548f62d6b1717c4efb" style="text-decoration: none;" ><img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/Pinterest.png" border="0" width="21" height="25" style="width: 21px; height: 25px; max-width: 21px;border:none; outline:none; text-decoration:none;font-size:19px;font-family:Helvetica Neue, Arial, sans-serif;color:#cb2027;font-weight:bold" alt=" p">
+</a></td></tr></table></td></tr><tr><td bgcolor="#F5F6FB" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td></tr> <tr><td align="center" style="font-family: Helvetica, arial, sans-serif; font-size: 15px; line-height: 21px;color: #999999;"> <a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e30811d1cb377e508386d2411e209ffdcc3d7f2afd8a54f67953d64a45322930ebbde6626909ee68ded48ec1e723b053df955d1c96210cd019d66" style="color: #414141; text-decoration:underline; white-space: nowrap" class="hover" alis="ftr-upgrade-premium"> Upgrade to Grammarly Premium </a>&nbsp;&nbsp;&nbsp; <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d4f15f021f20457e2af6770fb06f69dbae300b20c3431dfb4208cef5d585fcb1f29e660aedc3114703665143ff391949ec72d4be43b9845fc" style="color: #999999; text-decoration:underline; white-space: nowrap" class="hover" > Learn more </a></td></tr> <tr><td bgcolor="#F5F6FB" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td>
+</tr></table></td></tr><tr><td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr> <tr><td align="center" valign="top" style="font-family: Helvetica, arial, sans-serif; font-size: 13px; line-height: 20px;color: #999999; padding-left: 45px; padding-right: 45px"> <a href="https://view.send.grammarly.com/?qs=8f9ad44a1ed0df55183eb14fc2795b88939aefe83ae5ae6a1dbea5e99ffa38e5fd2161307323add06035f82f8e6ade88e86fc1719412d37ab7f9f509c0d8c6cb3ba0052ceb4e3715f5ef9c3c8e0f607d" style="text-decoration: underline; color: #999999; white-space: nowrap" class="hover" >View Web Version</a> <span class="hide">&nbsp;&nbsp;&bull;&nbsp;</span> 
+<a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d1d68d866bce7c6612aa4b6992fa379d48e83f90dc27bc22c6935e5a6f8a048cd97898673c1b265c144e3709a2d5f9d91dcfbee1f301e0fd5"  style="text-decoration: underline; color: #999999; white-space: nowrap" class="hover">Email Preferences</a> <span class="hide">&nbsp;&bull;&nbsp;&nbsp;</span> <a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d14e6e299d82e4681c15ba70f5d92bf941156a03813c7f0f9c5803f79f8e5fd0edc58b7d00db9923f9209c1edf28e4ab9de3d884c73ce0f67"  style="text-decoration: underline; color: #999999; white-space: nowrap" class="hover">Unsubscribe</a></td></tr><tr><td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr> <tr>
+<td align="center" style="color:#999999;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:120%;font-weight:normal;"> We hope you enjoy monitoring your weekly writing trends. But if you no longer wish to receive Grammarly Insights emails, you may change your preferences by clicking the link above.</td></tr><tr><td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr><tr><td align="center" valign="top" style="font-family: Helvetica, arial, sans-serif; font-size: 13px; line-height: 20px;color: #999999;">&copy; 2018 Grammarly, Inc. &bull; 548 Market St. #35410 &bull; San Francisco, CA 94104</td></tr><tr><td bgcolor="#F5F6FB" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr></table></td></tr>
+<!--  -->
+</table>
+<table cellpadding="0" cellspacing="0" border="0"  class="hide" style="margin:0 auto;"><tr><td height="1" class="hide" style="min-width:550px; font-size:0px;line-height:0px;"> <img height="1" src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-spacer.jpg" style="min-width: 550px; text-decoration: none; border: none; -ms-interpolation-mode: bicubic;" /></td></tr></table>
+<!--  -->
+<!--[if !mso]><!-->
+<div style="display:none;max-height:0px;overflow:hidden;">
+<div itemscope itemtype="http://schema.org/EmailMessage"><div itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Grammarly"/><link itemprop="url" href="https://www.grammarly.com/"/><link itemprop="url/googlePlus" href="https://plus.google.com/+grammarly"/></div><div itemprop="about" itemscope itemtype="http://schema.org/Offer"><link itemprop="image" href="http://s3.amazonaws.com/email_static_cdn/promotion-grammarly.png"/></div></div>
+<img src="https://gnar.grammarly.com/email-pixel?&userId=729081353&templateName=Grammarly-Weekly-Stats-2.0%20V2%20and%20V3%20Aug%206%20%202018&sentTime=8/6/2018%202:51:41%20PM" width="1" height="1" border="0" style="display:none"/><div class="hide social-share social-shareShow show" style="display:none; width: 1px; height: 1px; overflow: hidden;"><!-- RegionStart[socialslot:"ProductivityShareRegion",title:"I'm a productivity prodigy!",description:"This week, I wrote more than 0% of Grammarly users.",csskey:"weekly-email-summary-qwerty"] --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="My Weekly Productivity Report"><meta name="twitter:description" content="This week, I wrote more than 0% of Grammarly users."><meta name="twitter:image" content="https://s3.amazonaws.com/contenthub-static/blog/wp-content/uploads/2017/06/GRAM-49-SOCIAL-PRODUCTIVITY.png">
+<table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><p><a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13dbef63fc5a2f1865b46faa951cf698e33982917b3d5ba8b52ed9a213570167590bb9167a75bff5b96756a44330b27f09bbecae68dcb4892c8">Click to check out my full recap.</a></p><p><a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d78583d5f115461b363958f80672ffac6f0ecd5e785c88e54c83a5f366ce717e8a8ecfc49db196879b92f54e4bb0641b3">Get your free account</a>
+</p> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-SOCIAL-PRODUCTIVITY.png" class='weekly-email-summary-img' style="width:0; height:0px; display: block;"></td></tr></table></td></tr><tr><td align="left" height="20" valign="top" style="font-size:1px; line-height:1px;">&nbsp;</td></tr><tr><td align="center"><table width="550" bgcolor="#ffffff" cellpadding="0" cellspacing="0" border="0" align="center" class="showTable" style="mso-hide:all;"><tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="100%"><tr><td class="mob-left-graph" valign="top" align="left" bgcolor="#FFFFFF" width="342"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr>
+<td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td><td align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"><table cellpadding="0" cellspacing="0" border="0" width="80%"><tr><td class="font12" align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase; letter-spacing:1px;"> Productivity</td> </tr></table></td></tr><tr><td colspan="2" bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td><td class="font12" align="left" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:150%;font-weight:normal;"> You were more productive than <br><strong style="color:#2E3543;">0%</strong> of Grammarly users.
+</td></tr><tr><td class="hide" colspan="2" bgcolor="#FFFFFF" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td></tr></table></td><td class="mob-right-graph" valign="top" align="right" bgcolor="#4CBAF6" width="208" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#4CBAF6" height="67" style="line-height:67px; font-size:67px;">&nbsp;</td></tr><tr><td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"> 0</td></tr><tr><td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"> words checked</td></tr><tr><td colspan="2" bgcolor="#4CBAF6" height="37" style="line-height:37px; font-size:37px;">&nbsp;</td></tr> <tr>
+<td valign="bottom" width="160" colspan="2" align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="right" valign="bottom" bgcolor="#4CBAF6" width="100%" height="40"><table cellspacing="0" cellpadding="0" border="0" align="right"><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" align="right"><tr><td width="2"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr>
+<td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#4CBAF6" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr>
+<td width="100%" bgcolor="#67c4f7" height="1" style="line-height:1px; font-size:1px;">&nbsp;</td></tr></table></td></tr><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%" style=""><tr><td bgcolor="#4CBAF6" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr><tr><td width="160" align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="5"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 15</td><td width="25"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 22</td><td width="15"></td>
+<td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 29</td><td width="20"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 05</td></tr></table></td></tr></table></td><td width="15"></td><td width="15" class="hide"></td></tr><tr><td colspan="2" bgcolor="#4CBAF6" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr></table></td></tr></table></td></tr></table><!-- RegionEnd[socialslot:"ProductivityShareRegion"] --><!-- RegionStart[socialslot:"AccuracyShareRegion",title:"I'm an accuracy ace!",description:"This week, I was more accurate than 0% of Grammarly users.",csskey:"weekly-email-summary-qwerty"] -->
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="My Weekly Writing Scorecard"><meta name="twitter:description" content="This week, I was more accurate than 0% of Grammarly users."><meta name="twitter:image" content="https://s3.amazonaws.com/contenthub-static/blog/wp-content/uploads/2017/06/GRAM-49-SOCIAL-.png"><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><p><a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13dbef63fc5a2f1865b46faa951cf698e33982917b3d5ba8b52ed9a213570167590bb9167a75bff5b96756a44330b27f09bbecae68dcb4892c8">Click to check out my full recap.</a></p><p><a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d78583d5f115461b363958f80672ffac6f0ecd5e785c88e54c83a5f366ce717e8a8ecfc49db196879b92f54e4bb0641b3">Get your free account</a></p> 
+<img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-SOCIAL-MASTERY.png" class='weekly-email-summary-img' style="width:0; height:0px; display: block;"></td></tr></table></td></tr><tr>
+<td align="left" height="20" valign="top" style="font-size:1px; line-height:1px;">&nbsp;</td></tr><tr><td align="center"><table width="550" cellpadding="0" cellspacing="0" border="0" align="center" class="show showTable" style="mso-hide:all;"><tr><td align="center" class="w100P" bgcolor="#FFFFFF"><table cellpadding="0" cellspacing="0" border="0" class="w100P" width="100%"><tr><td class="mob-left-graph" valign="top" align="left" bgcolor="#FFFFFF" width="342"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td>
+<td align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"><table cellpadding="0" cellspacing="0" border="0" width="80%"><tr><td class="font12" align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase; letter-spacing:1px;"> accuracy</td></tr></table></td></tr><tr><td colspan="2" bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td><td class="font12" align="left" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:150%;font-weight:normal;"> No activity detected for last week. <br>Please make sure you are 
+<a href="https://click.send.grammarly.com/?qs=1cdd9c8bf50e308166cf2fa1a4cf1d2706d4f6e708ca914bab22c87d46e25ec1f9d9f44b2603b51a1119a5aefb16e84fe1aa832fef468f82e3d416ea07a39b17" style="color: #4CBAF6; text-decoration:none; white-space: nowrap" class="hover" >logged in</a>.</td></tr><tr><td class="hide" colspan="2" bgcolor="#FFFFFF" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td></tr></table></td><td class="mob-right-graph" valign="top" align="right" bgcolor="#49A0F5" width="208" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#49A0F5" height="67" style="line-height:67px; font-size:67px;">&nbsp;</td></tr><tr><td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"> 0</td></tr><tr>
+<td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"> correction made</td></tr><tr><td colspan="2" bgcolor="#49A0F5" height="37" style="line-height:37px; font-size:37px;">&nbsp;</td></tr> <tr><td valign="bottom" width="160" colspan="2" align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="right" valign="bottom" bgcolor="#49A0F5" width="100%" height="40"><table cellspacing="0" cellpadding="0" border="0" align="right"><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" align="right"><tr><td width="2"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr>
+<td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr>
+<td valign="bottom" bgcolor="#49A0F5" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#C8E2FC" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr><td width="100%" bgcolor="#64AEF6" height="1" style="line-height:1px; font-size:1px;">&nbsp;</td></tr></table></td></tr><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%" style=""><tr><td bgcolor="#49A0F5" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr><tr><td width="160" align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="5"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 15</td><td width="25"></td>
+<td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 22</td><td width="15"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> Jul 29</td><td width="20"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase; letter-spacing:0.3px;"> 05</td></tr></table></td></tr></table></td><td width="15"></td><td width="15" class="hide"></td></tr><tr><td colspan="2" bgcolor="#49A0F5" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr></table></td></tr></table></td></tr></table><!-- RegionEnd[socialslot:"AccuracyShareRegion"] -->
+<!-- RegionStart[socialslot:"VocabularyShareRegion",title:"I'm a vocabulary virtuoso! ",description:"This week, I used more unique words than 0% of Grammarly users.",csskey:"weekly-email-summary-qwerty"] -->
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="My Weekly Vocabulary Report"><meta name="twitter:description" content="This week, I used more unique words than 0% of Grammarly users."><meta name="twitter:image" content="https://s3.amazonaws.com/contenthub-static/blog/wp-content/uploads/2017/06/GRAM-49-SOCIAL-VOCABULARY.png"><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><p><a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13dbef63fc5a2f1865b46faa951cf698e33982917b3d5ba8b52ed9a213570167590bb9167a75bff5b96756a44330b27f09bbecae68dcb4892c8">Click to check out my full recap.</a></p><p>
+<a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d78583d5f115461b363958f80672ffac6f0ecd5e785c88e54c83a5f366ce717e8a8ecfc49db196879b92f54e4bb0641b3">Get your free account</a></p> <img src="http://image.send.grammarly.com/lib/fe9213707567007a7d/m/1/GRAM-49-SOCIAL-VOCABULARY.png" class='weekly-email-summary-img' style="width:0; height:0x; display: block;"></td></tr></table></td></tr><tr><td align="left" height="20" valign="top" style="font-size:1px; line-height:1px;">&nbsp;</td></tr><tr><td align="center"><table width="550" bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" border="0" align="center" style="mso-hide:all;"><tr><td colspan="4" align="left" height="35" valign="top" style="font-size:1px; line-height:1px;" class="devicemargin1">&nbsp;</td></tr><tr><td align="center" class="w100P" bgcolor="#FFFFFF">
+<table cellpadding="0" cellspacing="0" border="0" class="w100P" width="100%"><tr><td class="mob-left-graph" valign="top" align="left" bgcolor="#FFFFFF" width="342"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#FFFFFF" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td><td align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"><table cellpadding="0" cellspacing="0" border="0" width="80%"><tr><td class="font12" align="left" style="color:#2E3543;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:150%;font-weight:bold;text-transform: uppercase;"> vocabulary</td> </tr></table></td></tr><tr><td colspan="2" bgcolor="#FFFFFF" height="20" style="line-height:20px; font-size:20px;">&nbsp;</td></tr><tr><td width="30" class="hide"></td>
+<td class="font12" align="left" style="color:#838487;font-family:Helvetica,Arial,sans-serif;font-size:17px;line-height:150%;font-weight:normal;"> You used more unique words than <br><strong style="color:#2E3543;">0%</strong> of Grammarly users.</td></tr><tr><td class="hide" colspan="2" bgcolor="#FFFFFF" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td></tr></table></td><td class="mob-right-graph" valign="top" align="right" bgcolor="#6D62E4" width="208" height="280"><table cellpadding="0" cellspacing="0" border="0" class="w95"><tr><td colspan="2" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td colspan="2" bgcolor="#6D62E4" height="30" style="line-height:30px; font-size:30px;">&nbsp;</td></tr><tr><td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:32px;line-height:normal;font-weight:bold;"> 0</td></tr><tr>
+<td align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"> unique word used</td></tr><tr><td colspan="2" bgcolor="#6D62E4" height="37" style="line-height:37px; font-size:37px;">&nbsp;</td></tr> <tr><td valign="bottom" width="160" colspan="2" align="right" style="color:#FDFDFD;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:normal;font-weight:normal;"><table cellpadding="0" cellspacing="0" border="0"><tr><td align="right" valign="bottom" bgcolor="#6D62E4" width="100%" height="40"><table cellspacing="0" cellpadding="0" border="0" align="right"><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" align="right"><tr><td width="2"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr>
+<td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr><td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td><td width="30"></td><td valign="bottom"><table cellspacing="0" cellpadding="0" border="0" width="10" align="left" ><tr>
+<td valign="bottom" bgcolor="#6D62E4" height="40" style="line-height:40px; font-size:40px;">&nbsp;</td></tr><tr><td valign="bottom" bgcolor="#d3d0f6" height="0" style="line-height:0px; font-size:0px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr><td width="100%" bgcolor="#837AE8" height="1" style="line-height:1px; font-size:1px;">&nbsp;</td></tr></table></td></tr><tr><td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%" style=""><tr><td bgcolor="#6D62E4" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr><tr><td width="160" align="right" valign="bottom"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td width="5"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase;"> Jul 15</td><td width="25"></td>
+<td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase;"> 22</td><td width="15"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase;"> Jul 29</td><td width="20"></td><td valign="bottom" align="right" style="color:#ebebeb;font-family:Helvetica,Arial,sans-serif;font-size:8px;line-height:150%;font-weight:normal;text-transform: uppercase;"> 05</td></tr></table></td></tr></table></td><td width="15"></td><td width="15" class="hide"></td></tr><tr><td colspan="2" bgcolor="#6D62E4" height="10" style="line-height:10px; font-size:10px;">&nbsp;</td></tr></table></td></tr></table></td></tr><tr><td colspan="4" align="left" height="5" valign="top" style="font-size:1px; line-height:1px;">&nbsp;</td></tr></table>
+<!-- RegionEnd[socialslot:"VocabularyShareRegion"] --><!-- RegionStart[socialslot:"BadgeShareRegion",title:"I've earned the  badge this week from Grammarly!",description:"",csskey:"weekly-email-summary-qwerty"] --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Achievement Unlocked: "><meta name="twitter:description" content="I've earned the ! Find out why in my weekly writing report."><meta name="twitter:image" content=""><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><table class="show showTable" style="height: 1px; width: 1px; display: block; mso-hide:all;"><tr><td><p><a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13dbef63fc5a2f1865b46faa951cf698e33982917b3d5ba8b52ed9a213570167590bb9167a75bff5b96756a44330b27f09bbecae68dcb4892c8">Click to check out my full recap.</a></p><p>
+<a href="https://click.send.grammarly.com/?qs=b011b0e630c0b13d78583d5f115461b363958f80672ffac6f0ecd5e785c88e54c83a5f366ce717e8a8ecfc49db196879b92f54e4bb0641b3">Get your free account</a></p> <img src="" class='weekly-email-summary-img' style="width:0px; height:0px; display: block;"></td></tr></table></td></tr></table></td></tr><tr><td colspan="4" align="left" height="5" valign="top" style="font-size:1px; line-height:1px;">&nbsp;</td></tr></table><!-- RegionEnd[socialslot:"BadgeShareRegion"] --></div>
+    </div>
+          <!--<![endif]-->
+    </style>
+</div>
+</td></tr></table>
+
+</body>
+</html>
+
+--oTwMvhqX6gOx=_?:--
+

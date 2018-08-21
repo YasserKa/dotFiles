@@ -1,0 +1,191 @@
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 10.2.59.83 with SMTP id i19csp6491113jaf;
+        Thu, 5 Apr 2018 13:01:15 -0700 (PDT)
+X-Google-Smtp-Source: AIpwx488OtTldiDgI/6srC6aJgh0YBAj+0JQr92Kjf5ka96Gz8e9BIBQLz7Om0JYgjhUtjwJ1elQ
+X-Received: by 2002:a24:4d07:: with SMTP id l7-v6mr15803520itb.145.1522958475819;
+        Thu, 05 Apr 2018 13:01:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1522958475; cv=none;
+        d=google.com; s=arc-20160816;
+        b=ZooqiSCHAofPE8bWLl7Vh1M5fMr88Vi8AJe6vFCfNuTDLDHePu20lLF1BmDouLge/6
+         +91rtAw4GAIS8/gVyIDl+7Zqr2mz0Q1HBZLqIcMT+zKhckJc2lCXJjypgXg52QKBEbIp
+         MXEVpy3VmauhDxORIsSuoAUGAl0Plz9tbOnD+aUMQVIql7mWvDtnDOd1hsGWsOu6HZF5
+         fFyxkiwGVHOaRjrQ7HaDQtXV8iSMabyTcyGmzxJtwwSAe90Eyo3GaTwJnSRo7t+0C857
+         fUxcOrwa/agvjLEmDa9tSIjW0sNhgbz/MYtzKslTQmTXBvUekYQotv476m72c1BERVJ7
+         Xafw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=feedback-id:message-id:list-id:mime-version:list-unsubscribe:date
+         :subject:to:from:arc-authentication-results;
+        bh=KSDAvbseuczygiYjsofYUwxuqVTTTS1uBjYN3IPx2Ic=;
+        b=EZFRD0NsyzmxlDrXw1c6uYaV5jGTpCXJGG+NEvRQ733kttFL6V/mAapB3KFb/VMgmV
+         EuN5mFsjECc6MAsIVNeWW2SgVG8gHW5TGa6IyRfYaL9scL39H5hWFRl4k5+SVBJUtf95
+         bWUCHLaLVxJrleiyCg0XrLe/huNYzqvKrlPuDTAs9eepMA4zzLlelXJli3C0uKZqrMhq
+         Kel4OSy79JSh3+rtb2CwWE/Y4vUQF2Vb4NF0loEqKn91mQqUBqsy1i3AM4j8P30lDpu+
+         NzjZ4TJEVpqFt5wJfm4/zj19l7TJW++7CiA/84h1fMasu4A7HKIzhavhclVnSNQRGt32
+         XFeg==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of bounce-19193452_html-365696234-40186740-23741-0@bounce.exacttarget.com designates 66.231.85.192 as permitted sender) smtp.mailfrom=bounce-19193452_HTML-365696234-40186740-23741-0@bounce.exacttarget.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=3ds.com
+Return-Path: <bounce-19193452_HTML-365696234-40186740-23741-0@bounce.exacttarget.com>
+Received: from ai192.mta.exacttarget.com (ai192.mta.exacttarget.com. [66.231.85.192])
+        by mx.google.com with ESMTPS id n9si5385795iob.226.2018.04.05.13.01.14
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Thu, 05 Apr 2018 13:01:15 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-19193452_html-365696234-40186740-23741-0@bounce.exacttarget.com designates 66.231.85.192 as permitted sender) client-ip=66.231.85.192;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of bounce-19193452_html-365696234-40186740-23741-0@bounce.exacttarget.com designates 66.231.85.192 as permitted sender) smtp.mailfrom=bounce-19193452_HTML-365696234-40186740-23741-0@bounce.exacttarget.com;
+       dmarc=fail (p=NONE sp=NONE dis=NONE) header.from=3ds.com
+Received: by ai192.mta.exacttarget.com id hoq08m163hs4 for <yasserkaddouralearn@gmail.com>; Thu, 5 Apr 2018 14:00:57 -0600 (envelope-from <bounce-19193452_HTML-365696234-40186740-23741-0@bounce.exacttarget.com>)
+From: "Sara Junghans" <solidworks.education@3ds.com>
+To: <yasserkaddouralearn@gmail.com>
+Subject: What's new with SolidWorks Apps for Kids!
+Date: Thu, 05 Apr 2018 14:00:57 -0600
+List-Unsubscribe: <mailto:leave-fc491579746d077970161f2d205921-fe23177670620d7b771774-fe611070746c027a7114-fefe1673726005-ffcf14@leave.exacttarget.com>
+MIME-Version: 1.0
+List-ID: <23741.xt.local>
+X-CSA-Complaints: whitelistcomplaints@eco.de
+x-job: 23741_40186740
+Message-ID: <f4e053c4-ca66-4826-949c-29802dffe6d4@xtinmta4266.xt.local>
+Feedback-ID: 23741:40186740:66.231.85.192:sfmktgcld
+Content-Type: multipart/alternative;
+	boundary="cPfRGW5iPPSM=_?:"
+
+This is a multi-part message in MIME format.
+
+--cPfRGW5iPPSM=_?:
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+
+
+http://cl.exct.net/?qs=f46bdb95662fe5aee301c59368532ba5966231e6e6a106c88dd63b0c828e0bfbb801871171fe8f40e629f6cf6359aeb5 
+
+ What's been your latest creation? 
+
+Login to Apps for Kids and check out all the newest creations!
+
+
+It’s hard to believe it’s been two years since we released SOLIDWORKS Apps for Kids. We are happy to say we have over 12,000 registered users, and over 61,000 models created! While we have several new apps in development, our focus is to refine our five present apps, Capture It, Shape It, Style It, Mech It, and Print It. Your feedback is valuable and continues to help us improve the product and make for a better overall experience. 
+
+http://cl.exct.net/?qs=f46bdb95662fe5aee301c59368532ba5966231e6e6a106c88dd63b0c828e0bfbb801871171fe8f40e629f6cf6359aeb5 
+Log in now  to check out some of the cool things our team has been up to!
+
+	- Under our help videos watch our new video on how you can print in 3D and 2D with Print It
+	- New scenes in Style It 
+	- Create your own stickers using Capture It
+Read our latest Apps for Kids blogs: 
+
+	- 
+http://cl.exct.net/?qs=f46bdb95662fe5aedc9a4a413b5a216ea2fb6df316eb9a434a0f52aef3d3da1eae61f21e86e504536b45a8ecc02e716a 
+Students from Olin College and the Apps for Kids Team Host Paper Craft Activity 
+	- 
+http://cl.exct.net/?qs=f46bdb95662fe5ae8acf9a9bdd9549e496179062356f7cdd20dc4200a771d20d6902d0dcd13a10a127bd8fc91dffd77e 
+SOLIDWORKS Apps for Kids Wins Editor’s Choice Award at NYC Maker Faire 
+We appreciate your willingness to create, invent and shape the future of this product! 
+
+Don’t forget to 
+http://cl.exct.net/?qs=f46bdb95662fe5aee301c59368532ba5966231e6e6a106c88dd63b0c828e0bfbb801871171fe8f40e629f6cf6359aeb5 
+login to your account , and see who likes your models, and riffing your designs! 
+
+Stay up-to-date by following us on Twitter at: @SOLIDWORKSEDU #AppsforKids
+
+ 
+
+Dassault Systemes SolidWorks Corporation
+175 Wyman Street
+Waltham, MA 02451 USA
+Email&#58;
+mailto:solidworks.education@3ds.com 
+solidworks.education@3ds.com 
+
+This is a commercial email to promote the products and services of Dassault Systemes SolidWorks Corporation. We respect your right to privacy. See our 
+http://cl.exct.net/?qs=f46bdb95662fe5aef3c626a82cb257619f7453b3a3c3a023cbb61e2ca27be0c52dc32dfb07a95a9598de8f9b03553320 
+privacy policy for more information.
+
+To change the types of communications you receive&#44; or to discontinue receiving email from Dassault Systemes SolidWorks Corporation&#44; please use this link&#58; 
+http://cl.exct.net/?qs=f46bdb95662fe5ae9ac9a628809a15b7445a983805ce1a2d10633300d98686b77e2eb8d08c64d8808e26d7a5d61e7487 
+http://cl.exct.net/?qs=f46bdb95662fe5ae541a46d740a07e64aa03528ee18d4501d1ad6dc53f9a815b826f05a37a1fc5a72c3cfe2ad390f033
+
+
+(c) Copyright 2018 Dassault Systemes SolidWorks Corporation. All rights reserved.
+
+
+
+--cPfRGW5iPPSM=_?:
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+<style type="text/css">
+.body-bold {
+ font-weight: bold;
+}
+</style>
+<body>
+<style type="text/css">
+a:link {
+ color: #005686;;
+ text-decoration: underline;
+}
+a:visited {
+ text-decoration: none;
+ color: #da291c;
+}
+a:hover {
+ text-decoration: underline;
+ color: #da291c;
+}
+a:active {
+ text-decoration: none;
+ color: #da291c;
+}
+</style>
+
+<table align="center" width="700" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="3" style= "padding-left:0px; padding-top:17px; padding-bottom:5px;"><img src="http://files.solidworks.com/images/SWA4K/3DS_2016_SWK_ProductLockup_AppsForKids_Horz.jpg" width="300" height="43" alt="SolidWorks Apps for Kids"></td></tr>
+
+<!--note that the header should include what department it's coming from and a quick-reference title. Example: MIS Maintenance Bulletin-->
+
+<tr>
+  <td colspan="3" height="10px"></td>
+</tr>
+<tr><td colspan="3" height="10px"><a href="http://cl.exct.net/?qs=f46bdb95662fe5aee301c59368532ba5966231e6e6a106c88dd63b0c828e0bfbb801871171fe8f40e629f6cf6359aeb5" target="_blank"><img src="http://files.solidworks.com/images/SWA4K/AppsForKids_DreamIt-CreateIt_email_Image.jpg" align="center" width="700" height="328" alt="SolidWorks Apps for Kids"></a></td></tr>
+<tr>
+  <td colspan="3" height="10px"></td>
+</tr>
+<tr>
+  <td colspan="3" height="10px"></td>
+</tr><tr>
+<td colspan="3" valign="top" style="padding-left:5px;"><p style="font-family:Verdana, Geneva, sans-serif; font-size:14px; color: #666">
+<span style="font-size:18px; font-weight:bold; color:#005686;"> What's been <em>your</em> latest creation? <br>
+Login to Apps for Kids and check out all the newest creations!
+<br> </span></p>
+  <p style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;">It’s hard to believe it’s been two years since we released SOLIDWORKS Apps for Kids. We are happy to say we have over 12,000 registered users, and over 61,000 models created! While we have several new apps in development, our focus is to refine our five present apps, Capture It, Shape It, Style It, Mech It, and Print It. Your feedback is valuable and continues to help us improve the product and make for a better overall experience. </p>
+  <p style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;"><strong><a href="http://cl.exct.net/?qs=f46bdb95662fe5aee301c59368532ba5966231e6e6a106c88dd63b0c828e0bfbb801871171fe8f40e629f6cf6359aeb5" target="_blank">Log in now</a> to check out some of the cool things our team has been up to!</strong> </p>
+<ul style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;">
+<li>Under our help videos watch our new video on how you can print in 3D and 2D with Print It</li>
+
+ <li>New scenes in Style It </li>
+
+<li>Create your own stickers using Capture It</li></ul>
+     
+ <p style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;"><strong>Read our latest Apps for Kids blogs:  </strong> </p>
+<ul style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;">
+<li><a href="http://cl.exct.net/?qs=f46bdb95662fe5aedc9a4a413b5a216ea2fb6df316eb9a434a0f52aef3d3da1eae61f21e86e504536b45a8ecc02e716a" target="_blank">Students from Olin College and the Apps for Kids Team Host Paper Craft Activity</a></li>
+
+<li><a href="http://cl.exct.net/?qs=f46bdb95662fe5ae8acf9a9bdd9549e496179062356f7cdd20dc4200a771d20d6902d0dcd13a10a127bd8fc91dffd77e" target="_blank">SOLIDWORKS Apps for Kids Wins Editor’s Choice Award at NYC Maker Faire</a></li></ul>
+<p style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;">We appreciate your willingness to create, invent and shape the future of this product! </p>
+
+<p style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;">Don’t forget to <a href="http://cl.exct.net/?qs=f46bdb95662fe5aee301c59368532ba5966231e6e6a106c88dd63b0c828e0bfbb801871171fe8f40e629f6cf6359aeb5" target="_blank">login to your account</a>, and see who likes your models, and riffing your designs! </p>
+<p style="font-family:Verdana, Geneva, sans-serif; font-size:12px; color: #666;">Stay up-to-date by following us on Twitter at: @SOLIDWORKSEDU #AppsforKids</p><br>
+
+</td></tr>
+<tr><td><table width="700" border="0" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC" align="center"><tr><td height="15" colspan="2"></td></tr><tr><td valign="center"><table width="100%" border="0" cellspacing="0" cellpadding="0"> <tr> <td align="left">&nbsp;</td> <td><img src="http://files.solidworks.com/images/Brand%20Redesign/SolidWorks_Logotype_RGB_Red_30pxH.png" width="161" height="30" align="right"></td> </tr></table></td></tr><tr><td height="15" colspan="2"></td></tr><tr><td colspan="2" height="5px"><img src="http://files.solidworks.com/images/BottomRedRule.jpg" width="700" height="5"></td></tr><tr><td height="10"></td></tr><tr><td id="verticalCell"><table><tr>
+<td width="200px" height="150" style="padding-left:8px"><img src="http://files.solidworks.com/images/3DS_Logotype_RGB_BlueSteel_Footer.png" width="200" height="150"></td><td width="440px" id="verticalCell"><p style="font-size:9px;font-family:Arial,sans-serif;color:#999"><strong>Dassault Syst&#232;mes SolidWorks Corporation</strong><br>175 Wyman Street<br>Waltham, MA 02451 USA<br>Email&#58;<a href="mailto:solidworks.education@3ds.com" style="font-family:Arial,sans-serif;font-weight:bold;color:#999999">solidworks.education@3ds.com</a><br>
+<br>This is a commercial email to promote the products and services of Dassault Syst&#232;mes SolidWorks Corporation. We respect your right to privacy. See our <a href="http://cl.exct.net/?qs=f46bdb95662fe5aef3c626a82cb257619f7453b3a3c3a023cbb61e2ca27be0c52dc32dfb07a95a9598de8f9b03553320" style="font-family:Arial,sans-serif;color:#999"><strong>privacy policy</strong></a> for more information.<br><br>To change the types of communications you receive&#44; or to discontinue receiving email from Dassault Syst&#232;mes SolidWorks Corporation&#44; please use this link&#58; <a href="http://cl.exct.net/?qs=f46bdb95662fe5ae9ac9a628809a15b7445a983805ce1a2d10633300d98686b77e2eb8d08c64d8808e26d7a5d61e7487" style="font-family:Arial,sans-serif;color:#999"><strong>http://www.solidworks.com/preferences/</strong></a>.<br><br>
+&copy; Copyright 2018 Dassault Syst&#232;mes SolidWorks Corporation. All rights reserved.</p></td></tr></table></td></tr></table></td></tr></table></body><img src="https://cl.exct.net/open.aspx?ffcb10-fe611070746c027a7114-fdbf1577746706797d10757c60-fefe1673726005-fe5d1579746d07797016-fe23177670620d7b771774-ffcf14" width="1" height="1"></html>
+
+--cPfRGW5iPPSM=_?:--
+
