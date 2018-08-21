@@ -5,20 +5,22 @@ alias claer='clear'
 alias mkdir='mkdir -pv'
 alias histg='history | grep'
 alias top='atop'
-alias reboot='shutdown -r'
+alias reboot='shutdown --no-wall -r'
+alias shutdown='shutdown --no-wall'
 alias df='df -Tha --total'
 alias fhere='find . -name'
 alias less='/usr/share/vim/vim80/macros/less.sh'
-
+alias vi='vim'
 
 # Navigation
 alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
-alias soap='cd /srv/http/tempo/app/Helpers/SoapUI'
-alias game='cd ~/myProjects/pathToGameDevelopment/C/'
+alias wmaker='cd /usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new'
+alias ldc='cd ~/Documents/ldcad_parser'
+alias server='php /srv/http/mbms-server/artisan serve'
 
-
+alias x='xrandr --output DP-1 --off && xrandr --output DP-1 --mode 1280x1024'
 # Dictionary
 alias def='sdcv -c'
 
@@ -29,8 +31,8 @@ alias yaourt='yaourt --noconfirm'
 alias wget='wget -c'
 alias search='firefox --search &'
 
-# Resizing tmux 
-alias takeover='tmux detach -a'
+# Resizing tmux
+# alias takeover='tmux detach -a'
 
 # Offline arch wiki
 alias doc='firefox /usr/share/doc/arch-wiki/html/en/'

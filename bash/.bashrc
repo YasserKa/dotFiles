@@ -1,6 +1,8 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # NOTE THAT IN ARCH THIS IS  WRONG :: see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+#disable bell
+xset -b
 
 # Commands to be executed before the prompt is displayed
 # Save current working dir
@@ -14,6 +16,10 @@ PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoredups:ignorespace
+export BROWSER=/usr/bin/firefox
+# Make firefox default browser
+xdg-mime default firefox.desktop x-scheme-handler/http
+xdg-mime default firefox.desktop x-scheme-handler/https
 
 #append to the history file, don't overwrite it
 shopt -s histappend
@@ -41,15 +47,13 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # the prompt information
-export PS1="[\w]\$" 
+export PS1="[\w]\$"
 
 export EDITOR=vim
 export VISUAL=vim
 set -o vi
 
-
 export PATH=$PATH:$HOME/bin
-
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -62,7 +66,6 @@ color_prompt=yes
 #force_color_prompt=yes
 
         PS1='\[\033[0;36m\] \W\[\033[34m\] \$\[\033[33m\] '
-unset color_prompt force_color_prompt
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -96,14 +99,13 @@ alias wget='wget -c'
 ## set some other defaults ##
 alias df='df -Tha --total'
 alias du='du -ach | sort -h'
-alias takeover='tmux detach -a'  
+alias takeover='tmux detach -a'
 # top is atop, just like vi is vim
 alias top='atop'
 alias ..='cd ..'
 alias fhere='find . -name'
 alias df='pydf'
 alias myip='curl http://ipecho.net/plain; echo'
-
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -124,14 +126,16 @@ if [ -x /usr/bin/mint-fortune ]; then
      /usr/bin/mint-fortune
 fi
 
-#[ -z "$TMUX" ] && export TERM=xterm-255color                              
-                                                                             
-export EDITOR=vim                                                           
+#[ -z "$TMUX" ] && export TERM=xterm-255color
 
+export EDITOR=vim
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > ~/.ssh-agent-thing
-fi
-if [[ "$SSH_AGENT_PID" == "" ]]; then
-    eval "$(<~/.ssh-agent-thing)"
-fi
+#if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+#    ssh-agent > ~/.ssh-agent-thing
+#fi
+#if [[ "$SSH_AGENT_PID" == "" ]]; then
+#    eval "$(<~/.ssh-agent-thing)"
+#fi
+
+#resize the terminal
+# xdotool keydown 66 key 20 keyup 66
