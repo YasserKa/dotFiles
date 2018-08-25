@@ -1,181 +1,3 @@
-ls public_html/assets/parts/obj/
-c
-ls public_html/assets/parts/obj/
-c
-ls
-rm public_html/assets/parts/obj/*.json -R
-c
-ls public_html/assets/parts/obj/
-c
-vim config.php 
-ls public_html/assets/parts/obj/
-c
-vim config.php 
-cd public_html/assets/parts/icons/
-ls
-..
-ls
-ls obj/
-ls icons/
-chmod 777 icons/* -R
-sudo chmod 777 icons/* -R
-c
-wmaker
-vim config.php 
-c
-vim config.php 
-cd backend/
-ls
-rm Dump20180723/ -R
-c
-ls
-cd ..
-vim config.php 
-..
-vim wp-config
-vim wp-config.php 
-c
-ls ~/
-wmaker
-mv ~/dumps/Dump20180724/ backend/
-c
-shutdown
-x
-wmaker
-cd public_html/assets/parts/
-l
-ls
-ls config/
-pwd
-wmaker
-ls
-cd public_html/assets/parts/
-ls
-vim tset.php
-vim test.php
-cd ..
-ls
-ls icons/
-ls
-ls ~/parts/
-ls ~/parts/icons/
-cd ..
-ls
-cd assets/
-mv ~/parts/ .
-mv icons/ icons1
-c
-ls
-mv icons1/ ~/icons
-mv parts/ ~/parts
-mkdir parts
-cd parts/
-ls
-vim test.php
-rm test.php 
-mv ~/parts/* .
-c
-sudo pacman -R standardnotes-desktop
-c
-cd ..
-mv parts/ ~/parts
-c
-ls
-ls ~
-c
-ls
-ls parts/
-ls ~
-cd ~/parts/
-ls
-cd ..
-ls
-rm parts/ -R
-ls
-c
-ls
-ls makerbrane
-rm makerbrane -R
-sudo rm makerbrane -R
-c
-ls
-rm makerbrane-makerspace-new/ -R
-ls
-c
-ls
-ls Public/
-ls refPoints/
-c
-ls
-rm refPoints/ -R
-c
-ls
-ls wp-content/
-rm wp-content/ -R
-ls
-ls Videos/
-rm Videos/* -R
-c
-ls
-c
-ls Desktop/
-c
-cd Desktop/
-ls
-rm Untitled\ Document\ 1 Yasser_Kaddoura.xlsx 
-c
-ls
-cd ~
-ls
-ls icons/
-rm icons/ -R
-ls
-c
-ls
-ls package-query/
-rm package-query/ -R
-sudo rm package-query/ -R
-c
-ls
-ls Standard\ Notes\ Backups/
-rm Standard\ Notes\ Backups/
-rm Standard\ Notes\ Backups/ -R
-c
-ls
-c
-ls
-c
-ls
-stan
-c
-ls
-c
-ls
-ls Pictures/
-c
-ls
-ls Obj/
-ls Obj/ | wc
-mv Obj/ neededLdraw
-c
-ls
-mkdir PARTS
-mv neededLdraw/ PARTS/
-c
-ls
-mv Desktop/Obj.zip PARTS/
-c
-ls
-ldc
-ls
-ls Obj/ | wc
-ls MostCommonParts/ | wc
-mv MostCommonParts/ mostCommonVex
-mv mostCommonVex/ ~/PARTS/
-c
-ls
-mv Obj/ ~/VEX
-c
 ls
 ls
 mkdir VexObjFiles
@@ -2068,3 +1890,238 @@ git push origin master
 ls
 vim ~/.bash_aliases 
 note edit archInstall
+cd ..
+ls
+rm .claws-mail/ -R
+ls
+mv .claws-mail/ dotfiles/general/
+rm .claws-mail/ -R
+mv .claws-mail/ dotfiles/general/
+cd dotfiles/
+ls
+git status
+git add .
+git commit -m "adding claws-mail"
+git push origin master
+
+transset-df 
+cd ~
+cd /
+cd home/
+ls
+ll
+cd ..
+ll
+cd ~/.config/
+ls
+whois yasser
+whoami 
+vim /etc/sudoers
+sudo vim /etc/sudoers
+l
+ls
+cd ..
+ls
+mv .claws-mail/ dotfiles/general/
+stow dotfiles/general/
+cd dotfiles/
+stow general/
+ls
+mv general/.claws-mail/ ..
+rm ../.claws-mail/ -R
+mv general/.claws-mail/ ~
+rm ../.claws-mail -R
+mv general/.claws-mail/ ~
+cd general/
+cd ..
+stow general/
+mv general/.claws-mail/ ~
+stow general/.claws-mail/
+stow general/
+pacman -Qii
+yaourt pkgbrowser
+pkgbrowser 
+yaourt spotifyd
+spotify 
+yaourt spotifyd
+c
+p
+vim test
+uname -a
+lspci -v | grep -i graphic*
+sudo pacman -S mesa
+sudo vim /etc/modprobe.d/i915.conf
+dmesg
+lspci -v | grep -i graphic*
+sudo vim /etc/X11/xorg.conf/20-intel.conf
+sudo pacman -S vulkan-intel
+sudo vim /etc/drirc
+sudo vim /etc/X11/xorg.conf/20-intel.conf
+cd /etc/X11/
+cd xorg.conf
+cd xorg.conf.d/
+ls
+vim 20-intel.conf
+sudo vim 20-intel.conf
+sudo pacman xorg-server
+sudo pacman -S xorg-server
+lspci | grep -e VGA -e 3D
+sudo pacman -S xf86-video-intel
+c
+ls /etc/modprobe.d/
+ls /user/lib/modprobe.d/
+modinfo -p i915
+reboot
+sudo pacman -Syu
+sudo pacman -S mesa
+sudo vim /etc/X11/xorg.conf.d/20-intel.conf
+reboot
+modinfo -p i915
+vim /etc/modprobe.d/i915.conf 
+sudo vim /etc/modprobe.d/i915.conf 
+sudo vim /etc/X11/xorg.conf.d/20-intel.conf 
+reboot
+sudo pacman modesetting
+sudo pacman -S modesetting
+sudo pacman -S xf86-video-intel
+sudo vim /etc/X11/xorg.conf.d/20-intel.conf 
+sytool -m i915 -av
+systool -m i915 -av
+cd
+ls
+vim /etc/X11/xorg.conf.d/20-intel.conf 
+sudo vim /etc/X11/xorg.conf.d/20-intel.conf 
+logout
+exit
+reboot
+vim /etc/X11/xorg.conf.d/20-intel.conf 
+shutdown
+x
+reboot
+rm templates/parts/grid-item.phtml 
+c
+ls public_html/assets/libraries/
+cd public_html/assets/
+ls
+cd styles/
+ls
+vim main.css
+ls modules/
+vim modules/base.
+vim modules/base.css
+ls
+ls vendor/
+ls modules/
+ls partials/
+vim main.scss 
+ls
+cd ..
+ls
+cd css/
+ls
+vim main.css
+YcmToggleLogs ycmd_33595_sderr_fco16j2f.log
+ls
+cd ~/.vim
+ls
+cd bundle/
+ls
+cd Editing/
+lls
+ls
+cd YouCompleteMe/
+git pull
+sudo pacman -S python
+ln /lib/libpython3.7m.so.1.0 /lib/libpython3.6.so.1.0
+sudo ln /lib/libpython3.7m.so.1.0 /lib/libpython3.6.so.1.0
+mv /lib/libpython3.6.so.1.0 /lib/libpython3.6m.so.1.0
+sudo mv /lib/libpython3.6.so.1.0 /lib/libpython3.6m.so.1.0
+vim config.php 
+c
+vim config.php 
+shutdown
+ls
+cd public_html/assets/
+ls
+ls css/
+reboot
+vim config.php 
+wmaker
+vim config.php 
+ls
+cd backend/
+ls
+cd ..
+ls
+ls public_html/
+cd public_html/
+ls
+mv recipeViewer.php modelViewer.php
+c
+cd ~/.vimrc 
+ls
+cd ~/.vim
+ls
+cd bundle/
+ls
+ls Editing/
+cd Editing/
+ls
+cd syntastic/
+ls
+git pull
+c
+ls
+cd ~/.vim
+ls
+cd bundle/Editing/
+ls
+cd ..
+ls
+cd javascript-libraries-syntax.vim/
+ls
+vim ~/.vimrc 
+ls
+vim ~/.vimrc 
+vim ~/.yarn
+vim ~/.yarnrc 
+vim ~/.tern-config 
+c
+ls
+cd ..
+ls
+mv javascript-libraries-syntax.vim/ ..
+ls
+mv vim-javascript/ ..
+ls
+cd ..
+ls
+rm javascript-libraries-syntax.vim/ -R
+sudo rm javascript-libraries-syntax.vim/ -R
+rm vim-javascript/ -R
+sudo rm vim-javascript/ -R
+c
+ls
+vim ~/.vimrc 
+vim .
+vim test.js
+vim test.js 
+jshint 
+l
+ls
+rm test.js 
+c
+cd ~
+vim test.js
+wmaker
+vim config.php 
+shutdown
+cd /usr/
+ls
+ll
+cd share/
+ls
+;;
+cd webapps/
+ll
+ll wordpress/

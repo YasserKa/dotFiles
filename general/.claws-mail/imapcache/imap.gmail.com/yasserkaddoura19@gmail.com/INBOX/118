@@ -1,0 +1,639 @@
+Delivered-To: yasserkaddoura19@gmail.com
+Received: by 2002:a1f:9103:0:0:0:0:0 with SMTP id t3-v6csp2454835vkd;
+        Fri, 24 Aug 2018 08:40:31 -0700 (PDT)
+X-Received: by 2002:aca:4784:: with SMTP id u126-v6mr1985526oia.229.1535125231322;
+        Fri, 24 Aug 2018 08:40:31 -0700 (PDT)
+ARC-Seal: i=2; a=rsa-sha256; t=1535125231; cv=pass;
+        d=google.com; s=arc-20160816;
+        b=nztiBJ9+eDRVg3MrrWv3c2RQaW8/LzYQ6j+GeOeeiXMin+LqlMulvWGlRf31qNy+we
+         7S9uaURinjcH56zhbzxBSim8bz4tNRpBK7YsgdSf2DCiz9iNp3PXTxm6kH6/ubhFDGAg
+         j4aUYYLAPVXIKlQJwA5K+FudsyDY+M4oFQujlkULzgrkzaTQroAje75s1jkgxcif5l4u
+         T7l7N1yzsz9l1VT7HlnbJdRnVd0BJheY+X4VzFDOqRNQjTvUaO/80a0kEt75TSQl2itq
+         v0YkP3e3NignslMaHtNy4pLAjMzHEOhfXG8IcUPMFyWdQ/gC6ks1e2/5uW8s7jhGEJzL
+         32dA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=affinity:tenantheader:message-id:mime-version:reply-to:to:subject
+         :date:from:domainkey-signature:dkim-signature
+         :arc-authentication-results:arc-message-signature:delivered-to
+         :arc-authentication-results;
+        bh=5JvhtNVvdIV2f+SJ/cXsSTqXZdQxcu3Ux9U06fqgXsc=;
+        b=ZdIPGr0OSZ4gG8PhxSROY49PrsnT4VriTwRe9qKYijPwVn1FFl4K7ds27CyrA1YJJo
+         uSCo/phbMjB67FNeZUbRNd/vZfvy3yW3I3V1E/au9QaT7ZhbEl4MPCl601V/8GsvlR+W
+         5M1fASnJ7QLS67q05RToIy5mFnOKsUsN3YWt3d5WMeWGYn2WbafIIS4WjfYVaLTtxCaT
+         DAhKv70X0LPj7qSW+sq3nTvjoiJW3laJFjBQ+A3imPfp2FCTmJbQR17jlNGpbruschsy
+         iZs9VuGYv44xaDdqumFK3GPbeNXDTL8pPY+j4lHJyTaWcQ1C+aOxuAM/TtEgLGwINecF
+         +O5g==
+ARC-Authentication-Results: i=2; mx.google.com;
+       dkim=pass header.i=@info.adobesystems.com header.s=neolane2 header.b=qUdxwiip;
+       arc=pass (i=1 spf=pass spfdomain=info.adobesystems.com dkim=pass dkdomain=info.adobesystems.com dmarc=pass fromdomain=info.adobesystems.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=info.adobesystems.com
+Return-Path: <yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id i5-v6sor5501613oiy.33.2018.08.24.08.40.31
+        for <yasserkaddoura19@gmail.com>
+        (Google Transport Security);
+        Fri, 24 Aug 2018 08:40:31 -0700 (PDT)
+Received-SPF: pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@info.adobesystems.com header.s=neolane2 header.b=qUdxwiip;
+       arc=pass (i=1 spf=pass spfdomain=info.adobesystems.com dkim=pass dkdomain=info.adobesystems.com dmarc=pass fromdomain=info.adobesystems.com);
+       spf=pass (google.com: domain of yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom="yasserkaddouralearn+caf_=yasserkaddoura19=gmail.com@gmail.com";
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=info.adobesystems.com
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:delivered-to:dkim-signature:domainkey-signature
+         :from:date:subject:to:reply-to:mime-version:message-id:tenantheader
+         :affinity;
+        bh=5JvhtNVvdIV2f+SJ/cXsSTqXZdQxcu3Ux9U06fqgXsc=;
+        b=JcJOO3VhKMBlIPMP+3+pWP17XrGJ8pb/HOE3vcjN7LSpsGCyQw9Q0b9IYePcM4lxes
+         DZmvqF21ga7YS6CfxCa8EGnx+AfsPSubGU1PCxSWebYDBRBmvYazN1rrIsMD4s62Ga8y
+         RGjeOoY74Fmn8jKbAbSryVrxBgEX+cg6YSuivzyQ7m99vfrVf55ylWYl1EsHOej7+FlK
+         FE/lB0xUA9iCpgg9pL9/uy1rtHyn7AE1tf5+frn4tEtQdArzLRJ4SFfD1cyxVeEust/7
+         WURFwAxnTIIlooKRU4KurSI+YUGTaRAiwSYdXH1eTVtF6TCXSasU9b+jG4I/u58rE7mJ
+         c2RA==
+X-Gm-Message-State: APzg51BHDHhp1BQl+wOpjyAdRP0O8+mdanIEfCkeA1XBqIlpT7xUaI9i
+	1e7HvVmSDnVJ1oI+yVjoDMB9x7YnivoAmF0gBKk8mcdocm626mU=
+X-Received: by 2002:aca:c00b:: with SMTP id q11-v6mr1809520oif.330.1535125230764;
+        Fri, 24 Aug 2018 08:40:30 -0700 (PDT)
+X-Forwarded-To: yasserkaddoura19@gmail.com
+X-Forwarded-For: yasserkaddouralearn@gmail.com yasserkaddoura19@gmail.com
+Delivered-To: yasserkaddouralearn@gmail.com
+Received: by 2002:a8a:b46:0:0:0:0:0 with SMTP id i6-v6csp2680320ocv;
+        Fri, 24 Aug 2018 08:40:29 -0700 (PDT)
+X-Google-Smtp-Source: ANB0VdbMAD9Yn/em2wKQFsh7hW1IkZqPfNMGSA5jSOcAE+ITfArk6ycwQcyVuJeWRzxjtCyGER4m
+X-Received: by 2002:a1c:6646:: with SMTP id a67-v6mr1778667wmc.157.1535125229309;
+        Fri, 24 Aug 2018 08:40:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1535125229; cv=none;
+        d=google.com; s=arc-20160816;
+        b=sCWZPwNS/OSWguJ5YdN6Q4JmeBgA2t8yNhiInRgwQh/5pZ6DuEk0dtt6XfQhYKV0Vp
+         u1tt0g/HoX36APIYuJR7DUC91PMb5Ib5bYV2Cdx1XWw2SyIGth2hOVU4dCB4CBKAVG9e
+         phqYXcykR/V76PilrxEM/zqQigiuQd2zeeoSBEkNvd8ySq0qF20mpBhiCHSNJ3s323JW
+         Q58NA206SBrOd4vxUeH9G0uK01lS50ekA5srGq/WsQvGu7/Y3HhGmR2dvYhSYGBEuQsX
+         +nORow3FrR3yHzHAWmmdBSEUbRDAJXdsgUoYWnAD7FlKQC4zeppVrhP701Lt5/lVj4L9
+         Bybw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=affinity:tenantheader:message-id:mime-version:reply-to:to:subject
+         :date:from:domainkey-signature:dkim-signature
+         :arc-authentication-results;
+        bh=5JvhtNVvdIV2f+SJ/cXsSTqXZdQxcu3Ux9U06fqgXsc=;
+        b=fKC2jnzuTmmUaN4I4HviKQv0FB1sodduYqOVVH+PMxgO+6PTnA+AWMh6bFKGgrqpIf
+         fm4Nt+aaJ9F00JO7eY7hZYfdD2idZwgWzO/cl8R6128VVxQLsYXfIxfq8v5bqg3aOJZU
+         tCZ0qDDsRw+qE6b/cDpA8K78vRFltoIUH9NAhG+yqqOzdPyyz3LII3GRmIml6gLEfdxk
+         k/WwoTLosMwRn23okIhlVP/iB/UAlCtOTOcNXtZTvIDTLROLSWfjtXiRl1zy5BNPWQl7
+         hfYgShOjheVEMhi0SGqX9IgRwIjfMuHrfCm1BoAr+eawrE0S7yVbHuNr8VsS7xY1vIkj
+         lopA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@info.adobesystems.com header.s=neolane2 header.b=qUdxwiip;
+       spf=pass (google.com: domain of adobeemea@info.adobesystems.com designates 66.117.17.52 as permitted sender) smtp.mailfrom=adobeemea@info.adobesystems.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=info.adobesystems.com
+Return-Path: <adobeemea@info.adobesystems.com>
+Received: from r52.p26.neolane.net (r52.info.adobesystems.com. [66.117.17.52])
+        by mx.google.com with ESMTPS id e6-v6si5568244wrt.347.2018.08.24.08.40.28
+        for <yasserkaddouralearn@gmail.com>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 24 Aug 2018 08:40:29 -0700 (PDT)
+Received-SPF: pass (google.com: domain of adobeemea@info.adobesystems.com designates 66.117.17.52 as permitted sender) client-ip=66.117.17.52;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	s=neolane2;
+	d=info.adobesystems.com;
+	h=domainkey-signature:from:date:subject:to:reply-to:mime-version:x-mailer:message-id:tenantheader:affinity:content-type;
+	bh=5JvhtNVvdIV2f+SJ/cXsSTqXZdQxcu3Ux9U06fqgXsc=;
+	b=qUdxwiipfZ6qkv3TRp/1gPJT4m7wFwkFKeLUoKJKiJX9NLsLssuvmKwEFkdfpvfAEg5mMut+AGec0goXctBKjz04+64XKMAPYXJAkiTa2N9qHagXGuPsaYp4LI5jWztyGtGWkvGwwqYeS8QXTh95kmMbAOynSXKm420RidoYnfc=
+DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns;
+	s=neolane2;
+	d=info.adobesystems.com;
+	h=From:Date:Subject:To:Reply-To:MIME-Version:X-mailer:Message-ID:TenantHeader:Affinity:Content-Type;
+	b=dnYy/xL8S9ihgvIRyMmWRHwnprtxuZNiRwHYsdyYhVdl0++f5CUsWbcKFyuOunk2Wz+R80GIe/9xRYiJU5dEyeNR97fKAnChz8uOAusQ9BNeX0nhfOe8Py4o2xA4EKawZvA1WyhLwJ/ZsSFqlP3NOBlThvkaMqf+kABxyEwCV4s=
+From: "Adobe Creative Cloud" <mail@info.adobesystems.com>
+Date: Fri, 24 Aug 2018 16:39:43 +0100
+Subject: =?windows-1252?Q?Create_more_and_save_more_with_Adobe_Creative_C?=
+ =?windows-1252?Q?loud_=96_now_40%_off?=
+To: <yasserkaddouralearn@gmail.com>
+Reply-To: "Adobe Creative Cloud" <mail@info.adobesystems.com>
+MIME-Version: 1.0
+X-mailer: nlserver, Build 6.7.0
+Message-ID: <NM62B7B229A01B62F46adbeemea_mid@info.adobesystems.com>
+TenantHeader: f2467142-a2f3-4c2f-aad6-f2a81836f587
+Affinity: mid.default
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_685_180F7204.180F7204"
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_685_180F7204.180F7204
+Content-Type: text/plain;
+	charset="windows-1252"
+Content-Transfer-Encoding: 8bit
+
+ 
+
+
+------------------------------------------------------------------------
+
+View web version:
+http://t-info.mail.adobe.com/r/?id=t62bd4da0,9be705bd,9be96a44&p1=%40IBZvyHUvHoQo8LuYtGEohny7vQlr%2FVm11K%2FA08zmAEg%3D
+
+------------------------------------------------------------------------
+
+Unfortunately, your email client cannot display HTML, or your settings
+are turned off. To view this email, please click the link above, or
+copy and paste it into your browser.
+
+------------------------------------------------------------------------
+
+Adobe, the Adobe logo, Creative Cloud, the Creative Cloud logo,
+Lightroom and Photoshop are either registered trademarks or
+trademarks of Adobe Systems Incorporated in the United States
+and/or other countries. All other trademarks are the property of
+their respective owners.
+
+
+This is a marketing email from Adobe Systems Software Ireland Limited,
+4-6 Riverwalk, Citywest Business Park, Dublin 24, Ireland.
+
+Click on the following link to unsubscribe, or send us an unsubscribe 
+request to the postal address above.
+Unsubscribe:
+http://t-info.mail.adobe.com/r/?id=t62bd4da0,9be705bd,9be96a45&p1=yasserkaddouralearn@gmail.com&p2=%40HSTx7H%2FYw0Y61iF0pK8pAaZjlp8cGma3GRMHyilcfXOwgSW%2F0nib4OrDP5FSkidc&p3=&loc=ie
+
+Your privacy is important to us. Please review the Adobe Privacy Policy.
+http://t-info.mail.adobe.com/r/?id=t62bd4da0,9be705bd,9be96a46
+
+To ensure email delivery, add mail@info.adobesystems.com to your 
+address book, contacts or safe sender list.
+
+Please do not reply to this message. To contact Adobe, find options 
+online.
+http://t-info.mail.adobe.com/r/?id=t62bd4da0,9be705bd,9be96a47
+
+Registered office: Adobe Systems Software Ireland Limited,
+4-6 Riverwalk, Citywest Business Park, Dublin 24, Ireland.
+Registered number: 344992
+
+
+
+------=_NextPart_685_180F7204.180F7204
+Content-Type: text/html;
+	charset="windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+  
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml"
+ xmlns:v=3D"urn:schemas-microsoft-com:vml"
+ xmlns:o=3D"urn:schemas-microsoft-com:office:office">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8">
+<title>Create more. Save more with Adobe Creative Cloud.</title>
+
+<!--[if !mso]><!-->
+<style type=3D"text/css" media=3D"screen">
+  @import url("https://use.typekit.net/onr8tbr.css");
+</style>
+<!--<![endif]-->
+
+<style type=3D"text/css">
+
+=2EReadMsgBody { width:100%;}
+=2EExternalClass {width:100%;}
+table {border-collapse:collapse; margin:0 auto;}
+=2EappleLinks a {color:#ffffff; text-decoration:none;}
+=2EappleLinksFooter a {color:#666666; text-decoration:none;}
+
+=2Emobile {border-spacing:0;display:none!important;height:0;max-height:0;ms=
+o-hide:all;overflow:hidden;visibility:hidden;width:0;}
+
+  @media only screen and (max-width:480px){
+    td[class=3D"web"], table[class=3D"web"], div[class=3D"web"], br[class=
+=3D"web"], span[class=3D"web"] {
+       display:none !important;
+       }
+       
+       img, table, td {
+       max-width: 480px !important;
+       min-height: auto !important;
+      }
+     
+     .mobile, td[class=3D"mobile"], table[class=3D"mobile"], img[class=3D"m=
+obile"], div[class=3D"mobile"], tr[class=3D"mobile"] {
+       display:block !important;
+       width:auto !important;
+       overflow:visible !important;
+       height:auto !important;
+       max-height:inherit !important;
+       font-size:15px !important;
+       line-height:20px !important;
+       visibility:visible !important;
+       }
+     
+     table[class=3D"email-width"] {
+       width:90% !important;
+       }
+     
+     td[class=3D"full-width"], table[class=3D"full-width"] {
+       width:100% !important;
+       }
+     
+     table[class=3D"content-width"], td[class=3D"content-width"] {
+       display:block !important;
+       width:100% !important;
+     }
+     
+     table[class=3D"footer-content"], td[class=3D"footer-content"] {
+       clear:both !important;
+       display:block !important;
+       width:auto !important;
+     }
+     
+     td[class=3D"mobile-spacer"], table[class=3D"mobile-spacer"] {
+       width:18px !important;
+       }
+     
+     img[class=3D"mobile-image"] {
+       display:inline-block !important;
+       height:auto !important;
+       max-height:inherit !important;
+       overflow:visible !important;
+       visibility:visible !important;
+       width:100% !important;
+       }
+     
+     a[class=3D"button"] {
+       width:100% !important;
+     }
+     
+     .header, div[class=3D"header"] {
+       font-size:16px !important;
+       line-height:22px !important;
+     }
+     
+     .headline, div[class=3D"headline"] {
+       font-size:26px !important;
+       line-height:28px !important;
+     }
+     
+     td[class=3D"mobile-text"], table[class=3D"mobile-text"] {
+       font-size:16px !important;
+       line-height:22px !important;
+       color: #ffffff !important;
+       font-weight:300 !important;
+       }
+     
+     td[class=3D"txt-lg"] {
+       font-size:17px !important;
+       line-height:21px !important;
+       }
+     
+     .txt-ctr, td[class=3D"txt-ctr"] {
+       text-align:center !important;
+       }
+     
+     img[class=3D"social"] {
+       height:28px !important;
+       width:28px !important;
+     }
+     
+     td[class=3D"social-spacer"] {
+       width:15px !important;
+     }
+  }
+</style>
+
+<!--[if gte mso 9]>
+  <style type=3D"text/css">
+    a.underline {
+     text-decoration: underline !important;    
+    }
+  </style>
+<![endif]-->
+
+<!--[if gte mso 9]><xml>
+  <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+  <o:PixelsPerInch>96</o:PixelsPerInch>
+  </o:OfficeDocumentSettings>
+</xml><![endif]-->
+</head>
+
+<body bgcolor=3D"#262626" style=3D"background-color:#262626; margin:0; padd=
+ing:0;width:100% !important;-webkit-text-size-adjust:none;" topmargin=3D"0"=
+>
+
+<table width=3D"100%" bgcolor=3D"#262626" style=3D"background-color:#262626=
+;" border=3D"0" cellpadding=3D"0" cellspacing=3D"0">
+  <tr>
+    <td>
+      <table bgcolor=3D"#262626" style=3D"background-color:#262626;" align=
+=3D"center" width=3D"600" border=3D"0" cellpadding=3D"0" cellspacing=3D"0">
+        <tr>
+          <td bgcolor=3D"#000000" style=3D"background-color: #00000;">
+          <!-- BEGIN email content --> 
+          
+            <!-- pre-header -->
+            <table bgcolor=3D"#262626" style=3D"background-color: #262626;"=
+ align=3D"center" width=3D"600" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0">
+              <tr>
+                <td align=3D"center" class=3D"content" style=3D"display:non=
+e !important; visibility:hidden; mso-hide:all; font-size:1px; color:#ffffff=
+; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidde=
+n;">
+                  Take advantage of Adobe=92s limited-time offer to get wor=
+ld-class design tools at an incredible price.
+                </td>
+              </tr>
+            </table>
+            
+            
+            <table class=3D"full-width" align=3D"center" width=3D"600" bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#262626" style=3D"b=
+ackground-color:#262626; width: 600px;">
+              <tr>
+                <td class=3D"web" align=3D"right" style=3D"color:#999999; f=
+ont-family: adobe-clean, Arial, Helvetica, sans-serif; font-size:11px; line=
+-height:13px; padding-top:12px; padding-bottom:9px;"><a href=3D"http://t-in=
+fo.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be9694f&p1=3D%40IBZvyHUvHoQ=
+o8LuYtGEohny7vQlr%2FVm11K%2FA08zmAEg%3D" _label=3D"Mirror Page" _type=3D"mi=
+rrorPage" alias=3D"Read Online" target=3D"_blank" style=3D"color:#2b9af3; t=
+ext-decoration:none">Read&nbsp;online</a></td>
+              </tr>
+            </table>
+
+            <!-- marquee desktop -->
+            <table class=3D"web" align=3D"center" width=3D"600" border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#666666" style=3D"backgrou=
+nd-color:#666666;">
+              <tr>
+                <td class=3D"web" valign=3D"top" style=3D"color:#ffffff; fo=
+nt-family:Arial, Helvetica, sans-serif; font-size:20px; line-height:24px;">=
+<a href=3D"http://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be969=
+50" target=3D"_blank" style=3D"color:#2b9af3;"><img alt=3D"There=92s still =
+time to save 40% on Adobe Creative Cloud." src=3D"https://landing.adobe.com=
+/dam/ags/2018/cci_promo_em1/masthead-600x340.jpg" width=3D"600" height=3D"3=
+40" border=3D"0" hspace=3D"0" vspace=3D"0" style=3D"color:#ffffff; font-fam=
+ily:Arial, Helvetica, sans-serif; font-size:20px; line-height:24px; display=
+:block; vertical-align:top;"></a></td>
+              </tr>
+            </table>
+            <!-- marquee desktop -->
+            
+            <!-- marquee mobile -->
+            <div class=3D"mobile" style=3D"display:none;float:none;height:0=
+;max-height:0;overflow:hidden;width:0;">
+              <table class=3D"mobile full-width" align=3D"center" width=3D"=
+100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#000000" =
+style=3D"background-color:#000000; display:none;height:0;max-height:0;overf=
+low:hidden;visibility:hidden;width:0;">
+                <tr>
+                  <td class=3D"mobile" style=3D"color:#ffffff; font-family:=
+Arial, Helvetica, sans-serif; font-size:20px; line-height:24px; overflow:hi=
+dden;display:none;visibility:hidden;width:0;"><div class=3D"mobile" style=
+=3D"display:none;float:none;height:0;max-height:0;overflow:hidden;width:0;"=
+><a href=3D"http://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be96=
+951"><img class=3D"mobile-image" alt=3D"There=92s still time to save 40% on=
+ Adobe Creative Cloud." src=3D"https://landing.adobe.com/dam/ags/2018/cci_p=
+romo_em1/masthead-296x300.jpg" width=3D"100%" height=3D"auto" border=3D"0" =
+hspace=3D"0" vspace=3D"0" style=3D"display:none;max-height:0;overflow:hidde=
+n;vertical-align:top;visibility:hidden;width:0;"></a></div></td>
+                </tr>
+              </table>
+            </div>
+            <!-- END marquee mobile -->
+          
+          <!-- intro -->
+            <table class=3D"web" align=3D"center" width=3D"600" border=3D"0=
+" cellpadding=3D"0" cellspacing=3D"0" style=3D"width: 600px;">
+              <tr>
+                <td width=3D"30" class=3D"mobile-spacer">&nbsp;</td>
+                <td align=3D"center" class=3D"mobile-text" style=3D"color:#=
+ffffff; font-family: adobe-clean, Arial, Helvetica, sans-serif; font-weight=
+: lighter; font-size:28px; line-height:28px; padding-bottom:25px;">
+                  <img class=3D"web" alt=3D"There=92s still time to save 40=
+% on Adobe Creative Cloud." src=3D"http://s7d9.scene7.com/is/image/AdobeDem=
+andCreative/=3Ffmt=3Dpng-alpha&size=3D1042,144&wid=3D521&textAttr=3D170,str=
+ong&resolution=3D200&textPs=3D%7B%5C*%5Ciscolortbl%3Bffffff%3B%5Cfonttbl%7B=
+%5Cf0%20Adobe%20Clean%20Black%3B%7D%7D%5Cf0%5Cfs64%5Csl-560%5Cqc%5Ckerningo=
+ptical%5Ccf1There%E2%80%99s%20still%20time%20to%20save%0340%25%20on%20Adobe=
+%20Creative%20Cloud." width=3D"521" height=3D"74" border=3D"0" hspace=3D"0"=
+ vspace=3D"0" style=3D"width: 521px;">
+                </td>
+                <td width=3D"30" class=3D"mobile-spacer">&nbsp;</td>
+              </tr>
+            </table>
+            
+            <!-- marquee mobile -->
+            <div class=3D"mobile" style=3D"display:none;float:none;height:0=
+;max-height:0;overflow:hidden;width:0;">
+              <table class=3D"mobile full-width" align=3D"center" width=3D"=
+100%" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#000000" =
+style=3D"background-color:#000000; display:none;height:0;max-height:0;overf=
+low:hidden;visibility:hidden;width:0;">
+                <tr>
+                  <td align=3D"center" class=3D"mobile" style=3D"color:#fff=
+fff; font-family:Arial, Helvetica, sans-serif; font-size:20px; line-height:=
+24px; overflow:hidden;display:none;visibility:hidden;width:0;"><div class=
+=3D"mobile" style=3D"display:none;float:none;height:0;max-height:0;overflow=
+:hidden;width:0;"><img class=3D"mobile-image" alt=3D"There=92s still time t=
+o save 40% on Adobe Creative Cloud." 
+                    src=3D"http://s7d9.scene7.com/is/image/AdobeDemandCreat=
+ive/=3Ffmt=3Dpng-alpha&size=3D480,110&wid=3D480&textAttr=3D88,strong&resolu=
+tion=3D200&textPs=3D%7B%5C*%5Ciscolortbl%3Bffffff%3B%5Cfonttbl%7B%5Cf0%20Ad=
+obe%20Clean%20Black%3B%7D%7D%5Cf0%5Cfs64%5Csl-560%5Cqc%5Ckerningoptical%5Cc=
+f1There%E2%80%99s%20still%20time%20to%03save%2040%25%20on%20Adobe%03Creativ=
+e%20Cloud." 
+                    width=3D"100%" height=3D"auto" border=3D"0" hspace=3D"0=
+" vspace=3D"0" style=3D"display:none;max-height:0;overflow:hidden;vertical-=
+align:top;visibility:hidden;width:0;"></a></div></td>
+                </tr>
+              </table>
+            </div>
+            <!-- END marquee mobile -->
+            <table align=3D"center" width=3D"600" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" style=3D"width: 600px;">
+              <tr>
+                <td width=3D"30" class=3D"mobile-spacer">&nbsp;</td>
+                <td align=3D"center" class=3D"mobile-text" style=3D"color:#=
+ffffff; font-family: adobe-clean, Arial, Helvetica, sans-serif; font-weight=
+: lighter; font-size:16px;  line-height:19px; padding-bottom:25px; padding-=
+left: 55px; padding-right: 55px;">
+                  There=92s no end to what you can create with the world-cl=
+ass Adobe Creative Cloud apps. Design posters, brochures and ads, and use o=
+ur mobile apps to sketch, draw and create layouts wherever inspiration&nbsp=
+;strikes.
+                  <br />&nbsp;<br />
+                  If that wasn=92t enough incentive, remember that you can =
+save 40% on your favourite apps with our limited-time&nbsp;offer.
+                  <br />&nbsp;<br />
+                  For only =A330.34 incl. VAT per month, you=92ll get Photo=
+shop, InDesign, Illustrator, Typekit and much&nbsp;more. 
+                  <br />&nbsp;<br />
+                  <span style=3D"font-weight: normal !important;">Don=92t m=
+iss out. Offer valid until 27th August.</span>
+                </td>
+                <td width=3D"30" class=3D"mobile-spacer">&nbsp;</td>
+              </tr>
+            </table>
+            <table align=3D"center" width=3D"600" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0">
+              <tr>
+                <td width=3D"30">&nbsp;</td>
+                <td align=3D"center" valign=3D"middle"   style=3D"color:#66=
+6666; font-family: adobe-clean, Arial, Helvetica, sans-serif; font-size:12p=
+x; line-height:18px; padding-bottom:25px;">
+                
+
+                <div><!--[if mso]>
+                <v:roundrect xmlns:v=3D"urn:schemas-microsoft-com:vml" xmln=
+s:w=3D"urn:schemas-microsoft-com:office:word" href=3D"https://commerce.adob=
+e.com/anyware/checkout/=3FclientId=3Dadobe_com&countryCode=3DGB&languageCod=
+e=3Den&marketSegment=3DCOM&items%5B0%5D%5BofferId%5D=3DA5F9CB0C33A99AEAF650=
+DAC9E28442E4&items%5B0%5D%5Bcs%5D=3D2&trackingid=3DS6XGMTC6&mv=3Demail" sty=
+le=3D"height:45px;v-text-anchor:middle;width:192px;line-height:30px;" arcsi=
+ze=3D"67%" stroke=3D"f" fillcolor=3D"#1473e6">
+                <w:anchorlock/>
+                <center>
+                <![endif]-->
+                <a href=3D"http://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0=
+,9be705bd,9be96952" style=3D"background-color:#1473e6;border-radius:20px;co=
+lor:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font=
+-weight:bold;line-height:30px;text-align:center;text-decoration:none;width:=
+192px;-webkit-text-size-adjust:none;">Buy now</a>
+                <!--[if mso]>
+                </center>
+                </v:roundrect>
+                <![endif]--></div>
+                
+                </td>
+                <td width=3D"30">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor=3D"#262626" style=3D"background-color: #262626;" vali=
+gn=3D"top">
+                <!-- social -->
+                <table class=3D"footer-content" align=3D"right" width=3D"40=
+0" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" bgcolor=3D"#262626" sty=
+le=3D"background-color:#262626; float:right;">
+                <tr>
+                <td align=3D"right" valign=3D"middle" style=3D"color:#99999=
+9; font-family: adobe-clean, Arial, Helvetica, sans-serif; font-size:12px; =
+line-height:12px; padding-top:20px; padding-right:10px;">
+                  Join the conversation
+                </td>
+                <td width=3D"16" style=3D"padding-top:20px;"><a href=3D"htt=
+p://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be96953" alias=3D"y=
+outube" target=3D"_blank"><img alt=3D"youtube" src=3D"https://landing.adobe=
+.com/dam/ags/2018/cci_promo_em1/Youtube-16x16.png" width=3D"16" height=3D"1=
+6" border=3D"0" hspace=3D"0" vspace=3D"0" style=3D"display:block; vertical-=
+align:top;"></a></td>
+                <td  width=3D"10">&nbsp;</td>
+                <td width=3D"16" style=3D"padding-top:20px;"><a href=3D"htt=
+p://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be96954" alias=3D"i=
+nstagram" target=3D"_blank"><img alt=3D"instagram" src=3D"https://landing.a=
+dobe.com/dam/ags/2018/cci_promo_em1/instagram-16x16.png" width=3D"16" heigh=
+t=3D"16" border=3D"0" hspace=3D"0" vspace=3D"0" style=3D"display:block; ver=
+tical-align:top;"></a></td>
+                <td  width=3D"10">&nbsp;</td>
+                <td width=3D"16" style=3D"padding-top:20px;"><a href=3D"htt=
+p://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be96955" alias=3D"F=
+acebook" target=3D"_blank"><img alt=3D"Facebook" src=3D"https://landing.ado=
+be.com/dam/ags/2018/cci_promo_em1/facebook.jpg" width=3D"16" height=3D"16" =
+border=3D"0" hspace=3D"0" vspace=3D"0" style=3D"display:block; vertical-ali=
+gn:top;"></a></td>
+                <td  width=3D"10">&nbsp;</td>
+                <td width=3D"16" style=3D"padding-top:20px;"><a href=3D"htt=
+p://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be96956" alias=3D"T=
+witter" target=3D"_blank"><img alt=3D"Twitter" src=3D"https://landing.adobe=
+.com/dam/ags/2018/cci_promo_em1/twitter.jpg" width=3D"16" height=3D"16" bor=
+der=3D"0" hspace=3D"0" vspace=3D"0" style=3D"display:block; vertical-align:=
+top;"></a></td>
+                <td  width=3D"30">&nbsp;</td>
+              </tr>
+            </table>
+            <!-- END social -->
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor=3D"#262626" style=3D"background-color: #262626;">
+            <table align=3D"center" width=3D"600" border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0">
+              <tr>
+                <td width=3D"30">&nbsp;</td>
+                <td class=3D"edm_Legal-Copy" style=3D"color:#999999; font-f=
+amily: adobe-clean, Arial, Helvetica, sans-serif; font-size:11px; line-heig=
+ht:13px; padding-top:20px; padding-bottom:25px;">*Offer=A0starts on the 20t=
+h of August 2018 and=A0expires on the 27th of August 2018.=A0Offer availabl=
+e=A0to first-time=A0subscribers of Adobe Creative Cloud for Individuals All=
+ Apps=A0and limited to customers who purchase directly from the Adobe Store=
+ or by calling a regional Adobe Call Centre on=A01800 946197.=A0Purchase Ad=
+obe Creative Cloud for Individuals All Apps subscription for =80442.52 / =
+=8036.89. The standard retail price for Creative Cloud for Individuals All =
+Apps is =80737.85 / =8061.49.=A0Limit: one (1) purchase per customer.=A0 Re=
+quires a 12-month subscription.=A0At the end of your offer term, your subsc=
+ription will be automatically=A0renewed and=A0billed at the standard subscr=
+iption rate, unless you elect to change or cancel your subscription.=A0If t=
+he standard subscription rate changes, we will make a reasonable effort to =
+notify you.=A0Offer not available to Education, OEM or volume licensing cus=
+tomers.<br/><br/> 
+General Terms: Valid only for eligible persons who are 18=A0and older. Resi=
+dents or persons in embargoed countries or countries subject to U.S. or loc=
+al export restrictions are not eligible. Offer and prices subject to change=
+ without notice due to unforeseen circumstances. Offer may not be assigned,=
+ exchanged, sold, transferred, combined or redeemed for cash or other goods=
+ and services not expressly stated here as included. Subject to availabilit=
+y where the recipient resides. =A0Additional terms and conditions may apply=
+. VOID WHERE PROHIBITED OR RESTRICTED BY LAW.<br/><br/>
+                  Adobe, the Adobe logo, InDesign, Illustrator, Photoshop a=
+nd Typekit are either registered trademarks or trademarks of Adobe Systems =
+Incorporated in the United States and/or other countries. All other tradema=
+rks are the property of their respective owners.
+                  <p id=3D"reg_foot">This is a marketing email from Adobe S=
+ystems Software Ireland Limited, 4-6&nbsp;Riverwalk, Citywest Business Park=
+, Dublin&nbsp;24, Ireland.<br/><br/>Click here to 
+  <a href=3D"http://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be9=
+6957&p1=3Dyasserkaddouralearn@gmail.com&p2=3D%40HSTx7H%2FYw0Y61iF0pK8pAaZjl=
+p8cGma3GRMHyilcfXOwgSW%2F0nib4OrDP5FSkidc&p3=3D&loc=3Die" _label=3D"Opt-out=
+ link" _type=3D"optout" alias=3D"Unsubscribe" target=3D"_blank" style=3D"te=
+xt-decoration: underline; color: #a1a1a1;">unsubscribe</a>
+ or send an unsubscribe request to the postal address above. Please review =
+the <a href=3D"http://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9b=
+e96958" alias=3D"FOOTER - Privacy" target=3D"_blank" style=3D"color:#a1a1a1=
+;">Adobe&nbsp;Privacy&nbsp;Policy</a>.<br/><br/>
+  To ensure future delivery of email, add <a href=3D"http://t-info.mail.ado=
+be.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be96959" alias=3D"FOOTER - Add to addr=
+ess book" target=3D"_blank" style=3D"color:#a1a1a1;">mail@info.adobesystems=
+.com</a> to your address book, contacts, or safe senders&nbsp;list.<br/><br=
+/>Please do not reply to this message. To contact Adobe, find options <a hr=
+ef=3D"http://t-info.mail.adobe.com/r/=3Fid=3Dh62bd4da0,9be705bd,9be9695a" a=
+lias=3D"FOOTER - Contact" target=3D"_blank" style=3D"color:#a1a1a1;">online=
+</a>.<br/><br/>Registered office: Adobe Systems Software Ireland Limited, 4=
+&#8209;6&nbsp;Riverwalk, Citywest Business Park, Dublin&nbsp;24, Ireland. R=
+egistered number: 344992
+                  <br>
+                </td>
+                <td width=3D"30">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+ <img height=3D'0' width=3D'0' alt=3D'' src=3D'http://t-info.mail.adobe.com=
+/r/=3Fid=3Dh62bd4da0,9be705bd,1'/><img height=3D'0' width=3D'0' alt=3D'' sr=
+c=3D'https://adobe.demdex.net/event=3Fc_syncplacement=3Demail&d_cid=3D813%0=
+1074736715ad3a6c20a495e8a'/>
+
+------=_NextPart_685_180F7204.180F7204--
+
