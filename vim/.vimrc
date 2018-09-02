@@ -8,20 +8,39 @@
 "<leader>sv :source $MYVIMRC<CR>
 "toggle current fold
 nnoremap  <space> za
-" Search for files
-let g:ctrlp_map='<leader>p'
-" Search for buffers
-nnoremap <Leader>b :CtrlPBuffer<CR>
 " }}}
 " First things come first {{{
 " must be first instructions
 set nocompatible " vim instead of Vi
-" loading pathogen
-" Plugins to make vim looks cool
-execute pathogen#infect('~/.vim/bundle/Display/{}')
-execute pathogen#infect('~/.vim/bundle/Editing/{}')
-execute pathogen#infect('~/.vim/bundle/Navigation/{}')
-execute pathogen#infect('~/.vim/bundle/General/{}')
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim' " required
+
+Plugin 'morhetz/gruvbox'
+Plugin 'itchyny/lightline.vim'
+Plugin 'maximbaz/lightline-ale'
+Plugin 'junegunn/rainbow_parentheses.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'xolox/vim-easytags'
+" required by eas-tags
+Plugin 'xolox/vim-misc'
+
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/fzf.vim'
+Plugin 'w0rp/ale'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+call vundle#end() " required
 " }}}
 " general settings{{{
 syntax on
@@ -32,16 +51,20 @@ set modelines=1 " sets the number of lines at start and end of file
 " edit and load vimrc bindings
 nnoremap <leader>ev :split $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+" swap ; and : for a faster command access
+nnoremap ; :
+nnoremap : ;
 " Make Y act like D and C
 map Y y$
-"}}}
+" }}}
 " Display settings{{{
 set encoding=utf-8 " encoding used for displaying file
 colorscheme gruvbox " set color scheme, must be installed first
 " colorscheme solarized gruvbox
 " needed to work in terminal emulator
 let g:solarized_termcolors=256
-set background=light " dark background for console
+set background=dark " dark background for console
+set laststatus=2 " display the status line always
 set number " show the number line
 set list " show eof, trailing, etc..
 set showcmd  " show command in bottom bar
@@ -63,27 +86,27 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set confirm  " confirm :q in case of unsaved changes
 set fileencoding=utf-8 " encoding used when saving file
 set nobackup " do not keep the backup~ file
-"}}}
-" edit settings{{{
-set backspace=indent,eol,start " backspacing over everything in insert mode
-set expandtab " fill tabs with spaces
-set nojoinspaces " no extra space after '.' when joining lines
-set shiftwidth=4 " set indentation depth to 8 columns
-set softtabstop=4 " backspacing over 8 spaces like over tabs
-set tabstop=4 " set tabulator length to 8 columns
-set textwidth=80 " wrap lines automatically at 80th column
-" Save file when switching buffers
-set autowrite
-set autoread
-"}}}
-" search settings{{{
-set ignorecase " do case insensitive search...
-set incsearch " do incremental search
-set hlsearch " highlight mathces
-set smartcase " ...unless capital letters are used
-" turn off searchhighlight
-nnoremap <leader>h :nohlsearch<CR>
-"}}}
+" "}}}
+ " edit settings{{{
+ set backspace=indent,eol,start " backspacing over everything in insert mode
+ set expandtab " fill tabs with spaces
+ set nojoinspaces " no extra space after '.' when joining lines
+ set shiftwidth=4 " set indentation depth to 8 columns
+ set softtabstop=4 " backspacing over 8 spaces like over tabs
+ set tabstop=4 " set tabulator length to 8 columns
+ set textwidth=80 " wrap lines automatically at 80th column
+ " Save file when switching buffers
+ set autowrite
+ set autoread
+ "}}}
+ " search settings{{{
+ set ignorecase " do case insensitive search...
+ set incsearch " do incremental search
+ set hlsearch " highlight mathces
+ set smartcase " ...unless capital letters are used
+ " turn off searchhighlight
+ nnoremap <leader>h :nohlsearch<CR>
+ "}}}
 " file type specific settings{{{
 filetype on " enable file type detection
 filetype plugin on " load the plugins for specific file types
@@ -105,13 +128,33 @@ endif
 "}}}
 " Plugins{{{
 " Display {{{
-" airline(status/tabline)
-" populate the powerline symbols.
-let g:airline_powerline_fonts = 1
 "##############################################################
+" lightline-ale
+let g:lightline = {}
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+let g:lightline.active = { 'right': [['lineinfo'],['percent'],['filetype'], [ 'linter_checking', 'linter_errors', 'linter_warnings',  'linter_ok' ]] }
+
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
 " rainbow_parentheses
 " fork https://github.com/junegunn/rainbow_parentheses.vim
-autocmd VimEnter * RainbowParenthese " start rainbow at start
+" start rainbow at start
+autocmd VimEnter * RainbowParentheses
+
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 " gitgutter
@@ -128,8 +171,16 @@ augroup javascript_folding
 " Editing{{{
 " YouCompleteMe
 let g:ycm_max_num_candidates = 6
-let g:ycm_warning_symbol='>'
 "##############################################################
+" ALE
+" Enable completion where available.
+" let g:ale_completion_enabled = 1
+" let g:ale_open_list = 1
+
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'javascript': ['jshint'],
+" \}
 " Syntastic
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
@@ -139,19 +190,19 @@ let g:ycm_warning_symbol='>'
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
-let g:syntastic_quiet_messages = { "type": "style" }
+" let g:syntastic_quiet_messages = { "type": "style" }
 "##############################################################
 " UltiSnips
 " defines the directory private snippet definition files are stored in.
 let g:UltiSnipsSnippetDir = [$HOME.'/.vim/Ultisnips']
-" defines the directories for looking for snippets.
-let g:UltiSnipsSnippetDirectories = ['Ultisnips']
-let g:UltiSnipsListSnippets="<c-l>"
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" configures the directories that are searched for snippets
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/Ultisnips']
+let g:UltiSnipsListSnippets = "<c-l>"
+let g:UltiSnipsExpandTrigger = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 " if you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit = "vertical"
 "##############################################################
 " nerdCommenter
 " Add spaces after comment delimiters by default
@@ -160,41 +211,34 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
-" Set a language to use its alternate delimiters by default
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
 "##############################################################
 " JsDoc
 nmap <silent> <C-l> <Plug>(jsdoc)
 " PhpDocs
-source ~/.vim/bundle/Editing/php-doc.vim
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
-nnoremap <C-P> :call PhpDocSingle()<CR>
-vnoremap <C-P> :call PhpDocRange()<CR>
+" source ~/.vim/bundle/php-doc.vim
+" inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
+" nnoremap <C-P> :call PhpDocSingle()<CR>
+" vnoremap <C-P> :call PhpDocRange()<CR>
 "}}}
 " Navigation {{{
 " Ag (Searching source code in a project)
 nnoremap <leader>a :Ag<space>
 "##############################################################
-" CtrlP(Full path fuzzy file, buffer, mru, tag) finder
-" order matching files top to bottom
-let g:ctrlp_match_window = 'bottom,order:ttb'
-" open files in new buffers
-let g:ctrlp_switch_buffer = 0
-" change the working directory during a Vim session
-let g:ctrlp_working_path_mode = 0
-" make ctrlp fast with ag
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-" Note: to make ag ignore files use .ignore
+" FZF (Full path fuzzy file, buffer, mru, tag) finder
+nnoremap <leader>p :Files<CR>
 "##############################################################
 " nerdtree (hierarchy of files) plugin
 nnoremap <leader>n :NERDTreeToggle<CR>
 " automatically when no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"##############################################################
+" ##############################################################
 " Taglist(Shows the structure of the code) Plugin
 " remap the toggle
 nnoremap <leader>t :TagbarToggle<CR>

@@ -1,1486 +1,3 @@
-ls
-ls
-mkdir VexObjFiles
-ls
-ls VexObjFiles/
-ls VexObjFiles/ | wc
-c
-ls
-histg blender
-pidof blender
-history
-pidof blender
-kill 14496
-c
-ls
-cd VexRobotics/
-ls
-l
-ls
-c
-ls
-cd Vex_LDraw/
-ls
-cd p
-cd ..
-cd parts/
-ls
-mv 228-2500-1950c01.dat 228-2500-1950c01.dat.err
-mv 228-2500-1950c02.dat 228-2500-1950c02.dat.err
-mv 228-2500-1953c01.dat 228-2500-1953c01.dat.err
-mv 228-2500-1953c02.dat 228-2500-1953c02.dat.err
-c
-ls
-cd ..
-..
-ldc
-ls
-ls VexObjFiles/ | wc
-ls
-ls VexObjFiles/ | wc
-pid blender
-histg blender
-pidof blender
-kill 28437
-c
-ls
-ls VexObjFiles/ | wc
-pidof blender
-kill 1644
-rm VexObjFiles/ -R
-c
-ls
-rm __pycache__/ -R
-c
-cd ..
-..
-ls
-cd plugins/
-ls
-cd ..
-ls
-ll
-cd ..
-ls
-cd wp-con
-cd wp-content/
-ls
-cd plugins/
-ll
-cd makerbrane-makerspace-new/
-ls
-ll
-cd ..
-cd makerbrane-makerspace-new/
-ls
-rm .makerbrane-makerspace.php.swp 
-..
-cd wordpress/
-ls
-vim .gitignore 
-ls
-xdg-open LDRAW/
-c
-xdg-open 
-xdg-open .
-ls
-python script.py 
-ls
-mv LDRAW/ Obj
-python script.py 
-ls Obj/
-python script.py 
-ls
-python script.py 
-c
-ls .Obj/
-ls .Obj/32002/
-rm .Obj/ -R
-c
-ls
-ll
-vim Obj/003238a/003238a.json 
-c
-ls
-python script.py 
-j
-python script.py 
-c
-python script.py 
-c
-python script.py 
-c
-python script.py 
-c
-python script.py 
-ls
-c
-ls ~
-ls ~/PARTS/
-ls
-rm LDRAW.zip 
-c
-l
-c
-vim Parser_LDCad.py 
-ls
-c
-ls
-xdg-open .
-wmaker
-mv ~/Documents/ldcad_parser/Obj/ backend/
-ls
-c
-def published
-ls
-cd backend/
-l
-ls
-php saveParts.php 
-c
-php saveParts.php 
-c
-ls
-cd backend/
-ls
-vim saveParts.php 
-ldc
-ls
-vim Parser_LDCad.py 
-ls ~/Documents/LDRAW/ | wc
-mv ~/Documents/LDRAW/ .
-ls
-c
-ls
-vim LDRAW/003238d/
-c
-ls
-vim script.py 
-ls
-ls backend/
-vim backend/core/manager.php 
-vim public_html/manager.php 
-vim public_html/recipeViewer.php 
-ls
-cd public_html/
-ls
-cd assets/
-ls
-ls libraries/
-ls libraries/player/
-ls
-cp parts/ partsa
-cp parts/ partsa -a
-chmod 777 parts -R
-ls partsa/
-rm parts
-rm parts -R
-mv partsa/ parts
-c
-ls
-cd parts/
-cd refPoints/
-mv 3003.json 3003.json.json
-mv 3003.json 3003.json.err
-mv 3003.json.json 3003.json.err
-c
-ls
-mv 3003.json.err 3003.json
-c
-wmaker
-mv backend/Obj/ ~
-mv backend/Obj/ ~/NEEDED_PARTS
-wmaker
-vim config.php 
-c
-ls
-cd public_html/assets/parts/
-ls
-ls obj/
-ls
-ls parts/
-c
-ls ~/PARTS/
-c
-ls
-ls parts/
-cd parts/
-ls
-cd ..
-ls
-cp parts/ ~/parts
-cp parts/ ~/parts -a
-c
-ls
-ls parts/
-cd parts/
-cd ..
-rm parts/ -R
-cp ~/parts/ .
-cp ~/parts/ . -a
-c
-ls
-ls parts/
-c
-rm parts/ -A
-rm parts/ -r
-cp ~/parts/ . -a
-ls
-ls parts/
-c
-ls
-rm parts/ -R
-c
-cp ~/parts/ .
-cp ~/parts/ . -a
-c
-ls
-ls parts/
-xdg-open 
-xdg-open .
-xdg-open 
-xdg-open .
-c
-ls
-c
-ls
-c
-cd public_html/assets/parts/
-ls
-cd ..
-cp parts/ ~/parts
-cp parts/ ~/parts -a
-c
-ls
-cd parts/
-ls
-ls obj/
-c
-ls ~/parts/
-c
-ls
-rm obj/ -R
-mv ~/parts/ .
-c
-ls
-..
-mv parts/ partsa
-mv partsa/parts/ .
-c
-rm partsa/ -R
-c
-ls
-xdg-open 
-xdg-open .
-c
-shutdown
-x
-vim test.js
-cd ~/
-ls
-cd .vim
-ls
-cd bundle/
-ls
-cd Editing/
-ls
-cat test.py 
-rm test.py -R
-c
-ls
-ls ultisnips/
-git pull https://github.com/heavenshell/vim-jsdoc
-ls
-git clone https://github.com/heavenshell/vim-jsdoc
-ls
-c
-vim test.js
-rm test.js 
-c
-cd
-ls
-vim .vimrc 
-ls 
-c
-cd /srv/http/makerbrane
-c
-ls
-cd
-cd /srv/http/
-ls
-rm * -R
-sudo rm * -R
-c
-cd /srv/http/
-ls
-rm makerbrane-server/ -R
-ls
-ldc
-ls
-rm __pycache__/ -R
-c
-ldc
-ls
-vim Checker.py 
-ls
-cd
-ls
-ls NEEDED_PARTS/
-ls
-cd NEEDED_PARTS/
-ls
-ls 973p7y/
-c
-ls
-c
-ls
-cd ..
-ls Obj/
-ls Obj/ | wc
-c
-ls
-ls PARTS/
-rm NEEDED_PARTS/ -R
-cd PARTS/
-ls
-extract Obj.zip 
-ls Obj | wc
-c
-ls
-c
-ls
-ldc
-ls
-mkdir input
-mkdir output
-ls ~
-ls ~/Obj/
-ls ~/Obj/ | wc
-cd ~/Documents/
-ls
-cd ..
-ls ~/Documents/VEX/ | wc
-cd PARTS/
-ls
-mv ~/Documents/VEX/ .
-c
-ls
-ls mostCommonVex/
-ls mostCommonVex/ | wc
-c
-ls
-c
-ls
-mv mostCommonVex/ mostCommonVexJSON
-ls
-mv mostCommonVexJSON mostCommonVexJSONold
-c
-ls
-ls neededLdraw/
-c
-ls neededLdraw/ | wc
-c
-ls
-ls neededLdraw/
-vim neededLdraw/4477/
-c
-ls
-mv neededLdraw/ neededLdrawParts
-c
-ls
-ls Obj
-ls Obj | wc
-c
-ls
-mv Obj ObjParts
-c
-ls VEX/
-ls VEX/ | wc
-ls VEX/228-061
-ls VEX/228-2500-061/
-c
-ls
-mv VEX/ vexPartsOld
-c
-ls
-mv ObjParts/ LdrawParts
-ls
-ldc
-ls
-rm input/ output/ -R
-c
-mv ~/PARTS/LdrawParts/ .
-c
-ls LdrawRefPoints/
-ls LdrawRefPoints/ | wc
-c
-ls LdrawRefPoints/ | wc
-python
-vim LDraw/parts/87606.dat 
-vim LDraw/parts/s/87606s01.dat 
-c
-mv LDraw/parts/87606.dat LDraw/parts/87606.dat.err
-c
-wmaker
-c
-vim config.php 
-c
-cd backend/
-ls
-ls ~
-rm ~/test.js 
-mv ~/NEEDED_PARTS/ .
-c
-ls
-ls NEEDED_PARTS/
-c
-ls
-c
-ls
-ls NEEDED_PARTS/ | wc
-c
-ls
-c
-ls
-mv NEEDED_PARTS/ ~
-c
-ls
-c
-rm Dump20180724/ -R
-c
-ldc
-ls
-mkdir input
-mkdir output
-c
-ls
-vim script.py 
-c
-ls
-vim Parser_LDCad.py 
-c
-ls
-vim Parser_LDCad.py 
-c
-ls
-mkdir LdrawRefPoints
-c
-ls
-vim Parser_LDCad.py 
-ls LdrawRefPoints/
-rm input/ output/ -R
-c
-ls
-python LdrawParts/
-python Parser_LDCad.py 
-c
-python Parser_LDCad.py 
-ks
-ls
-mkdir output
-python script.py 
-c
-vim 
-python script.py 
-ls
-python script.py 
-ls
-python script.py 
-rm output/* -R
-c
-rm output/* -R
-python script.py 
-rm output/* -R
-python script.py 
-ls output/ | wc
-ls output/
-ls output/u9412/
-c
-wmaker
-cd backend/
-ls
-cp ~/Documents/ldcad_parser/output/ ./input
-cp ~/Documents/ldcad_parser/output/ ./input -a
-ls
-c
-ls
-vim saveParts.php 
-ls
-c
-php saveParts.php 
-ls
-php saveParts.php 
-c
-jj
-c
-php saveParts.php 
-cd ..
-ls
-ls public_html/assets/parts/icons/3004.png 
-xdg-open public_html/assets/parts/icons/3004.png 
-c
-ls
-cd public_html/assets/
-ls
-c
-cp ~/Downloads/parts/icons/ parts/ -a
-c
-wmaker
-c
-cd public_html/assets/parts/
-rm icons/ -R
-c
-cd ~/Downloads/
-ls
-extract parts.zip 
-c
-ls
-ls parts
-c
-ls
-php saveParts.php 
-c
-ls
-mv input/ ~/LdrawParts
-ls ~/PARTS/
-cp ~/PARTS/neededLdrawParts/ input
-cp ~/PARTS/neededLdrawParts/ input -a
-c
-php saveParts.php 
-c
-ls
-ls PARTS/
-c
-lls
-ls
-ls VEX/
-c
-vim VEX/228-2500-036/
-c
-ldc
-m
-ls
-mv vexPartsOld/ ~/PARTS/
-rm vexPartsOld/ -R
-c
-ls
-mv ~/VEX/ .
-c
-ls
-vim .gitignore 
-l
-ls
-ls output/
-c
-ls
-mv output/ ~/LDRAWPARTS
-c
-ls
-vim Parser_LDCad.py 
-ls
-ls VexRobotics/
-ls VexRobotics/Vex_LDraw/
-ls
-ccd VexRobotics/
-cd VexRobotics/
-ls
-cd ..
-ls
-mkdir vexRefPoints
-c
-ls
-python Parser_LDCad.py 
-ls vexRefPoints/
-ls VexRobotics/Vex_LDraw/parts/
-ls
-python Parser_LDCad.py 
-c
-vim script.py 
-wmaker
-cd backend/
-php saveParts.php 
-vim 
-vim Parser_LDCad.py 
-vim script.py 
-ls
-wmaker
-c
-ls
-c
-ls
-cd backend/
-ls
-c
-ls
-vim saveParts.php 
-c
-ldc
-ls
-ls __pycache__/
-ls
-c
-ls
-c
-ls
-mv Ldraw* ~/PARTS/
-c
-ls
-c
-ls
-cp ~/PARTS/vexPartsOld/ . -a
-c
-ls
-ls vexPartsOld/
-ls vexPartsOld/ | wc
-ls ~/PARTS/
-ls ~/PARTS/mostCommonVexJSONold/
-ls
-ls ~/
-ls ~/Obj/
-ls ~/Obj/ | wc
-cd ~
-ls
-ls Obj/30361ps5
-vim Obj/30362a/30362a.json 
-rm ~/Obj/ -R
-c
-ls
-c
-ls
-c
-ls
-wmaker
-cd backend/
-ls
-php saveParts.php 
-ls input/
-ls
-c
-ls
-ls input/ | wc
-php saveParts.php 
-c
-ls
-vim input/
-rm input/ -R
-cp ~/Documents/ldcad_parser/output/ ./input -a
-c
-ls
-ls input/ | wc
-php saveParts.php 
-c
-ls
-rm input/ -R
-cp ~/PARTS/vexPartsOld/ ./input
-c
-ls
-cp ~/PARTS/vexPartsOld/ ./input -a
-vim input/228-2500-061/228-2500-061.
-c
-php saveParts.php 
-c
-ls
-xdg-open public_html/assets/
-sudo pacman -S rclone
-c
-rclone 
-c
-
-c
-yaourt cloudross
-yaourt 
-yaourt a
-c
-yaourt cloudcross
-c
-ls
-c
-ccross -a
-man ccross
-ccross
-ccross help
-man ccross
-ls
-xdg-open .
-cd public_html/assets/
-ccross parts/
-cd parts/
-ccross
-ccross -a
-ls
-ccross
-c
-cd ..
-ccross parts/
-ccross parts/*
-;s
-ls
-ls parts/
-ccross --prefer
-ccross --help
-mv ./VexRobotics/Vex_LDraw/parts/228-2677.dat ./VexRobotics/Vex_LDraw/parts/228-2677.dat.err
-ls
-mkdir output
-python script.py 
-ls
-ls output/
-vim output/228-2500-109/228-2500-109.json 
-c
-wmaker
-cd backend/
-cp ~/Documents/ldcad_parser/output/ input -a
-c
-ls
-vim saveParts.php 
-wmaker
-vim config.php 
-c
-cd backend/
-mv input/ ~/neededVex
-c
-ls
-wmaker
-vim config.php 
-ls
-wmaker
-rm .grive 
-c
-cd public_html/assets/
-c
-xdg-open ~
-ls
-ccross --help
-ccross --use-include parts/
-c
-ccross --help
-ccross -p parts/
-ccross -p /usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new/public_html/assets/parts/
-xdg-open 
-xdg-open .
-xdg-open public_html/assets/parts
-cd public_html/assets/
-ccross --help
-xdg-open .
-cross --help
-ccross --help
-ccross -p parts
-ccross -p /usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new/public_html/assets/parts/
-ccross -h
-c
-ls
-ccross -h
-ccross -p ./parts
-ccross
-ccross -a
-ccross -p ./parts/
-c
-ls
-ccross -p parts/
-/usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new/public_html/assets/parts/
-ccross -p /usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new/public_html/assets/parts/
-ccross -a parts/
-ccross
-cd parts/
-ccross -a
-ccross
-ccross -p .
-wmaker
-c
-vim config.php 
-c
-vim config.php 
-shutdown
-x
-shutdown
-x
-reboot
-ls
-'pwd
-pwd
-ls
-cd /srv/http/
-ls
-x
-ls ~
-ls ~/bac
-ls backend/
-ls ~/Documents/ldcad_parser/
-ls ~/Documents/ldcad_parser/output/
-cd public_html/assets/parts/
-ls
-ls config/
-wmaker
-cd backend/
-ls
-php saveParts.php 
-ls
-mv input/ ~/LDRAWPARTS
-ls ~
-ls ~/LdrawParts/
-ls ~/LdrawParts/ | wc
-ls
-ls ~
-ls ~/PARTS/neededLdrawParts/ | wc
-mv ~/PARTS/neededLdrawParts/ input
-php saveParts.php 
-wmaker
-ls public_html/assets/parts/
-cd public_html/assets/parts/
-ls
-ls obj/
-ls
-cd public_html/assets/parts/
-ls
-ls obj/
-ls obj/3001/
-mv input/ ~/neededLDRAW
-mv ~/LDRAWPARTS/ input
-c
-ls
-mv input/ ~/LDRAWPARTS
-mv ~/Documents/ldcad_parser/VEX/ .
-c
-php saveParts.php 
-mv VEX/ input
-php saveParts.php 
-mv input/ ~/PARTS/VEX
-mv ~/Documents/ldcad_parser/output/  input
-mv input/ ~/PARTS/vexParts
-rm ~/PARTS/vexPartsOld/
-rm ~/PARTS/vexPartsOld/ -R
-c
-php saveParts.php 
-ls ~
-ls ~/PARTS/
-ls ~/Documents/ldcad_parser/
-ls ~/Documents/ldcad_parser/VEX/ | wc
-ldc
-ls output/
-ls output/ | wc
-ls 228-2500-112
-ls output 228-2500-112
-ls output 228-2500-112 | wc
-ls output/228-2500-112/228-2500-112.json 
-c
-wmaker
-cd backend/
-php saveParts.php 
-cd ~/dumps/
-ls
-xdg-open .
-wmaker
-ls ~
-ls ~/LdrawParts/ | wc
-ls ~/LDRAWPARTS/ | wc
-ls ~/parts/
-ls ~/PARTS/neededLdrawParts/ | wc
-ls ~/PARTS/neededLdrawParts/
-c
-cd backend/
-ls
-mv ~/LDRAWPARTS/ .
-php saveParts.php 
-mv LDRAWPARTS/ input
-php saveParts.php 
-ls
-wmaker
-ls public_html/assets/parts/
-ls public_html/assets/parts/icons/
-ls
-ls public_html/assets/parts/obj/
-ls public_html/assets/parts/obj/ | wc
-c
-cd public_html/assets/parts/
-xdg-open .
-xdg-open ~/Down
-xdg-open ~/Downloads/
-cd public_html/assets/js/
-cd public_html/assets/libraries/
-ls
-cd threejs/
-ls
-mkdir exports
-mv ~/Downloads/GLTFExporter.js exports/
-c
-ls
-ls exports/
-mv exports/ exporters
-c
-vim saveParts.php 
-c
-wmaker
-vim config.php 
-cd backend/
-ls
-c
-ls
-vim saveParts.php 
-c
-wmaker
-vim config.php 
-c
-vim config.php 
-fg
-c
-vim public_html/assets/js/utils/Exporter.js
-vim config.php 
-wmaker 
-vim config.php 
-wmaker
-cd public_html/assets/libraries/threejs/libs/
-ls
-cd ..
-ls
-ls libs/
-ls
-ls libs/
-ls
-ls three
-ls threex
-ls
-c
-cd public_html/assets/libraries/threejs/
-ls
-ls libs/
-c
-wmaker
-..
-vim wp-config.php 
-c
-ls
-wmaker
-vim config.php 
-c
-shutdown
-cd ..
-..
-vim wp-config
-vim wp-config.php 
-c
-wmaker
-vim config.php 
-x
-sudo pacman -Syu
-c
-ls ~/Downloads/
-rm ~/Downloads/* -R
-man grive
-ls
-mv .grive 
-mv .grive ~
-c
-mv ~/.grive .
-c
-cd ..
-..
-vim .gitignore 
-xdg-open ~/Downloads/
-wmaker
-cd public_html/assets/
-ls
-cp .grive ~
-c
-cd libraries/
-cd threejs/
-ls
-cd exporters/
-ls
-mv ~/Downloads/OBJExporter.js .
-rm ~/Downloads/* -R
-c
-ls
-c
-ls ~/Downloads/
-vim ~/Downloads/a.json 
-vim ~/Downloads/test.obj
-vim ~/Downloads/test.obj 
-vim ~/Downloads/a.obj 
-rm ~/Downloads/a*
-c
-vim ~/Downloads/a.obj 
-rm ~/Downloads/*
-c
-def concrete
-wmaker
-back
-mv ~/Downloads/ColladaExporter.js .
-c
-ls
-ls ~/Downloads/
-rm ~/Downloads/*
-vim ~/Downloads/test\(2\).dae 
-mv ~/Downloads/ColladaArchiveExporter.js .
-c
-ls
-cd ..
-cd jszip/
-ls
-rm jszip.min.js 
-mv ~/Downloads/jszip.min.js .
-c
-shutdown
-vim config.php 
-c
-vim config.php 
-c
-sudo pacman -S rclone
-c
-rclone 
-c
-yaourt drive
-c
-yaourt grive
-c
-grive 
-grive -a
-c
-cd public_html/assets/parts/
-grive -a
-c
-grive --help
-pwd
-grive -p /usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new/public_html/assets/parts
-c
-cd ~/Downloads/
-lls
-ls
-grive -a
-mkdir test
-vim test/yes
-ls
-mkdir testo
-rm testo/
-mkdir no
-vim no/no
-c
-ls
-grive 
-ls
-grive -s test
-ls
-grive --dir test
-mkdir yes
-grive --dir yes/
-grive
-vim yes/yes
-grive
-c
-back
-ls
-cd ..
-grgrive
-grive -a
-grive -a -dir parts/
-grive -a
-grive -dir parts/
-grive
-ls
-grive --dir parts/
-grive 
-cd ~
-ls
-cd dumps/
-ls
-xdg-open .
-nmtui
-nmtui
-wmaker
-cd public_html/assets/
-ls
-xdg-open .
-nmtui
-shutdown -P
-reboot
-nmtui
-reboot
-restart
-man shutdown
-nmtui
-wmaker
-cd public_html/assets/parts
-ls
-xdg-open .
-shutdown
-x
-ls
-cp 64682/ ~/neededParts/neededObj/ -a
-c
-cd refPoints/
-mkdir neededRefPoints
-cp 61070.json neededRefPoints/
-cp 15458.json neededRefPoints/
-cp 64782.json neededRefPoints/
-cp 18945.json neededRefPoints/
-cp 64392.json neededRefPoints/
-cp 64682.json neededRefPoints/
-cp 87080.json neededRefPoints/
-cp 87086.json neededRefPoints/
-cp 64394.json neededRefPoints/
-cp 64683.json neededRefPoints/
-cp 64681.json neededRefPoints/
-cp 64393.json neededRefPoints/
-cp 11954.json neededRefPoints/
-cp 62531.json neededRefPoints/
-cp 49673.json neededRefPoints/
-cp 3024.json neededRefPoints/
-cp 17141.json neededRefPoints/
-cp 74695.json neededRefPoints/
-cp 16646.json neededRefPoints/
-cp 60484.json neededRefPoints/
-cp 32056.json neededRefPoints/
-c
-cd neededRefPoints/ ~/neededParts
-mv neededRefPoints/ ~/neededParts
-ls ~/neededParts/
-mkdir ~/neededParts/refPoints
-c
-ls
-cd ~/neededParts/
-ls
-mv *.json refPoints/
-ls
-back
-c
-cd ../obj/
-mkdir neededObj
-cp 61070/ neededObj/ -a
-ls neededObj/
-cp 15458/ neededObj/ -a
-cp 64782/ neededObj/ -a
-cp 18945/ neededObj/ -a
-cp 64392/ neededObj/ -a
-cp 87080/ neededObj/ -a
-cp 87086/ neededObj/ -a
-cp 64394/ neededObj/ -a
-cp 64683/ neededObj/ -a
-cp 64681/ neededObj/ -a
-cp 64393/ neededObj/ -a
-cp 11954/ neededObj/ -a
-cp 62531/ neededObj/ -a
-cp 49673/ neededObj/ -a
-cp 3024/ neededObj/ -a
-cp 17141/ neededObj/ -a
-cp 74695/ neededObj/ -a
-cp 16646/ neededObj/ -a
-cp 60484/ neededObj/ -a
-cp 32056/ neededObj/ -a
-c
-mv neededObj/ ~/neededParts/
-xdg-open ~
-vim ~/.vimrc 
-mv public_html/assets/parts.zip ~
-c
-rm b.*
-rm ~/Downloads/*
-ls ~/Downloads/
-rm ~/Downloads/* -r
-c
-mv ~/Downloads/b.* .
-c
-cd public_html/assets/parts/obj/
-ls
-mv ~/Downloads/b.* .
-c
-vim b.mtl 
-vim ~/dumps/Dump20180727/wordpress_wp_mbms_part.sql 
-c
-mv ~/Downloads/a.* .
-c
-vim b.obj 
-vim b.mtl 
-vim 3001/3001.obj 
-vim 3001/3001.mtl 
-vim conf
-wmaker
-vim config.php 
-c
-cd ~
-whereis blender
-cd /usr/share/blender/2.79/scripts/addons
-ls
-cp ~/Downloads/io_scene_gltf-0.3.0/io_scene_gltf/ .
-cp ~/Downloads/io_scene_gltf-0.3.0/io_scene_gltf/ . -a
-c
-cp ~/Downloads/io_scene_gltf-0.3.0/io_scene_gltf/ . -a
-sudo cp ~/Downloads/io_scene_gltf-0.3.0/io_scene_gltf/ . -a
-cd ~/Downloads/
-ls
-xdg-open .
-vim config.php 
-shutdown
-cd ..
-grive 
-c
-grive --dir parts
-x
-shutdown
-git config --global user.name "Yasser Kaddoura"
-git config --global user.name
-c
-wmaker
-ls
-cd public_html/
-ls
-mv ~/.grive_state .
-c
-cd public_html/assets/parts/
-cd ..
-grive --dir parts/
-shutdown
-x
-c
-vim config.php 
-cd public_html/assets/
-mv .grive_state ~
-c
-wmaker
-c
-vim config.php 
-vim
-vim test
-vim ~
-vim ~/tmp
-shutdown
-shutdown -c
-c
-shutdown
-shutdown -c
-x
-cd ~/Downloads/
-ls
-rm *
-ls
-rm * -a
-rm * -r
-mv Stoyan\ Stefanov\ -\ JavaScript\ Patterns_\ Build\ Better\ Applications\ with\ Coding\ and\ Design\ Patterns\ \(2010\,\ O\'Reilly\ Media\).pdf ~/Documents/Books/Programming/languages/
-c
-cd ..
-..
-ls
-vim .gitignore 
-vim config.php 
-gf
-fg
-c
-vim config.php 
-shutdown
-x
-shutdown
-x
-vim test.js
-wmaker
-back
-ls
-cd ~
-ls
-rm parts.zip 
-ls tmp 
-rm tmp 
-ls
-vim ~/.jshintrc 
-vim ~/.vimrc 
-vim test.js
-wmaker
-vim config.php 
-vim test
-c
-ls
-vim test
-vim hel
-vim test
-c
-ls
-cd ..
-ls
-cd Editing/
-ls
-c
-ls
-c
-ls
-vim test
-c
-vim ~/.vimrc 
-cd public_html/assets/parts/
-ls
-ls 
-..
-vim .gitignore 
-wmaker
-cd public_html/assets/parts/
-ls
-cd ..
-ls
-cd parts/
-ls
-def compliment
-c
-cd ..
-cd makerbrane-makerspace-new/
-c
-xdg-open .
-cd ~/.vim
-ls
-cd bundle/
-ls
-ls Display/
-cd Display/
-ls
-cd ..
-ls
-c
-ls
-cd Display/
-ls
-vim ~/.vim
-vim ~/.vimrc 
-l
-ls
-vim ~/.vimrc 
-ls
-shutdown
-vim config.php 
-vim conf
-vim config.php 
-x
-def gray
-def grey
-cd public_html/assets/parts/
-ls config/
-ls
-sl
-ls
-c
-ls
-ls ~/parts/
-cp ~/parts/json/ .
-cp ~/parts/json/ . -a
-ls
-c
-ls
-cd public_html/assets/
-ls
-cd parts/
-ls
-c
-ls
-c
-ls
-ls public_html/assets/parts/
-c
-cd public_html/assets/img/
-cp ~/Downloads/Arrow-Right.svg icon_search.svg
-ls
-cd ..
-ls
-cd images/
-ls
-cd ui/
-ls
-cp ~/Downloads/Pick-Place.svg Pick.svg
-cd ..
-ls
-cd ..
-cd img/
-ls
-cp ~/Downloads/Arrow-Right.svg icon_search.svg 
-ls
-xdg-open icon_search.svg 
-cd ..
-ls
-cd images/
-cd ui/
-ls
-cp ~/Downloads/Arrow-Right.svg icon_search.svg
-c
-shutdownn
-vim config.php 
-c
-vim config.php 
-c
-vim config.php 
-vim conv
-vim config.php 
-ls
-cp ~/Downloads/Vector.svg Pick.svg 
-c
-cp ~/Downloads/Pick-Place.svg Pick.svg
-c
-shutdown
-x
-c
-git config user.name "Yasser Kaddoura"
-git config user.name
-git config --global user.name
-x
-s
-ls
-vim config.php 
-vim controls.png 
-wmaker
-c
-vim config.php 
-c
-vim config.php 
-c
-vim config.php 
-shutdown
-cd public_html/assets/parts/
-cd json/
-ls
-mv 3001.json 3001.json.a
-cd ..
-ls
-wmaker
-ls
-vim storage/models/json/MT
-c
-x
-cd public_html/assets/
-cd images/ui/
-ls
-ls Pick.svg 
-cp ~/Downloads/Vector.svg Pick.svg 
-c
-cd ..
-..
-ls
-vim .htaccess
-ls
-vim .htaccess 
-ll
-rm .htaccess 
-c
-ls
-wmaker
-c
-ls
-cd storage/
-ls
-cd ..
-ls
-ls storage/models/
-cd public_html/
-ls
-ls assets/parts/
-cd assets/
-c
-c
-ls
-ls parts/
-c
-vim config.php 
-c
-vim config.php 
-c
-vim config.php 
-shutdown
-x
-c
-shutdown
-x
-ls
-vim config.php 
 c
 x
 c
@@ -2125,3 +642,1359 @@ ls
 cd webapps/
 ll
 ll wordpress/
+cd ~/dotFiles/
+git pull
+git status
+git checkout .
+git status
+yaourt git-krarken
+yaourt git-kraken
+yaourt kraken
+c
+shutdown
+def propostrus
+sudo pacman -S php[
+sudo pacman -S php
+c
+sudo vim /etc/hosts
+vim /etc/httpd/conf/extra/httpd-wordpress.conf 
+cd /usr/share/webapps/
+ls
+ll
+sudo chown yasser:yasser wordpress/
+ls
+ll
+sudo chown http:http -R wordpress/
+systemctl status httpd
+!
+systemctl enable httpd.service
+ls
+systemctl status httpd
+systemctl start httpd
+systemctl status httpd
+l
+ls
+sudo chown yasser:yasser wordpress/ -R
+ls
+ls wordpress/
+sudo pacman -S php-apache
+sudo vim /etc/httpd/conf/httpd.conf 
+systemctl restart httpd
+vim /srv/http/test.php
+ls
+c
+cd wordpress/
+ls
+vim wp-config.php
+ls
+ll
+cd ..
+sudo chown httpd:httpd wordpress/ -R
+sudo chown http:http wordpress/ -R
+cd wordpress/
+ls wp-admin/
+ls
+vim wp-config.php 
+mv wp-config.php wp-config.php.backup
+sudo mv wp-config.php wp-config.php.backup
+ls
+cp wp-config-sample.php wp-config
+sudo cp wp-config-sample.php wp-config.php
+vim wp-config.php
+mv wp-config.php.backup wp-config.php
+ls
+ll
+sudo pacman -S wordpress
+cd ..
+rm wordpress/ -R
+sudo rm wordpress/ -R
+sudo pacman -Rs wordpress
+sudo pacman -S wordpress
+ls
+mysql -uroot
+clear
+sudo pacman -S mysql
+ls
+ll
+cd .
+ll ..
+sudo pacman -S pacman -S
+sudo pacman -S wordpres
+sudo pacman -S wordpress
+ls
+cd wordpress/
+ls
+cd ..
+ls
+ll
+chown yasser:yasser wordpress/ -R
+sudo chown yasser:yasser wordpress/ -R
+c
+cd wordpress/
+ls
+ls wp-content/
+sytemctl restart mariadb
+systemctl restart mariadb
+vim 
+
+c
+vim /etc/php/php.ini 
+sudo vim /etc/php/php.ini 
+systemctl restart httpd
+ls
+l
+vim wp-config.php
+ls
+git init
+rm .git/ -R
+git clone https://YasserKaddoura@bitbucket.org/makerbranelb/makerbrane-server.git
+cd ~/dotFiles/
+git pull
+rm general/.claws-mail/ -R
+git pull
+ls
+vim
+vim ~/.vimrc 
+cd vim/.vim
+ls
+cd bundle/
+ls
+cd Display/
+ls
+ls gruvbox/
+cd ..
+ls
+cd ..
+l
+ls autoload/
+vim autoload/pathogen.vim 
+c
+ls
+ls autoload/
+c
+vim test.js
+vim ~/.vimrc 
+sudo pacman -S tk tcl
+c
+mv ~/tmp/Editing/php-doc.vim .
+c
+vim
+vim /tmp/
+vim ~/tmp/
+ls
+
+cd ~/tmp/
+ls
+cd Display/
+ls
+c
+cd ~/tmp/
+ls
+cd Display/
+ls
+rm gruvbox/ -R
+c
+ls
+sudo pacman -S fzf
+wmaker
+c
+git config --global user.name "Yasser Kaddoura"
+git config --global user.email yasser.kaddoura19@gmail.com 
+cd ..
+ls
+cd ~
+ls
+cd ~/dotFiles/
+ls
+git status
+git diff --cached
+git log
+c
+clear
+cd ~
+ls
+cd Documents/
+ls
+mkdir testGit
+cd testGit/
+git init
+vim test
+git add test 
+git status
+git diff --cached
+vim test2
+git diff
+git diff --cached
+git add .
+git diff
+git add .
+git diff --cached
+git commit
+vim config
+git diff
+git status
+vim test3
+git commit -a
+git add .
+git diff
+git diff --cache
+git diff --cached
+vim test3 
+c
+ls
+git commit -a
+vim test
+git commit -a
+git log
+git log -p
+git log --stat --summary
+git branch branch2
+git branch
+git checkout branch2
+git commit -a
+vim test
+git checkout master
+c
+vim test
+git branch branch2
+git checkout branch2
+git commit -a
+git checkout master
+git status
+git merge branch2
+git diff
+git stutus
+git status
+git commit -a
+vim test
+git commit -a
+git checkout branch2
+vim test
+git commit -a
+c
+git checkout master
+git merge branch2
+git diff
+vim test
+git commit -a
+git status
+git log
+gitk
+sudo pacman -S wish
+vim /usr/bin/gitk
+gitk
+git branch -d branch2
+c
+git branch -D crazy-idea
+c
+cd ,,
+sudo rm testGit
+cd ..
+sudo rm testGit/
+c
+cd ~/.vim
+ls
+ls autoload/
+ls bundle/
+cd bundle/
+ls Editing/
+ls Editing/YouCompleteMe/
+ls Vundle.vim/
+c
+ls
+mv * tmp
+mkdir tmp
+mv Display/ Editing/ General/ Navigation/ Vundle.vim/ tmp
+mv tmp/ ~
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+rm ~/tmp/Vundle.vim/
+rm ~/tmp/Vundle.vim/ -R
+sudo rm ~/tmp/Vundle.vim/ -R
+vim ~/.vimrc 
+cd ~
+vim test.php
+c
+ls
+rm test 
+cd dotFiles/
+ls
+vim LICENSE 
+sudo pacman -S jshint
+sudo pacman jslint
+npm jsl
+sudo pacman -S npm
+sudo pacman -S node
+sudo pacman -S node.js
+sudo pacman -S nodejs
+c
+vim ~/.jshintrc
+npm install jshint -g
+sudo npm install jshint -g
+sudo pacman -S ttf-font-awesome
+vim test.js 
+vim test
+jj[
+vim test
+vim test.js
+vim test.js 
+ls
+cd ~/tmp/
+ls
+ls Editing/
+:q!
+sudo pacman -S nerf-font
+sudo pacman -S nerd-font
+:q!
+c
+vim test
+vim ~/.vimrc 
+shutdown
+ls ~/tmp/
+ls ~/tmp/Editing/
+c
+sudo pacman -S zathura-pdf
+sudo pacman -S zathura-pdf-popple
+yaourt zathura-pdf-poppe
+yaourt zathura-pdf-popple
+zathura ~/Downloads/Drew\ Neil-Modern\ Vim_\ Craft\ Your\ Development\ Environment\ with\ Vim\ 8\ and\ Neovim-Pragmatic\ Bookshelf\ \(2018\).pdf 
+ls
+vim ~/.vimrc 
+ls
+ls ~/tmp/
+ls ~/tmp/Display/
+ls ~/tmp/Editing/
+ls ~/tmp/General/
+ls ~/tmp/Navigation/
+c
+cd ~
+ls
+cd Documents/
+ls
+cd ets
+cd testGit/
+ls
+vim test
+mkdir dir1
+mkdir dir1/dir2/dir3
+vim dir1/dir2/dir3/testDir
+vim test
+vim test.js
+shutdown
+claws-mail 
+rm ~/.claws-mail  -R
+mkdir ~/.claws-mail
+claws-mail 
+sudo pacman -S notify-osd
+c
+cd ~/dotFiles/
+git status
+rm test
+rm test.js 
+c
+ls /usr/lib/claws-mail/plugins/
+cd /usr/lib/claws-mail/plugins/
+ls
+./dillo.so 
+./clamd.so 
+sudo pacman -S libnotify
+yaourt claws-mail
+c
+vim ~/.config/autostart/claws-mail.desktop
+sudo vim ~/.config/autostart/claws-mail.desktop
+cd ~/.config/
+mkdir autostart
+cd autostart/
+sudo vim claws-mail.desktop
+sudo yaourt claws-mail-multi-notifier
+c
+ls
+cd ..
+..
+sudo pacman -S xfce4
+sudo pacman -S [Desktop Entry]
+sudo pacman -S xfce4-notifyd
+c
+claws-mail 
+sudo pacman -S notification
+yaourt notification
+shutdown
+vim ~/.config/i3/config 
+c
+vim ~/.config/i3/config 
+vim ~/.config/i3/config 
+vim test.js
+vim
+vim test
+c
+ls
+vim test.js
+ls
+ls Ultisnips/
+ll Ultisnips/
+rm Ultisnips/ -R
+ls
+ls .vim/Ultisnips/
+ls
+vim .vim/Ut
+ls .vim
+cd .vim/Ultisnips/
+cd ~
+vim test.js
+rm Ulti* -R
+c
+vim test.js
+rm UltiSnips/ -R
+ls
+c
+sudo pacman -S npm node 
+sudo pacman -S npm nodejs
+ls .vim/Ultisnips/
+vim javascript.snippets
+ls
+rm javascript.snippets 
+c
+vim test.js
+vim hello.js
+ls
+rm test 
+sudo pacman -S automake gcc gcc-c++ kernel-devel cmake 
+cd ~/.vim/bundle/YouCompleteMe/
+./install.py --all
+c
+vim .vimrc 
+vim test.js
+cd Documents/
+vim test.js
+ls
+rm UltiSnips/ -R
+cd ..
+rm UltiSnips/ -R
+ls
+vim .vim
+vim .vimrc 
+vim test
+sudo pacman -S go tsserver rustc cargo
+sudo pacman -S go cargo
+./install.py
+vim test.j
+vim test.js
+vim test
+c
+cd ~
+mkdir ycm_build
+cd ycm_build
+cmake -G "UnixMakefiles" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+cmake --build . --target ycm_core --config Release
+c
+ls
+vim test.js
+c
+vim test.py
+vim test.js
+:q!
+npm install -g typescript
+sudo npm install -g typescript
+shutdown
+cd
+vim /tmp/test.js
+ls
+vim test.js
+c
+ls
+cd .vim/bundle/
+ls
+cd YouCompleteMe/
+ls
+c
+ls
+cd ..
+ls
+source YouCompleteMe/doc/youcompleteme.txt 
+vim test.js
+cd YouCompleteMe/
+ls
+./install.py --all
+sudo pacman -S xbuild
+yaourt xbuild
+sudo pacman mono
+sudo pacman -S mono
+./install.py --all
+vim test.js
+vim ~/.vimrc 
+qpoweroff
+poweroff
+vim ~/.config/i3/config 
+cd ..
+ls
+cd ~
+ls
+rm ycm_build/ -R
+c
+ls
+vim ~/.vimrc 
+c
+sudo pacman -R python2
+python
+which python
+python
+ls
+vim ~/.vimrc 
+vim --version
+vim ~/.vim/view/
+cd ~/.vim/plugged/
+l
+ls
+ls YouCompleteMe/
+cd ..
+rm plugged/ -R
+c
+ls
+ls bundle/
+c
+ls
+cd autoload/
+ls
+cd ../bundle/
+cd YouCompleteMe/
+ls
+./install.=p
+./install.py 
+vim test.py
+ls
+echo sys.path
+echo $PYTHONPATH
+whereis python
+sudo pacman -S python3
+echo $PYTHONPATH
+echo $PYTHONPATH3
+echo $ENV
+printenv
+c
+ls /usr/lib/python3.7/c
+c
+vim ~/.vimrc 
+vim test.js
+vim ~/.vimrc 
+vim python/ycm/tests/vimsupport_test.py 
+sudo pacman -S python-pip
+pip install jedi
+c
+vim test.js
+vim tests.js
+c
+ls
+c
+ls
+cd ~
+ls
+vim test.py
+vim test.js
+vim tset.py
+sudo pacman -S libclang
+
+
+vim test.js
+cc
+ls
+vim test.js
+vim python.py
+export PATH="$PYTHONPATH:/usr/lib/python3.7"
+vim test.py
+vim
+export PATH="PYTHONPATH:/usr/lib/python3.7"
+vim test.py
+export PATH="$PYTHONPATH:/usr/lib/python3.7"
+vim
+vim test.js
+export PATH="$PYTHONPATH:/usr/lib/python3.7"
+vim test.py
+ls /usr/lib/python3.7/
+ls
+vim ~/.cwd
+ls
+cd ..
+vim ~/.cwd
+ls
+vim test.py
+cd tmp/
+vim ~/.bashrc 
+vim /tmp/test.js
+ls
+c
+vim /tmp/test.js
+c
+cd ..
+ls
+c
+ls
+cd ..
+ls
+ls bundle/
+c
+reboot
+shutdown -c
+ls
+cd bundle/
+ls
+ls ~
+vim ~/.vimrc 
+cd YouCompleteMe/
+./install.py 
+c
+vim /tmp/test.js
+vim vim.vim
+vim tset.py
+vim test
+ls
+ls python/ycm/
+vim.py
+vim test.py
+vim test.js
+sudo pacman -S jedi
+sudo pacman -S python-jedi
+c
+vim test.py
+vim ~/.vimrc 
+vim test.py
+sudo npm install jedi
+sudo pacman -S pip
+sudo pacman -S python-pip
+c
+vim test.py 
+ls
+rm test.py 
+cd ~
+vim test.js
+vim ~/.vimrc 
+vim test.js
+vim /etc/vimrc 
+$VIMRUNTIME/defaults.vim
+vim $VIMRUNTIME/defaults.vim
+python
+c
+ls
+cd ~/.vim/bundle/YouCompleteMe/
+ls
+./run_tests.py 
+sudo pacman -S flake8
+./run_tests.py 
+pwd
+./run_tests.py 
+/
+./run_tests.py 
+/usr/bin/python
+c
+ls
+vim test.js
+c
+ls
+cd ..
+ls
+vim ~/.vimrc 
+c
+ls
+reboot
+sudo pacman -S rofi
+c
+devilspie 
+compton
+vim ~/.config/i3/config 
+sudo pacman -S Xbindkeys
+sudo pacman -S xbindkeys
+c
+vim ~/.xinitrc 
+poweroff
+                         vim ~/.bash_profile 
+vim ~/.bash_aliases 
+ls 
+ls ..
+cd ..
+ls
+ls view/
+ls
+rm view/ -R
+c
+vim test.py
+vim test.js
+vim
+vim ~/.vimrc 
+ls
+cd YouCompleteMe/
+ls
+python3 ./install.py 
+vim test.js
+ls
+cd python/
+ls
+cd ..
+ls
+./run_tests.py 
+vim ~/.vimrc 
+vim test.js
+c
+vim python/ycm/vimsupport.py 
+vim python/ycm/run_te.py 
+
+im run_tests.py 
+vim run_tests.py 
+./run_tests.py 
+vim run_tests.py 
+./run_tests.py 
+vim run_tests.py 
+python
+c
+vim status
+cp .ycm_extra_conf.py ~
+vim ~/.vimrc 
+vim test.js
+vim ~/.ycm_extra_conf.py 
+ls
+python ~/.ycm_extra_conf.py 
+vim ~/.ycm_extra_conf.py 
+python ~/.ycm_extra_conf.py 
+vim ~/.ycm_extra_conf.py 
+vim test.js
+cd ~
+mkdir ycm_build
+cd .vim
+ls
+cd autoload/
+ls
+cd ..
+ls
+ls autoload/
+cd bundle/
+ls
+rm YouCompleteMe/ -R
+sudo rm YouCompleteMe/ -R
+ls
+vim ~/.vimrc 
+shutdown
+ls
+vim test.js
+c
+vim test.js
+sudo pacman -S clang
+sudo pacman -S cmake
+c
+cd ~
+ls
+rm ycm_build/ -R
+c
+cd ~
+mkdir ycm_build
+cd ycm_build/
+cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+cmake --build . --target ycm_core --config Release
+ls
+vim test.js
+vim /tmp/test.js
+vim /tmp/test.js
+vim ~/.vimrc 
+vim test.js
+whereis python
+/usr/bin/python3.7
+sudo pacman -S mono
+sudo pacman -S go
+c
+ls
+cd ~/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/
+ls
+cd jedi/
+ls
+ls jedi/
+cd ..
+ls
+vim jedi/requirements.txt 
+ls
+vim test.js
+ls
+cd ..
+ls
+cd ycm
+cd ycmm
+cd ycmd/
+ls completers/
+ls
+cd ..
+ls
+..
+ls
+./run_tests.py 
+c
+ls
+python2
+python2 ./run_tests.py 
+python ./run_tests.py 
+cd ..
+ls
+cd ..
+ls
+cd bundle/
+ls
+ls YouCompleteMe/
+ls ~/ycm_build/
+ls ~/ycm_build/ycm/
+ls
+ls YouCompleteMe/
+ls YouCompleteMe/autoload/
+ls
+cd YouCompleteMe/
+ls
+find -a "extra"
+find -l extra
+man find
+ls
+rm ~/ycm_build/
+rm ~/ycm_build/ -R
+c
+./install.py
+l:q
+yaourt vim-youcomplete-git
+yaourt vim-youcompleteme-git
+jj
+yaourt vim-youcompleteme-git
+gp 702353E0F7E48EDB
+gpg 702353E0F7E48EDB
+gpg --recv-keys 702353E0F7E48EDB
+yaourt vim-youcompleteme-git
+vim test.js
+ycm
+c
+ls
+vim test.js
+ls
+ls ~
+sudo pacman -Rs vim-youcompleteme-git
+c
+vim -u ~/.vimrctmp 
+vim -u ~/.vimrctmp test.js
+vim -u ~/.vimrctmp
+ls plugin/
+ls python/
+ls python/test_requirements.txt 
+cho python/test_requirements.txt 
+echo python/test_requirements.txt 
+vim python/test_requirements.txt 
+ls
+./install.py 
+vim test.js
+vim test.py
+./install.py 
+vim test.js
+ls
+vim test.js
+vim /tmp/test.js
+./install.sh 
+ls
+ls third_party/requests-futures/requirements-python-3.2.txt 
+ls
+vim autoload/youcompleteme.vim 
+ls
+/usr/bin/python3.7 ./install.py 
+vim test.js
+vim ~/.vimrc 
+vim test.js
+/usr/bin/python3 ./install.py 
+vim test.py
+ls
+./install.py --all
+./install.py
+vim ~/.vimrc 
+ls
+pwd
+cd ~/dotFiles/vim
+ls
+cd .vim
+ls
+cd autoload/
+ls
+cd ..
+ls bundle/
+ls
+cd bundle/
+ls
+cd YouCompleteMe/
+ls
+ls plugin/youcompleteme.vim 
+vim plugin/youcompleteme.vim 
+c
+ls
+vim plugin/youcompleteme.vim 
+:q!
+ls
+history
+vim test.py
+c
+ls
+vim ~/.vimrc 
+vim test.js
+vim ~/.vimrctmp
+rm ~/.vimrctmp 
+vim ~/.vimrc 
+vim test.js
+
+vim test.js
+vim ~/.vimrc 
+ls
+cd ..
+vim ~/.vimrc 
+poweroff
+vim test.js
+vim tes.js
+sudo pacman -R vim
+yaourt vim
+sudo pacman -R vim
+sudo pacman -Rs vim
+sudo pacman -S vim
+vim ~/.bash_aliases 
+sudo pacman -R gvim
+sudo pacman -S gvim
+vim
+vim ~/.vim
+vim ~/.vimrc 
+ls
+vim ~/.vimrc 
+ls
+cd ..
+ls
+
+c
+shutdown
+vim test.js
+vim tset.js
+ls
+mkdir test
+mv YouCompleteMe/ test/
+c
+cd ~/.vim/bundle/
+ls
+ls gruvbox/
+ls ..
+git clone https://github.com/Valloric/YouCompleteMe#installation
+git clone https://github.com/Valloric/YouCompleteMe
+c
+ls
+vim test.js
+ls
+ls YouCompleteMe/
+vim tset.js
+yaourt ncurses5
+c
+ls
+vim test.js
+ls
+c
+ls
+rm test/ -R
+sudo rm test/ -R
+c
+sudo pacman -S cmake
+sudo pacman -S mono go cargo
+c
+ls
+rm autoload/pathogen.vim 
+c
+cd bundle/YouCompleteMe/
+ls
+./install.py --all
+c
+vim test.js
+vim ~/.vimtest
+vim ~/.vimtmp
+vim ~/.vimrctmp
+rm ~/.vimrctmp 
+vim test.js
+vim ~/.vimrc 
+vim -u ~/.vimrctmp 
+c
+vim -u ~/.vimrctmp 
+vim test.js
+vim -u ~/.vimrctmp tst.js
+pwd
+ls
+vim test.js
+ls
+mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+vim ~/.vimrc 
+vim test.js
+ls
+cd ..
+ls
+cd .vim
+vim test.js
+vim ~/.vimrc 
+vim tset.js
+ls
+vim ~/.vimrc 
+vim test.py
+vim ~/.vimrc 
+shutdown
+vim ~/.ycm_extra_conf.py 
+rm ~/.ycm_extra_conf.py 
+c
+vim ~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py 
+vim test.js
+c
+vim test.
+c
+vim test.js
+c
+cd ..
+cd Documents/
+ls
+cd testGit/
+vim test.py
+vim test.js
+vim test.py
+vim test.js
+vim ~/.vimrc 
+history 
+vim ~/.tern-project
+vim ~/test.js
+mv ~/.tern-project testsss
+vim ~/.vimrc 
+rm .tern-project 
+mv testsss ~/.tern-project
+;w
+c
+vim ~/.vimrc 
+vim jsconfig.json
+vim .tern-project
+vim jsconfig.json
+vim test.js
+vim
+vim test.js 
+history
+vim ~/.tern-project
+vim test.js 
+rm ~/.tern-project 
+c
+ls ~
+ll ~
+!
+;
+c
+vim test.js
+ls
+ll
+vim .tern-project 
+rm .tern-project 
+vim test.js
+ll
+vim test.js
+vim .tern-project
+vim test.js
+vim test.py
+vim test.js
+vim test.py
+vim test.js
+vim test.py
+vim test.js
+;
+vim test.js
+shutdown
+sudo pacman -S ctags
+c
+ls
+cd ~/.vim
+ls
+cd autoload/
+cd ..
+rm test.js 
+ls
+cd ~/tmp/
+ls
+cd Editing/
+ls
+ls ultisnips/
+rm nerdcommenter/ ultisnips/ vim-multiple-cursors/ vim-surround/ vim-snippets/ -R
+rm sparkup/ -R
+rm vim-gitgutter/ YouCompleteMe/ -R
+ls
+rm auto-pairs/ syntastic/ vim-jsdoc/ -R
+x
+c
+ls
+cd ..
+rm Editing/ -R
+ls
+ls Display/
+rm Display/ -R
+ls
+ls Navigation/
+ls General/
+rm General/ -R
+c
+cd Navigation/
+ls
+vim ~/.vimrc 
+ll
+vim ~/.vim/.netrwhist 
+vim ~/.vim/.e
+cd ~/.vim
+ll
+vim ~/.vimt
+vim ~/.vimtags 
+vim ~/.vimrc 
+vim test
+vim test.js
+vim test1.js
+vim test.js
+vim test1.js
+vim test2.js
+vim test3.js
+ls
+vim test3.js
+vim test4.js
+wmaker
+cd /usr/share/webapps/wordpress/
+ls
+c
+ls
+ls wp-content/
+ls wp-content/plugins/
+git clone https://YasserKaddoura@bitbucket.org/makerbranelb/makerbrane-server.git
+ls makerbrane-server/
+mv makerbrane-server/ ..
+sudo mv makerbrane-server/ ..
+ls
+mv ../makerbrane-server/ .
+sudo mv ../makerbrane-server/ .
+ls
+ls makerbrane-server/*
+ll makerbrane-server/*
+cd makerbrane-server/
+ll
+sudo mv * ..
+rm ../wp-content/ -R
+sudo mv * ..
+ls
+cd ..
+ls
+ls wp-content/
+c
+ls
+cd wp-content/
+ls
+cd plugins/
+ls
+cd makerbrane-makerspace-new/
+ls
+vim makerbrane-makerspace.php 
+ls
+cd .
+..
+ls
+ll
+..
+ll
+..
+ll
+cd wp-content/
+ls
+ls themes/
+ls themes/twentyseventeen/
+cd ..
+git checkout web-worker
+git status
+ls
+ll
+ls makerbrane-server/
+ll makerbrane-server/
+mv makerbrane-server/.* .
+ll
+mv makerbrane-server/.git* .
+git status
+git checkout web-workers
+git fetch
+git checkout web-workers
+ls
+cd wp-con
+cd wp-content/
+ls
+cd themes/
+ls
+cd .
+..
+ll
+git status
+ll
+ls plugins/
+ls plugins/simple-tags/.gitignore 
+ll
+mkdir uploads
+ll
+chmod  777 uploads/
+cd ..
+ls
+vim wp-config.php 
+ls
+cd wp-content/
+ls
+ls themes/
+ll themes/
+ll /srv/http/
+cd /srv/
+chown yasser:yasser http/ -R
+wmaker
+ll
+cd ..
+ll
+cd ..
+ll
+..
+ll
+..
+ll
+cd wordpress/
+ll
+cd wp-content/
+ll
+chmod themes/ 777
+chmod 777 themes/
+ls themes/
+git pull
+ls
+cd ~/Downloads/
+ls
+ll
+ls
+ll
+cd wp-content/
+ls
+mkdir test
+rm test/
+rm test/ -R
+cd plugins/
+ls
+mkdir test
+rm test/ -R
+ll
+chown http:http -R /usr/share/webapps/wordpress/ -R
+sudo chown http:http -R /usr/share/webapps/wordpress/ -R
+sudo pacman -S chromium
+vim /var/log/Xorg.0.log
+lspci
+sudo pacman -S mesa
+sudo vim /etc/X11/xorg.conf.d/20-inte.conf
+reboot
+sudo pacman -S xorg-server
+lspci | grep -e VGA -e 3D
+pacman -Ss xf86-video
+sudo pacman -S xf86-video-intel
+lspci | grep -e VGA -e 3D
+firefox
+history
+lspci | grep -e VGA -e 3D
+pacman -Ss xf86-video
+history
+sudo pacman -R xf860-video-intel
+sudo pacman -R xf86-video-intel
+sudo pacman -S xf86-video-amdgpu
+sudo vim /etc/X11/xorg.conf.d/20-amdgpu.conf
+reboot
+sudo pacman -S virtualbox-guest-utils
+history
+lspci  | grep -e VGA -e 3D
+sudo pacman -S linux
+sudo pacman -S virtualbox-guest-modules-arch
+history
+sudo pacman -R xf86-video-amdgpu
+c
+/usr/share/pacman/keyrings/
+ls /var/lib/pacman/sync/
+which virtualbox
+history
+which virtualbox-guest-iso
+ls /var/cache/pacman/pkg/
+sudo pacman -R xf86-video-amdgpu
+c
+sudo pacman -S virutalbox-guest-iso
+sudo pacman -S virtualbox-guest-iso
+
+
+c
+xdg-open .
+c
+modprobe -a vboxguest vboxsf vboxvideo
+sudo modprobe -a vboxguest vboxsf vboxvideo
+systemctl enable vboxservice
+hwinfo --framebuffer
+VBoxManage 
+rcvboxdrv 
+sudo rcvboxdrv 
+virtualbox 
+sudo pacman -S linux-lts-header
+sudo pacman -S linux-lts-headers
+modprobe -a vboxguest vboxsf vboxvideo
+sudo modprobe -a vboxguest vboxsf vboxvideo
+VBoxClient --clipboard --draganddrop --seamless --display --checkhostversion
+VBoxClient --clipboard 
+VBoxClient --draganddrop 
+ls /etc/xdg/autostart/vboxclient.desktop 
+/etc/xdg/autostart/vboxclient.desktop 
+sudo /etc/xdg/autostart/vboxclient.desktop 
+systemctl enable vboxservice
+systemctl enable vboxservice.service
+c
+reboot
+sudo pacman -S ag
+sudo pacman -S Ag
+sudo pacman -S the_silver_searcher
+wmaekr
+wmaker
+vim config.php 
+vim ~/.tern-project 
+vim config.php 
+vim test.js
+mv ~/.tern-project ~/.tern-config
+vim test.js
+vim public_html/assets/libraries/workshop/HandControl.js 
+vim .jshintrc
+sudo vim .jshintrc
+vim public_html/assets/libraries/workshop/HandControl.js 
+rm .jshintrc 
+sudo rm .jshintrc 
+c
+vim public_html/assets/libraries/workshop/HandControl.js 
+ce
+cd
+vim test.js
+cd Documents/testGit/
+vim test.js 
+wmaker
+ls
+jshint
+jshint --config ~/.jshintrc 
+vim public_html/assets/libraries/workshop/HandControl.js 
+cd ..
+ls
+ll
+cd ..
+ll
+cd .
+..
+ll
+chown yasser:yasser wordpress/ -R
+sudo chown yasser:yasser wordpress/ -R
+c
+ls
+wmaker
+vim ~/.config/
+vim config.php 
+vim ~/.jshintrc h
+vim ~/.jshintrc
+vim ~/.jshintrc.js
+cd
+mv .jshintrc.js .jshintrc
+c
+jshint 
+man jshint
+jshint --help
+jshint -c .jshintrc 
+jshint --config .jshintrc 
+
+jshint --config .jshintrc --verbose
+vim .jshintrc 
