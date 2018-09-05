@@ -20,6 +20,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " required
 
 Plugin 'morhetz/gruvbox'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'itchyny/lightline.vim'
 Plugin 'maximbaz/lightline-ale'
 Plugin 'junegunn/rainbow_parentheses.vim'
@@ -63,7 +64,7 @@ colorscheme gruvbox " set color scheme, must be installed first
 " colorscheme solarized gruvbox
 " needed to work in terminal emulator
 let g:solarized_termcolors=256
-set background=dark " dark background for console
+set background=light " dark background for console
 set laststatus=2 " display the status line always
 set number " show the number line
 set list " show eof, trailing, etc..
@@ -131,6 +132,7 @@ endif
 "##############################################################
 " lightline-ale
 let g:lightline = {}
+let g:lightline.colorscheme = 'solarized'
 
 let g:lightline.component_expand = {
       \  'linter_checking': 'lightline#ale#checking',
@@ -177,10 +179,10 @@ let g:ycm_max_num_candidates = 6
 " let g:ale_completion_enabled = 1
 " let g:ale_open_list = 1
 
-" let g:ale_fixers = {
-" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \   'javascript': ['jshint'],
-" \}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['jshint'],
+\}
 " Syntastic
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
