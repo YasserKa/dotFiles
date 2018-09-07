@@ -1,0 +1,16 @@
+# MARKS
+mk      - mark current position (can use a-z)
+'k      - move to mark k
+'a-z    - same file
+'A-Z    - between files
+
+# jumping
+<CTRL> - O
+<CTRL> - I
+
+# tags
+:tag name
+<CTRL> - t previous tag
+<CTRL> - ] under cursor :tag
+
+=G    indent till the end
