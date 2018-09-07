@@ -23,22 +23,25 @@ Plugin 'morhetz/gruvbox'
 Plugin 'itchyny/lightline.vim'
 Plugin 'maximbaz/lightline-ale'
 Plugin 'junegunn/rainbow_parentheses.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'xolox/vim-easytags'
-" required by eas-tags
-Plugin 'xolox/vim-misc'
+Plugin 'kamwitsta/flatwhite-vim'
 
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'xolox/vim-easytags'
+" required by easy-tags
+Plugin 'xolox/vim-misc'
 Plugin 'junegunn/fzf.vim'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'w0rp/ale'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end() " required
 " }}}
@@ -56,6 +59,10 @@ nnoremap ; :
 nnoremap : ;
 " Make Y act like D and C
 map Y y$
+" Open definition in new vertical split
+nnoremap <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" Open definition in new tab
+nnoremap <leader>dt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " }}}
 " Display settings{{{
 set encoding=utf-8 " encoding used for displaying file
@@ -161,11 +168,13 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 set updatetime=250
 " vim-javascript
 " JSdocs
-let g:javascript_plugin_jsdoc = 1
+" JSdocs
+set foldmethod=syntax
+set foldcolumn=1
+let javaScript_fold=1
+set foldlevelstart=99
+
 " folding
-augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
 " augroup END
 "}}}
 " Editing{{{
@@ -179,7 +188,7 @@ let g:ycm_max_num_candidates = 6
 
 " let g:ale_fixers = {
 " \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \   'javascript': ['jshint'],
+" \   'javascript': ['eslint'],
 " \}
 " Syntastic
 " set statusline+=%#warningmsg#

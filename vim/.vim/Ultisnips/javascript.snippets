@@ -1,5 +1,12 @@
-snippet noo "description" b
-${1:firstChoide} $2
-hello
-$1 $2
+snippet con "description" b
+console.log($1);
+endsnippet
+
+snippet jQ "description" b
+jQuery('$1').on('click',
+	function() {
+		$2
+	}
+);
+console.log($1);
 endsnippet

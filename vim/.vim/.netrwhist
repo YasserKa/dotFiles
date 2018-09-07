@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/home/yasser/Documents/myProjects'
 let g:netrw_dirhist_2='/home/yasser/Documents'
 let g:netrw_dirhist_3='/home/yasser'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/'
 let g:netrw_dirhist_6='/home/yasser/.config/termite'
 let g:netrw_dirhist_7='/home/yasser/dotfiles/vim/.vim/bundle/command-t'
 let g:netrw_dirhist_8='/home/yasser/dotfiles/vim/.vim/bundle/command-t/plugin'
+let g:netrw_dirhist_9='/usr/share/webapps/wordpress/wp-content/plugins/makerbrane-makerspace-new'
