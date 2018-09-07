@@ -55,6 +55,7 @@ set modelines=1 " sets the number of lines at start and end of file
 " edit and load vimrc bindings
 nnoremap <leader>ev :split $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>r :split ~/.notes<CR>
 " swap ; and : for a faster command access
 nnoremap ; :
 nnoremap : ;
