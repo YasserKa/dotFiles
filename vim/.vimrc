@@ -59,6 +59,8 @@ nnoremap <leader>r :split ~/.notes<CR>
 " swap ; and : for a faster command access
 nnoremap ; :
 nnoremap : ;
+" sort by the length of the line in visual mode
+xnoremap <leader>s  : ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<CR><CR>
 " Make Y act like D and C
 map Y y$
 " Open definition in new vertical split
