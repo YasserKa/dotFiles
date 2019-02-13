@@ -1,5 +1,0 @@
-/* (if (not (is(window_class) "Vlc")) */
-/*      (begin */
-/*          ( spawn_async (str "transset-df -i " (window_xid) " 0.85" )) */
-/*      ) */
-/* ) */

@@ -1,6 +1,9 @@
 #!/bin/bash
+# problem: deepin-screenshot will overshadow no notification command
+# if --save-path command is used
+
+exit
 SAVE_TO="$HOME/Pictures/ScreenShots/";
-SAVE_FROM="$HOME/Desktop/";
 
 if [ ! -d "$SAVE_TO" ]
 then
@@ -9,13 +12,18 @@ then
     mkdir -p $SAVE_TO;
 fi
 
-deepin-screenshot -n
-#FILE_NAME=`ls -v $SAVE_TO | tail -1`
-FILE_NAME=`ls $SAVE_FROM | grep DeepinScreenshot`
+deepin-screenshot --save-path $SAVE_TO -n
+# deepin-screenshot --save-path $SAVE_TO --no-notification
+exit
+FILE_NAME=`ls $SAVE_TO | grep DeepinScreenshot`
 
-mv $SAVE_FROM$FILE_NAME $SAVE_TO
+# rename the file
+DATE=`date +"%Y-%m-%d_%T"`".png"
+OLD_PATH=$SAVE_TO$FILE_NAME
+NEW_PATH=$SAVE_TO$DATE
+mv $OLD_PATH $NEW_PATH
 
-PATH_TO_SHOT=$SAVE_TO$FILE_NAME
-echo $PATH_TO_SHOT
+# save the image using ptpb and copy the url to clipboard using xclip
+curl -F c=@- https://ptpb.pw < $NEW_PATH | grep url | awk -F ' ' '{print $2".png"}' | xclip
 
-curl -F c=@- https://ptpb.pw < $PATH_TO_SHOT
+notify-send "copied to clipboard"
