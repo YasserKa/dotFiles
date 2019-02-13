@@ -1,6 +1,6 @@
-#!/usr/bin/env perl 
+#!/usr/bin/env perl
 
-## The sink we are interested in should be given as the 
+## The sink we are interested in should be given as the
 ## 1st argument to the script.
 my $sink=$ARGV[0] || die("Need a sink number as the first argument\n");
 
@@ -8,7 +8,7 @@ my $sink=$ARGV[0] || die("Need a sink number as the first argument\n");
 ## that argument will be the volume threshold we are checking
 my $volume_limit=$ARGV[1]||undef;
 
-## Run the pactl command and save the output in 
+## Run the pactl command and save the output in
 ## ther filehandle $fh
 open(my $fh, '-|', 'pactl list sinks');
 
@@ -36,7 +36,7 @@ while (<$fh>) {
                 print "n\n";
                 exit 1;
             }
-        }   
+        }
         ## Else, if the script has been run with just one argument,
         ## print the current volume.
         else {
