@@ -31,10 +31,13 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'kamwitsta/flatwhite-vim'
+Plugin 'heavenshell/vim-jsdoc'
+Plugin 'mattn/emmet-vim'
 
 Plugin 'xolox/vim-easytags'
 " required by easy-tags
 Plugin 'xolox/vim-misc'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'w0rp/ale'
@@ -67,6 +70,7 @@ map Y y$
 nnoremap <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " Open definition in new tab
 nnoremap <leader>dt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+vnoremap <C-c> "*y
 " }}}
 " Display settings{{{
 set encoding=utf-8 " encoding used for displaying file
@@ -131,7 +135,7 @@ if has('autocmd')
     autocmd BufWritePre * :%s/\(\s*\n\)\+\%$//ge
 
     " replace groups of empty or whitespaces-only lines with one empty line
-    autocmd BufWritePre * :%s/\(\s*\n\)\{3,}/\r\r/ge
+    " autocmd BufWritePre * :%s/\(\s*\n\)\{3,}/\r\r/ge
 
     " delete any trailing whitespaces
     autocmd BufWritePre * :%s/\s\+$//ge
@@ -173,7 +177,6 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 set updatetime=250
 " vim-javascript
 " JSdocs
-" JSdocs
 set foldmethod=syntax
 set foldcolumn=1
 let javaScript_fold=1
@@ -194,17 +197,9 @@ let g:ycm_max_num_candidates = 6
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['jshint'],
+\   'python': ['flake8'],
 \}
-" Syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_quiet_messages = { "type": "style" }
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "##############################################################
 " UltiSnips
 " defines the directory private snippet definition files are stored in.
@@ -270,12 +265,12 @@ map <Leader>k <Plug>(easymotion-k)
 " }}}
 " General {{{
 " fugitive
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gl :Glog<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gp :Git push<CR>
+" nnoremap <leader>gb :Gblame<CR>
+" nnoremap <leader>gs :Gstatus<CR>
+" nnoremap <leader>gd :Gdiff<CR>
+" nnoremap <leader>gl :Glog<CR>
+" nnoremap <leader>gc :Gcommit<CR>
+" nnoremap <leader>gp :Git push<CR>
 " }}}
 " To check undo list: gundo
 " }}}
@@ -291,12 +286,12 @@ function! Get_visual_selection()
     let lines[0] = lines[0][column_start - 1:]
     return join(lines, "\n")
 endfunction
-function! Open_unity_docs()
-    silent !clear
-    let path = "file:///opt/Unity/Documentation/en/ScriptReference/30_search.html?q="
-    execute "!firefox ".path.Get_visual_selection()." &"
-endfunction
-vmap <leader>u :call Open_unity_docs()<CR>
+" function! Open_unity_docs()
+"     silent !clear
+"     let path = "file:///opt/Unity/Documentation/en/ScriptReference/30_search.html?q="
+"     execute "!firefox ".path.Get_visual_selection()." &"
+" endfunction
+" vmap <leader>u :call Open_unity_docs()<CR>
 "}}}
 "set foldmethod=syntax
 " used to fold sections by markers and fold them by default
