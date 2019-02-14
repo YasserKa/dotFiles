@@ -47,5 +47,5 @@ function extract()
 # Make the following commands run in background automatically:
 #-------------------------------------------------------------
 
-function zathura() { command zathura "$@" & }
-function xdg-open() { command xdg-open "$@" & }
+function zathura() { (command zathura "$@" &) }
+function xdg-open() { (command xdg-open "$@" &) }
