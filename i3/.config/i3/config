@@ -181,6 +181,8 @@ focus_follows_mouse no
 exec_always feh --bg-scale `find /home/yasser/Pictures/WallPapers/. -type f | shuf -n1`
 
 # starting up duckduckgo in workspace 1 and trello on workspace 5 using templates
-exec ~/.i3/firefoxInit.sh
-exec claws-mail
-exec spotify
+exec ~/bin/waitInternet; ~/.i3/firefoxInit.sh
+exec ~/bin/waitInternet; claws-mail
+# removing the cache to fix the songs skipping bug
+# exec rm ~/snap/spotify/common/.cache/spotify/Storage -R
+exec rhythmbox
