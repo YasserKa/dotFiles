@@ -191,8 +191,9 @@ let g:ycm_max_num_candidates = 6
 "##############################################################
 " ALE
 " Enable completion where available.
-" let g:ale_completion_enabled = 1
-" let g:ale_open_list = 1
+let g:ale_completion_enabled = 1
+let g:ale_open_list = 1
+let g:ale_echo_cursor = 0
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
