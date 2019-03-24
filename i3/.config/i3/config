@@ -89,7 +89,8 @@ bindsym $mod+Shift+9 move container to workspace $wp9
 bindsym $mod+Shift+0 move container to workspace $music
 
 # Opening softwares to a default workspaces
-assign [class="Google-chrome|Firefox"] workspace $browsers
+# Use xprop to get the class
+# assign [class="Google-chrome|Firefox"] workspace $browsers
 assign [class="Zathura"] workspace $book
 # A work around for spotify, since assign doesn't work for it
 for_window [class="Spotify"] move to workspace $music
@@ -181,7 +182,8 @@ focus_follows_mouse no
 exec_always feh --bg-scale `find /home/yasser/Pictures/WallPapers/. -type f | shuf -n1`
 
 # starting up duckduckgo in workspace 1 and trello on workspace 5 using templates
-exec ~/bin/waitInternet; ~/.i3/firefoxInit.sh
+# exec ~/bin/waitInternet; ~/.i3/firefoxInit.sh
+exec ~/bin/waitInternet; ~/.i3/qutebrowser.json
 exec ~/bin/waitInternet; claws-mail
 # removing the cache to fix the songs skipping bug
 # exec rm ~/snap/spotify/common/.cache/spotify/Storage -R
