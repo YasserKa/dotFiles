@@ -1,0 +1,7 @@
+[Default Applications]
+x-scheme-handler/https=qutebrowser.desktop
+x-scheme-handler/http=qutebrowser.desktop
+application/xhtml+xml=qutebrowser.desktop
+text/html=qutebrowser.desktop
+
+[Added Associations]

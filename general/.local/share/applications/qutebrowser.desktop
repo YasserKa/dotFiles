@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=qutebrowser
+Comment=Browser
+Keywords=html;xhtml;
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;;Browser;
+MimeType=text/html;application/xhtml+xml;
+Icon=qutebrowser
+Exec=/usr/bin/qutebrowser %F
