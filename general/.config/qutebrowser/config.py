@@ -15,6 +15,10 @@ config.bind(';', 'set-cmd-text :')
 config.bind('<Ctrl-w>', 'fake-key <Ctrl-backspace>', mode='insert')
 config.bind('<Ctrl-h>', 'fake-key <backspace>', mode='insert')
 
+config.bind('<<', 'tab-move -')
+config.bind('>>', 'tab-move +')
+
 config.bind('p', 'open -t selection', mode='caret')
 config.set('scrolling.smooth', True)
 config.set('scrolling.bar', 'never')
+config.set('spellcheck.languages', ['en-US'])
