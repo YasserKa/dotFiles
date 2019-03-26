@@ -18,7 +18,12 @@ config.bind('<Ctrl-h>', 'fake-key <backspace>', mode='insert')
 config.bind('<<', 'tab-move -')
 config.bind('>>', 'tab-move +')
 
-config.bind('p', 'open -t selection', mode='caret')
-config.set('scrolling.smooth', True)
+config.bind('o', 'open selection', mode='caret')
+config.bind('O', 'open -t selection', mode='caret')
+
 config.set('scrolling.bar', 'never')
 config.set('spellcheck.languages', ['en-US'])
+
+
+# doesn't work
+config.set('scrolling.smooth', True)
