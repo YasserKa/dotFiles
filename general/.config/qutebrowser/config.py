@@ -2,6 +2,9 @@
 config.bind('J', 'forward')
 config.bind('K', 'back')
 
+config.bind('tJ', 'forward -t')
+config.bind('tK', 'back -t')
+
 config.bind('H', 'tab-prev')
 config.bind('L', 'tab-next')
 
