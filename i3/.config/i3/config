@@ -153,7 +153,8 @@ bar {
                 #border             background             text
                 focused_workspace  $bg-color-bar          $bg-color-bar          $text-color
                 inactive_workspace $inactive-bg-color-bar $inactive-bg-color-bar $inactive-text-color
-                urgent_workspace   $urgent-bg-color       $urgent-bg-color       $text-color
+                urgent_workspace   $bg-color-bar          $bg-color-bar          $text-color
+                # urgent_workspace   $urgent-bg-color       $urgent-bg-color       $text-color
         }
 }
 
