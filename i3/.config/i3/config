@@ -186,6 +186,7 @@ exec_always feh --bg-scale `find /home/yasser/Pictures/WallPapers/. -type f | sh
 # starting up duckduckgo in workspace 1 and trello on workspace 5 using templates
 # exec ~/bin/waitInternet; ~/.i3/firefoxInit.sh
 exec ~/bin/waitInternet; ~/.i3/qutebrowserInit.sh
+exec i3-msg 'workspace "3"; exec termite --exec "vim $HOME/vimwiki/index.md"; workspace '
 exec ~/bin/waitInternet; claws-mail
 # removing the cache to fix the songs skipping bug
 # exec rm ~/snap/spotify/common/.cache/spotify/Storage -R
