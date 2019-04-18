@@ -21,6 +21,7 @@ alias ...='cd ...'
 # Dictionary
 alias def='sdcv -c'
 
+alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 # Handy Extract Program
 function extract()
 {
@@ -43,9 +44,7 @@ function extract()
         echo "'$1' is not a valid file!"
     fi
 }
-#-------------------------------------------------------------
-# Make the following commands run in background automatically:
-#-------------------------------------------------------------
 
+# commands run in background automatically
 function zathura() { (command zathura "$@" &) }
 function xdg-open() { (command xdg-open "$@" &) }

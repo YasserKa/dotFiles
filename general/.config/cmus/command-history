@@ -1,0 +1,65 @@
+quit
+q!
+q
+wq
+w
+bind -f common q shell screen -d cmus
+filter 
+view filters
+live-filter
+refresh
+load
+invert
+filter ogg
+filter 90s
+filter classical
+filter Mozart
+filter brun
+unbind common ;
+unbind -f ;
+man unbind
+unbind ;
+bind -f common ; push t 
+t<space>;
+t<space>
+bind -f common ; push t<space>
+push
+bind -f common ; push <space>
+bind -f common ; push<space>
+bind -f common ; <space>
+filter
+fset classical=genre="Classical"
+ope3
+;^h
+fffdf
+bind -f common ; push ;^h
+unbind :
+:open
+:
+bind -f common : push :
+;
+bind -f common ; push 
+bind -f common ; push <>
+''
+bind -f ; common push <>
+''jq
+bind -f common push <>
+bind -f ;  
+'';
+bind 
+bind -f common ; push ''
+bind common ; push 
+bind common ; push
+:q
+unbind w
+bind common ; push :
+run push :
+run :
+echo :
+<:>
+echo hello
+bind jkkwqq
+bind ; push :
+bind -f ; push :
+bind ; :
+add ~/Music/

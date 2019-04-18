@@ -172,9 +172,13 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# bindsym XF86AudioPlay exec playerctl play-pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86AudioPlay exec cmus-remote --pause
+bindsym XF86AudioNext exec cmus-remote --next
+bindsym XF86AudioPrev exec cmus-remote --prev
 
 bindsym $mod+d exec rofi -show run -lines 3 -width 100 -padding 800 -color-window "#EE000000" "#EE000000" "#EE000000" "#EE000000" -font "inconsolata 15"
 
@@ -191,4 +195,4 @@ exec i3-msg 'workspace "3"; exec termite --exec "vim $HOME/vimwiki/index.md"; wo
 exec ~/bin/waitInternet; claws-mail
 # removing the cache to fix the songs skipping bug
 # exec rm ~/snap/spotify/common/.cache/spotify/Storage -R
-exec rhythmbox
+# exec rhythmbox

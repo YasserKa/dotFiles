@@ -1,0 +1,11 @@
+[Unit]
+Description=cmus
+
+[Service]
+Type=forking
+#User=yasser
+ExecStart=/usr/bin/screen -d -m -S cmus /usr/bin/cmus --listen /run/user/1000/cmus-socket start
+Environment="HOME=/home/yasser" "USERNAME=yasser"
+
+[Install]
+WantedBy=default.target

@@ -1,4 +1,3 @@
-# for examples
 #disable bell
 xset -b
 
@@ -48,6 +47,8 @@ export EDITOR=vim
 export VISUAL=vim
 set -o vi
 
+# used to make cmus escape works
+export ESCDELAY=25
 export PATH=$PATH:$HOME/bin
 
 PS1='\[\033[0;36m\] \W\[\033[34m\] \$\[\033[33m\] '
