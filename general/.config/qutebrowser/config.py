@@ -30,6 +30,10 @@ config.bind('<Ctrl-v>', 'leave-mode', mode='passthrough')
 
 config.bind('ye', 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown ;; message-info "yanked emacs markdown"')
 
+
+config.bind('es', 'config-edit')
+config.bind('ss', 'config-source')
+
 # open a tab in a new window then close it in the current window
 config.bind('wO', 'open -w {url} ;; tab-close')
 
