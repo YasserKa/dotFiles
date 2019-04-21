@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "[[$QUTE_URL][$QUTE_TITLE]]" | xclip -selection c
