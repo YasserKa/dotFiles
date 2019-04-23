@@ -4,8 +4,8 @@
 "<leader>t  tagbarTagbarToggle<CR>
 "<leader>n  nerdtree
 "<leader>s  easymotion
-"<leader>ev :vsp $MYVIMRC<CR>
-"<leader>sv :source $MYVIMRC<CR>
+"<leader>es :vsp $MYVIMRC<CR>
+"<leader>ss :source $MYVIMRC<CR>
 "toggle current fold
 nnoremap  <space> za
 " }}}
@@ -56,8 +56,8 @@ set virtualedit=all  " moving in whitespace
 let mapleader="," " changing the leader from \ to ,
 set modelines=1 " sets the number of lines at start and end of file
 " edit and load vimrc bindings
-nnoremap <leader>ev :split $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>es :split $MYVIMRC<CR>
+nnoremap <leader>ss :source $MYVIMRC<CR>
 nnoremap <leader>r :split ~/.notes<CR>
 " swap ; and : for a faster command access
 nnoremap ; :
