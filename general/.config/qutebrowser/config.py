@@ -26,7 +26,9 @@ config.bind('<Ctrl-h>', 'fake-key <backspace>', mode='passthrough')
 config.bind('o', 'open selection', mode='caret')
 config.bind('O', 'open -t selection', mode='caret')
 
-config.bind('<Ctrl-v>', 'leave-mode', mode='passthrough')
+config.unbind('<Ctrl-V>', mode='normal')
+config.bind('<Ctrl-Shift-V>', 'leave-mode', mode='passthrough')
+config.bind('<Ctrl-Shift-V>', 'enter-mode passthrough')
 
 config.bind('ye', 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown ;; message-info "yanked emacs markdown"')
 
