@@ -95,6 +95,7 @@ assign [class="Zathura"] workspace $book
 # A work around for spotify, since assign doesn't work for it
 for_window [class="Spotify"] move to workspace $music
 assign [class="Rhythmbox"] workspace $music
+assign [class="mpv"] workspace $music
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
 
