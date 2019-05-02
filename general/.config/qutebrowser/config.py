@@ -31,7 +31,7 @@ config.bind('<Ctrl-Shift-V>', 'leave-mode', mode='passthrough')
 config.bind('<Ctrl-Shift-V>', 'enter-mode passthrough')
 
 config.bind('ye', 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown ;; message-info "yanked emacs markdown"')
-
+config.bind('yu', 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube')
 
 config.bind('es', 'config-edit')
 config.bind('ss', 'config-source')
