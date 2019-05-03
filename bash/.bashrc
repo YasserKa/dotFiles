@@ -10,14 +10,6 @@ PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history
-# ... or force ignoredups and ignorespace
-export HISTCONTROL=ignoredups:ignorespace
-export BROWSER=/usr/bin/firefox
-# Make firefox default browser
-xdg-mime default firefox.desktop x-scheme-handler/http
-xdg-mime default firefox.desktop x-scheme-handler/https
-
 #append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -43,15 +35,27 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-export EDITOR=vim
-export VISUAL=vim
+PS1='\[\033[0;36m\] \W\[\033[34m\] \$\[\033[33m\] '
+
 set -o vi
 
+# don't put duplicate lines in the history
+# ... or force ignoredups and ignorespace
+export HISTCONTROL=ignoredups:ignorespace
+# export BROWSER=/usr/bin/qutebrowser
+VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
+# Make firefox default browser
+#xdg-mime default qutebrowser.desktop x-scheme-handler/http
+#xdg-mime default qutebrowser.desktop x-scheme-handler/https
 # used to make cmus escape works
 export ESCDELAY=25
+export PATH="$PATH:/opt/mssql-tools/bin"
+#export PATH="$HOME/.rbenv/bin:$PATH"
+#eval "$(rbenv init -)"
+#export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+#alias qutebrowser="$HOME/qutebrowser/.venv/bin/qutebrowser"
 export PATH=$PATH:$HOME/bin
 
-PS1='\[\033[0;36m\] \W\[\033[34m\] \$\[\033[33m\] '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -80,4 +84,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export EDITOR=vim
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/yasser/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/yasser/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/yasser/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/yasser/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

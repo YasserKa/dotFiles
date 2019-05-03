@@ -8,20 +8,28 @@ alias top='atop'
 alias reboot='shutdown --no-wall -r'
 alias shutdown='sudo shutdown now'
 alias df='df -Tha --total'
-alias fhere='find . -name'
-alias less='/usr/share/vim/vim80/macros/less.sh'
 alias vi='vim'
-alias python='python3.6'
+alias v='vim'
 
 # Navigation
 alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
-# Dictionary
-alias def='sdcv -c'
+# work
+alias aug='cd $HOME/Documents/Augmental'
+alias workscreen='xrandr --output HDMI1 --auto --right-of eDP1'
+# lias work='qutebrowser --target https://augmentalteam.slack.com; workscreen; slack'
+alias work="i3-msg 'workspace ; append_layout ~/.i3/qutebrowser.json; exec qutebrowser --target=window https://augmentalteam.slack.com/messages/DGF268BA8/; workspace '; workscreen; slack"
 
+# Misc
+alias def='sdcv -c'
+alias net='wicd-curses'
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+alias myzahura='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
+alias notebook='conda run jupyter notebook $HOME/Documents/notebooks & disown'
+alias python='python3.6'
+
 # Handy Extract Program
 function extract()
 {
