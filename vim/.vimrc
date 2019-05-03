@@ -47,6 +47,9 @@ Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 
+Plugin 'vim-scripts/dbext.vim'
+Plugin 'vim-scripts/SQLComplete.vim'
+
 call vundle#end() " required
 " }}}
 " general settings{{{
@@ -198,6 +201,7 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['jshint'],
 \   'python': ['flake8'],
+\   'SQL': ['sqlint'],
 \}
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "##############################################################
@@ -293,6 +297,10 @@ endfunction
 " endfunction
 " vmap <leader>u :call Open_unity_docs()<CR>
 "}}}
+
+let g:ftplugin_sql_omni_key = '<C-C>'
+
+ let g:dbext_default_profile_mySQLServer = 'type=SQLSRV:integratedlogin=1:srvname=dev-augmentaleducation.database.windows.net:dbname=Dev-AugmentalEducation:user=azure:passwd=Augment@l'
 "set foldmethod=syntax
 " used to fold sections by markers and fold them by default
 " vim:foldmethod=marker:foldlevel=0
