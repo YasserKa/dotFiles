@@ -19,7 +19,7 @@
     ("~/org/general.org" "~/org/knowledge_base.org" "~/org/emacs.org" "~/org/work.org")))
  '(package-selected-packages
    (quote
-    (org evil-org helm-core general evil-visual-mark-mode ##))))
+    (magit org evil-org helm-core general evil-visual-mark-mode ##))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
