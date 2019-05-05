@@ -3,7 +3,6 @@ x-scheme-handler/https=qutebrowser.desktop
 x-scheme-handler/http=qutebrowser.desktop
 application/xhtml+xml=qutebrowser.desktop
 text/html=qutebrowser.desktop
-x-scheme-handler/azuredatastudio=azuredatastudio.desktop
 text/plain=gvim.desktop
 application/pdf=zathura.desktop
 
