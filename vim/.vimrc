@@ -206,9 +206,9 @@ augroup END
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'javascript': ['jshint'],
-\   'python': ['flake8'],
-\   'SQL': ['sqlint'],
-\}
+            \   'python': ['flake8'],
+            \   'SQL': ['sqlint'],
+            \}
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "##############################################################
 " UltiSnips
@@ -306,7 +306,8 @@ endfunction
 
 let g:ftplugin_sql_omni_key = '<C-C>'
 
- let g:dbext_default_profile_mySQLServer = 'type=SQLSRV:integratedlogin=1:srvname=dev-augmentaleducation.database.windows.net:dbname=Dev-AugmentalEducation:user=azure:passwd=Augment@l'
+let g:dbext_default_profile_mySQLServer_Dev = 'type=SQLSRV:integratedlogin=1:srvname=dev-augmentaleducation.database.windows.net:dbname=Dev-AugmentalEducation:user=azure:passwd=Augment@l'
+let g:dbext_default_profile_mySQLServer_Live = 'type=SQLSRV:integratedlogin=1:srvname=augmentaleducationdb.database.windows.net:dbname=AugmentalEducationDb:user=azure:passwd=6#vWHD_$'
 "set foldmethod=syntax
 " used to fold sections by markers and fold them by default
 " vim:foldmethod=marker:foldlevel=0
