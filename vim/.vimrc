@@ -197,9 +197,15 @@ let g:ycm_max_num_candidates = 6
 let g:ale_completion_enabled = 1
 let g:ale_open_list = 1
 
+" auto remove ALE window on buffer exit
+augroup CloseLoclistWindowGroup
+    autocmd!
+    autocmd QuitPre * if empty(&buftype) | lclose | endif
+augroup END
+
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['jshint'],
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'javascript': ['jshint'],
 \   'python': ['flake8'],
 \   'SQL': ['sqlint'],
 \}
