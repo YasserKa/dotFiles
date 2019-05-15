@@ -26,7 +26,7 @@ alias work="i3-msg 'workspace ; append_layout ~/.i3/qutebrowser.json; exec qu
 alias def='sdcv -c'
 alias net='wicd-curses'
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
-alias myzahura='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
+alias myzathura='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
 alias notebook='conda run jupyter notebook $HOME/Documents/notebooks & disown'
 alias python='python3.6'
 
