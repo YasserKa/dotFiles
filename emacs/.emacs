@@ -33,6 +33,9 @@
 ;; avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
 
+(when (version<= "26.0.50" emacs-version )
+  (global-display-line-numbers-mode))
+
  (electric-pair-mode 1)
 ;; make electric-pair-mode work on more brackets
  (setq electric-pair-pairs
@@ -42,8 +45,6 @@
          (?\[ . ?\])
          (?\` . ?\`)
          (?\{ . ?\})))
-
- ;; (define-key electric-pair-mode-map "\C-h" 'electric-pair-delete-adjacent-pairs)
 
  (require 'helm-config)
  (helm-mode 1)
