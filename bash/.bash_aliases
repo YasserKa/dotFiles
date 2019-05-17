@@ -20,7 +20,6 @@ alias ...='cd ...'
 alias aug='cd $HOME/Documents/Augmental'
 alias workscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
                   xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
-alias work="i3-msg 'workspace ; append_layout ~/.i3/qutebrowser.json; exec qutebrowser --target=window https://augmentalteam.slack.com/messages/DGF268BA8/; workspace '; workscreen; slack"
 
 # Misc
 alias def='sdcv -c'
