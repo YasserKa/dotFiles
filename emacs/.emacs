@@ -168,9 +168,9 @@
 (appt-activate 1)                ;; activate appointment notification
 (display-time)                   ;; activate time display
 
-(org-agenda-to-appt)             ;; generate the appt list from org agenda files on emacs launch
-(run-at-time 0 3600 'org-agenda-to-appt)           ;; update appt list hourly
-(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
+(org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
+(run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
 
 (defvar toast-notifier-path
   "/usr/bin/zenity"
@@ -189,3 +189,8 @@
     (format "%s" msg)))                                ;; passed to -m in toast call
 
 (setq appt-disp-window-function (function toast-appt-display))
+
+(defun org-agenda-to-appt-clear-message ()
+  (interactive)
+  (org-agenda-to-appt)
+  (message nil))
