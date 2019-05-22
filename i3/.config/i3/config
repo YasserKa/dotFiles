@@ -194,6 +194,6 @@ exec_always feh --bg-scale `find /home/yasser/Pictures/WallPapers/. -type f | sh
 exec ~/bin/waitInternet; ~/.i3/qutebrowserInit.sh
 exec i3-msg 'workspace "3"; exec emacs; workspace '
 exec ~/bin/waitInternet; claws-mail
+exec ~/bin/waitInternet; python3.6 ~/bin/mangaComplete.py
 # removing the cache to fix the songs skipping bug
 # exec rm ~/snap/spotify/common/.cache/spotify/Storage -R
-# exec rhythmbox
