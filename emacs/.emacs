@@ -168,8 +168,14 @@
 (appt-activate 1)                ;; activate appointment notification
 (display-time)                   ;; activate time display
 
-(org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
+(defun org-agenda-to-appt-clear-message ()
+  (interactive)
+  (org-agenda-to-appt)
+  (message nil)
+)
+
 (run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
+(org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
 
 (defvar toast-notifier-path
@@ -190,7 +196,3 @@
 
 (setq appt-disp-window-function (function toast-appt-display))
 
-(defun org-agenda-to-appt-clear-message ()
-  (interactive)
-  (org-agenda-to-appt)
-  (message nil))
