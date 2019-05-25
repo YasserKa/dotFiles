@@ -45,9 +45,16 @@ set -o vi
 export HISTCONTROL=ignoredups:ignorespace
 # export BROWSER=/usr/bin/qutebrowser
 VISUAL=vim; export VISUAL EDITOR=vim; export EDITOR
-# Make firefox default browser
-#xdg-mime default qutebrowser.desktop x-scheme-handler/http
-#xdg-mime default qutebrowser.desktop x-scheme-handler/https
+
+# default softwares
+xdg-mime default qutebrowser.desktop x-scheme-handler/https
+xdg-mime default qutebrowser.desktop x-scheme-handler/http
+xdg-mime default qutebrowser.desktop application/xhtml+xml
+xdg-mime default zathura.desktop application/pdf
+xdg-mime default qutebrowser.desktop text/html
+xdg-mime default gvim.desktop text/plain
+xdg-mime default mpv.desktop video/mp4
+
 # used to make cmus escape works
 export ESCDELAY=25
 export PATH="$PATH:/opt/mssql-tools/bin"
