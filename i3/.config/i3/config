@@ -172,14 +172,11 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 
-# Media player controls
-# bindsym XF86AudioPlay exec playerctl play-pause
-# bindsym XF86AudioNext exec playerctl next
-# bindsym XF86AudioPrev exec playerctl previous
-
 bindsym XF86AudioPlay exec cmus-remote --pause
 bindsym XF86AudioNext exec cmus-remote --next
 bindsym XF86AudioPrev exec cmus-remote --prev
+bindsym $mod+c exec cmus-remote -C "filter classical"
+bindsym $mod+n exec cmus-remote -C "filter"
 
 bindsym $mod+d exec rofi -show run -lines 3 -width 100 -padding 800 -color-window "#EE000000" "#EE000000" "#EE000000" "#EE000000" -font "inconsolata 15"
 
