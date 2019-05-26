@@ -20,17 +20,20 @@ require([
       // Update Help
       km.edit_shortcuts.events.trigger('rebuild.QuickHelp');
 
-      // CodeMirror.Vim.defineOperator("comment_op", function(cm, ranges = []) {
-      //      cm.toggleComment();
-      // });
-      //  CodeMirror.Vim.mapCommand("gc", "operator", "comment_op", {});
+      // gc - > toggles comment
+      CodeMirror.Vim.defineAction("comment_op", function(cm, ranges = []) {
+          cm.toggleComment();
+          CodeMirror.Vim.handleKey(cm, '<Esc>', 'mapping');
+      });
+      CodeMirror.Vim.mapCommand("gc", "action", "comment_op", {});
 
+      // extending yanking to clipboard
       CodeMirror.Vim.mapCommand(",", "operator", "yank");
       CodeMirror.Vim.defineAction("my_yank", function(cm) {
-             document.execCommand("copy");
-             CodeMirror.Vim.handleKey(cm, ',', 'mapping');
+          document.execCommand("copy");
+          CodeMirror.Vim.handleKey(cm, ',', 'mapping');
       });
-       CodeMirror.Vim.mapCommand("y", "action", "my_yank", {});
+      CodeMirror.Vim.mapCommand("y", "action", "my_yank", {});
 
   });
 });
