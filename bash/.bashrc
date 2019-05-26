@@ -58,6 +58,7 @@ xdg-mime default mpv.desktop video/mp4
 # used to make cmus escape works
 export ESCDELAY=25
 export PATH="$PATH:/opt/mssql-tools/bin"
+export PATH="$HOME/.npm-global/bin:$PATH"
 #export PATH="$HOME/.rbenv/bin:$PATH"
 #eval "$(rbenv init -)"
 #export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
