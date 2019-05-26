@@ -50,6 +50,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/dbext.vim'
 Plugin 'vim-scripts/SQLComplete.vim'
 
+Plugin 'plasticboy/vim-markdown'
+Plugin 'iamcco/markdown-preview.nvim' " this command is needed :call mkdp#util#install()
+
 call vundle#end() " required
 " }}}
 " general settings{{{
