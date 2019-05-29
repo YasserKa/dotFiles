@@ -17,10 +17,11 @@ alias ..='cd ..'
 alias ...='cd ...'
 
 # work
-alias aug='cd $HOME/Documents/Augmental'
 alias workscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
                   xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
 
+alias noscreen='xrandr --output DVI-I-2-1 --off; \
+                  xrandr --output DVI-I-3-2 --off;'
 # Misc
 alias def='sdcv -c'
 alias net='wicd-curses'
