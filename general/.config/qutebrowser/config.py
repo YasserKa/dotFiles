@@ -1,4 +1,4 @@
-# navigation
+config = config  # noqa: F821 pylint: disable=E0602,C0103
 config.bind('j', 'run-with-count 3 scroll down')
 config.bind('k', 'run-with-count 3 scroll up')
 
