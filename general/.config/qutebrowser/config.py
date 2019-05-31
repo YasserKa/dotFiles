@@ -1,46 +1,59 @@
 config = config  # noqa: F821 pylint: disable=E0602,C0103
-config.bind('j', 'run-with-count 3 scroll down')
-config.bind('k', 'run-with-count 3 scroll up')
 
-config.bind('J', 'forward')
-config.bind('K', 'back')
+config.bindings.commands = {
+        'normal': {
+            'j': 'run-with-count 3 scroll down',
+            'k': 'run-with-count 3 scroll up',
 
-config.bind('H', 'tab-prev')
-config.bind('L', 'tab-next')
+            'J': 'forward',
+            'K': 'back',
 
-config.bind('tJ', 'forward -t')
-config.bind('tK', 'back -t')
+            'H': 'tab-prev',
+            'L': 'tab-next',
 
-config.bind('<', 'tab-move -')
-config.bind('>', 'tab-move +')
+            'gJ': 'forward -t',
+            'gK': 'back -t',
+            'wO': 'open -w {url} ;; tab-close',
 
-config.bind(';', 'set-cmd-text :')
+            '<': 'tab-move -',
+            '>': 'tab-move +',
 
-# edit
-config.bind('<Ctrl-w>', 'fake-key <Ctrl-backspace>', mode='insert')
-config.bind('<Ctrl-h>', 'fake-key <backspace>', mode='insert')
+            ';': 'set-cmd-text :',
 
-config.bind('<Ctrl-w>', 'fake-key <Ctrl-backspace>', mode='passthrough')
-config.bind('<Ctrl-h>', 'fake-key <backspace>', mode='passthrough')
+            'es': 'config-edit',
+            'ss': 'config-source',
 
-config.bind('o', 'open selection', mode='caret')
-config.bind('O', 'open -t selection', mode='caret')
+            '<Ctrl-Shift-V>': 'enter-mode passthrough',
 
+            'ye': 'spawn --userscript \
+            ~/.config/qutebrowser/userscripts/emacsMarkdown"',
+            'yu': 'spawn --userscript \
+            ~/.config/qutebrowser/userscripts/youtube',
+
+                            },
+        'insert': {
+            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
+            '<Ctrl-h>': 'fake-key <backspace>',
+
+            '<Ctrl-p>': 'fake-key <Up>',
+            '<Ctrl-n>': 'fake-key <Down>',
+            },
+        'caret': {
+            'o': 'open selection',
+            'O': 'open -t selection',
+            },
+        'passthrough': {
+            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
+            '<Ctrl-h>': 'fake-key <backspace>',
+
+            '<Ctrl-Shift-V>': 'leave-mode',
+            },
+        }
 config.unbind('<Ctrl-V>', mode='normal')
-config.bind('<Ctrl-Shift-V>', 'leave-mode', mode='passthrough')
-config.bind('<Ctrl-Shift-V>', 'enter-mode passthrough')
-
-config.bind('ye', 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown ;; message-info "yanked emacs markdown"')
-config.bind('yu', 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube')
-
-config.bind('es', 'config-edit')
-config.bind('ss', 'config-source')
-
-# open a tab in a new window then close it in the current window
-config.bind('wO', 'open -w {url} ;; tab-close')
 
 config.set('spellcheck.languages', ['en-US'])
 
 config.set('scrolling.bar', 'never')
+
 # doesn't work
 #  config.set('scrolling.smooth', True)
