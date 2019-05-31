@@ -164,8 +164,8 @@ bar {
 bindsym $mod+shift+x exec i3lock --color "$bg-color"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 0; pactl set-sink-volume 0 +5% ; pkill -SIGRTMIN+10 i3blocks"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 0; pactl set-sink-volume 0 -5% ; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 0 0; pactl set-sink-volume 0 +5%; sleep 0.3; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 0; pactl set-sink-volume 0 -5%; sleep 0.3; pkill -SIGRTMIN+10 i3blocks"
 bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute 0 toggle; pkill -SIGRTMIN+10 i3blocks"
 
 # Sreen brightness controls
