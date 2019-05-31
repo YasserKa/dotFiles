@@ -1,9 +1,10 @@
+c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
-config.bindings.commands = {
+c.bindings.commands = {
         'normal': {
-            'j': 'run-with-count 3 scroll down',
-            'k': 'run-with-count 3 scroll up',
+            'j': 'scroll-px 0 100',
+            'k': 'scroll-px 0 -100',
 
             'J': 'forward',
             'K': 'back',
@@ -26,7 +27,7 @@ config.bindings.commands = {
             '<Ctrl-Shift-V>': 'enter-mode passthrough',
 
             'ye': 'spawn --userscript \
-            ~/.config/qutebrowser/userscripts/emacsMarkdown"',
+            ~/.config/qutebrowser/userscripts/emacsMarkdown',
             'yu': 'spawn --userscript \
             ~/.config/qutebrowser/userscripts/youtube',
 
@@ -56,4 +57,4 @@ config.set('spellcheck.languages', ['en-US'])
 config.set('scrolling.bar', 'never')
 
 # doesn't work
-#  config.set('scrolling.smooth', True)
+config.set('scrolling.smooth', True)
