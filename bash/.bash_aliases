@@ -16,8 +16,7 @@ alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
-# work
-alias workscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
+alias myscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
                   xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
 
 alias noscreen='xrandr --output DVI-I-2-1 --off; \
