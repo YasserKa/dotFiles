@@ -149,6 +149,7 @@ new_window pixel 1
 # Bar
 bar {
     position top
+    tray_output eDP1
         status_command i3blocks -c $HOME/.i3/i3blocks.conf
         colors {
             background $bg-color
@@ -179,6 +180,8 @@ bindsym $mod+c exec cmus-remote -C "filter classical"
 bindsym $mod+n exec cmus-remote -C "filter"
 
 bindsym $mod+d exec rofi -show run -lines 3 -width 100 -padding 800 -color-window "#EE000000" "#EE000000" "#EE000000" "#EE000000" -font "inconsolata 15"
+
+bindsym $mod+m exec claws-mail --receive-all
 
 focus_follows_mouse no
 
