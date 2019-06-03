@@ -16,7 +16,7 @@
  '(initial-buffer-choice "~/org/general.org")
  '(org-agenda-files
    (quote
-    ("~/org/general.org" "~/org/knowledge_base.org" "~/org/emacs.org" "~/org/work.org")))
+    ("~/org/general.org" "~/org/knowledge_base.org" "~/org/work.org")))
  '(package-selected-packages
    (quote
     (magit org evil-org helm-core general evil-visual-mark-mode ##))))
@@ -160,9 +160,9 @@
 
 (require 'appt)
 (setq appt-time-msg-list nil)    ;; clear existing appt list
-(setq appt-display-interval '5)  ;; warn every 5 minutes from t - appt-message-warning-time
+;; (setq appt-display-interval '5)  ;; warn every 5 minutes from t - appt-message-warning-time
 (setq
-  appt-message-warning-time '15  ;; send first warning 15 minutes before appointment
+  appt-message-warning-time '10  ;; send first warning 15 minutes before appointment
   appt-display-mode-line nil     ;; don't show in the modeline
   appt-display-format 'window)   ;; pass warnings to the designated window function
 (appt-activate 1)                ;; activate appointment notification
