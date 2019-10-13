@@ -199,6 +199,13 @@ let g:ycm_max_num_candidates = 6
 " Enable completion where available.
 let g:ale_completion_enabled = 1
 let g:ale_open_list = 1
+ " Show 5 lines of errors (default: 10)
+let g:ale_list_window_size = 5
+let g:ale_fix_on_save = 1
+
+" navigating through errors
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " auto remove ALE window on buffer exit
 augroup CloseLoclistWindowGroup
@@ -206,10 +213,11 @@ augroup CloseLoclistWindowGroup
     autocmd QuitPre * if empty(&buftype) | lclose | endif
 augroup END
 
+let g:ale_linters = {'python': ['flake8']}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'javascript': ['jshint'],
-            \   'python': ['flake8'],
+            \   'python': ['autopep8'],
             \   'SQL': ['sqlint'],
             \}
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -306,11 +314,6 @@ endfunction
 " endfunction
 " vmap <leader>u :call Open_unity_docs()<CR>
 "}}}
-
-let g:ftplugin_sql_omni_key = '<C-C>'
-
-let g:dbext_default_profile_mySQLServer_Dev = 'type=SQLSRV:integratedlogin=1:srvname=dev-augmentaleducation.database.windows.net:dbname=Dev-AugmentalEducation:user=azure:passwd=Augment@l'
-let g:dbext_default_profile_mySQLServer_Live = 'type=SQLSRV:integratedlogin=1:srvname=augmentaleducationdb.database.windows.net:dbname=AugmentalEducationDb:user=azure:passwd=6#vWHD_$'
 "set foldmethod=syntax
 " used to fold sections by markers and fold them by default
 " vim:foldmethod=marker:foldlevel=0
