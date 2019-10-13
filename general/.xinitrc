@@ -19,5 +19,7 @@ fi
 
 # compositor for transparency
 compton -f --inactive-dim 0.2 &
+
+exec i3
 # used instead of *exec i3* to make spotify hotkeys work
-exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) i3
+# exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) i3
