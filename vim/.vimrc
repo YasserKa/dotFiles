@@ -77,6 +77,8 @@ nnoremap <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " Open definition in new tab
 nnoremap <leader>dt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 vnoremap <C-c> "*y
+" pasting clipboard using <C-r>"
+inoremap <C-r>" <C-r><C-r>+
 " }}}
 " Display settings{{{
 set encoding=utf-8 " encoding used for displaying file
