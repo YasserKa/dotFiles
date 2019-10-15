@@ -187,7 +187,9 @@ focus_follows_mouse no
 
 # Startup
 # pick a random background image
-exec_always feh --bg-scale `find /home/yasser/Pictures/WallPapers/. -type f | shuf -n1`
+exec_always feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
+# composer for transparency
+exec_always --no-startup-id "killall compton; compton -f --config ~/.config/compton.conf"
 
 # starting up duckduckgo in workspace 1 and trello on workspace 5 using templates
 # exec ~/bin/waitInternet; ~/.i3/firefoxInit.sh
