@@ -34,9 +34,6 @@ Plugin 'kamwitsta/flatwhite-vim'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'mattn/emmet-vim'
 
-Plugin 'xolox/vim-easytags'
-" required by easy-tags
-Plugin 'xolox/vim-misc'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'Valloric/YouCompleteMe'

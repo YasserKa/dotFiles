@@ -149,7 +149,7 @@ new_window pixel 1
 # Bar
 bar {
     position top
-    tray_output eDP1
+    tray_output eDP-1
         status_command i3blocks -c $HOME/.i3/i3blocks.conf
         colors {
             background $bg-color
@@ -170,8 +170,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 0 0; pact
 bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute 0 toggle; pkill -SIGRTMIN+10 i3blocks"
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 
 bindsym XF86AudioPlay exec cmus-remote --pause
 bindsym XF86AudioNext exec cmus-remote --next
@@ -191,11 +191,9 @@ exec_always feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 # composer for transparency
 exec_always --no-startup-id "killall compton; compton -f --config ~/.config/compton.conf"
 
-# starting up duckduckgo in workspace 1 and trello on workspace 5 using templates
-# exec ~/bin/waitInternet; ~/.i3/firefoxInit.sh
-exec ~/bin/waitInternet; ~/.i3/qutebrowserInit.sh
+# status bar
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec $HOME/bin/waitInternet; $HOME/.i3/qutebrowserInit.sh
 exec i3-msg 'workspace "3"; exec emacs; workspace '
-exec ~/bin/waitInternet; claws-mail
-exec ~/bin/waitInternet; python3.6 ~/bin/mangaComplete.py
-# removing the cache to fix the songs skipping bug
-# exec rm ~/snap/spotify/common/.cache/spotify/Storage -R
+exec $HOME/bin/waitInternet; claws-mail
+exec $HOME/bin/waitInternet; python $HOME/bin/mangaComplete.py

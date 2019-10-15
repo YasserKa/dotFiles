@@ -27,7 +27,6 @@ alias net='wicd-curses'
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 alias myzathura='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
 alias notebook='conda run jupyter notebook & disown'
-alias python='python3.6'
 
 # Handy Extract Program
 function extract()
