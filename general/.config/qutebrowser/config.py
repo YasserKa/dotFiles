@@ -70,6 +70,7 @@ config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
 
 config.set('spellcheck.languages', ['en-US'])
+config.set('tabs.title.format', '{index} {current_title}')
 
 config.set('scrolling.bar', 'never')
 
