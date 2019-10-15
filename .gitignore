@@ -3,3 +3,5 @@ bash/.bash_history
 emacs/.emacs.d/auto-save-list
 general/.config/qutebrowser/qsettings/QtProject.conf
 *.swp
+
+general/.config/systemd/user/default.target.wants/
