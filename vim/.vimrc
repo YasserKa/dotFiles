@@ -86,6 +86,11 @@ colorscheme gruvbox " set color scheme, must be installed first
 " colorscheme solarized gruvbox
 " needed to work in terminal emulator
 let g:solarized_termcolors=256
+if has("gui_running")
+  if has("gui_gtk2")  || has("gui_gtk3")
+    set guifont=Inconsolata\ 14
+  endif
+endif
 set background=light " dark background for console
 set laststatus=2 " display the status line always
 set number " show the number line

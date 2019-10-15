@@ -32,7 +32,7 @@
 (setq make-backup-files nil)
 ;; avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
-
+(set-default-font "Inconsolata-14")
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
