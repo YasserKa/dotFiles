@@ -1,0 +1,12 @@
+[Unit]
+Description=Send alerts on low battery
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/yasser/bin/battery_low_alert.sh
+Environment="DISPLAY=:0" "XAUTHORITY=/home/yasser/.Xauthority"
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
