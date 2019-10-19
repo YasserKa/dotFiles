@@ -1,7 +1,6 @@
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
-# c.qt.args = ["ppapi-widevine-path=/home/yasser/qutebrowser/.venv/lib/python3.6/site-packages/PyQt5/Qt/plugins/ppapi/libwidevinecdm.so"]
 c.bindings.commands = {
         'normal': {
             'j': 'scroll-px 0 100',
@@ -42,19 +41,18 @@ c.bindings.commands = {
 
             '<Ctrl-Shift-V>': 'enter-mode passthrough',
 
-            'ye': 'spawn --userscript \
-                    ~/.config/qutebrowser/userscripts/emacsMarkdown',
-            'yu': 'spawn --userscript \
-                    ~/.config/qutebrowser/userscripts/youtube',
+            'ye': 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown',
 
-                            },
+            'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
+
+                    },
         'insert': {
-                '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
-                '<Ctrl-h>': 'fake-key <backspace>',
+            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
+            '<Ctrl-h>': 'fake-key <backspace>',
 
-                '<Ctrl-p>': 'fake-key <Up>',
-                '<Ctrl-n>': 'fake-key <Down>',
-                },
+            '<Ctrl-p>': 'fake-key <Up>',
+            '<Ctrl-n>': 'fake-key <Down>',
+            },
         'caret': {
                 'o': 'open selection',
                 'O': 'open -t selection',
@@ -66,6 +64,7 @@ c.bindings.commands = {
                 '<Ctrl-Shift-V>': 'leave-mode',
                 },
         }
+
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
 
