@@ -33,9 +33,6 @@ filter_unmatched_urls = true
 #modify_other_keys = false
 
 [colors]
-#background = rgba(63, 63, 63, 0.8)
-
-# 20% background transparency (requires a compositor)
 background = rgba(63, 63, 63, 0.8)
 
 # if unset, will reverse foreground and background
