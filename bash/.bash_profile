@@ -1,6 +1,40 @@
+export PATH=$PATH:$HOME/bin
+
+# to make cmus escape works
+export ESCDELAY=25
+
+# network interfaces
+export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
+export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)')
+# battery & adapter
+export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT')
+export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP')
+# history
+export HISTSIZE=10000
+export HISTFILESIZE=2000
+export HISTCONTROL=ignoredups:ignorespace
+
+# default
+export EDITOR=vim
+export VISUAL=vim
+export BROWSER=qutebrowser
 export TERMINAL=termite
-export LIBVA_DRIVER_NAME=radeonsi
-export VDPAU_DRIVER=radeonsi vainfo
+export DIFFPROG=vimdiff
+export PAGER="less -FRXMKij4"
+# export PAGER="vimpager-FRXMKij4"
+
+# color
+LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
+
+# hardeware video acceleration
+export LIBVA_DRIVER_NAME=vdpau
+export VDPAU_DRIVER=nvidia
+
+# configurations in one place
+[ "$XDG_CONFIG_HOME" ] || export XDG_CONFIG_HOME="$HOME/.config"
+[ "$XDG_DATA_HOME" ] || export XDG_DATA_HOME="$HOME/.local/share"
+
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

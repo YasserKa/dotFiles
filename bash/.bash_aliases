@@ -1,56 +1,47 @@
-# General
-alias ll='ls -alh'
-alias c='clear'
-alias mkdir='mkdir -pv'
-alias h='history'
-alias hg='history | grep'
-alias top='atop'
-alias reboot='shutdown --no-wall -r'
-alias shutdown='sudo shutdown now'
-alias df='df -Tha --total'
+# shorter
 alias vi='vim'
 alias v='vim'
+alias syu='sudo pacman -Syu'
+alias c='clear'
+
+# more options
+alias ll='ls -alFh'
+alias mkdir='mkdir -pv'
+alias df='df -Tha --total'
+alias cal='cal -m'
+# prompt before overriding
+alias mv='mv -i'
+alias cp='cp -i --preserve=all --reflink=auto'
+
+# history
+alias h='history'
+alias hg='history | grep'
+
+#shutdown
+alias reboot='shutdown --no-wall -r'
+alias shutdown='sudo shutdown now'
+
+alias top='htop'
+
+# color
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
 
 # Navigation
 alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
-alias myscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
-                  xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
-
-alias noscreen='xrandr --output DVI-I-2-1 --off; \
-                  xrandr --output DVI-I-3-2 --off;'
 # Misc
-alias def='sdcv -c'
-alias net='wicd-curses'
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
-alias myzathura='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
-alias notebook='conda run jupyter notebook & disown'
+# alias myz='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
+# alias notebook='conda run jupyter notebook & disown'
 
-# Handy Extract Program
-function extract()
-{
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2)   tar xvjf $1     ;;
-            *.tar.gz)    tar xvzf $1     ;;
-            *.bz2)       bunzip2 $1      ;;
-            *.rar)       unrar x $1      ;;
-            *.gz)        gunzip $1       ;;
-            *.tar)       tar xvf $1      ;;
-            *.tbz2)      tar xvjf $1     ;;
-            *.tgz)       tar xvzf $1     ;;
-            *.zip)       unzip $1        ;;
-            *.Z)         uncompress $1   ;;
-            *.7z)        7z x $1         ;;
-            *)           echo "'$1' cannot be extracted via >extract<" ;;
-        esac
-    else
-        echo "'$1' is not a valid file!"
-    fi
-}
 
-# commands run in background automatically
-function zathura() { (command zathura "$@" &) }
-function xdg-open() { (command xdg-open "$@" &) }
+# for more monitors
+# alias myscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
+#                   xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
+#
+# alias noscreen='xrandr --output DVI-I-2-1 --off; \
+#                   xrandr --output DVI-I-3-2 --off;'
