@@ -3,6 +3,8 @@
 
 # bash options
 set -o vi                  # Vi mode
+set -o noclobber           # Don't overwrite when redireting using shell
+shopt -s autocd            # auto cd
 shopt -s histappend        # append to the history file, don't overwrite it
 shopt -s checkwinsize      # update the value of LINES and COLUMNS after each command if altered
 
