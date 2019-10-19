@@ -1,0 +1,8 @@
+[Default Applications]
+x-scheme-handler/https=qutebrowser.desktop
+x-scheme-handler/http=qutebrowser.desktop
+application/xhtml+xml=qutebrowser.desktop
+application/pdf=zathura.desktop
+text/html=qutebrowser.desktop
+text/plain=gvim.desktop
+video/mp4=mpv.desktop
