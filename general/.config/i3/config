@@ -1,0 +1,166 @@
+# http://i3wm.org/docs/userguide.html
+
+# Gaps
+for_window [class=".*"] border pixel 0
+
+gaps inner 8
+gaps outer 2
+
+# TODO: Make use of Conrol & Mod1(Alt)
+set $mod Mod4
+set $mod1 Mod1
+
+font pango:Inconsolata 11
+
+# Start a terminal
+bindsym $mod+Return exec termite
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Change focus
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+h focus left
+
+# Move focused window
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation
+bindsym $mod+Shift+v split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Worspaces
+set $browser 1
+set $coding 2
+set $notes 3
+set $wp4 4
+set $video 5
+set $wp6 6
+set $wp7 7
+set $book 8
+set $wp9 9
+set $wp0 0
+
+# Bindsym using mod+# to workspace #
+bindsym $mod+1 workspace $browser
+bindsym $mod+2 workspace $coding
+bindsym $mod+3 workspace $notes
+bindsym $mod+4 workspace $wp4
+bindsym $mod+5 workspace $video
+bindsym $mod+6 workspace $wp6
+bindsym $mod+7 workspace $wp7
+bindsym $mod+8 workspace $book
+bindsym $mod+9 workspace $wp9
+bindsym $mod+0 workspace $0
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $browser
+bindsym $mod+Shift+2 move container to workspace $coding
+bindsym $mod+Shift+3 move container to workspace $notes
+bindsym $mod+Shift+4 move container to workspace $wp4
+bindsym $mod+Shift+5 move container to workspace $video
+bindsym $mod+Shift+6 move container to workspace $wp6
+bindsym $mod+Shift+7 move container to workspace $wp7
+bindsym $mod+Shift+8 move container to workspace $book
+bindsym $mod+Shift+9 move container to workspace $wp9
+bindsym $mod+Shift+0 move container to workspace $0
+bindsym $mod+Shift+z move container to workspace back_and_forth
+# Go back and forth
+workspace_auto_back_and_forth yes
+bindsym $mod+z workspace back_and_forth
+
+
+# Opening softwares to a default workspaces
+# Use xprop to get the class
+assign [class="Zathura"] workspace $book
+assign [class="mpv"] workspace $video
+assign [class="Emacs"] workspace $notes
+
+# Making softwares in floating mode
+for_window [class="Vlc|feh|Shutter"] floating enable
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exit
+
+
+# Modes
+
+bindsym $mod+r mode "resize"
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+# These bindings trigger as soon as you enter the resize mode
+    bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+# back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Bindings
+bindsym $mod+shift+x exec i3lock --color #39889b
+
+# Pulse Audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume 0 +5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume 0 -5%"
+bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute 0 toggle;"
+
+# Cmus
+bindsym XF86AudioPlay exec cmus-remote --pause
+bindsym XF86AudioNext exec cmus-remote --next
+bindsym XF86AudioPrev exec cmus-remote --prev
+
+bindsym $mod+i exec ~/bin/cmus.sh
+bindsym $mod+s exec cmus-remote --pause
+bindsym $mod+n exec cmus-remote --next
+bindsym $mod+p exec cmus-remote --prev
+
+bindsym $mode+c exec cmus-remote -C "filter classical"
+bindsym $mode+n exec cmus-remote -C "filter"
+
+
+# Others
+bindsym $mod+m exec claws-mail --receive-all
+bindsym $mod+d exec rofi -show run
+
+# Startup
+
+# Pick a random background image
+exec_always feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
+# Composer for transparency
+exec_always --no-startup-id "killall compton; compton -f --config $XDG_CONFIG_HOME/compton.conf"
+# Status bar
+exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch.sh
+
+exec dunst
+exec emacs
+# wait until the internet is on
+exec $HOME/bin/waitInternet; claws-mail
+exec $HOME/bin/waitInternet; $BROWSER
+
+# exec $HOME/bin/waitInternet; $HOME/bin/mangaComplete.py
