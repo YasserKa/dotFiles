@@ -13,13 +13,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
  '(initial-buffer-choice "~/org/general.org")
  '(org-agenda-files
    (quote
     ("~/org/giveaway_bot.org" "~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
-    (magit org evil-org helm-core general evil-visual-mark-mode ##))))
+    (gruvbox-theme magit org evil-org helm-core general evil-visual-mark-mode ##))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -27,6 +30,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(load-theme 'gruvbox-light-medium t)
 
 ;; remove backup files (ends with ~)
 (setq make-backup-files nil)
@@ -83,6 +87,11 @@
 (define-key isearch-mode-map (kbd "\C-h") 'isearch-delete-char)
 (define-key isearch-mode-map (kbd "\C-q") 'help)
 
+;; Registers
+(define-key evil-normal-state-map "m"  'bookmark-set)
+(define-key evil-normal-state-map "'"  'bookmark-jump)
+
+;; commenting
 (define-key evil-normal-state-map ",c " 'comment-line)
 (define-key evil-visual-state-map ",c " 'comment-or-uncomment-region)
 
@@ -133,24 +142,12 @@
 ;; Narrowing buffer to subree/ widen
 (define-key org-mode-map (kbd "C-c n") 'org-toggle-narrow-to-subtree)
 
-;; change markdown to org
-(define-key org-mode-map (kbd "C-c C-m") 'markdown-to-org)
-
 ;; open using external softwares
 (setq org-file-apps
       '((auto-mode . emacs)
 	("\\.pdf\\'" . "zathura \"%s\"")))
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "qutebrowser")
-
-;; FUNCTIONS
-(defun markdown-to-org ()
-  (interactive)
-  (setq l (shell-command-to-string
-	   (concat "echo -n '" (thing-at-point 'line t) "' | pandoc --wrap=none -t org")))
-  (kill-whole-line)
-  (insert l)
-  )
 
 (defun source-init-file ()
   (interactive)
@@ -174,29 +171,23 @@
 (display-time)                   ;; activate time display
 
 (defun org-agenda-to-appt-clear-message ()
-  (interactive)
-  (org-agenda-to-appt)
-  (message nil)
-  )
+  (interactive) (org-agenda-to-appt) (message nil))
 
 (run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
 (org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
 
-(defvar toast-notifier-path
-  "/usr/bin/zenity"
-  )
+(defvar toast-notifier-path "/usr/bin/dunstify")
 
 ;; set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
-  (shell-command (concat toast-notifier-path
-			 " --info --title \"" title "\""
-			 " --text \"" msg "\"")))
+  (shell-command (concat toast-notifier-path " \"" title "\" \"" msg "\"")))
 
 ;; designate the window function for my-appt-send-notification
 (defun toast-appt-display (min-to-app new-time msg)
   (toast-appt-send-notification
    (format "Appointment in %s minutes" min-to-app)    ;; passed to -t in toast call
-   (format "%s" msg)))                                ;; passed to -m in toast call
+   (format "%s" msg))                                 ;; passed to -m in toast call
+   (message nil))
 
 (setq appt-disp-window-function (function toast-appt-display))
