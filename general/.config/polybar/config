@@ -1,0 +1,253 @@
+; https://github.com/polybar/polybar/wiki
+; https://origin.fontawesome.com/icons?d=gallery&q=browser
+[xcolor]
+bg     = #0a0a0a
+fg     = #c8c8c8
+color1 = #a54242
+color2 = #8c9440
+color3 = #de935f
+color4 = #5f819d
+color5 = #85678f
+color6 = #5e8d87
+color8 = #373b41
+
+[color]
+base-bg     = #8c0a0a0a
+glyph-bg    = #de0a0a0a
+module-bg   = #f00a0a0a
+selected-bg = #dc1a1a1a
+
+text-fg = #c8c8c8
+icon-fg = ${xcolor.color1}
+bar-fg  = ${xcolor.color3}
+
+red     = #821717
+orange  = #824517
+grey = #66ffffff
+
+[layout]
+icon-font = 2
+
+icon-padding = 1
+module-padding = 2
+
+; bar-format = %{T4}%fill%%indicator%%{F#dc404040}%empty%%{F-}%{T-}
+
+[bar/mybar]
+width = 100%
+height = 2.5%
+
+background = ${xcolor.bg}
+foreground = ${xcolor.fg}
+
+line-size = 2
+
+; override-redirect = true
+tray-position = right
+tray-background = ${color.module-bg}
+
+font-0 = Inconsolata-Regular:size=13
+font-1 = fontawesome-webfont
+
+modules-left = i3
+modules-right = pulseaudio wlan eth memory battery date
+
+cursor-click = pointer
+
+[generic-format-style]
+format-background = ${color.module-bg}
+format-padding = ${layout.module-padding}
+
+format-prefix-font = ${layout.icon-font}
+format-prefix-foreground = ${color.icon-fg}
+format-prefix-padding-right = ${layout.icon-padding}
+
+[module/i3]
+type = internal/i3
+
+index-sort = true
+wrapping-scroll = false
+pin-workspaces = true
+strip-wsnumbers = true
+
+ws-icon-0 = 0;
+ws-icon-1 = 1;
+ws-icon-2 = 2;
+ws-icon-3 = 3;
+ws-icon-4 = 4;
+ws-icon-5 = 5;
+ws-icon-6 = 6;
+ws-icon-7 = 7;
+ws-icon-8 = 8;
+ws-icon-9 = 9;
+
+
+format = <label-state><label-mode>
+
+; Active workspace on focused monitor
+label-focused = %{T5} %{T-}%{F#a54245}%icon% %{F-}%{T5}%{T-}  %name%
+label-focused-background = ${color.selected-bg}
+label-focused-underline = ${xcolor.color5}
+label-focused-padding = ${layout.module-padding}
+
+; Inactive workspace on any monitor
+label-unfocused = ${self.label-focused}
+label-unfocused-background = ${color.module-bg}
+label-unfocused-padding = ${layout.module-padding}
+
+; Active workspace on unfocused monitor
+label-visible = ${self.label-focused}
+label-visible-background = ${color.module-bg}
+label-visible-underline = ${xcolor.color1}
+label-visible-padding = ${layout.module-padding}
+
+; Workspace with urgency hint set
+label-urgent = ${self.label-focused}
+label-urgent-background = ${color.module-bg}
+label-urgent-underline = ${color.red}
+label-urgent-padding = ${layout.module-padding}
+
+label-mode-background = ${color.module-bg}
+label-mode-padding = ${layout.module-padding}
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Not muted
+label-volume =  %percentage%%
+format-volume = <ramp-volume><label-volume>
+format-volume-background = ${color.module-bg}
+format-volume-padding = ${layout.module-padding}
+
+ramp-volume-font = ${layout.icon-font}
+ramp-volume-foreground = ${color.icon-fg}
+ramp-volume-padding-right = ${layout.icon-padding}
+
+ramp-volume-0 = 
+
+; Muted
+format-muted-background = ${color.module-bg}
+format-muted-foreground = ${xcolor.color3}
+format-volume-prefix =
+
+format-muted-padding = ${layout.module-padding}
+
+format-muted-prefix-font = ${layout.icon-font}
+format-muted-prefix-foreground = ${color.icon-fg}
+format-muted-prefix-padding-right = ${layout.icon-padding}
+
+label-muted =  muted
+
+[module/battery]
+type = internal/battery
+
+battery = ${env:BATTERY}
+adapter = ${env:ADAPTER}
+full-at = 98
+
+time-format = %H:%M
+format-charging = <ramp-capacity> <label-charging>
+format-full = <ramp-capacity> <label-full>
+
+label-discharging = %time% %percentage% %
+format-discharging= <ramp-capacity> <label-discharging>
+
+ramp-capacity-foreground = ${color.icon-fg}
+ramp-capacity-0 =  
+ramp-capacity-1 =  
+ramp-capacity-2 =  
+ramp-capacity-3 =  
+ramp-capacity-4 =  
+
+[module/date]
+type = internal/date
+inherit = generic-format-style
+interval = 1
+
+date = %{F#a54242} %{F-} %Y-%m-%d%
+
+time = %H:%M
+format = <label>
+
+label = %date%  %time%
+
+[module/memory]
+type = internal/memory
+inherit = generic-format-style
+
+format-prefix = 
+label = %gb_used%
+
+[module/network]
+type = internal/network
+
+interval = 2
+
+; Connected
+format-connected-background = ${color.module-bg}
+format-connected-padding = ${layout.module-padding}
+
+format-connected-prefix-font = ${layout.icon-font}
+format-connected-prefix-foreground = ${color.icon-fg}
+format-connected-prefix-padding-right = ${layout.icon-padding}
+
+; Disconnected
+format-disconnected-background = ${color.module-bg}
+format-disconnected-foreground = ${xcolor.color3}
+format-disconnected-padding = ${layout.module-padding}
+
+format-disconnected-prefix-font = ${layout.icon-font}
+format-disconnected-prefix-foreground = ${color.icon-fg}
+format-disconnected-prefix-padding-right = ${layout.icon-padding}
+
+
+[module/wlan]
+inherit = module/network
+interface = ${env:IFACE_WLAN}
+
+format-connected-prefix = 
+label-connected = %essid% %signal:3%% %downspeed:9%
+
+label-disconnected = 
+label-disconnected-foreground = ${color.grey}
+
+[module/eth]
+inherit = module/network
+interface = ${env:IFACE_ETH}
+
+format-connected-prefix = 
+label-connected = %local_ip%%downspeed:9%
+
+; label-disconnected = 
+; label-disconnected-foreground = ${color.grey}
+
+[module/filesystem]
+type = internal/fs
+
+mount-0 = /
+
+; Mounted
+format-mounted-background = ${color.module-bg}
+format-mounted-padding = ${layout.module-padding}
+
+format-mounted-prefix = 
+format-mounted-prefix-font = ${layout.icon-font}
+format-mounted-prefix-foreground = ${color.icon-fg}
+format-mounted-prefix-padding-right = ${layout.icon-padding}
+
+label-mounted = %used% / %total%
+
+; Unmounted
+format-unmounted-background = ${color.module-bg}
+format-unmounted-padding = ${layout.module-padding}
+
+format-unmounted-prefix = 
+format-unmounted-prefix-font = ${layout.icon-font}
+format-unmounted-prefix-foreground = ${color.icon-fg}
+format-unmounted-prefix-padding-right = ${layout.icon-padding}
+
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${xcolor.color1}
+
+; vim:ft=dosini
