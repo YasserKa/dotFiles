@@ -6,8 +6,6 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/evil-org")
 
 (setq package-enable-at-startup nil)
-(package-initialize)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -22,14 +20,20 @@
     ("~/org/giveaway_bot.org" "~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
-    (gruvbox-theme magit org evil-org helm-core general evil-visual-mark-mode ##))))
-
+    (gruvbox-theme magit org evil-org helm general evil-visual-mark-mode ##))))
+ ; install the missing packages
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
+
 (load-theme 'gruvbox-light-medium t)
 
 ;; remove backup files (ends with ~)
@@ -43,12 +47,12 @@
 (electric-pair-mode 1)
 ;; make electric-pair-mode work on more brackets
 (setq electric-pair-pairs
-      '(
-	(?\" . ?\")
-	(?\< . ?\>)
-	(?\[ . ?\])
-	(?\` . ?\`)
-	(?\{ . ?\})))
+  '(
+    (?\" . ?\")
+    (?\< . ?\>)
+    (?\[ . ?\])
+    (?\` . ?\`)
+    (?\{ . ?\})))
 
 (require 'helm-config)
 (helm-mode 1)
