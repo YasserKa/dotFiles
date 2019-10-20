@@ -20,7 +20,7 @@
     ("~/org/giveaway_bot.org" "~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
-    (gruvbox-theme magit org evil-org helm general evil-visual-mark-mode ##))))
+    (org-plus-contrib orgalist gruvbox-theme magit evil-org helm general evil-visual-mark-mode ##))))
  ; install the missing packages
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -166,9 +166,9 @@
 
 (require 'appt)
 (setq appt-time-msg-list nil)    ;; clear existing appt list
-(setq appt-display-interval nil)  ;; warn every 5 minutes from t - appt-message-warning-time
+(setq appt-display-interval nil)  ;; warn every every X minutes from t - appt-message-warning-time
 (setq
- appt-message-warning-time '10  ;; send first warning 15 minutes before appointment
+ appt-message-warning-time '10  ;; send first warning before appointment
  appt-display-mode-line nil     ;; don't show in the modeline
  appt-display-format 'window)   ;; pass warnings to the designated window function
 (appt-activate 1)                ;; activate appointment notification
