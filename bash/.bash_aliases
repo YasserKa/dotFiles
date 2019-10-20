@@ -2,7 +2,15 @@
 alias vi='vim'
 alias v='vim'
 alias syu='sudo pacman -Syu'
-alias c='clear'
+alias z='zathura'
+# history
+alias h='history'
+alias hg='history | grep'
+#shutdown
+alias reboot='shutdown -r now'
+alias shut='shutdown now'
+
+alias top='htop'
 
 # more options
 alias ll='ls -alFh'
@@ -13,20 +21,10 @@ alias cal='cal -m'
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
 
-# history
-alias h='history'
-alias hg='history | grep'
-
-#shutdown
-alias reboot='shutdown --no-wall -r'
-alias shutdown='sudo shutdown now'
-
-alias top='htop'
 
 # color
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-
 
 # Navigation
 alias back='cd $OLDPWD'

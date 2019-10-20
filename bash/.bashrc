@@ -8,6 +8,8 @@ shopt -s autocd            # auto cd
 shopt -s histappend        # append to the history file, don't overwrite it
 shopt -s checkwinsize      # update the value of LINES and COLUMNS after each command if altered
 
+# Don't lock up on <C-s>
+stty -ixon
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -22,3 +24,4 @@ POWERLINE_BASH_SELECT=1
 # source files
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
 [[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
+[[ -f /etc/profile.d/autojump.bash ]] && source /etc/profile.d/autojump.bash
