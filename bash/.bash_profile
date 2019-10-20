@@ -35,6 +35,7 @@ export VDPAU_DRIVER=nvidia
 [ "$XDG_DATA_HOME" ] || export XDG_DATA_HOME="$HOME/.local/share"
 
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
