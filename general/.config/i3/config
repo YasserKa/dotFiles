@@ -119,7 +119,7 @@ mode "resize" {
 
 # back to normal: Enter or Escape
         bindsym Return mode "default"
-        bindsym Escape mode "default"
+        bindsym Control+bracketleft mode "default"
 }
 
 # Bindings
