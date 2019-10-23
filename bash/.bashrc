@@ -25,3 +25,10 @@ POWERLINE_BASH_SELECT=1
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
 [[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
 [[ -f /etc/profile.d/autojump.bash ]] && source /etc/profile.d/autojump.bash
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+        eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi
