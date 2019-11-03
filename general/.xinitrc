@@ -10,6 +10,8 @@ fi
 #disable bell
 xset -b
 
+eval $(ssh-agent)
+
 # keyboard bindings sourcing if file doesn't exist
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
