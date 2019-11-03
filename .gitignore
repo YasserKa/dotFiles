@@ -5,3 +5,5 @@ general/.config/qutebrowser/qsettings/QtProject.conf
 *.swp
 
 general/.config/systemd/user/default.target.wants/
+/general/.config/systemd/user/autosync-repos*
+/general/.config/systemd/user/timers.target.wants/autosync-repos.timer
