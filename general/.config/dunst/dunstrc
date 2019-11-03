@@ -146,12 +146,13 @@ context = ctrl+shift+semicolon
 [urgency_low]
 background = "#222222"
 foreground = "#888888"
-timeout = 5
+timeout = 3
+icon = dialog-information-symbolic.symbolic
 
 [urgency_normal]
 background = "#285577"
 foreground = "#ffffff"
-timeout = 10
+timeout = 5
 icon = dialog-information-symbolic.symbolic
 
 [urgency_critical]
@@ -160,5 +161,18 @@ foreground = "#ffffff"
 frame_color = "#ff0000"
 timeout = 0
 icon = dialog-error-symbolic.symbolic
+
+# remove deepinscreenshot notifications
+[deepin]
+body = "*DeepinScreenshot*"
+format = ""
+
+[clipboard]
+summary="*Clipboard*"
+history_ignore = yes
+
+[recording]
+summary="*Recording*"
+format=""
 
 # vim: ft=cfg
