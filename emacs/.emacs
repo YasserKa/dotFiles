@@ -14,13 +14,12 @@
  '(custom-safe-themes
    (quote
     ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
- '(initial-buffer-choice "~/org/general.org")
  '(org-agenda-files
    (quote
     ("~/org/giveaway_bot.org" "~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
-    (org-plus-contrib orgalist gruvbox-theme magit evil-org helm general evil-visual-mark-mode ##))))
+    (evil-magit org-plus-contrib orgalist gruvbox-theme magit evil-org helm general evil-visual-mark-mode ##))))
  ; install the missing packages
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -29,6 +28,7 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; install not presented packages
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -47,29 +47,14 @@
 (electric-pair-mode 1)
 ;; make electric-pair-mode work on more brackets
 (setq electric-pair-pairs
-  '(
-    (?\" . ?\")
-    (?\< . ?\>)
-    (?\[ . ?\])
-    (?\` . ?\`)
-    (?\{ . ?\})))
+      '(
+	(?\" . ?\")
+	(?\< . ?\>)
+	(?\[ . ?\])
+	(?\` . ?\`)
+	(?\{ . ?\})))
 
-(require 'helm-config)
-(helm-mode 1)
-
-(define-key helm-map "\C-h" 'delete-backward-char)
-(define-key helm-map "\C-w" 'backward-kill-word)
-(define-key helm-map "\C-k" 'helm-previous-line)
-(define-key helm-map "\C-j" 'helm-next-line)
-
-(define-key helm-map "\C-l" 'helm-end-of-buffer)
-
-(define-key helm-find-files-map "\C-x" 'helm-ff-run-switch-other-window)
-(define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
-
-(define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
-
-
+;; EVIL
 (require 'evil)
 (evil-mode t)
 
@@ -99,10 +84,67 @@
 (define-key evil-normal-state-map ",c " 'comment-line)
 (define-key evil-visual-state-map ",c " 'comment-or-uncomment-region)
 
+;; https://github.com/emacs-evil/evil-magit
+;; MAGIT
+(require 'evil-magit)
+(evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
+;; (evil-define-key* evil-magit-state magit-mode-map [escape] nil)
+
+(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1)))
+;; close the popups in magit
+(define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
+(define-key transient-map        (kbd "<escape>") 'transient-quit-one)
+(define-key transient-sticky-map (kbd "<escape>") 'transient-quit-seq)
+
+;; open file using gvim
+(evil-define-key evil-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
+(defun vil-diff-visit-file (file &optional other-window)
+  (interactive (list (magit-file-at-point t t) current-prefix-arg))
+  (shell-command (concat "gvim " file nil)))
+
+;; updating the original by closing the list of repos window
+(defun magit-repolist-status (&optional _button)
+  "Show the status for the repository at point."
+  (interactive)
+  (--if-let (tabulated-list-get-id)
+      (let ((p (selected-window)))
+	(magit-status-setup-buffer (expand-file-name it)) (delete-window p))
+    (user-error "There is no repository at point")))
+
+
+;; HELM
+(require 'helm-config)
+(helm-mode 1)
+
+(define-key helm-map "\C-h" 'delete-backward-char)
+(define-key helm-map "\C-w" 'backward-kill-word)
+(define-key helm-map "\C-k" 'helm-previous-line)
+(define-key helm-map "\C-j" 'helm-next-line)
+
+(define-key helm-map "\C-l" 'helm-end-of-buffer)
+
+(define-key helm-find-files-map "\C-x" 'helm-ff-run-switch-other-window)
+(define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
+
+(define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
+
+
+;; VIM LEADER
 (require 'general)
 (general-evil-setup t)
+
+(defun source-init-file ()
+  (interactive)
+  (load-file "~/.emacs"))
+
+(defun edit-init-file ()
+  (interactive)
+  (split-window-below)
+  (find-file "~/.emacs"))
+
 (nvmap :prefix ","
   "ss" 'source-init-file
+  "g" 'magit-list-repositories
   "es" 'edit-init-file
   "m" 'execute-extended-command
   "p" 'helm-find-files)
@@ -142,25 +184,18 @@
 (evil-define-key 'normal org-mode-map (kbd "gj") 'org-next-visible-heading)
 (evil-define-key 'normal org-mode-map (kbd "gh") 'org-up-element)
 (evil-define-key 'normal org-mode-map (kbd "gl") 'org-down-element)
+(setq org-cycle-separator-lines -1)
+(evil-define-key 'normal org-mode-map (kbd "<SPC>") 'org-cycle)
 
 ;; Narrowing buffer to subree/ widen
 (define-key org-mode-map (kbd "C-c n") 'org-toggle-narrow-to-subtree)
 
-;; open using external softwares
+;; Open using external softwares
 (setq org-file-apps
       '((auto-mode . emacs)
 	("\\.pdf\\'" . "zathura \"%s\"")))
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "qutebrowser")
-
-(defun source-init-file ()
-  (interactive)
-  (load-file "~/.emacs"))
-
-(defun edit-init-file ()
-  (interactive)
-  (split-window-below)
-  (find-file "~/.emacs"))
 
 ;; ORG NOTIFICATION
 
@@ -192,6 +227,6 @@
   (toast-appt-send-notification
    (format "Appointment in %s minutes" min-to-app)    ;; passed to -t in toast call
    (format "%s" msg))                                 ;; passed to -m in toast call
-   (message nil))
+  (message nil))
 
 (setq appt-disp-window-function (function toast-appt-display))
