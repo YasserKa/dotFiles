@@ -1,15 +1,4 @@
-" Keymaps {{{
-"<leader>a  :Ag
-"<leader>h  :nohlsearch<CR>
-"<leader>t  tagbarTagbarToggle<CR>
-"<leader>n  nerdtree
-"<leader>s  easymotion
-"<leader>es :vsp $MYVIMRC<CR>
-"<leader>ss :source $MYVIMRC<CR>
-"toggle current fold
-nnoremap  <space> za
-" }}}
-" First things come first {{{
+" Vundle <<<
 " must be first instructions
 set nocompatible " vim instead of Vi
 
@@ -34,15 +23,14 @@ Plugin 'kamwitsta/flatwhite-vim'
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'mattn/emmet-vim'
 
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'w0rp/ale'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
+Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
 
 Plugin 'vim-scripts/dbext.vim'
 Plugin 'vim-scripts/SQLComplete.vim'
@@ -51,22 +39,41 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'iamcco/markdown-preview.nvim' " this command is needed :call mkdp#util#install()
 
 call vundle#end() " required
-" }}}
-" general settings{{{
+" >>>
+" general settings <<<
 syntax on
 set clipboard=unnamedplus " make it able to paste using CTRL+V
 set virtualedit=all  " moving in whitespace
-let mapleader="," " changing the leader from \ to ,
+let mapleader="," " changing the leader
 set modelines=1 " sets the number of lines at start and end of file
-" edit and load vimrc bindings
+" search settings<<<
+set ignorecase " do case insensitive search...
+set incsearch " do incremental search
+set hlsearch " highlight mathces
+set smartcase " ...unless capital letters are used
+" turn off searchhighlight
+nnoremap <leader>h :nohlsearch<CR>
+">>>
+" file type specific settings<<<
+filetype on " enable file type detection
+filetype plugin on " load the plugins for specific file types
+filetype indent on " automatically indent code
+">>>
+" Write settings<<<
+set confirm  " confirm :q in case of unsaved changes
+set fileencoding=utf-8 " encoding used when saving file
+set nobackup " do not keep the backup~ file
+" ">>>
+" Keybindings <<<
 nnoremap <leader>es :split $MYVIMRC<CR>
 nnoremap <leader>ss :source $MYVIMRC<CR>
-nnoremap <leader>r :split ~/.notes<CR>
-" swap ; and : for a faster command access
+nnoremap <space> za
 nnoremap ; :
 nnoremap : ;
+nnoremap q; q:
+nnoremap @; @:
 " sort by the length of the line in visual mode
-xnoremap <leader>s  : ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<CR><CR>
+xnoremap <leader>s  : ! awk '< print length(), $0 \| "sort -n \| cut -d\\  -f2-" >'<CR><CR>
 " Make Y act like D and C
 map Y y$
 " Open definition in new vertical split
@@ -74,19 +81,35 @@ nnoremap <leader>ds :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 " Open definition in new tab
 nnoremap <leader>dt :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 vnoremap <C-c> "*y
-" pasting clipboard using <C-r>"
-inoremap <C-r>" <C-r><C-r>+
-" }}}
-" Display settings{{{
+
+" move lines
+" <A-key> is <Esc>key, adapt to that and fix the timeout
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+set ttimeout ttimeoutlen=50
+
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+" >>>
+" >>>
+" Display settings<<<
 set encoding=utf-8 " encoding used for displaying file
 colorscheme gruvbox " set color scheme, must be installed first
 " colorscheme solarized gruvbox
 " needed to work in terminal emulator
 let g:solarized_termcolors=256
 if has("gui_running")
-  if has("gui_gtk2")  || has("gui_gtk3")
-    set guifont=Inconsolata\ 14
-  endif
+    if has("gui_gtk2")  || has("gui_gtk3")
+        set guifont=Inconsolata\ 14
+    endif
 endif
 set background=light " dark background for console
 set laststatus=2 " display the status line always
@@ -95,82 +118,81 @@ set list " show eof, trailing, etc..
 set showcmd  " show command in bottom bar
 set cursorline " highlight current line"
 set wildmenu " makes a window appear while writting commands
-"set foldmethod=indent " folds at start
+if !has("gui_running") " don't fold in gvim (used or git conflicts)
+    set foldmethod=marker " folds at start
+    set foldmarker=<<<,>>> " folds at start
+endif
 " change cursor between vertical and block
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+" use block cursor when entering vim
 set cpoptions+=$ " using C command adds $ at the end
 " characters for displaying non-printable characters
 set listchars=eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
 " tip window to close when a selection is made
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"}}}
-" write settings{{{
-set confirm  " confirm :q in case of unsaved changes
-set fileencoding=utf-8 " encoding used when saving file
-set nobackup " do not keep the backup~ file
-" "}}}
- " edit settings{{{
- set backspace=indent,eol,start " backspacing over everything in insert mode
- set expandtab " fill tabs with spaces
- set nojoinspaces " no extra space after '.' when joining lines
- set shiftwidth=4 " set indentation depth to 8 columns
- set softtabstop=4 " backspacing over 8 spaces like over tabs
- set tabstop=4 " set tabulator length to 8 columns
- set textwidth=80 " wrap lines automatically at 80th column
- " Save file when switching buffers
- set autowrite
- set autoread
- "}}}
- " search settings{{{
- set ignorecase " do case insensitive search...
- set incsearch " do incremental search
- set hlsearch " highlight mathces
- set smartcase " ...unless capital letters are used
- " turn off searchhighlight
- nnoremap <leader>h :nohlsearch<CR>
- "}}}
-" file type specific settings{{{
-filetype on " enable file type detection
-filetype plugin on " load the plugins for specific file types
-filetype indent on " automatically indent code
-"}}}
-" automatic commands{{{
-if has('autocmd')
-    " clean-up commands that run automatically on write; use with caution
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+">>>
+" Tabs, spaces, indentation, wrapping <<<
+set expandtab       " use spaces for tabs
+set tabstop=4       " number of spaces to use for tabs
+set shiftwidth=4    " number of spaces to autoindent
+set softtabstop=4   " number of spaces for a tab
+set autoindent      " set autoindenting on
+set smartindent     " automatically insert another level of indent when needed
+">>>
 
-    " delete empty or whitespaces-only lines at the end of file
-    autocmd BufWritePre * :%s/\(\s*\n\)\+\%$//ge
-
-    " replace groups of empty or whitespaces-only lines with one empty line
-    " autocmd BufWritePre * :%s/\(\s*\n\)\{3,}/\r\r/ge
-
-    " delete any trailing whitespaces
-    autocmd BufWritePre * :%s/\s\+$//ge
-endif
-"}}}
-" Plugins{{{
-" Display {{{
+set backspace=indent,eol,start " backspacing over everything in insert mode
+set nojoinspaces " no extra space after '.' when joining lines
+set textwidth=80 " wrap lines automatically at 80th column
+" Save file when switching buffers
+set autowrite
+set autoread
+">>>
+" automatic commands<<<
+" if has('autocmd')
+"     " clean-up commands that run automatically on write; use with caution
+"     " delete empty or whitespaces-only lines at the end of file
+"     autocmd BufWritePre * :%s/\(\s*\n\)\+\%$//ge
+"     " replace groups of empty or whitespaces-only lines with one empty line
+"     " autocmd BufWritePre * :%s/\(\s*\n\)\<3,>/\r\r/ge
+"
+"     " delete any trailing whitespaces
+"     autocmd BufWritePre * :%s/\s\+$//ge
+" endif
+">>>
+" Plugins<<<
+" Display <<<
 "##############################################################
-" lightline-ale
+" lightline
 let g:lightline = {}
 let g:lightline.colorscheme = 'solarized'
 
+let g:lightline.active = {
+            \'left' : [ ['mode', 'paste'],
+            \           ['gitbranch', 'readonly', 'filename', 'modified']],
+            \'right': [ ['lineinfo'], ['percent'], ['filetype'],
+            \           ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']
+            \         ] }
+
 let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
+            \  'linter_checking': 'lightline#ale#checking',
+            \  'linter_warnings': 'lightline#ale#warnings',
+            \  'linter_errors': 'lightline#ale#errors',
+            \  'linter_ok': 'lightline#ale#ok',
+            \ }
 let g:lightline.component_type = {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'left',
-      \ }
-let g:lightline.active = { 'right': [['lineinfo'],['percent'],['filetype'], [ 'linter_checking', 'linter_errors', 'linter_warnings',  'linter_ok' ]] }
+            \     'linter_checking': 'left',
+            \     'linter_warnings': 'warning',
+            \     'linter_errors': 'error',
+            \     'linter_ok': 'left',
+            \ }
+
+let g:lightline.component_function = {
+            \ 'gitbranch': 'fugitive#head'
+            \ }
 
 let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
@@ -183,19 +205,19 @@ autocmd VimEnter * RainbowParentheses
 
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-" gitgutter
-set updatetime=250
+"
+
 " vim-javascript
 " JSdocs
-set foldmethod=syntax
-set foldcolumn=1
-let javaScript_fold=1
-set foldlevelstart=99
+" set foldmethod=syntax
+" set foldcolumn=1
+" let javaScript_fold=1
+" set foldlevelstart=99
 
 " folding
 " augroup END
-"}}}
-" Editing{{{
+">>>
+" Editing<<<
 " YouCompleteMe
 let g:ycm_max_num_candidates = 6
 "##############################################################
@@ -203,7 +225,7 @@ let g:ycm_max_num_candidates = 6
 " Enable completion where available.
 let g:ale_completion_enabled = 1
 let g:ale_open_list = 1
- " Show 5 lines of errors (default: 10)
+" Show 5 lines of errors (default: 10)
 let g:ale_list_window_size = 5
 let g:ale_fix_on_save = 1
 
@@ -220,8 +242,8 @@ augroup END
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \   'javascript': ['jshint'],
             \   'python': ['autopep8'],
+            \   'javascript': ['jshint'],
             \   'SQL': ['sqlint'],
             \}
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -233,7 +255,7 @@ let g:UltiSnipsSnippetDir = [$HOME.'/.vim/Ultisnips']
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/Ultisnips']
 let g:UltiSnipsListSnippets = "<c-l>"
 let g:UltiSnipsExpandTrigger = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+" let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 " if you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit = "vertical"
@@ -259,13 +281,14 @@ nmap <silent> <C-l> <Plug>(jsdoc)
 " inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 " nnoremap <C-P> :call PhpDocSingle()<CR>
 " vnoremap <C-P> :call PhpDocRange()<CR>
-"}}}
-" Navigation {{{
+">>>
+" Navigation <<<
 " Ag (Searching source code in a project)
 nnoremap <leader>a :Ag<space>
 "##############################################################
 " FZF (Full path fuzzy file, buffer, mru, tag) finder
 nnoremap <leader>p :Files<CR>
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 "##############################################################
 " nerdtree (hierarchy of files) plugin
 nnoremap <leader>n :NERDTreeToggle<CR>
@@ -280,15 +303,15 @@ nnoremap <leader>t :TagbarToggle<CR>
 " easymotion
 "let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
+" `s<char><label>`
 nmap <Leader>s <Plug>(easymotion-overwin-f)
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-" }}}
-" General {{{
+" >>>
+" General <<<
 " fugitive
 " nnoremap <leader>gb :Gblame<CR>
 " nnoremap <leader>gs :Gstatus<CR>
@@ -296,28 +319,6 @@ map <Leader>k <Plug>(easymotion-k)
 " nnoremap <leader>gl :Glog<CR>
 " nnoremap <leader>gc :Gcommit<CR>
 " nnoremap <leader>gp :Git push<CR>
-" }}}
+" >>>
 " To check undo list: gundo
-" }}}
-" Extras {{{
-function! Get_visual_selection()
-    let [line_start, column_start] = getpos("'<")[1:2]
-    let [line_end, column_end] = getpos("'>")[1:2]
-    let lines = getline(line_start, line_end)
-    if len(lines) == 0
-        return ''
-    endif
-    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
-    let lines[0] = lines[0][column_start - 1:]
-    return join(lines, "\n")
-endfunction
-" function! Open_unity_docs()
-"     silent !clear
-"     let path = "file:///opt/Unity/Documentation/en/ScriptReference/30_search.html?q="
-"     execute "!firefox ".path.Get_visual_selection()." &"
-" endfunction
-" vmap <leader>u :call Open_unity_docs()<CR>
-"}}}
-"set foldmethod=syntax
-" used to fold sections by markers and fold them by default
-" vim:foldmethod=marker:foldlevel=0
+" >>>
