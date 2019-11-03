@@ -63,19 +63,25 @@ c.bindings.commands = {
 
         '<Ctrl-Shift-V>': 'leave-mode',
     },
+    'command': {
+        '<Ctrl-p>': 'completion-item-focus --history prev',
+        '<Ctrl-n>': 'completion-item-focus --history next',
+    },
 }
 
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
 
 config.set('spellcheck.languages', ['en-US'])
-config.set('tabs.title.format', '{index} {current_title}')
+config.set('tabs.title.format', '{current_title}')
 
 config.set('url.searchengines', {
-           'DEFAULT': 'https://www.duckduckgo.com/?q={}',
-           'duck': 'https://www.duckduckgo.com/?q={}',
-           'go': 'https://www.google.com/search?q={}',
-           })
+    'DEFAULT': 'https://www.duckduckgo.com/?q={}',
+    'duck': 'https://www.duckduckgo.com/?q={}',
+    'go': 'https://www.google.com/search?q={}',
+    'def': 'https://www.google.com/search?q=define {}',
+    'wiki': 'https://en.wikipedia.org/wiki/{}',
+})
 
 config.set('scrolling.bar', 'never')
 
