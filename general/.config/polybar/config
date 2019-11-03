@@ -1,5 +1,6 @@
 ; https://github.com/polybar/polybar/wiki
 ; https://origin.fontawesome.com/icons?d=gallery&q=browser
+; Refernce <<<
 [xcolor]
 bg     = #0a0a0a
 fg     = #c8c8c8
@@ -31,8 +32,15 @@ icon-font = 2
 icon-padding = 1
 module-padding = 2
 
-; bar-format = %{T4}%fill%%indicator%%{F#dc404040}%empty%%{F-}%{T-}
+[generic-format-style]
+format-background = ${color.module-bg}
+format-padding = ${layout.module-padding}
 
+format-prefix-font = ${layout.icon-font}
+format-prefix-foreground = ${color.icon-fg}
+format-prefix-padding-right = ${layout.icon-padding}
+; >>>
+; Bar <<<
 [bar/mybar]
 width = 100%
 height = 2.5%
@@ -53,15 +61,8 @@ modules-left = i3
 modules-right = pulseaudio wlan eth memory battery date
 
 cursor-click = pointer
-
-[generic-format-style]
-format-background = ${color.module-bg}
-format-padding = ${layout.module-padding}
-
-format-prefix-font = ${layout.icon-font}
-format-prefix-foreground = ${color.icon-fg}
-format-prefix-padding-right = ${layout.icon-padding}
-
+; >>>
+; i3 <<<
 [module/i3]
 type = internal/i3
 
@@ -71,21 +72,21 @@ pin-workspaces = true
 strip-wsnumbers = true
 
 ws-icon-0 = 0;
-ws-icon-1 = 1;
+ws-icon-1 = 1;
 ws-icon-2 = 2;
 ws-icon-3 = 3;
-ws-icon-4 = 4;
+ws-icon-4 = 4;
 ws-icon-5 = 5;
-ws-icon-6 = 6;
+ws-icon-6 = 6;
 ws-icon-7 = 7;
-ws-icon-8 = 8;
+ws-icon-8 = 8;
 ws-icon-9 = 9;
 
 
 format = <label-state><label-mode>
 
 ; Active workspace on focused monitor
-label-focused = %{T5} %{T-}%{F#a54245}%icon% %{F-}%{T5}%{T-}  %name%
+label-focused = %{T5} %{T-}%{F#a54245}%icon% %{F-}%{T5}%{T-}
 label-focused-background = ${color.selected-bg}
 label-focused-underline = ${xcolor.color5}
 label-focused-padding = ${layout.module-padding}
@@ -109,8 +110,8 @@ label-urgent-padding = ${layout.module-padding}
 
 label-mode-background = ${color.module-bg}
 label-mode-padding = ${layout.module-padding}
-
-
+; >>>
+; Pulseaudio <<<
 [module/pulseaudio]
 type = internal/pulseaudio
 
@@ -138,7 +139,8 @@ format-muted-prefix-foreground = ${color.icon-fg}
 format-muted-prefix-padding-right = ${layout.icon-padding}
 
 label-muted =  muted
-
+; >>>
+; Battery <<<
 [module/battery]
 type = internal/battery
 
@@ -159,7 +161,8 @@ ramp-capacity-1 =  
 ramp-capacity-2 =  
 ramp-capacity-3 =  
 ramp-capacity-4 =  
-
+;  >>>
+; Date <<<
 [module/date]
 type = internal/date
 inherit = generic-format-style
@@ -171,14 +174,16 @@ time = %H:%M
 format = <label>
 
 label = %date%  %time%
-
+ ; >>>
+; Memeory <<<
 [module/memory]
 type = internal/memory
 inherit = generic-format-style
 
 format-prefix = 
 label = %gb_used%
-
+; >>>
+; Network <<<
 [module/network]
 type = internal/network
 
@@ -200,7 +205,6 @@ format-disconnected-padding = ${layout.module-padding}
 format-disconnected-prefix-font = ${layout.icon-font}
 format-disconnected-prefix-foreground = ${color.icon-fg}
 format-disconnected-prefix-padding-right = ${layout.icon-padding}
-
 
 [module/wlan]
 inherit = module/network
@@ -249,5 +253,5 @@ format-unmounted-prefix-padding-right = ${layout.icon-padding}
 
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${xcolor.color1}
-
+# >>>
 ; vim:ft=dosini
