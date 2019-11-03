@@ -1,0 +1,8 @@
+" vim: ft=vim
+
+source ~/.vimrc
+
+set nonumber
+if exists("vimpager")
+    let g:loaded_surround = 1
+endif

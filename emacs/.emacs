@@ -14,9 +14,7 @@
  '(custom-safe-themes
    (quote
     ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
- '(org-agenda-files
-   (quote
-    ("~/org/giveaway_bot.org" "~/org/general.org" "~/org/knowledge_base.org")))
+ '(org-agenda-files (quote ("~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
     (evil-magit org-plus-contrib orgalist gruvbox-theme magit evil-org helm general evil-visual-mark-mode ##))))
