@@ -2,6 +2,8 @@ export PATH=$PATH:$HOME/bin
 
 # to make cmus escape works
 export ESCDELAY=25
+# used by imgur api
+export IMGUR_CLIENT_ID="3fcfcb6de9ff8f8"
 
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
@@ -20,8 +22,7 @@ export VISUAL=vim
 export BROWSER=qutebrowser
 export TERMINAL=termite
 export DIFFPROG=vimdiff
-export PAGER="less -FRXMKij4"
-# export PAGER="vimpager-FRXMKij4"
+export PAGER=vimpager
 
 # color
 LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
@@ -35,6 +36,7 @@ export VDPAU_DRIVER=nvidia
 [ "$XDG_DATA_HOME" ] || export XDG_DATA_HOME="$HOME/.local/share"
 
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export VIMPAGER_RC="$XDG_CONFIG_HOME/vimpagerrc"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
