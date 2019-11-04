@@ -220,6 +220,7 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 " Editing<<<
 " YouCompleteMe
 let g:ycm_max_num_candidates = 6
+let g:ycm_confirm_extra_conf = 0
 "##############################################################
 " ALE
 " Enable completion where available.
@@ -276,11 +277,6 @@ let g:NERDToggleCheckAllLines = 1
 "##############################################################
 " JsDoc
 nmap <silent> <C-l> <Plug>(jsdoc)
-" PhpDocs
-" source ~/.vim/bundle/php-doc.vim
-" inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
-" nnoremap <C-P> :call PhpDocSingle()<CR>
-" vnoremap <C-P> :call PhpDocRange()<CR>
 ">>>
 " Navigation <<<
 " Ag (Searching source code in a project)
