@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-main_dir="$HOME/Desktop"
+main_dir="$HOME"
 target_img_dir="$HOME/Pictures/Shareables"
 target_vid_dir="$HOME/Videos/Shareables"
 
@@ -12,8 +12,8 @@ mkdir -p $target_img_dir
 mkdir -p $target_vid_dir
 
 case $1 in
-    -i)   deepin-screenshot -s $HOME/Desktop 2>/dev/null ;;
-    -v)   deepin-screen-recorder           ;;
+    -i)   deepin-screenshot -s $main_dir 2> /dev/null ;;
+    -v)   deepin-screen-recorder                          ;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         dunstify "Saved to Clipboard" ;exit ;;
 esac
@@ -38,7 +38,7 @@ if [[ "$extension" == "gif" ]]; then
     # for imgur api request
     arg='-i'
     new_path="$target_vid_dir/$new_name"
-elif [[ "$extension" == "vid" ]]; then
+elif [[ "$extension" == "mp4" ]]; then
     new_path="$target_vid_dir/$new_name"
 elif [[ "$extension" == "png" ]]; then
     new_path="$target_img_dir/$new_name"
