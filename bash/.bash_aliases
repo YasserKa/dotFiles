@@ -40,13 +40,16 @@ alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
-# Misc
+# Get the last installed packages
+alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
+# Music player
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+
 # alias myz='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
 # alias notebook='conda run jupyter notebook & disown'
 
 
-# for more monitors
+# Monitors
 # alias myscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
 #                   xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
 #
