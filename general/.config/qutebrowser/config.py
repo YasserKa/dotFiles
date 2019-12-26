@@ -40,6 +40,7 @@ c.bindings.commands = {
         ',h': 'help -t',
 
         '<Ctrl-Shift-V>': 'enter-mode passthrough',
+        'cm': 'clear-messages ;; download-clear',
 
         'ye': 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown',
 
@@ -52,6 +53,7 @@ c.bindings.commands = {
 
         '<Ctrl-p>': 'fake-key <Up>',
         '<Ctrl-n>': 'fake-key <Down>',
+        '<Ctrl-j>': 'fake-key <enter>',
     },
     'caret': {
         'o': 'open selection',
