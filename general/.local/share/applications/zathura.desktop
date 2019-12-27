@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=zathura
+Comment=pdf viewer
+Keywords=pdf;epub;
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Application;;PDf;
+MimeType=application/epub;application/pdf;
+Icon=zathura
+Exec=/usr/bin/zathura %F
