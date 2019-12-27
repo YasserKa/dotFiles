@@ -1,5 +1,5 @@
+export PATH=$PATH:$HOME/.config/composer/vendor/bin
 export PATH=$PATH:$HOME/bin
-
 # to make cmus escape works
 export ESCDELAY=25
 # used by imgur api
@@ -40,6 +40,6 @@ export VIMPAGER_RC="$XDG_CONFIG_HOME/vimpagerrc"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-	exec startx
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+    exec startx
 fi
