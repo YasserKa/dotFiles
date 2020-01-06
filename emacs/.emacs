@@ -82,6 +82,9 @@
 (define-key evil-normal-state-map ",c " 'comment-line)
 (define-key evil-visual-state-map ",c " 'comment-or-uncomment-region)
 
+;; Enter in command mode
+(define-key evil-ex-completion-map "\C-j" 'exit-minibuffer)
+
 ;; https://github.com/emacs-evil/evil-magit
 ;; MAGIT
 (require 'evil-magit)
