@@ -159,7 +159,7 @@ icon = dialog-information-symbolic.symbolic
 background = "#900000"
 foreground = "#ffffff"
 frame_color = "#ff0000"
-timeout = 0
+timeout = 5
 icon = dialog-error-symbolic.symbolic
 
 # remove deepinscreenshot notifications
