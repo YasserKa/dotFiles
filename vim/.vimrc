@@ -287,10 +287,9 @@ nnoremap <leader>p :Files<CR>
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 "##############################################################
 " nerdtree (hierarchy of files) plugin
-nnoremap <leader>n :NERDTreeToggle<CR>
-" automatically when no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+let g:NERDTreeMapActivateNode='<TAB>'
+let NERDTreeQuitOnOpen=1
 " ##############################################################
 " Taglist(Shows the structure of the code) Plugin
 " remap the toggle
