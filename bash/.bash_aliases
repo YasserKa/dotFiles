@@ -41,6 +41,9 @@ alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
+# Suppress Autojump output
+alias j='j >/dev/null'
+
 # Get the last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 # Music player

@@ -22,7 +22,7 @@ if [ -z `pgrep rofi` ]; then
 fi
 
 # source files
+[[ -f /etc/profile.d/autojump.bash ]] && source /etc/profile.d/autojump.bash
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
 [[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
-[[ -f /etc/profile.d/autojump.bash ]] && source /etc/profile.d/autojump.bash
 [[ -f /usr/share/git/completion/git-completion.bash ]] && source /usr/share/git/completion/git-completion.bash
