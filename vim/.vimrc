@@ -1,7 +1,7 @@
-" Vundle <<<
 " must be first instructions
 set nocompatible " vim instead of Vi
 
+" Vundle
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -20,7 +20,6 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'kamwitsta/flatwhite-vim'
-Plugin 'heavenshell/vim-jsdoc'
 Plugin 'mattn/emmet-vim'
 
 Plugin 'junegunn/fzf.vim'
@@ -39,41 +38,49 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'iamcco/markdown-preview.nvim' " this command is needed :call mkdp#util#install()
 
 call vundle#end() " required
-" >>>
-" general settings <<<
+
+" general settings
 syntax on
 set clipboard=unnamedplus " make it able to paste using CTRL+V
 set virtualedit=all  " moving in whitespace
 let mapleader="," " changing the leader
-set modelines=1 " sets the number of lines at start and end of file
-" search settings<<<
+
+" search settings
 set ignorecase " do case insensitive search...
 set incsearch " do incremental search
 set hlsearch " highlight mathces
 set smartcase " ...unless capital letters are used
 " turn off searchhighlight
 nnoremap <leader>h :nohlsearch<CR>
-">>>
-" file type specific settings<<<
+
+" file type
 filetype on " enable file type detection
 filetype plugin on " load the plugins for specific file types
 filetype indent on " automatically indent code
-">>>
-" Write settings<<<
+
+" Write settings
 set confirm  " confirm :q in case of unsaved changes
 set fileencoding=utf-8 " encoding used when saving file
-set nobackup " do not keep the backup~ file
-" ">>>
-" Keybindings <<<
+
+" Backup
+set nobackup                            " don't backup files
+set nowritebackup
+set noswapfile
+
+" Keybindings
 nnoremap <leader>es :split $MYVIMRC<CR>
 nnoremap <leader>ss :source $MYVIMRC<CR>
 nnoremap <space> za
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 nnoremap q; q:
 nnoremap @; @:
+
 " sort by the length of the line in visual mode
 xnoremap <leader>s  : ! awk '< print length(), $0 \| "sort -n \| cut -d\\  -f2-" >'<CR><CR>
+
 " Make Y act like D and C
 map Y y$
 " Open definition in new vertical split
@@ -91,19 +98,18 @@ while c <= 'z'
   let c = nr2char(1+char2nr(c))
 endw
 set ttimeout ttimeoutlen=50
-
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
-" >>>
-" >>>
-" Display settings<<<
+
+" Display settings
 set encoding=utf-8 " encoding used for displaying file
 colorscheme gruvbox " set color scheme, must be installed first
-" colorscheme solarized gruvbox
+set background=light        " dark background for console
+
 " needed to work in terminal emulator
 let g:solarized_termcolors=256
 if has("gui_running")
@@ -111,13 +117,14 @@ if has("gui_running")
         set guifont=Inconsolata\ 14
     endif
 endif
-set background=light " dark background for console
-set laststatus=2 " display the status line always
-set number " show the number line
-set list " show eof, trailing, etc..
-set showcmd  " show command in bottom bar
-set cursorline " highlight current line"
-set wildmenu " makes a window appear while writting commands
+set laststatus=2            " display the status line always
+set number                  " show the number line
+set scrolloff=5             " show 5 lines above/below the cursor
+set showcmd                 " show command in bottom bar
+set cursorline              " highlight current line"
+set list                    " show eof, trailing, etc..
+set listchars=eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
+set wildmenu                " makes a window appear while writting commands
 if !has("gui_running") " don't fold in gvim (used or git conflicts)
     set foldmethod=marker " folds at start
     set foldmarker=<<<,>>> " folds at start
@@ -127,44 +134,29 @@ let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
-" use block cursor when entering vim
-set cpoptions+=$ " using C command adds $ at the end
-" characters for displaying non-printable characters
-set listchars=eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
-" tip window to close when a selection is made
-" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-">>>
-" Tabs, spaces, indentation, wrapping <<<
+
+" Tabs, spaces, indentation, wrapping
 set expandtab       " use spaces for tabs
 set tabstop=4       " number of spaces to use for tabs
 set shiftwidth=4    " number of spaces to autoindent
 set softtabstop=4   " number of spaces for a tab
 set autoindent      " set autoindenting on
 set smartindent     " automatically insert another level of indent when needed
-">>>
 
 set backspace=indent,eol,start " backspacing over everything in insert mode
 set nojoinspaces " no extra space after '.' when joining lines
 set textwidth=80 " wrap lines automatically at 80th column
+
 " Save file when switching buffers
 set autowrite
 set autoread
-">>>
-" automatic commands<<<
-" if has('autocmd')
-"     " clean-up commands that run automatically on write; use with caution
-"     " delete empty or whitespaces-only lines at the end of file
-"     autocmd BufWritePre * :%s/\(\s*\n\)\+\%$//ge
-"     " replace groups of empty or whitespaces-only lines with one empty line
-"     " autocmd BufWritePre * :%s/\(\s*\n\)\<3,>/\r\r/ge
-"
-"     " delete any trailing whitespaces
-"     autocmd BufWritePre * :%s/\s\+$//ge
-" endif
-">>>
-" Plugins<<<
-" Display <<<
+
+" Make blade.php files html files
+autocmd BufEnter *.blade.php set filetype=html
+
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+" Plugins
+" Display
 "##############################################################
 " lightline
 let g:lightline = {}
@@ -207,17 +199,6 @@ let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 "
 
-" vim-javascript
-" JSdocs
-" set foldmethod=syntax
-" set foldcolumn=1
-" let javaScript_fold=1
-" set foldlevelstart=99
-
-" folding
-" augroup END
-">>>
-" Editing<<<
 " YouCompleteMe
 let g:ycm_max_num_candidates = 6
 let g:ycm_confirm_extra_conf = 0
@@ -275,16 +256,19 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 "##############################################################
-" JsDoc
-nmap <silent> <C-l> <Plug>(jsdoc)
-">>>
-" Navigation <<<
+" Navigation
 " Ag (Searching source code in a project)
 nnoremap <leader>a :Ag<space>
 "##############################################################
 " FZF (Full path fuzzy file, buffer, mru, tag) finder
 nnoremap <leader>p :Files<CR>
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-j': 'open',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ }
 "##############################################################
 " nerdtree (hierarchy of files) plugin
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -305,15 +289,6 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-" >>>
-" General <<<
-" fugitive
-" nnoremap <leader>gb :Gblame<CR>
-" nnoremap <leader>gs :Gstatus<CR>
-" nnoremap <leader>gd :Gdiff<CR>
-" nnoremap <leader>gl :Glog<CR>
-" nnoremap <leader>gc :Gcommit<CR>
-" nnoremap <leader>gp :Git push<CR>
-" >>>
-" To check undo list: gundo
-" >>>
+
+" work around for gx bug
+nmap gx yiW;!xdg-open <cWORD><CR> <C-r>" & <CR><CR>
