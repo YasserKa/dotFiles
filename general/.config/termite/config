@@ -31,6 +31,6 @@ highlight = #000000
 
 # colors from color0 to color254 can be set
 color0 = #000000
-color1 = #ffffff
+# color1 = #ffffff
 
 # vim: syntax=dosini commentstring=#%s
