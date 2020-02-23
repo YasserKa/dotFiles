@@ -91,7 +91,7 @@
 (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
 ;; (evil-define-key* evil-magit-state magit-mode-map [escape] nil)
 
-(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1)))
+(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
 ;; close the popups in magit
 (define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)

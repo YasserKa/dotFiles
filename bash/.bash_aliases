@@ -17,6 +17,7 @@ alias top='htop'
 # emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
 alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/org/general.org"'
+alias cool='cd /srv/http/cooldown/; termite -e "./artisan serve" & qutebrowser http://localhost:8000/ --target window & vim ./app/Http/Controllers/MatchController.php;'
 
 # more options
 alias ll='ls -alFh'

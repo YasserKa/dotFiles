@@ -1,4 +1,5 @@
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
+export PATH=$PATH:$HOME/miniconda3/bin
 export PATH=$PATH:$HOME/bin
 # to make cmus escape works
 export ESCDELAY=25
