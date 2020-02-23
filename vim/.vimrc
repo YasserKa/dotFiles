@@ -1,43 +1,43 @@
 " must be first instructions
 set nocompatible " vim instead of Vi
 
-" Vundle
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Automatic installation for plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim' " required
+" Display
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
+" Plugin 'junegunn/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
+Plug 'majutsushi/tagbar', {'on' : 'TagbarToggle'}
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree', {'on' : 'NERDTreeToggle'}
+Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdcommenter'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'kamwitsta/flatwhite-vim'
+Plug 'mattn/emmet-vim'
 
-Plugin 'morhetz/gruvbox'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'itchyny/lightline.vim'
-Plugin 'maximbaz/lightline-ale'
-Plugin 'junegunn/rainbow_parentheses.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'kamwitsta/flatwhite-vim'
-Plugin 'mattn/emmet-vim'
+Plug 'junegunn/fzf.vim'
+" Plugin 'neoclide/coc.nvim'
+Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'junegunn/fzf.vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'w0rp/ale'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'vim-scripts/dbext.vim', {'for': 'sql'}
+Plug 'vim-scripts/SQLComplete.vim', {'for': 'sql'}
 
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fugitive'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim' " this command is needed :call mkdp#util#install()
 
-Plugin 'vim-scripts/dbext.vim'
-Plugin 'vim-scripts/SQLComplete.vim'
-
-Plugin 'plasticboy/vim-markdown'
-Plugin 'iamcco/markdown-preview.nvim' " this command is needed :call mkdp#util#install()
-
-call vundle#end() " required
+call plug#end()
 
 " general settings
 syntax on
@@ -93,9 +93,9 @@ vnoremap <C-c> "*y
 " <A-key> is <Esc>key, adapt to that and fix the timeout
 let c='a'
 while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
+    exec "set <A-".c.">=\e".c
+    exec "imap \e".c." <A-".c.">"
+    let c = nr2char(1+char2nr(c))
 endw
 set ttimeout ttimeoutlen=50
 nnoremap <A-j> :m .+1<CR>==
@@ -106,12 +106,12 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Display settings
-set encoding=utf-8 " encoding used for displaying file
+" set encoding=utf-8 " encoding used for displaying file
 colorscheme gruvbox " set color scheme, must be installed first
-set background=light        " dark background for console
+" set background=light        " dark background for console
 
 " needed to work in terminal emulator
-let g:solarized_termcolors=256
+" let g:solarized_termcolors=256
 if has("gui_running")
     if has("gui_gtk2")  || has("gui_gtk3")
         set guifont=Inconsolata\ 14
@@ -193,8 +193,9 @@ let g:lightline#ale#indicator_ok = "\uf00c "
 " rainbow_parentheses
 " fork https://github.com/junegunn/rainbow_parentheses.vim
 " start rainbow at start
-autocmd VimEnter * RainbowParentheses
+" autocmd VimEnter * RainbowParentheses
 
+let g:rainbow_active = 1
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 "
@@ -265,10 +266,10 @@ nnoremap <leader>p :Files<CR>
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " This is the default extra key bindings
 let g:fzf_action = {
-  \ 'ctrl-j': 'open',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ }
+            \ 'ctrl-j': 'open',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit',
+            \ }
 "##############################################################
 " nerdtree (hierarchy of files) plugin
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
