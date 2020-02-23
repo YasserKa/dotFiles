@@ -104,6 +104,7 @@ mode "resize" {
         bindsym l resize grow width 10 px or 10 ppt
 
         bindsym Control+bracketleft mode "default"
+        bindsym Escape mode "default"
 }
 
 # Music player
@@ -114,10 +115,16 @@ mode "cmus" {
         bindsym n exec cmus-remote --next
         bindsym p exec cmus-remote --prev
 
+        bindsym h exec cmus-remote --volume +10%
+        bindsym l exec cmus-remote --volume -10%
+
         bindsym c exec cmus-remote -C "filter classical"
         bindsym f exec cmus-remote -C "filter"
-
+        bindsym r exec cmus-remote -C "add -q /home/yasser/Music/Downloaded/rain.opus"; exec cmus-remote -C "player-next"
+        # Add to favourites
+        # bindsym f exec cmus-remote -P "$(cat /home/yasser/.config/cmus/lib.pl | grep -F "$(cmus-remote -Q 2> /dev/null | grep file | cut -d ' ' -f2-)")"
         bindsym Control+bracketleft mode "default"
+        bindsym Escape mode "default"
 }
 
 bindsym $mod+n mode "notification"
@@ -125,6 +132,7 @@ mode "notification" {
     bindsym t exec ~/bin/tea_time.sh ; mode "default"
 
         bindsym Control+bracketleft mode "default"
+        bindsym Escape mode "default"
 }
 
 bindsym $mod+s mode "sharing"
@@ -134,17 +142,8 @@ mode "sharing" {
         bindsym t exec ~/bin/share.sh -t; mode "default"
 
         bindsym Control+bracketleft mode "default"
+        bindsym Escape mode "default"
 }
-
-bindsym $mod+a mode "applications"
-mode "applications" {
-    bindsym g workspace --no-auto-back-and-forth $git; exec emacs --funcall=magit-list-repositories; workspace --no-auto-back-and-forth $git; mode "default"
-        bindsym n workspace --no-auto-back-and-forth $notes; exec emacs --file=~/org/general.org; workspace --no-auto-back-and-forth $notes; mode "default"
-        bindsym Control+bracketleft mode "default"
-}
-
-
-
 
 # >>>
 # Bindings <<<
@@ -191,5 +190,4 @@ exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/org/general.or
 exec $HOME/bin/waitInternet; claws-mail
 exec $HOME/bin/waitInternet; qutebrowser
 
-# exec $HOME/bin/waitInternet; $HOME/bin/mangaComplete.py
 # >>>
