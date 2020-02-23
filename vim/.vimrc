@@ -1,4 +1,3 @@
-" must be first instructions
 set nocompatible " vim instead of Vi
 
 " Automatic installation for plug
@@ -9,33 +8,29 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged')
 
-" Display
-Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim'
-" Plugin 'junegunn/rainbow_parentheses.vim'
-Plug 'luochen1990/rainbow'
+Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/itchyny/lightline.vim'
+Plug 'https://github.com/kien/rainbow_parentheses.vim'
+Plug 'https://github.com/jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar', {'on' : 'TagbarToggle'}
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree', {'on' : 'NERDTreeToggle'}
-Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdcommenter'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'kamwitsta/flatwhite-vim'
-Plug 'mattn/emmet-vim'
+Plug 'https://github.com/preservim/nerdcommenter'
+Plug 'https://github.com/terryma/vim-multiple-cursors'
+Plug 'https://github.com/mattn/emmet-vim', {'for': 'html'}
 
 Plug 'junegunn/fzf.vim'
 " Plugin 'neoclide/coc.nvim'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
+Plug 'https://github.com/tpope/vim-fugitive'
 
-Plug 'vim-scripts/dbext.vim', {'for': 'sql'}
-Plug 'vim-scripts/SQLComplete.vim', {'for': 'sql'}
+Plug 'https://duckduckgo.com/?q=vim-scripts%2Fdbext.vim', {'for': 'sql'}
+Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
 
-Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim' " this command is needed :call mkdp#util#install()
+Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
+Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'md'}
 
 call plug#end()
 
@@ -107,8 +102,8 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Display settings
 " set encoding=utf-8 " encoding used for displaying file
-colorscheme gruvbox " set color scheme, must be installed first
-" set background=light        " dark background for console
+colorscheme gruvbox  " set color scheme, must be installed first
+set background=light " dark background for console
 
 " needed to work in terminal emulator
 " let g:solarized_termcolors=256
@@ -190,15 +185,14 @@ let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
-" rainbow_parentheses
-" fork https://github.com/junegunn/rainbow_parentheses.vim
-" start rainbow at start
-" autocmd VimEnter * RainbowParentheses
 
-let g:rainbow_active = 1
-let g:rainbow#max_level = 16
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
-"
+" rainbow_parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+let g:rbpt_max = 16
 
 " YouCompleteMe
 let g:ycm_max_num_candidates = 6
