@@ -12,25 +12,25 @@ Plug 'https://github.com/morhetz/gruvbox'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/jiangmiao/auto-pairs'
-Plug 'majutsushi/tagbar', {'on' : 'TagbarToggle'}
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree', {'on' : 'NERDTreeToggle'}
+Plug 'https://github.com/majutsushi/tagbar', {'on' : 'TagbarToggle'} " universal-ctags
+Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/preservim/nerdtree', {'on' : 'NERDTreeToggle'}
 Plug 'https://github.com/preservim/nerdcommenter'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/mattn/emmet-vim', {'for': 'html'}
 
-Plug 'junegunn/fzf.vim'
+Plug 'https://github.com/junegunn/fzf.vim' " install fzf
 " Plugin 'neoclide/coc.nvim'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'https://github.com/tpope/vim-fugitive'
 
-Plug 'https://duckduckgo.com/?q=vim-scripts%2Fdbext.vim', {'for': 'sql'}
+Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
 
 Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
-Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'md'}
+Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { ->mkdp#util#install() }, 'for': 'md'}
 
 call plug#end()
 
@@ -257,13 +257,6 @@ nnoremap <leader>a :Ag<space>
 "##############################################################
 " FZF (Full path fuzzy file, buffer, mru, tag) finder
 nnoremap <leader>p :Files<CR>
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-" This is the default extra key bindings
-let g:fzf_action = {
-            \ 'ctrl-j': 'open',
-            \ 'ctrl-x': 'split',
-            \ 'ctrl-v': 'vsplit',
-            \ }
 "##############################################################
 " nerdtree (hierarchy of files) plugin
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>

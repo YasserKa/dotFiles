@@ -9,6 +9,8 @@ shopt -s histappend        # append to the history file, don't overwrite it
 shopt -s checkwinsize      # update the value of LINES and COLUMNS after each command if altered
 stty -ixon                 # enable search C-s for history searching
 
+export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
+export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept"
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
