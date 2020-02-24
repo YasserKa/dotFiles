@@ -17,6 +17,10 @@ export HISTSIZE=10000
 export HISTFILESIZE=2000
 export HISTCONTROL=ignoredups:ignorespace
 
+# Fzf
+export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
+export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept"
+
 # default
 export EDITOR=vim
 export VISUAL=vim

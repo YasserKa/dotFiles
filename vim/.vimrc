@@ -10,25 +10,24 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'https://github.com/morhetz/gruvbox'
 Plug 'https://github.com/itchyny/lightline.vim'
+Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/jiangmiao/auto-pairs'
-Plug 'https://github.com/majutsushi/tagbar', {'on' : 'TagbarToggle'} " universal-ctags
 Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/majutsushi/tagbar', {'on' : 'TagbarToggle'}
 Plug 'https://github.com/preservim/nerdtree', {'on' : 'NERDTreeToggle'}
 Plug 'https://github.com/preservim/nerdcommenter'
 Plug 'https://github.com/terryma/vim-multiple-cursors'
-Plug 'https://github.com/mattn/emmet-vim', {'for': 'html'}
 
-Plug 'https://github.com/junegunn/fzf.vim' " install fzf
+Plug 'https://github.com/junegunn/fzf.vim'
+Plug 'https://github.com/dense-analysis/ale'
 " Plugin 'neoclide/coc.nvim'
-Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'https://github.com/tpope/vim-fugitive'
 
+Plug 'https://github.com/mattn/emmet-vim', {'for': 'html'}
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
-
 Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { ->mkdp#util#install() }, 'for': 'md'}
 
@@ -148,8 +147,10 @@ set autoread
 
 " Make blade.php files html files
 autocmd BufEnter *.blade.php set filetype=html
-
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd CmdwinEnter * map <C-j> <CR>
+" work around for gx bug
+nmap gx yiW;!xdg-open <cWORD><CR> <C-r>" & <CR><CR>
 " Plugins
 " Display
 "##############################################################
@@ -195,8 +196,9 @@ au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_max = 16
 
 " YouCompleteMe
-let g:ycm_max_num_candidates = 6
-let g:ycm_confirm_extra_conf = 0
+" let g:ycm_max_num_candidates = 6
+" let g:ycm_confirm_extra_conf = 0
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "##############################################################
 " ALE
 " Enable completion where available.
@@ -210,20 +212,26 @@ let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+autocmd FileType ale-preview-selection nmap <C-j> <CR>
 " auto remove ALE window on buffer exit
 augroup CloseLoclistWindowGroup
     autocmd!
     autocmd QuitPre * if empty(&buftype) | lclose | endif
 augroup END
 
-let g:ale_linters = {'python': ['flake8']}
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+let g:ale_linters = {'python': ['flake8', 'pyls']}
+let g:ale_linters_ignore = {'python': ['pyls']}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'python': ['autopep8'],
             \   'javascript': ['jshint'],
             \   'SQL': ['sqlint'],
             \}
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "##############################################################
 " UltiSnips
 " defines the directory private snippet definition files are stored in.
@@ -277,6 +285,3 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-
-" work around for gx bug
-nmap gx yiW;!xdg-open <cWORD><CR> <C-r>" & <CR><CR>
