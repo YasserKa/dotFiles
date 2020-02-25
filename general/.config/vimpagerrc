@@ -2,7 +2,10 @@
 
 source ~/.vimrc
 
-set nonumber
-if exists("vimpager")
-    let g:loaded_surround = 1
+if !exists('g:less')
+  let g:less     = {}
 endif
+
+set nonumber
+let g:less.enabled = 0
+let g:vimpager.X11 = 0
