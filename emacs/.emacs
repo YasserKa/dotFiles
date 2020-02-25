@@ -119,8 +119,7 @@
 
 (define-key helm-map "\C-h" 'delete-backward-char)
 (define-key helm-map "\C-w" 'backward-kill-word)
-(define-key helm-map "\C-k" 'helm-previous-line)
-(define-key helm-map "\C-j" 'helm-next-line)
+(define-key helm-map "\C-j" 'helm-confirm-and-exit-minibuffer)
 
 (define-key helm-map "\C-l" 'helm-end-of-buffer)
 
