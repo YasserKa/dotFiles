@@ -19,11 +19,12 @@ export HISTCONTROL=ignoredups:ignorespace
 
 # Fzf
 export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
-export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept"
+export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
 
 # default
 export EDITOR=neovim
 export VISUAL=neovim
+export MYVIMRC="$HOME/.vimrc"
 export BROWSER=qutebrowser
 export TERMINAL=termite
 export DIFFPROG=vimdiff
