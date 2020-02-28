@@ -4,5 +4,5 @@ x-scheme-handler/http=qutebrowser.desktop
 application/xhtml+xml=qutebrowser.desktop
 application/pdf=zathura.desktop
 text/html=qutebrowser.desktop
-text/plain=gvim.desktop
+text/plain=nvim-qt.desktop
 video/mp4=mpv.desktop

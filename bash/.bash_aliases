@@ -1,4 +1,5 @@
 # shorter
+alias vim='nvim'
 alias vi='vim'
 alias v='vim'
 alias syu='sudo pacman -Syu'

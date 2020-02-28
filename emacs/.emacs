@@ -97,11 +97,11 @@
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
 (define-key transient-sticky-map (kbd "<escape>") 'transient-quit-seq)
 
-;; open file using gvim
+;; open file using nvim
 (evil-define-key evil-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
 (defun vil-diff-visit-file (file &optional other-window)
   (interactive (list (magit-file-at-point t t) current-prefix-arg))
-  (shell-command (concat "gvim " file nil)))
+  (shell-command (concat "nvim-qt " file nil)))
 
 ;; updating the original by closing the list of repos window
 (defun magit-repolist-status (&optional _button)

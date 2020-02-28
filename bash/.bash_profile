@@ -22,8 +22,8 @@ export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept"
 
 # default
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=neovim
+export VISUAL=neovim
 export BROWSER=qutebrowser
 export TERMINAL=termite
 export DIFFPROG=vimdiff

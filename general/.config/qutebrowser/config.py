@@ -2,10 +2,9 @@
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
-c.aliases = {
-    'h': 'help -t',
-    'js': 'open -t https://codebeautify.org/jsonviewer?url={url}'
-}
+c.aliases['h'] = 'help -t'
+c.aliases['js'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
+
 c.bindings.commands = {
     'normal': {
         'j': 'scroll-px 0 100',
@@ -91,7 +90,9 @@ config.set('url.searchengines', {
 })
 
 config.set('scrolling.bar', 'never')
-config.set('scrolling.bar', 'never')
 
+config.set('editor.command', [
+    "nvim-qt", "{file}", "--", "-c", "normal {line}G{column0}l"
+])
 # doesn't work
 config.set('scrolling.smooth', True)
