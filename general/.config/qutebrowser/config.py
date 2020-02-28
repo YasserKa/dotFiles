@@ -2,6 +2,10 @@
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
+c.aliases = {
+    'h': 'help -t',
+    'js': 'open -t https://codebeautify.org/jsonviewer?url={url}'
+}
 c.bindings.commands = {
     'normal': {
         'j': 'scroll-px 0 100',
@@ -38,7 +42,7 @@ c.bindings.commands = {
 
         ',es': 'config-edit',
         ',ss': 'config-source',
-        ',h': 'help -t',
+        ',h': 'search',
 
         '<Ctrl-Shift-V>': 'enter-mode passthrough',
         'cm': 'clear-messages ;; download-clear',
@@ -86,6 +90,7 @@ config.set('url.searchengines', {
     'wiki': 'https://en.wikipedia.org/wiki/{}',
 })
 
+config.set('scrolling.bar', 'never')
 config.set('scrolling.bar', 'never')
 
 # doesn't work
