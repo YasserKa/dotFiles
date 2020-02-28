@@ -137,7 +137,7 @@ close = ctrl+space
 close_all = ctrl+shift+space
 
 # Redisplay last message(s).
-history = ctrl+semicolon
+history = ctrl+apostrophe
 
 # Context menu. for selecting URLs and actions
 context = ctrl+shift+semicolon
