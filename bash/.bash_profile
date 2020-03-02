@@ -22,8 +22,8 @@ export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
 
 # default
-export EDITOR=neovim
-export VISUAL=neovim
+export EDITOR=nvim
+export VISUAL=nvim
 export MYVIMRC="$HOME/.vimrc"
 export BROWSER=qutebrowser
 export TERMINAL=termite
