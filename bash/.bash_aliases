@@ -21,7 +21,7 @@ alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME
 alias cool='cd /srv/http/cooldown/; termite -e "./artisan serve" & qutebrowser http://localhost:8000/ --target window & vim ./app/Http/Controllers/MatchController.php;'
 
 # more options
-alias ll='ls -alFh'
+alias ll='exa -alFh'
 alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
@@ -34,7 +34,7 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
 # color
-alias ls='ls --color=auto'
+alias ls='exa --color=auto'
 alias grep='grep --color=auto'
 
 # Navigation
