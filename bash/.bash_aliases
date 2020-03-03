@@ -1,7 +1,7 @@
 # shorter
-alias vim='nvim'
-alias vi='vim'
-alias v='vim'
+alias vi='nvim'
+alias v='nvim'
+alias rc='nvim $MYVIMRC'
 alias syu='sudo pacman -Syu'
 alias pac='sudo pacman'
 alias z='zathura'

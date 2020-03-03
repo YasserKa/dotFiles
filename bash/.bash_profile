@@ -1,5 +1,4 @@
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
-export PATH=$PATH:$HOME/miniconda3/bin
 export PATH=$PATH:$HOME/bin
 # to make cmus escape works
 export ESCDELAY=25
@@ -21,10 +20,18 @@ export HISTCONTROL=ignoredups:ignorespace
 export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
 
+# configurations in one place
+[ "$XDG_CONFIG_HOME" ] || export XDG_CONFIG_HOME="$HOME/.config"
+[ "$XDG_DATA_HOME" ] || export XDG_DATA_HOME="$HOME/.local/share"
+
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export VIMPAGER_RC="$XDG_CONFIG_HOME/vimpagerrc"
+export INPUTRC="$XDG_CONFIG_HOME/inputrc"
+
 # default
 export EDITOR=nvim
 export VISUAL=nvim
-export MYVIMRC="$HOME/.vimrc"
+export MYVIMRC="$XDG_CONFIG_HOME/nvim/init.vim"
 export BROWSER=qutebrowser
 export TERMINAL=alacritty
 export DIFFPROG=vimdiff
@@ -36,14 +43,6 @@ LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
 # hardeware video acceleration
 export LIBVA_DRIVER_NAME=vdpau
 export VDPAU_DRIVER=nvidia
-
-# configurations in one place
-[ "$XDG_CONFIG_HOME" ] || export XDG_CONFIG_HOME="$HOME/.config"
-[ "$XDG_DATA_HOME" ] || export XDG_DATA_HOME="$HOME/.local/share"
-
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
-export VIMPAGER_RC="$XDG_CONFIG_HOME/vimpagerrc"
-export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
