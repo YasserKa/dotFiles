@@ -76,7 +76,7 @@
 
 ;; Registers
 (define-key evil-normal-state-map "m"  'bookmark-set)
-(define-key evil-normal-state-map "'"  'bookmark-jump)
+(define-key evil-normal-state-map "'"  'bookmark-jump-other-window)
 
 ;; commenting
 (define-key evil-normal-state-map ",c " 'comment-line)
