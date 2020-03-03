@@ -1,0 +1,8 @@
+# https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+font:
+  size: 9.5
+  normal:
+    family: inconsolata
+    style: Regular
+
+background_opacity: 0.8

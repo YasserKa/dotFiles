@@ -153,7 +153,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exit
 
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 bindsym $mod+shift+x exec i3lock --color 39889b
 

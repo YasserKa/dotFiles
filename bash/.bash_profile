@@ -26,7 +26,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export MYVIMRC="$HOME/.vimrc"
 export BROWSER=qutebrowser
-export TERMINAL=termite
+export TERMINAL=alacritty
 export DIFFPROG=vimdiff
 export PAGER=vimpager
 
