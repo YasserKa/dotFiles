@@ -25,7 +25,6 @@ Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
 Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'md'}
-let g:solarized_termcolors=256
 call plug#end()
 
 " General settings
@@ -82,6 +81,9 @@ autocmd CmdwinEnter * map <buffer> <C-j> <CR>
 
 " Plugins
 " Display
+"##############################################################
+" solarized
+let g:solarized_termcolors=256
 "##############################################################
 " lightline
 let g:lightline = {}
@@ -190,17 +192,16 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-
 " Mappings using CoCList:
 nnoremap <silent> <space>a  <cmd>CocList diagnostics<cr>
 nnoremap <silent> <space>c  <cmd>CocList commands<cr>
 nnoremap <silent> <space>e  <cmd>CocList extensions<cr>
 
-" GoTo code navigation.
-nnoremap <silent>gd <Plug>(coc-definition)
-nnoremap <silent>gr <Plug>(coc-references)
-nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
-nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
+" Code navigation.
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gr <Plug>(coc-references)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 nnoremap <silent> <leader>e :CocCommand explorer<CR>
 nnoremap <leader>rn <Plug>(coc-rename)
