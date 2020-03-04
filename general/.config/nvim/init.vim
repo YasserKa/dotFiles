@@ -29,34 +29,34 @@ let g:solarized_termcolors=256
 call plug#end()
 
 " General settings
-set clipboard+=unnamedplus    " system clipboard
-set virtualedit=all           " moving in whitespace
-set ignorecase                " do case insensitive search...
+set clipboard+=unnamedplus    " System clipboard
+set virtualedit=all           " Moving in whitespace
+set ignorecase                " Do case insensitive search...
 set smartcase                 " ...unless capital letters are used
-set confirm                   " confirm :q in case of unsaved changes
-set autowrite                 " save file when switching buffers
+set confirm                   " Confirm :q in case of unsaved changes
+set autowrite                 " Save file when switching buffers
 
 " Display settings
-colorscheme gruvbox           " set color scheme, must be installed first
-set background=light          " dark background for console
+colorscheme gruvbox           " Set color scheme, must be installed first
+set background=light          " Dark background for console
 set guifont=Inconsolata:h14
-set scrolloff=5               " show 5 lines above/below the cursor
-set cursorline                " highlight current line"
-set number                    " show the number line
+set scrolloff=5               " Show 5 lines above/below the cursor
+set cursorline                " Highlight current line"
+set number                    " Show the number line
 set relativenumber
-set list                      " show eof, trailing, etc..
+set list                      " Show eof, trailing, etc..
 set listchars=eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
-set foldmethod=marker         " folds at start
-set foldmarker=<<<,>>>        " folds at start
+set foldmethod=marker         " Folds at start
+set foldmarker=<<<,>>>        " Folds at start
 
 " Tabs, spaces, indentation, wrapping
-set expandtab       " use spaces for tabs
-set tabstop=4       " number of spaces to use for tabs
-set shiftwidth=4    " number of spaces to autoindent
-set softtabstop=4   " number of spaces for a tab
-set smartindent     " automatically insert another level of indent when needed
-set nojoinspaces    " no extra space after '.' when joining lines
-set textwidth=80    " wrap lines automatically at 80th column
+set expandtab       " Use spaces for tabs
+set tabstop=4       " Number of spaces to use for tabs
+set shiftwidth=4    " Number of spaces to autoindent
+set softtabstop=4   " Number of spaces for a tab
+set smartindent     " Automatically insert another level of indent when needed
+set nojoinspaces    " No extra space after '.' when joining lines
+set textwidth=80    " Wrap lines automatically at 80th column
 
 autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
 
@@ -70,7 +70,7 @@ map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <leader>h :nohlsearch<CR>
-" moving lines
+" Moving lines
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 inoremap <A-j> <Esc>:m .+1<CR>==gi
@@ -137,7 +137,7 @@ let g:ale_fixers = {
             \   'SQL': ['sqlint'],
             \}
 
-" auto remove ALE window on buffer exit
+" Auto remove ALE window on buffer exit
 augroup CloseLoclistWindowGroup
     autocmd!
     autocmd QuitPre * if empty(&buftype) | lclose | endif

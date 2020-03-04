@@ -6,14 +6,14 @@ if !exists('g:less')
   let g:less     = {}
 endif
 
-" change cursor between vertical and block
+" Change cursor between vertical and block
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
-set ignorecase " do case insensitive search...
-set incsearch " do incremental search
-set hlsearch " highlight mathces
+set ignorecase    " Do case insensitive search...
+set incsearch     " Do incremental search
+set hlsearch      " Highlight mathces
 set nonumber
 let g:less.enabled = 0
 let g:vimpager.X11 = 0

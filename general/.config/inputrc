@@ -2,9 +2,9 @@ $include /etc/inputrc
 # TAB completion
 set show-all-if-ambiguous on
 
-# case-insensitive completion
+# Case-insensitive completion
 set completion-ignore-case on
-# remove ^C
+# Remove ^C
 set echo-control-characters off
 
  # Color files by types

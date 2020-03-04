@@ -1,58 +1,58 @@
-# shorter
+# Shorter
+alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
 alias rc='nvim $MYVIMRC'
 alias syu='sudo pacman -Syu'
 alias pac='sudo pacman'
 alias z='zathura'
-# history
+
+# History
 alias h='history'
 alias hg='history | grep'
-#shutdown
+
+# Shutdown
 alias reboot='shutdown -r now'
-alias shutdown='shutdown now'
 alias shut='shutdown now'
 
+# Alternatives
 alias top='htop'
-
-# emacs git & notes
-alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
-alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/org/general.org"'
-alias cool='cd /srv/http/cooldown/; termite -e "./artisan serve" & qutebrowser http://localhost:8000/ --target window & vim ./app/Http/Controllers/MatchController.php;'
-
-# more options
+alias ls='exa --color=auto'
 alias ll='exa -alFh'
+
+# More options
 alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
-# prompt before overriding
+alias grep='grep --color=auto'
+
+# Prompt before overriding
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
 
-#clipboard
+# Clipboard
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
-
-# color
-alias ls='exa --color=auto'
-alias grep='grep --color=auto'
 
 # Navigation
 alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
-# Suppress Autojump output
-alias j='j >/dev/null'
+# Autojumping
+alias f='fasd -fe nvim' # quick opening files with vim
+alias j='fasd_cd -d'
+_fasd_bash_hook_cmd_complete f j
 
-# Get the last installed packages
+# Emacs git & notes
+alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
+alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/org/general.org"'
+# Alias cool='cd /srv/http/cooldown/; termite -e "./artisan serve" & qutebrowser http://localhost:8000/ --target window & vim ./app/Http/Controllers/MatchController.php;'
+
+# Last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 # Music player
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
-
-# alias myz='zathura $HOME/Documents/Coding-the-Matrix-Linear-Algebra-through-Computer-Science-Applications.pdf'
-# alias notebook='conda run jupyter notebook & disown'
-
 
 # Monitors
 # alias myscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
