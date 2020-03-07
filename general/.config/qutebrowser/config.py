@@ -92,7 +92,7 @@ config.set('url.searchengines', {
 config.set('scrolling.bar', 'never')
 
 config.set('editor.command', [
-    "nvim-qt", "{file}", "--", "-c", "normal {line}G{column0}l"
+    "alacritty", "-e", "nvim", "{file}"
 ])
 # doesn't work
 config.set('scrolling.smooth', True)
