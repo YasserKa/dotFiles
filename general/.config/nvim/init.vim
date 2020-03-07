@@ -5,7 +5,6 @@ Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/jiangmiao/auto-pairs'
-Plug 'https://github.com/altercation/vim-colors-solarized'
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on' : 'Vista!!'}
 Plug 'https://github.com/preservim/nerdcommenter'
@@ -82,9 +81,6 @@ autocmd CmdwinEnter * map <buffer> <C-j> <CR>
 " Plugins
 " Display
 "##############################################################
-" solarized
-let g:solarized_termcolors=256
-"##############################################################
 " lightline
 let g:lightline = {}
 let g:lightline.colorscheme = 'solarized'
@@ -153,13 +149,14 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 "##############################################################
 " Snippets
-imap <C-l> <Plug>(coc-snippets-expand)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 vmap <C-j> <Plug>(coc-snippets-select)
 
-let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
+            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "##############################################################
 " NerdCommenter
 let g:NERDSpaceDelims = 1
