@@ -1,6 +1,10 @@
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/romainl/flattened'
+Plug 'https://github.com/relastle/bluewery.vim'
+Plug 'https://github.com/NLKNguyen/papercolor-theme'
+
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
@@ -8,16 +12,16 @@ Plug 'https://github.com/jiangmiao/auto-pairs'
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on' : 'Vista!!'}
 Plug 'https://github.com/preservim/nerdcommenter'
+
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/dense-analysis/ale'
 Plug 'http://github.com/maximbaz/lightline-ale'
-
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 
-Plug 'https://github.com/mattn/emmet-vim'
+Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php']}
 Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
@@ -33,10 +37,18 @@ set ignorecase                " Do case insensitive search...
 set smartcase                 " ...unless capital letters are used
 set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
+" Choose a random colorscheme upon opening
+if !v:vim_did_enter
+    let g:lightline = {}
+    let colorOptions = ['gruvbox',  'bluewery-light', 'flattened_light', 'PaperColor']
+    let lightlineOptions = ['solarized',  'Tomorrow', 'solarized', 'PaperColor']
+    let random = localtime()%len(colorOptions)
+    execute 'colorscheme '.colorOptions[random]
+    let g:lightline.colorscheme= lightlineOptions[random]
+endif
 
-" Display settings
-colorscheme gruvbox           " Set color scheme, must be installed first
-set background=light          " Dark background for console
+set termguicolors
+set background=light
 set guifont=Inconsolata:h14
 set scrolloff=5               " Show 5 lines above/below the cursor
 set cursorline                " Highlight current line"
@@ -62,6 +74,7 @@ let mapleader=","
 " Keybindings
 noremap ; :
 noremap : ;
+nnoremap g: g;
 nnoremap q; q:
 nnoremap @; @:
 map Y y$
@@ -82,9 +95,6 @@ autocmd CmdwinEnter * map <buffer> <C-j> <CR>
 " Display
 "##############################################################
 " lightline
-let g:lightline = {}
-let g:lightline.colorscheme = 'solarized'
-
 let g:lightline.active = {
             \'left' : [ ['mode', 'paste'],
             \           ['cocstatus', 'currentfunction', 'gitbranch', 'readonly', 'filename', 'modified']],
@@ -200,10 +210,9 @@ nmap <silent>gr <Plug>(coc-references)
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-nnoremap <silent> <leader>e :CocCommand explorer<CR>
+nnoremap <silent> <leader>ex :CocCommand explorer<CR>
 nnoremap <leader>rn <Plug>(coc-rename)
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -211,3 +220,4 @@ function! s:show_documentation()
         call CocAction('doHover')
     endif
 endfunction
+nnoremap <silent> K :call <SID>show_documentation()<CR>

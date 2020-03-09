@@ -24,6 +24,7 @@
         "d": "action:delete"
     },
     "explorer.icon.enableNerdfont": true,
+    "explorer.file.showHiddenFiles": true,
     "suggest.completionItemKindLabels": {
         "keyword": "\uf1de",
         "variable": "\ue79b",
