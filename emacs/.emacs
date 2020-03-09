@@ -3,7 +3,6 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-(add-to-list 'load-path "~/.emacs.d/plugins/evil-org")
 
 (setq package-enable-at-startup nil)
 (custom-set-variables
@@ -18,14 +17,7 @@
  '(org-agenda-files (quote ("~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
-    (evil-magit org-plus-contrib orgalist gruvbox-theme magit evil-org helm general evil-visual-mark-mode ##))))
- ; install the missing packages
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+    (helm-core evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##))))
 
 ;; install not presented packages
 (package-initialize)
@@ -43,25 +35,6 @@
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
-(electric-pair-mode 1)
-;; make electric-pair-mode work on more brackets
-(setq electric-pair-pairs
-      '(
-	(?\" . ?\")
-	(?\< . ?\>)
-	(?\[ . ?\])
-	(?\` . ?\`)
-	(?\{ . ?\})))
-
-;; EVIL
-(require 'evil)
-(evil-mode t)
-
-(require 'evil-org)
-(add-hook 'org-mode-hook 'evil-org-mode)
-(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-(require 'evil-org-agenda)
-(evil-org-agenda-set-keys)
 ;; remove the annoying Enter (C-j)
 (global-unset-key "\C-j")
 
@@ -75,6 +48,40 @@
 (define-key isearch-mode-map (kbd "\C-h") 'isearch-delete-char)
 (define-key isearch-mode-map (kbd "\C-q") 'help)
 
+(electric-pair-mode 1)
+;; make electric-pair-mode work on more brackets
+(setq electric-pair-pairs
+      '(
+	(?\" . ?\")
+	(?\< . ?\>)
+	(?\[ . ?\])
+	(?\` . ?\`)
+	(?\{ . ?\})))
+
+;; HELM
+(require 'helm-config)
+(helm-mode 1)
+
+(define-key helm-map "\C-h" 'delete-backward-char)
+(define-key helm-map "\C-w" 'backward-kill-word)
+(define-key helm-map "\C-j" 'helm-confirm-and-exit-minibuffer)
+(define-key helm-map "\C-l" 'helm-end-of-buffer)
+
+(define-key helm-find-files-map "\C-x" 'helm-ff-run-switch-other-window)
+(define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
+(define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
+
+;; EVIL
+(require 'evil)
+(evil-mode 1)
+
+;; Initial state is evil
+(setq evil-normal-state-modes
+      (append evil-emacs-state-modes
+	      evil-insert-state-modes
+	      evil-normal-state-modes
+	      evil-motion-state-modes))
+
 ;; Registers
 (define-key evil-normal-state-map "m"  'bookmark-set)
 (define-key evil-normal-state-map "'"  'bookmark-jump-other-window)
@@ -85,12 +92,18 @@
 
 ;; Enter in command mode
 (define-key evil-ex-completion-map "\C-j" 'exit-minibuffer)
+(require 'evil-surround)
+(evil-surround-mode 1)
 
-;; https://github.com/emacs-evil/evil-magit
+(require 'evil-org)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(require 'evil-org-agenda)
+(evil-org-agenda-set-keys)
+
 ;; MAGIT
 (require 'evil-magit)
 (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-;; (evil-define-key* evil-magit-state magit-mode-map [escape] nil)
 
 (setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
 ;; close the popups in magit
@@ -112,22 +125,6 @@
       (let ((p (selected-window)))
 	(magit-status-setup-buffer (expand-file-name it)) (delete-window p))
     (user-error "There is no repository at point")))
-
-
-;; HELM
-(require 'helm-config)
-(helm-mode 1)
-
-(define-key helm-map "\C-h" 'delete-backward-char)
-(define-key helm-map "\C-w" 'backward-kill-word)
-(define-key helm-map "\C-j" 'helm-confirm-and-exit-minibuffer)
-
-(define-key helm-map "\C-l" 'helm-end-of-buffer)
-
-(define-key helm-find-files-map "\C-x" 'helm-ff-run-switch-other-window)
-(define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
-
-(define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
 
 
 ;; VIM LEADER
@@ -203,11 +200,11 @@
 (require 'appt)
 
 (setq
-appt-time-msg-list nil ;; clear existing appt list
-appt-message-warning-time '10  ;; send first warning before appointment
-appt-display-interval appt-message-warning-time  ;; warn every every X minutes from t - appt-message-warning-time
-appt-display-mode-line nil     ;; don't show in the modeline
-appt-display-format 'window)   ;; pass warnings to the designated window function
+ appt-time-msg-list nil ;; clear existing appt list
+ appt-message-warning-time '10  ;; send first warning before appointment
+ appt-display-interval appt-message-warning-time  ;; warn every every X minutes from t - appt-message-warning-time
+ appt-display-mode-line nil     ;; don't show in the modeline
+ appt-display-format 'window)   ;; pass warnings to the designated window function
 (setq appt-disp-window-function (function toast-appt-display))
 
 (appt-activate 1)                ;; activate appointment notification
@@ -221,11 +218,11 @@ appt-display-format 'window)   ;; pass warnings to the designated window functio
   (toast-appt-send-notification
    (format "Appointment in %s minutes" min-to-app)    ;; passed to -t in toast call
    (format "%s" msg))                                 ;; passed to -m in toast call
-   (message nil))
+  (message nil))
 
 (defun org-agenda-to-appt-clear-message ()
   (interactive) (org-agenda-to-appt) (message nil))
+
 (run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
 (org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
-
