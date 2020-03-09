@@ -14,6 +14,7 @@
  '(custom-safe-themes
    (quote
     ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
+ '(helm-completion-style (quote emacs))
  '(org-agenda-files (quote ("~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
    (quote
@@ -200,33 +201,31 @@
 ;; ORG NOTIFICATION
 
 (require 'appt)
-(setq appt-time-msg-list nil)    ;; clear existing appt list
-(setq appt-display-interval nil)  ;; warn every every X minutes from t - appt-message-warning-time
+
 (setq
- appt-message-warning-time '10  ;; send first warning before appointment
- appt-display-mode-line nil     ;; don't show in the modeline
- appt-display-format 'window)   ;; pass warnings to the designated window function
+appt-time-msg-list nil ;; clear existing appt list
+appt-message-warning-time '10  ;; send first warning before appointment
+appt-display-interval appt-message-warning-time  ;; warn every every X minutes from t - appt-message-warning-time
+appt-display-mode-line nil     ;; don't show in the modeline
+appt-display-format 'window)   ;; pass warnings to the designated window function
+(setq appt-disp-window-function (function toast-appt-display))
+
 (appt-activate 1)                ;; activate appointment notification
-(display-time)                   ;; activate time display
-
-(defun org-agenda-to-appt-clear-message ()
-  (interactive) (org-agenda-to-appt) (message nil))
-
-(run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
-(org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
-(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
-
-(defvar toast-notifier-path "/usr/bin/dunstify")
 
 ;; set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
-  (shell-command (concat toast-notifier-path " \"" title "\" \"" msg "\"")))
+  (shell-command (concat "/usr/bin/dunstify" " \"" title "\" \"" msg "\"")))
 
 ;; designate the window function for my-appt-send-notification
 (defun toast-appt-display (min-to-app new-time msg)
   (toast-appt-send-notification
    (format "Appointment in %s minutes" min-to-app)    ;; passed to -t in toast call
    (format "%s" msg))                                 ;; passed to -m in toast call
-  (message nil))
+   (message nil))
 
-(setq appt-disp-window-function (function toast-appt-display))
+(defun org-agenda-to-appt-clear-message ()
+  (interactive) (org-agenda-to-appt) (message nil))
+(run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
+(org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
+
