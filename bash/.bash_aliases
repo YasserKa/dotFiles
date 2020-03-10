@@ -47,16 +47,10 @@ _fasd_bash_hook_cmd_complete f j
 # Emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
 alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/org/general.org"'
+
 alias cool='cd /srv/http/cooldown/; alacritty -e ./artisan serve & qutebrowser http://localhost:8000/ --target window & nvim ./app/Http/Controllers/MatchController.php;'
 
 # Last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 # Music player
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
-
-# Monitors
-# alias myscreen='xrandr --output DVI-I-2-1 --auto --left-of eDP1; \
-#                   xrandr --output DVI-I-3-2 --auto --right-of eDP1;'
-#
-# alias noscreen='xrandr --output DVI-I-2-1 --off; \
-#                   xrandr --output DVI-I-3-2 --off;'
