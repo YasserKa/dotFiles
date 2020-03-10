@@ -177,7 +177,7 @@ bindsym $mod+d exec rofi -show run
 # Pick a random background image
 exec_always feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 # Composer for transparency
-exec_always --no-startup-id "killall compton; compton -f --config $XDG_CONFIG_HOME/compton.conf"
+exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/picom.conf"
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch.sh
