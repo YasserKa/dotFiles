@@ -45,3 +45,5 @@
 
 [github]
     user = YasserKa
+[credential]
+    helper = cache
