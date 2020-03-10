@@ -19,7 +19,7 @@
    (quote
     (helm-core evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##))))
 
-;; install not presented packages
+;; Install not presented packages
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -27,16 +27,19 @@
 
 (load-theme 'gruvbox-light-medium t)
 
-;; remove backup files (ends with ~)
+;; Remove backup files (ends with ~)
 (setq make-backup-files nil)
-;; avoid being prompted with symbolic link to git-controlled
+;; Avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
 (set-default-font "Inconsolata-14")
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
-;; remove the annoying Enter (C-j)
+;; Remove the annoying Enter (C-j)
 (global-unset-key "\C-j")
+
+;; Setting it from <C-h> 
+(setq help-char "?")
 
 (define-key global-map "\C-q" 'help)
 (define-key global-map (kbd "\C-x \C-m") 'execute-extended-command)
@@ -49,7 +52,7 @@
 (define-key isearch-mode-map (kbd "\C-q") 'help)
 
 (electric-pair-mode 1)
-;; make electric-pair-mode work on more brackets
+;; Make electric-pair-mode work on more brackets
 (setq electric-pair-pairs
       '(
 	(?\" . ?\")
@@ -86,14 +89,26 @@
 (define-key evil-normal-state-map "m"  'bookmark-set)
 (define-key evil-normal-state-map "'"  'bookmark-jump-other-window)
 
-;; commenting
+;; Commenting
 (define-key evil-normal-state-map ",c " 'comment-line)
 (define-key evil-visual-state-map ",c " 'comment-or-uncomment-region)
 
 ;; Enter in command mode
 (define-key evil-ex-completion-map "\C-j" 'exit-minibuffer)
+(defvar my-overriding-binding-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [?\C-h] 'delete-backward-char)
+    (define-key map [?\M-h] 'backward-kill-word)
+    map))
+
+(define-minor-mode my-overriding-binding-mode
+  "Personal global key-bindings."
+  :global t)
+
+(my-overriding-binding-mode 1)
+
 (require 'evil-surround)
-(evil-surround-mode 1)
+(evil-surround-mode t)
 
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
@@ -106,18 +121,18 @@
 (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
 
 (setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
-;; close the popups in magit
+;; Close the popups in magit
 (define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
 (define-key transient-sticky-map (kbd "<escape>") 'transient-quit-seq)
 
-;; open file using nvim
+;; Open file using nvim
 (evil-define-key evil-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
 (defun vil-diff-visit-file (file &optional other-window)
   (interactive (list (magit-file-at-point t t) current-prefix-arg))
   (shell-command (concat "nvim-qt " file nil)))
 
-;; updating the original by closing the list of repos window
+;; Updating the original by closing the list of repos window
 (defun magit-repolist-status (&optional _button)
   "Show the status for the repository at point."
   (interactive)
@@ -159,7 +174,7 @@
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
 (define-key org-mode-map "\C-j" nil)
 
-;; prevent inserting a new element to split the line
+;; Prevent inserting a new element to split the line
 (setq org-M-RET-may-split-line 'nil)
 
 (global-set-key "\C-cl" 'org-store-link)
@@ -200,20 +215,20 @@
 (require 'appt)
 
 (setq
- appt-time-msg-list nil ;; clear existing appt list
- appt-message-warning-time '10  ;; send first warning before appointment
+ appt-time-msg-list nil                           ;; clear existing appt list
+ appt-message-warning-time '10                    ;; send first warning before appointment
  appt-display-interval appt-message-warning-time  ;; warn every every X minutes from t - appt-message-warning-time
- appt-display-mode-line nil     ;; don't show in the modeline
- appt-display-format 'window)   ;; pass warnings to the designated window function
+ appt-display-mode-line nil                       ;; don't show in the modeline
+ appt-display-format 'window)                     ;; pass warnings to the designated window function
 (setq appt-disp-window-function (function toast-appt-display))
 
 (appt-activate 1)                ;; activate appointment notification
 
-;; set up the call to the notifier
+;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
   (shell-command (concat "/usr/bin/dunstify" " \"" title "\" \"" msg "\"")))
 
-;; designate the window function for my-appt-send-notification
+;; Designate the window function for my-appt-send-notification
 (defun toast-appt-display (min-to-app new-time msg)
   (toast-appt-send-notification
    (format "Appointment in %s minutes" min-to-app)    ;; passed to -t in toast call
@@ -223,6 +238,6 @@
 (defun org-agenda-to-appt-clear-message ()
   (interactive) (org-agenda-to-appt) (message nil))
 
-(run-at-time 0 3600 'org-agenda-to-appt-clear-message)           ;; update appt list hourly
-(org-agenda-to-appt-clear-message)             ;; generate the appt list from org agenda files on emacs launch
+(run-at-time 0 3600 'org-agenda-to-appt-clear-message)                 ;; update appt list hourly
+(org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
