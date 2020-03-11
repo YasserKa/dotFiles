@@ -7,12 +7,15 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-#disable bell
+# Disable bell
 xset -b
 
 eval $(ssh-agent)
 
-# keyboard bindings sourcing if file doesn't exist
+# Deals with presence of monitors
+autorandr --change
+
+# Keyboard bindings sourcing if file doesn't exist
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
 
 exec i3
