@@ -26,6 +26,9 @@ alias df='df -Tha --total'
 alias cal='cal -m'
 alias grep='grep --color=auto'
 
+# Cron
+alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
+
 # Prompt before overriding
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
