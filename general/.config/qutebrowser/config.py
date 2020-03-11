@@ -7,8 +7,8 @@ c.aliases['js'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
 
 c.bindings.commands = {
     'normal': {
-        'j': 'scroll-px 0 100',
-        'k': 'scroll-px 0 -100',
+        'j': 'run-with-count 2 scroll down',
+        'k': 'run-with-count 2 scroll up',
 
         'J': 'forward',
         'K': 'back',
@@ -92,7 +92,7 @@ config.set('url.searchengines', {
 config.set('scrolling.bar', 'never')
 
 config.set('editor.command', [
-    "alacritty", "-e", "nvim", "{file}"
+    "nvim-qt", "{file}", "--nofork"
 ])
-# doesn't work
-config.set('scrolling.smooth', True)
+
+config.set('scrolling.smooth', False)
