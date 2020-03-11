@@ -126,6 +126,9 @@
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
 (define-key transient-sticky-map (kbd "<escape>") 'transient-quit-seq)
 
+;; Enable spell checking while commiting
+(add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
+
 ;; Open file using nvim
 (evil-define-key evil-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
 (defun vil-diff-visit-file (file &optional other-window)
