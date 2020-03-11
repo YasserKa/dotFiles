@@ -57,3 +57,5 @@ alias cool='cd /srv/http/cooldown/; alacritty -e ./artisan serve & qutebrowser h
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 # Music player
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+
+alias tea_time='dunstify "Tea time in 5 minutes"; sleep $((5*60)); dunstify "Tea time"'

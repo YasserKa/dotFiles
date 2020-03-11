@@ -127,14 +127,6 @@ mode "cmus" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+n mode "notification"
-mode "notification" {
-    bindsym t exec ~/bin/tea_time.sh ; mode "default"
-
-        bindsym Control+bracketleft mode "default"
-        bindsym Escape mode "default"
-}
-
 bindsym $mod+s mode "sharing"
 mode "sharing" {
     bindsym i exec ~/bin/share.sh -i; mode "default"
