@@ -138,12 +138,17 @@ let g:AutoPairs = { '<': '>', '(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'
 "##############################################################
 " ALE
 let g:ale_fix_on_save = 1
-
-let g:ale_linters = {'python': ['flake8'], 'sh': ['langauge_server']}
+let g:ale_linters = {
+            \   'python': ['flake8'],
+            \   'sh': ['langauge_server'],
+            \   'js': ['eslint'],
+            \   'php': ['langserver'],
+            \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'python': ['autopep8'],
             \   'SQL': ['sqlint'],
+            \   'js': ['eslint'],
             \}
 
 " Auto remove ALE window on buffer exit
@@ -163,6 +168,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 vmap <C-j> <Plug>(coc-snippets-select)
 
 let g:coc_snippet_prev = '<c-k>'
+let g:UltiSnipsEditSplit = "vertical"
 
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
@@ -207,8 +213,8 @@ nnoremap <silent> <space>e  <cmd>CocList extensions<cr>
 " Code navigation.
 nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gr <Plug>(coc-references)
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent>[g <Plug>(ale_previous_wrap)
+nmap <silent>]g <Plug>(ale_next_wrap)
 
 nnoremap <silent> <leader>ex :CocCommand explorer<CR>
 nnoremap <leader>rn <Plug>(coc-rename)
