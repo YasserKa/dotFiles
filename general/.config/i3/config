@@ -3,7 +3,7 @@
 for_window [class=".*"] border pixel 0
 
 gaps inner 8
-gaps outer 2
+gaps outer 8
 # >>>
 # Workspaces <<<
 set $mod Mod4
