@@ -108,7 +108,7 @@
 (my-overriding-binding-mode 1)
 
 (require 'evil-surround)
-(evil-surround-mode 1)
+(global-evil-surround-mode 1)
 
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
