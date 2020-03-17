@@ -74,9 +74,9 @@ let mapleader=","
 " Keybindings
 noremap ; :
 noremap : ;
-nnoremap g: g;
-nnoremap q; q:
-nnoremap @; @:
+noremap g: g;
+noremap q; q:
+noremap @; @:
 map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
