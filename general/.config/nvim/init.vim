@@ -2,7 +2,6 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'https://github.com/morhetz/gruvbox'
 Plug 'https://github.com/romainl/flattened'
-Plug 'https://github.com/relastle/bluewery.vim'
 Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 Plug 'https://github.com/itchyny/lightline.vim'
@@ -28,6 +27,7 @@ Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
 Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'md'}
+
 call plug#end()
 
 " General settings
@@ -40,8 +40,8 @@ set autowrite                 " Save file when switching buffers
 " Choose a random colorscheme upon opening
 if !v:vim_did_enter
     let g:lightline = {}
-    let colorOptions = ['gruvbox',  'bluewery-light', 'flattened_light', 'PaperColor']
-    let lightlineOptions = ['solarized',  'Tomorrow', 'solarized', 'PaperColor']
+    let colorOptions = ['gruvbox',  'flattened_light', 'PaperColor']
+    let lightlineOptions = ['solarized',  'solarized', 'PaperColor']
     let random = localtime()%len(colorOptions)
     execute 'colorscheme '.colorOptions[random]
     let g:lightline.colorscheme= lightlineOptions[random]
@@ -70,8 +70,8 @@ set textwidth=80    " Wrap lines automatically at 80th column
 
 autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
 
-let mapleader=","
 " Keybindings
+let mapleader=","
 noremap ; :
 noremap : ;
 noremap g: g;
