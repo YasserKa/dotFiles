@@ -9,8 +9,12 @@ Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/jiangmiao/auto-pairs'
 Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/tpope/vim-unimpaired'
+Plug 'https://github.com/tpope/vim-repeat'
+Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on' : 'Vista!!'}
 Plug 'https://github.com/preservim/nerdcommenter'
+Plug 'https://github.com/tommcdo/vim-lion'
 
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/junegunn/fzf.vim'
