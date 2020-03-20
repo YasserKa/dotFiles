@@ -7,7 +7,7 @@ Plug 'https://github.com/NLKNguyen/papercolor-theme'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
-Plug 'https://github.com/jiangmiao/auto-pairs'
+Plug 'https://github.com/tmsvg/pear-tree'
 Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-unimpaired'
 Plug 'https://github.com/tpope/vim-repeat'
@@ -137,8 +137,16 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_max = 16
 "##############################################################
-" Autopairs
-let g:AutoPairs = { '<': '>', '(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'```', '"""':'"""', "'''":"'''", "`":"`"}
+" Pear-tree
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
+" Default rules for matching:
+let g:pear_tree_pairs = {
+            \ '(': {'closer': ')'}, '[': {'closer': ']'}, '{': {'closer': '}'}, '<': {'closer': '>'},
+            \ "'": {'closer': "'"},  '"': {'closer': '"'},  '`': {'closer': '`'},
+            \ "'''": {'closer': "'''"},  '"""': {'closer': '"""'},  '```': {'closer': '```'},
+            \ }
 "##############################################################
 " ALE
 let g:ale_fix_on_save = 1
