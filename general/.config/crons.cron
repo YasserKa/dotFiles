@@ -3,7 +3,9 @@ DISPLAY=:0
 @reboot source $HOME/.config/.Xdbus; cd $HOME/Projects/app; pipenv run python main.py
 @monthly cd $HOME/Projects/updateReminder; python main.py
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert.sh
-*/30 * * * * rclone sync ./org remote:org --include *.org
+
+*/30 * * * * rclone sync -u ./org remote:org --include *.org
+*/30 * * * * rclone sync -u remote:org ./org --include *.org
 */30 * * * * cd $HOME/org; $HOME/bin/git-sync
 
 
