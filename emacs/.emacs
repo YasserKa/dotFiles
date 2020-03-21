@@ -13,6 +13,7 @@
  '(custom-safe-themes
    (quote
     ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
+ '(evil-want-Y-yank-to-eol 1)
  '(helm-completion-style (quote emacs))
  '(org-agenda-files (quote ("~/org/general.org" "~/org/knowledge_base.org")))
  '(package-selected-packages
@@ -38,7 +39,7 @@
 ;; Remove the annoying Enter (C-j)
 (global-unset-key "\C-j")
 
-;; Setting it from <C-h> 
+;; Setting it from <C-h>
 (setq help-char "?")
 
 (define-key global-map "\C-q" 'help)
@@ -89,6 +90,9 @@
 (define-key evil-normal-state-map "m"  'bookmark-set)
 (define-key evil-normal-state-map "'"  'bookmark-jump-other-window)
 
+;; Y is y$
+(setq evil-want-Y-yank-to-eol '1)
+
 ;; Commenting
 (define-key evil-normal-state-map ",c " 'comment-line)
 (define-key evil-visual-state-map ",c " 'comment-or-uncomment-region)
@@ -107,8 +111,12 @@
 
 (my-overriding-binding-mode 1)
 
+
 (require 'evil-surround)
 (global-evil-surround-mode 1)
+
+;; Spell checking toggle with yos
+(evil-define-key 'operator evil-surround-mode-map "os" 'flyspell-mode)
 
 (require 'evil-org)
 (add-hook 'org-mode-hook 'evil-org-mode)
@@ -160,9 +168,7 @@
 
 (nvmap :prefix ","
   "ss" 'source-init-file
-  "g" 'magit-list-repositories
   "es" 'edit-init-file
-  "m" 'execute-extended-command
   "p" 'helm-find-files)
 (general-define-key
  :states 'motion
@@ -244,3 +250,9 @@
 (run-at-time 0 3600 'org-agenda-to-appt-clear-message)                 ;; update appt list hourly
 (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

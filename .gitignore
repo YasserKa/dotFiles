@@ -7,3 +7,4 @@ general/.config/qutebrowser/qsettings/QtProject.conf
 general/.config/systemd/user/default.target.wants/
 /general/.config/systemd/user/autosync-repos*
 /general/.config/systemd/user/timers.target.wants/autosync-repos.timer
+/general/.config/nvim/undo/
