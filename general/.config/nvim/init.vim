@@ -15,6 +15,7 @@ Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on' : 'Vista!!'}
 Plug 'https://github.com/preservim/nerdcommenter'
 Plug 'https://github.com/tommcdo/vim-lion'
+Plug 'https://github.com/simnalamburt/vim-mundo'
 
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/junegunn/fzf.vim'
@@ -185,6 +186,11 @@ let g:UltiSnipsEditSplit = "vertical"
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
             \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"##############################################################
+" vim-mundo
+" Enable persistent undo so that undo history persists across vim sessions
+set undofile
+nnoremap ypu <cmd>MundoToggle<cr>
 "##############################################################
 " NerdCommenter
 let g:NERDSpaceDelims = 1
