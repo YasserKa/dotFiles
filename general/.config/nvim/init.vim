@@ -5,6 +5,7 @@ Plug 'https://github.com/romainl/flattened'
 Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 Plug 'https://github.com/itchyny/lightline.vim'
+Plug 'http://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/tmsvg/pear-tree'
@@ -12,15 +13,13 @@ Plug 'https://github.com/tpope/vim-surround'
 Plug 'https://github.com/tpope/vim-unimpaired'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'https://github.com/wellle/targets.vim'
-Plug 'https://github.com/liuchengxu/vista.vim', {'on' : 'Vista!!'}
+Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
 Plug 'https://github.com/preservim/nerdcommenter'
-Plug 'https://github.com/tommcdo/vim-lion'
 Plug 'https://github.com/simnalamburt/vim-mundo'
 
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/dense-analysis/ale'
-Plug 'http://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
@@ -42,18 +41,10 @@ set ignorecase                " Do case insensitive search...
 set smartcase                 " ...unless capital letters are used
 set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
-" Choose a random colorscheme upon opening
-if !v:vim_did_enter
-    let g:lightline = {}
-    let colorOptions = ['gruvbox',  'flattened_light', 'PaperColor']
-    let lightlineOptions = ['solarized',  'solarized', 'PaperColor']
-    let random = localtime()%len(colorOptions)
-    execute 'colorscheme '.colorOptions[random]
-    let g:lightline.colorscheme= lightlineOptions[random]
-endif
 
-set termguicolors
+colorscheme gruvbox
 set background=light
+set termguicolors
 set guifont=Inconsolata:h14
 set scrolloff=5               " Show 5 lines above/below the cursor
 set cursorline                " Highlight current line"
@@ -74,7 +65,6 @@ set nojoinspaces    " No extra space after '.' when joining lines
 set textwidth=80    " Wrap lines automatically at 80th column
 
 autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
-
 " Keybindings
 let mapleader=","
 noremap ; :
@@ -100,6 +90,9 @@ autocmd CmdwinEnter * map <buffer> <C-j> <CR>
 " Display
 "##############################################################
 " lightline
+let g:lightline = {}
+
+let g:lightline.colorscheme= 'gruvbox'
 let g:lightline.active = {
             \'left' : [ ['mode', 'paste'],
             \           ['cocstatus', 'currentfunction', 'gitbranch', 'readonly', 'filename', 'modified']],
@@ -125,6 +118,12 @@ let g:lightline.component_type = {
 let g:lightline.component_function = {
             \ 'gitbranch': 'fugitive#head',
             \ }
+
+
+" Update lighltine on background change
+autocmd OptionSet background
+            \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/gruvbox.vim')
+            \ | call lightline#colorscheme() | call lightline#update()
 
 let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
