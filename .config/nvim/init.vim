@@ -189,7 +189,7 @@ inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
 " vim-mundo
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
-nnoremap ypu <cmd>MundoToggle<cr>
+nnoremap yeu <cmd>MundoToggle<cr>
 "##############################################################
 " NerdCommenter
 let g:NERDSpaceDelims = 1
@@ -209,7 +209,7 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 "##############################################################
 " Taglist(Shows the structure of the code) Plugin
-nnoremap <leader>t :Vista!!<CR>
+nnoremap yeo :Vista!!<CR>
 "##############################################################
 " Coc
 set hidden
