@@ -1,6 +1,6 @@
 DISPLAY=:0
 0 23 * * * source $HOME/.Xdbus; dunstify -u 2 "sleep time"
-@reboot source $HOME/.config/.Xdbus; cd $HOME/Projects/app; pipenv run python main.py
+0 */3 * * * source $HOME/.config/.Xdbus; cd $HOME/Projects/app; pipenv run python main.py
 @monthly cd $HOME/Projects/updateReminder; python main.py
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert.sh
 

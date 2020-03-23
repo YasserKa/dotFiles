@@ -1,2 +1,3 @@
 .config/qutebrowser/qsettings/QtProject.conf
 .config/nvim/undo/
+/.config/systemd/user/default.target.wants/
