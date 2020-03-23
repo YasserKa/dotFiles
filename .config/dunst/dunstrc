@@ -171,7 +171,7 @@ appname = Emacs
 new_icon = emacs
 
 [sleep]
-body = "*sleep*"
+summary = "*sleep*"
 new_icon = bed-80
 
 [music]
