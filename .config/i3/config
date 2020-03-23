@@ -110,7 +110,7 @@ mode "resize" {
 # Music player
 bindsym $mod+c mode "cmus"
 mode "cmus" {
-    bindsym i exec ~/bin/cmus.sh
+    bindsym i exec ~/bin/cmus_notification
         bindsym s exec cmus-remote --pause
         bindsym n exec cmus-remote --next
         bindsym p exec cmus-remote --prev
@@ -129,10 +129,10 @@ mode "cmus" {
 
 bindsym $mod+s mode "sharing"
 mode "sharing" {
-    bindsym i exec ~/bin/share.sh -i; mode "default"
-        bindsym v exec ~/bin/share.sh -v; mode "default"
+    bindsym i exec ~/bin/share -i; mode "default"
+        bindsym v exec ~/bin/share -v; mode "default"
         bindsym s exec deepin-screen-recorder; mode "default"
-        bindsym t exec ~/bin/share.sh -t; mode "default"
+        bindsym t exec ~/bin/share -t; mode "default"
 
         bindsym Control+bracketleft mode "default"
         bindsym Escape mode "default"

@@ -235,12 +235,12 @@
 
 ;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
-  (shell-command (concat "/usr/bin/dunstify" " \"" title "\" \"" msg "\"")))
+  (shell-command (concat "/usr/bin/dunstify -a Emacs " " \"" title "\" \"" msg "\"")))
 
 ;; Designate the window function for my-appt-send-notification
 (defun toast-appt-display (min-to-app new-time msg)
   (toast-appt-send-notification
-   (format "Appointment in %s minutes" min-to-app)    ;; passed to -t in toast call
+   (format "%s minutes" min-to-app)    ;; passed to -t in toast call
    (format "%s" msg))                                 ;; passed to -m in toast call
   (message nil))
 
@@ -250,9 +250,3 @@
 (run-at-time 0 3600 'org-agenda-to-appt-clear-message)                 ;; update appt list hourly
 (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

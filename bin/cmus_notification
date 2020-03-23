@@ -6,4 +6,4 @@ current=$(cmus-remote -Q 2> /dev/null | grep position | cut -d ' ' -f2-)
 artist=$(cmus-remote -Q 2> /dev/null | grep ' artist ' | cut -d ' ' -f3-)
 song=$(cmus-remote -Q 2> /dev/null | grep title | cut -d ' ' -f3-)
 
-dunstify "$artist" "$song" --timeout=3000
+dunstify -a cmus "$artist" "$song" --timeout=3000

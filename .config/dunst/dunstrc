@@ -14,15 +14,20 @@ geometry = "300x5-30+38"
 # Show how many messages are currently hidden (because of geometry).
 indicate_hidden = yes
 
+# The transparency of the window.  Range: [0; 100].
+# This option will only work if a compositing window manager is
+# present (e.g. xcompmgr, compiz, etc.).
+transparency = 15
+
 # Padding between text and separator.
-    padding = 8
+padding = 8
 
 # Horizontal padding.
-horizontal_padding = 8
+horizontal_padding = 15
 
 # Defines width in pixels of frame around the notification window.
 # Set to 0 to disable.
-frame_width = 2
+frame_width = 0
 
 # Defines color of the frame around the notification window.
 frame_color = "#aaaaaa"
@@ -104,10 +109,10 @@ show_indicators = yes
 icon_position = right
 
 # Scale larger icons down to this size, set to 0 to disable
-max_icon_size = 32
+max_icon_size = 40
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:~/.local/share/icons/hicolor/32x32/apps/
+icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/hicolor/:
 
 ### History ###
 
@@ -142,7 +147,6 @@ history = ctrl+apostrophe
 # Context menu. for selecting URLs and actions
 context = ctrl+shift+semicolon
 
-
 [urgency_low]
 background = "#222222"
 foreground = "#888888"
@@ -150,8 +154,8 @@ timeout = 3
 icon = dialog-information-symbolic.symbolic
 
 [urgency_normal]
-background = "#285577"
-foreground = "#ffffff"
+background = "#d3d3d3"
+foreground = "#000000"
 timeout = 5
 icon = dialog-information-symbolic.symbolic
 
@@ -162,17 +166,38 @@ frame_color = "#ff0000"
 timeout = 5
 icon = dialog-error-symbolic.symbolic
 
-# remove deepinscreenshot notifications
+[org]
+appname = Emacs
+new_icon = emacs
+
+[sleep]
+body = "*sleep*"
+new_icon = bed-80
+
+[music]
+appname = cmus
+new_icon = music-80
+
+[tea]
+summary = "*Tea*"
+new_icon = tea-64
+
+[battery]
+summary = "*Battery*"
+new_icon = low-battery-64
+
+[clipboard]
+summary = "*Clipboard*"
+new_icon = clipboard-64
+history_ignore = yes
+
+# Remove deepinscreenshot notifications
 [deepin]
 body = "*DeepinScreenshot*"
 format = ""
 
-[clipboard]
-summary="*Clipboard*"
-history_ignore = yes
-
 [recording]
-summary="*Recording*"
-format=""
+summary = "*Recording*"
+format = ""
 
 # vim: ft=cfg
