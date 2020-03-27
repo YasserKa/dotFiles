@@ -15,8 +15,7 @@
         "bash": {
             "command": "bash-language-server",
             "args": ["start"],
-            "filetypes": ["sh"],
-            "ignoredRootPaths": ["~"]
+            "filetypes": ["sh"]
         }
     },
     "list.nextKeymap": "<C-n>",
