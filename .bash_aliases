@@ -59,3 +59,4 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 
 alias tea_time='dunstify "Tea time in 5 minutes"; sleep $((5*60)); dunstify "Tea time"'
+alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'

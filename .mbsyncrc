@@ -1,0 +1,28 @@
+IMAPStore personal-remote
+Host imap.gmail.com
+Port  993
+User yasser.kaddoura19@gmail.com
+PassCmd "pass mutt-wizard-personal"
+AuthMechs LOGIN
+SSLType IMAPS
+AuthMech LOGIN
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore personal-local
+Subfolders Verbatim
+Path ~/.local/share/mail/personal/
+Inbox ~/.local/share/mail/personal/INBOX
+Flatten .
+
+Channel personal
+Expunge Both
+Master :personal-remote:
+Slave :personal-local:
+Patterns * !"[Gmail]/All Mail"
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+# End profile
+
+

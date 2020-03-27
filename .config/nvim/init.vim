@@ -80,7 +80,10 @@ nnoremap <silent> <leader>h :nohlsearch<CR>
 " Folding
 nnoremap <tab> za
 
+" Using C-j to trigger commands
 autocmd CmdwinEnter * map <buffer> <C-j> <CR>
+" Mail settetings
+autocmd! BufEnter neomutt-* set filetype=markdown spell
 
 " Plugins
 " Display

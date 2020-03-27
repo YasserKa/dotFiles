@@ -1,0 +1,45 @@
+# vim: filetype=neomuttrc
+
+source /usr/share/mutt-wizard/mutt-wizard.muttrc
+source /home/yasser/.config/mutt/accounts/1-personal.muttrc
+macro index,pager i1 '<sync-mailbox><enter-command>source /home/yasser/.config/mutt/accounts/1-personal.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to yasser.kaddoura19@gmail.com"
+
+# Personal changes
+
+# Update polybar after entering new emails
+message-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"'
+# Transform email from md to html using pandoc
+send-hook ~A 'push "F pandoc -s -f markdown -t html --template=/home/yasser/.config/mutt/template.html5 --metadata title="mail"\ny^T^Utext/html; charset=utf-8\n"'
+
+# Options
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+unhdr_order *                           # some distros order things by default
+hdr_order from: to: cc: date: subject:  # and in this order
+set mailcap_path = /home/yasser/.config/mutt/mailcap
+set signature = /home/yasser/.config/mutt/signature
+set abort_key ="<Esc>"
+unset confirmappend
+set edit_headers                     # Edit headers while composing
+set fast_reply                       # Skip to compose when replying
+set sort_aux = reverse-date
+set sort=threads
+set delete
+set date_format="%m/%d %I:%M"
+set attribution = "On %d, %n wrote:\n"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# Bindings
+bind index,pager,browser \; enter-command
+bind index,pager,browser \Cd half-down
+bind index,pager,browser \Cu half-up
+bind index,pager @ compose-to-sender
+bind compose p postpone-message
+bind index p recall-message                    # Go to postponed messages
+bind pager gg top
+bind pager G bottom
+bind index <space>  collapse-thread
+exec collapse-all
+
+macro index,pager \Cj '<sidebar-next><sidebar-open>
+macro index,pager \Ck '<sidebar-prev><sidebar-open>

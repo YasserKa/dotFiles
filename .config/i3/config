@@ -164,7 +164,7 @@ bindsym XF86AudioNext exec cmus-remote --next
 bindsym XF86AudioPrev exec cmus-remote --prev
 
 # Others
-bindsym $mod+Shift+m exec claws-mail --receive-all
+bindsym $mod+Shift+m exec --no-startup-id polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1
 bindsym $mod+d exec rofi -show run
 # >>>
 # Sartup <<<
@@ -185,7 +185,7 @@ exec --no-startup-id udiskie
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/org/general.org; workspace 1'
 # Wait until the internet is on
-exec $HOME/bin/waitInternet; claws-mail
+exec_always $HOME/bin/waitInternet; mailsync && polybar-msg hook mail 1
 exec $HOME/bin/waitInternet; qutebrowser
 
 # >>>

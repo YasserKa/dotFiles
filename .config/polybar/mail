@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ -d $HOME/Mail ]]; then
+  out=$(find $HOME/.local/share/mail/*/INBOX/new/ -type f|wc -l)
+
+  if [ "$out" != "0" ]; then
+    echo $out
+  else
+    echo ""
+  fi
+else
+  echo ""
+fi
