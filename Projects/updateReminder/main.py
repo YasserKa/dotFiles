@@ -18,8 +18,12 @@ def send_mail():
     msg = """Subject: Updating reminder
 
 Making a monthly update for emacs, vim & pacman packages: macs
-
-- emacs package-list-packages <S-u> x
+- emacs
+  package-list-packages <S-u> x
+- vim
+ :PackageUpgrade
+ :PackageUpdate
+ Press X to check changes
         """
 
     server.sendmail(from_mail, to_mail, msg)

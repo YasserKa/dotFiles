@@ -1,6 +1,6 @@
 DISPLAY=:0
 0 23 * * * source $HOME/.Xdbus; dunstify "sleep time"
-@monthly cd $HOME/Projects/updateReminder; python main.py
+0 0 1,15 * * cd $HOME/Projects/updateReminder; python main.py
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert.sh
 
 */30 * * * * rclone sync -u ./org remote:org --include *.org
