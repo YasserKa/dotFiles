@@ -29,8 +29,8 @@ Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
-Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
-Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 'md'}
+" Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
+Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown']}
 
 call plug#end()
 
@@ -137,6 +137,7 @@ au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_max = 16
 "##############################################################
 " Pear-tree
+let g:pear_tree_repeatable_expand = 0
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
 let g:pear_tree_smart_backspace = 1
@@ -197,6 +198,12 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
+
+"##############################################################
+" iamcco/markdown-preview.nvim
+let g:mkdp_command_for_global = 1
+let g:mkdp_page_title = '${name}'
+nmap yem <Plug>MarkdownPreviewToggle
 "##############################################################
 " FZF (Full path fuzzy file, buffer, mru, tag) finder
 " Terminal buffer options for fzf
