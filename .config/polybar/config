@@ -151,7 +151,7 @@ full-at = 98
 
 time-format = %H:%M
 format-charging = <ramp-capacity> <label-charging>
-format-charing-background = ${color.module-bg}
+format-charging-background = ${color.module-bg}
 
 label-discharging = %time% %percentage% %
 format-discharging= <ramp-capacity> <label-discharging>
