@@ -153,7 +153,7 @@ bindsym $mod+shift+x exec i3lock --color 39889b
 # Unmount all storage devices
 bindsym $mod+shift+u exec --no-startup-id udiskie-umount -a
 
-# pulse audio
+# Pulse audio
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume 0 +5%"
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume 0 -5%"
 bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute 0 toggle;"
@@ -163,8 +163,10 @@ bindsym XF86AudioPlay exec cmus-remote --pause
 bindsym XF86AudioNext exec cmus-remote --next
 bindsym XF86AudioPrev exec cmus-remote --prev
 
-# Others
-bindsym $mod+Shift+m exec --no-startup-id polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1
+# Mail
+bindsym $mod+Shift+m exec --no-startup-id mail_check_mutt
+
+# Rofi
 bindsym $mod+d exec rofi -show run
 # >>>
 # Sartup <<<

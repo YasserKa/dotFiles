@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Synchronize mail directory
+polybar-msg hook mail 2
+mailsync
+polybar-msg hook mail 1
+
+# Open neomutt if new mails exist
+NEW_MAIL=`$HOME/.config/polybar/mail`
+
+if [[ $NEW_MAIL != "" ]]; then
+    alacritty -e neomutt
+fi
