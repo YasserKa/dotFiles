@@ -51,7 +51,6 @@ foreground = ${xcolor.fg}
 
 line-size = 2
 
-; override-redirect = true
 tray-position = right
 tray-background = ${color.module-bg}
 
@@ -240,33 +239,5 @@ label-connected = %local_ip%%downspeed:9%
 
 ; label-disconnected = 
 ; label-disconnected-foreground = ${color.grey}
-
-[module/filesystem]
-type = internal/fs
-
-mount-0 = /
-
-; Mounted
-format-mounted-background = ${color.module-bg}
-format-mounted-padding = ${layout.module-padding}
-
-format-mounted-prefix = 
-format-mounted-prefix-font = ${layout.icon-font}
-format-mounted-prefix-foreground = ${color.icon-fg}
-format-mounted-prefix-padding-right = ${layout.icon-padding}
-
-label-mounted = %used% / %total%
-
-; Unmounted
-format-unmounted-background = ${color.module-bg}
-format-unmounted-padding = ${layout.module-padding}
-
-format-unmounted-prefix = 
-format-unmounted-prefix-font = ${layout.icon-font}
-format-unmounted-prefix-foreground = ${color.icon-fg}
-format-unmounted-prefix-padding-right = ${layout.icon-padding}
-
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${xcolor.color1}
 # >>>
 ; vim:ft=dosini
