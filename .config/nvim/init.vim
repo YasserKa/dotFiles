@@ -239,7 +239,7 @@ nmap <silent>gr <Plug>(coc-references)
 nmap <silent>[g <Plug>(ale_previous_wrap)
 nmap <silent>]g <Plug>(ale_next_wrap)
 
-nnoremap <silent> <leader>ex :CocCommand explorer<CR>
+nnoremap <silent> yex :CocCommand explorer --sources=file+<CR>
 nnoremap <leader>rn <Plug>(coc-rename)
 
 function! s:show_documentation()
