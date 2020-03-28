@@ -6,3 +6,4 @@ application/pdf=zathura.desktop
 text/html=qutebrowser.desktop
 text/plain=nvim-qt.desktop
 video/mp4=mpv.desktop
+image/gif=mpv.desktop
