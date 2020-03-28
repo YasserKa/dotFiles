@@ -1,3 +1,4 @@
+" vim-plug <<<
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'https://github.com/morhetz/gruvbox'
@@ -5,7 +6,7 @@ Plug 'https://github.com/romainl/flattened'
 Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 Plug 'https://github.com/itchyny/lightline.vim'
-Plug 'http://github.com/maximbaz/lightline-ale'
+Plug 'https://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/tmsvg/pear-tree'
@@ -29,12 +30,12 @@ Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
-" Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
+Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown']}
 
 call plug#end()
-
-" General settings
+" >>>
+" general settings <<<
 set clipboard+=unnamedplus    " System clipboard
 set virtualedit=all           " Moving in whitespace
 set ignorecase                " Do case insensitive search...
@@ -64,7 +65,6 @@ set smartindent     " Automatically insert another level of indent when needed
 set nojoinspaces    " No extra space after '.' when joining lines
 set textwidth=80    " Wrap lines automatically at 80th column
 
-autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
 " Keybindings
 let mapleader=","
 noremap ; :
@@ -76,19 +76,14 @@ map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
-
-" Folding
 nnoremap <tab> za
 
-" Using C-j to trigger commands
+" AutoCommands
 autocmd CmdwinEnter * map <buffer> <C-j> <CR>
-" Mail settetings
 autocmd! BufEnter neomutt-* set filetype=markdown spell
-
-" Plugins
-" Display
-"##############################################################
-" lightline
+autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
+" >>>
+" lightline.vim <<<
 let g:lightline = {}
 
 let g:lightline.colorscheme= 'gruvbox'
@@ -118,7 +113,6 @@ let g:lightline.component_function = {
             \ 'gitbranch': 'fugitive#head',
             \ }
 
-
 " Update lighltine on background change
 autocmd OptionSet background
             \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/gruvbox.vim')
@@ -128,15 +122,15 @@ let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
-"##############################################################
-" rainbow_parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+" >>>
+" rainbow_parentheses.vim <<<
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_max = 16
-"##############################################################
-" Pear-tree
+" >>>
+" pear-tree <<<
 let g:pear_tree_repeatable_expand = 0
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
@@ -147,8 +141,9 @@ let g:pear_tree_pairs = {
             \ "'": {'closer': "'"},  '"': {'closer': '"'},  '`': {'closer': '`'},
             \ "'''": {'closer': "'''"},  '"""': {'closer': '"""'},  '```': {'closer': '```'},
             \ }
-"##############################################################
-" ALE
+" >>>
+" ale <<<
+let g:ale_virtualtext_cursor = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
             \   'python': ['flake8'],
@@ -168,14 +163,8 @@ augroup CloseLoclistWindowGroup
     autocmd!
     autocmd QuitPre * if empty(&buftype) | lclose | endif
 augroup END
-
-" Mapping selecting mappings
-imap <C-q> <plug>(fzf-maps-i)
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-"##############################################################
-" Snippets
+" >>>
+" ulisnippets, coc-sippets <<<
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 vmap <C-j> <Plug>(coc-snippets-select)
 
@@ -185,39 +174,43 @@ let g:UltiSnipsEditSplit = "vertical"
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
             \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"##############################################################
-" vim-mundo
+" >>>
+" vim-mundo <<<
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
 nnoremap yeu <cmd>MundoToggle<cr>
-"##############################################################
-" NerdCommenter
+" >>>
+" nerdcommenter <<<
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
-
-"##############################################################
-" iamcco/markdown-preview.nvim
+">>>
+" markdown-preview.nvim <<<
 let g:mkdp_command_for_global = 1
 let g:mkdp_page_title = '${name}'
 nmap yem <Plug>MarkdownPreviewToggle
-"##############################################################
-" FZF (Full path fuzzy file, buffer, mru, tag) finder
-" Terminal buffer options for fzf
+" >>>
+" fzf <<<
 nnoremap <leader>a :Ag<space>
 nnoremap <leader>p :Files<CR>
 nnoremap <leader>o :Buffers<CR>
 
+" Mapping selecting mappings
+imap <C-q> <plug>(fzf-maps-i)
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-"##############################################################
-" Taglist(Shows the structure of the code) Plugin
+" >>>
+" vista <<<
 nnoremap yeo :Vista!!<CR>
-"##############################################################
-" Coc
+" >>>
+" coc <<<
 set hidden
 set updatetime=300
 set shortmess+=c
@@ -250,3 +243,4 @@ function! s:show_documentation()
     endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" >>>
