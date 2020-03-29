@@ -61,7 +61,6 @@ set expandtab       " Use spaces for tabs
 set tabstop=4       " Number of spaces to use for tabs
 set shiftwidth=4    " Number of spaces to autoindent
 set softtabstop=4   " Number of spaces for a tab
-set smartindent     " Automatically insert another level of indent when needed
 set nojoinspaces    " No extra space after '.' when joining lines
 set textwidth=80    " Wrap lines automatically at 80th column
 
