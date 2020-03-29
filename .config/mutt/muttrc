@@ -41,5 +41,5 @@ bind pager G bottom
 bind index <space>  collapse-thread
 exec collapse-all
 
-macro index,pager \Cj '<sidebar-next><sidebar-open>
-macro index,pager \Ck '<sidebar-prev><sidebar-open>
+macro index,pager \Cn '<sidebar-next><sidebar-open>
+macro index,pager \Cp '<sidebar-prev><sidebar-open>
