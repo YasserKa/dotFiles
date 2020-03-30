@@ -6,4 +6,12 @@ current=$(cmus-remote -Q 2> /dev/null | grep position | cut -d ' ' -f2-)
 artist=$(cmus-remote -Q 2> /dev/null | grep ' artist ' | cut -d ' ' -f3-)
 song=$(cmus-remote -Q 2> /dev/null | grep title | cut -d ' ' -f3-)
 
+# Use file name to get details
+if [[ $song == '' ]]; then
+    song=$(cmus-remote -Q 2> /dev/null | grep file | cut -d '/' -f6- | cut -d '.' -f1)
+fi
+if [[ $artist == '' ]]; then
+    artist=$(cmus-remote -Q 2> /dev/null | grep file | cut -d '/' -f5)
+fi
+
 dunstify -a cmus "$artist" "$song" --timeout=3000
