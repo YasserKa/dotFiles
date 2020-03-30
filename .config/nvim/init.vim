@@ -214,7 +214,10 @@ set hidden
 set updatetime=300
 set shortmess+=c
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" Bash server doesn't highlight well
+if &filetype ==# 'bash'
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+endif
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
