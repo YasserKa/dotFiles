@@ -1,13 +1,14 @@
 #!/bin/python3
-import configparser
 import smtplib
+import subprocess
 
-config = configparser.ConfigParser()
+mail = 'yasser.kaddoura19@gmail.com'
+mail_pass = subprocess.run(
+    ['pass', 'mail/personal'],
+    capture_output=1).stdout.decode('ascii')
 
-config.read_file(open('./config'))
-mail_pass = config.get('mail', 'password')
-from_mail = config.get('mail', 'mail')
-to_mail = config.get('mail', 'mail')
+from_mail = mail
+to_mail = mail
 
 
 def send_mail():
