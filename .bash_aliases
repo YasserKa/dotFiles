@@ -51,7 +51,7 @@ _fasd_bash_hook_cmd_complete f j
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
 alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/org/general.org"'
 
-alias cool='cd /srv/http/cooldown/; alacritty -e ./artisan serve 2> /dev/null & qutebrowser http://localhost:8000/getMatch --target window 2> /dev/null & nvim ./app/Http/Controllers/MatchController.php;'
+alias cool='cd /srv/http/cooldown/; alacritty -e ./artisan serve 2> /dev/null & qutebrowser http://localhost:8000/getMatch --target window 2> /dev/null & nvim'
 
 # Last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'

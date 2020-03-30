@@ -77,10 +77,44 @@ nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
 nnoremap <tab> za
 
+" Sessions
+set sessionoptions-=options
+set sessionoptions+=localoptions
+
+function! MakeSession()
+  let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+  endif
+  let b:filename = b:sessiondir . '/session.vim'
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession()
+  let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . "/session.vim"
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  endif
+endfunction
+
+" Adding automatons for when entering or leaving Vim
+augroup SESSIONS
+    autocmd!
+    if(argc() == 0)
+        autocmd VimEnter * nested :call LoadSession()
+    endif
+    autocmd VimLeave * :call MakeSession()
+augroup END
+
 " AutoCommands
-autocmd CmdwinEnter * map <buffer> <C-j> <CR>
-autocmd! BufEnter neomutt-* set filetype=markdown spell
-autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
+augroup VIMENTER
+    autocmd!
+    autocmd CmdwinEnter * map <buffer> <C-j> <CR>
+    autocmd BufEnter neomutt-* set filetype=markdown spell
+    autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
+augroup END
+
 " >>>
 " lightline.vim <<<
 let g:lightline = {}
