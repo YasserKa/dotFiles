@@ -157,9 +157,12 @@ let g:lightline.component_function = {
             \ }
 
 " Update lighltine on background change
-autocmd OptionSet background
-            \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/gruvbox.vim')
-            \ | call lightline#colorscheme() | call lightline#update()
+augroup LIGHTLINE
+    autocmd!
+    autocmd OptionSet background
+                \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/gruvbox.vim')
+                \ | call lightline#colorscheme() | call lightline#update()
+augroup END
 
 let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
@@ -167,10 +170,13 @@ let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
 " >>>
 " rainbow_parentheses.vim <<<
-autocmd VimEnter * RainbowParenthesesToggle
-autocmd Syntax * RainbowParenthesesLoadRound
-autocmd Syntax * RainbowParenthesesLoadSquare
-autocmd Syntax * RainbowParenthesesLoadBraces
+augroup RAINBOW
+    autocmd!
+    autocmd VimEnter * RainbowParenthesesToggle
+    autocmd Syntax * RainbowParenthesesLoadRound
+    autocmd Syntax * RainbowParenthesesLoadSquare
+    autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
 let g:rbpt_max = 16
 " >>>
 " pear-tree <<<
