@@ -46,5 +46,5 @@ fi
 
 mv "$old_path" "$new_path"
 
-imgur.sh $arg $new_path
+imgur $arg $new_path
 dunstify "Saved to Clipboard"
