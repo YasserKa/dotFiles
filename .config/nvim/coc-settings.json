@@ -3,6 +3,7 @@
     "python.jediEnabled": false,
     "diagnostic.displayByAle": true,
     "coc.preferences.extensionUpdateCheck":"weekly",
+    "emmet.includeLanguages": {"blade": "html"},
     "languageserver": {
         "intelephense": {
             "command": "intelephense",
