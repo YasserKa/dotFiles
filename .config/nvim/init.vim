@@ -15,7 +15,8 @@ Plug 'https://github.com/tpope/vim-unimpaired'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
-Plug 'https://github.com/preservim/nerdcommenter'
+Plug 'https://github.com/tpope/vim-commentary'
+
 Plug 'https://github.com/simnalamburt/vim-mundo'
 
 Plug 'https://github.com/terryma/vim-multiple-cursors'
@@ -228,14 +229,6 @@ inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
 set undofile
 nnoremap yeu <cmd>MundoToggle<cr>
 " >>>
-" nerdcommenter <<<
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-">>>
 " markdown-preview.nvim <<<
 let g:mkdp_command_for_global = 1
 let g:mkdp_page_title = '${name}'
