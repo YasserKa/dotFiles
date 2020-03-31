@@ -30,7 +30,6 @@ Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
-Plug 'https://github.com/plasticboy/vim-markdown', {'for': 'md'}
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown']}
 
 call plug#end()
@@ -44,6 +43,7 @@ set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
 
 colorscheme gruvbox
+let g:gruvbox_italic = 1
 set background=light
 set termguicolors
 set guifont=Inconsolata:h14
@@ -84,21 +84,21 @@ set sessionoptions+=localoptions
 function! MakeSession()
   let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
   if (filewritable(b:sessiondir) != 2)
-    exe 'silent !mkdir -p ' b:sessiondir
+    execute 'silent !mkdir -p ' b:sessiondir
   endif
   let b:filename = b:sessiondir . '/session.vim'
-  exe "mksession! " . b:filename
+  execute "mksession! " . b:filename
 endfunction
 
 function! LoadSession()
   let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
   let b:sessionfile = b:sessiondir . "/session.vim"
   if (filereadable(b:sessionfile))
-    exe 'source ' b:sessionfile
+    execute 'source ' b:sessionfile
   endif
 endfunction
 
-" Adding automatons for when entering or leaving Vim
+" AutoCommands
 augroup SESSIONS
     autocmd!
     if(argc() == 0)
@@ -107,12 +107,22 @@ augroup SESSIONS
     autocmd VimLeave * :call MakeSession()
 augroup END
 
-" AutoCommands
 augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
     autocmd BufEnter neomutt-* set filetype=markdown spell
     autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
+augroup END
+
+augroup MARKDOWN
+    autocmd!
+    autocmd FileType markdown syntax match StrikeoutMatch /\~\~.*\~\~/
+    highlight def  StrikeoutHighlight   cterm=strikethrough gui=strikethrough
+    highlight link StrikeoutMatch StrikeoutHighlight
+
+    autocmd Filetype markdown syntax match UnderlineMatch /__.*__/
+    highlight def  UnderlineHighlight   cterm=underline gui=underline
+    highlight link UnderlineMatch UnderlineHighlight
 augroup END
 
 " >>>
