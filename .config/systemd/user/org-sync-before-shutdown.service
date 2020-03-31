@@ -1,0 +1,12 @@
+[Unit]
+Description=org files sync with dropbox
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/rclone sync -u /home/yasser/org remote:org --include *.org
+TimeoutStartSec=0
+
+[Install]
+WantedBy=shutdown.target

@@ -3,9 +3,11 @@ DISPLAY=:0
 0 0 1,15 * * mail_update_reminder
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert.sh
 
-*/30 * * * * rclone sync -u ./org remote:org --include *.org
-*/30 * * * * rclone sync -u remote:org ./org --include *.org
-*/30 * * * * cd $HOME/org; $HOME/bin/git-sync
+# Fetch at startup
+@reboot rclone sync -u remote:org $HOME/org --include *.org
+*/30 * * * * rclone sync -u $HOME/org remote:org --include *.org
+*/32 * * * * rclone sync -u remote:org $HOME/org --include *.org
+*/32 * * * * cd $HOME/org; $HOME/bin/git-sync
 
 # Get mail & update polybar
 */30 * * * * mailsync && polybar-msg hook mail 1
