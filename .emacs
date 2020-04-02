@@ -36,6 +36,10 @@
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
+;; Remove emacs' bars
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
 ;; Remove the annoying Enter (C-j)
 (global-unset-key "\C-j")
 
