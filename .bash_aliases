@@ -26,9 +26,6 @@ alias df='df -Tha --total'
 alias cal='cal -m'
 alias grep='grep --color=auto'
 
-# Cron
-alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
-
 # Prompt before overriding
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
@@ -51,6 +48,10 @@ _fasd_bash_hook_cmd_complete f j
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
 alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/org/general.org"'
 
+# Cron
+alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
+
+# Project setup
 alias cool='cd /srv/http/cooldown/; alacritty -e ./artisan serve 2> /dev/null & qutebrowser http://localhost:8000/getMatch --target window 2> /dev/null & nvim'
 
 # Last installed packages
