@@ -181,6 +181,7 @@
  ":" 'evil-repeat-find-char
  :states 'normal
  "\C-u" 'evil-scroll-up
+ "g:" 'goto-last-change
  )
 ;; ORG MODE
 (require 'org)
