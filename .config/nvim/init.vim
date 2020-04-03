@@ -94,7 +94,7 @@ function! LoadSession()
   let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
   let b:sessionfile = b:sessiondir . "/session.vim"
   if (filereadable(b:sessionfile))
-    execute 'source ' b:sessionfile
+    execute 'silent source ' b:sessionfile
   endif
 endfunction
 
@@ -132,7 +132,7 @@ let g:lightline = {}
 let g:lightline.colorscheme= 'gruvbox'
 let g:lightline.active = {
             \'left' : [ ['mode', 'paste'],
-            \           ['cocstatus', 'currentfunction', 'gitbranch', 'readonly', 'filename', 'modified']],
+            \           ['gitbranch', 'readonly', 'filename', 'modified']],
             \'right': [ ['lineinfo'], ['percent'], ['filetype'],
             \           ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']
             \         ] }
