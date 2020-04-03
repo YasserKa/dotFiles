@@ -193,7 +193,7 @@ let g:pear_tree_pairs = {
 " >>>
 " targets <<<
 let g:targets_nl = 'nN'
-" >>
+" >>>
 " ale <<<
 let g:ale_virtualtext_cursor = 1
 let g:ale_fix_on_save = 1
