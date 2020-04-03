@@ -52,6 +52,12 @@ set $pdf 8
 set $wp9 9
 set $wp0 0
 
+# Workspaces on specific screens
+workspace 1 primary
+workspace 2 primary
+workspace 3 primary
+workspace 4 primary
+
 # Bindsym using mod+# to workspace #
 bindsym $mod+1 workspace $browser
 bindsym $mod+2 workspace $coding
