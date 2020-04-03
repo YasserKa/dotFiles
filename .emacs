@@ -39,6 +39,7 @@
 ;; Remove emacs' bars
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(toggle-scroll-bar -1)
 
 ;; Remove the annoying Enter (C-j)
 (global-unset-key "\C-j")
