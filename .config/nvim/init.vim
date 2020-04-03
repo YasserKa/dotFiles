@@ -102,9 +102,9 @@ endfunction
 augroup SESSIONS
     autocmd!
     if(argc() == 0)
-        autocmd VimEnter * nested :call LoadSession()
+        autocmd VimEnter * nested call LoadSession()
     endif
-    autocmd VimLeave * :call MakeSession()
+    autocmd VimLeave * call MakeSession()
 augroup END
 
 augroup VIMENTER
