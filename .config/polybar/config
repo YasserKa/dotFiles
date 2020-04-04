@@ -1,5 +1,5 @@
 ; https://github.com/polybar/polybar/wiki
-; https://origin.fontawesome.com/icons?d=gallery
+; https://origin.fontawesome.com/icons?d=listing&m=free
 ; Refernce <<<
 [xcolor]
 bg     = #0a0a0a
@@ -55,7 +55,9 @@ tray-position = right
 tray-background = ${color.module-bg}
 
 font-0 = Inconsolata-Regular:size=13
-font-1 = FontAwesome
+font-1 = Font Awesome 5 Brands,Font Awesom  5 Brands Regular:style=Regular
+font-2 = Font Awesome 5 Free Solid:style=Solid
+
 
 modules-left = i3
 modules-right = pulseaudio wlan eth memory battery date mail
@@ -234,10 +236,10 @@ label-disconnected-foreground = ${color.grey}
 inherit = module/network
 interface = ${env:IFACE_ETH}
 
-format-connected-prefix = 
+format-connected-prefix = 
 label-connected = %local_ip%%downspeed:9%
 
-; label-disconnected = 
+; label-disconnected = 
 ; label-disconnected-foreground = ${color.grey}
 # >>>
 ; vim:ft=dosini
