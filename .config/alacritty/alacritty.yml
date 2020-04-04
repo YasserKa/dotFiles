@@ -1,7 +1,7 @@
 # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 env:
     TERM: xterm-256color
-    WINIT_X11_SCALE_FACTOR: "1.5"
+    WINIT_X11_SCALE_FACTOR: "1.6"
 font:
   size: 8
   family: inconsolata
