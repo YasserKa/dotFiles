@@ -98,6 +98,9 @@
 ;; Y is y$
 (setq evil-want-Y-yank-to-eol '1)
 
+;; gx opens urls
+(define-key evil-normal-state-map "gx" 'org-open-at-point)
+
 ;; Commenting
 (define-key evil-normal-state-map ",c " 'comment-line)
 (define-key evil-visual-state-map ",c " 'comment-or-uncomment-region)
