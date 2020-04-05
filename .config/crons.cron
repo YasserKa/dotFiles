@@ -1,7 +1,7 @@
 DISPLAY=:0
-0 23 * * * source $HOME/.Xdbus; dunstify "sleep time"
+30 22 * * * source $HOME/.Xdbus; dunstify "sleep time"
 0 1 1,15 * * $HOME/bin/mail_update_reminder
-*/1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert.sh
+*/1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
 
 # Fetch at startup
 #
