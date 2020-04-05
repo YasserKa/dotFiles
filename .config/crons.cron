@@ -2,6 +2,7 @@ DISPLAY=:0
 30 22 * * * source $HOME/.Xdbus; dunstify "sleep time"
 0 1 1,15 * * $HOME/bin/mail_update_reminder
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
+*/30 * * * * source $HOME/.config/.Xdbus; cd $HOME/Projects/notify-me; pipenv run python main.py
 
 # Fetch at startup
 #

@@ -94,6 +94,9 @@ bindsym $mod+z workspace back_and_forth
 assign [class="Zathura"] workspace $pdf
 assign [class="mpv"] workspace $video
 assign [class="Chromium"] workspace $wp9
+# For notify-me script
+for_window [instance="myProfile"] move scratchpad
+
 
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
