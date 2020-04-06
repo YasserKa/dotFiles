@@ -29,6 +29,7 @@ $if mode=vi
     "\e[B": history-search-forward
     j: history-search-forward
     k: history-search-backward
+    ":": ";"
     "\ep": yank-last-arg
     Control-l: clear-screen
 
