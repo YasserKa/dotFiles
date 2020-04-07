@@ -17,7 +17,7 @@ Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
 Plug 'https://github.com/tpope/vim-commentary'
 
-Plug 'https://github.com/simnalamburt/vim-mundo'
+Plug 'https://github.com/simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 
 Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/junegunn/fzf.vim'
