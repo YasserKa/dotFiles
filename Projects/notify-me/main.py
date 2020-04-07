@@ -1,4 +1,5 @@
 #!/bin/python
+import os
 import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -46,6 +47,8 @@ def check_submission():
 
 
 def main():
+    os.system("pkill chrom")
+
     try:
         driver.get(URL_DISCORD)
         WebDriverWait(driver, 10).until(lambda x: check_discord())
