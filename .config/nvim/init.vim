@@ -113,6 +113,7 @@ augroup VIMENTER
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
     autocmd BufEnter neomutt-* set filetype=markdown spell
     autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
+    autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'
 augroup END
 
 augroup MARKDOWN
