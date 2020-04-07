@@ -48,6 +48,7 @@ let g:gruvbox_italic = 1
 set background=light
 set termguicolors
 set guifont=Inconsolata:h14
+set dictionary=/usr/share/dict/cracklib-small
 set scrolloff=5               " Show 5 lines above/below the cursor
 set cursorline                " Highlight current line"
 set number                    " Show the number line
