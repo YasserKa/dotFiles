@@ -19,6 +19,8 @@ submission = 'Riot Submission'
 options = webdriver.ChromeOptions()
 
 options.add_argument('user-data-dir=' + profile_path)
+
+os.system("pkill chrom")
 driver = webdriver.Chrome(executable_path=executable_path, options=options)
 
 
@@ -47,8 +49,6 @@ def check_submission():
 
 
 def main():
-    os.system("pkill chrom")
-
     try:
         driver.get(URL_DISCORD)
         WebDriverWait(driver, 10).until(lambda x: check_discord())
