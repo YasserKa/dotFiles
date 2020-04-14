@@ -45,3 +45,49 @@ macro index,pager \Cn '<sidebar-next><sidebar-open>
 macro index,pager \Cj '<sidebar-next><sidebar-open>
 macro index,pager \Cp '<sidebar-prev><sidebar-open>
 macro index,pager \Ck '<sidebar-prev><sidebar-open>
+
+
+# Overriding background color from default to color233
+#
+color sidebar_highlight red color233
+color normal brightyellow color233
+color error red color233
+color tilde black color233
+color message cyan color233
+color attachment white color233
+color search brightmagenta color233
+color hdrdefault brightgreen color233
+color quoted green color233
+color quoted1 blue color233
+color quoted2 cyan color233
+color quoted3 yellow color233
+color quoted4 red color233
+color quoted5 brightred color233
+color signature brightgreen color233
+color bold black color233
+color underline black color233
+color normal default color233
+
+color header blue color233 ".*"
+color header brightmagenta color233 "^(From)"
+color header brightcyan color233 "^(Subject)"
+color header brightwhite color233 "^(CC|BCC)"
+color body brightred color233 "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+color body brightblue color233 "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
+color body green color233 "\`[^\`]*\`" # Green text between ` and `
+color body brightblue color233 "^# \.*" # Headings as bold blue
+color body brightcyan color233 "^## \.*" # Subheadings as bold cyan
+color body brightgreen color233 "^### \.*" # Subsubheadings as bold green
+color body yellow color233 "^(\t| )*(-|\\*) \.*" # List items as yellow
+color body brightcyan color233 "[;:][-o][)/(|]" # emoticons
+color body brightcyan color233 "[;:][)(|]" # emoticons
+color body brightcyan color233 "[ ][*][^*]*[*][ ]?" # more emoticon?
+color body brightcyan color233 "[ ]?[*][^*]*[*][ ]" # more emoticon?
+color body red color233 "(BAD signature)"
+color body cyan color233 "(Good signature)"
+color body brightblack color233 "^gpg: Good signature .*"
+color body brightyellow color233 "^gpg: "
+color body brightyellow red "^gpg: BAD signature from.*"
+mono body bold "^gpg: Good signature"
+mono body bold "^gpg: BAD signature from.*"
+color body red color233 "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
