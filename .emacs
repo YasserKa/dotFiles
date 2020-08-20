@@ -15,7 +15,7 @@
     ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
  '(evil-want-Y-yank-to-eol 1)
  '(helm-completion-style (quote emacs))
- '(org-agenda-files (quote ("~/org/general.org" "~/org/knowledge_base.org")))
+ '(org-agenda-files (quote ("~/org/knowledge_base.org" "~/org/general.org")))
  '(package-selected-packages
    (quote
     (helm-core evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##))))
@@ -32,7 +32,7 @@
 (setq make-backup-files nil)
 ;; Avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
-(set-default-font "Inconsolata-14")
+(set-frame-font "Inconsolata-14")
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
@@ -259,3 +259,9 @@
 (run-at-time 0 3600 'org-agenda-to-appt-clear-message)                 ;; update appt list hourly
 (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
