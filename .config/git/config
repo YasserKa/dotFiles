@@ -3,7 +3,7 @@
     name = Yasser Kaddoura
 
 [core]
-    editor = vim
+    editor = nvim
     pager = vimpager
 
 [push]
