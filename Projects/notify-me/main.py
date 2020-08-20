@@ -14,7 +14,6 @@ profile_path = './myProfile'
 
 discord = ' Discord notification'
 reddit = ' Reddit notification'
-submission = 'Riot Submission'
 
 options = webdriver.ChromeOptions()
 
@@ -36,27 +35,10 @@ def check_discord():
     return notificaiton_exists
 
 
-def check_submission():
-
-    pending_el = driver.find_elements(
-        By.XPATH, './/span[contains(text(), "Pending")]')
-    pending_exists = len(pending_el) > 0
-
-    if pending_exists == 0:
-        subprocess.run(["dunstify", submission])
-
-    return pending_exists
-
-
 def main():
     try:
         driver.get(URL_DISCORD)
         WebDriverWait(driver, 10).until(lambda x: check_discord())
-    except TimeoutException:
-        pass
-    try:
-        driver.get(URL_SUBMISSION)
-        WebDriverWait(driver, 10).until(lambda x: check_submission())
     except TimeoutException:
         pass
 
