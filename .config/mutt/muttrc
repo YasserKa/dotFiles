@@ -9,7 +9,7 @@ macro index,pager i1 '<sync-mailbox><enter-command>source /home/yasser/.config/m
 # Update polybar after entering new emails
 message-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"'
 # Transform email from md to html using pandoc
-send-hook ~A 'push "F pandoc -s -f markdown -t html --template=/home/yasser/.config/mutt/template.html5 --metadata title="mail"\ny^T^Utext/html; charset=utf-8\n"'
+send-hook ~A 'push "F pandoc -s -f commonmark -t html --template=/home/yasser/.config/mutt/template.html5 --metadata title="mail"\ny^T^Utext/html; charset=utf-8\n"'
 
 # Options
 ignore *                                # ignore all headers
@@ -41,53 +41,77 @@ bind pager G bottom
 bind index <space>  collapse-thread
 exec collapse-all
 
+
+color index default black '.*'
+color index_subject default black '.*'
+# # Date field
+# color index_date default black
+# # Message number, %C
+# color index_number default black
+# # Message size, %c %cr %l
+# color index_size default black
+
 macro index,pager \Cn '<sidebar-next><sidebar-open>
 macro index,pager \Cj '<sidebar-next><sidebar-open>
 macro index,pager \Cp '<sidebar-prev><sidebar-open>
 macro index,pager \Ck '<sidebar-prev><sidebar-open>
 
+# Overrideing
+color index yellow black '.*'
+color index_author red black '.*'
+color index_number blue black
+color index_subject cyan black '.*'
+
+# New mail is boldened:
+color index brightyellow black "~N"
+color index_author brightred black "~N"
+color index_subject brightcyan black "~N"
+
+# Tagged mail is highlighted:
+color index brightyellow blue "~T"
+color index_author brightred blue "~T"
+color index_subject brightcyan blue "~T"
+
 
 # Overriding background color from default to color233
-#
-color sidebar_highlight red color233
-color normal brightyellow color233
-color error red color233
-color tilde black color233
-color message cyan color233
-color attachment white color233
-color search brightmagenta color233
-color hdrdefault brightgreen color233
-color quoted green color233
-color quoted1 blue color233
-color quoted2 cyan color233
-color quoted3 yellow color233
-color quoted4 red color233
-color quoted5 brightred color233
-color signature brightgreen color233
-color bold black color233
-color underline black color233
-color normal default color233
-
-color header blue color233 ".*"
-color header brightmagenta color233 "^(From)"
-color header brightcyan color233 "^(Subject)"
-color header brightwhite color233 "^(CC|BCC)"
-color body brightred color233 "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
-color body brightblue color233 "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
-color body green color233 "\`[^\`]*\`" # Green text between ` and `
-color body brightblue color233 "^# \.*" # Headings as bold blue
-color body brightcyan color233 "^## \.*" # Subheadings as bold cyan
-color body brightgreen color233 "^### \.*" # Subsubheadings as bold green
-color body yellow color233 "^(\t| )*(-|\\*) \.*" # List items as yellow
-color body brightcyan color233 "[;:][-o][)/(|]" # emoticons
-color body brightcyan color233 "[;:][)(|]" # emoticons
-color body brightcyan color233 "[ ][*][^*]*[*][ ]?" # more emoticon?
-color body brightcyan color233 "[ ]?[*][^*]*[*][ ]" # more emoticon?
-color body red color233 "(BAD signature)"
-color body cyan color233 "(Good signature)"
-color body brightblack color233 "^gpg: Good signature .*"
-color body brightyellow color233 "^gpg: "
+color sidebar_highlight red black
+color normal brightyellow black
+color error red black
+color tilde black black
+color message cyan black
+color attachment white black
+color search brightmagenta black
+color hdrdefault brightgreen black
+color quoted green black
+color quoted1 blue black
+color quoted2 cyan black
+color quoted3 yellow black
+color quoted4 red black
+color quoted5 brightred black
+color signature brightgreen black
+color bold black black
+color underline black black
+color normal default black
+color header blue black ".*"
+color header brightmagenta black "^(From)"
+color header brightcyan black "^(Subject)"
+color header brightwhite black "^(CC|BCC)"
+color body brightred black "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+color body brightblue black "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
+color body green black "\`[^\`]*\`" # Green text between ` and `
+color body brightblue black "^# \.*" # Headings as bold blue
+color body brightcyan black "^## \.*" # Subheadings as bold cyan
+color body brightgreen black "^### \.*" # Subsubheadings as bold green
+color body yellow black "^(\t| )*(-|\\*) \.*" # List items as yellow
+color body brightcyan black "[;:][-o][)/(|]" # emoticons
+color body brightcyan black "[;:][)(|]" # emoticons
+color body brightcyan black "[ ][*][^*]*[*][ ]?" # more emoticon?
+color body brightcyan black "[ ]?[*][^*]*[*][ ]" # more emoticon?
+color body red black "(BAD signature)"
+color body cyan black "(Good signature)"
+color body brightblack black "^gpg: Good signature .*"
+color body brightyellow black "^gpg: "
 color body brightyellow red "^gpg: BAD signature from.*"
 mono body bold "^gpg: Good signature"
 mono body bold "^gpg: BAD signature from.*"
-color body red color233 "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+color body red black "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"

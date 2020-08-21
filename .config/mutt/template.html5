@@ -12,10 +12,10 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    p {
-      font-size: 11.0pt;
-      font-family: "Calibri","sans-serif";
-      color: #000000;
+    p, li, ul {
+      font-size: 11.0pt !important;
+      font-family: "Calibri","sans-serif" !important;
+      color: #000000 !important;
     }
     blockquote {
       background: #eee;
