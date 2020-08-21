@@ -5,9 +5,8 @@ DISPLAY=:0
 */30 * * * * source $HOME/.config/.Xdbus; cd $HOME/Projects/notify-me; pipenv run python main.py
 
 # Fetch at startup
-#
-@reboot rclone sync -u remote:org $HOME/org --include *.org
-*/30 * * * * rclone sync -u $HOME/org remote:org --include *.org & rclone sync -u remote:org $HOME/org --include *.org & cd $HOME/org; $HOME/bin/git-sync
+@reboot rclone sync remote:org $HOME/org --include *.org
+*/30 * * * * rclone sync $HOME/org remote:org --include *.org; cd $HOME/org & $HOME/bin/git-sync
 
 # Get mail & update polybar
 */30 * * * * mailsync && polybar-msg hook mail 1

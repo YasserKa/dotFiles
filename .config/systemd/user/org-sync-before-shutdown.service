@@ -5,7 +5,7 @@ Before=shutdown.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/rclone sync -u /home/yasser/org remote:org --include *.org
+ExecStart=/bin/rclone sync /home/yasser/org remote:org --include *.org
 TimeoutStartSec=0
 
 [Install]
