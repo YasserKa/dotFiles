@@ -89,6 +89,8 @@ config.set('url.searchengines', {
     'wiki': 'https://en.wikipedia.org/wiki/{}',
 })
 
+# removes expired certificate prompt
+config.set('content.ssl_strict', True)
 config.set('scrolling.bar', 'never')
 
 config.set('editor.command', [
