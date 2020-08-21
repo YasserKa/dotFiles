@@ -2,8 +2,6 @@
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'https://github.com/morhetz/gruvbox'
-Plug 'https://github.com/romainl/flattened'
-Plug 'https://github.com/NLKNguyen/papercolor-theme'
 
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
@@ -44,7 +42,7 @@ set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
 
 colorscheme gruvbox
-let g:gruvbox_italic = 1
+let g:gruvbox_italic=1
 set background=light
 set termguicolors
 set guifont=Inconsolata:h14
@@ -162,7 +160,7 @@ let g:lightline.component_function = {
 augroup LIGHTLINE
     autocmd!
     autocmd OptionSet background
-                \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/gruvbox.vim')
+                \ execute 'source' globpath(&rtp, 'autoload/lightline/colorscheme/'.g:colors_name.'.vim')
                 \ | call lightline#colorscheme() | call lightline#update()
 augroup END
 
