@@ -9,6 +9,8 @@ fi
 
 # Disable bell
 xset -b
+# disable screen saver
+xset s off
 
 eval $(ssh-agent)
 
