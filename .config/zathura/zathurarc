@@ -1,1 +1,2 @@
 map ; focus_inputbar :
+set selection-clipboard clipboard
