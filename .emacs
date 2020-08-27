@@ -45,7 +45,7 @@
 (global-unset-key "\C-j")
 
 ;; Setting it from <C-h>
-(setq help-char "?")
+(setq help-char (string-to-char "?"))
 
 (define-key global-map "\C-q" 'help)
 (define-key global-map (kbd "\C-x \C-m") 'execute-extended-command)
