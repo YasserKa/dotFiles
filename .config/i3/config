@@ -183,7 +183,8 @@ bindsym XF86AudioNext exec cmus-remote --next
 bindsym XF86AudioPrev exec cmus-remote --prev
 
 # Mail
-bindsym $mod+Shift+m exec --no-startup-id mail_check_mutt
+# bindsym $mod+Shift+m exec --no-startup-id mail_check_mutt
+bindsym $mod+Shift+m exec --no-startup-id claws-mail --receive-all
 
 # Rofi
 bindsym $mod+d exec rofi -show run
@@ -194,7 +195,6 @@ bindsym $mod+d exec rofi -show run
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 # Composer for transparency
 exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/picom.conf"
-
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch.sh
 
@@ -205,8 +205,10 @@ exec --no-startup-id udiskie
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/org/general.org; workspace 1'
+
 # Wait until the internet is on
-exec_always $HOME/bin/waitInternet; mailsync && polybar-msg hook mail 1
+# exec_always $HOME/bin/waitInternet; mailsync && polybar-msg hook mail 1
+exec_always $HOME/bin/waitInternet; claws-mail
 exec $HOME/bin/waitInternet; qutebrowser
 
 # >>>
