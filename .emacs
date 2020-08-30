@@ -11,14 +11,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default)))
+   '("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-want-Y-yank-to-eol 1)
- '(helm-completion-style (quote emacs))
- '(org-agenda-files (quote ("~/org/knowledge_base.org" "~/org/general.org")))
+ '(helm-completion-style 'emacs)
+ '(org-agenda-files
+   '("~/org/university.org" "~/org/knowledge_base.org" "~/org/general.org"))
  '(package-selected-packages
-   (quote
-    (helm-core evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##))))
+   '(helm-core evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
 ;; Install not presented packages
 (package-initialize)
