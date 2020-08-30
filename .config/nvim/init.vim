@@ -23,9 +23,10 @@ Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
+Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php', 'vue']}
 
-Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php']}
 Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
+Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
 
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
@@ -109,8 +110,8 @@ augroup END
 augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
-    autocmd BufRead neomutt-* set filetype=markdown spell
-    autocmd FileType html,blade setlocal shiftwidth=2 tabstop=2
+    autocmd BufRead,BufNewFile neomutt-* set filetype=markdown spell
+    autocmd FileType html,blade,vue setlocal shiftwidth=2 tabstop=2
     autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'
 augroup END
 
