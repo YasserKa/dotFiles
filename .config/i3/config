@@ -208,7 +208,7 @@ exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/org/general.or
 
 # Wait until the internet is on
 # exec_always $HOME/bin/waitInternet; mailsync && polybar-msg hook mail 1
-exec_always $HOME/bin/waitInternet; claws-mail
+exec $HOME/bin/waitInternet; claws-mail
 exec $HOME/bin/waitInternet; qutebrowser
 
 # >>>
