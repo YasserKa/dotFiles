@@ -37,6 +37,9 @@ export TERMINAL=alacritty
 export DIFFPROG=vimdiff
 export PAGER=vimpager
 
+# password
+export PASSWORD_STORE_DIR=$HOME/.password-store
+
 # color
 LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
 
