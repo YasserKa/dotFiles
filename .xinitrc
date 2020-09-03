@@ -10,6 +10,7 @@ fi
 # Disable bell
 xset -b
 # disable screen saver
+xset -dpms
 xset s off
 
 eval $(ssh-agent)
