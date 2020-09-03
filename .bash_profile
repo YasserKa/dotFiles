@@ -1,4 +1,5 @@
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
+export PATH=$PATH:$HOME/.npm-global/bin:$PATH
 export PATH=$PATH:$HOME/bin
 # to make cmus escape works
 export ESCDELAY=25
@@ -36,9 +37,6 @@ export BROWSER=qutebrowser
 export TERMINAL=alacritty
 export DIFFPROG=vimdiff
 export PAGER=vimpager
-
-# password
-export PASSWORD_STORE_DIR=$HOME/.password-store
 
 # color
 LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS

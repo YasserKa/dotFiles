@@ -50,13 +50,12 @@ c.bindings.commands = {
         'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
 
         # password
-        '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-pass',
+        '<z><l>': 'spawn --userscript \
+                ~/.config/qutebrowser/userscripts/lastpass.py',
         '<z><u><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-pass --username-only',
+                ~/.config/qutebrowser/userscripts/lastpass.py --username-only',
         '<z><p><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-pass --password-only',
-        '<z><o><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-pass --otp-only',
+                ~/.config/qutebrowser/userscripts/lastpass.py --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',

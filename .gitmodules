@@ -1,3 +1,0 @@
-[submodule ".password-store"]
-	path = .password-store
-	url = https://github.com/YasserKa/sensitive
