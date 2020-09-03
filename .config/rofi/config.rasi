@@ -1,6 +1,6 @@
 /* https://github.com/davatorium/rofi/blob/1ab3e571eca1768d437246ca6ec09f44432b0e20/doc/rofi.1.markdown */
 configuration {
-/*	modi: "window,run,ssh";*/
+	modi: "window,run,ssh,pass:~/.config/rofi/rofi-pass.sh";
     width: 40;
     lines: 10;
 /*	columns: 1;*/

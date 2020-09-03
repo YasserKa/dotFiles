@@ -47,9 +47,16 @@ c.bindings.commands = {
         'cm': 'clear-messages ;; download-clear',
 
         'ye': 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown',
-
         'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
 
+        # password
+        '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-pass',
+        '<z><u><l>': 'spawn --userscript \
+                ~/.config/qutebrowser/userscripts/qute-pass --username-only',
+        '<z><p><l>': 'spawn --userscript \
+                ~/.config/qutebrowser/userscripts/qute-pass --password-only',
+        '<z><o><l>': 'spawn --userscript \
+                ~/.config/qutebrowser/userscripts/qute-pass --otp-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
@@ -91,6 +98,7 @@ config.set('url.searchengines', {
 
 # removes expired certificate prompt
 config.set('content.ssl_strict', True)
+# config.set('content.proxy', "http://0.0.0.0:8080")
 config.set('scrolling.bar', 'never')
 
 config.set('editor.command', [
