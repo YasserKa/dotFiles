@@ -229,8 +229,8 @@ interface = ${env:IFACE_WLAN}
 format-connected-prefix = 
 label-connected = %essid% %signal:3%% %downspeed:9%
 
-label-disconnected = 
-label-disconnected-foreground = ${color.grey}
+; label-disconnected = 
+; label-disconnected-foreground = ${color.grey}
 
 [module/eth]
 inherit = module/network
