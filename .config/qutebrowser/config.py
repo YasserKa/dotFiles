@@ -97,7 +97,6 @@ config.set('url.searchengines', {
 
 # removes expired certificate prompt
 config.set('content.ssl_strict', True)
-# config.set('content.proxy', "http://0.0.0.0:8080")
 config.set('scrolling.bar', 'never')
 
 config.set('editor.command', [
