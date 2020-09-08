@@ -6,7 +6,7 @@ DISPLAY=:0
 
 # Fetch at startup
 @reboot rclone sync remote:org $HOME/org --include *.org
-*/30 * * * * rclone sync $HOME/org remote:org --include *.org; cd $HOME/org & $HOME/bin/git-sync
+*/30 * * * * rclone sync $HOME/org remote:org --include "*.org"; cd $HOME/org; $HOME/bin/git-sync
 
 # Get mail & update polybar
 */30 * * * * mailsync && polybar-msg hook mail 1
