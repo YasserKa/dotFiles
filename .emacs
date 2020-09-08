@@ -134,8 +134,7 @@
 ;; MAGIT
 (require 'evil-magit)
 (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-
-(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/dotFiles/.password-store" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/university/courses/software_engineering_and_project_management/uu-game" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
 ;; Close the popups in magit
 (define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
@@ -234,7 +233,7 @@
 (setq
  appt-time-msg-list nil                           ;; clear existing appt list
  appt-message-warning-time '10                    ;; send first warning before appointment
- appt-display-interval appt-message-warning-time  ;; warn every every X minutes from t - appt-message-warning-time
+ appt-display-interval '5                         ;; warn every every X minutes from t - appt-message-warning-time
  appt-display-mode-line nil                       ;; don't show in the modeline
  appt-display-format 'window)                     ;; pass warnings to the designated window function
 (setq appt-disp-window-function (function toast-appt-display))
