@@ -6,7 +6,7 @@ alias rc='nvim $MYVIMRC'
 alias syu='sudo pacman -Syu'
 alias pac='sudo pacman'
 alias z='zathura'
-alias notebook='conda run jupyter notebook & disown'
+alias notebook='conda run jupyter notebook --ip=127.0.0.1 & disown'
 
 # History
 alias h='history'
