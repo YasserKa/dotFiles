@@ -7,3 +7,6 @@ text/html=qutebrowser.desktop
 text/plain=nvim-qt.desktop
 video/mp4=mpv.desktop
 image/gif=mpv.desktop
+image/png=feh.desktop
+image/jpeg=feh.desktop
+image/svg+xml=feh.desktop
