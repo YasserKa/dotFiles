@@ -193,11 +193,16 @@ history_ignore = yes
 
 # Remove deepinscreenshot notifications
 [deepin]
-body = "*DeepinScreenshot*"
+body = "*Screen Capture*"
 format = ""
 
 [recording]
 summary = "*Recording*"
+format = ""
+
+# Remove imgur notifications
+[imgur]
+body = "*imgur*"
 format = ""
 
 # vim: ft=cfg

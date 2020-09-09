@@ -1,27 +1,27 @@
 #!/bin/bash
 
 
-main_dir="$HOME"
 target_img_dir="$HOME/Pictures/Shareables"
 target_vid_dir="$HOME/Videos/Shareables"
+target_path="$HOME"
 
 # remove all media from desktop if exists
-rm -f $main_dir/[dD]eepin*
+rm -f $target_path/Screen\ Capture*
 
 mkdir -p $target_img_dir
 mkdir -p $target_vid_dir
 
 case $1 in
-    -i)   deepin-screenshot -s $main_dir 2> /dev/null ;;
-    -v)   deepin-screen-recorder                          ;;
+    -v | -i) deepin-screen-recorder --save-path $target_path;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         dunstify "Saved to Clipboard" ;exit ;;
 esac
 
+
 arg=$1
 date=`date +"%Y-%m-%d_%T"`
-file_name=`ls $main_dir | grep -i deepin`
-
+file_name=`ls $target_path | grep -i Screen\ Capture`
+old_path="$target_path/$file_name"
 
 extension="${file_name##*.}"
 
@@ -29,22 +29,21 @@ if [[ "$extension" == "" ]]; then
     exit
 fi
 
+# update target path depending on media type
+case $extension in
+    png | jpg | bmp) target_path=$target_img_dir;;
+    mp4 | gif | mkv) target_path=$target_vid_dir;;
+esac
+
 new_name="$date.$extension"
 
-old_path="$main_dir/$file_name"
-
-
-if [[ "$extension" == "gif" ]]; then
-    # for imgur api request
-    arg='-i'
-    new_path="$target_vid_dir/$new_name"
-elif [[ "$extension" == "mp4" ]]; then
-    new_path="$target_vid_dir/$new_name"
-elif [[ "$extension" == "png" ]]; then
-    new_path="$target_img_dir/$new_name"
-fi
+new_path="$target_path/$new_name"
 
 mv "$old_path" "$new_path"
 
-imgur $arg $new_path
+if [[ "$extension" == "gif" ]]; then
+    arg='-i'
+fi
+
+imgur-screenshot $new_path
 dunstify "Saved to Clipboard"
