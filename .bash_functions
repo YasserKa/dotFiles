@@ -57,5 +57,5 @@ function ranger {
 
 # commands run in background automatically
 function zathura() { (command zathura "$@" &) }
-function mpv() { (command mpv "$@" &) }
+function mpv() { (command mpv "$@" &> /dev/null &) }
 function xdg-open() { (command xdg-open "$@" &) }
