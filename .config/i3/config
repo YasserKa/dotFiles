@@ -47,7 +47,7 @@ set $notes 3
 set $git 4
 set $video 5
 set $wp6 6
-set $wp7 7
+set $social 7
 set $pdf 8
 set $wp9 9
 set $wp0 0
@@ -65,7 +65,7 @@ bindsym $mod+3 workspace $notes
 bindsym $mod+4 workspace $git
 bindsym $mod+5 workspace $video
 bindsym $mod+6 workspace $wp6
-bindsym $mod+7 workspace $wp7
+bindsym $mod+7 workspace $social
 bindsym $mod+8 workspace $pdf
 bindsym $mod+9 workspace $wp9
 bindsym $mod+0 workspace $wp0
@@ -78,7 +78,7 @@ bindsym $mod+Shift+3 move container to workspace $notes
 bindsym $mod+Shift+4 move container to workspace $git
 bindsym $mod+Shift+5 move container to workspace $video
 bindsym $mod+Shift+6 move container to workspace $wp6
-bindsym $mod+Shift+7 move container to workspace $wp7
+bindsym $mod+Shift+7 move container to workspace $social
 bindsym $mod+Shift+8 move container to workspace $pdf
 bindsym $mod+Shift+9 move container to workspace $wp9
 bindsym $mod+Shift+0 move container to workspace $wp0
@@ -93,6 +93,7 @@ bindsym $mod+z workspace back_and_forth
 # Use xprop to get the class
 assign [class="Zathura"] workspace $pdf
 assign [class="mpv"] workspace $video
+assign [class="Slack"] workspace $social
 assign [class="Chromium"] workspace $wp9
 # For notify-me script
 for_window [instance="myProfile"] move scratchpad
