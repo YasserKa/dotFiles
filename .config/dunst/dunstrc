@@ -178,6 +178,10 @@ new_icon = bed-80
 appname = cmus
 new_icon = music-80
 
+[mail]
+appname = neomutt
+new_icon = mail
+
 [tea]
 summary = "*Tea*"
 new_icon = tea-64
