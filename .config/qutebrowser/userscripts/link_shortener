@@ -1,0 +1,23 @@
+#!/bin/bash
+
+auth=$(lpass show bitly_auth --password)
+# use https://api-ssl.bitly.com/v4/groups to get group-uid
+group=$(lpass show bitly_auth --username)
+
+function bitly_request {
+    curl \
+        -H "Authorization: Bearer $auth" \
+        -H 'Content-Type: application/json' \
+        -X POST \
+        -d "{
+            \"long_url\": \"$QUTE_URL\",
+            \"group_guid\": \"$group\"
+        }" https://api-ssl.bitly.com/v4/shorten
+}
+
+response=$(bitly_request $1) 2>/dev/null
+
+
+shortened_link=$(echo $response | jq '.link' | sed 's/"//g')
+echo $shortened_link | xclip -selection clipboard
+echo "message-info 'url shortened'" >> "$QUTE_FIFO"
