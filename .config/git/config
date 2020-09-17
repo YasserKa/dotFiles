@@ -46,4 +46,4 @@
 [github]
     user = YasserKa
 [credential]
-    helper = cache
+    helper = store
