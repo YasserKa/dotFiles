@@ -30,7 +30,9 @@ Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
 
 Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
-Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown']}
+Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown', 'plantuml']}
+
+Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
 
 call plug#end()
 " >>>
