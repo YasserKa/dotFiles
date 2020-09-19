@@ -9,6 +9,6 @@ DISPLAY=:0
 */30 * * * * rclone sync $HOME/org remote:org --include "*.org"; cd $HOME/org; $HOME/bin/git-sync
 
 # Get mail & update polybar
-*/30 * * * * mailsync && polybar-msg hook mail 1
+*/30 * * * * $HOME/bin/mailsync && polybar-msg hook mail 1
 
 # vim: syntax=crontab commentstring=#%s
