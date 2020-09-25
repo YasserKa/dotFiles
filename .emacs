@@ -47,6 +47,7 @@
 (setq help-char (string-to-char "?"))
 
 (define-key global-map "\C-q" 'help)
+(define-key global-map "\C-V" 'yank)
 (define-key global-map (kbd "\C-x \C-m") 'execute-extended-command)
 (define-key global-map (kbd "<escape>") 'keyboard-escape-quit)
 
