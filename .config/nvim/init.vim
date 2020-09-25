@@ -246,6 +246,7 @@ nnoremap yeu <cmd>MundoToggle<cr>
 " markdown-preview.nvim <<<
 let g:mkdp_command_for_global = 1
 let g:mkdp_page_title = '${name}'
+let g:mkdp_auto_close = 0
 nmap yem <Plug>MarkdownPreviewToggle
 " >>>
 " fzf <<<
