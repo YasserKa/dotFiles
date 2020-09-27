@@ -77,7 +77,6 @@ map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
-nnoremap <tab> za
 
 " Moving lines
 nnoremap <A-j> :m .+1<CR>==
