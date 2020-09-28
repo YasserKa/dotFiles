@@ -18,7 +18,7 @@ export HISTFILESIZE=2000
 export HISTCONTROL=ignoredups:ignorespace
 
 # Fzf
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
 
 # configurations in one place
