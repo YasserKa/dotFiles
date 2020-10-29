@@ -208,6 +208,8 @@ exec --no-startup-id dunst
 # Storage devices daemon manipulation
 exec --no-startup-id udiskie
 
+exec --no-startup-id slack
+
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/org/general.org; workspace 1'
 
