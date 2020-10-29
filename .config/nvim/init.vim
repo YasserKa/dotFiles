@@ -70,6 +70,7 @@ set textwidth=80    " Wrap lines automatically at 80th column
 
 " Keybindings
 let mapleader=","
+let maplocalleader=","
 noremap ; :
 noremap : ;
 noremap g: g;
@@ -122,7 +123,7 @@ augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
     autocmd BufRead,BufNewFile neomutt-* set filetype=markdown spell
-    autocmd FileType html,blade,vue setlocal shiftwidth=2 tabstop=2
+    autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
     autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'
 augroup END
 
@@ -283,6 +284,10 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " Mappings using CoCList:
 nnoremap <silent> <space>a  <cmd>CocList diagnostics<cr>
