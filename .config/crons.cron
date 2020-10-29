@@ -4,6 +4,9 @@ DISPLAY=:0
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
 */30 * * * * source $HOME/.config/.Xdbus; cd $HOME/Projects/notify-me; pipenv run python main.py
 
+# Synch university material
+0 12 * * * rclone sync $HOME/university university:university --exclude ".git/**"
+
 # Fetch at startup
 @reboot rclone sync remote:org $HOME/org --include *.org
 */30 * * * * rclone sync $HOME/org remote:org --include "*.org"; cd $HOME/org; $HOME/bin/git-sync
