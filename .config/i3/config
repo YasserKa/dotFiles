@@ -143,8 +143,8 @@ bindsym $mod+s mode "sharing"
 mode "sharing" {
     bindsym i exec ~/bin/share -i; mode "default"
         bindsym v exec ~/bin/share -v; mode "default"
-        bindsym s exec deepin-screen-recorder; mode "default"
         bindsym t exec ~/bin/share -t; mode "default"
+        bindsym l exec ~/bin/share -l; mode "default"
 
         bindsym Control+bracketleft mode "default"
         bindsym Escape mode "default"
