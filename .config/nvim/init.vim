@@ -91,6 +91,10 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" map j k to make it work in the same line (lines not wraped)
+nnoremap <expr> k      v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> j      v:count == 0 ? 'gj' : 'j'
+
 " Sessions
 set sessionoptions-=options
 set sessionoptions+=localoptions
