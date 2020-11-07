@@ -27,8 +27,9 @@ case $1 in
         deepin-screen-recorder --save-path $target_path
         old_file_name=`ls $target_path | grep -i Screen\ Capture`
         extension="${old_file_name##*.}"
+
         old_path="$target_path/$old_file_name"
-        new_file_name="$(ls $target_path | wc -l).$extension"
+        new_file_name="$(date +"%Y-%m-%d_%T").$extension"
         new_path="$target_path/$new_file_name"
         mv "$old_path" "$new_path"
         dunstify "Saved as $new_file_name" ;exit ;;
