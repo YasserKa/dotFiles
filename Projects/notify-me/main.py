@@ -23,7 +23,7 @@ options = webdriver.ChromeOptions()
 
 options.add_argument('user-data-dir=' + profile_path)
 
-os.system("kill $(pgrep chromium --list-full | grep myProfile | cut -d ' ' -f1)")
+os.system("pkill chromedriver")
 
 driver = webdriver.Chrome(executable_path=executable_path, options=options)
 
