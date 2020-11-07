@@ -34,6 +34,7 @@ Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn i
 
 
 Plug 'https://github.com/lervag/vimtex'
+Plug 'https://github.com/dhruvasagar/vim-table-mode'
 Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
 
 call plug#end()
@@ -80,6 +81,7 @@ map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Moving lines
 nnoremap <A-j> :m .+1<CR>==
@@ -209,6 +211,11 @@ let g:targets_nl = 'nN'
 " >>>
 " vimtex <<<
 let g:tex_flavor = 'latex'
+set conceallevel=1
+let g:tex_conceal = 'abdmg'
+" >>>
+" vim-table-mode <<<
+let g:table_mode_corner='|'
 " >>>
 " ale <<<
 let g:ale_virtualtext_cursor = 1
