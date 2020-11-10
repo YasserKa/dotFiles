@@ -24,6 +24,7 @@ Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php', 'vue']}
+Plug 'https://github.com/plasticboy/vim-markdown'
 
 Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
@@ -217,6 +218,10 @@ let g:targets_nl = 'nN'
 let g:tex_flavor = 'latex'
 set conceallevel=1
 let g:tex_conceal = 'abdmg'
+" >>>
+" vim-markdown <<<
+let g:vim_markdown_math = 1
+let g:vim_markdown_folding_disabled = 1
 " >>>
 " vim-table-mode <<<
 let g:table_mode_corner='|'
