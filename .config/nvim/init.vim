@@ -34,7 +34,8 @@ Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown', 'plantuml']}
 
 
-Plug 'https://github.com/lervag/vimtex'
+
+Plug 'https://github.com/lervag/vimtex', {'for': ['tex', 'md']}
 Plug 'https://github.com/dhruvasagar/vim-table-mode'
 Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
 
@@ -209,6 +210,7 @@ let g:pear_tree_pairs = {
             \ '(': {'closer': ')'}, '[': {'closer': ']'}, '{': {'closer': '}'}, '<': {'closer': '>'},
             \ "'": {'closer': "'"},  '"': {'closer': '"'},  '`': {'closer': '`'},
             \ "'''": {'closer': "'''"},  '"""': {'closer': '"""'},  '```': {'closer': '```'},
+            \ "$$": {'closer': "$$"}
             \ }
 " >>>
 " targets <<<
