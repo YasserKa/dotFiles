@@ -84,6 +84,16 @@ nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+" trigger tex file
+nnoremap <silent> yol :call ToggleTex()<CR>
+
+function ToggleTex()
+    if &filetype == 'tex'
+        set filetype=markdown
+    else
+        set filetype=tex
+    endif
+endfunction
 
 " Moving lines
 nnoremap <A-j> :m .+1<CR>==
