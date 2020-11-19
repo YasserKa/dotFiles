@@ -86,6 +86,8 @@ nnoremap <silent> <leader>h :nohlsearch<CR>
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " trigger tex file
 nnoremap <silent> yol :call ToggleTex()<CR>
+" markdown notes
+nnoremap <silent> <leader>en :split $HOME/notes/markdown/math.md<CR>
 
 function ToggleTex()
     if &filetype == 'tex'
