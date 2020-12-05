@@ -53,10 +53,16 @@ set $wp9 9
 set $wp0 0
 
 # Workspaces on specific screens
-workspace 1 output primary
-workspace 2 output primary
-workspace 3 output primary
-workspace 4 output primary
+set $monitor_primary eDP-1-1
+set $monitor_secondary DP-1-1
+
+workspace $browser output $monitor_primary
+workspace $coding output $monitor_primary
+workspace $notes output $monitor_primary
+workspace $video output $monitor_primary
+
+workspace $git output $monitor_secondary
+workspace $pdf output $monitor_secondary
 
 # Bindsym using mod+# to workspace #
 bindsym $mod+1 workspace $browser
@@ -97,6 +103,7 @@ assign [class="Slack"] workspace $social
 assign [class="Chromium"] workspace $wp9
 # For notify-me script
 for_window [instance="myProfile"] move scratchpad
+for_window [instance="bot"] move scratchpad
 
 
 # Making softwares in floating mode
@@ -209,13 +216,13 @@ exec --no-startup-id dunst
 exec --no-startup-id udiskie
 
 exec --no-startup-id slack
+exec sleep 2; i3-msg '[class="Slack"] kill'
 
 # Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1'
+exec --no-startup-id i3-msg 'exec emacs --file=$HOME/notes/org/general.org'
 
 # Wait until the internet is on
 exec_always $HOME/bin/waitInternet; mail_check_mutt
+exec --no-startup-id i3-msg 'exec qutebrowser'
 # exec $HOME/bin/waitInternet; claws-mail
-exec $HOME/bin/waitInternet; qutebrowser
-
 # >>>
