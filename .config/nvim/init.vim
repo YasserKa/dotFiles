@@ -123,11 +123,11 @@ function! MakeSession()
 endfunction
 
 function! LoadSession()
-  let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
-  let b:sessionfile = b:sessiondir . "/session.vim"
-  if (filereadable(b:sessionfile))
-    execute 'silent source ' b:sessionfile
-  endif
+    let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+    let b:sessionfile = b:sessiondir . "/session.vim"
+    if (filereadable(b:sessionfile))
+        execute 'silent source ' b:sessionfile
+    endif
 endfunction
 
 " AutoCommands
@@ -283,6 +283,13 @@ let g:mkdp_command_for_global = 1
 let g:mkdp_page_title = '${name}'
 let g:mkdp_auto_close = 0
 nmap yem <Plug>MarkdownPreviewToggle
+
+" open page in new window
+function! OpenNewBrowserWindow(url)
+    execute "silent ! qutebrowser --target window " . a:url
+endfunction
+
+let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
 " >>>
 " fzf <<<
 nnoremap <leader>a :Ag<space>
