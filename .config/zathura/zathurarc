@@ -1,2 +1,3 @@
 map ; focus_inputbar :
 set selection-clipboard clipboard
+map <C-[> feedkeys <C-c>
