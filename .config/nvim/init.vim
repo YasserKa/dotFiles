@@ -26,6 +26,7 @@ Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php', 'vue']}
 Plug 'https://github.com/plasticboy/vim-markdown'
 
+
 Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
 
@@ -88,6 +89,7 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <silent> yol :call ToggleTex()<CR>
 " markdown notes
 nnoremap <silent> <leader>en :split $HOME/notes/markdown/math.md<CR>
+nnoremap <silent> <leader>ec :silent !conda run jupyter notebook --ip=127.0.0.1 ~/notes/notebook/personal_notebook.ipynb & disown<CR>
 
 function ToggleTex()
     if &filetype == 'tex'
