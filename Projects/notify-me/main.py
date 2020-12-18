@@ -51,7 +51,6 @@ def check_facebook():
     notificaitons_el = driver.find_elements(
         By.XPATH, './/div[contains(@aria-label, "unread")]')
     notificaiton_exists = len(notificaitons_el) > 0
-    print(notificaitons_el)
 
     if notificaiton_exists:
         subprocess.run(["dunstify", facebook])
@@ -64,7 +63,7 @@ def check_whatsapp():
             './/*[contains(text(),"Search or start new chat")]')) > 0)
 
     unread_messages = driver.find_elements(
-        By.CSS_SELECTOR, '._31gEB')
+        By.CSS_SELECTOR, '*[aria-label="1 unread message"]')
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
