@@ -63,7 +63,7 @@ def check_whatsapp():
             './/*[contains(text(),"Search or start new chat")]')) > 0)
 
     unread_messages = driver.find_elements(
-        By.CSS_SELECTOR, '*[aria-label="1 unread message"]')
+        By.XPATH, './/*[contains(@aria-label,"unread message")]')
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
