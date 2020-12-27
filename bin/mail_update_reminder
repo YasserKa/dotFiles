@@ -4,7 +4,7 @@ import subprocess
 
 mail = 'yasser.kaddoura19@gmail.com'
 mail_pass = subprocess.run(
-    ['pass', 'mail/personal'],
+    ['lpass', 'show', '--password', 'google.com'],
     capture_output=1).stdout.decode('ascii')
 
 from_mail = mail
