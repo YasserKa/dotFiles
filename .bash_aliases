@@ -40,8 +40,8 @@ alias ..='cd ..'
 alias ...='cd ...'
 
 # Autojumping
-alias f='fasd -fe nvim' # quick opening files with vim
-alias j='fasd_cd -d'
+alias f='fasd -sife nvim' # quick opening files with vim
+alias j='fasd_cd -di'
 _fasd_bash_hook_cmd_complete f j
 
 # Emacs git & notes
