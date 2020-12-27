@@ -55,6 +55,12 @@ function ranger {
     rm -f -- "$tempfile"
 }
 
+function def() {
+    sdcv -n --utf8-output --color "$@" 2>&1 | \
+        fold --width=$(tput cols) | \
+        vimpager
+}
+
 # commands run in background automatically
 function zathura() { (command zathura "$@" &> /dev/null &) }
 function mpv() { (command mpv "$@" &> /dev/null &) }
