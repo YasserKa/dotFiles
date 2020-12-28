@@ -21,6 +21,9 @@ export HISTCONTROL=ignoredups:ignorespace
 export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
 
+# last password
+export LPASS_HOME=$HOME/.lpass
+
 # configurations in one place
 [ "$XDG_CONFIG_HOME" ] || export XDG_CONFIG_HOME="$HOME/.config"
 [ "$XDG_DATA_HOME" ] || export XDG_DATA_HOME="$HOME/.local/share"
