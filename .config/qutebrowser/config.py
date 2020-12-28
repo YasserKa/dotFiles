@@ -1,9 +1,25 @@
+from qutebrowser.api import interceptor
+
 # pylint: disable=C0111
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
 c.aliases['h'] = 'help -t'
 c.aliases['js'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
+
+
+def filter_yt(info: interceptor.Request):
+    """Block the given request if necessary."""
+    url = info.request_url
+    if (
+        url.host() == "www.youtube.com"
+        and url.path() == "/get_video_info"
+        and "&adformat=" in url.query()
+    ):
+        info.block()
+
+
+interceptor.register(filter_yt)
 
 c.bindings.commands = {
     'normal': {
