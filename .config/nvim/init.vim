@@ -258,6 +258,8 @@ let g:ale_fixers = {
             \   'js': ['eslint'],
             \}
 
+let g:ale_fix_on_save_ignore = {'markdown': ['trim_whitespace']}
+
 " Auto remove ALE window on buffer exit
 augroup CloseLoclistWindowGroup
     autocmd!
