@@ -9,7 +9,7 @@ unset record
 
 # Update polybar after entering new emails
 message-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"'
-mbox-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"'
+macro index,pager S "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"
 
 # Transform email from md to html using pandoc
 macro compose m "F pandoc --standalone --from commonmark+strikeout --to html --template=/home/yasser/.config/mutt/template.html5 --metadata title="mail" \ny^T^Utext/html; charset=utf-8\ny"
