@@ -21,7 +21,7 @@ def main():
 
         subprocess.run(
             ['cmus-remote', '-C', 'add -q '+music_path])
-        subprocess.run(['cmus-remote', '-C', 'player-next'])
+        subprocess.run(['cmus-remote', '--next', '--play'])
 
 
 if __name__ == "__main__":
