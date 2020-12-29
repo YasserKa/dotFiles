@@ -36,7 +36,11 @@ def check_discord():
 
     notificaitons_el = driver.find_elements(
         By.CSS_SELECTOR, 'div[class*=lowerBadge-]')
-    notificaiton_exists = len(notificaitons_el) > 0
+
+    discord_servers = driver.find_elements(
+        By.XPATH, './/div[contains(@aria-label, "Servers")]/*/div/span[contains(@class, "item")]')
+
+    notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
         subprocess.run(["dunstify", discord])
