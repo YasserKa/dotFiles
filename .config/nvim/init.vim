@@ -87,7 +87,7 @@ nnoremap <silent> <leader>h :nohlsearch<CR>
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " notes
 nnoremap <silent> <leader>nm :split $HOME/notes/markdown/math.md<CR>
-nnoremap <silent> <leader>nl :silent !zathura $HOME/notes/documents/symbols.pdf<CR>
+nnoremap <silent> <leader>nl :silent !zathura $HOME/notes/documents/symbols.pdf &<CR>
 nnoremap <silent> <leader>nn :silent !conda run jupyter notebook --ip=127.0.0.1 ~/notes/notebook/personal_notebook.ipynb & disown<CR>
 
 " trigger tex file
@@ -227,7 +227,7 @@ let g:pear_tree_pairs = {
             \ '(': {'closer': ')'}, '[': {'closer': ']'}, '{': {'closer': '}'}, '<': {'closer': '>'},
             \ "'": {'closer': "'"},  '"': {'closer': '"'},  '`': {'closer': '`'},
             \ "'''": {'closer': "'''"},  '"""': {'closer': '"""'},  '```': {'closer': '```'},
-            \ "$$": {'closer': "$$"}
+            \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
             \ }
 " >>>
 " targets <<<
