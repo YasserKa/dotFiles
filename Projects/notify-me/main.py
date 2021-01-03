@@ -48,12 +48,13 @@ def check_discord():
 
 def check_facebook():
     driver.get(URL_FACEBOOK)
-    WebDriverWait(driver, 2).until(
+    WebDriverWait(driver, 3).until(
         lambda x: len(x.find_elements_by_xpath(
             './/div[contains(@aria-label, "unread")]')) > 0)
 
     notificaitons_el = driver.find_elements(
         By.XPATH, './/div[contains(@aria-label, "unread")]')
+
     notificaiton_exists = len(notificaitons_el) > 0
 
     if notificaiton_exists:
