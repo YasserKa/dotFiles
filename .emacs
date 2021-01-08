@@ -216,12 +216,10 @@
 (define-key org-mode-map "\M-j" 'org-metadown)
 (define-key org-mode-map (kbd "M-J") 'org-shiftmetadown)
 
-;; TODO: might not be needed
-;; Navigation
-(evil-define-key 'normal org-mode-map (kbd "gk") 'org-previous-visible-heading)
-(evil-define-key 'normal org-mode-map (kbd "gj") 'org-next-visible-heading)
-(evil-define-key 'normal org-mode-map (kbd "gh") 'org-up-element)
-(evil-define-key 'normal org-mode-map (kbd "gl") 'org-down-element)
+; fix the offset of tags for (org-tags-view)
+(setq org-agenda-window-frame-fractions '(0 0))
+
+
 (setq org-cycle-separator-lines -1)
 (evil-define-key 'normal org-mode-map (kbd "<SPC>") 'org-cycle)
 
