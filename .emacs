@@ -108,8 +108,8 @@
 (define-key evil-normal-state-map "gx" 'org-open-at-point)
 
 ;; Commenting
-(define-key evil-normal-state-map ",cc" 'comment-line)
-(define-key evil-visual-state-map ",cc" 'comment-or-uncomment-region)
+(define-key evil-normal-state-map "gcc" 'comment-line)
+(define-key evil-visual-state-map "gcc" 'comment-or-uncomment-region)
 
 ;; Enter in command mode
 (define-key evil-ex-completion-map "\C-j" 'exit-minibuffer)
