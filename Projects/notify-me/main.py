@@ -48,12 +48,12 @@ def check_discord():
 
 def check_facebook():
     driver.get(URL_FACEBOOK)
-    WebDriverWait(driver, 3).until(
+    WebDriverWait(driver, 5).until(
         lambda x: len(x.find_elements_by_xpath(
-            './/div[contains(@aria-label, "unread")]')) > 0)
+            './/div[contains(@aria-label, "Messenger")]')) > 0)
 
     notificaitons_el = driver.find_elements(
-        By.XPATH, './/div[contains(@aria-label, "unread")]')
+        By.XPATH, './/div[contains(@aria-label, "Messenger")]//child::span[1][(text()=number())]')
 
     notificaiton_exists = len(notificaitons_el) > 0
 
@@ -78,8 +78,8 @@ def check_whatsapp():
 def main():
     try:
         check_discord()
-        check_whatsapp()
         check_facebook()
+        check_whatsapp()
     except TimeoutException:
         pass
 
