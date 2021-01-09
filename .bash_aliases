@@ -39,6 +39,9 @@ alias back='cd $OLDPWD'
 alias ..='cd ..'
 alias ...='cd ...'
 
+# Calculator
+alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
+
 # Autojumping
 alias f='fasd -sife nvim' # quick opening files with vim
 alias j='fasd_cd -di'
