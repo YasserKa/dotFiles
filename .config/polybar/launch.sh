@@ -10,12 +10,7 @@ while pgrep -u $UID -x polybar > /dev/null; do sleep 0.5; done
 outputs=$(xrandr --query | grep " connected" | cut -d" " -f1)
 tray_output=$(echo $outputs | cut -d" " -f1)
 
-# for m in $outputs; do
-#     if [[ $m == "HDMI-1" ]]; then
-#         tray_output=$m
-#     fi
-# done
-
+# execute polybar for each screen and assign tray for the main window
 for m in $outputs; do
     export MONITOR=$m
     export TRAY_POSITION=none

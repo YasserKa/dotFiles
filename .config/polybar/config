@@ -42,7 +42,7 @@ format-prefix-padding-right = ${layout.icon-padding}
 ; >>>
 ; Bar <<<
 [bar/mybar]
-monitor = ${env:MONITOR:eDP-1-1}
+monitor = ${env:MONITOR:eDP-1}
 ; show the tray only in the desired monitor
 tray-position = ${env:TRAY_POSITION:right}
 width = 100%
