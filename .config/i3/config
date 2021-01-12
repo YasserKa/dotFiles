@@ -139,7 +139,7 @@ mode "cmus" {
         bindsym c exec cmus-remote -C "filter classical"
         bindsym f exec cmus-remote -C "filter"
         bindsym m exec rofi -show cmus -modi cmus:$XDG_CONFIG_HOME/rofi/rofi-cmus.py; mode "default"
-        bindsym r exec cmus-remote -C "add -q /home/yasser/Music/Downloaded/rain.wav"; exec cmus-remote -C "player-next"
+        bindsym r exec cmus-remote -C "add -q /home/yasser/Music/Downloaded/rain.wav"; exec cmus-remote -C "player-next"; exec cmus-remote --pause
         # Add to favourites
         # bindsym f exec cmus-remote -P "$(cat /home/yasser/.config/cmus/lib.pl | grep -F "$(cmus-remote -Q 2> /dev/null | grep file | cut -d ' ' -f2-)")"
         bindsym Control+bracketleft mode "default"
