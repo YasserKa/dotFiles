@@ -64,6 +64,7 @@ c.bindings.commands = {
 
         'ye': 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown',
         'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
+        'ya': 'spawn --userscript ~/.local/share/qutebrowser/userscripts/yank_all',
         'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
 
         # password

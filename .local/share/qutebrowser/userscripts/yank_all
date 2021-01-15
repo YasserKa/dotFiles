@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/usr/bin/python "/home/yasser/.local/share/qutebrowser/qutescript/examples/yank_all.py" "$@"
