@@ -227,8 +227,17 @@ let g:pear_tree_pairs = {
             \ '(': {'closer': ')'}, '[': {'closer': ']'}, '{': {'closer': '}'}, '<': {'closer': '>'},
             \ "'": {'closer': "'"},  '"': {'closer': '"'},  '`': {'closer': '`'},
             \ "'''": {'closer': "'''"},  '"""': {'closer': '"""'},  '```': {'closer': '```'},
-            \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
             \ }
+
+augroup pear_pairs
+    autocmd!
+    autocmd FileType markdown let b:pear_tree_pairs = extend(deepcopy(g:pear_tree_pairs), {
+            \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
+            \ }, 'keep')
+    autocmd FileType tex let b:pear_tree_pairs = extend(deepcopy(g:pear_tree_pairs), {
+            \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
+            \ }, 'keep')
+augroup END
 " >>>
 " targets <<<
 let g:targets_nl = 'nN'
