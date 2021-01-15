@@ -4,6 +4,7 @@ require([
 ], function() {
   CodeMirror.Vim.mapCommand(":", "motion", "repeatLastCharacterSearch", args = { forward: true });
   CodeMirror.Vim.mapCommand(";", "ex");
+  CodeMirror.Vim.map("Y", "y$", "normal");
 });
 
 // Configure Jupyter Keymap
@@ -33,8 +34,8 @@ require([
           CodeMirror.Vim.handleKey(cm, ',', 'mapping');
       });
       CodeMirror.Vim.mapCommand("y", "action", "my_yank", {});
-      // restart-kernel-and-clear-ouput, run-all-cells-above
 
+      // restart-kernel-and-clear-ouput, run-all-cells-above
       CodeMirror.Vim.defineEx('run-all-cells-above', 'run', function(cm) {
           km.actions.call('jupyter-notebook:run-all-cells-above');
           km.actions.call('jupyter-notebook:select-next-cell');
