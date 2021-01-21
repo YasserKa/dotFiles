@@ -8,6 +8,8 @@ unset record
 # Personal changes
 
 # Update polybar after entering new emails
+# BUG: replying to a new mail will result to the Subject to be altered.
+# A solution couldn't be found.
 message-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"'
 macro index,pager S "<sync-mailbox><shell-escape>polybar-msg hook mail 1 > /dev/null<enter>"
 

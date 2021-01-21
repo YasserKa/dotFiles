@@ -56,7 +56,7 @@ alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.
 
 # Project setup
 alias cool='cd /srv/http/cooldown/; alacritty -e ./artisan serve 2> /dev/null & qutebrowser http://localhost:8000/getMatch --target window 2> /dev/null & nvim'
-alias sshcool='ssh -i "cooldown.pem" ec2-user@ec2-18-209-40-108.compute-1.amazonaws.com'
+alias sshcool='ssh -i "~/.ssh/cooldown.pem" ec2-user@ec2-18-209-40-108.compute-1.amazonaws.com'
 
 # Last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'

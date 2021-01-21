@@ -30,7 +30,9 @@ case $course in
        ;;
 esac
 
-sleep 0.1
+sleep 0.5
+
+mkdir -p personal_notes
 
 xdotool type --window $course_id nvim\ "+normal\ yem"\ personal_notes/notes.md
 xdotool key --window $course_id Return
