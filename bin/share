@@ -21,23 +21,36 @@ function lecture_note_path(){
     echo $note_dir
 }
 
+
+
 case $1 in
     -v | -i) deepin-screen-recorder --save-path $target_path;;
     -l) target_path=$(lecture_note_path)
-        deepin-screen-recorder --save-path $target_path
-        old_file_name=`ls $target_path | grep -i Screen\ Capture`
-        extension="${old_file_name##*.}"
 
-        old_path="$target_path/$old_file_name"
-        new_file_name="$(date +"%Y-%m-%d_%T").$extension"
-        new_path="$target_path/$new_file_name"
-        mv "$old_path" "$new_path"
-        dunstify "Saved as $new_file_name" ;exit ;;
+        # no course is picked
+        if [ "$target_path" == "/home/yasser/university/courses//personal_notes/images" ]; then
+            exit
+        fi ;;
+    -b) target_path="$HOME/notes/markdown/images" ;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         dunstify "Saved to Clipboard" ;exit ;;
 esac
 
+if [ "$1" == "-l" ] || [ "$1" == "-b" ]; then
+    mkdir -p $target_path
 
+    deepin-screen-recorder --save-path $target_path
+    old_file_name=`ls $target_path | grep -i Screen\ Capture`
+    extension="${old_file_name##*.}"
+
+    old_path="$target_path/$old_file_name"
+    new_file_name="$(date +"%Y-%m-%d_%T").$extension"
+    new_path="$target_path/$new_file_name"
+    mv "$old_path" "$new_path"
+    dunstify "Saved as $new_file_name"
+
+    exit
+fi
 
 arg=$1
 date=`date +"%Y-%m-%d_%T"`
