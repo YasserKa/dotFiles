@@ -1,11 +1,11 @@
 DISPLAY=:0
-30 22 * * * source $XDG_CONFIG_HOME/.Xdbus; dunstify "sleep time"
-0 13 1,15 * * source $XDG_CONFIG_HOME/.Xdbus; $HOME/bin/mail_update_reminder
-*/1 * * * * source $XDG_CONFIG_HOME/.Xdbus; $HOME/bin/battery_low_alert
-*/30 * * * * source $XDG_CONFIG_HOME/.Xdbus; cd $HOME/Projects/notify-me; pipenv run python main.py
+30 22 * * * source $HOME/.config/.Xdbus; dunstify "sleep time"
+0 13 1,15 * * source $HOME/.config/.Xdbus; $HOME/bin/mail_update_reminder
+*/1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
+*/30 * * * * source $HOME/.config/.Xdbus; cd $HOME/Projects/notify-me; pipenv run python main.py
 
 # facebook bot
-55 9 * * 1 source $XDG_CONFIG_HOME/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
+55 9 * * 1 source $HOME/.config/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
 
 # Synch university material
 0 12 * * * rclone sync $HOME/university university:university --exclude ".git/**"
@@ -15,6 +15,6 @@ DISPLAY=:0
 */30 * * * * rclone sync $HOME/notes/org remote:org --include "*.org"; cd $HOME/notes; $HOME/bin/git-sync
 
 # Get mail & update polybar
-*/30 * * * * source $XDG_CONFIG_HOME/.Xdbus; $HOME/bin/mailsync && polybar-msg hook mail 1
+*/30 * * * * source $HOME/.config/.Xdbus; $HOME/bin/mailsync && polybar-msg hook mail 1
 
 # vim: syntax=crontab commentstring=#%s
