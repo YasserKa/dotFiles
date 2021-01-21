@@ -152,6 +152,7 @@ mode "sharing" {
         bindsym v exec ~/bin/share -v; mode "default"
         bindsym t exec ~/bin/share -t; mode "default"
         bindsym l exec ~/bin/share -l; mode "default"
+        bindsym b exec ~/bin/share -b; mode "default"
 
         bindsym Control+bracketleft mode "default"
         bindsym Escape mode "default"
