@@ -5,7 +5,6 @@ alias v='nvim'
 alias rc='nvim $MYVIMRC'
 alias syu='sudo pacman -Syu'
 alias pac='sudo pacman'
-alias z='zathura'
 
 # History
 alias h='history'
@@ -45,7 +44,9 @@ alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
 # Autojumping
 alias f='fasd -sife nvim' # quick opening files with vim
 alias j='fasd_cd -di'
-_fasd_bash_hook_cmd_complete f j
+alias z='fasd -sife zathura'
+
+_fasd_bash_hook_cmd_complete f j z
 
 # Emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
