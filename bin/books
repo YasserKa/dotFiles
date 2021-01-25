@@ -26,5 +26,10 @@ zathura "$book_path" &> /dev/null &
 
 sleep 0.5
 
+# setting up the workspace
+i3-msg 'workspace --no-auto-back-and-forth 8'
+i3-msg '[class="Zathura"] move --no-auto-back-and-forth workspace 2'
+i3-msg '[title="'$book'"] move --no-auto-back-and-forth workspace 8'
+
 xdotool type --window $book_id nvim\ "+normal\ yem"\ books.md
 xdotool key --window $book_id Return
