@@ -1,8 +1,12 @@
 #!/bin/bash
 
-courses_list="theoretical_foundations_for_data_science\ndata_engineering_I\nstatistical_machine_learning\nintroduction_to_datascience"
+courses_list="artificial_intellegence\ndata_engineering_I"
 
 course=$(echo -e $courses_list | rofi -dmenu)
+
+if [[ "$course" == "" ]]; then
+    exit
+fi
 
 course_pid=$(xdotool search --name $course getwindowpid)
 
@@ -32,7 +36,7 @@ esac
 
 sleep 0.5
 
-mkdir -p personal_notes
+mkdir -p $HOME/university/courses/$course/personal_notes
 
 xdotool type --window $course_id nvim\ "+normal\ yem"\ personal_notes/notes.md
 xdotool key --window $course_id Return

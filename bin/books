@@ -4,6 +4,10 @@ books_list="how_to_prove_it"
 
 book=$(echo -e $books_list | rofi -dmenu)
 
+if [[ "$book" == "" ]]; then
+    exit
+fi
+
 book_pid=$(xdotool search --name $book getwindowpid)
 
 # kill book process if exists
