@@ -1,6 +1,5 @@
 {
     "phpls.enable": false,
-    "python.jediEnabled": false,
     "diagnostic.displayByAle": true,
     "coc.preferences.extensionUpdateCheck":"weekly",
     "emmet.includeLanguages": {"blade": "html"},
