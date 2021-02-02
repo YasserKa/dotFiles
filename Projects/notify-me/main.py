@@ -62,7 +62,7 @@ def check_facebook():
 
 def check_whatsapp():
     driver.get(URL_WHATS_APP)
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, 20).until(
         lambda x: len(x.find_elements_by_xpath(
             './/*[contains(text(),"Search or start new chat")]')) > 0)
 
