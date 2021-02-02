@@ -12,8 +12,8 @@ alias h='history'
 alias hg='history | grep'
 
 # Shutdown
-alias reboot='shutdown -r now'
-alias shut='shutdown now'
+alias reboot='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shutdown -r now'
+alias shut='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shutdown now'
 
 # Alternatives
 alias top='htop'
