@@ -1,3 +1,6 @@
+# Documentation: https://pwmt.org/projects/zathura/documentation/
 map ; focus_inputbar :
 set selection-clipboard clipboard
 map <C-[> feedkeys <C-c>
+
+set synctex true

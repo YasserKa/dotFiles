@@ -148,7 +148,7 @@ augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
     autocmd BufRead,BufNewFile neomutt-* set filetype=markdown spell
-    autocmd FileType markdown set spell
+    autocmd FileType markdown,tex set spell
     autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
     autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'
 augroup END
@@ -244,9 +244,28 @@ augroup END
 let g:targets_nl = 'nN'
 " >>>
 " vimtex <<<
-let g:tex_flavor = 'latex'
 set conceallevel=1
 let g:tex_conceal = 'abdmg'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : './tex_output',
+            \ 'options' : [
+            \   '-verbose',
+            \   '-file-line-error',
+            \   '-shell-escape',
+            \   '-synctex=1',
+            \   '-interaction=nonstopmode',
+            \ ],
+            \}
+
+" Needs https://github.com/marhop/pandoc-unicode-math , check org notes for more info
+vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
+            \ :s/#\(.*\)#/\=trim(system("echo '$".submatch(1)."$' \| pandoc --filter pandoc-unicode-math -t markdown"))
+            \ <CR> `<
+            \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
+" Surround capital characters with $
+vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
+            \ :let @/ = "" <bar> set hlsearch<CR>
 " >>>
 " vim-markdown <<<
 let g:vim_markdown_math = 1
@@ -271,7 +290,7 @@ let g:ale_fixers = {
             \   'js': ['eslint'],
             \}
 
-let g:ale_fix_on_save_ignore = {'markdown': ['trim_whitespace']}
+let g:ale_fix_on_save_ignore = {'markdown': ['trim_whitespace'], 'tex': ['trim_whitespace']}
 
 " Auto remove ALE window on buffer exit
 augroup CloseLoclistWindowGroup
