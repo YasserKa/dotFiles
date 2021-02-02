@@ -12,31 +12,27 @@ mkdir -p $target_img_dir
 mkdir -p $target_vid_dir
 
 # returns the path for the course
-function lecture_note_path(){
+function note_path(){
     # note lectures
-    university_courses="$HOME/university/courses"
-    course=$(exa -l $university_courses | awk -F' ' '{print $NF}' | rofi -dmenu)
-    note_dir="$university_courses/$course/personal_notes/images"
-    mkdir -p $note_dir
+    notes_dir="$HOME/notes/latex"
+    note_picked=$(exa -l $notes_dir | awk -F' ' '{print $NF}' | rofi -dmenu)
+    note_dir="$notes_dir/$note_picked/images"
     echo $note_dir
 }
 
-
-
 case $1 in
     -v | -i) deepin-screen-recorder --save-path $target_path;;
-    -l) target_path=$(lecture_note_path)
+    -n) target_path=$(note_path)
 
-        # no course is picked
-        if [ "$target_path" == "/home/yasser/university/courses//personal_notes/images" ]; then
+        # no notes is picked
+        if [ "$target_path" == "/home/yasser/notes/latex//images" ]; then
             exit
         fi ;;
-    -b) target_path="$HOME/notes/markdown/images" ;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         dunstify "Saved to Clipboard" ;exit ;;
 esac
 
-if [ "$1" == "-l" ] || [ "$1" == "-b" ]; then
+if [ "$1" == "-n" ]; then
     mkdir -p $target_path
 
     deepin-screen-recorder --save-path $target_path

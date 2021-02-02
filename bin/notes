@@ -1,0 +1,115 @@
+#!/bin/python3
+from rofi import Rofi
+from sys import argv
+from time import sleep
+import fnmatch
+import os
+import subprocess
+
+
+PATH_TO_NOTES = f"{os.environ['HOME']}/notes/latex"
+BOOKS_PATH = f"{os.environ['HOME']}/books"
+
+CURRENT_NOTES = [
+    "artificial_intellegence",
+    "data_engineering_I",
+    "how_to_prove_it"
+]
+
+
+def main():
+    # initiate rofi
+    r = Rofi()
+
+    options = get_notes()
+    index, key = r.select('notes', options,)
+    if index == -1:
+        exit()
+
+    # get picked notes
+    notes_picked = options[index]
+    notes_directory = f"{PATH_TO_NOTES}/{notes_picked}"
+
+    # open book
+    files_name = os.listdir(notes_directory)
+    book_exists = any(
+        [file_name[-3:] == 'pdf' for file_name in files_name])
+
+    if book_exists:
+        subprocess.run(
+            f"zathura {notes_directory}/*pdf &> /dev/null &", shell=True)
+
+    # kill the process if it already exists
+    process = subprocess.run(
+        ["xdotool", "search", "--name", notes_picked, 'getwindowpid'],
+        capture_output=True, text=True).stdout
+
+    process = process.strip()
+    if process != '':
+        subprocess.run(["kill", process])
+
+    # TODO: make it work in background
+    # open terminal for neovim
+    subprocess.run(
+        f"alacritty --title {notes_picked} --hold"
+        f" --working-directory {notes_directory} 2> /dev/null &", shell=True)
+
+    sleep(0.5)
+
+    # use the process is to open neovim
+    process_id = subprocess.run(
+        ["xdotool", "search", "--name", notes_picked], capture_output=True, text=True).stdout
+    sleep(1)
+
+    # adjusting workspace
+    if book_exists:
+        subprocess.run(
+            "i3-msg '[class=\"Zathura\"] move --no-auto-back-and-forth workspace 2'",
+            shell=True)
+
+    subprocess.run(
+        f"i3-msg '[title=\"^{notes_picked}$\"] move --no-auto-back-and-forth workspace 8'",
+        shell=True)
+    subprocess.run("i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
+
+    open_neovim(process_id)
+
+
+# TODO: courses jupyter notebook
+# case $course in
+#     introduction_to_datascience)
+#         pkill jupyter-notebook *
+#         xdotool type --window $course_id notebook lecture_notes/lectures --no-browser --port 8821
+#         xdotool key - -window $course_id Return
+#         qutebrowser - -target window http: // 127.0.0.1: 8821/tree; ;
+# esac
+
+
+def open_neovim(terminal_process_id):
+
+    subprocess.run(["xdotool", "type", "--window", terminal_process_id,
+                    "nvim '+normal ,ll' notes.tex"])
+    subprocess.run(["xdotool", "key", "--window", terminal_process_id,
+                    "Return"])
+
+# setting up the workspace
+
+
+def get_notes():
+    notes = ['Something went wrong']
+
+    print(argv)
+    if len(argv) > 1 and argv[1] == 'curr':
+        notes = CURRENT_NOTES
+    else:
+        try:
+            notes = os.listdir(PATH_TO_NOTES)
+        except FileNotFoundError:
+            os.makedirs(PATH_TO_NOTES)
+            notes = os.listdir(PATH_TO_NOTES)
+
+    return notes
+
+
+if __name__ == '__main__':
+    main()
