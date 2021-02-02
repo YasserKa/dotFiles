@@ -3,6 +3,7 @@ from qutebrowser.api import interceptor
 # pylint: disable=C0111
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
+config.load_autoconfig()
 
 c.aliases['h'] = 'help -t'
 c.aliases['js'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
@@ -19,7 +20,7 @@ def filter_yt(info: interceptor.Request):
         info.block()
 
 
-interceptor.register(filter_yt)
+# interceptor.register(filter_yt)
 
 c.bindings.commands = {
     'normal': {
@@ -59,10 +60,11 @@ c.bindings.commands = {
         ',ss': 'config-source',
         ',h': 'search',
 
-        '<Ctrl-Shift-V>': 'enter-mode passthrough',
+        '<Ctrl-Shift-V>': 'mode-enter passthrough',
         'cm': 'clear-messages ;; download-clear',
 
         'ye': 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown',
+        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/latexLink',
         'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
         'ya': 'spawn --userscript ~/.local/share/qutebrowser/userscripts/yank_all',
         'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
@@ -91,7 +93,7 @@ c.bindings.commands = {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
         '<Ctrl-h>': 'fake-key <backspace>',
 
-        '<Ctrl-Shift-V>': 'leave-mode',
+        '<Ctrl-Shift-V>': 'mode-leave',
     },
     'command': {
         '<Ctrl-p>': 'completion-item-focus --history prev',
