@@ -64,7 +64,8 @@ def main():
     # adjusting workspace
     if book_exists:
         subprocess.run(
-            "i3-msg '[class=\"Zathura\"] move --no-auto-back-and-forth workspace 2'",
+            "i3-msg '[title=\"" + notes_picked +
+            "\"] move --no-auto-back-and-forth workspace 2'",
             shell=True)
 
     subprocess.run(
