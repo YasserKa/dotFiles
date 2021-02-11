@@ -43,9 +43,8 @@ if [ "$1" == "-n" ]; then
     new_file_name="$(date +"%Y-%m-%d_%T").$extension"
     new_path="$target_path/$new_file_name"
     mv "$old_path" "$new_path"
-    echo "./images/$new_file_name" | xclip -selection clipboard
+    echo -n "./images/$new_file_name" | xclip -selection clipboard
     dunstify "Saved as $new_file_name"
-
     exit
 fi
 
