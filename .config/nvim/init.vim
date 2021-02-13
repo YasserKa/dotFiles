@@ -260,7 +260,7 @@ let g:vimtex_compiler_latexmk = {
 
 " Needs https://github.com/marhop/pandoc-unicode-math , check org notes for more info
 vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
-            \ :s/#\(.*\)#/\=system("echo '$".trim(submatch(1))."$' \| pandoc --filter pandoc-unicode-math -t markdown")
+            \ :s/#\(.*\)#/\=trim(system("echo '$".trim(submatch(1))."$' \| pandoc --filter pandoc-unicode-math -t markdown"))
             \ <CR> `<
             \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
 " Surround capital characters with $
