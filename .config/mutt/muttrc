@@ -31,7 +31,7 @@ set sort_aux = reverse-date
 set sort=threads
 set delete
 set date_format="%m/%d %I:%M"
-set attribution = "On %d, %n wrote:\n"
+set attribution = ""
 set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
 
 # Bindings
