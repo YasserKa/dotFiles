@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo -n "[$QUTE_TITLE]($QUTE_URL)" | pandoc -f markdown -t latex | xclip -selection c
+echo "message-info 'url turned to latex url'" >> "$QUTE_FIFO"
