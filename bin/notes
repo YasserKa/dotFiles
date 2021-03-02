@@ -2,7 +2,6 @@
 from rofi import Rofi
 from sys import argv
 from time import sleep
-import fnmatch
 import os
 import subprocess
 
@@ -33,7 +32,7 @@ def main():
     # open book
     files_name = os.listdir(notes_directory)
     book_exists = any(
-        [file_name[-3:] == 'pdf' for file_name in files_name])
+        [file_name.endswith('.pdf') for file_name in files_name])
 
     if book_exists:
         subprocess.run(
@@ -41,7 +40,7 @@ def main():
 
     # kill the process if it already exists
     process = subprocess.run(
-        ["xdotool", "search", "--name", notes_picked, 'getwindowpid'],
+        ["xdotool", "search", "--name", f"^{notes_picked}$", 'getwindowpid'],
         capture_output=True, text=True).stdout
 
     process = process.strip()
@@ -58,15 +57,17 @@ def main():
 
     # use the process is to open neovim
     process_id = subprocess.run(
-        ["xdotool", "search", "--name", notes_picked], capture_output=True, text=True).stdout
+        ["xdotool", "search", "--name",  f"^{notes_picked}$"], capture_output=True, text=True).stdout
     sleep(1)
 
     # adjusting workspace
     if book_exists:
-        subprocess.run(
-            "i3-msg '[title=\"" + notes_picked +
-            "\"] move --no-auto-back-and-forth workspace 2'",
-            shell=True)
+        for file_name in files_name:
+            if file_name.endswith(('.pdf')):
+                subprocess.run(
+                    "i3-msg '[title=\"" + file_name +
+                    "\"] move --no-auto-back-and-forth workspace 2'",
+                    shell=True)
 
     subprocess.run(
         f"i3-msg '[title=\"^{notes_picked}$\"] move --no-auto-back-and-forth workspace 8'",
