@@ -161,7 +161,7 @@ mode "sharing" {
 # Bindings <<<
 
 # password
-bindsym $mod+p exec rofi -modi lpass:~/.config/rofi/rofi-lpass.sh -show lpass
+bindsym $mod+p exec bwmenu
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload

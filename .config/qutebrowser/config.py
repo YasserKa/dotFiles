@@ -71,11 +71,11 @@ c.bindings.commands = {
 
         # password
         '<z><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/lastpass.py',
+                ~/.config/qutebrowser/userscripts/qute-bitwarden',
         '<z><u><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/lastpass.py --username-only',
+                ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
         '<z><p><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/lastpass.py --password-only',
+                ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',

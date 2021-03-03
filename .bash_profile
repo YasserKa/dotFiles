@@ -6,7 +6,7 @@ export PATH=$PATH:$HOME/.local/bin # to get nvr (neovim-remote)
 # to make cmus escape works
 export ESCDELAY=25
 # used by imgur api
-export IMGUR_CLIENT_ID="3fcfcb6de9ff8f8"
+export BW_SESSION=$(pass show bw_session)
 
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
