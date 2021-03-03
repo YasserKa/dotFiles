@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo -n "[[$QUTE_URL][$QUTE_TITLE]]" | xclip -selection c
-echo "message-info 'url turned to org mode url'" >> "$QUTE_FIFO"
+echo "message-info 'url turned to org url'" >> "$QUTE_FIFO"

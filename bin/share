@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 target_img_dir="$HOME/Pictures/Shareables"
 target_vid_dir="$HOME/Videos/Shareables"
 target_path="$HOME"

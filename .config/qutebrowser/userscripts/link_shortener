@@ -1,8 +1,8 @@
 #!/bin/bash
 
-auth=$(lpass show bitly_auth --password)
+auth=$(bw get item bitly | jq -r '.fields[] | select(.name == "password") | .value')
 # use https://api-ssl.bitly.com/v4/groups to get group-uid
-group=$(lpass show bitly_auth --username)
+group=$(bw get item bitly | jq -r '.fields[] | select(.name == "key") | .value')
 
 function bitly_request {
     curl \

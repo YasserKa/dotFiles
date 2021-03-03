@@ -247,6 +247,7 @@ let g:targets_nl = 'nN'
 set conceallevel=1
 let g:tex_conceal = 'abdmg'
 let g:vimtex_view_method = 'zathura'
+let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_latexmk = {
             \ 'build_dir' : './tex_output',
             \ 'options' : [
@@ -258,11 +259,6 @@ let g:vimtex_compiler_latexmk = {
             \ ],
             \}
 
-" Needs https://github.com/marhop/pandoc-unicode-math , check org notes for more info
-" vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
-"             \ :s/#\(.*\n*.*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
-"             \ <CR> `<
-"             \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
 vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
             \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
             \ <CR> `<
@@ -381,6 +377,8 @@ nnoremap <leader>rn <Plug>(coc-rename)
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
+    elseif &filetype ==# 'tex'
+        VimtexDocPackage
     else
         call CocAction('doHover')
     endif

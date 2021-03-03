@@ -11,8 +11,6 @@ BOOKS_PATH = f"{os.environ['HOME']}/books"
 
 CURRENT_NOTES = [
     "artificial_intellegence",
-    "data_engineering_I",
-    "how_to_prove_it"
 ]
 
 

@@ -19,9 +19,11 @@ alias zz='fasd_cd -d -i'
 
 # function to execute zathura
 fasd_zathura() {
-    local _fasd_ret=$(fasd -sif $@ pdf$)
+    # local _fasd_ret=$(fasd -sif $@ .pdf$)
+    local _fasd_ret=$(fasd -sif $@)
     zathura "$_fasd_ret"
 }
+
 alias zf='fasd_zathura'
 
 _fasd_prompt_func() {

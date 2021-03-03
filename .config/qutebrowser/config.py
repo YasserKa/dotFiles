@@ -63,7 +63,7 @@ c.bindings.commands = {
         '<Ctrl-Shift-V>': 'mode-enter passthrough',
         'cm': 'clear-messages ;; download-clear',
 
-        'ye': 'spawn --userscript ~/.config/qutebrowser/userscripts/emacsMarkdown',
+        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/orgLink',
         'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/latexLink',
         'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
         'ya': 'spawn --userscript ~/.local/share/qutebrowser/userscripts/yank_all',

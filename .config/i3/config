@@ -53,8 +53,8 @@ set $wp9 9
 set $wp0 0
 
 # Workspaces on specific screens
-set $monitor_primary eDP-1
-set $monitor_secondary DP-1
+set $monitor_primary eDP-1-1
+set $monitor_secondary DP-1-1
 
 workspace $browser output $monitor_primary
 workspace $coding output $monitor_primary
