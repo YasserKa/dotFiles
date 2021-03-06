@@ -11,6 +11,7 @@ BOOKS_PATH = f"{os.environ['HOME']}/books"
 
 CURRENT_NOTES = [
     "artificial_intellegence",
+    "college_algebra",
 ]
 
 
@@ -62,6 +63,9 @@ def main():
     if book_exists:
         for file_name in files_name:
             if file_name.endswith(('.pdf')):
+                file_name = file_name.replace("(", "\\(")
+                file_name = file_name.replace(")", "\\)")
+                print(file_name)
                 subprocess.run(
                     "i3-msg '[title=\"" + file_name +
                     "\"] move --no-auto-back-and-forth workspace 2'",
@@ -70,7 +74,8 @@ def main():
     subprocess.run(
         f"i3-msg '[title=\"^{notes_picked}$\"] move --no-auto-back-and-forth workspace 8'",
         shell=True)
-    subprocess.run("i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
+    subprocess.run(
+        "i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
 
     open_neovim(process_id)
 
