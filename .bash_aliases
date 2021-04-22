@@ -11,6 +11,9 @@ alias z='zathura'
 alias h='history'
 alias hg='history | grep'
 
+# Sync notes
+alias sync_org='rclone sync /home/yasser/notes/org remote:org --include "*.org"'
+
 # Shutdown
 alias reboot='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shutdown -r now'
 alias shut='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shutdown now'
