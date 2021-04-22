@@ -2,6 +2,7 @@
 import os
 import subprocess
 from selenium import webdriver
+from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
@@ -31,7 +32,8 @@ def check_discord():
 
     driver.get(URL_DISCORD)
     WebDriverWait(driver, 10).until(
-        lambda x: len(x.find_elements_by_css_selector('div[aria-label="Download Apps"]')) > 0)
+        lambda x: len(x.find_elements_by_xpath('.//*[contains(text(), "Friends")]')) > 0)
+    sleep(1)
 
     notificaitons_el = driver.find_elements(
         By.CSS_SELECTOR, 'div[class*=lowerBadge-]')
@@ -42,7 +44,7 @@ def check_discord():
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
-        subprocess.run(["dunstify", discord])
+        subprocess.run(["dunstify", discord, '--timeout=999999'])
 
 
 def check_facebook():
@@ -57,7 +59,7 @@ def check_facebook():
     notificaiton_exists = len(notificaitons_el) > 0
 
     if notificaiton_exists:
-        subprocess.run(["dunstify", facebook])
+        subprocess.run(["dunstify", facebook, '--timeout=999999'])
 
 
 def check_whatsapp():
@@ -71,7 +73,7 @@ def check_whatsapp():
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
-        subprocess.run(["dunstify", whatsapp])
+        subprocess.run(["dunstify", whatsapp, '--timeout=999999'])
 
 
 def main():
