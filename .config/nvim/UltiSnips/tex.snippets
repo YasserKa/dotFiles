@@ -12,7 +12,6 @@ endglobal
 snippet "template" "template" br
 \documentclass[12pt]{article}
 \input{$HOME/.config/latex/preamble.tex}
-
 % Variables
 \newcommand{\documentTitle}{$1}
 
@@ -35,9 +34,7 @@ snippet "template" "template" br
 		\vfill
 	\end{center}
 \end{titlepage}
-
 $2
-
 \end{document}
 endsnippet
 
@@ -48,6 +45,9 @@ snip.rv = match.group(3) if match.group(2) is not None else "something"`}}
 \end{$1}$0
 endsnippet
 
+snippet sec* "section" i
+\section{${VISUAL}$1}$0
+endsnippet
 
 snippet it "italic" i
 \\textit{${VISUAL}$1}$0
@@ -220,16 +220,26 @@ snippet _s "underset" i
 endsnippet
 
 context "math()"
+snippet -s "overset" i
+\overset{${1:${VISUAL:over}}}{$2}$0
+endsnippet
+
+context "math()"
 snippet _- "underline" i
 \underline{${1:${VISUAL}}}$0
 endsnippet
 
 context "math()"
-snippet -s "overset" i
-\overset{${1:${VISUAL}over}}{$2}$0
+snippet -- "overline" i
+\overline{${1:${VISUAL}}}$0
 endsnippet
 
 context "math()"
-snippet -- "overline" i
-\overline{${1:${VISUAL}}}$0
+snippet _} "underbrace" i
+\underbrace{${1:${VISUAL}}}$0
+endsnippet
+
+context "math()"
+snippet -} "overbrace" i
+\overbrace{${1:${VISUAL:over}}}$0
 endsnippet
