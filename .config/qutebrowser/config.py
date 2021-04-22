@@ -101,8 +101,12 @@ c.bindings.commands = {
     },
 }
 
+# c.aliases['paywall'] = "open https://12ft.io/proxy?q={{url}}"
+
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
+
+c.content.blocking.whitelist = ["https://analytics.google.com/analytics/*"]
 
 config.set('spellcheck.languages', ['en-US'])
 config.set('tabs.title.format', '{current_title}')
@@ -383,7 +387,7 @@ c.colors.statusbar.url.hover.fg = bright_orange
 
 # Foreground color of the URL in the statusbar on successful load
 # (http).
-c.colors.statusbar.url.success.http.fg = bright_red
+c.colors.statusbar.url.success.http.fg = fg0
 
 # Foreground color of the URL in the statusbar on successful load
 # (https).
