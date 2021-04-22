@@ -39,7 +39,8 @@ get_session_key() {
   #   keyctl timeout "$key_id" $AUTO_LOCK
     # BW_HASH=$(keyctl pipe "$key_id")
   # fi
-  BW_HASH=$BW_SESSION
+  # BW_HASH=$BW_SESSION
+  BW_HASH=$(pass show bw_session)
 }
 
 # source the hash file to gain access to the BitWarden CLI
