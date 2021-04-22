@@ -15,6 +15,8 @@ Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
 Plug 'https://github.com/tpope/vim-commentary'
 
+Plug 'https://github.com/liuchengxu/vim-which-key'
+
 Plug 'https://github.com/simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 
 Plug 'https://github.com/terryma/vim-multiple-cursors'
@@ -266,6 +268,97 @@ vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#
 " Surround capital characters with $
 vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
             \ :let @/ = "" <bar> set hlsearch<CR>
+" >>>
+" which-key <<<
+" Define prefix dictionary
+let g:which_key_map =  {}
+
+" inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
+inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
+
+vnoremap <silent> <C-s> :silent <c-u> :silent WhichKeyVisual '<C-s>'<CR>
+
+" Not a fan of floating windows for this
+let g:which_key_use_floating_win = 0
+
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+
+let g:latex_symbols = {
+            \ 'a' : ['\\alpha', 'α (\alpha)'] ,
+            \ 'b' : ['\\beta', 'β (\beta)'] ,
+            \ 'g' : ['\\gamma', 'γ (\gamma)'] ,
+            \ 'd' : ['\\delta', 'δ (\delta)'] ,
+            \ 'e' : ['\\epsilon', 'ϵ (\epsilon)'] ,
+            \ 'z' : ['\\zeta', 'ζ (\zeta)'] ,
+            \ 'h' : ['\\eta', 'η (\eta)'] ,
+            \ 'j' : ['\\theta', 'θ (\theta)'] ,
+            \ 'k' : ['\\kappa', 'κ (\kappa)'] ,
+            \ 'l' : ['\\lambda', 'λ (\lambda)'] ,
+            \ 'm' : ['\\mu', 'µ (\mu)'] ,
+            \ 'n' : ['\\nu', 'ν (\nu)'] ,
+            \ 'x' : ['\\xi', 'ξ (\xi)'] ,
+            \ 'p' : ['\\pi', 'π (\pi)'] ,
+            \ 'r' : ['\\rho', 'ρ (\rho)'] ,
+            \ 's' : ['\\sigma', 'σ (\sigma)'] ,
+            \ 't' : ['\\tau', 'τ (\tau)'] ,
+            \ 'u' : ['\\upsilon', 'υ (\upsilon)'] ,
+            \ 'f' : ['\\phi', 'φ (\phi)'] ,
+            \ 'q' : ['\\chi', 'χ (\chi)'] ,
+            \ 'y' : ['\\psi', 'ψ (\psi)'] ,
+            \ 'w' : ['\\omega', 'ω (\omega)'] ,
+            \ 'D' : ['\\Delta', '∆ (\Delta)'] ,
+            \ 'G' : ['\\Gamma', 'Γ (\Gamma)'] ,
+            \ 'Q' : ['\\Theta', 'Θ (\Theta)'] ,
+            \ 'L' : ['\\Lambda', 'Λ (\Lambda)'] ,
+            \ 'X' : ['\\Xi', 'Ξ (\Xi)'] ,
+            \ 'P' : ['\\Pi', 'Π (\Pi)'] ,
+            \ 'S' : ['\\Sigma', 'Σ (\Sigma)'] ,
+            \ 'U' : ['\\Upsilon', 'Υ (\Upsilon)'] ,
+            \ 'F' : ['\\Phi', 'Φ (\Phi)'] ,
+            \ 'Y' : ['\\Psi', 'Ψ (\Psi)'] ,
+            \ 'W' : ['\\Omega', 'Ω (\Omega)'] ,
+            \ "C-f" : ['\\rightarrow', '→ (\rightarrow)'] ,
+            \ 'C-b' : ['\\leftarrow', '← (\leftarrow)'] ,
+            \ 'C-p' : ['\\uparrow', '↑ (\uparrow)'] ,
+            \ 'C-n' : ['\\downarrow', '↓ (\downarrow)'] ,
+            \ '<' : ['\\leq', '≤ (\leq)'] ,
+            \ '>' : ['\\geq', '≥ (\geq)'] ,
+            \ '~' : ['\\tilde', '˜x (\tilde)'] ,
+            \ 'N' : ['\\nabla', '∇ (\nabla)'] ,
+            \ 'I' : ['\\infty', '∞ (\infty)'] ,
+            \ 'A' : ['\\forall', '∀ (\forall)'] ,
+            \ 'E' : ['\\exists', '∃ (\exists)'] ,
+            \ '/' : ['\\not', '(\not)'] ,
+            \ 'i' : ['\\in', '∈ (\in)'] ,
+            \ '*' : ['\\times', '× (\times)'] ,
+            \ '.' : ['\\cdot', '· (\cdot)'] ,
+            \ '{' : ['\\subset', '⊂ (\subset)'] ,
+            \ '}' : ['\\supset', '⊃ (\supset)'] ,
+            \ '[' : ['\\subseteq', '⊆ (\subseteq)'] ,
+            \ ']' : ['\\supseteq', '⊇ (\supseteq)'] ,
+            \ '0' : ['\\emptyset', '∅ (\emptyset)'] ,
+            \ '\' : ['\\setminus', '\ (\setminus)'] ,
+            \ '+' : ['\\cup', '∪ (\cup)'] ,
+            \ '-' : ['\\cap', '∩ (\cap)'] ,
+            \ '(' : ['\\langle', '⟨ (\langle)'] ,
+            \ ' ' : ['\\rangle', '⟩ (\rangle)'] ,
+            \ 'C-e' : ['\\exp', 'exp (\exp)'] ,
+            \ 'C-s' : ['\\sin', 'sin (\sin)'] ,
+            \ 'C-c' : ['\\cos', 'cos (\cos)'] ,
+            \ 'C-^' : ['\\sup', 'sup (\sup)'] ,
+            \ 'C-_' : ['\\inf', 'inf (\inf)'] ,
+            \ 'C-d' : ['\\det', 'det (\det)'] ,
+            \ 'C-l' : ['\\lim', 'lim (\lim)'] ,
+            \ 'C-t' : ['\\tan', 'tan (\tan)'] ,
+            \ '^' : ['\\hat', 'ˆx (\hat)'] ,
+            \ '|' : ['\\vee', '∨ (\vee)'] ,
+            \ '&' : ['\\wedge', '∧ (\wedge)'] ,
+            \ }
+" Register which key map
+call which_key#register('latex_symbols', "g:latex_symbols")
 " >>>
 " vim-markdown <<<
 let g:vim_markdown_math = 1
