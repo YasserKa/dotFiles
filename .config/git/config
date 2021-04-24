@@ -1,6 +1,8 @@
 [user]
     email = yasser.kaddoura19@gmail.om
     name = Yasser Kaddoura
+[init]
+    defaultBranch = main
 
 [core]
     editor = nvim
