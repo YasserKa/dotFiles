@@ -143,7 +143,7 @@
 ;; MAGIT
 (require 'evil-magit)
 (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/university/courses/artificial_intellegence/project/Wumpus_World" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
 ;; Close the popups in magit
 (define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
