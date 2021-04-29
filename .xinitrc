@@ -8,7 +8,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 # nvidia  https://wiki.archlinux.org/index.php/NVIDIA_Optimus
-xrandr --setprovideroutputsource modesetting NVIDIA-0
+# xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
 xrandr --dpi 96
 
