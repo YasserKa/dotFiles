@@ -19,6 +19,9 @@ Sessionx.vim
 tags
 # Persistent undo
 [._]*.un~
+
+# Coc settings
+.vim/
 # >>>
 # <<< Emacs
 # -*- mode: gitignore; -*-
