@@ -10,7 +10,7 @@ PATH_TO_NOTES = f"{os.environ['HOME']}/notes/latex"
 BOOKS_PATH = f"{os.environ['HOME']}/books"
 
 CURRENT_NOTES = [
-    "artificial_intellegence",
+    "reinforcement_learning",
     "college_algebra",
 ]
 
@@ -20,7 +20,7 @@ def main():
     r = Rofi()
 
     options = get_notes()
-    index, key = r.select('notes', options,)
+    index, _ = r.select('notes', options,)
     if index == -1:
         exit()
 
@@ -46,17 +46,6 @@ def main():
     if process != '':
         subprocess.run(["kill", process])
 
-    # TODO: make it work in background
-    # open terminal for neovim
-    subprocess.run(
-        f"alacritty --title {notes_picked} --hold"
-        f" --working-directory {notes_directory} 2> /dev/null &", shell=True)
-
-    sleep(0.5)
-
-    # use the process is to open neovim
-    process_id = subprocess.run(
-        ["xdotool", "search", "--name",  f"^{notes_picked}$"], capture_output=True, text=True).stdout
     sleep(1)
 
     # adjusting workspace
@@ -72,12 +61,12 @@ def main():
                     shell=True)
 
     subprocess.run(
-        f"i3-msg '[title=\"^{notes_picked}$\"] move --no-auto-back-and-forth workspace 8'",
-        shell=True)
-    subprocess.run(
         "i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
 
-    open_neovim(process_id)
+    subprocess.run(
+        f"alacritty --title {notes_picked} "
+        f"--working-directory {notes_directory} "
+        f"-e bash -c 'nvim \"+normal ,ll\" notes.tex && exec bash' 2> /dev/null & ", shell=True)
 
 
 # TODO: courses jupyter notebook
@@ -88,17 +77,6 @@ def main():
 #         xdotool key - -window $course_id Return
 #         qutebrowser - -target window http: // 127.0.0.1: 8821/tree; ;
 # esac
-
-
-def open_neovim(terminal_process_id):
-
-    subprocess.run(["xdotool", "type", "--window", terminal_process_id,
-                    "nvim '+normal ,ll' notes.tex"])
-    subprocess.run(["xdotool", "key", "--window", terminal_process_id,
-                    "Return"])
-
-# setting up the workspace
-
 
 def get_notes():
     notes = ['Something went wrong']
