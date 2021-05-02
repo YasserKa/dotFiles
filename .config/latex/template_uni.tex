@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+\input{$HOME/.config/latex/preamble.tex}
+
+% Variables
+\newcommand{\documentAuthor}{author}
+\newcommand{\documentCourse}{course}
+\newcommand{\documentType}{type}
+\newcommand{\documentProfessor}{professor}
+\newcommand{\documentDate}{date}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \includegraphics[width=8cm]{$HOME/.config/latex/UU_logo.jpg} 
+        \linebreak
+
+        {\Large \textbf{\documentCourse}}
+
+        {\Large \textbf{\documentType}}
+        \linebreak
+
+        {\footnotesize By}\\ 
+        \documentAuthor
+
+
+        \vspace{0.5cm}
+
+        {\footnotesize Supervised By} \\
+        Prof. \documentProfessor
+
+        \vspace{0.5cm}
+
+        Due \documentDate
+    \end{center}
+\end{titlepage}
+
+
+\end{document}
