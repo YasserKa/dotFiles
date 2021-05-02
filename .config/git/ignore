@@ -22,6 +22,10 @@ tags
 
 # Coc settings
 .vim/
+
+# Fzf (files that's ignored by the silver searcher)
+.ignore
+
 # >>>
 # <<< Emacs
 # -*- mode: gitignore; -*-
