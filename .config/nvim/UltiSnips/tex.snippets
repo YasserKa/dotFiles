@@ -46,7 +46,7 @@ snip.rv = match.group(3) if match.group(2) is not None else "something"`}}
 endsnippet
 
 snippet sec* "section" i
-\section{${VISUAL}$1}$0
+\section*{${VISUAL}$1}$0
 endsnippet
 
 snippet it "italic" i
@@ -94,6 +94,7 @@ snippet table "Table environment" b
 	\label{tab:${3:label}}
 	\begin{tabular}{${5:c}}
 	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
+	\hline
 	\end{tabular}
 \end{table}
 endsnippet
