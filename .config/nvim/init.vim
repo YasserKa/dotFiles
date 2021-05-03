@@ -82,7 +82,6 @@ noremap : ;
 noremap g: g;
 noremap q; q:
 noremap @; @:
-noremap <C-w>h :split<CR>
 map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
