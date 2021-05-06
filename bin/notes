@@ -37,16 +37,7 @@ def main():
         subprocess.run(
             f"zathura {notes_directory}/*pdf &> /dev/null &", shell=True)
 
-    # kill the process if it already exists
-    process = subprocess.run(
-        ["xdotool", "search", "--name", f"^{notes_picked}$", 'getwindowpid'],
-        capture_output=True, text=True).stdout
-
-    process = process.strip()
-    if process != '':
-        subprocess.run(["kill", process])
-
-    sleep(1)
+    sleep(1.5)
 
     # adjusting workspace
     if book_exists:
@@ -54,7 +45,6 @@ def main():
             if file_name.endswith(('.pdf')):
                 file_name = file_name.replace("(", "\\(")
                 file_name = file_name.replace(")", "\\)")
-                print(file_name)
                 subprocess.run(
                     "i3-msg '[title=\"" + file_name +
                     "\"] move --no-auto-back-and-forth workspace 2'",
@@ -67,6 +57,15 @@ def main():
         f"alacritty --title {notes_picked} "
         f"--working-directory {notes_directory} "
         f"-e bash -c 'nvim \"+normal ,ll\" notes.tex && exec bash' 2> /dev/null & ", shell=True)
+
+    # kill the process if it already exists
+    process = subprocess.run(
+        ["xdotool", "search", "--name", f"^{notes_picked}$", 'getwindowpid'],
+        capture_output=True, text=True).stdout
+
+    process = process.strip()
+    if process != '':
+        subprocess.run(["kill", process])
 
 
 # TODO: courses jupyter notebook
@@ -81,7 +80,6 @@ def main():
 def get_notes():
     notes = ['Something went wrong']
 
-    print(argv)
     if len(argv) > 1 and argv[1] == 'curr':
         notes = CURRENT_NOTES
     else:
