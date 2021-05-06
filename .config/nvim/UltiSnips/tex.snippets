@@ -216,13 +216,8 @@ snippet >= "geq" iA
 endsnippet
 
 context "math()"
-snippet _s "underset" i
-\underset{${1:${VISUAL}under}}{$2}$0
-endsnippet
-
-context "math()"
-snippet -s "overset" i
-\overset{${1:${VISUAL:over}}}{$2}$0
+snippet != "not equal" iA
+\not=
 endsnippet
 
 context "math()"
@@ -243,4 +238,14 @@ endsnippet
 context "math()"
 snippet -} "overbrace" i
 \overbrace{${1:${VISUAL:over}}}$0
+endsnippet
+
+context "math()"
+snippet _s "underset" i
+\underset{${1:${VISUAL}under}}{$2}$0
+endsnippet
+
+context "math()"
+snippet -s "overset" i
+\overset{${1:${VISUAL:over}}}{$2}$0
 endsnippet
