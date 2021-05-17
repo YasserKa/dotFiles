@@ -50,6 +50,9 @@ def main():
                     "\"] move --no-auto-back-and-forth workspace 2'",
                     shell=True)
 
+                subprocess.run(
+                    "i3-msg 'workspace --no-auto-back-and-forth 2'", shell=True)
+
     subprocess.run(
         "i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
 
