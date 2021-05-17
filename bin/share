@@ -24,7 +24,7 @@ case $1 in
 
         # no notes is picked
         if [ "$target_path" == "/home/yasser/notes/latex//images" ]; then
-            exit
+            exit;
         fi ;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         dunstify "Saved to Clipboard" ;exit ;;
