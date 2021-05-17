@@ -10,7 +10,7 @@ export BW_SESSION=$(pass show bw_session)
 
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
-export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)')
+export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d ' ' -f1)
 # battery & adapter
 export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT')
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP')
