@@ -5,7 +5,7 @@ DISPLAY=:0
 */30 * * * * source $HOME/.config/.Xdbus; cd $HOME/Projects/notify-me; pipenv run python main.py
 
 # facebook bot
-55 9 * * 1 source $HOME/.config/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
+# 55 9 * * 1 source $HOME/.config/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
 
 # Synch university material
 0 12 * * * rclone sync $HOME/university university:university --exclude ".git/**"
