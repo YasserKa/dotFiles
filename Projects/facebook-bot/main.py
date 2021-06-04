@@ -19,7 +19,6 @@ profile_path = './bot'
 
 CLEANING_TEAMS = [
     ['Yasser', '김가연'],
-    ['Elema', 'Anton'],
     ['David', 'Lise'],
     ['Dennis', 'Josh'],
 ]
