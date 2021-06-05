@@ -17,7 +17,7 @@
  '(org-agenda-files
    '("~/notes/org/general.org" "~/notes/org/university.org" "~/notes/org/knowledge_base.org"))
  '(package-selected-packages
-   '(helm-core evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
+   '(helm-core undo-tree undo-redo evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
 ;; Install not presented packages
 (package-initialize)
@@ -96,6 +96,10 @@
 	      evil-insert-state-modes
 	      evil-normal-state-modes
 	      evil-motion-state-modes))
+
+;; redoing-undoing in evil
+(global-undo-tree-mode)
+(evil-set-undo-system 'undo-tree)
 
 ;; Registers
 (define-key evil-normal-state-map "m"  'bookmark-set)
