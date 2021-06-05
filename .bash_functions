@@ -65,4 +65,4 @@ function def() {
 function zathura() { (command zathura "$@" &> /dev/null &) }
 function mpv() { (command mpv "$@" &> /dev/null &) }
 function xdg-open() { (command xdg-open "$@" &) }
-function notebook() { (command conda run jupyter notebook --ip=127.0.0.1 "$@" & disown) }
+function notebook() { (command conda run jupyter notebook --ip=127.0.0.1 "$@") }
