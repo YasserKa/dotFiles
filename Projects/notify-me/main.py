@@ -85,6 +85,7 @@ def main():
         pass
 
     driver.close()
+    os.system("pkill chromedriver")
 
 
 if __name__ == '__main__':
