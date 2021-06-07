@@ -102,9 +102,12 @@ assign [class="Zathura"] workspace $pdf
 assign [class="mpv"] workspace $video
 assign [class="Slack"] workspace $social
 assign [class="Chromium"] workspace $wp9
+
 # For notify-me script
 for_window [instance="myProfile"] move scratchpad
 for_window [instance="bot"] move scratchpad
+# put general notes in scratchpad
+for_window [title="general_notes"] move scratchpad
 
 
 # Making softwares in floating mode
@@ -172,7 +175,9 @@ bindsym $mod+Shift+e exit
 
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus scratchpad show
+bindsym $mod+minus [title="^(?!.*general_notes).*$"] scratchpad show
+
+bindsym $mod+n [title="general_notes"] scratchpad show
 
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
@@ -221,6 +226,7 @@ exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
+exec --no-startup-id alacritty --title general_notes -e nvim ~/notes/general.md
 
 # Wait until the internet is on
 exec_always $HOME/bin/waitInternet; mail_check_mutt
