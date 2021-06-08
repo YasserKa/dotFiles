@@ -108,6 +108,7 @@ for_window [instance="myProfile"] move scratchpad
 for_window [instance="bot"] move scratchpad
 # put general notes in scratchpad
 for_window [title="general_notes"] move scratchpad
+for_window [title="general_notes"] resize set 990 820
 
 
 # Making softwares in floating mode
