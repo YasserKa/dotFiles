@@ -15,7 +15,7 @@
  '(evil-want-Y-yank-to-eol 1)
  '(helm-completion-style 'emacs)
  '(org-agenda-files
-   '("~/notes/org/general.org" "~/notes/org/university.org" "~/notes/org/knowledge_base.org"))
+   '("~/notes/org/general.org" "~/notes/org/knowledge_base.org"))
  '(package-selected-packages
    '(helm-core undo-tree undo-redo evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
@@ -147,7 +147,7 @@
 ;; MAGIT
 (require 'evil-magit)
 (evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
-(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/university/courses/reinforcement_learning/project" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
 ;; Close the popups in magit
 (define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
 (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
