@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 selenium = "*"
+urllib3 = ">=1.26.5"
 
 [dev-packages]
 
