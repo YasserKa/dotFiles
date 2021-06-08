@@ -1,7 +1,7 @@
 " vim-plug <<<
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/gruvbox-community/gruvbox'
 
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
@@ -27,7 +27,6 @@ Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php', 'vue']}
 Plug 'https://github.com/plasticboy/vim-markdown'
-
 
 Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
@@ -253,13 +252,13 @@ let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_latexmk = {
             \ 'build_dir' : './tex_output',
             \ 'options' : [
-            \   '-verbose',
-            \   '-file-line-error',
-            \   '-shell-escape',
-            \   '-synctex=1',
-            \   '-interaction=nonstopmode',
-            \ ],
-            \}
+                \   '-verbose',
+                \   '-file-line-error',
+                \   '-shell-escape',
+                \   '-synctex=1',
+                \   '-interaction=nonstopmode',
+                \ ],
+                \}
 
 vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
             \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
@@ -284,7 +283,7 @@ let g:which_key_use_floating_win = 0
 " Hide status line
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+            \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 
 let g:latex_symbols = {
             \ 'a' : ['\\alpha', 'α (\alpha)'] ,
