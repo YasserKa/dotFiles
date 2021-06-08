@@ -1,5 +1,5 @@
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
-export PATH=$PATH:$HOME/.npm-global/bin:$PATH
+export PATH=$PATH:$HOME/.npm-global/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cabal/bin # to get pandoc-unicode-math
 export PATH=$PATH:$HOME/.local/bin # to get nvr (neovim-remote)
