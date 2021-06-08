@@ -1,7 +1,6 @@
 .config/qutebrowser/qsettings/QtProject.conf
 .config/nvim/undo/
-/.config/systemd/user/default.target.wants/
-/Projects/updateReminder/config
-/Projects/notify-me/myProfile/
+**/default.target.wants/**
 **/chromedriver
-Projects/facebook-bot/bot/
+**/myProfile/**
+**/bot/**
