@@ -1,0 +1,423 @@
+.colors-dark html,
+.colors-dark body {
+  background-color: #414141;
+  color: #c4c4c4;
+}
+.colors-dark .badge {
+  background-color: #626262;
+}
+.colors-dark .part.error {
+  color: #f00;
+}
+.colors-dark .part.details .part.snack {
+  background-color: #4a4a4a;
+  border-color: #525252;
+}
+.colors-dark .part.details .part.snack .label {
+  background-color: #afafaf;
+  color: #414141;
+}
+.colors-dark .part.details .part.snack .char.num,
+.colors-dark .part.details .part.snack .char.punct {
+  color: #d79921;
+}
+.colors-dark .part.details .part.snack .progress-container {
+  background: transparent;
+}
+.colors-dark .part.details .part.snack .progress-container .progress {
+  background-color: #bd861a;
+}
+.colors-dark .part.details .part.raw textarea {
+  background-color: #4a4a4a;
+  border-color: #525252;
+  color: #c4c4c4;
+}
+.colors-dark .part.search {
+  background-color: #4a4a4a;
+}
+.colors-dark .part.search:focus-within {
+  background-color: #4f4f4f;
+}
+.colors-dark .part.search > .hint {
+  background-color: #d79921;
+  color: #363636;
+}
+.colors-dark .part.search > input[type="text"] {
+  background-color: transparent;
+  color: #eee;
+}
+.colors-dark .part.search > input[type="text"]::placeholder {
+  color: #a0a0a0;
+}
+.colors-dark .logins:not(:hover):not(:focus-within) .part.login:first-child > .name {
+  background-color: #393939;
+}
+.colors-dark .part.login:not(.details-header) > .name:hover,
+.colors-dark .part.login:not(.details-header) > .name:focus,
+.colors-dark .part.login:not(.details-header) > .action:hover,
+.colors-dark .part.login:not(.details-header) > .action:focus,
+.colors-dark .part.login:not(.details-header):focus > .name {
+  background-color: #363636;
+}
+.colors-dark .part.login em {
+  background-color: transparent;
+  color: #d79921;
+}
+.colors-dark .updates {
+  border-top: 1px solid #363636;
+}
+.colors-dark .updates span,
+.colors-dark .updates a {
+  color: #f00;
+}
+.colors-light html,
+.colors-light body {
+  background-color: #f1f3f5;
+  color: #343a40;
+}
+.colors-light .badge {
+  background-color: #b8b8b8;
+}
+.colors-light .part.error {
+  color: #e03131;
+}
+.colors-light .part.details .part.snack {
+  background-color: #ffffff;
+  border-color: #7a7a7a;
+}
+.colors-light .part.details .part.snack .label {
+  background-color: #7a7a7a;
+  color: #f1f3f5;
+}
+.colors-light .part.details .part.snack .char.num,
+.colors-light .part.details .part.snack .char.punct {
+  color: #1873ea;
+}
+.colors-light .part.details .part.snack .progress-container {
+  background: transparent;
+}
+.colors-light .part.details .part.snack .progress-container .progress {
+  background-color: #c7d5ff;
+}
+.colors-light .part.details .part.raw textarea {
+  background-color: #ffffff;
+  border-color: #7a7a7a;
+  color: #343a40;
+}
+.colors-light .part.search {
+  background-color: #eaeef1;
+}
+.colors-light .part.search:focus-within {
+  background-color: #e8ebee;
+}
+.colors-light .part.search > .hint {
+  background-color: #1c7ed6;
+  color: #e7f5ff;
+}
+.colors-light .part.search > input[type="text"] {
+  background-color: transparent;
+  color: #343a40;
+}
+.colors-light .part.search > input[type="text"]::placeholder {
+  color: #868e96;
+}
+.colors-light .logins:not(:hover):not(:focus-within) .part.login:first-child > .name {
+  background-color: #d8dee3;
+}
+.colors-light .part.login:not(.details-header) > .name:hover,
+.colors-light .part.login:not(.details-header) > .name:focus,
+.colors-light .part.login:not(.details-header) > .action:hover,
+.colors-light .part.login:not(.details-header) > .action:focus,
+.colors-light .part.login:not(.details-header):focus > .name {
+  background-color: #ced4da;
+}
+.colors-light .part.login em {
+  background-color: #cfecff;
+  color: #1873ea;
+}
+.colors-light .updates {
+  border-top: 1px solid #ced4da;
+}
+.colors-light .updates span,
+.colors-light .updates a {
+  color: #e03131;
+}
+.colors-light .part.login .name .line1 .recent,
+.colors-light .part.login .action.copy-password,
+.colors-light .part.login .action.copy-user,
+.colors-light .part.login .action.details,
+.colors-light .part.details .action.copy {
+  filter: invert(85%);
+}
+.colors-light .part.login .name .line1 .recent:focus,
+.colors-light .part.login .name .line1 .recent:hover,
+.colors-light .part.login .action.copy-password:focus,
+.colors-light .part.login .action.copy-password:hover,
+.colors-light .part.login .action.copy-user:focus,
+.colors-light .part.login .action.copy-user:hover,
+.colors-light .part.login .action.details:focus,
+.colors-light .part.login .action.details:hover {
+  background-color: #0c0804;
+}
+.colors-light .part.details .part.snack.line-otp {
+  background: transparent;
+}
+.colors-light .part.details .part.snack .progress-container {
+  background-color: #ffffff;
+  z-index: -1;
+  margin-top: -4px;
+  height: 34px;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Open Sans"), url("/fonts/OpenSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Open Sans Light"), url("/fonts/OpenSans-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Source Code Pro"), url("/fonts/SourceCodePro-Regular.ttf") format("truetype");
+}
+html,
+body {
+  font-family: "Open Sans";
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  min-width: 260px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+@media (min-resolution: 192dpi) {
+  html,
+  body {
+    font-weight: 300;
+  }
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+.logins {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: inherit;
+  max-height: 371px;
+}
+.badge {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 8px;
+  padding: 1px 4px;
+}
+.details .header {
+  display: flex;
+  margin-bottom: 4px;
+}
+.part {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+}
+.part:last-child {
+  border-bottom: none;
+}
+.part > .badge:first-child {
+  margin-left: 0;
+}
+.part.error {
+  white-space: normal;
+  padding: 7px;
+}
+.part.notice {
+  white-space: normal;
+  padding: 7px;
+}
+.part.details {
+  flex-direction: column;
+  padding: 5px 10px 10px;
+}
+.part.details > .part {
+  display: flex;
+  margin-bottom: 11px;
+}
+.part.details > .part:last-child {
+  margin-bottom: 0;
+}
+.part.details > .part.snack {
+  border: 1px solid;
+  border-radius: 2px;
+  height: 36px;
+  padding: 4px;
+}
+.part.details > .part.snack .char {
+  white-space: pre;
+}
+.part.details > .part.snack > .label {
+  border-radius: 2px 0 0 2px;
+  cursor: default;
+  display: flex;
+  flex-grow: 0;
+  font-weight: bold;
+  justify-content: flex-end;
+  margin: -5px 8px -5px -5px;
+  padding: 4px 8px 4px 4px;
+  width: 3.25em;
+}
+.part.details > .part.snack > :not(.label) {
+  display: flex;
+  align-items: center;
+  font-family: Source Code Pro, monospace;
+}
+.part.details > .part.snack > .copy {
+  cursor: pointer;
+  flex-grow: 0;
+  padding: 0 24px 0 0;
+  background-image: url("/popup/icon-copy.svg");
+  background-position: top 4px right 4px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  margin: 2px;
+}
+.part.details > .part.snack > .progress-container {
+  z-index: 2;
+  position: absolute;
+  margin: 30px 0 -4px calc(3.25em + 7px);
+  height: 1px;
+  width: calc(100% - 6.5em + 12px);
+}
+.part.details > .part.snack > .progress-container > .progress {
+  height: 100%;
+  margin: 0;
+}
+.part.details > .part.raw textarea {
+  border: 1px solid;
+  border-radius: 2px;
+  flex-grow: 1;
+  font-family: Source Code Pro, monospace;
+  min-height: 110px;
+  min-width: 340px;
+  outline: none;
+  padding: 10px;
+  white-space: pre;
+}
+.part.details > .part > * {
+  flex-grow: 1;
+  align-items: center;
+}
+.part.search {
+  padding: 6px 28px 6px 6px;
+  background-image: url("/popup/icon-search.svg");
+  background-position: top 6px right 6px;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+.part.search > .hint {
+  line-height: 19px;
+}
+.part.search > .hint > .remove-hint {
+  background-image: url("/popup/icon-bs-delete.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  height: 12px;
+  margin: 3px 0 3px 4px;
+  width: 16px;
+}
+.part.search > input[type="text"] {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-family: "Open Sans";
+}
+.part.search > input[type="text"]::placeholder {
+  opacity: 1;
+}
+.part.login > .name:hover,
+.part.login > .name:focus,
+.part.login > .action:hover,
+.part.login > .action:focus,
+.part.login:focus > .name {
+  outline: none;
+}
+.part.login {
+  display: flex;
+  align-items: center;
+  height: 53px;
+}
+.part.login.details-header {
+  height: calc(53px + 6px);
+  padding: 0 4px;
+  outline: none;
+}
+.part.login:not(.details-header) {
+  cursor: pointer;
+}
+.part.login:hover,
+.part.login:focus {
+  outline: none;
+}
+.part.login .name {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 41px;
+  padding: 6px;
+}
+.part.login .name .line1 {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+}
+.part.login .name .line1 .recent {
+  background-image: url("/popup/icon-history.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 8px;
+  width: 9.5px;
+  margin-top: 4px;
+}
+.part.login .name .line2 {
+  font-size: 18px;
+  margin-top: 2px;
+}
+.part.login .action {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 19px;
+  width: 30px;
+  height: 41px;
+  padding: 6px;
+}
+.part.login .action.copy-password {
+  background-image: url("/popup/icon-key.svg");
+}
+.part.login .action.copy-user {
+  background-image: url("/popup/icon-user.svg");
+}
+.part.login .action.details {
+  background-image: url("/popup/icon-details.svg");
+}
+.part.login em {
+  font-style: normal;
+}
+.updates {
+  padding: 6px;
+}

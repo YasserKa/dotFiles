@@ -1,0 +1,44 @@
+{
+   "author": "Maxim Baz \u003Cbrowserpass@maximbaz.com>, Steve Gilberd \u003Csteve@erayd.net>",
+   "background": {
+      "persistent": true,
+      "scripts": [ "js/background.dist.js" ]
+   },
+   "browser_action": {
+      "default_icon": {
+         "128": "icon.png",
+         "16": "icon16.png"
+      },
+      "default_popup": "popup/popup.html"
+   },
+   "commands": {
+      "_execute_browser_action": {
+         "suggested_key": {
+            "default": "Ctrl+Shift+L"
+         }
+      },
+      "fillBest": {
+         "description": "Fill form with the best matching credentials",
+         "suggested_key": {
+            "default": "Ctrl+Shift+F"
+         }
+      }
+   },
+   "content_security_policy": "default-src 'none'; font-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'",
+   "description": "Browser extension for zx2c4's pass (password manager)",
+   "homepage_url": "https://github.com/browserpass/browserpass-extension",
+   "icons": {
+      "128": "icon.png",
+      "16": "icon16.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi7YpMyAwUW15FiUP7B4uOWRLeaeNKleIOWj81MtRVZ7hlA83oKKbl/Sy8lRHhF4ks9ZIy8VMevsVJ/XRpxPyts0HMS1JoDChGIwV4UK950DE4Xo+Sx48Pz8az+3wRjqwCKx6IPpfPFG9cKa1xDLp7yn9m2Ne75GJ/YIH01Cx3NB5ygKY+4f6rPjQjNij1hfbOgt+gfk9YlOIjysg4PJwxVgma4uhd441MUioBMdI5OQnipxXHzHXo1ZHZR1wvGn0geg+06CtKHdU5u4XUYxD90JVmSGJKM1J8ALIPLA8O7nx1zR1b1QYuUYITNCa5sdUfzrMXDmFFoYrST3fkQICjwIDAQAB",
+   "manifest_version": 2,
+   "name": "Browserpass",
+   "options_ui": {
+      "chrome_style": true,
+      "open_in_tab": false,
+      "page": "options/options.html"
+   },
+   "permissions": [ "activeTab", "alarms", "tabs", "clipboardRead", "clipboardWrite", "nativeMessaging", "notifications", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
+   "version": "3.7.2"
+}

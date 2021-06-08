@@ -1,0 +1,7 @@
+2021/06/08-23:28:16.995 5 Reusing MANIFEST /home/yasser/dotFiles/projects/Projects/notify-me/myProfile/Default/Local Storage/leveldb/MANIFEST-000001
+2021/06/08-23:28:16.997 5 Recovering log #3
+2021/06/08-23:28:16.997 5 Level-0 table #3: started
+2021/06/08-23:28:17.018 5 Level-0 table #3: 29981 bytes OK
+2021/06/08-23:28:17.018 5 Recovering log #4
+2021/06/08-23:28:17.018 5 Reusing old log /home/yasser/dotFiles/projects/Projects/notify-me/myProfile/Default/Local Storage/leveldb/000004.log 
+2021/06/08-23:28:17.024 5 Delete type=0 #3

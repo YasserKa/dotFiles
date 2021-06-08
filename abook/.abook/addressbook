@@ -1,0 +1,27 @@
+# abook addressbook file
+
+[format]
+program=abook
+version=0.6.1
+
+
+[0]
+name=Issam Kaddoura
+email=issam.kaddoura@liu.edu.lb
+
+[1]
+name=Yasser Kaddoura
+email=yasser.kaddoura19@gmail.com
+
+[2]
+name=Matteo Magnani
+email=matteo.magnani@it.uu.se
+
+[3]
+name=Davide Vega D'aurelio
+email=davide.vega@it.uu.se
+
+[4]
+name=Riccardo De Masellis
+email=riccardo.demasellis@it.uu.se
+

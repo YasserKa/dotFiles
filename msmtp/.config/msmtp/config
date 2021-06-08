@@ -1,0 +1,16 @@
+defaults
+auth	on
+tls	on
+tls_trust_file	/etc/ssl/certs/ca-certificates.crt
+logfile	~/.config/msmtp/msmtp.log
+
+
+
+account personal
+host smtp.gmail.com
+port 587
+from yasser.kaddoura19@gmail.com
+user yasser.kaddoura19@gmail.com
+passwordeval "pass mutt-wizard-personal"
+
+
