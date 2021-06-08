@@ -1,0 +1,37 @@
+auto-reload yes
+reload-time 120
+reload-threads 4
+download-retries 4
+download-timeout 10
+prepopulate-query-feeds yes
+feed-sort-order title
+goto-next-feed no
+
+confirm-exit no
+cleanup-on-quit yes
+
+external-url-viewer "urlview"
+browser qutebrowser
+
+text-width 80
+
+color info default default
+color listnormal yellow default
+color listfocus blue default bold
+color listfocus_unread blue default bold
+
+bind-key j down feedlist
+bind-key j next articlelist
+bind-key j down article
+bind-key k up feedlist
+bind-key k prev articlelist
+bind-key k up article
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key h quit articlelist
+bind-key h quit article
+bind-key l open feedlist
+bind-key l open articlelist
+bind-key u pageup all
+bind-key d pagedown all
+bind-key U show-urls
