@@ -1,8 +1,2 @@
-.config/qutebrowser/qsettings/QtProject.conf
-.config/nvim/undo/
-**/default.target.wants/**
+**/default.target.wants
 **/chromedriver
-**/myProfile
-**/bot
-**/you
-**/dude
