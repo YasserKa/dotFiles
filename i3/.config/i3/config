@@ -104,8 +104,8 @@ assign [class="Slack"] workspace $social
 assign [class="Chromium"] workspace $wp9
 
 # For notify-me script
-for_window [instance="myProfile"] move scratchpad
-for_window [instance="bot"] move scratchpad
+for_window [instance="notify_me_profile"] move scratchpad
+for_window [instance="facebook_bot_profile"] move scratchpad
 # put general notes in scratchpad
 for_window [title="general_notes"] move scratchpad
 for_window [title="general_notes"] resize set 990 820
