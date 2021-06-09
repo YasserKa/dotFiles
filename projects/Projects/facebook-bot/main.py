@@ -10,12 +10,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from random import choice
 
-# https://www.facebook.com/messages/t/100057748813194
-# https://www.facebook.com/messages/t/3295737910517634
-URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/3295737910517634'
+# GROUP: https://www.facebook.com/messages/t/100057748813194
+# MAX: https://www.facebook.com/messages/t/100041868255303
+URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/100041868255303'
 
 executable_path = './chromedriver'
-profile_path = './bot'
+profile_path = '~/.config/chromium/facebook_bot_profile'
 
 CLEANING_TEAMS = [
     ['Yasser', '김가연'],
@@ -34,14 +34,14 @@ driver = webdriver.Chrome(executable_path=executable_path, options=options)
 
 def use_random_emoji():
     driver.find_element(
-        By.XPATH, ".//*[contains(@aria-label, 'Välj en emoji')]").click()
+        By.XPATH, ".//*[contains(@aria-label, 'Choose an emoji')]").click()
 
     # ::div/ancestor::img[contains(@src, "emoji")]
     element_present = EC.presence_of_element_located(
-        (By.XPATH, './/*[contains(text(), "Smileys och personer")]'))
+        (By.XPATH, './/*[contains(text(), "Smileys & people")]'))
     WebDriverWait(driver, 10).until(element_present)
     emoji_list = driver.find_elements(
-        By.XPATH, './/*[contains(text(), "Smileys och personer")]/'
+        By.XPATH, './/*[contains(text(), "Smileys & people")]/'
         'following-sibling::div/descendant::img[contains(@src, "emoji")]')
 
     choice(emoji_list).click()

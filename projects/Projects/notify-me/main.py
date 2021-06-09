@@ -12,7 +12,7 @@ URL_WHATS_APP = 'https://web.whatsapp.com/'
 URL_FACEBOOK = 'https://www.facebook.com/'
 
 executable_path = './chromedriver'
-profile_path = './myProfile'
+profile_path = '/home/yasser/.config/chromium/notify_me_profile'
 
 discord = ' Discord notification'
 facebook = ' Facebook notification'
@@ -70,6 +70,7 @@ def check_whatsapp():
 
     unread_messages = driver.find_elements(
         By.XPATH, './/*[contains(@aria-label,"unread message")]')
+
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
