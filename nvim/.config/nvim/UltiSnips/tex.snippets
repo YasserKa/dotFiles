@@ -254,3 +254,17 @@ context "math()"
 snippet -s "overset" i
 \overset{${1:${VISUAL:over}}}{$2}$0
 endsnippet
+
+context "math()"
+snippet array "overset" i
+|x| = \left\{ \begin{array}{cl}
+$1 & : $2 \\
+$3 & : $4
+\end{array} \right.
+endsnippet
+
+snippet ga "overset" i
+\begin{gather*}
+	$0
+\end{gather*}
+endsnippet
