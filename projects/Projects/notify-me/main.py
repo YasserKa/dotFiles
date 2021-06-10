@@ -19,13 +19,7 @@ facebook = ' Facebook notification'
 reddit = ' Reddit notification'
 whatsapp = 'Whatsapp notification'
 
-options = webdriver.ChromeOptions()
-
-options.add_argument('user-data-dir=' + profile_path)
-
-os.system("pkill chromedriver")
-
-driver = webdriver.Chrome(executable_path=executable_path, options=options)
+driver = None
 
 
 def check_discord():
@@ -78,6 +72,13 @@ def check_whatsapp():
 
 
 def main():
+    global driver
+
+    options = webdriver.ChromeOptions()
+    options.add_argument('user-data-dir=' + profile_path)
+    os.system("pkill chromedriver")
+    driver = webdriver.Chrome(executable_path=executable_path, options=options)
+
     try:
         check_discord()
         check_facebook()
@@ -90,4 +91,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception:
+        subprocess.run(
+            "dunstify 'Something went wrong with notify-me script'", shell=True)
