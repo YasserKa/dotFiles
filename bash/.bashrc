@@ -7,6 +7,7 @@ set -o noclobber           # Don't overwrite when redireting using shell
 shopt -s autocd            # Auto cd
 shopt -s histappend        # Append to the history file, don't overwrite it
 shopt -s checkwinsize      # Update the value of LINES and COLUMNS after each command if altered
+shopt -s cdspell           # fix  spelling errors when using cd
 stty -ixon                 # Enable search C-s for history searching
 
 git_branch() {
