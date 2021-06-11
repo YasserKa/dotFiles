@@ -1,0 +1,9 @@
+[Unit]
+Description=dunst daemon
+
+[Service]
+Type=simple
+ExecStart=/bin/dunst
+
+[Install]
+WantedBy=default.target

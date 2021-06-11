@@ -216,11 +216,6 @@ exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/p
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch.sh
 
-# Notification daemon
-exec --no-startup-id dunst
-# Storage devices daemon manipulation
-exec --no-startup-id udiskie
-
 exec --no-startup-id slack
 exec sleep 8; i3-msg '[class="Slack"] kill'
 

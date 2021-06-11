@@ -1,0 +1,9 @@
+[Unit]
+Description=udiskie automounter for removable media daemon
+
+[Service]
+Type=simple
+ExecStart=/bin/udiskie
+
+[Install]
+WantedBy=default.target
