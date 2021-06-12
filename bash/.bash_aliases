@@ -72,5 +72,3 @@ alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 alias tea_time='dunstify "Tea time in 5 minutes"; sleep $((5*60)); dunstify "Tea time"'
 alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'
 alias myip='curl ifconfig.me'
-# open general notes file if it's not opened and disown the process that's immume to hangups
-alias general_notes='[[ -z $(ps aux | grep -v "color" | grep "notes/general.md") ]] && `nohup alacritty --title general_notes -e nvim $HOME/notes/general.md >/dev/null 2>&1 &`'

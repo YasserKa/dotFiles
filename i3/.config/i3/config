@@ -177,7 +177,7 @@ bindsym $mod+Shift+e exit
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus [title="^(?!.*general_notes).*$"] scratchpad show
 
-bindsym $mod+n [title="general_notes"] scratchpad show
+bindsym $mod+n exec --no-startup-id general_notes
 
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
