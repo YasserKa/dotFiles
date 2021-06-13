@@ -221,7 +221,6 @@ exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
-exec --no-startup-id exec general_notes
 
 # Wait until the internet is on
 exec_always $HOME/bin/waitInternet; mail_check_mutt
