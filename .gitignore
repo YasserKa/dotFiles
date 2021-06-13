@@ -1,2 +1,3 @@
 **/default.target.wants
 **/chromedriver
+/qutebrowser/.config/qutebrowser/qsettings/
