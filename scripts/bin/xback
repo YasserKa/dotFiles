@@ -1,0 +1,13 @@
+#!/bin/bash
+
+TOKEN=$(bw get item xbackbone | jq '.fields[0].value')
+RESPONSE="$(curl -s -F "token=$TOKEN" -F "upload=@${1}" http://$XBACK_IP/upload)";
+
+if [[ "$(echo "${RESPONSE}" | jq -r '.message')" == "OK" ]]; then
+    URL="$(echo "${RESPONSE}" | jq -r '.url')";
+    echo "${URL}" | xclip -selection c;
+    notify-send "Upload completed!";
+else
+    MESSAGE="$(echo "${RESPONSE}" | jq -r '.message')";
+    notify-send "Error! ${MESSAGE}";
+fi

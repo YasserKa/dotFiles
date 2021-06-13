@@ -8,6 +8,8 @@ export ESCDELAY=25
 # used by imgur api
 export BW_SESSION=$(pass show bw_session)
 
+export XBACK_IP=13.53.133.163
+
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
 export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d ' ' -f1)
