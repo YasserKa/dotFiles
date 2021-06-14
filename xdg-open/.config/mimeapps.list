@@ -1,12 +1,18 @@
 [Default Applications]
-x-scheme-handler/https=qutebrowser.desktop
-x-scheme-handler/http=qutebrowser.desktop
-application/xhtml+xml=qutebrowser.desktop
 application/pdf=zathura.desktop
-text/html=qutebrowser.desktop
 text/plain=nvim-qt.desktop
 video/mp4=mpv.desktop
 image/gif=mpv.desktop
 image/png=feh.desktop
 image/jpeg=feh.desktop
 image/svg+xml=feh.desktop
+application/x-extension-htm=qutebrowser.desktop
+application/x-extension-html=qutebrowser.desktop
+application/x-extension-shtml=qutebrowser.desktop
+application/x-extension-xhtml=qutebrowser.desktop
+application/x-extension-xht=qutebrowser.desktop
+x-scheme-handler/https=qutebrowser.desktop
+x-scheme-handler/http=qutebrowser.desktop
+x-scheme-handler/chrome=qutebrowser.desktop
+application/xhtml+xml=qutebrowser.desktop
+text/html=qutebrowser.desktop
