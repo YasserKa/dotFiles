@@ -63,18 +63,19 @@ c.bindings.commands = {
         '<Ctrl-Shift-V>': 'mode-enter passthrough',
         'cm': 'clear-messages ;; download-clear',
 
-        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/orgLink',
-        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/latexLink',
-        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
-        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
+        'yo': 'spawn --userscript orgLink',
+        'yl': 'spawn --userscript latexLink',
+        'yu': 'spawn --userscript youtube',
+        'ys': 'spawn --userscript link_shortener',
+        'gl': 'spawn --userscript localhost list',
 
         # password
         '<z><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-bitwarden',
+                qute-bitwarden',
         '<z><u><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
+                qute-bitwarden --username-only',
         '<z><p><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
+                qute-bitwarden --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
