@@ -20,7 +20,7 @@ function note_path(){
 }
 
 case $1 in
-    -v | -i) deepin-screen-recorder --save-path $target_path;;
+    -v | -i | -c) deepin-screen-recorder --save-path $target_path;;
     -n) target_path=$(note_path)
 
         # no notes is picked
@@ -74,6 +74,10 @@ if [[ "$extension" == "gif" ]]; then
     arg='-i'
 fi
 
-xback $new_path
 
-# cat $new_path | xclip -selection clipboard -t $(file -b --mime-type $new_path)
+if [ "$1" == "-c" ]; then
+    cat $new_path | xclip -selection clipboard -t $(file -b --mime-type $new_path)
+    dunstify "Image saved to clipboard"
+else
+    xback $new_path
+fi

@@ -153,6 +153,7 @@ mode "cmus" {
 bindsym $mod+s mode "sharing"
 mode "sharing" {
     bindsym i exec ~/bin/share -i; mode "default"
+    bindsym c exec ~/bin/share -c; mode "default"
         bindsym v exec ~/bin/share -v; mode "default"
         bindsym t exec ~/bin/share -t; mode "default"
         bindsym n exec ~/bin/share -n; mode "default"
