@@ -55,27 +55,28 @@ c.bindings.commands = {
         ':r': 'hint --rapid links tab-bg',
         ':t': 'hint inputs',
         ':y': 'hint links yank',
+        ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
 
         ',es': 'config-edit',
-        ',ss': 'config-source',
+        ',ss': 'config-source ;; message-info "config file sourced"',
         ',h': 'search',
 
         '<Ctrl-Shift-V>': 'mode-enter passthrough',
         'cm': 'clear-messages ;; download-clear',
 
-        'yo': 'spawn --userscript orgLink',
-        'yl': 'spawn --userscript latexLink',
-        'yu': 'spawn --userscript youtube',
-        'ys': 'spawn --userscript link_shortener',
-        'gl': 'spawn --userscript localhost list',
+        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/orgLink',
+        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/latexLink',
+        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
+        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
+        'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
 
         # password
         '<z><l>': 'spawn --userscript \
-                qute-bitwarden',
+                ~/.config/qutebrowser/userscripts/qute-bitwarden',
         '<z><u><l>': 'spawn --userscript \
-                qute-bitwarden --username-only',
+                ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
         '<z><p><l>': 'spawn --userscript \
-                qute-bitwarden --password-only',
+                ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
@@ -95,24 +96,26 @@ c.bindings.commands = {
 
         '<Ctrl-Shift-V>': 'mode-leave',
     },
+
     'command': {
         '<Ctrl-p>': 'completion-item-focus --history prev',
         '<Ctrl-n>': 'completion-item-focus --history next',
     },
 }
 
-# c.aliases['paywall'] = "open https://12ft.io/proxy?q={{url}}"
+c.aliases['paywall'] = "open https://12ft.io/proxy?q={{url}}"
 
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
 
 c.content.blocking.whitelist = ["https://analytics.google.com/analytics/*"]
 
+c.hints.selectors['id'] = ["[id]"]
 config.set('spellcheck.languages', ['en-US'])
 config.set('tabs.title.format', '{current_title}')
 
 config.set('url.searchengines', {
-    'DEFAULT': 'https://www.duckduckgo.com/?q={}',
+    'DEFAULT': 'https://www.google.com/search?q={}',
     'duck': 'https://www.duckduckgo.com/?q={}',
     'go': 'https://www.google.com/search?q={}',
     'def': 'https://www.google.com/search?q=define {}',
@@ -120,7 +123,7 @@ config.set('url.searchengines', {
 })
 
 # removes expired certificate prompt
-config.set('content.ssl_strict', True)
+# config.set('content.ssl_strict', True)
 config.set('scrolling.bar', 'never')
 
 config.set('editor.command', [
