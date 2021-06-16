@@ -11,6 +11,7 @@ BOOKS_PATH = f"{os.environ['HOME']}/books"
 
 CURRENT_NOTES = [
     "paul_algebra",
+    "how_linux_works",
 ]
 
 

@@ -24,6 +24,7 @@ alias shut='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shu
 alias top='htop'
 alias ls='exa --color=auto'
 alias ll='exa -alFh'
+alias cat='bat'
 
 # more options
 alias mkdir='mkdir -pv'

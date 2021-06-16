@@ -8,8 +8,6 @@ export ESCDELAY=25
 # used by imgur api
 export BW_SESSION=$(pass show bw_session)
 
-export XBACK_IP=13.53.133.163
-
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
 export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d ' ' -f1)
@@ -24,9 +22,6 @@ export HISTCONTROL=ignoredups:ignorespace
 # Fzf
 export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
-
-# last password
-export LPASS_HOME=$HOME/.lpass
 
 # configurations in one place
 [ "$XDG_CONFIG_HOME" ] || export XDG_CONFIG_HOME="$HOME/.config"
@@ -52,7 +47,7 @@ LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
 export LIBVA_DRIVER_NAME=vdpau
 export VDPAU_DRIVER=nvidia
 
+# if there's no DISPLAY, start X11
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
     exec startx
 fi
