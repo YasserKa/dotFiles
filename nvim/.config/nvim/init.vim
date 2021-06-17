@@ -328,6 +328,7 @@ let g:latex_symbols = {
             \ '~' : ['\\tilde', '˜x (\tilde)'] ,
             \ 'N' : ['\\nabla', '∇ (\nabla)'] ,
             \ 'I' : ['\\infty', '∞ (\infty)'] ,
+            \ 'o' : ['\\circ', '◦ (\circ)'] ,
             \ 'A' : ['\\forall', '∀ (\forall)'] ,
             \ 'E' : ['\\exists', '∃ (\exists)'] ,
             \ '/' : ['\\not', '(\not)'] ,
