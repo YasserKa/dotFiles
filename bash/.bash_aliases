@@ -31,6 +31,7 @@ alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
 alias grep='grep --color=auto'
+alias ip='ip -color=auto'
 
 # prompt before overriding
 alias mv='mv -i'

@@ -1,6 +1,8 @@
 # Check for interactive
 [ -z "$PS1" ] && return
 
+export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+export LESS='-R '
 
 # Bash options
 set -o vi                  # Vi mode
@@ -29,6 +31,7 @@ unset fasd_cache
 # Source files
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
 [[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
+[[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
