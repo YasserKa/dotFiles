@@ -1,9 +1,9 @@
 #!/bin/bash
 
-XBACK_IP=13.53.133.163
+UPLOAD_URL="https://yasserkaddoura.com/upload"
 
 TOKEN=$(bw get item xbackbone | jq '.fields[0].value')
-RESPONSE="$(curl -s -F "token=$TOKEN" -F "upload=@${1}" http://$XBACK_IP/upload)";
+RESPONSE="$(curl -s -F "token=$TOKEN" -F "upload=@${1}" $UPLOAD_URL)";
 
 if [[ "$(echo "${RESPONSE}" | jq -r '.message')" == "OK" ]]; then
     URL="$(echo "${RESPONSE}" | jq -r '.url')";
