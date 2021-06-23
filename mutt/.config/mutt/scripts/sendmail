@@ -1,0 +1,4 @@
+#!/bin/env sh
+ACCOUNT="$1"
+shift
+$XDG_CONFIG_HOME/mutt/scripts/MIMEbellish | msmtp -a personal "$@"

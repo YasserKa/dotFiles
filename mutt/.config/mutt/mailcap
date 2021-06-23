@@ -1,6 +1,9 @@
-text/plain; nvim %s;
+text/plain; $EDITOR %s;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
+text/html; openfile %s ; nametemplate=%s.html
 image/*; xdg-open %s &> /dev/null &;
 video/*; setsid mpv --quiet %s &; copiousoutput
+audio/*; mpv %s ;
 application/pdf; cp '%s' /tmp/doc.pdf && setsid zathura /tmp/doc.pdf &; copiousoutput;
 application/pgp-encrypted; gpg -d '%s'; copiousoutput;
+application/pgp-keys; gpg --import '%s'; copiousoutput;
