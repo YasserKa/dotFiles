@@ -1,6 +1,6 @@
 # paths
 # source /usr/share/mutt-wizard/mutt-wizard.muttrc
-set folder = $XDG_DATA_HOME/Mail
+set folder = $XDG_DATA_HOME/mail/personal
 set certificate_file = $XDG_DATA_HOME/mutt/certificates
 set signature = $XDG_CONFIG_HOME/mutt/signature
 set mailcap_path = $XDG_CONFIG_HOME/mutt/mailcap

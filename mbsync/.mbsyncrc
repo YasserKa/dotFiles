@@ -9,8 +9,8 @@ CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 MaildirStore personal-local
 Subfolders Verbatim
-Path ~/.local/share/Mail/
-Inbox ~/.local/share/Mail/INBOX
+Path ~/.local/share/mail/personal/
+Inbox ~/.local/share/mail/personal/INBOX
 Flatten .
 
 Channel personal

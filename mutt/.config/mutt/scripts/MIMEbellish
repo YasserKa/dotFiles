@@ -133,9 +133,14 @@ def attachment_from_file_path(attachment_path):
         return None
 
 
-attachment_path_pattern = re.compile(r'\]\s*\(\s*file://(/[^)]*\S)\s*\)|'
-                                     r'\]\s*:\s*file://(/.*\S)\s*$',
+# attachment_path_pattern = re.compile(r'\]\s*\(\s*file://(/[^)]*\S)\s*\)|'
+#                                      r'\]\s*:\s*file://(/.*\S)\s*$',
+#                                      re.MULTILINE)
+
+attachment_path_pattern = re.compile(r'\!\[\]\s*\(\s*([^)]*\S)\s*\)|'
+                                     r'\!\[\]\s*:\s*(/.*\S)\s*$',
                                      re.MULTILINE)
+
 
 
 def link_attachments(payload):
@@ -145,10 +150,10 @@ def link_attachments(payload):
     def on_match(match):
         if match.group(1):
             attachment_path = match.group(1)
-            cid_fmt = '](cid:{})'
+            cid_fmt = '![](cid:{})'
         else:
             attachment_path = match.group(2)
-            cid_fmt = ']: cid:{}'
+            cid_fmt = '![]: cid:{}'
         attachment_id = md5(attachment_path.encode()).hexdigest()
         if attachment_id in attached:
             return cid_fmt.format(attachment_id)
