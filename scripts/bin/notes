@@ -12,6 +12,7 @@ BOOKS_PATH = f"{os.environ['HOME']}/books"
 CURRENT_NOTES = [
     "paul_calculus_I",
     "how_linux_works",
+    "data_science_design_manual"
 ]
 
 
@@ -63,17 +64,17 @@ def main():
 
     sleep(2)
     subprocess.run(
-        f"i3-msg '[title=\"{notes_picked}\"] move right'", shell=True)
+        f"i3-msg '[title=\"^{notes_picked}$\"] move right'", shell=True)
 
 
     # kill the process if it already exists
-    process = subprocess.run(
-        ["xdotool", "search", "--name", f"^{notes_picked}$", 'getwindowpid'],
-        capture_output=True, text=True).stdout
-
-    process = process.strip()
-    if process != '':
-        subprocess.run(["kill", process])
+#    process = subprocess.run(
+#        ["xdotool", "search", "--name", f"^{notes_picked}$", 'getwindowpid'],
+#        capture_output=True, text=True).stdout
+#
+#    process = process.strip()
+#    if process != '':
+#        subprocess.run(["kill", process])
 
 
 # TODO: courses jupyter notebook

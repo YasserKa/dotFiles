@@ -115,7 +115,7 @@ config.set('spellcheck.languages', ['en-US'])
 config.set('tabs.title.format', '{current_title}')
 
 config.set('url.searchengines', {
-    'DEFAULT': 'https://www.google.com/search?q={}',
+    'DEFAULT': 'https://www.duckduckgo.com/?q={}',
     'duck': 'https://www.duckduckgo.com/?q={}',
     'go': 'https://www.google.com/search?q={}',
     'def': 'https://www.google.com/search?q=define {}',

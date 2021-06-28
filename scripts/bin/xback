@@ -1,6 +1,6 @@
 #!/bin/bash
 
-UPLOAD_URL="https://yasserkaddoura.com/upload"
+UPLOAD_URL="https://share.yasserkaddoura.com/upload"
 
 TOKEN=$(bw get item xbackbone | jq '.fields[0].value')
 RESPONSE="$(curl -s -F "token=$TOKEN" -F "upload=@${1}" $UPLOAD_URL)";

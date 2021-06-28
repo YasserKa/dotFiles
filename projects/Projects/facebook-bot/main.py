@@ -10,17 +10,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from random import choice
 
-# GROUP: https://www.facebook.com/messages/t/100057748813194
+# GROUP: https://www.facebook.com/messages/t/3295737910517634
 # MAX: https://www.facebook.com/messages/t/100041868255303
-URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/100041868255303'
+URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/3295737910517634'
 
 executable_path = './chromedriver'
 profile_path = '~/.config/chromium/facebook_bot_profile'
 
 CLEANING_TEAMS = [
-    ['Yasser', '김가연'],
-    ['David', 'Lise'],
-    ['Dennis', 'Josh'],
+    ['Josh', 'Yasser'],
+    ['Dennis', 'Lise'],
 ]
 
 options = webdriver.ChromeOptions()
@@ -48,8 +47,7 @@ def use_random_emoji():
 
 
 def get_message():
-
-    original_date = date(2021, 1, 18)
+    original_date = date(2021, 6, 21)
     today = date.today()
     days_difference = today - original_date
     number_of_weeks = int(days_difference.days / 7)
