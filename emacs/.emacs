@@ -19,6 +19,13 @@
  '(package-selected-packages
    '(helm-core undo-tree undo-redo evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 ;; Install not presented packages
 (package-initialize)
 (unless package-archive-contents
@@ -240,6 +247,7 @@
 ;; ORG NOTIFICATION
 
 (require 'appt)
+(appt-activate 1)                ;; activate appointment notification
 
 (setq
  appt-time-msg-list nil                           ;; clear existing appt list
@@ -249,7 +257,12 @@
  appt-display-format 'window)                     ;; pass warnings to the designated window function
 (setq appt-disp-window-function (function toast-appt-display))
 
-(appt-activate 1)                ;; activate appointment notification
+
+;; update appt after saving file
+(add-hook 'after-save-hook
+          '(lambda ()
+             (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
+                 (org-agenda-to-appt-clear-message))))
 
 ;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
@@ -263,14 +276,7 @@
   (message nil))
 
 (defun org-agenda-to-appt-clear-message ()
-  (interactive) (org-agenda-to-appt) (message nil))
+  (interactive) (setq appt-time-msg-list nil) (org-agenda-to-appt) (message nil))
 
-(run-at-time 0 3600 'org-agenda-to-appt-clear-message)                 ;; update appt list hourly
 (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
