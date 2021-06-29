@@ -75,6 +75,12 @@ function def() {
         vimpager
 }
 
+# move file to lower case
+function to_lower_case() {
+    lower_case=`echo $@  | tr '[A-Z]' '[a-z]'`
+    mv $@ $lower_case
+}
+
 # commands run in background automatically
 function zathura() { (command zathura "$@" &> /dev/null &) }
 function mpv() { (command mpv "$@" &> /dev/null &) }
