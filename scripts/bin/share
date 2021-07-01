@@ -4,8 +4,7 @@ target_vid_dir="$HOME/Videos/Shareables"
 target_path="$HOME"
 
 # remove all media from desktop if exists
-rm -f $target_path/Screenshot_*
-rm -f $target_path/Record_*
+rm -f $target_path/Screen*
 
 mkdir -p $target_img_dir
 mkdir -p $target_vid_dir
@@ -35,7 +34,7 @@ if [ "$1" == "-n" ]; then
     mkdir -p $target_path
 
     deepin-screen-recorder --save-path $target_path
-    old_file_name=`ls $target_path | grep -E 'Screenshot'`
+    old_file_name=`ls $target_path | grep -E 'Screen'`
     extension="${old_file_name##*.}"
 
     old_path="$target_path/$old_file_name"
@@ -49,7 +48,7 @@ fi
 
 arg=$1
 date=`date +"%Y-%m-%d_%T"`
-file_name=`ls $target_path | grep -E 'Screenshot|Record'`
+file_name=`ls $target_path | grep -E 'Screen|Record'`
 old_path="$target_path/$file_name"
 
 extension="${file_name##*.}"

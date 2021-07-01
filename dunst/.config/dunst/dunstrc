@@ -197,6 +197,10 @@ history_ignore = yes
 
 # Remove deepinscreenshot notifications
 [deepin]
+body = "*Screen Capture*"
+format = ""
+
+[deepin1]
 body = "*Screenshot*"
 format = ""
 
