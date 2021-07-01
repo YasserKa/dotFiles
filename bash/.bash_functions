@@ -77,8 +77,8 @@ function def() {
 
 # move file to lower case
 function to_lower_case() {
-    lower_case=`echo $@  | tr '[A-Z]' '[a-z]'`
-    mv $@ $lower_case
+    lower_case=`echo "$@"  | tr '[A-Z]' '[a-z]'`
+    mv "$@" "$lower_case"
 }
 
 # commands run in background automatically
