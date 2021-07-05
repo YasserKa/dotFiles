@@ -2,7 +2,7 @@
 Description=Execute notify-me at startup and every 30 minutes
 
 [Timer]
-OnBootSec=1m
+OnBootSec=5m
 OnUnitActiveSec=30m
 Unit=notify-me.service
 

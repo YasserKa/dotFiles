@@ -94,5 +94,6 @@ if __name__ == '__main__':
     try:
         main()
     except Exception:
-        subprocess.run(
-            "dunstify 'Something went wrong with notify-me script'", shell=True)
+        pass
+        # subprocess.run(
+        #     "dunstify 'Something went wrong with notify-me script'", shell=True)

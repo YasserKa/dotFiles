@@ -196,13 +196,17 @@ new_icon = clipboard-64
 history_ignore = yes
 
 # Remove deepinscreenshot notifications
-[deepin]
-body = "*Screen Capture*"
+[deepin-recording]
+summary = "*Screen Capture*"
 format = ""
 
-[deepin1]
-body = "*Screenshot*"
+[deepin-screenshot]
+summary = "*Screenshot*"
 format = ""
+
+[jupyter-notebook]
+summary = "*Jupyter*"
+timeout = 3600
 
 [recording]
 summary = "*Recording*"
