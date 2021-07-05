@@ -1,3 +1,6 @@
+# source .bashrc for tmux
+if [ -f $HOME/.bashrc ]; then . $HOME/.bashrc; fi
+
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
 export PATH=$PATH:$HOME/.npm-global/bin
 export PATH=$PATH:$HOME/bin
