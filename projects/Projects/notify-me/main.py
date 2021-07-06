@@ -5,7 +5,7 @@ from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, SessionNotCreatedException
 
 URL_DISCORD = 'https://discordapp.com/channels/@me'
 URL_WHATS_APP = 'https://web.whatsapp.com/'
@@ -93,7 +93,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except Exception:
-        pass
-        # subprocess.run(
-        #     "dunstify 'Something went wrong with notify-me script'", shell=True)
+    except SessionNotCreatedException:
+        subprocess.run(
+            "dunstify 'Maybe need a new chromium driver'", shell=True)
