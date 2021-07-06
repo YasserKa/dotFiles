@@ -1,0 +1,42 @@
+$include /etc/inputrc
+# TAB completion
+set show-all-if-ambiguous on
+
+# Case-insensitive completion
+set completion-ignore-case on
+# Remove ^C
+set echo-control-characters off
+
+ # Color files by types
+set colored-stats on
+# Append char to indicate type
+set visible-stats on
+# Mark symlinked directories
+set mark-symlinked-directories on
+# Color the common prefix
+set colored-completion-prefix on
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix on
+
+# vi mode
+set editing-mode vi
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
+$if mode=vi
+    set keymap vi-command
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    j: history-search-forward
+    k: history-search-backward
+    ":": ";"
+    "\ep": yank-last-arg
+    Control-l: clear-screen
+
+    set keymap vi-insert
+    "\e[A": history-search-backward
+    "\e[B": history-search-forward
+    "\ep": yank-last-arg
+    Control-l: clear-screen
+$endif
+
