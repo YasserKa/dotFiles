@@ -173,10 +173,12 @@ new_icon = emacs
 [sleep]
 summary = "*sleep*"
 new_icon = bed-80
+history_ignore = yes
 
 [music]
 appname = cmus
 new_icon = music-80
+history_ignore = yes
 
 [mail]
 appname = neomutt
@@ -199,10 +201,12 @@ history_ignore = yes
 [deepin-recording]
 summary = "*Screen Capture*"
 format = ""
+history_ignore = yes
 
 [deepin-screenshot]
 summary = "*Screenshot*"
 format = ""
+history_ignore = yes
 
 [jupyter-notebook]
 summary = "*Jupyter*"
@@ -211,10 +215,12 @@ timeout = 3600
 [recording]
 summary = "*Recording*"
 format = ""
+history_ignore = yes
 
 # Remove imgur notifications
 [imgur]
 body = "*imgur*"
 format = ""
+history_ignore = yes
 
 # vim: ft=cfg
