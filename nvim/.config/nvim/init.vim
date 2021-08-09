@@ -120,12 +120,12 @@ set sessionoptions-=options
 set sessionoptions+=localoptions
 
 function! MakeSession()
-  let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
-  if (filewritable(b:sessiondir) != 2)
-    execute 'silent !mkdir -p ' b:sessiondir
-  endif
-  let b:filename = b:sessiondir . '/session.vim'
-  execute "mksession! " . b:filename
+    let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
+    if (filewritable(b:sessiondir) != 2)
+        execute 'silent !mkdir -p ' b:sessiondir
+    endif
+    let b:filename = b:sessiondir . '/session.vim'
+    execute "mksession! " . b:filename
 endfunction
 
 function! LoadSession()
@@ -234,11 +234,11 @@ let g:pear_tree_pairs = {
 augroup pear_pairs
     autocmd!
     autocmd FileType markdown let b:pear_tree_pairs = extend(deepcopy(g:pear_tree_pairs), {
-            \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
-            \ }, 'keep')
+                \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
+                \ }, 'keep')
     autocmd FileType tex let b:pear_tree_pairs = extend(deepcopy(g:pear_tree_pairs), {
-            \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
-            \ }, 'keep')
+                \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
+                \ }, 'keep')
 augroup END
 " >>>
 " targets <<<
