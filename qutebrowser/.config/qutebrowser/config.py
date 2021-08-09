@@ -119,7 +119,7 @@ config.set('url.searchengines', {
     'DEFAULT': 'https://www.duckduckgo.com/?q={}',
     'duck': 'https://www.duckduckgo.com/?q={}',
     'go': 'https://www.google.com/search?q={}',
-    'def': 'https://www.google.com/search?q=define {}',
+    'def': 'https://www.merriam-webster.com/dictionary/{}',
     'wiki': 'https://en.wikipedia.org/wiki/{}',
 })
 
