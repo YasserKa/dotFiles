@@ -40,6 +40,7 @@ Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn i
 Plug 'https://github.com/lervag/vimtex', {'for': ['tex', 'markdown']}
 Plug 'https://github.com/dhruvasagar/vim-table-mode'
 Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
+Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 call plug#end()
 " >>>
@@ -397,6 +398,7 @@ vmap <C-j> <Plug>(coc-snippets-select)
 
 let g:coc_snippet_prev = '<c-k>'
 let g:UltiSnipsEditSplit = "vertical"
+let g:ultisnips_python_style = 'google'
 
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
