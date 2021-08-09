@@ -15,7 +15,7 @@ from random import choice
 URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/3295737910517634'
 
 executable_path = './chromedriver'
-profile_path = '~/.config/chromium/facebook_bot_profile'
+profile_path = '/home/yasser/.config/chromium/facebook_bot_profile'
 
 CLEANING_TEAMS = [
     ['Josh', 'Yasser'],
