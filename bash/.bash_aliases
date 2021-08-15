@@ -16,12 +16,12 @@ alias h='history'
 alias hg='history | grep'
 
 # sync notes
-alias sync_org='rclone sync /home/yasser/notes/org remote:org --include "*.org"'
+alias sync_org="rclone sync $HOME/notes/org remote:org --include '*.org'"
 alias sync_books="rclone sync $HOME/books books:books"
 
 # shutdown
-alias reboot='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shutdown -r now'
-alias shut='rclone sync /home/yasser/notes/org remote:org --include "*.org"; shutdown now'
+alias reboot="rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown -r now"
+alias shut="rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown now"
 
 # alternatives
 alias top='htop'
