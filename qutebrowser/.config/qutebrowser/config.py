@@ -114,6 +114,7 @@ c.content.blocking.whitelist = ["https://analytics.google.com/analytics/*"]
 c.hints.selectors['id'] = ["[id]"]
 config.set('spellcheck.languages', ['en-US'])
 config.set('tabs.title.format', '{current_title}')
+config.set('fonts.default_size', '11pt')
 
 config.set('url.searchengines', {
     'DEFAULT': 'https://www.duckduckgo.com/?q={}',
