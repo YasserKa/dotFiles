@@ -4,3 +4,6 @@
 [submodule "qutebrowser/.local/share/qutebrowser/qutescript"]
 	path = qutebrowser/.local/share/qutebrowser/qutescript
 	url = https://github.com/hiway/python-qutescript
+[submodule "qutebrowser/.config/qutebrowser/qutescript"]
+	path = qutebrowser/.config/qutebrowser/qutescript
+	url = https://github.com/hiway/python-qutescript.git
