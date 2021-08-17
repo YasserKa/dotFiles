@@ -9,4 +9,4 @@ host smtp.gmail.com
 port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
-passwordeval "pass mutt-wizard-personal"
+passwordeval "pass personal-mail"

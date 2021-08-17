@@ -18,8 +18,9 @@ executable_path = './chromedriver'
 profile_path = '/home/yasser/.config/chromium/facebook_bot_profile'
 
 CLEANING_TEAMS = [
-    ['Josh', 'Yasser'],
-    ['Dennis', 'Lise'],
+    ['Kithmini', 'Edie'],
+    ['Dennis', 'Bhagya'],
+    ['David', 'Yasser'],
 ]
 
 options = webdriver.ChromeOptions()

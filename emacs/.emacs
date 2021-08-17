@@ -17,7 +17,7 @@
  '(org-agenda-files
    '("~/notes/org/general.org" "~/notes/org/knowledge_base.org"))
  '(package-selected-packages
-   '(helm-core undo-tree undo-redo evil evil-magit magit evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
+   '(helm-core undo-tree undo-redo evil evil-collection evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -94,8 +94,11 @@
 (define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
 
 ;; EVIL
+(setq evil-want-keybinding 'nil)
 (require 'evil)
 (evil-mode 1)
+
+(evil-collection-init)
 
 ;; Initial state is evil
 (setq evil-normal-state-modes
@@ -152,31 +155,34 @@
 (evil-org-agenda-set-keys)
 
 ;; MAGIT
-(require 'evil-magit)
-(evil-define-key evil-magit-state magit-mode-map "?" 'evil-search-backward)
+(evil-define-key evil-collection-magit-state magit-mode-map "?" 'evil-search-backward)
 (setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
 ;; Close the popups in magit
-(define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
-(define-key transient-map        (kbd "<escape>") 'transient-quit-one)
-(define-key transient-sticky-map (kbd "<escape>") 'transient-quit-seq)
+;; (define-key transient-edit-map   (kbd "<escape>") 'transient-quit-one)
+;; (define-key transient-map        (kbd "<escape>") 'transient-quit-one)
+;; (define-key transient-sticky-map (kbd "<escape>") 'transient-quit-seq)
 
 ;; Enable spell checking while commiting
 (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
 
 ;; Open file using nvim
-(evil-define-key evil-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
+(evil-define-key evil-collection-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
 (defun vil-diff-visit-file (file &optional other-window)
   (interactive (list (magit-file-at-point t t) current-prefix-arg))
   (shell-command (concat "nvim-qt " file nil)))
 
 ;; Updating the original by closing the list of repos window
-(defun magit-repolist-status (&optional _button)
+(defun my-magit-repolist-status (&optional _button)
   "Show the status for the repository at point."
   (interactive)
   (--if-let (tabulated-list-get-id)
-      (let ((p (selected-window)))
-	(magit-status-setup-buffer (expand-file-name it)) (delete-window p))
-    (user-error "There is no repository at point")))
+            (let ((p (selected-window)))
+              (magit-status-setup-buffer (expand-file-name it)) (delete-window p))
+            (user-error "There is no repository at point")))
+
+
+(define-key evil-motion-state-map (kbd "RET") 'my-magit-repolist-status)
+
 
 
 ;; VIM LEADER

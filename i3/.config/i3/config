@@ -54,8 +54,8 @@ set $wp0 0
 
 # Workspaces on specific screens
 set $monitor_primary eDP-1
-set $monitor_right DVI-I-1-1
-set $monitor_left DVI-I-2-2
+set $monitor_left DVI-I-3-2
+set $monitor_right DVI-I-2-1
 
 workspace $browser output $monitor_primary
 workspace $coding output $monitor_primary
@@ -182,7 +182,7 @@ bindsym $mod+n exec --no-startup-id general_notes
 
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
-bindsym $mod+shift+x exec i3lock --color 39889b
+bindsym $mod+shift+x exec i3lock --color 000000
 
 # Unmount all storage devices
 bindsym $mod+shift+u exec --no-startup-id udiskie-umount -a
@@ -191,6 +191,9 @@ bindsym $mod+shift+u exec --no-startup-id udiskie-umount -a
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume 0 +5%"
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume 0 -5%"
 bindsym XF86AudioMute        exec --no-startup-id "pactl set-sink-mute 0 toggle;"
+
+# Switch off light
+bindsym $mod+o exec "sleep 0.5; exec xset dpms force off"
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20
