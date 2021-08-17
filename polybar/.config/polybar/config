@@ -62,7 +62,7 @@ font-2 = Font Awesome 5 Free Solid:style=Solid
 
 
 modules-left = i3
-modules-right = pulseaudio wlan eth memory battery date mail
+modules-right = pulseaudio wlan eth eth_displaylink memory battery date mail
 
 cursor-click = pointer
 ; >>>
@@ -160,8 +160,9 @@ label-discharging = %time% %percentage% %
 format-discharging= <ramp-capacity> <label-discharging>
 format-discharging-background = ${color.module-bg}
 
-format-full = <ramp-capacity> <label-full>
-format-full-background = ${color.module-bg}
+format-full =
+; format-full = <ramp-capacity> <label-full>
+; format-full-background = ${color.module-bg}
 
 ramp-capacity-foreground = ${color.icon-fg}
 ramp-capacity-0 =  
@@ -237,6 +238,16 @@ label-connected = %essid% %signal:3%% %downspeed:9%
 [module/eth]
 inherit = module/network
 interface = ${env:IFACE_ETH}
+
+format-connected-prefix = 
+label-connected = %local_ip%%downspeed:9%
+
+; label-disconnected = 
+; label-disconnected-foreground = ${color.grey}
+
+[module/eth_displaylink]
+inherit = module/network
+interface = enp0s20f0u1u4i5
 
 format-connected-prefix = 
 label-connected = %local_ip%%downspeed:9%

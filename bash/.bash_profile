@@ -12,11 +12,11 @@ export ESCDELAY=25
 export BW_SESSION=$(pass show bw_session)
 
 # network interfaces
-export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)')
+export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)' | tail -n1 | cut -d ' ' -f1)
 export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d ' ' -f1)
 # battery & adapter
-export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT')
-export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP')
+export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d ' ' -f1)
+export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
 # history
 export HISTSIZE=10000
 export HISTFILESIZE=2000
