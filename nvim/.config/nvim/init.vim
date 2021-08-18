@@ -31,11 +31,11 @@ Plug 'https://github.com/plasticboy/vim-markdown'
 Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
 Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
 
-Plug 'https://github.com/vim-scripts/dbext.vim', {'for': 'sql'}
+Plug 'https://github.com/kristijanhusak/vim-dadbod-ui', {'for': 'sql'}
+Plug 'https://github.com/tpope/vim-dadbod', {'for': 'sql'}
 Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
+
 Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'for': ['markdown', 'plantuml']}
-
-
 
 Plug 'https://github.com/lervag/vimtex', {'for': ['tex', 'markdown']}
 Plug 'https://github.com/dhruvasagar/vim-table-mode'
@@ -136,6 +136,11 @@ function! LoadSession()
         execute 'silent source ' b:sessionfile
     endif
 endfunction
+
+" personalized vimrc
+if getcwd() =~# '/practical-sql'
+  set secure exrc
+endif
 
 " AutoCommands
 augroup SESSIONS
