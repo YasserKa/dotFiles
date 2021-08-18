@@ -4,8 +4,8 @@ usermodmap=$HOME/.Xmodmap
 
 # nvidia  https://wiki.archlinux.org/index.php/NVIDIA_Optimus
 # xrandr --setprovideroutputsource modesetting NVIDIA-0
-xrandr --auto
-xrandr --dpi 96
+# xrandr --auto
+# xrandr --dpi 96
 
 # Disable bell
 xset -b
