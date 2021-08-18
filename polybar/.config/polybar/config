@@ -62,7 +62,7 @@ font-2 = Font Awesome 5 Free Solid:style=Solid
 
 
 modules-left = i3
-modules-right = pulseaudio wlan eth eth_displaylink memory battery date mail
+modules-right = pulseaudio vpn wlan eth eth_displaylink memory battery date mail
 
 cursor-click = pointer
 ; >>>
@@ -244,6 +244,14 @@ label-connected = %local_ip%%downspeed:9%
 
 ; label-disconnected = 
 ; label-disconnected-foreground = ${color.grey}
+;
+[module/vpn]
+type = custom/script
+
+exec = echo vpn
+exec-if = ip addr | grep wg0
+interval = 5
+label=%output%
 
 [module/eth_displaylink]
 inherit = module/network
