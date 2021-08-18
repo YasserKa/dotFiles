@@ -21,6 +21,7 @@ set forward_quote               # include message in forwards
 set reverse_name                # reply as whomever it was to
 set include                     # include message in replies
 set mail_check=60               # to avoid lags using IMAP with some email providers (yahoo for example)
+set copy = no                   # don't duplicate the outgoing messages
 auto_view text/html             # automatically show html (mailcap uses lynx)
 alternative_order text/plain text/enriched text/html
 
@@ -45,7 +46,6 @@ exec collapse-all
 set realname = "Yasser Kaddoura"
 set from = "yasser.kaddoura19@gmail.com"
 set mbox_type = Maildir
-# set sendmail = "msmtp -a personal"
 set sendmail = "/bin/sh $XDG_CONFIG_HOME/mutt/scripts/sendmail"
 alias me Yasser Kaddoura <yasser.kaddoura19@gmail.com>
 
