@@ -53,5 +53,5 @@ export VDPAU_DRIVER=nvidia
 
 # if there's no DISPLAY, start X11
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    exec startx
+    exec startx > /dev/null 2>&1
 fi
