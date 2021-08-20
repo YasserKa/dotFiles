@@ -18,9 +18,12 @@ export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d 
 export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d ' ' -f1)
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
 # history
-export HISTSIZE=10000
-export HISTFILESIZE=2000
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
 export HISTCONTROL=ignoredups:ignorespace
+export HISTIGNORE='ls:bg:fg:history'
+# append commands to histry as it's issues
+export PROMPT_COMMAND='history -a'
 
 # Fzf
 export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'

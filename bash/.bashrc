@@ -12,6 +12,7 @@ shopt -s histappend        # Append to the history file, don't overwrite it
 shopt -s checkwinsize      # Update the value of LINES and COLUMNS after each command if altered
 shopt -s cdspell           # fix  spelling errors when using cd
 shopt -s extglob           # extend pattern matching (used for extract function)
+shopt -s cmdhist           # history records commands with multiple lines as such instead of using ";"
 stty -ixon                 # Enable search C-s for history searching
 
 # complete command names and file names for super user
