@@ -251,13 +251,15 @@ type = custom/script
 exec = echo vpn
 exec-if = ip addr | grep wg0
 interval = 5
-label=%output%
+label= %output%
+format-foreground = ${xcolor.color3}
 
 [module/eth_displaylink]
 inherit = module/network
 interface = enp0s20f0u1u4i5
 
 format-connected-prefix = 
+
 label-connected = %local_ip%%downspeed:9%
 
 ; label-disconnected = 
