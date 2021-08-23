@@ -42,6 +42,8 @@ Plug 'https://github.com/dhruvasagar/vim-table-mode'
 Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
 Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
+Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
+
 call plug#end()
 " >>>
 " general settings <<<
@@ -274,6 +276,14 @@ vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#
 vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
             \ :let @/ = "" <bar> set hlsearch<CR>
 " >>>
+" <<< Jupyter Ascending
+"
+" augroup NOTEBOOK
+"     autocmd!
+"     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
+"     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
+" augroup END
+" >>>
 " which-key <<<
 " Define prefix dictionary
 let g:which_key_map =  {}
@@ -485,3 +495,4 @@ function! s:show_documentation()
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " >>>
+let g:python3_host_prog  = '/bin/python3.9'
