@@ -210,8 +210,11 @@
  "\C-u" 'evil-scroll-up
  "g:" 'goto-last-change
  )
+
 ;; ORG MODE
 (require 'org)
+
+(setq org-startup-folded t)
 
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
 (define-key org-mode-map "\C-j" nil)
@@ -236,6 +239,13 @@
 ; fix the offset of tags for (org-tags-view)
 (setq org-agenda-window-frame-fractions '(0 0))
 
+; indent nested items
+(require 'org-indent)
+(setq org-startup-indented t)
+
+; exit agenda mode when clicking on an item
+(evil-define-key 'motion org-agenda-mode-map
+    (kbd "<RET>") '(lambda() (interactive) (org-agenda-switch-to t)))
 
 (setq org-cycle-separator-lines -1)
 (evil-define-key 'normal org-mode-map (kbd "<SPC>") 'org-cycle)
