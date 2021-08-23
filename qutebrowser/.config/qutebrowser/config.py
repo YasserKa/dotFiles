@@ -104,7 +104,7 @@ c.bindings.commands = {
     },
 }
 
-c.aliases['paywall'] = "open https://12ft.io/proxy?q={{url}}"
+c.aliases['paywall'] = "open https://12ft.io/proxy?q={url}"
 
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
