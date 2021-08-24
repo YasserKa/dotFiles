@@ -93,6 +93,9 @@
 (define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
 (define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
 
+;; ignore text under cursor when executing helm-find-files
+(setq helm-find-files-ignore-thing-at-point t)
+
 ;; EVIL
 (setq evil-want-keybinding 'nil)
 (require 'evil)
