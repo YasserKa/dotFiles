@@ -46,6 +46,11 @@ function orphans() {
     fi
 }
 
+function system_update() {
+    orphans
+    baph -uN
+}
+
 ## path synchronization for ranger
 # (reference: /usr/share/doc/ranger/examples/bash_automatic_cd.sh)
 function ranger {
@@ -73,4 +78,3 @@ function to_lower_case() {
 function zathura() { (command zathura "$@" &> /dev/null &) }
 function mpv() { (command mpv "$@" &> /dev/null &) }
 function xdg-open() { (command xdg-open "$@" &) }
-function notebook() { (command conda run jupyter notebook --ip=127.0.0.1 "$@") }
