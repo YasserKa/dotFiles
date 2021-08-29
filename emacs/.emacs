@@ -15,7 +15,7 @@
  '(evil-want-Y-yank-to-eol 1)
  '(helm-completion-style 'emacs)
  '(org-agenda-files
-   '("~/notes/org/general.org" "~/notes/org/knowledge_base.org"))
+   '("~/notes/org/general.org" "~/notes/org/knowledge_base.org"  "~/notes/org/university.org"))
  '(package-selected-packages
    '(helm-core undo-tree undo-redo evil evil-collection evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
