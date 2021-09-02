@@ -259,7 +259,9 @@
 ;; Open using external softwares
 (setq org-file-apps
       '((auto-mode . emacs)
-	("\\.pdf\\'" . "zathura \"%s\"")))
+	("\\.pdf\\'" . "zathura \"%s\"")
+	("\\.epub\\'" . "zathura \"%s\"")
+	("\\.djvu\\'" . "zathura \"%s\"")))
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "qutebrowser")
 
