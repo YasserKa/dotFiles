@@ -10,17 +10,18 @@ alias ps?='ps aux | grep'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
+
 # history
 alias h='history'
 alias hg='history | grep'
 
 # sync notes
-alias sync_org="rclone sync $HOME/notes/org remote:org --include '*.org'"
+alias sync_org="rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'"
 alias sync_books="rclone sync $HOME/books books:books"
 
 # shutdown
-alias reboot="rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown -r now"
-alias shut="rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown now"
+alias reboot="rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown -r now"
+alias shut="rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown now"
 
 # alternatives
 alias top='htop'
@@ -57,7 +58,7 @@ _fasd_bash_hook_cmd_complete vf j
 
 # emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
-alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/org/general.org"'
+alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/RoamNotes/interested_in.org"'
 
 # cron
 alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'

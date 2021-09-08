@@ -3,6 +3,7 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'load-path "~/.emacs.d/private/org-roam-ui")
 
 (setq package-enable-at-startup nil)
 (custom-set-variables
@@ -13,18 +14,21 @@
  '(custom-safe-themes
    '("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-want-Y-yank-to-eol 1)
- '(helm-completion-style 'emacs)
  '(org-agenda-files
-   '("~/notes/org/general.org" "~/notes/org/knowledge_base.org"  "~/notes/org/university.org"))
+   '("~/notes/RoamNotes/20210908134129project.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org" "/home/yasser/notes/RoamNotes/interested_in.org"))
+ '(org-roam-ui-mode nil)
  '(package-selected-packages
-   '(helm-core undo-tree undo-redo evil evil-collection evil-org org-plus-contrib orgalist helm evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
+   '(org-appear deft orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit outline-1 :height 1.25))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.15))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.05)))))
 
 ;; Install not presented packages
 (package-initialize)
@@ -38,7 +42,9 @@
 (setq make-backup-files nil)
 ;; Avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
-(set-frame-font "Inconsolata-14")
+;; (set-frame-font "Inconsolata-14" nil)
+(add-to-list 'default-frame-alist
+	     '(font . "DejaVu Sans Mono-13"))
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 
@@ -58,6 +64,11 @@
 (define-key global-map (kbd "\C-x \C-m") 'execute-extended-command)
 (define-key global-map (kbd "<escape>") 'keyboard-escape-quit)
 
+;; line wrapping
+(global-visual-line-mode t)
+(add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
 (define-key global-map "\C-h" 'delete-backward-char)
 (define-key global-map "\C-w" 'backward-kill-word)
 
@@ -65,10 +76,12 @@
 (define-key isearch-mode-map (kbd "\C-q") 'help)
 
 ;; unbind C-, in fly mode
-;; HELM
 (eval-after-load "flyspell"
-'(define-key flyspell-mode-map (kbd "C-,") nil))
-
+  '(define-key flyspell-mode-map (kbd "C-,") nil)
+  )
+(eval-after-load "flyspell"
+  '(define-key flyspell-mode-map (kbd "C-M-i") nil)
+  )
 
 (electric-pair-mode 1)
 ;; Make electric-pair-mode work on more brackets
@@ -76,25 +89,77 @@
       '(
 	(?\" . ?\")
 	(?\< . ?\>)
+	(?\$ . ?\$)
 	(?\[ . ?\])
 	(?\` . ?\`)
 	(?\{ . ?\})))
+;; Enable vertico
+(use-package vertico
+  :init
+  (vertico-mode)
+
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t)
+  )
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  (savehist-mode))
+;; Enable richer annotations using the Marginalia package
+(use-package marginalia
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; Alternatively try `consult-completing-read-multiple'.
+  (defun crm-indicator (args)
+    (cons (concat "[CRM] " (car args)) (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
 
 ;; HELM
-(require 'helm-config)
-(helm-mode 1)
+;; (require 'helm-config)
+;; (helm-mode 1)
 
-(define-key helm-map "\C-h" 'delete-backward-char)
-(define-key helm-map "\C-w" 'backward-kill-word)
-(define-key helm-map "\C-j" 'helm-confirm-and-exit-minibuffer)
-(define-key helm-map "\C-l" 'helm-end-of-buffer)
+;; (define-key helm-map "\C-h" 'delete-backward-char)
+;; (define-key helm-map "\C-w" 'backward-kill-word)
+;; (define-key helm-map "\C-j" 'helm-confirm-and-exit-minibuffer)
+;; (define-key helm-map "\C-l" 'helm-end-of-buffer)
 
-(define-key helm-find-files-map "\C-x" 'helm-ff-run-switch-other-window)
-(define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
-(define-key helm-find-files-map "\C-l" 'helm-execute-persistent-action)
+;; (define-key helm-find-files-map "\C-x" 'helm-ff-run-switch-other-window)
+;; (define-key helm-find-files-map "\C-v" (kbd "C-u C-c o"))
+;; (define-key helm-comp-read-map "\C-V" 'evil-paste-after)
 
-;; ignore text under cursor when executing helm-find-files
-(setq helm-find-files-ignore-thing-at-point t)
+;; ;; ignore text under cursor when executing helm-find-files
+;; (setq helm-find-files-ignore-thing-at-point t)
 
 ;; EVIL
 (setq evil-want-keybinding 'nil)
@@ -130,6 +195,7 @@
 
 ;; Enter in command mode
 (define-key evil-ex-completion-map "\C-j" 'exit-minibuffer)
+(define-key evil-ex-completion-map "\C-V" 'evil-paste-after)
 (defvar my-overriding-binding-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map [?\C-h] 'delete-backward-char)
@@ -157,6 +223,37 @@
 (require 'evil-org-agenda)
 (evil-org-agenda-set-keys)
 
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/notes/RoamNotes")
+  (org-roam-completion-everywhere t)
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("l" "programming language" plain
+      "* Characteristics\n\n- Family: %?\n- Inspired by: \n\n* Reference:\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("b" "book notes" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>${slug}.org" "#+title: ${title}\n#+FILETAGS: book_notes\n")
+      :unnarrowed t)
+     )
+   )
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n i" . org-roam-node-insert)
+	 :map org-mode-map
+	 ("C-M-i" . completion-at-point))
+  :config
+  (load-library "org-roam-ui")
+  (org-roam-setup))
+
 ;; MAGIT
 (evil-define-key evil-collection-magit-state magit-mode-map "?" 'evil-search-backward)
 (setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
@@ -179,13 +276,38 @@
   "Show the status for the repository at point."
   (interactive)
   (--if-let (tabulated-list-get-id)
-            (let ((p (selected-window)))
-              (magit-status-setup-buffer (expand-file-name it)) (delete-window p))
-            (user-error "There is no repository at point")))
+      (let ((p (selected-window)))
+	(magit-status-setup-buffer (expand-file-name it)) (delete-window p))
+    (user-error "There is no repository at point")))
 
 
 (define-key evil-motion-state-map (kbd "RET") 'my-magit-repolist-status)
 
+;; LATEX
+
+;; update the document header for latex preview
+(setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+
+;; local configuration for TeX modes
+(plist-put org-format-latex-options :scale 1.5)
+
+;; auto-complete
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+
+;; making dollar signs as text object
+(defmacro define-and-bind-text-object (key start-regex end-regex)
+  (let ((inner-name (make-symbol "inner-name"))
+	(outer-name (make-symbol "outer-name")))
+    `(progn
+       (evil-define-text-object ,inner-name (count &optional beg end type)
+	 (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+       (evil-define-text-object ,outer-name (count &optional beg end type)
+	 (evil-select-paren ,start-regex ,end-regex beg end type count t))
+       (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+       (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+; between dollar signs
+(define-and-bind-text-object "$" "\\$" "\\$")
 
 
 ;; VIM LEADER
@@ -204,7 +326,7 @@
 (nvmap :prefix ","
   "ss" 'source-init-file
   "es" 'edit-init-file
-  "p" 'helm-find-files)
+  "p" 'find-file)
 (general-define-key
  :states 'motion
  ";" 'evil-ex
@@ -216,8 +338,20 @@
 
 ;; ORG MODE
 (require 'org)
-
 (setq org-startup-folded t)
+(setq org-startup-with-latex-preview t)
+(setq org-startup-with-inline-images t)
+(setq org-enforce-todo-dependencies t)
+; show emphasis markers when hovering over text
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+(setq org-hide-emphasis-markers t)
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/notes/tasks.org" "Tasks")
+	 "* TODO %?\n  %i\n  %a")
+	("g" "Groceries" entry (file+datetree "~/notes/groceries.org")
+	 "* %?\nEntered on %U\n  %i\n  %a")))
 
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
 (define-key org-mode-map "\C-j" nil)
@@ -248,13 +382,13 @@
 
 ; exit agenda mode when clicking on an item
 (evil-define-key 'motion org-agenda-mode-map
-    (kbd "<RET>") '(lambda() (interactive) (org-agenda-switch-to t)))
+  (kbd "<RET>") '(lambda() (interactive) (org-agenda-switch-to t)))
 
 (setq org-cycle-separator-lines -1)
 (evil-define-key 'normal org-mode-map (kbd "<SPC>") 'org-cycle)
 
 ;; Narrowing buffer to subree/ widen
-(define-key org-mode-map (kbd "C-c n") 'org-toggle-narrow-to-subtree)
+;; (define-key org-mode-map (kbd "C-c n") 'org-toggle-narrow-to-subtree)
 
 ;; Open using external softwares
 (setq org-file-apps
@@ -281,9 +415,9 @@
 
 ;; update appt after saving file
 (add-hook 'after-save-hook
-          '(lambda ()
-             (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
-                 (org-agenda-to-appt-clear-message))))
+	  '(lambda ()
+	     (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
+		 (org-agenda-to-appt-clear-message))))
 
 ;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
