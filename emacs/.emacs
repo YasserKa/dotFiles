@@ -74,9 +74,33 @@
   :custom
   (evil-collection-outline-bind-tab-p nil)
   :config
-  (setq evil-collection-mode-list
-        (remove 'lispy evil-collection-mode-list))
-  (evil-collection-init))
+  (evil-collection-init)
+
+  (setq evil-collection-magit-state 'normal)
+  ;; Updating the original by closing the list of repos window
+  (defun my-magit-repolist-status (&optional _button)
+    "Show the status for the repository at point."
+    (interactive)
+    (--if-let (tabulated-list-get-id)
+        (let ((p (selected-window)))
+          (magit-status-setup-buffer (expand-file-name it)) (delete-window p))
+      (user-error "There is no repository at point")))
+
+  (define-key evil-motion-state-map (kbd "RET") 'my-magit-repolist-status)
+
+  (setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+  (evil-define-key evil-collection-magit-state magit-mode-map "?" 'evil-search-backward)
+                                        ; Enable spell checking while commiting
+  (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
+
+  ;; Open file using nvim
+  (defun vil-diff-visit-file (file &optional other-window)
+    (interactive (list (magit-file-at-point t t) current-prefix-arg))
+    (shell-command (concat "nvim-qt " file nil)))
+
+  (evil-define-key evil-collection-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
+
+  )
 
 ;; VIM LEADER
 (use-package general
@@ -463,38 +487,12 @@
 
 (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
-                                        ; Magit
-
-;; Open file using nvim
-(defun vil-diff-visit-file (file &optional other-window)
-  (interactive (list (magit-file-at-point t t) current-prefix-arg))
-  (shell-command (concat "nvim-qt " file nil)))
-
-(evil-define-key evil-collection-magit-state magit-mode-map (kbd "RET") 'vil-diff-visit-file)
-
-;; Updating the original by closing the list of repos window
-(defun my-magit-repolist-status (&optional _button)
-  "Show the status for the repository at point."
-  (interactive)
-  (--if-let (tabulated-list-get-id)
-      (let ((p (selected-window)))
-        (magit-status-setup-buffer (expand-file-name it)) (delete-window p))
-    (user-error "There is no repository at point")))
-
-(define-key evil-motion-state-map (kbd "RET") 'my-magit-repolist-status)
-
-(setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
-(evil-define-key evil-collection-magit-state magit-mode-map "?" 'evil-search-backward)
-                                        ; Enable spell checking while commiting
-(add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
-
-
 ;; Spell checking toggle with yos
 (evil-define-key 'operator evil-surround-mode-map "os" 'flyspell-mode)
 (add-hook 'org-mode-hook 'flyspell-mode)
 (define-key evil-insert-state-map "\C-l"  'flyspell-auto-correct-previous-word)
 
-; LaTeX
+                                        ; LaTeX
 ;; update the document header for latex preview
 (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
 
