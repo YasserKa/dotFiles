@@ -180,6 +180,10 @@ bindsym $mod+minus [title="^(?!.*general_notes).*$"] scratchpad show
 
 bindsym $mod+n exec --no-startup-id general_notes
 
+# temporary latex file
+for_window [title="^tmp_tex$"] floating enable
+bindsym $mod+Shift+n exec --no-startup-id "~/bin/latex_notes"
+
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 bindsym $mod+shift+x exec i3lock --color 000000

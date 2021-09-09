@@ -74,6 +74,14 @@ function to_lower_case() {
     mv "$@" "$lower_case"
 }
 
+# tmux + fzf
+fzftmux() {
+    # local _fasd_ret=$(fasd -sif $@ .pdf$)
+    TMUX_SESSION=$(tmux list-sessions | cut -d: -f1 | fzf)
+    [[ -z $TMUX_SESSION ]] && return
+    tmux attach-session -t $TMUX_SESSION
+}
+
 # commands run in background automatically
 function zathura() { (command zathura "$@" &> /dev/null &) }
 function mpv() { (command mpv "$@" &> /dev/null &) }
