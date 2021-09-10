@@ -36,7 +36,6 @@
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
    '("/home/yasser/notes/RoamNotes/20210909201608-interested_in.org" "/home/yasser/notes/RoamNotes/20210908134129project.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
- '(org-roam-ui-mode nil)
  '(package-selected-packages
    '(org-appear deft orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -164,11 +163,6 @@
 ;; Override some modes which derive from the above
 (dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;; (use-package spacegray-theme :defer t)
-;; (use-package doom-themes :defer t)
-;; (load-theme 'doom-palenight t)
-;; (doom-themes-visual-bell-config)
 
 (use-package diminish)
 
@@ -387,7 +381,7 @@
     "oil" '(org-insert-link :which-key "insert link")
 
     "on"  '(org-toggle-narrow-to-subtree :which-key "toggle narrow")
-
+    "ol"  '(org-latex-preview :which-key "latex preview")
     "ob"  '(org-switchb :which-key "switch buffer")
 
     "oa"  '(org-agenda :which-key "status")
@@ -397,7 +391,7 @@
   )
 
 (use-package org-roam
-  :ensure t
+  :straight t
   :init
   (setq org-roam-v2-ack t)
   :custom
@@ -415,27 +409,28 @@
                          "#+title: ${title}\n#+filetags: book_notes\n")
       :unnarrowed t)
      ))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n g" . org-roam-ui-mode)
-         :map org-mode-map
-         ("C-M-i" . completion-at-point))
   :config
-  (org-roam-setup)
-  (load-library "org-roam-ui")
+
+  (org-roam-db-autosync-mode)
+  (my-leader-key-def
+    "r"   '(:ignore t :which-key "org-roam mode")
+
+    "rl" '(org-roam-buffer-toggle :which-key "links to this node")
+    "rf" '(org-roam-node-find :which-key "find node")
+
+    "ri"  '(org-roam-node-insert :which-key "insert node")
+    "rg"  '(org-roam-ui-mode :which-key "graph of nodes")
+
+    )
   )
 
 (use-package org-roam-ui
   :straight
   (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :after org-roam
-  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-  ;;         a hookable mode anymore, you're advised to pick something yourself
-  ;;         if you don't care about startup time, use
-  ;;  :hook (after-init . org-roam-ui-mode)
+  ; :hook (after-init . org-roam-ui-mode)
   :config
-  (setq org-roam-ui-sync-theme t
+  (setq
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
