@@ -10,8 +10,8 @@ PATH_TO_NOTES = f"{os.environ['HOME']}/notes/latex"
 BOOKS_PATH = f"{os.environ['HOME']}/books"
 
 CURRENT_NOTES = [
-    "paul_calculus_I",
-    "data_science_design_manual"
+    "data_mining",
+    "advanced_probabilistic_machine_learning"
 ]
 
 
@@ -47,11 +47,11 @@ def main():
                 file_name = file_name.replace(")", "\\)")
                 subprocess.run(
                     "i3-msg '[title=\"" + file_name +
-                    "\"] move --no-auto-back-and-forth workspace 2'",
+                    "\"] move --no-auto-back-and-forth workspace 8'",
                     shell=True)
 
                 subprocess.run(
-                    "i3-msg 'workspace --no-auto-back-and-forth 2'", shell=True)
+                    "i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
 
     subprocess.run(
         "i3-msg 'workspace --no-auto-back-and-forth 8'", shell=True)
@@ -63,7 +63,12 @@ def main():
 
     sleep(2)
     subprocess.run(
-        f"i3-msg '[title=\"^{notes_picked}$\"] move right'", shell=True)
+        f"i3-msg '[title=\"^{notes_picked}$\"] move --no-auto-back-and-forth"
+        "workspace 6'", shell=True)
+
+    subprocess.run(
+        f"i3-msg '[title=\".*notes.pdf\"] move --no-auto-back-and-forth"
+        "workspace 6'", shell=True)
 
 
     # kill the process if it already exists

@@ -14,13 +14,16 @@ from random import choice
 # MAX: https://www.facebook.com/messages/t/100041868255303
 URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/3295737910517634'
 
-executable_path = './chromedriver'
+executable_path = '/home/yasser/.config/chromium/chromedriver'
 profile_path = '/home/yasser/.config/chromium/facebook_bot_profile'
 
 CLEANING_TEAMS = [
-    ['Kithmini', 'Edie'],
-    ['Dennis', 'Bhagya'],
-    ['David', 'Yasser'],
+        ['Yasser', 'Josh'],
+        ['Dennis', 'Yann'],
+        ['Eddie', 'Kithmini', 'Mariam'],
+        ['Bhagya', 'Hanna'],
+        ['Caroline', 'Mana'],
+        ['David', 'Rinska'],
 ]
 
 options = webdriver.ChromeOptions()
@@ -48,7 +51,7 @@ def use_random_emoji():
 
 
 def get_message():
-    original_date = date(2021, 6, 21)
+    original_date = date(2021, 9, 6)
     today = date.today()
     days_difference = today - original_date
     number_of_weeks = int(days_difference.days / 7)

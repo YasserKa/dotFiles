@@ -137,13 +137,14 @@ mode "cmus" {
         bindsym n exec cmus-remote --next
         bindsym p exec cmus-remote --prev
 
-        bindsym h exec cmus-remote --volume +10%
-        bindsym l exec cmus-remote --volume -10%
+        bindsym h exec cmus-remote --volume +2%
+        bindsym l exec cmus-remote --volume -2%
 
         bindsym c exec cmus-remote -C "filter classical"
         bindsym f exec cmus-remote -C "filter"
         bindsym m exec rofi -show cmus -modi cmus:$XDG_CONFIG_HOME/rofi/rofi-cmus.py; mode "default"
         bindsym r exec cmus-remote -C "add -q /home/yasser/Music/Downloaded/rain.wav"; exec cmus-remote --next; exec cmus-remote --play
+
         # Add to favourites
         # bindsym f exec cmus-remote -P "$(cat /home/yasser/.config/cmus/lib.pl | grep -F "$(cmus-remote -Q 2> /dev/null | grep file | cut -d ' ' -f2-)")"
         bindsym Control+bracketleft mode "default"
@@ -214,6 +215,9 @@ bindsym $mod+Shift+m exec --no-startup-id mail_check_mutt
 
 # Rofi
 bindsym $mod+d exec rofi -show run
+
+bindsym $mod+a exec switch_audio_sink
+bindsym $mod+x exec --no-startup-id search_dictionary
 # >>>
 # Sartup <<<
 
@@ -228,7 +232,7 @@ exec --no-startup-id slack
 exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/RoamNotes/20210909201608-interested_in.org; workspace 1; exec qutebrowser'
 
 # Wait until the internet is on
 exec_always $HOME/bin/waitInternet; mail_check_mutt

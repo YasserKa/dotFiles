@@ -49,12 +49,29 @@ snippet sec* "section" i
 \section*{${VISUAL}$1}$0
 endsnippet
 
+priority 10
 snippet it "italic" i
 \\textit{${VISUAL}$1}$0
 endsnippet
 
+priority 10
 snippet bf "boldface" i
 \\textbf{${VISUAL}$1}$0
+endsnippet
+
+context "math()"
+snippet bf "boldface" i
+\\mathbf{${VISUAL}$1}$0
+endsnippet
+
+context "math()"
+snippet it "math italic" i
+\\mathit{${VISUAL}$1}$0
+endsnippet
+
+context "math()"
+snippet tex "text in math" i
+\\text{${VISUAL}$1}$0
 endsnippet
 
 
@@ -137,7 +154,7 @@ endsnippet
 
 context "math()"
 snippet // "Fraction" iA
-\\frac{$1}{$2}$0
+\\frac{${1:${VISUAL}}}{$2}$0
 endsnippet
 
 
@@ -180,8 +197,14 @@ endsnippet
 
 
 # CONVERT
+
 context "math()"
-snippet | "mid" iA
+snippet x "cross" i
+\times $0
+endsnippet
+
+context "math()"
+snippet | "mid" i
 \mid $0
 endsnippet
 
