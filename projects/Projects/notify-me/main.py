@@ -7,11 +7,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException, SessionNotCreatedException
 
+# used by dunstify/dunst
+APP_NAME = 'notify-me'
+
 URL_DISCORD = 'https://discordapp.com/channels/@me'
 URL_WHATS_APP = 'https://web.whatsapp.com/'
 URL_FACEBOOK = 'https://www.facebook.com/'
 
-executable_path = './chromedriver'
+executable_path = '/home/yasser/.config/chromium/chromedriver'
 profile_path = '/home/yasser/.config/chromium/notify_me_profile'
 
 discord = ' Discord notification'
@@ -38,7 +41,7 @@ def check_discord():
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
-        subprocess.run(["dunstify", discord, '--timeout=999999'])
+        subprocess.run(["dunstify", discord, f"--appname={APP_NAME}"])
 
 
 def check_facebook():
@@ -53,7 +56,7 @@ def check_facebook():
     notificaiton_exists = len(notificaitons_el) > 0
 
     if notificaiton_exists:
-        subprocess.run(["dunstify", facebook, '--timeout=999999'])
+        subprocess.run(["dunstify", facebook, f"--appname={APP_NAME}"])
 
 
 def check_whatsapp():
@@ -68,7 +71,7 @@ def check_whatsapp():
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
-        subprocess.run(["dunstify", whatsapp, '--timeout=999999'])
+        subprocess.run(["dunstify", whatsapp, f"--appname={APP_NAME}"])
 
 
 def main():

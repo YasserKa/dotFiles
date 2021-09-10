@@ -217,6 +217,12 @@ summary = "*Recording*"
 format = ""
 history_ignore = yes
 
+# increase timeout
+[notify-me]
+appname = notify-me
+history_ignore = yes
+timeout = 9999
+
 # Remove imgur notifications
 [imgur]
 body = "*imgur*"
