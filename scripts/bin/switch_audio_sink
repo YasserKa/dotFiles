@@ -1,0 +1,14 @@
+#!/bin/sh
+CURR_SINK=$(pacmd list-sinks | grep state | grep -n RUNNING | grep -Eo [0-9])
+
+
+# HACK: current sink is 2 (which is 1), switch to sink 0
+if [[ CURR_SINK -eq 2 ]]; then
+    NEW_SINK=0
+    dunstify "switching to displaylink" --timeout=1000
+else
+    NEW_SINK=1
+    dunstify "switching to built-in sink" --timeout=1000
+fi
+
+pacmd set-default-sink $NEW_SINK

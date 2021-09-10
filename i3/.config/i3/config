@@ -65,6 +65,8 @@ workspace $documents output $monitor_primary
 
 workspace $git output $monitor_right
 
+workspace $wp6 output $monitor_left
+
 # Bindsym using mod+# to workspace #
 bindsym $mod+1 workspace $browser
 bindsym $mod+2 workspace $coding

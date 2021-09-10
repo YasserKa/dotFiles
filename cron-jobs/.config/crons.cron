@@ -1,10 +1,14 @@
 DISPLAY=:0
 30 22 * * * source $HOME/.config/.Xdbus; dunstify "sleep time"
+0 11 * * * source $HOME/.config/.Xdbus; dunstify "launch time"
+0 16 * * * source $HOME/.config/.Xdbus; dunstify "egg/cheese sandwitch time"
+0 19 * * * source $HOME/.config/.Xdbus; dunstify "dinner time"
+
 0 13 1,15 * * /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
 
 # facebook bot
-# 55 9 * * 1 source $HOME/.config/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
+55 9 * * 1 source $HOME/.config/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
 
 # Synch university material
 0 12 * * * rclone sync $HOME/university university:university --exclude ".git/**"

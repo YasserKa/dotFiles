@@ -1,0 +1,18 @@
+#!/bin/sh
+
+xdotool keyup Super_L
+QUTEBROWSER_ID=$(xdotool search --class qutebrowser)
+if [[ -z $QUTEBROWSER_ID ]]; then
+    qutebrowser &
+fi
+while [[ -z $(xdotool search --class qutebrowser) ]]; do
+    sleep 0.1
+done
+
+xdotool windowactivate $(xdotool search --class qutebrowser)
+sleep 0.1
+xdotool key 0xff1b
+xdotool type O def
+xdotool key space
+xdotool type $(xclip -selection clipboard -o)
+xdotool key enter
