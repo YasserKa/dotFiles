@@ -37,7 +37,7 @@
  '(org-agenda-files
    '("/home/yasser/notes/RoamNotes/20210909201608-interested_in.org" "/home/yasser/notes/RoamNotes/20210908134129project.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
  '(package-selected-packages
-   '(org-appear deft orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
+   '(org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
 
 (use-package undo-tree
@@ -611,7 +611,16 @@
 
 (my-overriding-binding-mode 1)
 
-(use-package yasnippet
-  :hook (prog-mode . yas-minor-mode)
-  :config
-  (yas-reload-all))
+;; (use-package yasnippet
+;;   :hook (prog-mode . yas-minor-mode)
+;;   :config
+;;   (yas-reload-all))
+
+(add-hook 'after-init-hook 'global-company-mode)
+;; local configuration for TeX modes
+(defun my-latex-mode-setup ()
+  (setq-local company-backends
+              (append '((company-capf))
+                      company-backends)))
+
+(add-hook 'org-mode 'my-latex-mode-setup)
