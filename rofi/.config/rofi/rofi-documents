@@ -18,7 +18,6 @@ else
         i3_empty_workspace.sh >/dev/null
     elif [ -n "${DOCUMENT}" ]
     then
-        dunstify $(fd -F "${DOCUMENT}")
         DOCUMENT_PATH=$HOME/$(fd -F "${DOCUMENT}" | head -n 1)
         zathura "$DOCUMENT_PATH" >/dev/null & disown
     fi
