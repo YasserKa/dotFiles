@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ -z $@ ]
+then
+    get_documetns()
+    {
+
+        fd --regex '.*.(pdf|djvu|epub)$' | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple
+
+    }
+
+echo ; get_documetns
+else
+    DOCUMENT=$@
+
+    if [ "${DOCUMENT}" = "empty" ]
+    then
+        i3_empty_workspace.sh >/dev/null
+    elif [ -n "${DOCUMENT}" ]
+    then
+        dunstify $(fd -F "${DOCUMENT}")
+        DOCUMENT_PATH=$HOME/$(fd -F "${DOCUMENT}" | head -n 1)
+        zathura "$DOCUMENT_PATH" >/dev/null & disown
+    fi
+fi

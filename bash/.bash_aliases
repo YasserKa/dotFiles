@@ -58,7 +58,7 @@ _fasd_bash_hook_cmd_complete vf j
 
 # emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
-alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/RoamNotes/20210909201608-interested_in.org"'
+alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/RoamNotes/20210911093036-general.org"'
 
 # cron
 alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'

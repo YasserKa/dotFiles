@@ -171,6 +171,12 @@ mode "sharing" {
 # password
 bindsym $mod+p exec bwmenu
 
+# tmux
+bindsym $mod+t exec rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
+
+# documents
+bindsym $mod+Shift+d exec rofi -show documents -modi documents:$XDG_CONFIG_HOME/rofi/rofi-documents
+
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -234,7 +240,7 @@ exec --no-startup-id slack
 exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/RoamNotes/20210909201608-interested_in.org; workspace 1; exec qutebrowser'
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/RoamNotes/20210911093036-general.org; workspace 1; exec qutebrowser'
 
 # Wait until the internet is on
 exec_always $HOME/bin/waitInternet; mail_check_mutt
