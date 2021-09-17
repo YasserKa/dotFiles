@@ -32,10 +32,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
+   '("4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
-   '("/home/yasser/notes/RoamNotes/20210908134129project.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
+   '("~/notes/RoamNotes/20210911093036-general.org" "/home/yasser/notes/RoamNotes/20210908134129project.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
  '(package-selected-packages
    '(org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -428,12 +428,12 @@
   :straight
   (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :after org-roam
-  ; :hook (after-init . org-roam-ui-mode)
+                                        ; :hook (after-init . org-roam-ui-mode)
   :config
   (setq
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
+   org-roam-ui-follow t
+   org-roam-ui-update-on-save t
+   org-roam-ui-open-on-start t))
 
 
 (use-package deft
@@ -548,6 +548,16 @@
 (package-install-selected-packages)
 
 (load-theme 'gruvbox-light-medium t)
+
+; trigger the background theme
+(defun my-trigger-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
+      (load-theme 'gruvbox-dark-soft t)
+      (load-theme 'gruvbox-light-medium t)
+    ))
+
+(evil-define-key 'operator evil-surround-mode-map "ob" 'my-trigger-theme)
 
 ;; Remove backup files (ends with ~)
 (setq make-backup-files nil)
