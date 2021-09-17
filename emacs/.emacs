@@ -468,7 +468,7 @@
 
 ;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
-  (shell-command (concat "/usr/bin/dunstify -a Emacs " " \"" title "\" \"" msg "\"")))
+  (shell-command (concat "/usr/bin/dunstify --appname Emacs " " \"" title "\" \"" msg "\"")))
 
 ;; Designate the window function for my-appt-send-notification
 (defun toast-appt-display (min-to-app new-time msg)

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+output=$(echo "$3" |  cut -d: -f1-2)
+
+dunstify --appname Emacs-delegate "$2" "$output"

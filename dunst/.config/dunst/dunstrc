@@ -169,6 +169,12 @@ icon = dialog-error-symbolic.symbolic
 [org]
 appname = Emacs
 new_icon = emacs
+skip_display = yes
+script=/home/yasser/.config/dunst/emacs_delegate
+
+[org-delegate]
+appname = Emacs-delegate
+new_icon = emacs
 
 [sleep]
 summary = "*sleep*"
