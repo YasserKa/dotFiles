@@ -303,7 +303,7 @@
 
   (setq org-capture-templates
         '(("d" "default" entry (file "~/notes/RoamNotes/20210909221237-capture.org")
-           "* TODO %?\n  %i\n  %a")))
+           "* TODO %?\n")))
 
                                         ; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
@@ -386,7 +386,7 @@
 
     "oa"  '(org-agenda :which-key "status")
     "ot"  '(org-todo-list :which-key "todos")
-    "oc"  '(org-capture t :which-key "capture")
+    "oc"  '((lambda () (interactive) (org-capture nil "d")) :which-key "capture")
     )
   )
 
