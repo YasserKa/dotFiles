@@ -643,3 +643,5 @@
  '(org-level-2 ((t (:inherit outline-2 :height 1.15))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
  '(org-level-4 ((t (:inherit outline-4 :height 1.05)))))
+
+(setq org-enforce-todo-dependencies t)
