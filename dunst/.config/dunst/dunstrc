@@ -112,7 +112,7 @@ icon_position = right
 max_icon_size = 40
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/hicolor/:
+icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/hicolor/:/usr/share/doc/neomutt/logo/:
 
 ### History ###
 
@@ -170,6 +170,7 @@ icon = dialog-error-symbolic.symbolic
 appname = Emacs
 new_icon = emacs
 skip_display = yes
+history_ignore = yes
 script=/home/yasser/.config/dunst/emacs_delegate
 
 [org-delegate]
@@ -181,14 +182,18 @@ summary = "*sleep*"
 new_icon = bed-80
 history_ignore = yes
 
+[slack]
+appname=Slack
+new_icon = slack-40
+
 [music]
 appname = cmus
-new_icon = music-80
+new_icon = music-64
 history_ignore = yes
 
 [mail]
 appname = neomutt
-new_icon = mail
+new_icon = neomutt-64
 
 [tea]
 summary = "*Tea*"
