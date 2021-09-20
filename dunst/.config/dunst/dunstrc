@@ -208,6 +208,11 @@ summary = "*Clipboard*"
 new_icon = clipboard-64
 history_ignore = yes
 
+[clipboard-1]
+summary = "*Upload completed*"
+new_icon = clipboard-64
+history_ignore = yes
+
 # Remove deepinscreenshot notifications
 [deepin-recording]
 summary = "*Screen Capture*"
