@@ -383,6 +383,7 @@
     "on"  '(org-toggle-narrow-to-subtree :which-key "toggle narrow")
     "ol"  '(org-latex-preview :which-key "latex preview")
     "ob"  '(org-switchb :which-key "switch buffer")
+    "od" '(deft :which-key "search in org files")
 
     "oa"  '(org-agenda :which-key "status")
     "ot"  '(org-todo-list :which-key "todos")
@@ -437,8 +438,6 @@
 
 
 (use-package deft
-  :bind
-  ("C-c n d" . deft)
   :custom
   (deft-directory "~/notes/RoamNotes")
   (deft-recursive t)
