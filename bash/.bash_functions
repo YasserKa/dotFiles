@@ -1,5 +1,3 @@
-#! /usr/bin/bash
-
 # extract compressed files function
 extract() {
     local c e i
@@ -46,7 +44,7 @@ function orphans() {
     fi
 }
 
-function system_update() {
+function update_system() {
     orphans
     baph -uN
 }
