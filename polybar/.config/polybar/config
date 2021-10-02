@@ -199,7 +199,8 @@ initial = 1
 type = internal/memory
 inherit = generic-format-style
 
-format-prefix = 
+format-prefix = 
+
 label = %gb_used%
 ; >>>
 ; Network <<<
