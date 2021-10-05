@@ -74,6 +74,8 @@
   (evil-collection-outline-bind-tab-p nil)
   :config
   (evil-collection-init)
+  ; needed for company package
+  (evil-collection-define-key nil 'company-active-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
   (setq evil-collection-magit-state 'normal)
   ;; Updating the original by closing the list of repos window
