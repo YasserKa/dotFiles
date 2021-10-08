@@ -108,6 +108,10 @@ assign [class="Chromium"] workspace $wp9
 # For notify-me script
 for_window [instance="notify_me_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
+
+# qutebrowser ambience page
+for_window [title=".*Ambience Player.*"] move scratchpad
+
 # put general notes in scratchpad
 for_window [title="general_notes"] move scratchpad, resize set 990 820, move up 100, move left 100
 
@@ -153,6 +157,18 @@ mode "cmus" {
         bindsym Escape mode "default"
 }
 
+bindsym $mod+Shift+c mode "control_ambient"
+mode "control_ambient" {
+    bindsym i exec ~/bin/cmus_notification
+        bindsym s exec ~/bin/control_ambient p; mode "default"
+
+        bindsym h exec ~/bin/control_ambient k
+        bindsym l exec ~/bin/control_ambient j
+
+        bindsym Control+bracketleft mode "default"
+        bindsym Escape mode "default"
+}
+
 bindsym $mod+s mode "sharing"
 mode "sharing" {
     bindsym i exec ~/bin/share -i; mode "default"
@@ -177,8 +193,6 @@ bindsym $mod+t exec rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
 # documents
 bindsym $mod+Shift+d exec rofi -show documents -modi documents:$XDG_CONFIG_HOME/rofi/rofi-documents
 
-# Reload the configuration file
-bindsym $mod+Shift+c reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exit
@@ -241,6 +255,7 @@ exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/RoamNotes/20210911093036-general.org; workspace 1; exec qutebrowser'
+for_window [title=" • "] move scratchpad
 
 # Wait until the internet is on
 exec_always $HOME/bin/waitInternet; mail_check_mutt
