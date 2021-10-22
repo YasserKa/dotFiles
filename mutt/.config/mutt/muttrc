@@ -39,7 +39,7 @@ set attribution = ""
 bind index <space>  collapse-thread
 set sort_aux = reverse-date
 set sort=threads
-# exec collapse-all
+set collapse_all
 
 # mailboxes
 set realname = "Yasser Kaddoura"
@@ -88,7 +88,7 @@ bind pager,index [t previous-thread
 bind index L limit
 bind index l display-message
 bind attach <return> view-mailcap
-bind index,query <space> tag-entry
+# bind index,query <space> tag-entry
 macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
 bind index,pager H view-raw-message
 bind browser l select-entry
