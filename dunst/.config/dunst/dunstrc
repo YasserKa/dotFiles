@@ -362,6 +362,10 @@ appname = notify-me
 history_ignore = yes
 timeout = 9999
 
+[udiskie]
+appname = udiskie
+history_ignore = yes
+new_icon = usb
 
 # Remove imgur notifications
 [imgur]
