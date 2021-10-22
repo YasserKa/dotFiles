@@ -6,12 +6,63 @@
 monitor = 0
 
 # Display notification on focused monitor.  Possible modes are:
+#   mouse: follow mouse pointer
+#   keyboard: follow window with keyboard focus
+#   none: don't follow anything
+#
+# "keyboard" needs a window manager that exports the
+# _NET_ACTIVE_WINDOW property.
+# This should be the case for almost all modern window managers.
+#
+# If this option is set to mouse or keyboard, the monitor option
+# will be ignored.
 follow = mouse
 
-# The geometry of the window:
-geometry = "300x5-30+38"
+### Geometry ###
 
-# Show how many messages are currently hidden (because of geometry).
+# dynamic width from 0 to 300
+# width = (0, 300)
+# constant width of 300
+width = 300
+
+# The maximum height of a single notification, excluding the frame.
+height = 300
+
+# Position the notification in the top right corner
+origin = top-right
+
+# Offset from the origin
+offset = 10x50
+
+# Scale factor. It is auto-detected if value is 0.
+scale = 0
+
+# Maximum number of notification (0 means no limit)
+notification_limit = 0
+
+### Progress bar ###
+
+# Turn on the progess bar. It appears when a progress hint is passed with
+# for example dunstify -h int:value:12
+progress_bar = true
+
+# Set the progress bar height. This includes the frame, so make sure
+# it's at least twice as big as the frame width.
+progress_bar_height = 10
+
+# Set the frame width of the progress bar
+progress_bar_frame_width = 1
+
+# Set the minimum width for the progress bar
+progress_bar_min_width = 150
+
+# Set the maximum width for the progress bar
+progress_bar_max_width = 300
+
+
+
+# Show how many messages are currently hidden (because of
+# notification_limit).
 indicate_hidden = yes
 
 # The transparency of the window.  Range: [0; 100].
@@ -19,11 +70,20 @@ indicate_hidden = yes
 # present (e.g. xcompmgr, compiz, etc.).
 transparency = 15
 
+# Draw a line of "separator_height" pixel height between two
+# notifications.
+# Set to 0 to disable.
+separator_height = 2
+
 # Padding between text and separator.
 padding = 8
 
+
 # Horizontal padding.
 horizontal_padding = 15
+
+# Padding between text and icon.
+text_icon_padding = 0
 
 # Defines width in pixels of frame around the notification window.
 # Set to 0 to disable.
@@ -32,19 +92,24 @@ frame_width = 0
 # Defines color of the frame around the notification window.
 frame_color = "#aaaaaa"
 
-# Height of the separating line between notifications
-separator_height = 2
-
 # Define a color for the separator.
+# possible values are:
+#  * auto: dunst tries to find a color fitting to the background;
+#  * foreground: use the same color as the foreground;
+#  * frame: use the same color as the frame;
+#  * anything else will be interpreted as a X color.
 separator_color = frame
 
 # Sort messages by urgency.
 sort = yes
 
+
 # Don't remove messages, if the user is idle (no mouse or keyboard input)
 # for longer than idle_threshold seconds.
 # Set to 0 to disable.
-idle_threshold = 0
+# A client can set the 'transient' hint to bypass this. See the rules
+# section for how to disable this if necessary
+# idle_threshold = 120
 
 ### Text ###
 
@@ -60,6 +125,22 @@ line_height = 0
 #        <i>italic</i>
 #        <s>strikethrough</s>
 #        <u>underline</u>
+#
+#        For a complete reference see
+#        <https://developer.gnome.org/pango/stable/pango-Markup.html>.
+#
+# strip: This setting is provided for compatibility with some broken
+#        clients that send markup even though it's not enabled on the
+#        server. Dunst will try to strip the markup but the parsing is
+#        simplistic so using this option outside of matching rules for
+#        specific applications *IS GREATLY DISCOURAGED*.
+#
+# no:    Disable markup parsing, incoming notifications will be treated as
+#        plain text. Dunst will not advertise that it has the body-markup
+#        capability if this is set as a global setting.
+#
+# It's important to note that markup inside the format option will be parsed
+# regardless of what this is set to.
 markup = full
 
 # The format of the message.  Possible variables are:
@@ -77,6 +158,10 @@ format = "<b>%s</b>\n%b"
 # Alignment of message text.
 # Possible values are "left", "center" and "right".
 alignment = left
+
+# Vertical alignment of message text and icon.
+# Possible values are "top", "center" and "bottom".
+vertical_alignment = center
 
 # Show age of message if message is older than show_age_threshold
 # seconds.
@@ -108,11 +193,16 @@ show_indicators = yes
 # Align icons left/right/off
 icon_position = right
 
+# Scale small icons up to this size, set to 0 to disable. Helpful
+# for e.g. small files or high-dpi screens. In case of conflict,
+# max_icon_size takes precedence over this.
+min_icon_size = 0
+
 # Scale larger icons down to this size, set to 0 to disable
-max_icon_size = 40
+max_icon_size = 32
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/hicolor/:/usr/share/doc/neomutt/logo/:
+icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/hicolor/:/usr/share/doc/neomutt/logo/
 
 ### History ###
 
@@ -134,37 +224,65 @@ browser = /usr/bin/qutebrowser --target=tab
 # Always run rule-defined scripts, even if the notification is suppressed
 always_run_script = true
 
-[shortcuts]
-# Close notification.
-close = ctrl+space
+# Define the title of the windows spawned by dunst
+title = Dunst
 
-# Close all notifications.
-close_all = ctrl+shift+space
+# Define the class of the windows spawned by dunst
+class = Dunst
 
-# Redisplay last message(s).
-history = ctrl+apostrophe
+# Define the corner radius of the notification window
+# in pixel size. If the radius is 0, you have no rounded
+# corners.
+# The radius will be automatically lowered if it exceeds half of the
+# notification height to avoid clipping text and/or icons.
+corner_radius = 0
 
-# Context menu. for selecting URLs and actions
-context = ctrl+shift+semicolon
+# Ignore the dbus closeNotification message.
+# Useful to enforce the timeout set by dunst configuration. Without this
+# parameter, an application may close the notification sent before the
+# user defined timeout.
+ignore_dbusclose = false
+
+### Wayland ###
+# These settings are Wayland-specific. They have no effect when using X11
+
+# Uncomment this if you want to let notications appear under fullscreen
+# applications (default: overlay)
+# layer = top
+
+# Set this to true to use X11 output on Wayland.
+force_xwayland = false
+
+# Experimental features that may or may not work correctly. Do not expect them
+# to have a consistent behaviour across releases.
+[experimental]
+# Calculate the dpi to use on a per-monitor basis.
+# If this setting is enabled the Xft.dpi value will be ignored and instead
+# dunst will attempt to calculate an appropriate dpi value for each monitor
+# using the resolution and physical size. This might be useful in setups
+# where there are multiple screens with very different dpi values.
+per_monitor_dpi = false
 
 [urgency_low]
-background = "#222222"
-foreground = "#888888"
-timeout = 3
-icon = dialog-information-symbolic.symbolic
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the "#" and following would be interpreted as a comment.
+    background = "#222222"
+    foreground = "#888888"
+    timeout = 3
+    new_icon = dialog-information-symbolic.symbolic
 
 [urgency_normal]
-background = "#d3d3d3"
-foreground = "#000000"
-timeout = 5
-icon = dialog-information-symbolic.symbolic
+    background = "#d3d3d3"
+    foreground = "#000000"
+    timeout = 5
+    new_icon = dialog-information-symbolic.symbolic
 
 [urgency_critical]
-background = "#900000"
-foreground = "#ffffff"
-frame_color = "#ff0000"
-timeout = 5
-icon = dialog-error-symbolic.symbolic
+    background = "#900000"
+    foreground = "#ffffff"
+    frame_color = "#ff0000"
+    timeout = 5
+    new_icon = dialog-error-symbolic.symbolic
 
 [org]
 appname = Emacs
@@ -216,12 +334,13 @@ history_ignore = yes
 # Remove deepinscreenshot notifications
 [deepin-recording]
 summary = "*Screen Capture*"
-format = ""
+skip_display = true
 history_ignore = yes
 
 [deepin-screenshot]
 summary = "*Screenshot*"
-format = ""
+timeout = 5
+skip_display = true
 history_ignore = yes
 
 [jupyter-notebook]
@@ -230,7 +349,7 @@ timeout = 3600
 
 [recording]
 summary = "*Recording*"
-format = ""
+skip_display = true
 history_ignore = yes
 
 [switch-sink]
@@ -247,7 +366,7 @@ timeout = 9999
 # Remove imgur notifications
 [imgur]
 body = "*imgur*"
-format = ""
+skip_display = true
 history_ignore = yes
 
 # vim: ft=cfg

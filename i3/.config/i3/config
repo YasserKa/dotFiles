@@ -183,6 +183,19 @@ mode "sharing" {
 
 # >>>
 # Bindings <<<
+#
+# dunst
+
+# close notification.
+bindsym ctrl+space exec dunstctl close
+bindsym ctrl+Shift+space exec dunstctl close-all
+
+# redisplay last message(s).
+bindsym ctrl+apostrophe exec dunstctl history-pop
+
+# context menu. for selecting URLs and actions
+bindsym ctrl+Shift+semicolon exec dunstctl context
+
 
 # password
 bindsym $mod+p exec bwmenu
