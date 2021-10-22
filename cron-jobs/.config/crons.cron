@@ -1,5 +1,4 @@
 DISPLAY=:0
-30 22 * * * source $HOME/.config/.Xdbus; dunstify "sleep time"
 
 0 13 1,15 * * /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
