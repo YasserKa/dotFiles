@@ -23,7 +23,7 @@ CLEANING_TEAMS = [
         ['Eddie', 'Kithmini', 'Mariam'],
         ['Bhagya', 'Hanna'],
         ['Caroline', 'Mana'],
-        ['David', 'Rinska'],
+        ['David', 'Renske'],
 ]
 
 options = webdriver.ChromeOptions()
