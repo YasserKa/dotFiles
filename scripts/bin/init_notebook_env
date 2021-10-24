@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pipenv install --dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
+
+pipenv shell
+
+jupyter nbextension install jupytext --py --user
+jupyter nbextension enable  jupytext  --py --user
+
+jupyter nbextension install jupyter_ascending --py --user
+jupyter nbextension enable  jupyter_ascending --py --user
+jupyter serverextension enable jupyter_ascending --py --user

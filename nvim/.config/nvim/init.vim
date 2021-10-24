@@ -280,12 +280,14 @@ vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\
             \ :let @/ = "" <bar> set hlsearch<CR>
 " >>>
 " <<< Jupyter Ascending
-"
-" augroup NOTEBOOK
-"     autocmd!
-"     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
-"     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
-" augroup END
+augroup NOTEBOOK
+    autocmd!
+    autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
+    autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
+    " syncing to ipynb file
+    let file_name = expand("%:r")
+    autocmd BufWrite *sync.py execute "silent !jupytext --sync " . file_name . ".ipynb &"
+augroup END
 " >>>
 " which-key <<<
 " Define prefix dictionary

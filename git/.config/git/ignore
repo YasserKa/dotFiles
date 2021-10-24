@@ -157,6 +157,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.sync.ipynb
 
 # IPython
 profile_default/
