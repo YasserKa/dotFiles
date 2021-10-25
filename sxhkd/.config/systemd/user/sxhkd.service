@@ -7,7 +7,6 @@ After=graphical-session.target
 [Service]
 Type=simple
 Restart=always
-KillMode=process
 RestartSec=2
 ExecStart=/usr/bin/sxhkd
 ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
