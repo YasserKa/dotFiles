@@ -47,6 +47,9 @@ Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', '
 
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
 
+" settings for sxhkdrc file
+Plug 'https://github.com/YasserKa/vim-sxhkdrc'
+
 call plug#end()
 " >>>
 " general settings <<<

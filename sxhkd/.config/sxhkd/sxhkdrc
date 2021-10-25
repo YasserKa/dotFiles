@@ -1,0 +1,12 @@
+# dunst
+# close notification.
+ctrl + space
+    dunstctl close
+
+# redisplay last message().
+ctrl + apostrophe
+    dunstctl history-pop
+
+# context menu. for selecting URLs and actions
+ctrl + shift + semicolon
+    exec dunstctl context
