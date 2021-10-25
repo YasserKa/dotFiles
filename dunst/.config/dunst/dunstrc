@@ -352,8 +352,18 @@ summary = "*Recording*"
 skip_display = true
 history_ignore = yes
 
-[switch-sink]
+[switch-sink-out]
 appname = switch-sink
+timeout=1000
+summary = "*displaylink"
+new_icon = earbud-sound-64
+history_ignore = yes
+
+[switch-sink-in]
+appname = switch-sink
+timeout=1000
+summary = "*built-in sink"
+new_icon = laptop-sound-64
 history_ignore = yes
 
 # increase timeout
