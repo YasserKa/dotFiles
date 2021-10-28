@@ -3,4 +3,11 @@ map ; focus_inputbar :
 set selection-clipboard clipboard
 map <C-[> feedkeys <C-c>
 
+# yank the file as an org link
+unmap y
+map yy exec yank_zathura_file_org
+
+# yank link to clipboard
+map yl feedkeys c
+
 set synctex true
