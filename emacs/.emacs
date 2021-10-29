@@ -35,9 +35,9 @@
    '("4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
-   '("~/notes/RoamNotes/20210911093036-general.org" "/home/yasser/notes/RoamNotes/20210908134129project.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
+   '("~/notes/RoamNotes/20211020160147-project_course.org" "/home/yasser/notes/RoamNotes/university.org" "/home/yasser/notes/RoamNotes/20210911093036-general.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
  '(package-selected-packages
-   '(org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
+   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
 
 (use-package undo-tree
@@ -646,3 +646,10 @@
  '(org-level-4 ((t (:inherit outline-4 :height 1.05)))))
 
 (setq org-enforce-todo-dependencies t)
+
+;; Go to https://console.cloud.google.com/apis/credentials to get the credentials
+;; (require 'org-gcal)
+;; (setq org-gcal-client-id ""
+;;       org-gcal-client-secret ""
+;;       org-gcal-fetch-file-alist '(("yasser.kaddoura19@gmail.com" .  "~/notes/RoamNotes/20210911093036-general.org")
+;;                                   ))
