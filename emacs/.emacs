@@ -412,8 +412,8 @@
                          "#+title: ${title}\n#+filetags: book_notes\n")
       :unnarrowed t)
      ))
+  :bind (("C-c r i" . org-roam-node-insert))
   :config
-
   (org-roam-db-autosync-mode)
   (my-leader-key-def
     "r"   '(:ignore t :which-key "org-roam mode")
