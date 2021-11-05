@@ -490,6 +490,10 @@ omap <leader><tab> <plug>(fzf-maps-o)
 
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+# override theme, since gruvbox-dark doesn't show some text
+command! -bang -nargs=? -complete=dir Files
+            \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'bat --color=always --style=numbers --theme gruvbox-light {}']}, <bang>0)
 " >>>
 " vista <<<
 nnoremap yeo :Vista!!<CR>
