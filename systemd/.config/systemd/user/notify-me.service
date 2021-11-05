@@ -4,6 +4,7 @@ Description=execute notify me
 [Service]
 Type=simple
 TimeoutStartSec=0
+ExecStartPre=/home/yasser/bin/wait_internet
 ExecStart=/bin/pipenv run python main.py
 Environment="HOME=/home/yasser" "USERNAME=yasser"
 WorkingDirectory=/home/yasser/Projects/notify-me

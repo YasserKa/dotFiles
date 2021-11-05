@@ -257,7 +257,7 @@ exec sleep 8; i3-msg '[class="Slack"] kill'
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/RoamNotes/20210911093036-general.org; workspace 1; exec qutebrowser'
 for_window [title=" • "] move scratchpad
 
-# Wait until the internet is on
-exec_always $HOME/bin/waitInternet; mail_check_mutt
-# exec $HOME/bin/waitInternet; claws-mail
+
+# Fetch email
+exec_always ~/bin/wait_internet && mail_check_mutt
 # >>>

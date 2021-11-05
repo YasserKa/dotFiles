@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# wait for internet connection or 5 iterations
+
+wget -q --spider http://google.com
+RESULT=$?
+
+COUNT=0
+
+until [ $COUNT -eq 5 ] || [ $RESULT -eq 0 ]; do
+    sleep 2
+    ((COUNT+=1))
+    wget -q --spider http://google.com
+    RESULT=$?
+done
+
+exit $RESULT

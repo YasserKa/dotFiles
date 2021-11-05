@@ -16,12 +16,12 @@ alias h='history'
 alias hg='history | grep'
 
 # sync notes
-alias sync_org="rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'"
-alias sync_books="rclone sync $HOME/books books:books"
+alias sync_org="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'"
+alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 
 # shutdown
-alias reboot="rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown -r now"
-alias shut="rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown now"
+alias reboot="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown -r now"
+alias shut="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown now"
 
 # alternatives
 alias top='htop'

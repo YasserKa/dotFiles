@@ -4,16 +4,16 @@ DISPLAY=:0
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
 
 # facebook bot
-55 9 * * 1 source $HOME/.config/.Xdbus; cd $HOME/Projects/facebook-bot; pipenv run python main.py
+55 9 * * 1 $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && cd $HOME/Projects/facebook-bot && pipenv run python main.py
 
 # Synch university material
-0 12 * * * rclone sync $HOME/university university:university --exclude ".git/**"
+0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/university university:university --exclude ".git/**"
 
 # Fetch at startup
-@reboot rclone sync remote:org $HOME/notes/RoamNotes --include *.org
-*/30 * * * * rclone sync $HOME/notes/RoamNotes remote:org --include "*.org"; cd $HOME/notes; $HOME/bin/git-sync
+@reboot $HOME/bin/wait_internet && rclone sync remote:org $HOME/notes/RoamNotes --include *.org
+*/30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include "*.org" && cd $HOME/notes && $HOME/bin/git-sync
 
 # Get mail & update polybar
-*/30 * * * * source $HOME/.config/.Xdbus; $HOME/bin/mailsync && polybar-msg hook mail 1
+*/30 * * * * $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && $HOME/bin/mailsync && polybar-msg hook mail 1
 
 # vim: syntax=crontab commentstring=#%s
