@@ -76,11 +76,14 @@ set foldmethod=marker         " Folds at start
 set foldmarker=<<<,>>>        " Folds at start
 
 " Tabs, spaces, indentation, wrapping
-set expandtab       " Use spaces for tabs
-set shiftwidth=4    " Number of spaces to autoindent
-set softtabstop=4   " Number of spaces for a tab
-set nojoinspaces    " No extra space after '.' when joining lines
-set textwidth=80    " Wrap lines automatically at 80th column
+set expandtab               " Use spaces for tabs
+set shiftwidth=4            " Number of spaces to autoindent
+set softtabstop=4           " Number of spaces for a tab
+set nojoinspaces            " No extra space after '.' when joining lines
+set textwidth=80            " Wrap lines automatically at 80th column
+set spell spelllang=en_us   " Enable spelling
+
+let g:python3_host_prog  = '/bin/python3.9'
 
 " Keybindings
 let mapleader=","
@@ -399,6 +402,7 @@ let g:ale_linters = {
             \   'sh': ['langauge_server'],
             \   'js': ['eslint'],
             \   'php': ['langserver'],
+            \   'markdown': ['write-good'],
             \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -407,8 +411,15 @@ let g:ale_fixers = {
             \   'js': ['eslint'],
             \}
 
-let g:ale_fix_on_save_ignore = {'markdown': ['trim_whitespace'], 'tex': ['trim_whitespace']}
+" misbehaving linters
+let g:ale_linters_ignore = {
+            \ 'scala': ['fsc', 'scalac']
+            \}
 
+let g:ale_fix_on_save_ignore = {
+            \  'markdown': ['trim_whitespace'],
+            \ 'tex': ['trim_whitespace']
+            \}
 " Auto remove ALE window on buffer exit
 augroup CloseLoclistWindowGroup
     autocmd!
@@ -491,7 +502,7 @@ omap <leader><tab> <plug>(fzf-maps-o)
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-# override theme, since gruvbox-dark doesn't show some text
+" override theme, since gruvbox-dark doesn't show some text
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'bat --color=always --style=numbers --theme gruvbox-light {}']}, <bang>0)
 " >>>
@@ -539,4 +550,3 @@ function! s:show_documentation()
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " >>>
-let g:python3_host_prog  = '/bin/python3.9'
