@@ -76,6 +76,7 @@
   (evil-collection-init)
   ; needed for company package
   (evil-collection-define-key nil 'company-active-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  (evil-collection-define-key nil 'company-active-map (kbd "C-w") 'evil-delete-backward-word)
 
   (setq evil-collection-magit-state 'normal)
   ;; Updating the original by closing the list of repos window
@@ -405,6 +406,8 @@
   :straight t
   :init
   (setq org-roam-v2-ack t)
+  :demand t
+  :bind (("C-c r i" . org-roam-node-insert))
   :custom
   (org-roam-directory "~/notes/RoamNotes")
   (org-roam-completion-everywhere t)
@@ -420,7 +423,6 @@
                          "#+title: ${title}\n#+filetags: book_notes\n")
       :unnarrowed t)
      ))
-  :bind (("C-c r i" . org-roam-node-insert))
   :config
   (org-roam-db-autosync-mode)
   (my-leader-key-def
