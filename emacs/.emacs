@@ -307,15 +307,22 @@
         '(("d" "default" entry (file "~/notes/RoamNotes/20210909221237-capture.org")
            "* TODO %?\n")))
 
-                                        ; Run/highlight code using babel in org-mode
+  ;; running scala code in babel
+  (load-file (concat user-emacs-directory "ob-scala.el"))
+  (setq org-babel-scala-command "amm")
+  (setq org-babel-scala-wrapper-method "%s")
+
+  ; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
      (python . t)
      (ipython . t)
+     (scala . t)
      (shell . t)
      ;; Include other languages here...
      ))
+
   ;; Syntax highlight in #+BEGIN_SRC blocks
   (setq org-src-fontify-natively t)
   ;; Don't prompt before running code in org
@@ -366,6 +373,7 @@
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
 
   (use-package evil-org
     :after org
