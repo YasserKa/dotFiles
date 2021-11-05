@@ -5,7 +5,7 @@ map <C-[> feedkeys <C-c>
 
 # yank the file as an org link
 unmap y
-map yp exec yank_zathura_file_org
+map yo exec yank_zathura_file_org
 
 # yank link to clipboard
 map yl feedkeys c

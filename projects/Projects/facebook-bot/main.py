@@ -20,7 +20,7 @@ profile_path = '/home/yasser/.config/chromium/facebook_bot_profile'
 CLEANING_TEAMS = [
         ['Yasser', 'Josh'],
         ['Dennis', 'Yann'],
-        ['Eddie', 'Kithmini', 'Mariam'],
+        # ['Eddie', 'Kithmini', 'Mariam'],
         ['Bhagya', 'Hanna'],
         ['Caroline', 'Mana'],
         ['David', 'Renske'],

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # extract compressed files function
 extract() {
     local c e i
@@ -46,7 +48,7 @@ function orphans() {
 
 function update_system() {
     orphans
-    baph -uN
+    baph -un
 }
 
 ## path synchronization for ranger
