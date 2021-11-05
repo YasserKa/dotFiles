@@ -1,9 +1,11 @@
 acpi 1.7-3
+acpid 2.0.33-1
 acpilight 1.2-2
 adapta-gtk-theme 3.95.0.11-2
 alacritty 0.9.0-1
 alsa-firmware 1.2.4-2
 alsa-utils 1.2.5.1-1
+ammonite 2.4.0-1
 arandr 0.1.10-6
 aspell-en 2020.12.07-1
 autoconf 2.71-1
@@ -64,6 +66,8 @@ rclone 1.56.2-1
 reflector 2021.7.8-1
 ripgrep 13.0.0-2
 rofi-calc 2.0.0-1
+sbt 1:1.5.5-1
+scala 2.13.6-1
 screen 4.8.0-3
 stow 2.3.1-3
 sxhkd 0.6.2-1
@@ -86,6 +90,12 @@ unzip 6.0-14
 urlscan 0.9.7-1
 wget 1.21.2-1
 wireguard-tools 1.0.20210914-1
+xbindkeys 1.8.7-2
+xorg-fonts-alias-100dpi 1.0.4-1
+xorg-fonts-alias-75dpi 1.0.4-1
+xorg-fonts-alias-misc 1.0.4-1
+xorg-fonts-type1 7.7-6
+xorg-mkfontscale 1.2.1-2
 xorg-xev 1.2.4-1
 xorg-xinit 1.4.1-3
 xorg-xkill 1.0.5-2
