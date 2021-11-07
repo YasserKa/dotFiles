@@ -1,9 +1,6 @@
 # Check for interactive
 [ -z "$PS1" ] && return
 
-export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
-export LESS='-R '
-
 # Bash options
 set -o vi                  # Vi mode
 set -o noclobber           # Don't overwrite when redireting using shell
@@ -33,7 +30,10 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
+# colorizing commands
+GRC_ALIASES=true
+[[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
+
 # Source files
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
 [[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
-[[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh

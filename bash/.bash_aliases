@@ -27,7 +27,7 @@ alias shut="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --incl
 alias top='htop'
 alias ls='exa --color=auto'
 alias ll='exa -alFh'
-alias cat='bat'
+alias cat='bat --pager=less'
 
 # more options
 alias mkdir='mkdir -pv'
