@@ -19,9 +19,11 @@ from os.path import basename, splitext, expanduser
 charset.add_charset('utf-8', charset.SHORTEST, '8bit')
 
 
-def pandoc(from_format, to_format='markdown', plain='markdown', title=None):
-    markdown = ('markdown'
-                '-blank_before_blockquote')
+def pandoc(from_format, to_format='commonmark', plain='markdown', title=None):
+    markdown = (
+            'commonmark'
+            '+strikeout'
+            )
 
     if from_format == 'plain':
         from_format = plain
