@@ -2,11 +2,6 @@
 
 usermodmap=$HOME/.Xmodmap
 
-# nvidia  https://wiki.archlinux.org/index.php/NVIDIA_Optimus
-# xrandr --setprovideroutputsource modesetting NVIDIA-0
-# xrandr --auto
-# xrandr --dpi 96
-
 # Disable bell
 xset -b
 # disable screen saver
@@ -30,6 +25,5 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   done
   unset f
 fi
-
 
 exec i3

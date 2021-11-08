@@ -52,7 +52,6 @@ function update_system() {
 }
 
 ## path synchronization for ranger
-# (reference: /usr/share/doc/ranger/examples/bash_automatic_cd.sh)
 function ranger {
     tempfile="$(mktemp -t ranger-cd.XXXXXX)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
@@ -76,7 +75,6 @@ function to_lower_case() {
 
 # tmux + fzf
 fzftmux() {
-    # local _fasd_ret=$(fasd -sif $@ .pdf$)
     TMUX_SESSION=$(tmux list-sessions | cut -d: -f1 | fzf)
     [[ -z $TMUX_SESSION ]] && return
     tmux attach-session -t $TMUX_SESSION

@@ -7,7 +7,7 @@ set completion-ignore-case on
 # Remove ^C
 set echo-control-characters off
 
- # Color files by types
+# Color files by types
 set colored-stats on
 # Append char to indicate type
 set visible-stats on

@@ -1,12 +1,11 @@
 # Check for interactive
 [ -z "$PS1" ] && return
 
-# Bash options
+# Bash options https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 set -o vi                  # Vi mode
 set -o noclobber           # Don't overwrite when redireting using shell
-shopt -s autocd            # Auto cd
+shopt -s autocd            # auto cd without using cd
 shopt -s histappend        # Append to the history file, don't overwrite it
-shopt -s checkwinsize      # Update the value of LINES and COLUMNS after each command if altered
 shopt -s cdspell           # fix  spelling errors when using cd
 shopt -s extglob           # extend pattern matching (used for extract function)
 shopt -s cmdhist           # history records commands with multiple lines as such instead of using ";"
