@@ -1,24 +1,35 @@
 #!/bin/sh
 
+# Dependencies: fasd (for frecency), fd (searching files), rofi (interface)
+# Get documents
+
 if [ -z $@ ]
 then
-    get_documetns()
+    get_documents()
     {
 
-        fd --regex '.*.(pdf|djvu|epub)$' | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple
-
+        docs_path=$(fd --regex '.*.(pdf|djvu|epub)$')
+        docs_basename=$(echo "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+        # for frecency (tracks only the visited files)
+        fasd_docs=$(fasd -lR "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+        # get all files
+        all_docs="$fasd_docs\n$docs_basename"
+        no_duplicates=$(echo "$all_docs" | awk '!a[$0]++')
+        echo "$no_duplicates"
     }
 
-echo ; get_documetns
+echo ; get_documents
 else
     DOCUMENT=$@
 
     if [ "${DOCUMENT}" = "empty" ]
     then
-        i3_empty_workspace.sh >/dev/null
+        dunstify "Empty"
     elif [ -n "${DOCUMENT}" ]
     then
         DOCUMENT_PATH=$HOME/$(fd -F "${DOCUMENT}" | head -n 1)
+        # append path to fasd for frecency (frequency and recency)
+        fasd -A "$DOCUMENT_PATH"
         zathura "$DOCUMENT_PATH" >/dev/null & disown
     fi
 fi
