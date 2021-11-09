@@ -8,7 +8,7 @@ RESULT=$?
 COUNT=0
 
 until [ $COUNT -eq 5 ] || [ $RESULT -eq 0 ]; do
-    sleep 2
+    sleep 1
     ((COUNT+=1))
     wget -q --spider http://google.com
     RESULT=$?
