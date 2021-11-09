@@ -17,10 +17,12 @@ URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/3295737910517634'
 executable_path = '/home/yasser/.config/chromium/chromedriver'
 profile_path = '/home/yasser/.config/chromium/facebook_bot_profile'
 
+DEBUG = False
+
 CLEANING_TEAMS = [
         ['Yasser', 'Josh'],
         ['Dennis', 'Yann'],
-        # ['Eddie', 'Kithmini', 'Mariam'],
+        ['Mariam'],
         ['Bhagya', 'Hanna'],
         ['Caroline', 'Mana'],
         ['David', 'Renske'],
@@ -88,7 +90,10 @@ def check_facebook():
 
 def main():
     try:
-        check_facebook()
+        if DEBUG:
+            print(get_message())
+        else:
+            check_facebook()
     except TimeoutException:
         pass
     driver.close()
