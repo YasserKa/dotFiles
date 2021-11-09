@@ -2,28 +2,35 @@
 if [ -f $HOME/.bashrc ]; then . $HOME/.bashrc; fi
 
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/.local/bin # to get nvr (neovim-remote)
+# export PATH=$PATH:$HOME/.local/bin # jupyter for emacs
 # to make cmus escape works
 export ESCDELAY=25
-# used by imgur api
+# used by bitwarden cli
 export BW_SESSION=$(pass show bw_session)
 
+# used by polybar config
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)' | tail -n1 | cut -d ' ' -f1)
 export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d ' ' -f1)
 # battery & adapter
 export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d ' ' -f1)
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
+
 # history
-export HISTFILESIZE=1000000
+# ongoing session
 export HISTSIZE=1000000
-export HISTCONTROL=ignoredups:ignorespace
+# hisotry file
+export HISTFILESIZE=1000000
+# ignore duplicate commands
+export HISTCONTROL=ignoredups
 export HISTIGNORE='ls:bg:fg:history'
-# append commands to histry as it's issues
+# append commands to history as it's issues, since bash records to .bash_history
+# when session ends (good if terminal crashes)
 export PROMPT_COMMAND='history -a'
 
-# Fzf
-export FZF_DEFAULT_COMMAND='ag -U --hidden --ignore .git -g ""'
+# fzf
+# use .ignore
+export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light"
 
 # configurations in one place
@@ -44,15 +51,11 @@ export TERMINAL=alacritty
 export DIFFPROG=vimdiff
 export PAGER=vimpager
 
-# color
+# change directory color to white
 LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
 
-# hardeware video acceleration
-export LIBVA_DRIVER_NAME=vdpau
-export VDPAU_DRIVER=nvidia
-
+# XDG_VTNR used by systems that use systemd
 # if there's no DISPLAY, start X11
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    # exec startx > /dev/null 2>&1
     exec startx
 fi

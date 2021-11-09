@@ -35,7 +35,7 @@
    '("4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
-   '("~/notes/RoamNotes/20211020160147-project_course.org" "/home/yasser/notes/RoamNotes/university.org" "/home/yasser/notes/RoamNotes/20210911093036-general.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
+   '("/home/yasser/notes/RoamNotes/university.org" "/home/yasser/notes/RoamNotes/tools.org" "/home/yasser/notes/RoamNotes/20211020160147-project_course.org" "/home/yasser/notes/RoamNotes/20210911093036-general.org" "/home/yasser/notes/RoamNotes/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/RoamNotes/data_mining.org"))
  '(package-selected-packages
    '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -277,8 +277,6 @@
   (setq evil-auto-indent nil)
   (diminish org-indent-mode))
 
-
-
 ;; auto-complete
 (use-package org
   :defer t
@@ -318,10 +316,10 @@
    'org-babel-load-languages
    '(
      (python . t)
-     (ipython . t)
+     ;; (ipython . t) could be enabled by it requires jupyter-notebook (either use )
      (scala . t)
+     (sql . t)
      (shell . t)
-     ;; Include other languages here...
      ))
 
   ;; Syntax highlight in #+BEGIN_SRC blocks
@@ -375,6 +373,7 @@
   (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
+  (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
 
   (use-package evil-org
     :after org

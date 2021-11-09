@@ -1,15 +1,15 @@
 $include /etc/inputrc
-# TAB completion
+# show all completions as soon as I press tab, even if there's more than one
 set show-all-if-ambiguous on
 
-# Case-insensitive completion
+# case-insensitive completion
 set completion-ignore-case on
 # Remove ^C
 set echo-control-characters off
 
 # Color files by types
 set colored-stats on
-# Append char to indicate type
+# Append char to indicate type when pressing tab
 set visible-stats on
 # Mark symlinked directories
 set mark-symlinked-directories on
@@ -20,22 +20,33 @@ set menu-complete-display-prefix on
 
 # vi mode
 set editing-mode vi
+# show vim mode using the cursor
 set show-mode-in-prompt on
+# vertical bar
 set vi-ins-mode-string \1\e[6 q\2
+# block
 set vi-cmd-mode-string \1\e[2 q\2
+
+"\C-l": clear-screen
 $if mode=vi
     set keymap vi-command
-    "\e[A": history-search-backward
-    "\e[B": history-search-forward
+    # delete inside quote and double quotes object
+    "di\"": 'd"F"ldt"'
+    "di\'": "d'F'ldt'"
+    # \e is meta (alt key)
+    "\en": history-search-backward
+    "\ep": history-search-forward
     j: history-search-forward
     k: history-search-backward
     ":": ";"
-    "\ep": yank-last-arg
-    Control-l: clear-screen
+
 
     set keymap vi-insert
-    "\e[A": history-search-backward
-    "\e[B": history-search-forward
-    "\ep": yank-last-arg
-    Control-l: clear-screen
+    "\ep": history-search-backward
+    "\en": history-search-forward
+    # pressing tab will list all completions & select the first one. pressing it
+    # again will cycle through available completions.
+    TAB: menu-complete
+    # Shift-TAB cycles completions backward
+    "\e[Z": menu-complete-backward
 $endif

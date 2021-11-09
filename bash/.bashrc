@@ -21,7 +21,7 @@ git_branch() {
 
 PS1='[\[\e[36m\]\w\[\e[0m\]]\e[36m\]\[\033[38;5;87m\]$(git_branch)\n\[\e[33m\]=> \[\e[0m\]'
 
-# Autojumping
+# setup autojumping
 fasd_cache="$HOME/.fasd-init-bash"
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
     fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
