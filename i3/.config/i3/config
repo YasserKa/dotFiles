@@ -248,7 +248,7 @@ exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -ty
 # Composer for transparency
 exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/picom.conf"
 # Status bar
-exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch.sh
+exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 
 exec sleep 3; slack
 exec sleep 8; i3-msg '[class="Slack"] kill'
