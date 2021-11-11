@@ -233,19 +233,13 @@ interface = ${env:IFACE_WLAN}
 format-connected-prefix = 
 label-connected = %essid% %signal:3%% %downspeed:9%
 
-; label-disconnected = 
-; label-disconnected-foreground = ${color.grey}
-
 [module/eth]
 inherit = module/network
 interface = ${env:IFACE_ETH}
 
 format-connected-prefix = 
-label-connected = %local_ip%%downspeed:9%
+label-connected = %downspeed:9%
 
-; label-disconnected = 
-; label-disconnected-foreground = ${color.grey}
-;
 [module/vpn]
 type = custom/script
 
@@ -261,9 +255,7 @@ interface = enp0s20f0u1u4i5
 
 format-connected-prefix = 
 
-label-connected = %local_ip%%downspeed:9%
+label-connected = %downspeed:9%
 
-; label-disconnected = 
-; label-disconnected-foreground = ${color.grey}
 # >>>
 ; vim:ft=dosini
