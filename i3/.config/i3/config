@@ -254,8 +254,9 @@ exec sleep 3; slack
 exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/RoamNotes/20210911093036-general.org; workspace 1; exec qutebrowser'
-for_window [title=" • "] move scratchpad
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/20210911093036-general.org; workspace 1; exec qutebrowser'
+# for_window [title=" • "] move scratchpad
+
 
 
 # Fetch email

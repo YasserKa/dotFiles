@@ -10,8 +10,8 @@ DISPLAY=:0
 0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/university university:university --exclude ".git/**"
 
 # Fetch at startup
-@reboot $HOME/bin/wait_internet && rclone sync remote:org $HOME/notes/RoamNotes --include *.org
-*/30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include "*.org" && cd $HOME/notes && $HOME/bin/git-sync
+# @reboot $HOME/bin/wait_internet && rclone sync remote:org $HOME/notes/org --include *.org
+*/30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/org remote:org --include "*.org" && cd $HOME/notes && $HOME/bin/git-sync
 
 # Get mail & update polybar
 */30 * * * * $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && $HOME/bin/mailsync && polybar-msg hook mail 1

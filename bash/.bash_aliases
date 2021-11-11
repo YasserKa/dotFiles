@@ -10,18 +10,23 @@ alias ps?='ps aux | grep'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
-
 # history
 alias h='history'
 alias hg='history | grep'
 
 # sync notes
-alias sync_org="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'"
+alias sync_org="wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org'"
 alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 
 # shutdown
-alias reboot="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown -r now"
-alias shut="wait_internet && rclone sync $HOME/notes/RoamNotes remote:org --include '*.org'; shutdown now"
+# don't shutdown if there's an unsaved note file (checked via existence of
+# symbolic linked file)
+alias reboot="wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown -r now"
+alias shut="wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown now"
+# alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync
+# $HOME/notes/org remote:org --include '*.org'; shutdown -r now"
+# alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync
+# $HOME/notes/org remote:org --include '*.org'; shutdown now"
 
 # alternatives
 alias top='htop'
@@ -58,7 +63,7 @@ _fasd_bash_hook_cmd_complete vf j
 
 # emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
-alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/RoamNotes/20210911093036-general.org"'
+alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/org/20210911093036-general.org"'
 
 # cron
 alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
