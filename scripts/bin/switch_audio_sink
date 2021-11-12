@@ -1,15 +1,19 @@
 #!/bin/sh
-CURR_SINK=$(pacmd list-sinks | grep state | grep -n RUNNING | grep -Eo [0-9])
+
 APP_NAME="switch-sink"
 
+# Get the index of the SINK by getting the 4th line before of the line that has
+# <STATE> (e.g. RUNNING) and extract the integer
+
+CURR_SINK=$(pacmd list-sinks | sed -n $(($(pacmd list-sinks | grep -n RUNNING | cut -d : -f 1)-4))p | grep -Eo [0-9])
+
+NEW_SINK=$(pacmd list-sinks | sed -n $(($(pacmd list-sinks | grep -n IDLE | cut -d : -f 1)-4))p | grep -Eo [0-9])
 
 # HACK: current sink is 2 (which is 1), switch to sink 0
-if [[ CURR_SINK -eq 2 ]]; then
-    NEW_SINK=0
-    dunstify --appname $APP_NAME "switching to displaylink"
+if [[ $CURR_SINK -eq 1 ]]; then
+    dunstify --appname $APP_NAME --timeout=1000 --icon=earbud-sound-64 "switching to displaylink"
 else
-    NEW_SINK=1
-    dunstify --appname $APP_NAME "switching to built-in sink"
+    dunstify --appname $APP_NAME --timeout=1000 --icon=laptop-sound-64 "switching to built-in sink"
 fi
 
 pacmd set-default-sink $NEW_SINK

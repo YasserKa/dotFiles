@@ -56,6 +56,6 @@ LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
 
 # XDG_VTNR used by systems that use systemd
 # if there's no DISPLAY, start X11
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
+if [ -z "${DISPLAY}" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
     exec startx
 fi
