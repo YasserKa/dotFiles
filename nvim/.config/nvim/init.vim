@@ -489,7 +489,7 @@ nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 " >>>
 "
 " fzf <<<
-nnoremap <leader>a :Ag<space>
+nnoremap <leader>a :Rg<space>
 nnoremap <leader>p :Files<CR>
 nnoremap <leader>o :Buffers<CR>
 
@@ -501,6 +501,12 @@ omap <leader><tab> <plug>(fzf-maps-o)
 
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 " override theme, since gruvbox-dark doesn't show some text
 command! -bang -nargs=? -complete=dir Files

@@ -27,7 +27,7 @@ alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME
 alias top='htop'
 alias ls='exa --color=auto'
 alias ll='exa -alFh'
-alias cat='bat --pager=less'
+alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # more options
 alias mkdir='mkdir -pv'
