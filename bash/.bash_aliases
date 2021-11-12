@@ -19,14 +19,9 @@ alias sync_org="wait_internet && rclone sync $HOME/notes/org remote:org --includ
 alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 
 # shutdown
-# don't shutdown if there's an unsaved note file (checked via existence of
-# symbolic linked file)
-alias reboot="wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown -r now"
-alias shut="wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org'; shutdown now"
-# alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync
-# $HOME/notes/org remote:org --include '*.org'; shutdown -r now"
-# alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync
-# $HOME/notes/org remote:org --include '*.org'; shutdown now"
+# don't shutdown if there's an unsaved note file (checked via existence of symbolic linked file)
+alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org' && shutdown -r now || dunstify 'unsaved file'"
+alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org' && shutdown now || dunstify 'unsaved file'"
 
 # alternatives
 alias top='htop'
