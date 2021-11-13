@@ -10,3 +10,6 @@ ctrl + apostrophe
 # context menu. for selecting URLs and actions
 ctrl + shift + semicolon
     exec dunstctl context
+
+mod1 + d
+    exec dict
