@@ -19,7 +19,7 @@ function note_path(){
 }
 
 function note_path_org_roam(){
-    notes_dir="$HOME/notes/RoamNotes/images"
+    notes_dir="$HOME/notes/org/images"
     echo $notes_dir
 }
 

@@ -12,6 +12,8 @@ eval $(ssh-agent)
 
 # deal with presence of monitors
 autorandr --change
+# move cursor to center of screen
+xdotool mousemove --polar 0 0
 
 # source keyboard bindings
 if [ -f "$usermodmap" ]; then

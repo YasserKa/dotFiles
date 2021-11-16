@@ -6,7 +6,9 @@ mailsync
 polybar-msg hook mail 1
 
 # Open neomutt if new mails exist
-NEW_MAIL=`$XDG_CONFIG/polybar/mail`
+NEW_MAIL=$(/home/yasser/.config/polybar/mail)
+
+echo $NEW_MAIL
 
 if [[ $NEW_MAIL != "" ]]; then
     alacritty -e neomutt

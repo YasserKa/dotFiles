@@ -233,8 +233,7 @@ bindsym XF86AudioNext exec cmus-remote --next
 bindsym XF86AudioPrev exec cmus-remote --prev
 
 # Mail
-bindsym $mod+Shift+m exec --no-startup-id mail_check_mutt
-# bindsym $mod+Shift+m exec --no-startup-id claws-mail --receive-all
+bindsym $mod+Shift+m exec --no-startup-id check_mail
 
 # Rofi
 bindsym $mod+d exec rofi -show run
@@ -256,10 +255,7 @@ exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/20210911093036-general.org; workspace 1; exec qutebrowser'
-# for_window [title=" • "] move scratchpad
-
-
 
 # Fetch email
-exec_always ~/bin/wait_internet && mail_check_mutt
+exec_always ~/bin/wait_internet && check_mail
 # >>>

@@ -33,9 +33,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
+ '(evil-digit-bound-motions '(evil-beginning-of-visual-line))
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
-   '("/home/yasser/notes/org/university.org" "/home/yasser/notes/org/tools.org" "/home/yasser/notes/org/20211020160147-project_course.org" "/home/yasser/notes/org/20210911093036-general.org" "/home/yasser/notes/org/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/org/data_mining.org"))
+   '("~/notes/org/tools.org" "/home/yasser/notes/org/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/org/20211115203459-data_mining_course.org" "/home/yasser/notes/org/20211104162803-spark.org" "/home/yasser/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/university.org" "/home/yasser/notes/org/20211020160147-project_course.org" "/home/yasser/notes/org/20210911093036-general.org" "/home/yasser/notes/org/data_mining.org"))
  '(package-selected-packages
    '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -469,16 +470,30 @@
  appt-display-format 'window)                     ;; pass warnings to the designated window function
 (setq appt-disp-window-function (function toast-appt-display))
 
-
 ;; update appt after saving file
 (add-hook 'after-save-hook
           '(lambda ()
              (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
                  (org-agenda-to-appt-clear-message))))
 
+;; Clock in clock out hooks with polybar
+(add-hook 'org-clock-out-hook
+          '(lambda ()
+              (shell-command (concat "/bin/rm /tmp/current_task"))))
+
+(add-hook 'org-clock-in-hook
+          '(lambda ()
+             (shell-command (concat "/bin/echo -e "
+                                    "\"" (org-get-heading t t t t) " \n"
+                                     (what-line) " \n"
+                                    (buffer-file-name) "\""
+                                    " > /tmp/current_task")
+                            )))
+
 ;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
-  (shell-command (concat "/usr/bin/dunstify --appname Emacs " " \"" title "\" \"" msg "\"")))
+  (shell-command (concat "/usr/bin/dunstify --appname emacs_org " " \"" title "\" \"" msg "\"")))
+
 
 ;; Designate the window function for my-appt-send-notification
 (defun toast-appt-display (min-to-app new-time msg)

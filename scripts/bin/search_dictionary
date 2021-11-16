@@ -2,14 +2,17 @@
 
 xdotool keyup Super_L
 
+# Class name for the ambient music tab
+AMBIENT_CLASS_NAME="ambient_music"
+
 function get_id_not_ambient () {
     pids=$(xdotool search --class qutebrowser)
 
     QUTEBROWSER_ID=""
 
     for pid in $pids; do
-        name=$(xdotool getwindowname $pid)
-        if [[ $name != *"•"* ]]; then
+        class_name=$(xdotool getwindowclassname $pid)
+        if [[ $class_name != $AMBIENT_CLASS_NAME ]]; then
             QUTEBROWSER_ID=$pid
             break
         fi

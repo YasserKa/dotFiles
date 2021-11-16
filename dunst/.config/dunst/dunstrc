@@ -285,7 +285,7 @@ per_monitor_dpi = false
     new_icon = dialog-error-symbolic.symbolic
 
 [org]
-appname = Emacs
+appname = emacs_org
 new_icon = emacs
 skip_display = yes
 history_ignore = yes
