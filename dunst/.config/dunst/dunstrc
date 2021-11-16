@@ -355,7 +355,7 @@ history_ignore = yes
 [switch-sink-out]
 appname = switch-sink
 timeout = 1
-summary = "*displaylink"
+summary = "*displaylink sink"
 new_icon = earbud-sound-64
 history_ignore = yes
 
