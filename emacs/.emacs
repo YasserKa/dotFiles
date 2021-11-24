@@ -75,7 +75,7 @@
   (evil-collection-outline-bind-tab-p nil)
   :config
   (evil-collection-init)
-  ; needed for company package
+  ;; needed for company package
   (evil-collection-define-key nil 'company-active-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-collection-define-key nil 'company-active-map (kbd "C-w") 'evil-delete-backward-word)
 
@@ -297,11 +297,12 @@
         org-startup-with-inline-images t
         org-image-actual-width nil
         org-enforce-todo-dependencies t
-        ; Exporting settings
+        ;; Exporting settings
         org-export-with-broken-links t
         org-export-preserve-breaks t
         )
 
+  ;; Agenda styling
   (defun my/style-org-agenda()
     (set-face-attribute 'org-agenda-date nil :height 1.1)
     (set-face-attribute 'org-agenda-date-today nil :height 1.1)
@@ -331,7 +332,7 @@
   (setq org-babel-scala-command "amm")
   (setq org-babel-scala-wrapper-method "%s")
 
-                                        ; Run/highlight code using babel in org-mode
+  ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
@@ -349,7 +350,7 @@
   ;; Fix an incompatibility between the ob-async and ob-ipython packages
   (setq ob-async-no-async-languages-alist '("ipython"))
 
-                                        ; show emphasis markers when hovering over text
+  ;; show emphasis markers when hovering over text
   (use-package org-appear
     :hook (org-mode . org-appear-mode))
 
@@ -460,7 +461,7 @@
   :straight
   (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :after org-roam
-                                        ; :hook (after-init . org-roam-ui-mode)
+  ;; :hook (after-init . org-roam-ui-mode)
   :config
   (setq
    org-roam-ui-follow t
@@ -558,11 +559,17 @@
        (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
        (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
-                                        ; between dollar signs
+;; between dollar signs
 (define-and-bind-text-object "$" "\\$" "\\$")
 
+;; Open files at cursor
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
 (evil-define-key 'normal org-mode-map (kbd "<S-return>") 'org-open-at-point-global)
+
+;; Adjusting text scale
+(evil-define-key 'normal org-mode-map (kbd "C-+") 'text-scale-increase)
+(evil-define-key 'normal org-mode-map (kbd "C--") 'text-scale-decrease)
+(evil-define-key 'normal org-mode-map (kbd "C-=") 'text-scale-set)
 
 (define-key org-mode-map "\C-j" nil)
 
@@ -578,7 +585,7 @@
 (define-key org-mode-map "\M-j" 'org-metadown)
 (define-key org-mode-map (kbd "M-J") 'org-shiftmetadown)
 
-                                        ; have one buffer when clicking on org-agenda
+;; have one buffer when clicking on org-agenda
 (evil-define-key 'motion org-agenda-mode-map
   (kbd "<RET>") '(lambda() (interactive) (org-agenda-switch-to t)))
 
@@ -598,7 +605,7 @@
 
 (load-theme 'gruvbox-light-medium t)
 
-                                        ; trigger the background theme
+;; trigger the background theme
 (defun my-trigger-theme ()
   (interactive)
   (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
@@ -654,7 +661,7 @@
         (?\` . ?\`)
         (?\{ . ?\})))
 
-                                        ; Keybindings for command mode
+;; Keybindings for command mode
 (defvar my-overriding-binding-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map [?\C-h] 'delete-backward-char)
