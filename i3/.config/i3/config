@@ -65,8 +65,9 @@ workspace $documents output $monitor_primary
 
 workspace $git output $monitor_right
 
-workspace $social output $monitor_left
 workspace $wp6 output $monitor_left
+workspace $wp9 output $monitor_left
+workspace $social output $monitor_left
 
 # Bindsym using mod+# to workspace #
 bindsym $mod+1 workspace $browser

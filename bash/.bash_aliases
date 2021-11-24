@@ -52,7 +52,6 @@ alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
 
 # autojumping
 alias vf='fasd -sife nvim' # quick opening files with vim
-alias j='fasd_cd -di'
 
 _fasd_bash_hook_cmd_complete vf j
 

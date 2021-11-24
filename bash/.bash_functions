@@ -67,6 +67,10 @@ function def() {
         vimpager
 }
 
+function j() {
+    cd $(fasd_cd -dlR "$@" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+}
+
 # move file to lower case
 function to_lower_case() {
     lower_case=`echo "$@"  | tr '[A-Z]' '[a-z]'`

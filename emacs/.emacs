@@ -281,6 +281,7 @@
 ;; auto-complete
 (use-package org
   :defer t
+  :ensure org-plus-contrib
   :hook (org-mode . my-org-mode-setup)
   :config
   (setq org-ellipsis " ▾"
@@ -295,10 +296,28 @@
         org-startup-with-latex-preview t
         org-startup-with-inline-images t
         org-image-actual-width nil
-        org-cycle-separator-lines 2)
+        org-enforce-todo-dependencies t
+        ; Exporting settings
+        org-export-with-broken-links t
+        org-export-preserve-breaks t
+        )
 
-  ;; (evil-define-key '(normal insert visual) org-mode-map (kbd "C-j") 'org-next-visible-heading)
-  ;; (evil-define-key '(normal insert visual) org-mode-map (kbd "C-k") 'org-previous-visible-heading)
+  (defun my/style-org-agenda()
+    (set-face-attribute 'org-agenda-date nil :height 1.1)
+    (set-face-attribute 'org-agenda-date-today nil :height 1.1)
+    (set-face-attribute 'org-agenda-date-weekend nil :height 1.1))
+
+  (add-hook 'org-agenda-mode-hook 'my/style-org-agenda)
+
+  (setq org-agenda-breadcrumbs-separator " ❱ "
+        org-agenda-current-time-string "⏰ ┈┈┈┈┈┈┈┈┈┈┈ now"
+        org-agenda-time-grid '((weekly today require-timed)
+                               (800 1000 1200 1400 1600 1800 2000)
+                               "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
+        org-agenda-prefix-format '((agenda . "%i %-12:c%?-12t%b% s")
+                                   (todo . " %i %-12:c")
+                                   (tags . " %i %-12:c")
+                                   (search . " %i %-12:c")))
 
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
@@ -312,7 +331,7 @@
   (setq org-babel-scala-command "amm")
   (setq org-babel-scala-wrapper-method "%s")
 
-  ; Run/highlight code using babel in org-mode
+                                        ; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
    '(
@@ -459,8 +478,29 @@
 
 ;; ORG NOTIFICATION
 
+;; Clock in clock out hooks with polybar
+(add-hook 'org-clock-out-hook
+          '(lambda ()
+             (shell-command (concat "/bin/rm /tmp/current_task"))))
+
+(add-hook 'org-clock-in-hook
+          '(lambda ()
+             (shell-command (concat "/bin/echo -e "
+                                    "\"" (org-get-heading t t t t) " \n"
+                                    (what-line) " \n"
+                                    (buffer-file-name) "\""
+                                    " > /tmp/current_task")
+                            )))
+
 (require 'appt)
 (appt-activate 1)                ;; activate appointment notification
+
+;; update appt after saving file
+(add-hook 'after-save-hook
+          '(lambda ()
+             (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
+                 (org-agenda-to-appt-clear-message))))
+
 
 (setq
  appt-time-msg-list nil                           ;; clear existing appt list
@@ -470,25 +510,6 @@
  appt-display-format 'window)                     ;; pass warnings to the designated window function
 (setq appt-disp-window-function (function toast-appt-display))
 
-;; update appt after saving file
-(add-hook 'after-save-hook
-          '(lambda ()
-             (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
-                 (org-agenda-to-appt-clear-message))))
-
-;; Clock in clock out hooks with polybar
-(add-hook 'org-clock-out-hook
-          '(lambda ()
-              (shell-command (concat "/bin/rm /tmp/current_task"))))
-
-(add-hook 'org-clock-in-hook
-          '(lambda ()
-             (shell-command (concat "/bin/echo -e "
-                                    "\"" (org-get-heading t t t t) " \n"
-                                     (what-line) " \n"
-                                    (buffer-file-name) "\""
-                                    " > /tmp/current_task")
-                            )))
 
 ;; Set up the call to the notifier
 (defun toast-appt-send-notification (title msg)
@@ -507,12 +528,13 @@
 
 (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
+
 ;; Spell checking toggle with yos
 (evil-define-key 'operator evil-surround-mode-map "os" 'flyspell-mode)
 (add-hook 'org-mode-hook 'flyspell-mode)
 (define-key evil-insert-state-map "\C-l"  'flyspell-auto-correct-previous-word)
 
-                                        ; LaTeX
+
 ;; update the document header for latex preview
 (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
 
@@ -540,6 +562,8 @@
 (define-and-bind-text-object "$" "\\$" "\\$")
 
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
+(evil-define-key 'normal org-mode-map (kbd "<S-return>") 'org-open-at-point-global)
+
 (define-key org-mode-map "\C-j" nil)
 
 ;; Prevent inserting a new element to split the line
@@ -574,12 +598,12 @@
 
 (load-theme 'gruvbox-light-medium t)
 
-; trigger the background theme
+                                        ; trigger the background theme
 (defun my-trigger-theme ()
   (interactive)
   (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
       (load-theme 'gruvbox-dark-soft t)
-      (load-theme 'gruvbox-light-medium t)
+    (load-theme 'gruvbox-light-medium t)
     ))
 
 (evil-define-key 'operator evil-surround-mode-map "ob" 'my-trigger-theme)
@@ -668,8 +692,6 @@
  '(org-level-2 ((t (:inherit outline-2 :height 1.15))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
  '(org-level-4 ((t (:inherit outline-4 :height 1.05)))))
-
-(setq org-enforce-todo-dependencies t)
 
 ;; Go to https://console.cloud.google.com/apis/credentials to get the credentials
 ;; (require 'org-gcal)

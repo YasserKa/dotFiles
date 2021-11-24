@@ -2,4 +2,4 @@
 
 output=$(echo "$3" |  cut -d: -f1-2)
 
-dunstify --appname Emacs-delegate "$2" "$output"
+[[ $(dunstify "$2" "$output" --appname Emacs-delegate --action="action,label") == "action" ]] && wmctrl -a emacs
