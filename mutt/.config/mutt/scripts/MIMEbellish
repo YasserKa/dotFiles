@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Taken from https://nosubstance.me/post/mutt-secret-sauce/
 
 import re
 import sys
