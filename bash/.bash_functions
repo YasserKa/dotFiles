@@ -68,7 +68,15 @@ function def() {
 }
 
 function j() {
-    cd $(fasd_cd -dlR "$@" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+    paths=$(fasd -dlR "$@")
+    path="$HOME"
+    # If only one path exists, go to it
+    if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
+        path=$paths
+    else # Use fzf otherwise
+        path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+    fi
+    cd $path
 }
 
 # move file to lower case
