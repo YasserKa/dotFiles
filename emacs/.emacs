@@ -35,8 +35,7 @@
    '("4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-digit-bound-motions '(evil-beginning-of-visual-line))
  '(evil-want-Y-yank-to-eol 1)
- '(org-agenda-files
-   '("~/notes/org/tools.org" "/home/yasser/notes/org/advanced_probabilisitc_machine_learning.org" "/home/yasser/notes/org/20211115203459-data_mining_course.org" "/home/yasser/notes/org/20211104162803-spark.org" "/home/yasser/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/university.org" "/home/yasser/notes/org/20211020160147-project_course.org" "/home/yasser/notes/org/20210911093036-general.org" "/home/yasser/notes/org/data_mining.org"))
+ '(org-agenda-files '("~/notes/org"))
  '(package-selected-packages
    '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -285,7 +284,7 @@
   :hook (org-mode . my-org-mode-setup)
   :config
   (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t
+        org-hide-emphasis-markers t ;; hide symbols
         org-src-fontify-natively t
         org-fontify-quote-and-verse-blocks t
         org-src-tab-acts-natively t
@@ -293,20 +292,59 @@
         org-hide-block-startup nil
         org-src-preserve-indentation nil
         org-startup-folded 'content
-        org-startup-with-latex-preview t
         org-startup-with-inline-images t
         org-image-actual-width nil
         org-enforce-todo-dependencies t
+        org-startup-folded t
+        ;; Remove completed deadline, scheduled, completed from agenda
+        org-agenda-skip-deadline-if-done t
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-timestamp-if-done t
+        ;; source code indentation
+        org-src-preserve-indentation nil
+        org-edit-src-content-indentation 0
         ;; Exporting settings
         org-export-with-broken-links t
         org-export-preserve-breaks t
         )
+
+  ;; Keywords
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "red" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("WAITING" :foreground "orange" :weight bold)
+                )))
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "|" "DONE(d)")
+          (sequence "WAITING(w)")))
+  ;; Don' export with keywords
+  (setq-default org-export-with-todo-keywords nil)
+
+  ;; Padding
+  (lambda () (progn
+               (setq left-margin-width 2)
+               (setq right-margin-width 2)
+               (set-window-buffer nil (current-buffer))))
+
+  (setq line-spacing 0.1)
+  (setq org-ellipsis "  ") ;; Folding symbol
 
   ;; Agenda styling
   (defun my/style-org-agenda()
     (set-face-attribute 'org-agenda-date nil :height 1.1)
     (set-face-attribute 'org-agenda-date-today nil :height 1.1)
     (set-face-attribute 'org-agenda-date-weekend nil :height 1.1))
+
+  ;; Get the title property in the file
+  ;; Usage: displayed in agenda mode
+  ;; (defun my/get-title-property ()
+  ;;   (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
+  ;;   (if title title ""))
+
+  (defun my/get-title-property ()
+    (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
+    (setq roam_alias (org-entry-get-with-inheritance "ROAM_ALIASES"))
+    (if roam_alias roam_alias (if title title "")))
 
   (add-hook 'org-agenda-mode-hook 'my/style-org-agenda)
 
@@ -315,13 +353,67 @@
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
-        org-agenda-prefix-format '((agenda . "%i %-12:c%?-12t%b% s")
-                                   (todo . " %i %-12:c")
-                                   (tags . " %i %-12:c")
-                                   (search . " %i %-12:c")))
+
+        org-agenda-prefix-format '((agenda . "%i %-16:(my/get-title-property)%?-12t%b% s")
+                                   (todo . "%i %-16:(my/get-title-property)")
+                                   (tags . "%i %-16:(my/get-title-property)")
+                                   (search . "%i %-16:(my/get-title-property)")))
 
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)
+  ;; (setq org-insert-heading-respect-content t)
+
+  ;; Save org buffers after quiting agenda mode
+  (advice-add 'org-agenda-quit :before '(lambda () (org-save-all-org-buffers) (message nil)))
+
+  (add-hook 'org-clock-out-hook
+            '(lambda ()
+               (shell-command (concat "/bin/rm /tmp/current_task"))))
+
+  (add-hook 'org-clock-cancel-hook
+            '(lambda ()
+               (shell-command (concat "/bin/rm /tmp/current_task"))))
+
+  ;; Super agenda
+  (setq org-agenda-custom-commands
+
+        '(("z" "Super view"
+           ((agenda "" ((org-agenda-span 'day)
+                        (org-super-agenda-groups
+                         '((:name "Today"
+                                  :time-grid t
+                                  :date today
+                                  :todo "TODAY"
+                                  :scheduled today
+                                  :order 1)))))
+            (alltodo "" ((org-agenda-overriding-header "")
+                         (org-super-agenda-groups
+                          '(;; Each group has an implicit boolean OR operator between its selectors.
+                            (:name "Today"
+                                   :deadline today
+                                   :face (:background "black"))
+                            (:name "Passed deadline"
+                                   :and (:deadline past :todo ("TODO" "WAITING" "HOLD" "NEXT"))
+                                   :face (:background "#7f1b19"))
+                            (:name "Work important"
+                                   :and (:priority>= "B" :category "Work" :todo ("TODO" "NEXT")))
+                            (:name "Work other"
+                                   :and (:category "Work" :todo ("TODO" "NEXT")))
+                            (:name "Important"
+                                   :priority "A")
+                            (:priority<= "B"
+                                         ;; Show this section after "Today" and "Important", because
+                                         ;; their order is unspecified, defaulting to 0. Sections
+                                         ;; are displayed lowest-number-first.
+                                         :order 1)
+                            (:name "Waiting"
+                                   :todo "WAITING"
+                                   :order 9)
+                            (:name "On hold"
+                                   :todo "HOLD"
+                                   :order 10)))))))))
+  (add-hook 'org-agenda-mode-hook 'org-super-agenda-mode)
+  (setq org-super-agenda-header-map (make-sparse-keymap))
 
   (setq org-capture-templates
         '(("d" "default" entry (file "~/notes/org/20210909221237-capture.org")
@@ -445,11 +537,17 @@
      ))
   :config
   (org-roam-db-autosync-mode)
+
+  (defun my/org-roam-node-find-window ()
+    (interactive)
+    (org-roam-node-find t))
+
   (my-leader-key-def
     "r"   '(:ignore t :which-key "org-roam mode")
 
     "rl" '(org-roam-buffer-toggle :which-key "links to this node")
     "rf" '(org-roam-node-find :which-key "find node")
+    "rF" '(my/org-roam-node-find-window :which-key "find node - new window")
 
     "ri"  '(org-roam-node-insert :which-key "insert node")
     "rg"  '(org-roam-ui-mode :which-key "graph of nodes")
@@ -477,12 +575,7 @@
   (deft-default-extension "org")
   )
 
-;; ORG NOTIFICATION
-
 ;; Clock in clock out hooks with polybar
-(add-hook 'org-clock-out-hook
-          '(lambda ()
-             (shell-command (concat "/bin/rm /tmp/current_task"))))
 
 (add-hook 'org-clock-in-hook
           '(lambda ()
@@ -492,9 +585,9 @@
                                     (buffer-file-name) "\""
                                     " > /tmp/current_task")
                             )))
-
+;; ORG NOTIFICATION
 (require 'appt)
-(appt-activate 1)                ;; activate appointment notification
+(appt-activate 1)
 
 ;; update appt after saving file
 (add-hook 'after-save-hook
@@ -532,7 +625,7 @@
 
 ;; Spell checking toggle with yos
 (evil-define-key 'operator evil-surround-mode-map "os" 'flyspell-mode)
-(add-hook 'org-mode-hook 'flyspell-mode)
+;; (add-hook 'org-mode-hook 'flyspell-mode)
 (define-key evil-insert-state-map "\C-l"  'flyspell-auto-correct-previous-word)
 
 

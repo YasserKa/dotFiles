@@ -22,7 +22,7 @@ DEBUG = False
 CLEANING_TEAMS = [
         ['Yasser', 'Josh'],
         ['Dennis', 'Yann'],
-        ['Mariam'],
+        ['Mariam', 'Rockshan'],
         ['Bhagya', 'Hanna'],
         ['Caroline', 'Mana'],
         ['David', 'Renske'],

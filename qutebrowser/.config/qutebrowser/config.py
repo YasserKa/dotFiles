@@ -5,9 +5,8 @@ c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 config.load_autoconfig()
 
-c.aliases['h'] = 'help -t'
-c.aliases['js'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
-
+# Don't automatically start playing <video> elements
+c.content.autoplay = False
 
 def filter_yt(info: interceptor.Request):
     """Block the given request if necessary."""
@@ -56,6 +55,8 @@ c.bindings.commands = {
         ':t': 'hint inputs',
         ':y': 'hint links yank',
         ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
+        ':t': 'hint userscript link ~/.config/qutebrowser/userscripts/qute-translate',
+        ':T': 'hint userscript all ~/.config/qutebrowser/userscripts/qute-translate --text',
 
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "config file sourced"',
@@ -70,6 +71,10 @@ c.bindings.commands = {
         'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
         'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
         'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
+
+        # Translation
+        '<Ctrl+T>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',
+        '<Ctrl+Shift+T>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate --text',
 
         # password
         '<z><l>': 'spawn --userscript \
@@ -104,7 +109,13 @@ c.bindings.commands = {
     },
 }
 
+c.aliases['h'] = 'help -t'
+c.aliases['json'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
 c.aliases['paywall'] = "open https://12ft.io/proxy?q={url}"
+c.aliases['hosts'] = "spawn --userscript ~/.config/qutebrowser/userscripts/localhost list"
+c.aliases['translate'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate"
+
+ 
 
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')

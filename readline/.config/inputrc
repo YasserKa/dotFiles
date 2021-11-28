@@ -30,11 +30,14 @@ set vi-cmd-mode-string \1\e[2 q\2
 "\C-l": clear-screen
 $if mode=vi
     set keymap vi-command
-    # delete inside quote and double quotes object
-    "di\"": 'd"F"ldt"'
-    "di\'": "d'F'ldt'"
-    "ci\"": 'd"F"ldt"i'
-    "ci\'": "d'F'ldt'i"
+    # delete inside '', "", () objects
+    "di\"": 'F"ldt"'
+    "ci\"": 'F"ldt"i'
+    "ci\'": "F'ldt'i"
+    "di\'": "F'ldt'"
+    "ci\'": "F'ldt'i"
+    "di)": "F(ldt)"
+    "ci)": "F(ldt)i"
     # \e is meta (alt key)
     "\en": history-search-backward
     "\ep": history-search-forward
