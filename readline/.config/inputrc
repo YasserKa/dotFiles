@@ -2,6 +2,10 @@ $include /etc/inputrc
 # show all completions as soon as I press tab, even if there's more than one
 set show-all-if-ambiguous on
 
+# Make C-w work in the middle of a line
+# Check https://superuser.com/questions/212446/binding-backward-kill-word-to-ctrlw
+set bind-tty-special-chars off
+
 # case-insensitive completion
 set completion-ignore-case on
 # Remove ^C

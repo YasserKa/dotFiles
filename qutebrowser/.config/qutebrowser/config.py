@@ -5,9 +5,6 @@ c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 config.load_autoconfig()
 
-# Don't automatically start playing <video> elements
-c.content.autoplay = False
-
 def filter_yt(info: interceptor.Request):
     """Block the given request if necessary."""
     url = info.request_url
