@@ -11,7 +11,7 @@ then
         docs_path=$(fd --regex '.*.(pdf|djvu|epub)$')
         docs_basename=$(echo "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
         # for frecency (tracks only the visited files)
-        fasd_docs=$(fasd -lR "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+        fasd_docs=$(fasd -lR "$docs_basename" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
         # get all files
         all_docs="$fasd_docs\n$docs_basename"
         no_duplicates=$(echo "$all_docs" | awk '!a[$0]++')

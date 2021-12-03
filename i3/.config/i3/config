@@ -120,6 +120,9 @@ for_window [title="general_notes"] move scratchpad, resize set 990 820, move up 
 
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
+
+# Change workspace when window is activated (used for qutebrower gt)
+focus_on_window_activation focus
 # >>>
 # Modes <<<
 

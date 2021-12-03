@@ -42,6 +42,10 @@ if [ "$1" == "-n" ]; then
     old_file_name=`ls $target_path | grep -E 'Screen'`
     extension="${old_file_name##*.}"
 
+    if [[ "$extension" == "" ]]; then
+        exit
+    fi
+
     old_path="$target_path/$old_file_name"
     new_file_name="$(date +"%Y-%m-%d_%T").$extension"
     new_path="$target_path/$new_file_name"
