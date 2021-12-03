@@ -1,3 +1,27 @@
+Content-Type: multipart/alternative; boundary="===============1581782970626127950=="
+MIME-Version: 1.0
+From: Yasser Kaddoura <yasser.kaddoura19@gmail.com>
+To: Yasser Kaddoura <yasser.kaddoura19@gmail.com>
+Cc: 
+Bcc: 
+Subject: Test Mail
+Reply-To: 
+
+--===============1581782970626127950==
+
+This is a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long line.
+
+-- 
+
+Yasser Kaddoura
+
+yasser.kaddoura19@gmail.com
+
+--===============1581782970626127950==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,16 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-$for(author-meta)$
-  <meta name="author" content="$author-meta$" />
-$endfor$
-$if(date-meta)$
-  <meta name="date" content="$date-meta$" />
-$endif$
-$if(keywords)$
-  <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
-$endif$
-  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+  <title>Test Mail</title>
   <style type="text/css">
   body, table, td, a {
     -webkit-text-size-adjust: 100%;
@@ -132,50 +147,14 @@ $endif$
     table[class=body] h1, table[class=body] h2 { margin-bottom: 14px !important; margin-top: 14px !important; }
   }
   </style>
-$if(quotes)$
-  <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
-$endif$
-$if(highlighting-css)$
-  <style type="text/css">
-$highlighting-css$
-  </style>
-$endif$
-$for(css)$
-  <link rel="stylesheet" href="$css$" type="text/css" />
-$endfor$
-$if(math)$
-  $math$
-$endif$
-$for(header-includes)$
-  $header-includes$
-$endfor$
 </head>
 <body>
-$for(include-before)$
-$include-before$
-$endfor$
-$if(title)$
-<div id="$idprefix$header">
-<h1 class="title">$title$</h1>
-$if(subtitle)$
-<h1 class="subtitle">$subtitle$</h1>
-$endif$
-$for(author)$
-<h2 class="author">$author$</h2>
-$endfor$
-$if(date)$
-<h3 class="date">$date$</h3>
-$endif$
-</div>
-$endif$
-$if(toc)$
-<div id="$idprefix$TOC">
-$toc$
-</div>
-$endif$
-$body$
-$for(include-after)$
-$include-after$
-$endfor$
+<p>This is a very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long line.</p>
+<p>--</p>
+<p>Yasser Kaddoura</p>
+<p>yasser.kaddoura19@gmail.com</p>
 </body>
 </html>
+
+--===============1581782970626127950==--
+

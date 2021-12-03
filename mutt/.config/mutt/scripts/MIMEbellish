@@ -16,6 +16,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.nonmultipart import MIMENonMultipart
 from os.path import basename, splitext, expanduser
 
+# Taken from https://nosubstance.me/post/mutt-secret-sauce/
+# To test the script use the following command:
+# cat test_mail.md | ./scripts/MIMEbellish >| test_mail.html
+
 
 charset.add_charset('utf-8', charset.SHORTEST, '8bit')
 
