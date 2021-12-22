@@ -15,8 +15,8 @@ Flatten .
 
 Channel personal
 Expunge Both
-Master :personal-remote:
-Slave :personal-local:
+Far :personal-remote:
+Near :personal-local:
 Patterns *
 Create Both
 SyncState *
