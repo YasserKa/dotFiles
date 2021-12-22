@@ -5,21 +5,23 @@ APP_NAME="switch-sink"
 # Get the index of the SINK by getting the 4th line before of the line that has
 # <STATE> (e.g. RUNNING, IDLE, SUSPENDED) and extract the integer
 
-CURR_SINK=$(pacmd list-sinks | sed -n $(($(pacmd list-sinks | grep -n RUNNING | cut -d : -f 1)-4))p | grep -Eo [0-9])
+CURR_SINK=$(pactl list sinks | sed -n $(($(pactl list sinks | grep -n RUNNING | cut -d : -f 1)+1))p | cut -d : -f2)
+# =$(pactl set-default-sink $(pactl list sinks | grep Name | grep usb |sed 's/Name: //'|sed 's/\s//')
 
-NEW_SINK=$(pacmd list-sinks | sed -n $(($(pacmd list-sinks | grep -nE "state: (IDLE|SUSPENDED)" | cut -d : -f 1)-4))p | grep -Eo [0-9])
+NEW_SINK=$(pactl list sinks | sed -n $(($(pactl list sinks | grep -nE "(IDLE|SUSPENDED)" | cut -d : -f 1)+1))p | cut -d : -f2)
 
+echo $CURR_SINK
 message=""
 icon=""
 # HACK: current sink is 2 (which is 1), switch to sink 0
-if [[ $CURR_SINK -eq 1 ]]; then
-    message="Switching to displaylink sink"
-    icon="earbud-sound-64"
-else
+if [[ $CURR_SINK == *"Display"* ]]; then
     message="Switching to built-in sink"
     icon="laptop-sound-64"
+else
+    message="Switching to displaylink sink"
+    icon="earbud-sound-64"
 fi
 
 dunstify --appname $APP_NAME --timeout=1000 --icon="$icon" "$message"
 
-pacmd set-default-sink $NEW_SINK
+pactl set-default-sink $NEW_SINK

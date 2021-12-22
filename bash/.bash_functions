@@ -46,7 +46,7 @@ function orphans() {
     fi
 }
 
-function update_system() {
+function upgrade_system() {
     orphans
     baph -un
 }

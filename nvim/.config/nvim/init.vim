@@ -83,7 +83,7 @@ set nojoinspaces            " No extra space after '.' when joining lines
 set textwidth=80            " Wrap lines automatically at 80th column
 set spell spelllang=en_us   " Enable spelling
 
-let g:python3_host_prog  = '/bin/python3.9'
+let g:python3_host_prog  = '/bin/python3.10'
 
 " Keybindings
 let mapleader=","

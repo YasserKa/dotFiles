@@ -49,8 +49,8 @@ $if mode=vi
     k: history-search-backward
     ":": ";"
 
-
     set keymap vi-insert
+    C-w: backward-kill-word
     "\ep": history-search-backward
     "\en": history-search-forward
     # pressing tab will list all completions & select the first one. pressing it

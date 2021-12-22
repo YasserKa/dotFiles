@@ -35,7 +35,8 @@
    '("4eb6fa2ee436e943b168a0cd8eab11afc0752aebb5d974bba2b2ddc8910fca8f" "6b5c518d1c250a8ce17463b7e435e9e20faa84f3f7defba8b579d4f5925f60c1" "83e0376b5df8d6a3fbdfffb9fb0e8cf41a11799d9471293a810deb7586c131e6" "2b9dc43b786e36f68a9fd4b36dd050509a0e32fe3b0a803310661edb7402b8b6" default))
  '(evil-digit-bound-motions '(evil-beginning-of-visual-line))
  '(evil-want-Y-yank-to-eol 1)
- '(org-agenda-files '("~/notes/org"))
+ '(org-agenda-files
+   '("~/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org" "/home/yasser/notes/org/20211020160147-project_course.org"))
  '(package-selected-packages
    '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -53,7 +54,7 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-tree)
-                                        ; Y is y$
+  ;; Y is y$
   (setq evil-want-Y-yank-to-eol '1)
   :config
   (evil-mode 1)
@@ -660,9 +661,9 @@
 (evil-define-key 'normal org-mode-map (kbd "<S-return>") 'org-open-at-point-global)
 
 ;; Adjusting text scale
-(evil-define-key 'normal org-mode-map (kbd "C-+") 'text-scale-increase)
-(evil-define-key 'normal org-mode-map (kbd "C--") 'text-scale-decrease)
-(evil-define-key 'normal org-mode-map (kbd "C-=") 'text-scale-set)
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+(define-key global-map (kbd "C-=") '(lambda () (interactive) (text-scale-adjust 0) (message nil)))
 
 (define-key org-mode-map "\C-j" nil)
 
