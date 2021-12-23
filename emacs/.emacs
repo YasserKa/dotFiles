@@ -420,6 +420,15 @@
         '(("d" "default" entry (file "~/notes/org/20210909221237-capture.org")
            "* TODO %?\n")))
 
+  ;; Insert mode after going to capture
+  (add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+  ;; save capture on :wq
+  (evil-define-key nil org-capture-mode-map
+    [remap evil-save-and-close] #'org-capture-finalize
+    [remap evil-save-modified-and-close] #'org-capture-finalize
+    [remap evil-quit] #'org-capture-kill)
+
   ;; running scala code in babel
   (load-file (concat user-emacs-directory "ob-scala.el"))
   (setq org-babel-scala-command "amm")
@@ -467,7 +476,6 @@
   ;; indent nested items
   (require 'org-indent)
 
-
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
@@ -491,12 +499,22 @@
 
   (use-package evil-org
     :after org
-    :hook ((org-mode . evil-org-mode)
+    :hook (
+           (org-mode . evil-org-mode)
            (org-agenda-mode . evil-org-mode)
-           (evil-org-mode . (lambda () (evil-org-set-key-theme '(navigation todo insert textobjects additional calendar)))))
+           (evil-org-mode . (lambda ()
+                              (evil-org-set-key-theme '(navigation todo insert textobjects additional calendar))
+                              ;; Insert heading bindings
+                              (evil-define-key 'normal 'evil-org-mode
+                                (kbd "<C-return>") '(lambda () (interactive) (org-insert-heading-after-current) (evil-insert 0))
+                                (kbd "<C-S-return>") '(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0))
+                                (kbd "<M-return>") '(lambda () (interactive) (org-ctrl-c-ret) (evil-insert 0))
+                                (kbd "<M-S-return>") '(lambda () (interactive) (org-insert-todo-heading 0) (evil-insert 0))))))
     :config
     (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
+    (evil-org-agenda-set-keys)
+    )
+
 
   (my-leader-key-def
     "o"   '(:ignore t :which-key "org mode")
