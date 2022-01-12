@@ -644,7 +644,7 @@
 
 ;; Spell checking toggle with yos
 (evil-define-key 'operator evil-surround-mode-map "os" 'flyspell-mode)
-;; (add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'flyspell-mode)
 (define-key evil-insert-state-map "\C-l"  'flyspell-auto-correct-previous-word)
 
 

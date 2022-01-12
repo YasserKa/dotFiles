@@ -21,11 +21,9 @@ DEBUG = False
 
 CLEANING_TEAMS = [
         ['Yasser', 'Josh'],
-        ['Dennis', 'Yann'],
-        ['Mariam', 'Rockshan'],
-        ['Bhagya', 'Hanna'],
+        ['Mariam', 'Yann'],
         ['Caroline', 'Mana'],
-        ['David', 'Renske'],
+        ['David'],
 ]
 
 options = webdriver.ChromeOptions()
@@ -53,14 +51,18 @@ def use_random_emoji():
 
 
 def get_message():
-    original_date = date(2021, 9, 6)
+    original_date = date(2021, 1, 10)
     today = date.today()
     days_difference = today - original_date
     number_of_weeks = int(days_difference.days / 7)
     on_duty = CLEANING_TEAMS[number_of_weeks % len(CLEANING_TEAMS)]
 
     on_duty_string = ', '.join([x for x in on_duty[:-1]])
-    on_duty_string += f" and {on_duty[-1]}"
+
+    if len(on_duty) > 1:
+        on_duty_string += " and "
+
+    on_duty_string += on_duty[-1]
 
     message = f"The Masters of Cleaning (MoC) this week are {on_duty_string}. "
     return message

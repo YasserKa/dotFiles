@@ -299,7 +299,6 @@ augroup END
 " Define prefix dictionary
 let g:which_key_map =  {}
 
-" inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
 inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
 
 vnoremap <silent> <C-s> :silent <c-u> :silent WhichKeyVisual '<C-s>'<CR>
@@ -487,7 +486,6 @@ nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
 " >>>
-"
 " fzf <<<
 nnoremap <leader>a :Rg<space>
 nnoremap <leader>p :Files<CR>
