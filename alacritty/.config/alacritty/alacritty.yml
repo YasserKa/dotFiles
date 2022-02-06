@@ -4,9 +4,10 @@ env:
   WINIT_X11_SCALE_FACTOR: "1.45"
 font:
   size: 8
-  family: inconsolata
+family: inconsolata
 
-background_opacity: 0.8
+window:
+  opacity: 0.8
 
 # Colors (Gruvbox light)
 schemes:

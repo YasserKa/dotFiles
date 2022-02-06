@@ -36,7 +36,7 @@
  '(evil-digit-bound-motions '(evil-beginning-of-visual-line))
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
-   '("~/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org" "/home/yasser/notes/org/20211020160147-project_course.org"))
+   '("/home/yasser/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org"))
  '(package-selected-packages
    '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
 ;; Set the variable pitch face
@@ -318,8 +318,10 @@
   (setq org-todo-keywords
         '((sequence "TODO(t)" "|" "DONE(d)")
           (sequence "WAITING(w)")))
-  ;; Don' export with keywords
+  ;; Don't export with keywords
   (setq-default org-export-with-todo-keywords nil)
+  ;; To export to markdown
+  (require 'ox-md)
 
   ;; Padding
   (lambda () (progn
@@ -355,10 +357,10 @@
                                (800 1000 1200 1400 1600 1800 2000)
                                "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
 
-        org-agenda-prefix-format '((agenda . "%i %-16:(my/get-title-property)%?-12t%b% s")
-                                   (todo . "%i %-16:(my/get-title-property)")
-                                   (tags . "%i %-16:(my/get-title-property)")
-                                   (search . "%i %-16:(my/get-title-property)")))
+        org-agenda-prefix-format '((agenda . "%i %-16:(my/get-title-property)%?-12t%b%-4e% s")
+                                   (todo . "%i %-12:(my/get-title-property) %-4e")
+                                   (tags . "%i %-12:(my/get-title-property) %-4e")
+                                   (search . "%i %-12:(my/get-title-property) %-4e")))
 
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-j") 'org-metadown)
   (evil-define-key '(normal insert visual) org-mode-map (kbd "M-k") 'org-metaup)

@@ -1,4 +1,6 @@
 auto-reload yes
+confirm-mark-all-feeds-read no
+confirm-mark-feed-read no
 reload-time 120
 reload-threads 4
 download-retries 4

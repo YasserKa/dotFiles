@@ -21,10 +21,14 @@ DEBUG = False
 
 CLEANING_TEAMS = [
         ['Yasser', 'Josh'],
-        ['Mariam', 'Yann'],
+        ['Larissa', 'Yann'],
         ['Caroline', 'Mana'],
-        ['David'],
-]
+        ['David', 'Mariam'],
+        ['Emma', 'Jack'],
+        ['Panheng'],
+
+]        
+   
 
 options = webdriver.ChromeOptions()
 
@@ -51,7 +55,7 @@ def use_random_emoji():
 
 
 def get_message():
-    original_date = date(2021, 1, 10)
+    original_date = date(2022, 1, 10)
     today = date.today()
     days_difference = today - original_date
     number_of_weeks = int(days_difference.days / 7)
@@ -69,11 +73,12 @@ def get_message():
 
 
 def check_facebook():
+    message_area_css = '*[aria-label="Message"]'
 
     driver.get(URL_FACEBOOK_CHAT)
 
     element_present = EC.presence_of_element_located(
-        (By.XPATH, './/div[contains(@style, "white-space: pre-wrap;")]'))
+        (By.CSS_SELECTOR, message_area_css))
     WebDriverWait(driver, 10).until(element_present)
 
     # iframe = driver.find_element(By.XPATH, "//iframe")
@@ -82,7 +87,9 @@ def check_facebook():
     message = get_message()
 
     text_area = driver.find_elements(
-        By.XPATH, './/div[contains(@style, "white-space: pre-wrap;")]')[-1]
+        By.CSS_SELECTOR, message_area_css)[-1]
+
+
     text_area.send_keys(message)
 
     use_random_emoji()
