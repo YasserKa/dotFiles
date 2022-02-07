@@ -254,16 +254,18 @@
                   "ogm" "ogg" "mkv"))
                "mpv"
                '(file))
-         (list (openwith-make-extension-regexp
-                '("xbm" "pbm" "pgm" "ppm" "pnm"
-                  "png" "gif" "bmp" "tif" "jpeg")) ;; Removed jpg because Telega was
-               ;; causing feh to be opened...
-               "feh"
-               '(file))
+         ;; (list (openwith-make-extension-regexp
+         ;;        '("xbm" "pbm" "pgm" "ppm" "pnm"
+         ;;          "png" "gif" "bmp" "tif" "jpeg")) ;; Removed jpg because Telega was
+         ;;       ;; causing feh to be opened...
+         ;;       "feh"
+         ;;       '(file))
          (list (openwith-make-extension-regexp
                 '("pdf" "epub" "djvu"))
                "zathura"
-               '(file)))))
+               '(file))))
+  (openwith-mode t)
+  )
 
 ;; line wrapping
 (setq-default fill-column 100)
