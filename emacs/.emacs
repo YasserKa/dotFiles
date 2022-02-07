@@ -38,7 +38,7 @@
  '(org-agenda-files
    '("/home/yasser/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org"))
  '(package-selected-packages
-   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree undo-redo evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme ##)))
+   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree  evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme)))
 ;; Set the variable pitch face
 
 (use-package undo-tree
@@ -434,9 +434,9 @@
     [remap evil-quit] #'org-capture-kill)
 
   ;; running scala code in babel
-  (load-file (concat user-emacs-directory "ob-scala.el"))
-  (setq org-babel-scala-command "amm")
-  (setq org-babel-scala-wrapper-method "%s")
+  ;; (load-file (concat user-emacs-directory "ob-scala.el"))
+  ;; (setq org-babel-scala-command "amm")
+  ;; (setq org-babel-scala-wrapper-method "%s")
 
   ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
@@ -444,7 +444,7 @@
    '(
      (python . t)
      ;; (ipython . t) could be enabled by it requires jupyter-notebook (either use )
-     (scala . t)
+     ;; (scala . t)
      (sql . t)
      (shell . t)
      ))
