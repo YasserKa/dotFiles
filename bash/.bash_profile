@@ -1,8 +1,6 @@
 # source .bashrc for tmux
-if [ -f $HOME/.bashrc ]; then . $HOME/.bashrc; fi
-
 export PATH=$PATH:$HOME/bin
-# export PATH=$PATH:$HOME/.local/bin # jupyter for emacs
+
 # to make cmus escape works
 export ESCDELAY=25
 # used by bitwarden cli
@@ -55,6 +53,9 @@ export PAGER=vimpager
 
 # change directory color to white
 LS_COLORS=$LS_COLORS:'di=1;37:' ; export LS_COLORS
+
+# Needs to be at the end, so mcfly works in tmux
+if [ -f $HOME/.bashrc ]; then . $HOME/.bashrc; fi
 
 # XDG_VTNR used by systems that use systemd
 # if there's no DISPLAY, start X11

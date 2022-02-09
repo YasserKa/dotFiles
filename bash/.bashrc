@@ -16,7 +16,7 @@ complete -cf sudo
 source /usr/share/doc/pkgfile/command-not-found.bash
 
 git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 PS1='[\[\e[36m\]\w\[\e[0m\]]\e[36m\]\[\033[38;5;87m\]$(git_branch)\n\[\e[33m\]=> \[\e[0m\]'
@@ -29,6 +29,10 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
+if [[ -r ~/bin/mcfly.bash ]]; then
+    source /usr/share/doc/mcfly/mcfly.bash
+fi
+
 # colorizing commands
 GRC_ALIASES=true
 [[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
@@ -40,4 +44,3 @@ GRC_ALIASES=true
 # Better C-r search
 # Note: Need to be after sourcing bash alias, otherwise rofi won't work on
 # aliases. Reason: unknown
- eval "$(mcfly init bash)"
