@@ -36,3 +36,8 @@ GRC_ALIASES=true
 # Source files
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
 [[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
+
+# Better C-r search
+# Note: Need to be after sourcing bash alias, otherwise rofi won't work on
+# aliases. Reason: unknown
+ eval "$(mcfly init bash)"

@@ -443,7 +443,7 @@
    'org-babel-load-languages
    '(
      (python . t)
-     ;; (ipython . t) could be enabled by it requires jupyter-notebook (either use )
+     ;; (ipython . t) ; could be enabled by it requires jupyter-notebook (either use )
      ;; (scala . t)
      (sql . t)
      (shell . t)
@@ -497,7 +497,7 @@
 
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python :results output"))
   (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
   (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
 

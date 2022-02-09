@@ -24,6 +24,8 @@ export HISTFILESIZE=1000000
 # ignore duplicate commands
 export HISTCONTROL=ignoredups
 export HISTIGNORE='ls:bg:fg:history'
+# history format in .bash_history
+export HISTTIMEFORMAT="%F %T "
 # append commands to history as it's issues, since bash records to .bash_history
 # when session ends (good if terminal crashes)
 export PROMPT_COMMAND='history -a'
