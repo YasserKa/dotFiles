@@ -29,7 +29,7 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
-if [[ -r ~/bin/mcfly.bash ]]; then
+if [[ -r /usr/share/doc/mcfly/mcfly.bash ]]; then
     source /usr/share/doc/mcfly/mcfly.bash
 fi
 
