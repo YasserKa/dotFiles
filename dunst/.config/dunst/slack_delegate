@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+# Include window focus after doing dunst action
+[[ $(dunstify "$2" "$3" --appname slack-delegate --action="action,label") == "action" ]] && wmctrl -a slack

@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
 is_charging=`acpi -a | grep 'on-line'`

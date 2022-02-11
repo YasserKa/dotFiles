@@ -289,20 +289,26 @@ appname = emacs_org
 new_icon = emacs
 skip_display = yes
 history_ignore = yes
-script=/home/yasser/.config/dunst/emacs_delegate
+script=~/.config/dunst/emacs_delegate
 
 [org-delegate]
 appname = Emacs-delegate
 new_icon = emacs
 
+[slack]
+appname = Slack
+skip_display = yes
+history_ignore = yes
+script=~/.config/dunst/slack_delegate
+
+[slack-delegate]
+new_icon = slack-40
+
+
 [sleep]
 summary = "*sleep*"
 new_icon = bed-80
 history_ignore = yes
-
-[slack]
-appname=Slack
-new_icon = slack-40
 
 [music]
 appname = cmus
