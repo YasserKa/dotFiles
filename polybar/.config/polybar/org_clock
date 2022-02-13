@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+FILE="/tmp/org_current_task"
+
+TIME_SINCE_CREATION=$(echo $(($(($(date +%s) - $(date +%s -r $FILE)))/60)))
+
+TASK_NAME=$(head -1 $FILE)
+
+echo "$TASK_NAME - $TIME_SINCE_CREATION"

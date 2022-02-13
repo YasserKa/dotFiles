@@ -373,11 +373,11 @@
 
   (add-hook 'org-clock-out-hook
             '(lambda ()
-               (shell-command (concat "/bin/rm /tmp/current_task"))))
+               (shell-command (concat "/bin/rm /tmp/org_current_task"))))
 
   (add-hook 'org-clock-cancel-hook
             '(lambda ()
-               (shell-command (concat "/bin/rm /tmp/current_task"))))
+               (shell-command (concat "/bin/rm /tmp/org_current_task"))))
 
   ;; Super agenda
   (setq org-agenda-custom-commands
@@ -604,10 +604,17 @@
           '(lambda ()
              (shell-command (concat "/bin/echo -e "
                                     "\"" (org-get-heading t t t t) " \n"
+                                    (org-entry-get nil "Effort") " \n"
                                     (what-line) " \n"
                                     (buffer-file-name) "\""
-                                    " > /tmp/current_task")
-                            )))
+                                    " > /tmp/org_current_task")
+                            )
+             (shell-command "xdotool set_window --classname emacs-org-mode $(xdotool getactivewindow)")
+             ))
+;; Loading emacs server is needed by emacsclient to focus on file that's used for clock
+(load "server")
+(unless (server-running-p) (server-start))
+
 ;; ORG NOTIFICATION
 (require 'appt)
 (appt-activate 1)

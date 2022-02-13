@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+FILE="/tmp/org_current_task"
+
+CURSOR=$(sed "3q;d" $FILE | grep -o '[0-9]*')
+
+FULL_PATH=$(sed '4!d' $FILE)
+
+# focus window
+wmctrl -xa emacs-org-mode
+
+emacsclient "+$CURSOR" "$FULL_PATH"

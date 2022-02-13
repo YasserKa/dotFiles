@@ -62,6 +62,7 @@ font-2 = Font Awesome 5 Free Solid:style=Solid
 
 
 modules-left = i3
+modules-center = org-clock
 modules-right = pulseaudio vpn wlan eth eth_displaylink memory battery date mail
 
 cursor-click = pointer
@@ -183,6 +184,19 @@ time = %H:%M
 format = <label>
 
 label = %date%  %time%
+; >>>
+;<<< Org-clock
+[module/org-clock]
+type = custom/script
+tail=true
+format-prefix = " "
+format-background = ${color.module-bg}
+format-prefix-foreground = ${color.icon-fg}
+exec-if = cat /tmp/org_current_task
+; get current task and the time since it got created
+exec = $HOME/.config/polybar/org_clock
+interval = 1
+click-left = $HOME/.config/polybar/goto_org_file
 ; >>>
 ;<<< Mail
 [module/mail]
