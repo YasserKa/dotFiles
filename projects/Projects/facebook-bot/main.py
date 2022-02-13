@@ -25,8 +25,7 @@ CLEANING_TEAMS = [
         ['Caroline', 'Mana'],
         ['David', 'Mariam'],
         ['Emma', 'Jack'],
-        ['Panheng'],
-
+        ['Panheng', "New tenant(Don't know his name)"],
 ]        
    
 

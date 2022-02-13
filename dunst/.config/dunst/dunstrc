@@ -302,6 +302,7 @@ history_ignore = yes
 script=~/.config/dunst/slack_delegate
 
 [slack-delegate]
+appname = slack-delegate
 new_icon = slack-40
 
 
