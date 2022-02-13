@@ -8,6 +8,7 @@ nvm 0.39.1-1
 picom-git 1621_Next.59.g78e8666_2021.08.04-1
 polybar 3.5.7-2
 python-kitchen 1.2.6-5
+python38 3.8.12-2
 qtwebkit-plugins-git 17.b58ee9d-1
 slack-desktop 4.23.0-1
 tuir 1.29.0-2
@@ -16,3 +17,4 @@ vimpager-git 2.06.r378.gd9afe34-1
 visidata 2.8-1
 write-good 1.0.8-2
 zoom 5.9.3-1
+zotero 5.0.96.3-1

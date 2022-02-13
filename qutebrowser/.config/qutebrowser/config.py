@@ -109,6 +109,7 @@ c.bindings.commands = {
 c.aliases['h'] = 'help -t'
 c.aliases['json'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
 c.aliases['paywall'] = "open https://12ft.io/proxy?q={url}"
+c.aliases['zotero'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-zotero"
 c.aliases['hosts'] = "spawn --userscript ~/.config/qutebrowser/userscripts/localhost list"
 c.aliases['translate'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate"
 
