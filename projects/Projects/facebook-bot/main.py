@@ -25,9 +25,8 @@ CLEANING_TEAMS = [
         ['Caroline', 'Mana'],
         ['David', 'Mariam'],
         ['Emma', 'Jack'],
-        ['Panheng', "New tenant(Don't know his name)"],
-]        
-   
+        ['Panheng', "Mark"],
+]
 
 options = webdriver.ChromeOptions()
 
@@ -54,7 +53,7 @@ def use_random_emoji():
 
 
 def get_message():
-    original_date = date(2022, 1, 10)
+    original_date = date(2022, 1, 3)
     today = date.today()
     days_difference = today - original_date
     number_of_weeks = int(days_difference.days / 7)

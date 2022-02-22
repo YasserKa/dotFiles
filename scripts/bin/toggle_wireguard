@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Toggles Wireguard
+# Dependencies:
+# nmcli
+
+if ! command -v nmcli >/dev/null 2>&1; then
+    echo "err: nmcli not found"
+    exit 1
+fi
+
+# networking is turned off then on, because the connection doesn't work
+# automatically after turning off Wireguard
+nmcli connection show --active | grep -q wireguard && nmcli connection down wg0 && nmcli networking off && nmcli networking on || nmcli connection up wg0

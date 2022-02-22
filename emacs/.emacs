@@ -560,11 +560,11 @@
      ))
   :config
   (org-roam-db-autosync-mode)
+  (setq org-roam-db-update-on-save nil)
 
   (defun my/org-roam-node-find-window ()
     (interactive)
     (org-roam-node-find t))
-
   (my-leader-key-def
     "r"   '(:ignore t :which-key "org-roam mode")
 
