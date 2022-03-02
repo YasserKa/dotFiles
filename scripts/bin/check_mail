@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Synchronize mail directory
-polybar-msg hook mail 2
+polybar-msg action "#mail.hook.1"
 mailsync
-polybar-msg hook mail 1
+polybar-msg action "#mail.hook.0"
 
 # Open neomutt if new mails exist
 NEW_MAIL=$(/home/yasser/.config/polybar/mail)
