@@ -49,7 +49,7 @@ set sendmail = "/bin/sh $XDG_CONFIG_HOME/mutt/scripts/sendmail"
 alias me Yasser Kaddoura <yasser.kaddoura19@gmail.com>
 
 set spoolfile = "+INBOX"
-set record = "+[Gmail].Sent\ Mail"
+set record = "+[Gmail].Sent"
 set postponed = "+[Gmail].Drafts"
 set trash = "+[Gmail].Trash"
 set mbox = "+[Gmail].other"

@@ -9,3 +9,5 @@ USERNAME=yasser
 export USERNAME
 HOME=/home/yasser
 export HOME
+XDG_CONFIG_HOME=/home/yasser/.config
+export XDG_CONFIG_HOME

@@ -57,8 +57,8 @@ line-size = 2
 tray-background = ${color.module-bg}
 
 font-0 = Inconsolata-Regular:size=13
-font-1 = Font Awesome 5 Brands,Font Awesom  5 Brands Regular:style=Regular
-font-2 = Font Awesome 5 Free Solid:style=Solid
+font-1 = Font Awesome 6 Brands,Font Awesom  6 Brands Regular:style=Regular
+font-2 = Font Awesome 6 Free Solid:style=Solid
 
 
 modules-left = i3
