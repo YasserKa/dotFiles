@@ -2,7 +2,8 @@ IMAPStore personal-remote
 Host imap.gmail.com
 Port 993
 User yasser.kaddoura19@gmail.com
-PassCmd "pass personal-mail"
+AuthMechs XOAUTH2
+PassCmd "oauth2get google mutt"
 AuthMechs LOGIN
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt

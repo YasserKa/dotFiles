@@ -9,4 +9,5 @@ host smtp.gmail.com
 port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
-passwordeval "pass personal-mail"
+auth oauthbearer
+passwordeval "oauth2get google mutt"
