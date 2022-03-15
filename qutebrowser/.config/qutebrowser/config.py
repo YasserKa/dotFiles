@@ -112,6 +112,7 @@ c.aliases['paywall'] = "open https://12ft.io/proxy?q={url}"
 c.aliases['zotero'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-zotero"
 c.aliases['hosts'] = "spawn --userscript ~/.config/qutebrowser/userscripts/localhost list"
 c.aliases['translate'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate"
+c.aliases['open_download'] = "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
 
  
 
