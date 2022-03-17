@@ -2,7 +2,7 @@
 # Description: open mynoise website and press a key (pause, resume, increase/decrease volume)
 # Dependencies: xdotool, qutebrowser
 
-URL="https://mynoise.net/NoiseMachines/medievalMinstrelSoundscapeGenerator.php?l=29292929292929292929&mt=1"
+URL="https://mynoise.net/NoiseMachines/medievalMinstrelSoundscapeGenerator.php?l=29292929292929292929"
 
 # Class name for the application used by xdotool (used to have one instance open at all time)
 CLASS_NAME="ambient_music"
@@ -33,7 +33,6 @@ function get_id_ambient () {
 
 # If window doesn't exist it, open it
 if [[ -z $(get_id_ambient) ]];  then
-
     # Open and wait until the website loads
     qutebrowser --target window $URL &
     while [[ -z $(get_id_ambient) ]]; do
@@ -42,7 +41,6 @@ if [[ -z $(get_id_ambient) ]];  then
 
     # Assign class name
     xdotool set_window --class "$CLASS_NAME" $(get_id_ambient)
-    sleep 3
+else
+    xdotool key --window $(get_id_ambient) $1
 fi
-
-xdotool key --window $(get_id_ambient) $1
