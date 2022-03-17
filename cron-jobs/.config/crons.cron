@@ -14,6 +14,6 @@ DISPLAY=:0
 */30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/org remote:org --include "*.org" && cd $HOME/notes && $HOME/bin/git-sync
 
 # Get mail & update polybar
-*/30 * * * * $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && $HOME/bin/mailsync && polybar-msg action "#mail.hook.0"
+*/30 * * * * $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && $HOME/bin/mailsync && polybar-msg action mail hook 0
 
 # vim: syntax=crontab commentstring=#%s

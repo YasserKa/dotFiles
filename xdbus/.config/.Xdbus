@@ -5,6 +5,9 @@ export DBUS_SESSION_BUS_ADDRESS
 XAUTHORITY=/home/yasser/.Xauthority
 export XAUTHORITY
 
+XDG_RUNTIME_DIR=/run/user/1000
+export XDG_RUNTIME_DIR
+
 USERNAME=yasser
 export USERNAME
 HOME=/home/yasser
