@@ -5,6 +5,8 @@ from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException, SessionNotCreatedException
 
 # used by dunstify/dunst
@@ -29,7 +31,7 @@ def check_discord():
 
     driver.get(URL_DISCORD)
     WebDriverWait(driver, 10).until(
-        lambda x: len(x.find_elements_by_xpath('.//*[contains(text(), "Friends")]')) > 0)
+        lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(), "Friends")]')) > 0)
     sleep(1)
 
     notificaitons_el = driver.find_elements(
@@ -47,7 +49,7 @@ def check_discord():
 def check_facebook():
     driver.get(URL_FACEBOOK)
     WebDriverWait(driver, 5).until(
-        lambda x: len(x.find_elements_by_xpath(
+        lambda x: len(x.find_elements(By.XPATH, 
             './/div[contains(@aria-label, "Messenger")]')) > 0)
 
     notificaitons_el = driver.find_elements(
@@ -62,7 +64,7 @@ def check_facebook():
 def check_whatsapp():
     driver.get(URL_WHATS_APP)
     WebDriverWait(driver, 20).until(
-        lambda x: len(x.find_elements_by_xpath(
+        lambda x: len(x.find_elements(By.XPATH, 
             './/*[contains(text(),"Search or start new chat")]')) > 0)
 
     unread_messages = driver.find_elements(
@@ -80,7 +82,7 @@ def main():
     options = webdriver.ChromeOptions()
     options.add_argument('user-data-dir=' + profile_path)
     os.system("pkill chromedriver")
-    driver = webdriver.Chrome(executable_path=executable_path, options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     try:
         check_discord()

@@ -8,6 +8,8 @@ from datetime import date
 from time import sleep
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from random import choice
 
 # GROUP: https://www.facebook.com/messages/t/3295737910517634
@@ -34,8 +36,7 @@ options.add_argument('user-data-dir=' + profile_path)
 
 os.system("pkill chromedriver")
 
-driver = webdriver.Chrome(executable_path=executable_path, options=options)
-
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 def use_random_emoji():
     driver.find_element(
