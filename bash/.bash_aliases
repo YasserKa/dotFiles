@@ -60,6 +60,8 @@ alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=
 alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/org/20210911093036-general.org"'
 alias slack='i3-msg "workspace --no-auto-back-and-forth 7; exec slack"'
 
+alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
+
 # cron
 alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
 
