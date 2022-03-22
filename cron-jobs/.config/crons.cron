@@ -4,7 +4,7 @@ DISPLAY=:0
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
 
 # Facebook bot
-55 9 * * 1 $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && cd $HOME/Projects/facebook-bot && pipenv run python main.py
+# 55 9 * * 1 $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && cd $HOME/Projects/facebook-bot && pipenv run python main.py
 
 # Sync mega material
 0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"

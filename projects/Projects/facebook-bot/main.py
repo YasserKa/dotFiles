@@ -14,9 +14,8 @@ from random import choice
 
 # GROUP: https://www.facebook.com/messages/t/3295737910517634
 # MAX: https://www.facebook.com/messages/t/100041868255303
-URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/3295737910517634'
+URL_FACEBOOK_CHAT = 'https://www.facebook.com/messages/t/100041868255303'
 
-executable_path = '/home/yasser/.config/chromium/chromedriver'
 profile_path = '/home/yasser/.config/chromium/facebook_bot_profile'
 
 DEBUG = False
@@ -31,8 +30,9 @@ CLEANING_TEAMS = [
 ]
 
 options = webdriver.ChromeOptions()
+options.add_argument("--headless")
 
-options.add_argument('user-data-dir=' + profile_path)
+ options.add_argument('user-data-dir=' + profile_path)
 
 os.system("pkill chromedriver")
 
@@ -91,7 +91,7 @@ def check_facebook():
 
     text_area.send_keys(message)
 
-    use_random_emoji()
+    # use_random_emoji()
     text_area.send_keys(Keys.RETURN)
     sleep(1)
 

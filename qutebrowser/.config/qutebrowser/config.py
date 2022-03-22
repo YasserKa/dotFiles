@@ -69,7 +69,7 @@ c.bindings.commands = {
         'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
         'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
         # google search
-        'gs': 'spawn --userscript ~/.config/qutebr;wser/userscripts/google_search',
+        'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
 
         # Translation
         '<Ctrl+T>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',

@@ -1,4 +1,4 @@
-ignored_packages := "dbeaver|postgresql|rapidminer-studio"
+ignored_packages := "dbeaver|postgresql"
 
 get_installed_packages:
 	pacman -Qent | grep -vE  $(ignored_packages) > pkglist.tmp # Official
