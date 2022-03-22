@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/env sh
 # Description: open mynoise website and press a key (pause, resume, increase/decrease volume)
-# Dependencies: xdotool, qutebrowser
+# Dependencies: xdotool, firefox
 
 URL="https://mynoise.net/NoiseMachines/medievalMinstrelSoundscapeGenerator.php?l=29292929292929292929"
 
@@ -8,33 +8,33 @@ URL="https://mynoise.net/NoiseMachines/medievalMinstrelSoundscapeGenerator.php?l
 CLASS_NAME="ambient_music"
 
 function get_id_ambient () {
-    qutebrowser_id=""
+    firefox_id=""
 
     # Check if class name is available
     pid_class_name=$(xdotool search --class $CLASS_NAME)
 
     if [[ ! -z $pid_class_name ]]; then
-        qutebrowser_id=$pid_class_name
+        firefox_id=$pid_class_name
     else
         # Check for the dot "•" in the title of page
-        pids_qutebrowser=$(xdotool search --class qutebrowser)
-        for pid in $pids_qutebrowser; do
+        pids_firefox=$(xdotool search --class firefox)
+        for pid in $pids_firefox; do
             name=$(xdotool getwindowname $pid)
             if [[ $name == *"•"* ]]; then
                 sleep 0.1
-                qutebrowser_id=$pid
+                firefox_id=$pid
                 break
             fi
         done
     fi
 
-    echo $qutebrowser_id
+    echo $firefox_id
 }
 
 # If window doesn't exist it, open it
 if [[ -z $(get_id_ambient) ]];  then
     # Open and wait until the website loads
-    qutebrowser --target window $URL &
+    firefox --new-window $URL &
     while [[ -z $(get_id_ambient) ]]; do
         sleep 0.1
     done
