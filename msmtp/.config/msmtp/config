@@ -10,4 +10,7 @@ port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
 auth oauthbearer
-passwordeval "oauth2get google mutt"
+passwordeval ~/.config/mutt/scripts/oauth2tool personal
+
+
+# vim:filetype=msmtp commentstring=#%s
