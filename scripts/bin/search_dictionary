@@ -4,6 +4,12 @@ xdotool keyup Super_L
 
 # Class name for the ambient music tab
 AMBIENT_CLASS_NAME="ambient_music"
+string_length=$(xclip -selection clipboard -o | wc -m)
+
+if [[ $string_length -gt 30 ]]; then
+    dunstify "String is too long"
+    exit
+fi
 
 function get_id_not_ambient () {
     pids=$(xdotool search --class qutebrowser)
