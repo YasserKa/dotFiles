@@ -1,10 +1,14 @@
 /* https://github.com/davatorium/rofi/blob/1ab3e571eca1768d437246ca6ec09f44432b0e20/doc/rofi.1.markdown */
 configuration {
-	modi: "window,run,ssh";
+    modi: "window,run,ssh";
     width: 40;
     lines: 10;
-/*	columns: 1;*/
     font: "inconsolata 15";
+    kb-remove-char-forward: "Delete";
+    run-command: "/bin/bash -c -i '{cmd}'";
+    run-list-command: "source $XDG_CONFIG_HOME/rofi/aliases.sh";
+    kb-delete-entry: "Control+d";
+/*	columns: 1;*/
 /*	bw: 1;*/
 /*	location: 0;*/
 /*	padding: 5;*/
@@ -15,8 +19,6 @@ configuration {
 /*	terminal: "rofi-sensible-terminal";*/
 /*	ssh-client: "ssh";*/
 /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
-run-command: "/bin/bash -c -i '{cmd}'";
-run-list-command: "source $XDG_CONFIG_HOME/rofi/aliases.sh";
 /*	run-shell-command: "{terminal} -e {cmd}";*/
 /*	window-command: "wmctrl -i -R {window}";*/
 /*	window-match-fields: "all";*/
