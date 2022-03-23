@@ -73,7 +73,8 @@ set relativenumber
 set list                      " Show eof, trailing, etc..
 set listchars=eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
 set foldmethod=marker         " Folds at start
-set foldmarker=<<<,>>>        " Folds at start
+set foldmarker=<<<,>>>        " Folds format
+set laststatus=3              " Use Global statusline
 
 " Tabs, spaces, indentation, wrapping
 set expandtab               " Use spaces for tabs
