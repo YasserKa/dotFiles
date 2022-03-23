@@ -234,7 +234,7 @@ def seek_target(message, target_subtypes=['plain', 'markdown']):
 
 def main():
     try:
-        message = email.message_from_file(sys.stdin)
+        message = email.message_from_bytes(sys.stdin.buffer.read())
         parent, part, from_signed = seek_target(message)
         if (parent, part, from_signed) == (None, None, None):
             print(message)
