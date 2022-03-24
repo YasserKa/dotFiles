@@ -1,0 +1,60 @@
+#!/bin/env sh
+
+# Dependencies: fasd (for frecency), fd (searching files), rofi (interface)
+# Open documents or delete them using <C-d>
+# TODO: Add proper documentation
+
+ROFI_OPTIONS=(
+    -p "Document"
+    -i
+    -dmenu
+    -mesg "<b>Control+d</b>: Delete document"
+    -no-custom  # Can't choose entry that's not available
+    -kb-delete-entry ""  # Override <C-d> entry to delete documents
+    -kb-custom-1 Control+d
+    -format "q F"
+)
+
+get_documents() {
+    local docs_path=$(fd --regex '.*.(pdf|djvu|epub)$' $HOME)
+    local docs_basename=$(echo "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    # For frecency (tracks only the visited files)
+    local fasd_docs=$(fasd -lR "$docs_basename" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    # Get all files
+    local all_docs="$fasd_docs\n$docs_basename"
+    local no_duplicates=$(echo "$all_docs" | awk '!a[$0]++')
+    echo "$no_duplicates"
+}
+
+open_rofi_menu_with_filter() {
+    document=$(get_documents | rofi "${ROFI_OPTIONS[@]}" -filter $1)
+    # Extract document name and user input by separating quoted entries
+    rofi_exit_status=$?
+    declare -a "array=($(echo $document | tr '`$<>' '????') )"
+    local document_name=${array[0]}
+    local user_input=${array[1]}
+    on_rofi_exit $rofi_exit_status "$document_name" "$user_input" # exit  status for the rofi command, it's 10 if <c-d> is pressed
+}
+
+# $1 exit status
+# $2 document name
+# $3 user input
+on_rofi_exit() {
+    local exit_status=$1
+    local document_name=$2
+    local user_input="$3"
+
+    local document_path=$(fd -F "${document_name}" $HOME | head -n 1)
+
+    if [[ $exit_status -eq 10 ]]; then
+        # Remove document and re-open menu again
+        rm "$document_path"
+        open_rofi_menu_with_filter $user_input
+    elif [[ $exit_status -eq 0 ]]; then
+        # Append path to fasd for frecency (frequency and recency)
+        fasd -a "$document_path"
+        zathura "$document_path" >/dev/null & disown
+    fi
+}
+
+open_rofi_menu_with_filter ""
