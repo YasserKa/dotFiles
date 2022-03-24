@@ -14,6 +14,7 @@ stty -ixon                 # Enable search C-s for history searching
 # complete command names and file names for super user
 complete -cf sudo
 source /usr/share/doc/pkgfile/command-not-found.bash
+. /usr/share/bash-completion/bash_completion
 
 git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'

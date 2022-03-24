@@ -16,8 +16,7 @@ extract() {
         fi
 
         case $i in
-            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
-                   c=(bsdtar xvf);;
+            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz))))) c=(bsdtar xvf);;
             *.7z)  c=(7z x);;
             *.Z)   c=(uncompress);;
             *.bz2) c=(bunzip2);;
@@ -28,7 +27,7 @@ extract() {
             *.zip) c=(unzip);;
             *.zst) c=(unzstd);;
             *)     echo "$0: unrecognized file extension: \`$i'" >&2
-                   continue;;
+                continue;;
         esac
 
         command "${c[@]}" "$i"
@@ -62,9 +61,7 @@ function ranger {
 }
 
 function def() {
-    sdcv -n --utf8-output --color "$@" 2>&1 | \
-        fold --width=$(tput cols) | \
-        vimpager
+    sdcv -n --utf8-output --color "$@" 2>&1 | fold --width=$(tput cols) | vimpager
 }
 
 function j() {

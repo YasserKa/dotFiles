@@ -154,7 +154,7 @@ mode "cmus" {
 
         bindsym c exec cmus-remote -C "filter classical"
         bindsym f exec cmus-remote -C "filter"
-        bindsym m exec rofi -show cmus -modi cmus:$XDG_CONFIG_HOME/rofi/rofi-cmus.py; mode "default"
+        bindsym m exec rofi -show cmus -modi cmus:$XDG_CONFIG_HOME/rofi/rofi-cmus; mode "default"
         bindsym r exec cmus-remote -C "add -q /home/yasser/Music/Downloaded/rain.wav"; exec cmus-remote --next; exec cmus-remote --play
 
         # Add to favourites
