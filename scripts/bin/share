@@ -32,7 +32,7 @@ case $1 in
             exit;
         fi ;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
-        dunstify "Saved to Clipboard" ;exit ;;
+        notify-send "Saved to Clipboard" ;exit ;;
 esac
 
 if [ "$1" == "-n" ]; then
@@ -51,7 +51,7 @@ if [ "$1" == "-n" ]; then
     new_path="$target_path/$new_file_name"
     mv "$old_path" "$new_path"
     echo -en "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]" | xclip -selection clipboard
-    dunstify "Saved as $new_file_name"
+    notify-send "Saved as $new_file_name"
     exit
 fi
 
@@ -85,7 +85,7 @@ fi
 
 if [ "$1" == "-c" ]; then
     cat $new_path | xclip -selection clipboard -t $(file -b --mime-type $new_path)
-    dunstify "Image saved to clipboard"
+    notify-send "Image saved to clipboard"
 else
     xback $new_path
 fi

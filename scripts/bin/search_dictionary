@@ -7,7 +7,7 @@ AMBIENT_CLASS_NAME="ambient_music"
 string_length=$(xclip -selection clipboard -o | wc -m)
 
 if [[ $string_length -gt 30 ]]; then
-    dunstify "String is too long"
+    notify-send "String is too long"
     exit
 fi
 

@@ -14,4 +14,4 @@ if [[ $artist == '' ]]; then
     artist=$(cmus-remote -Q 2> /dev/null | grep file | cut -d '/' -f5)
 fi
 
-dunstify --appname cmus --timeout=3000 "$artist" "$song"
+notify-send --app-name=cmus --expire-time=3000 "$artist" "$song"

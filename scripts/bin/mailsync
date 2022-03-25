@@ -17,14 +17,14 @@ export DISPLAY=:0.0
 # For individual configurations:
 [ -d "$HOME/.local/share/password-store" ] && export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 
-notify() { dunstify --appname="neomutt" "mutt-wizard" "📬 $2 new mail(s) in \`$1\` account." ;}
-messageinfo() { dunstify --appname="neomutt" "From: $from" "Subject: $subject" ;}
+notify() { notify-send --app-name="neomutt" "mutt-wizard" "📬 $2 new mail(s) in \`$1\` account." ;}
+messageinfo() { notify-send --app-name="neomutt" "From: $from" "Subject: $subject" ;}
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
     acc="$(echo "$account" | sed "s/.*\///")"
     if [ -z "$opts" ]; then mbsync "$acc"; else mbsync "$opts" "$acc"; fi
-    if [ $? != 0 ]; then dunstify "Can't get mail" --urgency=2; fi
+    if [ $? != 0 ]; then notify-send "Can't get mail" --urgency=critical; fi
     new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2> /dev/null)
     newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
     if [ "$newcount" -gt "0" ]; then

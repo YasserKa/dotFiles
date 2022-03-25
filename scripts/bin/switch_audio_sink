@@ -22,6 +22,6 @@ else
     icon="earbud-sound-64"
 fi
 
-dunstify --appname $APP_NAME --timeout=1000 --icon="$icon" "$message"
+notify-send --app-name=$APP_NAME --expire-time=1000 --icon="$icon" "$message"
 
 pactl set-default-sink $NEW_SINK
