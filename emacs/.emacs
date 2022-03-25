@@ -91,7 +91,7 @@
 
   (define-key evil-motion-state-map (kbd "RET") 'my-magit-repolist-status)
 
-  (setq magit-repository-directories '(("~/dotFiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+  (setq magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
   (evil-define-key evil-collection-magit-state magit-mode-map "?" 'evil-search-backward)
                                         ; Enable spell checking while commiting
   (add-hook 'git-commit-setup-hook 'git-commit-turn-on-flyspell)
@@ -332,7 +332,6 @@
                (set-window-buffer nil (current-buffer))))
 
   (setq line-spacing 0.1)
-  (setq org-ellipsis "  ") ;; Folding symbol
 
   ;; Agenda styling
   (defun my/style-org-agenda()
