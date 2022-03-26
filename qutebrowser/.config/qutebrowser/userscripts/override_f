@@ -1,0 +1,46 @@
+#!/bin/env sh
+
+# Download and open document it instead of opening the tab in special cases
+# Dependencies: curl, pup, zathura, dunstify
+
+url_root_special_case="library.lol"
+count=60
+
+alias urldecode='python -c "import sys, urllib.parse as ul; \
+    print(ul.unquote_plus(sys.argv[1]))"'
+
+get_file_size() {
+    ls -ls "$document_path" | awk -F ' ' '{print $1}'
+}
+
+
+url_root="$(echo $QUTE_URL | awk -F '/' '{print $3}')"
+
+#  Open file normally if the url is not a special case
+[[ $url_root != $url_root_special_case ]] && echo "open $QUTE_URL"  >> $QUTE_FIFO && exit
+
+
+# Otherwise download the document
+download_url=$(curl -s $QUTE_URL | pup 'a[href*="main"]' attr{href})
+
+echo "download $download_url --dest $QUTE_DOWNLOAD_DIR" >> $QUTE_FIFO
+
+# Open it in document viewer upon finishing download
+encoded_name=$(basename $download_url)
+decoded_name="$(urldecode $encoded_name)"
+
+document_path="$QUTE_DOWNLOAD_DIR/$decoded_name"
+
+curr_file_size=$( get_file_size )
+# Wait until the document starts downloading
+sleep 1
+
+# Wait until the file completes downloading or the count is done
+while [[ $curr_file_size != "$(get_file_size)" && $count -gt 0 ]];
+do
+    curr_file_size="$(get_file_size)"
+    count=$(($count-1))
+    sleep 1
+done
+
+[[ $count -gt 0 ]] && zathura "$document_path" & disown

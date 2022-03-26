@@ -55,6 +55,10 @@ c.bindings.commands = {
         ':t': 'hint userscript link ~/.config/qutebrowser/userscripts/qute-translate',
         ':T': 'hint userscript all ~/.config/qutebrowser/userscripts/qute-translate --text',
 
+        # Override f and F by download documents from libgen
+        'f': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
+        'F': 'hint all userscript ~/.config/qutebrowser/userscripts/override_F',
+
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "config file sourced"',
         ',h': 'search',
@@ -117,7 +121,6 @@ c.aliases['translate'] = "spawn --userscript ~/.config/qutebrowser/userscripts/q
 c.aliases['open_download'] = "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
 
  
-
 config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
 
@@ -134,6 +137,9 @@ config.set('url.searchengines', {
     'def': 'https://www.merriam-webster.com/dictionary/{}',
     'wiki': 'https://en.wikipedia.org/wiki/{}',
 })
+
+config.set('hints.selectors', {"inputs": ["input[id='js-issues-search']"]},
+        pattern = "https://github.com/*/issues")
 
 # removes expired certificate prompt
 # config.set('content.ssl_strict', True)
