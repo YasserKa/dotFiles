@@ -498,6 +498,7 @@
   (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
   (add-to-list 'org-structure-template-alist '("py" . "src python :results output"))
   (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
+  (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
   (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
 
   (use-package evil-org
