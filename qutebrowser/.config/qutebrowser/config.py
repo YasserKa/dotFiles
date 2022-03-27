@@ -55,6 +55,8 @@ c.bindings.commands = {
         ':t': 'hint userscript link ~/.config/qutebrowser/userscripts/qute-translate',
         ':T': 'hint userscript all ~/.config/qutebrowser/userscripts/qute-translate --text',
 
+        'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
+
         # Override f and F by download documents from libgen
         'f': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
         'F': 'hint all userscript ~/.config/qutebrowser/userscripts/override_F',

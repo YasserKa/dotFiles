@@ -1,0 +1,39 @@
+#!/bin/env sh
+
+# Dependencies: xdotool, i3-msg
+# Qutebrowser doesn't change focus to a new tab if it's in a hidden workspace,
+# this script changes i3wm's behavior to enable focusing the tabs and then go
+# back to default behavior
+
+# Time until focused window is changed
+count=10
+
+get_active_window_name() {
+    echo "$(xdotool getwindowname $(xdotool getactivewindow))"
+}
+
+# Available values https://i3wm.org/docs/userguide.html#focus_on_window_activation
+set_focus_on_window_activation_configuration() {
+    sed -i "1s/.*/focus_on_window_activation $1/" $XDG_CONFIG_HOME/i3/focus_on_window_activation_config
+    i3-msg reload
+}
+
+pre_active_window_name="$(get_active_window_name)"
+
+# Make it focus the new tab
+set_focus_on_window_activation_configuration "focus"
+
+echo "set-cmd-text -s :tab-select" >> $QUTE_FIFO
+
+curr_active_window_name="$(get_active_window_name)"
+
+# Wait until a new window is focused
+while [[ "$curr_active_window_name" == "$pre_active_window_name" && $count -gt 0 ]];
+do
+    curr_active_window_name="$(get_active_window_name)"
+    count=$(($count-1))
+    sleep 1
+done
+
+# Put it back to normal behavior
+set_focus_on_window_activation_configuration "smart"

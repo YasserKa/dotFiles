@@ -123,7 +123,7 @@ for_window [title="general_notes"] move scratchpad, resize set 990 820, move up 
 for_window [class="Vlc|feh|Shutter"] floating enable
 
 # Change workspace when window is activated (used for qutebrower gt)
-# focus_on_window_activation focus
+include ./focus_on_window_activation_config
 # >>>
 # Modes <<<
 
@@ -189,13 +189,13 @@ mode "sharing" {
 # >>>
 # Bindings <<<
 
-# password
+# Password
 bindsym $mod+p exec bwmenu
 
-# tmux
+# Tmux
 bindsym $mod+t exec rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
 
-# documents
+# Documents
 bindsym $mod+Shift+d exec open_document
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -208,7 +208,7 @@ bindsym $mod+minus [title="^(?!.*general_notes).*$"] scratchpad show
 
 bindsym $mod+n exec --no-startup-id general_notes
 
-# temporary latex file
+# Temporary latex file
 for_window [title="^tmp_tex$"] floating enable
 bindsym $mod+Shift+n exec --no-startup-id "~/bin/latex_notes"
 
@@ -249,8 +249,8 @@ exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/p
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 
-exec sleep 3; slack
-exec sleep 8; i3-msg '[class="Slack"] kill'
+# exec sleep 3; slack
+# exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/20210911093036-general.org; workspace 1; exec qutebrowser'
