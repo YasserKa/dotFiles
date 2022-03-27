@@ -1,27 +1,12 @@
-from qutebrowser.api import interceptor
-
 # pylint: disable=C0111
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
-config.load_autoconfig()
 
-def filter_yt(info: interceptor.Request):
-    """Block the given request if necessary."""
-    url = info.request_url
-    if (
-        url.host() == "www.youtube.com"
-        and url.path() == "/get_video_info"
-        and "&adformat=" in url.query()
-    ):
-        info.block()
-
-
-# interceptor.register(filter_yt)
-
+config.load_autoconfig(False)
 c.bindings.commands = {
     'normal': {
-        'j': 'run-with-count 2 scroll down',
-        'k': 'run-with-count 2 scroll up',
+        # 'j': 'run-with-count 2 scroll down',
+        # 'k': 'run-with-count 2 scroll up',
 
         'J': 'forward',
         'K': 'back',
@@ -52,8 +37,7 @@ c.bindings.commands = {
         ':t': 'hint inputs',
         ':y': 'hint links yank',
         ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
-        ':t': 'hint userscript link ~/.config/qutebrowser/userscripts/qute-translate',
-        ':T': 'hint userscript all ~/.config/qutebrowser/userscripts/qute-translate --text',
+        '<Ctrl-v>': 'nop',
 
         'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
 
@@ -65,29 +49,24 @@ c.bindings.commands = {
         ',ss': 'config-source ;; message-info "config file sourced"',
         ',h': 'search',
 
-        '<Ctrl-Shift-V>': 'mode-enter passthrough',
+        '<Ctrl-Shift-v>': 'mode-enter passthrough',
         'cm': 'clear-messages ;; download-clear',
 
         'ya': 'spawn --userscript yank_all',
-        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/orgLink',
-        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/latexLink',
-        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/youtube',
+        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/get_org_link',
+        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/get_latex_link',
+        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
         'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
         'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
         # google search
         'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
-
-        # Translation
-        '<Ctrl+T>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',
-        '<Ctrl+Shift+T>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate --text',
+        # Go to domain
+        'gr': 'run-with-count 10 navigate up',
 
         # password
-        '<z><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-bitwarden',
-        '<z><u><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
-        '<z><p><l>': 'spawn --userscript \
-                ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
+        '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden',
+        '<z><u><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
+        '<z><p><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
@@ -105,53 +84,70 @@ c.bindings.commands = {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
         '<Ctrl-h>': 'fake-key <backspace>',
 
-        '<Ctrl-Shift-V>': 'mode-leave',
+        '<Ctrl-p>': 'fake-key <Up>',
+        '<Ctrl-n>': 'fake-key <Down>',
+        '<Ctrl-j>': 'fake-key <enter>',
+
+        '<Ctrl-Shift-v>': 'mode-leave',
     },
 
     'command': {
         '<Ctrl-p>': 'completion-item-focus --history prev',
         '<Ctrl-n>': 'completion-item-focus --history next',
+        '<Ctrl-w>': 'rl-backward-kill-word',
     },
 }
-
-c.aliases['h'] = 'help -t'
-c.aliases['json'] = 'open -t https://codebeautify.org/jsonviewer?url={url}'
-c.aliases['paywall'] = "open https://12ft.io/proxy?q={url}"
-c.aliases['zotero'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-zotero"
-c.aliases['hosts'] = "spawn --userscript ~/.config/qutebrowser/userscripts/localhost list"
-c.aliases['translate'] = "spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate"
-c.aliases['open_download'] = "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
-
- 
-config.unbind('<Ctrl-V>', mode='normal')
 config.unbind(':', mode='normal')
 
-c.content.blocking.whitelist = ["https://analytics.google.com/analytics/*"]
+c.aliases = {
+        'q': 'close',
+        'qa': 'quit',
+        'w': 'session-save',
+        'wq': 'quit --save',
+        'wqa': 'quit --save',
+        'h': 'help -t',
+        'json': 'open -t https://codebeautify.org/jsonviewer?url={url}',
+        'paywall': 'open https://12ft.io/proxy?q={url}',
+        'zotero': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-zotero',
+        'hosts': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
+        'translate': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',
+        'open_download': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
+        }
 
+c.input.insert_mode.auto_load = True
+c.content.blocking.whitelist = ['https://analytics.google.com/analytics/*']
+c.content.blocking.method = 'both'
+c.auto_save.session = True
 c.hints.selectors['id'] = ["[id]"]
-config.set('spellcheck.languages', ['en-US'])
-config.set('tabs.title.format', '{current_title}')
+c.spellcheck.languages = ['en-US']
+c.statusbar.widgets = ["url", "progress", "scroll"]
+c.tabs.new_position.unrelated = 'next'
+c.tabs.title.format = '{current_title}'
+c.prompt.filebrowser = False
+c.scrolling.smooth = False
+c.completion.web_history.max_items = 1000
+c.content.notifications.enabled = False
+c.content.tls.certificate_errors = "ask-block-thirdparty"
+c.scrolling.bar = 'never'
+c.downloads.location.suggestion = 'both'
+c.downloads.remove_finished = 5000
+c.hints.border = "1px solid #CCCCCC"
+c.editor.command = ["alacritty", "-e", "nvim", "-f", "{}"]
+config.set('editor.command', ["nvim-qt", "{file}", "--nofork" ])
+c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
+with config.pattern('https://github.com/*/issues') as p:
+    p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
 
-config.set('url.searchengines', {
-    'DEFAULT': 'https://www.duckduckgo.com/?q={}',
-    'duck': 'https://www.duckduckgo.com/?q={}',
-    'go': 'https://www.google.com/search?q={}',
-    'def': 'https://www.merriam-webster.com/dictionary/{}',
-    'wiki': 'https://en.wikipedia.org/wiki/{}',
-})
+with config.pattern('https://www.google.com') as p:
+    p.content.geolocation = True
 
-config.set('hints.selectors', {"inputs": ["input[id='js-issues-search']"]},
-        pattern = "https://github.com/*/issues")
-
-# removes expired certificate prompt
-# config.set('content.ssl_strict', True)
-config.set('scrolling.bar', 'never')
-
-config.set('editor.command', [
-    "nvim-qt", "{file}", "--nofork"
-])
-
-config.set('scrolling.smooth', False)
+c.url.searchengines = {
+        'DEFAULT': 'https://www.duckduckgo.com/?q={}',
+        'duck': 'https://www.duckduckgo.com/?q={}',
+        'go': 'https://www.google.com/search?q={}',
+        'def': 'https://www.merriam-webster.com/dictionary/{}',
+        'wiki': 'https://en.wikipedia.org/wiki/{}',
+        }
 
 # gruvbox dark hard qutebrowser theme by Florian Bruhin <me@the-compiler.org>
 #

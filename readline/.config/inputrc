@@ -1,12 +1,12 @@
 $include /etc/inputrc
-# show all completions as soon as I press tab, even if there's more than one
+# Show all completions as soon as I press tab, even if there's more than one
 set show-all-if-ambiguous on
 
 # Make C-w work in the middle of a line
 # Check https://superuser.com/questions/212446/binding-backward-kill-word-to-ctrlw
 set bind-tty-special-chars off
 
-# case-insensitive completion
+# Case-insensitive completion
 set completion-ignore-case on
 # Remove ^C
 set echo-control-characters off
@@ -22,26 +22,30 @@ set colored-completion-prefix on
 # Color the common prefix in menu-complete
 set menu-complete-display-prefix on
 
-# vi mode
+# Vi mode
 set editing-mode vi
-# show vim mode using the cursor
+# Show vim mode using the cursor
 set show-mode-in-prompt on
-# vertical bar
+# Vertical bar
 set vi-ins-mode-string \1\e[6 q\2
-# block
+# Block
 set vi-cmd-mode-string \1\e[2 q\2
 
 "\C-l": clear-screen
 $if mode=vi
     set keymap vi-command
-    # delete inside '', "", () objects
+    # Delete inside '', "", () objects
     "di\"": 'F"ldt"'
     "ci\"": 'F"ldt"i'
-    "ci\'": "F'ldt'i"
     "di\'": "F'ldt'"
     "ci\'": "F'ldt'i"
-    "di)": "F(ldt)"
     "ci)": "F(ldt)i"
+    "di)": "F(ldt)"
+
+    # Replace surround
+    "cs'\"": "f'r"F'r""
+    "cs\"\'": "f"r'F"r'"
+
     # \e is meta (alt key)
     "\en": history-search-backward
     "\ep": history-search-forward

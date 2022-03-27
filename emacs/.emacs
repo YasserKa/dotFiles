@@ -684,6 +684,7 @@
 
 ;; between dollar signs
 (define-and-bind-text-object "$" "\\$" "\\$")
+(define-and-bind-text-object "~" "\\~" "\\~")
 
 ;; Open files at cursor
 (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
