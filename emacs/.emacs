@@ -1,7 +1,7 @@
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
+                         ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (require 'use-package)
@@ -38,7 +38,7 @@
  '(org-agenda-files
    '("/home/yasser/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org"))
  '(package-selected-packages
-   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree  evil evil-collection org-roam evil-org org-plus-contrib orgalist evil-surround general evil-visual-mark-mode gruvbox-theme)))
+   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree  evil evil-collection org-roam evil-org orgalist evil-surround general evil-visual-mark-mode gruvbox-theme)))
 ;; Set the variable pitch face
 
 (use-package undo-tree
@@ -283,7 +283,7 @@
 ;; auto-complete
 (use-package org
   :defer t
-  :ensure org-plus-contrib
+  :ensure org-contrib
   :hook (org-mode . my-org-mode-setup)
   :config
   (setq org-ellipsis " ▾"
@@ -538,9 +538,7 @@
   )
 
 (use-package org-roam
-  :straight t
-  :init
-  (setq org-roam-v2-ack t)
+  :ensure t
   :demand t
   :bind (("C-c r i" . org-roam-node-insert))
   :custom
@@ -580,15 +578,12 @@
 
 (use-package org-roam-ui
   :straight
-  (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-  :after org-roam
-  ;; :hook (after-init . org-roam-ui-mode)
-  :config
-  (setq
-   org-roam-ui-follow t
-   org-roam-ui-update-on-save t
-   org-roam-ui-open-on-start t))
-
+    :after org-roam
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 (use-package deft
   :custom
