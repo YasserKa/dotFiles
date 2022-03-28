@@ -8,5 +8,5 @@ ctrl + apostrophe
     dunstctl history-pop
 
 # context menu. for selecting URLs and actions
-ctrl + shift + semicolon
-    dunstctl context
+ctrl + shift + apostrophe
+    dunstctl action

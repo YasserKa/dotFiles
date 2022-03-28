@@ -19,10 +19,10 @@ URL_FACEBOOK = 'https://www.facebook.com/'
 executable_path = '/home/yasser/.config/chromium/chromedriver'
 profile_path = '/home/yasser/.config/chromium/notify_me_profile'
 
-discord = ' Discord notification'
-facebook = ' Facebook notification'
-reddit = ' Reddit notification'
-whatsapp = 'Whatsapp notification'
+discord = ' Discord'
+facebook = ' Facebook'
+reddit = ' Reddit'
+whatsapp = 'Whatsapp'
 
 driver = None
 
@@ -43,37 +43,42 @@ def check_discord():
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
-        subprocess.run(["dunstify", discord, f"--appname={APP_NAME}"])
+        send_notificaiton(discord, URL_DISCORD)
 
+def send_notificaiton(notificaiton_text, url):
+    subprocess.run(f"[[ $(dunstify '{notificaiton_text}' --appname={APP_NAME}"
+            f" --action='action,label') == 'action' ]] && qutebrowser {url} &"
+            , shell=True, check=True, text=True)
+    pass
 
 def check_facebook():
     driver.get(URL_FACEBOOK)
     WebDriverWait(driver, 5).until(
-        lambda x: len(x.find_elements(By.XPATH, 
-            './/div[contains(@aria-label, "Messenger")]')) > 0)
+            lambda x: len(x.find_elements(By.XPATH, 
+                './/div[contains(@aria-label, "Messenger")]')) > 0)
 
     notificaitons_el = driver.find_elements(
-        By.XPATH, './/div[contains(@aria-label, "Messenger")]//child::span[1][(text()=number())]')
+            By.XPATH, './/div[contains(@aria-label, "Messenger")]//child::span[1][(text()=number())]')
 
     notificaiton_exists = len(notificaitons_el) > 0
 
     if notificaiton_exists:
-        subprocess.run(["dunstify", facebook, f"--appname={APP_NAME}"])
+        send_notificaiton(facebook, URL_FACEBOOK)
 
 
 def check_whatsapp():
     driver.get(URL_WHATS_APP)
     WebDriverWait(driver, 20).until(
-        lambda x: len(x.find_elements(By.XPATH, 
-            './/*[contains(text(),"Search or start new chat")]')) > 0)
+            lambda x: len(x.find_elements(By.XPATH, 
+                './/*[contains(text(),"Search or start new chat")]')) > 0)
 
     unread_messages = driver.find_elements(
-        By.XPATH, './/*[contains(@aria-label,"unread message")]')
+            By.XPATH, './/*[contains(@aria-label,"unread message")]')
 
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
-        subprocess.run(["dunstify", whatsapp, f"--appname={APP_NAME}"])
+        send_notificaiton(whatsapp, URL_WHATS_APP)
 
 
 def main():
@@ -100,4 +105,4 @@ if __name__ == '__main__':
         main()
     except SessionNotCreatedException:
         subprocess.run(
-            "dunstify 'Maybe need a new chromium driver'", shell=True)
+                "dunstify 'Maybe need a new chromium driver'", shell=True)
