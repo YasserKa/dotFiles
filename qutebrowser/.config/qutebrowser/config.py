@@ -5,9 +5,6 @@ config = config  # noqa: F821 pylint: disable=E0602,C0103
 config.load_autoconfig(False)
 c.bindings.commands = {
     'normal': {
-        # 'j': 'run-with-count 2 scroll down',
-        # 'k': 'run-with-count 2 scroll up',
-
         'J': 'forward',
         'K': 'back',
 
@@ -53,16 +50,17 @@ c.bindings.commands = {
         'cm': 'clear-messages ;; download-clear',
 
         'ya': 'spawn --userscript yank_all',
-        'yo': 'spawn --userscript get_org_link',
-        'yl': 'spawn --userscript get_latex_link',
+        'yo': 'spawn --userscript yank_org_link',
+        'yl': 'spawn --userscript yank_latex_link',
         'yu': 'spawn --userscript download_youtube',
         'ys': 'spawn --userscript link_shortener',
         'gl': 'spawn --userscript localhost list',
         # Google search
         'gs': 'spawn --userscript google_search',
         'gS': 'spawn --userscript google_search tab',
-        # Go to domain
-        'gr': 'run-with-count 10 navigate up',
+        # Go to domain or github project's root
+        'gr': 'spawn --userscript go_to_root',
+        'gR': 'spawn --userscript go_to_root tab',
 
         # password
         '<z><l>': 'spawn --userscript qute-bitwarden',
