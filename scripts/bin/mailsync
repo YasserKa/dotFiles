@@ -18,7 +18,8 @@ export DISPLAY=:0.0
 [ -d "$HOME/.local/share/password-store" ] && export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 
 notify() { notify-send --app-name="neomutt" "mutt-wizard" "📬 $2 new mail(s) in \`$1\` account." ;}
-messageinfo() { notify-send --app-name="neomutt" "From: $from" "Subject: $subject" ;}
+messageinfo() { [[ $(dunstify --appname="neomutt" "From: $from" "Subject:
+    $subject" --action="action,label") == "action" ]] && alacritty -e neomutt ;}
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
