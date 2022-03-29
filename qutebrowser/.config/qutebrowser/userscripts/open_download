@@ -34,7 +34,7 @@ msg() {
     if [ -z "$QUTE_FIFO" ] ; then
         echo "$cmd: $msg" >&2
     else
-        echo "message-$cmd '${msg//\'/\\\'}'" >> "$QUTE_FIFO"
+        echo "message-$cmd \"${msg}\"" >> "$QUTE_FIFO"
     fi
 }
 die() {
@@ -110,6 +110,6 @@ if [ -z "$application" ] ; then
     die "Do not know how to open »$file« of type $filetype"
 fi
 
-msg info "Opening »$file« (of type $filetype) with ${application%.desktop}"
+msg "info" "Opening $file"
 
 xdg-open "$path" &
