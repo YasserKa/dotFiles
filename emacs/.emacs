@@ -237,7 +237,7 @@
   (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
-  (define-key embark-general-map (kbd "C-x") 'my/org-roam-node-find-window)
+  (define-key embark-general-map (kbd "C-v") 'my/org-roam-node-find-window)
 
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
