@@ -36,14 +36,14 @@ c.bindings.commands = {
         ':r': 'hint --rapid links tab-bg',
         ':t': 'hint inputs',
         ':y': 'hint links yank',
-        ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
+        ':e': 'hint id userscript yank_link_id',
         '<Ctrl-v>': 'nop',
 
-        'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
+        'gt': 'spawn --userscript override_gt',
 
         # Override f and F by download documents from libgen
-        'f': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
-        'F': 'hint all userscript ~/.config/qutebrowser/userscripts/override_F',
+        'f': 'hint all userscript override_f',
+        'F': 'hint all userscript override_F',
 
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "config file sourced"',
@@ -53,20 +53,21 @@ c.bindings.commands = {
         'cm': 'clear-messages ;; download-clear',
 
         'ya': 'spawn --userscript yank_all',
-        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/get_org_link',
-        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/get_latex_link',
-        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
-        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
-        'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
-        # google search
-        'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
+        'yo': 'spawn --userscript get_org_link',
+        'yl': 'spawn --userscript get_latex_link',
+        'yu': 'spawn --userscript download_youtube',
+        'ys': 'spawn --userscript link_shortener',
+        'gl': 'spawn --userscript localhost list',
+        # Google search
+        'gs': 'spawn --userscript google_search',
+        'gS': 'spawn --userscript google_search tab',
         # Go to domain
         'gr': 'run-with-count 10 navigate up',
 
         # password
-        '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden',
-        '<z><u><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
-        '<z><p><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
+        '<z><l>': 'spawn --userscript qute-bitwarden',
+        '<z><u><l>': 'spawn --userscript qute-bitwarden --username-only',
+        '<z><p><l>': 'spawn --userscript qute-bitwarden --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
@@ -108,10 +109,10 @@ c.aliases = {
         'h': 'help -t',
         'json': 'open -t https://codebeautify.org/jsonviewer?url={url}',
         'paywall': 'open https://12ft.io/proxy?q={url}',
-        'zotero': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-zotero',
-        'hosts': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
-        'translate': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',
-        'open_download': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
+        'zotero': 'spawn --userscript qute-zotero',
+        'hosts': 'spawn --userscript localhost list',
+        'translate': 'spawn --userscript qute-translate',
+        'open_download': 'spawn --userscript open_download',
         }
 
 c.content.blocking.whitelist = ['https://analytics.google.com/analytics/*']

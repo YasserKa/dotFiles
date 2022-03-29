@@ -1,3 +1,5 @@
-#!/bin/bash
+#!/bin/env sh
 
-youtube-dl -x -o '~/Music/Downloaded/%(title)s.%(ext)s' $QUTE_URL
+# Dependencies youtube-dl
+
+youtube-dl -x -o '~/Music/Downloaded/%(title)s.%(ext)s' "$QUTE_URL"
