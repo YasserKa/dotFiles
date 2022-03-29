@@ -63,6 +63,7 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (evil-select-search-module 'evil-search-module 'evil-search)
 
   (evil-define-key 'operator evil-surround-mode-map "eu" 'undo-tree-visualize)
   )
@@ -73,13 +74,25 @@
   (setq evil-collection-company-use-tng nil)  ;; Is this a bug in evil-collection?
   :custom
   (evil-collection-outline-bind-tab-p nil)
+  (evil-collection-setup-minibuffer t)
   :config
+
   (evil-collection-init)
   ;; needed for company package
   (evil-collection-define-key nil 'company-active-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-collection-define-key nil 'company-active-map (kbd "C-w") 'evil-delete-backward-word)
 
+  (evil-collection-define-key '(insert normal) 'evil-ex-completion-map (kbd "C-q") 'help)
+  (evil-collection-define-key '(insert normal) 'evil-ex-completion-map (kbd "<escape>") 'abort-recursive-edit)
+
+  (evil-define-key 'insert evil-ex-search-keymap (kbd "C-q") 'help)
+  (evil-define-key 'insert evil-ex-search-keymap (kbd "<escape>") 'abort-recursive-edit)
+
+  (evil-collection-define-key '(insert normal) 'vertico-map (kbd "<escape>") 'abort-recursive-edit)
+
   (setq evil-collection-magit-state 'normal)
+
+  (define-key global-map "\C-q" 'help)
   ;; Updating the original by closing the list of repos window
   (defun my-magit-repolist-status (&optional _button)
     "Show the status for the repository at point."
@@ -200,7 +213,38 @@
   :custom-face
   :init
   (vertico-mode)
+  (defun my/macro-to-open-buffer-in-another-window ()
+    (interactive)
+    (execute-kbd-macro (kbd "C-. C-v")))
+  :bind (:map vertico-map ("C-v" . my/function))
+  :config
+  (when evil-collection-setup-minibuffer
+    (evil-collection-define-key 'insert 'vertico-map
+      (kbd "C-v") (kbd "C-. C-v")))
   )
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+  (define-key embark-general-map (kbd "C-x") 'my/org-roam-node-find-window)
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
 
 (use-package orderless
   :straight t
@@ -578,12 +622,12 @@
 
 (use-package org-roam-ui
   :straight
-    :after org-roam
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 (use-package deft
   :custom
