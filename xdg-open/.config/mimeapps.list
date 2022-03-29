@@ -16,3 +16,4 @@ x-scheme-handler/http=qutebrowser.desktop
 x-scheme-handler/chrome=qutebrowser.desktop
 application/xhtml+xml=qutebrowser.desktop
 text/html=qutebrowser.desktop
+x-scheme-handler/mailto=mutt.desktop
