@@ -22,7 +22,6 @@ Plug 'https://github.com/liuchengxu/vim-which-key'
 
 Plug 'https://github.com/simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 
-Plug 'https://github.com/terryma/vim-multiple-cursors'
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/dense-analysis/ale'
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}

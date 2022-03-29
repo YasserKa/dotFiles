@@ -114,7 +114,6 @@ c.aliases = {
         'open_download': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
         }
 
-c.input.insert_mode.auto_load = True
 c.content.blocking.whitelist = ['https://analytics.google.com/analytics/*']
 c.content.blocking.method = 'both'
 c.auto_save.session = True
