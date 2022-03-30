@@ -39,8 +39,8 @@ c.bindings.commands = {
         'gt': 'spawn --userscript override_gt',
 
         # Override f and F by download documents from libgen
-        'f': 'hint all userscript override_f',
-        'F': 'hint all userscript override_F',
+        'f': 'hint links userscript override_f',
+        'F': 'hint links userscript override_F',
 
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "config file sourced"',
