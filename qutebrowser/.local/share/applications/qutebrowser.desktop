@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=qutebrowser
-Comment=Browser
+GenericName=Web Browser
 Keywords=html;xhtml;
 StartupNotify=true
 Terminal=false
@@ -8,4 +8,5 @@ Type=Application
 Categories=Application;;Browser;
 MimeType=text/html;application/xhtml+xml;
 Icon=qutebrowser
+StartupWMClass=Browser
 Exec=/usr/bin/qutebrowser %F

@@ -36,9 +36,9 @@
  '(evil-digit-bound-motions '(evil-beginning-of-visual-line))
  '(evil-want-Y-yank-to-eol 1)
  '(org-agenda-files
-   '("/home/yasser/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org"))
+   '("~/notes/org/20211116083953-thesis.org" "/home/yasser/notes/org/20210911093036-general.org"))
  '(package-selected-packages
-   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree  evil evil-collection org-roam evil-org orgalist evil-surround general evil-visual-mark-mode gruvbox-theme)))
+   '(org-gcal org-appear deft company orderless marginalia vertico evil-textobj-anyblock cdlatex auctex simple-httpd websocket use-package undo-tree evil evil-collection org-roam evil-org orgalist evil-surround general evil-visual-mark-mode gruvbox-theme)))
 ;; Set the variable pitch face
 
 (use-package undo-tree
@@ -63,7 +63,6 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-  (evil-select-search-module 'evil-search-module 'evil-search)
 
   (evil-define-key 'operator evil-surround-mode-map "eu" 'undo-tree-visualize)
   )
@@ -82,13 +81,19 @@
   (evil-collection-define-key nil 'company-active-map (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-collection-define-key nil 'company-active-map (kbd "C-w") 'evil-delete-backward-word)
 
-  (evil-collection-define-key '(insert normal) 'evil-ex-completion-map (kbd "C-q") 'help)
-  (evil-collection-define-key '(insert normal) 'evil-ex-completion-map (kbd "<escape>") 'abort-recursive-edit)
+  ;; Enable evil interactive search
+  (evil-select-search-module 'evil-search-module 'evil-search)
 
-  (evil-define-key 'insert evil-ex-search-keymap (kbd "C-q") 'help)
-  (evil-define-key 'insert evil-ex-search-keymap (kbd "<escape>") 'abort-recursive-edit)
-
-  (evil-collection-define-key '(insert normal) 'vertico-map (kbd "<escape>") 'abort-recursive-edit)
+  ;; Override keybindings in minibuffer
+  (dolist (map '(minibuffer-local-map
+                 minibuffer-local-ns-map
+                 minibuffer-local-completion-map
+                 minibuffer-local-must-match-map
+                 minibuffer-local-isearch-map))
+    ;; Exit minibuffer instead of going to normal mode
+    (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
+    (evil-collection-define-key 'insert map (kbd "C-q") 'help)
+    )
 
   (setq evil-collection-magit-state 'normal)
 
@@ -129,6 +134,7 @@
   (my-leader-key-def
     "ss" 'source-init-file
     "es" 'edit-init-file
+    "h" 'evil-ex-nohighlight
     "p" 'find-file)
 
   (general-define-key
@@ -347,6 +353,8 @@
         org-agenda-skip-deadline-if-done t
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-timestamp-if-done t
+        org-agenda-skip-timestamp-if-done t
+        org-agenda-compact-blocks t
         ;; source code indentation
         org-src-preserve-indentation nil
         org-edit-src-content-indentation 0
@@ -356,15 +364,18 @@
         )
 
   ;; Keywords
+  (setq org-todo-keywords
+        (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))
+
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "red" :weight bold)
+                ("NEXT" :foreground "blue" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
-                )))
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d)")
-          (sequence "WAITING(w)")))
-  ;; Don't export with keywords
+                ("HOLD" :foreground "magenta" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold))))
+
   (setq-default org-export-with-todo-keywords nil)
   ;; To export to markdown
   (require 'ox-md)
@@ -402,7 +413,7 @@
                                (800 1000 1200 1400 1600 1800 2000)
                                "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
 
-        org-agenda-prefix-format '((agenda . "%i %-16:(my/get-title-property)%?-12t%b%-4e% s")
+        org-agenda-prefix-format '((agenda . "%i %-16:(my/get-title-property)%?-12t%-4e%b% s")
                                    (todo . "%i %-12:(my/get-title-property) %-4e")
                                    (tags . "%i %-12:(my/get-title-property) %-4e")
                                    (search . "%i %-12:(my/get-title-property) %-4e")))
@@ -424,7 +435,6 @@
 
   ;; Super agenda
   (setq org-agenda-custom-commands
-
         '(("z" "Super view"
            ((agenda "" ((org-agenda-span 'day)
                         (org-super-agenda-groups
@@ -462,6 +472,8 @@
                                    :order 10)))))))))
   (add-hook 'org-agenda-mode-hook 'org-super-agenda-mode)
   (setq org-super-agenda-header-map (make-sparse-keymap))
+  (org-super-agenda-mode 1)
+
 
   (setq org-capture-templates
         '(("d" "default" entry (file "~/notes/org/20210909221237-capture.org")
