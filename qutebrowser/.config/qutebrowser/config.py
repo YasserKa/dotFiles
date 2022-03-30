@@ -2,7 +2,6 @@
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
-config.load_autoconfig()
 c.bindings.commands = {
     'normal': {
         'J': 'forward',
@@ -18,6 +17,7 @@ c.bindings.commands = {
         '<': 'tab-move -',
         '>': 'tab-move +',
 
+        # Swap ; and :
         ';': 'set-cmd-text :',
 
         ':I': 'hint images tab',
@@ -33,39 +33,44 @@ c.bindings.commands = {
         ':r': 'hint --rapid links tab-bg',
         ':t': 'hint inputs',
         ':y': 'hint links yank',
-        ':e': 'hint id userscript yank_link_id',
-        '<Ctrl-v>': 'nop',
+        ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
 
-        'gt': 'spawn --userscript override_gt',
+        # Use <C-S-v> instead of <C-v> for passthrough mode
+        '<Ctrl-v>': 'nop',
+        '<Ctrl-Shift-v>': 'mode-enter passthrough',
+
+        # Allows chosen tabs in hidden workspaces to be focused
+        'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
 
         # Override f and F by download documents from libgen
-        'f': 'hint links userscript override_f',
-        'F': 'hint links userscript override_F',
+        'f': 'hint links userscript ~/.config/qutebrowser/userscripts/override_f',
+        'F': 'hint links userscript ~/.config/qutebrowser/userscripts/override_F',
 
         ',es': 'config-edit',
-        ',ss': 'config-source ;; message-info "config file sourced"',
+        ',ss': 'config-source ;; message-info "Configuration file sourced"',
         ',h': 'search',
 
-        '<Ctrl-Shift-v>': 'mode-enter passthrough',
         'cm': 'clear-messages ;; download-clear',
 
-        'ya': 'spawn --userscript yank_all',
-        'yo': 'spawn --userscript yank_org_link',
-        'yl': 'spawn --userscript yank_latex_link',
-        'yu': 'spawn --userscript download_youtube',
-        'ys': 'spawn --userscript link_shortener',
-        'gl': 'spawn --userscript localhost list',
-        # Google search
-        'gs': 'spawn --userscript google_search',
-        'gS': 'spawn --userscript google_search tab',
-        # Go to domain or github project's root
-        'gr': 'spawn --userscript go_to_root',
-        'gR': 'spawn --userscript go_to_root tab',
+        'ya': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_all',
+        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link',
+        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link',
+        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
+        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
+        'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
 
-        # password
-        '<z><l>': 'spawn --userscript qute-bitwarden',
-        '<z><u><l>': 'spawn --userscript qute-bitwarden --username-only',
-        '<z><p><l>': 'spawn --userscript qute-bitwarden --password-only',
+        # Google search
+        'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
+        'gS': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search tab',
+
+        # Go to domain or github project's root
+        'gr': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root',
+        'gR': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root tab',
+
+        # Password manager
+        '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden',
+        '<z><u><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --username-only',
+        '<z><p><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
     },
     'insert': {
         '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
@@ -107,37 +112,47 @@ c.aliases = {
         'h': 'help -t',
         'json': 'open -t https://codebeautify.org/jsonviewer?url={url}',
         'paywall': 'open https://12ft.io/proxy?q={url}',
-        'zotero': 'spawn --userscript qute-zotero',
-        'hosts': 'spawn --userscript localhost list',
-        'translate': 'spawn --userscript qute-translate',
-        'open_download': 'spawn --userscript open_download',
+        'zotero': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-zotero',
+        'hosts': 'spawn --userscript ~/.config/qutebrowser/userscripts/localhost list',
+        'translate': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',
+        'open_download': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
         }
+
+config.load_autoconfig()
 
 c.content.blocking.whitelist = ['https://analytics.google.com/analytics/*']
 c.content.blocking.method = 'both'
-c.auto_save.session = True
-c.hints.selectors['id'] = ["[id]"]
-c.spellcheck.languages = ['en-US']
-c.statusbar.widgets = ["url", "progress", "scroll"]
-c.tabs.new_position.unrelated = 'next'
-c.tabs.title.format = '{current_title}'
-c.prompt.filebrowser = False
-c.scrolling.smooth = False
-c.completion.web_history.max_items = 1000
 c.content.notifications.enabled = False
 c.content.tls.certificate_errors = "ask-block-thirdparty"
-c.scrolling.bar = 'never'
-c.downloads.location.suggestion = 'both'
-c.downloads.remove_finished = 5000
-c.hints.border = "1px solid #CCCCCC"
-c.editor.command = ["alacritty", "-e", "nvim", "-f", "{}"]
-config.set('editor.command', ["nvim-qt", "{file}", "--nofork" ])
-c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
-with config.pattern('https://github.com/*/issues') as p:
-    p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
-
 with config.pattern('https://www.google.com') as p:
     p.content.geolocation = True
+
+c.auto_save.session = True
+
+# Add a CSS selector for yank_link_id script
+c.hints.selectors['id'] = ["[id]"]
+# Make gi focus issues search bar
+with config.pattern('https://github.com/*/issues') as p:
+    p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
+c.hints.border = "1px solid #CCCCCC"
+
+c.spellcheck.languages = ['en-US']
+# Open new tabs next to the current one
+c.tabs.new_position.unrelated = 'next'
+c.scrolling.smooth = False
+c.scrolling.bar = 'never'
+
+# Status bar and title format
+c.statusbar.widgets = ["url", "progress", "scroll"]
+c.tabs.title.format = '{current_title}'
+
+# Don't show file browser in download prompt
+c.prompt.filebrowser = False
+c.downloads.location.suggestion = 'both'
+c.downloads.remove_finished = 30000
+
+c.editor.command = ["nvim-qt", "{file}", "--nofork" ]
+c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
 
 c.url.searchengines = {
         'DEFAULT': 'https://www.duckduckgo.com/?q={}',
