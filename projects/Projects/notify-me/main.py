@@ -45,11 +45,10 @@ def check_discord():
     if notificaiton_exists:
         send_notificaiton(discord, URL_DISCORD)
 
-def send_notificaiton(notificaiton_text, url):
-    subprocess.run(f"[[ $(dunstify '{notificaiton_text}' --appname={APP_NAME}"
-            f" --action='action,label') == 'action' ]] && qutebrowser {url} &"
-            , shell=True, check=True, text=True)
-    pass
+def send_notificaiton(notification_text, url):
+    subprocess.Popen(f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
+            f" --action='action,label') == 'action' ]] && qutebrowser {url}"
+            , shell=True, text=True)
 
 def check_facebook():
     driver.get(URL_FACEBOOK)
