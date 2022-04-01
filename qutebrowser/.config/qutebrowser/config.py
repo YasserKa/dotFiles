@@ -43,8 +43,8 @@ c.bindings.commands = {
         'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
 
         # Override f and F by download documents from libgen
-        'f': 'hint links userscript ~/.config/qutebrowser/userscripts/override_f',
-        'F': 'hint links userscript ~/.config/qutebrowser/userscripts/override_F',
+        ':p': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
+        # 'F': 'hint all userscript ~/.config/qutebrowser/userscripts/override_F',
 
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "Configuration file sourced"',

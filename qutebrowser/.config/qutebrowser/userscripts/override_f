@@ -3,6 +3,10 @@
 # Download and open document it instead of opening the tab in special cases
 # Dependencies: curl, pup, zathura, dunstify
 
+if [[ "$QUTE_URL" == "" ]]; then
+    exit
+fi
+
 url_root_special_case="library.lol"
 count=60
 
