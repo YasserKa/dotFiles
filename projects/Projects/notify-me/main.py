@@ -43,12 +43,12 @@ def check_discord():
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
-        send_notificaiton(discord, URL_DISCORD)
+        send_notification(discord, URL_DISCORD)
 
-def send_notificaiton(notification_text, url):
-    subprocess.Popen(f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
+def send_notification(notification_text, url):
+    subprocess.run(f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
             f" --action='action,label') == 'action' ]] && qutebrowser {url}"
-            , shell=True, text=True)
+            , shell=True, text=True, check=True)
 
 def check_facebook():
     driver.get(URL_FACEBOOK)
@@ -62,7 +62,7 @@ def check_facebook():
     notificaiton_exists = len(notificaitons_el) > 0
 
     if notificaiton_exists:
-        send_notificaiton(facebook, URL_FACEBOOK)
+        send_notification(facebook, URL_FACEBOOK)
 
 
 def check_whatsapp():
@@ -77,7 +77,7 @@ def check_whatsapp():
     unread_messages_exist = len(unread_messages) > 0
 
     if unread_messages_exist:
-        send_notificaiton(whatsapp, URL_WHATS_APP)
+        send_notification(whatsapp, URL_WHATS_APP)
 
 
 def main():
