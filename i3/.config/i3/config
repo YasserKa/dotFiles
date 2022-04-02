@@ -258,7 +258,7 @@ exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 # exec sleep 8; i3-msg '[class="Slack"] kill'
 
 # Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/20210911093036-general.org; workspace 1; exec qutebrowser'
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/20220401224042-general.org; workspace 1; exec qutebrowser'
 
 # Fetch email
 exec_always ~/bin/wait_internet && check_mail
