@@ -1,7 +1,7 @@
-#!/bin/env bash
+#!/bin/env sh
 
 if [[ $1 == "tab" ]]; then
-    echo "$QUTE_URL" | awk -F= '{ print "open -t https://www.google.com/search?q=" $2 }' >> "$QUTE_FIFO"
+    echo "$QUTE_URL" | awk -F = '{ print "open -t https://www.google.com/search?q=" $2 }' >> "$QUTE_FIFO"
 else
-    echo "$QUTE_URL" | awk -F= '{ print "open https://www.google.com/search?q=" $2 }' >> "$QUTE_FIFO"
+    echo "$QUTE_URL" | awk -F = '{ print "open https://www.google.com/search?q=" $2 }' >> "$QUTE_FIFO"
 fi

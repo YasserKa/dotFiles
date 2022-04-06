@@ -66,6 +66,7 @@ c.bindings.commands = {
         # Go to domain or github project's root
         'gr': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root',
         'gR': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root tab',
+        'wr': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root window',
 
         # Password manager
         '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden',

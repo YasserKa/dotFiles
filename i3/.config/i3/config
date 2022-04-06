@@ -96,7 +96,6 @@ bindsym $mod+Shift+z move container to workspace back_and_forth
 workspace_auto_back_and_forth yes
 bindsym $mod+z workspace back_and_forth
 
-
 # Opening softwares to a default workspaces
 # Use xprop to get the class
 assign [class="Zathura"] workspace $documents
@@ -158,7 +157,7 @@ mode "clock" {
 # Music player
 bindsym $mod+c mode "cmus"
 mode "cmus" {
-    bindsym i exec ~/bin/cmus_notification
+    bindsym i exec $HOME/bin/cmus_notification
         bindsym s exec cmus-remote --pause
         bindsym n exec cmus-remote --next
         bindsym p exec cmus-remote --prev
@@ -166,23 +165,16 @@ mode "cmus" {
         bindsym h exec cmus-remote --volume +2%
         bindsym l exec cmus-remote --volume -2%
 
-        bindsym c exec cmus-remote -C "filter classical"
-        bindsym f exec cmus-remote -C "filter"
-        bindsym m exec rofi -show cmus -modi cmus:$XDG_CONFIG_HOME/rofi/rofi-cmus; mode "default"
-        bindsym r exec cmus-remote -C "add -q /home/yasser/Music/Downloaded/rain.wav"; exec cmus-remote --next; exec cmus-remote --play
-
-        # Add to favourites
-        # bindsym f exec cmus-remote -P "$(cat /home/yasser/.config/cmus/lib.pl | grep -F "$(cmus-remote -Q 2> /dev/null | grep file | cut -d ' ' -f2-)")"
         bindsym Control+bracketleft mode "default"
         bindsym Escape mode "default"
 }
 
 bindsym $mod+Shift+c mode "control_ambient"
 mode "control_ambient" {
-        bindsym s exec ~/bin/control_ambient p; mode "default"
+    bindsym s exec $HOME/bin/control_ambient p; mode "default"
 
-        bindsym h exec ~/bin/control_ambient k
-        bindsym l exec ~/bin/control_ambient j
+        bindsym h exec $HOME/bin/control_ambient k
+        bindsym l exec $HOME/bin/control_ambient j
 
         bindsym Control+bracketleft mode "default"
         bindsym Escape mode "default"
@@ -190,11 +182,11 @@ mode "control_ambient" {
 
 bindsym $mod+s mode "sharing"
 mode "sharing" {
-    bindsym i exec ~/bin/share -i; mode "default"
-    bindsym c exec ~/bin/share -c; mode "default"
-        bindsym v exec ~/bin/share -v; mode "default"
-        bindsym t exec ~/bin/share -t; mode "default"
-        bindsym n exec ~/bin/share -n; mode "default"
+    bindsym i exec $HOME/bin/share -i; mode "default"
+        bindsym c exec $HOME/bin/share -c; mode "default"
+        bindsym v exec $HOME/bin/share -v; mode "default"
+        bindsym t exec $HOME/bin/share -t; mode "default"
+        bindsym n exec $HOME/bin/share -n; mode "default"
 
         bindsym Control+bracketleft mode "default"
         bindsym Escape mode "default"
@@ -214,7 +206,7 @@ bindsym $mod+Shift+d exec open_document
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exit
+bindsym $mod+Shift+w reload
 
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -224,7 +216,7 @@ bindsym $mod+n exec --no-startup-id general_notes
 
 # Temporary latex file
 for_window [title="^tmp_tex$"] floating enable
-bindsym $mod+Shift+n exec --no-startup-id "~/bin/latex_notes"
+bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/latex_notes
 
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
@@ -256,6 +248,9 @@ bindsym $mod+x exec --no-startup-id search_dictionary
 # >>>
 # Sartup <<<
 
+# Fetch email
+exec $HOME/bin/wait_internet && check_mail
+
 # Pick a random background image
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 # Composer for transparency
@@ -263,12 +258,6 @@ exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/p
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 
-# exec sleep 3; slack
-# exec sleep 8; i3-msg '[class="Slack"] kill'
-
 # Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/20220401224042-general.org; workspace 1; exec qutebrowser'
-
-# Fetch email
-exec_always ~/bin/wait_internet && check_mail
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
 # >>>

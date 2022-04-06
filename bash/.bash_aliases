@@ -2,7 +2,8 @@
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
-alias rc='nvim $MYVIMRC'
+alias rcvim="nvim $MYVIMRC"
+alias rcemacs="emacs --file $HOME/.emacs.d/init.el"
 alias pac='sudo pacman'
 alias z='zathura'
 alias cdb='cd -'
@@ -57,7 +58,7 @@ _fasd_bash_hook_cmd_complete vf j
 
 # emacs git & notes
 alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
-alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/org/20220401224042-general.org"'
+alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/org/general.org"'
 alias slack='i3-msg "workspace --no-auto-back-and-forth 7; exec slack"'
 
 alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
