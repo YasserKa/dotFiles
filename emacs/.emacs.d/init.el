@@ -18,16 +18,21 @@
 (setq use-package-always-ensure t)
 
 ;; Don't make package-selected-packages to be created
-(defun package--save-selected-packages (&rest opt) nil)
+;; (defun package--save-selected-packages (&rest opt) nil)
 ;; Place Emacs generated variables somewhere else, and don't load them
-(setq custom-file (concat user-emacs-directory "/custom.el"))
+;; (setq custom-file (concat user-emacs-directory "/custom.el"))
+
+;; Use y/n for yes/no prompts
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files '("~/notes/org/capture.org" "~/notes/org/general.org")))
+ '(helm-minibuffer-history-key "M-p")
+ '(org-agenda-files
+   '("~/notes/org/emacs.org" "~/notes/org/capture.org" "~/notes/org/general.org")))
 
 ;; Saves files such as undo tree and auto saves in .emacs.d
 (use-package no-littering
@@ -233,8 +238,8 @@
   :config
 
   (evil-define-key 'normal magit-status-mode-map
-    ("?" 'evil-search-backward)
-    ((kbd "<return>") 'my-vil-diff-visit-file))
+    (kbd "?") 'evil-search-backward
+    (kbd "<return>") 'my-vil-diff-visit-file)
 
   ;; Open file using nvim
   (defun my-vil-diff-visit-file (file &optional other-window)
@@ -321,12 +326,6 @@
 (use-package sentence-navigation
   :ensure t
   :defer t)
-
-(use-package  evil-surround
-  :after evil
-  :config
-  (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
-  (global-set-key (kbd "C-x") 'evil-numbers/dec-at-pt))
 
 (use-package evil-surround
   :after evil
@@ -422,18 +421,23 @@
   (org-src-preserve-indentation nil)
   (org-fontify-quote-and-verse-blocks t)
   (org-src-fontify-natively t)               ;; Syntax highlight in #+BEGIN_SRC blocks
+  (org-src-tab-acts-natively t)
   (org-edit-src-content-indentation 0)
   ;; Exporting settings
   (org-export-with-broken-links t)
   (org-export-preserve-breaks t)
   (org-export-with-todo-keywords nil)
+  (org-confirm-babel-evaluate nil)
   ;; Remove completed deadline, scheduled, completed from agenda
   ;; The time when it get closed will be shown
   (org-agenda-skip-deadline-if-done t)
+
   (org-agenda-skip-scheduled-if-done t)
   (org-agenda-skip-timestamp-if-done t)
+  (org-deadline-warning-days 7)
   (org-agenda-compact-blocks t)
   (org-agenda-block-separator nil)
+  (org-agenda-start-on-weekday nil)           ;; Show today +7 days
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
@@ -520,10 +524,10 @@
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
-        org-agenda-prefix-format '((agenda . "%i %-16:(my-get-title-property)%?-12t%-4e% s")
-                                   (todo . "%i %-12:(my-get-title-property) %-4e")
-                                   (tags . "%i %-12:(my-get-title-property) %-4e")
-                                   (search . "%i %-12:(my-get-title-property) %-4e")))
+        org-agenda-prefix-format '((agenda . " %-16(my-get-title-property)%-12t%-6e% s")
+                                   (todo . " %-12:(my-get-title-property) %-6e")
+                                   (tags . " %-12:(my-get-title-property) %-6e")
+                                   (search . " %-12:(my-get-title-property) %-6e")))
 
   ;; Save org buffers after quiting agenda mode
   (advice-add 'org-agenda-quit :before '(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
@@ -573,7 +577,10 @@
 
   (use-package org-super-agenda
     :init (org-super-agenda-mode)
-    :config (setq org-super-agenda-header-map (make-sparse-keymap))
+    :after evil
+    :config
+    (evil-define-key 'motion 'org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
+    (setq org-super-agenda-header-map (make-sparse-keymap))
     )
 
   (setq org-capture-templates
@@ -644,9 +651,6 @@
      (sql . t)
      (emacs-lisp . t)
      (shell . t)))
-
-  ;; Don't prompt before running code in org
-  (setq org-confirm-babel-evaluate nil)
 
   ;; Enables to add snippets for code blocks
   (use-package org-tempo
@@ -764,6 +768,23 @@
       :unnarrowed t)))
   :config
   (org-roam-db-autosync-mode)
+
+  ;; Add to jump list after visiting a node
+  (advice-add 'org-roam-node-visit :before '(lambda (&rest pos) (evil-set-jump)))
+
+  ;; Overriding org-roam-node by staying in the current buffer after inserting a new one
+  ;; This is done by removing :props '(:finalize find-file) in org-roam-capture
+(cl-defun my-org-roam-node-find (&optional other-window initial-input filter-fn &key templates)
+  (interactive current-prefix-arg)
+  (let ((node (org-roam-node-read initial-input filter-fn)))
+    (if (org-roam-node-file node)
+        (org-roam-node-visit node other-window)
+      (org-roam-capture-
+       :node node
+       :templates templates))))
+
+  ;; Add to jump list after visiting a node
+  (advice-add 'org-roam-node-find :override #'my-org-roam-node-find)
 
   (my-leader-key-def
     "r"   '(:ignore t :which-key "org-roam mode")
@@ -918,3 +939,23 @@
   (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
   )
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-block-begin-line ((t (:background nil :weight bold))))
+ '(org-block-end-line ((t (:background nil :weight bold))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info ((t (:foreground "dark orange"))))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-link ((t (:foreground "royal blue" :underline t))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+ '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
