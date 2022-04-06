@@ -17,16 +17,13 @@ bindsym $mod+l focus right
 bindsym $mod+h focus left
 
 # Move focused window
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-bindsym $mod+Shift+h move left
+# There's a bug in i3 that doesn't focus the window after it moves to another
+# screen, this script centers the mouse to the moved window mitigating the bug
+bindsym $mod+Shift+j exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move down
+bindsym $mod+Shift+k exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move up
+bindsym $mod+Shift+l exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move right
+bindsym $mod+Shift+h exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move left
 
-# Alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
 
 # Split in horizontal orientation
 bindsym $mod+Shift+v split h
