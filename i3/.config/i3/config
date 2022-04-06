@@ -143,6 +143,18 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+# Emacs org clock
+bindsym $mod+q mode "clock"
+mode "clock" {
+        bindsym i exec $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default"
+        bindsym o exec $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default"
+        bindsym c exec $XDG_CONFIG_HOME/polybar/org_clock clock_cancel; mode "default"
+        bindsym t exec $XDG_CONFIG_HOME/polybar/org_clock go_to_item; mode "default"
+
+        bindsym Control+bracketleft mode "default"
+        bindsym Escape mode "default"
+}
+
 # Music player
 bindsym $mod+c mode "cmus"
 mode "cmus" {

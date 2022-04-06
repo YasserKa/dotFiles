@@ -1,9 +1,52 @@
 #!/usr/bin/env sh
 
-FILE="/tmp/org_current_task"
+# Dependencies: Emacs for org mode & wmctrl to focus window
+# Use org mode's clocking in emacs with rofi to navigate and use clock
+# operations
 
-TIME_SINCE_CREATION=$(echo $(($(($(date +%s) - $(date +%s -r $FILE)))/60)))
 
-TASK_NAME=$(head -1 $FILE)
+TMP_FILE_PATH="/tmp/org_current_task"
 
-echo "$TASK_NAME - $TIME_SINCE_CREATION"
+function go_to_item () {
+    [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
+
+    CURSOR=$(sed "3q;d" $TMP_FILE_PATH | grep -o '[0-9]*')
+
+    FULL_PATH=$(sed '4!d' $TMP_FILE_PATH)
+
+    # Focus window
+    wmctrl -xa emacs-org-mode
+
+    emacsclient "+$CURSOR" "$FULL_PATH"
+}
+
+function clock_in () {
+    emacsclient -e "(org-clock-in-last)"
+}
+
+function clock_cancel () {
+    emacsclient -e "(org-clock-cancel)"
+}
+
+function clock_out () {
+    emacsclient -e "(org-clock-out)"
+}
+
+function get_time_spent () {
+    [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
+
+    TIME_SINCE_CREATION=$(echo $(($(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))/60)))
+
+    TASK_NAME=$(head -1 $TMP_FILE_PATH)
+
+    echo "$TASK_NAME - $TIME_SINCE_CREATION"
+}
+
+case "$1" in
+  "clock_in") clock_in ;;
+  "clock_out") clock_out ;;
+  "clock_cancel") clock_cancel ;;
+  "go_to_item") go_to_item ;;
+  "get_time_spent") get_time_spent ;;
+  *) echo "$1 is a wrong argument" ;;
+esac
