@@ -769,9 +769,9 @@
     "r"   '(:ignore t :which-key "org-roam mode")
 
     "rl" '(org-roam-buffer-toggle :which-key "links to this node")
-    "rf" '(org-roam-node-find :which-key "find node")
+    "rf" '((lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) :which-key "find node")
 
-    "ri"  '((lambda () (interactive) (org-roam-node-find t)) :which-key "insert node")
+    "ri"  '(org-roam-node-insert :which-key "insert node")
     "rg"  '(org-roam-ui-mode :which-key "graph of nodes"))
   )
 
@@ -813,15 +813,17 @@
 
   (defun my-org-roam-node-find-window-v ()
     (interactive)
+    (let ((inhibit-message t))
     (advice-add 'org-roam-node-visit :before 'evil-window-vnew)
     (org-roam-node-find)
-    (advice-remove 'org-roam-node-visit 'evil-window-vnew))
+    (advice-remove 'org-roam-node-visit 'evil-window-vnew)))
 
   (defun my-org-roam-node-find-window-x ()
     (interactive)
+    (let ((inhibit-message t))
     (advice-add 'org-roam-node-visit :before  'evil-window-new)
     (org-roam-node-find)
-    (advice-remove 'org-roam-node-visit 'evil-window-new))
+    (advice-remove 'org-roam-node-visit 'evil-window-new)))
   )
 
 ;; Improves Vertico's completion
