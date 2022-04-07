@@ -69,6 +69,8 @@
 (column-number-mode)
 ;; Line wrapping
 (setq-default fill-column 100)
+;; Highlight current line
+(global-hl-line-mode 1)
 
 ;; Emacs, recenter the screen after reaching the edge,
 ;; Disable that by making it move with the screen with n lines
@@ -137,16 +139,10 @@
 ;; Avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
 
-;; Make ESC quit prompts
-(define-key global-map (kbd "<escape>") 'keyboard-escape-quit)
-
 ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
 
 ;; Adjusting text scale
-(define-key global-map (kbd "C-+") 'text-scale-increase)
-(define-key global-map (kbd "C--") 'text-scale-decrease)
-(define-key global-map (kbd "C-=") '(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0))))
 
 (use-package flyspell
   :ensure nil
@@ -162,12 +158,12 @@
          (prog-mode . flyspell-prog-mode)
          (flyspell-mode . (lambda ()
                             ;; Remove annoying bindings
-                            (define-key flyspell-mode-map (kbd "C-,") nil)
-                            (define-key flyspell-mode-map (kbd "C-M-i") nil)
+                            (evil-define-key nil flyspell-mode-map (kbd "C-,") nil)
+                            (evil-define-key nil flyspell-mode-map (kbd "C-M-i") nil)
                             ;; Correct last misspelled word
-                            (define-key evil-insert-state-map "\C-l"  'flyspell-auto-correct-previous-word)
+                            (evil-define-key 'insert flyspell-mode-map "\C-l"  'flyspell-auto-correct-previous-word)
                             ;; Spell checking toggle with yos
-                            (evil-define-key 'operator evil-surround-mode-map "os" 'flyspell-mode)
+                            (evil-collection-define-operator-key 'yank 'global-map "os" #'flyspell-mode)
                             )))
   )
 
@@ -216,6 +212,7 @@
     "ss" '(lambda () (interactive) (load-file (concat user-emacs-directory "/init.el")))
     "es" '(lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el")))
     "h" 'evil-ex-nohighlight
+    "b" 'switch-to-buffer
     "p" 'find-file)
 
   (general-define-key
@@ -281,23 +278,22 @@
 
   (evil-define-key '(insert normal emacs) 'global (kbd "C-q") 'help)
 
+
+  (evil-define-key nil 'global
+    (kbd "<escape>") 'keyboard-escape-quit
+    (kbd "C-+") 'text-scale-increase
+    (kbd "C--") 'text-scale-decrease
+    (kbd "C-=") '(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
+    )
+
+
   ;; gx opens urls
   ;; (evil-define-key 'normal org-mode (kbd "gx") 'org-open-at-point)
 
-
-  (evil-define-key 'normal org-mode (kbd "gx") 'org-open-at-point)
-(require 'evil-exchange)
-;; change default key bindings (if you want) HERE
-;; (setq evil-exchange-key (kbd "zx"))
-(evil-exchange-install)
-  ;; Trigger the background theme
-  (defun my-trigger-theme ()
-    (interactive)
-    (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
-        (load-theme 'gruvbox-dark-soft t)
-      (load-theme 'gruvbox-light-medium t)))
-
-  (evil-define-key 'operator 'global (kbd "o b") 'my-trigger-theme)
+  (require 'evil-exchange)
+  ;; change default key bindings (if you want) HERE
+  ;; (setq evil-exchange-key (kbd "zx"))
+  (evil-exchange-install)
 
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
   (modify-syntax-entry ?_ "w")
@@ -348,13 +344,15 @@
 (use-package undo-tree
   :after evil
   :init (global-undo-tree-mode)
+  :hook ((evil-collection-setup . (lambda (mode-keymaps &rest _rest)
+                                    (evil-collection-define-operator-key 'yank 'global-map
+                                      "eu" #'undo-tree-visualize)))
+         )
   :custom
   (undo-tree-visualizer-diff t)
   :config
   ;; Save undo steps between sessions
   (global-undo-fu-session-mode)
-
-  (evil-define-key 'operator 'global (kbd "e u") 'undo-tree-visualize)
 
   (evil-set-initial-state 'undo-tree-visualizer-mode 'emacs)
 
@@ -363,7 +361,11 @@
     (kbd "k") 'evil-previous-line
     (kbd "h") 'undo-tree-visualize-switch-branch-left
     (kbd "l") 'undo-tree-visualize-switch-branch-right
-    (kbd "C-[") 'undo-tree-visualizer-abort)
+    ;; Revert back
+    (kbd "C-[") 'undo-tree-visualizer-abort
+    (kbd "q") 'undo-tree-visualizer-abort
+    ;; Accept changes
+    (kbd "<return>") 'undo-tree-visualizer-quit)
   )
 
 (use-package evil-collection
@@ -378,6 +380,15 @@
   (evil-collection-translate-key nil 'evil-motion-state-map
     ";" ":"
     ":" ";")
+
+  ;; Trigger the background theme
+  (defun my-trigger-theme ()
+    (interactive)
+    (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
+        (load-theme 'gruvbox-dark-soft t)
+      (load-theme 'gruvbox-light-medium t)))
+
+  (evil-collection-define-operator-key 'yank 'global-map "ob" #'my-trigger-theme)
 
   (dolist (map '(minibuffer-local-map
                  minibuffer-local-ns-map
@@ -469,7 +480,6 @@
    '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
    '(org-property-value ((t (:inherit fixed-pitch))) t)
    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
    '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
@@ -488,7 +498,7 @@
 
   (setq org-tag-alist
         '(("productivity" . ?p)
-          ("bindings")))
+          ("important" . ?i)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after '(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
@@ -554,20 +564,22 @@
                                    :deadline today
                                    :scheduled today)
                             (:name "Important"
-                                   :priority "A")
+                                   :tag "important")
                             (:name "Waiting"
                                    :todo "WAITING")
                             (:name "On Hold"
                                    :todo "HOLD")
+                            (:name "High priority"
+                                   :priority "A")
                             (:name "Capture"
                                    :file-path ".*capture.org")
                             (:discard (:anything))
                             ))))))
           ("o" "Others"
            ((alltodo "" ((org-super-agenda-groups
-                          '((:priority<= "B")
+                          '((:priority "A")
+                            (:priority "B")
                             (:tag "Productivity")
-                            (:file-path ".*general.org")
                             (:name "Short"
                                    :tag "effort< 1:01")
                             (:auto-category)
@@ -577,7 +589,6 @@
 
   (use-package org-super-agenda
     :init (org-super-agenda-mode)
-    :after evil
     :config
     (evil-define-key 'motion 'org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
     (setq org-super-agenda-header-map (make-sparse-keymap))
@@ -700,7 +711,7 @@
   :hook (org-mode . org-cdlatex-mode)
   :config
   ;; Inserting latex env and templates using C-j
-  (define-key org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab))
+  (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab))
 
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
@@ -774,14 +785,14 @@
 
   ;; Overriding org-roam-node by staying in the current buffer after inserting a new one
   ;; This is done by removing :props '(:finalize find-file) in org-roam-capture
-(cl-defun my-org-roam-node-find (&optional other-window initial-input filter-fn &key templates)
-  (interactive current-prefix-arg)
-  (let ((node (org-roam-node-read initial-input filter-fn)))
-    (if (org-roam-node-file node)
-        (org-roam-node-visit node other-window)
-      (org-roam-capture-
-       :node node
-       :templates templates))))
+  (cl-defun my-org-roam-node-find (&optional other-window initial-input filter-fn &key templates)
+    (interactive current-prefix-arg)
+    (let ((node (org-roam-node-read initial-input filter-fn)))
+      (if (org-roam-node-file node)
+          (org-roam-node-visit node other-window)
+        (org-roam-capture-
+         :node node
+         :templates templates))))
 
   ;; Add to jump list after visiting a node
   (advice-add 'org-roam-node-find :override #'my-org-roam-node-find)
@@ -835,16 +846,16 @@
   (defun my-org-roam-node-find-window-v ()
     (interactive)
     (let ((inhibit-message t))
-    (advice-add 'org-roam-node-visit :before 'evil-window-vnew)
-    (org-roam-node-find)
-    (advice-remove 'org-roam-node-visit 'evil-window-vnew)))
+      (advice-add 'org-roam-node-visit :before 'evil-window-vnew)
+      (org-roam-node-find)
+      (advice-remove 'org-roam-node-visit 'evil-window-vnew)))
 
   (defun my-org-roam-node-find-window-x ()
     (interactive)
     (let ((inhibit-message t))
-    (advice-add 'org-roam-node-visit :before  'evil-window-new)
-    (org-roam-node-find)
-    (advice-remove 'org-roam-node-visit 'evil-window-new)))
+      (advice-add 'org-roam-node-visit :before  'evil-window-new)
+      (org-roam-node-find)
+      (advice-remove 'org-roam-node-visit 'evil-window-new)))
   )
 
 ;; Improves Vertico's completion
@@ -956,6 +967,5 @@
  '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
  '(org-property-value ((t (:inherit fixed-pitch))) t)
  '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
- '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
  '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
  '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
