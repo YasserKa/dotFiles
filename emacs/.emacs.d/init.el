@@ -110,11 +110,16 @@
 ;; Auto close pairs
 (use-package elec-pair
   :ensure nil
+  :hook ((org-mode .  (lambda ()
+                        ;; Ignore < in org mode for yassnippets
+                        (setq electric-pair-inhibit-predicate
+                              (lambda (c)
+                                (if (char-equal c ?\<) t (electric-pair-default-inhibit c)))))))
   :custom (electric-pair-pairs
            '((?\" . ?\")
-             (?\< . ?\>)
              (?\$ . ?\$)
              (?\[ . ?\])
+             (?\< . ?\>)
              (?\` . ?\`)
              (?\{ . ?\})))
   :config
@@ -174,6 +179,14 @@
   (evil-define-key '(normal visual) 'global
     (kbd "+") 'er/expand-region
     (kbd "_") 'er/contract-region)
+  )
+
+(use-package yasnippet
+  :custom
+  (yas-snippet-dirs '("~/.emacs.d/snippets"))
+  :config
+  (yas-global-mode t)
+  (use-package yasnippet-snippets)
   )
 
 ;; Auto completion
@@ -739,6 +752,10 @@
                             (evil-org-set-key-theme '(textobjects insert navigation todo calendar additional))
                             ;; Insert heading bindings
                             (evil-define-key '(normal insert) 'evil-org-mode
+                              (kbd "M-L") 'org-shiftright
+                              (kbd "M-H") 'org-shiftleft
+                              (kbd "M-K") 'org-shiftup
+                              (kbd "M-J") 'org-shiftdown
                               (kbd "<C-return>") '(lambda () (interactive) (org-insert-heading-after-current) (evil-insert 0))
                               (kbd "<C-S-return>") '(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0))
                               ;; Move to beginning of line before insert heading, otherwise org-insert-heading will insert below
@@ -837,9 +854,9 @@
 
   ;; C-v and C-x splits window for org roam node prompts only
   (embark-define-keymap embark-org-roam-nodes-actions
-    "Keymap for actions for org roam nodes"
-    ("x" my-org-roam-node-find-window-x)
-    ("v" my-org-roam-node-find-window-v))
+                        "Keymap for actions for org roam nodes"
+                        ("x" my-org-roam-node-find-window-x)
+                        ("v" my-org-roam-node-find-window-v))
 
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
