@@ -648,8 +648,6 @@
     )
 
   (add-hook 'org-after-todo-state-change-hook 'my-update-agenda-files)
-  ;; Update org agenda files in config file after exiting Emacs
-  (add-hook 'kill-emacs-hook (lambda () (org-store-new-agenda-file-list org-agenda-files)))
 
   (my-add-to-agenda-files (concat (getenv "HOME") "/notes/org/capture.org"))
 
@@ -767,16 +765,18 @@
                               (kbd "<S-return>") '(lambda () (interactive)
                                                     ;; Open link without losing focus of window
                                                     (let ((inhibit-message t))
-                                                      (update_i3_focus_window_config "none")
-                                                      (org-open-at-point-global) (sleep-for 2)
-                                                      (update_i3_focus_window_config "smart")
+                                                      (update_i3_focus_window_config)
+                                                      (org-open-at-point-global)
                                                       ))))))
   :config
   (require 'evil-org-agenda)
 
-  (defun update_i3_focus_window_config (option)
+  ;; Don't display a buffer when finishing async-shell-command
+  (setq display-buffer-alist '(("\\*Async Shell Command\\*" . display-buffer-no-window)))
+  (defun update_i3_focus_window_config ()
       "Changes i3 focus_window_configuration"
-      (shell-command (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration " option)))
+      (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
+      (async-shell-command (concat path_to_script " none && sleep 2 && " path_to_script " smart")))
 
   (evil-org-agenda-set-keys)
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
