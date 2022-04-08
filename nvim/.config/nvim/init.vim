@@ -489,7 +489,7 @@ nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 " fzf <<<
 nnoremap <leader>a :Rg<space>
 nnoremap <leader>p :Files<CR>
-nnoremap <leader>o :Buffers<CR>
+nnoremap <leader>b :Buffers<CR>
 
 " Mapping selecting mappings
 imap <C-q> <plug>(fzf-maps-i)

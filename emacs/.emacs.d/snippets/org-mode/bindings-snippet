@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: description
+# key: bindings
+# --
+| Binding | Description |
+|---------+-------------|
+| $0        |             |
+|         |             |

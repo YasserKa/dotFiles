@@ -18,7 +18,7 @@
 (setq use-package-always-ensure t)
 
 ;; Don't make package-selected-packages to be created
-;; (defun package--save-selected-packages (&rest opt) nil)
+(defun package--save-selected-packages (&rest opt) nil)
 ;; Place Emacs generated variables somewhere else, and don't load them
 ;; (setq custom-file (concat user-emacs-directory "/custom.el"))
 
