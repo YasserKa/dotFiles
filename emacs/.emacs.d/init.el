@@ -20,24 +20,19 @@
 ;; Don't make package-selected-packages to be created
 (defun package--save-selected-packages (&rest opt) nil)
 ;; Place Emacs generated variables somewhere else, and don't load them
-;; (setq custom-file (concat user-emacs-directory "/custom.el"))
+(setq custom-file (concat user-emacs-directory "/custom.el"))
 
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-minibuffer-history-key "M-p")
- '(org-agenda-files
-   '("~/notes/org/emacs.org" "~/notes/org/capture.org" "~/notes/org/general.org")))
 
 ;; Saves files such as undo tree and auto saves in .emacs.d
 (use-package no-littering
   :custom
   (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
+;; Unfolding an item with emojis is slow, this package fixes this problem
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
 
 (use-package gruvbox-theme
   :config (load-theme 'gruvbox-light-medium t))
@@ -465,7 +460,7 @@
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
-  (setq org-hidden-keywords '(title))
+  (org-hidden-keywords '(title))
   :config
 
   ;; Set faces for heading levels
@@ -619,12 +614,13 @@
     (if (= (length org-state) 0)
         ;; No TODOs in buffer, so remove it, otherwise add it
         (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|HOLD\\\|CANCELLED}" 'file)) 0)
-            (my-remove-from-agenda-files buffer-file-name)
-          (my-add-to-agenda-files buffer-file-name)
+            (setq curr-files (my-remove-from-agenda-files buffer-file-name))
+          (setq curr-files (my-add-to-agenda-files buffer-file-name))
           )
       ;; There's a TODO in buffer
-      (my-add-to-agenda-files buffer-file-name)
+      (setq curr-files (my-add-to-agenda-files buffer-file-name))
       )
+    (org-store-new-agenda-file-list curr-files)
     (let ((inhibit-message)) (org-install-agenda-files-menu))
     )
 
@@ -637,15 +633,18 @@
   ;; Accepts full path
   (defun my-remove-from-agenda-files (file-full-path)
     (setq relative-path (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
-    (setq org-agenda-files (delete file-full-path org-agenda-files))
-    (setq org-agenda-files (delete relative-path org-agenda-files))
+    (setq curr-files (org-agenda-files))
+    (setq curr-files (delete file-full-path curr-files))
+    (setq curr-files (delete relative-path curr-files))
+    curr-files
     )
 
   (defun my-add-to-agenda-files (file-full-path)
     ;; org transforms current paths to full paths then adds a relative path
     ;; Better to remove relative and full path then add the path
-    (my-remove-from-agenda-files file-full-path)
-    (add-to-list 'org-agenda-files (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
+    (setq curr-files (my-remove-from-agenda-files file-full-path))
+    (add-to-list 'curr-files (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
+    curr-files
     )
 
   (add-hook 'org-after-todo-state-change-hook 'my-update-agenda-files)
@@ -780,6 +779,7 @@
       (shell-command (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration " option)))
 
   (evil-org-agenda-set-keys)
+  (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
   )
 
 (use-package org-superstar
@@ -979,22 +979,3 @@
   (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
   )
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-block ((t (:inherit fixed-pitch))))
- '(org-block-begin-line ((t (:background nil :weight bold))))
- '(org-block-end-line ((t (:background nil :weight bold))))
- '(org-code ((t (:inherit (shadow fixed-pitch)))))
- '(org-document-info ((t (:foreground "dark orange"))))
- '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
- '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
- '(org-link ((t (:foreground "royal blue" :underline t))))
- '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
- '(org-property-value ((t (:inherit fixed-pitch))) t)
- '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
- '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
- '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
