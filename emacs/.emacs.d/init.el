@@ -62,6 +62,9 @@
 
 ;; Show column number
 (column-number-mode)
+;; Treat each long line as multiple screen lines
+(global-visual-line-mode t)
+
 ;; Line wrapping
 (setq-default fill-column 100)
 ;; Highlight current line
@@ -414,8 +417,6 @@
 (defun my-org-mode-setup ()
   ;; Indentation for headings and items
   (org-indent-mode)
-  ;; Treat each long line as multiple screen lines
-  (global-visual-line-mode t)
   ;; Automatically break lines
   (auto-fill-mode)
   ;; Remove number lines to the right
@@ -585,14 +586,18 @@
                             (:discard (:anything))
                             ))))))
           ("o" "Others"
-           ((alltodo "" ((org-super-agenda-groups
+           (
+            (todo "DONE")
+            (alltodo "test" ((org-super-agenda-groups
                           '((:priority "A")
                             (:priority "B")
                             (:tag "Productivity")
                             (:name "Short"
                                    :tag "effort< 1:01")
                             (:auto-category)
-                            )))))))
+                            ))))
+            )
+           ))
         )
 
 
@@ -772,11 +777,11 @@
   (require 'evil-org-agenda)
 
   ;; Don't display a buffer when finishing async-shell-command
-  (setq display-buffer-alist '(("\\*Async Shell Command\\*" . display-buffer-no-window)))
+  (setq display-buffer-alist '(("\\*Async Shell Command\\*" . (display-buffer-no-window))))
   (defun update_i3_focus_window_config ()
       "Changes i3 focus_window_configuration"
       (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
-      (async-shell-command (concat path_to_script " none && sleep 2 && " path_to_script " smart")))
+      (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none " " && sleep 2 && " path_to_script " smart")))
 
   (evil-org-agenda-set-keys)
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
