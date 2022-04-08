@@ -59,7 +59,7 @@ fi
 rofi_default_args=(
         -monitor -2 # place above window
         -location 6 # aligned at the bottom
-        -width 100  # use full window width
+        -width 500  # use full window width
         -i
         -no-custom
         -format i   # make rofi return the index
@@ -92,15 +92,22 @@ if [ "${#entries[@]}" -eq 0 ] ; then
     die "Download directory »${DOWNLOAD_DIR}« empty"
 fi
 
-line=$(printf '%s\n' "${entries[@]}"  \
+parsed_lines=$(printf '%s\n' "${entries[@]}"  \
        | crop-first-column 55 \
-       | column -s $'\t' -t \
-       | $ROFI_CMD "${rofi_default_args[@]}" "$ROFI_ARGS") || true
-if [ -z "$line" ];  then
-    exit 0
+       | column -s $'\t' -t)
+
+if [[ $1 == "--recent" ]]; then
+    chosen_line=0
+else
+    chosen_line=$(echo "$parsed_lines" | $ROFI_CMD "${rofi_default_args[@]}" $ROFI_ARGS) || true
 fi
 
-file="${entries[$line]}"
+if [ -z "$chosen_line" ];  then
+    exit 0
+fi
+echo "$chosen_line"
+
+file="${entries[$chosen_line]}"
 file="${file%%$'\t'*}"
 path="$DOWNLOAD_DIR/$file"
 filetype=$(xdg-mime query filetype "$path")

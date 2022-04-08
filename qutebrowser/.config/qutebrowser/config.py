@@ -50,6 +50,10 @@ c.bindings.commands = {
         ',ss': 'config-source ;; message-info "Configuration file sourced"',
         ',h': 'search',
 
+        ',od': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
+        ',ord': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent',
+        ',t': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',
+
         'cm': 'clear-messages ;; download-clear',
 
         'ya': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_all',
