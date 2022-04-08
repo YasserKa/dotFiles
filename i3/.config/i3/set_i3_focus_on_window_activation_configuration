@@ -1,0 +1,17 @@
+#!/bin/env sh
+
+# Dependencies: i3-msg
+# Set the configuration focus_on_window_activation that enables or disables
+# focus of activated windows
+# Available options smart smart|urgent|focus|none
+# https://i3wm.org/docs/userguide.html#focus_on_window_activation
+
+options=("smart" "urgent" "focus" "none")
+
+if [[ ! ${options[*]} =~ "$1" ]]; then
+    notify-send "$1 is an invalid option"; exit 0
+fi
+
+sed -i "1s/.*/focus_on_window_activation $1/" $XDG_CONFIG_HOME/i3/focus_on_window_activation_config
+
+i3-msg reload

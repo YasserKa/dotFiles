@@ -514,7 +514,8 @@
           ("important" . ?i)))
 
   ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after '(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
+  (add-hook 'org-refile :after '(lambda () (interactive) (let ((inhibit-message t))
+                                                             (org-save-all-org-buffers))))
 
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -666,7 +667,7 @@
 
   (dolist (hook '(org-clock-out-hook
                   org-clock-cancel-hook))
-    (add-hook hook (lambda () (shell-command (concat "/bin/rm /tmp/org_current_task")))))
+    (add-hook hook (lambda () (shell-command "/bin/rm /tmp/org_current_task"))))
 
   ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
@@ -764,9 +765,20 @@
                             (evil-define-key 'normal 'evil-org-mode
                               ;; Open files at cursor
                               (kbd "<return>") '(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
-                              (kbd "<S-return>") '(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point-global)))))))
+                              (kbd "<S-return>") '(lambda () (interactive)
+                                                    ;; Open link without losing focus of window
+                                                    (let ((inhibit-message t))
+                                                      (update_i3_focus_window_config "none")
+                                                      (org-open-at-point-global) (sleep-for 2)
+                                                      (update_i3_focus_window_config "smart")
+                                                      ))))))
   :config
   (require 'evil-org-agenda)
+
+  (defun update_i3_focus_window_config (option)
+      "Changes i3 focus_window_configuration"
+      (shell-command (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration " option)))
+
   (evil-org-agenda-set-keys)
   )
 
