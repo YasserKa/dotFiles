@@ -20,6 +20,9 @@ Plug 'https://github.com/szw/vim-maximizer'
 
 Plug 'https://github.com/liuchengxu/vim-which-key'
 
+" Editing
+Plug 'https://github.com/terryma/vim-expand-region'
+
 Plug 'https://github.com/simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 
 Plug 'https://github.com/junegunn/fzf.vim'
@@ -153,6 +156,14 @@ if getcwd() =~# '/practical-sql'
   set secure exrc
 endif
 
+" Execute macro only selected lines
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
 " AutoCommands
 augroup SESSIONS
     autocmd!
@@ -260,6 +271,10 @@ augroup END
 " >>>
 " targets <<<
 let g:targets_nl = 'nN'
+" >>>
+" <<< expand
+map + <Plug>(expand_region_expand)
+map _ <Plug>(expand_region_shrink)
 " >>>
 " vimtex <<<
 set conceallevel=1
