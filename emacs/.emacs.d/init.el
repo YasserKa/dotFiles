@@ -1,18 +1,46 @@
+;; -*- lexical-binding: t; -*-
+;; Initialization (speed up)
 ;; Initialize package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; Speed up Emacs startup by increasing garbage collection threshold during it
-(setq gc-cons-threshold most-positive-fixnum)
-(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 800000)))
+;; Raise gc while during startup and when minibuffer is active
+(defun my-defer-garbage-collection-h ()
+  (setq gc-cons-threshold most-positive-fixnum))
 
-;; Load Emacs Lisp packages, and activate them (Needed if emacs needs to be used in the command line)
+(setq my-gc-cons-threshold 16777216) ;; 16mb
+
+;; Startup
+(my-defer-garbage-collection-h)
+
+(add-hook 'emacs-init-hook (lambda () (setq gc-cons-threshold my-gc-cons-threshold)))
+
+;; Minibuffer
+(defun my-restore-garbage-collection-h ()
+  ;; Defer it so that commands launched immediately after will enjoy the
+  ;; benefits.
+  (run-at-time
+   1 nil (lambda () (setq gc-cons-threshold my-gc-cons-threshold))))
+
+(add-hook 'minibuffer-setup-hook #'my-defer-garbage-collection-h)
+(add-hook 'minibuffer-exit-hook #'my-restore-garbage-collection-h)
+
+;; https://github.com/hlissner/doom-emacs/blob/master/docs/faq.org#user-content-unset-file-na me-handler-alist-temporarily
+;; Unset this variable during startup to make Emacs ignore it
+(defvar my-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
+(add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my-file-name-handler-alist)))
+
+;; Load Emacs Lisp packages, and activate them
 (package-initialize)
 
 ;; Evaluate at compile time
 (eval-when-compile (require 'use-package))
 
+;; Check load time for packages
+;; (setq use-package-verbose t)
 ;; Ensure that all packages are installed
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
@@ -30,12 +58,34 @@
   :custom
   (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
+(defun my-inhibit-buffer-messages ()
+  "Set `inhibit-message' buffer-locally."
+  (setq-local inhibit-message t))
+
+;; Aesthetics
 ;; Unfolding an item with emojis is slow, this package fixes this problem
+(defun message-off-advice (oldfun &rest args)
+  "Quiet down messages in adviced OLDFUN."
+  (let ((message-off (make-symbol "message-off")))
+    (unwind-protect
+        (progn
+          (advice-add #'message :around #'ignore (list 'name message-off))
+          (apply oldfun args))
+      (advice-remove #'message message-off))))
 (use-package emojify
-  :hook (after-init . global-emojify-mode))
+  :init
+  :hook (after-init . global-emojify-mode)
+  :config
+  (advice-add #'emojify-resize-emojis :around #'message-off-advice)
+  )
 
 (use-package gruvbox-theme
   :config (load-theme 'gruvbox-light-medium t))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
 
 (add-to-list 'default-frame-alist
              '(font . "DejaVu Sans Mono-13"))
@@ -50,8 +100,7 @@
 
 ;; Remove startup screen and minibuffer message
 (setq inhibit-startup-message t)
-(defun display-startup-echo-area-message ()
-  (message nil))
+(defun display-startup-echo-area-message () (message nil))
 
 ;; Remove emacs' bars
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -75,6 +124,12 @@
 (setq scroll-margin 5)
 (setq scroll-conservatively 5)
 
+;; Avoid being prompted with symbolic link to git-controlled
+(setq vc-follow-symlinks t)
+
+;; ;; Setting it from <C-h>
+(setq help-char (string-to-char "?"))
+
 ;; Loading emacs server is needed by emacsclient
 ;; emacsclient used by clocking
 (load "server")
@@ -87,6 +142,9 @@
 (use-package ws-butler
   :hook ((text-mode . ws-butler-mode)
          (prog-mode . ws-butler-mode)))
+
+;; Better help
+(use-package helpful)
 
 (use-package openwith
   :config
@@ -102,17 +160,14 @@
 
 (use-package which-key
   :init
-  :custom (which-key-idle-delay 1)
+  :custom
+  (which-key-idle-delay 1)
+  (which-key-max-display-columns 3)
   :config (which-key-mode))
 
 ;; Auto close pairs
 (use-package elec-pair
   :ensure nil
-  :hook ((org-mode .  (lambda ()
-                        ;; Ignore < in org mode for yassnippets
-                        (setq electric-pair-inhibit-predicate
-                              (lambda (c)
-                                (if (char-equal c ?\<) t (electric-pair-default-inhibit c)))))))
   :custom (electric-pair-pairs
            '((?\" . ?\")
              (?\$ . ?\$)
@@ -121,6 +176,14 @@
              (?\` . ?\`)
              (?\{ . ?\})))
   :config
+  (defun my-ignore-elec-pairs ()
+    ;; Ignore < in org mode for yassnippets
+    (setq electric-pair-inhibit-predicate
+          (lambda (c)
+            (if (char-equal c ?\<) t (electric-pair-default-inhibit c)))))
+
+  (add-hook 'org-mode-hook 'my-ignore-elec-pairs)
+
   (defun electric-pair ()
     "If at end of line, insert character pair without surrounding spaces.
     Otherwise, just insert the typed character."
@@ -139,14 +202,6 @@
 
 ;; Remove backup files (ends with ~)
 ;; (setq make-backup-files nil)
-;; Avoid being prompted with symbolic link to git-controlled
-(setq vc-follow-symlinks t)
-
-;; Setting it from <C-h>
-(setq help-char (string-to-char "?"))
-
-;; Adjusting text scale
-
 (use-package flyspell
   :ensure nil
   :custom
@@ -163,6 +218,7 @@
                             ;; Remove annoying bindings
                             (evil-define-key nil flyspell-mode-map (kbd "C-,") nil)
                             (evil-define-key nil flyspell-mode-map (kbd "C-M-i") nil)
+
                             ;; Correct last misspelled word
                             (evil-define-key 'insert flyspell-mode-map "\C-l"  'flyspell-auto-correct-previous-word)
                             ;; Spell checking toggle with yos
@@ -206,37 +262,24 @@
   ;; Load basic company backend
   (defun my-append-company-backends ()
     (setq-local company-backends
-                (append '((company-capf)) company-backends)))
+                (append '((company-capf company-jedi company-yasnippet)) company-backends)))
   (add-hook 'org-mode #'my-append-company-backends)
   )
 
-;; Vim leader
-(use-package general
-  :after evil
-  :config
-  (general-evil-setup t)
-  ;; Create leader
-  (general-create-definer my-leader-key-def
-    :keymaps '(normal visual emacs)
-    :prefix ",")
-  (my-leader-key-def
-    "ss" '(lambda () (interactive) (load-file (concat user-emacs-directory "/init.el")))
-    "es" '(lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el")))
-    "h" 'evil-ex-nohighlight
-    "b" 'switch-to-buffer
-    "p" 'find-file)
-
-  (general-define-key
-   :states 'normal
-   "\C-u" 'evil-scroll-up
-   "g:" 'goto-last-change
-   ))
-
 ;; Traverse file changes in git
 (use-package git-timemachine)
+(use-package git-gutter
+  :init
+  :disabled
+  (global-git-gutter-mode t)
+  :config
+  (custom-set-variables
+   '(git-gutter:visual-line t)
+   '(git-gutter:window-width 1))
+  )
 
 (use-package magit
-  :after (evil)
+  :after evil-collection
   :custom
   (evil-collection-magit-use-y-for-yank t)
   (evil-collection-magit-want-horizontal-movement t)
@@ -244,6 +287,7 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
   :config
+
 
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward
@@ -255,9 +299,8 @@
     (shell-command (concat "nvim-qt " file nil)))
   )
 
-
-
 (use-package evil
+  :demand t
   :custom
   ;; Needed by evil-collection
   (evil-want-keybinding nil)
@@ -269,7 +312,7 @@
   ;; Y is y$
   (evil-want-Y-yank-to-eol t)
   ;; Move across physical lines
-  (evil-respect-visual-line-mode t)
+  ;; (evil-respect-visual-line-mode t)
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
   ;; Needed for redo functionality
@@ -283,12 +326,12 @@
   (tab-width 2)
   (evil-shift-width tab-width)
   (indent-tabs-mode nil)
+  (tab-always-indent nil)
   :config
   (evil-mode 1)
   (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
 
   (evil-define-key '(insert normal emacs) 'global (kbd "C-q") 'help)
-
 
   (evil-define-key nil 'global
     (kbd "<escape>") 'keyboard-escape-quit
@@ -296,10 +339,6 @@
     (kbd "C--") 'text-scale-decrease
     (kbd "C-=") '(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
-
-
-  ;; gx opens urls
-  ;; (evil-define-key 'normal org-mode (kbd "gx") 'org-open-at-point)
 
   (require 'evil-exchange)
   ;; change default key bindings (if you want) HERE
@@ -330,9 +369,7 @@
   :config (evil-commentary-mode))
 
 ;; Better sentence navigation with ) & (
-(use-package sentence-navigation
-  :ensure t
-  :defer t)
+(use-package sentence-navigation)
 
 (use-package evil-surround
   :after evil
@@ -400,6 +437,7 @@
       (load-theme 'gruvbox-light-medium t)))
 
   (evil-collection-define-operator-key 'yank 'global-map "ob" #'my-trigger-theme)
+  (evil-collection-define-operator-key 'yank 'global-map "ow" #'visual-line-mode)
 
   (dolist (map '(minibuffer-local-map
                  minibuffer-local-ns-map
@@ -430,34 +468,23 @@
   :hook ((org-mode . my-org-mode-setup))
   :custom
   (org-ellipsis " ▾")
-  (org-hide-emphasis-markers t)              ;; Hide symbols
+  (org-hide-emphasis-markers t "Hide symbols")
   (org-startup-folded 'content)
   (org-startup-folded t)
   (org-enforce-todo-dependencies t)
-  (org-cycle-separator-lines -1)             ;; No empty lines needed to fold subtrees
+  (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
   (org-startup-with-inline-images t)
   (org-image-actual-width nil)
-  ;; Source code indentation
-  (org-src-preserve-indentation nil)
-  (org-fontify-quote-and-verse-blocks t)
-  (org-src-fontify-natively t)               ;; Syntax highlight in #+BEGIN_SRC blocks
-  (org-src-tab-acts-natively t)
-  (org-edit-src-content-indentation 0)
-  ;; Exporting settings
-  (org-export-with-broken-links t)
-  (org-export-preserve-breaks t)
-  (org-export-with-todo-keywords nil)
-  (org-confirm-babel-evaluate nil)
   ;; Remove completed deadline, scheduled, completed from agenda
   ;; The time when it get closed will be shown
   (org-agenda-skip-deadline-if-done t)
-
   (org-agenda-skip-scheduled-if-done t)
   (org-agenda-skip-timestamp-if-done t)
+  (org-agenda-start-day "-3d")
   (org-deadline-warning-days 7)
   (org-agenda-compact-blocks t)
   (org-agenda-block-separator nil)
-  (org-agenda-start-on-weekday nil)           ;; Show today +7 days
+  (org-agenda-start-on-weekday nil "Show today +7 days")
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
@@ -475,13 +502,8 @@
                   (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "DejaVu Sans Mono-13" :weight 'regular :height (cdr face)))
 
+  ;; Doesn't work in use-package
   (custom-set-faces
-   '(org-block ((t (:inherit fixed-pitch))))
-   ;; Background is nil because org-block-end-line background shows in header
-   ;; Check https://github.com/doomemacs/themes/issues/453
-   '(org-block-begin-line ((t (:background nil :weight bold))))
-   '(org-block-end-line ((t (:background nil :weight bold))))
-   '(org-code ((t (:inherit (shadow fixed-pitch)))))
    '(org-document-info ((t (:foreground "dark orange"))))
    '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
    '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
@@ -492,6 +514,14 @@
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
    '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
+  ;; Show links in minibuffer upon hovering
+  (defun link-message ()
+    (let ((object (org-element-context)))
+      (when (eq (car object) 'link)
+        (message "%s"
+                 (org-element-property :raw-link object)))))
+
+  (add-hook 'post-command-hook 'link-message)
 
   ;; Keywords
   (setq org-todo-keywords
@@ -511,7 +541,7 @@
 
   ;; Save Org buffers after refiling!
   (add-hook 'org-refile :after '(lambda () (interactive) (let ((inhibit-message t))
-                                                             (org-save-all-org-buffers))))
+                                                           (org-save-all-org-buffers))))
 
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -553,7 +583,7 @@
   (advice-add 'org-agenda-quit :before '(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
 
   ;; Don't open a new window after clicking in agenda
-  (evil-define-key 'motion org-agenda-mode-map (kbd "<return>") '(lambda() (interactive) (org-agenda-switch-to t)))
+  ;; (evil-define-key 'motion org-agenda-mode-map (kbd "<return>") '(lambda() (interactive) (org-agenda-switch-to t)))
 
   ;; Log the state change
   (setq org-agenda-start-with-log-mode t)
@@ -589,19 +619,20 @@
            (
             (todo "DONE")
             (alltodo "test" ((org-super-agenda-groups
-                          '((:priority "A")
-                            (:priority "B")
-                            (:tag "Productivity")
-                            (:name "Short"
-                                   :tag "effort< 1:01")
-                            (:auto-category)
-                            ))))
+                              '((:priority "A")
+                                (:priority "B")
+                                (:tag "Productivity")
+                                (:name "Short"
+                                       :tag "effort< 1:01")
+                                (:auto-category)
+                                ))))
             )
            ))
         )
 
 
   (use-package org-super-agenda
+    ;; Should be loaded at the start
     :init (org-super-agenda-mode)
     :config
     (evil-define-key 'motion 'org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
@@ -657,6 +688,13 @@
   (my-add-to-agenda-files (concat (getenv "HOME") "/notes/org/capture.org"))
 
   ;; Clocking
+  (setq org-clock-persist 'history ;; Save clock history on Emacs close
+        ;; Resume when clocking into task with open clock
+        org-clock-in-resume t
+        ;; Remove log if task was clocked for 0:00 (accidental clocking)
+        org-clock-out-remove-zero-time-clocks t
+        ;; The default value (5) is too conservative.
+        org-clock-history-length 20)
   ;; Clock in clock out hooks with Polybar
   (add-hook 'org-clock-in-hook
             '(lambda () (shell-command (concat "/bin/echo -e "
@@ -670,6 +708,40 @@
   (dolist (hook '(org-clock-out-hook
                   org-clock-cancel-hook))
     (add-hook hook (lambda () (shell-command "/bin/rm /tmp/org_current_task"))))
+
+  (defun my-org-toggle-last-clock (arg)
+    "Toggles last clocked item.
+Clock out if an active clock is running (or cancel it if prefix ARG is non-nil).
+If no clock is active, then clock into the last item. See `org-clock-in-last' to
+see how ARG affects this command."
+    (interactive "P")
+    (require 'org-clock)
+    (cond ((org-clocking-p)
+           (if arg
+               (org-clock-cancel)
+             (org-clock-out)))
+          ((and (null org-clock-history)
+                (or (org-on-heading-p)
+                    (org-at-item-p))
+                (y-or-n-p "No active clock. Clock in on current item?"))
+           (org-clock-in))
+          ((org-clock-in-last arg))))
+
+  ;; Source code indentation
+  (setq org-src-preserve-indentation t
+        org-fontify-quote-and-verse-blocks t
+        org-src-fontify-natively t               ;; Syntax highlight in #+BEGIN_SRC blocks
+        org-confirm-babel-evaluate nil
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 0)
+
+  (custom-set-faces
+   '(org-block ((t (:inherit fixed-pitch))))
+   ;; Background is nil because org-block-end-line background shows in header
+   ;; Check https://github.com/doomemacs/themes/issues/453
+   '(org-block-begin-line ((t (:background nil :weight bold))))
+   '(org-block-end-line ((t (:background nil :weight bold))))
+   '(org-code ((t (:inherit (shadow fixed-pitch))))))
 
   ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
@@ -693,30 +765,21 @@
 
   ;; Go in the block with insert mode after inserting it
   (advice-add 'org-insert-structure-template :after '(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
-
-  (my-leader-key-def
-    "o"   '(:ignore t :which-key "org mode")
-
-    "oi"  '(:ignore t :which-key "insert")
-    "oil" '(org-insert-link :which-key "insert link")
-
-    "on"  '(org-toggle-narrow-to-subtree :which-key "toggle narrow")
-    "ol"  '(org-latex-preview :which-key "latex preview")
-    "ob"  '(org-switchb :which-key "switch buffer")
-    "od"  '(deft :which-key "search in org files")
-
-    "oa"  '(org-agenda :which-key "status")
-    "ot"  '(org-todo-list :which-key "todos")
-    "oc"  '((lambda () (interactive) (org-capture nil "d")) :which-key "capture"))
-
-  ;; To export to markdown
-  (require 'ox-md)
-
-  ;; Update the document header for latex preview
-  (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
-  ;; Latex image size
-  (plist-put org-format-latex-options :scale 1.5)
   )
+
+;; To export to markdown
+(require 'ox-md)
+
+;; Exporting settings
+(setq org-export-with-broken-links t
+      org-export-preserve-breaks t
+      org-export-with-todo-keywords nil)
+
+;; Update the document header for latex preview
+(setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+;; Latex image size
+(plist-put org-format-latex-options :scale 1.5)
+
 
 ;; Previewing Latex fragments
 (use-package auctex
@@ -737,15 +800,15 @@
   (org-appear-trigger 'manual)
   :hook ((org-mode . org-appear-mode)
          (evil-org-mode . (lambda ()
+                            ;; Show marks in insert mode
                             (add-hook 'evil-insert-state-entry-hook #'org-appear-manual-start nil t)
                             (add-hook 'evil-insert-state-exit-hook #'org-appear-manual-stop nil t))))
   )
 
-
 (use-package evil-org
   :after org
-  ;; Ignore leading stars or tags on headings for appending end of line of going to start of line
   :custom
+  ;; Ignore leading stars or tags on headings for appending end of line of going to start of line
   (org-special-ctrl-a/e t)
   ;; Enabled, because evil has a bug with repeat command and shifting
   (evil-org-retain-visual-state-on-shift t)
@@ -755,10 +818,14 @@
                             (evil-org-set-key-theme '(textobjects insert navigation todo calendar additional))
                             ;; Insert heading bindings
                             (evil-define-key '(normal insert) 'evil-org-mode
-                              (kbd "M-L") 'org-shiftright
-                              (kbd "M-H") 'org-shiftleft
-                              (kbd "M-K") 'org-shiftup
-                              (kbd "M-J") 'org-shiftdown
+                              (kbd "M-L") 'org-shiftmetaright
+                              (kbd "M-H") 'org-shiftmetaleft
+                              (kbd "M-K") 'org-shiftmetaup
+                              (kbd "M-J") 'org-shiftmetadown
+                              (kbd "C-S-l") 'org-shiftright
+                              (kbd "C-S-h") 'org-shiftleft
+                              (kbd "C-S-k") 'org-shiftup
+                              (kbd "C-S-j") 'org-shiftdown
                               (kbd "<C-return>") '(lambda () (interactive) (org-insert-heading-after-current) (evil-insert 0))
                               (kbd "<C-S-return>") '(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0))
                               ;; Move to beginning of line before insert heading, otherwise org-insert-heading will insert below
@@ -775,15 +842,19 @@
                                                       ))))))
   :config
   (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+
+  (evil-define-key 'normal 'evil-org-mode
+    "zi"  #'org-toggle-inline-images
+    "zl"  #'org-latex-preview)
 
   ;; Don't display a buffer when finishing async-shell-command
   (setq display-buffer-alist '(("\\*Async Shell Command\\*" . (display-buffer-no-window))))
   (defun update_i3_focus_window_config ()
-      "Changes i3 focus_window_configuration"
-      (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
-      (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none " " && sleep 2 && " path_to_script " smart")))
+    "Changes i3 focus_window_configuration"
+    (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
+    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none " " && sleep 2 && " path_to_script " smart")))
 
-  (evil-org-agenda-set-keys)
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
   )
 
@@ -830,15 +901,6 @@
 
   ;; Add to jump list after visiting a node
   (advice-add 'org-roam-node-find :override #'my-org-roam-node-find)
-
-  (my-leader-key-def
-    "r"   '(:ignore t :which-key "org-roam mode")
-
-    "rl" '(org-roam-buffer-toggle :which-key "links to this node")
-    "rf" '((lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) :which-key "find node")
-
-    "ri"  '(org-roam-node-insert :which-key "insert node")
-    "rg"  '(org-roam-ui-mode :which-key "graph of nodes"))
   )
 
 (use-package websocket
@@ -857,13 +919,27 @@
 
 (use-package vertico
   :init (vertico-mode)
-  :custom (vertico-cycle t)
+  :custom
+  (vertico-cycle t)
+  (vertico-resize nil)
+  (vertico-count 14)
+  (vertico-cycle t)
+  (completion-in-region-function
+   (lambda (&rest args)
+     (apply (if vertico-mode
+                #'consult-completion-in-region
+              #'completion--in-region)
+            args)))
   :config
   (when evil-collection-setup-minibuffer
     ;; Open buffer in a new window, uses embark's v and x
     (evil-collection-define-key 'insert 'vertico-map (kbd "C-v") (kbd "C-. v"))
     (evil-collection-define-key 'insert 'vertico-map (kbd "C-x") (kbd "C-. x")))
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
+
   )
+
+(use-package counsel)
 
 (use-package embark
   :bind (("C-." . embark-act))
@@ -891,6 +967,7 @@
       (org-roam-node-find)
       (advice-remove 'org-roam-node-visit 'evil-window-new)))
   )
+
 
 ;; Improves Vertico's completion
 (use-package orderless
@@ -949,16 +1026,9 @@
 
 ;; ORG NOTIFICATION
 (use-package appt
-  :ensure nil
   :after org
-  :config
-  (appt-activate 1)
-
-  ;; Update appt after saving file
-  (add-hook 'after-save-hook
-            '(lambda ()
-               (if (string= (file-name-directory buffer-file-name) (concat (getenv "HOME") "/notes/org/"))
-                   (org-agenda-to-appt-clear-message))))
+  :ensure nil
+  :config (appt-activate 1)
 
   (setq appt-time-msg-list nil                      ;; clear existing appt list
         appt-message-warning-time '10                    ;; send first warning before appointment
@@ -979,8 +1049,220 @@
     (message nil))
 
   (defun org-agenda-to-appt-clear-message ()
-    (interactive) (setq appt-time-msg-list nil) (org-agenda-to-appt) (message nil))
+    (interactive) (let ((inhibit-message t)) (setq appt-time-msg-list nil) (org-agenda-to-appt)))
 
-  (org-agenda-to-appt-clear-message)                                     ;; generate the appt list from org agenda files on emacs launch
-  (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt-clear-message) ;; update appt list on agenda view
+  ;; generate the appt list from org agenda files on emacs launch
+  (run-at-time nil 3600 'org-agenda-to-appt))
+
+;; Misc
+;; Auto update to window size
+(use-package golden-ratio
+  :init (golden-ratio-mode 1)
+  :after evil
+  :config
+  (advice-add 'evil-window-down :after 'golden-ratio)
+  (advice-add 'evil-window-up :after 'golden-ratio)
+  (advice-add 'evil-window-right :after 'golden-ratio)
+  (advice-add 'evil-window-left :after 'golden-ratio)
   )
+
+;; Vim leader
+(use-package general
+  :after (evil evil-collection hydra)
+  :config
+  (general-evil-setup t)
+
+  (general-define-key
+   :states 'normal
+   "\C-u" 'evil-scroll-up
+   "g:" 'goto-last-change
+   )
+
+  (general-define-key
+   :states '(normal visual motion)
+   :keymaps 'global
+   "," 'main-hydra/body)
+
+  (general-define-key
+   :states 'insert
+   :keymaps 'global
+   "S-," 'main-hydra/body)
+
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               (general-define-key
+                :states '(normal visual motion)
+                :keymaps 'local
+                "," 'org-hydra/body)
+               (general-define-key
+                :states '(insert)
+                :keymaps 'local
+                "M-," 'org-hydra/body))
+            )
+
+  (add-hook 'org-agenda-mode-hook
+            '(lambda ()
+               (general-define-key
+                :states '(normal visual motion)
+                :keymaps 'local
+                "," 'agenda-hydra/body))
+            )
+  )
+
+(defhydra main-hydra (:exit t :idle 1)
+  (" '" vertico-repeat "resume last search" :column " general")
+  (" H" help-hydra/body "help")
+  (" h" evil-ex-nohighlight "highlight")
+  (" b" switch-to-buffer "Switch buffer")
+  (" g" git-hydra/body "git")
+  (" x" (lambda () (interactive) (org-capture nil)) "capture")
+  (" i" insert-hydra/body "insert")
+  ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
+  ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
+  )
+
+(defhydra git-hydra (:exit t :hint nil :idle 1)
+  (" r" git-gutter:revert-hunk "revert hunk" :column " hunks")
+  (" ]" git-gutter:next-hunk  "next hunk")
+  (" [" git-gutter:previous-hunk "previous hunk")
+  (" g" magit-status "status" :column " magit")
+  (" c" magit-show-commit "show commit")
+  (" L" magit-log-buffer-file "log")
+
+  (" t" git-timemachine-toggle "toggle" :column " timemachine")
+  )
+
+(defhydra help-hydra (:exit t :idle 1)
+  (" a" consult-apropos "apropos interactive" :column " help")
+  (" A" apropos "apropos")
+  (" k" helpful-key "key")
+
+  (" b" embark-bindings "binding")
+  (" f" helpful-callable "function")
+  (" c" helpful-command "command")
+  (" p" helfpul-at-point "at point")
+  (" l" find-library "library file")
+  (" L" apropos-library "library commands" :column "")
+  (" m" describe-mode "all modes")
+  (" M" my-describe-active-minor-mode "one mode")
+  (" d" apropos-documentation "doc")
+  (" v" helpful-variable "var")
+  (" V" my-help-custom-variable "my-custom-var")
+  (" o" apropos-user-option "option")
+  (" e" apropos-value "value")
+  )
+
+;; Org
+(defhydra org-hydra (:hint nil :exit t :idle 1 :inherit (main-hydra/heads))
+  (" *" org-ctrl-c-star "make header" :column " org")
+  (" +" org-ctrl-c-minus "make item")
+  (" c" org-clock-hydra/body "clock")
+  (" r" roam-hydra/body "refile")
+  (" o" org-org-hydra/body "org")
+  (" a" org-agenda "agenda")
+  (" p" org-set-property "set property")
+  )
+
+(defhydra org-clock-hydra (:exit t :hint nil :idle 1)
+  (" i" org-clock-in "in" :column "clock")
+  (" o" org-clock-out "out")
+  (" t" my-org-toggle-last-clock " toggle")
+  (" c" org-clock-cancel "cancel")
+  (" g" org-clock-h "goto" :column "")
+  (" e" org-set-effort "effort")
+  (" r" org-clock-report "report")
+  )
+
+(defhydra roam-hydra (:exit t :idle 1)
+  (" f" org-roam-node-find                "find node" :column " node")
+  (" i" org-roam-node-insert              "insert node")
+  (" r" org-roam-buffer-toggle            "linked to here")
+  (" R" org-roam-buffer-display-dedicated "linked to a node")
+  (" g" org-roam-ui-mode                  "graph" :column " ")
+  (" a" org-roam-alias-add                "add alias")
+  (" s" org-roam-db-sync                 "sync")
+  )
+
+(defhydra org-org-hydra (:exit t :idle 1)
+  (" r" org-refile-hydra/body "refile" :column " org")
+  (" l" org-links-hydra/body "links")
+  (" e" org-export-dispatch "export")
+  (" g" org-goto-hydra/body "goto")
+  )
+
+(defhydra org-goto-hydra-hydra (:exit t :idle 1)
+  (" g" consult-org-heading "file" :column " goto")
+  (" G" consult-org-agenda "all")
+  (" x" org-capture-goto-last-stored "capture")
+  )
+
+(defhydra org-refile-hydra (:exit t :idle 1)
+  (" ." my-org/refile-to-current-file "current file" :column " refile")
+  (" c" my-org/refile-to-running-clock "clock")
+  (" r" org-refile "agenda")
+  (" g" org-refile-goto-last-stored "goto refile")
+  )
+
+(defhydra org-links-hydra (:exit t :idle 1)
+  (" s" org-store-link "store" :column " links")
+  (" t" org-toggle-link-display "toggle")
+  (" i" org-insert-last-stored-link "insert last")
+  )
+
+(defun my-org-refile-to-current-file (arg &optional file)
+  "Refile current heading to elsewhere in the current buffer.
+If prefix ARG, copy instead of move."
+  (interactive "P")
+  (let ((org-refile-targets `((,file :maxlevel . 10)))
+        (org-refile-use-outline-path t)
+        (org-refile-keep arg)
+        current-prefix-arg)
+    (call-interactively #'org-refile)))
+
+(defun my-org-refile-to-running-clock (arg)
+  "Refile current heading to the currently clocked in task.
+If prefix ARG, copy instead of move."
+  (interactive "P")
+  (unless (bound-and-true-p org-clock-current-task)
+    (user-error "No active clock to refile to"))
+  (let ((org-refile-keep arg))
+    (org-refile 2)))
+
+;; Agenda
+(defhydra agenda-hydra (:exit t :idle 1 :inherit (main-hydra/heads))
+  ("c" agenda-clock-hydra/body " clock")
+  ("v" agenda-view-hydra/body " view")
+  ("r" org-agenda-refile "refile")
+  ("f"	org-agenda-follow-mode "follow"))
+
+(defhydra agenda-clock-hydra (:exit t :idle 1)
+  ("c" org-agenda-clock-cancel "cancel")
+  ("g" org-agenda-clock-goto "goto")
+  ("i" org-agenda-clock-in "in")
+  ("o" org-agenda-clock-out "out")
+  ("r" org-agenda-clockreport-mode "report"))
+
+(defhydra agenda-view-hydra (:exit t :idle 1)
+  ("d"	org-agenda-day-view "day")
+  ("w"	org-agenda-week-view "week")
+  ("m"	org-agenda-month-view "month")
+  ("y"	org-agenda-year-view "year"))
+
+(defun my-active-minor-modes ()
+  "Return a list of active minor-mode symbols."
+  (cl-loop for mode in minor-mode-list
+           if (and (boundp mode) (symbol-value mode))
+           collect mode))
+
+(defun my-describe-active-minor-mode (mode)
+  "Get information on an active minor mode. Use `describe-minor-mode' for a
+selection of all minor-modes, active or not."
+  (interactive
+   (list (completing-read "Describe active mode: " (my-active-minor-modes))))
+  (let ((symbol
+         (cond ((stringp mode) (intern mode))
+               ((symbolp mode) mode)
+               ((error "Expected a symbol/string, got a %s" (type-of mode))))))
+    (if (fboundp symbol)
+        (helpful-function symbol)
+      (helpful-variable symbol))))
