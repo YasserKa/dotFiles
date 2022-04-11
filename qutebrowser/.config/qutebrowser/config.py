@@ -49,6 +49,7 @@ c.bindings.commands = {
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "Configuration file sourced"',
         ',h': 'search',
+        ',c': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-capture write',
 
         ',od': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
         ',ord': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent',
@@ -78,33 +79,33 @@ c.bindings.commands = {
         '<z><p><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-bitwarden --password-only',
     },
     'insert': {
-        '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
-        '<Ctrl-h>': 'fake-key <backspace>',
+            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
+            '<Ctrl-h>': 'fake-key <backspace>',
 
-        '<Ctrl-p>': 'fake-key <Up>',
-        '<Ctrl-n>': 'fake-key <Down>',
-        '<Ctrl-j>': 'fake-key <enter>',
-    },
+            '<Ctrl-p>': 'fake-key <Up>',
+            '<Ctrl-n>': 'fake-key <Down>',
+            '<Ctrl-j>': 'fake-key <enter>',
+            },
     'caret': {
-        'o': 'open selection',
-        'O': 'open -t selection',
-    },
+            'o': 'open selection',
+            'O': 'open -t selection',
+            },
     'passthrough': {
-        '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
-        '<Ctrl-h>': 'fake-key <backspace>',
+            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
+            '<Ctrl-h>': 'fake-key <backspace>',
 
-        '<Ctrl-p>': 'fake-key <Up>',
-        '<Ctrl-n>': 'fake-key <Down>',
-        '<Ctrl-j>': 'fake-key <enter>',
+            '<Ctrl-p>': 'fake-key <Up>',
+            '<Ctrl-n>': 'fake-key <Down>',
+            '<Ctrl-j>': 'fake-key <enter>',
 
-        '<Ctrl-Shift-v>': 'mode-leave',
-    },
+            '<Ctrl-Shift-v>': 'mode-leave',
+            },
 
     'command': {
-        '<Ctrl-p>': 'completion-item-focus --history prev',
-        '<Ctrl-n>': 'completion-item-focus --history next',
-        '<Ctrl-w>': 'rl-backward-kill-word',
-    },
+            '<Ctrl-p>': 'completion-item-focus --history prev',
+            '<Ctrl-n>': 'completion-item-focus --history next',
+            '<Ctrl-w>': 'rl-backward-kill-word',
+            },
 }
 config.unbind(':', mode='normal')
 
@@ -154,7 +155,7 @@ c.tabs.title.format = '{current_title}'
 # Don't show file browser in download prompt
 c.prompt.filebrowser = False
 c.downloads.location.suggestion = 'both'
-c.downloads.remove_finished = 30000
+c.downloads.remove_finished = 0
 
 c.editor.command = ["nvim-qt", "{file}", "--nofork" ]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
