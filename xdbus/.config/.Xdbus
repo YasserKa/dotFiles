@@ -1,24 +1,35 @@
 # used by cron
 
-# Used by polybar-msg for hooks
-DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-export DBUS_SESSION_BUS_ADDRESS
+EDITOR=nvim
+export EDITOR
 
-XAUTHORITY=/home/yasser/.Xauthority
+DISPLAY=:0
+export DISPLAY
+
+USERNAME=yasser
+export USERNAME
+
+HOME=/home/yasser
+export HOME
+
+XDG_CONFIG_HOME=$HOME/.config
+export XDG_CONFIG_HOME
+
+XAUTHORITY=$HOME/.Xauthority
 export XAUTHORITY
 
 XDG_RUNTIME_DIR=/run/user/1000
 export XDG_RUNTIME_DIR
 
 # Used by mutt
-XDG_DATA_HOME=/home/yasser/.local/share
+XDG_DATA_HOME=$HOME/.local/share
 export XDG_DATA_HOME
 
-USERNAME=yasser
-export USERNAME
-HOME=/home/yasser
-export HOME
-XDG_CONFIG_HOME=/home/yasser/.config
-export XDG_CONFIG_HOME
+XDG_CACHE_HOME=$HOME/.cache
+export XDG_CACHE_HOME
+
+# Used by polybar-msg for hooks
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+export DBUS_SESSION_BUS_ADDRESS
 
 # vim: filetype=sh

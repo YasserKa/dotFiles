@@ -25,22 +25,22 @@ alias h='history'
 alias hg='history | grep'
 
 # sync notes
-alias sync_org="wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org'"
+alias sync_org="wait_internet && rclone sync $HOME/notes/org remote:org --include 'fast_access.org' --include 'groceries.org'"
 alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 
 # shutdown
 # don't shutdown if there's an unsaved note file (checked via existence of symbolic linked file)
-alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org' && shutdown -r now || dunstify 'unsaved file'"
-alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org remote:org --include '*.org' && shutdown now || dunstify 'unsaved file'"
+alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
+alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
 
 # alternatives
 alias top='htop'
 alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # colorful
-[[ -x /usr/bin/dircolors ]] && eval "$(dircolors -b)"
-alias ls='ls --color=auto'
-alias ll='ls -alF'
+
+alias ls='ls --hyperlink=auto --color=auto "$@"'
+alias ll='ls -alF --hyperlink=auto --color=auto "$@"'
 alias grep='grep --color=auto'
 # Disabled for now, because it doesn't support --hyperlink that's used in kitty
 # alias ls='exa --color=auto'
@@ -51,6 +51,7 @@ alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
 alias alsamixer='alsamixer -c 1'
+alias networkmanager_rofi="networkmanager_dmenu -lines 5 -monitor -2 -location 0"
 
 # prompt before overriding
 alias mv='mv -i'

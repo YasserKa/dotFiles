@@ -22,7 +22,9 @@ case $1 in
 
             (add-hook 'org-capture-after-finalize-hook (lambda () (interactive)
             (start-process-shell-command \"\" nil \"i3-msg '[title=$title]
-            scratchpad show'\")))
+            scratchpad show'\")
+           (org-save-all-org-buffers)
+            ))
             (add-hook 'emacs-init-hook (lambda () (interactive) (org-capture nil \"d\"))
             (advice-add 'org-capture-refile :override 'org-capture-refile-override))
             )" &

@@ -319,7 +319,7 @@ history_ignore = yes
 [mail]
 appname = neomutt
 new_icon = neomutt-64
-timeout = 10000
+timeout = 10
 
 [tea]
 summary = "*Tea*"

@@ -38,7 +38,7 @@ function clock_cancel () {
 
 
 function get_time_spent () {
-    [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
+    [[ ! -e $TMP_FILE_PATH ]] && echo "" && return
 
     TIME_SINCE_CREATION=$(echo $(($(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))/60)))
 

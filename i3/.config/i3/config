@@ -220,7 +220,7 @@ bindsym $mod+e exec --no-startup-id manage_notes emacs
 for_window [title="^tmp_tex$"] floating enable
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/latex_notes
 
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec $TERMINAL
 bindsym $mod+Shift+q kill
 bindsym $mod+shift+x exec i3lock --color 000000
 

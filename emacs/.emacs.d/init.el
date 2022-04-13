@@ -94,7 +94,7 @@
                    (display-line-numbers-mode)
                    (setq display-line-numbers 'relative))))
 
-;; Remove startup screen and minibuffer message
+;; Remove startup screen and miniuffer message
 (setq inhibit-startup-message t)
 (defun display-startup-echo-area-message () (message nil))
 
@@ -1092,13 +1092,16 @@ see how ARG affects this command."
   :config
   (defun my/toggle-evil-window-keys-golden-ratio ()
     (if (bound-and-true-p golden-ratio-mode)
+        ;; Enable
         (progn
           (advice-add 'evil-window-down :after 'golden-ratio)
           (advice-add 'evil-window-up :after 'golden-ratio)
           (advice-add 'evil-window-right :after 'golden-ratio)
           (advice-add 'evil-window-left :after 'golden-ratio)
           )
+        ;; Disable
       (progn
+        (balanace-windows)
         (advice-remove 'evil-window-down  'golden-ratio)
         (advice-remove 'evil-window-up  'golden-ratio)
         (advice-remove 'evil-window-right  'golden-ratio)

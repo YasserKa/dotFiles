@@ -30,7 +30,7 @@ export PROMPT_COMMAND='history -a'
 # fzf
 # use .ignore
 export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --hidden --ignore .git -g ""'
-export FZF_DEFAULT_OPTS="--bind=ctrl-j:accept --color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}'"
+export FZF_DEFAULT_OPTS="--bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up' --color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}'"
 
 # configurations in one place
 [ "$XDG_CONFIG_HOME" ] || export XDG_CONFIG_HOME="$HOME/.config"
