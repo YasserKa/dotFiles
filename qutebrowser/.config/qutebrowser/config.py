@@ -49,7 +49,7 @@ c.bindings.commands = {
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "Configuration file sourced"',
         ',h': 'search',
-        ',c': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-capture write',
+        ',c': 'spawn emacsclient org-protocol://capture?template=qutebrowser&url={url}&title={title}',
 
         ',od': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
         ',ord': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent',

@@ -4,34 +4,34 @@
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-
 ;; Raise gc while during startup and when minibuffer is active
-(defun my-defer-garbage-collection-h ()
+(defun my/defer-garbage-collection-h ()
   (setq gc-cons-threshold most-positive-fixnum))
 
-(setq my-gc-cons-threshold 16777216) ;; 16mb
+(setq my/gc-cons-threshold 16777216) ;; 16mb
 
 ;; Startup
-(my-defer-garbage-collection-h)
+(my/defer-garbage-collection-h)
 
-(add-hook 'emacs-init-hook (lambda () (setq gc-cons-threshold my-gc-cons-threshold)))
+(add-hook 'emacs-init-hook (lambda () (setq gc-cons-threshold my/gc-cons-threshold)))
+
 
 ;; Minibuffer
-(defun my-restore-garbage-collection-h ()
+(defun my/restore-garbage-collection-h ()
   ;; Defer it so that commands launched immediately after will enjoy the
   ;; benefits.
   (run-at-time
-   1 nil (lambda () (setq gc-cons-threshold my-gc-cons-threshold))))
+   1 nil (lambda () (setq gc-cons-threshold my/gc-cons-threshold))))
 
-(add-hook 'minibuffer-setup-hook #'my-defer-garbage-collection-h)
-(add-hook 'minibuffer-exit-hook #'my-restore-garbage-collection-h)
+(add-hook 'minibuffer-setup-hook #'my/defer-garbage-collection-h)
+(add-hook 'minibuffer-exit-hook #'my/restore-garbage-collection-h)
 
 ;; https://github.com/hlissner/doom-emacs/blob/master/docs/faq.org#user-content-unset-file-na me-handler-alist-temporarily
 ;; Unset this variable during startup to make Emacs ignore it
-(defvar my-file-name-handler-alist file-name-handler-alist)
+(defvar my/file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
-(add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my-file-name-handler-alist)))
+(add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my/file-name-handler-alist)))
 
 ;; Load Emacs Lisp packages, and activate them
 (package-initialize)
@@ -58,13 +58,7 @@
   :custom
   (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
-(defun my-inhibit-buffer-messages ()
-  "Set `inhibit-message' buffer-locally."
-  (setq-local inhibit-message t))
-
-;; Aesthetics
-;; Unfolding an item with emojis is slow, this package fixes this problem
-(defun message-off-advice (oldfun &rest args)
+(defun my/message-off-advice (oldfun &rest args)
   "Quiet down messages in adviced OLDFUN."
   (let ((message-off (make-symbol "message-off")))
     (unwind-protect
@@ -72,11 +66,13 @@
           (advice-add #'message :around #'ignore (list 'name message-off))
           (apply oldfun args))
       (advice-remove #'message message-off))))
+
+;; Aesthetics
+;; Unfolding an item with emojis is slow, this package fixes this problem
 (use-package emojify
   :init
   :hook (after-init . global-emojify-mode)
   :config
-  (advice-add #'emojify-resize-emojis :around #'message-off-advice)
   )
 
 (use-package gruvbox-theme
@@ -130,11 +126,6 @@
 ;; ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
 
-;; Loading emacs server is needed by emacsclient
-;; emacsclient used by clocking
-(load "server")
-(unless (server-running-p) (server-start))
-
 ;; Exit emacs without getting a prompt to kill processes
 (setq confirm-kill-processes nil)
 
@@ -176,13 +167,13 @@
              (?\` . ?\`)
              (?\{ . ?\})))
   :config
-  (defun my-ignore-elec-pairs ()
+  (defun my/ignore-elec-pairs ()
     ;; Ignore < in org mode for yassnippets
     (setq electric-pair-inhibit-predicate
           (lambda (c)
             (if (char-equal c ?\<) t (electric-pair-default-inhibit c)))))
 
-  (add-hook 'org-mode-hook 'my-ignore-elec-pairs)
+  (add-hook 'org-mode-hook 'my/ignore-elec-pairs)
 
   (defun electric-pair ()
     "If at end of line, insert character pair without surrounding spaces.
@@ -201,6 +192,10 @@
   )
 
 ;; Remove backup files (ends with ~)
+;; Remove auto-recover files
+(setq auto-save-default nil)
+(setq ad-redefinition-action 'accept)
+
 ;; (setq make-backup-files nil)
 (use-package flyspell
   :ensure nil
@@ -260,10 +255,10 @@
   :config
 
   ;; Load basic company backend
-  (defun my-append-company-backends ()
+  (defun my/append-company-backends ()
     (setq-local company-backends
                 (append '((company-capf company-jedi company-yasnippet)) company-backends)))
-  (add-hook 'org-mode #'my-append-company-backends)
+  (add-hook 'org-mode #'my/append-company-backends)
   )
 
 ;; Traverse file changes in git
@@ -291,10 +286,10 @@
 
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward
-    (kbd "<return>") 'my-vil-diff-visit-file)
+    (kbd "<return>") 'my/vil-diff-visit-file)
 
   ;; Open file using nvim
-  (defun my-vil-diff-visit-file (file &optional other-window)
+  (defun my/vil-diff-visit-file (file &optional other-window)
     (interactive (list (magit-file-at-point t t) current-prefix-arg))
     (shell-command (concat "nvim-qt " file nil)))
   )
@@ -337,8 +332,16 @@
     (kbd "<escape>") 'keyboard-escape-quit
     (kbd "C-+") 'text-scale-increase
     (kbd "C--") 'text-scale-decrease
-    (kbd "C-=") '(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
+    (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
+
+  (use-package evil-vimish-fold
+    :init
+    (add-hook 'prog-mode-hook 'evil-vimish-fold-mode)
+    :config
+    (use-package vimish-fold)
+    )
+
 
   (require 'evil-exchange)
   ;; change default key bindings (if you want) HERE
@@ -430,13 +433,13 @@
     ":" ";")
 
   ;; Trigger the background theme
-  (defun my-trigger-theme ()
+  (defun my/trigger-theme ()
     (interactive)
     (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
         (load-theme 'gruvbox-dark-soft t)
       (load-theme 'gruvbox-light-medium t)))
 
-  (evil-collection-define-operator-key 'yank 'global-map "ob" #'my-trigger-theme)
+  (evil-collection-define-operator-key 'yank 'global-map "ob" #'my/trigger-theme)
   (evil-collection-define-operator-key 'yank 'global-map "ow" #'visual-line-mode)
 
   (dolist (map '(minibuffer-local-map
@@ -452,7 +455,7 @@
     (evil-collection-define-key 'insert map (kbd "C-q") 'help))
   )
 
-(defun my-org-mode-setup ()
+(defun my/org-mode-setup ()
   ;; Indentation for headings and items
   (org-indent-mode)
   ;; Automatically break lines
@@ -465,7 +468,7 @@
 (use-package org
   :defer t
   :ensure org-contrib
-  :hook ((org-mode . my-org-mode-setup))
+  :hook ((org-mode . my/org-mode-setup))
   :custom
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t "Hide symbols")
@@ -514,15 +517,6 @@
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
    '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
-  ;; Show links in minibuffer upon hovering
-  (defun link-message ()
-    (let ((object (org-element-context)))
-      (when (eq (car object) 'link)
-        (message "%s"
-                 (org-element-property :raw-link object)))))
-
-  (add-hook 'post-command-hook 'link-message)
-
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
@@ -539,10 +533,6 @@
         '(("productivity" . ?p)
           ("important" . ?i)))
 
-  ;; Save Org buffers after refiling!
-  (add-hook 'org-refile :after '(lambda () (interactive) (let ((inhibit-message t))
-                                                           (org-save-all-org-buffers))))
-
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
                              (org-buffer-list :maxlevel . 2)))
@@ -550,8 +540,8 @@
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   ;; Insert mode after adding note (note to change of state)
-  (advice-add 'org-add-log-note :after 'evil-insert-state)
-  (advice-add 'org-add-note :after 'evil-insert-state)
+  ;; (advice-add 'org-add-log-note :after 'evil-insert-state)
+  ;; (advice-add 'org-add-note :after 'evil-insert-state)
 
   ;; Save capture on :wq
   (evil-define-key nil org-capture-mode-map
@@ -559,13 +549,25 @@
     [remap evil-save-modified-and-close] #'org-capture-finalize
     [remap evil-quit] #'org-capture-kill)
 
-  ;; Agenda styling
+  ;; Agenda
+  ;; Open agenda files to buffer at startup
+  (defun my/open-all-org-agenda-files ()
+    (interactive)
+    (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
+
+  (add-hook 'emacs-startup-hook #'my/open-all-org-agenda-files)
+
+  (defun my/open-super-agenda ()
+    (interactive) (org-agenda nil "z") (delete-other-windows))
+
+  (add-hook 'emacs-startup-hook 'my/open-super-agenda)
+
   (set-face-attribute 'org-agenda-date nil :height 1.05)
   (set-face-attribute 'org-agenda-date-today nil :height 1.05)
   (set-face-attribute 'org-agenda-date-weekend nil :height 1.05)
 
   ;; Get roam alias, otherwise the title of node
-  (defun my-get-title-property ()
+  (defun my/get-title-property ()
     (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
     (setq roam_alias (org-entry-get-with-inheritance "ROAM_ALIASES"))
     (if roam_alias roam_alias (if title title "")))
@@ -574,16 +576,13 @@
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
-        org-agenda-prefix-format '((agenda . " %-16(my-get-title-property)%-12t%-6e% s")
-                                   (todo . " %-12:(my-get-title-property) %-6e")
-                                   (tags . " %-12:(my-get-title-property) %-6e")
-                                   (search . " %-12:(my-get-title-property) %-6e")))
+        org-agenda-prefix-format '((agenda . " %-16(my/get-title-property)%-12t%-6e% s")
+                                   (todo . " %-12:(my/get-title-property) %-6e")
+                                   (tags . " %-12:(my/get-title-property) %-6e")
+                                   (search . " %-12:(my/get-title-property) %-6e")))
 
   ;; Save org buffers after quiting agenda mode
-  (advice-add 'org-agenda-quit :before '(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
-
-  ;; Don't open a new window after clicking in agenda
-  ;; (evil-define-key 'motion org-agenda-mode-map (kbd "<return>") '(lambda() (interactive) (org-agenda-switch-to t)))
+  (advice-add 'org-agenda-quit :before #'(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
 
   ;; Log the state change
   (setq org-agenda-start-with-log-mode t)
@@ -593,7 +592,7 @@
   ;; Super agenda
   (setq org-agenda-custom-commands
         '(("z" "Super view"
-           ((agenda "" ((org-agenda-span 'day) ;; Show one day
+           ((agenda "" ((org-agenda-span 'day)
                         (org-super-agenda-groups
                          '((:name "Today"
                                   :time-grid t
@@ -603,8 +602,6 @@
                           '((:name "Due Today"
                                    :deadline today
                                    :scheduled today)
-                            (:name "Important"
-                                   :tag "important")
                             (:name "Waiting"
                                    :todo "WAITING")
                             (:name "On Hold"
@@ -630,7 +627,6 @@
            ))
         )
 
-
   (use-package org-super-agenda
     ;; Should be loaded at the start
     :init (org-super-agenda-mode)
@@ -645,29 +641,29 @@
 
   ;; Update org-agenda-files after updating item states
   ;; If the state is removed, remove the file from agenda if there are no other states, otherwise, add it
-  (defun my-update-agenda-files ()
+  (defun my/update-agenda-files ()
     ;; Removed TODO from item
     (if (= (length org-state) 0)
         ;; No TODOs in buffer, so remove it, otherwise add it
         (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|HOLD\\\|CANCELLED}" 'file)) 0)
-            (setq curr-files (my-remove-from-agenda-files buffer-file-name))
-          (setq curr-files (my-add-to-agenda-files buffer-file-name))
+            (setq curr-files (my/remove-from-agenda-files buffer-file-name))
+          (setq curr-files (my/add-to-agenda-files buffer-file-name))
           )
       ;; There's a TODO in buffer
-      (setq curr-files (my-add-to-agenda-files buffer-file-name))
+      (setq curr-files (my/add-to-agenda-files buffer-file-name))
       )
     (org-store-new-agenda-file-list curr-files)
     (let ((inhibit-message)) (org-install-agenda-files-menu))
     )
 
-  (defun my-get-relative-path (file-path)
+  (defun my/get-relative-path (file-path)
     ;; Transform full paths to relative paths
     (if (string= (substring file-path 1) "~")
         (file_path)
       (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-path)))
 
   ;; Accepts full path
-  (defun my-remove-from-agenda-files (file-full-path)
+  (defun my/remove-from-agenda-files (file-full-path)
     (setq relative-path (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
     (setq curr-files (org-agenda-files))
     (setq curr-files (delete file-full-path curr-files))
@@ -675,19 +671,35 @@
     curr-files
     )
 
-  (defun my-add-to-agenda-files (file-full-path)
+  (defun my/add-to-agenda-files (file-full-path)
     ;; org transforms current paths to full paths then adds a relative path
     ;; Better to remove relative and full path then add the path
-    (setq curr-files (my-remove-from-agenda-files file-full-path))
+    (setq curr-files (my/remove-from-agenda-files file-full-path))
     (add-to-list 'curr-files (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
     curr-files
     )
 
-  (add-hook 'org-after-todo-state-change-hook 'my-update-agenda-files)
+  (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
 
-  (my-add-to-agenda-files (concat (getenv "HOME") "/notes/org/capture.org"))
-
+  (my/add-to-agenda-files (concat (getenv "HOME") "/notes/org/capture.org"))
   ;; Clocking
+
+  ;; Loading emacs server is needed by emacsclient
+  ;; emacsclient used by clocking
+  (load "server")
+  (unless (server-running-p) (server-start))
+
+  (setq org-clock-in-switch-to-state "NEXT"
+        org-clock-out-switch-to-state "TODO")
+
+
+  (defun my/clock-in-when-next ()
+    ;; Removed TODO from item
+    (if (string= org-state "NEXT") (org-clock-in)))
+
+  (add-hook 'org-after-todo-state-change-hook 'my/clock-in-when-next)
+
+
   (setq org-clock-persist 'history ;; Save clock history on Emacs close
         ;; Resume when clocking into task with open clock
         org-clock-in-resume t
@@ -697,7 +709,7 @@
         org-clock-history-length 20)
   ;; Clock in clock out hooks with Polybar
   (add-hook 'org-clock-in-hook
-            '(lambda () (shell-command (concat "/bin/echo -e "
+            #'(lambda () (shell-command (concat "/bin/echo -e "
                                                "\"" (org-get-heading t t t t) " \n"
                                                (org-entry-get nil "Effort") " \n"
                                                (what-line) " \n"
@@ -709,8 +721,8 @@
                   org-clock-cancel-hook))
     (add-hook hook (lambda () (shell-command "/bin/rm /tmp/org_current_task"))))
 
-  (defun my-org-toggle-last-clock (arg)
-    "Toggles last clocked item.
+  (defun my/org-toggle-last-clock (arg)
+    "Toggles last
 Clock out if an active clock is running (or cancel it if prefix ARG is non-nil).
 If no clock is active, then clock into the last item. See `org-clock-in-last' to
 see how ARG affects this command."
@@ -764,21 +776,39 @@ see how ARG affects this command."
     (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp")))
 
   ;; Go in the block with insert mode after inserting it
-  (advice-add 'org-insert-structure-template :after '(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
+  (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
+
+  ;; To export to markdown
+  (require 'ox-md)
+
+  ;; Exporting settings
+  (setq org-export-with-broken-links t
+        org-export-preserve-breaks t
+        org-export-with-todo-keywords nil)
+
+  ;; Update the document header for latex preview
+  (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+
+  ;; Latex image size
+  (plist-put org-format-latex-options :scale 1.5)
   )
 
-;; To export to markdown
-(require 'ox-md)
+(use-package org-protocol
+  :ensure nil
+  :after org-mode
+  :config
+  (add-to-list 'org-capture-templates
+               '("qutebrowser"
+                 entry (file "~/notes/org/capture.org")
+                 "* TODO [[%:link][%:description]]"
+                 :immediate-finish t))
 
-;; Exporting settings
-(setq org-export-with-broken-links t
-      org-export-preserve-breaks t
-      org-export-with-todo-keywords nil)
-
-;; Update the document header for latex preview
-(setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
-;; Latex image size
-(plist-put org-format-latex-options :scale 1.5)
+  (add-to-list 'org-capture-templates
+               '("onthefly"
+                 entry (file "~/notes/org/capture.org")
+                 "* TODO %:link"
+                 :immediate-finish t))
+  )
 
 
 ;; Previewing Latex fragments
@@ -826,15 +856,18 @@ see how ARG affects this command."
                               (kbd "C-S-h") 'org-shiftleft
                               (kbd "C-S-k") 'org-shiftup
                               (kbd "C-S-j") 'org-shiftdown
-                              (kbd "<C-return>") '(lambda () (interactive) (org-insert-heading-after-current) (evil-insert 0))
-                              (kbd "<C-S-return>") '(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0))
+                              (kbd "<C-return>") #'(lambda () (interactive) (org-insert-heading-after-current) (evil-insert 0))
+                              (kbd "<C-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0))
                               ;; Move to beginning of line before insert heading, otherwise org-insert-heading will insert below
-                              (kbd "<M-return>") '(lambda () (interactive) (beginning-of-line) (org-insert-heading) (evil-insert 0))
-                              (kbd "<M-S-return>") '(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0)))
+                              (kbd "<M-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-heading) (evil-insert 0))
+                              (kbd "<M-S-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0)))
                             (evil-define-key 'normal 'evil-org-mode
+
+                              (kbd "zi")  #'org-toggle-inline-images
+                              (kbd "zl")  #'org-latex-preview
                               ;; Open files at cursor
-                              (kbd "<return>") '(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
-                              (kbd "<S-return>") '(lambda () (interactive)
+                              (kbd "<return>") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
+                              (kbd "<S-return>") #'(lambda () (interactive)
                                                     ;; Open link without losing focus of window
                                                     (let ((inhibit-message t))
                                                       (update_i3_focus_window_config)
@@ -843,10 +876,6 @@ see how ARG affects this command."
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
-
-  (evil-define-key 'normal 'evil-org-mode
-    "zi"  #'org-toggle-inline-images
-    "zl"  #'org-latex-preview)
 
   ;; Don't display a buffer when finishing async-shell-command
   (setq display-buffer-alist '(("\\*Async Shell Command\\*" . (display-buffer-no-window))))
@@ -867,7 +896,7 @@ see how ARG affects this command."
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (use-package org-roam
-  :demand t
+  :after org
   :bind (("C-c r i" . org-roam-node-insert))
   :custom
   (org-roam-directory "~/notes/org")
@@ -886,11 +915,11 @@ see how ARG affects this command."
   (org-roam-db-autosync-mode)
 
   ;; Add to jump list after visiting a node
-  (advice-add 'org-roam-node-visit :before '(lambda (&rest pos) (evil-set-jump)))
+  (advice-add 'org-roam-node-visit :before #'(lambda (&rest pos) (evil-set-jump)))
 
   ;; Overriding org-roam-node by staying in the current buffer after inserting a new one
   ;; This is done by removing :props '(:finalize find-file) in org-roam-capture
-  (cl-defun my-org-roam-node-find (&optional other-window initial-input filter-fn &key templates)
+  (cl-defun my/org-roam-node-find (&optional other-window initial-input filter-fn &key templates)
     (interactive current-prefix-arg)
     (let ((node (org-roam-node-read initial-input filter-fn)))
       (if (org-roam-node-file node)
@@ -900,7 +929,7 @@ see how ARG affects this command."
          :templates templates))))
 
   ;; Add to jump list after visiting a node
-  (advice-add 'org-roam-node-find :override #'my-org-roam-node-find)
+  (advice-add 'org-roam-node-find :override #'my/org-roam-node-find)
   )
 
 (use-package websocket
@@ -948,19 +977,19 @@ see how ARG affects this command."
   ;; C-v and C-x splits window for org roam node prompts only
   (embark-define-keymap embark-org-roam-nodes-actions
                         "Keymap for actions for org roam nodes"
-                        ("x" my-org-roam-node-find-window-x)
-                        ("v" my-org-roam-node-find-window-v))
+                        ("x" my/org-roam-node-find-window-x)
+                        ("v" my/org-roam-node-find-window-v))
 
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
-  (defun my-org-roam-node-find-window-v ()
+  (defun my/org-roam-node-find-window-v ()
     (interactive)
     (let ((inhibit-message t))
       (advice-add 'org-roam-node-visit :before 'evil-window-vnew)
       (org-roam-node-find)
       (advice-remove 'org-roam-node-visit 'evil-window-vnew)))
 
-  (defun my-org-roam-node-find-window-x ()
+  (defun my/org-roam-node-find-window-x ()
     (interactive)
     (let ((inhibit-message t))
       (advice-add 'org-roam-node-visit :before  'evil-window-new)
@@ -1003,7 +1032,7 @@ see how ARG affects this command."
     (kbd "C-w") 'deft-filter-decrement-word)
 
   ;; Show the title
-  (defun my-deft-parse-title (file contents)
+  (defun my/deft-parse-title (file contents)
     "Parse the given FILE and CONTENTS and determine the title.
   If `deft-use-filename-as-title' is nil, the title is taken to
   be the first non-empty line of the FILE.  Else the base name of the FILE is
@@ -1013,7 +1042,7 @@ see how ARG affects this command."
           (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
         (deft-base-filename file))))
 
-  (advice-add 'deft-parse-title :override #'my-deft-parse-title)
+  (advice-add 'deft-parse-title :override #'my/deft-parse-title)
 
   ;; Don't show start of org node files
   (setq deft-strip-summary-regexp
@@ -1041,7 +1070,7 @@ see how ARG affects this command."
   (defun toast-appt-send-notification (title msg)
     (shell-command (concat "/usr/bin/dunstify --appname emacs_org " " \"" title "\" \"" msg "\"")))
 
-  ;; Designate the window function for my-appt-send-notification
+  ;; Designate the window function for my/appt-send-notification
   (defun toast-appt-display (min-to-app new-time msg)
     (toast-appt-send-notification
      (format "%s minutes" min-to-app)    ;; passed to -t in toast call
@@ -1057,16 +1086,34 @@ see how ARG affects this command."
 ;; Misc
 ;; Auto update to window size
 (use-package golden-ratio
-  :init (golden-ratio-mode 1)
+  :init
+  (golden-ratio-mode 1)
   :after evil
   :config
-  (advice-add 'evil-window-down :after 'golden-ratio)
-  (advice-add 'evil-window-up :after 'golden-ratio)
-  (advice-add 'evil-window-right :after 'golden-ratio)
-  (advice-add 'evil-window-left :after 'golden-ratio)
+  (defun my/toggle-evil-window-keys-golden-ratio ()
+    (if (bound-and-true-p golden-ratio-mode)
+        (progn
+          (advice-add 'evil-window-down :after 'golden-ratio)
+          (advice-add 'evil-window-up :after 'golden-ratio)
+          (advice-add 'evil-window-right :after 'golden-ratio)
+          (advice-add 'evil-window-left :after 'golden-ratio)
+          )
+      (progn
+        (advice-remove 'evil-window-down  'golden-ratio)
+        (advice-remove 'evil-window-up  'golden-ratio)
+        (advice-remove 'evil-window-right  'golden-ratio)
+        (advice-remove 'evil-window-left  'golden-ratio)
+        )
+      )
+    )
+  (my/toggle-evil-window-keys-golden-ratio)
+
+  (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
+
+  (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode)
   )
 
-;; Vim leader
+;; Vim leader {{{
 (use-package general
   :after (evil evil-collection hydra)
   :config
@@ -1089,7 +1136,7 @@ see how ARG affects this command."
    "S-," 'main-hydra/body)
 
   (add-hook 'org-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (general-define-key
                 :states '(normal visual motion)
                 :keymaps 'local
@@ -1097,11 +1144,11 @@ see how ARG affects this command."
                (general-define-key
                 :states '(insert)
                 :keymaps 'local
-                "M-," 'org-hydra/body))
+                "C-," 'org-hydra/body))
             )
 
   (add-hook 'org-agenda-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (general-define-key
                 :states '(normal visual motion)
                 :keymaps 'local
@@ -1114,9 +1161,9 @@ see how ARG affects this command."
   (" H" help-hydra/body "help")
   (" h" evil-ex-nohighlight "highlight")
   (" b" switch-to-buffer "Switch buffer")
+  (" d" deft "deft")
   (" g" git-hydra/body "git")
-  (" x" (lambda () (interactive) (org-capture nil)) "capture")
-  (" i" insert-hydra/body "insert")
+  (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
   ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
   )
@@ -1144,10 +1191,10 @@ see how ARG affects this command."
   (" l" find-library "library file")
   (" L" apropos-library "library commands" :column "")
   (" m" describe-mode "all modes")
-  (" M" my-describe-active-minor-mode "one mode")
+  (" M" my/describe-active-minor-mode "one mode")
   (" d" apropos-documentation "doc")
   (" v" helpful-variable "var")
-  (" V" my-help-custom-variable "my-custom-var")
+  (" V" my/help-custom-variable "my/custom-var")
   (" o" apropos-user-option "option")
   (" e" apropos-value "value")
   )
@@ -1157,7 +1204,7 @@ see how ARG affects this command."
   (" *" org-ctrl-c-star "make header" :column " org")
   (" +" org-ctrl-c-minus "make item")
   (" c" org-clock-hydra/body "clock")
-  (" r" roam-hydra/body "refile")
+  (" r" roam-hydra/body "roam")
   (" o" org-org-hydra/body "org")
   (" a" org-agenda "agenda")
   (" p" org-set-property "set property")
@@ -1166,7 +1213,7 @@ see how ARG affects this command."
 (defhydra org-clock-hydra (:exit t :hint nil :idle 1)
   (" i" org-clock-in "in" :column "clock")
   (" o" org-clock-out "out")
-  (" t" my-org-toggle-last-clock " toggle")
+  (" t" my/org-toggle-last-clock " toggle")
   (" c" org-clock-cancel "cancel")
   (" g" org-clock-h "goto" :column "")
   (" e" org-set-effort "effort")
@@ -1174,7 +1221,7 @@ see how ARG affects this command."
   )
 
 (defhydra roam-hydra (:exit t :idle 1)
-  (" f" org-roam-node-find                "find node" :column " node")
+  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node" :column " node")
   (" i" org-roam-node-insert              "insert node")
   (" r" org-roam-buffer-toggle            "linked to here")
   (" R" org-roam-buffer-display-dedicated "linked to a node")
@@ -1190,16 +1237,16 @@ see how ARG affects this command."
   (" g" org-goto-hydra/body "goto")
   )
 
-(defhydra org-goto-hydra-hydra (:exit t :idle 1)
+(defhydra org-goto-hydra (:exit t :idle 1)
   (" g" consult-org-heading "file" :column " goto")
+  (" r" 'org-refile-goto-last-stored "refile")
   (" G" consult-org-agenda "all")
-  (" x" org-capture-goto-last-stored "capture")
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
-  (" ." my-org/refile-to-current-file "current file" :column " refile")
-  (" c" my-org/refile-to-running-clock "clock")
-  (" r" org-refile "agenda")
+  (" ." my/org/refile-to-current-file "current file" :column " refile")
+  (" c" my/org/refile-to-running-clock "clock")
+  (" a" org-refile "agenda")
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
@@ -1209,7 +1256,7 @@ see how ARG affects this command."
   (" i" org-insert-last-stored-link "insert last")
   )
 
-(defun my-org-refile-to-current-file (arg &optional file)
+(defun my/org-refile-to-current-file (arg &optional file)
   "Refile current heading to elsewhere in the current buffer.
 If prefix ARG, copy instead of move."
   (interactive "P")
@@ -1219,7 +1266,7 @@ If prefix ARG, copy instead of move."
         current-prefix-arg)
     (call-interactively #'org-refile)))
 
-(defun my-org-refile-to-running-clock (arg)
+(defun my/org-refile-to-running-clock (arg)
   "Refile current heading to the currently clocked in task.
 If prefix ARG, copy instead of move."
   (interactive "P")
@@ -1230,35 +1277,35 @@ If prefix ARG, copy instead of move."
 
 ;; Agenda
 (defhydra agenda-hydra (:exit t :idle 1 :inherit (main-hydra/heads))
-  ("c" agenda-clock-hydra/body " clock")
-  ("v" agenda-view-hydra/body " view")
-  ("r" org-agenda-refile "refile")
-  ("f"	org-agenda-follow-mode "follow"))
+  (" c" agenda-clock-hydra/body " clock")
+  (" v" agenda-view-hydra/body " view")
+  (" r" roam-hydra/body "roam")
+  (" f"	org-agenda-follow-mode "follow"))
 
 (defhydra agenda-clock-hydra (:exit t :idle 1)
-  ("c" org-agenda-clock-cancel "cancel")
-  ("g" org-agenda-clock-goto "goto")
-  ("i" org-agenda-clock-in "in")
-  ("o" org-agenda-clock-out "out")
-  ("r" org-agenda-clockreport-mode "report"))
+  (" c" org-agenda-clock-cancel "cancel")
+  (" g" org-agenda-clock-goto "goto")
+  (" i" org-agenda-clock-in "in")
+  (" o" org-agenda-clock-out "out")
+  (" r" org-agenda-clockreport-mode "report"))
 
 (defhydra agenda-view-hydra (:exit t :idle 1)
-  ("d"	org-agenda-day-view "day")
-  ("w"	org-agenda-week-view "week")
-  ("m"	org-agenda-month-view "month")
-  ("y"	org-agenda-year-view "year"))
+  (" d"	org-agenda-day-view "day")
+  (" w"	org-agenda-week-view "week")
+  (" m"	org-agenda-month-view "month")
+  (" y"	org-agenda-year-view "year"))
 
-(defun my-active-minor-modes ()
+(defun my/active-minor-modes ()
   "Return a list of active minor-mode symbols."
   (cl-loop for mode in minor-mode-list
            if (and (boundp mode) (symbol-value mode))
            collect mode))
 
-(defun my-describe-active-minor-mode (mode)
+(defun my/describe-active-minor-mode (mode)
   "Get information on an active minor mode. Use `describe-minor-mode' for a
 selection of all minor-modes, active or not."
   (interactive
-   (list (completing-read "Describe active mode: " (my-active-minor-modes))))
+   (list (completing-read "Describe active mode: " (my/active-minor-modes))))
   (let ((symbol
          (cond ((stringp mode) (intern mode))
                ((symbolp mode) mode)
@@ -1266,3 +1313,4 @@ selection of all minor-modes, active or not."
     (if (fboundp symbol)
         (helpful-function symbol)
       (helpful-variable symbol))))
+;; }}}

@@ -2,14 +2,23 @@
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
-alias rcvim="nvim $MYVIMRC"
-alias rcemacs="emacs --file $HOME/.emacs.d/init.el"
 alias pac='sudo pacman'
 alias z='zathura'
 alias cdb='cd -'
 alias ps?='ps aux | grep'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
+
+alias rcvim="nvim-qt $MYVIMRC"
+alias rcbash="nvim-qt $HOME/.bashrc"
+alias rcbash_alias="nvim-qt $HOME/.bash_alias"
+alias rctmux="nvim-qt $HOME/.tmux.conf"
+alias rcemacs="emacs --file $HOME/.emacs.d/init.el"
+alias rcqutebrowser="nvim-qt $XDG_CONFIG_HOME/qutebrowser/config.py"
+alias rci3="nvim-qt $XDG_CONFIG_HOME/i3/config"
+alias rcrofi="nvim-qt $XDG_CONFIG_HOME/rofi/config.rasi"
+alias rcdunst="nvim-qt $XDG_CONFIG_HOME/dunst/dunstrc"
+alias rcpolybar="nvim-qt $XDG_CONFIG_HOME/polybar/config.ini"
 
 # history
 alias h='history'
@@ -26,15 +35,22 @@ alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME
 
 # alternatives
 alias top='htop'
-alias ls='exa --color=auto'
-alias ll='exa -alFh'
 alias cat='bat --pager=less --theme="gruvbox-dark"'
+
+# colorful
+[[ -x /usr/bin/dircolors ]] && eval "$(dircolors -b)"
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias grep='grep --color=auto'
+# Disabled for now, because it doesn't support --hyperlink that's used in kitty
+# alias ls='exa --color=auto'
+# alias ll='exa -alFh'
 
 # more options
 alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
-alias grep='grep --color=auto'
+alias alsamixer='alsamixer -c 1'
 
 # prompt before overriding
 alias mv='mv -i'
@@ -50,6 +66,9 @@ alias ...='cd ../..'
 
 # calculator
 alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
+
+# Alert after long commands
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # autojumping
 alias vf='fasd -sife nvim' # quick opening files with vim

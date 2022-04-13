@@ -2,8 +2,8 @@
 # Gaps <<<
 for_window [class=".*"] border pixel 0
 
-gaps inner 7
-gaps outer 7
+gaps inner 5
+gaps outer 5
 # >>>
 # Workspaces <<<
 set $mod Mod4
@@ -113,7 +113,7 @@ for_window [class="firefox"] move scratchpad
 
 # put general notes in scratchpad
 for_window [title="general_notes"] move scratchpad, resize set 990 820, move up 100, move left 100
-
+for_window [title="emacs_notes"] move scratchpad, resize set 800 400
 
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
@@ -148,6 +148,7 @@ mode "clock" {
         bindsym i exec $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default"
         bindsym o exec $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default"
         bindsym c exec $XDG_CONFIG_HOME/polybar/org_clock clock_cancel; mode "default"
+        bindsym t exec $XDG_CONFIG_HOME/polybar/org_clock clock_toggle; mode "default"
         bindsym t exec $XDG_CONFIG_HOME/polybar/org_clock go_to_item; mode "default"
 
         bindsym Control+bracketleft mode "default"
@@ -210,9 +211,10 @@ bindsym $mod+Shift+w reload
 
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
-bindsym $mod+minus [title="^(?!.*general_notes).*$"] scratchpad show
+bindsym $mod+minus [title="^(?!.*_notes).*$"] scratchpad show
 
-bindsym $mod+n exec --no-startup-id general_notes
+bindsym $mod+n exec --no-startup-id manage_notes general
+bindsym $mod+e exec --no-startup-id manage_notes emacs
 
 # Temporary latex file
 for_window [title="^tmp_tex$"] floating enable
@@ -254,9 +256,13 @@ exec $HOME/bin/wait_internet && check_mail
 # Pick a random background image
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 # Composer for transparency
-exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/picom.conf"
+# exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/picom.conf"
+exec --no-startup-id "picom -f --config $XDG_CONFIG_HOME/picom.conf"
+
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
+
+exec --no-startup-id $HOME/bin/manage_notes emacs && i3-msg "[title=emacs_notes] move scratchpad"
 
 # Notes
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'

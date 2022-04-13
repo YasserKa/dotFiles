@@ -24,13 +24,18 @@ function clock_in () {
     emacsclient -e "(org-clock-in-last)"
 }
 
+function clock_out () {
+    emacsclient -e "(org-clock-out)"
+}
+
+function clock_toggle () {
+    emacsclient -e "(my/org-toggle-last-clock)"
+}
+
 function clock_cancel () {
     emacsclient -e "(org-clock-cancel)"
 }
 
-function clock_out () {
-    emacsclient -e "(org-clock-out)"
-}
 
 function get_time_spent () {
     [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
@@ -45,6 +50,7 @@ function get_time_spent () {
 case "$1" in
   "clock_in") clock_in ;;
   "clock_out") clock_out ;;
+  "clock_toggle") clock_out ;;
   "clock_cancel") clock_cancel ;;
   "go_to_item") go_to_item ;;
   "get_time_spent") get_time_spent ;;

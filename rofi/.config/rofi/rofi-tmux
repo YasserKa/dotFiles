@@ -16,6 +16,6 @@ else
     then
         fzftm >/dev/null
     elif [ -n "${SESSION}" ]; then
-        alacritty -e tmux attach-session -t ${SESSION} > /dev/null & disown
+        alacritty -e tmux attach-session -t "${SESSION}" > /dev/null & disown
     fi
 fi
