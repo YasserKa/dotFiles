@@ -1,0 +1,7 @@
+[Unit]
+Description=Send mails stored in a queue stored during offline
+
+[Service]
+Type=oneshot
+Environment="HOME=/home/yasser" "XDG_CONFIG_HOME=/home/yasser/.config"
+ExecStart=/home/yasser/.config/mutt/scripts/msmtp/msmtp-runqueue.sh

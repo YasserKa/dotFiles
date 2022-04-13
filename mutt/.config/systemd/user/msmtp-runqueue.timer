@@ -1,0 +1,10 @@
+[Unit]
+Description=timer for msmtp-runqueue to send queued emails
+
+[Timer]
+OnBootSec=2m
+OnUnitInactiveSec=10m
+Unit=msmtp-runqueue.service
+
+[Install]
+WantedBy=timers.target

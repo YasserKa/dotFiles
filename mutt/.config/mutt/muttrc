@@ -6,10 +6,13 @@ set signature = $XDG_CONFIG_HOME/mutt/signature
 set mailcap_path = $XDG_CONFIG_HOME/mutt/mailcap
 set header_cache = $XDG_CACHE_HOME/mutt/headers
 set message_cachedir = $XDG_CACHE_HOME/mutt/bodies
+# Color schemes
+source $XDG_CONFIG_HOME/mutt/muttcol
 
 # general
 set mime_type_query_command = "file --mime-type -b %s"
 set sleep_time = 0              # Pause 0 seconds for informational messages
+set editor = $EDITOR
 set markers = no                # Disables the `+` displayed at line wraps
 set mark_old = no               # Unread mail stay unread until read
 set wait_key = no               # mutt won't ask "press key to continue"
@@ -60,6 +63,19 @@ mailboxes =INBOX\
           =[Gmail].Spam\
           =[Gmail].Archive \
           =[Gmail].All\ Mail\
+
+set ssl_starttls = yes
+set ssl_force_tls = yes
+# OAUTH2
+#
+# set imap_user="yasser.kaddoura19@gmail.com"
+# set folder="imaps://imap.gmail.com/"
+# set smtp_url="smtp://yasser.kaddoura19@smtp.gmail.com:587/"
+
+set imap_authenticators = "oauthbearer:xoauth2"
+set imap_oauth_refresh_command = "$XDG_CONFIG_HOME/mutt/scripts/mutt_oauth2.py $XDG_CONFIG_HOME/mutt/scripts/token.json"
+set smtp_authenticators = ${imap_authenticators}
+set smtp_oauth_refresh_command = ${imap_oauth_refresh_command}
 
 # formatting
 set date_format="%m/%d %I:%M%p"
@@ -139,6 +155,7 @@ macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "ma
 
 # notmuch  searching
 macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
 # Update polybar after entering new emails
@@ -170,75 +187,3 @@ set crypt_replysignencrypted = yes
 # attempt to verify email signatures automatically
 set crypt_verify_sig = yes
 set pgp_sign_as="0x8A1B53612F9FFBC8A4BF7390B3AC0ADA8018893F"
-
-
-# colorscheme
-# New mail is boldened:
-color index brightyellow black "~N"
-color index_author brightred black "~N"
-color index_subject brightcyan black "~N"
-
-# Tagged mail is highlighted:
-color index brightyellow blue "~T"
-color index_author brightred blue "~T"
-color index_subject brightcyan blue "~T"
-
-
-mono bold bold
-mono underline underline
-mono indicator reverse
-mono error bold
-color index yellow black '.*'
-color index_author red black '.*'
-color index_number blue black
-color index_subject cyan black '.*'
-color indicator brightblack white
-color sidebar_highlight red default
-color sidebar_divider brightblack black
-color sidebar_flagged red black
-color sidebar_new green black
-color markers red white
-color status brightyellow black
-color sidebar_highlight red black
-color normal brightyellow black
-color error red black
-color tilde black black
-color message cyan black
-color attachment white black
-color search brightmagenta black
-color hdrdefault brightgreen black
-color quoted green black
-color quoted1 blue black
-color quoted2 cyan black
-color quoted3 yellow black
-color quoted4 red black
-color quoted5 brightred black
-color signature brightgreen black
-color bold black black
-color underline black black
-color normal default black
-color header blue black ".*"
-color header brightmagenta black "^(From)"
-color header brightcyan black "^(Subject)"
-color header brightwhite black "^(CC|BCC)"
-color body brightred black "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
-color body brightblue black "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
-color body green black "\`[^\`]*\`" # Green text between ` and `
-color body brightblue black "^# \.*" # Headings as bold blue
-color body brightcyan black "^## \.*" # Subheadings as bold cyan
-color body brightgreen black "^### \.*" # Subsubheadings as bold green
-color body yellow black "^(\t| )*(-|\\*) \.*" # List items as yellow
-color body brightcyan black "[;:][-o][)/(|]" # emoticons
-color body brightcyan black "[;:][)(|]" # emoticons
-color body brightcyan black "[ ][*][^*]*[*][ ]?" # more emoticon?
-color body brightcyan black "[ ]?[*][^*]*[*][ ]" # more emoticon?
-color body red black "(BAD signature)"
-color body cyan black "(Good signature)"
-color body brightblack black "^gpg: Good signature .*"
-color body brightyellow black "^gpg: "
-color body brightyellow red "^gpg: BAD signature from.*"
-mono body bold "^gpg: Good signature"
-mono body bold "^gpg: BAD signature from.*"
-color body red black "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
-
-# vim: filetype=neomuttrc

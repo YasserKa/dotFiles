@@ -1,4 +1,4 @@
 #!/bin/env sh
 ACCOUNT="$1"
 shift
-$XDG_CONFIG_HOME/mutt/scripts/MIMEbellish | msmtp -a personal "$@"
+$XDG_CONFIG_HOME/mutt/scripts/MIMEbellish | $XDG_CONFIG_HOME/mutt/scripts/msmtp/msmtp-enqueue.sh -a personal "$@"
