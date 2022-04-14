@@ -15,25 +15,27 @@ case $1 in
         if [[ -z $(wmctrl -l | grep "$title") ]]; then
             emacs -l "$HOME/.emacs.d/lisp/org-refile-override.el" --title=$title -eval "
             (progn
-            (add-hook 'org-capture-mode-hook 'delete-other-windows)
+           (add-hook 'org-capture-mode-hook 'delete-other-windows)
+           (advice-add 'org-capture-refile :override 'org-capture-refile-override)
 
-            (add-hook 'focus-in-hook
-            (lambda  () (interactive) (org-capture nil \"d\")))
+           (add-hook 'focus-in-hook #'(lambda  () (interactive) (if (not
+           (bound-and-true-p org-capture-mode)) (org-capture nil \"d\"))))
 
-            (add-hook 'org-capture-after-finalize-hook (lambda () (interactive)
-            (start-process-shell-command \"\" nil \"i3-msg '[title=$title]
-            scratchpad show'\")
-           (org-save-all-org-buffers)
-            ))
-            (add-hook 'emacs-init-hook (lambda () (interactive) (org-capture nil \"d\"))
-            (advice-add 'org-capture-refile :override 'org-capture-refile-override))
-            )" &
-            while [[ -z $(wmctrl -l | grep "$title") ]]; do
-                sleep 0.1
-            done
-            i3-msg "[title=$title] scratchpad show"
-        else
-            i3-msg "[title=$title] scratchpad show"
+            (add-hook 'org-capture-after-finalize-hook #'(lambda () (interactive)
+            (start-process-shell-command \"\" nil \"i3-msg ' scratchpad show'\")
+             (org-save-all-org-buffers)
+             (if (bound-and-true-p org-capture-mode) (org-capture-kill))
+             (kill-matching-buffers \"capture.org\" t t)
+
+             ))
+
+             )" &
+             while [[ -z $(wmctrl -l | grep "$title") ]]; do
+                 sleep 0.1
+             done
+             i3-msg "[title=$title] scratchpad show"
+         else
+             i3-msg "[title=$title] scratchpad show"
         fi
         ;;
 esac

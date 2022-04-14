@@ -791,23 +791,19 @@ see how ARG affects this command."
 
   ;; Latex image size
   (plist-put org-format-latex-options :scale 1.5)
-  )
 
-(use-package org-protocol
-  :ensure nil
-  :after org-mode
-  :config
-  (add-to-list 'org-capture-templates
-               '("qutebrowser"
-                 entry (file "~/notes/org/capture.org")
-                 "* TODO [[%:link][%:description]]"
-                 :immediate-finish t))
+  (use-package org-protocol
+    :ensure nil
+    :config
 
-  (add-to-list 'org-capture-templates
-               '("onthefly"
-                 entry (file "~/notes/org/capture.org")
-                 "* TODO %:link"
-                 :immediate-finish t))
+    (add-to-list 'org-capture-templates
+                 '("q" "org-capture-url"
+                   entry (file "~/notes/org/capture.org")
+                   "* TODO [[%:link][%:description]]" :immediate-finish t))
+
+    (setq org-protocol-default-template-key "q")
+    )
+
   )
 
 
@@ -868,11 +864,11 @@ see how ARG affects this command."
                               ;; Open files at cursor
                               (kbd "<return>") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
                               (kbd "<S-return>") #'(lambda () (interactive)
-                                                    ;; Open link without losing focus of window
-                                                    (let ((inhibit-message t))
-                                                      (update_i3_focus_window_config)
-                                                      (org-open-at-point-global)
-                                                      ))))))
+                                                     ;; Open link without losing focus of window
+                                                     (let ((inhibit-message t))
+                                                       (update_i3_focus_window_config)
+                                                       (org-open-at-point-global)
+                                                       ))))))
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
@@ -1099,7 +1095,7 @@ see how ARG affects this command."
           (advice-add 'evil-window-right :after 'golden-ratio)
           (advice-add 'evil-window-left :after 'golden-ratio)
           )
-        ;; Disable
+      ;; Disable
       (progn
         (balanace-windows)
         (advice-remove 'evil-window-down  'golden-ratio)
@@ -1140,22 +1136,22 @@ see how ARG affects this command."
 
   (add-hook 'org-mode-hook
             #'(lambda ()
-               (general-define-key
-                :states '(normal visual motion)
-                :keymaps 'local
-                "," 'org-hydra/body)
-               (general-define-key
-                :states '(insert)
-                :keymaps 'local
-                "C-," 'org-hydra/body))
+                (general-define-key
+                 :states '(normal visual motion)
+                 :keymaps 'local
+                 "," 'org-hydra/body)
+                (general-define-key
+                 :states '(insert)
+                 :keymaps 'local
+                 "C-," 'org-hydra/body))
             )
 
   (add-hook 'org-agenda-mode-hook
             #'(lambda ()
-               (general-define-key
-                :states '(normal visual motion)
-                :keymaps 'local
-                "," 'agenda-hydra/body))
+                (general-define-key
+                 :states '(normal visual motion)
+                 :keymaps 'local
+                 "," 'agenda-hydra/body))
             )
   )
 
