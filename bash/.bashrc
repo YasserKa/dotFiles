@@ -34,7 +34,7 @@ if [[ -r /usr/share/doc/mcfly/mcfly.bash ]]; then
     source /usr/share/doc/mcfly/mcfly.bash
 fi
 
-# colorizing commands
+# Commands with colors
 GRC_ALIASES=true
 [[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
 

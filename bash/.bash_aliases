@@ -46,14 +46,13 @@ alias grep='grep --color=auto'
 # alias ls='exa --color=auto'
 # alias ll='exa -alFh'
 
-# more options
+# More options
 alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
 alias alsamixer='alsamixer -c 1'
-alias networkmanager_rofi="networkmanager_dmenu -lines 5 -monitor -2 -location 0"
 
-# prompt before overriding
+# Prompt before overriding
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
 
