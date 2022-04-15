@@ -11,20 +11,38 @@ alias ps?='ps aux | grep'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
-alias rcvim="nvim-qt $MYVIMRC"
-alias rcbash="nvim-qt $HOME/.bashrc"
-alias rcbash_alias="nvim-qt $HOME/.bash_alias"
-alias rctmux="nvim-qt $HOME/.tmux.conf"
-alias rcemacs="emacs --file $HOME/.emacs.d/init.el"
-alias rcqutebrowser="nvim-qt $XDG_CONFIG_HOME/qutebrowser/config.py"
-alias rci3="nvim-qt $XDG_CONFIG_HOME/i3/config"
-alias rcrofi="nvim-qt $XDG_CONFIG_HOME/rofi/config.rasi"
-alias rcdunst="nvim-qt $XDG_CONFIG_HOME/dunst/dunstrc"
-alias rcpolybar="nvim-qt $XDG_CONFIG_HOME/polybar/config.ini"
 
-# history
-alias h='history'
-alias hg='history | grep'
+# Open configuration files easily
+# First arg directory, others files to open
+# Open in current terminal or a new one depending on shell interactivity
+function rc () {
+    [[ ! $TERMINAL == "kitty" ]] && notify-send "$TERMINAL not supported for rc function" \
+        && return
+
+    path="$1"
+    files_to_open="${@:2}"
+
+    if [[ $TERM == "xterm-kitty" ]]; then
+        cd $path && $EDITOR $files_to_open
+    else
+        # The +only -o arguments are a hack to mitigate nvim's warning upon
+        # exiting for editing multiple files
+        # -o open files in windows and +only keep one of them
+        $TERMINAL --directory $path $EDITOR +only -o $files_to_open
+    fi
+}
+
+alias rcvim="rc $XDG_CONFIG_HOME/nvim init.vim"
+alias rckitty="rc $XDG_CONFIG_HOME/kitty kitty.conf"
+alias rcbash="rc $HOME .bashrc .bash_aliases .bash_functions .bash_profile"
+alias rctmux="rc $HOME .tmux.conf"
+alias rcqutebrowser="rc $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*"
+alias rci3="rc $XDG_CONFIG_HOME/i3 config"
+alias rcrofi="rc $XDG_CONFIG_HOME/rofi config.rasi"
+alias rcdunst="rc $XDG_CONFIG_HOME/dunst dunstrc"
+alias rcpolybar="rc $XDG_CONFIG_HOME/polybar config.ini"
+# Unique case
+alias rcemacs="emacs --file $HOME/.emacs.d/init.el"
 
 # sync notes
 alias sync_org="wait_internet && rclone sync $HOME/notes/org remote:org --include 'fast_access.org' --include 'groceries.org'"

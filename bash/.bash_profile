@@ -29,7 +29,8 @@ export PROMPT_COMMAND='history -a'
 
 # fzf
 # use .ignore
-export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --hidden --ignore .git -g ""'
+# --follow for linked files
+export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --follow --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up' --color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}'"
 
 # configurations in one place
@@ -47,7 +48,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 export MYVIMRC="$XDG_CONFIG_HOME/nvim/init.vim"
 export BROWSER=qutebrowser
-export TERMINAL=alacritty
+export TERMINAL=kitty
 export DIFFPROG=vimdiff
 export PAGER=vimpager
 

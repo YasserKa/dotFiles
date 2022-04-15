@@ -1,8 +1,11 @@
 " vim-plug <<<
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'https://github.com/gruvbox-community/gruvbox'
+" Filetypes
+Plug 'https://github.com/YasserKa/vim-sxhkdrc'
+Plug 'https://github.com/fladson/vim-kitty'
 
+Plug 'https://github.com/gruvbox-community/gruvbox'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -49,9 +52,6 @@ Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', '
 
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
 
-" settings for sxhkdrc file
-Plug 'https://github.com/YasserKa/vim-sxhkdrc'
-
 call plug#end()
 " >>>
 " general settings <<<
@@ -63,7 +63,7 @@ set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
 
 colorscheme gruvbox
-let g:gruvbox_italic=1
+" let g:gruvbox_italic=1
 set background=light
 set termguicolors
 set guifont=Inconsolata:h14

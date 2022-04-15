@@ -17,25 +17,37 @@ case $1 in
             (progn
            (add-hook 'org-capture-mode-hook 'delete-other-windows)
            (advice-add 'org-capture-refile :override 'org-capture-refile-override)
+           ; (advice-add 'org-capture-kill :override 'org-capture-kill-override)
 
            (add-hook 'focus-in-hook #'(lambda  () (interactive) (if (not
-           (bound-and-true-p org-capture-mode)) (org-capture nil \"d\"))))
+           (bound-and-true-p org-capture-mode)) (let ((inhibit-message t)) (org-capture nil \"d\")))))
 
-            (add-hook 'org-capture-after-finalize-hook #'(lambda () (interactive)
-            (start-process-shell-command \"\" nil \"i3-msg ' scratchpad show'\")
-             (org-save-all-org-buffers)
-             (if (bound-and-true-p org-capture-mode) (org-capture-kill))
-             (kill-matching-buffers \"capture.org\" t t)
+           (add-hook 'focus-out-hook #'(lambda  () (interactive) (if
+           (bound-and-true-p org-capture-mode)
+           (progn
+           (switch-to-buffer \"capture.org\")
+           (set-buffer-modified-p nil)
+           (kill-this-buffer)
+       )
 
-             ))
+       )))
 
-             )" &
-             while [[ -z $(wmctrl -l | grep "$title") ]]; do
-                 sleep 0.1
-             done
-             i3-msg "[title=$title] scratchpad show"
-         else
-             i3-msg "[title=$title] scratchpad show"
+       (if (bound-and-true-p org-capture-mode) (org-capture-kill))
+       (kill-matching-buffers \"capture.org\" t t)
+
+       (add-hook 'org-capture-after-finalize-hook #'(lambda () (interactive)
+       (start-process-shell-command \"\" nil \"i3-msg ' scratchpad show'\")
+       (org-save-all-org-buffers)
+       (if (bound-and-true-p org-capture-mode) (org-capture-kill))
+       ))
+
+       )" &
+       while [[ -z $(wmctrl -l | grep "$title") ]]; do
+           sleep 0.1
+       done
+       i3-msg "[title=$title] scratchpad show"
+   else
+       i3-msg "[title=$title] scratchpad show"
         fi
         ;;
 esac

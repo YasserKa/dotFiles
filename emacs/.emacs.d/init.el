@@ -342,12 +342,6 @@
     (use-package vimish-fold)
     )
 
-
-  (require 'evil-exchange)
-  ;; change default key bindings (if you want) HERE
-  ;; (setq evil-exchange-key (kbd "zx"))
-  (evil-exchange-install)
-
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
   (modify-syntax-entry ?_ "w")
 
@@ -403,6 +397,7 @@
   (undo-tree-visualizer-diff t)
   :config
   ;; Save undo steps between sessions
+  (use-package undo-fu-session)
   (global-undo-fu-session-mode)
 
   (evil-set-initial-state 'undo-tree-visualizer-mode 'emacs)
@@ -420,7 +415,7 @@
   )
 
 (use-package evil-collection
-  :ensure evil
+  :after evil
   :custom
   (evil-collection-setup-minibuffer t)
   :config
@@ -451,6 +446,8 @@
     ;; Exit minibuffer instead of going to normal mode
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
     (evil-collection-define-key 'insert map (kbd "C-h") 'delete-backward-char)
+    (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
+    (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
     ;; (define-key map [?\C-h] 'delete-backward-char)
     (evil-collection-define-key 'insert map (kbd "C-q") 'help))
   )
@@ -543,10 +540,19 @@
   ;; (advice-add 'org-add-log-note :after 'evil-insert-state)
   ;; (advice-add 'org-add-note :after 'evil-insert-state)
 
+
+  (defun my-finalize-if-no-todo ()
+    (interactive)
+    (setq matches (count-matches "* TODO \n" 0))
+    (if (= matches 1)
+        (org-capture-kill)
+      nil
+      ))
+
   ;; Save capture on :wq
   (evil-define-key nil org-capture-mode-map
-    [remap evil-save-and-close] #'org-capture-finalize
-    [remap evil-save-modified-and-close] #'org-capture-finalize
+    [remap evil-save-and-close] #'my-finalize-if-no-todo
+    [remap evil-save-modified-and-close] #'my-finalize-if-no-todo
     [remap evil-quit] #'org-capture-kill)
 
   ;; Agenda
@@ -710,12 +716,12 @@
   ;; Clock in clock out hooks with Polybar
   (add-hook 'org-clock-in-hook
             #'(lambda () (shell-command (concat "/bin/echo -e "
-                                               "\"" (org-get-heading t t t t) " \n"
-                                               (org-entry-get nil "Effort") " \n"
-                                               (what-line) " \n"
-                                               (buffer-file-name) "\""
-                                               " > /tmp/org_current_task"))
-               (shell-command "xdotool set_window --classname emacs-org-mode $(xdotool getactivewindow)")))
+                                                "\"" (org-get-heading t t t t) " \n"
+                                                (org-entry-get nil "Effort") " \n"
+                                                (what-line) " \n"
+                                                (buffer-file-name) "\""
+                                                " > /tmp/org_current_task"))
+                (shell-command "xdotool set_window --classname emacs-org-mode $(xdotool getactivewindow)")))
 
   (dolist (hook '(org-clock-out-hook
                   org-clock-cancel-hook))
@@ -965,6 +971,7 @@ see how ARG affects this command."
   )
 
 (use-package counsel)
+(use-package consult)
 
 (use-package embark
   :bind (("C-." . embark-act))
@@ -980,17 +987,12 @@ see how ARG affects this command."
 
   (defun my/org-roam-node-find-window-v ()
     (interactive)
-    (let ((inhibit-message t))
-      (advice-add 'org-roam-node-visit :before 'evil-window-vnew)
-      (org-roam-node-find)
-      (advice-remove 'org-roam-node-visit 'evil-window-vnew)))
+    (org-roam-node-find t))
 
   (defun my/org-roam-node-find-window-x ()
     (interactive)
-    (let ((inhibit-message t))
-      (advice-add 'org-roam-node-visit :before  'evil-window-new)
-      (org-roam-node-find)
-      (advice-remove 'org-roam-node-visit 'evil-window-new)))
+    (evil-window-split)
+    (org-roam-node-find))
   )
 
 
@@ -1097,7 +1099,7 @@ see how ARG affects this command."
           )
       ;; Disable
       (progn
-        (balanace-windows)
+        (balance-windows)
         (advice-remove 'evil-window-down  'golden-ratio)
         (advice-remove 'evil-window-up  'golden-ratio)
         (advice-remove 'evil-window-right  'golden-ratio)
@@ -1154,6 +1156,8 @@ see how ARG affects this command."
                  "," 'agenda-hydra/body))
             )
   )
+
+(use-package hydra)
 
 (defhydra main-hydra (:exit t :idle 1)
   (" '" vertico-repeat "resume last search" :column " general")
@@ -1276,7 +1280,7 @@ If prefix ARG, copy instead of move."
 
 ;; Agenda
 (defhydra agenda-hydra (:exit t :idle 1 :inherit (main-hydra/heads))
-  (" c" agenda-clock-hydra/body " clock")
+  (" c" agenda-clock-hydra/body " clock" :column " agenda")
   (" v" agenda-view-hydra/body " view")
   (" r" roam-hydra/body "roam")
   (" f"	org-agenda-follow-mode "follow"))
