@@ -20,7 +20,8 @@ git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-PS1='[\[\e[36m\]\w\[\e[0m\]]\e[36m\]\[\033[38;5;87m\]$(git_branch)\n\[\e[33m\]=> \[\e[0m\]'
+PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\]$(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
+
 
 # setup autojumping
 fasd_cache="$HOME/.fasd-init-bash"
@@ -37,6 +38,9 @@ fi
 # Commands with colors
 GRC_ALIASES=true
 [[ -s "/etc/profile.d/grc.sh" ]] && source /etc/profile.d/grc.sh
+
+# Files with colors
+. /usr/share/LS_COLORS/dircolors.sh
 
 # Source files
 [[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases

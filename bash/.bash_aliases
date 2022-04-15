@@ -1,7 +1,9 @@
-# shorter
+# Shorter
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
+alias h='history'
+alias hg='history | grep'
 alias pac='sudo pacman'
 alias z='zathura'
 alias cdb='cd -'
@@ -33,24 +35,29 @@ alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
 alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
 
-# alternatives
+# Alternatives
 alias top='htop'
 alias cat='bat --pager=less --theme="gruvbox-dark"'
 
-# colorful
-
-alias ls='ls --hyperlink=auto --color=auto "$@"'
-alias ll='ls -alF --hyperlink=auto --color=auto "$@"'
-alias grep='grep --color=auto'
-# Disabled for now, because it doesn't support --hyperlink that's used in kitty
-# alias ls='exa --color=auto'
-# alias ll='exa -alFh'
+# Colorful
+alias ls="lsd"
+alias lsa="ls --almost-all" # ignore . ..
+alias l="ls --long"
+alias la="ls -al"
+alias lla="ls -Al --classify" # */=>@ indicators
+alias ltree="ls --tree --depth=2"
+alias ltreea="ls --tree"
+alias lt="ls -l --sort=time --reverse"
+alias lta="ls -Al --sort=time --reverse"
+alias lss="ls -l --total-size --sort=size --reverse"
+alias lssa="ls -Al --total-size --sort=size --reverse"
 
 # More options
 alias mkdir='mkdir -pv'
 alias df='df -Tha --total'
 alias cal='cal -m'
 alias alsamixer='alsamixer -c 1'
+alias grep='grep --color=auto'
 
 # Prompt before overriding
 alias mv='mv -i'
