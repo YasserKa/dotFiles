@@ -22,7 +22,8 @@ function rc () {
     path="$1"
     files_to_open="${@:2}"
 
-    if [[ $TERM == "xterm-kitty" ]]; then
+    # Check if it's in a terminal by the exit code
+    if tty -s; then
         cd $path && $EDITOR $files_to_open
     else
         # The +only -o arguments are a hack to mitigate nvim's warning upon
@@ -54,7 +55,7 @@ alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HO
 alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
 
 # Alternatives
-alias top='htop'
+alias top='btm --color=gruvbox'
 alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # Colorful

@@ -111,10 +111,6 @@ for_window [instance="facebook_bot_profile"] move scratchpad
 for_window [class="ambient_music"] move scratchpad
 for_window [class="firefox"] move scratchpad
 
-# put general notes in scratchpad
-for_window [title="general_notes"] move scratchpad, resize set 990 820, move up 100, move left 100
-for_window [title="emacs_notes"] move scratchpad, resize set 800 400
-
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
 
@@ -158,7 +154,7 @@ mode "clock" {
 # Music player
 bindsym $mod+c mode "cmus"
 mode "cmus" {
-    bindsym i exec $HOME/bin/cmus_notification
+    bindsym i exec $XDG_CONFIG_HOME/cmus/cmus_notification
         bindsym s exec cmus-remote --pause
         bindsym n exec cmus-remote --next
         bindsym p exec cmus-remote --prev
@@ -197,13 +193,13 @@ mode "sharing" {
 # Bindings <<<
 
 # Password
-bindsym $mod+p exec bwmenu
+bindsym $mod+p exec $XDG_CONFIG_HOME/rofi/bwmenu
 
 # Tmux
 bindsym $mod+t exec rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
 
 # Documents
-bindsym $mod+Shift+d exec open_document
+bindsym $mod+Shift+d exec $XDG_CONFIG_HOME/rofi/rofi-documents
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -211,15 +207,19 @@ bindsym $mod+Shift+w reload
 
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
+# Don't show general notes
 bindsym $mod+minus [title="^(?!.*_notes).*$"] scratchpad show
 
-bindsym $mod+n exec --no-startup-id manage_notes general
-bindsym $mod+e exec --no-startup-id manage_notes emacs
+# note taking
+bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
+bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
+bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
+
+for_window [title="^tmp_"] resize set 800 400, move [absolute] position center
+# Put general notes in scratchpad
+for_window [title="general_notes"] move scratchpad, resize set 990 820, move [absolute] position center
 
 # Temporary latex file
-for_window [title="^tmp_tex$"] floating enable
-bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/latex_notes
-
 bindsym $mod+Return exec $TERMINAL
 bindsym $mod+Shift+q kill
 bindsym $mod+shift+x exec i3lock --color 000000

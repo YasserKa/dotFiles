@@ -1,9 +1,0 @@
-#!/bin/bash
-FILE_PATH=/tmp/tmp_tex
-TITLE_NAME=tmp_tex
-
-if [[ -z $(ps aux | grep -v "grep" | grep $TITLE_NAME) ]]; then
-alacritty --title $TITLE_NAME -e nvim -c 'startinsert' /tmp/tmp.tex && cat /tmp/tmp.tex | xclip -selection clipboard && rm /tmp/tmp.tex
-else
-    pkill  -f $TITLE_NAME
-fi

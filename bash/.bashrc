@@ -17,11 +17,10 @@ source /usr/share/doc/pkgfile/command-not-found.bash
 . /usr/share/bash-completion/bash_completion
 
 git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
-PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\]$(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
-
+PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
 
 # setup autojumping
 fasd_cache="$HOME/.fasd-init-bash"

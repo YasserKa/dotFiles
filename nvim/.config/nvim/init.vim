@@ -5,6 +5,9 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'https://github.com/YasserKa/vim-sxhkdrc'
 Plug 'https://github.com/fladson/vim-kitty'
 
+" Editing
+Plug 'https://github.com/junegunn/vim-easy-align'
+
 Plug 'https://github.com/gruvbox-community/gruvbox'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
@@ -66,7 +69,7 @@ colorscheme gruvbox
 " let g:gruvbox_italic=1
 set background=light
 set termguicolors
-set guifont=Inconsolata:h14
+set guifont=Inconsolata:h15
 set dictionary=/usr/share/dict/cracklib-small
 set scrolloff=5               " Show 5 lines above/below the cursor
 set cursorline                " Highlight current line"
@@ -275,6 +278,13 @@ let g:targets_nl = 'nN'
 " <<< expand
 map + <Plug>(expand_region_expand)
 map _ <Plug>(expand_region_shrink)
+" >>>
+" <<< vim-easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 " >>>
 " vimtex <<<
 set conceallevel=1

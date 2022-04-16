@@ -1,0 +1,31 @@
+#!/bin/env sh
+
+# General script for note taking
+# Used for:
+# 1- persistent general notes
+# 2- Copy latex notes to clipboard
+# 3- org capture note via org protocol
+# Dependencies nvim
+# tex: xclip
+# org protocol: emacs
+
+# org_protocol
+# otherwise
+note_type="$1"
+temp_path="/tmp/tmp.$note_type"
+title_name="tmp_$note_type"
+
+if [[ -z $(ps aux | grep -v "grep" | grep $title_name) ]]; then
+    $TERMINAL --class "floating" --title $title_name -e $EDITOR -c 'startinsert' $temp_path
+else
+    pkill -f $title_name
+fi
+
+if [[ $note_type == "org_protocol" ]]; then
+    cat $temp_path | xargs -I % emacsclient "org-protocol://capture?template=n&title=%" && rm /tmp/tmp.txt
+else
+    # Used for tex
+    cat $temp_path | xclip -selection clipboard
+fi
+
+rm $temp_path

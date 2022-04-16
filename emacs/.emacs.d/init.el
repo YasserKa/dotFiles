@@ -123,7 +123,10 @@
 ;; Avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
 
-;; ;; Setting it from <C-h>
+;; Don't save bookmarks, because it's making annoying prompts
+(setq bookmark-save-flag nil)
+
+;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
 
 ;; Exit emacs without getting a prompt to kill processes
@@ -442,13 +445,14 @@
                  minibuffer-local-completion-map
                  minibuffer-local-must-match-map
                  minibuffer-local-isearch-map
+                 isearch-mode-map
                  evil-ex-completion-map))
     ;; Exit minibuffer instead of going to normal mode
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
     (evil-collection-define-key 'insert map (kbd "C-h") 'delete-backward-char)
+    (evil-collection-define-key 'insert map (kbd "C-w") 'evil-delete-backward-word)
     (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
     (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
-    ;; (define-key map [?\C-h] 'delete-backward-char)
     (evil-collection-define-key 'insert map (kbd "C-q") 'help))
   )
 
@@ -807,6 +811,11 @@ see how ARG affects this command."
                    entry (file "~/notes/org/capture.org")
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
+    (add-to-list 'org-capture-templates
+                 '("n" "org-capture-note"
+                   entry (file "~/notes/org/capture.org")
+                   "* TODO %:description" :immediate-finish t))
+
     (setq org-protocol-default-template-key "q")
     )
 
@@ -1134,7 +1143,7 @@ see how ARG affects this command."
   (general-define-key
    :states 'insert
    :keymaps 'global
-   "S-," 'main-hydra/body)
+   "C-," 'main-hydra/body)
 
   (add-hook 'org-mode-hook
             #'(lambda ()
