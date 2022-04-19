@@ -24,13 +24,9 @@ function note_path_org_roam(){
 }
 
 case $1 in
-    -v | -i | -c) deepin-screen-recorder --save-path $target_path;;
-    -n) target_path=$(note_path_org_roam)
-
-        # no notes is picked
-        if [ "$target_path" == "/home/yasser/notes/latex//images" ]; then
-            exit;
-        fi ;;
+    -v) deepin-screen-recorder --screenRecord;;
+    -i | -c) deepin-screen-recorder --screenShot --save-path $target_path;;
+    -n) target_path=$(note_path_org_roam);;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         notify-send "Saved to Clipboard" ;exit ;;
 esac
@@ -57,8 +53,14 @@ fi
 
 arg=$1
 date=`date +"%Y-%m-%d_%T"`
-file_name=`ls $target_path | grep -E 'Screen|Record'`
-old_path="$target_path/$file_name"
+if [[ $1 == "-v" ]]; then
+    file_name=$(ls -t "$HOME/Videos/Screen Recordings/" | head -n 1)
+    old_path="$HOME/Videos/Screen Recordings/$file_name"
+else
+    file_name=$(ls $target_path | grep -E 'Screen|Record')
+    old_path="$target_path/$file_name"
+fi
+
 
 extension="${file_name##*.}"
 

@@ -1,14 +1,9 @@
 #!/bin/env sh
 
-case $1 in
-    general )
-        if [[ -z $(ps aux | grep -v "grep" | grep "notes/general.md") ]]; then
-            (nohup $TERMINAL --title general_notes -e nvim $HOME/notes/general.md >/dev/null 2>&1 &)
-            sleep .7
-            i3-msg '[title="general_notes"] scratchpad show'
-        else
-            i3-msg '[title="general_notes"] scratchpad show'
-        fi
-        ;;
-    emacs )
-esac
+if [[ -z $(ps aux | grep -v "grep" | grep "notes/general.md") ]]; then
+    (nohup $TERMINAL --class "general_notes" -e nvim $HOME/notes/general.md >/dev/null 2>&1 &)
+    while [[ -z $(wmctrl -xl | grep " general_notes") ]]; do sleep 0.5; done
+    i3-msg '[class="^general_notes$"] scratchpad show, move position center'
+else
+    i3-msg '[class="^general_notes$"] scratchpad show'
+fi

@@ -7,10 +7,9 @@ alias hg='history | grep'
 alias pac='sudo pacman'
 alias z='zathura'
 alias cdb='cd -'
-alias ps?='ps aux | grep'
+alias psg='ps aux | grep'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
-
 
 # Open configuration files easily
 # First arg directory, others files to open
@@ -51,19 +50,29 @@ alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 
 # shutdown
 # don't shutdown if there's an unsaved note file (checked via existence of symbolic linked file)
-alias reboot="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
-alias shut="[ ! -h $HOME/notes/org/\.\#* ] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
+alias reboot="[[ ! -h $HOME/notes/org/\.\#* ]] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
+alias shut="[[ ! -h $HOME/notes/org/\.\#* ]] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
 
 # Alternatives
 alias top='btm --color=gruvbox'
 alias cat='bat --pager=less --theme="gruvbox-dark"'
 
+# Can't override journalctl using a function
+alias journalctl='function journalctl_override(){ (command journalctl "$@" | lnav) }; journalctl_override'
+alias logxorg="cat $HOME/.local/share/xorg/Xorg.0.log | lnav"
+# Doesn't work for dmesg
+# Check https://github.com/tstack/lnav/issues/878
+
+# commands run in background automatically
+function zathura() { (command zathura "$@" &> /dev/null &) }
+function mpv() { (command mpv "$@" &> /dev/null &) }
+function xdg-open() { (command xdg-open "$@" &) }
+
 # Colorful
 alias ls="lsd"
-alias lsa="ls --almost-all" # ignore . ..
-alias l="ls --long"
-alias la="ls -al"
-alias lla="ls -Al --classify" # */=>@ indicators
+alias lsa="ls --almost-all"    # ignore . ..
+alias l="ls --long --classify" # */=>@ indicators
+alias la="ls -AFl"
 alias ltree="ls --tree --depth=2"
 alias ltreea="ls --tree"
 alias lt="ls -l --sort=time --reverse"
@@ -101,14 +110,32 @@ alias vf='fasd -sife nvim' # quick opening files with vim
 
 _fasd_bash_hook_cmd_complete vf j
 
-# emacs git & notes
-alias magit='i3-msg "workspace --no-auto-back-and-forth 4; exec emacs --funcall=magit-list-repositories"'
-alias org='i3-msg "workspace --no-auto-back-and-forth 3; exec emacs --file=$HOME/notes/org/general.org"'
-alias slack='i3-msg "workspace --no-auto-back-and-forth 7; exec slack"'
+function app_runner() {
+    window_title="$1"
+    command_to_run="$2"
+
+    xdotool search --name $window_title windowactivate
+    if [[ $? != 0 ]]; then
+        bash -c "$command_to_run"
+        # Wait until window is visible
+        while [[ -z $(wmctrl -xl | grep " $window_title") ]]; do sleep 0.5; done
+        xdotool search --name $window_title windowactivate
+    fi
+}
+
+function org() {
+    title="emacs_org"
+    app_runner $title "emacs --title=$title --file=$HOME/notes/org/general.org &"
+}
+
+function magit() {
+    title="magit"
+    app_runner $title "emacs --title=$title --funcall=magit-list-repositories &"
+}
 
 alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
-
 # cron
+# TODO: make this work like rc files
 alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
 
 # last installed packages

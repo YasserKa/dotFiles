@@ -1,4 +1,4 @@
-" vim-plug <<<
+" vim-plug {{{
 call plug#begin(stdpath('data') . '/plugged')
 
 " Filetypes
@@ -56,8 +56,8 @@ Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', '
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
 
 call plug#end()
-" >>>
-" general settings <<<
+" }}}
+" general settings {{{
 set clipboard+=unnamedplus    " System clipboard
 set virtualedit=all           " Moving in whitespace
 set ignorecase                " Do case insensitive search...
@@ -66,7 +66,6 @@ set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
 
 colorscheme gruvbox
-" let g:gruvbox_italic=1
 set background=light
 set termguicolors
 set guifont=Inconsolata:h15
@@ -78,7 +77,7 @@ set relativenumber
 set list                      " Show eof, trailing, etc..
 set listchars=eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+
 set foldmethod=marker         " Folds at start
-set foldmarker=<<<,>>>        " Folds format
+set foldmarker={{{,}}}        " Folds format
 set laststatus=3              " Use Global statusline
 
 " Tabs, spaces, indentation, wrapping
@@ -196,8 +195,16 @@ augroup MARKDOWN
     highlight link UnderlineMatch UnderlineHighlight
 augroup END
 
-" >>>
-" lightline.vim <<<
+augroup ORG_PROTOCOL
+    autocmd!
+    autocmd BufRead,BufNewFile *org_protocol inoremap <C-c><C-c> <esc>:q<cr>
+    autocmd BufRead,BufNewFile *org_protocol nnoremap <C-c><C-c> <esc>:q<cr>
+    autocmd ExitPre *org_protocol :w
+augroup END
+
+
+" }}}
+" lightline.vim {{{
 let g:lightline = {}
 
 let g:lightline.colorscheme= 'gruvbox'
@@ -239,8 +246,8 @@ let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
-" >>>
-" rainbow_parentheses.vim <<<
+" }}}
+" rainbow_parentheses.vim {{{
 augroup RAINBOW
     autocmd!
     autocmd VimEnter * RainbowParenthesesToggle
@@ -249,8 +256,8 @@ augroup RAINBOW
     autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 let g:rbpt_max = 16
-" >>>
-" pear-tree <<<
+" }}}
+" pear-tree {{{
 let g:pear_tree_repeatable_expand = 0
 let g:pear_tree_smart_openers = 1
 let g:pear_tree_smart_closers = 1
@@ -271,22 +278,22 @@ augroup pear_pairs
                 \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
                 \ }, 'keep')
 augroup END
-" >>>
-" targets <<<
+" }}}
+" targets {{{
 let g:targets_nl = 'nN'
-" >>>
-" <<< expand
+" }}}
+" {{{ expand
 map + <Plug>(expand_region_expand)
 map _ <Plug>(expand_region_shrink)
-" >>>
-" <<< vim-easy-align
+" }}}
+" {{{ vim-easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-" >>>
-" vimtex <<<
+" }}}
+" vimtex {{{
 set conceallevel=1
 let g:tex_conceal = 'abdmg'
 let g:vimtex_view_method = 'zathura'
@@ -309,8 +316,8 @@ vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#
 " Surround capital characters with $
 vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
             \ :let @/ = "" <bar> set hlsearch<CR>
-" >>>
-" <<< Jupyter Ascending
+" }}}
+" {{{ Jupyter Ascending
 augroup NOTEBOOK
     autocmd!
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
@@ -319,14 +326,14 @@ augroup NOTEBOOK
     let file_name = expand("%:r")
     autocmd BufWrite *sync.py execute "silent !jupytext --sync " . file_name . ".ipynb &"
 augroup END
-" >>>
-" which-key <<<
+" }}}
+" which-key {{{
 " Define prefix dictionary
 let g:which_key_map =  {}
 
-inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
+" inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
 
-vnoremap <silent> <C-s> :silent <c-u> :silent WhichKeyVisual '<C-s>'<CR>
+" vnoremap <silent> <C-s> :silent <c-u> :silent WhichKeyVisual '<C-s>'<CR>
 
 " Not a fan of floating windows for this
 let g:which_key_use_floating_win = 0
@@ -410,15 +417,15 @@ let g:latex_symbols = {
             \ }
 " Register which key map
 call which_key#register('latex_symbols', "g:latex_symbols")
-" >>>
-" vim-markdown <<<
+" }}}
+" vim-markdown {{{
 let g:vim_markdown_math = 1
 let g:vim_markdown_folding_disabled = 1
-" >>>
-" vim-table-mode <<<
+" }}}
+" vim-table-mode {{{
 let g:table_mode_corner='|'
-" >>>
-" ale <<<
+" }}}
+" ale {{{
 let g:ale_virtualtext_cursor = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
@@ -449,8 +456,8 @@ augroup CloseLoclistWindowGroup
     autocmd!
     autocmd QuitPre * if empty(&buftype) | lclose | endif
 augroup END
-" >>>
-" ulisnippets, coc-sippets <<<
+" }}}
+" ulisnippets, coc-sippets {{{
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 vmap <C-j> <Plug>(coc-snippets-select)
 
@@ -461,13 +468,13 @@ let g:ultisnips_python_style = 'google'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm() :
             \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" >>>
-" vim-mundo <<<
+" }}}
+" vim-mundo {{{
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
 nnoremap yeu <cmd>MundoToggle<cr>
-" >>>
-" markdown-preview.nvim <<<
+" }}}
+" markdown-preview.nvim {{{
 let g:mkdp_command_for_global = 1
 let g:mkdp_page_title = '${name}'
 let g:mkdp_auto_close = 0
@@ -479,8 +486,8 @@ function! OpenNewBrowserWindow(url)
 endfunction
 
 let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
-" >>>
-" vimspector <<<
+" }}}
+" vimspector {{{
 
 fun! GotoWindow(id)
     call win_gotoid(a:id)
@@ -510,8 +517,8 @@ nmap <leader>drc <Plug>VimspectorRunToCursor
 nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
-" >>>
-" fzf <<<
+" }}}
+" fzf {{{
 nnoremap <leader>a :Rg<space>
 nnoremap <leader>p :Files<CR>
 nnoremap <leader>b :Buffers<CR>
@@ -534,11 +541,11 @@ command! -bang -nargs=* Rg
 " override theme, since gruvbox-dark doesn't show some text
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', 'bat --color=always --style=numbers --theme gruvbox-light {}']}, <bang>0)
-" >>>
-" vista <<<
+" }}}
+" vista {{{
 nnoremap yeo :Vista!!<CR>
-" >>>
-" coc <<<
+" }}}
+" coc {{{
 set hidden
 set updatetime=300
 set shortmess+=c
@@ -578,4 +585,4 @@ function! s:show_documentation()
     endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-" >>>
+" }}}

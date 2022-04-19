@@ -13,11 +13,11 @@ stty -ixon                 # Enable search C-s for history searching
 
 # complete command names and file names for super user
 complete -cf sudo
-source /usr/share/doc/pkgfile/command-not-found.bash
+. /usr/share/doc/pkgfile/command-not-found.bash
 . /usr/share/bash-completion/bash_completion
 
 git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1)/'
 }
 
 PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
@@ -42,5 +42,5 @@ GRC_ALIASES=true
 . /usr/share/LS_COLORS/dircolors.sh
 
 # Source files
-[[ -f $HOME/.bash_aliases ]] && source $HOME/.bash_aliases
-[[ -f $HOME/.bash_functions ]] && source $HOME/.bash_functions
+[[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
+[[ -f $HOME/.bash_functions ]] && . $HOME/.bash_functions

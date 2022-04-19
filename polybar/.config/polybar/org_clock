@@ -44,6 +44,11 @@ function get_time_spent () {
 
     TASK_NAME=$(head -1 $TMP_FILE_PATH)
 
+    # Show the title of an org link only
+    if [[ "${TASK_NAME:0:2}" == "[[" ]]; then
+        TASK_NAME=$(echo "$TASK_NAME" | cut -d [ -f 4 | cut -d ] -f 1)
+    fi
+
     echo "$TASK_NAME - $TIME_SINCE_CREATION"
 }
 

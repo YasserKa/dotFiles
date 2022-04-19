@@ -88,8 +88,3 @@ fzftmux() {
     [[ -z $TMUX_SESSION ]] && return
     tmux attach-session -t $TMUX_SESSION
 }
-
-# commands run in background automatically
-function zathura() { (command zathura "$@" &> /dev/null &) }
-function mpv() { (command mpv "$@" &> /dev/null &) }
-function xdg-open() { (command xdg-open "$@" &) }

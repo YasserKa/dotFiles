@@ -84,7 +84,7 @@
 
 
 (add-to-list 'default-frame-alist
-             '(font . "DejaVu Sans Mono-13"))
+             '(font . "Inconsolata-14"))
 
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
@@ -275,6 +275,9 @@
    '(git-gutter:visual-line t)
    '(git-gutter:window-width 1))
   )
+
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
 
 (use-package magit
   :after evil-collection
@@ -504,7 +507,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "DejaVu Sans Mono-13" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Inconsolata-14" :weight 'regular :height (cdr face)))
 
   ;; Doesn't work in use-package
   (custom-set-faces
@@ -1214,7 +1217,7 @@ see how ARG affects this command."
 ;; Org
 (defhydra org-hydra (:hint nil :exit t :idle 1 :inherit (main-hydra/heads))
   (" *" org-ctrl-c-star "make header" :column " org")
-  (" +" org-ctrl-c-minus "make item")
+  (" -" org-ctrl-c-minus "make item")
   (" c" org-clock-hydra/body "clock")
   (" r" roam-hydra/body "roam")
   (" o" org-org-hydra/body "org")

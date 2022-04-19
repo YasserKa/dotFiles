@@ -1,6 +1,7 @@
-# http://i3wm.org/docs/userguide.html
+# http://i3wm.org/dcs/userguide.html
+# vim:nospell:foldmarker=<<<,>>>
 # Gaps <<<
-for_window [class=".*"] border pixel 0
+for_window [all] border pixel 0
 
 gaps inner 5
 gaps outer 5
@@ -8,7 +9,8 @@ gaps outer 5
 # Workspaces <<<
 set $mod Mod4
 
-font pango:Inconsolata 11
+font pango:Inconsolata 14
+default_orientation auto
 
 # Change focus
 bindsym $mod+j focus down
@@ -17,19 +19,20 @@ bindsym $mod+l focus right
 bindsym $mod+h focus left
 
 # Move focused window
-# There's a bug in i3 that doesn't focus the window after it moves to another
+# There's a bug in i3 that doesn't focus the container after it moves to another
 # screen, this script centers the mouse to the moved window mitigating the bug
-bindsym $mod+Shift+j exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move down
-bindsym $mod+Shift+k exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move up
-bindsym $mod+Shift+l exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move right
-bindsym $mod+Shift+h exec $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move left
-
+# The reason for the bug is that the mouse is placed ontop of the container
+# that's not being moved from one workspace to another
+bindsym $mod+Shift+j exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move down
+bindsym $mod+Shift+k exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move up
+bindsym $mod+Shift+l exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move right
+bindsym $mod+Shift+h exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move left
 
 # Split in horizontal orientation
-bindsym $mod+Shift+v split h
+bindsym $mod+v split h
 
 # Split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Shift+v split v
 
 # Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -78,7 +81,6 @@ bindsym $mod+8 workspace $documents
 bindsym $mod+9 workspace $wp9
 bindsym $mod+0 workspace $wp0
 
-
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $browser
 bindsym $mod+Shift+2 move container to workspace $coding
@@ -94,176 +96,187 @@ bindsym $mod+Shift+z move container to workspace back_and_forth
 
 # Go back and forth
 workspace_auto_back_and_forth yes
+
 bindsym $mod+z workspace back_and_forth
+bindsym $mod+Shift+minus move scratchpad
 
 # Opening softwares to a default workspaces
-# Use xprop to get the class
-assign [class="Zathura"] workspace $documents
+assign [title="^emacs_org$"] workspace $notes
+assign [title="^magit$"] workspace $git
 assign [class="mpv"] workspace $video
 assign [class="Slack"] workspace $social
+assign [class="Zathura"] workspace $documents
 assign [class="Chromium"] workspace $wp9
+
 
 # For notify-me script
 for_window [instance="notify_me_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
 
-# Firefox ambience page
-for_window [class="ambient_music"] move scratchpad
+# Firefox
 for_window [class="firefox"] move scratchpad
 
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
 
 # Enable floating for windows that has floating class
-# for_window [class="floating"] floating enable
 for_window [instance="floating"] floating enable
-assign [instance="floating"] output primary
 
-# Change workspace when window is activated (used for qutebrower gt)
+# Change workspace when window is activated (used for qutebrowser gt)
 include ./focus_on_window_activation_config
 # >>>
 # Modes <<<
 
 # Resize window
 bindsym $mod+r mode "resize"
+
 mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt;
+    bindsym j resize grow height 10 px or 10 ppt;
+    bindsym k resize shrink height 10 px or 10 ppt;
+    bindsym l resize grow width 10 px or 10 ppt;
 
-# These bindings trigger as soon as you enter the resize mode
-    bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-
-        bindsym Control+bracketleft mode "default"
-        bindsym Escape mode "default"
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
 }
 
 # Emacs org clock
-bindsym $mod+q mode "clock"
-mode "clock" {
-        bindsym i exec $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default"
-        bindsym o exec $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default"
-        bindsym c exec $XDG_CONFIG_HOME/polybar/org_clock clock_cancel; mode "default"
-        bindsym t exec $XDG_CONFIG_HOME/polybar/org_clock clock_toggle; mode "default"
-        bindsym t exec $XDG_CONFIG_HOME/polybar/org_clock go_to_item; mode "default"
+set $clock_mode "clock (i)n, (o)ut, (c)ancel, (t)oggle, (g)o_to"
+bindsym $mod+q mode $clock_mode
 
-        bindsym Control+bracketleft mode "default"
-        bindsym Escape mode "default"
+mode $clock_mode {
+    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default";
+    bindsym o exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default";
+    bindsym c exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_cancel; mode "default";
+    bindsym t exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_toggle; mode "default";
+    bindsym g exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock go_to_item; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
 }
 
 # Music player
-bindsym $mod+c mode "cmus"
-mode "cmus" {
-    bindsym i exec $XDG_CONFIG_HOME/cmus/cmus_notification
-        bindsym s exec cmus-remote --pause
-        bindsym n exec cmus-remote --next
-        bindsym p exec cmus-remote --prev
+set $cmus_mode "(i)nfo, (s) toggle, (n)next, (p)revious, (h)igher, (l)ower"
+bindsym $mod+c mode $cmus_mode
 
-        bindsym h exec cmus-remote --volume +2%
-        bindsym l exec cmus-remote --volume -2%
+mode $cmus_mode {
+    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
+    bindsym s exec --no-startup-id cmus-remote --pause; mode "default";
+    bindsym n exec --no-startup-id cmus-remote --next; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
 
-        bindsym Control+bracketleft mode "default"
-        bindsym Escape mode "default"
+    bindsym h exec --no-startup-id cmus-remote --volume +2%;
+    bindsym l exec --no-startup-id cmus-remote --volume -2%;
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
 }
 
-bindsym $mod+Shift+c mode "control_ambient"
-mode "control_ambient" {
-    bindsym s exec $HOME/bin/control_ambient p; mode "default"
+set $control_ambient_mode "(s) toggle, (h)igher, (l)ower"
 
-        bindsym h exec $HOME/bin/control_ambient k
-        bindsym l exec $HOME/bin/control_ambient j
+for_window [class="ambient_music"] move scratchpad
 
-        bindsym Control+bracketleft mode "default"
-        bindsym Escape mode "default"
+bindsym $mod+Shift+c mode $control_ambient_mode
+mode $control_ambient_mode {
+    bindsym s exec --no-startup-id $HOME/bin/control_ambient p; mode "default";
+
+    bindsym h exec --no-startup-id $HOME/bin/control_ambient k;
+    bindsym l exec --no-startup-id $HOME/bin/control_ambient j;
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
 }
 
-bindsym $mod+s mode "sharing"
-mode "sharing" {
-    bindsym i exec $HOME/bin/share -i; mode "default"
-        bindsym c exec $HOME/bin/share -c; mode "default"
-        bindsym v exec $HOME/bin/share -v; mode "default"
-        bindsym t exec $HOME/bin/share -t; mode "default"
-        bindsym n exec $HOME/bin/share -n; mode "default"
+set $sharing_mode "(i)mage, (c)lipbaord, (v)ideo, (t)ext, (n)ote"
 
-        bindsym Control+bracketleft mode "default"
-        bindsym Escape mode "default"
+bindsym $mod+s mode $sharing_mode
+mode $sharing_mode {
+    bindsym i exec --no-startup-id HOME/bin/share -i; mode "default";
+    bindsym c exec --no-startup-id HOME/bin/share -c; mode "default";
+    bindsym v exec --no-startup-id HOME/bin/share -v; mode "default";
+    bindsym t exec --no-startup-id HOME/bin/share -t; mode "default";
+    bindsym n exec --no-startup-id HOME/bin/share -n; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+
+set $utility_mode "(l)ights off, (m)ail, (a)udio, (d)ictionary, (u)sb unmount"
+bindsym $mod+u mode $utility_mode
+mode $utility_mode {
+# Unmount all storage devices;
+    bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
+
+# Switch off light
+    bindsym l exec --no-startup-id "sleep 0.5; xset dpms force off"; mode "default";
+
+# Mail
+    bindsym m exec --no-startup-id check_mail; mode "default";
+
+    bindsym a exec --no-startup-id switch_audio_sink; mode "default";
+    bindsym d exec --no-startup-id search_dictionary; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $system_mode "system (l) lock, (e) logout, (s) reload i3, (r) restart i3, (Shift+r) reboot, (Shift+s) shutdown"
+
+bindsym $mod+x mode $system_mode
+
+mode $system_mode {
+    bindsym l exec --no-startup-id i3lock --color 000000, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id i3-msg reload, mode "default"
+    bindsym r exec --no-startup-id i3-msg restart, mode "default"
+    bindsym Shift+r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default"
 }
 
 # >>>
 # Bindings <<<
+bindsym $mod+Return exec --no-startup-id $TERMINAL
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec --no-startup-id rofi -show run
 
 # Password
-bindsym $mod+p exec $XDG_CONFIG_HOME/rofi/bwmenu
+bindsym $mod+p exec --no-startup-id $XDG_CONFIG_HOME/rofi/bwmenu
 
 # Tmux
-bindsym $mod+t exec rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
+bindsym $mod+t exec --no-startup-id rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
 
 # Documents
-bindsym $mod+Shift+d exec $XDG_CONFIG_HOME/rofi/rofi-documents
+bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi-documents
 
-# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-bindsym $mod+Shift+w reload
-
-# Scratchpad
-bindsym $mod+Shift+minus move scratchpad
 # Don't show general notes
-bindsym $mod+minus [title="^(?!.*_notes).*$"] scratchpad show
+bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
+bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
+
+# Put general notes in scratchpad
+for_window [class="^general_notes$"] floating enable, move position center, resize set 990 820, move scratchpad
+# Open it at startup
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
 
 # note taking
-bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
 bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
-for_window [title="^tmp_"] resize set 800 400, move [absolute] position center
-# Put general notes in scratchpad
-for_window [title="general_notes"] move scratchpad, resize set 990 820, move [absolute] position center
-
-# Temporary latex file
-bindsym $mod+Return exec $TERMINAL
-bindsym $mod+Shift+q kill
-bindsym $mod+shift+x exec i3lock --color 000000
-
-# Unmount all storage devices
-bindsym $mod+shift+u exec --no-startup-id udiskie-umount -a
-
-# Switch off light
-bindsym $mod+o exec "sleep 0.5; exec xset dpms force off"
-
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
-
-# Cmus
-bindsym XF86AudioPlay exec cmus-remote --pause
-bindsym XF86AudioNext exec cmus-remote --next
-bindsym XF86AudioPrev exec cmus-remote --prev
-
-# Mail
-bindsym $mod+Shift+m exec --no-startup-id check_mail
-
-# Rofi
-bindsym $mod+d exec rofi -show run
-
-bindsym $mod+a exec switch_audio_sink
-bindsym $mod+x exec --no-startup-id search_dictionary
+for_window [class="^tmp_"] floating enable, move position center, resize set 800 400
 # >>>
-# Sartup <<<
-
+# Startup <<<
 # Fetch email
-exec $HOME/bin/wait_internet && check_mail
+exec --no-startup-id $HOME/bin/wait_internet && check_mail
 
 # Pick a random background image
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
-# Composer for transparency
-# exec_always --no-startup-id "killall picom; picom -f --config $XDG_CONFIG_HOME/picom.conf"
-exec --no-startup-id "picom -f --config $XDG_CONFIG_HOME/picom.conf"
+
+# Composer for fading affect on window focus and opacity
+exec --no-startup-id "picom --experimental-backends -f --config $XDG_CONFIG_HOME/picom.conf"
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
-
-exec --no-startup-id $HOME/bin/manage_notes emacs && i3-msg "[title=emacs_notes] move scratchpad"
-
-# Notes
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
 # >>>
