@@ -1,0 +1,5 @@
+#!/bin/env sh
+
+output="${QUTE_URL%#*}"
+echo "$output" | xclip -selection clipboard
+echo "message-info 'yanked $output'" >> "$QUTE_FIFO"

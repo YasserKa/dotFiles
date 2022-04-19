@@ -42,8 +42,17 @@ c.bindings.commands = {
         # Allows chosen tabs in hidden workspaces to be focused
         'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
 
+        # Yank URL without anchors
+        'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_without_anchors',
+
         # Override f and F by download documents from libgen
         ':p': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
+
+        'f': 'hint all;; set-mark o;; later 1000 set-mark i',
+        '<Ctrl-o>': 'jump-mark o;; clear-messages',
+        '<Ctrl-i>': 'jump-mark i;; clear-messages',
+
+
         # 'F': 'hint all userscript ~/.config/qutebrowser/userscripts/override_F',
 
         ',es': 'config-edit',
@@ -130,6 +139,9 @@ c.content.blocking.whitelist = ['https://analytics.google.com/analytics/*']
 c.content.blocking.method = 'both'
 c.content.notifications.enabled = False
 c.content.tls.certificate_errors = "ask-block-thirdparty"
+# Enable save to clipbaord buttons
+c.content.javascript.can_access_clipboard = True
+
 with config.pattern('https://www.google.com') as p:
     p.content.geolocation = True
 
@@ -141,6 +153,7 @@ c.hints.selectors['id'] = ["[id]"]
 with config.pattern('https://github.com/*/issues') as p:
     p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
 c.hints.border = "1px solid #CCCCCC"
+c.fonts.default_size = "12pt"
 
 c.spellcheck.languages = ['en-US']
 # Open new tabs next to the current one
