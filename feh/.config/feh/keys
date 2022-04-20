@@ -1,0 +1,30 @@
+# key definition: <action name> <key1> [<key2> [<key3>]]
+#
+# Each <key> is an X11 keysym (as output by xev) with optional modifier.
+# For instance, C-x would be Ctrl+X, or 4-space Mod4+Space
+
+menu_parent h Left
+menu_child  l Right
+menu_down   j Down
+menu_up     k Up
+menu_select space Return
+
+next_img C-n
+prev_img C-p
+
+scroll_up    k
+scroll_down  j
+scroll_left  h
+scroll_right l
+
+# Remove from filelist
+remove   C-d   Delete
+# Delete file
+delete   C-D C-Delete
+
+toggle_filenames f
+
+zoom_in  plus
+zoom_out minus
+zoom_default d
+zoom_fit equal
