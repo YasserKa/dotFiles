@@ -2,6 +2,7 @@
 
 # Sync mail and give notification if there is new mail.
 
+alias mbsync="mbsync -c ${XDG_CONFIG_ISYNC}"
 # Run only if user logged in (prevent cron errors)
 pgrep -u "${USER:=$LOGNAME}" >/dev/null || { echo "$USER not logged in; sync will not run."; exit ;}
 # Run only if not already running in other instance
@@ -41,7 +42,7 @@ syncandnotify() {
 
 # Sync accounts passed as argument or all.
 if [ "$#" -eq "0" ]; then
-    accounts="$(awk '/^Channel/ {print $2}' "$HOME/.mbsyncrc")"
+    accounts="$(awk '/^Channel/ {print $2}' "$XDG_CONFIG_ISYNC")"
 else
     for arg in "$@"; do
         [ "${arg%${arg#?}}" = '-' ] && opts="${opts:+${opts} }${arg}" && shift 1

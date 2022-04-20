@@ -16,12 +16,15 @@ temp_path="/tmp/tmp.$note_type"
 class_name="tmp_$note_type"
 
 if [[ -z $(ps aux | grep -v "grep" | grep $class_name) ]]; then
-    $TERMINAL --class "$class_name" -e $EDITOR -c 'startinsert' $temp_path
+    $TERMINAL --class "$class_name" -e $EDITOR -c 'startinsert' $temp_path & disown
     while [[ -z $(wmctrl -xl | grep " $class_name") ]]; do sleep 0.5; done
     i3-msg "[class=^\"$class_name\"$] move position center"
 else
     pkill -f $class_name
 fi
+
+# Wait until the window exits
+while [[ ! -z $(wmctrl -xl | grep " $class_name") ]]; do sleep 0.5; done
 
 if [[ $note_type == "org_protocol" ]]; then
     cat $temp_path | xargs -I % emacsclient "org-protocol://capture?template=n&title=%"

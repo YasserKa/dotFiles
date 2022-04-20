@@ -44,6 +44,7 @@ c.bindings.commands = {
 
         # Yank URL without anchors
         'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_without_anchors',
+        'gc': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors',
 
         # Override f and F by download documents from libgen
         ':p': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
@@ -154,6 +155,7 @@ with config.pattern('https://github.com/*/issues') as p:
     p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
 c.hints.border = "1px solid #CCCCCC"
 c.fonts.default_size = "12pt"
+c.fonts.web.size.default = 19
 
 c.spellcheck.languages = ['en-US']
 # Open new tabs next to the current one

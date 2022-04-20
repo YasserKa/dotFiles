@@ -1,0 +1,4 @@
+#!/bin/env sh
+
+output="${QUTE_URL%#*}"
+echo ":open $output" >> "$QUTE_FIFO"

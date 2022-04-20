@@ -165,6 +165,8 @@ message-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg action \"#mail.ho
 macro index,pager S "<sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"
 
 # contacts
+
+alias abook = "abook --config $XDG_CONFIG_ABOOK --datafile $XDG_DATA_ABOOK"
 set query_command= "abook --mutt-query '%s'"
 macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>abook --add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
 bind editor <Tab> complete-query

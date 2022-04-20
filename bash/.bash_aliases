@@ -32,29 +32,30 @@ function rc () {
     fi
 }
 
-alias rcvim="rc $XDG_CONFIG_HOME/nvim init.vim"
-alias rckitty="rc $XDG_CONFIG_HOME/kitty kitty.conf"
+alias rcvim="rc $NVIM_CONFIG init.vim"
+alias rcfeh="rc $FEH_CONFIG *"
+alias rckitty="rc $KITTY_CONFIG kitty.conf"
 alias rcbash="rc $HOME .bashrc .bash_aliases .bash_functions .bash_profile"
-alias rctmux="rc $HOME .tmux.conf"
-alias rcqutebrowser="rc $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*"
-alias rci3="rc $XDG_CONFIG_HOME/i3 config"
-alias rcrofi="rc $XDG_CONFIG_HOME/rofi config.rasi"
-alias rcdunst="rc $XDG_CONFIG_HOME/dunst dunstrc"
-alias rcpolybar="rc $XDG_CONFIG_HOME/polybar config.ini"
-# Unique case
-alias rcemacs="emacs --file $HOME/.emacs.d/init.el"
+alias rctmux="rc $TMUX_CONFIG .tmux.conf"
+alias rcqutebrowser="rc $QUTEBROWSER_CONFIG config.py userscripts/*"
+alias rci3="rc $I3_CONFIG config"
+alias rcrofi="rc $ROFI_CONFIG config.rasi"
+alias rcdunst="rc $DUNST_CONFIG dunstrc"
+alias rcpolybar="rc $POLYBAR_CONFIG config.ini"
+# Open Emacs's config file in Emacs
+alias rcemacs="emacs --file $EMACS_CONFIG/init.el"
 
 # sync notes
-alias sync_org="wait_internet && rclone sync $HOME/notes/org remote:org --include 'fast_access.org' --include 'groceries.org'"
+alias sync_org="wait_internet && rclone sync $NOTES_ORG_HOME remote:org --include 'fast_access.org' --include 'groceries.org'"
 alias sync_books="wait_internet && rclone sync $HOME/books books:books"
 
 # shutdown
 # don't shutdown if there's an unsaved note file (checked via existence of symbolic linked file)
-alias reboot="[[ ! -h $HOME/notes/org/\.\#* ]] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
-alias shut="[[ ! -h $HOME/notes/org/\.\#* ]] && wait_internet && rclone sync $HOME/notes/org org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
+alias reboot="[[ ! -h $NOTES_ORG_HOME/\.\#* ]] && wait_internet && rclone sync $NOTES_ORG_HOME org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
+alias shut="[[ ! -h $NOTES_ORG_HOME/\.\#* ]] && wait_internet && rclone sync $NOTES_ORG_HOME org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
 
 # Alternatives
-alias top='btm --color=gruvbox'
+alias top="btm --color=gruvbox"
 alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # Can't override journalctl using a function
@@ -125,7 +126,7 @@ function app_runner() {
 
 function org() {
     title="emacs_org"
-    app_runner $title "emacs --title=$title --file=$HOME/notes/org/general.org &"
+    app_runner $title "emacs --title=$title --file=$NOTES_ORG_HOME/general.org &"
 }
 
 function magit() {
@@ -136,13 +137,13 @@ function magit() {
 alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
 # cron
 # TODO: make this work like rc files
-alias cron='$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron'
+alias cron="$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron"
 
 # last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 
 # music player
-alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+alias cmus="screen -q -r -D cmus || screen -S cmus $(which cmus)"
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'

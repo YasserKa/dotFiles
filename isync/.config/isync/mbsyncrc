@@ -3,7 +3,7 @@ Host imap.gmail.com
 Port 993
 User yasser.kaddoura19@gmail.com
 AuthMechs XOAUTH2
-PassCmd "$HOME/.config/mutt/scripts/oauth2tool personal"
+PassCmd "$XDG_CONFIG_HOME/mutt/scripts/oauth2tool personal"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
@@ -22,3 +22,5 @@ Create Both
 SyncState *
 MaxMessages 0
 ExpireUnread no
+
+# vim:filetype=msmtp commentstring=#%s

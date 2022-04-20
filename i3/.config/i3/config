@@ -103,7 +103,6 @@ bindsym $mod+Shift+minus move scratchpad
 # Opening softwares to a default workspaces
 assign [title="^emacs_org$"] workspace $notes
 assign [title="^magit$"] workspace $git
-assign [class="mpv"] workspace $video
 assign [class="Slack"] workspace $social
 assign [class="Zathura"] workspace $documents
 assign [class="Chromium"] workspace $wp9
@@ -191,11 +190,11 @@ set $sharing_mode "(i)mage, (c)lipbaord, (v)ideo, (t)ext, (n)ote"
 
 bindsym $mod+s mode $sharing_mode
 mode $sharing_mode {
-    bindsym i exec --no-startup-id HOME/bin/share -i; mode "default";
-    bindsym c exec --no-startup-id HOME/bin/share -c; mode "default";
-    bindsym v exec --no-startup-id HOME/bin/share -v; mode "default";
-    bindsym t exec --no-startup-id HOME/bin/share -t; mode "default";
-    bindsym n exec --no-startup-id HOME/bin/share -n; mode "default";
+    bindsym i exec --no-startup-id $HOME/bin/share -i; mode "default";
+    bindsym c exec --no-startup-id $HOME/bin/share -c; mode "default";
+    bindsym v exec --no-startup-id $HOME/bin/share -v; mode "default";
+    bindsym t exec --no-startup-id $HOME/bin/share -t; mode "default";
+    bindsym n exec --no-startup-id $HOME/bin/share -n; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
@@ -279,4 +278,10 @@ exec --no-startup-id "picom --experimental-backends -f --config $XDG_CONFIG_HOME
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
+
+# Move cursor to center of screen
+exec_always --no-startup-id xdotool mousemove --polar 0 0
+
+# Hide cursor
+exec unclutter
 # >>>
