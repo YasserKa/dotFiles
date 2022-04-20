@@ -32,7 +32,6 @@
 (setq file-name-handler-alist nil)
 
 (add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my/file-name-handler-alist)))
-
 ;; Load Emacs Lisp packages, and activate them
 (package-initialize)
 
@@ -876,7 +875,6 @@ see how ARG affects this command."
                               (kbd "<M-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-heading) (evil-insert 0))
                               (kbd "<M-S-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0)))
                             (evil-define-key 'normal 'evil-org-mode
-
                               (kbd "zi")  #'org-toggle-inline-images
                               (kbd "zl")  #'org-latex-preview
                               ;; Open files at cursor
