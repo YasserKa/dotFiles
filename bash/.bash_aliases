@@ -120,7 +120,8 @@ function app_runner() {
 
     xdotool search --name $window_title windowactivate
     if [[ $? != 0 ]]; then
-        bash -c "$command_to_run"
+        bash -c "chronic ${command_to_run} & disown"
+
         # Wait until window is visible
         while [[ -z $(wmctrl -xl | grep " $window_title") ]]; do sleep 0.5; done
         xdotool search --name $window_title windowactivate
@@ -128,14 +129,19 @@ function app_runner() {
 }
 
 function org() {
-    title="emacs_org"
-    app_runner $title "emacs --title=$title --file=$NOTES_ORG_HOME/general.org &"
+    title="emacs_org_title"
+    app_runner $title "emacs --title=$title --file=$NOTES_ORG_HOME/general.org"
 }
 
 function magit() {
-    title="magit"
-    app_runner $title "emacs --title=$title --funcall=magit-list-repositories &"
+    title="magit_title"
+    chronic git rev-parse --show-toplevel || return 1
+    git_root=$(git rev-parse --show-toplevel)
+    app_runner $title \
+        "emacs --title=$title --eval '(magit-status \"${git_root}\")'"
 }
+
+alias magitdotfiles="cd $DOTFILES_HOME && magit"
 
 alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
 # cron

@@ -41,6 +41,7 @@ export EMACS_CONFIG="$XDG_CONFIG_HOME/emacs"
 export TMUX_CONFIG="$XDG_CONFIG_HOME/tmux"
 export ABOOK_CONFIG="$XDG_CONFIG_HOME/abook"
 export ABOOK_DATA="$XDG_DATA_HOME/abook"
+export DOTFILES_HOME="$HOME/dotfiles"
 export SSH_CONFIG="$HOME/.ssh"
 
 export NOTES_ORG_HOME="$HOME/notes/org"

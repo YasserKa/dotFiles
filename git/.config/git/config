@@ -1,7 +1,8 @@
 [user]
-    email = yasser.kaddoura19@gmail.om
+    email = yasser.kaddoura19@gmail.com
     name = Yasser Kaddoura
     signingKey = 116F256041ACF55D33334B77F69626AEBEC29AA7
+
 [init]
     defaultBranch = main
 
@@ -46,7 +47,14 @@
    ; execute corrected commands immediately
     autocorrect = -1
 
+[commit]
+    gpgSign = true
+
+[tag]
+    forceSignAnnotated = true
+
 [github]
     user = YasserKa
+
 [credential]
     helper = store
