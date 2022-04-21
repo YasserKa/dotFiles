@@ -201,7 +201,6 @@ mode $sharing_mode {
     bindsym Escape mode "default";
 }
 
-
 set $utility_mode "(l)ights off, (m)ail, (a)udio, (d)ictionary, (u)sb unmount"
 bindsym $mod+u mode $utility_mode
 mode $utility_mode {
@@ -211,9 +210,6 @@ mode $utility_mode {
 # Switch off light
     bindsym l exec --no-startup-id "sleep 0.5; xset dpms force off"; mode "default";
 
-# Mail
-    bindsym m exec --no-startup-id check_mail; mode "default";
-
     bindsym a exec --no-startup-id switch_audio_sink; mode "default";
     bindsym d exec --no-startup-id search_dictionary; mode "default";
 
@@ -221,10 +217,17 @@ mode $utility_mode {
     bindsym Escape mode "default";
 }
 
+set $mail_mode "mail (o)pen, (s)ync, (c)lear"
+bindsym $mod+u mode $mail_mode
+mode $utility_mode {
+    bindsym s exec --no-startup-id check_mail; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
 set $system_mode "system (l) lock, (e) logout, (s) reload i3, (r) restart i3, (Shift+r) reboot, (Shift+s) shutdown"
-
 bindsym $mod+x mode $system_mode
-
 mode $system_mode {
     bindsym l exec --no-startup-id i3lock --color 000000, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
