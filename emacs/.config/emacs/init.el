@@ -47,7 +47,7 @@
 ;; Don't make package-selected-packages to be created
 (defun package--save-selected-packages (&rest opt) nil)
 ;; Place Emacs generated variables somewhere else, and don't load them
-(setq custom-file (concat user-emacs-directory "/custom.el"))
+(setq custom-file (concat user-emacs-directory "custom.el"))
 
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -234,7 +234,7 @@
 
 (use-package yasnippet
   :custom
-  (yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (yas-snippet-dirs (list (concat user-emacs-directory "snippets")))
   :config
   (yas-global-mode t)
   (use-package yasnippet-snippets)
@@ -648,7 +648,7 @@
     )
 
   (setq org-capture-templates
-        '(("d" "default" entry (file "~/notes/org/capture.org")
+        `(("d" "default" entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
            "* TODO %?\n")))
 
   ;; Update org-agenda-files after updating item states
@@ -693,7 +693,7 @@
 
   (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
 
-  (my/add-to-agenda-files (concat (getenv "HOME") "/notes/org/capture.org"))
+  (my/add-to-agenda-files (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
   ;; Clocking
 
   ;; Loading emacs server is needed by emacsclient
@@ -809,13 +809,13 @@ see how ARG affects this command."
     :config
 
     (add-to-list 'org-capture-templates
-                 '("q" "org-capture-url"
-                   entry (file "~/notes/org/capture.org")
+                 `("q" "org-capture-url"
+                   entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
     (add-to-list 'org-capture-templates
-                 '("n" "org-capture-note"
-                   entry (file "~/notes/org/capture.org")
+                 `("n" "org-capture-note"
+                   entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
 
     (setq org-protocol-default-template-key "q")
@@ -911,7 +911,7 @@ see how ARG affects this command."
   :after org
   :bind (("C-c r i" . org-roam-node-insert))
   :custom
-  (org-roam-directory "~/notes/org")
+  (org-roam-directory (getenv "NOTES_ORG_HOME"))
   (org-roam-node-display-template
    (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   ;; It's slow, so disable it
@@ -1024,7 +1024,7 @@ see how ARG affects this command."
 ;; Search text
 (use-package deft
   :custom
-  (deft-directory "~/notes/org")
+  (deft-directory (getenv "NOTES_ORG_HOME"))
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")

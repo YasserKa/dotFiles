@@ -43,4 +43,5 @@ GRC_ALIASES=true
 
 # Source files
 [[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
+[[ -f $HOME/.shell_common ]] && . $HOME/.shell_common
 [[ -f $HOME/.bash_functions ]] && . $HOME/.bash_functions

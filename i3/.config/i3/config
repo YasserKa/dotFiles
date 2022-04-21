@@ -155,7 +155,7 @@ mode $clock_mode {
 }
 
 # Music player
-set $cmus_mode "(i)nfo, (s) toggle, (n)next, (p)revious, (h)igher, (l)ower"
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower"
 bindsym $mod+c mode $cmus_mode
 
 mode $cmus_mode {
@@ -171,7 +171,7 @@ mode $cmus_mode {
     bindsym Escape mode "default";
 }
 
-set $control_ambient_mode "(s) toggle, (h)igher, (l)ower"
+set $control_ambient_mode "(t)oggle, (h)igher, (l)ower"
 
 for_window [class="ambient_music"] move scratchpad
 
@@ -256,7 +256,7 @@ bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
 bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 
 # Put general notes in scratchpad
-for_window [class="^general_notes$"] floating enable, move position center, resize set 990 820, move scratchpad
+for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 # Open it at startup
 exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
 
@@ -264,7 +264,7 @@ exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/gene
 bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
-for_window [class="^tmp_"] floating enable, move position center, resize set 800 400
+for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
 # >>>
 # Startup <<<
 # Fetch email

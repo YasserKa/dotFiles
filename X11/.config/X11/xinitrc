@@ -1,4 +1,4 @@
-#!/bin/env sh
+# vim:filetype=sh
 
 # Set X preferences
 # Disable bell
@@ -6,8 +6,6 @@ xset -b
 # disable screen saver
 xset -dpms
 xset s off
-
-eval $(ssh-agent)
 
 # Monitor setup
 autorandr --change

@@ -16,9 +16,9 @@ temp_path="/tmp/tmp.$note_type"
 class_name="tmp_$note_type"
 
 if [[ -z $(ps aux | grep -v "grep" | grep $class_name) ]]; then
-    $TERMINAL --class "$class_name" -e $EDITOR -c 'startinsert' $temp_path & disown
+    $TERMINAL --class "$class_name" -e $EDITOR -c 'startinsert' $temp_path &
     while [[ -z $(wmctrl -xl | grep " $class_name") ]]; do sleep 0.5; done
-    i3-msg "[class=^\"$class_name\"$] move position center"
+    i3-msg "[class=\"^$class_name$\"] scratchpad show, move position center"
 else
     pkill -f $class_name
 fi

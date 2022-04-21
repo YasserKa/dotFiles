@@ -1,0 +1,5 @@
+#!/bin/env sh
+
+# Reason for placing it here: https://wiki.archlinux.org/title/SSH_keys#Keychain
+# ~/.bashrc is used instead of the upstream suggested ~/.bash_profile because on Arch it is sourced by both login and non-login shells, making it suitable for textual and graphical environments alike
+eval $(keychain --eval --quiet id_rsa)

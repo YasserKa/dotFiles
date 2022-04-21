@@ -86,7 +86,6 @@ set shiftwidth=4            " Number of spaces to autoindent
 set softtabstop=4           " Number of spaces for a tab
 set nojoinspaces            " No extra space after '.' when joining lines
 set textwidth=80            " Wrap lines automatically at 80th column
-set spell spelllang=en_us   " Enable spelling
 
 let g:python3_host_prog  = '/bin/python3.10'
 

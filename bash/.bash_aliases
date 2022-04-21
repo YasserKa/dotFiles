@@ -1,7 +1,7 @@
 # Shorter
-alias vim='nvim'
-alias vi='nvim'
 alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
 alias h='history'
 alias hg='history | grep'
 alias pac='sudo pacman'
@@ -42,6 +42,9 @@ alias rci3="rc $I3_CONFIG config"
 alias rcrofi="rc $ROFI_CONFIG config.rasi"
 alias rcdunst="rc $DUNST_CONFIG dunstrc"
 alias rcpolybar="rc $POLYBAR_CONFIG config.ini"
+alias rcgpg="rc $GNUPGHOME gpg-agent.conf"
+alias rcssh="rc $SSH_CONFIG ssh sshd_config"
+alias rctmux="rc $TMUX_CONFIG tmux.conf"
 # Open Emacs's config file in Emacs
 alias rcemacs="emacs --file $EMACS_CONFIG/init.el"
 
@@ -144,6 +147,8 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 
 # music player
 alias cmus="screen -q -r -D cmus || screen -S cmus $(which cmus)"
+
+alias abook="abook --config $ABOOK_CONFIG/abookrc --datafile $ABOOK_DATA/addressbook"
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'

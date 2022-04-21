@@ -17,7 +17,7 @@
 #   1. Get client id and secret from https://console.cloud.google.com/apis/credentials
 #
 #   2. Generated your refresh token with a preliminary run of Gmail's  oauth2.py
-#        $ python2 oauth2.py --user=<yourGmail> --client_id=<yourClientID> \
+#        $ python2 oauth2 --user=<yourGmail> --client_id=<yourClientID> \
 #            --client_secret=<yourClientSecret --generate_oauth2_token
 #
 #   3. Configured your  ~/.password-store
@@ -51,7 +51,6 @@
 handle=$1  # for use in parameter expansions
 
 get_access_token() {
-
     { IFS= read -r tokenline && IFS= read -r expireline; } < \
     <(python2 $HOME/.config/mutt/scripts/oauth2 --user=${!1} \
     --client_id=$(pass $handle/GmailAPI/CID) \
