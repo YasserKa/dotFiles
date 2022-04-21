@@ -265,6 +265,7 @@
 
 ;; Traverse file changes in git
 (use-package git-timemachine)
+(use-package browse-at-remote)
 (use-package git-gutter
   :init
   :disabled
@@ -285,7 +286,7 @@
   (evil-collection-magit-want-horizontal-movement t)
   ;; Update return in repo list, should be done after evil-collection
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+  (magit-repository-directories '(((getenv "DOTFILES_HOME") . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
   :config
 
 
@@ -1189,6 +1190,8 @@ see how ARG affects this command."
   (" c" magit-show-commit "show commit")
   (" L" magit-log-buffer-file "log")
 
+  (" o" browse-at-remote "browse at remote")
+
   (" t" git-timemachine-toggle "toggle" :column " timemachine")
   )
 
@@ -1265,6 +1268,7 @@ see how ARG affects this command."
 
 (defhydra org-links-hydra (:exit t :idle 1)
   (" s" org-store-link "store" :column " links")
+  (" e" org-insert-link "store" :column " links") ; Edit link if it exists at point
   (" t" org-toggle-link-display "toggle")
   (" i" org-insert-last-stored-link "insert last")
   )
