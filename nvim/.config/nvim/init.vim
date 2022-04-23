@@ -165,6 +165,11 @@ function! ExecuteMacroOverVisualRange()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 
+augroup DOSINI_COLOR
+    autocmd!
+    autocmd VimEnter * hi! link dosiniValue GruvBoxPurple
+augroup END
+
 " AutoCommands
 augroup SESSIONS
     autocmd!

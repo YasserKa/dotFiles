@@ -68,7 +68,7 @@ export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d
 export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --follow --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up' --color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}'"
 
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 # XDG_VTNR is set by pam_systemd upon login
 # if there's no DISPLAY, start X11

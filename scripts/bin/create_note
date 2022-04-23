@@ -27,7 +27,7 @@ fi
 while [[ ! -z $(wmctrl -xl | grep " $class_name") ]]; do sleep 0.5; done
 
 if [[ $note_type == "org_protocol" ]]; then
-    cat $temp_path | xargs -I % emacsclient "org-protocol://capture?template=n&title=%"
+    cat $temp_path | xargs -I % emacsclient --no-wait "org-protocol://capture?template=n&title=%"
     [[ $? != 0 ]] && dunstify "Note not captured" "Emacs server isn't running"
 else
     # Used for tex

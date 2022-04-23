@@ -39,6 +39,7 @@ alias rcbash="rc $HOME .bashrc .bash_aliases .bash_functions .bash_profile"
 alias rctmux="rc $TMUX_CONFIG .tmux.conf"
 alias rcqutebrowser="rc $QUTEBROWSER_CONFIG config.py userscripts/*"
 alias rci3="rc $I3_CONFIG config"
+alias rcxinitrc="rc ${XINITRC%/*} xinitrc"
 alias rcrofi="rc $ROFI_CONFIG config.rasi"
 alias rcdunst="rc $DUNST_CONFIG dunstrc"
 alias rcpolybar="rc $POLYBAR_CONFIG config.ini"
@@ -49,13 +50,8 @@ alias rctmux="rc $TMUX_CONFIG tmux.conf"
 alias rcemacs="emacs --file $EMACS_CONFIG/init.el"
 
 # sync notes
-alias sync_org="wait_internet && rclone sync $NOTES_ORG_HOME remote:org --include 'fast_access.org' --include 'groceries.org'"
-alias sync_books="wait_internet && rclone sync $HOME/books books:books"
-
-# shutdown
-# don't shutdown if there's an unsaved note file (checked via existence of symbolic linked file)
-alias reboot="[[ ! -h $NOTES_ORG_HOME/\.\#* ]] && wait_internet && rclone sync $NOTES_ORG_HOME org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown -r now || dunstify 'unsaved file'"
-alias shut="[[ ! -h $NOTES_ORG_HOME/\.\#* ]] && wait_internet && rclone sync $NOTES_ORG_HOME org_notes:org --include 'fast_access.org' --include 'groceries.org' && shutdown now || dunstify 'unsaved file'"
+alias syncorg="wait_internet && rclone sync $NOTES_ORG_HOME remote:org --include 'fast_access.org' --include 'groceries.org'"
+alias syncbooks="wait_internet && rclone sync $HOME/books books:books"
 
 # Alternatives
 alias top="btm --color=gruvbox"
@@ -114,32 +110,8 @@ alias vf='fasd -sife nvim' # quick opening files with vim
 
 _fasd_bash_hook_cmd_complete vf j
 
-function app_runner() {
-    window_title="$1"
-    command_to_run="$2"
-
-    xdotool search --name $window_title windowactivate
-    if [[ $? != 0 ]]; then
-        bash -c "chronic ${command_to_run} & disown"
-
-        # Wait until window is visible
-        while [[ -z $(wmctrl -xl | grep " $window_title") ]]; do sleep 0.5; done
-        xdotool search --name $window_title windowactivate
-    fi
-}
-
-function org() {
-    title="emacs_org_title"
-    app_runner $title "emacs --title=$title --file=$NOTES_ORG_HOME/general.org"
-}
-
-function magit() {
-    title="magit_title"
-    chronic git rev-parse --show-toplevel || return 1
-    git_root=$(git rev-parse --show-toplevel)
-    app_runner $title \
-        "emacs --title=$title --eval '(magit-status \"${git_root}\")'"
-}
+utility_path="$HOME/bin/utility_functions"
+[[ -f $utility_path ]] && . $utility_path
 
 alias magitdotfiles="cd $DOTFILES_HOME && magit"
 

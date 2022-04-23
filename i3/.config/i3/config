@@ -101,8 +101,8 @@ bindsym $mod+z workspace back_and_forth
 bindsym $mod+Shift+minus move scratchpad
 
 # Opening softwares to a default workspaces
-assign [title="^emacs_org_title$"] workspace $notes
-assign [title="^magit_title$"] workspace $git
+assign [title="^emacs_org_name$"] workspace $notes
+assign [title="^magit_name$"] workspace $git
 assign [title="^rc_magit_title$"] workspace $git
 assign [class="Slack"] workspace $social
 assign [class="Zathura"] workspace $documents
@@ -161,7 +161,7 @@ bindsym $mod+c mode $cmus_mode
 
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
-    bindsym s exec --no-startup-id cmus-remote --pause; mode "default";
+    bindsym t exec --no-startup-id cmus-remote --pause; mode "default";
     bindsym n exec --no-startup-id cmus-remote --next; mode "default";
     bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
 
@@ -178,7 +178,7 @@ for_window [class="ambient_music"] move scratchpad
 
 bindsym $mod+Shift+c mode $control_ambient_mode
 mode $control_ambient_mode {
-    bindsym s exec --no-startup-id $HOME/bin/control_ambient p; mode "default";
+    bindsym t exec --no-startup-id $HOME/bin/control_ambient p; mode "default";
 
     bindsym h exec --no-startup-id $HOME/bin/control_ambient k;
     bindsym l exec --no-startup-id $HOME/bin/control_ambient j;
@@ -218,8 +218,8 @@ mode $utility_mode {
 }
 
 set $mail_mode "mail (o)pen, (s)ync, (c)lear"
-bindsym $mod+u mode $mail_mode
-mode $utility_mode {
+bindsym $mod+m mode $mail_mode
+mode $mail_mode {
     bindsym s exec --no-startup-id check_mail; mode "default";
 
     bindsym Control+bracketleft mode "default";
@@ -233,8 +233,18 @@ mode $system_mode {
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id i3-msg reload, mode "default"
     bindsym r exec --no-startup-id i3-msg restart, mode "default"
-    bindsym Shift+r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    bindsym Shift+r exec --no-startup-id emacsclient --eval \
+    "(org-save-all-org-buffers)" && $HOME/bin/wait_internet \
+    && rclone sync ${NOTES_ORG_HOME} org_notes:org \
+    --include 'fast_access.org' --include 'groceries.org' \
+    && shtudown -r now || dunstify 'unsaved file', mode "default"
+
+    bindsym Shift+s exec --no-startup-id emacsclient --eval \
+    "(org-save-all-org-buffers)" && $HOME/bin/wait_internet \
+    && rclone sync ${NOTES_ORG_HOME} org_notes:org \
+    --include 'fast_access.org' --include 'groceries.org' \
+    && shutdown now || dunstify 'unsaved file', mode "default"
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default"
@@ -262,13 +272,17 @@ bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 # Put general notes in scratchpad
 for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 # Open it at startup
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --class --title=emacs_org_name --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
 
 # note taking
 bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
+
+# bindsym $mod+a exec --no-startup-id $HOME/test
+# bindsym --release $mod+a exec --no-startup-id DISPLAY=:0 xdotool key a
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
 for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
+for_window [title="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
 # >>>
 # Startup <<<
 # Fetch email
@@ -278,14 +292,8 @@ exec --no-startup-id $HOME/bin/wait_internet && check_mail
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 
 # Composer for fading affect on window focus and opacity
-exec --no-startup-id "picom --experimental-backends -f --config $XDG_CONFIG_HOME/picom.conf"
+exec --no-startup-id "picom --experimental-backends & disown"
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
-
-# Move cursor to center of screen
-exec_always --no-startup-id xdotool mousemove --polar 0 0
-
-# Hide cursor
-exec unclutter
 # >>>

@@ -1,0 +1,64 @@
+# vim: filetype=sh
+
+# function go_to_app() {
+
+# }
+
+# function bring_app() {
+
+# }
+
+# function is_window_exist() {
+
+# }
+
+
+# Criteria that i3
+# function open_app() {
+#     criteria="$1"
+
+# }
+
+# function open_cli_app () {
+#     local command="$1"
+
+#     command -v $command || notify-send "$command doesn't exit" && return
+
+#     [[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return
+
+#     # Check if it's in a terminal
+#     tty -s && $command || $TERMINAL -- $command
+# }
+
+# function open_cli() {
+#     instance="$1"
+#     command_to_run="$1"
+# }
+
+function app_runner() {
+    local name="$1"
+    local command="$2"
+
+    xdotool search --name $name windowactivate
+    if [[ $? != 0 ]]; then
+        bash -c "chronic ${command} & disown"
+
+        # Wait until window is visible
+        xdotool search --sync --name "$name" windowactivate
+    fi
+}
+
+function org() {
+    local name="emacs_org_name"
+
+    app_runner $name "emacs --title=$name --file=$NOTES_ORG_HOME/general.org"
+}
+
+function magit() {
+    local name="magit_name"
+    local git_root=$(git rev-parse --show-toplevel)
+
+    chronic git rev-parse --show-toplevel || return 1
+    app_runner $name \
+        "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
+}
