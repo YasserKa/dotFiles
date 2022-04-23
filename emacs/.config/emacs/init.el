@@ -259,7 +259,7 @@
   ;; Load basic company backend
   (defun my/append-company-backends ()
     (setq-local company-backends
-                (append '((company-capf company-jedi company-yasnippet)) company-backends)))
+                (append '((company-capf company-yasnippet)) company-backends)))
   (add-hook 'org-mode #'my/append-company-backends)
   )
 
@@ -443,20 +443,18 @@
   (evil-collection-define-operator-key 'yank 'global-map "ob" #'my/trigger-theme)
   (evil-collection-define-operator-key 'yank 'global-map "ow" #'visual-line-mode)
 
-  (dolist (map '(minibuffer-local-map
+  ;; Use evil bindings for search
+  (evil-select-search-module 'evil-search-module 'evil-search)
+
+  (dolist (map '( minibuffer-local-map
                  minibuffer-local-ns-map
                  minibuffer-local-completion-map
                  minibuffer-local-must-match-map
                  minibuffer-local-isearch-map
-                 isearch-mode-map
-                 evil-ex-completion-map))
-    ;; Exit minibuffer instead of going to normal mode
+                 evil-ex-completion-map
+                 ))
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
-    (evil-collection-define-key 'insert map (kbd "C-h") 'delete-backward-char)
-    (evil-collection-define-key 'insert map (kbd "C-w") 'evil-delete-backward-word)
-    (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
-    (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
-    (evil-collection-define-key 'insert map (kbd "C-q") 'help))
+    )
   )
 
 (defun my/org-mode-setup ()
@@ -561,6 +559,22 @@
     [remap evil-save-and-close] #'my-finalize-if-no-todo
     [remap evil-save-modified-and-close] #'my-finalize-if-no-todo
     [remap evil-quit] #'org-capture-kill)
+
+  ;; Don't capture empty TODO tasks
+  (defun my-finalize-if-no-todo ()
+    (interactive)
+    (setq matches (count-matches "* TODO \n" 0))
+    (if (= matches 1)
+        (setq org-note-abort t)
+      nil
+      ))
+  (defun my-finalize-reset-abort ()
+    (interactive)
+    (setq org-note-abort nil))
+
+
+  (add-hook 'org-capture-prepare-finalize-hook #'my-finalize-if-no-todo)
+  (add-hook 'org-capture-after-finalize-hook #'my-finalize-reset-abort)
 
   ;; Agenda
   ;; Open agenda files to buffer at startup
@@ -708,10 +722,9 @@
 
   (defun my/clock-in-when-next ()
     ;; Removed TODO from item
-    (if (string= org-state "NEXT") (org-clock-in)))
+    (if (string= org-state "NEXT") (org-clock-in) (org-clock-out)))
 
   (add-hook 'org-after-todo-state-change-hook 'my/clock-in-when-next)
-
 
   (setq org-clock-persist 'history ;; Save clock history on Emacs close
         ;; Resume when clocking into task with open clock
@@ -725,6 +738,7 @@
             #'(lambda () (shell-command (concat "/bin/echo -e "
                                                 "\"" (org-get-heading t t t t) " \n"
                                                 (org-entry-get nil "Effort") " \n"
+                                                (substring-no-properties (org-clock-get-clock-string)) " \n"
                                                 (what-line) " \n"
                                                 (buffer-file-name) "\""
                                                 " > /tmp/org_current_task"))
@@ -1250,6 +1264,7 @@ see how ARG affects this command."
   (" r" org-refile-hydra/body "refile" :column " org")
   (" l" org-links-hydra/body "links")
   (" e" org-export-dispatch "export")
+  (" a" org-archive-subtree "archive")
   (" g" org-goto-hydra/body "goto")
   )
 
@@ -1260,8 +1275,8 @@ see how ARG affects this command."
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
-  (" ." my/org/refile-to-current-file "current file" :column " refile")
-  (" c" my/org/refile-to-running-clock "clock")
+  (" ." my/org-refile-to-current-file "current file" :column " refile")
+  (" c" my/org-refile-to-running-clock "clock")
   (" a" org-refile "agenda")
   (" g" org-refile-goto-last-stored "goto refile")
   )
@@ -1330,4 +1345,4 @@ selection of all minor-modes, active or not."
     (if (fboundp symbol)
         (helpful-function symbol)
       (helpful-variable symbol))))
-;; }}}
+; }}}

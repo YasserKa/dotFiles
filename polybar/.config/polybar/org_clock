@@ -10,9 +10,9 @@ TMP_FILE_PATH="/tmp/org_current_task"
 function go_to_item () {
     [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
 
-    CURSOR=$(sed "3q;d" $TMP_FILE_PATH | grep -o '[0-9]*')
+    CURSOR=$(sed "4q;d" $TMP_FILE_PATH | grep -o '[0-9]*')
 
-    FULL_PATH=$(sed '4!d' $TMP_FILE_PATH)
+    FULL_PATH=$(tail -1 $TMP_FILE_PATH)
 
     # Focus window
     wmctrl -xa emacs-org-mode
@@ -40,16 +40,12 @@ function clock_cancel () {
 function get_time_spent () {
     [[ ! -e $TMP_FILE_PATH ]] && echo "" && return
 
-    TIME_SINCE_CREATION=$(echo $(($(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))/60)))
+    INFORMATION=$(head -3 $TMP_FILE_PATH | tail -1)
+    CLOCK_TIME=$(head -2 $TMP_FILE_PATH | tail -1)
 
-    TASK_NAME=$(head -1 $TMP_FILE_PATH)
+    TIME_SINCE_CREATION=$(echo $((${CLOCK_TIME##*:} + $(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))/60)))
 
-    # Show the title of an org link only
-    if [[ "${TASK_NAME:0:2}" == "[[" ]]; then
-        TASK_NAME=$(echo "$TASK_NAME" | cut -d [ -f 4 | cut -d ] -f 1)
-    fi
-
-    echo "$TASK_NAME - $TIME_SINCE_CREATION"
+    echo "$TIME_SINCE_CREATION -$INFORMATION "
 }
 
 case "$1" in
