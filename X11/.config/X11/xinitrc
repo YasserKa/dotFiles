@@ -10,6 +10,12 @@ xset s off
 # Monitor setup
 autorandr --change
 
+# Move cursor to center of screen
+xdotool mousemove --polar 0 0
+
+# Hide cursor
+unclutter & disown
+
 # Keyboard bindings
 [[ -f "$HOME/.Xmodmap" ]] && xmodmap "$HOME/.Xmodmap"
 
