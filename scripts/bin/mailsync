@@ -17,8 +17,7 @@ export DISPLAY=:0.0
 alias mbsync="mbsync -c ${XDG_CONFIG_ISYNC}"
 
 notify() { notify-send --app-name="neomutt" "mutt-wizard" "📬 $2 new mail(s) in \`$1\` account." ;}
-messageinfo() { [[ $(dunstify --appname="neomutt" "From: $from" "Subject:
-    $subject" --action="action,label") == "action" ]] && alacritty -e neomutt ;}
+messageinfo() { [[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && alacritty -e neomutt ;}
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {

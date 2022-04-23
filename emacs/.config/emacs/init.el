@@ -721,8 +721,7 @@
 
 
   (defun my/clock-in-when-next ()
-    ;; Removed TODO from item
-    (if (string= org-state "NEXT") (org-clock-in) (org-clock-out)))
+    (if (string= org-state "NEXT") (org-clock-in) nil))
 
   (add-hook 'org-after-todo-state-change-hook 'my/clock-in-when-next)
 

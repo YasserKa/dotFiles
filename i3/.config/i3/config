@@ -234,14 +234,14 @@ mode $system_mode {
     bindsym s exec --no-startup-id i3-msg reload, mode "default"
     bindsym r exec --no-startup-id i3-msg restart, mode "default"
 
-    bindsym Shift+r exec --no-startup-id emacsclient --eval \
+    bindsym Shift+r exec --no-startup-id emacsclient --no-wait --eval \
     "(org-save-all-org-buffers)" && $HOME/bin/wait_internet \
     && rclone sync ${NOTES_ORG_HOME} org_notes:org \
     --include 'fast_access.org' --include 'groceries.org' \
-    && shtudown -r now || dunstify 'unsaved file', mode "default"
+    && shutdown -r now || dunstify 'unsaved file', mode "default"
 
-    bindsym Shift+s exec --no-startup-id emacsclient --eval \
-    "(org-save-all-org-buffers)" && $HOME/bin/wait_internet \
+    bindsym Shift+s exec --no-startup-id emacsclient --no-wait --eval \
+    "(org-save-all-org-buffers)"; $HOME/bin/wait_internet \
     && rclone sync ${NOTES_ORG_HOME} org_notes:org \
     --include 'fast_access.org' --include 'groceries.org' \
     && shutdown now || dunstify 'unsaved file', mode "default"
@@ -272,7 +272,7 @@ bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 # Put general notes in scratchpad
 for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 # Open it at startup
-exec --no-startup-id i3-msg 'workspace 3; exec emacs --class --title=emacs_org_name --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
+exec --no-startup-id i3-msg 'workspace 3; exec emacs --title=emacs_org_name --file=$HOME/notes/org/general.org; workspace 1; exec qutebrowser'
 
 # note taking
 bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"

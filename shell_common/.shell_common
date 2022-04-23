@@ -2,7 +2,8 @@
 
 # Reason for placing it here: https://wiki.archlinux.org/title/SSH_keys#Keychain
 # ~/.bashrc is used instead of the upstream suggested ~/.bash_profile because on Arch it is sourced by both login and non-login shells, making it suitable for textual and graphical environments alike
-eval $(keychain --quiet --agents ssh,gpg --eval $HOME/.ssh/id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)
+eval $(ssh-agent) > /dev/null
+eval $(keychain --quiet --agents ssh,gpg --eval 116F256041ACF55D33334B77F69626AEBEC29AA7)
 
 # Adviced by gpg-agent manual
 GPG_TTY=$(tty)
