@@ -1,0 +1,19 @@
+# %s will be replaced with the path
+# Add test=$(command) to test before execution (h)
+# Add needsterminal for commands that use the terminal
+# Add copiousoutput for commands that dump text to stdout
+
+text/plain; $EDITOR %s;
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+
+image/gif; mpv --x11-name=floating '%s' --autofit=640x480 --loop=inf
+image/*; feh -g 640x480 -. '%s'
+
+video/x-youtube; mpv --x11-name=floating --ytdl-format=bestvideo+bestaudio/best '%s' --autofit=1280x1024
+video/*; mpv --x11-name=floating '%s' --autofit=1280x1024 --loop=inf
+
+audio/*; cmus-remote -f %s ;
+
+application/pdf; cp '%s' /tmp/doc.pdf && setsid zathura /tmp/doc.pdf &> /dev/null &;
+application/pgp-encrypted; gpg -d '%s'; copiousoutput;
+application/pgp-keys; gpg --import '%s'; copiousoutput;
