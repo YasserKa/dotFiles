@@ -54,6 +54,7 @@ Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
 Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
+Plug 'https://github.com/dbeniamine/cheat.sh-vim'
 
 call plug#end()
 " }}}
@@ -199,11 +200,11 @@ augroup MARKDOWN
     highlight link UnderlineMatch UnderlineHighlight
 augroup END
 
-augroup ORG_PROTOCOL
+augroup TMP_FILES
     autocmd!
-    autocmd BufRead,BufNewFile *org_protocol inoremap <C-c><C-c> <esc>:q<cr>
-    autocmd BufRead,BufNewFile *org_protocol nnoremap <C-c><C-c> <esc>:q<cr>
-    autocmd ExitPre *org_protocol :w
+    autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
+    autocmd BufRead,BufNewFile tmp.* set noswapfile
+    autocmd ExitPre tmp.* :w
 augroup END
 
 

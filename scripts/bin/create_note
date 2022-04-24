@@ -5,33 +5,29 @@
 # 1- persistent general notes
 # 2- Copy latex notes to clipboard
 # 3- org capture note via org protocol
-# Dependencies nvim
-# tex: xclip
+# Dependencies nvim xclip
 # org protocol: emacs
 
-# org_protocol
-# otherwise
-note_type="$1"
-temp_path="/tmp/tmp.$note_type"
-class_name="tmp_$note_type"
+EXTENSION="$1"
+TEMP_PATH="/tmp/tmp.$EXTENSION"
+CLASS="tmp_$EXTENSION"
 
-if [[ -z $(ps aux | grep -v "grep" | grep $class_name) ]]; then
-    $TERMINAL --class "$class_name" -e $EDITOR -c 'startinsert' $temp_path &
-    while [[ -z $(wmctrl -xl | grep " $class_name") ]]; do sleep 0.5; done
-    i3-msg "[class=\"^$class_name$\"] scratchpad show, move position center"
+if [[ -z $(ps aux | grep -v "grep" | grep $CLASS) ]]; then
+    $TERMINAL --class "$CLASS" -e $EDITOR -c 'startinsert' $TEMP_PATH &
+    while [[ -z $(wmctrl -xl | grep " $CLASS") ]]; do sleep 0.5; done
+    i3-msg "[class=\"^$CLASS$\"] scratchpad show, move position center"
 else
-    pkill -f $class_name
+    pkill -f $CLASS
 fi
 
 # Wait until the window exits
-while [[ ! -z $(wmctrl -xl | grep " $class_name") ]]; do sleep 0.5; done
+while [[ ! -z $(wmctrl -xl | grep " $CLASS") ]]; do sleep 0.5; done
 
-if [[ $note_type == "org_protocol" ]]; then
-    cat $temp_path | xargs -I % emacsclient --no-wait "org-protocol://capture?template=n&title=%"
+if [[ $EXTENSION == "org_protocol" ]]; then
+    cat $TEMP_PATH | xargs -I % emacsclient --no-wait "org-protocol://capture?template=n&title=%"
     [[ $? != 0 ]] && dunstify "Note not captured" "Emacs server isn't running"
 else
-    # Used for tex
-    cat $temp_path | xclip -selection clipboard
+    cat $TEMP_PATH | xclip -selection clipboard
 fi
 
-rm $temp_path
+rm $TEMP_PATH

@@ -16,6 +16,15 @@ xdotool mousemove --polar 0 0
 # Hide cursor
 unclutter & disown
 
+# Advices to place in .bashrc https://wiki.archlinux.org/title/SSH_keys#Keychain
+# ~/.bashrc is used instead of the upstream suggested ~/.bash_profile because on Arch it is sourced by both login and non-login shells, making it suitable for textual and graphical environments alike
+eval $(ssh-agent) > /dev/null
+eval $(keychain --quiet --agents ssh,gpg --eval 116F256041ACF55D33334B77F69626AEBEC29AA7)
+
+# Adviced by gpg-agent manual
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # Keyboard bindings
 [[ -f "$HOME/.Xmodmap" ]] && xmodmap "$HOME/.Xmodmap"
 

@@ -440,6 +440,8 @@
                   evil-ex-completion-map
                   ))
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
+    (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
+    (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
     )
   )
 
@@ -548,6 +550,42 @@
 
   (add-hook 'org-capture-prepare-finalize-hook #'my-finalize-if-no-todo)
   (add-hook 'org-capture-after-finalize-hook #'my-finalize-reset-abort)
+
+  ;; Make the first tab behave properly, taken from doomemacs
+  (add-hook 'org-tab-first-hook #'my/org-indent-maybe-h)
+  (defun my/org-indent-maybe-h ()
+    "Indent the current item (header or item), if possible.
+Made for `org-tab-first-hook' in evil-mode."
+    (interactive)
+    (cond ((not (and (bound-and-true-p evil-local-mode)
+                     (evil-insert-state-p)))
+           nil)
+          ((and (bound-and-true-p org-cdlatex-mode)
+                (or (org-inside-LaTeX-fragment-p)
+                    (org-inside-latex-macro-p)))
+           nil)
+          ((org-at-item-p)
+           (if (eq this-command 'org-shifttab)
+               (org-outdent-item-tree)
+             (org-indent-item-tree))
+           t)
+          ((org-at-heading-p)
+           (ignore-errors
+             (if (eq this-command 'org-shifttab)
+                 (org-promote)
+               (org-demote)))
+           t)
+          ((org-in-src-block-p t)
+           (save-window-excursion
+             (org-babel-do-in-edit-buffer
+              (call-interactively #'indent-for-tab-command)))
+           t)
+          ((and (save-excursion
+                  (skip-chars-backward " \t")
+                  (bolp))
+                (org-in-subtree-not-table-p))
+           (call-interactively #'tab-to-tab-stop)
+           t)))
 
   ;; Agenda
   ;; Open agenda files to buffer at startup
@@ -751,11 +789,13 @@ see how ARG affects this command."
    '(org-block-end-line ((t (:background nil :weight bold))))
    '(org-code ((t (:inherit (shadow fixed-pitch))))))
 
+  (require 'ob-makefile)
   ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
      (sql . t)
+     (makefile . t)
      (emacs-lisp . t)
      (shell . t)))
 

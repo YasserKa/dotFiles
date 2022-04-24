@@ -84,7 +84,7 @@ function to_lower_case() {
 
 # Open TUIR with top page within 24 hours
 function tuir() {
-    xdotool search --sync --name "^Front Page - tuir" key g t 2 &
+    ( xdotool search --sync --name "^Front Page - tuir" key g t 2 & )
     command tuir
 }
 

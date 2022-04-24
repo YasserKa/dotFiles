@@ -33,6 +33,7 @@ function rc () {
 }
 
 alias rcvim="rc $NVIM_CONFIG init.vim"
+alias rcmutt="rc $XDG_CONFIG_HOME/mutt muttrc"
 alias rctuir="rc $XDG_CONFIG_HOME/tuir tuir.cfg"
 alias rcfeh="rc $FEH_CONFIG *"
 alias rckitty="rc $KITTY_CONFIG kitty.conf"

@@ -274,12 +274,9 @@ for_window [class="^general_notes$"] move scratchpad, floating enable, move posi
 
 # note taking
 bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
-
-# bindsym $mod+a exec --no-startup-id $HOME/test
-# bindsym --release $mod+a exec --no-startup-id DISPLAY=:0 xdotool key a
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
-for_window [title="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
+for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
 # >>>
 # Startup <<<
 # Fetch email
@@ -288,11 +285,11 @@ exec --no-startup-id $HOME/bin/wait_internet && check_mail
 # Pick a random background image
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 
-exec --no-startup-id bash -ic org
-
 # Composer for fading affect on window focus and opacity
 exec --no-startup-id "picom --experimental-backends & disown"
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
+
+exec --no-startup-id bash -ic org
 # >>>

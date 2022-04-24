@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env sh
 
 # INPUT file name (e.g. my_notebook)
 # It creates a jupyter notebook and pairs it with a python file using jupytext

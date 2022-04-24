@@ -63,12 +63,11 @@ export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
 
 # Fzf
-# use .ignore
-# --follow for linked files
-export FZF_DEFAULT_COMMAND='ag --skip-vcs-ignores --follow --hidden --ignore .git -g ""'
+# --follow symlinks
+export FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up' --color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}'"
 
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/mutt/bin
 
 # XDG_VTNR is set by pam_systemd upon login
 # if there's no DISPLAY, start X11

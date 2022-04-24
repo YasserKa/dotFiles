@@ -148,7 +148,7 @@ macro index,pager Ma "<save-message>=[Gmail].Archive<enter>" "move mail to archi
 
 
 # synch mail
-macro index o "<shell-escape>$HOME/bin/mailsync -V personal<enter>" "run mailsync to sync personal"
+macro index o "<shell-escape>$XDG_CONFIG_HOME/mutt/bin/mailsync -V personal<enter>" "run mailsync to sync personal"
 # mark a read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 

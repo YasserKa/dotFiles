@@ -49,11 +49,13 @@ c.bindings.commands = {
         # Override f and F by download documents from libgen
         ':p': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
 
+        'ss': 'spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session',
+
         'f': 'hint all;; set-mark o;; later 1000 set-mark i',
         '<Ctrl-o>': 'jump-mark o;; clear-messages',
         '<Ctrl-i>': 'jump-mark i;; clear-messages',
 
-        ',es': 'config-edit',
+        ',es': 'spawn bash -ic rcqutebrowser',
         ',ss': 'config-source ;; message-info "Configuration file sourced"',
         ',h': 'search',
         ',c': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture',

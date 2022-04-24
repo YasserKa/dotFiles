@@ -1,5 +1,8 @@
-# Ony run if interactive
-[[ -z "$PS1" ]] && return
+# Make sure the shell is interactive
+case $- in
+    *i*) ;;
+    *) return ;;
+esac
 
 # Bash options https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 set -o vi                  # Vi mode
@@ -43,6 +46,7 @@ GRC_ALIASES=true
 [[ -x /usr/share/LS_COLORS/dircolors.sh ]] && . /usr/share/LS_COLORS/dircolors.sh
 
 # Source files
-[[ -f $HOME/.bash_aliases ]] && . $HOME/.bash_aliases
-[[ -f $HOME/.shell_common ]] && . $HOME/.shell_common
-[[ -f $HOME/.bash_functions ]] && . $HOME/.bash_functions
+for bash in "$HOME"/.bashrc.d/*.bash ; do
+    source "$bash"
+done
+unset -v bash

@@ -13,29 +13,27 @@
 # }
 
 
-# Criteria that i3
-# function open_app() {
-#     criteria="$1"
+function open_cli() {
+    local command="$1"
 
-# }
+    [[ ! $(command -v $command) ]] && notify-send "$command doesn't exit"
 
-# function open_cli_app () {
-#     local command="$1"
+    [[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return
 
-#     command -v $command || notify-send "$command doesn't exit" && return
+    # Check if it's in a terminal
+    tty -s && $command || $TERMINAL -- $command
+}
 
-#     [[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return
+cli_list=("neomutt" "tuir" "newsboat")
 
-#     # Check if it's in a terminal
-#     tty -s && $command || $TERMINAL -- $command
-# }
+for cli in "${cli_list[@]}"; do
+  alias $cli="open_cli $cli"
+done
+unset cli
 
-# function open_cli() {
-#     instance="$1"
-#     command_to_run="$1"
-# }
+alias neomutt="open_cli neomutt"
 
-function app_runner() {
+function open_gui() {
     local name="$1"
     local command="$2"
 
@@ -44,14 +42,14 @@ function app_runner() {
         bash -c "chronic ${command} & disown"
 
         # Wait until window is visible
-        xdotool search --sync --name "^$name$"
+        xdotool search --sync --name "^$name$" windowactivate
     fi
 }
 
 function org() {
     local name="emacs_org_name"
 
-    app_runner $name "emacs --title=$name --file=$NOTES_ORG_HOME/general.org"
+    open_gui $name "emacs --title=$name --file=$NOTES_ORG_HOME/general.org"
 }
 
 function magit() {
@@ -59,6 +57,6 @@ function magit() {
     local git_root=$(git rev-parse --show-toplevel)
 
     chronic git rev-parse --show-toplevel || return 1
-    app_runner $name \
+    open_gui $name \
         "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
 }
