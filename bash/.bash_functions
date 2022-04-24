@@ -82,6 +82,12 @@ function to_lower_case() {
     mv "$@" "$lower_case"
 }
 
+# Open TUIR with top page within 24 hours
+function tuir() {
+    xdotool search --sync --name "^Front Page - tuir" key g t 2 &
+    command tuir
+}
+
 # tmux + fzf
 fzftmux() {
     TMUX_SESSION=$(tmux list-sessions | cut -d: -f1 | fzf)

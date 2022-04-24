@@ -43,7 +43,7 @@ c.bindings.commands = {
         'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
 
         # Yank URL without anchors
-        'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_without_anchors',
+        'yc': 'spawn --userscript $HOME/qutebrowser/userscripts/yank_url_without_anchors',
         'gc': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors',
 
         # Override f and F by download documents from libgen
@@ -53,14 +53,10 @@ c.bindings.commands = {
         '<Ctrl-o>': 'jump-mark o;; clear-messages',
         '<Ctrl-i>': 'jump-mark i;; clear-messages',
 
-
-        # 'F': 'hint all userscript ~/.config/qutebrowser/userscripts/override_F',
-
         ',es': 'config-edit',
         ',ss': 'config-source ;; message-info "Configuration file sourced"',
         ',h': 'search',
-        ',c': 'spawn emacsclient --no-wait org-protocol://capture?url={url}&title={title}',
-
+        ',c': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture',
         ',od': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
         ',ord': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent',
         ',t': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute-translate',

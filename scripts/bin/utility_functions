@@ -44,7 +44,7 @@ function app_runner() {
         bash -c "chronic ${command} & disown"
 
         # Wait until window is visible
-        xdotool search --sync --name "$name" windowactivate
+        xdotool search --sync --name "^$name$"
     fi
 }
 

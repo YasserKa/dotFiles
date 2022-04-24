@@ -67,23 +67,7 @@
       (advice-remove #'message message-off))))
 
 ;; Aesthetics
-;; Unfolding an item with emojis is slow, this package fixes this problem
-(use-package emojify
-  :init
-  :hook (after-init . global-emojify-mode)
-  :config
-  )
-
-(use-package gruvbox-theme
-  :config (load-theme 'gruvbox-light-medium t))
-
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode))
-
-
-(add-to-list 'default-frame-alist
-             '(font . "Inconsolata-14"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
 
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
@@ -136,6 +120,28 @@
   :hook ((text-mode . ws-butler-mode)
          (prog-mode . ws-butler-mode)))
 
+;; Unfolding an item with emojis is slow, this package fixes this problem
+(use-package emojify
+  :init
+  :hook (after-init . global-emojify-mode)
+  :config
+  )
+
+(use-package gruvbox-theme
+  :config (load-theme 'gruvbox-light-medium t))
+
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
+;; Highlight matching braces
+(use-package paren
+  :ensure nil
+  :custom
+  (show-paren-delay 0)
+  :config (show-paren-mode 1)
+  )
+
 ;; Better help
 (use-package helpful)
 
@@ -150,13 +156,6 @@
          (list (openwith-make-extension-regexp
                 '("pdf" "epub" "djvu")) "zathura" '(file))))
   (openwith-mode t))
-
-(use-package which-key
-  :init
-  :custom
-  (which-key-idle-delay 1)
-  (which-key-max-display-columns 3)
-  :config (which-key-mode))
 
 ;; Auto close pairs
 (use-package elec-pair
@@ -185,20 +184,11 @@
   (electric-pair-mode 1)
   )
 
-;; Highlight matching braces
-(use-package paren
-  :ensure nil
-  :custom
-  (show-paren-delay 0)
-  :config (show-paren-mode 1)
-  )
-
 ;; Remove backup files (ends with ~)
 ;; Remove auto-recover files
 (setq auto-save-default nil)
 (setq ad-redefinition-action 'accept)
 
-;; (setq make-backup-files nil)
 (use-package flyspell
   :ensure nil
   :custom
@@ -221,15 +211,6 @@
                             ;; Spell checking toggle with yos
                             (evil-collection-define-operator-key 'yank 'global-map "os" #'flyspell-mode)
                             )))
-  )
-
-;; Expand/contract selected region
-(use-package expand-region
-  :after evil
-  :config
-  (evil-define-key '(normal visual) 'global
-    (kbd "+") 'er/expand-region
-    (kbd "_") 'er/contract-region)
   )
 
 (use-package yasnippet
@@ -276,9 +257,6 @@
    '(git-gutter:window-width 1))
   )
 
-(use-package magit-delta
-  :hook (magit-mode . magit-delta-mode))
-
 (use-package magit
   :after evil-collection
   :custom
@@ -289,7 +267,6 @@
   (magit-repository-directories '(((getenv "DOTFILES_HOME") . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
   :config
 
-
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward
     (kbd "<return>") 'my/vil-diff-visit-file)
@@ -299,6 +276,9 @@
     (interactive (list (magit-file-at-point t t) current-prefix-arg))
     (shell-command (concat "nvim-qt " file nil)))
   )
+
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
 
 (use-package evil
   :demand t
@@ -313,7 +293,7 @@
   ;; Y is y$
   (evil-want-Y-yank-to-eol t)
   ;; Move across physical lines
-  ;; (evil-respect-visual-line-mode t)
+  (evil-respect-visual-line-mode t)
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
   ;; Needed for redo functionality
@@ -341,13 +321,6 @@
     (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
 
-  (use-package evil-vimish-fold
-    :init
-    (add-hook 'prog-mode-hook 'evil-vimish-fold-mode)
-    :config
-    (use-package vimish-fold)
-    )
-
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
   (modify-syntax-entry ?_ "w")
 
@@ -366,6 +339,21 @@
   ;; between dollar signs
   (define-and-bind-text-object "$" "\\$" "\\$")
   (define-and-bind-text-object "~" "\\~" "\\~")
+  )
+
+(use-package evil-vimish-fold
+  :init (add-hook 'prog-mode-hook 'evil-vimish-fold-mode)
+  :config (use-package vimish-fold)
+  )
+
+
+;; Expand/contract selected region
+(use-package expand-region
+  :after evil
+  :config
+  (evil-define-key '(normal visual) 'global
+    (kbd "+") 'er/expand-region
+    (kbd "_") 'er/contract-region)
   )
 
 (use-package evil-commentary
@@ -397,10 +385,8 @@
   :init (global-undo-tree-mode)
   :hook ((evil-collection-setup . (lambda (mode-keymaps &rest _rest)
                                     (evil-collection-define-operator-key 'yank 'global-map
-                                      "eu" #'undo-tree-visualize)))
-         )
-  :custom
-  (undo-tree-visualizer-diff t)
+                                      "eu" #'undo-tree-visualize))))
+  :custom (undo-tree-visualizer-diff t)
   :config
   ;; Save undo steps between sessions
   (use-package undo-fu-session)
@@ -447,12 +433,12 @@
   (evil-select-search-module 'evil-search-module 'evil-search)
 
   (dolist (map '( minibuffer-local-map
-                 minibuffer-local-ns-map
-                 minibuffer-local-completion-map
-                 minibuffer-local-must-match-map
-                 minibuffer-local-isearch-map
-                 evil-ex-completion-map
-                 ))
+                  minibuffer-local-ns-map
+                  minibuffer-local-completion-map
+                  minibuffer-local-must-match-map
+                  minibuffer-local-isearch-map
+                  evil-ex-completion-map
+                  ))
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
     )
   )
@@ -541,18 +527,6 @@
 
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
-  ;; Insert mode after adding note (note to change of state)
-  ;; (advice-add 'org-add-log-note :after 'evil-insert-state)
-  ;; (advice-add 'org-add-note :after 'evil-insert-state)
-
-
-  (defun my-finalize-if-no-todo ()
-    (interactive)
-    (setq matches (count-matches "* TODO \n" 0))
-    (if (= matches 1)
-        (org-capture-kill)
-      nil
-      ))
 
   ;; Save capture on :wq
   (evil-define-key nil org-capture-mode-map
@@ -571,7 +545,6 @@
   (defun my-finalize-reset-abort ()
     (interactive)
     (setq org-note-abort nil))
-
 
   (add-hook 'org-capture-prepare-finalize-hook #'my-finalize-if-no-todo)
   (add-hook 'org-capture-after-finalize-hook #'my-finalize-reset-abort)
@@ -640,8 +613,7 @@
                             (:discard (:anything))
                             ))))))
           ("o" "Others"
-           (
-            (todo "DONE")
+           ((todo "DONE")
             (alltodo "test" ((org-super-agenda-groups
                               '((:priority "A")
                                 (:priority "B")
@@ -649,10 +621,8 @@
                                 (:name "Short"
                                        :tag "effort< 1:01")
                                 (:auto-category)
-                                ))))
-            )
-           ))
-        )
+                                ))))))
+          ))
 
   (use-package org-super-agenda
     ;; Should be loaded at the start
@@ -710,7 +680,6 @@
 
   (my/add-to-agenda-files (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
   ;; Clocking
-
   ;; Loading emacs server is needed by emacsclient
   ;; emacsclient used by clocking
   (load "server")
@@ -732,6 +701,7 @@
         org-clock-out-remove-zero-time-clocks t
         ;; The default value (5) is too conservative.
         org-clock-history-length 20)
+
   ;; Clock in clock out hooks with Polybar
   (add-hook 'org-clock-in-hook
             #'(lambda () (shell-command (concat "/bin/echo -e "
@@ -834,9 +804,7 @@ see how ARG affects this command."
 
     (setq org-protocol-default-template-key "q")
     )
-
   )
-
 
 ;; Previewing Latex fragments
 (use-package auctex
@@ -1138,7 +1106,14 @@ see how ARG affects this command."
   (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode)
   )
 
-;; Vim leader {{{
+;; Vim leader / which-key {{{
+(use-package which-key
+  :init
+  :custom
+  (which-key-idle-delay 1)
+  (which-key-max-display-columns 3)
+  :config (which-key-mode))
+
 (use-package general
   :after (evil evil-collection hydra)
   :config
@@ -1344,4 +1319,4 @@ selection of all minor-modes, active or not."
     (if (fboundp symbol)
         (helpful-function symbol)
       (helpful-variable symbol))))
-; }}}
+;; }}}
