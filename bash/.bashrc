@@ -1,3 +1,4 @@
+#!/env/env bash
 # Make sure the shell is interactive
 case $- in
     *i*) ;;
@@ -47,6 +48,7 @@ GRC_ALIASES=true
 
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash ; do
-    source "$bash"
+ # shellcheck disable=SC1090
+    . "$bash"
 done
 unset -v bash

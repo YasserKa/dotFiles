@@ -43,7 +43,7 @@ c.bindings.commands = {
         'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
 
         # Yank URL without anchors
-        'yc': 'spawn --userscript $HOME/qutebrowser/userscripts/yank_url_without_anchors',
+        'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_without_anchors',
         'gc': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors',
 
         # Override f and F by download documents from libgen

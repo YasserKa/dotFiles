@@ -1,68 +1,106 @@
-ignored_packages = "dbeaver|postgresql"
 USER = yasser
+XDG_CONFIG_HOME = $(HOME)/.config
+XDG_DATA_HOME=$(HOME)/.local/share
 
-.PHONY: pre-install
-pre-install: install-aur-helper install-etc
+# TODO: Use external list
+OFFICIAL-PACKAGES = khard alacritty cmus feh isync autorandr bat dunst emacs fasd git adapta-gtk-theme gnupg i3-gaps lnav mailcap notmuch npm mpv msmtp neomutt pam picom qutebrowser ranger rofi rofi-calc sxhkd tmux tuir unclutter zathura xorg-xkill xorg-xinit unzip zip wget udiskie neovim-qt
+
+AUR-PACKAGES = networkmanager_dmenu neovim-nightly-bin urlview polybar vimpager-git nerd-fonts-complete lsd-git
+
+INSTALL-OFFICIAL-PACKAGES = $(patsubst %, install-official-%, $(OFFICIAL-PACKAGES))
+INSTALL-AUR-PACKAGES = $(patsubst %, install-aur-%, $(AUR-PACKAGES))
 
 .PHONY: install
-install: install-official-packages install-aur-packages stow-packages
+install: stow-etc install-aur-helper $(INSTALL-OFFICIAL-PACKAGES) $(INSTALL-AUR-PACKAGES) stow-extras
 
+install-pip-packages:
+	pip install --user pynvim jedi
+	# used by zathura synctex for nvim
+	pip install neovim-remote
 .PHONY: stow-etc
 stow-etc:
 	sudo stow etc --target=/
 
+  # Get plugings
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  nvim -c 'PlugInstall|qall'
+  # install coc extensions
+  nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|q'
+  pacman -S tree-sitter
+
 .PHONY: install-aur-helper
 install-aur-helper:
+	rm -rf /tmp/paru
+	git clone https://aur.archlinux.org/paru.git  /tmp/paru
+	cd /tmp/paru && makepkg --install --syncdeps --noconfirm
 	rm -rf /tmp/baph
-	git clone https://github.com/PandaFoss/baph /tmp/baph
-	cd /tmp/baph && sudo -u root make install
-	rm -rf /tmp/baph
 
-.PHONY: install-official-packages
-install-official-packages:
-	pacman -Syu --needed --noconfirm \
-		... \
+pre-install-packages:
+	mkdir -p $(HOME)/Pictures
+	mkdir -p $(XDG_DATA_HOME)/applications
+	mkdir -p $(XDG_CONFIG_HOME)/systemd/user
+	mkdir -p $(XDG_CONFIG_HOME)/cmus
+	mkdir -p $(XDG_CONFIG_HOME)/jupyter
+	mkdir -p $(XDG_CONFIG_HOME)/emacs
+	mkdir -p $(XDG_CONFIG_HOME)/nvim
+	mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
+	sudo pacman --sync --refresh --sysupgrade --noconfirm stow
 
-.PHONY: install-aur-packages
-install-aur-packages:
-	baph --install --noconfirm --noview \
+install-aur-%: pre-install-packages
+	paru --install --noconfirm $*
 
-.PHONY: stow-packages
-stow-packages:
-	stow abook feh isync jupyter alacritty autorandr bash bat cmus cron-jobs dunst emacs fasd git gnupg gtk i3 icons latex lnav lsd mailcap networkmanager_dmenu notmuch npm shell_common X11 mpv msmtp mutt newsboat nvim pam picom polybar projects qutebrowser ranger readline rofi scripts ssh sxhkd systemd termite tmux tuir urlview vimpagerrc wallpapers xdbus xdg-open xmodmap zathura
+install-official-%:
+	sudo pacman --sync --refresh --sysupgrade --noconfirm $*
 
-setup-systemd:
-	# Time synchro
-	systemctl enable chrony.service
-	systemctl start chrony.service
+.PHONY: stow-extras
+stow-extras:
+	stow bash cron-jobs git gnupg i3 icons latex lsd msmtp nvim pam projects readline scripts shell_common ssh systemd wallpapers X11 xdbus xdg-open xmodmap
+
+
+
+post-install:
+	stow
+	emacs --batch --load=$(XDG_CONFIG_HOME)/emacs/init.el
+	nvim +'PlugInstall --sync' +qa
 	# Display link
 	systemctl start displaylink
 	systemctl enable displaylink
 	# Cmus
 	systemctl start cmus --user
 	systemctl enable cmus --user
-
-.PHONY: setup-vim
-setup-vim:
-	nvim +'PlugInstall --sync' +qa
-
-.PHONY: get_installed_packages
-get_installed_packages:
-	pacman -Qent | grep -vE  $(ignored_packages) > pkglist.tmp # Official
-	pacman -Qm | grep -vE $(ignored_packages) > pkglist-aur.tmp # AUR
+	systemctl enable notify-me.timer --user
+	systemctl start notify-me.timer --user
+	systemctl enable udiskie.service --user
+	systemctl start udiskie.service --user
+	systemctl enable dunst.service --user
+	systemctl start dunst --user
+	systemctl enable tmux.service --user
+	systemctl start tmux.service --user
+	sudo pacman -S nftables
+	sudo systemctl enable nftables.service
+	sudo systemctl start nftables.service
+	# Enable actions like F keys
+	sudo systemctl enable acpid.service
+	sudo systemctl start acpid.service
+	systemctl --user daemon-reload
+	systemctl daemon-reload
 
 .PHONY: setup_qutebrowser
 setup_qutebrowser:
-	# cd "$XDG_CONFIG_HOME/qutebrowser"
-	git clone https://github.com/hiway/python-qutescript.git qutescript
-	cd qutescript
-	pip install -e .
+	cd "$(XDG_CONFIG_HOME)/qutebrowser" && pip install -e . --user
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
+	# TODO: include in the list
 	sudo pacman -S youtube-dl aspell # for a userscript
 	pip install adblock tldextract # ad block
-	baph -i chromium-widevine \ # viewing DRM content (Spotify)
-	qtwebkit-plugins-git # For SpellChecking
+	paru -S chromium-widevine # viewing DRM content (Spotify)
+	paru -S qtwebkit-plugins-git # For SpellChecking
+
+.PHONY: get_installed_packages
+get_installed_packages:
+	pacman -Qent | grep -vE  $(IGNORED_PACKAGES) > pkglist.tmp # Official
+	pacman -Qm | grep -vE $(IGNORED_PACKAGES) > pkglist-aur.tmp # AUR
 
 ## compare_packages: compare the current installed packages with the list
 .PHONY: compare_packages

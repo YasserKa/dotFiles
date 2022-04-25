@@ -115,7 +115,7 @@ _fasd_bash_hook_cmd_complete vf j
 utility_path="$HOME/bin/utility_functions"
 [[ -f $utility_path ]] && . $utility_path
 
-alias magitdotfiles="cd $DOTFILES_HOME && magit"
+alias dotfiles="cd $DOTFILES_HOME && magit"
 
 alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
 # cron
