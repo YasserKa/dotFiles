@@ -60,3 +60,19 @@ function magit() {
     open_gui $name \
         "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
 }
+
+function save_backup_org_files() {
+   emacsclient --no-wait --eval "(org-save-all-org-buffers)"
+   $HOME/bin/wait_internet && rclone sync ${NOTES_ORG_HOME} org_notes:org --include 'fast_access.org' --include 'groceries.org'
+}
+
+
+function reboot() {
+    save_backup_org_files
+    systemctl reboot
+}
+
+function shutdow() {
+    save_backup_org_files
+    systemctl poweroff -i
+}

@@ -234,17 +234,8 @@ mode $system_mode {
     bindsym s exec --no-startup-id i3-msg reload, mode "default"
     bindsym r exec --no-startup-id i3-msg restart, mode "default"
 
-    bindsym Shift+r exec --no-startup-id emacsclient --no-wait --eval \
-    "(org-save-all-org-buffers)" && $HOME/bin/wait_internet \
-    && rclone sync ${NOTES_ORG_HOME} org_notes:org \
-    --include 'fast_access.org' --include 'groceries.org' \
-    && shutdown -r now || dunstify 'unsaved file', mode "default"
-
-    bindsym Shift+s exec --no-startup-id emacsclient --no-wait --eval \
-    "(org-save-all-org-buffers)" && $HOME/bin/wait_internet \
-    && rclone sync ${NOTES_ORG_HOME} org_notes:org \
-    --include 'fast_access.org' --include 'groceries.org' \
-    && shutdown now || dunstify 'unsaved file', mode "default"
+    bindsym Shift+r exec --no-startup-id bash -ic reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id bash -ic shutdown, mode "default"
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default"
