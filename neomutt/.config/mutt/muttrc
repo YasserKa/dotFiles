@@ -5,6 +5,7 @@ set certificate_file = $XDG_DATA_HOME/mutt/certificates
 set signature = $XDG_CONFIG_HOME/mutt/signature
 set header_cache = $XDG_CACHE_HOME/mutt/headers
 set message_cachedir = $XDG_CACHE_HOME/mutt/bodies
+my_hdr X-PGP-Key: https://keyserver.ubuntu.com/pks/lookup?search=0x116F256041ACF55D33334B77F69626AEBEC29AA7&fingerprint=on&op=index
 # Color schemes
 source $XDG_CONFIG_HOME/mutt/muttcol
 
@@ -22,7 +23,10 @@ set forward_format = "Fwd: %s"  # format of subject when forwarding
 set forward_quote               # include message in forwards
 set reverse_name                # reply as whomever it was to
 set include                     # include message in replies
+set pager_index_lines = 6       # Show few messages of the index in pager mode
+set pager_stop                  # Don't move to next message after <next-page>
 set mail_check=60               # to avoid lags using IMAP with some email providers (yahoo for example)
+unset recall                    # Don't offer to resume postponed message
 set copy = no                   # don't duplicate the outgoing messages
 auto_view text/html             # automatically show html (mailcap uses lynx)
 alternative_order text/plain text/enriched text/html
@@ -148,7 +152,7 @@ macro index,pager Ma "<save-message>=[Gmail].Archive<enter>" "move mail to archi
 
 
 # synch mail
-macro index o "<shell-escape>$XDG_CONFIG_HOME/mutt/bin/mailsync -V personal<enter>" "run mailsync to sync personal"
+macro index o "<shell-escape>$XDG_CONFIG_HOME/mutt/bin/mailsync -V personal<enter><sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>" "run mailsync to sync personal"
 # mark a read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
@@ -157,18 +161,22 @@ macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter
 
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
-# Update polybar after entering new emails
-# BUG: replying to a new mail will result to the Subject to be altered.
-# A solution couldn't be found.
-message-hook ~N 'push "<sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"'
+# Sync mail then update polybar after reading new emails
+message-hook ~N 'push "$!polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"'
 macro index,pager S "<sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"
+
+set my_muttrc = $XDG_CONFIG_HOME/mutt/muttrc
+macro generic,index,browser,pager R '\
+<enter-command>unhook *<enter>\
+<enter-command>source $my_muttrc<enter>\
+<enter-command>echo "Reloaded $my_muttrc"<enter>' \
+	"Clear hooks and reload"
 
 # contacts
 
-setenv abook "abook --config $ABOOK_CONFIG/abookrc --datafile $ABOOK_DATA/addressbook"
-
-set query_command= "$abook --mutt-query '%s'"
-macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>$abook --add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
+# set query_command= "$abook --mutt-query '%s'"
+set query_command= "khard email --parsable %s"
+macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>khard add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
 bind editor <Tab> complete-query
 bind editor ^T complete
 
@@ -178,7 +186,8 @@ macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract 
 # view email in browser
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > ~/.cache/mutt-wizard/mail.html<enter><shell-escape>$BROWSER ~/.cache/mutt-wizard/mail.html<enter>"
 
-# GPGME
+
+# Use GPGME
 set crypt_use_gpgme = yes
 # sign replies to signed email
 set crypt_replysign = yes
@@ -186,6 +195,9 @@ set crypt_replysign = yes
 set crypt_replyencrypt = yes
 # encrypt and sign replies to encrypted and signed email
 set crypt_replysignencrypted = yes
+# Sign all outgoing mail
+set crypt_autosign = yes
 # attempt to verify email signatures automatically
 set crypt_verify_sig = yes
-set pgp_sign_as="0x8A1B53612F9FFBC8A4BF7390B3AC0ADA8018893F"
+set pgp_sign_as="116F256041ACF55D33334B77F69626AEBEC29AA7"
+set pgp_default_key="116F256041ACF55D33334B77F69626AEBEC29AA7"

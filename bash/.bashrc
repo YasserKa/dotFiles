@@ -1,4 +1,3 @@
-#!/env/env bash
 # Make sure the shell is interactive
 case $- in
     *i*) ;;
@@ -43,12 +42,10 @@ fi
 GRC_ALIASES=true
 [[ -x /etc/profile.d/grc.sh ]] && . /etc/profile.d/grc.sh
 
-# Files with colors
-[[ -x /usr/share/LS_COLORS/dircolors.sh ]] && . /usr/share/LS_COLORS/dircolors.sh
-
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash ; do
- # shellcheck disable=SC1090
     . "$bash"
 done
 unset -v bash
+
+[[ -e $HOME/.shell_common ]] && . $HOME/.shell_common

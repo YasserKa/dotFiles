@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # extract compressed files function
-extract() {
+function extract() {
     local c e i
 
     (($#)) || return
@@ -47,11 +47,12 @@ function orphans() {
 
 function upgrade_system() {
     orphans
-    baph -un
+    paru --sync --refresh --sysupgrade --noconfirm
+    echo "TODO: include emacs, vim, and package list update"
 }
 
 ## path synchronization for ranger
-function ranger {
+function ranger() {
     tempfile="$(mktemp -t ranger-cd.XXXXXX)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
@@ -60,6 +61,7 @@ function ranger {
     rm -f -- "$tempfile"
 }
 
+# TODO: Not used
 function def() {
     sdcv -n --utf8-output --color "$@" 2>&1 | fold --width=$(tput cols) | vimpager
 }
@@ -89,8 +91,72 @@ function tuir() {
 }
 
 # tmux + fzf
-fzftmux() {
+function fzftmux() {
     TMUX_SESSION=$(tmux list-sessions | cut -d: -f1 | fzf)
     [[ -z $TMUX_SESSION ]] && return
     tmux attach-session -t $TMUX_SESSION
+}
+
+open_cli() {
+    local command="$1"
+
+    [[ ! $(command -v $command) ]] && notify-send "$command doesn't exit"
+
+    [[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return
+
+    # Check if it's in a terminal
+    tty -s && $command || $TERMINAL -- $command
+}
+
+cli_list=("neomutt" "tuir" "newsboat")
+
+for cli in "${cli_list[@]}"; do
+  alias $cli="open_cli $cli"
+done
+unset cli
+
+alias neomutt="open_cli neomutt"
+
+open_gui() {
+    local name="$1"
+    local command="$2"
+
+    xdotool search --name $name windowactivate
+    if [[ $? != 0 ]]; then
+        bash -c "chronic ${command} & disown"
+
+        # Wait until window is visible
+        xdotool search --sync --name "^$name$" windowactivate
+    fi
+}
+
+function org() {
+    local name="emacs_org_name"
+
+    open_gui $name "emacs --title=$name --file=$NOTES_ORG_HOME/general.org"
+}
+
+function magit() {
+    local name="magit_name"
+    local git_root=$(git rev-parse --show-toplevel)
+
+    chronic git rev-parse --show-toplevel || return 1
+    open_gui $name \
+        "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
+}
+
+save_backup_org_files() {
+   emacsclient --no-wait --eval "(org-save-all-org-buffers)"
+   $HOME/bin/wait_internet && rclone sync ${NOTES_ORG_HOME} org_notes:org --include 'fast_access.org' --include 'groceries.org'
+}
+
+
+reboot() {
+    save_backup_org_files
+    systemctl reboot
+}
+
+shutdow() {
+    save_backup_org_files
+    systemctl poweroff -i
 }

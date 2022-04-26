@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
+
+# https://gist.github.com/oblitum/6eeffaebd9a4744e762e49e6eb19d189#file-mimembellish
 # Taken from https://nosubstance.me/post/mutt-secret-sauce/
+# To test the script use the following command:
+# cat test_mail.md | ./scripts/MIMEbellish >| test_mail.html
 
 import re
 import sys
@@ -16,19 +20,14 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.nonmultipart import MIMENonMultipart
 from os.path import basename, splitext, expanduser
 
-# Taken from https://nosubstance.me/post/mutt-secret-sauce/
-# To test the script use the following command:
-# cat test_mail.md | ./scripts/MIMEbellish >| test_mail.html
+
+charset.add_charset('utf-8', charset.SHORTEST, None, 'utf-8')
 
 
-charset.add_charset('utf-8', charset.SHORTEST, '8bit')
-
-
-def pandoc(from_format, to_format='commonmark', plain='markdown', title=None):
-    markdown = (
-            'commonmark'
-            '+strikeout'
-            )
+def pandoc(from_format, to_format='markdown', plain='commonmark', title=None):
+    markdown = ('commonmark'
+                '+strikeout'
+                '-blank_before_blockquote')
 
     if from_format == 'plain':
         from_format = plain
@@ -70,13 +69,7 @@ def make_replacement(message, part):
 
 
 def convert(part, to_subtype, command):
-    payload = part.get_payload()
-    if isinstance(payload, str):
-        payload = payload.encode('utf-8')
-    else:
-        payload = part.get_payload(None, True)
-        if not isinstance(payload, bytes):
-            payload = payload.encode('utf-8')
+    payload = part.get_payload().encode('utf-8')
     process = subprocess.run(
         shlex.split(command),
         input=payload, stdout=subprocess.PIPE, check=True)
@@ -86,13 +79,10 @@ def convert(part, to_subtype, command):
 def with_alternative(parent, part, from_signed,
                      make_alternative=make_alternative,
                      make_replacement=None):
-    try:
-        alternative = make_alternative(parent or part, from_signed or part)
-        replacement = (make_replacement(parent or part, part)
-                       if from_signed is None and make_replacement is not None
-                       else part)
-    except:
-        return parent or part
+    alternative = make_alternative(parent or part, from_signed or part)
+    replacement = (make_replacement(parent or part, part)
+                   if from_signed is None and make_replacement is not None
+                   else part)
     envelope = MIMEMultipart('alternative')
     if parent is None:
         for k, v in part.items():
@@ -128,6 +118,8 @@ def tag_attachments(message):
 def attachment_from_file_path(attachment_path):
     try:
         mime, encoding = mimetypes.guess_type(attachment_path, strict=False)
+        if mime is None:
+            return None
         maintype, subtype = mime.split('/')
         with open(attachment_path, 'rb') as payload:
             attachment = MIMENonMultipart(maintype, subtype)
@@ -140,14 +132,9 @@ def attachment_from_file_path(attachment_path):
         return None
 
 
-# attachment_path_pattern = re.compile(r'\]\s*\(\s*file://(/[^)]*\S)\s*\)|'
-#                                      r'\]\s*:\s*file://(/.*\S)\s*$',
-#                                      re.MULTILINE)
-
-attachment_path_pattern = re.compile(r'\!\[\]\s*\(\s*([^)]*\S)\s*\)|'
-                                     r'\!\[\]\s*:\s*(/.*\S)\s*$',
+attachment_path_pattern = re.compile(r'\]\s*\(\s*file://(/[^)]*\S)\s*\)|'
+                                     r'\]\s*:\s*file://(/.*\S)\s*$',
                                      re.MULTILINE)
-
 
 
 def link_attachments(payload):
@@ -157,10 +144,10 @@ def link_attachments(payload):
     def on_match(match):
         if match.group(1):
             attachment_path = match.group(1)
-            cid_fmt = '![](cid:{})'
+            cid_fmt = '](cid:{})'
         else:
             attachment_path = match.group(2)
-            cid_fmt = '![]: cid:{}'
+            cid_fmt = ']: cid:{}'
         attachment_id = md5(attachment_path.encode()).hexdigest()
         if attachment_id in attached:
             return cid_fmt.format(attachment_id)
@@ -234,7 +221,7 @@ def seek_target(message, target_subtypes=['plain', 'markdown']):
 
 def main():
     try:
-        message = email.message_from_bytes(sys.stdin.buffer.read())
+        message = email.message_from_file(sys.stdin)
         parent, part, from_signed = seek_target(message)
         if (parent, part, from_signed) == (None, None, None):
             print(message)

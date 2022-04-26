@@ -1,16 +1,13 @@
-SOURCE_VARS='source $HOME/.config/.Xdbus'
 @monthly source $HOME/.config/.Xdbus && /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
+
 */1 * * * * source $HOME/.config/.Xdbus; $HOME/bin/battery_low_alert
 0 22 * * * source $HOME/.config/.Xdbus; dunstify "Go to bed"
-
-*/1 * * * * $SOURCE_VARS && dunstify "fdsf"
 
 # Sync mega material
 @daily $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"
 @daily $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
 
 # Fetch at startup
-# @reboot $HOME/bin/wait_internet && rclone sync remote:org $HOME/notes/org --include *.org
 */30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/org org_notes:org --include "fast_access.org" --include "groceries.org" && cd $HOME/notes && $HOME/bin/git-sync
 
 # Get mail & update polybar

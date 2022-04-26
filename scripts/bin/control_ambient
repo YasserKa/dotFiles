@@ -1,17 +1,17 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 # Description: open mynoise website and press a key (pause, resume, increase/decrease volume)
 # Dependencies: xdotool, firefox
 
 URL="https://mynoise.net/NoiseMachines/medievalMinstrelSoundscapeGenerator.php?l=29292929292929292929"
 
 # Class name for the application used by xdotool (used to have one instance open at all time)
-CLASS_NAME="ambient_music"
+CLASS="ambient_music"
 
 function get_id_ambient () {
     firefox_id=""
 
     # Check if class name is available
-    pid_class_name=$(xdotool search --class $CLASS_NAME)
+    pid_class_name=$(xdotool search --class $CLASS)
 
     if [[ ! -z $pid_class_name ]]; then
         firefox_id=$pid_class_name
@@ -40,7 +40,7 @@ if [[ -z $(get_id_ambient) ]];  then
     done
 
     # Assign class name
-    xdotool set_window --class "$CLASS_NAME" $(get_id_ambient)
+    xdotool set_window --class "$CLASS" $(get_id_ambient)
 else
     xdotool key --window $(get_id_ambient) $1
 fi

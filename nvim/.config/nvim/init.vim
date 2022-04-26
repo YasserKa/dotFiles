@@ -183,7 +183,9 @@ augroup END
 augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
-    autocmd BufRead,BufNewFile neomutt-* set filetype=markdown spell tw=72
+    autocmd BufRead,BufNewFile neomutt-* set spell tw=72
+    autocmd BufRead neomutt-* exec "normal 8jiKind regards, \<esc>kODear "
+    autocmd BufRead neomutt-* startinsert!
     autocmd FileType markdown,tex set spell
     autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
     autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'

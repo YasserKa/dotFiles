@@ -33,11 +33,11 @@ function rc () {
 }
 
 alias rcvim="rc $NVIM_CONFIG init.vim"
-alias rcmutt="rc $XDG_CONFIG_HOME/mutt muttrc"
+alias rcneomutt="rc $XDG_CONFIG_HOME/mutt muttrc"
 alias rctuir="rc $XDG_CONFIG_HOME/tuir tuir.cfg"
 alias rcfeh="rc $FEH_CONFIG *"
 alias rckitty="rc $KITTY_CONFIG kitty.conf"
-alias rcbash="rc $HOME .bashrc .bash_aliases .bash_functions .bash_profile"
+alias rcbash="rc $HOME .bashrc .bash_profile .bashrc.d/*bash"
 alias rctmux="rc $TMUX_CONFIG .tmux.conf"
 alias rcqutebrowser="rc $QUTEBROWSER_CONFIG config.py userscripts/*"
 alias rci3="rc $I3_CONFIG config"
@@ -111,9 +111,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias vf='fasd -sife nvim' # quick opening files with vim
 
 _fasd_bash_hook_cmd_complete vf j
-
-utility_path="$HOME/bin/utility_functions"
-[[ -f $utility_path ]] && . $utility_path
 
 alias dotfiles="cd $DOTFILES_HOME && magit"
 

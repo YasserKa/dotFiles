@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-battery_level=`acpi -b | grep -P -o '[0-9]+(?=%)'`
-is_charging=`acpi -a | grep 'on-line'`
+BATTERY_LEVEL=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+IS_CHARGING=$(acpi -a | grep 'on-line')
 
-if [ $battery_level -le 10 ] && [ -z "$is_charging" ]
+if [[ $BATTERY_LEVEL -le 10 ]] && [[ -z "$IS_CHARGING" ]]
 then
-    notify-send "Battery low" "Battery level is ${battery_level}%!" --urgency=critical
+    notify-send "Battery low" "Battery level is ${BATTERY_LEVEL}%!" --urgency=critical
 fi

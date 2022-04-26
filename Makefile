@@ -12,7 +12,6 @@ INSTALL-AUR-PACKAGES = $(patsubst %, install-aur-%, $(AUR-PACKAGES))
 
 .PHONY: install
 install: stow-etc install-aur-helper $(INSTALL-OFFICIAL-PACKAGES) $(INSTALL-AUR-PACKAGES) stow-extras
-
 install-pip-packages:
 	pip install --user pynvim jedi
 	# used by zathura synctex for nvim
@@ -55,7 +54,7 @@ install-official-%:
 
 .PHONY: stow-extras
 stow-extras:
-	stow bash cron-jobs git gnupg i3 icons latex lsd msmtp nvim pam projects readline scripts shell_common ssh systemd wallpapers X11 xdbus xdg-open xmodmap
+	stow bash cron-jobs git gnupg i3 icons latex lsd msmtp nvim projects readline scripts shell_common ssh systemd wallpapers X11 xdbus xdg-open xmodmap
 
 
 
