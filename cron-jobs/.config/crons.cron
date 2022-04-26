@@ -8,7 +8,7 @@
 @daily $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
 
 # Fetch at startup
-*/30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/org org_notes:org --include "fast_access.org" --include "groceries.org" && cd $HOME/notes && $HOME/bin/git-sync
+*/30 * * * * $HOME/bin/wait_internet && rclone sync $HOME/notes/org org_notes:org --include "fast_access.org" --include "groceries.org" && cd $HOME/notes && $HOME/bin/git-sync -ns
 
 # Get mail & update polybar
 */30 * * * * $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && $HOME/bin/mailsync && polybar-msg action mail hook 0

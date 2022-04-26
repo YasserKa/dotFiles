@@ -1,40 +1,21 @@
-USER = yasser
 XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
-# TODO: Use external list
-OFFICIAL-PACKAGES = khard alacritty cmus feh isync autorandr bat dunst emacs fasd git adapta-gtk-theme gnupg i3-gaps lnav mailcap notmuch npm mpv msmtp neomutt pam picom qutebrowser ranger rofi rofi-calc sxhkd tmux tuir unclutter zathura xorg-xkill xorg-xinit unzip zip wget udiskie neovim-qt
-
-AUR-PACKAGES = networkmanager_dmenu neovim-nightly-bin urlview polybar vimpager-git nerd-fonts-complete lsd-git
-
-INSTALL-OFFICIAL-PACKAGES = $(patsubst %, install-official-%, $(OFFICIAL-PACKAGES))
-INSTALL-AUR-PACKAGES = $(patsubst %, install-aur-%, $(AUR-PACKAGES))
-
 .PHONY: install
-install: stow-etc install-aur-helper $(INSTALL-OFFICIAL-PACKAGES) $(INSTALL-AUR-PACKAGES) stow-extras
-install-pip-packages:
-	pip install --user pynvim jedi
-	# used by zathura synctex for nvim
-	pip install neovim-remote
+install: post-install-packages install-pip-packages
+
 .PHONY: stow-etc
 stow-etc:
 	sudo stow etc --target=/
 
-  # Get plugings
-  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  nvim -c 'PlugInstall|qall'
-  # install coc extensions
-  nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|q'
-  pacman -S tree-sitter
-
 .PHONY: install-aur-helper
-install-aur-helper:
+install-aur-helper: stow-etc
 	rm -rf /tmp/paru
 	git clone https://aur.archlinux.org/paru.git  /tmp/paru
 	cd /tmp/paru && makepkg --install --syncdeps --noconfirm
 	rm -rf /tmp/baph
 
+.PHONY: pre-install-packages
 pre-install-packages:
 	mkdir -p $(HOME)/Pictures
 	mkdir -p $(XDG_DATA_HOME)/applications
@@ -44,22 +25,33 @@ pre-install-packages:
 	mkdir -p $(XDG_CONFIG_HOME)/emacs
 	mkdir -p $(XDG_CONFIG_HOME)/nvim
 	mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
+	rm $(HOME)/.bashrc $(HOME)/.bash_profile
 	sudo pacman --sync --refresh --sysupgrade --noconfirm stow
 
-install-aur-%: pre-install-packages
-	paru --install --noconfirm $*
+.PHONY: make-clean-packages
+make-clean-pkglist:
+	@cat pkglist | grep -o "^[^#]*" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
-install-official-%:
-	sudo pacman --sync --refresh --sysupgrade --noconfirm $*
+## compare_packages: compare the current installed packages with the list
+.PHONY: compare_packages
+compare-packages: make-clean-pkglist
+	@pacman -Qqe | grep -vE paru | sort > pkglist_curr.tmp
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp pkglist_curr.tmp  || exit 0
+	@rm -f *tmp
 
-.PHONY: stow-extras
-stow-extras:
-	stow bash cron-jobs git gnupg i3 icons latex lsd msmtp nvim projects readline scripts shell_common ssh systemd wallpapers X11 xdbus xdg-open xmodmap
+.PHONY: install-packages
+install-packages: make-clean-pkglist install-aur-helper
+	@sudo paru --sync --refresh --sysupgrade --noconfirm --needed - < pkglist_clean.tmp
+	@rm -f *tmp
 
+.PHONY: stow-packages
+stow-packages:
+	stow alacritty autorandr bash bat cmus cron-jobs dunst emacs fasd feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar projects qutebrowser readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdbus xdg-open xmodmap zathura
 
-
-post-install:
-	stow
+.PHONY: post-install-packages
+post-install-packages: stow-packages
+	# accurate date
+	sudo timedatectl set-ntp true
 	emacs --batch --load=$(XDG_CONFIG_HOME)/emacs/init.el
 	nvim +'PlugInstall --sync' +qa
 	# Display link
@@ -79,40 +71,59 @@ post-install:
 	sudo pacman -S nftables
 	sudo systemctl enable nftables.service
 	sudo systemctl start nftables.service
-	# Enable actions like F keys
 	sudo systemctl enable acpid.service
 	sudo systemctl start acpid.service
 	systemctl --user daemon-reload
 	systemctl daemon-reload
 
-.PHONY: setup_qutebrowser
-setup_qutebrowser:
-	cd "$(XDG_CONFIG_HOME)/qutebrowser" && pip install -e . --user
+.PHONY: setup-neovim
+setup-neovim:
+	# TODO
+	# Get plugings
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	nvim -c 'PlugInstall|qall'
+	# install coc extensions
+	nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|q'
+	pip install neovim-remote --user
+
+setup-knowledge-base:
+	cd $(HOME)
+	git pull https://github.com/YasserKa/notes
+	cd notes
+	git config --bool branch.master.sync true
+	git config --bool branch.master.syncNewFiles true
+	# TODO use git-sync script
+
+setup-rclone:
+	# TODO: use .config/rclone/rclone.conf instead
+	rclone sync mega:university $HOME/university
+	rclone sync mega:personal $HOME/Documents/personal
+	rclone sync drive:books $HOME/books
+
+.PHONY: setup-jupyter-notebook
+setup-jupyter-notebook:
+	# TODO: Check the documentation
+	pip install jupyter_contrib_nbextensions
+	jupyter nbextensions_configurator enable --user
+	# You may need the following to create the directoy
+	mkdir -p $(jupyter --data-dir)/nbextensions
+	# Now clone the repository
+	cd $(jupyter --data-dir)/nbextensions
+	git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
+	chmod -R go-w vim_binding
+	jupyter nbextension enable vim_binding/vim_binding
+
+.PHONY: setup-qutebrowser
+setup-qutebrowser:
+	# TODO
+	cd "$(XDG_CONFIG_HOME)/qutebrowser/qutescript" && pip install -e . --user
+	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all.py --install --bin=yank_all.py
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
-	# TODO: include in the list
-	sudo pacman -S youtube-dl aspell # for a userscript
 	pip install adblock tldextract # ad block
 	paru -S chromium-widevine # viewing DRM content (Spotify)
 	paru -S qtwebkit-plugins-git # For SpellChecking
-
-.PHONY: get_installed_packages
-get_installed_packages:
-	pacman -Qent | grep -vE  $(IGNORED_PACKAGES) > pkglist.tmp # Official
-	pacman -Qm | grep -vE $(IGNORED_PACKAGES) > pkglist-aur.tmp # AUR
-
-## compare_packages: compare the current installed packages with the list
-.PHONY: compare_packages
-compare_packages: get_installed_packages
-	diff -y --suppress-common-lines --color pkglist-aur pkglist-aur.tmp || exit 0
-	diff -y --suppress-common-lines --color pkglist pkglist.tmp         || exit 0
-	rm -f *.tmp
-
-## update_packages: update official and AUR package lists available on the sysytem
-.PHONY: update_packages
-update_packages: get_installed_packages
-	mv pkglist.tmp pkglist
-	mv pkglist-aur.tmp pkglist-aur
 
 .PHONY: help
 help : Makefile

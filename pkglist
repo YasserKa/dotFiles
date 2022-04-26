@@ -1,98 +1,237 @@
-acpi 1.7-3
-acpid 2.0.33-1
-acpilight 1.2-2
-adapta-gtk-theme 3.95.0.11-2
-alacritty 0.10.1-1
-alsa-firmware 1.2.4-2
-alsa-plugins 1:1.2.6-3
-alsa-utils 1.2.6-1
-arandr 0.1.10-7
-aspell-en 2020.12.07-1
-autorandr 1.12.1-1
-base 2-2
-bash-language-server 2.0.0-5
-bitwarden-cli 1.22.0-1
-bottom 0.6.8-1
-chromium 100.0.4896.127-2
-cmus 2.9.1-2
-cronie 1.6.0-2
-ctags 1:5.9.20210905.0-1
-deepin-screen-recorder 5.10.15-1
-dunst 1.8.1-1
-dust 0.8.0-1
-entr 5.0-2
-expac 10-5
-fasd 1.0.1-3
-fd 8.3.2-1
-feh 3.8-2
-firefox 99.0.1-1
-fzf 0.30.0-1
-gist 6.0.0-1
-git-delta 0.12.1-1
-gpick 0.2.6-3
-grc 1.13-1
-grml-zsh-config 0.19.2-1
-grub 2:2.06-5
-gtksourceview4 4.8.3-1
-intel-ucode 20220419-1
-isync 1.4.4-1
-jq 1.6-4
-jupyter-notebook 6.4.11-1
-keychain 2.8.5-2
-khard 0.17.0-6
-lib32-libpulse 15.0-2
-libreoffice-fresh 7.3.2-2
-lnav 0.10.1-1
-m4 1.4.19-1
-man-db 2.10.2-1
-mcfly 0.6.0-1
-moreutils 0.67-2
-mpv 1:0.34.1-4
-msgpack-c 4.0.0-1
-msmtp 1.8.20-1
-nautilus 42.1.1-1
-ncdu 2.1.1-1
-neomutt 20220415-1
-neovim-qt 0.2.16.1-2
-net-tools 2.10-1
-nethogs 0.8.7-1
-newsboat 2.27-1
-notmuch 0.35-1
-okular 22.04.0-1
-pacman-contrib 1.4.0-4
-pass 1.7.4-2
-pavucontrol 1:5.0+r35+g964f298-1
-pkgconf 1.8.0-1
-pkgfile 21-2
-plantuml 1.2022.4-2
-python-pipenv 2022.4.21-1
-python2 2.7.18-5
-qutebrowser 2.5.0-1
-rclone 1.58.0-1
-reflector 2021.11-3
-ripgrep 13.0.0-2
-rofi-calc 2.1.0-1
-screen 4.9.0-1
-shellcheck 0.8.0-90
-stow 2.3.1-3
-sxhkd 0.6.2-2
-the_silver_searcher 2.2.0-2
-tig 2.5.5-1
-tldr 3.1.0-1
-tree-sitter 0.20.6-1
-ttf-font-awesome 6.1.1-1
-ttf-inconsolata 1:3.000-3
-udiskie 2.4.2-1
-unclutter 1:1.6-2
-unzip 6.0-18
-urlscan 0.9.9-1
-valgrind 3.18.1-4
-visidata 2.8-2
-w3m 0.5.3.git20210102_6-1
-wget 1.21.3-1
-wireguard-tools 1.0.20210914-1
-xorg-server 21.1.3-6
-xorg-xev 1.2.4-1
-xorg-xinit 1.4.1-3
-xorg-xkill 1.0.5-2
-zip 3.0-10
+# vim:commentstring=#%s
+# Base
+linux # The Linux kernel and modules
+linux-firmware # Firmware files for Linux
+linux-headers # Headers and scripts for building modules for the Linux kernel
+base # Minimal package set to define a basic Arch Linux installation
+grub # GNU GRand Unified Bootloader (2)
+# Optionally needed by grub for grub-mkrescue FAT FS support
+mtools # A collection of utilities to access MS-DOS disks
+pacman-contrib # Contributed scripts and tools for pacman systems
+expac # alpm data (pacman database) extraction utility
+# Dependency
+fakeroot # Tool for simulating superuser privileges
+pkgconf # Package compiler and linker metadata toolkit
+pkgfile # a pacman .files metadata explorer
+binutils # A set of programs to assemble and manipulate binary and object files
+gnupg # Complete and free implementation of the OpenPGP standard
+gcc # The GNU Compiler Collection - C and C++ frontends
+
+# ACPI
+acpi # Client for battery, power, and thermal readings
+# Enabling actions like pressing F keys buttons
+acpid # A daemon for delivering ACPI power management events with netlink support
+acpilight # a backward-compatible xbacklight replacement based on ACPI
+# Used in thinkpads
+thinkfan # A minimalist fan control program. Supports the sysfs hwmon interface and thinkpad_acpi
+
+# Drivers
+displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
+evdi # A Linux® kernel module that enables management of multiple screens.
+
+# Needed microcode
+intel-ucode # Microcode update files for Intel CPUs
+
+# Sound
+alsa-firmware # Firmware binaries for loader programs in alsa-tools and hotplug firmware loader
+alsa-plugins # Additional ALSA plugins
+alsa-utils # Advanced Linux Sound Architecture - Utilities
+pipewire # Low-latency audio/video router and processor
+pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
+pavucontrol # PulseAudio Volume Control
+cmus # Feature-rich ncurses-based music player
+# To place cmus in the background
+screen
+
+# Aesthetics
+nerd-fonts-complete # Iconic font aggregator, collection, & patcher. 3,600+ icons, 50+ patched fonts.
+ttf-inconsolata # Monospace font for pretty code listings and for the terminal
+ttf-font-awesome # Iconic font designed for Bootstrap
+adapta-gtk-theme # An adaptive Gtk+ theme based on Material Design Guidelines
+unclutter # hide cursor if not active
+picom-git # X compositor (fork of compton) (git-version)
+
+# Monitor management
+arandr # Provide a simple visual front end for XRandR 1.2.
+autorandr # Auto-detect connected display hardware and load appropiate X11 setup using xrandr
+
+# Programming
+patch # A utility to apply patch files to original sources
+git # the fast distributed version control system
+entr # Run arbitrary commands when files change
+
+tmux # A terminal multiplexer
+# Dependency for tmux
+msgpack-c # An efficient object serialization library
+alacritty # A cross-platform GPU-accelerated terminal emulator
+kitty # A modern, hackable, featureful, OpenGL-based terminal emulator
+# For images
+imagemagick # An image viewing/manipulation program
+# Dependency for imagemagick
+libtool # A generic library support script
+
+emacs # The extensible, customizable, self-documenting real-time display editor
+# Used by magit
+git-delta # Syntax-highlighting pager for git and diff output
+
+neovim-nightly-bin # Fork of Vim aiming to improve user experience, plugins, and GUIs.
+neovim-qt # GUI for Neovim
+python-pynvim # Python client for Neovim
+vim # Vi Improved, a highly configurable, improved version of the vi text editor
+tree-sitter # An incremental parsing system for programming tools
+ctags # Generates an index file of language objects found in source files
+# Contains latexmk that's used by nvim
+texlive-core
+biber # A Unicode-capable BibTeX replacement for biblatex users
+# Used in vim
+write-good # Naive linter for English prose
+
+pandoc # Conversion between markup formats
+plantuml # Component that allows to quickly write uml diagrams
+nodejs # Evented I/O for V8 javascript
+npm # A package manager for javascript
+python-pip # The PyPA recommended tool for installing Python packages
+python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
+
+# LSP
+bash-language-server # Bash language server implementation based on Tree Sitter and its grammar for Bash
+
+# Command line
+bash-completion # Programmable completion for the bash shell
+man-db # An interface to the system reference manuals
+
+# Better alternatives
+lsd-git # The next gen ls command
+lscolors-git # ls with colors
+bat # Cat clone with syntax highlighting and git integration
+grc # Yet another colouriser for beautifying your logfiles or output of commands
+dust # A more intuitive version of du in rust
+bottom # A graphical process/system monitor
+ranger # file manager
+
+# Used by some xback script
+jq # Command-line JSON processor
+
+fd # Simple, fast and user-friendly alternative to find
+fasd # Command-line productivity booster, offers quick access to files and directories
+fzf # Command-line fuzzy finder
+the_silver_searcher # Code searching tool similar to Ack, but faster
+lnav # A curses-based tool for viewing and analyzing log files
+
+qutebrowser # A keyboard-driven, vim-like browser based on PyQt5
+qtwebkit-plugins-git # Spell checking plugin using Hunspell and HTML5 Notifications plugin for QtWebKit.
+python-pygments # Python syntax highlighter
+
+# Automation
+make # GNU make utility to maintain groups of programs
+wmctrl # Control your EWMH compliant window manager from command line
+# Dependency for wmctrl
+openresolv # resolv.conf management framework (resolvconf)
+xclip # Command line interface to the X11 clipboard
+xdotool # Command-line X11 automation tool
+cronie # Daemon that runs specified programs at scheduled times and related tools
+dunst # Customizable and lightweight notification-daemon
+# Used to run dunst commands
+sxhkd # Simple X hotkey daemon
+rofi # A window switcher, application launcher and dmenu replacement
+rofi-calc # Do calculations in rofi
+polybar # A fast and easy-to-use status bar
+
+newsboat # An RSS/Atom feed reader for text terminals
+tuir # Browse Reddit from your terminal
+# TUIR dependency
+python-kitchen # Useful snippets of python code
+
+vimpager-git # A vim-based script to use as a PAGER - git checkout
+mpv # a free, open source, and cross-platform media player
+feh # Fast and light imlib2-based image viewer
+
+youtube-dl # A command-line program to download videos from YouTube.com and a few more sites
+gist # Potentially the best command line gister
+
+# Spelling
+aspell # A spell checker designed to eventually replace Ispell
+aspell-en # English dictionary for aspell
+hunspell # Spell checker and morphological analyzer library and program
+hunspell-en_us # US English hunspell dictionaries
+
+# Applications
+bitwarden-cli # The command line vault
+pass # Stores, retrieves, generates, and synchronizes passwords securely
+chromium # A web browser built for speed, simplicity, and security
+# Needed by chromium
+m4 # The GNU macro processor
+texinfo # GNU documentation system for on-line information and printed output
+
+firefox # Standalone web browser from mozilla.org
+visidata # Terminal spreadsheet multitool for discovering and arranging data
+udiskie # Removable disk automounter using udisks
+rclone # Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
+libreoffice-fresh # LibreOffice branch which contains new features and program enhancements
+
+i3-gaps # A fork of i3wm tiling window manager with more features, including gaps
+i3lock # Improved screenlocker based upon XCB and PAM
+xorg-server # Xorg X server
+xorg-xev # Print contents of X events
+xorg-xinit # X.Org initialisation program
+xorg-xkill # Kill a client by its X resource
+
+zathura # Minimalistic document viewer
+zathura-djvu # DjVu support for Zathura
+zathura-pdf-mupdf # PDF support for Zathura (MuPDF backend) (Supports PDF, ePub, and OpenXPS)
+okular # Document Viewer
+# Needed by Okular for mobi and epub support
+ebook-tools # Tools for accessing and converting various ebook file formats
+
+# Utility
+ripgrep # A search tool that combines the usability of ag with the raw speed of grep
+stow # Manage installation of multiple softwares in the same directory tree
+unrar # The RAR uncompression program
+# Dependency for unrar
+ntfs-3g # NTFS filesystem driver and utilities
+unzip # For extracting and viewing files in .zip archives
+zip # Compressor/archiver for creating and modifying zipfiles
+which # A utility to show the full path of commands
+sudo # Give certain users the ability to run some commands as root
+mcfly # Fly through your shell history
+moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
+
+# Network
+keychain # agent for gpg & ssh keys
+rsync # A fast and versatile file copying tool for remote and local files
+wget # Network utility to retrieve files from the Web
+nftables # Netfilter tables userspace tools
+nethogs # A net top tool which displays traffic used per process instead of per IP or interface
+networkmanager # Network connection manager and user applications
+networkmanager-dmenu-git # Control NetworkManager via dmenu
+wireguard-tools # next generation secure network tunnel - tools for configuration
+net-tools
+
+
+# Mutt
+neomutt # A version of mutt with added features
+urlscan # Mutt and terminal url selector
+# Used by scripts for neomutt
+python2 # A high-level scripting language
+# Show email
+w3m # Text-based Web browser as well as pager
+mailcap # Helper application and MIME type associations for file types
+isync # IMAP and MailDir mailbox synchronizer
+msmtp # A mini smtp client
+notmuch # Notmuch is not much of an email program
+chromium-widevine # A browser plugin designed for the viewing of premium video content
+ # Used for oauth2
+cyrus-sasl-xoauth2-git # XOAUTH2 mechanism plugin for cyrus-sasl
+khard # Console CardDAV client
+
+# Others
+reflector # A Python 3 module and script to retrieve and filter the latest Pacman mirror list.
+deepin-screen-recorder # Easy-to-use screen recording tool for linuxdeepin desktop environment with xclip copy patch
+# Dependency for deepin
+ocl-icd # OpenCL ICD Bindings
+
+nautilus # Default file manager for GNOME
+ncdu # Disk usage analyzer with an ncurses interface
+zoom # Video Conferencing and Web Conferencing Service
+zotero # Zotero Standalone. Is a free, easy-to-use tool to help you collect, organize, cite, and share your research sources.
+slack-desktop # Slack Desktop (Beta) for Linux
