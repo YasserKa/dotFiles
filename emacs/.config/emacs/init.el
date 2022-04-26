@@ -444,6 +444,7 @@
                   evil-ex-completion-map
                   ))
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
+    (evil-collection-define-key 'insert map (kbd "C-j") 'exit-minibuffer)
     (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
     (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
     )
@@ -809,6 +810,7 @@ see how ARG affects this command."
     :after org
     :config
     (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
+    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
     (add-to-list 'org-structure-template-alist '("py" . "src python :results output"))
     (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
     (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
@@ -1300,10 +1302,10 @@ see how ARG affects this command."
   )
 
 (defhydra org-links-hydra (:exit t :idle 1)
-  (" s" org-store-link "store" :column " links")
-  (" e" org-insert-link "store" :column " links") ; Edit link if it exists at point
+  (" y" org-store-link "yank" :column " links")
+  (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
   (" t" org-toggle-link-display "toggle")
-  (" i" org-insert-last-stored-link "insert last")
+  (" p" org-insert-last-stored-link "paste last")
   )
 
 (defun my/org-refile-to-current-file (arg &optional file)
