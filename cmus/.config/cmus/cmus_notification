@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 stat=$(cmus-remote -Q 2> /dev/null | grep status | cut -d ' ' -f2-)
 duration=$(cmus-remote -Q 2> /dev/null | grep duration | cut -d ' ' -f2-)

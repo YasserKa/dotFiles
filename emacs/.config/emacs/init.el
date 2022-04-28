@@ -158,7 +158,10 @@
                   "avi" "wmv" "wav" "mov" "flv"
                   "ogm" "ogg" "mkv")) "mpv" '(file))
          (list (openwith-make-extension-regexp
-                '("pdf" "epub" "djvu")) "zathura" '(file))))
+                '("pdf" "epub" "djvu")) "zathura" '(file))
+         (list (openwith-make-extension-regexp
+                '("markdown")) "nvim-qt" '(file))
+         ))
   (openwith-mode t))
 
 ;; Auto close pairs
@@ -794,12 +797,21 @@ see how ARG affects this command."
    '(org-block-end-line ((t (:background nil :weight bold))))
    '(org-code ((t (:inherit (shadow fixed-pitch))))))
 
+
+
+  (use-package plantuml-mode
+    :config
+    (setq org-plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+    )
+
   (require 'ob-makefile)
   ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
      (sql . t)
+     (plantuml . t)
      (makefile . t)
      (emacs-lisp . t)
      (shell . t)))

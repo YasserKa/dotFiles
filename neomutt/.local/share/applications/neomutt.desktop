@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=mutt
+Name=neomutt
 Comment=E-mailclient
 Keywords=E-mail;
 StartupNotify=true
@@ -8,4 +8,4 @@ Type=Application
 Categories=Application;;E-mail client;
 MimeType=x-scheme-handler/mailto
 Icon=mutt
-Exec=alacritty -e neomutt
+Exec=kitty neomutt

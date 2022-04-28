@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 url_root="$(echo $QUTE_URL | awk -F '/' '{print $3}')"
 

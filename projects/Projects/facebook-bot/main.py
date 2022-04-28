@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -38,21 +38,6 @@ os.system("pkill chromedriver")
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-def use_random_emoji():
-    driver.find_element(
-        By.XPATH, ".//*[contains(@aria-label, 'Choose an emoji')]").click()
-
-    # ::div/ancestor::img[contains(@src, "emoji")]
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, './/*[contains(text(), "Smileys & people")]'))
-    WebDriverWait(driver, 10).until(element_present)
-    emoji_list = driver.find_elements(
-        By.XPATH, './/*[contains(text(), "Smileys & people")]/'
-        'following-sibling::div/descendant::img[contains(@src, "emoji")]')
-
-    choice(emoji_list).click()
-
-
 def get_message():
     original_date = date(2022, 1, 3)
     today = date.today()
@@ -80,9 +65,6 @@ def check_facebook():
         (By.CSS_SELECTOR, message_area_css))
     WebDriverWait(driver, 10).until(element_present)
 
-    # iframe = driver.find_element(By.XPATH, "//iframe")
-    # driver.switch_to.frame(iframe)
-
     message = get_message()
 
     text_area = driver.find_elements(
@@ -91,7 +73,6 @@ def check_facebook():
 
     text_area.send_keys(message)
 
-    # use_random_emoji()
     text_area.send_keys(Keys.RETURN)
     sleep(1)
 

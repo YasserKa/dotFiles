@@ -8,7 +8,15 @@
 
 [core]
     editor = nvim
-    pager = vimpager
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    side-by-side =true
+    line-numbers = true
 
 [push]
     default = simple
@@ -17,12 +25,12 @@
     rebase = true
 
 [merge]
-    tool = vimdiff
+    conflictstyle = diff3
     ff = false
     log = true
 
 [diff]
-    tool = vimdiff
+    colorMoved = default
     renames = copies
 
 [log]

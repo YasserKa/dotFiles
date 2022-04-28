@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 # Dependencies: xdotool, i3-msg
 # Qutebrowser doesn't change focus to a new tab if it's in a hidden workspace,

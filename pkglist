@@ -111,6 +111,8 @@ ranger # file manager
 
 # Used by some xback script
 jq # Command-line JSON processor
+# Used by qutescript override_f
+pup # Command line tool for processing HTML
 
 fd # Simple, fast and user-friendly alternative to find
 fasd # Command-line productivity booster, offers quick access to files and directories
@@ -168,6 +170,7 @@ visidata # Terminal spreadsheet multitool for discovering and arranging data
 udiskie # Removable disk automounter using udisks
 rclone # Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
 libreoffice-fresh # LibreOffice branch which contains new features and program enhancements
+xournalpp # Handwriting notetaking software with PDF annotation support
 
 i3-gaps # A fork of i3wm tiling window manager with more features, including gaps
 i3lock # Improved screenlocker based upon XCB and PAM

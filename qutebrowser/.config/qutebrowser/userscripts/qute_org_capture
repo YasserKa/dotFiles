@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 ~/.config/i3/set_i3_focus_on_window_activation_configuration none
 emacsclient --no-wait "org-protocol://capture?url=$QUTE_URL&title=$QUTE_TITLE"

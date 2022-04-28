@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages install-pip-packages
+install: post-install-packages setup-knowledge-base setup-projects
 
 .PHONY: stow-etc
 stow-etc:
@@ -32,8 +32,8 @@ pre-install-packages:
 make-clean-pkglist:
 	@cat pkglist | grep -o "^[^#]*" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
-## compare_packages: compare the current installed packages with the list
-.PHONY: compare_packages
+## compare-packages: compare the current installed packages with the list
+.PHONY: compare-packages
 compare-packages: make-clean-pkglist
 	@pacman -Qqe | grep -vE paru | sort > pkglist_curr.tmp
 	@diff -y --suppress-common-lines --color pkglist_clean.tmp pkglist_curr.tmp  || exit 0
@@ -66,8 +66,8 @@ post-install-packages: stow-packages
 	systemctl start udiskie.service --user
 	systemctl enable dunst.service --user
 	systemctl start dunst --user
-	systemctl enable tmux.service --user
-	systemctl start tmux.service --user
+	systemctl enable msmtp-runqueue.timer --user
+	systemctl start msmtp-runqueue.timer --user
 	sudo pacman -S nftables
 	sudo systemctl enable nftables.service
 	sudo systemctl start nftables.service
@@ -87,19 +87,23 @@ setup-neovim:
 	nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|q'
 	pip install neovim-remote --user
 
+.PHONY: setup-projects
+setup-projects:
+	cd ~/Projects/check-bank-acount && pipenv install
+	cd ~/Projects/facebook-bot && pipenv install
+	cd ~/Projects/notify-me && pipenv install
+
+.PHONY: setup-knowledge-base
 setup-knowledge-base:
 	cd $(HOME)
 	git pull https://github.com/YasserKa/notes
-	cd notes
-	git config --bool branch.master.sync true
-	git config --bool branch.master.syncNewFiles true
-	# TODO use git-sync script
 
+.PHONY: setup-rclone
 setup-rclone:
 	# TODO: use .config/rclone/rclone.conf instead
-	rclone sync mega:university $HOME/university
-	rclone sync mega:personal $HOME/Documents/personal
-	rclone sync drive:books $HOME/books
+	# rclone sync mega:university $HOME/university
+	# rclone sync mega:personal $HOME/Documents/personal
+	# rclone sync drive:books $HOME/books
 
 .PHONY: setup-jupyter-notebook
 setup-jupyter-notebook:

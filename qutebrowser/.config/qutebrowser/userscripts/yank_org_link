@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Yank org link
 # If it's a github repo root, get the package name only

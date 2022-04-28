@@ -1,0 +1,200 @@
+# vim:filetype=muttrc
+
+# paths
+set my_neomutt_config_folder = $XDG_CONFIG_HOME/neomutt
+set certificate_file = $my_neomutt_config_folder/certificates
+set signature = $my_neomutt_config_folder/signature
+set header_cache = $XDG_CACHE_HOME/neomutt/headers
+set message_cachedir = $XDG_CACHE_HOME/neomutt/bodies
+# Color schemes
+source $my_neomutt_config_folder/neomuttcol
+
+# General
+set mime_type_query_command = "file --mime-type -b %s" # Query to determine mime type
+set sleep_time = 0                     # Pause 0 seconds for informational messages
+set editor = $EDITOR
+set fast_reply                         # skip to compose when replying
+set fcc_attach                         # save attachments with the body
+set include                            # include message in replies
+set edit_headers                       # Edit headers while composing
+set attribution = ""                   # Remove "On date, X wrote:"  in replies
+set reverse_name                       # reply as whomever it was to
+set pager_index_lines = 6              # Show few messages of the index in pager mode
+set pager_stop                         # Don't move to next message after <next-page>
+set mail_check=60                      # to avoid lags using IMAP with some email providers (yahoo for example)
+set delete                             # Don't ask while purging messages
+set copy = no                          # don't duplicate the outgoing messages
+set recall = no                        # Don't offer to resume postponed message
+set markers = no                       # Disables the `+` displayed at line wraps
+set mark_old = no                      # Unread mail stay unread until read
+set wait_key = no                      # mutt won't ask "press key to continue"
+set confirmappend = no                 # Don't prompt for confirmation when appending mesages to mailboxes
+auto_view text/html                    # automatically show html (mailcap uses lynx)
+ignore *                               # ignore all headers
+unignore from: to: cc: date: subject:  # show only these
+unhdr_order *                          # some distros order things by default
+hdr_order from: to: cc: date: subject: # Order headers when viewing message
+alternative_order text/plain text/enriched text/html
+set abort_key ="<Esc>"                 # Clear  ng prompt
+
+# Forwarding
+set mime_forward = yes                 # attachments are forwarded with mail
+set forward_format = "Fwd: %s"         # format of subject when forwarding
+set forward_quote                      # include message in forwards
+
+# Thread
+bind index <space> collapse-thread
+set sort_aux = last-date-received # When threads are on, sort them by the date the most recent message within them was received.
+set sort=threads
+set collapse_all
+
+# Use GPGME
+set crypt_use_gpgme = yes
+# sign replies to signed email
+set crypt_replysign = yes
+# encrypt replies to encrypted email
+set crypt_replyencrypt = yes
+# encrypt and sign replies to encrypted and signed email
+set crypt_replysignencrypted = yes
+# Sign all outgoing mail
+set crypt_autosign = yes
+# attempt to verify email signatures automatically
+set crypt_verify_sig = yes
+set pgp_sign_as="116F256041ACF55D33334B77F69626AEBEC29AA7"
+set pgp_default_key="116F256041ACF55D33334B77F69626AEBEC29AA7"
+my_hdr X-PGP-Key: https://keyserver.ubuntu.com/pks/lookup?search=0x116F256041ACF55D33334B77F69626AEBEC29AA7&fingerprint=on&op=index
+
+# mailboxes
+set realname = "Yasser Kaddoura"
+set from = "yasser.kaddoura19@gmail.com"
+set sendmail = "/bin/sh $my_neomutt_config_folder/scripts/sendmail gmail"
+set mbox_type = Maildir
+alias me Yasser Kaddoura <yasser.kaddoura19@gmail.com>
+
+# source ~/.config/neomutt/accounts/gmail
+# folder-hook $folder 'source $mutt/accounts/gmail'
+set folder = $XDG_DATA_HOME/mail/gmail
+
+set spoolfile = "+INBOX"
+set record = "+[Gmail].Sent"
+set postponed = "+[Gmail].Drafts"
+set trash = "+[Gmail].Trash"
+set mbox = "+[Gmail].other"
+mailboxes =INBOX\
+          =[Gmail].Sent\ Mail\
+          =[Gmail].Drafts\
+          =[Gmail].Trash\
+          =[Gmail].Spam\
+          =[Gmail].Archive \
+          =[Gmail].All\ Mail\
+
+set ssl_starttls = yes
+set ssl_force_tls = yes
+# OAUTH2
+set imap_authenticators = "oauthbearer:xoauth2"
+set imap_oauth_refresh_command = "$my_neomutt_config_folder/scripts/mutt_oauth2.py $my_neomutt_config_folder/scripts/token.json"
+set smtp_authenticators = ${imap_authenticators}
+set smtp_oauth_refresh_command = ${imap_oauth_refresh_command}
+
+# formatting
+set date_format="%m/%d %I:%M%p"
+set index_format = "%Z  %D  %-20.20F  %s"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# bindings
+bind index,pager g noop
+bind index,pager d noop
+bind index,pager M noop
+bind index,pager C noop
+bind index h noop
+bind editor <space> noop
+bind index j next-entry
+bind index k previous-entry
+bind pager l view-attachments
+bind attach l view-mailcap
+bind pager,attach h exit
+bind index G last-entry
+bind index gg first-entry
+bind pager,index dd delete-message
+# Threading
+bind pager,index dT delete-thread
+bind pager,index dt delete-subthread
+bind pager,index ]t next-thread
+bind pager,index [t previous-thread
+bind index L limit
+bind index l display-message
+bind attach <return> view-mailcap
+# bind index,query <space> tag-entry
+macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
+bind index,pager H view-raw-message
+bind browser l select-entry
+bind pager,browser gg top-page
+bind pager,browser G bottom-page
+bind index,pager,browser \Cd half-down
+bind index,pager,browser \Cu half-up
+bind index,pager R group-reply
+bind pager \005 next-line		# Mouse wheel
+bind index,pager,browser \; enter-command
+bind index,pager @ compose-to-sender
+bind compose p postpone-message
+bind index p recall-message                    # Go to postponed messages
+
+# sidebar bindings
+set sidebar_visible = yes
+set sidebar_width = 20
+set sidebar_short_path = yes
+set sidebar_next_new_wrap = yes
+set mail_check_stats
+set sidebar_format = '%D%?F? [%F]?%* %?N?%N/? %?S?%S?'
+macro index,pager \Cn '<sidebar-next><sidebar-open>
+macro index,pager \Cp '<sidebar-prev><sidebar-open>
+bind index,pager B sidebar-toggle-visible
+
+# Go to mailboxes
+macro index gi "<change-folder>=INBOX<enter><collapse-all>" "Go to inbox"
+macro index gs "<change-folder>=[Gmail].Sent\ Mail<enter>" "Go to sent mail"
+macro index gt "<change-folder>=[Gmail].Trash<enter>" "Go to trash"
+macro index gd "<change-folder>=[Gmail].Drafts<enter>" "Go to drafts"
+macro index gS "<change-folder>=[Gmail].Spam<enter>" "Go to spam"
+macro index ga "<change-folder>=[Gmail].Archive<enter>" "Go to archive"
+macro index gA "<change-folder>=[Gmail].All\ Mail<enter>" "Go to all mail"
+# Move messages to another mailbox
+macro index,pager Mi "<save-message>=INBOX<enter>" "move mail to inbox"
+macro index,pager Ms "<save-message>=[Gmail].Sent\ Mail<enter>" "move mail to sent"
+macro index,pager Md "<save-message>=[Gmail].Drafts<enter>" "move mail to drafts"
+macro index,pager Mt "<save-message>=[Gmail].Trash<enter>" "move mail to trash"
+macro index,pager MS "<save-message>=[Gmail].Spam<enter>" "move mail to spam"
+macro index,pager Ma "<save-message>=[Gmail].Archive<enter>" "move mail to archive"
+
+# Sync mail
+macro index o "<shell-escape>$my_neomutt_config_folder/bin/mailsync -V gmail<enter><sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>" "run mailsync to sync personal"
+# mark a read
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+
+# notmuch  searching
+macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/neomutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/neomutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+macro index A "<limit>all\n" "show all messages (undo limit)"
+
+# Sync mail then update polybar after reading new emails
+message-hook ~N 'push "$!polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"'
+# Save changes
+macro index,pager S "<sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"
+
+# Source dotfile
+set my_neomuttrc = $my_neomutt_config_folder/neomuttrc
+macro generic,index,browser,pager ,ss '\
+<enter-command>unhook *<enter>\
+<enter-command>source $my_neomuttrc<enter>\
+<enter-command>echo "Reloaded $my_neomuttrc"<enter>' \
+	"Clear hooks and reload"
+
+# Contacts
+set query_command= "khard email --parsable %s"
+macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>khard add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
+bind editor <Tab> complete-query
+
+# URL Selection
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+# view email in browser
+macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > $XDG_CACHE_HOME/neomutt/mail.html <enter><shell-escape>$BROWSER $XDG_CACHE_HOME/neomutt/mail.html<enter>"

@@ -67,4 +67,4 @@ _fasd_bash_hook_cmd_complete() {
 # enable bash command mode completion
 _fasd_bash_hook_cmd_complete fasd a s d f sd sf zz zf
 
-# /* vim: set filetype=bash : */ ~
+# vim: set filetype=bash

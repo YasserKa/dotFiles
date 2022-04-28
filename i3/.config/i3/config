@@ -108,12 +108,11 @@ assign [class="Slack"] workspace $social
 assign [class="Zathura"] workspace $documents
 assign [class="Chromium"] workspace $wp9
 
-
 # For notify-me script
 for_window [instance="notify_me_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
 
-# Firefox
+# Firefox (For ambient music page)
 for_window [class="firefox"] move scratchpad
 
 # Making softwares in floating mode
@@ -129,7 +128,6 @@ include ./focus_on_window_activation_config
 
 # Resize window
 bindsym $mod+r mode "resize"
-
 mode "resize" {
     bindsym h resize shrink width 10 px or 10 ppt;
     bindsym j resize grow height 10 px or 10 ppt;
@@ -143,7 +141,6 @@ mode "resize" {
 # Emacs org clock
 set $clock_mode "clock (i)n, (o)ut, (c)ancel, (t)oggle, (g)o_to"
 bindsym $mod+q mode $clock_mode
-
 mode $clock_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default";
     bindsym o exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default";
@@ -158,7 +155,6 @@ mode $clock_mode {
 # Music player
 set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower"
 bindsym $mod+c mode $cmus_mode
-
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
     bindsym t exec --no-startup-id cmus-remote --pause; mode "default";
@@ -173,9 +169,6 @@ mode $cmus_mode {
 }
 
 set $control_ambient_mode "(t)oggle, (h)igher, (l)ower"
-
-for_window [class="ambient_music"] move scratchpad
-
 bindsym $mod+Shift+c mode $control_ambient_mode
 mode $control_ambient_mode {
     bindsym t exec --no-startup-id $HOME/bin/control_ambient p; mode "default";
@@ -188,7 +181,6 @@ mode $control_ambient_mode {
 }
 
 set $sharing_mode "(i)mage, (c)lipbaord, (v)ideo, (t)ext, (n)ote"
-
 bindsym $mod+s mode $sharing_mode
 mode $sharing_mode {
     bindsym i exec --no-startup-id $HOME/bin/share -i; mode "default";
@@ -258,6 +250,7 @@ bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi-documents
 
 # Don't show general notes
 bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
+# Show any window besides general notes
 bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 
 # Put general notes in scratchpad

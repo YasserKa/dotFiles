@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 # Download and open document it instead of opening the tab in special cases
 # Dependencies: curl, pup, zathura, dunstify
@@ -28,6 +28,7 @@ url_root="$(echo $QUTE_URL | awk -F '/' '{print $3}')"
 
 # Otherwise download the document
 download_url=$(curl -s $QUTE_URL | pup 'a[href*="get"]' attr{href})
+curl -s https://libgen.rocks/ads.php?md5=5e2dfd49fd5f4cffa8e7d4924dcbe35d | pup 'a[href*="get"]' attr{href}
 
 url_download=$(echo "https://$url_root_special_case/$download_url" | sed 's/amp;//')
 

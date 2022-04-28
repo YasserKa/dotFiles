@@ -5,7 +5,7 @@ configuration {
     lines: 10;
     font: "inconsolata 15";
     kb-remove-char-forward: "Delete";
-    run-command: "/bin/bash -c -i '{cmd}'";
+    run-command: "/bin/bash -ic '{cmd}'";
     run-list-command: "source $XDG_CONFIG_HOME/rofi/aliases";
     kb-delete-entry: "Control+d";
 /*	columns: 1;*/

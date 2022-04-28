@@ -8,6 +8,10 @@ Plug 'https://github.com/fladson/vim-kitty'
 " Editing
 Plug 'https://github.com/junegunn/vim-easy-align'
 
+
+" Aesthetics
+Plug 'https://github.com/ap/vim-css-color', {'for': ['dosini']}
+
 Plug 'https://github.com/gruvbox-community/gruvbox'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
@@ -184,8 +188,7 @@ augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
     autocmd BufRead,BufNewFile neomutt-* set spell tw=72
-    autocmd BufRead neomutt-* exec "normal 8jiKind regards, \<esc>kODear "
-    autocmd BufRead neomutt-* startinsert!
+    autocmd BufRead neomutt-* normal 50%
     autocmd FileType markdown,tex set spell
     autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
     autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'

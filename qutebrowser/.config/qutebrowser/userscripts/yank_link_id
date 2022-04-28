@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Deficiency: $QUTE_TITLE (page title) is not available for hints
 

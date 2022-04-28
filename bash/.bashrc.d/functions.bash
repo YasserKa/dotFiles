@@ -61,11 +61,6 @@ function ranger() {
     rm -f -- "$tempfile"
 }
 
-# TODO: Not used
-function def() {
-    sdcv -n --utf8-output --color "$@" 2>&1 | fold --width=$(tput cols) | vimpager
-}
-
 function j() {
     paths=$(fasd -dlR "$@")
     path="$HOME"
@@ -97,15 +92,20 @@ function fzftmux() {
     tmux attach-session -t $TMUX_SESSION
 }
 
-open_cli() {
+function open_cli() {
     local command="$1"
 
     [[ ! $(command -v $command) ]] && notify-send "$command doesn't exit"
 
-    [[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return
+    [[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] && notify-send "$TERMINAL is not supported" && return
 
     # Check if it's in a terminal
-    tty -s && $command || $TERMINAL -- $command
+   if [[ $TERMINAL == "kitty" ]]; then
+        tty -s && $command || $TERMINAL -- $command
+    else
+        tty -s && $command || $TERMINAL -e $command
+   fi
+
 }
 
 cli_list=("neomutt" "tuir" "newsboat")
@@ -145,18 +145,18 @@ function magit() {
         "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
 }
 
-save_backup_org_files() {
+function syncorg() {
    emacsclient --no-wait --eval "(org-save-all-org-buffers)"
    $HOME/bin/wait_internet && rclone sync ${NOTES_ORG_HOME} org_notes:org --include 'fast_access.org' --include 'groceries.org'
 }
 
 
-reboot() {
-    save_backup_org_files
-    systemctl reboot
+function reboot() {
+    syncorg
+    command shutdown --reboot now
 }
 
-shutdow() {
-    save_backup_org_files
-    systemctl poweroff -i
+function shutdown() {
+    syncorg
+    command shutdown now
 }

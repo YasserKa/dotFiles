@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 if [[ $1 == "tab" ]]; then
     echo "$QUTE_URL" | awk -F = '{ print "open -t https://www.google.com/search?q=" $2 }' >> "$QUTE_FIFO"

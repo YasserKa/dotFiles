@@ -14,8 +14,9 @@ alias vpn_down='sudo wg-quick down wg0'
 # Open configuration files easily
 # First arg directory, others files to open
 # Open in current terminal or a new one depending on shell interactivity
-function rc () {
-    [[ ! $TERMINAL == "kitty" ]] && notify-send "$TERMINAL not supported for rc function" \
+function open_file () {
+    [[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] \
+        && notify-send "$TERMINAL not supported for open_file function" \
         && return
 
     path="$1"
@@ -28,31 +29,36 @@ function rc () {
         # The +only -o arguments are a hack to mitigate nvim's warning upon
         # exiting for editing multiple files
         # -o open files in windows and +only keep one of them
-        $TERMINAL --directory $path $EDITOR +only -o $files_to_open
+        if [[ $TERMINAL == "kitty" ]]; then
+            $TERMINAL --working-directory $path bash -ic "cd $path && $EDITOR +only -o $files_to_open"
+        else
+            $TERMINAL --working-directory $path -e bash -ic "cd $path && $EDITOR +only -o $files_to_open"
+        fi
     fi
 }
 
-alias rcvim="rc $NVIM_CONFIG init.vim"
-alias rcneomutt="rc $XDG_CONFIG_HOME/mutt muttrc"
-alias rctuir="rc $XDG_CONFIG_HOME/tuir tuir.cfg"
-alias rcfeh="rc $FEH_CONFIG *"
-alias rckitty="rc $KITTY_CONFIG kitty.conf"
-alias rcbash="rc $HOME .bashrc .bash_profile .bashrc.d/*bash"
-alias rctmux="rc $TMUX_CONFIG .tmux.conf"
-alias rcqutebrowser="rc $QUTEBROWSER_CONFIG config.py userscripts/*"
-alias rci3="rc $I3_CONFIG config"
-alias rcx11="rc ${XINITRC%/*} xinitrc"
-alias rcrofi="rc $ROFI_CONFIG config.rasi"
-alias rcdunst="rc $DUNST_CONFIG dunstrc"
-alias rcpolybar="rc $POLYBAR_CONFIG config.ini"
-alias rcgpg="rc $GNUPGHOME gpg-agent.conf"
-alias rcssh="rc $SSH_CONFIG ssh sshd_config"
-alias rctmux="rc $TMUX_CONFIG tmux.conf"
+alias rcvim="open_file $XDG_CONFIG_HOME/nvim init.vim"
+alias rcneomutt="open_file $XDG_CONFIG_HOME/neomutt neomuttrc"
+alias rctuir="open_file $XDG_CONFIG_HOME/tuir tuir.cfg"
+alias rcfeh="open_file $XDG_CONFIG_HOME/feh keys"
+alias rckitty="open_file $XDG_CONFIG_HOME/kitty kitty.conf \"*\""
+alias rcbash="open_file $HOME .bashrc .bash_profile .bashrc.d/*bash"
+alias rctmux="open_file $TMUX_CONFIG .tmux.conf"
+alias rcqutebrowser="open_file $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*"
+alias rci3="open_file $XDG_CONFIG_HOME/i3 config"
+alias rcx11="open_file ${XINITRC%/*} xinitrc"
+alias rcrofi="open_file $XDG_CONFIG_HOME/rofi config.rasi"
+alias rcdunst="open_file $XDG_CONFIG_HOME/dunst dunstrc"
+alias rcpolybar="open_file $XDG_CONFIG_HOME/polybar config.ini"
+alias rcgpg="open_file $GNUPGHOME gpg-agent.conf"
+alias rcssh="open_file $HOME ssh sshd_config"
+alias rctmux="open_file $XDG_CONFIG_HOME/tmux tmux.conf"
+alias cron="open_file $XDG_CONFIG_HOME crons.cron; crontab $XDG_CONFIG_HOME/crons.cron"
+
 # Open Emacs's config file in Emacs
-alias rcemacs="emacs --file $EMACS_CONFIG/init.el"
+alias rcemacs="emacs --file $XDG_CONFIG_HOME/emacs/init.el"
 
 # sync notes
-alias syncorg="wait_internet && rclone sync $NOTES_ORG_HOME remote:org --include 'fast_access.org' --include 'groceries.org'"
 alias syncbooks="wait_internet && rclone sync $HOME/books books:books"
 
 # Alternatives
@@ -112,12 +118,9 @@ alias vf='fasd -sife nvim' # quick opening files with vim
 
 _fasd_bash_hook_cmd_complete vf j
 
-alias dotfiles="cd $DOTFILES_HOME && magit"
+alias dotfiles="cd $HOME/dotfiles && magit"
 
 alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
-# cron
-# TODO: make this work like rc files
-alias cron="$EDITOR $XDG_CONFIG_HOME/crons.cron; crontab $XDG_CONFIG_HOME/crons.cron"
 
 # last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
@@ -126,7 +129,7 @@ alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reve
 # music player
 alias cmus="screen -q -r -D cmus || screen -S cmus $(which cmus)"
 
-alias abook="abook --config $ABOOK_CONFIG/abookrc --datafile $ABOOK_DATA/addressbook"
+alias abook="abook --config $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_DATA_HOME/addressbook"
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'

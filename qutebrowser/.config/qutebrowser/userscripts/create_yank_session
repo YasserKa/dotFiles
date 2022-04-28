@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 SESSION_NAME="session_$RANDOM"
 

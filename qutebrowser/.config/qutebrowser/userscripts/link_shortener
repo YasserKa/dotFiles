@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 auth=$(bw get item bitly | jq -r '.fields[] | select(.name == "password") | .value')
 # use https://api-ssl.bitly.com/v4/groups to get group-uid

@@ -1,9 +1,9 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 # Get number of new e-mails
 
-if [[ -d $HOME/.local/share/mail/ ]]; then
-  out=$(find $HOME/.local/share/mail/*/INBOX/new/ -type f|wc -l)
+if [[ -d $XDG_DATA_HOME/mail/ ]]; then
+  out=$(find $XDG_DATA_HOME/mail/*/INBOX/new/ -type f|wc -l)
 
   if [ "$out" != "0" ]; then
     echo $out

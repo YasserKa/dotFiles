@@ -52,7 +52,7 @@ handle=$1  # for use in parameter expansions
 
 get_access_token() {
     { IFS= read -r tokenline && IFS= read -r expireline; } < \
-    <(python2 $HOME/.config/mutt/scripts/oauth2 --user=${!1} \
+    <(python2 $XDG_CONFIG_HOME/neomutt/scripts/oauth2 --user=${!1} \
     --client_id=$(pass $handle/GmailAPI/CID) \
     --client_secret=$(pass $handle/GmailAPI/CS) \
     --refresh_token=$(pass $handle/GmailAPI/refresh))

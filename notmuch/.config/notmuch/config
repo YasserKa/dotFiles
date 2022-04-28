@@ -1,7 +1,7 @@
 [database]
 path=/home/yasser/.local/share/mail
 [user]
-name=yasser.kaddoura19
+name=Yasser Kaddoura
 primary_email=yasser.kaddoura19@gmail.com
 [new]
 tags=unread;inbox;
