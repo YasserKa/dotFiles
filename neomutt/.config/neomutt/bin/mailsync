@@ -1,33 +1,31 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# Sync mail and give notification if there is new mail.
+# Includes syncing icon in polybar
+if [[ "$1" == "trigger-polybar" ]]; then
+    shift 1
+    TRIGGER_POLYBAR=1
+else
+    TRIGGER_POLYBAR=0
+fi
 
-# Run only if user logged in (prevent cron errors)
-pgrep -u "${USER:=$LOGNAME}" >/dev/null || { echo "$USER not logged in; sync will not run."; exit ;}
 # Run only if not already running in other instance
 pgrep -x mbsync >/dev/null && { echo "mbsync is already running." ; exit ;}
 
 # Checks for internet connection and set notification script.
-ping -q -c 1 1.1.1.1 > /dev/null || ping -q -c 1 1.0.0.1 > /dev/null || ping -q -c 1 example.org || { echo "No internet connection detected."; exit ;}
+$HOME/bin/wait_internet || { echo "No internet connection detected."; exit ;}
 
-# Required to display notifications if run as a cronjob:
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
-export DISPLAY=:0.0
-
-alias mbsync="mbsync -c ${XDG_CONFIG_ISYNC}"
-
-notify() { notify-send --app-name="neomutt" "mutt-wizard" "📬 $2 new mail(s) in \`$1\` account." ;}
-messageinfo() { [[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt ;}
+messageinfo() {
+    [[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt
+}
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
     acc="$(echo "$account" | sed "s/.*\///")"
-    if [ -z "$opts" ]; then mbsync "$acc"; else mbsync "$opts" "$acc"; fi
+    if [ -z "$opts" ]; then mbsync -c ${XDG_CONFIG_ISYNC} "$acc"; else mbsync -c ${XDG_CONFIG_ISYNC} "$opts" "$acc"; fi
     [[ $? != 0 ]] && notify-send --urgency=critical "Can't get mail"
-    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$XDG_CONFIG_HOME/neomutt/.mailsynclastrun" 2> /dev/null)
+    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" -type f -newer "$XDG_CONFIG_HOME/neomutt/.mailsynclastrun" 2> /dev/null)
     newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
     if [ "$newcount" -gt "0" ]; then
-        # notify "$acc" "$newcount" &
         for file in $new; do
             # Extract subject and sender from mail.
             from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
@@ -47,18 +45,16 @@ else
     accounts=$*
 fi
 
-( kill -46 "$(pidof "${STATUSBAR:-dwmblocks}")" >/dev/null 2>&1 ) 2>/dev/null
+[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
 
-# Parallelize multiple accounts
 for account in $accounts
 do
     syncandnotify &
 done
 
 wait
-( kill -46 "$(pidof "${STATUSBAR:-dwmblocks}")" >/dev/null 2>&1 ) 2>/dev/null
+polybar-msg action "#mail.hook.0"
 
 notmuch new 2>/dev/null
-
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$XDG_CONFIG_HOME/neomutt/.mailsynclastrun"

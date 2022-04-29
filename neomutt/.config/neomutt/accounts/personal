@@ -1,6 +1,0 @@
-# vim:filetype=muttrc
-
-set from = "yasser.kaddoura19@gmail.com"
-set sendmail = "/bin/sh $XDG_CONFIG_HOME/mutt/scripts/sendmail personal"
-
-macro index o "<shell-escape>$XDG_CONFIG_HOME/mutt/bin/mailsync -V gmail<enter><sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>" "run mailsync to sync personal"

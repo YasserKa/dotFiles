@@ -1,13 +1,16 @@
 # vim:filetype=muttrc
 
-# paths
 set my_neomutt_config_folder = $XDG_CONFIG_HOME/neomutt
+# Color scheme
+source $my_neomutt_config_folder/colors
+
+# paths
 set certificate_file = $my_neomutt_config_folder/certificates
 set signature = $my_neomutt_config_folder/signature
+# Store message headers locally to speed things up.
 set header_cache = $XDG_CACHE_HOME/neomutt/headers
+# Store messages locally to speed things up, like searching message bodies.
 set message_cachedir = $XDG_CACHE_HOME/neomutt/bodies
-# Color schemes
-source $my_neomutt_config_folder/neomuttcol
 
 # General
 set mime_type_query_command = "file --mime-type -b %s" # Query to determine mime type
@@ -36,6 +39,8 @@ unhdr_order *                          # some distros order things by default
 hdr_order from: to: cc: date: subject: # Order headers when viewing message
 alternative_order text/plain text/enriched text/html
 set abort_key ="<Esc>"                 # Clear  ng prompt
+set pipe_decode                        # Strip headers and eval mimes when piping
+set thorough_search                    # Strip headers and eval mimes before searching
 
 # Forwarding
 set mime_forward = yes                 # attachments are forwarded with mail
@@ -44,7 +49,7 @@ set forward_quote                      # include message in forwards
 
 # Thread
 bind index <space> collapse-thread
-set sort_aux = last-date-received # When threads are on, sort them by the date the most recent message within them was received.
+set sort_aux = reverse-date
 set sort=threads
 set collapse_all
 
@@ -66,39 +71,20 @@ my_hdr X-PGP-Key: https://keyserver.ubuntu.com/pks/lookup?search=0x116F256041ACF
 
 # mailboxes
 set realname = "Yasser Kaddoura"
-set from = "yasser.kaddoura19@gmail.com"
-set sendmail = "/bin/sh $my_neomutt_config_folder/scripts/sendmail gmail"
 set mbox_type = Maildir
 alias me Yasser Kaddoura <yasser.kaddoura19@gmail.com>
 
-# source ~/.config/neomutt/accounts/gmail
-# folder-hook $folder 'source $mutt/accounts/gmail'
-set folder = $XDG_DATA_HOME/mail/gmail
+source $my_neomutt_config_folder/accounts/gmail
+folder-hook $folder 'source $my_neomutt_config_folder/accounts/gmail'
 
-set spoolfile = "+INBOX"
-set record = "+[Gmail].Sent"
-set postponed = "+[Gmail].Drafts"
-set trash = "+[Gmail].Trash"
-set mbox = "+[Gmail].other"
-mailboxes =INBOX\
-          =[Gmail].Sent\ Mail\
-          =[Gmail].Drafts\
-          =[Gmail].Trash\
-          =[Gmail].Spam\
-          =[Gmail].Archive \
-          =[Gmail].All\ Mail\
+# macro index,pager a1 '<sync-mailbox><enter-command>source ~/.config/mutt/<muttemail>.rc<enter><change-folder>!<enter>;<check-stats>' "switch to <muttemail>"
+# macro index,pager a2 '<sync-mailbox><enter-command>source ~/.config/mutt/<new-muttemail>.rc<enter><change-folder>!<enter>;<check-stats>' "switch to <new-muttemail>"
 
-set ssl_starttls = yes
-set ssl_force_tls = yes
-# OAUTH2
-set imap_authenticators = "oauthbearer:xoauth2"
-set imap_oauth_refresh_command = "$my_neomutt_config_folder/scripts/mutt_oauth2.py $my_neomutt_config_folder/scripts/token.json"
-set smtp_authenticators = ${imap_authenticators}
-set smtp_oauth_refresh_command = ${imap_oauth_refresh_command}
 
 # formatting
 set date_format="%m/%d %I:%M%p"
 set index_format = "%Z  %D  %-20.20F  %s"
+set status_chars = " *%A"
 set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
 
 # bindings
@@ -134,7 +120,9 @@ bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
 bind index,pager R group-reply
 bind pager \005 next-line		# Mouse wheel
+# Using ; as :
 bind index,pager,browser \; enter-command
+bind compose \; enter-command
 bind index,pager @ compose-to-sender
 bind compose p postpone-message
 bind index p recall-message                    # Go to postponed messages
@@ -166,14 +154,15 @@ macro index,pager Mt "<save-message>=[Gmail].Trash<enter>" "move mail to trash"
 macro index,pager MS "<save-message>=[Gmail].Spam<enter>" "move mail to spam"
 macro index,pager Ma "<save-message>=[Gmail].Archive<enter>" "move mail to archive"
 
-# Sync mail
-macro index o "<shell-escape>$my_neomutt_config_folder/bin/mailsync -V gmail<enter><sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>" "run mailsync to sync personal"
 # mark a read
-macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro index \Cr "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+push "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>"
 
 # notmuch  searching
 macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/neomutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/neomutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
 macro index A "<limit>all\n" "show all messages (undo limit)"
+
+macro compose a "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/rangerpicker attach<enter><enter-command>source $XDG_CACHE_HOME/ranger/rangerpick<enter>" "Attach with Ranger"
 
 # Sync mail then update polybar after reading new emails
 message-hook ~N 'push "$!polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"'

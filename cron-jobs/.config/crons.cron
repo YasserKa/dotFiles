@@ -10,7 +10,4 @@
 # Fetch at startup
 */30 * * * * source $HOME/.config/.Xdbus; bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -ns
 
-# Get mail & update polybar
-*/30 * * * * $HOME/bin/wait_internet && source $HOME/.config/.Xdbus && $HOME/.config/neomutt/bin/mailsync && polybar-msg action mail hook 0
-
 # vim: syntax=crontab commentstring=#%s

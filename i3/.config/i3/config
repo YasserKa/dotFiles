@@ -212,8 +212,12 @@ mode $utility_mode {
 set $mail_mode "mail (o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
-    bindsym s exec --no-startup-id check_mail; mode "default";
-
+    bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
+    bindsym s exec --no-startup-id bash -ic "mailsync gmail trigger-polybar"; mode "default";
+    # Mark messages as read
+    bindsym c exec --no-startup-id mv $XDG_DATA_HOME/mail/gmail/INBOX/new/* \
+            $XDG_DATA_HOME/mail/gmail/INBOX/cur/ \
+            && polybar-msg action "#mail.hook.0"; mode "default";
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }

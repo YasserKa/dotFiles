@@ -101,9 +101,10 @@ function open_cli() {
 
     # Check if it's in a terminal
    if [[ $TERMINAL == "kitty" ]]; then
-        tty -s && $command || $TERMINAL -- $command
+       # "s" Commands are read from the standard input device such as keyboard
+        [[ "$-" == *s* ]] && $command || $TERMINAL -- $command
     else
-        tty -s && $command || $TERMINAL -e $command
+        [[ "$-" == *s* ]] && $command || $TERMINAL -e $command
    fi
 
 }

@@ -38,7 +38,7 @@ cat > "$MAILFILE" || exit 1
 # Replace the test with something suitable for your site.
 wait_internet
 if [ $? -eq 0 ]; then
-	$XDG_CONFIG_HOME/mutt/scripts/msmtp/msmtp-runqueue.sh > /dev/null &
+	$XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-runqueue.sh > /dev/null &
 fi
 
 exit 0

@@ -10,6 +10,6 @@ port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
 auth oauthbearer
-passwordeval $XDG_CONFIG_HOME/neomutt/scripts/oauth2tool gmail
+passwordeval $XDG_CONFIG_HOME/neomutt/bin/oauth2tool gmail
 
 # vim:filetype=msmtp commentstring=#%s

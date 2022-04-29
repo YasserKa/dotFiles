@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+ACCOUNT="$1"
+shift
+$XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-enqueue.sh -a "$ACCOUNT" "$@"
