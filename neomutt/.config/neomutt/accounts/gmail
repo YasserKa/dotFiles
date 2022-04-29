@@ -1,7 +1,7 @@
 # vim:filetype=muttrc
 
 set from = "yasser.kaddoura19@gmail.com"
-set sendmail = "/bin/sh $my_neomutt_config_folder/scripts/sendmail gmail"
+set sendmail = "/bin/sh $my_neomutt_config_folder/bin/sendmail gmail"
 set folder = $XDG_DATA_HOME/mail/gmail
 
 set spoolfile = "+INBOX"

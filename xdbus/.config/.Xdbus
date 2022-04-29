@@ -1,23 +1,14 @@
 # vim: filetype=sh
 
 # used by cron
-
 export DISPLAY=:0
 export USERNAME=yasser
 export HOME=/home/yasser
 export XDG_CONFIG_HOME=$HOME/.config
-export EDITOR=nvim
 export XAUTHORITY=$HOME/.Xauthority
 export XDG_RUNTIME_DIR=/run/user/1000
 
-# Used by mutt
-export XDG_DATA_HOME=$HOME/.local/share
-# Used by ~/bin/mailsync
-export XDG_CONFIG_ISYNC=$XDG_CONFIG_HOME/isync/mbsyncrc
-export PASSWORD_STORE_DIR=$XDG_DATA_HOME/pass
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-
-export XDG_CACHE_HOME=$HOME/.cache
+# export XDG_CACHE_HOME=$HOME/.cache
 
 # Used by polybar-msg for hooks
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus

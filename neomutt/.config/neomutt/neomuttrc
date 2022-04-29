@@ -61,8 +61,6 @@ set crypt_replysign = yes
 set crypt_replyencrypt = yes
 # encrypt and sign replies to encrypted and signed email
 set crypt_replysignencrypted = yes
-# Sign all outgoing mail
-set crypt_autosign = yes
 # attempt to verify email signatures automatically
 set crypt_verify_sig = yes
 set pgp_sign_as="116F256041ACF55D33334B77F69626AEBEC29AA7"

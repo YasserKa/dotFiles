@@ -5,5 +5,5 @@ After=network-online.service
 
 [Service]
 Type=oneshot
-Environment="HOME=/home/yasser" "XDG_CONFIG_HOME=/home/yasser/.config" "PASSWORD_STORE_DIR=/home/yasser/.local/share/pass" "GNUPGHOME=/home/yasser/.local/share/gnupg" "DISPLAY=:0" "XDG_CONFIG_ISYNC=/home/yasser/.config/isync/mbsyncrc"
+Environment="HOME=/home/yasser" "XDG_CONFIG_HOME=/home/yasser/.config" XDG_CACHE_HOME=/home/yasser/.cache "PASSWORD_STORE_DIR=/home/yasser/.local/share/pass" "XDG_CONFIG_ISYNC=/home/yasser/.config/isync/mbsyncrc" "XDG_DATA_HOME=/home/yasser/.local/share"  "GNUPGHOME=/home/yasser/.local/share/gnupg" "DISPLAY=:0" "EDITOR=nvim"
 ExecStart=/home/yasser/.config/neomutt/bin/mailsync
