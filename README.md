@@ -1,8 +1,5 @@
 ## Usage
-Use `stow` on all directories.
-
-## TODO
-- [ ] Use `MAKE` to setup the environment
+make install (not tested on a fresh install yet)
 
 ## License
 You can see the license of some of the files at the start of the file itself,
