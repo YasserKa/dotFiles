@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects
+install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook
 
 .PHONY: stow-etc
 stow-etc:
@@ -78,13 +78,12 @@ post-install-packages: stow-packages
 
 .PHONY: setup-neovim
 setup-neovim:
-	# TODO
 	# Get plugings
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	nvim -c 'PlugInstall|qall'
 	# install coc extensions
-	nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|q'
+	nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|qall'
 	pip install neovim-remote --user
 
 .PHONY: setup-projects
@@ -98,17 +97,10 @@ setup-knowledge-base:
 	cd $(HOME)
 	git pull https://github.com/YasserKa/notes
 
-.PHONY: setup-rclone
-setup-rclone:
-	# TODO: use .config/rclone/rclone.conf instead
-	# rclone sync mega:university $HOME/university
-	# rclone sync mega:personal $HOME/Documents/personal
-	# rclone sync drive:books $HOME/books
-
 .PHONY: setup-jupyter-notebook
 setup-jupyter-notebook:
 	# TODO: Check the documentation
-	pip install jupyter_contrib_nbextensions
+	pip install jupyter_contrib_nbextensions --user
 	jupyter nbextensions_configurator enable --user
 	# You may need the following to create the directoy
 	mkdir -p $(jupyter --data-dir)/nbextensions

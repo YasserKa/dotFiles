@@ -111,7 +111,6 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <silent> <leader>nm :split $HOME/notes/markdown/math.md<CR>
 nnoremap <silent> <leader>nb :split $HOME/notes/markdown/books.md<CR>
 nnoremap <silent> <leader>nl :silent !zathura $HOME/books/manuals/symbols.pdf &<CR>
-nnoremap <silent> <leader>nn :silent !conda run jupyter notebook --ip=127.0.0.1 ~/notes/notebook/personal_notebook.ipynb & disown<CR>
 
 " trigger tex file
 nnoremap <silent> yol :call ToggleTex()<CR>
@@ -332,9 +331,6 @@ augroup NOTEBOOK
     autocmd!
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
-    " syncing to ipynb file
-    let file_name = expand("%:r")
-    autocmd BufWrite *sync.py execute "silent !jupytext --sync " . file_name . ".ipynb &"
 augroup END
 " }}}
 " which-key {{{
