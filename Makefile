@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook
+install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser
 
 .PHONY: stow-etc
 stow-etc:
@@ -66,8 +66,12 @@ post-install-packages: stow-packages
 	systemctl start udiskie.service --user
 	systemctl enable dunst.service --user
 	systemctl start dunst --user
+	systemctl enable sxhkd.service --user
+	systemctl start sxhkd.service --user
 	systemctl enable msmtp-runqueue.timer --user
 	systemctl start msmtp-runqueue.timer --user
+	systemctl enable mbsync.timer --user
+	systemctl start mbsync.timer --user
 	sudo pacman -S nftables
 	sudo systemctl enable nftables.service
 	sudo systemctl start nftables.service
@@ -99,7 +103,6 @@ setup-knowledge-base:
 
 .PHONY: setup-jupyter-notebook
 setup-jupyter-notebook:
-	# TODO: Check the documentation
 	pip install jupyter_contrib_nbextensions --user
 	jupyter nbextensions_configurator enable --user
 	# You may need the following to create the directoy
@@ -112,14 +115,16 @@ setup-jupyter-notebook:
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
-	# TODO
 	cd "$(XDG_CONFIG_HOME)/qutebrowser/qutescript" && pip install -e . --user
 	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all.py --install --bin=yank_all.py
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
-	pip install adblock tldextract # ad block
+	pip install adblock tldextract --user # ad block
 	paru -S chromium-widevine # viewing DRM content (Spotify)
 	paru -S qtwebkit-plugins-git # For SpellChecking
+	# Update adblock list
+	qutebrowser :adblock-update
+	pkill qutebrowser
 
 .PHONY: help
 help : Makefile
