@@ -131,6 +131,9 @@ wmctrl # Control your EWMH compliant window manager from command line
 openresolv # resolv.conf management framework (resolvconf)
 xclip # Command line interface to the X11 clipboard
 xdotool # Command-line X11 automation tool
+# Key binding
+autokey-common
+autokey-qt
 cronie # Daemon that runs specified programs at scheduled times and related tools
 dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands

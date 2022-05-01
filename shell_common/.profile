@@ -51,6 +51,7 @@ export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d
 # Fzf
 # --follow symlinks
 export FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up' --color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}'"
 
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin

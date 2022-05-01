@@ -1,7 +1,11 @@
 # Documentation: https://pwmt.org/projects/zathura/documentation/
-map ; focus_inputbar :
 set selection-clipboard clipboard
-map <C-[> feedkeys <C-c>
+# Vertical center page after scrolling
+set vertical-center true
+# Make Highlighted text more visible
+set highlight-transparency 0.6
+
+map ; focus_inputbar :
 
 # yank the file as an org link
 unmap y

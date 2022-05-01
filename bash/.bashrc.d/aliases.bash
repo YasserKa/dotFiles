@@ -67,7 +67,7 @@ alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # Can't override journalctl using a function
 alias journalctl='function journalctl_override(){ (command journalctl "$@" | lnav) }; journalctl_override'
-alias logxorg="cat $HOME/.local/share/xorg/Xorg.0.log | lnav"
+alias logxorg="cat $HOME/.local/share/xorg/Xorg.0.log"
 # Doesn't work for dmesg
 # Check https://github.com/tstack/lnav/issues/878
 

@@ -29,7 +29,7 @@ function clock_out () {
 }
 
 function clock_toggle () {
-    emacsclient -e "(my/org-toggle-last-clock)"
+    emacsclient -e "(my/org-toggle-last-clock t)"
 }
 
 function clock_cancel () {
@@ -51,7 +51,7 @@ function get_time_spent () {
 case "$1" in
   "clock_in") clock_in ;;
   "clock_out") clock_out ;;
-  "clock_toggle") clock_out ;;
+  "clock_toggle") clock_toggle ;;
   "clock_cancel") clock_cancel ;;
   "go_to_item") go_to_item ;;
   "get_time_spent") get_time_spent ;;

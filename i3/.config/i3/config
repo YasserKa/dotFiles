@@ -213,7 +213,7 @@ set $mail_mode "mail (o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
     bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
-    bindsym s exec --no-startup-id bash -ic "mailsync gmail trigger-polybar"; mode "default";
+    bindsym s exec --no-startup-id bash -ic "mailsync trigger-polybar gmail"; mode "default";
     # Mark messages as read
     bindsym c exec --no-startup-id mv $XDG_DATA_HOME/mail/gmail/INBOX/new/* \
             $XDG_DATA_HOME/mail/gmail/INBOX/cur/ \
@@ -261,7 +261,7 @@ bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 
 # note taking
-bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
+# bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
 for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
@@ -274,10 +274,14 @@ exec --no-startup-id $HOME/bin/wait_internet && check_mail
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 
 # Composer for fading affect on window focus and opacity
-exec --no-startup-id "picom --experimental-backends & disown"
+exec --no-startup-id picom --experimental-backends & disown
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 
+# Manages some key bindings
+exec --no-startup-id autokey-qt & disown
+
+# Note taking
 exec --no-startup-id bash -ic org
 # >>>

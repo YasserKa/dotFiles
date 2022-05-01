@@ -149,6 +149,7 @@
 ;; Better help
 (use-package helpful)
 
+
 (use-package openwith
   :config
   (setq openwith-associations
@@ -158,7 +159,7 @@
                   "avi" "wmv" "wav" "mov" "flv"
                   "ogm" "ogg" "mkv")) "mpv" '(file))
          (list (openwith-make-extension-regexp
-                '("pdf" "epub" "djvu")) "zathura" '(file))
+                '("pdf" "epub" "djvu")) "okular" '(file))
          (list (openwith-make-extension-regexp
                 '("markdown")) "nvim-qt" '(file))
          ))
@@ -169,7 +170,6 @@
   :ensure nil
   :custom (electric-pair-pairs
            '((?\" . ?\")
-             (?\$ . ?\$)
              (?\[ . ?\])
              (?\< . ?\>)
              (?\` . ?\`)
@@ -179,15 +179,17 @@
     ;; Ignore < in org mode for yassnippets
     (setq electric-pair-inhibit-predicate
           (lambda (c)
-            (if (char-equal c ?\<) t (electric-pair-default-inhibit c)))))
-
+            (cond ((char-equal c ?\<) (electric-pair-default-inhibit c) t)
+          ))
+    ))
   (add-hook 'org-mode-hook 'my/ignore-elec-pairs)
 
-  (defun electric-pair ()
-    "If at end of line, insert character pair without surrounding spaces.
-    Otherwise, just insert the typed character."
-    (interactive)
-    (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+  (add-hook 'org-mode-hook (lambda ()
+                             (add-to-list 'insert-pair-alist (list ?\$ ?\$))
+                             (define-key org-mode-map (kbd "$")
+                               #'(lambda () (interactive)
+                                   (if (org-in-src-block-p) (insert "$") (insert-pair))))
+                             ))
   (electric-pair-mode 1)
   )
 
@@ -271,7 +273,7 @@
   (evil-collection-magit-want-horizontal-movement t)
   ;; Update return in repo list, should be done after evil-collection
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (magit-repository-directories '(((getenv "DOTFILES_HOME") . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
+  (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
   :config
 
   (evil-define-key 'normal magit-status-mode-map
@@ -492,6 +494,11 @@
   (org-hidden-keywords '(title))
   :config
 
+  ;; Open documents using zathrua in org mode
+  (setq org-file-apps '(("\\.pdf\\'" . "zathura %s")
+                        ("\\.djvu\\'" . "zathura %s")
+                        ("\\.epub\\'" . "zathura %s")))
+
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
                   (org-level-2 . 1.15)
@@ -550,8 +557,7 @@
     (setq matches (count-matches "* TODO \n" 0))
     (if (= matches 1)
         (setq org-note-abort t)
-      nil
-      ))
+      nil))
   (defun my-finalize-reset-abort ()
     (interactive)
     (setq org-note-abort nil))
@@ -731,15 +737,6 @@ Made for `org-tab-first-hook' in evil-mode."
   (load "server")
   (unless (server-running-p) (server-start))
 
-  (setq org-clock-in-switch-to-state "NEXT"
-        org-clock-out-switch-to-state "TODO")
-
-
-  (defun my/clock-in-when-next ()
-    (if (string= org-state "NEXT") (org-clock-in) nil))
-
-  (add-hook 'org-after-todo-state-change-hook 'my/clock-in-when-next)
-
   (setq org-clock-persist 'history ;; Save clock history on Emacs close
         ;; Resume when clocking into task with open clock
         org-clock-in-resume t
@@ -748,20 +745,46 @@ Made for `org-tab-first-hook' in evil-mode."
         ;; The default value (5) is too conservative.
         org-clock-history-length 20)
 
-  ;; Clock in clock out hooks with Polybar
-  (add-hook 'org-clock-in-hook
-            #'(lambda () (shell-command (concat "/bin/echo -e "
-                                                "\"" (org-get-heading t t t t) " \n"
-                                                (org-entry-get nil "Effort") " \n"
-                                                (substring-no-properties (org-clock-get-clock-string)) " \n"
-                                                (what-line) " \n"
-                                                (buffer-file-name) "\""
-                                                " > /tmp/org_current_task"))
-                (shell-command "xdotool set_window --classname emacs-org-mode $(xdotool getactivewindow)")))
 
+  (defun my/org-clock-in-if-next ()
+    "Clock in when the task is marked NEXT."
+    (when (and (string= org-state "NEXT")
+               (not (string= org-last-state org-state)))
+      (org-clock-in)))
+  (add-hook 'org-after-todo-state-change-hook
+            'my/org-clock-in-if-next)
+  (defadvice org-clock-in (after my activate)
+    "Set this task's status to 'NEXT'."
+    (org-todo "NEXT"))
+  (defun my/org-clock-out-if-todo ()
+    "Clock out when the task is marked TODO."
+    (when (and (string= org-state "TODO")
+               (equal (marker-buffer org-clock-marker) (current-buffer))
+               (< (point) org-clock-marker)
+               (> (save-excursion (outline-next-heading) (point))
+                  org-clock-marker)
+               (not (string= org-last-state org-state)))
+      (org-clock-out)))
+  (add-hook 'org-after-todo-state-change-hook
+            'my/org-clock-out-if-waiting)
+
+  ;; Clock in clock out hooks with Polybar
+  (defun my/add-clock-tmp-file ()
+    (shell-command (concat "/bin/echo -e "
+                           "\"" (org-get-heading t t t t) " \n"
+                           (org-entry-get nil "Effort") " \n"
+                           (substring-no-properties (org-clock-get-clock-string)) " \n"
+                           (what-line) " \n"
+                           (buffer-file-name) "\""
+                           " > /tmp/org_current_task"))
+    )
+
+  (add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
   (dolist (hook '(org-clock-out-hook
                   org-clock-cancel-hook))
-    (add-hook hook (lambda () (shell-command "/bin/rm /tmp/org_current_task"))))
+    (add-hook hook #'(lambda () (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null")
+                       (shell-command "dunstify dfsaf")
+                       )))
 
   (defun my/org-toggle-last-clock (arg)
     "Toggles last
@@ -821,13 +844,13 @@ see how ARG affects this command."
     :ensure nil
     :after org
     :config
-    (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
-    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("shell" . "src sh :results output"))
+    (add-to-list 'org-structure-template-alist '("bash" . "src bash :results output"))
     (add-to-list 'org-structure-template-alist '("py" . "src python :results output"))
-    (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
+    (add-to-list 'org-structure-template-alist '("scala" . "src scala :results output"))
     (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
     (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
-    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp")))
+    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp :results output")))
 
   ;; Go in the block with insert mode after inserting it
   (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
@@ -934,7 +957,7 @@ see how ARG affects this command."
   (defun update_i3_focus_window_config ()
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
-    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none " " && sleep 2 && " path_to_script " smart")))
+    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none " " && sleep 1 && " path_to_script " smart")))
 
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
   )
@@ -1215,6 +1238,11 @@ see how ARG affects this command."
   )
 
 (use-package hydra)
+(defun org-capture-full-screen ()
+  (interactive)
+  (org-capture nil "d")
+  (delete-other-windows)
+  )
 
 (defhydra main-hydra (:exit t :idle 1)
   (" '" vertico-repeat "resume last search" :column " general")
@@ -1275,9 +1303,9 @@ see how ARG affects this command."
 (defhydra org-clock-hydra (:exit t :hint nil :idle 1)
   (" i" org-clock-in "in" :column "clock")
   (" o" org-clock-out "out")
-  (" t" my/org-toggle-last-clock " toggle")
+  (" t" my/org-toggle-last-clock "toggle")
   (" c" org-clock-cancel "cancel")
-  (" g" org-clock-h "goto" :column "")
+  (" g" org-clock-goto "goto" :column "")
   (" e" org-set-effort "effort")
   (" r" org-clock-report "report")
   )
