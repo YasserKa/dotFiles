@@ -10,6 +10,7 @@ set -o noclobber           # Don't overwrite when redireting using shell
 shopt -s autocd            # auto cd without using cd
 shopt -s histappend        # Append to the history file, don't overwrite it
 shopt -s cdspell           # fix  spelling errors when using cd
+shopt -s dirspell          # fix  spelling errors during tab-completion
 shopt -s extglob           # extend pattern matching (used for extract function)
 shopt -s cmdhist           # history records commands with multiple lines as such instead of using ";"
 stty -ixon                 # Enable search C-s for history searching
@@ -36,10 +37,6 @@ fi
 
 command -v fasd > /dev/null && . "$fasd_cache"
 unset fasd_cache
-
-if [[ -r /usr/share/doc/mcfly/mcfly.bash ]]; then
-    source /usr/share/doc/mcfly/mcfly.bash
-fi
 
 # Commands with colors
 GRC_ALIASES=true

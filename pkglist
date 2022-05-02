@@ -199,7 +199,6 @@ unzip # For extracting and viewing files in .zip archives
 zip # Compressor/archiver for creating and modifying zipfiles
 which # A utility to show the full path of commands
 sudo # Give certain users the ability to run some commands as root
-mcfly # Fly through your shell history
 moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
 
 # Network

@@ -49,7 +49,7 @@ fi
 
 for account in $accounts
 do
-    syncandnotify
+    syncandnotify &
 done
 
 wait

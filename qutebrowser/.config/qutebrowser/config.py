@@ -119,6 +119,7 @@ config.unbind(':', mode='normal')
 
 c.aliases = {
         'q': 'close',
+        'yank_thesis': 'yank inline "{title} [] []: {url}"',
         'qa': 'quit',
         'w': 'session-save',
         'wq': 'quit --save',

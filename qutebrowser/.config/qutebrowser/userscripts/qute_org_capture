@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-~/.config/i3/set_i3_focus_on_window_activation_configuration none
+$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none
 emacsclient --no-wait "org-protocol://capture?url=$QUTE_URL&title=$QUTE_TITLE"
-sleep 0.5
-~/.config/i3/set_i3_focus_on_window_activation_configuration smart
 
-echo ":message-info 'Note captured'" >> $QUTE_FIFO
+if (( $? == 0 )); then
+    echo ":message-info 'Note captured'" >> $QUTE_FIFO
+    $XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration smart
+else
+    echo ":message-error 'Note not captured'" >> $QUTE_FIFO
+fi

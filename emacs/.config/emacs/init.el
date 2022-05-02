@@ -15,7 +15,6 @@
 
 (add-hook 'emacs-init-hook (lambda () (setq gc-cons-threshold my/gc-cons-threshold)))
 
-
 ;; Minibuffer
 (defun my/restore-garbage-collection-h ()
   ;; Defer it so that commands launched immediately after will enjoy the
@@ -287,9 +286,14 @@
   )
 
 (use-package magit-delta
+  :disabled
   :hook (magit-mode . magit-delta-mode))
 
 (use-package evil
+  :init
+  ;; Needs to be initialized before evil loads
+  ;; Y is y$
+  (setq evil-want-Y-yank-to-eol t)
   :demand t
   :custom
   ;; Needed by evil-collection
@@ -299,8 +303,6 @@
   ;; Use <C-u> to scroll up
   (evil-want-C-u-scroll t)
   (evil-want-C-u-delete t)
-  ;; Y is y$
-  (evil-want-Y-yank-to-eol t)
   ;; Move across physical lines
   (evil-respect-visual-line-mode t)
   (evil-split-window-below t)
@@ -497,7 +499,8 @@
   ;; Open documents using zathrua in org mode
   (setq org-file-apps '(("\\.pdf\\'" . "zathura %s")
                         ("\\.djvu\\'" . "zathura %s")
-                        ("\\.epub\\'" . "zathura %s")))
+                        ("\\.epub\\'" . "zathura %s")
+                        ("\\.markdown\\'" . "nvim-qt %s")))
 
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
@@ -766,7 +769,7 @@ Made for `org-tab-first-hook' in evil-mode."
                (not (string= org-last-state org-state)))
       (org-clock-out)))
   (add-hook 'org-after-todo-state-change-hook
-            'my/org-clock-out-if-waiting)
+            'my/org-clock-out-if-todo)
 
   ;; Clock in clock out hooks with Polybar
   (defun my/add-clock-tmp-file ()

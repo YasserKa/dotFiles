@@ -186,11 +186,16 @@ augroup END
 augroup VIMENTER
     autocmd!
     autocmd CmdwinEnter * map <buffer> <C-j> <CR>
-    autocmd BufRead,BufNewFile neomutt-* set spell tw=72
+    autocmd BufRead,BufNewFile neomutt-* set spell tw=100
     autocmd BufRead neomutt-* normal 50%
     autocmd FileType markdown,tex set spell
     autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
     autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'
+augroup END
+
+augroup BASH
+    autocmd!
+    autocmd FileType bash,sh setlocal shiftwidth=2 softtabstop=4
 augroup END
 
 augroup MARKDOWN

@@ -8,6 +8,8 @@ set bind-tty-special-chars off
 
 # Case-insensitive completion
 set completion-ignore-case on
+ # Treat hyphens and underscores as equivalent
+set completion-map-case on
 # Remove ^C
 set echo-control-characters off
 

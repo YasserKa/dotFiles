@@ -55,6 +55,8 @@ export FZF_DEFAULT_OPTS="--bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:pre
 
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin
 
+eval "$(keychain --quiet --eval --gpg2 --agents "gpg,ssh" id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)"
+
 # XDG_VTNR is set by pam_systemd upon login
 # if there's no DISPLAY, start X11
 if [ -z "${DISPLAY}" ] && [ "$XDG_VTNR" -eq 1 ]; then

@@ -134,7 +134,7 @@ open_gui() {
 function org() {
     local name="emacs_org_name"
 
-    open_gui $name "emacs --title=$name --file=$NOTES_ORG_HOME/general.org"
+    open_gui $name "emacs --title=$name --file=$NOTES_ORG_HOME/capture.org"
 }
 
 function magit() {

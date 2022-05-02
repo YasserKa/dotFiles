@@ -1,17 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-# wait for internet connection or 5 iterations
+# Description: Wait for internet connection or <COUNT> seconds
+# Dependencies: wget
+# Note: Can get rid of this Dependency if needed with other options, check:
+# https://stackoverflow.com/questions/929368/how-to-test-an-internet-connection-with-bash
 
-wget -q --spider http://google.com
-RESULT=$?
+COUNT=5
 
-COUNT=0
-
-until [ $COUNT -eq 5 ] || [ $RESULT -eq 0 ]; do
+until wget -q --spider http://google.com || [ $COUNT = 0 ]; do
     sleep 1
-    ((COUNT+=1))
-    wget -q --spider http://google.com
-    RESULT=$?
+    COUNT=$((COUNT-1))
 done
 
-exit $RESULT
+# Make sure that the count isn't 0 by using exit status
+[ $COUNT != 0 ]
+
+# No need for double quotes, since we need a number
+exit $?

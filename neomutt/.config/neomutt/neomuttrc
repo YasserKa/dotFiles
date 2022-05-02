@@ -78,7 +78,6 @@ folder-hook $folder 'source $my_neomutt_config_folder/accounts/gmail'
 # macro index,pager a1 '<sync-mailbox><enter-command>source ~/.config/mutt/<muttemail>.rc<enter><change-folder>!<enter>;<check-stats>' "switch to <muttemail>"
 # macro index,pager a2 '<sync-mailbox><enter-command>source ~/.config/mutt/<new-muttemail>.rc<enter><change-folder>!<enter>;<check-stats>' "switch to <new-muttemail>"
 
-
 # formatting
 set date_format="%m/%d %I:%M%p"
 set index_format = "%Z  %D  %-20.20F  %s"

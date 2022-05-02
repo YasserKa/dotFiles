@@ -3,10 +3,6 @@
 # Files with colors
 [[ -x /usr/share/LS_COLORS/dircolors.sh ]] && . /usr/share/LS_COLORS/dircolors.sh
 
-# Advices to place in .bashrc https://wiki.archlinux.org/title/SSH_keys#Keychain
-# ~/.bashrc is used instead of the upstream suggested ~/.bash_profile because on Arch it is sourced by both login and non-login shells, making it suitable for textual and graphical environments alike
-eval "$(keychain --quiet --eval --gpg2 --agents "gpg,ssh" id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)"
-
 # Update GPG_TTY for clean use of pinentry(1) etc
 GPG_TTY=$(tty)
 export GPG_TTY
