@@ -45,6 +45,10 @@ fi
 GRC_ALIASES=true
 [[ -x /etc/profile.d/grc.sh ]] && . /etc/profile.d/grc.sh
 
+# Readline with autopairs
+declare AUTO_PAIR_READLINE="${XDG_CONFIG_HOME}/readline/autopairs"
+[[ -f "$AUTO_PAIR_READLINE" ]] && . "$AUTO_PAIR_READLINE"
+
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash ; do
     . "$bash"

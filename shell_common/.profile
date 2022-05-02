@@ -39,7 +39,6 @@ export BW_SESSION=$(pass show bw_session)
 # Specifying language environment
 export LC_ALL="en_US.utf8"
 
-
 # used by polybar config
 # network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)' | tail -n1 | cut -d ' ' -f1)
