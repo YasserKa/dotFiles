@@ -29,6 +29,11 @@ PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34
 [ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
 
+# Make C-e edit history selected option and enter execute it
+FZF_CTRL_R_EDIT_KEY=ctrl-e
+FZF_CTRL_R_EXEC_KEY=enter
+source $XDG_CONFIG_HOME/fzf/history-exec.bash
+
 # setup autojumping
 fasd_cache="$HOME/.fasd-init-bash"
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
