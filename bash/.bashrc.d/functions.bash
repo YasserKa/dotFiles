@@ -126,8 +126,10 @@ open_gui() {
     if [[ $? != 0 ]]; then
         bash -c "chronic ${command} & disown"
 
-        # Wait until window is visible
-        xdotool search --sync --name "^$name$" windowactivate
+        # --sync doesn't seem to work, so keep activating until it works
+        while [[ "$(xdotool getactivewindow getwindowname)" != "$name" ]]; do
+          xdotool search --sync --name "$name" windowactivate
+        done
     fi
 }
 
