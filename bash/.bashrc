@@ -20,11 +20,11 @@ complete -cf sudo
 [[ -x /usr/share/doc/pkgfile/command-not-found.bash ]] && /usr/share/doc/pkgfile/command-not-found.bash
 [[ -x /usr/share/bash-completion/bash_completion ]] && /usr/share/bash-completion/bash_completion
 
-git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1)/'
-}
+# https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
+[[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]] && . $XDG_CONFIG_HOME/git/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
 
-PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
+PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]❯ \[\e[m\]'
 
 [ -f /usr/share/fzf/completion.bash ] && . /usr/share/fzf/completion.bash
 [ -f /usr/share/fzf/key-bindings.bash ] && . /usr/share/fzf/key-bindings.bash

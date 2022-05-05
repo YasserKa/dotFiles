@@ -135,4 +135,5 @@ alias abook="abook --config $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_DATA_
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'
+alias test_mail='echo | command neomutt -s "Testing mail" yasser.kaddoura19@gmail.com'
 alias myip='curl ifconfig.me; echo'

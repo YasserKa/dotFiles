@@ -7,7 +7,7 @@ umask 077
 
 # Change to queue directory (create it if necessary)
 if [ ! -d "$QUEUEDIR" ]; then
-	mkdir -p "$QUEUEDIR" || exit 1
+  mkdir -p "$QUEUEDIR" || exit 1
 fi
 cd "$QUEUEDIR" || exit 1
 
@@ -18,12 +18,12 @@ cd "$QUEUEDIR" || exit 1
 # mail per second.
 BASE="$(date +%Y-%m-%d-%H.%M.%S)"
 if [ -f "$BASE.mail" ] || [ -f "$BASE.msmtp" ]; then
-	TMP="$BASE"
-	i=1
-	while [ -f "$TMP-$i.mail" ] || [ -f "$TMP-$i.msmtp" ]; do
-		i=$((i + 1))
-	done
-	BASE="$BASE-$i"
+  TMP="$BASE"
+  i=1
+  while [ -f "$TMP-$i.mail" ] || [ -f "$TMP-$i.msmtp" ]; do
+    i=$((i + 1))
+  done
+  BASE="$BASE-$i"
 fi
 MAILFILE="$BASE.mail"
 MSMTPFILE="$BASE.msmtp"
@@ -38,7 +38,10 @@ cat > "$MAILFILE" || exit 1
 # Replace the test with something suitable for your site.
 wait_internet
 if [ $? -eq 0 ]; then
-	$XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-runqueue.sh > /dev/null &
+  $XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-runqueue.sh > /dev/null &
+else
+  # Notify me if it gets queuedd
+  dunstify --timeout=60000 "Mail is queued"
 fi
 
 exit 0

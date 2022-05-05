@@ -23,6 +23,10 @@ set colored-completion-prefix on
 # Color the common prefix in menu-complete
 set menu-complete-display-prefix on
 
+# The timeout is removed to make \eb works in insert mode, since it's the same as
+# the C-[ b key presses which invalidates it during the timeout
+set keyseq-timeout 0
+
 # Vi mode
 set editing-mode vi
 # Show vim mode using the cursor
@@ -59,7 +63,7 @@ $if mode=vi
     ":": ";"
 
     set keymap vi-insert
-    C-w: backward-kill-word
+    "\C-w": backward-kill-word
     # Expand expressions like !!
     SPACE: magic-space
     "\ep": history-search-backward
@@ -72,14 +76,14 @@ $if mode=vi
 
     # Moving around
     # Character
-    C-b: backward-char
-    C-f: forward-char
-    C-d: delete-char
+    "\C-b": backward-char
+    "\C-f": forward-char
+    "\C-d": delete-char
     # Word
     "\eb": backward-word
     "\ef": forward-word
     "\ed": kill-word
     # # Line
-    C-a: beginning-of-line
-    C-e: end-of-line
+    "\C-a": beginning-of-line
+    "\C-e": end-of-line
 $endif
