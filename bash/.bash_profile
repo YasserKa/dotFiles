@@ -11,6 +11,7 @@ export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 # when session ends (good if terminal crashes)
 export PROMPT_COMMAND='history -a'
 
-[[ -f $HOME/.bashrc ]] && . $HOME/.bashrc
 # Common Environment variables and starts X
 [[ -f $HOME/.profile ]] && . $HOME/.profile
+
+[[ -f $HOME/.bashrc ]] && . $HOME/.bashrc
