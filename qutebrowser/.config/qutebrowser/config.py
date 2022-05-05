@@ -156,6 +156,12 @@ c.hints.border = "1px solid #CCCCCC"
 c.fonts.default_size = "12pt"
 c.fonts.web.size.default = 19
 
+# Use ranger for file handling
+c.fileselect.handler = 'external'
+c.fileselect.folder.command = ['kitty', '-e', 'ranger', '--choosedir={}']
+c.fileselect.multiple_files.command = ['kitty', '-e', 'ranger', '--choosefiles={}']
+c.fileselect.single_file.command = ['kitty', '-e', 'ranger', '--choosefile={}']
+
 c.spellcheck.languages = ['en-US']
 # Open new tabs next to the current one
 c.tabs.new_position.unrelated = 'next'

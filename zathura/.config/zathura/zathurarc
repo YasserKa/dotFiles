@@ -10,6 +10,10 @@ map ; focus_inputbar :
 # yank the file as an org link
 unmap y
 map yo exec /home/yasser/.config/zathura/yank_zathura_file_org
+# Open another instance
+map wo exec "/usr/bin/env zathura $FILE"
+# Source file
+map ,ss feedkeys ":source<Return>"
 
 # yank link to clipboard
 map yl feedkeys c

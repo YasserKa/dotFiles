@@ -1,9 +1,9 @@
-alias a='fasd -a'
-alias s='fasd -si'
-alias sd='fasd -sid'
-alias sf='fasd -sif'
-alias d='fasd -d'
-alias f='fasd -f'
+# alias a='fasd -a'
+# alias s='fasd -si'
+# alias sd='fasd -sid'
+# alias sf='fasd -sif'
+# alias d='fasd -d'
+# alias f='fasd -f'
 # function to execute built-in cd
 fasd_cd() {
   if [ $# -le 1 ]; then
@@ -65,6 +65,6 @@ _fasd_bash_hook_cmd_complete() {
 
 
 # enable bash command mode completion
-_fasd_bash_hook_cmd_complete fasd a s d f sd sf zz zf
+# _fasd_bash_hook_cmd_complete fasd a s d f sd sf zz zf
 
-# vim: set filetype=bash
+# vim: filetype=bash

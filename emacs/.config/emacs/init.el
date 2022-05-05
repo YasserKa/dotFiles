@@ -367,6 +367,14 @@
     (kbd "_") 'er/contract-region)
   )
 
+;; Align operator
+(use-package evil-lion
+  :config
+  (setq evil-lion-left-align-key (kbd "g a"))
+  (setq evil-lion-right-align-key (kbd "g A"))
+  (evil-lion-mode)
+  )
+
 (use-package evil-commentary
   :config (evil-commentary-mode))
 
@@ -528,14 +536,14 @@
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELLED(c@/!)"))))
+                (sequence "WAITING(w)" "HOLD(h)"))))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "red" :weight bold)
                 ("NEXT" :foreground "blue" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
                 ("HOLD" :foreground "magenta" :weight bold)
-                ("CANCELLED" :foreground "forest green" :weight bold))))
+                )))
 
   (setq org-tag-alist
         '(("productivity" . ?p)
@@ -785,9 +793,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
   (dolist (hook '(org-clock-out-hook
                   org-clock-cancel-hook))
-    (add-hook hook #'(lambda () (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null")
-                       (shell-command "dunstify dfsaf")
-                       )))
+    (add-hook hook #'(lambda () (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null"))))
 
   (defun my/org-toggle-last-clock (arg)
     "Toggles last
@@ -847,13 +853,13 @@ see how ARG affects this command."
     :ensure nil
     :after org
     :config
-    (add-to-list 'org-structure-template-alist '("shell" . "src sh :results output"))
-    (add-to-list 'org-structure-template-alist '("bash" . "src bash :results output"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python :results output"))
-    (add-to-list 'org-structure-template-alist '("scala" . "src scala :results output"))
+    (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
+    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
     (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
     (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
-    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp :results output")))
+    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp")))
 
   ;; Go in the block with insert mode after inserting it
   (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))

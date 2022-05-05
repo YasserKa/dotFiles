@@ -28,8 +28,8 @@ def get_markdown_urls():
         except yaml.YAMLError:
             pass
 
-    org_urls = [f"[[{title}][{url}]]" for (url, title) in urls.items()]
-    # markdown_urls = [f"[{url}]({title})" for (url, title) in urls.items()]
+    org_urls = [f"- [[{title}][{url}]]" for (url, title) in urls.items()]
+    # markdown_urls = [f"- [{url}]({title})" for (url, title) in urls.items()]
 
     parsed_urls = '\n'.join(org_urls)
 
@@ -44,7 +44,7 @@ def main(request):
     time.sleep(0.1)
     # extract urls for buffers
     markdown_urls = get_markdown_urls()
-    command = f"echo -n '{markdown_urls}' | xclip -selection c"
+    command = f"echo -n \"{markdown_urls}\" | xclip -selection c"
     os.system(command)
     request.send_command("message-info 'yanked urls'")
 

@@ -34,6 +34,8 @@ set vi-ins-mode-string \1\e[6 q\2
 set vi-cmd-mode-string \1\e[2 q\2
 
 "\C-l": clear-screen
+
+# Keys can be shown using showkey -a
 $if mode=vi
     set keymap vi-command
     # Delete inside '', "", () objects
@@ -43,10 +45,12 @@ $if mode=vi
     "ci\'": "F'ldt'i"
     "ci)": "F(ldt)i"
     "di)": "F(ldt)"
-
     # Replace surround
     "cs'\"": "f'r"F'r""
     "cs\"\'": "f"r'F"r'"
+
+    # Source file
+    ",ss": re-read-init-file
 
     # \e is meta (alt key)
     "\en": history-search-backward
@@ -66,4 +70,18 @@ $if mode=vi
     TAB: menu-complete
     # Shift-TAB cycles completions backward
     "\e[Z": menu-complete-backward
+
+    # Moving around
+    # Character
+    C-b: backward-char
+    C-f: forward-char
+    C-d: delete-char
+    # Word
+    "\eb": backward-word
+    "\ef": forward-word
+    "\ed": kill-word
+    # # Line
+    C-a: beginning-of-line
+    C-e: end-of-line
+
 $endif

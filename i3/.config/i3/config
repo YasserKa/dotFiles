@@ -261,7 +261,6 @@ bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 
 # note taking
-# bindsym $mod+e exec --no-startup-id $HOME/bin/create_note "org_protocol"
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
 for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400

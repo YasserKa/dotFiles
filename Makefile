@@ -28,25 +28,9 @@ pre-install-packages:
 	rm $(HOME)/.bashrc $(HOME)/.bash_profile
 	sudo pacman --sync --refresh --sysupgrade --noconfirm stow
 
-.PHONY: make-clean-packages
-make-clean-pkglist:
-	@cat pkglist | grep -o "^[^#]*" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
-
-## compare-packages: compare the current installed packages with the list
-.PHONY: compare-packages
-compare-packages: make-clean-pkglist
-	@pacman -Qqe | grep -vE paru | sort > pkglist_curr.tmp
-	@diff -y --suppress-common-lines --color pkglist_clean.tmp pkglist_curr.tmp  || exit 0
-	@rm -f *tmp
-
-.PHONY: install-packages
-install-packages: make-clean-pkglist install-aur-helper
-	@sudo paru --sync --refresh --sysupgrade --noconfirm --needed - < pkglist_clean.tmp
-	@rm -f *tmp
-
 .PHONY: stow-packages
 stow-packages:
-	stow alacritty autorandr bash bat cmus cron-jobs dunst emacs fasd feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar projects qutebrowser readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdbus xdg-open xmodmap zathura
+	stow alacritty autorandr autokey bash bat cmus cron-jobs dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar projects qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdbus xdg-open xmodmap zathura
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages
@@ -68,6 +52,8 @@ post-install-packages: stow-packages
 	systemctl start dunst --user
 	systemctl enable sxhkd.service --user
 	systemctl start sxhkd.service --user
+	systemctl enable tmux.service --user
+	systemctl start tmux.service --user
 	systemctl enable msmtp-runqueue.timer --user
 	systemctl start msmtp-runqueue.timer --user
 	systemctl enable mbsync.timer --user
@@ -97,9 +83,9 @@ setup-neovim:
 
 .PHONY: setup-projects
 setup-projects:
-	cd ~/Projects/check-bank-acount && pipenv install
-	cd ~/Projects/facebook-bot && pipenv install
-	cd ~/Projects/notify-me && pipenv install
+	cd $(HOME)/Projects/check-bank-acount && pipenv install
+	cd $(HOME)/Projects/facebook-bot && pipenv install
+	cd $(HOME)/Projects/notify-me && pipenv install
 
 .PHONY: setup-knowledge-base
 setup-knowledge-base:
@@ -113,7 +99,7 @@ setup-jupyter-notebook:
 	# You may need the following to create the directoy
 	mkdir -p $(jupyter --data-dir)/nbextensions
 	# Now clone the repository
-	cd $(jupyter --data-dir)/nbextensions
+	cd "$(jupyter --data-dir)/nbextensions"
 	git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
 	chmod -R go-w vim_binding
 	jupyter nbextension enable vim_binding/vim_binding
@@ -130,6 +116,24 @@ setup-qutebrowser:
 	# Update adblock list
 	qutebrowser :adblock-update
 	pkill qutebrowser
+
+.PHONY: make-clean-packages
+make-clean-pkglist:
+	@cat pkglist | grep -o "^[^#]*" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
+
+## compare-packages: compare the current installed packages with the list
+.PHONY: compare-packages
+compare-packages: make-clean-pkglist
+	@# Make expects a 0, otherwise it fails.
+	@# diff returns 1 if a difference is found
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE paru | sort); [ $$? -eq 1 ]
+	@rm -f *tmp
+
+.PHONY: install-packages
+install-packages: make-clean-pkglist install-aur-helper
+	@sudo paru --sync --refresh --sysupgrade --noconfirm --needed - < pkglist_clean.tmp
+	@rm -f *tmp
+
 
 .PHONY: help
 help : Makefile

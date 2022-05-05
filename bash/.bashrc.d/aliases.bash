@@ -38,6 +38,7 @@ function open_file () {
 }
 
 alias rcvim="open_file $XDG_CONFIG_HOME/nvim init.vim"
+alias rcreadline="open_file $XDG_CONFIG_HOME/readline inputrc"
 alias rcneomutt="open_file $XDG_CONFIG_HOME/neomutt neomuttrc"
 alias rctuir="open_file $XDG_CONFIG_HOME/tuir tuir.cfg"
 alias rcfeh="open_file $XDG_CONFIG_HOME/feh keys"
@@ -53,6 +54,7 @@ alias rcpolybar="open_file $XDG_CONFIG_HOME/polybar config.ini"
 alias rcgpg="open_file $GNUPGHOME gpg-agent.conf"
 alias rcssh="open_file $HOME ssh sshd_config"
 alias rctmux="open_file $XDG_CONFIG_HOME/tmux tmux.conf"
+alias rczathura="open_file $XDG_CONFIG_HOME/zathura zathurarc"
 alias cron="open_file $XDG_CONFIG_HOME crons.cron; crontab $XDG_CONFIG_HOME/crons.cron"
 
 # Open Emacs's config file in Emacs

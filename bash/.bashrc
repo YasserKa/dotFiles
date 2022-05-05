@@ -1,5 +1,5 @@
 # Make sure the shell is interactive
-case $- in
+case "$-" in
     *i*) ;;
     *) return ;;
 esac
@@ -29,8 +29,8 @@ PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34
 [ -f /usr/share/fzf/completion.bash ] && source /usr/share/fzf/completion.bash
 [ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
 
-# Make C-e edit history selected option and enter execute it
-FZF_CTRL_R_EDIT_KEY=ctrl-e
+# Make tab edit history selected option and enter execute it
+FZF_CTRL_R_EDIT_KEY=tab
 FZF_CTRL_R_EXEC_KEY=enter
 source $XDG_CONFIG_HOME/fzf/history-exec.bash
 
@@ -48,7 +48,7 @@ GRC_ALIASES=true
 [[ -x /etc/profile.d/grc.sh ]] && . /etc/profile.d/grc.sh
 
 # Readline with autopairs
-declare AUTO_PAIR_READLINE="${XDG_CONFIG_HOME}/readline/autopairs"
+AUTO_PAIR_READLINE="${XDG_CONFIG_HOME}/readline/autopairs"
 [[ -f "$AUTO_PAIR_READLINE" ]] && . "$AUTO_PAIR_READLINE"
 
 # Source files

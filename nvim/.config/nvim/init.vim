@@ -6,13 +6,21 @@ Plug 'https://github.com/YasserKa/vim-sxhkdrc'
 Plug 'https://github.com/fladson/vim-kitty'
 
 " Editing
+" Align lines
 Plug 'https://github.com/junegunn/vim-easy-align'
+" Expand/shrink visual region via _ & +
+Plug 'https://github.com/terryma/vim-expand-region'
 
 
 " Aesthetics
+" Make strings related to colors more colorful
 Plug 'https://github.com/ap/vim-css-color', {'for': ['dosini']}
-
 Plug 'https://github.com/gruvbox-community/gruvbox'
+
+" Others
+" Readline Movement
+Plug 'https://github.com/tpope/vim-rsi'
+
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -29,9 +37,6 @@ Plug 'https://github.com/puremourning/vimspector'
 Plug 'https://github.com/szw/vim-maximizer'
 
 Plug 'https://github.com/liuchengxu/vim-which-key'
-
-" Editing
-Plug 'https://github.com/terryma/vim-expand-region'
 
 Plug 'https://github.com/simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 
