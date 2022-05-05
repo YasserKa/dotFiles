@@ -93,6 +93,20 @@ c.bindings.commands = {
             '<Ctrl-p>': 'fake-key <Up>',
             '<Ctrl-n>': 'fake-key <Down>',
             '<Ctrl-j>': 'fake-key <enter>',
+
+            # Readline
+            '<Ctrl-b>': 'fake-key <Left>',
+            '<Ctrl-f>': 'fake-key <Right>',
+            '<Ctrl-d>': 'fake-key <Delete>',
+
+            '<Alt-b>': 'fake-key <Ctrl-Left>',
+            '<Alt-f>': 'fake-key <Ctrl-Right>',
+            '<Alt-d>': 'fake-key <Ctrl-Delete>',
+
+            '<Ctrl-e>': 'fake-key <End>',
+
+            # Use another binding for editing in external editor
+            '<Ctrl-Shift-e>': 'edit-text',
             },
     'caret': {
             'o': 'open selection',

@@ -1,4 +1,3 @@
-$include /etc/inputrc
 # Show all completions as soon as I press tab, even if there's more than one
 set show-all-if-ambiguous on
 
@@ -83,5 +82,4 @@ $if mode=vi
     # # Line
     C-a: beginning-of-line
     C-e: end-of-line
-
 $endif

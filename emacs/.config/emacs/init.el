@@ -331,6 +331,13 @@
     (kbd "C--") 'text-scale-decrease
     (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
+  ;; Readline keybinding
+    (evil-define-key 'insert 'global
+      (kbd "C-a") 'back-to-indentation ;; Start of line
+      (kbd "C-e") 'end-of-line
+      (kbd "C-d") 'delete-char
+      ;; Kill from current position to start of next word
+      (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
 
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
   (modify-syntax-entry ?_ "w")
