@@ -6,6 +6,6 @@ StartupNotify=true
 Terminal=false
 Type=Application
 Categories=Application;;PDF;
-MimeType=application/epub;application/pdf;
+MimeType=application/epub;application+zip;application/pdf;
 Icon=zathura
 Exec=/usr/bin/zathura %F

@@ -1,5 +1,6 @@
 [Default Applications]
 application/pdf=zathura.desktop
+application/epub+zip=zathura.desktop
 text/plain=nvim-qt.desktop
 text/x-shellscript=nvim-qt.desktop
 video/mp4=mpv.desktop
