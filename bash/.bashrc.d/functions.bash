@@ -92,6 +92,11 @@ function fzftmux() {
     tmux attach-session -t $TMUX_SESSION
 }
 
+# Edit last n lines in history using $EDITOR
+function fclast() {
+  command fc "-"${1} 0
+}
+
 function open_cli() {
     local command="$1"
 
