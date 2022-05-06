@@ -179,8 +179,8 @@
     (setq electric-pair-inhibit-predicate
           (lambda (c)
             (cond ((char-equal c ?\<) (electric-pair-default-inhibit c) t)
+                  ))
           ))
-    ))
   (add-hook 'org-mode-hook 'my/ignore-elec-pairs)
 
   (add-hook 'org-mode-hook (lambda ()
@@ -332,12 +332,12 @@
     (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
   ;; Readline keybinding
-    (evil-define-key 'insert 'global
-      (kbd "C-a") 'back-to-indentation ;; Start of line
-      (kbd "C-e") 'end-of-line
-      (kbd "C-d") 'delete-char
-      ;; Kill from current position to start of next word
-      (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
+  (evil-define-key 'insert 'global
+    (kbd "C-a") 'back-to-indentation ;; Start of line
+    (kbd "C-e") 'end-of-line
+    (kbd "C-d") 'delete-char
+    ;; Kill from current position to start of next word
+    (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
 
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
   (modify-syntax-entry ?_ "w")
@@ -948,11 +948,18 @@ see how ARG affects this command."
                               (kbd "C-S-h") 'org-shiftleft
                               (kbd "C-S-k") 'org-shiftup
                               (kbd "C-S-j") 'org-shiftdown
-                              (kbd "<C-return>") #'(lambda () (interactive) (org-insert-heading-after-current) (evil-insert 0))
-                              (kbd "<C-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0))
+
                               ;; Move to beginning of line before insert heading, otherwise org-insert-heading will insert below
-                              (kbd "<M-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-heading) (evil-insert 0))
-                              (kbd "<M-S-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0)))
+                              ;; Insert a bullet in case point is on a bullet point
+                              (kbd "<M-return>") #'(lambda () (interactive)
+                                                     (cond ((org-at-item-p)
+                                                            (evil-org-open-above 1) t)
+                                                           ((progn (beginning-of-line) (org-insert-heading) (evil-insert 0)))))
+                              (kbd "<M-S-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0))
+                              (kbd "<C-return>") #'(lambda () (interactive) (cond ((org-at-item-p)
+                                                                                   (evil-org-open-below 1) t)
+                                                                                  ((progn (org-insert-heading-after-current) (evil-insert 0)))))
+                              (kbd "<C-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
                             (evil-define-key 'normal 'evil-org-mode
                               (kbd "zi")  #'org-toggle-inline-images
                               (kbd "zl")  #'org-latex-preview
@@ -967,6 +974,7 @@ see how ARG affects this command."
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
+
 
   ;; Don't display a buffer when finishing async-shell-command
   (setq display-buffer-alist '(("\\*Async Shell Command\\*" . (display-buffer-no-window))))

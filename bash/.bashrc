@@ -15,6 +15,10 @@ shopt -s extglob           # extend pattern matching (used for extract function)
 shopt -s cmdhist           # history records commands with multiple lines as such instead of using ";"
 stty -ixon                 # Enable search C-s for history searching
 
+# Documentation for commands using Alt-h
+run-help() { cmd="$READLINE_LINE" ; help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || "$cmd" --help; }
+bind -m vi-insert -x '"\eh": run-help'
+
 # complete command names and file names for super user
 complete -cf sudo
 [[ -x /usr/share/doc/pkgfile/command-not-found.bash ]] && /usr/share/doc/pkgfile/command-not-found.bash
