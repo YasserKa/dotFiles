@@ -35,8 +35,7 @@ echo "$@" > "$MSMTPFILE" || exit 1
 cat > "$MAILFILE" || exit 1
 
 # If we are online, run the queue immediately.
-# Replace the test with something suitable for your site.
-wait_internet
+$HOME/bin/wait_internet
 if [ $? -eq 0 ]; then
   $XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-runqueue.sh > /dev/null &
 else
