@@ -511,11 +511,11 @@
   (org-hidden-keywords '(title))
   :config
 
-  ;; Open documents using zathrua in org mode
-  (setq org-file-apps '(("\\.pdf\\'" . "zathura %s")
-                        ("\\.djvu\\'" . "zathura %s")
-                        ("\\.epub\\'" . "zathura %s")
-                        ("\\.markdown\\'" . "nvim-qt %s")))
+  ;; Default applications in org mode
+  (setq org-file-apps '(("\\.pdf\\'" . "zathura %s & disown")
+                        ("\\.djvu\\'" . "zathura %s & disown")
+                        ("\\.epub\\'" . "zathura %s & disown")
+                        ("\\.markdown\\'" . "nvim-qt %s & disown")))
 
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
