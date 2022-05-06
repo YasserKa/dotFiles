@@ -517,6 +517,14 @@
                         ("\\.epub\\'" . "zathura %s & disown")
                         ("\\.markdown\\'" . "nvim-qt %s & disown")))
 
+(defun org-pass-link-to-system (link)
+  (if (string-match "^[-a-zA-Z0-9]+:" link)
+    (shell-command (concat "xdg-open " link))
+    nil)
+  )
+
+(setq org-open-link-functions 'org-pass-link-to-system)
+
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
                   (org-level-2 . 1.15)

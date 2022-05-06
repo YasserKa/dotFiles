@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# A new protocol to handle links that executes commands
+# decoded example: link-handler://zathura /home/yasser/books/programming_languages/bash/bash.pdf --page=44
+
+SCHEME='link-handler://'
+URL="$1"
+
+urldecode() {
+    local url_encoded="${1//+/ }"
+    printf '%b' "${url_encoded//%/\\x}"
+}
+DECODED_URL="$(urldecode ${@})"
+bash -c "${DECODED_URL#*${SCHEME}}"

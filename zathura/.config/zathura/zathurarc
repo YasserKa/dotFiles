@@ -9,7 +9,10 @@ map ; focus_inputbar :
 
 # yank the file as an org link
 unmap y
-map yo exec /home/yasser/.config/zathura/yank_zathura_file_org
+map yo exec "/home/yasser/.config/zathura/yank_zathura_file_org"
+
+map yp exec "/home/yasser/.config/zathura/yank_zathura_link_handler $FILE $PAGE"
+
 # Open another instance
 map wo exec "/usr/bin/env zathura $FILE"
 # Source file

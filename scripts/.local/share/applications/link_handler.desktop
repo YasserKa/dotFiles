@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=link-handler
+Type=Application
+Categories=Other;
+Comment=Handle links using a script
+Exec=/home/yasser/bin/link_handler %u
+Terminal=false
+MimeType=x-scheme-handler/link-handler;

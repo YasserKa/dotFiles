@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+FILE_PATH="$1"
+PAGE_NUM="$2"
+DOCUMENT_BASENAME="$(basename /home/yasser/books/programming_languages/bash/bash.pdf)"
+DOCUMENT_NAME="${DOCUMENT_BASENAME%.*}"
+
+
+ENCODED_COMMAND="$(jq -sRr @uri <(echo "zathura ${FILE_PATH} --page=$PAGE_NUM & disown"))"
+ENCODED_ORG_URL="[[link-handler://${ENCODED_COMMAND}][$DOCUMENT_NAME, page $PAGE_NUM]]"
+
+
+echo $ENCODED_ORG_URL | xclip -selection clipboard
