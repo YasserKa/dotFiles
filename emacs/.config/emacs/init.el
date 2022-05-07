@@ -999,7 +999,7 @@ see how ARG affects this command."
   :hook (org-mode . org-superstar-mode)
   :custom
   (org-superstar-remove-leading-stars t)
-  (org-superstar-item-bullet-alist '((?- . ?•) (?* . ?•) (?+ . ?‣)))
+  (org-superstar-item-bullet-alist '((?- . ?•) (?* . ?•) (?+ . ?•)))
   (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 (use-package org-roam

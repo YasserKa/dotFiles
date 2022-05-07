@@ -61,4 +61,9 @@ for bash in "$HOME"/.bashrc.d/*.bash ; do
 done
 unset -v bash
 
-[[ -e $HOME/.shell_common ]] && . $HOME/.shell_common
+# Files with colors
+[[ -x /usr/share/LS_COLORS/dircolors.sh ]] && . /usr/share/LS_COLORS/dircolors.sh
+
+# Update GPG_TTY for clean use of pinentry(1) etc
+GPG_TTY=$(tty)
+export GPG_TTY

@@ -30,7 +30,7 @@ pre-install-packages:
 
 .PHONY: stow-packages
 stow-packages:
-	stow alacritty autorandr autokey bash bat cmus cron-jobs dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar projects qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdbus xdg-open xmodmap zathura
+	stow alacritty autorandr autokey bash bat cmus cron dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar projects qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdg-open xmodmap zathura
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages

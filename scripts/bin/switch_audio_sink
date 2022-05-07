@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 APP_NAME="switch-sink"
 

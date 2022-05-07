@@ -6,8 +6,6 @@ alias h='history'
 alias hg='history | grep'
 alias pac='sudo pacman'
 alias z='zathura'
-alias cdb='cd -'
-alias psg='ps aux | grep'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
@@ -24,38 +22,35 @@ function open_file () {
 
     # Check if it's in a terminal by the exit code
     if tty -s; then
-        cd $path && $EDITOR $files_to_open
+        cd $path && $EDITOR +only -o $files_to_open
     else
         # The +only -o arguments are a hack to mitigate nvim's warning upon
         # exiting for editing multiple files
         # -o open files in windows and +only keep one of them
-        if [[ $TERMINAL == "kitty" ]]; then
-            $TERMINAL --working-directory $path bash -ic "cd $path && $EDITOR +only -o $files_to_open"
-        else
-            $TERMINAL --working-directory $path -e bash -ic "cd $path && $EDITOR +only -o $files_to_open"
-        fi
+        $TERMINAL --working-directory $path -e bash -ic "cd $path && $EDITOR +only -o $files_to_open"
     fi
 }
 
-alias rcvim="open_file $XDG_CONFIG_HOME/nvim init.vim"
 alias rcreadline="open_file $XDG_CONFIG_HOME/readline inputrc"
+alias rcgpg="open_file $GNUPGHOME gpg-agent.conf"
+alias rcssh="open_file $HOME ssh sshd_config"
+alias rcx11="open_file ${XINITRC%/*} xinitrc"
+alias rcbash="open_file $HOME .bashrc .bash_profile .profile .bashrc.d/*bash"
+alias rckitty="open_file $XDG_CONFIG_HOME/kitty kitty.conf '*'"
+alias rcvim="open_file $XDG_CONFIG_HOME/nvim init.vim"
+alias rci3="open_file $XDG_CONFIG_HOME/i3 config"
 alias rcneomutt="open_file $XDG_CONFIG_HOME/neomutt neomuttrc"
 alias rctuir="open_file $XDG_CONFIG_HOME/tuir tuir.cfg"
+alias rcnewsboat="open_file $XDG_CONFIG_HOME/newsboat '*'"
 alias rcfeh="open_file $XDG_CONFIG_HOME/feh keys"
-alias rckitty="open_file $XDG_CONFIG_HOME/kitty kitty.conf \"*\""
-alias rcbash="open_file $HOME .bashrc .bash_profile .bashrc.d/*bash"
 alias rctmux="open_file $TMUX_CONFIG .tmux.conf"
-alias rcqutebrowser="open_file $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*"
-alias rci3="open_file $XDG_CONFIG_HOME/i3 config"
-alias rcx11="open_file ${XINITRC%/*} xinitrc"
 alias rcrofi="open_file $XDG_CONFIG_HOME/rofi config.rasi"
 alias rcdunst="open_file $XDG_CONFIG_HOME/dunst dunstrc"
 alias rcpolybar="open_file $XDG_CONFIG_HOME/polybar config.ini"
-alias rcgpg="open_file $GNUPGHOME gpg-agent.conf"
-alias rcssh="open_file $HOME ssh sshd_config"
 alias rctmux="open_file $XDG_CONFIG_HOME/tmux tmux.conf"
 alias rczathura="open_file $XDG_CONFIG_HOME/zathura zathurarc"
-alias cron="open_file $XDG_CONFIG_HOME crons.cron; crontab $XDG_CONFIG_HOME/crons.cron"
+alias rcqutebrowser="open_file $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*"
+alias cron="open_file $XDG_CONFIG_HOME/cron crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron"
 
 # Open Emacs's config file in Emacs
 alias rcemacs="emacs --file $XDG_CONFIG_HOME/emacs/init.el"

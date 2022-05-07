@@ -1,0 +1,13 @@
+@monthly source . $HOME/.config/cron/cron_env && /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
+
+*/1 * * * * . $HOME/.config/cron/cron_env && $HOME/bin/battery_low_alert
+0 22 * * * . $HOME/.config/cron/cron_env && dunstify "Go to bed"
+
+# Sync mega material
+@daily $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"
+@daily $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
+
+# Fetch at startup
+*/1 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -ns
+
+# vim: syntax=crontab commentstring=#%s

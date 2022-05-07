@@ -1,8 +1,0 @@
-# vim:filetype=sh
-
-# Files with colors
-[[ -x /usr/share/LS_COLORS/dircolors.sh ]] && . /usr/share/LS_COLORS/dircolors.sh
-
-# Update GPG_TTY for clean use of pinentry(1) etc
-GPG_TTY=$(tty)
-export GPG_TTY

@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/usr/bin/env bash
 
 if [[ -z $(ps aux | grep -v "grep" | grep "notes/general.md") ]]; then
     (nohup $TERMINAL --class "general_notes" -e nvim $HOME/notes/general.md >/dev/null 2>&1 &)

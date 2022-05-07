@@ -12,7 +12,8 @@ c.bindings.commands = {
         '>': 'tab-move +',
         'gJ': 'forward -t',
         'gK': 'back -t',
-        'wO': 'open -w {url} ;; tab-close',
+        'wao': 'open -w {url}',
+        'waO': 'open -w {url} ;; tab-close',
 
         # Swap ; and :
         ';': 'set-cmd-text :',
@@ -133,7 +134,7 @@ config.unbind(':', mode='normal')
 
 c.aliases = {
         'q': 'close',
-        'yank_thesis': 'yank inline "{title} [] []: {url}"',
+        'yank_footnote': 'yank inline "[] []: {url}"',
         'qa': 'quit',
         'w': 'session-save',
         'wq': 'quit --save',

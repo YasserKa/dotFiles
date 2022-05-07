@@ -22,6 +22,17 @@ color listnormal yellow default
 color listfocus blue default bold
 color listfocus_unread blue default bold
 
+unbind-key g
+bind-key g home all
+bind-key G end all
+
+unbind-key ^U
+unbind-key ^D
+bind-key ^U pageup all
+bind-key u pageup all
+bind-key ^D pagedown all
+bind-key d pagedown all
+
 bind-key j down feedlist
 bind-key j next articlelist
 bind-key j down article
@@ -34,6 +45,5 @@ bind-key h quit articlelist
 bind-key h quit article
 bind-key l open feedlist
 bind-key l open articlelist
-bind-key u pageup all
-bind-key d pagedown all
-bind-key U show-urls
+
+# vim:ft=dosini

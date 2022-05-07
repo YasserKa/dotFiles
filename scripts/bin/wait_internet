@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Description: Wait for internet connection or <COUNT> seconds
 # Dependencies: wget
