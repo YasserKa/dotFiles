@@ -1,3 +1,4 @@
+import os
 # pylint: disable=C0111
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
@@ -192,7 +193,7 @@ c.prompt.filebrowser = False
 c.downloads.location.suggestion = 'both'
 c.downloads.remove_finished = 0
 
-c.editor.command = ["nvim-qt", "{file}", "--nofork" ]
+c.editor.command = [os.getenv('_EDITOR_GUI'), "{file}", "--nofork" ]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
 
 c.url.searchengines = {

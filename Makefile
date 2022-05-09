@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey
+install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash
 
 .PHONY: stow-etc
 stow-etc:
@@ -66,10 +66,15 @@ post-install-packages: stow-packages
 	systemctl --user daemon-reload
 	systemctl daemon-reload
 
-.PHONY: setup-neovim
+.PHONY: setup-autokey
 setup-autokey:
 	# Needed for emacs notes
 	pip install i3ipc --user
+
+.PHONY: setup-bash
+setup-bash:
+	@# Sync pkgfile database for command-no-found-handler function to work
+	 sudo pkgfile -u
 
 .PHONY: setup-neovim
 setup-neovim:

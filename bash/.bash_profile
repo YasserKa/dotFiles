@@ -1,17 +1,20 @@
 # History
-# ongoing session
+# Ongoing session
 export HISTSIZE=1000000
-# hisotry file
+# Hisotry file
 export HISTFILESIZE=1000000
-# ignore duplicate commands
+# Ignore duplicate commands
 export HISTCONTROL="erasedups:ignoreboth"
+# Ignore common commands
 export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
-# history format in .bash_history
-# append commands to history as it's issues, since bash records to .bash_history
-# when session ends (good if terminal crashes)
+# Bash stores history when the session terminates
+# Make it so that it when the command is executed
 export PROMPT_COMMAND='history -a'
+# Include timestamp
+HISTTIMEFORMAT='%F %T '
 
-# Common Environment variables and starts X
+# Common Environment variables and starts X11
 [[ -f $HOME/.profile ]] && . $HOME/.profile
 
+# Needed, else the login shell won't source it
 [[ -f $HOME/.bashrc ]] && . $HOME/.bashrc

@@ -160,7 +160,7 @@
          (list (openwith-make-extension-regexp
                 '("pdf" "epub" "djvu")) "okular" '(file))
          (list (openwith-make-extension-regexp
-                '("markdown")) "nvim-qt" '(file))
+                '("markdown")) (getenv "_EDITOR_GUI") '(file))
          ))
   (openwith-mode t))
 
@@ -282,7 +282,7 @@
   ;; Open file using nvim
   (defun my/vil-diff-visit-file (file &optional other-window)
     (interactive (list (magit-file-at-point t t) current-prefix-arg))
-    (shell-command (concat "nvim-qt " file nil)))
+    (shell-command (concat (getenv "_EDITOR_GUI") " " file nil)))
   )
 
 (use-package magit-delta
@@ -511,11 +511,9 @@
   (org-hidden-keywords '(title))
   :config
 
-  ;; Default applications in org mode
-  (setq org-file-apps '(("\\.pdf\\'" . "zathura %s & disown")
-                        ("\\.djvu\\'" . "zathura %s & disown")
-                        ("\\.epub\\'" . "zathura %s & disown")
-                        ("\\.markdown\\'" . "nvim-qt %s & disown")))
+  (setq org-file-apps '((t . (lambda (file link)
+                           (start-process-shell-command "Start default application" nil (concat  "xdg-open \"" file "\"" nil))))
+                        ))
 
 (defun org-pass-link-to-system (link)
   (if (string-match "^[-a-zA-Z0-9]+:" link)
@@ -711,7 +709,7 @@ Made for `org-tab-first-hook' in evil-mode."
     )
 
   (setq org-capture-templates
-        `(("d" "default" entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+        `(("d" "default" entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
            "* TODO %?\n")))
 
   ;; Update org-agenda-files after updating item states
@@ -756,7 +754,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
 
-  (my/add-to-agenda-files (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+  (my/add-to-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
   ;; Clocking
   ;; Loading emacs server is needed by emacsclient
   ;; emacsclient used by clocking
@@ -899,12 +897,12 @@ see how ARG affects this command."
 
     (add-to-list 'org-capture-templates
                  `("q" "org-capture-url"
-                   entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+                   entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
     (add-to-list 'org-capture-templates
                  `("n" "org-capture-note"
-                   entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+                   entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
 
     (setq org-protocol-default-template-key "q")
@@ -1006,7 +1004,7 @@ see how ARG affects this command."
   :after org
   :bind (("C-c r i" . org-roam-node-insert))
   :custom
-  (org-roam-directory (getenv "NOTES_ORG_HOME"))
+  (org-roam-directory (getenv "_NOTES_ORG_HOME"))
   (org-roam-node-display-template
    (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   ;; It's slow, so disable it
@@ -1119,7 +1117,7 @@ see how ARG affects this command."
 ;; Search text
 (use-package deft
   :custom
-  (deft-directory (getenv "NOTES_ORG_HOME"))
+  (deft-directory (getenv "_NOTES_ORG_HOME"))
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
