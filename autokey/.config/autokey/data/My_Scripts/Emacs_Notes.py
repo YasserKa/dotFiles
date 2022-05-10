@@ -20,7 +20,7 @@ window.wait_for_focus(NAME, timeOut=5)
 
 keyboard.send_keys("<alt>+<shift>+;(org-capture-full-screen)<enter>")
 
-retCode = keyboard.wait_for_keypress('c',modifiers=['<ctrl>'],timeOut=10)
+retCode = keyboard.wait_for_keypress('c',modifiers=['<ctrl>'],timeOut=30)
 retCode = keyboard.wait_for_keypress('c',modifiers=['<ctrl>'],timeOut=2)
 
 # Place the window to it's previous workspace

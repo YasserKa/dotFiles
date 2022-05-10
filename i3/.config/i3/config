@@ -108,7 +108,7 @@ assign [class="Slack"] workspace $social
 assign [class="Zathura"] workspace $documents
 assign [class="Chromium"] workspace $wp9
 
-# For notify-me script
+# For notify_me script
 for_window [instance="notify_me_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
 
@@ -278,9 +278,10 @@ exec --no-startup-id picom --experimental-backends & disown
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 
+# Open browser & notes
+# Note: The braces are needed for some reason
+exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1'; ${BROWSER} & sleep 1.5; bash -ic "org"
+
 # Manages some key bindings
 exec --no-startup-id autokey-qt & disown
-
-# Note taking
-exec --no-startup-id bash -ic org
 # >>>

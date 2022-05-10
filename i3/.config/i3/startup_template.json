@@ -1,0 +1,23 @@
+{
+    "border": "pixel",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 600,
+       "width": 800,
+       "x": 50,
+       "y": 50
+    },
+    "marks": [],
+    "name": "DuckDuckGo — Privacy, simplified. - qutebrowser",
+    "percent": 1,
+    "swallows": [
+       {
+       "class": "^qutebrowser$",
+       "instance": "^qutebrowser$",
+       "machine": "^yasser\\-pc$",
+       "title": "^DuckDuckGo\\ \\—\\ Privacy\\,\\ simplified\\.\\ \\-\\ qutebrowser$"
+       }
+    ],
+    "type": "con"
+}

@@ -41,16 +41,15 @@ c.bindings.commands = {
         # Clear search
         ',h': 'search',
         ',c': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture',
-        # Open download files
+        # Open/Delete download files
         ',od': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
         ',ord': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent',
-        # Google translate
-        ',t': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate',
-
-        'cm': 'clear-messages ;; download-clear',
+        ',dd': "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
+        ',drd': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent',
 
         # Yank/Goto URL without anchors
         'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_without_anchors',
+        'yp': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler',
         'gc': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors',
         # Google search
         'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
@@ -66,6 +65,11 @@ c.bindings.commands = {
 
         # Create session and store command to open it in clipboard
         'ss': 'spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session',
+        # Google translate
+        ',t': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate',
+
+
+        'cm': 'clear-messages ;; download-clear',
 
         # Add simple vim jumping by using marks
         'f': 'hint all;; set-mark o;; later 1000 set-mark i',

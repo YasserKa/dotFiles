@@ -1,3 +1,4 @@
+# General
 auto-reload yes
 confirm-mark-all-feeds-read no
 confirm-mark-feed-read no
@@ -17,11 +18,13 @@ browser qutebrowser
 
 text-width 80
 
+# Aesthetics
 color info default default
 color listnormal yellow default
 color listfocus blue default bold
 color listfocus_unread blue default bold
 
+# Bindings
 unbind-key g
 bind-key g home all
 bind-key G end all
@@ -45,5 +48,9 @@ bind-key h quit articlelist
 bind-key h quit article
 bind-key l open feedlist
 bind-key l open articlelist
+
+unbind-key s
+bind-key s sort all
+
 
 # vim:ft=dosini

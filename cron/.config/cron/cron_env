@@ -8,5 +8,10 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XAUTHORITY=$HOME/.Xauthority
 export XDG_RUNTIME_DIR=/run/user/1000
 
+# Needed by syncorg function
+export _NOTES_ORG_HOME=$HOME/notes/org
+export XDG_DATA_HOME=$HOME/.local/share
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
 # Used by polybar-msg for hooks
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus

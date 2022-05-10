@@ -55,6 +55,12 @@
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; Used to update the package from upgrade_system bash function
+(use-package auto-package-update
+  :config
+  ;; Delete the old version on updates.
+  (setq auto-package-update-delete-old-versions t))
+
 ;; Saves files such as undo tree and auto saves in .emacs.d
 (use-package no-littering
   :custom
@@ -275,6 +281,11 @@
   (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
   :config
 
+  ;; This is needed to enter password for signing via gpg , since I am using curses for pinentry
+  (use-package pinentry
+    :config (pinentry-start))
+
+  (setenv "PINENTRY_USER_DATA" "USE_CURSES=0")
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward
     (kbd "<return>") 'my/vil-diff-visit-file)
@@ -303,8 +314,7 @@
   ;; Use <C-u> to scroll up
   (evil-want-C-u-scroll t)
   (evil-want-C-u-delete t)
-  ;; Move across physical lines
-  (evil-respect-visual-line-mode t)
+  ;; Adjust splitting position
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
   ;; Needed for redo functionality
@@ -512,16 +522,16 @@
   :config
 
   (setq org-file-apps '((t . (lambda (file link)
-                           (start-process-shell-command "Start default application" nil (concat  "xdg-open \"" file "\"" nil))))
+                               (start-process-shell-command "Start default application" nil (concat  "xdg-open \"" file "\"" nil))))
                         ))
 
-(defun org-pass-link-to-system (link)
-  (if (string-match "^[-a-zA-Z0-9]+:" link)
-    (shell-command (concat "xdg-open " link))
-    nil)
-  )
+  (defun org-pass-link-to-system (link)
+    (if (string-match "^[-a-zA-Z0-9]+:" link)
+        (shell-command (concat "xdg-open " link))
+      nil)
+    )
 
-(setq org-open-link-functions 'org-pass-link-to-system)
+  (setq org-open-link-functions 'org-pass-link-to-system)
 
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
@@ -726,6 +736,8 @@ Made for `org-tab-first-hook' in evil-mode."
       (setq curr-files (my/add-to-agenda-files buffer-file-name))
       )
     (org-store-new-agenda-file-list curr-files)
+    ;; Sort agenda files, so that there's not that often changes to be tracked by git
+    (shell-command (concat "sort " (concat user-emacs-directory "agenda_files") " | sponge " (concat user-emacs-directory "agenda_files")))
     (let ((inhibit-message)) (org-install-agenda-files-menu))
     )
 
@@ -918,7 +930,10 @@ see how ARG affects this command."
   :hook (org-mode . org-cdlatex-mode)
   :config
   ;; Inserting latex env and templates using C-j
-  (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab))
+  (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab)
+  ;; Disable ` functionality that prompts for symbols
+  (evil-define-key 'insert org-cdlatex-mode-map (kbd "`") #'(lambda () (interactive) (insert "`")))
+  )
 
 ;; Show emphasis markers when hovering over text
 (use-package org-appear

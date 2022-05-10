@@ -30,7 +30,7 @@ pre-install-packages:
 
 .PHONY: stow-packages
 stow-packages:
-	stow alacritty autorandr autokey bash bat cmus cron dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar projects qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdg-open xmodmap zathura
+	stow alacritty autorandr autokey bash bat cmus cron dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdg-open xmodmap zathura
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages
@@ -76,6 +76,11 @@ setup-bash:
 	@# Sync pkgfile database for command-no-found-handler function to work
 	 sudo pkgfile -u
 
+.PHONY: setup-tmux
+setup-tmux:
+	@# Setup Tmux plugin manager
+	 git clone https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+
 .PHONY: setup-neovim
 setup-neovim:
 	# Get plugings
@@ -88,9 +93,7 @@ setup-neovim:
 
 .PHONY: setup-projects
 setup-projects:
-	cd $(HOME)/Projects/check-bank-acount && pipenv install
-	cd $(HOME)/Projects/facebook-bot && pipenv install
-	cd $(HOME)/Projects/notify-me && pipenv install
+	pip install selenium webdriver-manager --user
 
 .PHONY: setup-knowledge-base
 setup-knowledge-base:

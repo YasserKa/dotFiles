@@ -5,20 +5,27 @@ set vertical-center true
 # Make Highlighted text more visible
 set highlight-transparency 0.6
 
+# Using ; instead of : for command mode
 map ; focus_inputbar :
 
-# yank the file as an org link
+# Yank the file as an org link
 unmap y
-map yo exec "/home/yasser/.config/zathura/yank_zathura_file_org"
-
-map yp exec "/home/yasser/.config/zathura/yank_zathura_link_handler $FILE $PAGE"
-
-# Open another instance
-map wo exec "/usr/bin/env zathura $FILE"
-# Source file
-map ,ss feedkeys ":source<Return>"
-
-# yank link to clipboard
+map yo exec '/home/yasser/.config/zathura/yank_zathura_file_org'
+# Yank document with page to that's understood by link_handler protocol
+# This kind of quoting is necessary to bypass word splitting
+map yp exec '/home/yasser/.config/zathura/yank_zathura_link_handler "$FILE" "$PAGE"'
+# Yank link in the document to clipboard
 map yl feedkeys c
 
+# Delete current document
+map ,dd exec '/home/yasser/.config/zathura/delete_document "$FILE"'
+# Open another instance
+map wo exec '/usr/bin/env zathura "$FILE"'
+
+# Open config files
+map ,es exec '/bin/kitty -e bash -ic "cd $XDG_CONFIG_HOME/zathura/ && nvim -o +only zathurarc *"'
+# Source config file
+map ,ss feedkeys ':source<Return>'
+
+# Enable synctex
 set synctex true

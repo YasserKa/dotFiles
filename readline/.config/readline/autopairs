@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# Taken from https://github.com/nkakouros-original/bash-autopairs/blob/master/autopairs.sh
 # Show where the matching open paren is when inserting a closing one. Disabling
 # as it hijacks the `)`, `]` and `}` characters to enable blinking.
 bind "set blink-matching-paren off"

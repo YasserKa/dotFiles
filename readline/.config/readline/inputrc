@@ -83,7 +83,7 @@ $if mode=vi
     "\eb": backward-word
     "\ef": forward-word
     "\ed": kill-word
-    # # Line
+    # Line
     "\C-a": beginning-of-line
     "\C-e": end-of-line
 $endif

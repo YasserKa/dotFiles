@@ -1,13 +1,29 @@
 #!/usr/bin/env sh
 
-FILE_PATH="$1"
-PAGE_NUM="$2"
-DOCUMENT_BASENAME="$(basename /home/yasser/books/programming_languages/bash/bash.pdf)"
-DOCUMENT_NAME="${DOCUMENT_BASENAME%.*}"
+file_path="$1"
+page_num="$2"
 
+encode_url() {
+  # Reliable localization
+  local LC_ALL=C
+  # Go through each character
+  for (( i = 0; i < ${#1}; i++ )); do
+    : "${1:i:1}"
+    case "$_" in
+      # Keep allowed characters
+      [a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+      # Encode disallowed characters
+      *) printf '%%%02X' "'$_" ;;
+    esac
+  done
+  printf '\n'
+}
 
-ENCODED_COMMAND="$(jq -sRr @uri <(echo "zathura ${FILE_PATH} --page=$PAGE_NUM & disown"))"
-ENCODED_ORG_URL="[[link-handler://${ENCODED_COMMAND}][$DOCUMENT_NAME, page $PAGE_NUM]]"
+document_basename="$(basename $file_path)"
+document_name="${document_basename%.*}"
 
+echo "$1" > ~/b
+encoded_command="$(encode_url "$(echo "zathura \"${file_path}\" --page=$page_num & disown")")"
+org_url="[[link-handler://${encoded_command}][$document_name, page $page_num]]"
 
-echo $ENCODED_ORG_URL | xclip -selection clipboard
+echo $org_url | xclip -selection clipboard

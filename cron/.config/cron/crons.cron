@@ -7,7 +7,7 @@
 @daily $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"
 @daily $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
 
-# Fetch at startup
-*/1 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -ns
+# Sync notes
+*/30 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -n -s
 
 # vim: syntax=crontab commentstring=#%s

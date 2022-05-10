@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+file_path="$1"
+
+if [[ -e "$file_path" ]]; then
+    rm "$file_path"
+else
+    notify-send "Document doesn't exist"
+fi
