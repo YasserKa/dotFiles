@@ -22,7 +22,6 @@ encode_url() {
 document_basename="$(basename $file_path)"
 document_name="${document_basename%.*}"
 
-echo "$1" > ~/b
 encoded_command="$(encode_url "$(echo "zathura \"${file_path}\" --page=$page_num & disown")")"
 org_url="[[link-handler://${encoded_command}][$document_name, page $page_num]]"
 
