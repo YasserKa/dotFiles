@@ -440,16 +440,16 @@ let g:table_mode_corner='|'
 " }}}
 " ale {{{
 let g:ale_virtualtext_cursor = 1
-let g:ale_fix_on_save = 1
 let g:ale_linters = {
             \   'python': ['flake8'],
-            \   'sh': ['langauge_server'],
+            \   'sh': ['language_server', 'shellcheck'],
             \   'js': ['eslint'],
             \   'php': ['langserver'],
             \   'markdown': ['write-good'],
             \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'sh': ['shfmt'],
             \   'python': ['autopep8'],
             \   'SQL': ['sqlint'],
             \   'js': ['eslint'],

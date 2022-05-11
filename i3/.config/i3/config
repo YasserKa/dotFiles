@@ -10,7 +10,8 @@ gaps outer 5
 set $mod Mod4
 
 font pango:Inconsolata 14
-default_orientation auto
+# Openning new containers horizontally
+default_orientation horizontal
 
 # Change focus
 bindsym $mod+j focus down
@@ -29,10 +30,10 @@ bindsym $mod+Shift+l exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-o
 bindsym $mod+Shift+h exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move left
 
 # Split in horizontal orientation
-bindsym $mod+v split h
+bindsym $mod+v split horizontal
 
 # Split in vertical orientation
-bindsym $mod+Shift+v split v
+bindsym $mod+Shift+v split vertical
 
 # Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle

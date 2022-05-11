@@ -48,9 +48,16 @@ c.bindings.commands = {
         ',drd': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent',
 
         # Yank/Goto URL without anchors
-        'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_without_anchors',
         'yp': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler',
         'gc': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors',
+
+        # Yanking URLs
+        'ya': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_all',
+        'yoo': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link',
+        'yoc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean', # Github repo names only
+        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link',
+        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
+
         # Google search
         'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
         'gS': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search tab',
@@ -79,13 +86,6 @@ c.bindings.commands = {
         # Use <C-S-v> instead of <C-v> for passthrough mode
         '<Ctrl-v>': 'nop',
         '<Ctrl-Shift-v>': 'mode-enter passthrough',
-
-        # Yanking URLs
-        'ya': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_all',
-        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link',
-        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link',
-        'yu': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
-        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
 
         # Password manager
         '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden',
@@ -146,6 +146,7 @@ c.aliases = {
         'wqa': 'quit --save',
         'h': 'help -t',
         'json': 'open -t https://codebeautify.org/jsonviewer?url={url}',
+        'download_youtube': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
         'paywall': 'open https://12ft.io/proxy?q={url}',
         'zotero': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero',
         'hosts': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list',

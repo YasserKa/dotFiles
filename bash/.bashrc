@@ -18,7 +18,7 @@ stty -ixon                 # Enable search C-s for history searching (Enable XON
 # Use Alt-h to view documentation for commands
 run_help() {
     cmd="$READLINE_LINE"
-    help "$cmd" 2>/dev/null | $PAGER || man "$cmd" 2>/dev/null || "$cmd" --help | $PAGER
+    help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || "$cmd" --help | $PAGER
 }
 bind -m vi-insert -x '"\eh": run_help'
 

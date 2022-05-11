@@ -24,7 +24,11 @@ function __autopair() {
     num_of_char="${num_of_char//[^$typed_char]/}"
     num_of_char="${#num_of_char}"
 
-    if [[ "$((num_of_char % 2))" -eq 1 ]]; then
+    # Do autopair at the beggining of readline or when there's space around it
+    # I don't want to insert "" around other characters
+    if [[ $READLINE_POINT != 0 && ( $previous_char != [[:blank:]] && $next_char != [[:blank:]] ) ]]; then
+        s+="$typed_char"
+    elif [[ "$((num_of_char % 2))" -eq 1 ]]; then
       s+="$typed_char"
     elif [[ "$cursor_char" == "$closing_char" ]]; then
       :
@@ -153,7 +157,8 @@ function __autopair_remove() {
 __pairs=(
   "''"
   '""'
-  '``'
+  # This is disabled to not affect FZF C-r in history-exec.bash
+  # '``'
   '()'
   '[]'
   '{}'
@@ -171,11 +176,13 @@ unset pair
 
 bind -x '"\C-h": __autopair_remove'
 
-if [[ "$(bind -q magic-space)" =~ 'invoked via " "' ]]; then
-  bind -x "\" \": __autopair_space 1"
-else
-  bind -x "\" \": __autopair_space 0"
-fi
+# This is disabled to not influence TMUX negatively
+# With this enabled, TMUX commands doesn't have spaces inbetween at startup
+# if [[ "$(bind -q magic-space)" =~ 'invoked via " "' ]]; then
+#   bind -x "\" \": __autopair_space 1"
+# else
+#   bind -x "\" \": __autopair_space 0"
+# fi
 
 if [[ -v BASH_AUTOPAIR_BACKSPACE ]]; then
   # https://lists.gnu.org/archive/html/bug-bash/2019-11/msg00129.html
