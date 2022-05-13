@@ -1,5 +1,6 @@
 [Unit]
-Description=execute notify me
+Description=Execute notify me script
+OnFailure=notify-send@%i.service
 
 [Service]
 Type=simple

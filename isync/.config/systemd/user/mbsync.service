@@ -2,6 +2,7 @@
 Description=Mailbox synchronization service
 Wants=network-online.service
 After=network-online.service
+OnFailure=notify-send@%i.service
 
 [Service]
 Type=forking

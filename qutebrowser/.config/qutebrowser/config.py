@@ -53,8 +53,8 @@ c.bindings.commands = {
 
         # Yanking URLs
         'ya': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_all',
-        'yoo': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link',
-        'yoc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean', # Github repo names only
+        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link',
+        'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean', # Github repo names only
         'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link',
         'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
 
@@ -77,11 +77,6 @@ c.bindings.commands = {
 
 
         'cm': 'clear-messages ;; download-clear',
-
-        # Add simple vim jumping by using marks
-        'f': 'hint all;; set-mark o;; later 1000 set-mark i',
-        '<Ctrl-o>': 'jump-mark o;; clear-messages',
-        '<Ctrl-i>': 'jump-mark i;; clear-messages',
 
         # Use <C-S-v> instead of <C-v> for passthrough mode
         '<Ctrl-v>': 'nop',

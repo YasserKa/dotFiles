@@ -19,7 +19,7 @@ encode_url() {
   printf '\n'
 }
 
-document_basename="$(basename $file_path)"
+document_basename="$(basename "$file_path")"
 document_name="${document_basename%.*}"
 
 encoded_command="$(encode_url "$(echo "zathura \"${file_path}\" --page=$page_num & disown")")"

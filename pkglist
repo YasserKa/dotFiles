@@ -98,7 +98,9 @@ bash-language-server # Bash language server implementation based on Tree Sitter 
 
 # Command line
 bash-completion # Programmable completion for the bash shell
-man-db # An interface to the system reference manuals
+shellcheck      # Shell script analysis tool
+shfmt           # Format shell programs
+man-db          # An interface to the system reference manuals
 
 # Better alternatives
 lsd-git # The next gen ls command
@@ -110,9 +112,9 @@ bottom # A graphical process/system monitor
 ranger # file manager
 
 # Used by some xback script
-jq # Command-line JSON processor
-# Used by qutescript override_f
+jq  # Command-line JSON processor
 pup # Command line tool for processing HTML
+yq  # YAML, XML, TOML processor
 
 fd # Simple, fast and user-friendly alternative to find
 fasd # Command-line productivity booster, offers quick access to files and directories
@@ -141,6 +143,8 @@ sxhkd # Simple X hotkey daemon
 rofi # A window switcher, application launcher and dmenu replacement
 rofi-calc # Do calculations in rofi
 polybar # A fast and easy-to-use status bar
+lsof # List open files for running Unix processes
+parallel # A shell tool for executing jobs in parallel
 
 newsboat # An RSS/Atom feed reader for text terminals
 tuir # Browse Reddit from your terminal
@@ -177,6 +181,7 @@ xournalpp # Handwriting notetaking software with PDF annotation support
 
 i3-gaps # A fork of i3wm tiling window manager with more features, including gaps
 i3lock # Improved screenlocker based upon XCB and PAM
+perl-anyevent-i3 # Communicate with the i3 window manager
 xorg-server # Xorg X server
 xorg-xev # Print contents of X events
 xorg-xinit # X.Org initialisation program

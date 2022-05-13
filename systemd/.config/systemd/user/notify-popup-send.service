@@ -1,0 +1,9 @@
+[Unit]
+Description=Send popup notification of the name of the instance
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/dunstify %i
+
+[Install]
+WantedBy=multi-user.target

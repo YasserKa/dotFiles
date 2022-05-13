@@ -60,8 +60,6 @@ alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
 # Alert after long commands
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias check_audi_amount="cd $HOME/Projects/check-bank-acount && pipenv run python main.py"
-
 # List last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"

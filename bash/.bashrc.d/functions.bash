@@ -55,6 +55,11 @@ function upgrade_system() {
     emacs --no-window-system --eval "(progn
         (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
         (auto-packages-update-now))"
+
+    echo 'Use the following commands to checkup on the system:
+    systemctl --failed --user
+    xorglog
+    sudo journalctl -p 3 -b'
 }
 
 # Automatically change current directory to the last visited one after ranger quits
@@ -81,11 +86,6 @@ function j() {
     cd $path
 }
 
-# Open TUIR with top page within 24 hours by pressing "g t 2"
-function tuir() {
-    ( xdotool search --sync --name "^Front Page - tuir" key g t 2 & )
-    command tuir
-}
 
 # Pick tmux sessions using FZF
 function fzftmux() {
@@ -106,20 +106,26 @@ function open_cli() {
 
     [[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] && notify-send "$TERMINAL is not supported" && return 1
 
-    # Check if it's in a terminal or menu picker
-    if tty -s; then
-        "$command"
+    # Command is run from a shell using -c option
+    if [[ "$-" != *c* ]]; then
+        command "$command"
     else
         $TERMINAL -e "$command"
     fi
 }
 
-cli_list=("neomutt" "tuir" "newsboat" "neomutt")
+cli_list=("newsboat" "neomutt")
 
 for cli in "${cli_list[@]}"; do
     alias $cli="open_cli $cli"
 done
 unset cli
+
+# Open TUIR with top page within 24 hours by pressing "g t 2"
+function tuir() {
+    ( xdotool search --sync --name "^Front Page - tuir" key g t 2 & )
+    open_cli tuir
+}
 
 # Open configuration files easily
 # First arg directory, others files to open
@@ -135,7 +141,7 @@ function open_file () {
     cd $path
 
     # Check if it's in a terminal by the exit code
-    if tty -s; then
+    if [[ "$-" != *c* ]]; then
         # The -o +only arguments are a hack to mitigate nvim's warning upon
         # exiting for editing multiple files
         # -o open files in windows and +only keep one of them

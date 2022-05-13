@@ -154,13 +154,16 @@ mode $clock_mode {
 }
 
 # Music player
-set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower"
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)lassic, (f)ilter"
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
     bindsym t exec --no-startup-id cmus-remote --pause; mode "default";
     bindsym n exec --no-startup-id cmus-remote --next; mode "default";
     bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
+
+    bindsym c exec cmus-remote -C "filter classical" && cmus-remote --next; mode "default"
+    bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default"
 
     bindsym h exec --no-startup-id cmus-remote --volume +2%;
     bindsym l exec --no-startup-id cmus-remote --volume -2%;

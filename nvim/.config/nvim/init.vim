@@ -247,7 +247,7 @@ let g:lightline.component_type = {
             \ }
 
 let g:lightline.component_function = {
-            \ 'gitbranch': 'fugitive#head',
+            \ 'gitbranch': 'FugititiveHead()',
             \ }
 
 " Update lighltine on background change

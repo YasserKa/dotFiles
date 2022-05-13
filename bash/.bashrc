@@ -40,16 +40,6 @@ else
     PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
 fi
 
-if command -v fzf > /dev/null; then
-    [[ -f /usr/share/fzf/completion.bash ]] && . /usr/share/fzf/completion.bash
-    [[ -f /usr/share/fzf/key-bindings.bash ]] && . /usr/share/fzf/key-bindings.bash
-
-    # For C-r history search, make <tab> edit selected option and <enter> execute it
-    FZF_CTRL_R_EDIT_KEY=tab
-    FZF_CTRL_R_EXEC_KEY=enter
-    [[ -f $XDG_CONFIG_HOME/fzf/history-exec.bash ]] && . $XDG_CONFIG_HOME/fzf/history-exec.bash
-fi
-
 # Setup autojumping
 # https://github.com/clvv/fasd
 if command -v fasd > /dev/null; then
@@ -72,9 +62,24 @@ if command -v grc > /dev/null; then
     [[ -x /etc/profile.d/grc.sh ]] && . /etc/profile.d/grc.sh
 fi
 
+if command -v fzf > /dev/null; then
+    [[ -f /usr/share/fzf/completion.bash ]] && . /usr/share/fzf/completion.bash
+    [[ -f /usr/share/fzf/key-bindings.bash ]] && . /usr/share/fzf/key-bindings.bash
+
+    # For C-r history search, make <tab> edit selected option and <enter> execute it
+    FZF_CTRL_R_EDIT_KEY=ctrl-e
+    FZF_CTRL_R_EXEC_KEY=enter
+    [[ -f $XDG_CONFIG_HOME/fzf/history-exec.bash ]] && . $XDG_CONFIG_HOME/fzf/history-exec.bash
+
+    # Taken from FZF's key-bindings.bash to make C-t works
+    # history-exec.bash seems to make the binding not work
+    bind -m vi-insert -x '"\C-t": fzf-file-widget'
+fi
+
 # Readline with autopairs
 AUTO_PAIR_READLINE="$XDG_CONFIG_HOME/readline/autopairs"
 [[ -f "$AUTO_PAIR_READLINE" ]] && . "$AUTO_PAIR_READLINE"
+
 
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash ; do
