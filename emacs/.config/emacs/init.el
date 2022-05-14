@@ -522,12 +522,12 @@
   :config
 
   (setq org-file-apps '((t . (lambda (file link)
-                               (start-process-shell-command "Start default application" nil (concat  "setsid xdg-open \"" file "\"" nil))))
+                               (start-process-shell-command "Start default application" nil (concat  "xdg-open \"" file "\"" nil))))
                         ))
 
   (defun org-pass-link-to-system (link)
     (if (string-match "^[-a-zA-Z0-9]+:" link)
-        (shell-command (concat "setsid " link))
+        (shell-command (concat "xdg-open \"" link "\""))
       nil)
     )
 

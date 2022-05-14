@@ -59,8 +59,9 @@ export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d 
 export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d ' ' -f1)
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
 
+#
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='rg --follow --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap"
 export FZF_DEFAULT_OPTS="--color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}' --bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up'"

@@ -67,6 +67,8 @@ Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', '
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
 Plug 'https://github.com/dbeniamine/cheat.sh-vim'
 
+Plug 'https://github.com/KabbAmine/zeavim.vim'
+
 call plug#end()
 " }}}
 " general settings {{{

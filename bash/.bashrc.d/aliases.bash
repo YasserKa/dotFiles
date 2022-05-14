@@ -69,5 +69,5 @@ alias cmus="screen -q -r -D cmus || screen -S cmus $(which cmus)"
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && mailsync && polybar-msg hook mail 1'
-alias test_mail='echo | command neomutt -s "Testing mail" yasser.kaddoura19@gmail.com'
+alias test_mail='echo | command neomutt -s "Testing mail" yasser.kaddoura19@gmail.com &> /dev/null'
 alias myip='curl ifconfig.me; echo'

@@ -51,7 +51,7 @@ done
 # Store files sorted by modification time in an array
 while IFS=$'\0' read -r -d ''; do
   files+=("${REPLY##*/}")
-done < <(find "$download_dir" -type f -printf '%Ts %p\0' | cut -z -d " " -f 2- )
+done < <(find "$download_dir" -type f -printf '%Ts %p\0' | sort -nrz | cut -z -d " " -f 2-)
 
 [[ "${#files[@]}" -eq 0 ]] \
     && message "Download directory $download_dir is empty" && exit 0

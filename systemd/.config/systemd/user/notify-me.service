@@ -1,9 +1,9 @@
 [Unit]
 Description=Execute notify me script
-OnFailure=notify-send@%i.service
+OnFailure=notify-popup-send@%i.service
 
 [Service]
-Type=simple
+Type=forking
 TimeoutStartSec=0
 ExecStartPre=/home/yasser/bin/wait_internet
 ExecStart=/home/yasser/bin/notify_me

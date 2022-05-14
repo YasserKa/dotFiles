@@ -16,22 +16,22 @@ $HOME/bin/wait_internet || { echo "No internet connection detected."; exit ;}
 
 messageinfo() {
     [[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt
+    return 0
 }
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
     acc="$(echo "$account" | sed "s/.*\///")"
     if [ -z "$opts" ]; then mbsync -c ${XDG_CONFIG_ISYNC} "$acc"; else mbsync -c ${XDG_CONFIG_ISYNC} "$opts" "$acc"; fi
-    [[ $? != 0 ]] && notify-send --urgency=critical "Can't get mail"
-    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" -type f -newer "$XDG_CONFIG_HOME/neomutt/.mailsynclastrun" 2> /dev/null)
-    newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
+    [[ $? != 0 ]] && notify-send --urgency=critical "Can't get mail" 
+    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" -type f -newer "$XDG_CONFIG_HOME/neomutt/.mailsynclastrun" 2> /dev/null) newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l) 
     if [ "$newcount" -gt "0" ]; then
-        for file in $new; do
-            # Extract subject and sender from mail.
-            from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
-            subject=$(awk '/^Subject: / && ++n == 1,/^\<.*\>: / && ++i == 2' "$file" | head -n 1 | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | sed 's/^Subject: //' | sed 's/^{[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//' | tr -d '\n')
-	    messageinfo &
-        done
+    for file in $new; do
+        # Extract subject and sender from mail.
+        from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
+        subject=$(awk '/^Subject: / && ++n == 1,/^\<.*\>: / && ++i == 2' "$file" | head -n 1 | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | sed 's/^Subject: //' | sed 's/^{[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//' | tr -d '\n')
+        messageinfo &
+    done
     fi
 }
 
@@ -58,3 +58,5 @@ polybar-msg action "#mail.hook.0"
 notmuch new 2>/dev/null
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$XDG_CONFIG_HOME/neomutt/.mailsynclastrun"
+
+exit 0
