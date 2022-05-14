@@ -17,8 +17,8 @@ mailboxes =INBOX\
           =[Gmail].Archive \
           =[Gmail].All\ Mail\
 
-macro index o "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/mailsync -V gmail<enter> \
+macro index o "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/syncmail -V gmail<enter> \
           <sync-mailbox> \
           <shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
           <shell-escape>notmuch new<enter>" \
-          "run mailsync to sync personal"
+          "run syncmail to sync personal"

@@ -217,7 +217,7 @@ set $mail_mode "mail (o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
     bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
-    bindsym s exec --no-startup-id bash -ic "mailsync trigger-polybar gmail"; mode "default";
+    bindsym s exec --no-startup-id bash -ic "syncmail trigger-polybar gmail"; mode "default";
     # Mark messages as read
     bindsym c exec --no-startup-id mv $XDG_DATA_HOME/mail/gmail/INBOX/new/* \
             $XDG_DATA_HOME/mail/gmail/INBOX/cur/ \
