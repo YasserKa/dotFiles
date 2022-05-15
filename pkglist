@@ -83,6 +83,9 @@ ctags # Generates an index file of language objects found in source files
 # Contains latexmk that's used by nvim
 texlive-core
 biber # A Unicode-capable BibTeX replacement for biblatex users
+# Needed by org mode for latex fragments 
+texlive-fontsextra
+texlive-latexextra
 # Used in vim
 write-good # Naive linter for English prose
 

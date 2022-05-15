@@ -333,8 +333,6 @@
   (evil-mode 1)
   (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
 
-  (evil-define-key '(insert normal emacs) 'global (kbd "C-q") 'help)
-
   (evil-define-key nil 'global
     (kbd "<escape>") 'keyboard-escape-quit
     (kbd "C-+") 'text-scale-increase

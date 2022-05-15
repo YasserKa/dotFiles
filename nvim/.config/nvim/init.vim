@@ -82,7 +82,6 @@ set autowrite                 " Save file when switching buffers
 colorscheme gruvbox
 set background=light
 set termguicolors
-set guifont=Inconsolata:h15
 set dictionary=/usr/share/dict/cracklib-small
 set scrolloff=5               " Show 5 lines above/below the cursor
 set cursorline                " Highlight current line"
