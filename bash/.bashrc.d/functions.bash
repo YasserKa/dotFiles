@@ -101,7 +101,7 @@ function fclast() { command fc "-"${1} 0; }
 function open_cli() {
     local command="$1"
 
-    [[ ! $(command -v $command) ]] \
+    [[ ! $(command -v "$command") ]] \
         && notify-send "$command doesn't exit" && return 127
 
     [[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] && notify-send "$TERMINAL is not supported" && return 1
@@ -110,7 +110,7 @@ function open_cli() {
     if [[ "$-" != *c* ]]; then
         command "$command"
     else
-        $TERMINAL -e "$command"
+        $TERMINAL --detach -e bash -c "$command && exec bash"
     fi
 }
 

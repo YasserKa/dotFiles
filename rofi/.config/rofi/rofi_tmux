@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Dependencies: bash v5 for mapfile, rofi, tmux
+
+rofi_options=(
+    -p "Tmux Session"                      # Prompt
+    -i                                     # Search case sensitive
+    -dmenu
+    -mesg "<b>Control+d</b>: Kill session" # Message below filter entry 
+    -no-custom                             # Can't choose entry that's not 
+    -kb-delete-entry ""                    # Override <C-d> entry to delete 
+    -kb-custom-1 Control+d                 # exit status 
+    -format "i f"                          # option index, user's 
+    -only-custom                           # Don't allow custom 
+)
+# Tmux sessions
+get_tmux_sessions() { tmux list-session -F '#S'; }
+
+# Rofi exit statuses
+# 0: An option has been selected
+# 1: No option has been selected
+# 10-28: Row accepted by custom keybinding
+main () {
+    # To make Rofi open again with the previoius filter, the main function is
+    # called again with the previous filtered value
+    local filtered_by=${1:-""}
+    local -a tmux_sessions
+
+    mapfile -t tmux_sessions < <(get_tmux_sessions)
+    selected_option="$(printf "%s\n" "${tmux_sessions[@]}" \
+        | rofi "${rofi_options[@]}" -filter "$filtered_by")"
+
+    rofi_exit_status=$?
+    # No option has been selected
+    [[ $rofi_exit_status == 1 ]] && exit 0
+
+    selected_index="$(echo "$selected_option" | cut -d ' ' -f -1)"
+    user_input="$(echo "$selected_option" | cut -d ' ' -f 2-)"
+
+    local selected_session="${tmux_sessions[$selected_index]}"
+
+    # C-d has been pressed
+    if [[ $rofi_exit_status == 10 ]]; then
+        # Remove document and re-open menu again
+        tmux kill-session -t "$selected_session"
+        main "$user_input"
+    else 
+        $TERMINAL -e tmux attach-session -t "$selected_session" > /dev/null & disown
+    fi
+}
+
+main

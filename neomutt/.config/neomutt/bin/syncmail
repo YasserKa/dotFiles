@@ -24,8 +24,7 @@ syncandnotify() {
     acc="$(echo "$account" | sed "s/.*\///")"
     if [ -z "$opts" ]; then mbsync -c ${XDG_CONFIG_ISYNC} "$acc"; else mbsync -c ${XDG_CONFIG_ISYNC} "$opts" "$acc"; fi
     [[ $? != 0 ]] && notify-send --urgency=critical "Can't get mail" 
-    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" -type f -newer
-    "$XDG_CONFIG_HOME/neomutt/.syncmaillastrun" 2> /dev/null) newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l) 
+    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" -type f -newer "$XDG_CONFIG_HOME/neomutt/.syncmaillastrun" 2> /dev/null) newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l) 
     if [ "$newcount" -gt "0" ]; then
     for file in $new; do
         # Extract subject and sender from mail.

@@ -3,6 +3,7 @@ import os
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
+c.hints.selectors['amazon'] = ["[id=productTitle]"]
 c.bindings.commands = {
     'normal': {
         'J': 'forward',
@@ -32,6 +33,7 @@ c.bindings.commands = {
         ':t': 'hint inputs',
         ':y': 'hint links yank',
         ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
+        ':a': 'hint amazon userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen',
         # Override f and F by download documents from libgen
         ':p': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
 

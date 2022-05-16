@@ -247,14 +247,13 @@ bindsym $mod+Return exec --no-startup-id $TERMINAL
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show run
 
+# Rofi applications
 # Password
 bindsym $mod+p exec --no-startup-id $XDG_CONFIG_HOME/rofi/bwmenu
-
 # Tmux
-bindsym $mod+t exec --no-startup-id rofi -show tmux -modi tmux:$XDG_CONFIG_HOME/rofi/rofi-tmux
-
+bindsym $mod+t exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_tmux
 # Documents
-bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi-documents
+bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_documents
 
 # Don't show general notes
 bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# Dependencies: fasd (for frecency), fd (searching files), rofi (interface)
+# Open documents or delete them using <C-d>
+rofi_options=(
+    -p "Document"                             # Prompt
+    -i                                        # Search case sensitive
+    -dmenu
+    -mesg "<b>Control+d</b>: Delete document" # Message below filter entry box
+    -no-custom                                # Can't choose entry that's not available
+    -kb-delete-entry ""                       # Override <C-d> entry to delete documents
+    -kb-custom-1 Control+d                    # exit status 10
+    -format "i f"                             # option index, user's input
+    -only-custom                              # Don't allow custom values
+)
+
+get_documents() {
+    local docs_path=$(fd --regex '.*.(pdf|djvu|epub)$' $HOME)
+    local docs_basename=$(echo "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    # For frecency (tracks only the visited files)
+    local fasd_docs=$(fasd -lR "$docs_basename" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    # Get all files
+    local all_docs="$fasd_docs\n$docs_basename"
+    local no_duplicates=$(echo "$all_docs" | awk '!a[$0]++')
+    echo "$no_duplicates"
+}
+
+main() {
+    local -r filtered_by=${1:-""}
+    local -a documents
+    local selected_document
+    local document_path
+
+    mapfile -t documents < <(get_documents)
+    selected_option="$(printf "%s\n" "${documents[@]}" \
+        | rofi "${rofi_options[@]}" -filter "$filtered_by")"
+
+    rofi_exit_status=$?
+
+    # No option has been selected
+    [[ $rofi_exit_status == 1 ]] && exit 0
+
+    selected_index="$(echo "$selected_option" | cut -d ' ' -f -1)"
+    user_input="$(echo "$selected_option" | cut -d ' ' -f 2-)"
+
+    selected_document="${documents[$selected_index]}"
+    document_path="$(fd -F "$selected_document" "$HOME" | head -n 1)"
+
+    if [[ $rofi_exit_status == 10 ]]; then
+        # Remove document and re-open menu again
+        rm "$document_path"
+        main "$user_input"
+    else
+        # Append path to fasd for frecency (frequency and recency)
+        fasd -a "$document_path"
+        xdg-open "$document_path" >/dev/null & disown
+    fi
+}
+
+main
