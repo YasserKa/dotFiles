@@ -4,13 +4,15 @@
 # decoded example: link-handler://zathura /home/yasser/books/programming_languages/bash/bash.pdf --page=44
 
 scheme='link-handler://'
-url="$1"
 
 urldecode() {
     local url_encoded="${1//+/ }"
     printf '%b' "${url_encoded//%/\\x}"
 }
 
-decoded_url="$(urldecode ${@})"
+decoded_url="$(urldecode "${@}")"
 
-bash -ic "${decoded_url#*${scheme}}"
+# Don't let the browser take focus
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none
+bash -ic "${decoded_url#*"${scheme}"}"
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" smart

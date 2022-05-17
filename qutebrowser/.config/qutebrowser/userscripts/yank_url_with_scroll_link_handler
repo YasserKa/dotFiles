@@ -27,12 +27,12 @@ echo ":session-save --quiet $session_name" >> "$QUTE_FIFO"
 session_path="${QUTE_DATA_DIR}/sessions/${session_name}.yml"
  # Configuring qutebrowser - qutebrowser
 
-y_scroll="$(yq ".windows[].tabs[] | select (.active == true) | .history[] | select (.active == true and .title == \"$QUTE_TITLE\" and .url == \"$QUTE_URL\") | .\"scroll-pos\".y" $session_path)"
+y_scroll="$(yq ".windows[].tabs[] | select (.active == true) | .history[] | select (.active == true and .title == \"$QUTE_TITLE\" and .url == \"$QUTE_URL\") | .\"scroll-pos\".y" "$session_path")"
 
 # Qutebrowser command that scrolls to $y_scroll after a 500 delay
 
 # Open the page
-pre_qutebrowser_command="qutebrowser ${QUTE_URL@Q} &"
+pre_qutebrowser_command="qutebrowser ${QUTE_URL@Q}"
 # Wait until the page is loaded
 # Qutebrowser's WM_NAME changes to the page's title with "- qutebrowser" as a postfix
 # xdotool is used to wait until a window with such properties exist
@@ -44,6 +44,6 @@ cmd="$pre_qutebrowser_command && $xdotool_command && $post_qutebrowser_command"
 encoded_command="$(encode_url "$cmd")"
 link_handler_url="[[link-handler://${encoded_command}][$QUTE_TITLE, scroll 0 $y_scroll]]"
 
-echo $link_handler_url | xclip -selection clipboard
+echo "$link_handler_url" | xclip -selection clipboard
 
 echo "message-info 'yanked link handler URL'" >> "$QUTE_FIFO"
