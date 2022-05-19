@@ -2,7 +2,7 @@ defaults
 auth on
 tls on
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
-logfile $XDG_CONFIG_HOME/msmtp/msmtp.log
+logfile ~/.config/msmtp/msmtp.log
 
 account gmail
 host smtp.gmail.com
@@ -10,6 +10,6 @@ port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
 auth oauthbearer
-passwordeval $XDG_CONFIG_HOME/neomutt/bin/oauth2tool gmail
+passwordeval ~/.config/neomutt/bin/oauth2tool gmail
 
 # vim:filetype=msmtp commentstring=#%s
