@@ -10,7 +10,7 @@ map ; focus_inputbar :
 
 # Yank the file as an org link
 unmap y
-map yo exec '/home/yasser/.config/zathura/yank_zathura_file_org'
+map yo exec '/home/yasser/.config/zathura/yank_zathura_link_handler "$FILE"'
 # Yank document with page to that's understood by link_handler protocol
 # This kind of quoting is necessary to bypass word splitting
 map yp exec '/home/yasser/.config/zathura/yank_zathura_link_handler "$FILE" "$PAGE"'

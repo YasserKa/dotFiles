@@ -1,5 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
+# Open a document to a page or using its name
+# Dependencies: fd
+
+books_path="$HOME/books"
 file_path="$1"
 page_num="$2"
 
@@ -19,10 +23,19 @@ encode_url() {
   printf '\n'
 }
 
-document_basename="$(basename "$file_path")"
-document_name="${document_basename%.*}"
+doc_basename="${file_path##*/}"
+doc_name="${doc_basename%.*}"
+link_name="$doc_name"
 
-encoded_command="$(encode_url "$(echo "zathura \"${file_path}\" --page=$page_num & disown")")"
-org_url="[[link-handler://${encoded_command}][$document_name, page $page_num]]"
+cmd='zathura "$(fd --fixed-strings --search-path '${books_path}' "'${doc_name}'")"'
+if [[ $page_num ]]; then
+    cmd+=" --page=$page_num"
+    link_name+=", page $page_num"
+fi
+cmd+=" & disown"
 
-echo $org_url | xclip -selection clipboard
+encoded_command="$(encode_url "$cmd")"
+
+org_url="[[link-handler://${encoded_command}][${link_name}]]"
+
+echo "$org_url" | xclip -selection clipboard

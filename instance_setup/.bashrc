@@ -1,119 +1,107 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
-# If not running interactively, don't do anything
-case $- in
+# Source if the shell is interactive
+# shellcheck disable=SC1091,SC2034,SC2148,SC1090,SC2155
+case "$-" in
     *i*) ;;
-      *) return;;
+    *) return ;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# Bash options https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+set -o vi                  # Vi mode
+set -o noclobber           # Don't overwrite when redireting using shell
+shopt -s autocd            # Auto cd without using cd
+shopt -s histappend        # Append to the history file, don't overwrite it
+shopt -s cdspell           # Fix spelling errors when using cd
+shopt -s dirspell          # Fix spelling errors during tab-completion
+shopt -s extglob           # extend pattern matching
+shopt -s cmdhist           # History records commands with multiple lines as such instead of using ";"
+stty -ixon                 # Enable search C-s for history searching (Enable XON/XOFF flow control)
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+tmp_XDG_CONFIG_HOME="$XDG_CONFIG_HOME"
+XDG_CONFIG_HOME=".yasser_rc"
+export VIMINIT='source $MYVIMRC'
+export MYVIMRC="$XDG_CONFIG_HOME/.vimrc"
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Use Alt-h to view documentation for commands
+run_help() {
+    cmd="$READLINE_LINE"
+    help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || "$cmd" --help | $PAGER
+}
+bind -m vi-insert -x '"\eh": run_help'
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# Prompt with info about git repo
+if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
+    # https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
+    . "$XDG_CONFIG_HOME/git/git-prompt.sh"
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]\u@\h: \[\e[m\]'
+ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    git_branch() { git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1)/'; }
+    PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[01;32m\]\u@\h\[\033[00m\]\[\033[01;34m\] \[\033[38;5;34m\]❯ \[\e[m\]'
+fi
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# Readline with autopairs
+[[ -f "$XDG_CONFIG_HOME/readline/autopairs" ]] && . "$XDG_CONFIG_HOME/readline/autopairs"
+[[ -f "$XDG_CONFIG_HOME/readline/inputrc" ]] && bind -f "$XDG_CONFIG_HOME/readline/inputrc"
+
+# History
+# Ongoing session
+export HISTSIZE=1000
+# Hisotry file
+export HISTFILESIZE=2000
+# Ignore duplicate commands
+export HISTCONTROL="erasedups:ignoreboth"
+# Ignore common commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+# Bash stores history when the session terminates
+# Make it so that it when the command is executed
+export PROMPT_COMMAND='history -a'
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
-export EDITOR=vim
-
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
+export EDITOR=vim
+alias v='vim'
+alias vi='vim'
+alias h='history'
+alias hg='history | grep'
+
+# More options
+alias mkdir='mkdir -pv'
+alias df='df -Tha --total'
+
+# Prompt before overriding
+alias mv='mv -i'
+alias cp='cp -i --preserve=all --reflink=auto'
+
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Alert after long commands
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+# Which is unreliable, use type -P instead
+# https://unix.stackexchange.com/questions/85249/why-not-use-which-what-to-use-then
+which() {
+    printf >&2 'The which command is unreliable. Use type -P %s\n' "$*"
+    return 2
+}
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+XDG_CONFIG_HOME=$tmp_XDG_CONFIG_HOME
+unset "$tmp_XDG_CONFIG_HOME"
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-set -o vi
-alias v="vim"

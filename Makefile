@@ -142,7 +142,6 @@ install-packages: make-clean-pkglist install-aur-helper
 	@sudo paru --sync --refresh --sysupgrade --noconfirm --needed - < pkglist_clean.tmp
 	@rm -f *tmp
 
-
 .PHONY: help
 help : Makefile
 	@sed -n 's/^##//p' $<

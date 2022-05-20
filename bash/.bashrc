@@ -1,4 +1,6 @@
+# shellcheck shell=bash
 # Source if the shell is interactive
+# shellcheck disable=SC1091,SC2034,SC1090,SC2155
 case "$-" in
     *i*) ;;
     *) return ;;
@@ -17,7 +19,7 @@ stty -ixon                 # Enable search C-s for history searching (Enable XON
 
 # Use Alt-h to view documentation for commands
 run_help() {
-    cmd="$READLINE_LINE"
+    local -r cmd="$READLINE_LINE"
     help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || "$cmd" --help | $PAGER
 }
 bind -m vi-insert -x '"\eh": run_help'
@@ -32,7 +34,7 @@ complete -cf sudo
 # Prompt with info about git repo
 if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
     # https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
-    . $XDG_CONFIG_HOME/git/git-prompt.sh
+    . "$XDG_CONFIG_HOME/git/git-prompt.sh"
     export GIT_PS1_SHOWDIRTYSTATE=1
     PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]❯ \[\e[m\]'
 else
@@ -69,7 +71,7 @@ if command -v fzf > /dev/null; then
     # For C-r history search, make <tab> edit selected option and <enter> execute it
     FZF_CTRL_R_EDIT_KEY=ctrl-e
     FZF_CTRL_R_EXEC_KEY=enter
-    [[ -f $XDG_CONFIG_HOME/fzf/history-exec.bash ]] && . $XDG_CONFIG_HOME/fzf/history-exec.bash
+    [[ -f $XDG_CONFIG_HOME/fzf/history-exec.bash ]] && . "$XDG_CONFIG_HOME/fzf/history-exec.bash"
 
     # Taken from FZF's key-bindings.bash to make C-t works
     # history-exec.bash seems to make the binding not work
@@ -77,9 +79,7 @@ if command -v fzf > /dev/null; then
 fi
 
 # Readline with autopairs
-AUTO_PAIR_READLINE="$XDG_CONFIG_HOME/readline/autopairs"
-[[ -f "$AUTO_PAIR_READLINE" ]] && . "$AUTO_PAIR_READLINE"
-
+[[ -f "$XDG_CONFIG_HOME/readline/autopairs" ]] && . "$XDG_CONFIG_HOME/readline/autopairs"
 
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash ; do

@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Shorter
 alias v='nvim'
 alias vi='nvim'
@@ -10,7 +11,7 @@ alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
 # Sync books
-alias syncbooks="wait_internet && rclone sync $HOME/books books:books"
+alias syncbooks='wait_internet && rclone sync $HOME/books books:books'
 
 # Alternatives
 alias top="btm --color=gruvbox"
@@ -18,8 +19,8 @@ alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # Logging
 # Can't override journalctl without using a function
-alias journalctl='function journalctl_override(){ (command journalctl "$@" | lnav) }; journalctl_override'
-alias logxorg="cat $HOME/.local/share/xorg/Xorg.0.log"
+journalctl() { command journalctl "$@" | lnav; }
+alias logxorg='cat $HOME/.local/share/xorg/Xorg.0.log'
 # Doesn't work for dmesg
 # Check https://github.com/tstack/lnav/issues/878
 
@@ -65,7 +66,25 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 
 # Music player
-alias cmus="screen -q -r -D cmus || screen -S cmus $(which cmus)"
+alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+
+# SSH setup
+ssh_setup_instance() {
+    shopt -s dotglob
+    # Add files to remote server
+    # shellcheck disable=SC2088
+    remote_path='~/.yasser_rc'
+    [[ "$*" ]] || { echo 'need a host name' && exit 1; }
+    ssh -t "$*" "mkdir ~/.yasser_rc"
+    scp  -qr "$HOME"/dotfiles/instance_setup/* "$*:$remote_path"
+    scp  -qr "$HOME"/dotfiles/readline/.config/readline/* "$*:$remote_path"
+    # Setup bash
+    ssh -t "$*" "cd $remote_path && make"
+    echo "
+Notes:
+Jupyter notebook can be setup via Makefile"
+}
+alias ssh="yasser_config_env=1 ssh"
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && syncmail && polybar-msg hook mail 1'

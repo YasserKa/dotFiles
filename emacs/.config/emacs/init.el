@@ -525,7 +525,7 @@
 
   (defun org-pass-link-to-system (link)
     (if (string-match "^[-a-zA-Z0-9]+:" link)
-        (start-process-shell-command "bla" nil (concat "xdg-open \"" link "\""))
+        (start-process-shell-command "Start default application" nil (concat "xdg-open \""link"\""))
       nil)
     )
 

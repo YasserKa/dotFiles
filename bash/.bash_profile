@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # History
 # Ongoing session
 export HISTSIZE=1000000
@@ -14,7 +15,7 @@ export PROMPT_COMMAND='history -a'
 HISTTIMEFORMAT='%F %T '
 
 # Common Environment variables and starts X11
-[[ -f $HOME/.profile ]] && . $HOME/.profile
+[[ -f $HOME/.profile ]] && . "$HOME/.profile"
 
 # Needed, else the login shell won't source it
-[[ -f $HOME/.bashrc ]] && . $HOME/.bashrc
+[[ -f $HOME/.bashrc ]] && . "$HOME/.bashrc"

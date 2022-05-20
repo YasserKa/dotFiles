@@ -1,3 +1,6 @@
+# shellcheck shell=bash
+# shellcheck disable=SC2155,SC2010
+
 # Shared profile among shells
 #
 # Guideline
