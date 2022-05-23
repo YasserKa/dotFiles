@@ -17,9 +17,10 @@ shopt -s cmdhist           # History records commands with multiple lines as suc
 stty -ixon                 # Enable search C-s for history searching (Enable XON/XOFF flow control)
 
 tmp_XDG_CONFIG_HOME="$XDG_CONFIG_HOME"
-XDG_CONFIG_HOME=".yasser_rc"
-export VIMINIT='source $MYVIMRC'
+XDG_CONFIG_HOME="$HOME/.yasser_rc"
 export MYVIMRC="$XDG_CONFIG_HOME/.vimrc"
+# shellcheck disable=SC2016
+export VIMINIT='source $MYVIMRC'
 
 # Use Alt-h to view documentation for commands
 run_help() {
