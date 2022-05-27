@@ -105,4 +105,4 @@ if __name__ == '__main__':
         main()
     except SessionNotCreatedException:
         subprocess.run(
-                "dunstify 'Maybe need a new chromium driver'", shell=True)
+                "dunstify 'Maybe need a new chromium version'", shell=True)

@@ -852,13 +852,15 @@ see how ARG affects this command."
    '(org-block-end-line ((t (:background nil :weight bold))))
    '(org-code ((t (:inherit (shadow fixed-pitch))))))
 
-
-
+  ;; Used by babel
   (use-package plantuml-mode
     :config
     (setq org-plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     )
+  (use-package yaml-mode)
+  (use-package dockerfile-mode)
+  (use-package docker-compose-mode)
 
   (require 'ob-makefile)
   ;; Run/highlight code using babel in org-mode

@@ -27,9 +27,7 @@ echo ":session-save --quiet $session_name" >> "$QUTE_FIFO"
 session_path="${QUTE_DATA_DIR}/sessions/${session_name}.yml"
  # Configuring qutebrowser - qutebrowser
 
-y_scroll="$(yq ".windows[].tabs[] | select (.active == true) | .history[] | select (.active == true and .title == \"$QUTE_TITLE\" and .url == \"$QUTE_URL\") | .\"scroll-pos\".y" "$session_path")"
-
-# Qutebrowser command that scrolls to $y_scroll after a 500 delay
+y_scroll="$(yq ".windows[]  | select (.active ==true) | .tabs[] | select (.active == true) | .history[] | select (.active == true and .title == \"$QUTE_TITLE\" and .url == \"$QUTE_URL\") | .\"scroll-pos\".y" "$session_path")"
 
 # Open the page
 pre_qutebrowser_command="qutebrowser ${QUTE_URL@Q}"
