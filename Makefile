@@ -125,7 +125,7 @@ setup-qutebrowser:
 	qutebrowser :adblock-update
 	pkill qutebrowser
 
-.PHONY: make-clean-packages
+.PHONY: make-clean-pkglist
 make-clean-pkglist:
 	@cat pkglist | grep -o "^[^#]*" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 

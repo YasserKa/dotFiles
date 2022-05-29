@@ -69,22 +69,8 @@ alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reve
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 
 # SSH setup
-ssh_setup_instance() {
-    shopt -s dotglob
-    # Add files to remote server
-    # shellcheck disable=SC2088
-    remote_path='~/.yasser_rc'
-    [[ "$*" ]] || { echo 'need a host name' && exit 1; }
-    ssh -t "$*" "mkdir ~/.yasser_rc"
-    scp  -qr "$HOME"/dotfiles/instance_setup/* "$*:$remote_path"
-    scp  -qr "$HOME"/dotfiles/readline/.config/readline/* "$*:$remote_path"
-    # Setup bash
-    ssh -t "$*" "cd $remote_path && make"
-    echo "
-Notes:
-Jupyter notebook can be setup via Makefile"
-}
-alias ssh="yasser_config_env=1 ssh"
+ssh() { command ssh -t "$*" 'export yasser_config_env=1; bash -login'; }
+ssh_config_setup() { make --file ~/dotfiles/instance_setup/Makefile --keep-going move_config_to_server "host=$*"; }
 
 # misc
 alias get_mail='polybar-msg hook mail 2 && syncmail && polybar-msg hook mail 1'
