@@ -1002,7 +1002,7 @@ see how ARG affects this command."
   (defun update_i3_focus_window_config ()
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
-    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none " " && sleep 1 && " path_to_script " smart")))
+    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
 
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
   )

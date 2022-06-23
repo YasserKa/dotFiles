@@ -1,10 +1,10 @@
-@monthly . $HOME/.config/cron/cron_env && /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
+0 12 1 * * . $HOME/.config/cron/cron_env && /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
 
 */1 * * * * . $HOME/.config/cron/cron_env && $HOME/bin/battery_low_alert
 
 # Sync mega material
-@daily $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"
-@daily $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
+0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"
+0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
 
 # Sync notes
 */30 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -n -s

@@ -7,7 +7,6 @@ from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException, SessionNotCreatedException
 
 # used by dunstify/dunst
@@ -87,7 +86,7 @@ def main():
     options = webdriver.ChromeOptions()
     options.add_argument('user-data-dir=' + profile_path)
     os.system("pkill chromedriver")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver = webdriver.Chrome(service=Service(executable_path=executable_path), options=options)
 
     try:
         check_discord()

@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/env bash
 
 # Dependencies: i3-msg
 # Set the configuration focus_on_window_activation that enables or disables
@@ -7,11 +7,28 @@
 # https://i3wm.org/docs/userguide.html#focus_on_window_activation
 
 options=("smart" "urgent" "focus" "none")
+declare -r tmp_file_path=/tmp/i3_focus_config
 
-if [[ ! ${options[*]} =~ "$1" ]]; then
+# Sleep for $1 seconds and revert back to normal behaviour
+revert_changes_after_delay () {
+    sleep "$1"
+    "$0" smart
+}
+
+if [[ ! ${options[*]} =~ $1 ]]; then
     notify-send "$1 is an invalid option"; exit 0
 fi
 
-sed -i "1s/.*/focus_on_window_activation $1/" $XDG_CONFIG_HOME/i3/focus_on_window_activation_config
+# Extend the sleep time until it reverts back by storing the PID of the command
+# and check its existence on a later execution
+if [[ $2 == [[:digit:]] ]]; then
+    curr_pid="$(cat "$tmp_file_path" 2>/dev/null)"
+    kill -0 "$curr_pid" && kill "$curr_pid"
+    revert_changes_after_delay "$2" &
+    curr_pid=$!
+    echo $curr_pid > $tmp_file_path
+fi
+
+sed -i "1s/.*/focus_on_window_activation $1/" "$XDG_CONFIG_HOME/i3/focus_on_window_activation_config"
 
 i3-msg reload

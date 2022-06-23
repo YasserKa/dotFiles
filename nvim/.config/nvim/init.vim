@@ -13,7 +13,6 @@ Plug 'https://github.com/junegunn/vim-easy-align'
 " Expand/shrink visual region via _ & +
 Plug 'https://github.com/terryma/vim-expand-region'
 
-
 " Aesthetics
 " Make strings related to colors more colorful
 Plug 'https://github.com/ap/vim-css-color', {'for': ['dosini']}
