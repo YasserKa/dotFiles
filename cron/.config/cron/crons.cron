@@ -1,5 +1,3 @@
-0 12 1 * * . $HOME/.config/cron/cron_env && /bin/echo | /bin/neomutt -s "System update reminder" yasser.kaddoura19@gmail.com
-
 */1 * * * * . $HOME/.config/cron/cron_env && $HOME/bin/battery_low_alert
 
 # Sync mega material

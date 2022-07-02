@@ -20,7 +20,7 @@ get_documents() {
     # For frecency (tracks only the visited files)
     local fasd_docs=$(fasd -lR "$docs_basename" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
     # Get all files
-    local all_docs="$fasd_docs\n$docs_basename"
+    local all_docs="$(echo -e "$fasd_docs\n$docs_basename")"
     local no_duplicates=$(echo "$all_docs" | awk '!a[$0]++')
     echo "$no_duplicates"
 }
