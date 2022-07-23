@@ -29,6 +29,10 @@ thinkfan # A minimalist fan control program. Supports the sysfs hwmon interface 
 displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
 evdi # A Linux® kernel module that enables management of multiple screens.
 
+# Video
+nvidia       # NVIDIA drivers
+nvidia-utils # NVIDIA drivers utilities
+
 # Needed microcode
 intel-ucode # Microcode update files for Intel CPUs
 
@@ -118,6 +122,7 @@ ranger # file manager
 jq  # Command-line JSON processor
 pup # Command line tool for processing HTML
 yq  # YAML, XML, TOML processor
+fx  # Command-line tool and terminal JSON viewer
 
 fd # Simple, fast and user-friendly alternative to find
 fasd # Command-line productivity booster, offers quick access to files and directories
@@ -213,14 +218,15 @@ moreutils # A growing collection of the unix tools that nobody thought to write 
 # Network
 keychain # agent for gpg & ssh keys
 rsync # A fast and versatile file copying tool for remote and local files
+sshfs # FUSE client based on the SSH File Transfer Protocol
 wget # Network utility to retrieve files from the Web
 nftables # Netfilter tables userspace tools
 nethogs # A net top tool which displays traffic used per process instead of per IP or interface
 networkmanager # Network connection manager and user applications
 networkmanager-dmenu-git # Control NetworkManager via dmenu
 wireguard-tools # next generation secure network tunnel - tools for configuration
-net-tools
-
+net-tools # Configuration tools
+transmission-gtk # BitTorren client
 
 # Mutt
 neomutt # A version of mutt with added features

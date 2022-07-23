@@ -7,7 +7,7 @@ from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.service import Service
-from selenium.common.exceptions import TimeoutException, SessionNotCreatedException
+from selenium.common.exceptions import TimeoutException, SessionNotCreatedException, WebDriverException
 
 # used by dunstify/dunst
 APP_NAME = 'notify-me'
@@ -105,3 +105,5 @@ if __name__ == '__main__':
     except SessionNotCreatedException:
         subprocess.run(
                 "dunstify 'Maybe need a new chromium version'", shell=True)
+    except  WebDriverException:
+        pass
