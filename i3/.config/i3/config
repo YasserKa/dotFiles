@@ -197,7 +197,18 @@ mode $sharing_mode {
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(l)ights off, (m)ail, (a)udio, (d)ictionary, (u)sb unmount"
+set $audio_mode "built (i)n, (b)luetooth, (d)isplay Link"
+bindsym $mod+a mode $audio_mode
+mode $audio_mode {
+    bindsym i exec --no-startup-id switch_audio_sink "Built In"; mode "default";
+    bindsym b exec --no-startup-id switch_audio_sink "Bluetooth"; mode "default";
+    bindsym d exec --no-startup-id switch_audio_sink "DisplayLink"; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $utility_mode "(l)ights off, (m)ail, (d)ictionary, (u)sb unmount"
 bindsym $mod+u mode $utility_mode
 mode $utility_mode {
 # Unmount all storage devices;
@@ -206,7 +217,6 @@ mode $utility_mode {
 # Switch off light
     bindsym l exec --no-startup-id "sleep 0.5; xset dpms force off"; mode "default";
 
-    bindsym a exec --no-startup-id switch_audio_sink; mode "default";
     bindsym d exec --no-startup-id search_dictionary; mode "default";
 
     bindsym Control+bracketleft mode "default";

@@ -269,20 +269,20 @@ per_monitor_dpi = false
 background = "#222222"
 foreground = "#888888"
 timeout = 3
-new_icon = dialog-information-symbolic.symbolic
+default_icon = dialog-information-symbolic.symbolic
 
 [urgency_normal]
 background = "#d3d3d3"
 foreground = "#000000"
 timeout = 5
-new_icon = dialog-information-symbolic.symbolic
+default_icon = dialog-information-symbolic.symbolic
 
 [urgency_critical]
 background = "#900000"
 foreground = "#ffffff"
 frame_color = "#ff0000"
 timeout = 5
-new_icon = dialog-error-symbolic.symbolic
+default_icon = dialog-error-symbolic.symbolic
 
 [org]
 appname = emacs_org

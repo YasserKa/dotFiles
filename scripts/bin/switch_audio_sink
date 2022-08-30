@@ -2,26 +2,24 @@
 
 APP_NAME="switch-sink"
 
-# Get the index of the SINK by getting the 4th line before of the line that has
-# <STATE> (e.g. RUNNING, IDLE, SUSPENDED) and extract the integer
+# Switch audio sink between built in, displaylink & bluetooth
 
-CURR_SINK=$(pactl list sinks | sed -n $(($(pactl list sinks | grep -n RUNNING | cut -d : -f 1)+1))p | cut -d : -f2)
-# =$(pactl set-default-sink $(pactl list sinks | grep Name | grep usb |sed 's/Name: //'|sed 's/\s//')
+PICKED_SINK="$1"
+case $PICKED_SINK in
+    "Bluetooth" ) 
+        Name="bluez_output" 
+        icon="bluetooth-64" ;;
+    "Built In" ) 
+        icon="laptop-sound-64"
+        Name="analog-stereo" ;;
+    "DisplayLink" ) 
+        icon="earbud-sound-64"
+        Name="DisplayLink" ;;
+    *) notify-send --app-name=$APP_NAME --expire-time=1000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
+esac
 
-NEW_SINK=$(pactl list sinks | sed -n $(($(pactl list sinks | grep -nE "(IDLE|SUSPENDED)" | cut -d : -f 1)+1))p | cut -d : -f2)
+# Get the name of the sink
+NEW_SINK=$(pactl list sinks | grep -nE "Name.*$Name" | cut -d : -f 3- | xargs)
 
-echo $CURR_SINK
-message=""
-icon=""
-# HACK: current sink is 2 (which is 1), switch to sink 0
-if [[ $CURR_SINK == *"Display"* ]]; then
-    message="Switching to built-in sink"
-    icon="laptop-sound-64"
-else
-    message="Switching to displaylink sink"
-    icon="earbud-sound-64"
-fi
-
-notify-send --app-name=$APP_NAME --expire-time=1000 --icon="$icon" "$message"
-
-pactl set-default-sink $NEW_SINK
+notify-send --app-name=$APP_NAME --expire-time=1000 --icon="$icon" "Switching to $PICKED_SINK sink"
+pactl set-default-sink "$NEW_SINK"
