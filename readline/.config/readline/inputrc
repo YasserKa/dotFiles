@@ -65,7 +65,10 @@ $if mode=vi
     set keymap vi-insert
     "\C-w": backward-kill-word
     # Expand expressions like !!
-    SPACE: magic-space
+    # If statement used to be able to type space in python shell
+    $if Bash
+        SPACE: magic-space
+    $endif
     "\ep": history-search-backward
     "\en": history-search-forward
     # pressing tab will list all completions & select the first one. pressing it

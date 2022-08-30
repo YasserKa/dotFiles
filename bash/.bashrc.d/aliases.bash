@@ -43,6 +43,9 @@ alias cal='cal -m'
 alias alsamixer='alsamixer -c 1'
 alias grep='grep --color=auto'
 
+# Reset fzf's options for libby to remove the bat preview
+alias libby='FZF_DEFAULT_OPTS="--tac" libby'
+
 # Prompt before overriding
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'

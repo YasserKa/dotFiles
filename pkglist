@@ -95,7 +95,6 @@ write-good # Naive linter for English prose
 
 pandoc # Conversion between markup formats
 plantuml # Component that allows to quickly write uml diagrams
-nodejs # Evented I/O for V8 javascript
 npm # A package manager for javascript
 python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
@@ -214,6 +213,7 @@ zip # Compressor/archiver for creating and modifying zipfiles
 which # A utility to show the full path of commands
 sudo # Give certain users the ability to run some commands as root
 moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
+libby-git # Download books from Library Genesis
 
 # Network
 keychain # agent for gpg & ssh keys
