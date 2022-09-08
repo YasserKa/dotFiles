@@ -935,6 +935,18 @@ see how ARG affects this command."
   (evil-define-key 'insert org-cdlatex-mode-map (kbd "`") #'(lambda () (interactive) (insert "`")))
   )
 
+(use-package citar
+  :no-require
+  :custom
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  ;; Open files using external program
+  (citar-file-open-functions (list (cons t 'citar-file-open-external)))
+  :bind
+  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
+
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
   :after (org evil)
