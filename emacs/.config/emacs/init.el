@@ -1014,8 +1014,7 @@ see how ARG affects this command."
   (defun update_i3_focus_window_config ()
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
-    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
-
+(start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none && sleep 2 && " path_to_script " smart")))
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
   )
 
@@ -1025,7 +1024,7 @@ see how ARG affects this command."
   :custom
   (org-superstar-remove-leading-stars t)
   (org-superstar-item-bullet-alist '((?- . ?•) (?* . ?•) (?+ . ?•)))
-  (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+  (org-superstar-headline-bullets-list '("●" "○" "●" "○" "●" "○" "●")))
 
 (use-package org-roam
   :after org
