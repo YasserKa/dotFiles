@@ -12,11 +12,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 options = webdriver.ChromeOptions()
 
+options.add_argument('binary_location=/bin/chromium')
 options.add_argument("--headless")
 
 os.system("pkill chromedriver")
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+executable_path = '/home/yasser/.config/chromium/chromedriver'
+driver = webdriver.Chrome(service=Service(executable_path=executable_path), options=options)
 
 URL = "https://audionline.bankaudi.com.lb/CustomLogin/RetailLogin.aspx?sID=-1"
 
