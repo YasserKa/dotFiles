@@ -36,6 +36,10 @@ nvidia-utils # NVIDIA drivers utilities
 # Needed microcode
 intel-ucode # Microcode update files for Intel CPUs
 
+# Bluetooth
+bluez
+bluez-utils
+
 # Sound
 alsa-firmware # Firmware binaries for loader programs in alsa-tools and hotplug firmware loader
 alsa-plugins # Additional ALSA plugins
@@ -87,6 +91,7 @@ ctags # Generates an index file of language objects found in source files
 # Contains latexmk that's used by nvim
 texlive-core
 biber # A Unicode-capable BibTeX replacement for biblatex users
+texlive-bibtexextra # Bibliography 
 # Needed by org mode for latex fragments 
 texlive-fontsextra
 texlive-latexextra
@@ -198,7 +203,8 @@ zathura-djvu # DjVu support for Zathura
 zathura-pdf-mupdf # PDF support for Zathura (MuPDF backend) (Supports PDF, ePub, and OpenXPS)
 calibre # Ebook management application (used for PDF conversion)
 okular # Document Viewer
-# Needed by Okular for mobi and epub support
+kdegraphics-mobipocket # Needed by Okular for mobi support
+# Needed by Okular for epub support
 ebook-tools # Tools for accessing and converting various ebook file formats
 xournalpp # Handwriting notetaking software with PDF annotation support
 
