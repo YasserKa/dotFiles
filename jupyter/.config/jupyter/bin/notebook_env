@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
+# Install packages needed for using vim and jupyter notebook
+# and create notebooks that sync both notebooks and python files
+
+
 [[ -z "$1" && "$1" != "setup" && "$1" != "create_notebook" ]] && \
-    echo "Need at least setup or create_notebook as argument" && exit
+    echo "Need at least 'setup' or 'create_notebook' as argument" && exit
 
 [[ "$1" == "create_notebook" && -z "$2" ]] && \
     echo "Need notebook name" && exit
@@ -19,11 +23,11 @@ if [[ "$1" == "setup" ]]; then
     jupyter serverextension enable jupyter_ascending --py --user
 else
     # Create file using jupyter ascending
-    python -m jupyter_ascending.scripts.make_pair --base $2
+    python -m jupyter_ascending.scripts.make_pair --base "$2"
 
-    jupytext --set-formats ipynb,py:percent $2.sync.ipynb
+    jupytext --set-formats ipynb,py:percent "$2.sync.ipynb"
 
     # open notebook
-    jupyter notebook $(pwd)/$2.sync.ipynb &> /dev/null &
-    vim $(pwd)/$2.sync.py
+    jupyter notebook "$(pwd)/$2.sync.ipynb" &> /dev/null &
+    nvim "$(pwd)/$2.sync.py"
 fi

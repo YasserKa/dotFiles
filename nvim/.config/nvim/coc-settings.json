@@ -24,6 +24,7 @@
             "ignoredRootPaths": ["~"]
         }
     },
+    "pyright.completion.importSupport": false,
     "list.nextKeymap": "<C-n>",
     "list.previousKeymap": "<C-p>",
     "list.insertMappings": {

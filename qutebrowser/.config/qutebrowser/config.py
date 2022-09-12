@@ -121,7 +121,9 @@ c.bindings.commands = {
 
             '<Ctrl-p>': 'fake-key <Up>',
             '<Ctrl-n>': 'fake-key <Down>',
-            '<Ctrl-j>': 'fake-key <enter>',
+            # Commented out for the time being, since it messes up vim binding
+            # in jupyter notebooks
+            # '<Ctrl-j>': 'fake-key <enter>',
 
             '<Ctrl-Shift-v>': 'mode-leave',
             },
@@ -170,6 +172,7 @@ c.hints.selectors['id'] = ["[id]"]
 # Make gi focus issues search bar
 with config.pattern('https://github.com/*/issues') as p:
     p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
+
 c.hints.border = "1px solid #CCCCCC"
 c.fonts.default_size = "12pt"
 c.fonts.web.size.default = 19

@@ -1,9 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Dependencies: Emacs for org mode & wmctrl to focus window
 # Use org mode's clocking in emacs with rofi to navigate and use clock
 # operations
-
 
 TMP_FILE_PATH="/tmp/org_current_task"
 
@@ -29,7 +28,7 @@ function clock_out () {
 }
 
 function clock_toggle () {
-    emacsclient -e "(my/org-toggle-last-clock t)"
+    emacsclient -e "(my/org-toggle-last-clock nil)"
 }
 
 function clock_cancel () {
@@ -38,22 +37,32 @@ function clock_cancel () {
 
 
 function get_time_spent () {
+    local -i INFO_MAX_SIZE=65
+
     [[ ! -e $TMP_FILE_PATH ]] && echo "" && return
 
     INFORMATION=$(head -3 $TMP_FILE_PATH | tail -1)
-    CLOCK_TIME=$(head -2 $TMP_FILE_PATH | tail -1)
 
-    TIME_SINCE_CREATION=$(echo $((${CLOCK_TIME##*:} + $(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))/60)))
+    # Limit the size of information to not overwhelm polybar when the string is
+    # too big
+    [[ ${#INFORMATION} -gt $INFO_MAX_SIZE ]] && \
+        INFORMATION=${INFORMATION:0:INFO_MAX_SIZE}"...)"
 
-    echo "$TIME_SINCE_CREATION -$INFORMATION "
+    # Seconds since the temp file got created
+    local -i SECONDS_SINCE_CREATION=$(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))
+
+    # Use HH:MM format
+    TIME_SINCE_CREATION=$(date --date="@$SECONDS_SINCE_CREATION" -u +%H:%M)
+
+    echo "$TIME_SINCE_CREATION -$INFORMATION"
 }
 
 case "$1" in
-  "clock_in") clock_in ;;
-  "clock_out") clock_out ;;
-  "clock_toggle") clock_toggle ;;
-  "clock_cancel") clock_cancel ;;
-  "go_to_item") go_to_item ;;
-  "get_time_spent") get_time_spent ;;
-  *) echo "$1 is a wrong argument" ;;
+    "clock_in") clock_in ;;
+    "clock_out") clock_out ;;
+    "clock_toggle") clock_toggle ;;
+    "clock_cancel") clock_cancel ;;
+    "go_to_item") go_to_item ;;
+    "get_time_spent") get_time_spent ;;
+    *) echo "$1 is a wrong argument" ;;
 esac
