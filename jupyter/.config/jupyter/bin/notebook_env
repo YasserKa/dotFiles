@@ -4,13 +4,13 @@
 # and create notebooks that sync both notebooks and python files
 
 
-[[ -z "$1" && "$1" != "setup" && "$1" != "create_notebook" ]] && \
-    echo "Need at least 'setup' or 'create_notebook' as argument" && exit
+[[ "$1" && "$1" != "init" && "$1" != "create" ]] && \
+    echo "Need an argument, 'init' or 'create <notebook>'" && exit
 
-[[ "$1" == "create_notebook" && -z "$2" ]] && \
-    echo "Need notebook name" && exit
+[[ "$1" == "create" && -z "$2" ]] && \
+    echo "Need notebook name as an argument" && exit
 
-if [[ "$1" == "setup" ]]; then
+if [[ "$1" == "init" ]]; then
     # Install jupytext and jupyter_ascending for syncing
     pipenv install --dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
     pipenv shell

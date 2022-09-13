@@ -156,9 +156,9 @@ set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)las
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
-    bindsym t exec --no-startup-id cmus-remote --volume 21%--pause; mode "default";
+    bindsym t exec --no-startup-id cmus-remote --volume 21% --pause; mode "default";
     bindsym n exec --no-startup-id cmus-remote --volume 21% --next; mode "default";
-    bindsym p exec --no-startup-id cmus-remote --volume 21%--prev; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --volume 21% --prev; mode "default";
 
     bindsym c exec cmus-remote -C "filter classical" && cmus-remote --next; mode "default"
     bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default"
