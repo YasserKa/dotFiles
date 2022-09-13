@@ -167,7 +167,7 @@ vimpager-git # A vim-based script to use as a PAGER - git checkout
 mpv # a free, open source, and cross-platform media player
 feh # Fast and light imlib2-based image viewer
 
-youtube-dl # A command-line program to download videos from YouTube.com and a few more sites
+yt-dlp # A command-line program to download videos from YouTube.com and a few more sites
 gist # Potentially the best command line gister
 
 # Spelling
@@ -184,10 +184,10 @@ chromium # A web browser built for speed, simplicity, and security
 m4 # The GNU macro processor
 texinfo # GNU documentation system for on-line information and printed output
 
-firefox # Standalone web browser from mozilla.org
 visidata # Terminal spreadsheet multitool for discovering and arranging data
 udiskie # Removable disk automounter using udisks
 rclone # Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
+syncthing # Open Source Continuous Replication / Cluster Sunchronization Thing
 libreoffice-fresh # LibreOffice branch which contains new features and program enhancements
 
 i3-gaps # A fork of i3wm tiling window manager with more features, including gaps

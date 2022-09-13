@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-# Dependencies youtube-dl
-youtube-dl -x -o '~/Music/Downloaded/%(title)s.%(ext)s' "$QUTE_URL"
+# Dependencies yt-dlp
+yt-dlp -x -o '~/Music/Downloaded/%(title)s.%(ext)s' "$QUTE_URL"

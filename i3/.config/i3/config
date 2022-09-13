@@ -113,9 +113,6 @@ assign [class="Chromium"] workspace $wp9
 for_window [instance="notify_me_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
 
-# Firefox (For ambient music page)
-for_window [class="firefox"] move scratchpad
-
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
 
@@ -154,31 +151,21 @@ mode $clock_mode {
 }
 
 # Music player
-set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)lassic, (f)ilter"
+# (f)ilter option means that it resets the (c)lassic filter done
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)lassic, (a)mbient, (f)ilter"
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
-    bindsym t exec --no-startup-id cmus-remote --pause; mode "default";
-    bindsym n exec --no-startup-id cmus-remote --next; mode "default";
-    bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
+    bindsym t exec --no-startup-id cmus-remote --volume 21%--pause; mode "default";
+    bindsym n exec --no-startup-id cmus-remote --volume 21% --next; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --volume 21%--prev; mode "default";
 
     bindsym c exec cmus-remote -C "filter classical" && cmus-remote --next; mode "default"
     bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default"
+    bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default"
 
     bindsym h exec --no-startup-id cmus-remote --volume +2%;
     bindsym l exec --no-startup-id cmus-remote --volume -2%;
-
-    bindsym Control+bracketleft mode "default";
-    bindsym Escape mode "default";
-}
-
-set $control_ambient_mode "(t)oggle, (h)igher, (l)ower"
-bindsym $mod+Shift+c mode $control_ambient_mode
-mode $control_ambient_mode {
-    bindsym t exec --no-startup-id $HOME/bin/control_ambient p; mode "default";
-
-    bindsym h exec --no-startup-id $HOME/bin/control_ambient k;
-    bindsym l exec --no-startup-id $HOME/bin/control_ambient j;
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";

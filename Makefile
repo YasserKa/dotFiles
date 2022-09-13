@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash
+install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash setup-ambient-music
 
 .PHONY: stow-etc
 stow-etc:
@@ -93,7 +93,8 @@ setup-neovim:
 
 .PHONY: setup-projects
 setup-projects:
-	pip install selenium webdriver-manager --user
+	# MyMuPDF used for getting highlighted text in pdf
+	pip install selenium webdriver-manager PyMuPDF --user
 
 .PHONY: setup-knowledge-base
 setup-knowledge-base:
@@ -124,6 +125,11 @@ setup-qutebrowser:
 	# Update adblock list
 	qutebrowser :adblock-update
 	pkill qutebrowser
+
+
+.PHONY: setup-ambient-music
+setup-ambient-music:
+	yt-dlp -x -o "$(HOME)/Music/ambient_music.%(ext)s" https://www.youtube.com/watch?v=6uVUv8gZHBE
 
 .PHONY: make-clean-pkglist
 make-clean-pkglist:
