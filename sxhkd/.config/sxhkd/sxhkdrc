@@ -10,3 +10,7 @@ ctrl + apostrophe
 # context menu. for selecting URLs and actions
 ctrl + shift + apostrophe
     dunstctl action
+
+# context menu. for selecting URLs and actions
+super + comma
+    [[ "$(xdotool getwindowclassname $(xdotool getactivewindow))" == "okular" ]] && ~/bin/store_highlightes_of_active_doc_to_clipboard

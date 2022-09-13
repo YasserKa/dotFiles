@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Download paper from scihub and open it
+
+scihub --overwrite Y --search "$QUTE_URL" --outdir "${HOME}/Downloads" 
+# Open latest document modified
+xdg-open "$(find "${HOME}/Downloads" -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d' ')" & disown
+i3-msg 'workspace --no-auto-back-and-forth 8'
