@@ -348,6 +348,10 @@ augroup NOTEBOOK
     autocmd!
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
+
+    let notebook_path = "http://localhost:8888/notebooks/".expand('%')[:-3]."ipynb"
+
+    autocmd BufRead,BufNewFile *.sync.py nnoremap <leader>O :execute "silent ! qutebrowser --target window " . notebook_path . " &"<CR>
 augroup END
 " }}}
 " which-key {{{

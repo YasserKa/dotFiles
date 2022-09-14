@@ -119,7 +119,7 @@ setup-qutebrowser:
 	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all.py --install --bin=yank_all.py
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
-	pip install adblock tldextract --user # ad block
+	pip install adblock tldextract sci-hub --user # ad block, scripts
 	paru -S chromium-widevine # viewing DRM content (Spotify)
 	paru -S qtwebkit-plugins-git # For SpellChecking
 	# Update adblock list
