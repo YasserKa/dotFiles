@@ -13,6 +13,10 @@ Plug 'https://github.com/junegunn/vim-easy-align'
 " Expand/shrink visual region via _ & +
 Plug 'https://github.com/terryma/vim-expand-region'
 
+" Visual
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter-context' " Sticky line for current scope
+
 " Aesthetics
 " Make strings related to colors more colorful
 Plug 'https://github.com/ap/vim-css-color', {'for': ['dosini']}

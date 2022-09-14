@@ -273,7 +273,7 @@ exec --no-startup-id $HOME/bin/wait_internet && check_mail
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 
 # Composer for fading affect on window focus and opacity
-exec --no-startup-id picom --experimental-backends & disown
+exec --no-startup-id picom & disown
 
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch

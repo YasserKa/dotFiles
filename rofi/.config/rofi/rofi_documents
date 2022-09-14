@@ -15,7 +15,7 @@ rofi_options=(
 )
 
 get_documents() {
-    local docs_path=$(fd --regex '.*.(pdf|djvu|epub)$' $HOME)
+    local docs_path=$(fd --regex '.*.(pdf|djvu|epub)$' "$HOME" "$XDG_DATA_HOME/Zotero")
     local docs_basename=$(echo "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
     # For frecency (tracks only the visited files)
     local fasd_docs=$(fasd -lR "$docs_basename" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
