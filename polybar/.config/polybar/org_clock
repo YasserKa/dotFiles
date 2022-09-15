@@ -5,6 +5,7 @@
 # operations
 
 TMP_FILE_PATH="/tmp/org_current_task"
+SHOW_TASK_NAME=0
 
 function go_to_item () {
     [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
@@ -37,16 +38,18 @@ function clock_cancel () {
 
 
 function get_time_spent () {
-    local -i INFO_MAX_SIZE=65
+    local -i NAME_MAX_SIZE=52
 
     [[ ! -e $TMP_FILE_PATH ]] && echo "" && return
 
-    INFORMATION=$(head -3 $TMP_FILE_PATH | tail -1)
+    TASK_INFO="$(head -3 $TMP_FILE_PATH | tail -1)"
+    TASK_NAME="$(cut -d ' ' -f 3- <(echo "$TASK_INFO"))"
+    TASK_TIME="$(cut -d ' ' -f -2 <(echo "$TASK_INFO"))"
 
     # Limit the size of information to not overwhelm polybar when the string is
     # too big
-    [[ ${#INFORMATION} -gt $INFO_MAX_SIZE ]] && \
-        INFORMATION=${INFORMATION:0:INFO_MAX_SIZE}"...)"
+    [[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && \
+        TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
 
     # Seconds since the temp file got created
     local -i SECONDS_SINCE_CREATION=$(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))
@@ -54,7 +57,11 @@ function get_time_spent () {
     # Use HH:MM format
     TIME_SINCE_CREATION=$(date --date="@$SECONDS_SINCE_CREATION" -u +%H:%M)
 
-    echo "$TIME_SINCE_CREATION -$INFORMATION"
+    INFO_TO_SHOW="$TIME_SINCE_CREATION -$TASK_TIME"
+
+    [[ $SHOW_TASK_NAME -eq 1 ]] && INFO_TO_SHOW="${INFO_TO_SHOW} $TASK_NAME"
+
+    echo "$INFO_TO_SHOW"
 }
 
 case "$1" in
