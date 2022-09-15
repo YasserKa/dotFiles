@@ -28,7 +28,7 @@ doc_name="${doc_basename%.*}"
 link_name="$doc_name"
 
 # shellcheck disable=SC2016
-cmd='zathura "$(fd --fixed-strings --search-path '${books_path}' "'${doc_name}'" | head -1)"'
+cmd='zathura "$(fd --no-ignore-vcs --fixed-strings --search-path '${books_path}' "'${doc_name}'" | head -1)"'
 if [[ $page_num ]]; then
     cmd+=" --page=$page_num"
     link_name+=", page $page_num"

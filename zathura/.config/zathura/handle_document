@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-""" Get highlighted text of a document """
+""" Remove/Yank annotated text """
 
 import sys
 import fitz 
 from typing import List, Tuple
+import subprocess
+import pyperclip as pc
 
-
-def _parse_highlight(annot: fitz.Annot, wordlist: List[Tuple[float, float, float, float, str, int, int, int]]) -> str:
+def parse_highlight(annot: fitz.Annot, wordlist: List[Tuple[float, float, float, float, str, int, int, int]]) -> str:
     points = annot.vertices
     quad_count = int(len(points) / 4)
     sentences = []
@@ -32,7 +33,7 @@ def handle_page(page):
             highlights.append(_parse_highlight(annot, wordlist))
         annot = annot.next
     return highlights
- 
+
 def main(file_path: str) -> List:
     doc = fitz.open(file_path)
 
@@ -42,7 +43,22 @@ def main(file_path: str) -> List:
 
     return highlights
 
+def remove_annotations(file_path: str):
+    doc = fitz.open(file_path)
+    for page in doc:
+        annot = page.first_annot
+        while annot:
+            annot = page.delete_annot(annot)
+    doc.save(file_path, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
 
 if __name__ == "__main__":
-    file_path = sys.argv[1]
-    print("\n".join(main(file_path)))
+    if len(sys.argv) < 3:
+        raise ValueError
+    file_path = sys.argv[2]
+    if sys.argv[1] == "get_annotations":
+        pc.copy("\n".join(main(file_path)))
+        list_files = subprocess.run(["dunstify", "Copied to clipboard"])
+    elif sys.argv[1] == "remove_annotations":
+        main(file_path)
+    else:
+        raise ValueError
