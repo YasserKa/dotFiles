@@ -30,11 +30,11 @@ def handle_page(page):
     annot = page.first_annot
     while annot:
         if annot.type[0] == 8:
-            highlights.append(_parse_highlight(annot, wordlist))
+            highlights.append(parse_highlight(annot, wordlist))
         annot = annot.next
     return highlights
 
-def main(file_path: str) -> List:
+def yank_highlights(file_path: str) -> List:
     doc = fitz.open(file_path)
 
     highlights = []
@@ -56,9 +56,10 @@ if __name__ == "__main__":
         raise ValueError
     file_path = sys.argv[2]
     if sys.argv[1] == "get_annotations":
-        pc.copy("\n".join(main(file_path)))
+        pc.copy("\n".join(yank_highlights(file_path)))
         list_files = subprocess.run(["dunstify", "Copied to clipboard"])
     elif sys.argv[1] == "remove_annotations":
-        main(file_path)
+        print("removing")
+        remove_annotations(file_path)
     else:
         raise ValueError
