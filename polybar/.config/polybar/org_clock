@@ -46,30 +46,53 @@ function get_time_spent () {
     TASK_NAME="$(cut -d ' ' -f 3- <(echo "$TASK_INFO"))"
     TASK_TIME="$(cut -d ' ' -f -2 <(echo "$TASK_INFO"))"
 
-    # Limit the size of information to not overwhelm polybar when the string is
-    # too big
-    [[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && \
-        TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
-
     # Seconds since the temp file got created
     local -i SECONDS_SINCE_CREATION=$(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))
-
-    # Use HH:MM format
+    # HH:MM format
     TIME_SINCE_CREATION=$(date --date="@$SECONDS_SINCE_CREATION" -u +%H:%M)
 
-    INFO_TO_SHOW="$TIME_SINCE_CREATION -$TASK_TIME"
 
-    [[ $SHOW_TASK_NAME -eq 1 ]] && INFO_TO_SHOW="${INFO_TO_SHOW} $TASK_NAME"
+    # [<X:XX>/X:XX]
+    TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\/.*|\1|p' <(echo "$TASK_TIME"))"
+    # [X:XX/<X:XX>]
+    TIME_NEEDED="$(sed -n 's|.*\/\(.*\)\]|\1|p' <(echo "$TASK_TIME"))"
+
+    # Convert time to seconds
+    SECONDS_ALREADY_SPENT="$(echo "$TIME_ALREADY_SPENT" | awk -F: '{ print ($1 * 3600) + ($2 * 60) }')"
+    # Add time spent
+    SECONDS_ALREADY_SPENT=$((SECONDS_SINCE_CREATION+SECONDS_ALREADY_SPENT))
+    # Convert it back to HH:MM
+    TIME_ALREADY_SPENT=$(date --date="@$SECONDS_ALREADY_SPENT" -u +%H:%M)
+    # dunstify $TIME_ALREADY_SPENT
+
+    # Add time needed if it exists (Effort might not exist for a task)
+    if [[ $TIME_NEEDED != "" ]]; then
+        TASK_TIME_SHOW="[$TIME_ALREADY_SPENT/$TIME_NEEDED]"
+    else
+        TASK_TIME_SHOW="[$TIME_ALREADY_SPENT]"
+    fi
+
+    INFO_TO_SHOW="$TIME_SINCE_CREATION - $TASK_TIME_SHOW"
+
+    if [[ $SHOW_TASK_NAME -eq 1 ]]; then
+        # Limit the size of information to not overwhelm polybar when the string is too big
+        [[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
+        INFO_TO_SHOW="${INFO_TO_SHOW} $TASK_NAME"
+    fi
 
     echo "$INFO_TO_SHOW"
 }
 
-case "$1" in
-    "clock_in") clock_in ;;
-    "clock_out") clock_out ;;
-    "clock_toggle") clock_toggle ;;
-    "clock_cancel") clock_cancel ;;
-    "go_to_item") go_to_item ;;
-    "get_time_spent") get_time_spent ;;
-    *) echo "$1 is a wrong argument" ;;
-esac
+function main () {
+    case "$1" in
+        "clock_in") clock_in ;;
+        "clock_out") clock_out ;;
+        "clock_toggle") clock_toggle ;;
+        "clock_cancel") clock_cancel ;;
+        "go_to_item") go_to_item ;;
+        "get_time_spent") get_time_spent ;;
+        *) echo "$1 is a wrong argument" ;;
+    esac
+}
+
+main "$@"
