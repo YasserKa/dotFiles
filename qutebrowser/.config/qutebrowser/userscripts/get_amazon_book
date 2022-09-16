@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Dependencies: pup
+
+PATH_TO_HTML="$QUTE_HTML"
+
+MIRROR_NUM=3
+
+# Loop through all the mirros
+while [[ ! $MIRROR_NUM -eq 0 ]]; do
+    libby --rofi "$(pup --file "$PATH_TO_HTML" '#productTitle, .contributorNameID text{}')" && break
+    MIRROR_NUM=$((MIRROR_NUM-1))
+done

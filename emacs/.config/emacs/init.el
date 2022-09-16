@@ -672,6 +672,8 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
+  ;; Show closed items, not the clocked ones
+  (setq org-agenda-log-mode-items '(closed))
 
   ;; Super agenda
   (setq org-agenda-custom-commands
