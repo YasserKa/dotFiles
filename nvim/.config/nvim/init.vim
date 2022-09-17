@@ -72,6 +72,8 @@ Plug 'https://github.com/dbeniamine/cheat.sh-vim'
 
 Plug 'https://github.com/KabbAmine/zeavim.vim'
 
+Plug 'https://github.com/vim-scripts/ReplaceWithRegister'
+
 call plug#end()
 " }}}
 " general settings {{{
@@ -310,7 +312,7 @@ augroup pear_pairs
 augroup END
 " }}}
 " targets {{{
-let g:targets_nl = 'nN'
+let g:targets_nl = ["n", "N"]
 " }}}
 " {{{ expand
 map + <Plug>(expand_region_expand)
