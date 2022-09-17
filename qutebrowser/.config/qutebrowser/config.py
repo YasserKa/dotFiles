@@ -16,6 +16,7 @@ c.bindings.commands = {
         'gK': 'back -t',
         'wao': 'open -w {url}',
         'waO': 'open -w {url} ;; tab-close',
+        'cm': 'clear-messages ;; download-clear',
 
         # Swap ; and :
         ';': 'set-cmd-text :',
@@ -77,8 +78,6 @@ c.bindings.commands = {
         # Google translate
         ',t': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate',
 
-
-        'cm': 'clear-messages ;; download-clear',
 
         # Use <C-S-v> instead of <C-v> for passthrough mode
         '<Ctrl-v>': 'nop',

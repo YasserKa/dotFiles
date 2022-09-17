@@ -72,8 +72,6 @@ Plug 'https://github.com/dbeniamine/cheat.sh-vim'
 
 Plug 'https://github.com/KabbAmine/zeavim.vim'
 
-Plug 'https://github.com/vim-scripts/ReplaceWithRegister'
-
 call plug#end()
 " }}}
 " general settings {{{
