@@ -654,6 +654,8 @@ Made for `org-tab-first-hook' in evil-mode."
   (defun my/get-title-property ()
     (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
     (setq roam_alias (org-entry-get-with-inheritance "ROAM_ALIASES"))
+    (setq max_length 11)
+    (if (> (length title) max_length ) (setq title (concat (substring title 0 max_length) "...")))
     (if roam_alias roam_alias (if title title "")))
 
   (setq org-agenda-current-time-string "┈┈┈┈┈┈┈┈┈┈┈ now"
@@ -661,7 +663,7 @@ Made for `org-tab-first-hook' in evil-mode."
                                (800 1000 1200 1400 1600 1800 2000)
                                "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
         org-agenda-prefix-format '((agenda . " %-16(my/get-title-property)%-12t%-6e% s")
-                                   (todo . " %-12:(my/get-title-property) %-6e")
+                                   (todo . " %-14:(my/get-title-property) %-6e")
                                    (tags . " %-12:(my/get-title-property) %-6e")
                                    (search . " %-12:(my/get-title-property) %-6e")))
 
