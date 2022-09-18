@@ -3,33 +3,31 @@
 SHELL=/bin/bash
 config_path=~/.yasser_rc
 
-all: check_make bash vim
-
-check_make:
-	@command -v make >/dev/null || { echo "need to install GNU make" && exit 1; }
+all: bash vim
 
 move_config_to_server:
 	@# Expand files starting with a dot
-	[[ -n "$(host)" ]] || { echo 'need a host name' && exit 1; }
+	@[[ -n "$(host)" ]] || { echo 'need a host name' && exit 1; }
+	@command -v make >/dev/null || { echo "GNU make is needed at '$(host)' server" && exit 1; }
 	@ssh -t "$(host)" "mkdir -p $(config_path)"
-	shopt -s dotglob; scp  -qr "$(HOME)"/dotfiles/instance_setup/* "$(host):$(config_path)"
-	scp  -qr "$(HOME)"/dotfiles/readline/.config/readline "$(host):$(config_path)"
-	@# Setup bash
-	echo -e "\nNotes: Jupyter notebook can be setup via Makefile"
+	@shopt -s dotglob; scp  -qr "$(HOME)"/dotfiles/instance_setup/* "$(host):$(config_path)"
+	@scp  -qr "$(HOME)"/dotfiles/readline/.config/readline "$(host):$(config_path)"
 	@ssh -t "$(host)" "cd $(config_path) && make --keep-going"
-	echo -e "\nNotes: Jupyter notebook can be setup via Makefile"
+	@echo -e "Notes: Jupyter notebook can be setup via Makefile"
 
 bash: 
 	@echo "Setting up bash"
-	@[[ ! -f ~/.bashrc ]] || ! grep -qs yasser ~/.bashrc || { echo "Bash already configured" && exit 1; }
-	@echo -e '\n# Yasser'\''s Config\n[[ -e ~/.yasser_rc/.bashrc && $$yasser_config_env ]] && source ~/.yasser_rc/.bashrc' >> ~/.bashrc
+	@[[ ! -f ~/.bashrc ]] || ! grep -qs yasser ~/.bashrc && \
+		echo -e '\n# Yasser'\''s Config\n[[ -e ~/.yasser_rc/.bashrc && $$yasser_config_env ]] && source ~/.yasser_rc/.bashrc' >> ~/.bashrc || echo "Bash already configured"
 
 vim:
+	@echo "Setting up vim"
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	@vim -u ~/.yasser_rc/.vimrc +'PlugInstall --sync' +qa
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>&1 
+	@vim -u ~/.yasser_rc/.vimrc +'PlugInstall --sync' +qa > /dev/null 2>&1 
 
 jupyter:
+	@echo "Setting up jupyter"
 	@sudo apt install jupyter
 	@yes | sudo apt-get install python3-pip
 	@pip install jupyternotify

@@ -31,6 +31,8 @@ complete -cf sudo
 # https://github.com/scop/bash-completion
 [[ -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 
+[[ -f "$XDG_CONFIG_HOME/tmux/tmux_completion" ]] && . "$XDG_CONFIG_HOME/tmux/tmux_completion"
+
 # Prompt with info about git repo
 if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
     # https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash

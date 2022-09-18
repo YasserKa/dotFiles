@@ -104,5 +104,6 @@ which() {
 }
 
 XDG_CONFIG_HOME=$tmp_XDG_CONFIG_HOME
-unset "$tmp_XDG_CONFIG_HOME"
+[[ "$tmp_XDG_CONFIG_HOME" != "" ]] && unset "$tmp_XDG_CONFIG_HOME"
+
 

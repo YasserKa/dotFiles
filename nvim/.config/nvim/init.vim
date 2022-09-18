@@ -26,6 +26,9 @@ Plug 'https://github.com/gruvbox-community/gruvbox'
 " Readline Movement
 Plug 'https://github.com/tpope/vim-rsi'
 
+" Tmux
+Plug 'https://github.com/preservim/vimux'
+
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
@@ -353,7 +356,7 @@ augroup NOTEBOOK
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
 
-    let notebook_path = "http://localhost:8888/notebooks/".expand('%')[:-3]."ipynb"
+    autocmd BufRead,BufNewFile *.sync.py let notebook_path = "http://localhost:8888/notebooks/".expand('%')[:-3]."ipynb"
 
     autocmd BufRead,BufNewFile *.sync.py nnoremap <leader>O :execute "silent ! qutebrowser --target window " . notebook_path . " &"<CR>
 augroup END
