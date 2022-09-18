@@ -687,10 +687,7 @@ Made for `org-tab-first-hook' in evil-mode."
                                   :date today
                                   :scheduled today)))))
             (alltodo "" ((org-super-agenda-groups
-                          '((:name "Due Today"
-                                   :deadline today
-                                   :scheduled today)
-                            (:name "Waiting"
+                          '((:name "Waiting"
                                    :todo "WAITING")
                             (:name "On Hold"
                                    :todo "HOLD")
