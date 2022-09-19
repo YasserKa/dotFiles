@@ -12,16 +12,11 @@ let &t_EI = "\e[2 q"
 
 autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
 
-if expand("$TERM")  =~ 'tmux'
-    let g:oscyank_term = 'tmux'
-else
-    let g:oscyank_term = 'kitty'
-endif
+let g:oscyank_term = 'default'
 
 let g:oscyank_silent = v:true  " or 1 for older versions of Vim
 
 colorscheme delek
-
 
 " Fix indentation problem in tmux
 " https://vi.stackexchange.com/questions/23110/pasting-text-on-vim-inside-tmux-breaks-indentation

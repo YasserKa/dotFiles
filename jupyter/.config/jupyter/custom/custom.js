@@ -25,7 +25,7 @@ require([
           cm.toggleComment();
           CodeMirror.Vim.handleKey(cm, '<Esc>', 'mapping');
       });
-      CodeMirror.Vim.mapCommand("gcc", "action", "comment_op", {});
+      CodeMirror.Vim.mapCommand("gc", "action", "comment_op", {});
 
       // extending yanking to clipboard
       CodeMirror.Vim.mapCommand(",", "operator", "yank");

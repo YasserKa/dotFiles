@@ -677,7 +677,7 @@ Made for `org-tab-first-hook' in evil-mode."
   ;; Show closed items, not the clocked ones
   (setq org-agenda-log-mode-items '(closed))
   ;; Show today's clocked report
-  (setq org-clocktable-defaults '(:maxlevel 2 :lang "en" :scope today))
+  (setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :properties ("Effort")))
 
   ;; Super agenda
   (setq org-agenda-custom-commands
