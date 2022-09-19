@@ -4,6 +4,7 @@ call plug#end()
 
 noremap ; :
 noremap : ;
+set confirm                   " Confirm :q in case of unsaved changes
 
 " Cursor block (normal) & line (insert)
 let &t_SI = "\e[6 q"
@@ -20,6 +21,7 @@ endif
 let g:oscyank_silent = v:true  " or 1 for older versions of Vim
 
 colorscheme delek
+
 
 " Fix indentation problem in tmux
 " https://vi.stackexchange.com/questions/23110/pasting-text-on-vim-inside-tmux-breaks-indentation

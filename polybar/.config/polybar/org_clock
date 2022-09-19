@@ -15,7 +15,7 @@ function go_to_item () {
     FULL_PATH=$(tail -1 $TMP_FILE_PATH)
 
     # Focus window
-    wmctrl -xa emacs-org-mode
+    xdotool search --sync --name "emacs_org_name" windowactivate
 
     emacsclient "+$CURSOR" "$FULL_PATH"
 }

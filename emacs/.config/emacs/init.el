@@ -676,6 +676,8 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-log-into-drawer t)
   ;; Show closed items, not the clocked ones
   (setq org-agenda-log-mode-items '(closed))
+  ;; Show today's clocked report
+  (setq org-clocktable-defaults '(:maxlevel 2 :lang "en" :scope today))
 
   ;; Super agenda
   (setq org-agenda-custom-commands
@@ -699,14 +701,14 @@ Made for `org-tab-first-hook' in evil-mode."
                             ))))))
           ("o" "Others"
            ((todo "DONE")
-            (alltodo "test" ((org-super-agenda-groups
-                              '((:priority "A")
-                                (:priority "B")
-                                (:tag "Productivity")
-                                (:name "Short"
-                                       :tag "effort< 1:01")
-                                (:auto-category)
-                                ))))))
+            (alltodo "" ((org-super-agenda-groups
+                          '((:priority "A")
+                            (:priority "B")
+                            (:tag "Productivity")
+                            (:name "Short"
+                                   :tag "effort< 1:01")
+                            (:auto-category)
+                            ))))))
           ))
 
   (use-package org-super-agenda
@@ -1015,7 +1017,7 @@ see how ARG affects this command."
   (defun update_i3_focus_window_config ()
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
-(start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none && sleep 2 && " path_to_script " smart")))
+    (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none && sleep 2 && " path_to_script " smart")))
   (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
   )
 
