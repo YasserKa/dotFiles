@@ -25,6 +25,7 @@
         }
     },
     "pyright.completion.importSupport": false,
+    "python.linting.flake8Enabled": true,
     "list.nextKeymap": "<C-n>",
     "list.previousKeymap": "<C-p>",
     "list.insertMappings": {
