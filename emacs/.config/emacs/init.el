@@ -738,7 +738,7 @@ Made for `org-tab-first-hook' in evil-mode."
       )
     (org-store-new-agenda-file-list curr-files)
     ;; Sort agenda files, so that there's not that often changes to be tracked by git
-    (shell-command (concat "sort " (concat user-emacs-directory "agenda_files") " | sponge " (concat user-emacs-directory "agenda_files")))
+    (shell-command (concat "sort " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files") " | sponge " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files")))
     (let ((inhibit-message)) (org-install-agenda-files-menu))
     )
 
@@ -1018,7 +1018,7 @@ see how ARG affects this command."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none && sleep 2 && " path_to_script " smart")))
-  (setq org-agenda-files (concat user-emacs-directory "agenda_files"))
+  (setq org-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/agenda_files"))
   )
 
 (use-package org-superstar
