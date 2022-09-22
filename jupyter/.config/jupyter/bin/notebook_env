@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+# Dependencies: poetry
+
 # Install packages needed for using vim and jupyter notebook
 # and create notebooks that sync both notebooks and python files
 
 
-[[ "$1" && "$1" != "init" && "$1" != "create" ]] && \
+[[ ! "$1" && "$1" != "init" && "$1" != "create" ]] && \
     echo "Need an argument, 'init' or 'create <notebook>'" && exit
 
 [[ "$1" == "create" && -z "$2" ]] && \
@@ -12,8 +14,8 @@
 
 if [[ "$1" == "init" ]]; then
     # Install jupytext and jupyter_ascending for syncing
-    pipenv install --dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
-    pipenv shell
+    poetry add --group dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
+    poetry shell
 
     jupyter nbextension install jupytext --py --user
     jupyter nbextension enable  jupytext  --py --user

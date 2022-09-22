@@ -351,14 +351,17 @@ vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\
             \ :let @/ = "" <bar> set hlsearch<CR>
 " }}}
 " {{{ Jupyter Ascending
+
+function! OpenJupyterNotebook()
+    let notebook_path = "http://localhost:8888/notebooks/".expand('%')[:-3]."ipynb"
+    execute "silent ! qutebrowser --target window " . notebook_path . " &"
+endfunction
 augroup NOTEBOOK
     autocmd!
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>e <Plug>JupyterExecute
     autocmd BufRead,BufNewFile *.sync.py nmap  <leader>E <Plug>JupyterExecuteAll
 
-    autocmd BufRead,BufNewFile *.sync.py let notebook_path = "http://localhost:8888/notebooks/".expand('%')[:-3]."ipynb"
-
-    autocmd BufRead,BufNewFile *.sync.py nnoremap <leader>O :execute "silent ! qutebrowser --target window " . notebook_path . " &"<CR>
+    autocmd BufRead,BufNewFile *.sync.py nnoremap <leader>O :call OpenJupyterNotebook()<CR>
 augroup END
 " }}}
 " which-key {{{
@@ -471,7 +474,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'sh': ['shfmt'],
-            \   'python': ['autopep8'],
+            \   'python': ['black'],
             \   'SQL': ['sqlint'],
             \   'js': ['eslint'],
             \}
