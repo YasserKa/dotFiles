@@ -1,0 +1,28 @@
+# The primary purpose of mailctl is providing IMAP/SMTP clients with the
+# capabilities of renewal and authorization of OAuth2 credentials.
+# Accordingly only the OAuth2 related config entries are mandatory.
+
+# These four entries should be use for OAuth2 access method
+services_file: /home/yasser/.config/mailctl/services.yaml
+oauth2_dir: /home/yasser/.local/var/mailctl
+# This encryption method using gnupg.
+# Alternatives like gnome-keyring can also be configured here.
+encrypt_cmd:
+  exec: gpg
+  args:
+    - -e
+    - -r
+    - 116F256041ACF55D33334B77F69626AEBEC29AA7
+    - -o
+decrypt_cmd:
+  exec: gpg
+  args:
+    - --decrypt
+
+# Only if you are using a password manager for traditional access methods
+# This is an example of using `pass`
+password_store: /home/yasser/.password-store
+pass_cmd:
+  exec: pass
+  args:
+    - email/

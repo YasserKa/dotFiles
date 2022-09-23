@@ -10,6 +10,8 @@ port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
 auth oauthbearer
-passwordeval ~/.config/neomutt/bin/oauth2tool gmail
+passwordeval mailctl access yasser.kaddoura19@gmail.com
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
 
 # vim:filetype=msmtp commentstring=#%s

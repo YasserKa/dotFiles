@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash setup-ambient-music
+install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash setup-ambient-music messages-end
 
 .PHONY: stow-etc
 stow-etc:
@@ -17,14 +17,16 @@ install-aur-helper: stow-etc
 
 .PHONY: pre-install-packages
 pre-install-packages:
-	mkdir -p $(HOME)/Pictures
-	mkdir -p $(XDG_DATA_HOME)/applications
-	mkdir -p $(XDG_CONFIG_HOME)/systemd/user
-	mkdir -p $(XDG_CONFIG_HOME)/cmus
-	mkdir -p $(XDG_CONFIG_HOME)/jupyter
-	mkdir -p $(XDG_CONFIG_HOME)/emacs
-	mkdir -p $(XDG_CONFIG_HOME)/nvim
-	mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
+	@echo "Creating directories"
+	@mkdir -p $(HOME)/Pictures
+	@mkdir -p $(XDG_DATA_HOME)/applications
+	@mkdir -p $(XDG_CONFIG_HOME)/systemd/user
+	@mkdir -p $(XDG_CONFIG_HOME)/cmus
+	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
+	@mkdir -p $(XDG_CONFIG_HOME)/emacs
+	@mkdir -p $(XDG_CONFIG_HOME)/nvim
+	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
+	@mkdir -p $(XDG_CONFIG_HOME)/mailctl
 	rm $(HOME)/.bashrc $(HOME)/.bash_profile
 	sudo pacman --sync --refresh --sysupgrade --noconfirm stow
 
@@ -80,6 +82,17 @@ setup-bash:
 setup-tmux:
 	@# Setup Tmux plugin manager
 	 git clone https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+
+.PHONY: setup-mailctl
+setup-mailctl:
+	@# Setup Tmux plugin manager
+	@cp /usr/share/mailctl/configs/services-template.yaml $(XDG_CONFIG_HOME)/mailctl/
+	@mkdir -p $(HOME)/.local/var/mailctl
+
+.PHONY: messages-end
+messages-end:
+	@# Setup Tmux plugin manager
+	@echo "Make sure to update $(XDG_CONFIG_HOME)/mailctl/services-templte.yaml"
 
 .PHONY: setup-neovim
 setup-neovim:
