@@ -56,9 +56,12 @@ function upgrade_system() {
         (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
         (auto-packages-update-now))"
 
+    echo "Upgrading PyPi packages"
+    pip install --upgrade tmuxp --user
+
     echo 'Use the following commands to checkup on the system:
     systemctl --failed --user
-    xorglog
+    logxorg
     sudo journalctl -p 3 -b'
 }
 
@@ -135,7 +138,7 @@ function open_file () {
     [[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] \
         && notify-send "$TERMINAL not supported for open_file function" \
         && return 1
-    
+
     path="$1" 
     shift
     cd "$path" || exit 1
@@ -154,29 +157,29 @@ function open_file () {
     fi
 }
 
-alias rcreadline='open_file $XDG_CONFIG_HOME/readline inputrc'
-alias rcgpg='open_file $GNUPGHOME gpg-agent.conf'
-alias rcssh='open_file $HOME ssh sshd_config'
-alias rcx11='open_file ${XINITRC%/*} xinitrc'
+alias rcreadline='open_file $XDG_CONFIG_HOME/readline inputrc \*'
+alias rcgpg='open_file $GNUPGHOME gpg-agent.conf \*'
+alias rcssh='open_file $HOME ssh sshd_config \*'
+alias rcx11='open_file ${XINITRC%/*} xinitrc \*'
 alias rcbash='open_file $HOME .bashrc .bash_profile .profile .bashrc.d/*bash'
 alias rckitty='open_file $XDG_CONFIG_HOME/kitty kitty.conf \*'
-alias rcvim='open_file $XDG_CONFIG_HOME/nvim init.vim'
-alias rci3='open_file $XDG_CONFIG_HOME/i3 config'
-alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc'
+alias rcvim='open_file $XDG_CONFIG_HOME/nvim init.vim \*'
+alias rci3='open_file $XDG_CONFIG_HOME/i3 config \*'
+alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc \*'
 alias rctuir='open_file $XDG_CONFIG_HOME/tuir tuir.cfg'
 alias rcnewsboat='open_file $XDG_CONFIG_HOME/newsboat \*'
-alias rcfeh='open_file $XDG_CONFIG_HOME/feh keys'
-alias rctmux='open_file $TMUX_CONFIG .tmux.conf'
-alias rcrofi='open_file $XDG_CONFIG_HOME/rofi config.rasi'
-alias rcdunst='open_file $XDG_CONFIG_HOME/dunst dunstrc'
-alias rcpolybar='open_file $XDG_CONFIG_HOME/polybar config.ini'
-alias rctmux='open_file $XDG_CONFIG_HOME/tmux tmux.conf'
-alias rczathura='open_file $XDG_CONFIG_HOME/zathura zathurarc'
+alias rcfeh='open_file $XDG_CONFIG_HOME/feh keys \*'
+alias rctmux='open_file $TMUX_CONFIG .tmux.conf \*'
+alias rcrofi='open_file $XDG_CONFIG_HOME/rofi config.rasi \*'
+alias rcdunst='open_file $XDG_CONFIG_HOME/dunst dunstrc \*'
+alias rcpolybar='open_file $XDG_CONFIG_HOME/polybar config.ini \*'
+alias rctmux='open_file $XDG_CONFIG_HOME/tmux tmux.conf \*'
+alias rczathura='open_file $XDG_CONFIG_HOME/zathura zathurarc \*'
 alias rcqutebrowser='open_file $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*'
 alias cron='open_file $XDG_CONFIG_HOME/cron crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
 # Open Emacs's config file in Emacs
-alias rcemacs="emacs --file $XDG_CONFIG_HOME/emacs/init.el"
+alias rcemacs='emacs --file $XDG_CONFIG_HOME/emacs/init.el'
 
 open_gui() {
     local name="$1"
