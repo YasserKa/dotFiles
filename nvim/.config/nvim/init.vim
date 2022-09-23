@@ -16,6 +16,7 @@ Plug 'https://github.com/terryma/vim-expand-region'
 " Visual
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter-context' " Sticky line for current scope
+Plug 'https://github.com/romainl/vim-cool' " Disabel search highlighting when done
 
 " Aesthetics
 " Make strings related to colors more colorful
@@ -289,6 +290,10 @@ augroup RAINBOW
     autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 let g:rbpt_max = 16
+" }}}
+" vim-cool {{{
+" Show number of matches in command-line
+let g:CoolTotalMatches = 1
 " }}}
 " pear-tree {{{
 let g:pear_tree_repeatable_expand = 0
