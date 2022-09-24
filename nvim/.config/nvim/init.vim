@@ -13,10 +13,12 @@ Plug 'https://github.com/junegunn/vim-easy-align'
 " Expand/shrink visual region via _ & +
 Plug 'https://github.com/terryma/vim-expand-region'
 
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
 " Visual
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter-context' " Sticky line for current scope
-Plug 'https://github.com/romainl/vim-cool' " Disabel search highlighting when done
+Plug 'https://github.com/romainl/vim-cool' " Disable search highlighting when done
 
 " Aesthetics
 " Make strings related to colors more colorful
@@ -153,6 +155,9 @@ nnoremap <expr> j      v:count == 0 ? 'gj' : 'j'
 " Sessions
 set sessionoptions-=options
 set sessionoptions+=localoptions
+
+" Quit vim without getting a warning of other uneditted files
+autocmd QuitPre * qa
 
 function! MakeSession()
     let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()

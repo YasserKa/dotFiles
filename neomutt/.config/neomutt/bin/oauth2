@@ -90,7 +90,7 @@ except subprocess.CalledProcessError:
 
 
 def writetokenfile():
-    subprocess.run(ENCRYPTION_PIPE, check=True, input=json.dumps(token).encode())
+    subprocess.run(ENCRYPTION_PIPE + [args.account], check=True, input=json.dumps(token).encode())
 
 
 if args.debug:
@@ -249,7 +249,7 @@ if args.authorize:
         print(response['message'])
         del p['scope']
         p.update({'grant_type': 'urn:ietf:params:oauth:grant-type:device_code',
-                  'client_secret': registration['client_secret'],
+                  'client_secret': token['client_secret'],
                   'device_code': response['device_code']})
         interval = int(response['interval'])
         print('Polling...', end='', flush=True)
@@ -295,7 +295,7 @@ if not access_token_valid():
     if not token['refresh_token']:
         sys.exit('ERROR: No refresh token. Run script with "--authorize".')
     p = baseparams.copy()
-    p.update({'client_secret': registration['client_secret'],
+    p.update({'client_secret': token['client_secret'],
               'refresh_token': token['refresh_token'],
               'grant_type': 'refresh_token'})
     try:

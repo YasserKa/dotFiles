@@ -153,7 +153,7 @@ function open_file () {
         $EDITOR +only -o $files_to_open
     else
         # shellcheck disable=SC2086
-        $_EDITOR_GUI $files_to_open -- -o +only
+        $TERMINAL -e "$EDITOR" $files_to_open
     fi
 }
 
@@ -165,21 +165,24 @@ alias rcbash='open_file $HOME .bashrc .bash_profile .profile .bashrc.d/*bash'
 alias rckitty='open_file $XDG_CONFIG_HOME/kitty kitty.conf \*'
 alias rcvim='open_file $XDG_CONFIG_HOME/nvim init.vim \*'
 alias rci3='open_file $XDG_CONFIG_HOME/i3 config \*'
-alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc \*'
+alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc \* \*/**'
 alias rctuir='open_file $XDG_CONFIG_HOME/tuir tuir.cfg'
 alias rcnewsboat='open_file $XDG_CONFIG_HOME/newsboat \*'
 alias rcfeh='open_file $XDG_CONFIG_HOME/feh keys \*'
-alias rctmux='open_file $TMUX_CONFIG .tmux.conf \*'
+alias rctmux='open_file $TMUX_CONFIG tmux.conf \* \bin/*'
 alias rcrofi='open_file $XDG_CONFIG_HOME/rofi config.rasi \*'
 alias rcdunst='open_file $XDG_CONFIG_HOME/dunst dunstrc \*'
 alias rcpolybar='open_file $XDG_CONFIG_HOME/polybar config.ini \*'
 alias rctmux='open_file $XDG_CONFIG_HOME/tmux tmux.conf \*'
 alias rczathura='open_file $XDG_CONFIG_HOME/zathura zathurarc \*'
-alias rcqutebrowser='open_file $XDG_CONFIG_HOME/qutebrowser config.py userscripts/*'
-alias cron='open_file $XDG_CONFIG_HOME/cron crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
+alias rcqutebrowser='open_file $XDG_CONFIG_HOME/qutebrowser config.py \userscripts/*'
 
 # Open Emacs's config file in Emacs
 alias rcemacs='emacs --file $XDG_CONFIG_HOME/emacs/init.el'
+
+alias rcdotfiles='$TERMINAL -e --directory $HOME/dotfiles/'
+alias cron='open_file $XDG_CONFIG_HOME/cron crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
+
 
 open_gui() {
     local name="$1"
@@ -210,7 +213,7 @@ function magit() {
     open_gui $name "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
 }
 
-alias dotfiles='cd $HOME/dotfiles && magit'
+alias gitdotfiles='cd $HOME/dotfiles && magit'
 
 function syncorg() {
     emacsclient --no-wait --eval "(org-save-all-org-buffers)"

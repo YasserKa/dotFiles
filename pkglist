@@ -240,7 +240,6 @@ urlscan # Mutt and terminal url selector
 # Show email
 w3m # Text-based Web browser as well as pager
 mailcap # Helper application and MIME type associations for file types
-mailctl-bin # Provide Oauth2 renewal and authorization capabilities
 isync # IMAP and MailDir mailbox synchronizer
 msmtp # A mini smtp client
 notmuch # Notmuch is not much of an email program
