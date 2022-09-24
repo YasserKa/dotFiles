@@ -156,9 +156,6 @@ nnoremap <expr> j      v:count == 0 ? 'gj' : 'j'
 set sessionoptions-=options
 set sessionoptions+=localoptions
 
-" Quit vim without getting a warning of other uneditted files
-autocmd QuitPre * qa
-
 function! MakeSession()
     let b:sessiondir = $XDG_DATA_HOME . "/nvim/sessions" . getcwd()
     if (filewritable(b:sessiondir) != 2)
