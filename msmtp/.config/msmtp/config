@@ -10,7 +10,7 @@ port 587
 from yasser.kaddoura19@gmail.com
 user yasser.kaddoura19@gmail.com
 auth oauthbearer
-passwordeval mailctl access yasser.kaddoura19@gmail.com
+passwordeval ~/.config/neomutt/bin/oauth2 google_personal
 tls on
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
 

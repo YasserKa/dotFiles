@@ -3,7 +3,7 @@ Host imap.gmail.com
 Port 993
 User yasser.kaddoura19@gmail.com
 AuthMechs XOAUTH2
-PassCMD "mailctl access yasser.kaddoura19@gmail.com"
+PassCmd "$XDG_CONFIG_HOME/neomutt/bin/oauth2 google_personal"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
