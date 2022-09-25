@@ -142,6 +142,7 @@ function open_file() {
         return 1
 
     local -r DIRECTORY_PATH="$1"
+    shift
     [[ ! -d "${DIRECTORY_PATH}" ]] && notify-send "${DIRECTORY_PATH} doesn't exist" && exit 1
 
     # Check if it's in a terminal
