@@ -1,14 +1,19 @@
 ;; -*- lexical-binding: t; -*-
-;; Initialization (speed up)
+;; Initialization / Startup {{{
 ;; Initialize package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
+
+;; Remove startup screen and miniuffer message
+(setq inhibit-startup-message t)
+(defun display-startup-echo-area-message () (message nil))
+
 ;; Raise gc while during startup and when minibuffer is active
+(setq my/gc-cons-threshold 16777216) ;; 16mb
+
 (defun my/defer-garbage-collection-h ()
   (setq gc-cons-threshold most-positive-fixnum))
-
-(setq my/gc-cons-threshold 16777216) ;; 16mb
 
 ;; Startup
 (my/defer-garbage-collection-h)
@@ -52,14 +57,42 @@
 ;; Place Emacs generated variables somewhere else, and don't load them
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
-;; Use y/n for yes/no prompts
-(fset 'yes-or-no-p 'y-or-n-p)
-
 ;; Used to update the package from upgrade_system bash function
 (use-package auto-package-update
   :config
   ;; Delete the old version on updates.
   (setq auto-package-update-delete-old-versions t))
+;; }}}
+;; Misc {{{
+;; Use y/n for yes/no prompts
+(fset 'yes-or-no-p 'y-or-n-p)
+;; Don't save bookmarks, because it's making annoying prompts
+(setq bookmark-save-flag nil)
+;; Exit emacs without getting a prompt to kill processes
+(setq confirm-kill-processes nil)
+;; Better help
+(use-package helpful)
+;; Setting it from <C-h>
+(setq help-char (string-to-char "?"))
+;; Remove backup files (ends with ~)
+;; Remove auto-recover files
+(setq auto-save-default nil)
+(setq ad-redefinition-action 'accept)
+
+(use-package openwith
+  :config
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '("mpg" "mpeg" "mp3" "mp4"
+                  "avi" "wmv" "wav" "mov" "flv"
+                  "ogm" "ogg" "mkv")) "mpv" '(file))
+         (list (openwith-make-extension-regexp
+                '("pdf" "epub" "djvu")) "okular" '(file))
+         (list (openwith-make-extension-regexp
+                '("markdown")) (getenv "_EDITOR_GUI") '(file))
+         ))
+  (openwith-mode t))
 
 ;; Saves files such as undo tree and auto saves in .emacs.d
 (use-package no-littering
@@ -75,7 +108,39 @@
           (apply oldfun args))
       (advice-remove #'message message-off))))
 
-;; Aesthetics
+;; Auto update to window size
+(use-package golden-ratio
+  :init
+  (golden-ratio-mode 1)
+  :after (evil evil-collection)
+  :config
+  (defun my/toggle-evil-window-keys-golden-ratio ()
+    (if (bound-and-true-p golden-ratio-mode)
+        ;; Enable
+        (progn
+          (advice-add 'evil-window-down :after 'golden-ratio)
+          (advice-add 'evil-window-up :after 'golden-ratio)
+          (advice-add 'evil-window-right :after 'golden-ratio)
+          (advice-add 'evil-window-left :after 'golden-ratio)
+          )
+      ;; Disable
+      (progn
+        (balance-windows)
+        (advice-remove 'evil-window-down  'golden-ratio)
+        (advice-remove 'evil-window-up  'golden-ratio)
+        (advice-remove 'evil-window-right  'golden-ratio)
+        (advice-remove 'evil-window-left  'golden-ratio)
+        )
+      )
+    )
+  (my/toggle-evil-window-keys-golden-ratio)
+
+  (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
+
+  (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode))
+
+;; }}}
+;; Aesthetics {{{
 (add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
 
 ;; Enable line numbers for some modes
@@ -85,10 +150,6 @@
   (add-hook mode (lambda ()
                    (display-line-numbers-mode)
                    (setq display-line-numbers 'relative))))
-
-;; Remove startup screen and miniuffer message
-(setq inhibit-startup-message t)
-(defun display-startup-echo-area-message () (message nil))
 
 ;; Remove emacs' bars
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -112,23 +173,6 @@
 (setq scroll-margin 5)
 (setq scroll-conservatively 5)
 
-;; Avoid being prompted with symbolic link to git-controlled
-(setq vc-follow-symlinks t)
-
-;; Don't save bookmarks, because it's making annoying prompts
-(setq bookmark-save-flag nil)
-
-;; Setting it from <C-h>
-(setq help-char (string-to-char "?"))
-
-;; Exit emacs without getting a prompt to kill processes
-(setq confirm-kill-processes nil)
-
-;; Trims spaces from end of line
-(use-package ws-butler
-  :hook ((text-mode . ws-butler-mode)
-         (prog-mode . ws-butler-mode)))
-
 ;; Unfolding an item with emojis is slow, this package fixes this problem
 (use-package emojify
   :init
@@ -150,25 +194,12 @@
   (show-paren-delay 0)
   :config (show-paren-mode 1)
   )
-
-;; Better help
-(use-package helpful)
-
-
-(use-package openwith
-  :config
-  (setq openwith-associations
-        (list
-         (list (openwith-make-extension-regexp
-                '("mpg" "mpeg" "mp3" "mp4"
-                  "avi" "wmv" "wav" "mov" "flv"
-                  "ogm" "ogg" "mkv")) "mpv" '(file))
-         (list (openwith-make-extension-regexp
-                '("pdf" "epub" "djvu")) "okular" '(file))
-         (list (openwith-make-extension-regexp
-                '("markdown")) (getenv "_EDITOR_GUI") '(file))
-         ))
-  (openwith-mode t))
+;; }}}
+;; Editing {{{
+;; Trims spaces from end of line
+(use-package ws-butler
+  :hook ((text-mode . ws-butler-mode)
+         (prog-mode . ws-butler-mode)))
 
 ;; Auto close pairs
 (use-package elec-pair
@@ -193,16 +224,12 @@
                              (add-to-list 'insert-pair-alist (list ?\$ ?\$))
                              (define-key org-mode-map (kbd "$")
                                #'(lambda () (interactive)
-                                   (if (org-in-src-block-p) (insert "$") (insert-pair))))
-                             ))
+                                   (if (org-in-src-block-p) (insert "$") (insert-pair)))))
+            )
   (electric-pair-mode 1)
   )
 
-;; Remove backup files (ends with ~)
-;; Remove auto-recover files
-(setq auto-save-default nil)
-(setq ad-redefinition-action 'accept)
-
+;; Spell checking
 (use-package flyspell
   :ensure nil
   :custom
@@ -227,6 +254,7 @@
                             )))
   )
 
+;; Snippet engine
 (use-package yasnippet
   :custom
   (yas-snippet-dirs (list (concat user-emacs-directory "snippets")))
@@ -257,48 +285,6 @@
                 (append '((company-capf company-yasnippet)) company-backends)))
   (add-hook 'org-mode #'my/append-company-backends)
   )
-
-;; Traverse file changes in git
-(use-package git-timemachine)
-(use-package browse-at-remote)
-(use-package git-gutter
-  :init
-  :disabled
-  (global-git-gutter-mode t)
-  :config
-  (custom-set-variables
-   '(git-gutter:visual-line t)
-   '(git-gutter:window-width 1))
-  )
-
-(use-package magit
-  :after evil-collection
-  :custom
-  (evil-collection-magit-use-y-for-yank t)
-  (evil-collection-magit-want-horizontal-movement t)
-  ;; Update return in repo list, should be done after evil-collection
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1) ("/srv/http/cooldown" . 0)))
-  :config
-
-  ;; This is needed to enter password for signing via gpg , since I am using curses for pinentry
-  (use-package pinentry
-    :config (pinentry-start))
-
-  (setenv "PINENTRY_USER_DATA" "USE_CURSES=0")
-  (evil-define-key 'normal magit-status-mode-map
-    (kbd "?") 'evil-search-backward
-    (kbd "<return>") 'my/vil-diff-visit-file)
-
-  ;; Open file using nvim
-  (defun my/vil-diff-visit-file (file &optional other-window)
-    (interactive (list (magit-file-at-point t t) current-prefix-arg))
-    (shell-command (concat (getenv "_EDITOR_GUI") " " file nil)))
-  )
-
-(use-package magit-delta
-  :disabled
-  :hook (magit-mode . magit-delta-mode))
 
 (use-package evil
   :init
@@ -372,7 +358,6 @@
   :config (use-package vimish-fold)
   )
 
-
 ;; Expand/contract selected region
 (use-package expand-region
   :after evil
@@ -415,6 +400,9 @@
 ;; Needed for evil-undo-system
 ;; Used instead of undo-fu because of tree visualizer
 (use-package undo-tree
+  ;; t : timestamp
+  ;; d : diff
+  ;; s : selection
   :after evil
   :init (global-undo-tree-mode)
   :hook ((evil-collection-setup . (lambda (mode-keymaps &rest _rest)
@@ -479,6 +467,56 @@
     (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
     )
   )
+;;; }}}
+;; Git {{{
+;; Traverse file changes in git
+;; Avoid being prompted with symbolic link to git-controlled
+(setq vc-follow-symlinks t)
+
+(use-package git-timemachine)
+(use-package browse-at-remote)
+(use-package git-gutter
+  :init
+  :config
+(dolist (mode '(prog-mode-hook
+                conf-mode-hook))
+  (add-hook mode 'git-gutter-mode))
+
+  (custom-set-variables
+   '(git-gutter:visual-line t)
+   '(git-gutter:window-width 1))
+  )
+
+(use-package magit
+  :after evil-collection
+  :custom
+  (evil-collection-magit-use-y-for-yank t)
+  (evil-collection-magit-want-horizontal-movement t)
+  ;; Update return in repo list, should be done after evil-collection
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+  (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1)))
+  :config
+
+  ;; This is needed to enter password for signing via gpg , since I am using curses for pinentry
+  (use-package pinentry
+    :config (pinentry-start))
+
+  (setenv "PINENTRY_USER_DATA" "USE_CURSES=0")
+  (evil-define-key 'normal magit-status-mode-map
+    (kbd "?") 'evil-search-backward
+    (kbd "<return>") 'my/vil-diff-visit-file)
+
+  ;; Open file using nvim
+  (defun my/vil-diff-visit-file (file &optional other-window)
+    (interactive (list (magit-file-at-point t t) current-prefix-arg))
+    (shell-command (concat (getenv "_EDITOR_GUI") " " file nil)))
+  )
+
+(use-package magit-delta
+  :disabled
+  :hook (magit-mode . magit-delta-mode))
+;; }}}
+;; Org {{{
 
 (defun my/org-mode-setup ()
   ;; Indentation for headings and items
@@ -788,11 +826,21 @@ Made for `org-tab-first-hook' in evil-mode."
     (when (and (string= org-state "NEXT")
                (not (string= org-last-state org-state)))
       (org-clock-in)))
+
   (add-hook 'org-after-todo-state-change-hook
             'my/org-clock-in-if-next)
-  (defadvice org-clock-in (after my activate)
-    "Set this task's status to 'NEXT'."
-    (org-todo "NEXT"))
+
+  (setq org-clock-out-switch-to-state "TODO")
+  (setq org-clock-in-switch-to-state "NEXT")
+
+  (defun my/org-clock-out-done ()
+    "Clock out and switch state of task to done"
+    (interactive)
+    (setq org-clock-out-switch-to-state "DONE")
+    (org-clock-out)
+    (setq org-clock-out-switch-to-state "TODO"))
+
+
   (defun my/org-clock-out-if-todo ()
     "Clock out when the task is marked TODO."
     (when (and (string= org-state "TODO")
@@ -838,6 +886,7 @@ see how ARG affects this command."
                 (y-or-n-p "No active clock. Clock in on current item?"))
            (org-clock-in))
           ((org-clock-in-last arg))))
+
 
   ;; Source code indentation
   (setq org-src-preserve-indentation t
@@ -1080,6 +1129,37 @@ see how ARG affects this command."
   (org-roam-ui-open-on-start t)
   )
 
+;; ORG NOTIFICATION
+(use-package appt
+  :after org
+  :ensure nil
+  :config (appt-activate 1)
+
+  (setq appt-time-msg-list nil                      ;; clear existing appt list
+        appt-message-warning-time '10                    ;; send first warning before appointment
+        appt-display-interval '5                         ;; warn every every X minutes from t - appt-message-warning-time
+        appt-display-mode-line nil                       ;; don't show in the modeline
+        appt-display-format 'window)                     ;; pass warnings to the designated window function
+  (setq appt-disp-window-function (function toast-appt-display))
+
+  ;; Set up the call to the notifier
+  (defun toast-appt-send-notification (title msg)
+    (shell-command (concat "/usr/bin/dunstify --appname emacs_org " " \"" title "\" \"" msg "\"")))
+
+  ;; Designate the window function for my/appt-send-notification
+  (defun toast-appt-display (min-to-app new-time msg)
+    (toast-appt-send-notification
+     (format "%s minutes" min-to-app)    ;; passed to -t in toast call
+     (format "%s" msg))                                 ;; passed to -m in toast call
+    (message nil))
+
+  (defun org-agenda-to-appt-clear-message ()
+    (interactive) (let ((inhibit-message t)) (setq appt-time-msg-list nil) (org-agenda-to-appt)))
+
+  ;; generate the appt list from org agenda files on emacs launch
+  (run-at-time nil 3600 'org-agenda-to-appt))
+;; }}}
+;; Navigation {{{
 (use-package vertico
   :init (vertico-mode)
   :custom
@@ -1126,7 +1206,6 @@ see how ARG affects this command."
     (evil-window-split)
     (org-roam-node-find))
   )
-
 
 ;; Improves Vertico's completion
 (use-package orderless
@@ -1182,70 +1261,7 @@ see how ARG affects this command."
                 "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
                 "\\)"))
   )
-
-;; ORG NOTIFICATION
-(use-package appt
-  :after org
-  :ensure nil
-  :config (appt-activate 1)
-
-  (setq appt-time-msg-list nil                      ;; clear existing appt list
-        appt-message-warning-time '10                    ;; send first warning before appointment
-        appt-display-interval '5                         ;; warn every every X minutes from t - appt-message-warning-time
-        appt-display-mode-line nil                       ;; don't show in the modeline
-        appt-display-format 'window)                     ;; pass warnings to the designated window function
-  (setq appt-disp-window-function (function toast-appt-display))
-
-  ;; Set up the call to the notifier
-  (defun toast-appt-send-notification (title msg)
-    (shell-command (concat "/usr/bin/dunstify --appname emacs_org " " \"" title "\" \"" msg "\"")))
-
-  ;; Designate the window function for my/appt-send-notification
-  (defun toast-appt-display (min-to-app new-time msg)
-    (toast-appt-send-notification
-     (format "%s minutes" min-to-app)    ;; passed to -t in toast call
-     (format "%s" msg))                                 ;; passed to -m in toast call
-    (message nil))
-
-  (defun org-agenda-to-appt-clear-message ()
-    (interactive) (let ((inhibit-message t)) (setq appt-time-msg-list nil) (org-agenda-to-appt)))
-
-  ;; generate the appt list from org agenda files on emacs launch
-  (run-at-time nil 3600 'org-agenda-to-appt))
-
-;; Misc
-;; Auto update to window size
-(use-package golden-ratio
-  :init
-  (golden-ratio-mode 1)
-  :after evil
-  :config
-  (defun my/toggle-evil-window-keys-golden-ratio ()
-    (if (bound-and-true-p golden-ratio-mode)
-        ;; Enable
-        (progn
-          (advice-add 'evil-window-down :after 'golden-ratio)
-          (advice-add 'evil-window-up :after 'golden-ratio)
-          (advice-add 'evil-window-right :after 'golden-ratio)
-          (advice-add 'evil-window-left :after 'golden-ratio)
-          )
-      ;; Disable
-      (progn
-        (balance-windows)
-        (advice-remove 'evil-window-down  'golden-ratio)
-        (advice-remove 'evil-window-up  'golden-ratio)
-        (advice-remove 'evil-window-right  'golden-ratio)
-        (advice-remove 'evil-window-left  'golden-ratio)
-        )
-      )
-    )
-  (my/toggle-evil-window-keys-golden-ratio)
-
-  (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
-
-  (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode)
-  )
-
+;; }}}
 ;; Vim leader / which-key {{{
 (use-package which-key
   :init
@@ -1296,6 +1312,44 @@ see how ARG affects this command."
             )
   )
 
+(defun my/org-refile-to-current-file (arg &optional file)
+  "Refile current heading to elsewhere in the current buffer.
+If prefix ARG, copy instead of move."
+  (interactive "P")
+  (let ((org-refile-targets `((,file :maxlevel . 10)))
+        (org-refile-use-outline-path t)
+        (org-refile-keep arg)
+        current-prefix-arg)
+    (call-interactively #'org-refile)))
+
+(defun my/org-refile-to-running-clock (arg)
+  "Refile current heading to the currently clocked in task.
+If prefix ARG, copy instead of move."
+  (interactive "P")
+  (unless (bound-and-true-p org-clock-current-task)
+    (user-error "No active clock to refile to"))
+  (let ((org-refile-keep arg))
+    (org-refile 2)))
+
+(defun my/active-minor-modes ()
+  "Return a list of active minor-mode symbols."
+  (cl-loop for mode in minor-mode-list
+           if (and (boundp mode) (symbol-value mode))
+           collect mode))
+
+(defun my/describe-active-minor-mode (mode)
+  "Get information on an active minor mode. Use `describe-minor-mode' for a
+selection of all minor-modes, active or not."
+  (interactive
+   (list (completing-read "Describe active mode: " (my/active-minor-modes))))
+  (let ((symbol
+         (cond ((stringp mode) (intern mode))
+               ((symbolp mode) mode)
+               ((error "Expected a symbol/string, got a %s" (type-of mode))))))
+    (if (fboundp symbol)
+        (helpful-function symbol)
+      (helpful-variable symbol))))
+
 (use-package hydra)
 (defun org-capture-full-screen ()
   (interactive)
@@ -1326,6 +1380,7 @@ see how ARG affects this command."
   (" o" browse-at-remote "browse at remote")
 
   (" t" git-timemachine-toggle "toggle" :column " timemachine")
+  ;; C-j C-k previous/forward historic version
   )
 
 (defhydra help-hydra (:exit t :idle 1)
@@ -1336,7 +1391,7 @@ see how ARG affects this command."
   (" b" embark-bindings "binding")
   (" f" helpful-callable "function")
   (" c" helpful-command "command")
-  (" p" helfpul-at-point "at point")
+  (" p" helpful-at-point "at point")
   (" l" find-library "library file")
   (" L" apropos-library "library commands" :column "")
   (" m" describe-mode "all modes")
@@ -1362,6 +1417,7 @@ see how ARG affects this command."
 (defhydra org-clock-hydra (:exit t :hint nil :idle 1)
   (" i" org-clock-in "in" :column "clock")
   (" o" org-clock-out "out")
+  (" d" my/org-clock-out-done "done")
   (" t" my/org-toggle-last-clock "toggle")
   (" c" org-clock-cancel "cancel")
   (" g" org-clock-goto "goto" :column "")
@@ -1407,25 +1463,6 @@ see how ARG affects this command."
   (" p" org-insert-last-stored-link "paste last")
   )
 
-(defun my/org-refile-to-current-file (arg &optional file)
-  "Refile current heading to elsewhere in the current buffer.
-If prefix ARG, copy instead of move."
-  (interactive "P")
-  (let ((org-refile-targets `((,file :maxlevel . 10)))
-        (org-refile-use-outline-path t)
-        (org-refile-keep arg)
-        current-prefix-arg)
-    (call-interactively #'org-refile)))
-
-(defun my/org-refile-to-running-clock (arg)
-  "Refile current heading to the currently clocked in task.
-If prefix ARG, copy instead of move."
-  (interactive "P")
-  (unless (bound-and-true-p org-clock-current-task)
-    (user-error "No active clock to refile to"))
-  (let ((org-refile-keep arg))
-    (org-refile 2)))
-
 ;; Agenda
 (defhydra agenda-hydra (:exit t :idle 1 :inherit (main-hydra/heads))
   (" c" agenda-clock-hydra/body " clock" :column " agenda")
@@ -1445,23 +1482,4 @@ If prefix ARG, copy instead of move."
   (" w"	org-agenda-week-view "week")
   (" m"	org-agenda-month-view "month")
   (" y"	org-agenda-year-view "year"))
-
-(defun my/active-minor-modes ()
-  "Return a list of active minor-mode symbols."
-  (cl-loop for mode in minor-mode-list
-           if (and (boundp mode) (symbol-value mode))
-           collect mode))
-
-(defun my/describe-active-minor-mode (mode)
-  "Get information on an active minor mode. Use `describe-minor-mode' for a
-selection of all minor-modes, active or not."
-  (interactive
-   (list (completing-read "Describe active mode: " (my/active-minor-modes))))
-  (let ((symbol
-         (cond ((stringp mode) (intern mode))
-               ((symbolp mode) mode)
-               ((error "Expected a symbol/string, got a %s" (type-of mode))))))
-    (if (fboundp symbol)
-        (helpful-function symbol)
-      (helpful-variable symbol))))
 ;; }}}
