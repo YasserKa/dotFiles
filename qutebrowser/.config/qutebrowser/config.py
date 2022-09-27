@@ -134,6 +134,8 @@ c.bindings.commands = {
             },
 }
 config.unbind(':', mode='normal')
+# Don't close window on C-q
+config.unbind('<Ctrl-q>', mode='normal')
 
 c.aliases = {
         'q': 'close',

@@ -122,7 +122,8 @@ bind index,pager,browser \; enter-command
 bind compose \; enter-command
 bind index,pager @ compose-to-sender
 bind compose p postpone-message
-bind index p recall-message                    # Go to postponed messages
+bind compose l display-toggle-weed    # Open attached file
+bind index p recall-message           # Go to postponed messages
 
 # sidebar bindings
 set sidebar_visible = yes
