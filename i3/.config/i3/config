@@ -137,11 +137,12 @@ mode "resize" {
 }
 
 # Emacs org clock
-set $clock_mode "clock (i)n, (o)ut, (c)ancel, (t)oggle, (g)o_to"
+set $clock_mode "clock (i)n, (o)ut, (d)one, (c)ancel, (t)oggle, (g)o_to"
 bindsym $mod+q mode $clock_mode
 mode $clock_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default";
     bindsym o exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default";
+    bindsym d exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_out_done; mode "default";
     bindsym c exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_cancel; mode "default";
     bindsym t exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_toggle; mode "default";
     bindsym g exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock go_to_item; mode "default";

@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
+#
+# Use org mode's clocking in emacs use clock operations
+# This is used by i3 to trigger the functions and polybar to present the output
 
 # Dependencies: Emacs for org mode & wmctrl to focus window
-# Use org mode's clocking in emacs with rofi to navigate and use clock
-# operations
+# TODO: Add more documentation, verbose code, strict code, and refactoring (no need for this many functions)
 
-TMP_FILE_PATH="/tmp/org_current_task"
-SHOW_TASK_NAME=0
+declare -r TMP_FILE_PATH="/tmp/org_current_task"
+# Boolean to output the task name or not (true/false)
+declare -r OUTPUT_TASK_NAME='false'
 
-function go_to_item () {
+go_to_item () {
     [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
 
     CURSOR=$(sed "4q;d" $TMP_FILE_PATH | grep -o '[0-9]*')
@@ -20,24 +23,28 @@ function go_to_item () {
     emacsclient "+$CURSOR" "$FULL_PATH"
 }
 
-function clock_in () {
+clock_in () {
     emacsclient -e "(org-clock-in-last)"
 }
 
-function clock_out () {
+clock_out () {
     emacsclient -e "(org-clock-out)"
 }
 
-function clock_toggle () {
+clock_out_done () {
+    emacsclient -e "(my/org-clock-out-done)"
+}
+
+clock_toggle () {
     emacsclient -e "(my/org-toggle-last-clock nil)"
 }
 
-function clock_cancel () {
+clock_cancel () {
     emacsclient -e "(org-clock-cancel)"
 }
 
 
-function get_time_spent () {
+get_time_spent () {
     local -i NAME_MAX_SIZE=52
 
     [[ ! -e $TMP_FILE_PATH ]] && echo "" && return
@@ -52,8 +59,11 @@ function get_time_spent () {
     TIME_SINCE_CREATION=$(date --date="@$SECONDS_SINCE_CREATION" -u +%H:%M)
 
 
-    # [<X:XX>/X:XX]
+    # [<X:XX>/X:XX] or [<X:XX>] (if effort property doesn't exist)
     TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\/.*|\1|p' <(echo "$TASK_TIME"))"
+    # HACK: if string doesn't exist then the other format is valid
+    [[ -z $TIME_ALREADY_SPENT ]] \
+        && TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\].*|\1|p' <(echo "$TASK_TIME"))"
     # [X:XX/<X:XX>]
     TIME_NEEDED="$(sed -n 's|.*\/\(.*\)\]|\1|p' <(echo "$TASK_TIME"))"
 
@@ -74,7 +84,7 @@ function get_time_spent () {
 
     INFO_TO_SHOW="$TIME_SINCE_CREATION - $TASK_TIME_SHOW"
 
-    if [[ $SHOW_TASK_NAME -eq 1 ]]; then
+    if [[ $OUTPUT_TASK_NAME == 'true' ]]; then
         # Limit the size of information to not overwhelm polybar when the string is too big
         [[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
         INFO_TO_SHOW="${INFO_TO_SHOW} $TASK_NAME"
@@ -83,10 +93,11 @@ function get_time_spent () {
     echo "$INFO_TO_SHOW"
 }
 
-function main () {
+main () {
     case "$1" in
         "clock_in") clock_in ;;
         "clock_out") clock_out ;;
+        "clock_out_done") clock_out_done ;;
         "clock_toggle") clock_toggle ;;
         "clock_cancel") clock_cancel ;;
         "go_to_item") go_to_item ;;
