@@ -70,7 +70,7 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap"
 export FZF_DEFAULT_OPTS="--color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}' --bind='ctrl-j:accept,alt-n:preview-page-down,alt-p:preview-page-up'"
 
 # Expand PATH
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin
 
 # Start manager for GPG & SSH agents
 eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh" id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)"

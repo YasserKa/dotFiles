@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+#
+# Enable tmux sessions to get attached by "client" sessions (i.e. use different
+# windows on different tmux instances at the same time), otherwise attach to a
+# new session or load a template from tmuxp
+# reference:
+# https://wiki.archlinux.org/title/Tmux#Clients_simultaneously_interacting_with_various_windows_of_a_session
+#
+# Dependencies: tmux, tmuxp
+# Arguments $1: session name
+
+declare -r SESSION="$1"
+
+if [[ -z "${SESSION}" ]]; then
+    echo "Specify session name as the first argument" >&2
+    exit 1
+fi
+
+################################################################################
+# Create a new session normally or by loading a template from tmuxp
+# Globals:
+#     SESSION
+################################################################################
+function create_new_session() {
+    if grep -Fw "${SESSION}" <(tmuxp ls) > /dev/null; then
+        echo "Launching using tmuxp template ${SESSION}..."
+        tmuxp load "${SESSION}" -s "$SESSION#0"
+    else
+        tmux new-session -s "${SESSION}"
+    fi
+}
+
+################################################################################
+# Attach a new client to a session
+# Globals:
+#     SESSION
+################################################################################
+create_new_client() {
+    # Otherwise, create a new clinet for the sesion
+    # Attach a client to a session id that's not attached
+    # Note that the session "id" is a concept made by this script just to make
+    # sure that clients don't have the same names
+    local ATTACHED_SESSION_IDS
+    ATTACHED_SESSION_IDS=$(tmux ls | grep "^${SESSION}" | grep "attached" | grep -Po '(?<=#).*?(?=:)')
+    readonly ATTACHED_SESSION_IDS
+
+    # Get a session id that's not occupied by a client
+    local SESSION_ID=0
+    while grep "$SESSION_ID" <(echo "$ATTACHED_SESSION_IDS"); do 
+        SESSION_ID=$((SESSION_ID+1))
+    done
+    readonly SESSION_ID
+
+    local -r CLIENT_NAME="${SESSION}#$SESSION_ID"
+    # Make sure we are not already in a tmux session
+    if [[ -z "$TMUX" ]]; then
+        echo "Launching copy of base session ${SESSION} ..."
+        # Create a new session (without attaching it) and to session
+        # to share windows
+        tmux new-session -d -t "${SESSION}" -s "$CLIENT_NAME"
+        # Attach to the new session & kill it if it's not the original on detach
+        if (( "$SESSION_ID" == 0 )); then
+            tmux attach-session -t "$CLIENT_NAME"
+        else
+            tmux attach-session -t "$CLIENT_NAME" \; set-option destroy-unattached
+        fi
+    fi
+}
+
+main() {
+    local CLIENTS_NUM
+    CLIENTS_NUM="$(tmux ls | grep -c "^${SESSION}")"
+    readonly CLIENTS_NUM
+
+    # If the session, load the template using tmuxp if exists, otherwise create a
+    # generic one
+    if (( CLIENTS_NUM == 0 )); then
+        create_new_session
+    else
+        create_new_client
+    fi
+}
+
+main "$@"

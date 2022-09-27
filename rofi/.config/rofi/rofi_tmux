@@ -1,52 +1,102 @@
 #!/usr/bin/env bash
-
-# Dependencies: bash v5 for mapfile, rofi, tmux
-
-rofi_options=(
-    -p "Tmux Session"                      # Prompt
-    -i                                     # Search case sensitive
-    -dmenu
-    -mesg "<b>Control+d</b>: Kill session" # Message below filter entry 
-    -no-custom                             # Can't choose entry that's not 
-    -kb-delete-entry ""                    # Override <C-d> entry to delete 
-    -kb-custom-1 Control+d                 # exit status 
-    -format "i f"                          # option index, user's 
-    -only-custom                           # Don't allow custom 
-)
-# Tmux sessions
-get_tmux_sessions() { tmux list-session -F '#S'; }
+#
+# A rofi script to create/attach/kill a tmux session or load a template from
+# tmuxp
+# Dependencies: rofi, tmux, tmuxp
 
 # Rofi exit statuses
 # 0: An option has been selected
 # 1: No option has been selected
 # 10-28: Row accepted by custom keybinding
+declare -ra ROFI_OPTIONS=(
+    -p "Tmux Session"                      # Prompt
+    -i                                     # Search case sensitive
+    -dmenu
+    -mesg "<b>C-d</b>: Kill session  <b>C-e</b>: Edit template" # Message below filter entry 
+    -no-custom                             # Can't choose entry that's not 
+    -kb-delete-entry ""                    # Override <C-d>
+    -kb-move-end ""                        # Override <C-e>
+    -kb-custom-1 Control+d                 # exit status 
+    -kb-custom-2 Control+e                 # edit tmuxp template
+    -format "i f"                          # option index, user's 
+    -only-custom                           # Don't allow custom 
+)
+
+# Tmux sessions
+################################################################################
+# Get available sessions and tmuxp templates
+# Outputs:
+#     available sessions and tmuxp templates
+################################################################################
+GET_SESSIONS() { 
+    local tmux_sessions
+    tmux_sessions="$(tmux ls | cut -d ':' -f -1 | cut -d '#' -f -1)"
+    [[ -n $tmux_sessions ]] && tmux_sessions="$tmux_sessions\n"
+    echo -e "${tmux_sessions}$(tmuxp ls)" | sort | uniq
+}
+
+################################################################################
+# Kill sessions (client sessions as well)
+# Globals:
+#     [TODO:var-name]
+# Arguments:
+#     SELECTED_SESSION
+################################################################################
+KILL_SESSIONS() {
+    local -r SELECTED_SESSION="$1"
+    local SESSION_IDS
+    readarray -t SESSION_IDS < <(tmux ls | grep "^${SELECTED_SESSION}" | grep -Po '(?<=#).*?(?=:)')
+    readonly SESSION_IDS
+
+    tmux kill-session -t "${SELECTED_SESSION}"
+    for session_id in "${SESSION_IDS[@]}"; do 
+        tmux kill-session -t "${SELECTED_SESSION}#${session_id}"
+    done
+}
+
 main () {
-    # To make Rofi open again with the previoius filter, the main function is
+    # To make Rofi open again with the previous filter, the main function is
     # called again with the previous filtered value
-    local filtered_by=${1:-""}
-    local -a tmux_sessions
+    local ROFI_EXIT_STATUS="$?"
+    local -r FILTERED_BY=${1:-""}
+    local -a TMUX_SESSIONS
 
-    mapfile -t tmux_sessions < <(get_tmux_sessions)
-    selected_option="$(printf "%s\n" "${tmux_sessions[@]}" \
-        | rofi "${rofi_options[@]}" -filter "$filtered_by")"
+    readarray -t TMUX_SESSIONS < <(GET_SESSIONS)
+    readonly TMUX_SESSIONS
 
-    rofi_exit_status=$?
+    local SELECTED_OPTION
+    SELECTED_OPTION="$(printf "%s\n" "${TMUX_SESSIONS[@]}" \
+        | rofi "${ROFI_OPTIONS[@]}" -filter "$FILTERED_BY")"
+    local -r ROFI_EXIT_STATUS="$?"
+    # This should be after the above line, otherwise the exist status is 0
+    readonly SELECTED_OPTION
+
+
     # No option has been selected
-    [[ $rofi_exit_status == 1 ]] && exit 0
+    (( ROFI_EXIT_STATUS == 1 )) && exit 0
 
-    selected_index="$(echo "$selected_option" | cut -d ' ' -f -1)"
-    user_input="$(echo "$selected_option" | cut -d ' ' -f 2-)"
+    local SELECTED_INDEX
+    SELECTED_INDEX="$(echo "${SELECTED_OPTION}" | cut -d ' ' -f -1)"
+    readonly SELECTED_INDEX
 
-    local selected_session="${tmux_sessions[$selected_index]}"
+    local -r SELECTED_SESSION="${TMUX_SESSIONS[$SELECTED_INDEX]}"
 
-    # C-d has been pressed
-    if [[ $rofi_exit_status == 10 ]]; then
-        # Remove document and re-open menu again
-        tmux kill-session -t "$selected_session"
-        main "$user_input"
-    else 
-        $TERMINAL -e tmux attach-session -t "$selected_session" > /dev/null & disown
+    # C-d has been pressed (kill session & open rofi again)
+    if (( ROFI_EXIT_STATUS == 10 )); then
+        KILL_SESSIONS "${SELECTED_SESSION}"
+        main "$(echo "$SELECTED_OPTION" | cut -d ' ' -f 2-)"
+        # C-e has been pressed (edit tmuxp template) if possible
+    elif (( ROFI_EXIT_STATUS == 11 )); then
+        grep -Fw "${SELECTED_SESSION}" <(tmuxp ls) \
+            || { notify-send "${SELECTED_SESSION@Q} tempalte tmuxp not found" && exit 1; }
+
+        "${TERMINAL}" --directory "${XDG_CONFIG_HOME}/tmuxp/" -e "${EDITOR}" "${SELECTED_SESSION}.yaml"
+    elif (( ROFI_EXIT_STATUS == 0 )); then
+        # $TERMINAL -e tmux attach-session -t "$selected_session" > /dev/null & disown
+        "${TERMINAL}" -e tmx "${SELECTED_SESSION}" > /dev/null & disown
+    else
+        notify-send "Rofi exit status ${ROFI_EXIT_STATUS@Q} is not valid" && exit 1
     fi
 }
 
-main
+main "$@"
