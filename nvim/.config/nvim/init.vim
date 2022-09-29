@@ -6,10 +6,9 @@ call plug#begin(stdpath('data') . '/plugged')
 " Filetypes
 Plug 'https://github.com/YasserKa/vim-sxhkdrc'
 Plug 'https://github.com/fladson/vim-kitty'
-
 " Editing
-" Align lines
-Plug 'https://github.com/junegunn/vim-easy-align'
+" Lua minimal modules
+Plug 'https://github.com/echasnovski/mini.nvim'
 " Expand/shrink visual region via _ & +
 Plug 'https://github.com/terryma/vim-expand-region'
 
@@ -22,7 +21,6 @@ Plug 'https://github.com/romainl/vim-cool' " Disable search highlighting when do
 
 " Aesthetics
 " Make strings related to colors more colorful
-Plug 'https://github.com/ap/vim-css-color', {'for': ['dosini']}
 Plug 'https://github.com/gruvbox-community/gruvbox'
 
 " Others
@@ -35,6 +33,8 @@ Plug 'https://github.com/preservim/vimux'
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
+" Extenion for fugitive that allows to browse github from code
+Plug 'https://github.com/tpope/vim-rhubarb'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/tmsvg/pear-tree'
 Plug 'https://github.com/tpope/vim-surround'
@@ -326,12 +326,10 @@ let g:targets_nl = ["n", "N"]
 map + <Plug>(expand_region_expand)
 map _ <Plug>(expand_region_shrink)
 " }}}
-" {{{ vim-easy-align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+" {{{ mini.nvim
+lua << EOF
+ require('mini.align').setup()
+EOF
 " }}}
 " vimtex {{{
 set conceallevel=1
