@@ -14,7 +14,7 @@ if not window_exists:
     system.exec_command(COMMAND_TO_RUN)
     window.wait_for_exist(NAME, timeOut=5)
     
-system.exec_command(f"i3-msg \"[title=\"{NAME}\"] floating enable, move container workspace current\"")
+system.exec_command(f"i3-msg \"[title=\"{NAME}\"] floating enable, move container workspace current move position center\"")
 window.activate(NAME, True)
 window.wait_for_focus(NAME, timeOut=5)
 

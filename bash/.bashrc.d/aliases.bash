@@ -10,6 +10,10 @@ alias z='zathura'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
+# Create directories and cd/edit immedietly
+mkdircd () { command mkdir -pv "$1" && cd "$1" || exit; }
+mkdirv () { mkdircd "${1%/*}" && nvim "${1##*/}" || exit; }
+
 # Sync books
 alias syncbooks='wait_internet && rclone sync $HOME/books books:books'
 
@@ -62,7 +66,7 @@ alias ...='cd ../..'
 alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
 
 # Alert after long commands
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias alert='notify-send --expire-time=99999 "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # List last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
@@ -74,7 +78,7 @@ alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 # SSH setup
 # The use of function keyword is needed. TMUX requires it for it to be executed
 # shellcheck disable=SC2048,SC2086
-function ssh() { command ssh $* -t 'export yasser_config_env=1; bash -login'; }
+ssh() { command ssh $* -t 'export yasser_config_env=1; bash -login'; }
 ssh_config_setup() { make --file ~/dotfiles/instance_setup/Makefile --keep-going move_config_to_server "host=$*"; }
 
 # misc
