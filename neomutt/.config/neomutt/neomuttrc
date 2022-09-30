@@ -166,13 +166,15 @@ message-hook ~N 'push "$!polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"
 # Save changes
 macro index,pager S "<sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"
 
-# Source dotfile
+# Source config file
 set my_neomuttrc = $my_neomutt_config_folder/neomuttrc
 macro generic,index,browser,pager ,ss '\
 <enter-command>unhook *<enter>\
 <enter-command>source $my_neomuttrc<enter>\
 <enter-command>echo "Reloaded $my_neomuttrc"<enter>' \
-	"Clear hooks and reload"
+    "Clear hooks and reload"
+# Open config file
+macro generic,index,browser,pager ,es "<shell-escape>nohup nvim-qt $my_neomuttrc<enter>"
 
 # Contacts
 set query_command= "khard email --parsable %s"
