@@ -1137,14 +1137,14 @@ see how ARG affects this command."
 
   (setq appt-time-msg-list nil                      ;; clear existing appt list
         appt-message-warning-time '10                    ;; send first warning before appointment
-        appt-display-interval '5                         ;; warn every every X minutes from t - appt-message-warning-time
+        appt-display-interval '1                         ;; warn every every X minutes from t - appt-message-warning-time
         appt-display-mode-line nil                       ;; don't show in the modeline
         appt-display-format 'window)                     ;; pass warnings to the designated window function
   (setq appt-disp-window-function (function toast-appt-display))
 
   ;; Set up the call to the notifier
   (defun toast-appt-send-notification (title msg)
-    (shell-command (concat "/usr/bin/dunstify --appname emacs_org " " \"" title "\" \"" msg "\"")))
+    (start-process-shell-command "" nil (concat (getenv "XDG_CONFIG_HOME") "/dunst/emacs_delegate " " \"" title "\" \"" msg "\"")))
 
   ;; Designate the window function for my/appt-send-notification
   (defun toast-appt-display (min-to-app new-time msg)

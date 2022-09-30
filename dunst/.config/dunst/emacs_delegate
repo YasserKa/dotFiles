@@ -1,5 +1,20 @@
-#!/bin/env sh
+#!/usr/bin/env bash
+#
+# Show notificaiton of upcoming task and go to entry in emacs if action is done
+# on the dunst notification
 
-output=$(echo "$3" |  cut -d: -f1-2)
+# Dependencies dunst, xdotool, emacs
 
-[[ $(dunstify "$2" "$output" --appname Emacs-delegate --action="action,label") == "action" ]] && wmctrl -a emacs
+declare -r ENTRY_TITLE="$1"
+declare ENTRY_MSG
+ENTRY_MSG=$(echo "$2" | cut -d " " -f 3-)
+readonly
+
+goto_entry () {
+    FULL_PATH="$(rg -n "$ENTRY_MSG" "${_NOTES_ORG_HOME}" | head | cut -d : -f 1)"
+    ROW_NUM="$(rg -n "$ENTRY_MSG" "${_NOTES_ORG_HOME}" | head | cut -d : -f 2)"
+    xdotool search --sync --name "emacs_org_name" windowactivate
+    emacsclient "+${ROW_NUM}" "${FULL_PATH}"
+}
+
+[[ $(dunstify "${ENTRY_TITLE}" "${ENTRY_MSG}" --appname emacs_org --action="action,label") == "action" ]] && goto_entry
