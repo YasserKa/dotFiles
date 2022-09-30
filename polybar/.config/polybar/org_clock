@@ -11,16 +11,10 @@ declare -r TMP_FILE_PATH="/tmp/org_current_task"
 declare -r OUTPUT_TASK_NAME='false'
 
 go_to_item () {
-    [[ ! -e $TMP_FILE_PATH ]] && dunstify "No item is clocked in" && return
-
-    CURSOR=$(sed "4q;d" $TMP_FILE_PATH | grep -o '[0-9]*')
-
-    FULL_PATH=$(tail -1 $TMP_FILE_PATH)
-
     # Focus window
     xdotool search --sync --name "emacs_org_name" windowactivate
-
-    emacsclient "+$CURSOR" "$FULL_PATH"
+    # Go to clocked or most recently clocked entry
+    emacsclient -e "(org-clock-goto)"
 }
 
 clock_in () {

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
-
+#
+# Open documents or delete them using <C-d> using rofi
 # Dependencies: fasd (for frecency), fd (searching files), rofi (interface)
-# Open documents or delete them using <C-d>
-rofi_options=(
+
+declare ROFI_OPTIONS
+ROFI_OPTIONS=(
     -p "Document"                             # Prompt
     -i                                        # Search case sensitive
     -dmenu
@@ -13,47 +15,84 @@ rofi_options=(
     -format "i f"                             # option index, user's input
     -only-custom                              # Don't allow custom values
 )
+readonly ROFI_OPTIONS
 
+# Paths to search for documents
+# REASON: It's slow to search all directories (including hidden)
+declare -a PATHS_TO_SEARCH
+PATHS_TO_SEARCH=("${HOME}" "${XDG_DATA_HOME}/Zotero")
+readonly PATHS_TO_SEARCH
+
+################################################################################
+# Get basename for documents in PATHS_TO_SEARCH by using a regex on their
+# extensions. Place priority on documents using fasd (frecency) (i.e. frequency
+# and recently opened)
+# Globals:
+#     PATHS_TO_SEARCH
+# Arguments:
+#     None
+# Outputs:
+#     file names for documents seperated by new line
+################################################################################
 get_documents() {
-    local docs_path=$(fd --regex '.*.(pdf|djvu|epub)$' "$HOME" "$XDG_DATA_HOME/Zotero")
-    local docs_basename=$(echo "$docs_path" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    local DOCS_PATH
+    DOCS_PATH="$(fd --regex '.*.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
+    readonly DOCS_PATH
+    local DOCS_BASENAME
+    DOCS_BASENAME=$(echo "${DOCS_PATH}" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    readonly "${DOCS_BASENAME}"
     # For frecency (tracks only the visited files)
-    local fasd_docs=$(fasd -lR "$docs_basename" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
+    local FASD_DOCS
+    FASD_DOCS="$(fasd -lR "${DOCS_BASENAME}" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)"
+    readonly FASD_DOCS
     # Get all files
-    local all_docs="$(echo -e "$fasd_docs\n$docs_basename")"
-    local no_duplicates=$(echo "$all_docs" | awk '!a[$0]++')
-    echo "$no_duplicates"
+    local ALL_DOCS
+    ALL_DOCS="$(echo -e "$FASD_DOCS\n$DOCS_BASENAME")"
+    readonly ALL_DOCS
+    local NO_DUPLICATES
+    NO_DUPLICATES=$(echo "$ALL_DOCS" | awk '!a[$0]++')
+    readonly NO_DUPLICATES
+    echo "$NO_DUPLICATES"
 }
 
 main() {
-    local -r filtered_by=${1:-""}
-    local -a documents
-    local selected_document
-    local document_path
+    local -r FILTERED_BY=${1:-""}
 
-    mapfile -t documents < <(get_documents)
-    selected_option="$(printf "%s\n" "${documents[@]}" \
-        | rofi "${rofi_options[@]}" -filter "$filtered_by")"
+    local -a DOCUMENTS
+    mapfile -t DOCUMENTS < <(get_documents)
+    readonly DOCUMENTS
 
-    rofi_exit_status=$?
+    local SELECTED_OPTION
+    SELECTED_OPTION="$(printf "%s\n" "${DOCUMENTS[@]}" \
+        | rofi "${ROFI_OPTIONS[@]}" -filter "$FILTERED_BY")"
+    readonly SELECTED_OPTION
+
+    local -r ROFI_EXIT_STATUS="$?"
 
     # No option has been selected
-    [[ $rofi_exit_status == 1 ]] && exit 0
+    (( ROFI_EXIT_STATUS == 1 )) && exit 0
 
-    selected_index="$(echo "$selected_option" | cut -d ' ' -f -1)"
-    user_input="$(echo "$selected_option" | cut -d ' ' -f 2-)"
+    local -r SELECTED_INDEX
+    SELECTED_INDEX="$(echo "$SELECTED_OPTION" | cut -d ' ' -f -1)"
+    readonly SELECTED_INDEX
+    USER_INPUT="$(echo "$SELECTED_OPTION" | cut -d ' ' -f 2-)"
+    readonly USER_INPUT
 
-    selected_document="${documents[$selected_index]}"
-    document_path="$(fd -F "$selected_document" "$HOME" | head -n 1)"
+    local -r SELECTED_DOCUMENT
+    SELECTED_DOCUMENT="${DOCUMENTS[${SELECTED_INDEX}]}"
+    readonly SELECTED_DOCUMENT
+    local -r DOCUMENT_PATH
+    DOCUMENT_PATH="$(fd -F "${SELECTED_DOCUMENT}" "${PATHS_TO_SEARCH[@]}" | head -n 1)"
+    readonly DOCUMENT_PATH
 
-    if [[ $rofi_exit_status == 10 ]]; then
+    if (( ROFI_EXIT_STATUS == 10 )); then
         # Remove document and re-open menu again
-        rm "$document_path"
-        main "$user_input"
+        rm "${DOCUMENT_PATH}"
+        main "${USER_INPUT}"
     else
         # Append path to fasd for frecency (frequency and recency)
-        fasd -a "$document_path"
-        xdg-open "$document_path" >/dev/null & disown
+        fasd -a "${DOCUMENT_PATH}"
+        xdg-open "${DOCUMENT_PATH}" >/dev/null & disown
     fi
 }
 
