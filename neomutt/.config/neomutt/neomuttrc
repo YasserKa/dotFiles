@@ -174,7 +174,7 @@ macro generic,index,browser,pager ,ss '\
 <enter-command>echo "Reloaded $my_neomuttrc"<enter>' \
     "Clear hooks and reload"
 # Open config file
-macro generic,index,browser,pager ,es "<shell-escape>nohup nvim-qt $my_neomuttrc<enter>"
+macro generic,index,browser,pager ,es "<shell-escape>nohup nvim-qt $my_neomuttrc > /dev/null<enter>"
 
 # Contacts
 set query_command= "khard email --parsable %s"

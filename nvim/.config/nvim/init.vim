@@ -42,7 +42,7 @@ Plug 'https://github.com/tpope/vim-unimpaired'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
-Plug 'https://github.com/tpope/vim-commentary'
+Plug 'https://github.com/jeetsukumaran/vim-commentary'
 
 Plug 'https://github.com/puremourning/vimspector'
 Plug 'https://github.com/szw/vim-maximizer'
@@ -325,6 +325,18 @@ let g:targets_nl = ["n", "N"]
 " {{{ expand
 map + <Plug>(expand_region_expand)
 map _ <Plug>(expand_region_shrink)
+" }}}
+" {{{ vim-commentary
+xnoremap <leader>c  <Plug>Commentary
+nnoremap <leader>c  <Plug>Commentary
+onoremap <leader>c  <Plug>Commentary
+nnoremap <leader>cc <Plug>CommentaryLine
+nnoremap <leader>cy   <Plug>CommentaryYank
+nnoremap <leader>cy   <Plug>CommentaryYank
+nnoremap <leader>cyy  <Plug>CommentaryYankLine
+xnoremap <leader>cd   <Plug>CommentaryDupe
+nnoremap <leader>cd   <Plug>CommentaryDupe
+nnoremap <leader>cdd  <Plug>CommentaryDupeLine
 " }}}
 " {{{ mini.nvim
 lua << EOF

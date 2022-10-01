@@ -137,8 +137,8 @@
 
   (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
 
-  (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode))
-
+  (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode)
+  )
 ;; }}}
 ;; Aesthetics {{{
 (add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
@@ -1137,7 +1137,7 @@ see how ARG affects this command."
 
   (setq appt-time-msg-list nil                      ;; clear existing appt list
         appt-message-warning-time '10                    ;; send first warning before appointment
-        appt-display-interval '1                         ;; warn every every X minutes from t - appt-message-warning-time
+        appt-display-interval '5                         ;; warn every every X minutes from t - appt-message-warning-time
         appt-display-mode-line nil                       ;; don't show in the modeline
         appt-display-format 'window)                     ;; pass warnings to the designated window function
   (setq appt-disp-window-function (function toast-appt-display))
@@ -1362,6 +1362,7 @@ selection of all minor-modes, active or not."
   (" H" help-hydra/body "help")
   (" h" evil-ex-nohighlight "highlight")
   (" b" switch-to-buffer "Switch buffer")
+  (" c" evil-commentary "comment")
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
