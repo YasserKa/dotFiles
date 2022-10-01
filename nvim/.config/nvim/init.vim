@@ -12,7 +12,8 @@ Plug 'https://github.com/echasnovski/mini.nvim'
 " Expand/shrink visual region via _ & +
 Plug 'https://github.com/terryma/vim-expand-region'
 
-Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+
+Plug 'https://github.com/kkoomen/vim-doge', { 'do': { -> doge#install() } } " Doc Generator
 
 " Visual
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
@@ -77,7 +78,6 @@ Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
 Plug 'https://github.com/dbeniamine/cheat.sh-vim'
 
 Plug 'https://github.com/KabbAmine/zeavim.vim'
-
 call plug#end()
 " }}}
 " general settings {{{
@@ -337,6 +337,10 @@ nnoremap <leader>cyy  <Plug>CommentaryYankLine
 xnoremap <leader>cd   <Plug>CommentaryDupe
 nnoremap <leader>cd   <Plug>CommentaryDupe
 nnoremap <leader>cdd  <Plug>CommentaryDupeLine
+" }}}
+" {{{ vim-doge
+let g:doge_mapping_comment_jump_forward = '<C-j>'
+let g:doge_mapping_comment_jump_backward = '<C-n>'
 " }}}
 " {{{ mini.nvim
 lua << EOF

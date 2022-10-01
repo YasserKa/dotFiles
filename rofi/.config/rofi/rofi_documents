@@ -72,16 +72,16 @@ main() {
     # No option has been selected
     (( ROFI_EXIT_STATUS == 1 )) && exit 0
 
-    local -r SELECTED_INDEX
+    local SELECTED_INDEX
     SELECTED_INDEX="$(echo "$SELECTED_OPTION" | cut -d ' ' -f -1)"
     readonly SELECTED_INDEX
     USER_INPUT="$(echo "$SELECTED_OPTION" | cut -d ' ' -f 2-)"
     readonly USER_INPUT
 
-    local -r SELECTED_DOCUMENT
+    local SELECTED_DOCUMENT
     SELECTED_DOCUMENT="${DOCUMENTS[${SELECTED_INDEX}]}"
     readonly SELECTED_DOCUMENT
-    local -r DOCUMENT_PATH
+    local DOCUMENT_PATH
     DOCUMENT_PATH="$(fd -F "${SELECTED_DOCUMENT}" "${PATHS_TO_SEARCH[@]}" | head -n 1)"
     readonly DOCUMENT_PATH
 

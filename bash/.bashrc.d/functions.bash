@@ -57,7 +57,8 @@ function upgrade_system() {
         (auto-packages-update-now))"
 
     echo "Upgrading PyPi packages"
-    pip install --upgrade tmuxp --user
+    pip install --upgrade --user tmuxp poetry i3ipc neovim-remote selenium \
+        PyMuPDF pyperclip flake8 black adblock tldextract sci-hub
 
     echo 'Use the following commands to checkup on the system:
     systemctl --failed --user
