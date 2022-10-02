@@ -1,0 +1,15 @@
+<gui name="okular" version="1">
+  <ActionProperties>
+    <Action name="go_previous" shortcut="Shift+K"/>
+    <Action name="go_next" shortcut="Shift+J"/>
+    <Action name="edit_find" shortcut="/"/>
+    <Action name="close_find_bar" shortcut="Ctrl+["/>
+    <Action name="view_zoom_in" shortcut="+"/>
+    <Action name="view_zoom_out" shortcut="-"/>
+    <Action name="view_actual_size" shortcut="="/>
+    <Action name="go_document_back" shortcut="Ctrl+O"/>
+    <Action name="go_document_forward" shortcut="Ctrl+I"/>
+    <Action name="view_scroll_page_up" shortcut="Ctrl+U"/>
+    <Action name="view_scroll_page_down" shortcut="Ctrl+D"/>
+  </ActionProperties>
+</gui>

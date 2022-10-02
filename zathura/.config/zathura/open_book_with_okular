@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Open document using Okular
+# Dependencies: okular
+
+declare -r DOC_PATH="$1"
+declare -r PAGE_NUM="$2"
+
+command okular --page "${PAGE_NUM}" "${DOC_PATH}" & disown

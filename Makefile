@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash setup-ambient-music
+install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash setup-ambient-music show-final-instructions-message
 
 .PHONY: stow-etc
 stow-etc:
@@ -31,7 +31,7 @@ pre-install-packages:
 
 .PHONY: stow-packages
 stow-packages:
-	stow alacritty autorandr autokey bash bat cmus cron dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim picom polybar qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdg-open xmodmap zathura
+	stow alacritty autorandr autokey bash bat cmus cron dunst emacs fasd fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular picom polybar qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdg-open xmodmap zathura
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages
@@ -128,10 +128,14 @@ setup-qutebrowser:
 	qutebrowser :adblock-update
 	pkill qutebrowser
 
-
 .PHONY: setup-ambient-music
 setup-ambient-music:
 	yt-dlp -x -o "$(HOME)/Music/ambient_music.%(ext)s" https://www.youtube.com/watch?v=6uVUv8gZHBE
+
+.PHONY: show-final-instructions-message
+show-final-instructions-message:
+	@echo "Actions that needs to be done manually:"
+	@echo "- Open okular to import keybinding scheme"
 
 .PHONY: make-clean-pkglist
 make-clean-pkglist:
