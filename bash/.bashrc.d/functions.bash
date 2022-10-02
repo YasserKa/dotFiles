@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Extract compressed files function
-function extract() {
+extract() {
     local c e i
 
     (($#)) || return
@@ -37,7 +37,7 @@ function extract() {
 }
 
 # Remove dependencies that are no longer needed (orphans)
-function orphans() {
+orphans() {
     if [[ $(pacman -Qdtt) ]]; then
         echo "no orphans to remove"
     else
@@ -45,7 +45,7 @@ function orphans() {
     fi
 }
 
-function upgrade_system() {
+upgrade_system() {
     orphans
     paru --sync --refresh --sysupgrade --noconfirm
     printf "%s\n" "Updating Vim packages"
@@ -68,7 +68,7 @@ function upgrade_system() {
 
 # Automatically change current directory to the last visited one after ranger quits
 # /usr/share/doc/ranger/examples/shell_automatic_cd.sh
-function ranger() {
+ranger() {
     temp_file="$(mktemp -t "ranger_cd.XXXXXXXXXX")"
     command ranger --choosedir="$temp_file" -- "${@:-$PWD}"
     if chosen_dir="$(cat -- "$temp_file")" && [ -n "$chosen_dir" ] && [ "$chosen_dir" != "$PWD" ]; then
@@ -78,7 +78,7 @@ function ranger() {
 }
 
 # Use fasd and FZF to jump through directories
-function j() {
+j() {
     paths=$(fasd -dlR "$@")
     path="$HOME"
     # If only one path exists, go to it
@@ -91,17 +91,17 @@ function j() {
 }
 
 # Pick tmux sessions using FZF
-function fzftmux() {
+fzftmux() {
     TMUX_SESSION=$(tmux list-sessions | cut -d: -f1 | fzf)
     [[ -z $TMUX_SESSION ]] && return
     tmux attach-session -t "$TMUX_SESSION"
 }
 
 # Edit last n lines in history using $EDITOR
-function fclast() { command fc "-${1}" 0; }
+fclast() { command fc "-${1}" 0; }
 
 # Open TUIR apps from menu picker (spawning a termianl) or the command line
-function open_cli() {
+open_cli() {
     local command="$1"
 
     [[ ! $(command -v "$command") ]] &&
@@ -126,7 +126,7 @@ done
 unset cli
 
 # Open TUIR with top page within 24 hours by pressing "g t 2"
-function tuir() {
+tuir() {
     (xdotool search --sync --name "^Front Page - tuir" key g t 2 &)
     open_cli tuir
 }
@@ -135,9 +135,9 @@ function tuir() {
 # Open file/s in a directory depending on the interactivity of the shell
 # Arguments:
 #     $1: path of directory
-#     $@: file names
+#     $@: file name
 ################################################################################
-function open_file() {
+open_file() {
     [[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] &&
         notify-send "$TERMINAL not supported for open_file function" &&
         return 1
@@ -179,7 +179,7 @@ alias rcqutebrowser='open_file $XDG_CONFIG_HOME/qutebrowser config.py'
 # Open Emacs's config file in Emacs
 alias rcemacs='emacs --file $XDG_CONFIG_HOME/emacs/init.el'
 
-function rcdotfiles() {
+rcdotfiles() {
     if [[ "$-" != *c* ]]; then
         cd "${HOME}/dotfiles/" || return
     else
@@ -202,13 +202,13 @@ open_gui() {
     fi
 }
 
-function org() {
+org() {
     local name="emacs_org_name"
 
     open_gui $name "emacs --title=$name --file=$_NOTES_ORG_HOME/capture.org"
 }
 
-function magit() {
+magit() {
     local name="magit_name"
     local git_root
     git_root=$(git rev-parse --show-toplevel)
@@ -219,17 +219,17 @@ function magit() {
 
 alias gitdotfiles='cd $HOME/dotfiles && magit'
 
-function syncorg() {
+syncorg() {
     emacsclient --no-wait --eval "(org-save-all-org-buffers)"
     "$HOME"/bin/wait_internet && rclone sync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org'
 }
 
-function reboot() {
+reboot() {
     syncorg
     command shutdown --reboot now
 }
 
-function shutdown() {
+shutdown() {
     syncorg
     command shutdown now
 }
@@ -242,6 +242,6 @@ which() {
 }
 
 # Commands run in background automatically
-function zathura() { (command zathura "$@" &>/dev/null &) }
-function mpv() { (command mpv "$@" &>/dev/null &) }
-function xdg-open() { (command xdg-open "$@" &) }
+zathura() { (command zathura "$@" &>/dev/null &) }
+mpv() { (command mpv "$@" &>/dev/null &) }
+xdg-open() { (command xdg-open "$@" &) }

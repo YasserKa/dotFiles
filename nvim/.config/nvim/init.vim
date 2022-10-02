@@ -340,7 +340,7 @@ nnoremap <leader>cdd  <Plug>CommentaryDupeLine
 " }}}
 " {{{ vim-doge
 let g:doge_mapping_comment_jump_forward = '<C-j>'
-let g:doge_mapping_comment_jump_backward = '<C-n>'
+let g:doge_mapping_comment_jump_backward = '<C-k>'
 " }}}
 " {{{ mini.nvim
 lua << EOF

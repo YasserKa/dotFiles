@@ -25,6 +25,9 @@ map wo exec '/usr/bin/env zathura "$FILE"'
 map ,ar exec '/home/yasser/.config/zathura/handle_document remove_annotations "$FILE"'
 map ,ay exec '/home/yasser/.config/zathura/handle_document get_annotations "$FILE"'
 
+# Open using okular
+map ,oo exec '/home/yasser/.config/zathura/open_book_with_okular "$FILE" "$PAGE"'
+
 # Open config files
 map ,es exec '/bin/kitty -e bash -ic "cd $XDG_CONFIG_HOME/zathura/ && nvim -o +only zathurarc *"'
 # Source config file

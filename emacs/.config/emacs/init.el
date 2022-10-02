@@ -1362,7 +1362,6 @@ selection of all minor-modes, active or not."
   (" H" help-hydra/body "help")
   (" h" evil-ex-nohighlight "highlight")
   (" b" switch-to-buffer "Switch buffer")
-  (" c" evil-commentary "comment")
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")

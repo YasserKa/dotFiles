@@ -65,9 +65,10 @@ main() {
     local SELECTED_OPTION
     SELECTED_OPTION="$(printf "%s\n" "${DOCUMENTS[@]}" \
         | rofi "${ROFI_OPTIONS[@]}" -filter "$FILTERED_BY")"
-    readonly SELECTED_OPTION
 
     local -r ROFI_EXIT_STATUS="$?"
+    # Need to be done afterwards, otherwise the exit status gets overriden
+    readonly SELECTED_OPTION
 
     # No option has been selected
     (( ROFI_EXIT_STATUS == 1 )) && exit 0
