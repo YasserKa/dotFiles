@@ -18,6 +18,7 @@ Plug 'https://github.com/kkoomen/vim-doge', { 'do': { -> doge#install() } } " Do
 " Visual
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter-context' " Sticky line for current scope
+Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'
 Plug 'https://github.com/romainl/vim-cool' " Disable search highlighting when done
 
 " Aesthetics
@@ -27,6 +28,7 @@ Plug 'https://github.com/gruvbox-community/gruvbox'
 " Others
 " Readline Movement
 Plug 'https://github.com/tpope/vim-rsi'
+Plug 'https://github.com/akinsho/toggleterm.nvim', {'tag': '*'}
 
 " Tmux
 Plug 'https://github.com/preservim/vimux'
@@ -36,6 +38,7 @@ Plug 'https://github.com/maximbaz/lightline-ale'
 Plug 'https://github.com/tpope/vim-fugitive'
 " Extenion for fugitive that allows to browse github from code
 Plug 'https://github.com/tpope/vim-rhubarb'
+Plug 'https://github.com/lewis6991/gitsigns.nvim'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/tmsvg/pear-tree'
 Plug 'https://github.com/tpope/vim-surround'
@@ -47,6 +50,7 @@ Plug 'https://github.com/jeetsukumaran/vim-commentary'
 
 Plug 'https://github.com/puremourning/vimspector'
 Plug 'https://github.com/szw/vim-maximizer'
+Plug 'https://github.com/mrjones2014/smart-splits.nvim'  " Smart split navigation & movement
 
 Plug 'https://github.com/liuchengxu/vim-which-key'
 
@@ -342,11 +346,6 @@ nnoremap <leader>cdd  <Plug>CommentaryDupeLine
 let g:doge_mapping_comment_jump_forward = '<C-j>'
 let g:doge_mapping_comment_jump_backward = '<C-k>'
 " }}}
-" {{{ mini.nvim
-lua << EOF
- require('mini.align').setup()
-EOF
-" }}}
 " vimtex {{{
 set conceallevel=1
 let g:tex_conceal = 'abdmg'
@@ -553,7 +552,7 @@ fun! GotoWindow(id)
 endfun
 
 " Debugger remaps
-nnoremap <leader>m :MaximizerToggle!<CR>
+nnoremap <A-m> :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
 nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
 nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
@@ -643,4 +642,10 @@ function! s:show_documentation()
     endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" }}}
+" {{{ lua plugins mini.nvim
+lua << EOF
+require('init')
+require('gitsigns').setup()
+EOF
 " }}}
