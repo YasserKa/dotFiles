@@ -3,7 +3,7 @@
 # Open a document to a page or using its name
 # Dependencies: fd
 
-books_path="$HOME"
+PATHS_TO_SEARCH=("${HOME}" "${XDG_DATA_HOME}/Zotero")
 file_path="$1"
 page_num="$2"
 
@@ -27,8 +27,10 @@ doc_basename="${file_path##*/}"
 doc_name="${doc_basename%.*}"
 link_name="$doc_name"
 
+# dunstify "${doc_name}"
 # shellcheck disable=SC2016
-cmd='zathura "$(fd --no-ignore-vcs --fixed-strings --search-path '${books_path}' "'${doc_name}'" | head -1)"'
+cmd='zathura "$(fd --no-ignore-vcs --fixed-strings "'${doc_name}'" '${PATHS_TO_SEARCH[@]}'  | head -1)"'
+# dunstify "$cmd"
 if [[ $page_num ]]; then
     cmd+=" --page=$page_num"
     link_name+=", page $page_num"

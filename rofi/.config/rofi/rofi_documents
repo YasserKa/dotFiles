@@ -20,6 +20,8 @@ readonly ROFI_OPTIONS
 # Paths to search for documents
 # REASON: It's slow to search all directories (including hidden)
 declare -a PATHS_TO_SEARCH
+# TODO: if this changes, zotero's link handler should be changed as well. Try to
+# resolve this duplication
 PATHS_TO_SEARCH=("${HOME}" "${XDG_DATA_HOME}/Zotero")
 readonly PATHS_TO_SEARCH
 
