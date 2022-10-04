@@ -1,15 +1,67 @@
-<gui name="okular" version="1">
+<gui version="1" name="okular">
   <ActionProperties>
-    <Action name="go_previous" shortcut="Shift+K"/>
-    <Action name="go_next" shortcut="Shift+J"/>
-    <Action name="edit_find" shortcut="/"/>
-    <Action name="close_find_bar" shortcut="Ctrl+["/>
-    <Action name="view_zoom_in" shortcut="+"/>
-    <Action name="view_zoom_out" shortcut="-"/>
-    <Action name="view_actual_size" shortcut="="/>
-    <Action name="go_document_back" shortcut="Ctrl+O"/>
-    <Action name="go_document_forward" shortcut="Ctrl+I"/>
-    <Action name="view_scroll_page_up" shortcut="Ctrl+U"/>
-    <Action name="view_scroll_page_down" shortcut="Ctrl+D"/>
+    <Action shortcut="Ctrl+G" name="go_goto_page"/>
+    <Action shortcut="Ctrl+Home" name="first_page"/>
+    <Action shortcut="Ctrl+End" name="last_page"/>
+    <Action shortcut="Ctrl+B; M" name="bookmark_add"/>
+    <Action shortcut="Ctrl+F; /" name="edit_find"/>
+    <Action shortcut="F3; N" name="edit_find_next"/>
+    <Action shortcut="Shift+F3; Shift+N" name="edit_find_prev"/>
+    <Action shortcut="Ctrl+Shift+," name="options_configure"/>
+    <Action shortcut="Alt+Return" name="properties"/>
+    <Action shortcut="F5; Refresh" name="file_reload"/>
+    <Action shortcut="Esc; Ctrl+[" name="close_find_bar"/>
+    <Action shortcut="Ctrl+C; Ctrl+Ins" name="edit_copy"/>
+    <Action shortcut="Ctrl+A" name="edit_select_all"/>
+    <Action shortcut="Ctrl+S; " name="file_save"/>
+    <Action shortcut="Ctrl+Shift+S" name="file_save_as"/>
+    <Action shortcut="F7; Tab" name="show_leftpanel"/>
+    <Action shortcut="Ctrl+Shift+P" name="presentation"/>
+    <Action shortcut="B" name="switch_blackscreen_mode"/>
+    <Action shortcut="Ctrl++; +" name="view_zoom_in"/>
+    <Action shortcut="Ctrl+-; -" name="view_zoom_out"/>
+    <Action shortcut="Ctrl+0; =" name="view_actual_size"/>
+    <Action shortcut="Shift+J" name="go_next"/>
+    <Action shortcut="Ctrl+1" name="mouse_drag"/>
+    <Action shortcut="Ctrl+2" name="mouse_zoom"/>
+    <Action shortcut="Alt+Shift+Left; Ctrl+O" name="go_document_back"/>
+    <Action shortcut="Alt+Shift+Right; Ctrl+I" name="go_document_forward"/>
+    <Action shortcut="Ctrl+3" name="mouse_select"/>
+    <Action shortcut="Ctrl+4" name="mouse_textselect"/>
+    <Action shortcut="Ctrl+5" name="mouse_tableselect"/>
+    <Action shortcut="Ctrl+6" name="mouse_magnifier"/>
+    <Action shortcut="Shift+Up" name="view_scroll_up"/>
+    <Action shortcut="Shift+Down" name="view_scroll_down"/>
+    <Action shortcut="Shift+Space; Ctrl+U" name="view_scroll_page_up"/>
+    <Action shortcut="Space; Ctrl+D" name="view_scroll_page_down"/>
+    <Action shortcut="Shift+K" name="go_previous"/>
+    <Action shortcut="Ctrl+Z" name="edit_undo"/>
+    <Action shortcut="Ctrl+Shift+Z" name="edit_redo"/>
+    <Action shortcut="F6" name="mouse_toggle_annotate"/>
+    <Action shortcut="Alt+1" name="annotation_highlighter"/>
+    <Action shortcut="Alt+2" name="annotation_underline"/>
+    <Action shortcut="Alt+3" name="annotation_squiggle"/>
+    <Action shortcut="Alt+4" name="annotation_strike_out"/>
+    <Action shortcut="Alt+5" name="annotation_typewriter"/>
+    <Action shortcut="Alt+6" name="annotation_inline_note"/>
+    <Action shortcut="Alt+7" name="annotation_popup_note"/>
+    <Action shortcut="Alt+8" name="annotation_freehand_line"/>
+    <Action shortcut="Alt+9" name="annotation_arrow"/>
+    <Action shortcut="Alt+0" name="annotation_rectangle"/>
+    <Action shortcut="Ctrl+Shift+B" name="annotation_bookmark"/>
+    <Action shortcut="Ctrl+Alt+I" name="open_kcommand_bar"/>
+    <Action shortcut="Ctrl+O" name="file_open"/>
+    <Action shortcut="Ctrl+P" name="file_print"/>
+    <Action shortcut="Ctrl+W; Ctrl+Esc" name="file_close"/>
+    <Action shortcut="Ctrl+Q" name="file_quit"/>
+    <Action shortcut="Ctrl+M" name="options_show_menubar"/>
+    <Action shortcut="Ctrl+Shift+F" name="fullscreen"/>
+    <Action shortcut="Ctrl+PgDown; Ctrl+]" name="tab-next"/>
+    <Action shortcut="Ctrl+PgUp; Ctrl+[" name="tab-previous"/>
+    <Action shortcut="Ctrl+Shift+T" name="undo-close-tab"/>
+    <Action shortcut="Ctrl+Alt+," name="options_configure_keybinding"/>
+    <Action shortcut="F1" name="help_contents"/>
+    <Action shortcut="Shift+F1" name="help_whats_this"/>
   </ActionProperties>
 </gui>
+  
