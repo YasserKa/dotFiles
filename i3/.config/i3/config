@@ -137,15 +137,17 @@ mode "resize" {
 }
 
 # Emacs org clock
-set $clock_mode "clock (i)n, (o)ut, (d)one, (c)ancel, (t)oggle, (g)o_to"
+set $clock_mode "clock (I)nfo, (i)n, (o)ut, (d)one, (c)ancel, (t)oggle, (g)o_to"
 bindsym $mod+q mode $clock_mode
 mode $clock_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_in; mode "default";
+    bindsym shift+i exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock \
+        notify_info "NAME_PLACEHOLDER\n[TIME_PLACEHOLDER]"; mode "default";
     bindsym o exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_out; mode "default";
     bindsym d exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_out_done; mode "default";
     bindsym c exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_cancel; mode "default";
     bindsym t exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_toggle; mode "default";
-    bindsym g exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock go_to_item; mode "default";
+    bindsym g exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock go_to_entry; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
@@ -162,10 +164,10 @@ mode $cmus_mode {
     bindsym p exec --no-startup-id cmus-remote --volume 21% --prev; mode "default";
 
     bindsym c exec cmus-remote -C "filter classical" && cmus-remote --next; mode "default"
-    bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default"
-    bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default"
+        bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default"
+        bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default"
 
-    bindsym h exec --no-startup-id cmus-remote --volume +2%;
+        bindsym h exec --no-startup-id cmus-remote --volume +2%;
     bindsym l exec --no-startup-id cmus-remote --volume -2%;
 
     bindsym Control+bracketleft mode "default";
@@ -216,28 +218,28 @@ bindsym $mod+m mode $mail_mode
 mode $mail_mode {
     bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
     bindsym s exec --no-startup-id bash -ic "syncmail trigger-polybar gmail"; mode "default";
-    # Mark messages as read
+# Mark messages as read
     bindsym c exec --no-startup-id mv $XDG_DATA_HOME/mail/gmail/INBOX/new/* \
-            $XDG_DATA_HOME/mail/gmail/INBOX/cur/ \
-            && polybar-msg action "#mail.hook.0"; mode "default";
-    bindsym Control+bracketleft mode "default";
-    bindsym Escape mode "default";
-}
+                                                                            $XDG_DATA_HOME/mail/gmail/INBOX/cur/ \
+                                                                            && polybar-msg action "#mail.hook.0"; mode "default";
+                                                                            bindsym Control+bracketleft mode "default";
+                                                                            bindsym Escape mode "default";
+                                                                            }
 
-set $system_mode "system (l) lock, (e) logout, (s) reload i3, (r) restart i3, (Shift+r) reboot, (Shift+s) shutdown"
-bindsym $mod+x mode $system_mode
-mode $system_mode {
-    bindsym l exec --no-startup-id i3lock --color 000000, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id i3-msg reload, mode "default"
-    bindsym r exec --no-startup-id i3-msg restart, mode "default"
+                                                                            set $system_mode "system (l) lock, (e) logout, (s) reload i3, (r) restart i3, (Shift+r) reboot, (Shift+s) shutdown"
+                                                                            bindsym $mod+x mode $system_mode
+                                                                            mode $system_mode {
+                                                                            bindsym l exec --no-startup-id i3lock --color 000000, mode "default"
+                                                                            bindsym e exec --no-startup-id i3-msg exit, mode "default"
+                                                                            bindsym s exec --no-startup-id i3-msg reload, mode "default"
+                                                                            bindsym r exec --no-startup-id i3-msg restart, mode "default"
 
-    bindsym Shift+r exec --no-startup-id bash -ic reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id bash -ic shutdown, mode "default"
+                                                                            bindsym Shift+r exec --no-startup-id bash -ic reboot, mode "default"
+                                                                            bindsym Shift+s exec --no-startup-id bash -ic shutdown, mode "default"
 
-    bindsym Control+bracketleft mode "default";
-    bindsym Escape mode "default"
-}
+                                                                            bindsym Control+bracketleft mode "default";
+                                                                            bindsym Escape mode "default"
+                                                                            }
 
 # >>>
 # Bindings <<<

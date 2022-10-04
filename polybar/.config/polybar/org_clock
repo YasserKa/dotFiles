@@ -1,101 +1,136 @@
 #!/usr/bin/env bash
 #
-# Use org mode's clocking in emacs use clock operations
-# This is used by i3 to trigger the functions and polybar to present the output
+# Use org mode's clocking in emacs
+# This is used by i3 to trigger the functions and by polybar to present the output
 
-# Dependencies: Emacs for org mode & wmctrl to focus window
-# TODO: Add more documentation, verbose code, strict code, and refactoring (no need for this many functions)
+# Dependencies: emacs, wmctrl, notify-send
 
+# Path to the file that contains info about the entry
 declare -r TMP_FILE_PATH="/tmp/org_current_task"
-# Boolean to output the task name or not (true/false)
-declare -r OUTPUT_TASK_NAME='false'
 
-go_to_item () {
+################################################################################
+# Focus emacs window that's used for org mode and go to the clocked in entry
+# Arguments:
+#     None
+################################################################################
+go_to_entry() {
     # Focus window
     xdotool search --sync --name "emacs_org_name" windowactivate
     # Go to clocked or most recently clocked entry
     emacsclient -e "(org-clock-goto)"
 }
 
-clock_in () {
-    emacsclient -e "(org-clock-in-last)"
+################################################################################
+# Pop info regarding the entry
+# Arguments:
+#     $1: String containing TIME_PLACEHOLDER or/and NAME_PLACEHOLDER
+# Outputs:
+#     Notification containing info
+################################################################################
+notify_info() {
+    local INFO
+    INFO="$(get_info "$1")"
+    notify-send "$(echo -e "$INFO")"
 }
 
-clock_out () {
-    emacsclient -e "(org-clock-out)"
+################################################################################
+# Transform a string filled with time or/and name placeholder to one that
+# contains info
+# Globals:
+#     TMP_FILE_PATH
+# Arguments:
+#     $1: String containing TIME_PLACEHOLDER or/and NAME_PLACEHOLDER
+# Outputs:
+#     String containing info
+# Returns:
+#     0: If TMP_FILE_PATH doesn't exit
+################################################################################
+get_info() {
+    [[ ! -e "${TMP_FILE_PATH}" ]] && echo "" && return 0
+
+    local FILE_LINES
+    FILE_LINES="$(head -3 $TMP_FILE_PATH | tail -1)"
+    local TIME
+    TIME="$(get_time "${FILE_LINES}")"
+    local NAME
+    NAME="$(get_name "${FILE_LINES}")"
+
+    local INFO="${1/TIME_PLACEHOLDER/${TIME}}"
+    INFO="${INFO/NAME_PLACEHOLDER/${NAME}}"
+
+    echo "$INFO"
 }
 
-clock_out_done () {
-    emacsclient -e "(my/org-clock-out-done)"
+################################################################################
+# Get name of the entry and caping the length to NAME_MAX_SIZE chars
+# Arguments:
+#     $1: file lines that from temp file
+# Outputs:
+#     Name of entry that might end with '...' if it goes beyond the cap
+################################################################################
+get_name() {
+    local -ir NAME_MAX_SIZE=52
+
+    TASK_NAME="$(cut -d ' ' -f 3- <(echo "$1"))"
+
+    # Limit the size of information to not overwhelm polybar when the string is too big
+    [[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
+    echo "$TASK_NAME"
 }
 
-clock_toggle () {
-    emacsclient -e "(my/org-toggle-last-clock nil)"
-}
-
-clock_cancel () {
-    emacsclient -e "(org-clock-cancel)"
-}
-
-
-get_time_spent () {
-    local -i NAME_MAX_SIZE=52
-
-    [[ ! -e $TMP_FILE_PATH ]] && echo "" && return
-
-    TASK_INFO="$(head -3 $TMP_FILE_PATH | tail -1)"
-    TASK_NAME="$(cut -d ' ' -f 3- <(echo "$TASK_INFO"))"
-    TASK_TIME="$(cut -d ' ' -f -2 <(echo "$TASK_INFO"))"
+################################################################################
+# Return the time needed/time spent or only time spent (if time needed doesn't
+# exist) in H:MM/H:MM format
+# Arguments:
+#     $1: file lines that from temp file
+# Outputs:
+#     Time for the entry
+################################################################################
+get_time() {
+    local TASK_TIME
+    TASK_TIME="$(cut -d ' ' -f -2 <(echo "$1"))"
+    readonly TASK_TIME
 
     # Seconds since the temp file got created
     local -i SECONDS_SINCE_CREATION=$(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))
     # HH:MM format
     TIME_SINCE_CREATION=$(date --date="@$SECONDS_SINCE_CREATION" -u +%H:%M)
 
-
     # [<X:XX>/X:XX] or [<X:XX>] (if effort property doesn't exist)
     TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\/.*|\1|p' <(echo "$TASK_TIME"))"
     # HACK: if string doesn't exist then the other format is valid
-    [[ -z $TIME_ALREADY_SPENT ]] \
-        && TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\].*|\1|p' <(echo "$TASK_TIME"))"
+    [[ -z $TIME_ALREADY_SPENT ]] &&
+        TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\].*|\1|p' <(echo "$TASK_TIME"))"
+
     # [X:XX/<X:XX>]
     TIME_NEEDED="$(sed -n 's|.*\/\(.*\)\]|\1|p' <(echo "$TASK_TIME"))"
 
     # Convert time to seconds
     SECONDS_ALREADY_SPENT="$(echo "$TIME_ALREADY_SPENT" | awk -F: '{ print ($1 * 3600) + ($2 * 60) }')"
     # Add time spent
-    SECONDS_ALREADY_SPENT=$((SECONDS_SINCE_CREATION+SECONDS_ALREADY_SPENT))
+    SECONDS_ALREADY_SPENT=$((SECONDS_SINCE_CREATION + SECONDS_ALREADY_SPENT))
     # Convert it back to HH:MM
     TIME_ALREADY_SPENT=$(date --date="@$SECONDS_ALREADY_SPENT" -u +%H:%M)
-    # dunstify $TIME_ALREADY_SPENT
 
     # Add time needed if it exists (Effort might not exist for a task)
     if [[ $TIME_NEEDED != "" ]]; then
-        TASK_TIME_SHOW="[$TIME_ALREADY_SPENT/$TIME_NEEDED]"
+        TIME="$TIME_ALREADY_SPENT/$TIME_NEEDED"
     else
-        TASK_TIME_SHOW="[$TIME_ALREADY_SPENT]"
+        TIME="$TIME_ALREADY_SPENT"
     fi
-
-    INFO_TO_SHOW="$TIME_SINCE_CREATION - $TASK_TIME_SHOW"
-
-    if [[ $OUTPUT_TASK_NAME == 'true' ]]; then
-        # Limit the size of information to not overwhelm polybar when the string is too big
-        [[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
-        INFO_TO_SHOW="${INFO_TO_SHOW} $TASK_NAME"
-    fi
-
-    echo "$INFO_TO_SHOW"
+    echo "${TIME_SINCE_CREATION} - ${TIME}"
 }
 
-main () {
+main() {
     case "$1" in
-        "clock_in") clock_in ;;
-        "clock_out") clock_out ;;
-        "clock_out_done") clock_out_done ;;
-        "clock_toggle") clock_toggle ;;
-        "clock_cancel") clock_cancel ;;
-        "go_to_item") go_to_item ;;
-        "get_time_spent") get_time_spent ;;
+        "clock_in") emacsclient -e "(org-clock-in-last)" ;;
+        "clock_out") emacsclient -e "(org-clock-out)" ;;
+        "clock_out_done") emacsclient -e "(my/org-clock-out-done)" ;;
+        "clock_toggle") emacsclient -e "(my/org-toggle-last-clock nil)" ;;
+        "clock_cancel") emacsclient -e "(org-clock-cancel)" ;;
+        "go_to_entry") go_to_entry ;;
+        "get_info") get_info "$2" ;;
+        "notify_info") notify_info "$2" ;;
         *) echo "$1 is a wrong argument" ;;
     esac
 }
