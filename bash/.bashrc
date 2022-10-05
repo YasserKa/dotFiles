@@ -24,6 +24,9 @@ run_help() {
 }
 bind -m vi-insert -x '"\eh": run_help'
 
+# Attach job & send notification after it's finished
+alert_last() { fg; notify-send --expire-time=99999 "$(history | tail -n 2 | head -n 1 | cut -d ' ' -f 3-)"; }
+
 # Complete command names and file names for super user
 complete -cf sudo
 [[ -f /usr/share/doc/pkgfile/command-not-found.bash ]] && . /usr/share/doc/pkgfile/command-not-found.bash

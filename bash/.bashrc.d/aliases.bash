@@ -68,6 +68,8 @@ alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
 # Alert after long commands
 alias alert='notify-send --expire-time=99999 "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+alias tmp="\${EDITOR} /tmp/tmp"
+
 # List last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"

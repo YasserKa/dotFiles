@@ -53,8 +53,6 @@ post-install-packages: stow-packages
 	systemctl start dunst --user
 	systemctl enable sxhkd.service --user
 	systemctl start sxhkd.service --user
-	systemctl enable tmux.service --user
-	systemctl start tmux.service --user
 	systemctl enable msmtp-runqueue.timer --user
 	systemctl start msmtp-runqueue.timer --user
 	systemctl enable mbsync.timer --user
