@@ -1,23 +1,28 @@
 require('mini.align').setup()
+require('hop').setup({
+    multi_windows = true,
+})
+vim.keymap.set('n', 'c', "<cmd>HopChar1<cr>")
+vim.keymap.set('n', 'C', "<cmd>HopChar2<cr>")
+vim.keymap.set('n', 'l', "<cmd>HopLine<cr>")
+vim.keymap.set('n', 'p', "<cmd>HopPattern<cr>")
+vim.keymap.set('n', 'w', "<cmd>HopWord<cr>")
 -- smart-splits.nvim {{{
 -- resizing splits
-vim.keymap.set('n', '<A-H>', require('smart-splits').resize_left)
-vim.keymap.set('n', '<A-J>', require('smart-splits').resize_down)
-vim.keymap.set('n', '<A-K>', require('smart-splits').resize_up)
-vim.keymap.set('n', '<A-L>', require('smart-splits').resize_right)
+vim.keymap.set('n', '<C-w>r', require('smart-splits').start_resize_mode)
 
 -- moving between splits
-vim.keymap.set('n', '<A-h>', require('smart-splits').move_cursor_left)
-vim.keymap.set('n', '<A-j>', require('smart-splits').move_cursor_down)
-vim.keymap.set('n', '<A-k>', require('smart-splits').move_cursor_up)
-vim.keymap.set('n', '<A-l>', require('smart-splits').move_cursor_right)
+vim.keymap.set('n', '<C-w>h', require('smart-splits').move_cursor_left)
+vim.keymap.set('n', '<C-w>j', require('smart-splits').move_cursor_down)
+vim.keymap.set('n', '<C-w>k', require('smart-splits').move_cursor_up)
+vim.keymap.set('n', '<C-w>l', require('smart-splits').move_cursor_right)
 
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
-    vim.keymap.set('t', '<A-h>', [[<Cmd>wincmd h<CR>]], opts)
-    vim.keymap.set('t', '<A-j>', [[<Cmd>wincmd j<CR>]], opts)
-    vim.keymap.set('t', '<A-k>', [[<Cmd>wincmd k<CR>]], opts)
-    vim.keymap.set('t', '<A-l>', [[<Cmd>wincmd l<CR>]], opts)
+    vim.keymap.set('t', '<C-w>h', [[<Cmd>wincmd h<CR>]], opts)
+    vim.keymap.set('t', '<C-w>j', [[<Cmd>wincmd j<CR>]], opts)
+    vim.keymap.set('t', '<C-w>k', [[<Cmd>wincmd k<CR>]], opts)
+    vim.keymap.set('t', '<C-w>l', [[<Cmd>wincmd l<CR>]], opts)
 end
  
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead

@@ -12,7 +12,6 @@ Plug 'https://github.com/echasnovski/mini.nvim'
 " Expand/shrink visual region via _ & +
 Plug 'https://github.com/terryma/vim-expand-region'
 
-
 Plug 'https://github.com/kkoomen/vim-doge', { 'do': { -> doge#install() } } " Doc Generator
 
 " Visual
@@ -29,6 +28,8 @@ Plug 'https://github.com/gruvbox-community/gruvbox'
 " Readline Movement
 Plug 'https://github.com/tpope/vim-rsi'
 Plug 'https://github.com/akinsho/toggleterm.nvim', {'tag': '*'}
+Plug 'https://github.com/phaazon/hop.nvim'
+
 
 " Tmux
 Plug 'https://github.com/preservim/vimux'
@@ -331,16 +332,7 @@ map + <Plug>(expand_region_expand)
 map _ <Plug>(expand_region_shrink)
 " }}}
 " {{{ vim-commentary
-xnoremap <leader>c  <Plug>Commentary
-nnoremap <leader>c  <Plug>Commentary
-onoremap <leader>c  <Plug>Commentary
-nnoremap <leader>cc <Plug>CommentaryLine
-nnoremap <leader>cy   <Plug>CommentaryYank
-nnoremap <leader>cy   <Plug>CommentaryYank
-nnoremap <leader>cyy  <Plug>CommentaryYankLine
-xnoremap <leader>cd   <Plug>CommentaryDupe
-nnoremap <leader>cd   <Plug>CommentaryDupe
-nnoremap <leader>cdd  <Plug>CommentaryDupeLine
+xnoremap gcc  :Commentary<CR>
 " }}}
 " {{{ vim-doge
 let g:doge_mapping_comment_jump_forward = '<C-j>'
