@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+# Turn off the display for X server
+#
+# Dependencies: xdotool
+
+declare MOUSE_POS
+MOUSE_POS="$(xdotool getmouselocation)"
+readonly MOUSE_POS
+
+# turn off display
+sleep 0.5 && xset dpms force off
+
+# turn it on again when the mouse position changes
+# NOTE: The display is turned on again without this code block.
+#       Without this code block, the display will turn off automatically in the
+#       absence of activity
+while [[ "$MOUSE_POS" == "$(xdotool getmouselocation)" ]]; do 
+    sleep 10
+done
+xset dpms force on
