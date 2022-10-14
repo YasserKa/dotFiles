@@ -1,12 +1,4 @@
 require('mini.align').setup()
-require('hop').setup({
-    multi_windows = true,
-})
-vim.keymap.set('n', 'c', "<cmd>HopChar1<cr>")
-vim.keymap.set('n', 'C', "<cmd>HopChar2<cr>")
-vim.keymap.set('n', 'l', "<cmd>HopLine<cr>")
-vim.keymap.set('n', 'p', "<cmd>HopPattern<cr>")
-vim.keymap.set('n', 'w', "<cmd>HopWord<cr>")
 -- smart-splits.nvim {{{
 -- resizing splits
 vim.keymap.set('n', '<C-w>r', require('smart-splits').start_resize_mode)

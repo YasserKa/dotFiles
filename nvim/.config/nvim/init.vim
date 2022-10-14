@@ -28,7 +28,6 @@ Plug 'https://github.com/gruvbox-community/gruvbox'
 " Readline Movement
 Plug 'https://github.com/tpope/vim-rsi'
 Plug 'https://github.com/akinsho/toggleterm.nvim', {'tag': '*'}
-Plug 'https://github.com/phaazon/hop.nvim'
 
 
 " Tmux
@@ -77,7 +76,6 @@ Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#i
 Plug 'https://github.com/lervag/vimtex', {'for': ['tex', 'markdown']}
 Plug 'https://github.com/dhruvasagar/vim-table-mode'
 Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
-Plug 'https://github.com/heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
 Plug 'https://github.com/dbeniamine/cheat.sh-vim'
@@ -156,6 +154,19 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " map j k to make it work in the same line (lines not wraped)
 nnoremap <expr> k      v:count == 0 ? 'gk' : 'k'
 nnoremap <expr> j      v:count == 0 ? 'gj' : 'j'
+
+" Skeletons
+autocmd BufNewFile  *.sh    0r ~/.config/nvim/skeletons/skeleton.sh
+autocmd BufNewFile  *.bash    0r ~/.config/nvim/skeletons/skeleton.sh
+autocmd BufNewFile  *.py    0r ~/.config/nvim/skeletons/skeleton.py
+
+" Highlight todo comments
+augroup vimrc_todo
+    au!
+    au Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|OPTIMIZE|REFACTOR):/
+          \ containedin=.*Comment,vimCommentTitle
+augroup END
+hi def link MyTodo Todo
 
 " Sessions
 set sessionoptions-=options
@@ -486,7 +497,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
             \   'sh': ['shfmt'],
-            \   'python': ['black'],
+            \   'python': ['black', 'autoimport', 'isort'],
             \   'SQL': ['sqlint'],
             \   'js': ['eslint'],
             \}
@@ -544,7 +555,7 @@ fun! GotoWindow(id)
 endfun
 
 " Debugger remaps
-nnoremap <A-m> :MaximizerToggle!<CR>
+nnoremap <C-w>m :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
 nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
 nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>

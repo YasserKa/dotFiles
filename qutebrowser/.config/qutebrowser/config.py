@@ -145,6 +145,7 @@ c.aliases = {
         'wq': 'quit --save',
         'wqa': 'quit --save',
         'h': 'help -t',
+        'H': 'help -w',
         'json': 'open -t https://codebeautify.org/jsonviewer?url={url}',
         'download_youtube': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
         'paywall': 'open https://12ft.io/proxy?q={url}',
@@ -200,11 +201,12 @@ c.prompt.filebrowser = False
 c.downloads.location.suggestion = 'both'
 c.downloads.remove_finished = 0
 
-c.editor.command = [os.getenv('_EDITOR_GUI'), "{file}", "--nofork" ]
+c.editor.command = [os.getenv('_EDITOR_GUI'), "{file}", "--nofork"]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
 
+c.url.default_page = "https://www.google.com"
 c.url.searchengines = {
-        'DEFAULT': 'https://www.duckduckgo.com/?q={}',
+        'DEFAULT': 'https://www.google.com/search?q={}',
         'duck': 'https://www.duckduckgo.com/?q={}',
         'go': 'https://www.google.com/search?q={}',
         'def': 'https://www.merriam-webster.com/dictionary/{}',

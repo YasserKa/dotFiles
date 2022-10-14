@@ -31,6 +31,8 @@ def handle_page(page):
     while annot:
         if annot.type[0] == 8:
             highlights.append(parse_highlight(annot, wordlist))
+            if 'content' in annot.info:
+                highlights.append(f" {annot.info['content']} ")
         annot = annot.next
     return highlights
 

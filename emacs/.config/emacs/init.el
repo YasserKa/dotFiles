@@ -748,7 +748,6 @@ Made for `org-tab-first-hook' in evil-mode."
                             (:auto-category)
                             ))))))
           ))
-
   (use-package org-super-agenda
     ;; Should be loaded at the start
     :init (org-super-agenda-mode)
@@ -999,6 +998,7 @@ see how ARG affects this command."
   :bind
   (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
 
+
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
   :after (org evil)
@@ -1133,9 +1133,10 @@ see how ARG affects this command."
 (use-package appt
   :after org
   :ensure nil
-  :config (appt-activate 1)
+  :config
+  (appt-activate 1)
 
-  (setq appt-time-msg-list nil                      ;; clear existing appt list
+  (setq appt-time-msg-list nil                           ;; clear existing appt list
         appt-message-warning-time '10                    ;; send first warning before appointment
         appt-display-interval '5                         ;; warn every every X minutes from t - appt-message-warning-time
         appt-display-mode-line nil                       ;; don't show in the modeline
@@ -1156,8 +1157,10 @@ see how ARG affects this command."
   (defun org-agenda-to-appt-clear-message ()
     (interactive) (let ((inhibit-message t)) (setq appt-time-msg-list nil) (org-agenda-to-appt)))
 
+  (add-hook 'emacs-startup-hook 'org-agenda-to-appt-clear-message)
+
   ;; generate the appt list from org agenda files on emacs launch
-  (run-at-time nil 3600 'org-agenda-to-appt))
+  (run-at-time nil 3600 'org-agenda-to-appt-clear-message))
 ;; }}}
 ;; Navigation {{{
 (use-package vertico

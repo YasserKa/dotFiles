@@ -241,6 +241,15 @@ which() {
     return 2
 }
 
+# Reload qutebrowser and return to active window
+reload_browser() {
+    WINDOW_NAME="$1"
+    FOCUSED_ID="$(xdotool getwindowfocus)"
+    xdotool search --onlyvisible --name "${WINDOW_NAME}" windowfocus key --delay 100 --window %@ 'r'
+    sleep 0.5
+    xdotool windowfocus "${FOCUSED_ID}"
+}
+
 # Commands run in background automatically
 zathura() { (command zathura "$@" &>/dev/null &) }
 mpv() { (command mpv "$@" &>/dev/null &) }
