@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 # https://github.com/polybar/polybar/issues/763
-flock 200
-
 killall -q polybar
 
-while pgrep -u $UID -x polybar > /dev/null; do sleep 0.5; done
+# Sleep until all polybar instances are killed
+while pgrep -u "$UID" -x polybar > /dev/null; do sleep 0.5; done
 
-outputs=$(xrandr --query | grep " connected" | cut -d" " -f1)
-primary_output=$(xrandr --query | grep " primary" | cut -d" " -f1)
+OUTPUTS=$(xrandr --query | grep " connected" | cut -d" " -f1)
+PRIMARY_OUTPUT=$(xrandr --query | grep " primary" | cut -d" " -f1)
 
 # execute polybar for each screen and assign tray for the main window
-for m in $outputs; do
-    export MONITOR=$m
-    export TRAY_POSITION=none
+for OUTPUT in $OUTPUTS; do
+    export MONITOR="$OUTPUT"
 
-    if [[ $m == "$primary_output" ]]; then
-        polybar --reload middle_bar </dev/null > "/var/tmp/polybar-$m.log" 2>&1 200>&- &
+    if [[ "${MONITOR}" == "$PRIMARY_OUTPUT" ]]; then
+        polybar --reload middle_bar > "/var/tmp/polybar-${MONITOR}.log" 2>&1 &
     else
-        polybar --reload generic_bar </dev/null > "/var/tmp/polybar-$m.log" 2>&1 200>&- &
+        polybar --reload generic_bar > "/var/tmp/polybar-${MONITOR}.log" 2>&1 &
     fi
     disown
 done

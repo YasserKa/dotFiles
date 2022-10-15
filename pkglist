@@ -27,7 +27,7 @@ thinkfan # A minimalist fan control program. Supports the sysfs hwmon interface 
 
 # Drivers
 displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
-evdi # A Linux® kernel module that enables management of multiple screens.
+evdi-git # kernel module that that enables management of multiple screens.
 
 # Video
 nvidia       # NVIDIA drivers
