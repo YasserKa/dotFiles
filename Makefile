@@ -94,7 +94,7 @@ setup-neovim:
 setup-projects:
 	# MyMuPDF used for getting highlighted text in pdf
 	# pyperclip used to yank to clipboard by zathura's handle_document
-	pip install selenium webdriver-manager PyMuPDF pyperclip flake8 black --user
+	pip install selenium webdriver-manager PyMuPDF pyperclip flake8 black isort autoimport --user
 
 .PHONY: setup-knowledge-base
 setup-knowledge-base:
