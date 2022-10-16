@@ -24,14 +24,12 @@ Plug 'https://github.com/romainl/vim-cool' " Disable search highlighting when do
 " Make strings related to colors more colorful
 Plug 'https://github.com/gruvbox-community/gruvbox'
 
-" Others
+" Key bindings
 " Readline Movement
 Plug 'https://github.com/tpope/vim-rsi'
-Plug 'https://github.com/akinsho/toggleterm.nvim', {'tag': '*'}
-
-
-" Tmux
-Plug 'https://github.com/preservim/vimux'
+Plug 'https://github.com/folke/which-key.nvim'
+Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/tpope/vim-unimpaired'
 
 Plug 'https://github.com/itchyny/lightline.vim'
 Plug 'https://github.com/maximbaz/lightline-ale'
@@ -41,8 +39,6 @@ Plug 'https://github.com/tpope/vim-rhubarb'
 Plug 'https://github.com/lewis6991/gitsigns.nvim'
 Plug 'https://github.com/kien/rainbow_parentheses.vim'
 Plug 'https://github.com/tmsvg/pear-tree'
-Plug 'https://github.com/tpope/vim-surround'
-Plug 'https://github.com/tpope/vim-unimpaired'
 Plug 'https://github.com/tpope/vim-repeat'
 Plug 'https://github.com/wellle/targets.vim'
 Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
@@ -78,9 +74,11 @@ Plug 'https://github.com/dhruvasagar/vim-table-mode'
 Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
 
 Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
-Plug 'https://github.com/dbeniamine/cheat.sh-vim'
 
-Plug 'https://github.com/KabbAmine/zeavim.vim'
+" Ipython
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
+Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+
 call plug#end()
 " }}}
 " general settings {{{
@@ -126,11 +124,7 @@ map Y y$
 nnoremap <silent> <leader>es :split $MYVIMRC<CR>
 nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-" notes
-nnoremap <silent> <leader>nm :split $HOME/notes/markdown/math.md<CR>
-nnoremap <silent> <leader>nb :split $HOME/notes/markdown/books.md<CR>
-nnoremap <silent> <leader>nl :silent !zathura $HOME/books/manuals/symbols.pdf &<CR>
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u     " Fix last misspell
 
 " trigger tex file
 nnoremap <silent> yol :call ToggleTex()<CR>
@@ -167,6 +161,11 @@ augroup vimrc_todo
           \ containedin=.*Comment,vimCommentTitle
 augroup END
 hi def link MyTodo Todo
+
+function! YankOrgLink()
+    let @+ = "[[".expand("%:p")."][".expand("%:t")."]]"
+endfunction
+command YankOrgLink :call YankOrgLink()
 
 " Sessions
 set sessionoptions-=options
@@ -374,7 +373,6 @@ vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\
             \ :let @/ = "" <bar> set hlsearch<CR>
 " }}}
 " {{{ Jupyter Ascending
-
 function! OpenJupyterNotebook()
     let notebook_path = "http://localhost:8888/notebooks/".expand('%')[:-3]."ipynb"
     execute "silent ! qutebrowser --target window " . notebook_path . " &"
@@ -386,6 +384,22 @@ augroup NOTEBOOK
 
     autocmd BufRead,BufNewFile *.sync.py nnoremap <leader>O :call OpenJupyterNotebook()<CR>
 augroup END
+" }}}
+" {{{ vim-ipython-cell / vim-slime
+" Slime
+" always use tmux
+let g:slime_target = 'tmux'
+
+" https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+let g:slime_bracketed_ipython = 1
+
+" always send text to the top-right pane in the current tmux tab without asking
+let g:slime_default_config = {
+            \ 'socket_name': get(split($TMUX, ','), 0),
+            \ 'target_pane': '{top-right}' }
+
+let g:slime_dont_ask_default = 1
+
 " }}}
 " which-key {{{
 " Define prefix dictionary
@@ -646,9 +660,46 @@ function! s:show_documentation()
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " }}}
-" {{{ lua plugins mini.nvim
+" {{{ lua
 lua << EOF
 require('init')
-require('gitsigns').setup()
+require("which-key").setup({})
+local wk = require("which-key")
+wk.register({
+["<leader>"] = {
+    name = "ipython-cell", -- optional group name
+    n = {
+
+        r = { ":w<CR>:IPythonCellRun<CR>", "Run file"},
+        R = { ":w<CR>:IPythonCellRunTime<CR>", "Run file with timer" },
+        c = { ":IPythonCellExecuteCell<CR>", "Execute cell" },
+        vc= { " :IPythonCellExecuteVerboseCell<CR>", "Execute cell verbosely" },
+        C = { ":IPythonCellExecuteCellJump<CR>", "Execute cell and jump to next" },
+        vC= { " :IPythonCellExecuteCellVerboseJump<CR>", "Execute cell verbosly and jump to next" },
+        l = { ":IPythonCellClear<CR>", "Clear shell" },
+        x = { ":IPythonCellClose<CR>", "Close shell" },
+        Q = { ":IPythonCellRestart<CR>", "Restart shell" },
+        p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
+        s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
+        h = { "<Plug>SlimeLineSend", "Send line" },
+        d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
+        q = { ":SlimeSend1 exit<CR>", "" },
+        m = { "<Plug>IPythonCellToMarkdown", "" },
+        I = { ":IPythonCellInsertAbove<CR>o", ""},
+        i = { ":IPythonCellInsertBelow<CR>o", ""},
+        } },
+    ["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell"},
+    ["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell"},
+    ["<A-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above", mode = "i"},
+    ["<A-,>ni"]  = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below", mode = "i"},
+})
+wk.register({
+["<leader>"] = {
+    n = {
+        name = "ipython-cella",
+        h = { "<Plug>SlimeRegionSend", "Send shell" },
+        }
+    }
+}, {mode = "v"})
 EOF
 " }}}

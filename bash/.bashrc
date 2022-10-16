@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 # Source if the shell is interactive
-# shellcheck disable=SC1091,SC2034,SC1090,SC2155
+# shellcheck disable=SC1091,SC2034,SC1090,SC2155,SC2016
 case "$-" in
     *i*) ;;
     *) return ;;
@@ -85,6 +85,17 @@ fi
 
 # Readline with autopairs
 [[ -f "$XDG_CONFIG_HOME/readline/autopairs" ]] && . "$XDG_CONFIG_HOME/readline/autopairs"
+
+# Enable tmux pane & vim windows navigation
+# If terminal is in vi normal mode, trigger navigation, otherwise use C-*
+# normally
+if [[ -n "${TMUX}" ]]; then
+    is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+    bind -m vi-command -x '"\C-h": tmux if-shell "$is_vim" "send-keys C-h"  "select-pane -L"'
+    bind -m vi-command -x '"\C-j": tmux if-shell "$is_vim" "send-keys C-j"  "select-pane -D"'
+    bind -m vi-command -x '"\C-k": tmux if-shell "$is_vim" "send-keys C-k"  "select-pane -U"'
+    bind -m vi-command -x '"\C-l": tmux if-shell "$is_vim" "send-keys C-l"  "select-pane -R"'
+fi
 
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash ; do
