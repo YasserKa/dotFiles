@@ -325,6 +325,7 @@
     (kbd "C--") 'text-scale-decrease
     (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
+
   ;; Readline keybinding
   (evil-define-key 'insert 'global
     (kbd "C-a") 'back-to-indentation ;; Start of line
@@ -351,6 +352,22 @@
   ;; between dollar signs
   (define-and-bind-text-object "$" "\\$" "\\$")
   (define-and-bind-text-object "~" "\\~" "\\~")
+  )
+
+(use-package windresize
+  :after evil
+  :config
+  (setq windresize-increment 5)
+  (evil-define-key 'normal 'global
+    (kbd "C-h") 'evil-window-left
+    (kbd "C-j") 'evil-window-down
+    (kbd "C-k") 'evil-window-up
+    (kbd "C-l") 'evil-window-right
+    (kbd "C-S-h") 'windresize-left
+    (kbd "C-S-j") 'windresize-down
+    (kbd "C-S-k") 'windresize-up
+    (kbd "C-S-l") 'windresize-right
+    )
   )
 
 (use-package evil-vimish-fold
@@ -478,9 +495,9 @@
 (use-package git-gutter
   :init
   :config
-(dolist (mode '(prog-mode-hook
-                conf-mode-hook))
-  (add-hook mode 'git-gutter-mode))
+  (dolist (mode '(prog-mode-hook
+                  conf-mode-hook))
+    (add-hook mode 'git-gutter-mode))
 
   (custom-set-variables
    '(git-gutter:visual-line t)
@@ -1194,9 +1211,9 @@ see how ARG affects this command."
 
   ;; C-v and C-x splits window for org roam node prompts only
   (embark-define-keymap embark-org-roam-nodes-actions
-                        "Keymap for actions for org roam nodes"
-                        ("x" my/org-roam-node-find-window-x)
-                        ("v" my/org-roam-node-find-window-v))
+    "Keymap for actions for org roam nodes"
+    ("x" my/org-roam-node-find-window-x)
+    ("v" my/org-roam-node-find-window-v))
 
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
