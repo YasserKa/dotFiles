@@ -1,8 +1,14 @@
 XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
+# i3ipc: autokey for emacs script
+# MyMuPDF: getting highlighted text in pdf
+# pyperclip: used to yank to clipboard by zathura's handle_document
+# adblock tldextract sci-hub: qutebrowser 
+PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip jupyter_contrib_nbextensions poetry notebook neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
+
 .PHONY: install
-install: post-install-packages setup-knowledge-base setup-projects setup-neovim setup-jupyter-notebook setup-qutebrowser setup-autokey setup-bash setup-ambient-music show-final-instructions-message
+install: post-install-packages setup-knowledge-base upgrade-pypi-packages setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash setup-ambient-music show-final-instructions-message
 
 .PHONY: stow-etc
 stow-etc:
@@ -65,11 +71,6 @@ post-install-packages: stow-packages
 	systemctl --user daemon-reload
 	systemctl daemon-reload
 
-.PHONY: setup-autokey
-setup-autokey:
-	# Needed for emacs notes
-	pip install i3ipc --user
-
 .PHONY: setup-bash
 setup-bash:
 	@# Sync pkgfile database for command-no-found-handler function to work
@@ -86,15 +87,15 @@ setup-neovim:
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	nvim -c 'PlugInstall|qall'
+	nvim -c 'TSInstall python bash vim latex lua'
 	# install coc extensions
 	nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|qall'
-	pip install neovim-remote --user
 
-.PHONY: setup-projects
-setup-projects:
-	# MyMuPDF used for getting highlighted text in pdf
-	# pyperclip used to yank to clipboard by zathura's handle_document
-	pip install selenium webdriver-manager PyMuPDF pyperclip flake8 black isort autoimport --user
+.PHONY: upgrade-pypi-packages
+upgrade-pypi-packages:
+	@echo "Upgrading PYPI packages"
+	@pip install --upgrade --user  $(PYPI_PACKAGES)
+
 
 .PHONY: setup-knowledge-base
 setup-knowledge-base:
@@ -103,7 +104,6 @@ setup-knowledge-base:
 
 .PHONY: setup-jupyter-notebook
 setup-jupyter-notebook:
-	pip install jupyter_contrib_nbextensions --user
 	jupyter nbextensions_configurator enable --user
 	# You may need the following to create the directoy
 	mkdir -p $(jupyter --data-dir)/nbextensions
@@ -119,7 +119,6 @@ setup-qutebrowser:
 	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all.py --install --bin=yank_all.py
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
-	pip install adblock tldextract sci-hub --user # ad block, scripts
 	paru -S chromium-widevine # viewing DRM content (Spotify)
 	paru -S qtwebkit-plugins-git # For SpellChecking
 	# Update adblock list

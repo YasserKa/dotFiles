@@ -56,9 +56,7 @@ upgrade_system() {
         (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
         (auto-packages-update-now))"
 
-    echo "Upgrading PyPi packages"
-    pip install --upgrade --user tmuxp poetry i3ipc neovim-remote selenium \
-        PyMuPDF pyperclip flake8 black isort autoimport adblock tldextract sci-hub
+    make --file="${HOME}/dotfiles/Makefile" upgrade-pypi-packages
 
     echo 'Use the following commands to checkup on the system:
     systemctl --failed --user
