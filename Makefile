@@ -8,7 +8,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip jupyter_contrib_nbextensions poetry notebook neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
 
 .PHONY: install
-install: post-install-packages setup-knowledge-base upgrade-pypi-packages setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash setup-ambient-music show-final-instructions-message
+install: post-install-packages upgrade-pypi-packages setup-knowledge-base setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash setup-ambient-music show-final-instructions-message
 
 .PHONY: stow-etc
 stow-etc:

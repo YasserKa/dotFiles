@@ -1,3 +1,5 @@
 **/default.target.wants
 **/chromedriver
 /qutebrowser/.config/qutebrowser/qsettings/
+!profile_default/
+!ipython_config.py
