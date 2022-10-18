@@ -1386,7 +1386,7 @@ selection of all minor-modes, active or not."
   (" '" vertico-repeat "resume last search" :column " general")
   (" H" help-hydra/body "help")
   (" h" evil-ex-nohighlight "highlight")
-  (" b" switch-to-buffer "Switch buffer")
+  ("fb" switch-to-buffer "Switch buffer")
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")

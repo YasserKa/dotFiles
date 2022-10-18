@@ -4,44 +4,38 @@ require('mini.bufremove').setup()
 require("indent_blankline").setup()
 require("which-key").setup({})
 require("nvim-treesitter").setup({})
--- require("nvim-ts-rainbow").setup({})
 
 local actions = require("telescope.actions")
--- local action_layout = require("telescope.actions.layout")
+local action_layout = require("telescope.actions.layout")
 require("telescope").setup{
-  defaults = {
-    mappings = {
-      i = {
-        ["<C-[>"] = actions.close,
-        ["^["] = actions.close,
-        ["<Escape>"] = actions.close,
-        ["<C-u>"] = false,
-        -- ["<M-p>"] = action_layout.toggle_preview,
-        -- ["<C-s>"] = actions.cycle_previewers_next,
-        -- ["<C-a>"] = actions.cycle_previewers_prev,
-      },
+    defaults = {
+        mappings = {
+            i = {
+                ["<esc>"] = actions.close,
+                ["<C-u>"] = false,
+                ['<C-d>'] = require('telescope.actions').delete_buffer,
+                ["<M-p>"] = action_layout.toggle_preview,
+                ["<C-s>"] = actions.select_horizontal,
+            },
+            n = {
+                ['<C-d>'] = require('telescope.actions').delete_buffer,
+                ["<CR>"] = actions.select_default,
+            },
+        },
     },
-  },
-  -- pickers = {
-  --   find_files = {
-  --     find_command = {'fd', '-L' , "--type", "f", "--strip-cwd-prefix"}
-  --   },
-  -- }
+    pickers = {
+      find_files = {
+        find_command = {'fd', '-L' , "--type", "f", "--strip-cwd-prefix"}
+      },
+    }
 }
 
 require("nvim-treesitter.configs").setup {
-  highlight = {
-      -- ...
-  },
-  -- ...
-  rainbow = {
-    enable = true,
-    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    -- colors = {}, -- table of hex strings
-    -- termcolors = {} -- table of colour name strings
-  }
+    rainbow = {
+        enable = true,
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    }
 }
 
 vim.keymap.set('n', '<leader>c', MiniBufremove.delete)
@@ -80,6 +74,29 @@ wk.register({
     ["<A-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above", mode = "i"},
     ["<A-,>ni"]  = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below", mode = "i"},
 })
+
+
+require('goto-preview').setup {}
+wk.register({
+    ["g"] = {
+        name="Go to",
+        pd = { function() require('goto-preview').goto_preview_definition() end, "Preview definition"},
+        pt = { function() require('goto-preview').goto_preview_type_definition() end, "Preview type"},
+        pi = { function() require('goto-preview').goto_preview_implementation() end, "Preview implementation"},
+        P  = { function() require('goto-preview').close_all_win() end, "Close previews"},
+        pr  = { function() require('goto-preview').goto_preview_references() end, "Preview references"},
+        d = { function() vim.lsp.buf.definition() end, "Show the definition of current symbol" },
+        r = { function() vim.lsp.buf.references() end, "References of current symbol" },
+
+    }
+})
+
+wk.register({
+    ["<leader>"] = {
+        lf = { ":ALEFix<CR>", "Fix"}
+    }
+})
+
 wk.register({
     ["<leader>"] = {
         n = {
@@ -112,12 +129,10 @@ wk.register({
         }
     }
 })
-require('goto-preview').setup {}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.bashls.setup{}
 
 require("mason").setup()
-
 -- Package Manager
 wk.register({
     ["<leader>"] = { 
@@ -126,9 +141,6 @@ wk.register({
     }
 })
 
--- LSP Installer
-
-local wk = require("which-key")
 require('gitsigns').setup()
 wk.register({
     ["<leader>"] = {
@@ -150,10 +162,43 @@ wk.register({
 
 wk.register({
     ["<leader>"] = {
-        fw = { ":Rg<space>", "Search words" },
+        fw = { function() require("telescope.builtin").live_grep() end, "Search words" },
 
-        ff = { "<CMD>Files<CR>", "Search words" },
-        fb = { "<CMD>Buffers<CR>", "Search words" },
+        fW = {
+            function()
+                require("telescope.builtin").live_grep {
+                    additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+                }
+            end,
+            "Search words in all files",
+        },
+        gt = { function() require("telescope.builtin").git_status() end, "Git status" },
+        gb = { function() require("telescope.builtin").git_branches() end, "Git branches" },
+        gc = { function() require("telescope.builtin").git_commits() end, "Git commits" },
+        ff = { function() require("telescope.builtin").find_files() end, "Search files" },
+        fF = {
+            function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
+            "Search all files",
+        },
+        fb = { function() require("telescope.builtin").buffers() end, "Search buffers" },
+        fh = { function() require("telescope.builtin").help_tags() end, "Search help" },
+        fm = { function() require("telescope.builtin").marks() end, "Search marks" },
+        fo = { function() require("telescope.builtin").oldfiles() end, "Search history" },
+        fc =
+        { function() require("telescope.builtin").grep_string() end, "Search for word under cursor" },
+        sb = { function() require("telescope.builtin").git_branches() end, "Git branches" },
+        sh = { function() require("telescope.builtin").help_tags() end, "Search help" },
+        sm = { function() require("telescope.builtin").man_pages() end, "Search man" },
+        sn =
+        { function() require("telescope").extensions.notify.notify() end, "Search notifications" },
+        sr = { function() require("telescope.builtin").registers() end, "Search registers" },
+        sk = { function() require("telescope.builtin").keymaps() end, "Search keymaps" },
+        sc = { function() require("telescope.builtin").commands() end, "Search commands" },
+        lG =
+        { function() require("telescope.builtin").lsp_workspace_symbols() end, "Search workspace symbols" },
+        lR = { function() require("telescope.builtin").lsp_references() end, "Search references" },
+        lD = { function() require("telescope.builtin").diagnostics() end, "Search diagnostics" },
+
     }
 })
 
@@ -168,3 +213,18 @@ vim.keymap.set('n', '<C-S-j>', require('smart-splits').resize_down)
 vim.keymap.set('n', '<C-S-k>', require('smart-splits').resize_up)
 vim.keymap.set('n', '<C-S-l>', require('smart-splits').resize_right)
 --- }}
+-- {{{ auto-pairs 
+require("nvim-autopairs").setup({})
+local Rule = require('nvim-autopairs.rule')
+local npairs = require('nvim-autopairs')
+
+local cond = require('nvim-autopairs.conds')
+npairs.add_rules({
+  Rule("$", "$",{"tex", "latex"}) }
+)
+
+npairs.add_rules({
+  Rule("$$", "$$",{"tex", "latex"})
+    :with_pair(cond.not_after_regex("$"))
+  })
+-- }}

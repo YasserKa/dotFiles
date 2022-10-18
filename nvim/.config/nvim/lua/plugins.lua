@@ -50,7 +50,7 @@ return require('packer').startup(function(use)
     use 'https://github.com/lewis6991/gitsigns.nvim'
 
 
-    use 'https://github.com/tmsvg/pear-tree'
+    use 'https://github.com/windwp/nvim-autopairs'
     use 'https://github.com/tpope/vim-repeat'
     use 'https://github.com/wellle/targets.vim'
     use 'https://github.com/liuchengxu/vista.vim'
@@ -59,8 +59,6 @@ return require('packer').startup(function(use)
     use 'https://github.com/puremourning/vimspector'
     use 'https://github.com/szw/vim-maximizer'
     use 'https://github.com/mrjones2014/smart-splits.nvim'  -- Smart split navigation & movement
-
-    use 'https://github.com/liuchengxu/vim-which-key'
 
     use 'https://github.com/simnalamburt/vim-mundo'
 

@@ -165,6 +165,11 @@ _G.packer_plugins = {
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/neogen",
     url = "https://github.com/danymat/neogen"
   },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/yasser/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -198,11 +203,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
-  },
-  ["pear-tree"] = {
-    loaded = true,
-    path = "/home/yasser/.local/share/nvim/site/pack/packer/start/pear-tree",
-    url = "https://github.com/tmsvg/pear-tree"
   },
   ["plantuml-syntax"] = {
     loaded = false,
@@ -363,11 +363,6 @@ _G.packer_plugins = {
     path = "/home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue",
     url = "https://github.com/posva/vim-vue"
   },
-  ["vim-which-key"] = {
-    loaded = true,
-    path = "/home/yasser/.local/share/nvim/site/pack/packer/start/vim-which-key",
-    url = "https://github.com/liuchengxu/vim-which-key"
-  },
   vimspector = {
     loaded = true,
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/vimspector",
@@ -400,33 +395,33 @@ time([[Setup for markdown-preview.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]
-vim.cmd [[ packadd nvim-treesitter-context ]]
 vim.cmd [[ packadd nvim-ts-rainbow ]]
+vim.cmd [[ packadd nvim-treesitter-context ]]
 time([[Sequenced loading]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType blade.php ++once lua require("packer.load")({'vim-blade'}, { ft = "blade.php" }, _G.packer_plugins)]]
-vim.cmd [[au FileType table: 0x7f32c83aaf28 ++once lua require("packer.load")({'emmet-vim'}, { ft = "table: 0x7f32c83aaf28" }, _G.packer_plugins)]]
-vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-ipython-cell', 'vim-slime'}, { ft = "python" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-vue'}, { ft = "vue" }, _G.packer_plugins)]]
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'markdown-preview.nvim', 'plantuml-syntax', 'vimtex'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'plantuml-syntax', 'vimtex', 'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
 vim.cmd [[au FileType plantuml ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "plantuml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType sql ++once lua require("packer.load")({'vim-dadbod', 'vim-dadbod-ui', 'SQLComplete.vim'}, { ft = "sql" }, _G.packer_plugins)]]
+vim.cmd [[au FileType sql ++once lua require("packer.load")({'SQLComplete.vim', 'vim-dadbod-ui', 'vim-dadbod'}, { ft = "sql" }, _G.packer_plugins)]]
 vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
+vim.cmd [[au FileType blade.php ++once lua require("packer.load")({'vim-blade'}, { ft = "blade.php" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-vue'}, { ft = "vue" }, _G.packer_plugins)]]
+vim.cmd [[au FileType table: 0x7fdcab4ea578 ++once lua require("packer.load")({'emmet-vim'}, { ft = "table: 0x7fdcab4ea578" }, _G.packer_plugins)]]
+vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-ipython-cell', 'vim-slime'}, { ft = "python" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], true)
-vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]]
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], false)
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], true)
-vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]]
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], false)
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue/ftdetect/vue.vim]], true)
 vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue/ftdetect/vue.vim]]
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue/ftdetect/vue.vim]], false)
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], true)
+vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]]
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], false)
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], true)
+vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]]
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], false)
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], true)
 vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]]
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], false)
