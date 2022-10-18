@@ -1,85 +1,6 @@
 " vim-plug {{{
 " Note: upgrade_system funciton and Makefile should be updated, if the plugin
 " manager gets changed
-call plug#begin(stdpath('data') . '/plugged')
-
-" Filetypes
-Plug 'https://github.com/YasserKa/vim-sxhkdrc'
-Plug 'https://github.com/fladson/vim-kitty'
-" Editing
-" Lua minimal modules
-Plug 'https://github.com/echasnovski/mini.nvim'
-" Expand/shrink visual region via _ & +
-Plug 'https://github.com/terryma/vim-expand-region'
-
-Plug 'https://github.com/kkoomen/vim-doge', { 'do': { -> doge#install() } } " Doc Generator
-
-" Visual
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter'
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter-context' " Sticky line for current scope
-Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'
-Plug 'https://github.com/romainl/vim-cool' " Disable search highlighting when done
-
-" Aesthetics
-" Make strings related to colors more colorful
-Plug 'https://github.com/gruvbox-community/gruvbox'
-
-" Key bindings
-" Readline Movement
-Plug 'https://github.com/tpope/vim-rsi'
-Plug 'https://github.com/folke/which-key.nvim'
-Plug 'https://github.com/tpope/vim-surround'
-Plug 'https://github.com/tpope/vim-unimpaired'
-
-Plug 'https://github.com/itchyny/lightline.vim'
-Plug 'https://github.com/maximbaz/lightline-ale'
-Plug 'https://github.com/tpope/vim-fugitive'
-" Extenion for fugitive that allows to browse github from code
-Plug 'https://github.com/tpope/vim-rhubarb'
-Plug 'https://github.com/lewis6991/gitsigns.nvim'
-Plug 'https://github.com/kien/rainbow_parentheses.vim'
-Plug 'https://github.com/tmsvg/pear-tree'
-Plug 'https://github.com/tpope/vim-repeat'
-Plug 'https://github.com/wellle/targets.vim'
-Plug 'https://github.com/liuchengxu/vista.vim', {'on': 'Vista!!'}
-Plug 'https://github.com/jeetsukumaran/vim-commentary'
-
-Plug 'https://github.com/puremourning/vimspector'
-Plug 'https://github.com/szw/vim-maximizer'
-Plug 'https://github.com/mrjones2014/smart-splits.nvim'  " Smart split navigation & movement
-
-Plug 'https://github.com/liuchengxu/vim-which-key'
-
-Plug 'https://github.com/simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-
-Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/dense-analysis/ale'
-Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/SirVer/ultisnips'
-Plug 'https://github.com/honza/vim-snippets'
-Plug 'https://github.com/mattn/emmet-vim', {'for': ['html', 'blade.php', 'vue']}
-Plug 'https://github.com/plasticboy/vim-markdown'
-
-Plug 'https://github.com/jwalton512/vim-blade', {'for': 'blade.php'}
-Plug 'https://github.com/posva/vim-vue', {'for': 'vue'}
-
-Plug 'https://github.com/kristijanhusak/vim-dadbod-ui', {'for': 'sql'}
-Plug 'https://github.com/tpope/vim-dadbod', {'for': 'sql'}
-Plug 'https://github.com/vim-scripts/SQLComplete.vim', {'for': 'sql'}
-
-Plug 'https://github.com/iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'plantuml']}
-
-Plug 'https://github.com/lervag/vimtex', {'for': ['tex', 'markdown']}
-Plug 'https://github.com/dhruvasagar/vim-table-mode'
-Plug 'https://github.com/aklt/plantuml-syntax', { 'for': ['markdown']}
-
-Plug 'https://github.com/untitled-ai/jupyter_ascending.vim'
-
-" Ipython
-Plug 'jpalardy/vim-slime', { 'for': 'python' }
-Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
-
-call plug#end()
 " }}}
 " general settings {{{
 set clipboard+=unnamedplus    " System clipboard
@@ -89,7 +10,6 @@ set smartcase                 " ...unless capital letters are used
 set confirm                   " Confirm :q in case of unsaved changes
 set autowrite                 " Save file when switching buffers
 
-colorscheme gruvbox
 set background=light
 set termguicolors
 set dictionary=/usr/share/dict/cracklib-small
@@ -297,16 +217,6 @@ let g:lightline#ale#indicator_checking = "\uf110 "
 let g:lightline#ale#indicator_warnings = "\uf071 "
 let g:lightline#ale#indicator_errors = "\uf05e "
 let g:lightline#ale#indicator_ok = "\uf00c "
-" }}}
-" rainbow_parentheses.vim {{{
-augroup RAINBOW
-    autocmd!
-    autocmd VimEnter * RainbowParenthesesToggle
-    autocmd Syntax * RainbowParenthesesLoadRound
-    autocmd Syntax * RainbowParenthesesLoadSquare
-    autocmd Syntax * RainbowParenthesesLoadBraces
-augroup END
-let g:rbpt_max = 16
 " }}}
 " vim-cool {{{
 " Show number of matches in command-line
@@ -593,10 +503,6 @@ nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
 " }}}
 " fzf {{{
-nnoremap <leader>a :Rg<space>
-nnoremap <leader>p :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-
 " Mapping selecting mappings
 imap <C-q> <plug>(fzf-maps-i)
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -663,43 +569,5 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 " {{{ lua
 lua << EOF
 require('init')
-require("which-key").setup({})
-local wk = require("which-key")
-wk.register({
-["<leader>"] = {
-    name = "ipython-cell", -- optional group name
-    n = {
-
-        r = { ":w<CR>:IPythonCellRun<CR>", "Run file"},
-        R = { ":w<CR>:IPythonCellRunTime<CR>", "Run file with timer" },
-        c = { ":IPythonCellExecuteCell<CR>", "Execute cell" },
-        vc= { " :IPythonCellExecuteVerboseCell<CR>", "Execute cell verbosely" },
-        C = { ":IPythonCellExecuteCellJump<CR>", "Execute cell and jump to next" },
-        vC= { " :IPythonCellExecuteCellVerboseJump<CR>", "Execute cell verbosly and jump to next" },
-        l = { ":IPythonCellClear<CR>", "Clear shell" },
-        x = { ":IPythonCellClose<CR>", "Close shell" },
-        Q = { ":IPythonCellRestart<CR>", "Restart shell" },
-        p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
-        s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
-        h = { "<Plug>SlimeLineSend", "Send line" },
-        d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
-        q = { ":SlimeSend1 exit<CR>", "" },
-        m = { "<Plug>IPythonCellToMarkdown", "" },
-        I = { ":IPythonCellInsertAbove<CR>o", ""},
-        i = { ":IPythonCellInsertBelow<CR>o", ""},
-        } },
-    ["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell"},
-    ["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell"},
-    ["<A-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above", mode = "i"},
-    ["<A-,>ni"]  = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below", mode = "i"},
-})
-wk.register({
-["<leader>"] = {
-    n = {
-        name = "ipython-cella",
-        h = { "<Plug>SlimeRegionSend", "Send shell" },
-        }
-    }
-}, {mode = "v"})
 EOF
 " }}}

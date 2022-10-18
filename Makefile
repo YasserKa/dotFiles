@@ -44,7 +44,7 @@ post-install-packages: stow-packages
 	# accurate date
 	sudo timedatectl set-ntp true
 	emacs --batch --load=$(XDG_CONFIG_HOME)/emacs/init.el
-	nvim +'PlugInstall --sync' +qa
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 	# Display link
 	systemctl start displaylink
 	systemctl enable displaylink
@@ -86,7 +86,6 @@ setup-neovim:
 	# Get plugings
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	nvim -c 'PlugInstall|qall'
 	nvim -c 'TSInstall python bash vim latex lua'
 	# install coc extensions
 	nvim -c 'CocInstall -sync coc-snippets coc-db coc-explorer coc-json  coc-pyright coc-emmet coc-html coc-vimtex|qall'
