@@ -359,10 +359,6 @@
   :config
   (setq windresize-increment 5)
   (evil-define-key 'normal 'global
-    (kbd "C-h") 'evil-window-left
-    (kbd "C-j") 'evil-window-down
-    (kbd "C-k") 'evil-window-up
-    (kbd "C-l") 'evil-window-right
     (kbd "C-S-h") 'windresize-left
     (kbd "C-S-j") 'windresize-down
     (kbd "C-S-k") 'windresize-up
@@ -1300,6 +1296,15 @@ see how ARG affects this command."
    "\C-u" 'evil-scroll-up
    "g:" 'goto-last-change
    )
+
+  (general-override-mode)
+
+  (general-def 'normal 'override
+    "C-h" 'evil-window-left
+    "C-j" 'evil-window-down
+    "C-k" 'evil-window-up
+    "C-l" 'evil-window-right
+    )
 
   (general-define-key
    :states '(normal visual motion)
