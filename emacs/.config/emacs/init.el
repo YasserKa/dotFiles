@@ -486,7 +486,13 @@
 ;; Avoid being prompted with symbolic link to git-controlled
 (setq vc-follow-symlinks t)
 
-(use-package git-timemachine)
+(use-package git-timemachine
+  :after (evil-collection)
+  :config
+  (evil-define-minor-mode-key 'normal 'git-timemachine-mode (kbd "C-n") 'git-timemachine-show-next-revision)
+  (evil-define-minor-mode-key 'normal 'git-timemachine-mode (kbd "C-p") 'git-timemachine-show-previous-revision)
+  )
+
 (use-package browse-at-remote)
 (use-package git-gutter
   :init

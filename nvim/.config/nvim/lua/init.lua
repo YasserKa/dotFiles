@@ -47,7 +47,7 @@ vim.opt.termguicolors = true
 
 wk.register({
     ["<leader>"] = {
-        name = "ipython-cell", -- optional group name
+        name = "ipython-cell",
         n = {
 
             r = { ":w<CR>:IPythonCellRun<CR>", "Run file"},
@@ -63,10 +63,10 @@ wk.register({
             s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
             h = { "<Plug>SlimeLineSend", "Send line" },
             d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
-            q = { ":SlimeSend1 exit<CR>", "" },
-            m = { "<Plug>IPythonCellToMarkdown", "" },
-            I = { ":IPythonCellInsertAbove<CR>o", ""},
-            i = { ":IPythonCellInsertBelow<CR>o", ""},
+            q = { ":SlimeSend1 exit<CR>", "Exit" },
+            m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
+            I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above"},
+            i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below"},
         } 
     },
     ["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell"},
