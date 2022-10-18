@@ -1,7 +1,3 @@
-" vim-plug {{{
-" Note: upgrade_system funciton and Makefile should be updated, if the plugin
-" manager gets changed
-" }}}
 " general settings {{{
 set clipboard+=unnamedplus    " System clipboard
 set virtualedit=all           " Moving in whitespace
@@ -222,28 +218,6 @@ let g:lightline#ale#indicator_ok = "\uf00c "
 " Show number of matches in command-line
 let g:CoolTotalMatches = 1
 " }}}
-" pear-tree {{{
-let g:pear_tree_repeatable_expand = 0
-let g:pear_tree_smart_openers = 1
-let g:pear_tree_smart_closers = 1
-let g:pear_tree_smart_backspace = 1
-" Default rules for matching:
-let g:pear_tree_pairs = {
-            \ '(': {'closer': ')'}, '[': {'closer': ']'}, '{': {'closer': '}'},
-            \ "'": {'closer': "'"},  '"': {'closer': '"'},  '`': {'closer': '`'},
-            \ "'''": {'closer': "'''"},  '"""': {'closer': '"""'},  '```': {'closer': '```'},
-            \ }
-
-augroup pear_pairs
-    autocmd!
-    autocmd FileType markdown let b:pear_tree_pairs = extend(deepcopy(g:pear_tree_pairs), {
-                \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
-                \ }, 'keep')
-    autocmd FileType tex let b:pear_tree_pairs = extend(deepcopy(g:pear_tree_pairs), {
-                \ "$": {'closer': "$"}, "$$": {'closer': "$$"}
-                \ }, 'keep')
-augroup END
-" }}}
 " targets {{{
 let g:targets_nl = ["n", "N"]
 " }}}
@@ -310,97 +284,6 @@ let g:slime_default_config = {
 
 let g:slime_dont_ask_default = 1
 
-" }}}
-" which-key {{{
-" Define prefix dictionary
-let g:which_key_map =  {}
-
-" inoremap <C-s> <C-o>:WhichKey 'latex_symbols'<CR>
-
-" vnoremap <silent> <C-s> :silent <c-u> :silent WhichKeyVisual '<C-s>'<CR>
-
-" Not a fan of floating windows for this
-let g:which_key_use_floating_win = 0
-
-" Hide status line
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-            \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
-
-let g:latex_symbols = {
-            \ 'a' : ['\\alpha', 'α (\alpha)'] ,
-            \ 'b' : ['\\beta', 'β (\beta)'] ,
-            \ 'g' : ['\\gamma', 'γ (\gamma)'] ,
-            \ 'd' : ['\\delta', 'δ (\delta)'] ,
-            \ 'e' : ['\\epsilon', 'ϵ (\epsilon)'] ,
-            \ 'z' : ['\\zeta', 'ζ (\zeta)'] ,
-            \ 'h' : ['\\eta', 'η (\eta)'] ,
-            \ 'j' : ['\\theta', 'θ (\theta)'] ,
-            \ 'k' : ['\\kappa', 'κ (\kappa)'] ,
-            \ 'l' : ['\\lambda', 'λ (\lambda)'] ,
-            \ 'm' : ['\\mu', 'µ (\mu)'] ,
-            \ 'n' : ['\\nu', 'ν (\nu)'] ,
-            \ 'x' : ['\\xi', 'ξ (\xi)'] ,
-            \ 'p' : ['\\pi', 'π (\pi)'] ,
-            \ 'r' : ['\\rho', 'ρ (\rho)'] ,
-            \ 's' : ['\\sigma', 'σ (\sigma)'] ,
-            \ 't' : ['\\tau', 'τ (\tau)'] ,
-            \ 'u' : ['\\upsilon', 'υ (\upsilon)'] ,
-            \ 'f' : ['\\phi', 'φ (\phi)'] ,
-            \ 'q' : ['\\chi', 'χ (\chi)'] ,
-            \ 'y' : ['\\psi', 'ψ (\psi)'] ,
-            \ 'w' : ['\\omega', 'ω (\omega)'] ,
-            \ 'D' : ['\\Delta', '∆ (\Delta)'] ,
-            \ 'G' : ['\\Gamma', 'Γ (\Gamma)'] ,
-            \ 'Q' : ['\\Theta', 'Θ (\Theta)'] ,
-            \ 'L' : ['\\Lambda', 'Λ (\Lambda)'] ,
-            \ 'X' : ['\\Xi', 'Ξ (\Xi)'] ,
-            \ 'P' : ['\\Pi', 'Π (\Pi)'] ,
-            \ 'S' : ['\\Sigma', 'Σ (\Sigma)'] ,
-            \ 'U' : ['\\Upsilon', 'Υ (\Upsilon)'] ,
-            \ 'F' : ['\\Phi', 'Φ (\Phi)'] ,
-            \ 'Y' : ['\\Psi', 'Ψ (\Psi)'] ,
-            \ 'W' : ['\\Omega', 'Ω (\Omega)'] ,
-            \ "C-f" : ['\\rightarrow', '→ (\rightarrow)'] ,
-            \ 'C-b' : ['\\leftarrow', '← (\leftarrow)'] ,
-            \ 'C-p' : ['\\uparrow', '↑ (\uparrow)'] ,
-            \ 'C-n' : ['\\downarrow', '↓ (\downarrow)'] ,
-            \ '<' : ['\\leq', '≤ (\leq)'] ,
-            \ '>' : ['\\geq', '≥ (\geq)'] ,
-            \ '~' : ['\\tilde', '˜x (\tilde)'] ,
-            \ 'N' : ['\\nabla', '∇ (\nabla)'] ,
-            \ 'I' : ['\\infty', '∞ (\infty)'] ,
-            \ 'o' : ['\\circ', '◦ (\circ)'] ,
-            \ 'A' : ['\\forall', '∀ (\forall)'] ,
-            \ 'E' : ['\\exists', '∃ (\exists)'] ,
-            \ '/' : ['\\not', '(\not)'] ,
-            \ 'i' : ['\\in', '∈ (\in)'] ,
-            \ '*' : ['\\times', '× (\times)'] ,
-            \ '.' : ['\\cdot', '· (\cdot)'] ,
-            \ '{' : ['\\subset', '⊂ (\subset)'] ,
-            \ '}' : ['\\supset', '⊃ (\supset)'] ,
-            \ '[' : ['\\subseteq', '⊆ (\subseteq)'] ,
-            \ ']' : ['\\supseteq', '⊇ (\supseteq)'] ,
-            \ '0' : ['\\emptyset', '∅ (\emptyset)'] ,
-            \ '\' : ['\\setminus', '\ (\setminus)'] ,
-            \ '+' : ['\\cup', '∪ (\cup)'] ,
-            \ '-' : ['\\cap', '∩ (\cap)'] ,
-            \ '(' : ['\\langle', '⟨ (\langle)'] ,
-            \ ' ' : ['\\rangle', '⟩ (\rangle)'] ,
-            \ 'C-e' : ['\\exp', 'exp (\exp)'] ,
-            \ 'C-s' : ['\\sin', 'sin (\sin)'] ,
-            \ 'C-c' : ['\\cos', 'cos (\cos)'] ,
-            \ 'C-^' : ['\\sup', 'sup (\sup)'] ,
-            \ 'C-_' : ['\\inf', 'inf (\inf)'] ,
-            \ 'C-d' : ['\\det', 'det (\det)'] ,
-            \ 'C-l' : ['\\lim', 'lim (\lim)'] ,
-            \ 'C-t' : ['\\tan', 'tan (\tan)'] ,
-            \ '^' : ['\\hat', 'ˆx (\hat)'] ,
-            \ '|' : ['\\vee', '∨ (\vee)'] ,
-            \ '&' : ['\\wedge', '∧ (\wedge)'] ,
-            \ }
-" Register which key map
-call which_key#register('latex_symbols', "g:latex_symbols")
 " }}}
 " vim-markdown {{{
 let g:vim_markdown_math = 1
@@ -547,8 +430,6 @@ nnoremap <silent> <space>c  <cmd>CocList commands<cr>
 nnoremap <silent> <space>e  <cmd>CocList extensions<cr>
 
 " Code navigation.
-nmap <silent>gd <Plug>(coc-definition)
-nmap <silent>gr <Plug>(coc-references)
 nmap <silent>[g <Plug>(ale_previous_wrap)
 nmap <silent>]g <Plug>(ale_next_wrap)
 
