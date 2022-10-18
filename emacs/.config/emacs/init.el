@@ -572,7 +572,7 @@
 
   (setq org-file-apps '((t . (lambda (file link)
                                (start-process-shell-command "Start default application" nil (concat  "xdg-open \"" file "\"" nil))))
-                        ))
+                        (".org" . emacs)))
 
   (defun org-pass-link-to-system (link)
     (if (string-match "^[-a-zA-Z0-9]+:" link)
