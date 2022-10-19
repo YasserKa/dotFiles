@@ -230,6 +230,11 @@ _G.packer_plugins = {
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["readline.nvim"] = {
+    loaded = true,
+    path = "/home/yasser/.local/share/nvim/site/pack/packer/start/readline.nvim",
+    url = "https://github.com/linty-org/readline.nvim"
+  },
   ["smart-splits.nvim"] = {
     loaded = true,
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/smart-splits.nvim",
@@ -333,11 +338,6 @@ _G.packer_plugins = {
     path = "/home/yasser/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
     url = "https://github.com/tpope/vim-rhubarb"
   },
-  ["vim-rsi"] = {
-    loaded = true,
-    path = "/home/yasser/.local/share/nvim/site/pack/packer/start/vim-rsi",
-    url = "https://github.com/tpope/vim-rsi"
-  },
   ["vim-slime"] = {
     loaded = false,
     needs_bufread = true,
@@ -409,35 +409,29 @@ time([[Setup for markdown-preview.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]
+vim.cmd [[ packadd nvim-treesitter-textobjects ]]
 vim.cmd [[ packadd nvim-ts-context-commentstring ]]
 vim.cmd [[ packadd nvim-treesitter-context ]]
-vim.cmd [[ packadd nvim-treesitter-textobjects ]]
 vim.cmd [[ packadd nvim-ts-rainbow ]]
 time([[Sequenced loading]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-vue'}, { ft = "vue" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-ipython-cell', 'vim-slime'}, { ft = "python" }, _G.packer_plugins)]]
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'plantuml-syntax', 'markdown-preview.nvim', 'vimtex'}, { ft = "markdown" }, _G.packer_plugins)]]
-vim.cmd [[au FileType plantuml ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "plantuml" }, _G.packer_plugins)]]
 vim.cmd [[au FileType sql ++once lua require("packer.load")({'SQLComplete.vim', 'vim-dadbod', 'vim-dadbod-ui'}, { ft = "sql" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
 vim.cmd [[au FileType blade.php ++once lua require("packer.load")({'vim-blade'}, { ft = "blade.php" }, _G.packer_plugins)]]
-vim.cmd [[au FileType table: 0x7fed1e50d120 ++once lua require("packer.load")({'emmet-vim'}, { ft = "table: 0x7fed1e50d120" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-vue'}, { ft = "vue" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'vimtex', 'plantuml-syntax', 'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-slime', 'vim-ipython-cell'}, { ft = "python" }, _G.packer_plugins)]]
+vim.cmd [[au FileType table: 0x7f6837c83ff0 ++once lua require("packer.load")({'emmet-vim'}, { ft = "table: 0x7f6837c83ff0" }, _G.packer_plugins)]]
+vim.cmd [[au FileType plantuml ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "plantuml" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue/ftdetect/vue.vim]], true)
 vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue/ftdetect/vue.vim]]
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-vue/ftdetect/vue.vim]], false)
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], true)
-vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]]
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], false)
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], true)
-vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]]
-time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], false)
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], true)
 vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]]
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], false)
@@ -447,6 +441,12 @@ time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/pac
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], true)
 vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]]
 time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], false)
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], true)
+vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]]
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/vim-blade/ftdetect/blade.vim]], false)
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], true)
+vim.cmd [[source /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]]
+time([[Sourcing ftdetect script at: /home/yasser/.local/share/nvim/site/pack/packer/opt/plantuml-syntax/ftdetect/plantuml.vim]], false)
 vim.cmd("augroup END")
 
 _G._packer.inside_compile = false

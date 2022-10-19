@@ -16,10 +16,7 @@ require("telescope").setup{
                 ['<C-d>'] = require('telescope.actions').delete_buffer,
                 ["<M-p>"] = action_layout.toggle_preview,
                 ["<C-s>"] = actions.select_horizontal,
-            },
-            n = {
-                ['<C-d>'] = require('telescope.actions').delete_buffer,
-                ["<CR>"] = actions.select_default,
+                ["<C-j>"] = actions.select_default,
             },
         },
     },
@@ -115,8 +112,9 @@ wk.register({
     },
     ["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell"},
     ["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell"},
-    ["<A-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above", mode = "i"},
-    ["<A-,>ni"]  = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below", mode = "i"},
+    -- F2 is bounded to <C-,> in kitty (A hack, because tmux doesn't understand <C-,>)
+    ["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above", mode = "i"},
+    ["<F2>ni"]  = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below", mode = "i"},
 })
 
 
@@ -283,7 +281,7 @@ vim.keymap.set('n', '<C-S-h>', require('smart-splits').resize_left)
 vim.keymap.set('n', '<C-S-j>', require('smart-splits').resize_down)
 vim.keymap.set('n', '<C-S-k>', require('smart-splits').resize_up)
 vim.keymap.set('n', '<C-S-l>', require('smart-splits').resize_right)
---- }}
+--- }}}
 -- {{{ auto-pairs 
 require("nvim-autopairs").setup({})
 local Rule = require('nvim-autopairs.rule')
@@ -298,3 +296,22 @@ npairs.add_rules({
     Rule("$$", "$$",{"tex", "latex"})
     :with_pair(cond.not_after_regex("$"))
 })
+-- }}}
+-- {{{ readline.nvim
+local readline = require 'readline'
+vim.keymap.set('!', '<C-k>', readline.kill_line)
+vim.keymap.set('!', '<C-u>', readline.backward_kill_line)
+vim.keymap.set('!', '<M-d>', readline.kill_word)
+vim.keymap.set('!', '<M-BS>', readline.backward_kill_word)
+vim.keymap.set('!', '<C-w>', readline.unix_word_rubout)
+vim.keymap.set('!', '<C-d>', '<Delete>')  -- delete-char
+vim.keymap.set('!', '<C-h>', '<BS>')      -- backward-delete-char
+vim.keymap.set('!', '<C-a>', readline.beginning_of_line)
+vim.keymap.set('!', '<C-e>', readline.end_of_line)
+vim.keymap.set('!', '<M-f>', readline.forward_word)
+vim.keymap.set('!', '<M-b>', readline.backward_word)
+vim.keymap.set('!', '<C-f>', '<Right>') -- forward-char
+vim.keymap.set('!', '<C-b>', '<Left>')  -- backward-char
+-- vim.keymap.set('!', '<C-n>', '<Down>')  -- next-line
+-- vim.keymap.set('!', '<C-p>', '<Up>')    -- previous-line
+-- }}}

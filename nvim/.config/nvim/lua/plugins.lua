@@ -37,7 +37,7 @@ return require('packer').startup(function(use)
 
     -- Key bindings
     -- Readline Movement
-    use 'https://github.com/tpope/vim-rsi'
+    use 'https://github.com/linty-org/readline.nvim'
     use 'https://github.com/folke/which-key.nvim'
     use 'https://github.com/tpope/vim-surround'
     use 'https://github.com/tpope/vim-unimpaired'

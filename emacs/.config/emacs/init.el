@@ -1323,7 +1323,7 @@ see how ARG affects this command."
   (general-define-key
    :states 'insert
    :keymaps 'global
-   "M-," 'main-hydra/body)
+   "C-," 'main-hydra/body)
 
   (add-hook 'org-mode-hook
             #'(lambda ()
@@ -1334,7 +1334,7 @@ see how ARG affects this command."
                 (general-define-key
                  :states '(insert)
                  :keymaps 'local
-                 "M-," 'org-hydra/body))
+                 "C-," 'org-hydra/body))
             )
 
   (add-hook 'org-agenda-mode-hook
