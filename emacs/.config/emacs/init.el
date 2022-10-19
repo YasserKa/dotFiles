@@ -735,6 +735,9 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-agenda-log-mode-items '(closed))
   ;; Show today's clocked report
   (setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :block today :properties ("Effort")))
+  ;; Persist clock history on Emacs close
+  (org-clock-persistence-insinuate)
+  (setq org-clock-persist 'clock)
 
   ;; Super agenda
   (setq org-agenda-custom-commands
@@ -883,9 +886,11 @@ Made for `org-tab-first-hook' in evil-mode."
     )
 
   (add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
-  (dolist (hook '(org-clock-out-hook
-                  org-clock-cancel-hook))
-    (add-hook hook #'(lambda () (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null"))))
+
+  (dolist (advice '(org-clock-out
+                  org-clock-cancel))
+    (advice-add advice :before #'(lambda (&rest pos) (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null")))
+    )
 
   (defun my/org-toggle-last-clock (arg)
     "Toggles last
@@ -1014,9 +1019,7 @@ see how ARG affects this command."
   (citar-bibliography org-cite-global-bibliography)
   ;; Open files using external program
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
-  :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert)))
-
+  :bind )
 
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
@@ -1392,12 +1395,17 @@ selection of all minor-modes, active or not."
   (" '" vertico-repeat "resume last search" :column " general")
   (" H" help-hydra/body "help")
   (" h" evil-ex-nohighlight "highlight")
-  ("fb" switch-to-buffer "Switch buffer")
+  (" f" find-hydra/body "find")
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
   ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
+  )
+
+(defhydra find-hydra (:exit t :idle 1)
+  (" b" switch-to-buffer "Buffer")
+  (" B" org-cite-insert "BibTex")
   )
 
 (defhydra git-hydra (:exit t :hint nil :idle 1)

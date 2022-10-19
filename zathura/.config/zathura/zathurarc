@@ -22,7 +22,7 @@ map ,dd exec '/home/yasser/.config/zathura/delete_document "$FILE"'
 # Open another instance
 map wo exec '/usr/bin/env zathura "$FILE"'
 
-map ,ar exec '/home/yasser/.config/zathura/handle_document remove_annotations "$FILE"'
+map ,ad exec '/home/yasser/.config/zathura/handle_document remove_annotations "$FILE"'
 map ,ay exec '/home/yasser/.config/zathura/handle_document get_annotations "$FILE"'
 
 # Open using okular
