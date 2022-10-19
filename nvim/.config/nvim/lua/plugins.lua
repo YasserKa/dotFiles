@@ -28,11 +28,11 @@ return require('packer').startup(function(use)
     use 'https://github.com/lukas-reineke/indent-blankline.nvim'
     use 'https://github.com/romainl/vim-cool' -- Disable search highlighting when done
 
-    -- Visual
-    -- use({"https://github.com/nvim-treesitter/nvim-treesitter", after = ["https://github.com/p00f/nvim-ts-rainbow", "https://github.com/nvim-treesitter/nvim-treesitter-context"] })
-
     use "https://github.com/nvim-treesitter/nvim-treesitter"
+ 
+    use({'https://github.com/JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' })
     use({'https://github.com/p00f/nvim-ts-rainbow', after = 'nvim-treesitter' })
+    use({'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'})
     use({'https://github.com/nvim-treesitter/nvim-treesitter-context', after = 'nvim-treesitter' })
 
     -- Key bindings

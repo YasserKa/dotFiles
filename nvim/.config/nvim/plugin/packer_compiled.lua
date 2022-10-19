@@ -187,6 +187,20 @@ _G.packer_plugins = {
     path = "/home/yasser/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-context",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
   },
+  ["nvim-treesitter-textobjects"] = {
+    load_after = {},
+    loaded = true,
+    needs_bufread = false,
+    path = "/home/yasser/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    load_after = {},
+    loaded = true,
+    needs_bufread = false,
+    path = "/home/yasser/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring",
+    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
+  },
   ["nvim-ts-rainbow"] = {
     load_after = {},
     loaded = true,
@@ -395,21 +409,23 @@ time([[Setup for markdown-preview.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]
-vim.cmd [[ packadd nvim-ts-rainbow ]]
+vim.cmd [[ packadd nvim-ts-context-commentstring ]]
 vim.cmd [[ packadd nvim-treesitter-context ]]
+vim.cmd [[ packadd nvim-treesitter-textobjects ]]
+vim.cmd [[ packadd nvim-ts-rainbow ]]
 time([[Sequenced loading]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'plantuml-syntax', 'vimtex', 'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
-vim.cmd [[au FileType plantuml ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "plantuml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType sql ++once lua require("packer.load")({'SQLComplete.vim', 'vim-dadbod-ui', 'vim-dadbod'}, { ft = "sql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType blade.php ++once lua require("packer.load")({'vim-blade'}, { ft = "blade.php" }, _G.packer_plugins)]]
 vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-vue'}, { ft = "vue" }, _G.packer_plugins)]]
-vim.cmd [[au FileType table: 0x7fdcab4ea578 ++once lua require("packer.load")({'emmet-vim'}, { ft = "table: 0x7fdcab4ea578" }, _G.packer_plugins)]]
+vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
 vim.cmd [[au FileType python ++once lua require("packer.load")({'vim-ipython-cell', 'vim-slime'}, { ft = "python" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'plantuml-syntax', 'markdown-preview.nvim', 'vimtex'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType plantuml ++once lua require("packer.load")({'markdown-preview.nvim'}, { ft = "plantuml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType sql ++once lua require("packer.load")({'SQLComplete.vim', 'vim-dadbod', 'vim-dadbod-ui'}, { ft = "sql" }, _G.packer_plugins)]]
+vim.cmd [[au FileType blade.php ++once lua require("packer.load")({'vim-blade'}, { ft = "blade.php" }, _G.packer_plugins)]]
+vim.cmd [[au FileType table: 0x7fed1e50d120 ++once lua require("packer.load")({'emmet-vim'}, { ft = "table: 0x7fed1e50d120" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

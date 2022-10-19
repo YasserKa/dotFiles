@@ -35,7 +35,51 @@ require("nvim-treesitter.configs").setup {
         enable = true,
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    }
+    },
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+  },
+    textobjects = {
+        select = {
+            enable = true,
+
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                -- You can optionally set descriptions to the mappings (used in the desc parameter of
+                -- nvim_buf_set_keymap) which plugins like which-key display
+                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+            },
+            -- You can choose the select mode (default is charwise 'v')
+            --
+            -- Can also be a function which gets passed a table with the keys
+            -- * query_string: eg '@function.inner'
+            -- * method: eg 'v' or 'o'
+            -- and should return the mode ('v', 'V', or '<c-v>') or a table
+            -- mapping query_strings to modes.
+            selection_modes = {
+                ['@parameter.outer'] = 'v', -- charwise
+                ['@function.outer'] = 'V', -- linewise
+                ['@class.outer'] = '<c-v>', -- blockwise
+            },
+            -- If you set this to `true` (default is `false`) then any textobject is
+            -- extended to include preceding or succeeding whitespace. Succeeding
+            -- whitespace has priority in order to act similarly to eg the built-in
+            -- `ap`.
+            --
+            -- Can also be a function which gets passed a table with the keys
+            -- * query_string: eg '@function.inner'
+            -- * selection_mode: eg 'v'
+            -- and should return true of false
+            include_surrounding_whitespace = true,
+        },
+    },
 }
 
 vim.keymap.set('n', '<leader>c', MiniBufremove.delete)
@@ -92,6 +136,31 @@ wk.register({
 })
 
 wk.register({
+        ["K"] = { function() vim.lsp.buf.hover() end, "Hover symbol details" },
+        -- ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "LSP code action" },
+        ["<leader>la"] = { function() vim.lsp.buf.code_action() end, "LSP code action" },
+        -- ["<leader>lf"] = { function() vim.lsp.buf.format {sync = true } end, "Format code" },
+        ["<leader>lh"] = { function() vim.lsp.buf.signature_help() end, "Signature help" },
+        ["<leader>lr"] = { function() vim.lsp.buf.rename() end, "Rename current symbol" },
+        ["gD"] = { function() vim.lsp.buf.declaration() end, "Declaration of current symbol" },
+        ["gT"] = { function() vim.lsp.buf.type_definition() end, "Definition of current type" },
+        ["gI"] = { function() vim.lsp.buf.implementation() end, "Implementation of current symbol" },
+        ["<leader>ld"] = { function() vim.diagnostic.open_float() end, "Hover diagnostics" },
+        ["[d"] = { function() vim.diagnostic.goto_prev() end, "Previous diagnostic" },
+        ["]d"] = { function() vim.diagnostic.goto_next() end, "Next diagnostic" },
+        ["gl"] = { function() vim.diagnostic.open_float() end, "Hover diagnostics" },
+    })
+wk.register({
+        ["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, "Range LSP code action", mode = "v" },
+        ["<leader>lf"] = {
+          function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", false)
+            vim.lsp.buf.range_formatting()
+          end, "Range format code", mode = "v"} })
+
+
+-- TODO: Use lsp's formaters
+wk.register({
     ["<leader>"] = {
         lf = { ":ALEFix<CR>", "Fix"}
     }
@@ -129,7 +198,9 @@ wk.register({
         }
     }
 })
-require'lspconfig'.pyright.setup{}
+require'lspconfig'.pyright.setup{
+  enabledFeatures = { "codeActions", "diagnostics", "documentHighlights", "documentSymbols", "formatting", "inlayHint" }
+}
 require'lspconfig'.bashls.setup{}
 
 require("mason").setup()
@@ -220,11 +291,10 @@ local npairs = require('nvim-autopairs')
 
 local cond = require('nvim-autopairs.conds')
 npairs.add_rules({
-  Rule("$", "$",{"tex", "latex"}) }
-)
+    Rule("$", "$",{"tex", "latex"}) 
+})
 
 npairs.add_rules({
-  Rule("$$", "$$",{"tex", "latex"})
+    Rule("$$", "$$",{"tex", "latex"})
     :with_pair(cond.not_after_regex("$"))
-  })
--- }}
+})

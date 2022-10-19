@@ -284,6 +284,10 @@ let g:slime_default_config = {
 
 let g:slime_dont_ask_default = 1
 
+" Override the comment that makes a cell take "##", this will cause a problem if
+" there's a string having "##"
+let g:ipython_cell_tag = ['# %%']
+
 " }}}
 " vim-markdown {{{
 let g:vim_markdown_math = 1
@@ -413,16 +417,10 @@ set hidden
 set updatetime=300
 set shortmess+=c
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" Highlight on hover
+autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 
 " Mappings using CoCList:
 nnoremap <silent> <space>a  <cmd>CocList diagnostics<cr>
@@ -432,20 +430,21 @@ nnoremap <silent> <space>e  <cmd>CocList extensions<cr>
 " Code navigation.
 nmap <silent>[g <Plug>(ale_previous_wrap)
 nmap <silent>]g <Plug>(ale_next_wrap)
+nmap <silent> <leader>la <Plug>(coc-codeaction)
 
 nnoremap <silent> yex :CocCommand explorer --sources=file+<CR>
 nnoremap <leader>rn <Plug>(coc-rename)
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif &filetype ==# 'tex'
-        VimtexDocPackage
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" function! s:show_documentation()
+"     if (index(['vim','help'], &filetype) >= 0)
+"         execute 'h '.expand('<cword>')
+"     elseif &filetype ==# 'tex'
+"         VimtexDocPackage
+"     else
+"         call CocAction('doHover')
+"     endif
+" endfunction
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 " }}}
 " {{{ lua
 lua << EOF
