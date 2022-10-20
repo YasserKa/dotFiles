@@ -10,6 +10,8 @@ declare -r TMP_FILE_PATH="/tmp/org_current_task"
 # Path to the file that contains flag to show clocked time in polybar
 declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_polybar"
 
+[[ ! -e "${TMP_FILE_FLAG_PATH}" ]] && echo 1 > "${TMP_FILE_FLAG_PATH}" 
+
 ################################################################################
 # Focus emacs window that's used for org mode and go to the clocked in entry
 # Arguments:
@@ -26,14 +28,13 @@ go_to_entry() {
 # Toggle if the time for the clock should be shown or not
 ################################################################################
 toggle_polybar_time() {
-    [[ ! -e "${TMP_FILE_FLAG_PATH}" ]] && echo 1 > "${TMP_FILE_FLAG_PATH}" 
     local -i OLD_FLAG
     OLD_FLAG="$(tail -n 1 "${TMP_FILE_FLAG_PATH}")"
     readonly OLD_FLAG
     local -i FLAG
     ((OLD_FLAG==0)) && FLAG=1 || FLAG=0
     readonly FLAG
-    sed -ie "\$s/${OLD_FLAG}/${FLAG}/" "${TMP_FILE_FLAG_PATH}"
+    sed -i "\$s/${OLD_FLAG}/${FLAG}/" "${TMP_FILE_FLAG_PATH}"
 }
 
 
@@ -71,6 +72,7 @@ get_info() {
     FILE_LINES="$(head -3 $TMP_FILE_PATH | tail -1)"
 
     local INFO
+
     if [[ "$(cat "$TMP_FILE_FLAG_PATH")" == 1 ]] || [[ "$2" == 1 ]]; then
         local TIME
         TIME="$(get_time "${FILE_LINES}")"
