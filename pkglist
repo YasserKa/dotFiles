@@ -188,6 +188,7 @@ visidata # Terminal spreadsheet multitool for discovering and arranging data
 udiskie # Removable disk automounter using udisks
 rclone # Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
 syncthing # Open Source Continuous Replication / Cluster Sunchronization Thing
+kdeconnect # Communication with other devices
 libreoffice-fresh # LibreOffice branch which contains new features and program enhancements
 
 i3-gaps # A fork of i3wm tiling window manager with more features, including gaps

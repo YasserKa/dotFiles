@@ -98,6 +98,22 @@ fzftmux() {
 # Edit last n lines in history using $EDITOR
 fclast() { command fc "-${1}" 0; }
 
+# Copy last command
+cl() { history -p '!!'| tr -d \\n | pbcopy &>/dev/null; }
+
+copyline() { printf %s "$READLINE_LINE" | pbcopy &>/dev/null; }
+bind -x '"\C-y":copyline'
+
+# Use Alt-h to view documentation for commands
+run_help() {
+    local -r cmd="$READLINE_LINE"
+    help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || $cmd --help | $PAGER
+}
+bind -m vi-insert -x '"\eh": run_help'
+
+# Attach job & send notification after it's finished
+alert_last() { fg; notify-send --expire-time=99999 "$(history | tail -n 2 | head -n 1 | cut -d ' ' -f 3-)"; }
+
 # Open TUIR apps from menu picker (spawning a termianl) or the command line
 open_cli() {
     local command="$1"

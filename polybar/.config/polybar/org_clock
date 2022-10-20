@@ -7,6 +7,8 @@
 
 # Path to the file that contains info about the entry
 declare -r TMP_FILE_PATH="/tmp/org_current_task"
+# Path to the file that contains flag to show clocked time in polybar
+declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_polybar"
 
 ################################################################################
 # Focus emacs window that's used for org mode and go to the clocked in entry
@@ -21,15 +23,31 @@ go_to_entry() {
 }
 
 ################################################################################
+# Toggle if the time for the clock should be shown or not
+################################################################################
+toggle_polybar_time() {
+    [[ ! -e "${TMP_FILE_FLAG_PATH}" ]] && echo 1 > "${TMP_FILE_FLAG_PATH}" 
+    local -i OLD_FLAG
+    OLD_FLAG="$(tail -n 1 "${TMP_FILE_FLAG_PATH}")"
+    readonly OLD_FLAG
+    local -i FLAG
+    ((OLD_FLAG==0)) && FLAG=1 || FLAG=0
+    readonly FLAG
+    sed -ie "\$s/${OLD_FLAG}/${FLAG}/" "${TMP_FILE_FLAG_PATH}"
+}
+
+
+################################################################################
 # Pop info regarding the entry
 # Arguments:
 #     $1: String containing TIME_PLACEHOLDER or/and NAME_PLACEHOLDER
+#     $2: Flag for limiting what's returned
 # Outputs:
 #     Notification containing info
 ################################################################################
 notify_info() {
     local INFO
-    INFO="$(get_info "$1")"
+    INFO="$(get_info "$1" "$2")"
     notify-send "$(echo -e "$INFO")"
 }
 
@@ -40,25 +58,30 @@ notify_info() {
 #     TMP_FILE_PATH
 # Arguments:
 #     $1: String containing TIME_PLACEHOLDER or/and NAME_PLACEHOLDER
+#     $2: Flag for limiting what's returned
 # Outputs:
 #     String containing info
 # Returns:
 #     0: If TMP_FILE_PATH doesn't exit
 ################################################################################
 get_info() {
-    [[ ! -e "${TMP_FILE_PATH}" ]] && echo "" && return 0
+    [[ ! -e "${TMP_FILE_PATH}" ]] && echo "${TMP_FILE_PATH} doesn't exist" && return 0
 
     local FILE_LINES
     FILE_LINES="$(head -3 $TMP_FILE_PATH | tail -1)"
-    local TIME
-    TIME="$(get_time "${FILE_LINES}")"
+
+    local INFO
+    if [[ "$(cat "$TMP_FILE_FLAG_PATH")" == 1 ]] || [[ "$2" == 1 ]]; then
+        local TIME
+        TIME="$(get_time "${FILE_LINES}")"
+        INFO="${1/TIME_PLACEHOLDER/${TIME}}"
+    fi
     local NAME
     NAME="$(get_name "${FILE_LINES}")"
 
-    local INFO="${1/TIME_PLACEHOLDER/${TIME}}"
     INFO="${INFO/NAME_PLACEHOLDER/${NAME}}"
 
-    echo "$INFO"
+    echo "${INFO:-on}"
 }
 
 ################################################################################
@@ -129,8 +152,9 @@ main() {
         "clock_toggle") emacsclient -e "(my/org-toggle-last-clock nil)" ;;
         "clock_cancel") emacsclient -e "(org-clock-cancel)" ;;
         "go_to_entry") go_to_entry ;;
-        "get_info") get_info "$2" ;;
-        "notify_info") notify_info "$2" ;;
+        "get_info") get_info "$2" 0;;
+        "notify_info") notify_info "$2" 1;;
+        "toggle_polybar_time") toggle_polybar_time ;;
         *) echo "$1 is a wrong argument" ;;
     esac
 }

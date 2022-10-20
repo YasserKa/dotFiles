@@ -17,16 +17,6 @@ shopt -s extglob           # extend pattern matching
 shopt -s cmdhist           # History records commands with multiple lines as such instead of using ";"
 stty -ixon                 # Enable search C-s for history searching (Enable XON/XOFF flow control)
 
-# Use Alt-h to view documentation for commands
-run_help() {
-    local -r cmd="$READLINE_LINE"
-    help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || $cmd --help | $PAGER
-}
-bind -m vi-insert -x '"\eh": run_help'
-
-# Attach job & send notification after it's finished
-alert_last() { fg; notify-send --expire-time=99999 "$(history | tail -n 2 | head -n 1 | cut -d ' ' -f 3-)"; }
-
 # Complete command names and file names for super user
 complete -cf sudo
 [[ -f /usr/share/doc/pkgfile/command-not-found.bash ]] && . /usr/share/doc/pkgfile/command-not-found.bash
