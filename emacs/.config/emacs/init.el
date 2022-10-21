@@ -137,7 +137,7 @@
 
   (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
 
-  (evil-collection-define-operator-key 'yank 'global-map "eg" #'golden-ratio-mode)
+  (evil-collection-define-key 'normal 'global-map (kbd "C-w m") #'golden-ratio-mode)
   )
 ;; }}}
 ;; Aesthetics {{{
@@ -270,7 +270,7 @@
          (evil-collection-setup .
                                 (lambda (mode-keymaps &rest _rest)
                                   (evil-collection-define-key nil 'company-active-map
-                                    (kbd "C-j") 'company-complete-selection
+                                    (kbd "C-i") 'company-complete-selection
                                     (kbd "C-h") 'evil-delete-backward-char-and-join
                                     (kbd "C-w") 'evil-delete-backward-word
                                     (kbd "<return>") 'newline))))
@@ -480,7 +480,7 @@
     (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
     )
   )
-;;; }}}
+;; }}}
 ;; Git {{{
 ;; Traverse file changes in git
 ;; Avoid being prompted with symbolic link to git-controlled
@@ -1384,6 +1384,24 @@ selection of all minor-modes, active or not."
         (helpful-function symbol)
       (helpful-variable symbol))))
 
+(defun my/org-insert-last-stored-link (arg)
+  "A hack using org-insert-last-stored-link to insert the last link stored without removing it from
+   org-stored-links"
+  (interactive "P")
+  (let ((org-link-keep-stored-after-insertion t)
+        (links (copy-sequence org-stored-links))
+	(pr "- ")
+	(po "\n")
+	(cnt 1) l)
+    (if (null org-stored-links)
+	(message "No link to insert")
+      (while (and (or (listp 1) (>= 1 cnt))
+		  (setq l (pop links)))
+	(setq cnt (1+ cnt))
+	(insert pr)
+	(org-insert-link nil (car l) (or (cadr l) "<no description>"))
+	(insert po)))))
+
 (use-package hydra)
 (defun org-capture-full-screen ()
   (interactive)
@@ -1499,7 +1517,7 @@ selection of all minor-modes, active or not."
   (" y" org-store-link "yank" :column " links")
   (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
   (" t" org-toggle-link-display "toggle")
-  (" p" org-insert-last-stored-link "paste last")
+  (" p" my/org-insert-last-stored-link "paste last")
   )
 
 ;; Agenda
