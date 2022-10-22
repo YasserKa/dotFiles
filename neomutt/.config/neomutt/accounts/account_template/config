@@ -1,0 +1,56 @@
+# vim:filetype=muttrc
+
+set my_mail = "<mail>"
+set my_account_name = <account_name>
+set my_config_path = $my_neomutt_config_folder/accounts/$my_account_name
+set my_cache_path = $XDG_CACHE_HOME/neomutt/$my_account_name
+
+set realname = "Yasser Kaddoura"
+alias me Yasser Kaddoura <$my_mail>
+set from = $my_mail
+set sendmail = "/bin/sh $my_neomutt_config_folder/bin/sendmail $account_name"
+set folder = $XDG_DATA_HOME/mail/$my_account_name
+reply-hook $my_mail 'source $my_config_path
+folder-hook $folder 'source $my_config_path/config'
+
+set certificate_file = $my_config_path/certificates
+set signature = $my_config_path/signature
+# Store message headers locally to speed things up.
+set header_cache = $my_cache_path/$headers
+# Store messages locally to speed things up, like searching message bodies.
+set message_cachedir = $my_cache_path/bodies
+
+set spoolfile = "+INBOX"
+set record = "+[Gmail].Sent"
+set postponed = "+[Gmail].Drafts"
+set trash = "+[Gmail].Trash"
+set mbox = "+[Gmail].other"
+mailboxes =INBOX\
+          =[Gmail].Sent\ Mail\
+          =[Gmail].Drafts\
+          =[Gmail].Trash\
+          =[Gmail].Spam\
+          =[Gmail].Archive \
+          =[Gmail].All\ Mail\
+
+macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail --verbose $my_account_name<enter> \
+          <sync-mailbox> \
+          <shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
+          <shell-escape>notmuch new<enter>" \
+          "run syncmail to sync personal"
+
+# Go to mailboxes
+macro index gi "<change-folder>=INBOX<enter><collapse-all>" "Go to inbox"
+macro index gs "<change-folder>=[Gmail].Sent\ Mail<enter>" "Go to sent mail"
+macro index gt "<change-folder>=[Gmail].Trash<enter>" "Go to trash"
+macro index gd "<change-folder>=[Gmail].Drafts<enter>" "Go to drafts"
+macro index gS "<change-folder>=[Gmail].Spam<enter>" "Go to spam"
+macro index ga "<change-folder>=[Gmail].Archive<enter>" "Go to archive"
+macro index gA "<change-folder>=[Gmail].All\ Mail<enter>" "Go to all mail"
+# Move messages to another mailbox
+macro index,pager Mi "<save-message>=INBOX<enter>" "move mail to inbox"
+macro index,pager Ms "<save-message>=[Gmail].Sent\ Mail<enter>" "move mail to sent"
+macro index,pager Md "<save-message>=[Gmail].Drafts<enter>" "move mail to drafts"
+macro index,pager Mt "<save-message>=[Gmail].Trash<enter>" "move mail to trash"
+macro index,pager MS "<save-message>=[Gmail].Spam<enter>" "move mail to spam"
+macro index,pager Ma "<save-message>=[Gmail].Archive<enter>" "move mail to archive"
