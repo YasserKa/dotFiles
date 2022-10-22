@@ -1,67 +1,82 @@
 #!/usr/bin/env python
 
 import os
-import subprocess
-from selenium import webdriver
-from time import sleep
-from selenium.webdriver.common.by import By
 import re
-from dateutil.parser import parse
-from dateutil.relativedelta import *
+import subprocess
 from datetime import datetime, timedelta
-from selenium.webdriver.support.ui import WebDriverWait
+from time import sleep
+
+from dateutil.parser import parse
+from dateutil.relativedelta import relativedelta
+from selenium import webdriver
+from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
 from selenium.webdriver.chrome.service import Service
-from selenium.common.exceptions import TimeoutException, SessionNotCreatedException, WebDriverException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 # used by dunstify/dunst
-APP_NAME = 'notify-me'
+APP_NAME = "notify-me"
 
-URL_DISCORD = 'https://discordapp.com/channels/@me'
-URL_WHATS_APP = 'https://web.whatsapp.com/'
-URL_FACEBOOK = 'https://www.facebook.com/'
+URL_DISCORD = "https://discordapp.com/channels/@me"
+URL_WHATS_APP = "https://web.whatsapp.com/"
+URL_FACEBOOK = "https://www.facebook.com/"
 
-executable_path = '/home/yasser/.config/chromium/chromedriver'
-profile_path = '/home/yasser/.config/chromium/notify_me_profile'
+executable_path = "/home/yasser/.config/chromium/chromedriver"
+profile_path = "/home/yasser/.config/chromium/notify_me_profile"
 
-discord = ' Discord'
-facebook = ' Facebook'
-reddit = ' Reddit'
-whatsapp = 'Whatsapp'
-
-driver = None
+discord = " Discord"
+facebook = " Facebook"
+reddit = " Reddit"
+whatsapp = "Whatsapp"
 
 
-def check_discord():
+# flake8: max-line-length = 88
+# flake8: extend-ignore = E203
+def check_discord(driver):
 
     driver.get(URL_DISCORD)
     WebDriverWait(driver, 10).until(
-        lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(), "Friends")]')) > 0)
+        lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(), "Friends")]'))
+        > 0
+    )
     sleep(1)
 
-    notificaitons_el = driver.find_elements(
-        By.CSS_SELECTOR, 'div[class*=lowerBadge-]')
+    notificaitons_el = driver.find_elements(By.CSS_SELECTOR, "div[class*=lowerBadge-]")
 
     discord_servers = driver.find_elements(
-        By.XPATH, './/div[contains(@aria-label, "Servers")]/*/div/span[contains(@class, "item")]')
+        By.XPATH,
+        './/div[contains(@aria-label, "Servers")]/'
+        '*/div/span[contains(@class, "item")]',
+    )
 
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
         send_notification(discord, URL_DISCORD)
 
-def send_notification(notification_text, url):
-    subprocess.Popen(f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
-            f" --action='action,label') == 'action' ]] && qutebrowser {url}"
-            , shell=True, text=True)
 
-def check_facebook():
+def send_notification(notification_text, url):
+    subprocess.Popen(
+        f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
+        f" --action='action,label') == 'action' ]] && qutebrowser {url}",
+        shell=True,
+        text=True,
+    )
+
+
+def check_facebook(driver):
     driver.get(URL_FACEBOOK)
     WebDriverWait(driver, 5).until(
-            lambda x: len(x.find_elements(By.XPATH, 
-                './/div[contains(@aria-label, "Messenger")]')) > 0)
+        lambda x: len(
+            x.find_elements(By.XPATH, './/div[contains(@aria-label, "Messenger")]')
+        )
+        > 0
+    )
 
     notificaitons_el = driver.find_elements(
-            By.XPATH, './/div[contains(@aria-label, "Messenger")]//child::span[1][(text()=number())]')
+        By.XPATH,
+        './/div[contains(@aria-label, "Messenger")]//child::span[1][(text()=number())]',
+    )
 
     notificaiton_exists = len(notificaitons_el) > 0
 
@@ -69,29 +84,47 @@ def check_facebook():
         send_notification(facebook, URL_FACEBOOK)
 
 
-def check_whatsapp():
+def check_whatsapp(driver):
     driver.get(URL_WHATS_APP)
     WebDriverWait(driver, 20).until(
-            lambda x: len(x.find_elements(By.XPATH, 
-                './/*[contains(text(),"Search or start new chat")]')) > 0)
+        lambda x: len(
+            x.find_elements(
+                By.XPATH, './/*[contains(text(),"Search or start new chat")]'
+            )
+        )
+        > 0
+    )
     unread_messages = driver.find_elements(
-            By.XPATH, './/*[contains(@aria-label,"unread message")]')
+        By.XPATH, './/*[contains(@aria-label,"unread message")]'
+    )
 
     unread_messages = driver.find_elements(
-        By.CSS_SELECTOR, 'div > *[role=gridcell] > span > div')
+        By.CSS_SELECTOR, "div > *[role=gridcell] > span > div"
+    )
 
-    missed_calls = driver.find_elements(By.XPATH, './/*[contains(text(),"Missed voice call")]/parent::node()/parent::node()/parent::node()/parent::node()//*[contains(text(),":")]')
+    missed_calls = driver.find_elements(
+        By.XPATH,
+        './/*[contains(text(),"Missed voice call")]/parent::node()/'
+        "parent::node()/parent::node()/parent::node()"
+        '//*[contains(text(),":")]',
+    )
 
     has_recent_missed_call = False
-    if (len(missed_calls) > 0):
+    if len(missed_calls) > 0:
         time_text = missed_calls[0].text
 
-        if (re.search("[0-9]{1,2}:[0-9]{2} (am|pm)", time_text) is not None):
+        if re.search("[0-9]{1,2}:[0-9]{2} (am|pm)", time_text) is not None:
             # Check if last missed call is before 32 minutes from current time
-            has_recent_missed_call = relativedelta(parse(time_text),
-                    datetime.now() - timedelta(minutes = 32)).minutes  > 0
+            has_recent_missed_call = (
+                relativedelta(
+                    parse(time_text), datetime.now() - timedelta(minutes=32)
+                ).minutes
+                > 0
+            )
 
-    unread_messages_missed_callexist = len(unread_messages) > 0 or has_recent_missed_call
+    unread_messages_missed_callexist = (
+        len(unread_messages) > 0 or has_recent_missed_call
+    )
 
     if unread_messages_missed_callexist:
         send_notification(whatsapp, URL_WHATS_APP)
@@ -100,16 +133,18 @@ def check_whatsapp():
 def main():
     global driver
     options = webdriver.ChromeOptions()
-    options.add_argument('user-data-dir=' + profile_path)
+    options.add_argument("user-data-dir=" + profile_path)
 
-    options.add_argument('binary_location=/bin/chromium')
+    options.add_argument("binary_location=/bin/chromium")
     os.system("pkill chromedriver")
-    driver = webdriver.Chrome(service=Service(executable_path=executable_path), options=options)
+    driver = webdriver.Chrome(
+        service=Service(executable_path=executable_path), options=options
+    )
 
     try:
-        check_discord()
-        check_facebook()
-        check_whatsapp()
+        check_discord(driver)
+        check_facebook(driver)
+        check_whatsapp(driver)
     except TimeoutException:
         pass
 
@@ -117,10 +152,9 @@ def main():
     os.system("pkill chromedriver")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     os.system("pkill chromedriver")
     try:
         main()
     except SessionNotCreatedException:
-        subprocess.run(
-                "dunstify 'Maybe need a new chromium version'", shell=True)
+        subprocess.run("dunstify 'Maybe need a new chromium version'", shell=True)
