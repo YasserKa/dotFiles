@@ -1,6 +1,5 @@
 " vim: ft=vim
 "
-source $MYVIMRC
 
 if !exists('g:less')
   let g:less     = {}
@@ -17,3 +16,5 @@ set hlsearch      " Highlight mathces
 set nonumber
 let g:less.enabled = 0
 let g:vimpager.X11 = 0
+noremap ; :
+noremap : ;

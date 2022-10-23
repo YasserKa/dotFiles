@@ -1,4 +1,4 @@
-IMAPStore personal-remote
+IMAPStore yasserkaddoura19-remote
 Host imap.gmail.com
 Port 993
 User yasser.kaddoura19@gmail.com
@@ -7,16 +7,16 @@ PassCmd "$XDG_CONFIG_HOME/neomutt/bin/oauth2 google_personal"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-MaildirStore personal-local
+MaildirStore yasserkaddoura19-local
 Subfolders Verbatim
-Path ~/.local/share/mail/gmail/
-Inbox ~/.local/share/mail/gmail/INBOX
+Path ~/.local/share/mail/yasserkaddoura19/
+Inbox ~/.local/share/mail/yasserkaddoura19/INBOX
 Flatten .
 
-Channel gmail
+Channel yasserkaddoura19
 Expunge Both
-Far :personal-remote:
-Near :personal-local:
+Far :yasserkaddoura19-remote:
+Near :yasserkaddoura19-local:
 Patterns *
 Create Both
 SyncState *
