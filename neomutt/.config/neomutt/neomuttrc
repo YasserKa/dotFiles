@@ -4,6 +4,11 @@ set my_neomutt_config_folder = $XDG_CONFIG_HOME/neomutt
 # Color scheme
 source $my_neomutt_config_folder/colors
 
+# Store message headers locally to speed things up.
+set header_cache = $XDG_CACHE_HOME/neomutt/headers
+# Store messages locally to speed things up, like searching message bodies.
+set message_cachedir = $XDG_CACHE_HOME/neomutt/bodies
+
 # General
 set mime_type_query_command = "file --mime-type -b %s" # Query to determine mime type
 set sleep_time = 0                     # Pause 0 seconds for informational messages

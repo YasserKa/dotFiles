@@ -8,7 +8,7 @@ set my_cache_path = $XDG_CACHE_HOME/neomutt/$my_account_name
 set realname = "Yasser Kaddoura"
 alias me Yasser Kaddoura <$my_mail>
 set from = $my_mail
-set sendmail = "/bin/sh $my_neomutt_config_folder/bin/sendmail $account_name"
+set sendmail = "/bin/sh $my_neomutt_config_folder/bin/sendmail $my_account_name"
 set folder = $XDG_DATA_HOME/mail/$my_account_name
 reply-hook $my_mail 'source $my_config_path
 folder-hook $folder 'source $my_config_path/config'
