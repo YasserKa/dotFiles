@@ -84,6 +84,13 @@ setup-tmux:
 .PHONY: setup-neovim
 setup-neovim:
 	# Get plugings
+	git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+	nvim +PackerSync
+	nvim -c 'TSInstall python bash vim latex lua'
+
+.PHONY: setup-neovim-old
+setup-neovim-old:
+	# Get plugings
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	nvim -c 'TSInstall python bash vim latex lua'

@@ -37,8 +37,9 @@ noremap g: g;
 noremap q; q:
 noremap @; @:
 map Y y$
-nnoremap <silent> <leader>es :split $MYVIMRC<CR>
-nnoremap <silent> <leader>ss :source $MYVIMRC<CR>
+
+nnoremap <silent> <leader>es :split ~/.config/nvim/init.lua<CR>
+nnoremap <silent> <leader>ss :source ~/.config/nvim/init.lua<CR>
 nnoremap <silent> <leader>h :nohlsearch<CR>
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u     " Fix last misspell
 
