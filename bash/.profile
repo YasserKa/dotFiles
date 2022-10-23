@@ -44,6 +44,9 @@ export XAUTHORITY="$HOME/.Xauthority"
 # Path to notes
 export _NOTES_ORG_HOME="$HOME/notes/org"
 
+# Go packages
+export GOPATH="$XDG_DATA_HOME/go"
+
 # Make cmus <escape> works
 export ESCDELAY=25
 # Used by bitwarden cli
@@ -78,5 +81,5 @@ eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh
 # XDG_VTNR is set by pam_systemd upon login
 # If there's no DISPLAY, start X11
 if [[ -z "${DISPLAY}" ]] && [[ "$XDG_VTNR" -eq 1 ]]; then
-    exec startx "$XINITRC"
+	exec startx "$XINITRC"
 fi

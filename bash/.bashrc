@@ -51,9 +51,8 @@ if command -v fasd >/dev/null; then
 	fi
 	. "$fasd_cache"
 	unset -v fasd_cache
-	alias vf='fasd -sife nvim' # quick opening files with vim
 
-	_fasd_bash_hook_cmd_complete vf j
+	_fasd_bash_hook_cmd_complete j
 fi
 
 # Commands with colors

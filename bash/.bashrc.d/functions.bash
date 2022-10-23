@@ -87,7 +87,24 @@ j() {
 	else # Use fzf otherwise
 		path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
 	fi
+	EXIT_CODE="$?"
+	((EXIT_CODE != 0)) && return
 	cd "$path" || exit 1
+}
+
+# Use fasd and FZF to jump through directories
+vf() {
+	paths=$(fasd -flR "$@")
+	path="."
+	# If only one path exists, go to it
+	if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
+		path=$paths
+	else # Use fzf otherwise
+		path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+	fi
+	EXIT_CODE="$?"
+	((EXIT_CODE != 0)) && return
+	"${EDITOR}" "$path" || exit 1
 }
 
 # Pick tmux sessions using FZF
@@ -166,16 +183,19 @@ open_file() {
 	shift
 	[[ ! -d "${DIRECTORY_PATH}" ]] && notify-send "${DIRECTORY_PATH} doesn't exist" && exit 1
 
+	# Open one file only
+	(($# > 1)) && ONLY_OPTION="+only"
+
 	# Check if it's in a terminal
 	if [[ "$-" != *c* ]]; then
 		# The -o +only arguments are a hack to mitigate nvim's warning upon
 		# exiting for editing multiple files
 		# -o open files in windows and +only keep one of them
 		# shellcheck disable=SC2046,SC2116
-		cd "${DIRECTORY_PATH}" && "${EDITOR}" +only -o $(echo "$@")
+		cd "${DIRECTORY_PATH}" && "${EDITOR}" ${ONLY_OPTION} -o $(echo "$@")
 	else
 		# shellcheck disable=SC2046,SC2116
-		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" +only -o "$@"
+		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" ${ONLY_OPTION} -o "$@"
 	fi
 }
 
@@ -187,8 +207,8 @@ alias rcbash='open_file $HOME/.bashrc.d ../.bashrc ../.bash_profile ../.profile 
 alias rckitty='open_file $XDG_CONFIG_HOME/kitty kitty.conf $XDG_CONFIG_HOME/kitty/*'
 alias rcvim='open_file $XDG_CONFIG_HOME/nvim ./lua/user/init.lua'
 alias rci3='open_file $XDG_CONFIG_HOME/i3 config $XDG_CONFIG_HOME/i3/*'
-alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc $XDG_CONFIG_HOME/neomutt/*'
-alias rcmutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc $XDG_CONFIG_HOME/neomutt/*'
+alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc'
+alias rcmutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc'
 alias rctuir='open_file $XDG_CONFIG_HOME/tuir tuir.cfg $XDG_CONFIG_HOME/tuir/*'
 alias rcnewsboat='open_file $XDG_CONFIG_HOME/newsboat $XDG_CONFIG_HOME/newsboat/*'
 alias rcfeh='open_file $XDG_CONFIG_HOME/feh keys $XDG_CONFIG_HOME/feh/*'
