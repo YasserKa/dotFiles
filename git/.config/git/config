@@ -44,6 +44,7 @@
     grep = auto
 
 [alias]
+    s = status
     last = show --stat HEAD
     countcommits = shortlog -sn --no-merges
     graph = log --graph --oneline --decorate

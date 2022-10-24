@@ -59,6 +59,7 @@ local config = {
 		},
 		g = {
 			mapleader = ",", -- sets vim.g.mapleader
+			maplocalleader = " ", -- sets vim.g.mapleader
 			autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
 			cmp_enabled = true, -- enable completion at start
 			autopairs_enabled = true, -- enable autopairs at start
@@ -333,6 +334,8 @@ local config = {
 					})
 				end,
 			},
+			{ "https://github.com/lervag/vimtex" },
+			{ "https://github.com/jbyuki/nabla.nvim" },
 
 			{ "https://github.com/YasserKa/vim-sxhkdrc" },
 			{ "https://github.com/jpalardy/vim-slime" },
@@ -464,11 +467,15 @@ local config = {
 	luasnip = {
 		-- Add paths for including more VS Code style snippets in luasnip
 		vscode_snippet_paths = {},
+		history = true,
+		enable_autosnippets = true,
 		-- Extend filetypes
 		filetype_extend = {
 			-- javascript = { "javascriptreact" },
 		},
-		mapping = {},
+		mapping = {
+			["<C-i>"] = require("cmp").mapping.confirm({ select = false }),
+		},
 	},
 
 	-- CMP Source Priorities
@@ -495,11 +502,20 @@ local config = {
 			n = {
 				["yex"] = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
 				-- second key is the prefix, <leader> prefixes
-				["<leader>"] = {
-					-- third key is the key to bring up next level and its displayed
-					-- group name in which-key top level menu
-					["b"] = { name = "Buffer" },
-
+				["<localleader>"] = {
+					l = {},
+					m = {
+						function()
+							require("nabla").popup()
+						end,
+						"Preview Math",
+					},
+					M = {
+						function()
+							require("nabla").toggle_virt()
+						end,
+						"Preview Math",
+					},
 					-- ipython-cell
 					n = {
 						r = { ":w<CR>:IPythonCellRun<CR>", "Run file" },
@@ -519,13 +535,16 @@ local config = {
 						m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
 						I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
 						i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
+						{ filetypes = "python" },
 					},
+				},
+				["<leader>"] = {
+					-- third key is the key to bring up next level and its displayed
+					-- group name in which-key top level menu
+					["b"] = { name = "Buffer" },
 
 					["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
 					["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
-					-- F2 is bounded to <C-,> in kitty (A hack, because tmux doesn't understand <C-,>)
-					["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above", mode = "i" },
-					["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below", mode = "i" },
 
 					a = {
 						name = "Annotate",
@@ -642,6 +661,7 @@ local config = {
 		vim.keymap.set("n", "<C-S-j>", require("smart-splits").resize_down)
 		vim.keymap.set("n", "<C-S-k>", require("smart-splits").resize_up)
 		vim.keymap.set("n", "<C-S-l>", require("smart-splits").resize_right)
+		require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
 		-- vim.keymap.set("x", "gcc", "<cmd>Commentary<cr>")
 		-- vim.api.nvim_del_keymap("v", "gc")
 		-- unmap("n", "<leader>pv")
@@ -650,80 +670,106 @@ local config = {
 		-- }}}
 		vim.api.nvim_exec(
 			[[
-                                        xnoremap gcc  :Commentary<CR>
+    						xnoremap gcc  :Commentary<CR>
 
-                                        augroup VIMENTER
-                                            autocmd!
-                                            autocmd FileType markdown,tex set spell
-                                            autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
-                                        augroup END
-                                        augroup MARKDOWN
-                                        autocmd!
-                                        autocmd FileType markdown syntax match StrikeoutMatch /\~\~.*\~\~/
-                                        highlight def  StrikeoutHighlight   cterm=strikethrough gui=strikethrough
-                                        highlight link StrikeoutMatch StrikeoutHighlight
+    						augroup VIMENTER
+    						autocmd!
+    						autocmd FileType markdown,tex set spell
+    						autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
+    						augroup END
+    						augroup MARKDOWN
+    						autocmd!
+    						autocmd FileType markdown syntax match StrikeoutMatch /\~\~.*\~\~/
+    						highlight def  StrikeoutHighlight   cterm=strikethrough gui=strikethrough
+    						highlight link StrikeoutMatch StrikeoutHighlight
 
-                                        autocmd Filetype markdown syntax match UnderlineMatch /__.*__/
-                                        highlight def  UnderlineHighlight   cterm=underline gui=underline
-                                        highlight link UnderlineMatch UnderlineHighlight
-                                        augroup END
+    						autocmd Filetype markdown syntax match UnderlineMatch /__.*__/
+    						highlight def  UnderlineHighlight   cterm=underline gui=underline
+    						highlight link UnderlineMatch UnderlineHighlight
+    						augroup END
 
-                                        augroup TMP_FILES
-                                        autocmd!
-                                        autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
-                                        autocmd BufRead,BufNewFile tmp.* set noswapfile
-                                        autocmd ExitPre tmp.* :w
-                                        augroup END
-let g:python3_host_prog  = '/bin/python3.10'
-let g:ipython_cell_run_command	= '%run -t "{filepath}"'
+    						augroup TMP_FILES
+    						autocmd!
+    						autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
+    						autocmd BufRead,BufNewFile tmp.* set noswapfile
+    						autocmd ExitPre tmp.* :w
+    						augroup END
+    						let g:python3_host_prog  = '/bin/python3.10'
+    						let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
-                                        " vim-cool {{{
-                                            " Show number of matches in command-line
-                                            let g:CoolTotalMatches = 1
-                                            " }}}
-                                            " {{{ expand
-                                            map + <Plug>(expand_region_expand)
-                                            map _ <Plug>(expand_region_shrink)
-                                            " }}}
-                                            " {{{ vim-ipython-cell / vim-slime
-                                            " Slime
-                                            " always use tmux
-                                            let g:slime_target = 'tmux'
 
-                                            " https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
-                                            let g:slime_bracketed_ipython = 1
+    						" {{{ vim-cool 
+    						" Show number of matches in command-line
+    						let g:CoolTotalMatches = 1
+    						" }}}
+    						" {{{ expand
+    						map + <Plug>(expand_region_expand)
+    						map _ <Plug>(expand_region_shrink)
+    						" }}}
+    						" {{{ vim-ipython-cell / vim-slime
+    						" Slime
+    						" always use tmux
+    						let g:slime_target = 'tmux'
 
-                                            " always send text to the top-right pane in the current tmux tab without asking
-                                            let g:slime_default_config = {
-                                                \ 'socket_name': get(split($TMUX, ','), 0),
-                                                \ 'target_pane': ':{next}.1' }
+    						" https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+    						let g:slime_bracketed_ipython = 1
 
-                                                let g:slime_dont_ask_default = 1
+    						" always send text to the top-right pane in the current tmux tab without asking
+    						let g:slime_default_config = {
+      						\ 'socket_name': get(split($TMUX, ','), 0),
+      						\ 'target_pane': ':{next}.1' }
 
-                                                " Override the comment that makes a cell take "##", this will cause a problem if
-                                                " there's a string having "##"
-                                                let g:ipython_cell_tag = ['# %%']
+      						let g:slime_dont_ask_default = 1
 
-                                                " }}}
-                                                " vim-mundo {{{
-                                                    " Enable persistent undo so that undo history persists across vim sessions
-                                                    set undofile
-                                                    nnoremap yeu <cmd>MundoToggle<cr>
-                                                    " }}}
-                                                    " markdown-preview.nvim {{{
-                                                        let g:mkdp_command_for_global = 1
-                                                        let g:mkdp_page_title = '${name}'
-                                                        let g:mkdp_auto_close = 0
-                                                        nmap yem <Plug>MarkdownPreviewToggle
+      						" Override the comment that makes a cell take "##", this will cause a problem if
+      						" there's a string having "##"
+      						let g:ipython_cell_tag = ['# %%']
 
-                                                        " open page in new window
-                                                        function! OpenNewBrowserWindow(url)
-                                                        execute "silent ! qutebrowser --target window " . a:url
-                                                        endfunction
+      						" }}}
+      						" {{{ vim-mundo 
+      						" Enable persistent undo so that undo history persists across vim sessions
+      						set undofile
+      						nnoremap yeu <cmd>MundoToggle<cr>
+      						" }}}
+      						"  {{{ markdown-preview.nvim
+      						let g:mkdp_command_for_global = 1
+      						let g:mkdp_page_title = '${name}'
+      						let g:mkdp_auto_close = 0
+      						nmap yem <Plug>MarkdownPreviewToggle
 
-                                                        let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
-                                                        " }}}
-                                                        ]],
+      						" open page in new window
+      						function! OpenNewBrowserWindow(url)
+      						execute "silent ! qutebrowser --target window " . a:url
+      						endfunction
+
+      						let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
+      						" }}}
+                  " {{{ vimtex
+set conceallevel=1
+let g:vimtex_compiler_silent = 1
+let g:tex_conceal = 'abdmg'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : './tex_output',
+            \ 'options' : [
+                \   '-verbose',
+                \   '-file-line-error',
+                \   '-shell-escape',
+                \   '-synctex=1',
+                \   '-interaction=nonstopmode',
+                \ ],
+                \}
+
+vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
+            \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
+            \ <CR> `<
+            \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
+" Surround capital characters with $
+vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
+            \ :let @/ = "" <bar> set hlsearch<CR>
+  " }}}
+      						]],
 			true
 		)
 	end,

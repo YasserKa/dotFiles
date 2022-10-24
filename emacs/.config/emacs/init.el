@@ -1,5 +1,5 @@
 ;; -*- lexical-binding: t; -*-
-;; Initialization / Startup {{{
+;; {{{ Initialization / Startup
 ;; Initialize package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
