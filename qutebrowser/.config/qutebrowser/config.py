@@ -1,217 +1,202 @@
 import os
+
 # pylint: disable=C0111
 c = c  # noqa: F821 pylint: disable=E0602,C0103
 config = config  # noqa: F821 pylint: disable=E0602,C0103
 
-c.hints.selectors['amazon'] = ["[id=productTitle]"]
+c.hints.selectors["amazon"] = ["[id=productTitle]"]
 c.bindings.commands = {
-    'normal': {
-        'J': 'forward',
-        'K': 'back',
-        'H': 'tab-prev',
-        'L': 'tab-next',
-        '<': 'tab-move -',
-        '>': 'tab-move +',
-        'gJ': 'forward -t',
-        'gK': 'back -t',
-        'wao': 'open -w {url}',
-        'waO': 'open -w {url} ;; tab-close',
-        'cm': 'clear-messages ;; download-clear',
-
+    "normal": {
+        "J": "forward",
+        "K": "back",
+        "H": "tab-prev",
+        "L": "tab-next",
+        "<": "tab-move -",
+        ">": "tab-move +",
+        "gJ": "forward -t",
+        "gK": "back -t",
+        "wao": "open -w {url}",
+        "waO": "open -w {url} ;; tab-close",
+        "cm": "clear-messages ;; download-clear",
         # Swap ; and :
-        ';': 'set-cmd-text :',
-        ':I': 'hint images tab',
-        ':O': 'hint links fill :open -t -r {hint-url}',
-        ':R': 'hint --rapid links window',
-        ':Y': 'hint links yank-primary',
-        ':b': 'hint all tab-bg',
-        ':d': 'hint links download',
-        ':f': 'hint all tab-fg',
-        ':h': 'hint all hover',
-        ':i': 'hint images',
-        ':o': 'hint links fill :open {hint-url}',
-        ':r': 'hint --rapid links tab-bg',
-        ':t': 'hint inputs',
-        ':y': 'hint links yank',
-        ':e': 'hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id',
-        ':a': 'hint amazon userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen',
+        ";": "set-cmd-text :",
+        ":I": "hint images tab",
+        ":O": "hint links fill :open -t -r {hint-url}",
+        ":R": "hint --rapid links window",
+        ":Y": "hint links yank-primary",
+        ":b": "hint all tab-bg",
+        ":d": "hint links download",
+        ":f": "hint all tab-fg",
+        ":h": "hint all hover",
+        ":i": "hint images",
+        ":o": "hint links fill :open {hint-url}",
+        ":r": "hint --rapid links tab-bg",
+        ":t": "hint inputs",
+        ":y": "hint links yank",
+        ":e": "hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id",
+        ":a": "hint amazon userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen",
         # Override f and F by download documents from libgen
-        ':p': 'hint all userscript ~/.config/qutebrowser/userscripts/override_f',
-
+        ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
         # Sourcing files
-        ',es': 'spawn bash -ic rcqutebrowser',
-        ',ss': 'config-source ;; message-info "Configuration file sourced"',
+        ",es": "spawn bash -ic rcqutebrowser",
+        ",ss": 'config-source ;; message-info "Configuration file sourced"',
         # Clear search
-        ',h': 'search',
-        ',c': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture',
+        ",h": "search",
+        ",c": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture",
         # Open/Delete download files
-        ',od': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
-        ',ord': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent',
-        ',dd': "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
-        ',drd': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent',
-
+        ",od": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
+        ",ord": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent",
+        ",dd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
+        ",drd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent",
         # Yank/Goto URL without anchors
-        'yp': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler',
-        'gc': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors',
-
+        "yp": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler",
+        "gc": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors",
         # Yanking URLs
-        'ya': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_all',
-        'yo': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link',
-        'yc': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean', # Github repo names only
-        'yl': 'spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link',
-        'ys': 'spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener',
-
+        "ya": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_all",
+        "yo": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link",
+        "yc": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean",  # Github repo names only
+        "yl": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link",
+        "ys": "spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener",
         # Google search
-        'gs': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search',
-        'gS': 'spawn --userscript ~/.config/qutebrowser/userscripts/google_search tab',
+        "gs": "spawn --userscript ~/.config/qutebrowser/userscripts/google_search",
+        "gS": "spawn --userscript ~/.config/qutebrowser/userscripts/google_search tab",
         # Go to domain or github project's root
-        'gr': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root',
-        'gR': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root tab',
-        'wr': 'spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root window',
+        "gr": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root",
+        "gR": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root tab",
+        "wr": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_root window",
         # Overrides gt, by allowing chosen tabs in hidden workspaces to be focused
-        'gt': 'spawn --userscript ~/.config/qutebrowser/userscripts/override_gt',
+        "gt": "spawn --userscript ~/.config/qutebrowser/userscripts/override_gt",
         # Check open ports
-        'gl': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list',
-
+        "gl": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
         # Create session and store command to open it in clipboard
-        'ss': 'spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session',
+        "ss": "spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session",
         # Google translate
-        ',t': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate',
-
-
+        ",t": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
         # Use <C-S-v> instead of <C-v> for passthrough mode
-        '<Ctrl-v>': 'nop',
-        '<Ctrl-Shift-v>': 'mode-enter passthrough',
-
+        "<Ctrl-v>": "nop",
+        "<Ctrl-Shift-v>": "mode-enter passthrough",
         # Password manager
-        '<z><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden',
-        '<z><u><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --username-only',
-        '<z><p><l>': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --password-only',
+        "<z><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden",
+        "<z><u><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --username-only",
+        "<z><p><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --password-only",
     },
-    'insert': {
-            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
-            '<Ctrl-h>': 'fake-key <backspace>',
-
-            '<Ctrl-p>': 'fake-key <Up>',
-            '<Ctrl-n>': 'fake-key <Down>',
-            '<Ctrl-j>': 'fake-key <enter>',
-
-            # Readline
-            '<Ctrl-b>': 'fake-key <Left>',
-            '<Ctrl-f>': 'fake-key <Right>',
-            '<Ctrl-d>': 'fake-key <Delete>',
-
-            '<Alt-b>': 'fake-key <Ctrl-Left>',
-            '<Alt-f>': 'fake-key <Ctrl-Right>',
-            '<Alt-d>': 'fake-key <Ctrl-Delete>',
-
-            '<Ctrl-e>': 'fake-key <End>',
-
-            # Use another binding for editing in external editor
-            '<Ctrl-Shift-e>': 'edit-text',
-            },
-    'caret': {
-            'o': 'open selection',
-            'O': 'open -t selection',
-            },
-    'passthrough': {
-            '<Ctrl-w>': 'fake-key <Ctrl-backspace>',
-            '<Ctrl-h>': 'fake-key <backspace>',
-
-            '<Ctrl-p>': 'fake-key <Up>',
-            '<Ctrl-n>': 'fake-key <Down>',
-            # Commented out for the time being, since it messes up vim binding
-            # in jupyter notebooks
-            # '<Ctrl-j>': 'fake-key <enter>',
-
-            '<Ctrl-Shift-v>': 'mode-leave',
-            },
-
-    'command': {
-            '<Ctrl-p>': 'completion-item-focus --history prev',
-            '<Ctrl-n>': 'completion-item-focus --history next',
-            '<Ctrl-w>': 'rl-backward-kill-word',
-            },
+    "insert": {
+        "<Ctrl-w>": "fake-key <Ctrl-backspace>",
+        "<Ctrl-h>": "fake-key <backspace>",
+        "<Ctrl-p>": "fake-key <Up>",
+        "<Ctrl-n>": "fake-key <Down>",
+        "<Ctrl-j>": "fake-key <enter>",
+        # Readline
+        "<Ctrl-b>": "fake-key <Left>",
+        "<Ctrl-f>": "fake-key <Right>",
+        "<Ctrl-d>": "fake-key <Delete>",
+        "<Alt-b>": "fake-key <Ctrl-Left>",
+        "<Alt-f>": "fake-key <Ctrl-Right>",
+        "<Alt-d>": "fake-key <Ctrl-Delete>",
+        "<Ctrl-e>": "fake-key <End>",
+        # Use another binding for editing in external editor
+        "<Ctrl-Shift-e>": "edit-text",
+    },
+    "caret": {
+        "o": "open selection",
+        "O": "open -t selection",
+    },
+    "passthrough": {
+        "<Ctrl-w>": "fake-key <Ctrl-backspace>",
+        "<Ctrl-h>": "fake-key <backspace>",
+        "<Ctrl-p>": "fake-key <Up>",
+        "<Ctrl-n>": "fake-key <Down>",
+        # Commented out for the time being, since it messes up vim binding
+        # in jupyter notebooks
+        # '<Ctrl-j>': 'fake-key <enter>',
+        "<Ctrl-Shift-v>": "mode-leave",
+    },
+    "command": {
+        "<Ctrl-p>": "completion-item-focus --history prev",
+        "<Ctrl-n>": "completion-item-focus --history next",
+        "<Ctrl-w>": "rl-backward-kill-word",
+    },
 }
-config.unbind(':', mode='normal')
+config.unbind(":", mode="normal")
 # Don't close window on C-q
-config.unbind('<Ctrl-q>', mode='normal')
+config.unbind("<Ctrl-q>", mode="normal")
 
 c.aliases = {
-        'q': 'close',
-        'yank_footnote': 'yank inline "[] []: {url}"',
-        'qa': 'quit',
-        'w': 'session-save',
-        'wq': 'quit --save',
-        'wqa': 'quit --save',
-        'h': 'help -t',
-        'H': 'help -w',
-        'json': 'open -t https://codebeautify.org/jsonviewer?url={url}',
-        'download_youtube': 'spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube',
-        'paywall': 'open https://12ft.io/proxy?q={url}',
-        'zotero': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero',
-        'paper': 'spawn --userscript ~/.config/qutebrowser/userscripts/get_paper',
-        'hosts': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list',
-        'translate': 'spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate',
-        'open_download': 'spawn --userscript ~/.config/qutebrowser/userscripts/open_download',
-        }
+    "q": "close",
+    "yank_footnote": 'yank inline "[] []: {url}"',
+    "qa": "quit",
+    "w": "session-save",
+    "wq": "quit --save",
+    "wqa": "quit --save",
+    "h": "help -t",
+    "H": "help -w",
+    "json": "open -t https://codebeautify.org/jsonviewer?url={url}",
+    "download_youtube": "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube",
+    "paywall": "open https://12ft.io/proxy?q={url}",
+    "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
+    "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
+    "hosts": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
+    "translate": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
+    "open_download": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
+}
 
 config.load_autoconfig()
 
-c.content.blocking.whitelist = ['https://analytics.google.com/analytics/*']
-c.content.blocking.method = 'both'
+c.content.blocking.whitelist = ["https://analytics.google.com/analytics/*"]
+c.content.blocking.method = "both"
 c.content.notifications.enabled = False
 c.content.tls.certificate_errors = "ask-block-thirdparty"
 # Enable save to clipbaord buttons
 c.content.javascript.can_access_clipboard = True
 
-with config.pattern('https://www.google.com') as p:
+with config.pattern("https://www.google.com") as p:
     p.content.geolocation = True
 
 c.auto_save.session = True
 
 # Add a CSS selector for yank_link_id script
-c.hints.selectors['id'] = ["[id]"]
+c.hints.selectors["id"] = ["[id]"]
 # Make gi focus issues search bar
-with config.pattern('https://github.com/*/issues') as p:
-    p.hints.selectors = {'inputs': ["input[id='js-issues-search']"]}
+with config.pattern("https://github.com/*/issues") as p:
+    p.hints.selectors = {"inputs": ["input[id='js-issues-search']"]}
 
 c.hints.border = "1px solid #CCCCCC"
 c.fonts.default_size = "12pt"
 c.fonts.web.size.default = 19
 
 # Use ranger for file handling
-c.fileselect.handler = 'external'
-c.fileselect.folder.command = ['kitty', '-e', 'ranger', '--choosedir={}']
-c.fileselect.multiple_files.command = ['kitty', '-e', 'ranger', '--choosefiles={}']
-c.fileselect.single_file.command = ['kitty', '-e', 'ranger', '--choosefile={}']
+c.fileselect.handler = "external"
+c.fileselect.folder.command = ["kitty", "-e", "ranger", "--choosedir={}"]
+c.fileselect.multiple_files.command = ["kitty", "-e", "ranger", "--choosefiles={}"]
+c.fileselect.single_file.command = ["kitty", "-e", "ranger", "--choosefile={}"]
 
-c.spellcheck.languages = ['en-US']
+c.spellcheck.languages = ["en-US"]
 # Open new tabs next to the current one
-c.tabs.new_position.unrelated = 'next'
+c.tabs.new_position.unrelated = "next"
 c.scrolling.smooth = False
-c.scrolling.bar = 'never'
+c.scrolling.bar = "never"
 
 # Status bar and title format
 c.statusbar.widgets = ["url", "progress", "scroll"]
-c.tabs.title.format = '{current_title}'
+c.tabs.title.format = "{current_title}"
 
 # Don't show file browser in download prompt
 c.prompt.filebrowser = False
-c.downloads.location.suggestion = 'both'
+c.downloads.location.suggestion = "both"
 c.downloads.remove_finished = 0
 
-c.editor.command = [os.getenv('_EDITOR_GUI'), "{file}", "--nofork"]
+c.editor.command = [os.getenv("_EDITOR_GUI"), "{file}", "--nofork"]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
 
 c.url.default_page = "https://www.google.com"
+c.url.start_pages = "https://www.google.com"
 c.url.searchengines = {
-        'DEFAULT': 'https://www.google.com/search?q={}',
-        'duck': 'https://www.duckduckgo.com/?q={}',
-        'go': 'https://www.google.com/search?q={}',
-        'def': 'https://www.merriam-webster.com/dictionary/{}',
-        'wiki': 'https://en.wikipedia.org/wiki/{}',
-        }
+    "DEFAULT": "https://www.google.com/search?q={}",
+    "duck": "https://www.duckduckgo.com/?q={}",
+    "go": "https://www.google.com/search?q={}",
+    "def": "https://www.merriam-webster.com/dictionary/{}",
+    "wiki": "https://en.wikipedia.org/wiki/{}",
+}
 
 # gruvbox dark hard qutebrowser theme by Florian Bruhin <me@the-compiler.org>
 #
@@ -221,8 +206,8 @@ c.url.searchengines = {
 #   Gruvbox dark, hard scheme by Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 
 bg0_hard = "#1d2021"
-bg0_soft = '#32302f'
-bg0_normal = '#282828'
+bg0_soft = "#32302f"
+bg0_normal = "#282828"
 
 bg0 = bg0_normal
 bg1 = "#3c3836"
@@ -288,7 +273,9 @@ c.colors.completion.item.selected.bg = bg4
 c.colors.completion.item.selected.border.top = bg2
 
 # Bottom border color of the selected completion item.
-c.colors.completion.item.selected.border.bottom = c.colors.completion.item.selected.border.top
+c.colors.completion.item.selected.border.bottom = (
+    c.colors.completion.item.selected.border.top
+)
 
 # Foreground color of the matched text in the selected completion item.
 c.colors.completion.item.selected.match.fg = bright_orange
@@ -348,7 +335,7 @@ c.colors.downloads.error.fg = bright_red
 c.colors.hints.fg = bg0
 
 # Background color for hints.
-c.colors.hints.bg = 'rgba(250, 191, 47, 200)'  # bright_yellow
+c.colors.hints.bg = "rgba(250, 191, 47, 200)"  # bright_yellow
 
 # Font color for the matched part of hints.
 c.colors.hints.match.fg = bg4
@@ -399,7 +386,7 @@ c.colors.messages.info.border = c.colors.messages.info.bg
 c.colors.prompts.fg = fg2
 
 # Border used around UI elements in prompts.
-c.colors.prompts.border = f'1px solid {bg1}'
+c.colors.prompts.border = f"1px solid {bg1}"
 
 # Background color for prompts.
 c.colors.prompts.bg = bg3

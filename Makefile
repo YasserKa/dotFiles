@@ -8,7 +8,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip jupyter_contrib_nbextensions poetry notebook neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
 
 .PHONY: install
-install: post-install-packages upgrade-pypi-packages setup-knowledge-base setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash setup-ambient-music show-final-instructions-message
+install: post-install-packages upgrade-pypi-packages setup-knowledge-base setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash firewalld setup-ambient-music show-final-instructions-message
 
 .PHONY: stow-etc
 stow-etc:
@@ -63,11 +63,12 @@ post-install-packages: stow-packages
 	systemctl start msmtp-runqueue.timer --user
 	systemctl enable mbsync.timer --user
 	systemctl start mbsync.timer --user
-	sudo pacman -S nftables
 	sudo systemctl enable nftables.service
 	sudo systemctl start nftables.service
 	sudo systemctl enable acpid.service
 	sudo systemctl start acpid.service
+	sudo systemctl enable firewalld.service
+	sudo systemctl start firewalld.service
 	systemctl --user daemon-reload
 	systemctl daemon-reload
 

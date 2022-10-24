@@ -234,6 +234,7 @@ networkmanager-dmenu-git # Control NetworkManager via dmenu
 wireguard-tools # next generation secure network tunnel - tools for configuration
 net-tools # Configuration tools
 transmission-gtk # BitTorren client
+firewalld # Firewall daemon with D-Bus interface
 
 # Mutt
 neomutt # A version of mutt with added features
