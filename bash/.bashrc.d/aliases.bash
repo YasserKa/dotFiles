@@ -7,12 +7,13 @@ alias h='history'
 alias hg='history | grep'
 alias pac='sudo pacman'
 alias z='zathura'
+alias b='~-'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 
 # Create directories and cd/edit immedietly
-mkdircd () { command mkdir -pv "$1" && cd "$1" || exit; }
-mkdirv () { mkdircd "${1%/*}" && nvim "${1##*/}" || exit; }
+mkdircd() { command mkdir -pv "$1" && cd "$1" || exit; }
+mkdirv() { mkdircd "${1%/*}" && nvim "${1##*/}" || exit; }
 
 # Sync books
 alias syncbooks='wait_internet && rclone sync $HOME/books books:books'

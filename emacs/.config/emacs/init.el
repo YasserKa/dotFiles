@@ -318,6 +318,7 @@
   :config
   (evil-mode 1)
   (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
+  (evil-define-key nil 'global (kbd "M-u") 'universal-argument)
 
   (evil-define-key nil 'global
     (kbd "<escape>") 'keyboard-escape-quit
@@ -777,6 +778,8 @@ Made for `org-tab-first-hook' in evil-mode."
     (evil-define-key 'motion 'org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
     (setq org-super-agenda-header-map (make-sparse-keymap))
     )
+
+  (define-key org-agenda-mode-map (kbd "C-h") 'evil-window-left)
 
   (setq org-capture-templates
         `(("d" "default" entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))

@@ -5,5 +5,5 @@ IS_CHARGING="$(acpi -a | grep 'on-line')"
 
 # Alert if less than 10% and not charing
 if [ "$BATTERY_LEVEL" -le 10 ] && [ -z "$IS_CHARGING" ]; then
-    notify-send "Battery low" "Battery level is ${BATTERY_LEVEL}%!" --urgency=critical
+	notify-send "Battery low" "Battery level is ${BATTERY_LEVEL}%!" --urgency=critical
 fi
