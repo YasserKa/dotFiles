@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+# shellcheck shell=bash
 # Extract compressed files function
 extract() {
 	local c e i
@@ -16,20 +15,20 @@ extract() {
 		fi
 
 		case $i in
-		*.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz))))) c=(bsdtar xvf) ;;
-		*.7z) c=(7z x) ;;
-		*.Z) c=(uncompress) ;;
-		*.bz2) c=(bunzip2) ;;
-		*.exe) c=(cabextract) ;;
-		*.gz) c=(gunzip) ;;
-		*.rar) c=(unrar x) ;;
-		*.xz) c=(unxz) ;;
-		*.zip) c=(unzip) ;;
-		*.zst) c=(unzstd) ;;
-		*)
-			echo "$0: unrecognized file extension: \`$i'" >&2
-			continue
-			;;
+			*.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz))))) c=(bsdtar xvf) ;;
+			*.7z) c=(7z x) ;;
+			*.Z) c=(uncompress) ;;
+			*.bz2) c=(bunzip2) ;;
+			*.exe) c=(cabextract) ;;
+			*.gz) c=(gunzip) ;;
+			*.rar) c=(unrar x) ;;
+			*.xz) c=(unxz) ;;
+			*.zip) c=(unzip) ;;
+			*.zst) c=(unzstd) ;;
+			*)
+				echo "$0: unrecognized file extension: \`$i'" >&2
+				continue
+				;;
 		esac
 
 		command "${c[@]}" "$i"
@@ -55,15 +54,15 @@ upgrade_system() {
 	printf "%s\n" "Updating Emacs packages"
 	# Update packages and exit afterwards
 	emacs --no-window-system --eval "(progn
-        (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
-        (auto-packages-update-now))"
+  (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
+  (auto-packages-update-now))"
 
 	make --file="${HOME}/dotfiles/Makefile" upgrade-pypi-packages
 
 	echo 'Use the following commands to checkup on the system:
-    systemctl --failed --user
-    logxorg
-    sudo journalctl -p 3 -b'
+  systemctl --failed --user
+  logxorg
+  sudo journalctl -p 3 -b'
 }
 
 # Automatically change current directory to the last visited one after ranger quits
@@ -164,7 +163,7 @@ unset cli
 
 # Open TUIR with top page within 24 hours by pressing "g t 2"
 tuir() {
-	(xdotool search --sync --name "^Front Page - tuir" key g t 2 &)
+	(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
 	open_cli tuir
 }
 
