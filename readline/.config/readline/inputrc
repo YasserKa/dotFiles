@@ -68,6 +68,7 @@ $if mode=vi
 
     set keymap vi-insert
     "\C-w": backward-kill-word
+    "\C-k": kill-line
     # Expand expressions like !!
     # If statement used to be able to type space in python shell
     $if Bash

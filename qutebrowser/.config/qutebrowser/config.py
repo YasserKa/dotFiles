@@ -94,6 +94,10 @@ c.bindings.commands = {
         "<Alt-f>": "fake-key <Ctrl-Right>",
         "<Alt-d>": "fake-key <Ctrl-Delete>",
         "<Ctrl-e>": "fake-key <End>",
+        "<Ctrl-u>": "fake-key <Shift-Home><Delete>",
+        "<Ctrl-k>": "fake-key <Shift-End><Delete>",
+        "<Ctrl-a>": "fake-key <Home>",
+        "<Ctrl-Shift-a>": "fake-key <Ctrl-a>",
         # Use another binding for editing in external editor
         "<Ctrl-Shift-e>": "edit-text",
     },
