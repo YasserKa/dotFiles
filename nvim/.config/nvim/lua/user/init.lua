@@ -690,20 +690,14 @@ local config = {
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
 			group = "my_skeletons",
-			pattern = "*.sh",
-			command = "0r ~/.config/nvim/skeletons/skeleton.sh",
-		})
-		vim.api.nvim_create_autocmd("BufNewFile", {
-			desc = "Skeleton",
-			group = "my_skeletons",
-			pattern = "*.bash",
-			command = "0r ~/.config/nvim/skeletons/skeleton.sh",
+			pattern = { "*.bash", "*.sh" },
+			command = "0r ~/.config/nvim/skeletons/skeleton.sh | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
 			group = "my_skeletons",
 			pattern = "*.py",
-			command = "0r ~/.config/nvim/skeletons/skeleton.py",
+			command = "0r ~/.config/nvim/skeletons/skeleton.py | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_augroup("user_mail", {
 			clear = true,
