@@ -270,7 +270,7 @@
          (evil-collection-setup .
                                 (lambda (mode-keymaps &rest _rest)
                                   (evil-collection-define-key nil 'company-active-map
-                                    (kbd "C-i") 'company-complete-selection
+                                    (kbd "C-j") 'company-complete-selection
                                     (kbd "C-h") 'evil-delete-backward-char-and-join
                                     (kbd "C-w") 'evil-delete-backward-word
                                     (kbd "<return>") 'newline))))
