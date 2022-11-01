@@ -27,7 +27,7 @@ messageinfo() {
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
 	acc="$(echo "$account" | sed "s/.*\///")"
-	if [ -z "$opts" ]; then mbsync -c "${XDG_CONFIG_ISYNC}" "$acc"; else mbsync -"c ${XDG_CONFIG_ISYNC}" "$opts" "$acc"; fi
+	if [ -z "$opts" ]; then mbsync -c "${XDG_CONFIG_ISYNC}" "$acc"; else mbsync -c "${XDG_CONFIG_ISYNC}" "$opts" "$acc"; fi
 	EXIT_STATUS="$?"
 	# Sometimes mbsync fails, send a notification if there are two consecutive fails
 	local -r TMP_FILE_PATH="/tmp/mbsync_fail"
