@@ -17,6 +17,7 @@ set ignorecase    " Do case insensitive search...
 set incsearch     " Do incremental search
 set hlsearch      " Highlight mathces
 set nonumber
+set virtualedit=all " Moving in whitespace
 let g:less.enabled = 0
 let g:vimpager.X11 = 0
 noremap ; :
