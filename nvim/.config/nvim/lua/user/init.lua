@@ -206,15 +206,13 @@ local config = {
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
 			["<leader>ff"] = {
 				function()
-					require("telescope.builtin").find_files({
-						find_command = { "rg", "--no-ignore-vcs", "--hidden", "--files" },
-					})
+					require("telescope.builtin").find_files()
 				end,
 				desc = "Search files",
 			},
 			["<leader>fw"] = {
 				function()
-					require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-vcs", "--hidden" } })
+					require("telescope.builtin").live_grep()
 				end,
 				desc = "Search words",
 			},
@@ -253,13 +251,13 @@ local config = {
 		telescope = {
 			defaults = {
 				mappings = {
-
 					i = {
 						["<esc>"] = require("telescope.actions").close,
 						["<C-u>"] = false,
 						["<C-[>"] = require("telescope.actions").close,
 						["<C-j>"] = require("telescope.actions").select_default,
 						["<C-d>"] = require("telescope.actions").delete_buffer,
+						["<C-s>"] = require("telescope.actions").select_horizontal,
 						["<C-n>"] = require("telescope.actions").move_selection_next,
 						["<C-p>"] = require("telescope.actions").move_selection_previous,
 						["<A-j>"] = require("telescope.actions").cycle_previewers_next,
@@ -342,15 +340,15 @@ local config = {
 			},
 			{ "https://github.com/tpope/vim-unimpaired" },
 			{ "https://github.com/tpope/vim-repeat" }, -- Used to repeat vim-unimpaired actions
-
 			{
 				"https://github.com/folke/todo-comments.nvim",
 				requires = "nvim-lua/plenary.nvim",
 				config = function()
 					require("todo-comments").setup({
-						-- your configuration comes here
-						-- or leave it empty to use the default settings
-						-- refer to the configuration section below
+						signs = false,
+						keywords = {
+							REFACTOR = { icon = "" },
+						},
 					})
 				end,
 			},
@@ -431,6 +429,7 @@ local config = {
 			{ "https://github.com/jeetsukumaran/vim-commentary" },
 			{ "https://github.com/szw/vim-maximizer" },
 			{ "https://github.com/simnalamburt/vim-mundo" },
+			{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
 			{
 				"https://github.com/ggandor/leap.nvim",
 				config = function()
@@ -508,6 +507,7 @@ local config = {
 		treesitter = { -- overrides `require("treesitter").setup(...)`
 			-- ensure_installed = { "lua" },
 
+			indent = { enable = true, disable = { "python" } },
 			matchup = { enable = true },
 			highlight = {
 				enable = true,
@@ -603,6 +603,7 @@ local config = {
 			-- first key is the mode, n == normal mode
 			n = {
 				["yex"] = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
+				["<space><space>"] = { "<cmd>buffer#<cr>", "Alternate buffer" },
 				-- second key is the prefix, <leader> prefixes
 				["<localleader>"] = {
 					l = {},
@@ -628,7 +629,20 @@ local config = {
 						name = "Buffer",
 						["O"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", "Remove all other buffers" },
 					},
-
+					g = {
+						S = {
+							function()
+								require("gitsigns").stage_buffer()
+							end,
+							"Stage Buffer",
+						},
+						U = {
+							function()
+								require("gitsigns").reset_buffer_index()
+							end,
+							"Unstage Buffer",
+						},
+					},
 					a = {
 						name = "Annotate",
 						["<cr>"] = {
@@ -884,76 +898,76 @@ local config = {
 
               " always send text to the top-right pane in the current tmux tab without asking
               let g:slime_default_config = {
-                \ 'socket_name': get(split($TMUX, ','), 0),
-                \ 'target_pane': ':{next}.1' }
+              \ 'socket_name': get(split($TMUX, ','), 0),
+              \ 'target_pane': ':{next}.1' }
 
-                let g:slime_dont_ask_default = 1
+              let g:slime_dont_ask_default = 1
 
-                " Override the comment that makes a cell take "##", this will cause a problem if
-                " there's a string having "##"
-                let g:ipython_cell_tag = ['# %%']
+              " Override the comment that makes a cell take "##", this will cause a problem if
+              " there's a string having "##"
+              let g:ipython_cell_tag = ['# %%']
 
-                " }}}
-                " {{{ vim-mundo 
-                " Enable persistent undo so that undo history persists across vim sessions
-                set undofile
-                nnoremap yeu <cmd>MundoToggle<cr>
-                " }}}
-                "  {{{ markdown-preview.nvim
-                let g:mkdp_command_for_global = 1
-                let g:mkdp_page_title = '${name}'
-                let g:mkdp_auto_close = 0
-                nmap yem <Plug>MarkdownPreviewToggle
+              " }}}
+              " {{{ vim-mundo 
+              " Enable persistent undo so that undo history persists across vim sessions
+              set undofile
+              nnoremap yeu <cmd>MundoToggle<cr>
+              " }}}
+              "  {{{ markdown-preview.nvim
+              let g:mkdp_command_for_global = 1
+              let g:mkdp_page_title = '${name}'
+              let g:mkdp_auto_close = 0
+              nmap yem <Plug>MarkdownPreviewToggle
 
-                " open page in new window
-                function! OpenNewBrowserWindow(url)
-                execute "silent ! qutebrowser --target window " . a:url
-                endfunction
+              " open page in new window
+              function! OpenNewBrowserWindow(url)
+              execute "silent ! qutebrowser --target window " . a:url
+              endfunction
 
-                let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
-                " }}}
-                " {{{ vimtex
-                let g:vimtex_compiler_silent = 1
-                " Use nabla.nvim
-                " let g:vimtex_syntax_conceal_disable=1
-                set conceallevel=1
-                let g:tex_conceal = 'abdg'
-                let g:vimtex_syntax_conceal = {
-                  \ 'accents': 1,
-                  \ 'ligatures': 1,
-                  \ 'cites': 1,
-                  \ 'fancy': 1,
-                  \ 'greek': 0,
-                  \ 'math_bounds': 0,
-                  \ 'math_delimiters': 0,
-                  \ 'math_fracs': 0,
-                  \ 'math_super_sub': 0,
-                  \ 'math_symbols': 0,
-                  \ 'sections': 0,
-                  \ 'styles': 1,
-                  \}
-                  let g:vimtex_view_method = 'zathura'
-                  let g:vimtex_fold_enabled = 1
-                  let g:vimtex_compiler_latexmk = {
-                    \ 'build_dir' : './tex_output',
-                    \ 'options' : [
-                    \   '-verbose',
-                    \   '-file-line-error',
-                    \   '-shell-escape',
-                    \   '-synctex=1',
-                    \   '-interaction=nonstopmode',
-                    \ ],
-                    \}
+              let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
+              " }}}
+              " {{{ vimtex
+              let g:vimtex_compiler_silent = 1
+              " Use nabla.nvim
+              " let g:vimtex_syntax_conceal_disable=1
+              set conceallevel=1
+              let g:tex_conceal = 'abdg'
+              let g:vimtex_syntax_conceal = {
+              \ 'accents': 1,
+              \ 'ligatures': 1,
+              \ 'cites': 1,
+              \ 'fancy': 1,
+              \ 'greek': 0,
+              \ 'math_bounds': 0,
+              \ 'math_delimiters': 0,
+              \ 'math_fracs': 0,
+              \ 'math_super_sub': 0,
+              \ 'math_symbols': 0,
+              \ 'sections': 0,
+              \ 'styles': 1,
+              \}
+              let g:vimtex_view_method = 'zathura'
+              let g:vimtex_fold_enabled = 1
+              let g:vimtex_compiler_latexmk = {
+              \ 'build_dir' : './tex_output',
+              \ 'options' : [
+              \   '-verbose',
+              \   '-file-line-error',
+              \   '-shell-escape',
+              \   '-synctex=1',
+              \   '-interaction=nonstopmode',
+              \ ],
+              \}
 
-                    vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
-                    \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
-                    \ <CR> `<
-                    \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
-                    " Surround capital characters with $
-                    vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
-                    \ :let @/ = "" <bar> set hlsearch<CR>
-                    " }}}
-      	            ]],
+              vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
+              \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
+              \ <CR> `<
+              \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
+              " Surround capital characters with $
+              vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
+              \ :let @/ = "" <bar> set hlsearch<CR>
+              " }}}
+      	      ]],
 			true
 		)
 	end,
