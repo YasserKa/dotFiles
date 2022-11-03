@@ -615,12 +615,13 @@
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w)" "HOLD(h)"))))
+                (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELLED(c@/!)"))))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "red" :weight bold)
                 ("NEXT" :foreground "blue" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold)
                 ("HOLD" :foreground "magenta" :weight bold)
                 )))
 
@@ -634,6 +635,8 @@
 
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
+  ;; Insert mode after going to add a note to logs
+  (add-hook 'org-log-buffer-setup-hook '(lambda () (evil-insert 0)))
 
   ;; Save capture on :wq
   (evil-define-key nil org-capture-mode-map
