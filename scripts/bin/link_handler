@@ -6,8 +6,8 @@
 scheme='link-handler://'
 
 urldecode() {
-    local url_encoded="${1//+/ }"
-    printf '%b' "${url_encoded//%/\\x}"
+	local url_encoded="${1//+/ }"
+	printf '%b' "${url_encoded//%/\\x}"
 }
 
 decoded_url="$(urldecode "${@}")"

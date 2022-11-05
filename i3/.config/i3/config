@@ -1,5 +1,5 @@
 # http://i3wm.org/dcs/userguide.html
-# vim:nospell:foldmarker=<<<,>>>
+# vim:nospell:foldmarker=<<<,>>>:filetype=i3config
 # Gaps <<<
 for_window [all] border pixel 0
 

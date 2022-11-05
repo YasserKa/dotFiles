@@ -2,7 +2,7 @@
 
 UPLOAD_URL="https://share.yasserkaddoura.com/upload"
 
-TOKEN=$(bw get item xbackbone | jq '.fields[0].value')
+TOKEN=$(pass get xbackbone)
 RESPONSE="$(curl -s -F "token=$TOKEN" -F "upload=@${1}" $UPLOAD_URL)";
 
 if [[ "$(echo "${RESPONSE}" | jq -r '.message')" == "OK" ]]; then

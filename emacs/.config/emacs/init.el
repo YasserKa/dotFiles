@@ -1075,6 +1075,7 @@ see how ARG affects this command."
                               (kbd "<M-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
                             (evil-define-key 'normal 'evil-org-mode
                               (kbd "zi")  #'org-toggle-inline-images
+                              (kbd "SPC") 'org-cycle
                               (kbd "zl")  #'org-latex-preview
                               ;; Open files at cursor
                               (kbd "<return>") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))

@@ -94,9 +94,8 @@ def check_whatsapp(driver):
         )
         > 0
     )
-    unread_messages = driver.find_elements(
-        By.XPATH, './/*[contains(@aria-label,"unread message")]'
-    )
+    # Needed to extract unread_messages correctly
+    sleep(2)
 
     unread_messages = driver.find_elements(
         By.CSS_SELECTOR, "div > *[role=gridcell] > span > div"
