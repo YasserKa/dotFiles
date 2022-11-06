@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+# A userscript for qutebrowser to fix the last typo
+#
+# Dependencies: aspell
+
+get_text_with_last_fixed_typo() {
+	local TEXT="$1"
+	LAST_TYPO="$(echo "$TEXT" | aspell list | tail -n 1)"
+	# No typos, get rid of heighlighting all text and exit
+	[[ -z "$LAST_TYPO" ]] && echo "fake-key <Right>" >>"$QUTE_FIFO" && exit 0
+	LAST_TYPO_FIXED="$(echo "$LAST_TYPO" | aspell pipe | grep -oP ".*:\K.*?(?=,)")"
+	# Add spaces around text to be able to repalce the last typo
+	TEXT=" ${TEXT} "
+	local FIXED_TEXT="${TEXT% $LAST_TYPO *} $LAST_TYPO_FIXED ${TEXT##* $LAST_TYPO }"
+
+	echo $FIXED_TEXT
+}
+
+FIXED_TEXT="$(get_text_with_last_fixed_typo "${QUTE_SELECTED_TEXT}")"
+echo "fake-key ${FIXED_TEXT@Q}" >>"$QUTE_FIFO"

@@ -9,7 +9,8 @@ from time import sleep
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from selenium import webdriver
-from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
+from selenium.common.exceptions import (SessionNotCreatedException,
+                                        TimeoutException)
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait

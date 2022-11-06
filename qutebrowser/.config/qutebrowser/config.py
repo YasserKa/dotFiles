@@ -82,6 +82,8 @@ c.bindings.commands = {
     },
     "insert": {
         "<Ctrl-w>": "fake-key <Ctrl-backspace>",
+        "<Ctrl-l>": "fake-key <Ctrl-a>;; later 50 spawn --userscript"
+        " ~/.config/qutebrowser/userscripts/fix_last_typo",
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
         "<Ctrl-n>": "fake-key <Down>",

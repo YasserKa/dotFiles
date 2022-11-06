@@ -22,3 +22,5 @@ let g:less.enabled = 0
 let g:vimpager.X11 = 0
 noremap ; :
 noremap : ;
+
+nnoremap <silent> q :q!<cr>

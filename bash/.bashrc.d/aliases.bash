@@ -10,6 +10,7 @@ alias z='zathura'
 alias b='~-'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
+alias vimdiff='nvim -d'
 
 # Create directories and cd/edit immedietly
 mkdircd() { command mkdir -pv "$1" && cd "$1" || exit; }
