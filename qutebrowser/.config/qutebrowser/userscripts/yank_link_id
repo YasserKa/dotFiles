@@ -3,9 +3,10 @@
 # Deficiency: $QUTE_TITLE (page title) is not available for hints
 
 # remove the number sign and what goes after that (if given)
-URL=$(echo $QUTE_CURRENT_URL | cut -f -1 -d "#")
-HTML_ID=$(echo "$QUTE_SELECTED_HTML" | grep -oP 'id="\K(.+?)(?=")')
-LINK="$URL#$HTML_ID"
+URL=$(echo "${QUTE_CURRENT_URL}" | cut -f -1 -d "#")
+HTML_ID="$(echo "${QUTE_SELECTED_HTML}" | grep -oP 'id="\K(.+?)(?=")' | head -n 1)"
+LINK="${URL}#${HTML_ID}"
 
-echo $LINK | xclip -selection clipboard
-echo "message-info 'url copied to clipboard'" >> "$QUTE_FIFO"
+echo "${LINK}" | xclip -selection clipboard
+
+echo "message-info 'url copied to clipboard'" >>"$QUTE_FIFO"
