@@ -6,7 +6,8 @@ local config = {
 		channel = "nightly", -- "stable" or "nightly"
 		version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
 		branch = "nightly", -- branch name (NIGHTLY ONLY)
-		commit = nil, -- commit hash (NIGHTLY ONLY)
+		spellfile = "~/.config/nvim/spell/en.utf-8.add",
+		commit = nil, -- commit hash (NIGHTLY ONLY) lua
 		pin_plugins = nil, -- nil, true, false (nil will pin plugins on stable only)
 		skip_prompts = false, -- skip prompts about breaking changes
 		show_changelog = true, -- show the changelog after performing an update
@@ -38,9 +39,7 @@ local config = {
 			-- set to true or false etc.
 			signcolumn = "auto", -- sets vim.opt.signcolumn to auto
 			wrap = true, -- sets vim.opt.wrap
-			tw = 80, -- sets vim.opt.wrap
-			-- shiftwidth = 4, -- Number of spaces to autoindent
-			-- softtabstop = 4, -- Number of spaces for a tab
+			textwidth = 80, -- sets vim.opt.wrap
 			virtualedit = "all", -- Moving in whitespace
 			ignorecase = true, -- Do case insensitive search...
 			smartcase = true, -- ...unless capital letters are used
@@ -53,7 +52,10 @@ local config = {
 			number = true, -- Show the number line
 			relativenumber = true,
 			listchars = "eol:¶,tab:>-,trail:.,nbsp:_,extends:+,precedes:+",
-			foldmethod = "marker", -- Folds at start
+			foldexpr = "nvim_treesitter#foldexpr()", -- set Treesitter based folding
+			conceallevel = 1,
+			foldmethod = "expr", -- Fold method
+			foldenable = false,
 			foldmarker = "{{{,}}}", -- Folds format
 			laststatus = 3, -- Use Global statusline
 			expandtab = true, -- Use spaces instead of tabs
@@ -69,36 +71,9 @@ local config = {
 			icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
 		},
 	},
-	-- If you need more control, you can use the function()...end notation
-	-- options = function(local_vim)
-	--   local_vim.opt.relativenumber = true
-	--   local_vim.g.mapleader = " "
-	--   local_vim.opt.whichwrap = vim.opt.whichwrap - { 'b', 's' } -- removing option from list
-	--   local_vim.opt.shortmess = vim.opt.shortmess + { I = true } -- add to option list
-	--
-	--   return local_vim
-	-- end,
 
 	-- Default theme configuration
 	default_theme = {
-		-- Modify the color palette for the default theme
-		colors = {
-			fg = "#abb2bf",
-			bg = "#1e222a",
-		},
-		highlights = function(hl) -- or a function that returns a new table of colors to set
-			local C = require("default_theme.colors")
-
-			hl.Normal = { fg = C.fg, bg = C.bg }
-
-			-- New approach instead of diagnostic_style
-			hl.DiagnosticError.italic = true
-			hl.DiagnosticHint.italic = true
-			hl.DiagnosticInfo.italic = true
-			hl.DiagnosticWarn.italic = true
-
-			return hl
-		end,
 		-- enable or disable highlighting for extra plugins
 		plugins = {
 			aerial = false,
@@ -132,22 +107,17 @@ local config = {
 	-- Extend LSP configuration
 	lsp = {
 		-- enable servers that you already have installed without mason
-		servers = {
-			-- "pyright"
-		},
+		servers = {},
 		formatting = {
 			-- control auto formatting on save
 			format_on_save = {
 				enabled = true, -- enable or disable format on save globally
 				allow_filetypes = { -- enable format on save for specified filetypes only
-					-- "go",
 				},
 				ignore_filetypes = { -- disable format on save for specified filetypes
-					-- "python",
 				},
 			},
 			disabled = { -- disable formatting capabilities for the listed language servers
-				-- "sumneko_lua",
 			},
 			timeout_ms = 1000, -- default format timeout
 			-- filter = function(client) -- fully override the default formatting function
@@ -156,12 +126,7 @@ local config = {
 		},
 		-- easily add or disable built in mappings added during LSP attaching
 		mappings = {
-			n = {
-				-- ["<leader>lf"] = false -- disable formatting keymap
-				-- navigating wrapped lines
-				j = { "gj", desc = "Navigate down" },
-				k = { "gk", desc = "Navigate down" },
-			},
+			n = {},
 		},
 		-- add to the global LSP on_attach function
 		-- on_attach = function(client, bufnr)
@@ -204,6 +169,9 @@ local config = {
 			["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+			-- navigating wrapped lines
+			["j"] = { "gj", desc = "Navigate down" },
+			["k"] = { "gk", desc = "Navigate down" },
 			["<leader>ff"] = {
 				function()
 					require("telescope.builtin").find_files()
@@ -224,18 +192,81 @@ local config = {
 			["<leader>es"] = { "<cmd>split ~/.config/nvim/lua/user/init.lua<cr>", desc = "Split config file" },
 			["<leader>ss"] = { "<cmd>source ~/.config/nvim/init.lua<cr>", desc = "Source config file" },
 
-			-- quick save
-			-- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+			["<C-s>"] = { "<cmd>w!<cr>", desc = "Save File" },
+
+			["yod"] = {
+				function()
+					astronvim.ui.toggle_diagnostics()
+				end,
+				desc = "Toggle diagnostics",
+			},
+			["yog"] = {
+				function()
+					astronvim.ui.toggle_signcolumn()
+				end,
+				desc = "Toggle signcolumn",
+			},
+			["yoi"] = {
+				function()
+					astronvim.ui.set_indent()
+				end,
+				desc = "Change indent setting",
+			},
+			["yol"] = {
+				function()
+					astronvim.ui.toggle_statusline()
+				end,
+				desc = "Toggle statusline",
+			},
+			["yon"] = {
+				function()
+					astronvim.ui.change_number()
+				end,
+				desc = "Change line numbering",
+			},
+			["yos"] = {
+				function()
+					astronvim.ui.toggle_spell()
+				end,
+				desc = "Toggle spellcheck",
+			},
+			["yop"] = {
+				function()
+					astronvim.ui.toggle_paste()
+				end,
+				desc = "Toggle paste mode",
+			},
+			["yot"] = {
+				function()
+					astronvim.ui.toggle_tabline()
+				end,
+				desc = "Toggle tabline",
+			},
+			["you"] = {
+				function()
+					astronvim.ui.toggle_url_match()
+				end,
+				desc = "Toggle URL highlight",
+			},
+			["yow"] = {
+				function()
+					astronvim.ui.toggle_wrap()
+				end,
+				desc = "Toggle wrap",
+			},
+			["yoy"] = {
+				function()
+					astronvim.ui.toggle_syntax()
+				end,
+				desc = "Toggle syntax highlight",
+			},
 		},
 		v = {
 			[";"] = { ":" },
 		},
 		i = {
 			["<C-l>"] = { "<c-g>u<Esc>[s1z=`]a<c-g>u", desc = "Fix last misspell" },
-		},
-		t = {
-			-- setting a mapping to false will disable it
-			-- ["<esc>"] = false,
+			["<C-s>"] = { "<C-o>:w!<cr>", desc = "Save File" },
 		},
 	},
 	-- Configure plugins
@@ -269,20 +300,25 @@ local config = {
 				find_files = {
 					find_command = { "fd", "-L", "--type", "f", "--strip-cwd-prefix" },
 				},
+				live_grep = {
+					additional_args = { "-L" },
+				},
 			},
-			extensions = {},
 		},
 		init = {
 			["goolord/alpha-nvim"] = { disable = true },
-			["numToStr/Comment.nvim"] = { disable = true }, -- Useing vim-commentary
+			["numToStr/Comment.nvim"] = { disable = true }, -- Using vim-commentary
 			["max397574/better-escape.nvim"] = { disable = true },
 			{
 				"nvim-telescope/telescope-bibtex.nvim",
 				after = {
-					{ "nvim-telescope/telescope.nvim" },
+					"telescope.nvim",
 				},
-				require("telescope").load_extension("bibtex"),
+				config = function()
+					require("telescope").load_extension("bibtex")
+				end,
 			},
+			{ "https://github.com/andymass/vim-matchup" },
 			{
 				"https://github.com/echasnovski/mini.nvim",
 				config = function()
@@ -301,12 +337,8 @@ local config = {
 						},
 						search_method = "cover_or_next",
 					})
-
 					require("mini.align").setup()
-					require("mini.ai").setup()
-
 					require("mini.bufremove").setup()
-
 					-- Remap adding surrounding to Visual mode selection
 					vim.api.nvim_del_keymap("x", "ys")
 					vim.api.nvim_set_keymap("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
@@ -314,12 +346,14 @@ local config = {
 					vim.api.nvim_set_keymap("n", "yss", "ys_", { noremap = false })
 				end,
 			},
-			{ "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
+			{
+				"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+				after = "nvim-treesitter",
+			},
 			{
 				"https://github.com/ziontee113/syntax-tree-surfer",
 				after = "nvim-treesitter",
 			},
-
 			{
 				"https://github.com/linty-org/readline.nvim",
 				config = function()
@@ -331,7 +365,7 @@ local config = {
 					vim.keymap.set("!", "<C-d>", "<Delete>") -- delete-char
 					vim.keymap.set("!", "<C-h>", "<BS>") -- backward-delete-char
 					vim.keymap.set("!", "<C-a>", readline.beginning_of_line)
-					-- vim.keymap.set("!", "<C-e>", readline.end_of_line)
+					-- vim.keymap.set("!", "<C-e>", readline.end_of_line) -- used by luasnip to switch between choices
 					vim.keymap.set("!", "<M-f>", readline.forward_word)
 					vim.keymap.set("!", "<M-b>", readline.backward_word)
 					vim.keymap.set("!", "<C-f>", "<Right>") -- forward-char
@@ -354,7 +388,6 @@ local config = {
 			},
 			{ "https://github.com/lervag/vimtex" },
 			{ "https://github.com/jbyuki/nabla.nvim" },
-
 			{ "https://github.com/YasserKa/vim-sxhkdrc" },
 			{ "https://github.com/jpalardy/vim-slime" },
 			{
@@ -387,7 +420,6 @@ local config = {
 								i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
 							},
 						},
-
 						["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
 						["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
 					})
@@ -398,7 +430,6 @@ local config = {
 						["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
 						["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
 					}, { mode = "i" })
-
 					wk.register({
 						["<localleader>"] = {
 							n = {
@@ -409,7 +440,6 @@ local config = {
 					}, { mode = "v" })
 				end,
 			},
-
 			{
 				"https://github.com/EdenEast/nightfox.nvim",
 				groups = {
@@ -424,7 +454,6 @@ local config = {
 			},
 			{ "https://github.com/fladson/vim-kitty" },
 			{ "https://github.com/tpope/vim-fugitive" },
-
 			{ "https://github.com/terryma/vim-expand-region" },
 			{ "https://github.com/jeetsukumaran/vim-commentary" },
 			{ "https://github.com/szw/vim-maximizer" },
@@ -444,7 +473,6 @@ local config = {
 				end,
 				ft = { "markdown", "plantuml" },
 			},
-
 			{
 				"https://github.com/kdheepak/cmp-latex-symbols",
 				after = "nvim-cmp",
@@ -463,39 +491,17 @@ local config = {
 				requires = "nvim-treesitter/nvim-treesitter",
 			},
 			{ "https://github.com/romainl/vim-cool" }, -- Disable search highlighting when done}
-
-			-- You can also add new plugins here as well:
-			-- Add plugins, the packer syntax without the "use"
-			-- { "andweeb/presence.nvim" },
-			-- {
-			--   "ray-x/lsp_signature.nvim",
-			--   event = "BufRead",
-			--   config = function()
-			--     require("lsp_signature").setup()
-			--   end,
-			-- },
-
-			-- We also support a key value style plugin definition similar to NvChad:
-			-- ["ray-x/lsp_signature.nvim"] = {
-			--   event = "BufRead",
-			--   config = function()
-			--     require("lsp_signature").setup()
-			--   end,
-			-- },
 		},
 		["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
 			-- config variable is the default configuration table for the setup function call
 			local null_ls = require("null-ls")
 
-			-- Check supported formatters and linters
+			-- Supported formatters and linters
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 			-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 			config.sources = {
 				null_ls.builtins.diagnostics.flake8.with({
 					-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
-				}),
-				null_ls.builtins.formatting.shfmt.with({
-					args = { "-ci" },
 				}),
 				-- null_ls.builtins.diagnostics.mypy,
 				-- Set a formatter
@@ -512,12 +518,13 @@ local config = {
 			highlight = {
 				enable = true,
 				-- vimtex conceal doesn't work with treesitter check :h vimtex-faq-treesitter
-				disable = { "latex" },
+				disable = { "latex", "help", "man" },
 			},
 			tree_surfer = { enable = true },
 			textobjects = {
 				select = {
 					enable = true,
+					disable = { "man" },
 
 					-- Automatically jump forward to textobj, similar to targets.vim
 					lookahead = true,
@@ -527,6 +534,7 @@ local config = {
 						["af"] = "@function.outer",
 						["if"] = "@function.inner",
 						["ac"] = "@class.outer",
+						["a/"] = "@comment.outer",
 						-- You can optionally set descriptions to the mappings (used in the desc parameter of
 						-- nvim_buf_set_keymap) which plugins like which-key display
 						["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
@@ -554,9 +562,28 @@ local config = {
 					-- and should return true of false
 					include_surrounding_whitespace = true,
 				},
+				move = {
+					enable = true,
+					set_jumps = true, -- whether to set jumps in the jumplist
+					goto_next_start = {
+						["]k"] = "@function.outer",
+						["]]"] = { query = "@class.outer", desc = "Next class start" },
+					},
+					goto_next_end = {
+						["]M"] = "@function.outer",
+						["]["] = "@class.outer",
+					},
+					goto_previous_start = {
+						["[k"] = "@function.outer",
+						["[["] = "@class.outer",
+					},
+					goto_previous_end = {
+						["[M"] = "@function.outer",
+						["[]"] = "@class.outer",
+					},
+				},
 			},
 		},
-		matchup = { enable = true },
 		-- use mason-lspconfig to configure LSP installations
 		["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
 			-- ensure_installed = { "sumneko_lua" },
@@ -602,12 +629,23 @@ local config = {
 		register = {
 			-- first key is the mode, n == normal mode
 			n = {
+				-- ["]"] = {
+				-- 	f = "Next function start",
+				-- 	x = "Next class start",
+				-- 	F = "Next function end",
+				-- 	X = "Next class end",
+				-- },
+				-- ["["] = {
+				-- 	f = "Previous function start",
+				-- 	x = "Previous class start",
+				-- 	F = "Previous function end",
+				-- 	X = "Previous class end",
+				-- },
 				["yex"] = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
 				["<space><space>"] = { "<cmd>buffer#<cr>", "Alternate buffer" },
 				-- second key is the prefix, <leader> prefixes
 				["<localleader>"] = {
 					l = {},
-					["<C-s>"] = { "<cmd> w <CR>", "save file" },
 					m = {
 						function()
 							require("nabla").popup()
@@ -678,11 +716,20 @@ local config = {
 					},
 					f = {
 						name = "Telescope",
-						["?"] = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+						["?"] = { "<cmd>Telescope help_tags<cr>", "Find help" },
 						["'"] = { "<cmd>Telescope marks<cr>", "Marks" },
 						B = { "<cmd>Telescope bibtex<cr>", "BibTeX" },
 					},
 				},
+			},
+			x = {
+				["il"] = { "g_o^", "Inside line text object" },
+				["al"] = { "$o^", "Around line text object" },
+			},
+			o = {
+				-- line text-objects
+				["il"] = { ":normal vil<cr>", "Inside line text object" },
+				["al"] = { ":normal val<cr>", "Around line text object" },
 			},
 		},
 	},
@@ -728,6 +775,11 @@ local config = {
 			group = "user_mail",
 			pattern = "neomutt-*",
 			command = "normal 50%",
+		})
+
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "markdown", "tex" },
+			command = "set spell textwidth=100",
 		})
 		vim.api.nvim_create_augroup("user_markdown", {
 			clear = true,
@@ -782,13 +834,21 @@ local config = {
 		vim.keymap.set("n", "<C-S-k>", require("smart-splits").resize_up)
 		vim.keymap.set("n", "<C-S-l>", require("smart-splits").resize_right)
 
+		vim.keymap.set("n", "n", "nzzzv")
+		vim.keymap.set("n", "J", "mzJ`z") -- Join line without moving cursor
+		vim.keymap.set("n", "N", "Nzzzv")
+
 		local Path = require("plenary.path")
 		require("session_manager").setup({
 			autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
 		})
 		require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
 		local unmap = vim.api.nvim_del_keymap
-
+		unmap("n", "<C-q>")
+		unmap("n", "<C-Up>")
+		unmap("n", "<C-Down>")
+		unmap("n", "<C-Left>")
+		unmap("n", "<C-Right>")
 		local utils = require("user.utils")
 
 		vim.keymap.set("n", "<localleader>c", function()
@@ -802,73 +862,306 @@ local config = {
 				require("readline").end_of_line()
 			end
 		end)
-		require("syntax-tree-surfer")
+
+		require("syntax-tree-surfer") -- {{{
 		-- Syntax Tree Surfer
-		local opts = { noremap = true, silent = true }
+		-- local opts = { noremap = true, silent = true }
 
 		-- Normal Mode Swapping:
 		-- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
-		vim.keymap.set("n", "vU", function()
-			vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
-			return "g@l"
-		end, { silent = true, expr = true })
-		vim.keymap.set("n", "vD", function()
-			vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
-			return "g@l"
-		end, { silent = true, expr = true })
+		-- vim.keymap.set("n", "vU", function()
+		-- 	vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
+		-- 	return "g@l"
+		-- end, { silent = true, expr = true })
+		-- vim.keymap.set("n", "vD", function()
+		-- 	vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
+		-- 	return "g@l"
+		-- end, { silent = true, expr = true })
 
-		-- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
-		vim.keymap.set("n", "vd", function()
-			vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
-			return "g@l"
-		end, { silent = true, expr = true })
-		vim.keymap.set("n", "vu", function()
-			vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
-			return "g@l"
-		end, { silent = true, expr = true })
+		-- -- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
+		-- vim.keymap.set("n", "vd", function()
+		-- 	vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+		-- 	return "g@l"
+		-- end, { silent = true, expr = true })
+		-- vim.keymap.set("n", "vu", function()
+		-- 	vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+		-- 	return "g@l"
+		-- end, { silent = true, expr = true })
 
-		--> If the mappings above don't work, use these instead (no dot repeatable)
-		-- vim.keymap.set("n", "vd", '<cmd>STSSwapCurrentNodeNextNormal<cr>', opts)
-		-- vim.keymap.set("n", "vu", '<cmd>STSSwapCurrentNodePrevNormal<cr>', opts)
-		-- vim.keymap.set("n", "vD", '<cmd>STSSwapDownNormal<cr>', opts)
-		-- vim.keymap.set("n", "vU", '<cmd>STSSwapUpNormal<cr>', opts)
-
-		-- Visual Selection from Normal Mode
-		vim.keymap.set("n", "<leader>su", "<cmd>STSSelectMasterNode<cr>", opts)
-		vim.keymap.set("n", "vn", "<cmd>STSSelectCurrentNode<cr>", opts)
+		-- -- Visual Selection from Normal Mode
+		-- vim.keymap.set("n", "<leader>su", "<cmd>STSSelectMasterNode<cr>", opts)
+		-- vim.keymap.set("n", "vn", "<cmd>STSSelectCurrentNode<cr>", opts)
+		-- -- O in insert mode
+		-- vim.keymap.set("n", "gO", function()
+		-- 	require("syntax-tree-surfer").go_to_top_node_and_execute_commands(
+		-- 		false,
+		-- 		{ "normal! O", "normal! O", "startinsert" }
+		-- 	)
+		-- end, opts)
 
 		-- Select Nodes in Visual Mode
-		vim.keymap.set("x", "J", "<cmd>STSSelectNextSiblingNode<cr>", opts)
-		vim.keymap.set("x", "K", "<cmd>STSSelectPrevSiblingNode<cr>", opts)
-		vim.keymap.set("x", "H", "<cmd>STSSelectParentNode<cr>", opts)
-		vim.keymap.set("x", "L", "<cmd>STSSelectChildNode<cr>", opts)
+		--vim.keymap.set("x", "J", "<cmd>STSSelectNextSiblingNode<cr>", opts)
+		--vim.keymap.set("x", "K", "<cmd>STSSelectPrevSiblingNode<cr>", opts)
+		--vim.keymap.set("x", "H", "<cmd>STSSelectParentNode<cr>", opts)
+		--vim.keymap.set("x", "L", "<cmd>STSSelectChildNode<cr>", opts)
 
-		-- Swapping Nodes in Visual Mode
-		vim.keymap.set("x", "<A-j>", "<cmd>STSSwapNextVisual<cr>", opts)
-		vim.keymap.set("x", "<A-k>", "<cmd>STSSwapPrevVisual<cr>", opts)
+		---- Swapping Nodes in Visual Mode
+		--vim.keymap.set("x", "<A-j>", "<cmd>STSSwapNextVisual<cr>", opts)
+		--vim.keymap.set("x", "<A-k>", "<cmd>STSSwapPrevVisual<cr>", opts)
+		---- Syntax Tree Surfer V2 Mappings
+		---- Targeted Jump with virtual_text
+		local sts = require("syntax-tree-surfer")
+		--vim.keymap.set("n", "gsv", function() -- only jump to variable_declarations
+		--	sts.targeted_jump({ "variable_declaration" })
+		--end, opts)
+		--vim.keymap.set("n", "gfu", function() -- only jump to functions
+		--	sts.targeted_jump({ "function", "arrrow_function", "function_definition" })
+		--	--> In this example, the Lua language schema uses "function",
+		--	--  when the Python language uses "function_definition"
+		--	--  we include both, so this keymap will work on both languages
+		--end, opts)
+		--vim.keymap.set("n", "gif", function() -- only jump to if_statements
+		--	sts.targeted_jump({ "if_statement" })
+		--end, opts)
+		--vim.keymap.set("n", "gfo", function() -- only jump to for_statements
+		--	sts.targeted_jump({ "for_statement" })
+		--end, opts)
+		--vim.keymap.set("n", "gj", function() -- jump to all that you specify
+		--	sts.targeted_jump({
+		--		"function",
+		--		"if_statement",
+		--		"else_clause",
+		--		"else_statement",
+		--		"elseif_statement",
+		--		"for_statement",
+		--		"while_statement",
+		--		"switch_statement",
+		--	})
+		--end, opts)
+
+		---------------------------------
+		---- filtered_jump --
+		---- "default" means that you jump to the default_desired_types or your lastest jump types
+		---- vim.keymap.set("n", "<A-n>", function()
+		---- 	sts.filtered_jump("default", true) --> true means jump forward
+		---- end, opts)
+		---- vim.keymap.set("n", "<A-p>", function()
+		---- 	sts.filtered_jump("default", false) --> false means jump backwards
+		---- end, opts)
+		--vim.keymap.set("n", "gj", function() -- jump to all that you specify
+		--	sts.targeted_jump({
+		--		"function",
+		--		"if_statement",
+		--		"else_clause",
+		--		"else_statement",
+		--		"elseif_statement",
+		--		"for_statement",
+		--		"while_statement",
+		--		"switch_statement",
+		--	})
+		--end, opts)
+
+		-- Jump between nodes
+		-- vim.keymap.set("n", "<A-n>", function()
+		-- 	sts.filtered_jump({
+		-- 		"function",
+		-- 		"class",
+		-- 		"arrow_function",
+		-- 		"variable_assignment",
+		-- 		"function_definition",
+		-- 		"if_statement",
+		-- 		"else_clause",
+		-- 		"else_statement",
+		-- 		"elseif_statement",
+		-- 		"for_statement",
+		-- 		"while_statement",
+		-- 		"switch_statement",
+		-- 	}, true)
+		-- end, opts)
+		-- vim.keymap.set("n", "<A-p>", function()
+		-- 	sts.filtered_jump({
+		-- 		"function",
+		-- 		"class",
+		-- 		"arrow_function",
+		-- 		"function_definition",
+		-- 		"variable_assignment",
+		-- 		"if_statement",
+		-- 		"else_clause",
+		-- 		"else_statement",
+		-- 		"elseif_statement",
+		-- 		"for_statement",
+		-- 		"while_statement",
+		-- 		"switch_statement",
+		-- 	}, false)
+		-- end, opts)
+
+		-- Navigate between elements
+		vim.keymap.set("n", "]f", function()
+			sts.filtered_jump({
+				"if_statement",
+			}, true)
+		end, opts)
+		vim.keymap.set("n", "[f", function()
+			sts.filtered_jump({
+				"if_statement",
+			}, false)
+		end, opts)
+
+		vim.keymap.set("n", "]c", function()
+			sts.filtered_jump({
+				"class",
+			}, true)
+		end, opts)
+		vim.keymap.set("n", "[c", function()
+			sts.filtered_jump({
+				"class",
+			}, false)
+		end, opts)
+
+		vim.keymap.set("n", "]/", function()
+			sts.filtered_jump({
+				"comment",
+			}, true)
+		end, opts)
+		vim.keymap.set("n", "[/", function()
+			sts.filtered_jump({
+				"comment",
+			}, false)
+		end, opts)
+
+		-- "default" means that you jump to the default_desired_types or your lastest jump types
+		vim.keymap.set("n", "<A-n>", function()
+			sts.filtered_jump("default", true) --> true means jump forward
+		end, opts)
+		vim.keymap.set("n", "<A-p>", function()
+			sts.filtered_jump("default", false) --> false means jump backwards
+		end, opts)
+		-------------------------------
+		-- jump with limited targets --
+		-- jump to sibling nodes only
+		-- vim.keymap.set("n", "-", function()
+		-- 	sts.filtered_jump({
+		-- 		"if_statement",
+		-- 		"else_clause",
+		-- 		"else_statement",
+		-- 	}, false, { destination = "siblings" })
+		-- end, opts)
+		-- vim.keymap.set("n", "=", function()
+		-- 	sts.filtered_jump({ "if_statement", "else_clause", "else_statement" }, true, { destination = "siblings" })
+		-- end, opts)
+
+		-- local gen_spec = require("mini.ai").gen_spec
+		-- require("mini.ai").setup({
+		-- 	custom_textobjects = {
+		-- 		["*"] = gen_spec.pair("*", "*", { type = "greedy" }),
+		-- 		["_"] = gen_spec.pair("_", "_", { type = "greedy" }),
+		-- 		B = gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
+		-- 		C = gen_spec.treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
+		-- 		F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+		-- 		L = gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
+		-- 		P = gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+		-- 		x = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+		-- 	},
+		-- })
+		-- jump to parent or child nodes only
+		-- vim.keymap.set("n", "_", function()
+		-- 	sts.filtered_jump({
+		-- 		"if_statement",
+		-- 		"else_clause",
+		-- 		"else_statement",
+		-- 	}, false, { destination = "parent" })
+		-- end, opts)
+		-- vim.keymap.set("n", "+", function()
+		-- 	sts.filtered_jump({
+		-- 		"if_statement",
+		-- 		"else_clause",
+		-- 		"else_statement",
+		-- 	}, true, { destination = "children" })
+		-- end, opts)
+
+		-- -- Setup Function example:
+		-- -- These are the default options:
+		-- require("syntax-tree-surfer").setup({
+		-- 	highlight_group = "STS_highlight",
+		-- 	disable_no_instance_found_report = false,
+		-- 	default_desired_types = {
+		-- 		"function",
+		-- 		"arrow_function",
+		-- 		"function_definition",
+		-- 		"if_statement",
+		-- 		"else_clause",
+		-- 		"else_statement",
+		-- 		"elseif_statement",
+		-- 		"for_statement",
+		-- 		"while_statement",
+		-- 		"switch_statement",
+		-- 	},
+		-- 	left_hand_side = "fdsawervcxqtzb",
+		-- 	right_hand_side = "jkl;oiu.,mpy/n",
+		-- 	icon_dictionary = {
+		-- 		["if_statement"] = "",
+		-- 		["else_clause"] = "",
+		-- 		["else_statement"] = "",
+		-- 		["elseif_statement"] = "",
+		-- 		["for_statement"] = "ﭜ",
+		-- 		["while_statement"] = "ﯩ",
+		-- 		["switch_statement"] = "ﳟ",
+		-- 		["function"] = "",
+		-- 		["function_definition"] = "",
+		-- 		["variable_declaration"] = "",
+		-- 	},
+		-- })
+
+		--  }}}
+		-- {{{ vim-expand-region
+		vim.keymap.set({ "n", "x" }, "+", "<Plug>(expand_region_expand)")
+		vim.keymap.set({ "n", "x" }, "_", "<Plug>(expand_region_shrink)")
+		-- }}}
+		-- {{{ vim-mundo
+		-- Enable persistent undo so that undo history persists across vim sessions
+		-- set undofile
+		vim.opt.undofile = true
+		vim.keymap.set({ "n" }, "yeu", "<cmd>MundoToggle<cr>")
+		-- }}}
+		-- {{{ vim-cool
+		-- Show number of matches in command-line
+		vim.g["CoolTotalMatches"] = 1
+		-- }}}
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "help", "man" },
+			callback = function()
+				vim.cmd([[
+				nnoremap <silent> <buffer> q :close<CR>
+		nnoremap <silent> <buffer> <esc> :close<CR>
+		set nobuflisted
+		]])
+			end,
+		})
+		-- }}}
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "markdown" },
+			callback = function()
+				vim.cmd([[
+				hi MyStrikethrough gui=strikethrough
+call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
+call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+
+hi MyUnderlineMatch gui=underline
+call matchadd('MyUnderlineMatch', '__\zs[^X]\+\ze__')
+call matchadd('Conceal',  '__\ze[^X]\+__', 10, -1, {'conceal':''})
+call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
+
+		]])
+			end,
+		})
 
 		-- {{{ vim-maximizer
 		vim.keymap.set("n", "<C-w>m", "<cmd>MaximizerToggle!<CR>")
 		-- }}}
 		vim.api.nvim_exec(
 			[[
-              xnoremap gcc  :Commentary<CR>
-
-              augroup VIMENTER
-              autocmd!
-              autocmd FileType markdown,tex set spell
-              autocmd FileType html,blade,vue,yaml setlocal shiftwidth=2 tabstop=2
-              augroup END
-              augroup MARKDOWN
-              autocmd!
-              autocmd FileType markdown syntax match StrikeoutMatch /\~\~.*\~\~/
-              highlight def  StrikeoutHighlight   cterm=strikethrough gui=strikethrough
-              highlight link StrikeoutMatch StrikeoutHighlight
-
-              autocmd Filetype markdown syntax match UnderlineMatch /__.*__/
-              highlight def  UnderlineHighlight   cterm=underline gui=underline
-              highlight link UnderlineMatch UnderlineHighlight
-              augroup END
+		xnoremap gcc :Commentary<cr>
 
               augroup TMP_FILES
               autocmd!
@@ -880,14 +1173,6 @@ local config = {
               let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
 
-              " {{{ vim-cool 
-              " Show number of matches in command-line
-              let g:CoolTotalMatches = 1
-              " }}}
-              " {{{ expand
-              map + <Plug>(expand_region_expand)
-              map _ <Plug>(expand_region_shrink)
-              " }}}
               " {{{ vim-ipython-cell / vim-slime
               " Slime
               " always use tmux
@@ -908,11 +1193,6 @@ local config = {
               let g:ipython_cell_tag = ['# %%']
 
               " }}}
-              " {{{ vim-mundo 
-              " Enable persistent undo so that undo history persists across vim sessions
-              set undofile
-              nnoremap yeu <cmd>MundoToggle<cr>
-              " }}}
               "  {{{ markdown-preview.nvim
               let g:mkdp_command_for_global = 1
               let g:mkdp_page_title = '${name}'
@@ -930,7 +1210,6 @@ local config = {
               let g:vimtex_compiler_silent = 1
               " Use nabla.nvim
               " let g:vimtex_syntax_conceal_disable=1
-              set conceallevel=1
               let g:tex_conceal = 'abdg'
               let g:vimtex_syntax_conceal = {
               \ 'accents': 1,

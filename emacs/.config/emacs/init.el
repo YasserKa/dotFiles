@@ -1424,6 +1424,7 @@ selection of all minor-modes, active or not."
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
+  (" C" evil-save-modified-and-close "Close buffer")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
   ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
   )

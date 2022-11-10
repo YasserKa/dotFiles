@@ -22,6 +22,9 @@ pgrep -x mbsync >/dev/null && {
 
 messageinfo() {
 	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt
+	# Override the return code "1" if dunstify action isn't triggered
+	# shellcheck disable=2181
+	(($? != 0)) && return
 }
 
 # Check account for new mail. Notify if there is new content.
@@ -35,7 +38,7 @@ syncandnotify() {
 		[[ -e "${TMP_FILE_PATH}" ]] && notify-send --urgency=critical "Can't get mail"
 		touch "${TMP_FILE_PATH}"
 	else
-		rm "${TMP_FILE_PATH}"
+		rm "${TMP_FILE_PATH}" 2>/dev/null
 	fi
 
 	new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" -type f -newer "$XDG_CONFIG_HOME/neomutt/.syncmaillastrun" 2>/dev/null) newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
