@@ -769,6 +769,14 @@ local config = {
 		vim.api.nvim_create_augroup("user_mail", {
 			clear = true,
 		})
+		-- heirline starts flickering while using vimtex & cmdheight=0
+		-- Problem from cmdheight
+		-- https://github.com/lervag/vimtex/issues/2516
+		-- https://github.com/AstroNvim/AstroNvim/issues/1124
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "tex" },
+			command = "set cmdheight=1",
+		})
 
 		vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 			desc = "Settings for mail files",
