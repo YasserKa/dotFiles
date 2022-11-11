@@ -45,6 +45,8 @@
 
 [alias]
     s = status
+    # Don't use vimpager
+    d = "!PAGER=less && git diff"
     last = show --stat HEAD
     countcommits = shortlog -sn --no-merges
     graph = log --graph --oneline --decorate
@@ -67,6 +69,7 @@
 
 [credential]
     helper = store
+
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
