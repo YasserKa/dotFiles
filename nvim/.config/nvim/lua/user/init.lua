@@ -751,8 +751,14 @@ local config = {
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
 			group = "my_skeletons",
-			pattern = { "*.bash", "*.sh" },
+			pattern = { "*.sh" },
 			command = "0r ~/.config/nvim/skeletons/skeleton.sh | exe 'normal jo' | startinsert",
+		})
+		vim.api.nvim_create_autocmd("BufNewFile", {
+			desc = "Skeleton",
+			group = "my_skeletons",
+			pattern = { "*.bash" },
+			command = "0r ~/.config/nvim/skeletons/skeleton.bash | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
