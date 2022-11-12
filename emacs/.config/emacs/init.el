@@ -1325,23 +1325,23 @@ see how ARG affects this command."
   (general-define-key
    :states '(normal visual motion)
    :keymaps 'global
-   "," 'main-hydra/body)
+   "SPC" 'main-hydra/body)
 
   (general-define-key
    :states 'insert
    :keymaps 'global
-   "C-," 'main-hydra/body)
+   "C-SPC" 'main-hydra/body)
 
   (add-hook 'org-mode-hook
             #'(lambda ()
                 (general-define-key
                  :states '(normal visual motion)
                  :keymaps 'local
-                 "," 'org-hydra/body)
+                 "SPC" 'org-hydra/body)
                 (general-define-key
                  :states '(insert)
                  :keymaps 'local
-                 "C-," 'org-hydra/body))
+                 "C-SPC" 'org-hydra/body))
             )
 
   (add-hook 'org-agenda-mode-hook
@@ -1349,7 +1349,7 @@ see how ARG affects this command."
                 (general-define-key
                  :states '(normal visual motion)
                  :keymaps 'local
-                 "," 'agenda-hydra/body))
+                 "SPC" 'agenda-hydra/body))
             )
   )
 
