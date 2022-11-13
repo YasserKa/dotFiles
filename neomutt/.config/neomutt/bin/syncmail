@@ -21,10 +21,8 @@ pgrep -x mbsync >/dev/null && {
 }
 
 messageinfo() {
-	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt
-	# Override the return code "1" if dunstify action isn't triggered
-	# shellcheck disable=2181
-	(($? != 0)) && return
+	# shellcheck disable=SC2015
+	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt || pass
 }
 
 # Check account for new mail. Notify if there is new content.

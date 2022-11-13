@@ -752,19 +752,19 @@ local config = {
 			desc = "Skeleton",
 			group = "my_skeletons",
 			pattern = { "*.sh" },
-			command = "0r ~/.config/nvim/skeletons/skeleton.sh | exe 'normal jo' | startinsert",
+			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.sh | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
 			group = "my_skeletons",
 			pattern = { "*.bash" },
-			command = "0r ~/.config/nvim/skeletons/skeleton.bash | exe 'normal jo' | startinsert",
+			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.bash | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
 			group = "my_skeletons",
 			pattern = "*.py",
-			command = "0r ~/.config/nvim/skeletons/skeleton.py | exe 'normal jo' | startinsert",
+			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.py | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_augroup("user_mail", {
 			clear = true,
@@ -857,12 +857,6 @@ local config = {
 			autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
 		})
 		require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
-		local unmap = vim.api.nvim_del_keymap
-		unmap("n", "<C-q>")
-		unmap("n", "<C-Up>")
-		unmap("n", "<C-Down>")
-		unmap("n", "<C-Left>")
-		unmap("n", "<C-Right>")
 		local utils = require("user.utils")
 
 		vim.keymap.set("n", "<localleader>c", function()
