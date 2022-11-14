@@ -1,6 +1,6 @@
 {
     "type": "script",
-    "description": "Zathura C- as C-c",
+    "description": "Zathura <space> as ,",
     "store": {},
     "modes": [
         3
@@ -18,10 +18,8 @@
         "wordChars": "[\\w]"
     },
     "hotkey": {
-        "modifiers": [
-            "<ctrl>"
-        ],
-        "hotKey": "["
+        "modifiers": [],
+        "hotKey": " "
     },
     "filter": {
         "regex": "org\\.pwmt\\.zathura",
