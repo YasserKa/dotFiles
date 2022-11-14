@@ -62,6 +62,8 @@
   :config
   ;; Delete the old version on updates.
   (setq auto-package-update-delete-old-versions t))
+
+(add-to-list 'load-path (concat user-emacs-directory "/lisp"))
 ;; }}}
 ;; Misc {{{
 ;; Use y/n for yes/no prompts
@@ -989,17 +991,23 @@ see how ARG affects this command."
     :config
 
     (add-to-list 'org-capture-templates
-                 `("q" "org-capture-url"
-                   entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+                 `("q" "org-capture-url" entry
+                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
     (add-to-list 'org-capture-templates
-                 `("n" "org-capture-note"
-                   entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+                 `("n" "org-capture-note" entry
+                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
+    (add-to-list 'org-capture-templates
+                 `("w" "Web site" entry
+                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/org_protocol_html.org")) ;
+                  "* %a :website:\n\n%U %?\n\n%:initial"))
 
     (setq org-protocol-default-template-key "q")
     )
+  (use-package org-protocol-capture-html
+    :ensure nil)
   )
 
 ;; Previewing Latex fragments

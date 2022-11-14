@@ -139,6 +139,10 @@ c.aliases = {
     "download_youtube": "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube",
     "paywall": "open https://12ft.io/proxy?q={url}",
     "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
+    "org_capture_website": (
+        "spawn --userscript ~/.config/emacs/shell_scripts/org-protocol-capture-html.sh"
+        " --readability --url '{url}'"
+    ),
     "kde_share": "spawn kdeconnect-cli -n 'Lenovo tablet' --share {url}",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
     "hosts": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
