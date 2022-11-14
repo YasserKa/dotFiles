@@ -1083,7 +1083,7 @@ see how ARG affects this command."
                               (kbd "<M-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
                             (evil-define-key 'normal 'evil-org-mode
                               (kbd "zi")  #'org-toggle-inline-images
-                              (kbd "SPC") 'org-cycle
+                              (kbd "<C-SPC>") 'org-cycle
                               (kbd "zl")  #'org-latex-preview
                               ;; Open files at cursor
                               (kbd "<return>") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
@@ -1231,9 +1231,9 @@ see how ARG affects this command."
 
   ;; C-v and C-x splits window for org roam node prompts only
   (embark-define-keymap embark-org-roam-nodes-actions
-    "Keymap for actions for org roam nodes"
-    ("x" my/org-roam-node-find-window-x)
-    ("v" my/org-roam-node-find-window-v))
+                        "Keymap for actions for org roam nodes"
+                        ("x" my/org-roam-node-find-window-x)
+                        ("v" my/org-roam-node-find-window-v))
 
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
@@ -1405,17 +1405,17 @@ selection of all minor-modes, active or not."
   (interactive "P")
   (let ((org-link-keep-stored-after-insertion t)
         (links (copy-sequence org-stored-links))
-	(pr "- ")
-	(po "\n")
-	(cnt 1) l)
+        (pr "- ")
+        (po "\n")
+        (cnt 1) l)
     (if (null org-stored-links)
-	(message "No link to insert")
+        (message "No link to insert")
       (while (and (or (listp 1) (>= 1 cnt))
-		  (setq l (pop links)))
-	(setq cnt (1+ cnt))
-	(insert pr)
-	(org-insert-link nil (car l) (or (cadr l) "<no description>"))
-	(insert po)))))
+                  (setq l (pop links)))
+        (setq cnt (1+ cnt))
+        (insert pr)
+        (org-insert-link nil (car l) (or (cadr l) "<no description>"))
+        (insert po)))))
 
 (use-package hydra)
 (defun org-capture-full-screen ()
@@ -1432,7 +1432,7 @@ selection of all minor-modes, active or not."
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
-  (" C" evil-save-modified-and-close "Close buffer")
+  (" c" evil-save-modified-and-close "Close buffer")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
   ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
   )
@@ -1440,12 +1440,13 @@ selection of all minor-modes, active or not."
 (defhydra find-hydra (:exit t :idle 1)
   (" b" switch-to-buffer "Buffer")
   (" B" org-cite-insert "BibTex")
+  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node" :column " node")
   )
 
 (defhydra git-hydra (:exit t :hint nil :idle 1)
   (" r" git-gutter:revert-hunk "revert hunk" :column " hunks")
-  (" ]" git-gutter:next-hunk  "next hunk")
-  (" [" git-gutter:previous-hunk "previous hunk")
+  (" j" git-gutter:next-hunk  "next hunk")
+  (" k" git-gutter:previous-hunk "previous hunk")
   (" g" magit-status "status" :column " magit")
   (" c" magit-show-commit "show commit")
   (" L" magit-log-buffer-file "log")

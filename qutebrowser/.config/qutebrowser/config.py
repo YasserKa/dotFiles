@@ -37,16 +37,16 @@ c.bindings.commands = {
         # Override f and F by download documents from libgen
         ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
         # Sourcing files
-        ",es": "spawn bash -ic rcqutebrowser",
-        ",ss": 'config-source ;; message-info "Configuration file sourced"',
+        "<space>es": "spawn bash -ic rcqutebrowser",
+        "<space>ss": 'config-source ;; message-info "Configuration file sourced"',
         # Clear search
-        ",h": "search",
-        ",c": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture",
+        "<space>h": "search",
+        "<space>c": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture",
         # Open/Delete download files
-        ",od": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
-        ",ord": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent",
-        ",dd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
-        ",drd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent",
+        "<space>od": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
+        "<space>ord": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent",
+        "<space>dd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
+        "<space>drd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent",
         # Yank/Goto URL without anchors
         "yp": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler",
         "gc": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors",
@@ -70,7 +70,7 @@ c.bindings.commands = {
         # Create session and store command to open it in clipboard
         "ss": "spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session",
         # Google translate
-        ",t": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
+        "<space>t": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
         # Use <C-S-v> instead of <C-v> for passthrough mode
         "<Ctrl-v>": "nop",
         "<Ctrl-Shift-v>": "mode-enter passthrough",
