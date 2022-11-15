@@ -83,7 +83,6 @@ alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reve
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 
 # SSH setup
-# The use of function keyword is needed. TMUX requires it for it to be executed
 # shellcheck disable=SC2048,SC2086
 ssh() { command ssh $* -t 'export yasser_config_env=1; bash -login'; }
 ssh_config_setup() { make --file ~/dotfiles/instance_setup/Makefile --keep-going move_config_to_server "host=$*"; }

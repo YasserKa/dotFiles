@@ -36,6 +36,7 @@ c.bindings.commands = {
         ":a": "hint amazon userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen",
         # Override f and F by download documents from libgen
         ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
+        "<space>q": "close",
         # Sourcing files
         "<space>es": "spawn bash -ic rcqutebrowser",
         "<space>ss": 'config-source ;; message-info "Configuration file sourced"',

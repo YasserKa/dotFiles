@@ -833,18 +833,18 @@ local config = {
 		_G.YankOrgLink = function()
 			local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
 			local cmd = '"${TERMINAL}" --directory "'
-					.. vim.fn.expand("%:p:h")
-					.. '" --detach -e "${EDITOR}" +'
-					.. r
-					.. ' "'
-					.. vim.fn.expand("%:t")
-					.. '"'
+				.. vim.fn.expand("%:p:h")
+				.. '" --detach -e "${EDITOR}" +'
+				.. r
+				.. ' "'
+				.. vim.fn.expand("%:t")
+				.. '"'
 			local encoded_org_link = "[["
-					.. "link-handler://"
-					.. encodeString(cmd)
-					.. "]["
-					.. vim.fn.expand("%:t")
-					.. "]]"
+				.. "link-handler://"
+				.. encodeString(cmd)
+				.. "]["
+				.. vim.fn.expand("%:t")
+				.. "]]"
 			vim.fn.setreg("+", encoded_org_link)
 		end
 		vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
@@ -852,10 +852,10 @@ local config = {
 		_G.WatchFile = function()
 			vim.cmd(
 				'silent !"${TERMINAL}" --directory "'
-				.. vim.fn.expand("%:p:h")
-				.. '" bash -c \'echo "'
-				.. vim.fn.expand("%:t")
-				.. "\" | entr -c /_'"
+					.. vim.fn.expand("%:p:h")
+					.. '" bash -c \'echo "'
+					.. vim.fn.expand("%:t")
+					.. "\" | entr -c /_'"
 			)
 		end
 		vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
