@@ -169,6 +169,10 @@ local config = {
 			["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+
+			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit vim" },
+			["<leader>q"] = { "<cmd>quit<cr>", desc = "Quit current window" },
+
 			-- navigating wrapped lines
 			["j"] = { "gj", desc = "Navigate down" },
 			["k"] = { "gk", desc = "Navigate down" },
@@ -389,7 +393,6 @@ local config = {
 			},
 			{ "https://github.com/lervag/vimtex" },
 			{ "https://github.com/jbyuki/nabla.nvim" },
-			{ "https://github.com/YasserKa/vim-sxhkdrc" },
 			{ "https://github.com/jpalardy/vim-slime" },
 			{
 				"https://github.com/hanschen/vim-ipython-cell",
@@ -453,13 +456,21 @@ local config = {
 					},
 				},
 			},
+			--  File type support
 			{ "https://github.com/fladson/vim-kitty" },
+			{ "https://github.com/YasserKa/vim-sxhkdrc" },
+			{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
+
+			-- Git
 			{ "https://github.com/tpope/vim-fugitive" },
+			{ "https://github.com/junegunn/gv.vim", requires = "https://github.com/tpope/vim-fugitive" },
+			{ "https://github.com/tpope/vim-rhubarb", requires = "https://github.com/tpope/vim-fugitive" },
+
 			{ "https://github.com/terryma/vim-expand-region" },
 			{ "https://github.com/jeetsukumaran/vim-commentary" },
 			{ "https://github.com/szw/vim-maximizer" },
 			{ "https://github.com/simnalamburt/vim-mundo" },
-			{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
+
 			{
 				"https://github.com/ggandor/leap.nvim",
 				config = function()
