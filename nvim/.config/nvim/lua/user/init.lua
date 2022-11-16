@@ -170,12 +170,13 @@ local config = {
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
 
-			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit vim" },
-			["<leader>q"] = { "<cmd>quit<cr>", desc = "Quit current window" },
+			["<leader>q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
 
 			-- navigating wrapped lines
-			["j"] = { "gj", desc = "Navigate down" },
-			["k"] = { "gk", desc = "Navigate down" },
+			["j"] = { "gj", desc = "gj replacement" },
+			["k"] = { "gk", desc = "gk replacement" },
+			["gj"] = { "j", desc = "j replacement" },
+			["gk"] = { "k", desc = "k replacement" },
 			["<leader>ff"] = {
 				function()
 					require("telescope.builtin").find_files()

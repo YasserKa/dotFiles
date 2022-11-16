@@ -305,6 +305,7 @@
   ;; Adjust splitting position
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
+  (evil-respect-visual-line-mode t)
   ;; Needed for redo functionality
   (evil-undo-system 'undo-tree)
   ;; Don't show previous command at  prompt
@@ -321,6 +322,11 @@
   (evil-mode 1)
   (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-define-key nil 'global (kbd "M-u") 'universal-argument)
+
+  (evil-define-key 'normal 'global
+    (kbd "0") 'evil-beginning-of-line
+    (kbd "g0") 'evil-beginning-of-visual-line
+    )
 
   (evil-define-key nil 'global
     (kbd "<escape>") 'keyboard-escape-quit
@@ -1433,6 +1439,7 @@ selection of all minor-modes, active or not."
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" c" evil-save-modified-and-close "Close buffer")
+  (" q" evil-save-modified-and-close "Exit Emacs")
   (" w" (lambda () (interactive) (let ((inhibit-message t)) (save-buffer))) "Save buffer")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
   ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
