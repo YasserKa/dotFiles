@@ -902,7 +902,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
 
   (dolist (advice '(org-clock-out
-                  org-clock-cancel))
+                    org-clock-cancel))
     (advice-add advice :before #'(lambda (&rest pos) (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null")))
     )
 
@@ -939,7 +939,9 @@ see how ARG affects this command."
    ;; Check https://github.com/doomemacs/themes/issues/453
    '(org-block-begin-line ((t (:background nil :weight bold))))
    '(org-block-end-line ((t (:background nil :weight bold))))
-   '(org-code ((t (:inherit (shadow fixed-pitch))))))
+   '(org-code ((t (:foreground "dim gray" :background "#f2e5bc"))))
+   )
+
 
   ;; Used by babel
   (use-package plantuml-mode
@@ -1008,7 +1010,7 @@ see how ARG affects this command."
     (add-to-list 'org-capture-templates
                  `("w" "Web site" entry
                    (file ,(concat (getenv "_NOTES_ORG_HOME") "/org_protocol_html.org")) ;
-                  "* %a :website:\n\n%U %?\n\n%:initial"))
+                   "* %a :website:\n\n%U %?\n\n%:initial"))
 
     (setq org-protocol-default-template-key "q")
     )
