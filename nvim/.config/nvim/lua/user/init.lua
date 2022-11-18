@@ -516,6 +516,9 @@ local config = {
 				null_ls.builtins.diagnostics.flake8.with({
 					-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
 				}),
+				null_ls.builtins.formatting.shfmt.with({
+					extra_args = { "--case-indent" },
+				}),
 				-- null_ls.builtins.diagnostics.mypy,
 				-- Set a formatter
 				-- null_ls.builtins.formatting.stylua,
