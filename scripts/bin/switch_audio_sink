@@ -1,35 +1,42 @@
 #!/usr/bin/env bash
 
-# For notification server 
-APP_NAME="switch-sink"
-# Bluetooth device mac address
-DEVICE="6C:D3:EE:04:51:E2"
+# Switch Input audio sink between built in, displaylink (universal docking station) & bluetooth
 
-# Switch audio sink between built in, displaylink (universal docking station) & bluetooth
+# For notification server
+APP_NAME="switch-sink"
+# Earphones mac address
+DEVICE="6C:D3:EE:04:51:E2"
 
 PICKED_SINK="$1"
 case $PICKED_SINK in
-    "Bluetooth" ) 
-        if ! systemctl status bluetooth; then 
-            password="$(rofi -dmenu -l 0 -password -mesg 'Enter password')"
-            echo "$password" | sudo -S systemctl start bluetooth 
-        fi
-        echo -e "connect $DEVICE" | bluetoothctl
-        # Wait until the device is connected
-        while sleep 1; do grep -nE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break; done
-        # Extra time before check the Audio Sink
-        sleep 1
-        Name="bluez_output" 
-        icon="bluetooth-64";;
-    "Built In" ) 
-        icon="laptop-sound-64"
-        Name="analog-stereo"
-        echo -e "disconnect 6C:D3:EE:04:51:E2" | bluetoothctl ;;
-    "DisplayLink" ) 
-        icon="earbud-sound-64"
-        Name="DisplayLink"
-        echo -e "disconnect 6C:D3:EE:04:51:E2" | bluetoothctl ;;
-    *) notify-send --app-name=$APP_NAME --expire-time=1000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
+	"Bluetooth")
+		if ! systemctl status bluetooth; then
+			password="$(rofi -dmenu -l 0 -password -mesg 'Enter password')"
+			echo "$password" | sudo -S systemctl start bluetooth
+		fi
+		echo -e "connect $DEVICE" | bluetoothctl
+		# Wait until the device is connected
+		while sleep 1; do grep -nE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break; done
+		# Extra time before check the Audio Sink
+		sleep 1
+		Name="bluez_output"
+		icon="bluetooth-64"
+		;;
+	"Built In")
+		icon="laptop-sound-64"
+		Name="pci"
+		if systemctl status bluetooth; then
+			echo -e "disconnect 6C:D3:EE:04:51:E2" | bluetoothctl
+		fi
+		;;
+	"DisplayLink")
+		icon="earbud-sound-64"
+		Name="DisplayLink"
+		if systemctl status bluetooth; then
+			echo -e "disconnect 6C:D3:EE:04:51:E2" | bluetoothctl
+		fi
+		;;
+	*) notify-send --app-name=$APP_NAME --expire-time=1000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
 esac
 
 # Get the name of the sink
