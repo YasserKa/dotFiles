@@ -37,8 +37,10 @@ nvidia-utils # NVIDIA drivers utilities
 intel-ucode # Microcode update files for Intel CPUs
 
 # Bluetooth
-bluez
-bluez-utils
+bluez # Daemons for bluetooth
+bluez-utils # Utilities for bluetooth
+bluetuith # TUI-based bluetooth manager
+rofi-bluetooth-git # Manage bluetooth using rofi
 
 # Sound
 alsa-firmware # Firmware binaries for loader programs in alsa-tools and hotplug firmware loader
@@ -82,7 +84,7 @@ emacs # The extensible, customizable, self-documenting real-time display editor
 # Used by magit
 git-delta # Syntax-highlighting pager for git and diff output
 
-neovim-nightly-bin # Fork of Vim aiming to improve user experience, plugins, and GUIs.
+neovim # Fork of Vim aiming to improve user experience, plugins, and GUIs.
 neovim-qt # GUI for Neovim
 python-pynvim # Python client for Neovim
 vim # Vi Improved, a highly configurable, improved version of the vi text editor
