@@ -96,6 +96,7 @@ main() {
         # Append path to fasd for frecency (frequency and recency)
         fasd -a "${DOCUMENT_PATH}"
         xdg-open "${DOCUMENT_PATH}" >/dev/null & disown
+        i3-msg 'workspace --no-auto-back-and-forth 8'
     fi
 }
 

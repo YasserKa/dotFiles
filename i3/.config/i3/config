@@ -252,7 +252,7 @@ bindsym $mod+p exec --no-startup-id $XDG_CONFIG_HOME/rofi/bwmenu
 # Tmux
 bindsym $mod+t exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_tmux
 # Documents
-bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_documents && i3-msg 'workspace --no-auto-back-and-forth 8'
+bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_documents
 
 # Don't show general notes
 bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
