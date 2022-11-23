@@ -45,14 +45,36 @@
 
 [alias]
     s = status
-    # Don't use vimpager
-    d = "!PAGER=less && git diff"
-    last = show --stat HEAD
-    countcommits = shortlog -sn --no-merges
-    graph = log --graph --oneline --decorate
+
+    # Branch
+    co = checkout
+    cob = checkout -b # Create a branch and switch to it
+    del = branch -D # Remove a branch
+    br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+
+    # Reset
+    undo = reset HEAD~1 --mixed 
+    res = !git reset --hard
+
+    done = !git push origin HEAD
+    amend = commit --amend
+
+    # Stash
     stash-pop-if-not-empty = "![[ $(git stash list | wc -l) -gt 0 ]] && git stash pop || true"
     stashreset = "!git stash save && git fetch && git reset --hard FETCH_HEAD && git stash-pop-if-not-empty"
-    amend = commit --amend
+
+    # Don't use vimpager
+    d = "!PAGER=less && git diff"
+    # Search commits
+    se = "!git rev-list --all | xargs git grep -F"
+    se10 = "!git rev-list --all --max-count 10 | xargs git grep -F"
+    se20 = "!git rev-list --all --max-count 20 | xargs git grep -F"
+
+    # Logs
+    last = show --stat HEAD
+    lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+    countcommits = shortlog -sn --no-merges
+    graph = log --graph --oneline --decorate
 
 [help]
    ; execute corrected commands immediately

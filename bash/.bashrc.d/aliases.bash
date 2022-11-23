@@ -16,6 +16,11 @@ alias vimdiff='nvim -d'
 mkdircd() { command mkdir -pv "$1" && cd "$1" || exit; }
 mkdirv() { mkdircd "${1%/*}" && nvim "${1##*/}" || exit; }
 
+backrm() {
+	CURR_PWD="${PWD}"
+	cd .. && rm -rf "${CURR_PWD}" || exit
+}
+
 # Sync books
 alias syncbooks='wait_internet && rclone sync $HOME/books books:books'
 

@@ -170,7 +170,8 @@ local config = {
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
 
-			["<leader>q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
+			["<leader>q"] = { "<cmd>quit<cr>", desc = "Quit window" },
+			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
 
 			-- navigating wrapped lines
 			["j"] = { "gj", desc = "gj replacement" },
@@ -812,6 +813,13 @@ local config = {
 		vim.api.nvim_create_autocmd({ "FileType" }, {
 			pattern = { "tex" },
 			command = "set cmdheight=1",
+		})
+
+		vim.api.nvim_create_autocmd("BufNewFile", {
+			desc = "Skeleton",
+			group = "my_skeletons",
+			pattern = { "*.sh" },
+			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.sh | exe 'normal jo' | startinsert",
 		})
 
 		vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
