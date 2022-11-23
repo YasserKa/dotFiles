@@ -786,11 +786,15 @@ Made for `org-tab-first-hook' in evil-mode."
     ;; Should be loaded at the start
     :init (org-super-agenda-mode)
     :config
-    (evil-define-key 'motion 'org-super-agenda-header-map (kbd "q") 'org-agenda-quit)
+    (evil-define-key 'motion 'org-super-agenda-header-map
+      (kbd "q") 'org-agenda-quit
+      (kbd "C-h") 'evil-window-left
+      (kbd "C-j") 'org-agenda-switch-to
+      (kbd "gj") 'org-agenda-next-item
+      (kbd "gk") 'org-agenda-previous-item)
     (setq org-super-agenda-header-map (make-sparse-keymap))
     )
 
-  (define-key org-agenda-mode-map (kbd "C-h") 'evil-window-left)
 
   (setq org-capture-templates
         `(("d" "default" entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
@@ -1232,6 +1236,7 @@ see how ARG affects this command."
     ;; Open buffer in a new window, uses embark's v and x
     (evil-collection-define-key 'insert 'vertico-map (kbd "C-v") (kbd "C-. v"))
     (evil-collection-define-key 'insert 'vertico-map (kbd "C-x") (kbd "C-. x")))
+
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
 
   )
@@ -1446,7 +1451,8 @@ selection of all minor-modes, active or not."
   (" d" deft "deft")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
-  (" q" evil-quit-all "Exit Emacs")
+  (" q" evil-save-modified-and-close "Close buffer")
+  (" Q" evil-quit-all "Exit Emacs")
   (" w" (lambda () (interactive) (let ((inhibit-message t)) (save-buffer))) "Save buffer")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
   ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
