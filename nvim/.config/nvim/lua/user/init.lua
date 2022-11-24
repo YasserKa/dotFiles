@@ -542,8 +542,15 @@ local config = {
 						"close_node",
 						nowait = false,
 					},
-					["s"] = "close_node",
-					["<leader>H"] = "toggle_hidden",
+					["v"] = "open_vsplit",
+					["x"] = "open_split",
+				},
+			},
+			filesystem = {
+				window = {
+					mappings = {
+						["<leader>H"] = "toggle_hidden",
+					},
 				},
 			},
 		},
