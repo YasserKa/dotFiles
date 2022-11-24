@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo -n "\href{$QUTE_TITLE}{$QUTE_URL}" | xclip -selection c
-echo "message-info 'url turned to latex url'" >> "$QUTE_FIFO"
+echo -n "\href{$QUTE_URL}{$QUTE_TITLE}" | xclip -selection c
+echo "message-info 'url turned to latex url'" >>"$QUTE_FIFO"
