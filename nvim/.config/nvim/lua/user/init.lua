@@ -894,6 +894,16 @@ local config = {
 		vim.keymap.set("n", "<leader>c", MiniBufremove.delete) -- Remove buffer, but keep split
 		vim.keymap.set("n", "<leader>C", "<cmd>bdelete<cr>")
 
+		-- {{{
+		require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/user/snippets" })
+
+		vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/user/snippets/python.lua")
+		require("luasnip").config.set_config({ -- Setting LuaSnip config
+
+			-- Enable autotriggered snippets
+			enable_autosnippets = true,
+		})
+		-- }}}
 		vim.keymap.set("n", "<C-S-h>", require("smart-splits").resize_left)
 		vim.keymap.set("n", "<C-S-j>", require("smart-splits").resize_down)
 		vim.keymap.set("n", "<C-S-k>", require("smart-splits").resize_up)
