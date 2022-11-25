@@ -49,8 +49,8 @@ orphans() {
 upgrade_system() {
 	orphans
 	paru --sync --refresh --sysupgrade --noconfirm
-	printf "%s\n" "Updating Vim packages"
-	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'MasonToolsUpdate' -c 'PackerSync'
 	printf "%s\n" "Updating Emacs packages"
 	# Update packages and exit afterwards
 	emacs --no-window-system --eval "(progn

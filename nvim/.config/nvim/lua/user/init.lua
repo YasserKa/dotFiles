@@ -487,6 +487,7 @@ local config = {
 				end,
 				ft = { "markdown", "plantuml" },
 			},
+			{ "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 			{
 				"https://github.com/kdheepak/cmp-latex-symbols",
 				after = "nvim-cmp",
@@ -555,7 +556,7 @@ local config = {
 			},
 		},
 		treesitter = { -- overrides `require("treesitter").setup(...)`
-			-- ensure_installed = { "lua" },
+			ensure_installed = { "lua", "python", "bash", "latex", "json" },
 
 			indent = { enable = true, disable = { "python" } },
 			matchup = { enable = true },
@@ -630,11 +631,11 @@ local config = {
 		},
 		-- use mason-lspconfig to configure LSP installations
 		["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
-			-- ensure_installed = { "sumneko_lua" },
+			ensure_installed = { "pyright", "bashls" },
 		},
 		-- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
 		["mason-null-ls"] = { -- overrides `require("mason-null-ls").setup(...)`
-			-- ensure_installed = { "prettier", "stylua" },
+			ensure_installed = { "prettier", "stylua", "isort", "flake8", "black", "shellcheck", "shfmt", "" },
 		},
 	},
 

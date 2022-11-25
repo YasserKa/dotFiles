@@ -44,7 +44,7 @@ post-install-packages: stow-packages
 	# accurate date
 	sudo timedatectl set-ntp true
 	emacs --batch --load=$(XDG_CONFIG_HOME)/emacs/init.el
-	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' -c 'MasonToolsInstall'
 	# Display link
 	systemctl start displaylink
 	systemctl enable displaylink
