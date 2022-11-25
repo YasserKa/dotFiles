@@ -458,6 +458,7 @@ local config = {
 					},
 				},
 			},
+			{ "https://github.com/Ron89/thesaurus_query.vim" },
 			--  File type support
 			{ "https://github.com/fladson/vim-kitty" },
 			{ "https://github.com/YasserKa/vim-sxhkdrc" },
@@ -1275,6 +1276,11 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
               function! OpenNewBrowserWindow(url)
               execute "silent ! qutebrowser --target window " . a:url
               endfunction
+
+ 			" https://github.com/Ron89/thesaurus_query.vim
+			let g:tq_openoffice_en_file =  "./spell/MyThes-1.0/th_en_US_new"
+			let g:tq_mthesaur_file =  "./spell/mthesaur.txt"
+ 	 	 	let g:tq_enabled_backends= ["datamuse_com", "openoffice_en", "mthesaur_txt"]
 
               let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
               " }}}
