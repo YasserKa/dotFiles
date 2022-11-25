@@ -1200,7 +1200,7 @@ see how ARG affects this command."
 
   ;; Set up the call to the notifier
   (defun toast-appt-send-notification (title msg)
-    (start-process-shell-command "" nil (concat (getenv "XDG_CONFIG_HOME") "/dunst/emacs_delegate " " \"" title "\" \"" msg "\"")))
+    (start-process-shell-command "" nil (concat (getenv "XDG_CONFIG_HOME") "/dunst/org_mode_schedule " " \"" title "\" \"" msg "\"")))
 
   ;; Designate the window function for my/appt-send-notification
   (defun toast-appt-display (min-to-app new-time msg)

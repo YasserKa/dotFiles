@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Show notificaiton of upcoming task and go to entry in Emacs if the dunst action is triggered
+
+# Dependencies dunst, xdotool, emacs
+#
+################################################################################
+# Go to the file and row containing the entry
+# Globals:
+#     ENTRY_TITLE
+#     ENTRY_MSG
+# Arguments:
+#     None
+################################################################################
+goto_entry() {
+	dunstify
+	declare FILE_NAME
+	FILE_NAME="$(emacsclient -e "(nth 1 (car appt-time-msg-list))" | grep -oP '(?<=org-category ").*(?=")' | head -n 1)"
+	readonly FILE_NAME
+	declare FULL_PATH
+	FULL_PATH="${_NOTES_ORG_HOME}/${FILE_NAME}.org"
+	readonly FULL_PATH
+	declare ROW_NUM
+	ROW_NUM="$(grep -n "${ENTRY_MSG}" "${FULL_PATH}" | head -n 1 | cut -d : -f 1)"
+	readonly ROW_NUM
+
+	xdotool search --sync --name "emacs_org_name" windowactivate
+	emacsclient -n "+${ROW_NUM}" "${FULL_PATH}"
+}
+
+readonly TMP_FILE_PATH="/tmp/org_current_schedule"
+if [[ -n "$1" ]]; then
+	# Create file for scheduled entry
+	declare -r ENTRY_TITLE="$1"
+	declare ENTRY_MSG
+	ENTRY_MSG=$(echo "$2" | cut -d " " -f 2-)
+	readonly ENTRY_MSG
+	echo -e "${ENTRY_TITLE}\n${ENTRY_MSG}" >|"${TMP_FILE_PATH}"
+elif [[ -e "${TMP_FILE_PATH}" ]]; then
+	# Go to scheduled entry using info from file
+	ENTRY_TITLE="$(cat ${TMP_FILE_PATH} | head -n 1)"
+	ENTRY_MSG="$(cat ${TMP_FILE_PATH} | tail -n 1)"
+	goto_entry
+	exit
+else
+	exit
+fi
+
+[[ $(dunstify "${ENTRY_TITLE}" "${ENTRY_MSG}" --appname emacs_org --action="action,label") == "action" ]] && goto_entry

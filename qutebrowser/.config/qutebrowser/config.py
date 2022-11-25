@@ -79,6 +79,8 @@ c.bindings.commands = {
         "<z><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden",
         "<z><u><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --username-only",
         "<z><p><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --password-only",
+        # Others
+        "<space>H": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
     },
     "insert": {
         "<Ctrl-w>": "fake-key <Ctrl-backspace>",
