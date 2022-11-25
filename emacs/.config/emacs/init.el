@@ -305,7 +305,6 @@
   ;; Adjust splitting position
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
-  (evil-respect-visual-line-mode t)
   ;; Needed for redo functionality
   (evil-undo-system 'undo-tree)
   ;; Don't show previous command at  prompt
@@ -325,6 +324,8 @@
 
   (evil-define-key 'normal 'global
     (kbd "0") 'evil-beginning-of-line
+    (kbd "j") 'evil-next-visual-line
+    (kbd "k") 'evil-previous-visual-line
     (kbd "g0") 'evil-beginning-of-visual-line
     )
 

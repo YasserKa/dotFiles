@@ -424,6 +424,8 @@ local config = {
 								m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
 								I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
 								i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
+								j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
+								k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
 							},
 						},
 						["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
@@ -764,6 +766,7 @@ local config = {
 						name = "Telescope",
 						["?"] = { "<cmd>Telescope help_tags<cr>", "Find help" },
 						["'"] = { "<cmd>Telescope marks<cr>", "Marks" },
+						["."] = { "<cmd>Telescope resume<cr>", "Open previous picker" },
 						B = { "<cmd>Telescope bibtex<cr>", "BibTeX" },
 					},
 				},
@@ -1121,19 +1124,19 @@ local config = {
 		-- 	sts.filtered_jump({ "if_statement", "else_clause", "else_statement" }, true, { destination = "siblings" })
 		-- end, opts)
 
-		-- local gen_spec = require("mini.ai").gen_spec
-		-- require("mini.ai").setup({
-		-- 	custom_textobjects = {
-		-- 		["*"] = gen_spec.pair("*", "*", { type = "greedy" }),
-		-- 		["_"] = gen_spec.pair("_", "_", { type = "greedy" }),
-		-- 		B = gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
-		-- 		C = gen_spec.treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
-		-- 		F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-		-- 		L = gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
-		-- 		P = gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
-		-- 		x = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-		-- 	},
-		-- })
+		local gen_spec = require("mini.ai").gen_spec
+		require("mini.ai").setup({
+			custom_textobjects = {
+				["*"] = gen_spec.pair("*", "*", { type = "greedy" }),
+				["_"] = gen_spec.pair("_", "_", { type = "greedy" }),
+				B = gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
+				C = gen_spec.treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
+				F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+				L = gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
+				P = gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+				x = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+			},
+		})
 		-- jump to parent or child nodes only
 		-- vim.keymap.set("n", "_", function()
 		-- 	sts.filtered_jump({
