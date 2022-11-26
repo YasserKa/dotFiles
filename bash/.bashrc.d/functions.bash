@@ -91,19 +91,27 @@ j() {
 	cd "$path" || exit 1
 }
 
-# Use fasd and FZF to jump through directories
+# Use fasd and FZF to a open file and go to the directory it's in
 vf() {
-	paths=$(fasd -flR "$@")
-	path="."
+	local PATHS
+	PATHS=$(fasd -flR "$@")
+	local FILE_PATH
+	FILE_PATH=""
 	# If only one path exists, go to it
-	if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
-		path=$paths
+	NUMBER_FASD_FILES="$(echo -e "${PATHS}" | wc -l)"
+	if ((NUMBER_FASD_FILES == 0)); then
+		echo "Fasd doesn't know '$*'"
+		pass
+	elif ((NUMBER_FASD_FILES == 1)); then
+		FILE_PATH="${PATHS}"
 	else # Use fzf otherwise
-		path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+		FILE_PATH=$(echo -e "${PATHS}" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
 	fi
+	local EXIT_CODE
 	EXIT_CODE="$?"
 	((EXIT_CODE != 0)) && return
-	"${EDITOR}" "$path" || exit 1
+	cd "${FILE_PATH%/*}" || return 1
+	"${EDITOR}" "${FILE_PATH}" || return 1
 }
 
 # Pick tmux sessions using FZF
