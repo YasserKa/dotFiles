@@ -1229,9 +1229,11 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 		]])
 			end,
 		})
-		-- Prevent csv for key map overriding space
+		-- Prevent csv for key map overriding space, S-h, S-l
 		-- https://github.com/chrisbra/csv.vim/issues/149
 		vim.g["csv_nomap_space"] = 1
+		vim.g["csv_nomap_h"] = 1
+		vim.g["csv_nomap_l"] = 1
 		-- {{{ vim-maximizer
 		vim.keymap.set("n", "<C-w>m", "<cmd>MaximizerToggle!<CR>")
 		-- }}}
