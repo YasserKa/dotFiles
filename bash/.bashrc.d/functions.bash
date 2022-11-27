@@ -208,6 +208,7 @@ open_file() {
 
 alias rcreadline='open_file $XDG_CONFIG_HOME/readline inputrc $XDG_CONFIG_HOME/readline/*'
 alias rcgpg='open_file $GNUPGHOME gpg-agent.conf $GNUPGHOME/*'
+alias rcgit='open_file $XDG_CONFIG_HOME/git config'
 alias rcssh='open_file $HOME/.ssh config $HOME/.ssh*'
 alias rcx11='open_file ${XINITRC%/*} xinitrc ${XINITRC%/*}/*'
 alias rcbash='open_file $HOME/.bashrc.d ../.bashrc ../.bash_profile ../.profile $HOME/.bashrc.d/*'
