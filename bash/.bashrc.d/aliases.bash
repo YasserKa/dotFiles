@@ -78,6 +78,7 @@ alias alert='notify-send --expire-time=99999 "$(history|tail -n1|sed -e '\''s/^\
 alias tmp="\${EDITOR} /tmp/tmp"
 alias tmppy="\${EDITOR} /tmp/tmp.py"
 alias tmptex="\${EDITOR} /tmp/tmp.tex"
+alias tmpmd="\${EDITOR} /tmp/tmp.md"
 alias tmpsh="\${EDITOR} /tmp/tmp.sh"
 
 # List last installed packages

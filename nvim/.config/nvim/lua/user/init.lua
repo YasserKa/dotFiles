@@ -170,7 +170,7 @@ local config = {
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
 
-			["<leader>q"] = { "<cmd>quit<cr>", desc = "Quit window" },
+			["<leader>q"] = { "<cmd>exit<cr>", desc = "Quit window" },
 			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
 
 			-- navigating wrapped lines
@@ -484,7 +484,9 @@ local config = {
 			},
 			{
 				"https://github.com/iamcco/markdown-preview.nvim",
-				run = "cd app && npm install",
+				run = function()
+					vim.fn["mkdp#util#install"]()
+				end,
 				setup = function()
 					vim.g.mkdp_filetypes = { "markdown", "plantuml" }
 				end,
@@ -1229,8 +1231,9 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 		]])
 			end,
 		})
+		-- Binding to open command-line window
+		vim.o.cedit = "<C-Y>"
 		-- Prevent csv for key map overriding space, S-h, S-l
-		-- https://github.com/chrisbra/csv.vim/issues/149
 		vim.g["csv_nomap_space"] = 1
 		vim.g["csv_nomap_h"] = 1
 		vim.g["csv_nomap_l"] = 1
