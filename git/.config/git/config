@@ -83,6 +83,9 @@
 [commit]
     gpgSign = true
 
+[gpg]
+    program = /home/yasser/.config/git/gpg
+
 [tag]
     forceSignAnnotated = true
 

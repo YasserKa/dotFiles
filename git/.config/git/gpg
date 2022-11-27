@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# https://github.com/tpope/vim-fugitive/issues/1836
+if [[ -n "$FUGITIVE" ]]; then
+	set -- --pinentry-mode loopback "$@"
+fi
+exec /usr/bin/gpg "$@"
