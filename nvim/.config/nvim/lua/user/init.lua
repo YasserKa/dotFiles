@@ -280,9 +280,38 @@ local config = {
 
 		cmp = {
 			mapping = {
-				["<C-j>"] = require("cmp").mapping.confirm({ select = false }),
 				["<A-k>"] = require("cmp").mapping(require("cmp").mapping.scroll_docs(-5), { "i", "c" }),
 				["<A-j>"] = require("cmp").mapping(require("cmp").mapping.scroll_docs(5), { "i", "c" }),
+				["<C-k>"] = require("cmp").mapping(function(fallback)
+					if require("luasnip").jumpable(-1) then
+						require("luasnip").jump(-1)
+					else
+						fallback()
+					end
+				end, {
+					"i",
+					"s",
+				}),
+				["<C-j>"] = require("cmp").mapping(function(fallback)
+					if require("luasnip").expandable() then
+						require("luasnip").expand()
+					elseif require("luasnip").expand_or_jumpable() then
+						require("luasnip").expand_or_jump()
+					elseif has_words_before() then
+						require("cmp").complete()
+					else
+						require("cmp").mapping.confirm({ select = false })
+					end
+				end, {
+					"i",
+					"s",
+				}),
+			},
+			source_priority = {
+				luasnip = 1000,
+				nvim_lsp = 750,
+				buffer = 500,
+				path = 250,
 			},
 		},
 		telescope = {
@@ -511,6 +540,7 @@ local config = {
 				requires = "nvim-treesitter/nvim-treesitter",
 			},
 			{ "https://github.com/romainl/vim-cool" }, -- Disable search highlighting when done}
+			{ "https://github.com/honza/vim-snippets" },
 		},
 		["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
 			-- config variable is the default configuration table for the setup function call
@@ -888,7 +918,7 @@ local config = {
 
 		_G.WatchFile = function()
 			vim.cmd(
-				'silent !"${TERMINAL}" --directory "'
+				'silent !"${TERMINAL}" --detach --directory "'
 					.. vim.fn.expand("%:p:h")
 					.. '" bash -c \'echo "'
 					.. vim.fn.expand("%:t")
@@ -925,6 +955,8 @@ local config = {
 			autoload_mode = require("session_manager.config").AutoloadMode.CurrentDir,
 		})
 		require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
+		require("luasnip.loaders.from_snipmate").lazy_load()
+
 		local utils = require("user.utils")
 
 		vim.keymap.set("n", "<localleader>c", function()
@@ -1210,7 +1242,7 @@ local config = {
 				nnoremap <silent> <buffer> q :close<CR>
 		nnoremap <silent> <buffer> <esc> :close<CR>
 		set nobuflisted
-		]])
+				]])
 			end,
 		})
 		-- }}}
@@ -1228,7 +1260,7 @@ call matchadd('MyUnderlineMatch', '__\zs[^X]\+\ze__')
 call matchadd('Conceal',  '__\ze[^X]\+__', 10, -1, {'conceal':''})
 call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 
-		]])
+				]])
 			end,
 		})
 		-- Binding to open command-line window

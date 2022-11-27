@@ -32,4 +32,16 @@ return {
 			{ delimiters = "<>" }
 		)
 	),
+	s(
+		{ trig = "enum", dscr = "Enum object" },
+		fmt(
+			[[ 
+      class <>(Enum):
+      	<> = <>
+      	<> = <>
+		]],
+			{ i(1, "className"), i(2, "att_1"), i(3, "value_1"), i(4, "att_2"), i(5, "valu2") },
+			{ delimiters = "<>" }
+		)
+	),
 }
