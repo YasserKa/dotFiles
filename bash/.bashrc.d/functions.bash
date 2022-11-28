@@ -304,4 +304,5 @@ reload_browser() {
 # Commands run in background automatically
 zathura() { (command zathura "$@" &>/dev/null &) }
 mpv() { (command mpv "$@" &>/dev/null &) }
-xdg-open() { (command xdg-open "$@" &) }
+xdg-open() { (command xdg-open "$@" &>/dev/null); }
+nautilus() { (command nautilus "$@" &) }
