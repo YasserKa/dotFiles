@@ -45,6 +45,7 @@
 
 [alias]
     s = status -s
+    sv = status --verbose
 
     # Branch
     co = checkout

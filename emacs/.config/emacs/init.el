@@ -792,7 +792,8 @@ Made for `org-tab-first-hook' in evil-mode."
       (kbd "C-h") 'evil-window-left
       (kbd "C-j") 'org-agenda-switch-to
       (kbd "gj") 'org-agenda-next-item
-      (kbd "gk") 'org-agenda-previous-item)
+      (kbd "gk") 'org-agenda-previous-item
+      (kbd "gx") 'org-open-at-point-global)
     (setq org-super-agenda-header-map (make-sparse-keymap))
     )
 
