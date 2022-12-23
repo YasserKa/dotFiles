@@ -37,18 +37,19 @@ extract() {
 	return "$e"
 }
 
-# Remove dependencies that are no longer needed (orphans)
+# Remove dependencies that are no longer needed
 orphans() {
-	if [[ $(pacman -Qdtt) ]]; then
-		echo "no orphans to remove"
+	if [[ "$(pacman -Qdtt)" ]]; then
+		sudo pacman -Qttdq | sudo pacman -Rns -
 	else
-		sudo pacman -Rnsc "$(pacman -Qdttq)"
+		echo "no orphans to remove"
 	fi
 }
 
 upgrade_system() {
+	sudo -v
 	orphans
-	paru --sync --refresh --sysupgrade --noconfirm
+	yes | paru --sync --refresh --sysupgrade --noconfirm
 	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
 	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'MasonToolsUpdate' -c 'PackerSync'
 	printf "%s\n" "Updating Emacs packages"

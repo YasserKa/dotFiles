@@ -53,4 +53,4 @@ unbind-key s
 bind-key s sort all
 
 
-# vim:ft=dosini
+# vim:ft=dosini:commentstring=#%s
