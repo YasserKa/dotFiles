@@ -170,7 +170,7 @@ local config = {
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
 			["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
 
-			["<leader>q"] = { "<cmd>exit<cr>", desc = "Quit window" },
+			["<leader>q"] = { "<cmd>exit<cr>", desc = "Delete buffer" },
 			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
 
 			-- navigating wrapped lines
@@ -490,7 +490,7 @@ local config = {
 					},
 				},
 			},
-			{ "https://github.com/Ron89/thesaurus_query.vim" },
+			-- { "https://github.com/Ron89/thesaurus_query.vim" },
 			--  File type support
 			{ "https://github.com/fladson/vim-kitty" },
 			{ "https://github.com/YasserKa/vim-sxhkdrc" },
@@ -761,6 +761,14 @@ local config = {
 							end,
 							"Unstage Buffer",
 						},
+						c = {
+							name = "Commit",
+							c = { "<cmd>silent Git commit --quiet<CR>", noremap = true, "Commit" },
+
+							noremap = true,
+						},
+						-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
+						-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
 					},
 					a = {
 						name = "Annotate",
@@ -858,6 +866,11 @@ local config = {
 		vim.api.nvim_create_autocmd({ "FileType" }, {
 			pattern = { "tex" },
 			command = "set cmdheight=1",
+		})
+
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "gitcommit" },
+			command = "inoremap <C-c><C-c> <cmd>wq<cr> | startinsert",
 		})
 
 		vim.api.nvim_create_autocmd("BufNewFile", {

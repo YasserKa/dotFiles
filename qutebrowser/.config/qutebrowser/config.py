@@ -37,6 +37,7 @@ c.bindings.commands = {
         # Override f and F by download documents from libgen
         ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
         "<space>q": "close",
+        "<space>Q": "quit",
         # Sourcing files
         "<space>es": "spawn bash -ic rcqutebrowser",
         "<space>ss": 'config-source ;; message-info "Configuration file sourced"',
@@ -81,6 +82,8 @@ c.bindings.commands = {
         "<z><p><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --password-only",
         # Others
         "<space>H": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
+        # Unbind <C-h> from home
+        "<Ctrl-h>": "nop",
     },
     "insert": {
         "<Ctrl-w>": "fake-key <Ctrl-backspace>",
