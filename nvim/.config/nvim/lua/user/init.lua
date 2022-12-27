@@ -587,6 +587,10 @@ local config = {
 				window = {
 					mappings = {
 						["<leader>H"] = "toggle_hidden",
+						["h"] = {
+							"close_node",
+							nowait = false,
+						},
 					},
 				},
 			},
