@@ -340,7 +340,7 @@
   (evil-define-key 'insert 'global
     (kbd "C-a") 'back-to-indentation ;; Start of line
     (kbd "C-e") 'end-of-line
-    (kbd "C-d") 'delete-char
+    ;; (kbd "C-d") 'delete-char included in evil-org to work
     ;; Kill from current position to start of next word
     (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
 
@@ -1101,6 +1101,10 @@ see how ARG affects this command."
                                                                                    (evil-org-open-below 1) t)
                                                                                   ((progn (org-insert-heading-after-current) (evil-insert 0)))))
                               (kbd "<M-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
+                            ;; Update readline/ should be included here to work
+                            (evil-define-key 'insert 'evil-org-mode
+                              (kbd "C-d") 'delete-char
+                              )
                             (evil-define-key 'normal 'evil-org-mode
                               (kbd "zi")  #'org-toggle-inline-images
                               (kbd "<C-SPC>") 'org-cycle
@@ -1116,7 +1120,6 @@ see how ARG affects this command."
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
-
 
   ;; Don't display a buffer when finishing async-shell-command
   (setq display-buffer-alist '(("\\*Async Shell Command\\*" . (display-buffer-no-window))))
