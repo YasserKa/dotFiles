@@ -428,9 +428,6 @@
   ;; s : selection
   :after evil
   :init (global-undo-tree-mode)
-  :hook ((evil-collection-setup . (lambda (mode-keymaps &rest _rest)
-                                    (evil-collection-define-operator-key 'yank 'global-map
-                                      "eu" #'undo-tree-visualize))))
   :custom (undo-tree-visualizer-diff t)
   :config
   ;; Save undo steps between sessions
@@ -1454,13 +1451,18 @@ selection of all minor-modes, active or not."
   (" h" evil-ex-nohighlight "highlight")
   (" f" find-hydra/body "find")
   (" d" deft "deft")
+  (" e" toggle-plugins/body "toggle plugins")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" q" evil-save-modified-and-close "Close buffer")
   (" Q" evil-quit-all "Exit Emacs")
   (" w" (lambda () (interactive) (let ((inhibit-message t)) (save-buffer))) "Save buffer")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
-  ("es" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
+  )
+
+(defhydra toggle-plugins (:exit t :idle 1)
+  (" u" undo-tree-visualize "undo tree")
+  (" s" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
   )
 
 (defhydra find-hydra (:exit t :idle 1)

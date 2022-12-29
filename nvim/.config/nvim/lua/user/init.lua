@@ -726,7 +726,7 @@ local config = {
 				-- 	F = "Previous function end",
 				-- 	X = "Previous class end",
 				-- },
-				["yex"] = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
+				["<leader>ex"] = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
 				["<space><space>"] = { "<cmd>buffer#<cr>", "Alternate buffer" },
 				-- second key is the prefix, <leader> prefixes
 				["<localleader>"] = {
@@ -841,6 +841,11 @@ local config = {
 	-- augroups/autocommands and custom filetypes also this just pure lua so
 	-- anything that doesn't fit in the normal config locations above can go here
 	polish = function()
+		-- Unmap Astronvim mappings
+		local unmap = vim.api.nvim_del_keymap
+
+		unmap("n", "<leader>e") --  explorer binding
+
 		vim.api.nvim_create_augroup("my_skeletons", { clear = true })
 		vim.api.nvim_create_autocmd("BufNewFile", {
 			desc = "Skeleton",
@@ -1247,7 +1252,7 @@ local config = {
 		-- Enable persistent undo so that undo history persists across vim sessions
 		-- set undofile
 		vim.opt.undofile = true
-		vim.keymap.set({ "n" }, "yeu", "<cmd>MundoToggle<cr>")
+		vim.keymap.set({ "n" }, "<leader>eu", "<cmd>MundoToggle<cr>")
 		-- }}}
 		-- {{{ vim-cool
 		-- Show number of matches in command-line
@@ -1328,7 +1333,7 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
               let g:mkdp_command_for_global = 1
               let g:mkdp_page_title = '${name}'
               let g:mkdp_auto_close = 0
-              nmap yem <Plug>MarkdownPreviewToggle
+              nmap <leader>em <Plug>MarkdownPreviewToggle
 
               " open page in new window
               function! OpenNewBrowserWindow(url)
