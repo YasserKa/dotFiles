@@ -100,9 +100,10 @@ vf() {
 	FILE_PATH=""
 	# If only one path exists, go to it
 	NUMBER_FASD_FILES="$(echo -e "${PATHS}" | wc -l)"
-	if ((NUMBER_FASD_FILES == 0)); then
-		echo "Fasd doesn't know '$*'"
-		pass
+
+	if [[ "$NUMBER_FASD_FILES" == 0 || "$PATHS" == "" ]]; then
+		echo "Fasd isn't tracking '$*'"
+		return 0
 	elif ((NUMBER_FASD_FILES == 1)); then
 		FILE_PATH="${PATHS}"
 	else # Use fzf otherwise
