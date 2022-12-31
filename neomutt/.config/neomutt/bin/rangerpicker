@@ -3,23 +3,23 @@
 tmpfile=$XDG_CACHE_HOME/ranger/rangerpick
 
 if [ "$1" = "get" ]; then
-  cat "$tmpfile" 2>/dev/null
-  exit
+	cat "$tmpfile" 2>/dev/null
+	exit
 elif [ "$1" = "save" ]; then
-  [ -f "$tmpfile" ] && cat > "$(cat "$tmpfile")"
-  exit
+	[ -f "$tmpfile" ] && cat >"$(cat "$tmpfile")"
+	exit
 fi
 
 rm -f "$tmpfile"
 if [ "$1" = "dir" ]; then
-  ranger --choosedir "$tmpfile"
+	ranger --choosedir "$tmpfile"
 elif [ "$1" = "single" ]; then
-  ranger --choosefile "$tmpfile"
+	ranger --choosefile "$tmpfile"
 else
-  ranger --choosefiles "$tmpfile"
+	ranger --choosefiles "$tmpfile"
 fi
 
 if [ -f "$tmpfile" ]; then
-  midtmp="$(mktemp)"
-  [ "$1" = "attach" ] && awk 'BEGIN {printf "%s", "push "} {printf "%s", "<attach-file>"$0"<enter>"}'  "$tmpfile" > "$midtmp" && mv "$midtmp" "$tmpfile"
+	midtmp="$(mktemp)"
+	[ "$1" = "attach" ] && awk 'BEGIN {printf "%s", "push "} {printf "%s", "\"<attach-file>"$0"<enter>\""}' "$tmpfile" >"$midtmp" && mv "$midtmp" "$tmpfile"
 fi
