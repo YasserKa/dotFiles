@@ -69,6 +69,8 @@ post-install-packages: stow-packages
 	sudo systemctl start acpid.service
 	sudo systemctl enable firewalld.service
 	sudo systemctl start firewalld.service
+	@# Weekly, discard unused blocks in filesystem
+	sudo systemctl enable fstrim.timer
 	systemctl --user daemon-reload
 	systemctl daemon-reload
 
