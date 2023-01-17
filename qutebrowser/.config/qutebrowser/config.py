@@ -105,6 +105,7 @@ c.bindings.commands = {
         "<Ctrl-k>": "fake-key <Shift-End><Delete>",
         "<Ctrl-a>": "fake-key <Home>",
         "<Ctrl-Shift-a>": "fake-key <Ctrl-a>",
+        "<Ctrl-y>": "fake-key <Ctrl-a><Ctrl-c><Right>",
         # Use another binding for editing in external editor
         "<Ctrl-Shift-e>": "edit-text",
     },
