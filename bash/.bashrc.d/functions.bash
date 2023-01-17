@@ -274,7 +274,7 @@ alias gitdotfiles='cd $HOME/dotfiles && magit'
 
 syncorg() {
 	emacsclient --no-wait --eval "(org-save-all-org-buffers)"
-	"$HOME"/bin/wait_internet && rclone sync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org'
+	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org'
 }
 
 reboot() {
