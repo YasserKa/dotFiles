@@ -389,13 +389,14 @@
     (kbd "+") 'er/expand-region
     (kbd "_") 'er/contract-region)
   )
-;; Enable C-a & C-x
+;; Enable C-a
 (use-package evil-numbers
   :after evil
   :config
   (evil-define-key '(normal visual) 'global
   (kbd "C-a") 'evil-numbers/inc-at-pt
-  (kbd "C-x") 'evil-numbers/dec-at-pt)
+  ;; (kbd "C-x") 'evil-numbers/dec-at-pt
+  )
 )
 
 ;; Align operator

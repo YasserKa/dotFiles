@@ -71,6 +71,7 @@ git # the fast distributed version control system
 entr # Run arbitrary commands when files change
 
 tmux # A terminal multiplexer
+tmuxp # Tmux session manager built on libtmux
 # Dependency for tmux
 msgpack-c # An efficient object serialization library
 alacritty # A cross-platform GPU-accelerated terminal emulator
@@ -193,7 +194,7 @@ syncthing # Open Source Continuous Replication / Cluster Sunchronization Thing
 kdeconnect # Communication with other devices
 libreoffice-fresh # LibreOffice branch which contains new features and program enhancements
 
-i3-gaps # A fork of i3wm tiling window manager with more features, including gaps
+i3-wm # A fork of i3wm tiling window manager with more features, including gaps
 i3lock # Improved screenlocker based upon XCB and PAM
 perl-anyevent-i3 # Communicate with the i3 window manager
 xorg-server # Xorg X server

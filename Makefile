@@ -8,10 +8,11 @@ XDG_DATA_HOME=$(HOME)/.local/share
 PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip jupyter_contrib_nbextensions poetry notebook neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
 
 .PHONY: install
-install: post-install-packages upgrade-pypi-packages setup-knowledge-base setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash firewalld setup-ambient-music show-final-instructions-message
+install: pre-install-packages install-packages post-install-packages upgrade-pypi-packages setup-knowledge-base setup-neovim setup-jupyter-notebook setup-qutebrowser setup-bash firewalld setup-ambient-music show-final-instructions-message
 
 .PHONY: stow-etc
 stow-etc:
+	sudo rm /etc/pacman.conf
 	sudo stow etc --target=/
 
 .PHONY: install-aur-helper
@@ -37,10 +38,10 @@ pre-install-packages:
 
 .PHONY: stow-packages
 stow-packages:
-	stow alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk i3 icons isync jupyter khard latex lnav lsd mailcap mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular picom polybar qutebrowser ranger readline rofi scripts shell_common ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xdg-open xmodmap zathura
+	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular picom polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xmodmap zathura
 
 .PHONY: post-install-packages
-post-install-packages: stow-packages
+post-install-packages:
 	# accurate date
 	sudo timedatectl set-ntp true
 	emacs --batch --load=$(XDG_CONFIG_HOME)/emacs/init.el
