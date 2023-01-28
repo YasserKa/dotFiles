@@ -340,7 +340,7 @@
   (evil-define-key 'insert 'global
     (kbd "C-a") 'back-to-indentation ;; Start of line
     (kbd "C-e") 'end-of-line
-    ;; (kbd "C-d") 'delete-char included in evil-org to work
+    (kbd "C-d") 'delete-char
     ;; Kill from current position to start of next word
     (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
 
@@ -1107,7 +1107,7 @@ see how ARG affects this command."
                                                                                    (evil-org-open-below 1) t)
                                                                                   ((progn (org-insert-heading-after-current) (evil-insert 0)))))
                               (kbd "<M-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
-                            ;; Update readline/ should be included here to work
+                            ;; readline keybinding
                             (evil-define-key 'insert 'evil-org-mode
                               (kbd "C-d") 'delete-char
                               )
@@ -1495,7 +1495,7 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra help-hydra (:exit t :idle 1)
-  (" a" consult-apropos "apropos interactive" :column " help")
+  (" a" consult-info "info pages" :column " help")
   (" A" apropos "apropos")
   (" k" helpful-key "key")
 
