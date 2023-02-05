@@ -47,62 +47,31 @@ NUTRIENTS = [
     "sodium",
 ]
 
-portion = [
-    0.15,
-    1,
-    0.85,
-    0.15,  # 10
-    1,
-    2,
-    1,
-    1 / 4,
-    230 / (100 * 4),
-    190 / (100 * 4),
-    85 / (45 * 4),
-    # 100 / (30 * 5),
-    2,
-    # 0.24,
-    0.3,
-    2,
-    0.05,
-    0.14,
-    1,
-]
-needed_food = [
-    "spinach",
-    "greek yogurt",
-    "cherry tomato",
-    # "avocado",
-    "almond",
-    # "walnut",
-    "muesli",
-    "vanilla yogurt",
-    "brown rice",
-    "olive oil",
-    "tofu",
-    "tomato",
-    "onion",
-    # "carrot",
-    "oats",
-    "raspberry",
-    # "blueberry",
-    "milk",
-    "honey",
-    "flaxseed",
-    "suggested",
-]
-# walnut 3.1g
-# almond 1.5g
 
-# 20-35% of calories from poly/mono
-# less than 10% from saturated
-
-# walnut omega-3 "250-500mg"
+needed_food = {
+    "spinach": 0.15,
+    "greek yogurt": 1,
+    "cherry tomato": 0.85,
+    "almond": 0.15,
+    "muesli": 1,
+    "vanilla yogurt": 2,
+    "flaxseed": 0.14,
+    "brown rice": 6.25 / 5,
+    "olive oil": 2 / 5,
+    "tofu": 230 / (100 * 5),
+    "tomato": 190 / (100 * 5),
+    "onion": 85 / (45 * 5),
+    "carrot": 100 / (30 * 5),
+    "oats": 1,
+    "milk": 2,
+    "honey": 0.05,
+    "suggested": 1,
+}
 
 needed_food_dict = {key: FOOD[key] for key in needed_food}
 
 df = pd.DataFrame(needed_food_dict, index=NUTRIENTS)
-df = df.multiply(portion)
+df = df.multiply(needed_food.values())
 df = df.round(2)
 df["taking"] = df.loc[:, df.columns != "suggested"].sum(axis=1)
 df["needed"] = df["suggested"] - df["taking"]
