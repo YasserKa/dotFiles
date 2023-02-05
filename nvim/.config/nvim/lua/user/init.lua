@@ -3,7 +3,7 @@ local config = {
 	-- Configure AstroNvim updates
 	updater = {
 		remote = "origin", -- remote to use
-		channel = "nightly", -- "stable" or "nightly"
+		channel = "stable", -- "stable" or "nightly"
 		version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
 		branch = "main", -- branch name (NIGHTLY ONLY)
 		spellfile = "~/.config/nvim/spell/en.utf-8.add",
@@ -344,6 +344,11 @@ local config = {
 		init = {
 			["goolord/alpha-nvim"] = { disable = true },
 			["numToStr/Comment.nvim"] = { disable = true }, -- Using vim-commentary
+			-- It's bugged in stable channel
+			-- https://github.com/AstroNvim/AstroNvim/issues/1376 fixes in nightly
+			-- nightly has its own issues
+			-- https://github.com/AstroNvim/AstroNvim/issues/1523
+			["Darazaki/indent-o-matic"] = { disable = true },
 			["max397574/better-escape.nvim"] = { disable = true },
 			{
 				"nvim-telescope/telescope-bibtex.nvim",
