@@ -341,6 +341,7 @@
     (kbd "C-a") 'back-to-indentation ;; Start of line
     (kbd "C-e") 'end-of-line
     (kbd "C-d") 'delete-char
+    (kbd "C-k") 'evil-delete-line
     ;; Kill from current position to start of next word
     (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
 
