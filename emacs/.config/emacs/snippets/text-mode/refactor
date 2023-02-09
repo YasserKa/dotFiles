@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: refactor
+# key: refactor
+# --
+refactor($1): $2

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: perf
+# key: perf
+# --
+perf($1): $2

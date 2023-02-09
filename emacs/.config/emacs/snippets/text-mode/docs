@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: docs
+# key: docs
+# --
+docs($1): $2
