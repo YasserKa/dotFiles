@@ -298,7 +298,7 @@ local config = {
 						require("luasnip").expand()
 					elseif require("luasnip").expand_or_jumpable() then
 						require("luasnip").expand_or_jump()
-					elseif has_words_before() then
+					elseif require("user.utils").has_words_before() then
 						require("cmp").complete()
 					else
 						require("cmp").mapping.confirm({ select = false })
