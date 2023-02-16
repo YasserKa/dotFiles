@@ -847,9 +847,15 @@ local config = {
 	-- anything that doesn't fit in the normal config locations above can go here
 	polish = function()
 		-- Unmap Astronvim mappings
-		local unmap = vim.api.nvim_del_keymap
+		unmap = function(mapping)
+			vim.cmd("silent! unmap " .. mapping)
+		end
 
-		unmap("n", "<leader>e") --  explorer binding
+		unmap("<leader>e") --  explorer binding
+
+		-- remove highlighting after yanking (bugged)
+		local id = vim.api.nvim_create_augroup("highlightyank", { clear = false })
+		vim.api.nvim_del_augroup_by_id(id)
 
 		vim.api.nvim_create_augroup("my_skeletons", { clear = true })
 		vim.api.nvim_create_autocmd("BufNewFile", {
