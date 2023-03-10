@@ -7,6 +7,7 @@ base # Minimal package set to define a basic Arch Linux installation
 grub # GNU GRand Unified Bootloader (2)
 # Optionally needed by grub for grub-mkrescue FAT FS support
 mtools # A collection of utilities to access MS-DOS disks
+base-devel # Basic tools to build Arch Linux packages
 pacman-contrib # Contributed scripts and tools for pacman systems
 expac # alpm data (pacman database) extraction utility
 # Dependency
@@ -30,7 +31,7 @@ displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
 evdi-git # kernel module that that enables management of multiple screens.
 
 # Video
-nvidia       # NVIDIA drivers
+nvidia-dkms       # NVIDIA drivers
 nvidia-utils # NVIDIA drivers utilities
 
 # Needed microcode
@@ -101,7 +102,7 @@ texlive-latexextra
 # Used in vim
 write-good # Naive linter for English prose
 
-pandoc # Conversion between markup formats
+pandoc-cli # Conversion between markup formats
 plantuml # Component that allows to quickly write uml diagrams
 npm # A package manager for javascript
 python-pip # The PyPA recommended tool for installing Python packages

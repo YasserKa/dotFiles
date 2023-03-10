@@ -264,6 +264,8 @@ bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 # Put general notes in scratchpad
 for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 
+for_window [class="^bitwarden_editor$"] , floating enable, move position center, resize set 990 820
+
 # note taking
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 

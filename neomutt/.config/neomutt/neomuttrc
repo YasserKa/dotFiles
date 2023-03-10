@@ -102,6 +102,8 @@ bind pager,browser gg top-page
 bind pager,browser G bottom-page
 bind index,pager,browser \Cd half-down
 bind index,pager,browser \Cu half-up
+bind index,pager,browser \Ck previous-line
+bind index,pager,browser \Cj next-line
 bind index,pager R group-reply
 bind pager \005 next-line		# Mouse wheel
 # Using ; as :

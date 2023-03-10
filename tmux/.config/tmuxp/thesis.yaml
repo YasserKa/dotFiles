@@ -38,3 +38,5 @@ windows:
     panes:
       - shell_command:
           - cd ./report
+          - clear
+          - ${EDITOR}

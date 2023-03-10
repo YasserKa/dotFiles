@@ -87,7 +87,7 @@ c.bindings.commands = {
     },
     "insert": {
         "<Ctrl-w>": "fake-key <Ctrl-backspace>",
-        "<Ctrl-l>": "fake-key <Ctrl-a>;; later 50 spawn --userscript"
+        "<Ctrl-l>": "fake-key <Shift-Home>;; later 50 spawn --userscript"
         " ~/.config/qutebrowser/userscripts/fix_last_typo",
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
@@ -152,6 +152,7 @@ c.aliases = {
     ),
     "kde_share": "spawn kdeconnect-cli -n 'Lenovo tablet' --share {url}",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
+    "generate_password": "spawn --userscript ~/.config/qutebrowser/userscripts/generate_password",
     "hosts": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
     "translate": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
     "open_download": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
