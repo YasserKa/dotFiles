@@ -55,8 +55,8 @@ cmus # Feature-rich ncurses-based music player
 screen
 
 # Aesthetics
-nerd-fonts-complete # Iconic font aggregator, collection, & patcher. 3,600+ icons, 50+ patched fonts.
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal
+ttf-inconsolata-nerd # Patched font Inconsolata from nerd fonts library
 ttf-font-awesome # Iconic font designed for Bootstrap
 adapta-gtk-theme # An adaptive Gtk+ theme based on Material Design Guidelines
 unclutter # hide cursor if not active
