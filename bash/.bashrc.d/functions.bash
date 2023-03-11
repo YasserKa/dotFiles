@@ -1,40 +1,46 @@
 # shellcheck shell=bash
-# Extract compressed files function
-extract() {
-	local c e i
+#
+# https://github.com/xvoland/Extract/blob/master/extract.sh
+function extract {
+ if [ $# -eq 0 ]; then
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz|.zlib|.cso>"
+    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+ fi
+    for n in "$@"; do
+        if [ ! -f "$n" ]; then
+            echo "'$n' - file doesn't exist"
+            return 1
+        fi
 
-	(($#)) || return
-
-	for i; do
-		c=''
-		e=1
-
-		if [[ ! -r $i ]]; then
-			echo "$0: file is unreadable: \`$i'" >&2
-			continue
-		fi
-
-		case $i in
-			*.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz))))) c=(bsdtar xvf) ;;
-			*.7z) c=(7z x) ;;
-			*.Z) c=(uncompress) ;;
-			*.bz2) c=(bunzip2) ;;
-			*.exe) c=(cabextract) ;;
-			*.gz) c=(gunzip) ;;
-			*.rar) c=(unrar x) ;;
-			*.xz) c=(unxz) ;;
-			*.zip) c=(unzip) ;;
-			*.zst) c=(unzstd) ;;
-			*)
-				echo "$0: unrecognized file extension: \`$i'" >&2
-				continue
-				;;
-		esac
-
-		command "${c[@]}" "$i"
-		((e = e || $?))
-	done
-	return "$e"
+        case "${n##*.}" in
+          cbt|tar.bz2|tar.gz|tar.xz|tbz2|tgz|txz|tar)
+                       tar xvf -p "$n"    ;;
+          lzma)      unlzma ./"$n"      ;;
+          bz2)       bunzip2 ./"$n"     ;;
+          cbr|rar) unrar x -ad ./"$n" ;;
+          gz)        gunzip ./"$n"      ;;
+          cbz|epub|zip) unzip ./"$n"   ;;
+          z)         uncompress ./"$n"  ;;
+          7z|apk|arj|cab|cb7|chm|deb|iso|lzh|msi|pkg|rpm|udf|wim|xar|vhd)
+                       7z x ./"$n"        ;;
+          xz)        unxz ./"$n"        ;;
+          exe)       cabextract ./"$n"  ;;
+          cpio)      cpio -id < ./"$n"  ;;
+          cba|ace) unace x ./"$n"     ;;
+          zpaq)      zpaq x ./"$n"      ;;
+          arc)       arc e ./"$n"       ;;
+          cso)       ciso 0 ./"$n" ./"$n.iso" && \
+                            extract "$n.iso" && \rm -f "$n" ;;
+          zlib)      zlib-flate -uncompress < ./"$n" > ./"$n.tmp" && \
+                            mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n"   ;;
+          dmg)
+                      hdiutil mount ./"$n" -mountpoint "./$n.mounted" ;;
+          *)
+                      echo "extract: '$n' - unknown archive method"
+                      return 1
+                      ;;
+        esac
+    done
 }
 
 # Remove dependencies that are no longer needed
@@ -51,7 +57,7 @@ upgrade_system() {
 	orphans
 	yes | paru --sync --refresh --sysupgrade --noconfirm
 	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
-	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'MasonToolsUpdate' -c 'PackerSync'
+  nvim --headless -c 'autocmd User LazySync quitall' -c "MasonUpdateAll" "+Lazy! sync"
 	printf "%s\n" "Updating Emacs packages"
 	# Update packages and exit afterwards
 	emacs --no-window-system --eval "(progn
@@ -274,7 +280,7 @@ alias gitdotfiles='cd $HOME/dotfiles && magit'
 
 syncorg() {
 	emacsclient --no-wait --eval "(org-save-all-org-buffers)"
-	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' --force
+	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org'
 }
 
 reboot() {
