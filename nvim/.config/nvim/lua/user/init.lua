@@ -174,10 +174,10 @@ local config = {
 			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
 
 			-- navigating wrapped lines
-			["j"] = { "gj", desc = "gj replacement" },
-			["k"] = { "gk", desc = "gk replacement" },
-			["gj"] = { "j", desc = "j replacement" },
-			["gk"] = { "k", desc = "k replacement" },
+			["j"] = { "gj" },
+			["k"] = { "gk" },
+			["gj"] = { "j" },
+			["gk"] = { "k" },
 			["<leader>ff"] = {
 				function()
 					require("telescope.builtin").find_files()
@@ -202,67 +202,67 @@ local config = {
 
 			["yod"] = {
 				function()
-					astronvim.ui.toggle_diagnostics()
+					require("astronvim.utils.ui").toggle_diagnostics()
 				end,
 				desc = "Toggle diagnostics",
 			},
 			["yog"] = {
 				function()
-					astronvim.ui.toggle_signcolumn()
+					require("astronvim.utils.ui").toggle_signcolumn()
 				end,
 				desc = "Toggle signcolumn",
 			},
 			["yoi"] = {
 				function()
-					astronvim.ui.set_indent()
+					require("astronvim.utils.ui").set_indent()
 				end,
 				desc = "Change indent setting",
 			},
 			["yol"] = {
 				function()
-					astronvim.ui.toggle_statusline()
+					require("astronvim.utils.ui").toggle_statusline()
 				end,
 				desc = "Toggle statusline",
 			},
 			["yon"] = {
 				function()
-					astronvim.ui.change_number()
+					require("astronvim.utils.ui").change_number()
 				end,
 				desc = "Change line numbering",
 			},
 			["yos"] = {
 				function()
-					astronvim.ui.toggle_spell()
+					require("astronvim.utils.ui").toggle_spell()
 				end,
 				desc = "Toggle spellcheck",
 			},
 			["yop"] = {
 				function()
-					astronvim.ui.toggle_paste()
+					require("astronvim.utils.ui").toggle_paste()
 				end,
 				desc = "Toggle paste mode",
 			},
 			["yot"] = {
 				function()
-					astronvim.ui.toggle_tabline()
+					require("astronvim.utils.ui").toggle_tabline()
 				end,
 				desc = "Toggle tabline",
 			},
 			["you"] = {
 				function()
-					astronvim.ui.toggle_url_match()
+					require("astronvim.utils.ui").toggle_url_match()
 				end,
 				desc = "Toggle URL highlight",
 			},
 			["yow"] = {
 				function()
-					astronvim.ui.toggle_wrap()
+					require("astronvim.utils.ui").toggle_wrap()
 				end,
 				desc = "Toggle wrap",
 			},
 			["yoy"] = {
 				function()
-					astronvim.ui.toggle_syntax()
+					require("astronvim.utils.ui").toggle_syntax()
 				end,
 				desc = "Toggle syntax highlight",
 			},
@@ -278,12 +278,19 @@ local config = {
 	},
 	-- Configure plugins
 	plugins = {
+		{ -- override nvim-cmp plugin
+			"hrsh7th/nvim-cmp",
+			-- override the options table that is used in the `require("cmp").setup()` call
+			opts = function(_, opts)
+				-- opts parameter is the default options table
+				-- the function is lazy loaded so cmp is able to be required
+				local cmp = require("cmp")
+				-- modify the mapping part of the table
 
-		cmp = {
-			mapping = {
-				["<A-k>"] = require("cmp").mapping(require("cmp").mapping.scroll_docs(-5), { "i", "c" }),
-				["<A-j>"] = require("cmp").mapping(require("cmp").mapping.scroll_docs(5), { "i", "c" }),
-				["<C-k>"] = require("cmp").mapping(function(fallback)
+				opts.mapping["<A-k>"] = cmp.mapping(cmp.mapping.scroll_docs(-5), { "i", "c" })
+				opts.mapping["<A-j>"] = cmp.mapping(cmp.mapping.scroll_docs(5), { "i", "c" })
+
+				opts.mapping["<C-k>"] = cmp.mapping(function(fallback)
 					if require("luasnip").jumpable(-1) then
 						require("luasnip").jump(-1)
 					else
@@ -292,395 +299,442 @@ local config = {
 				end, {
 					"i",
 					"s",
-				}),
-				["<C-j>"] = require("cmp").mapping(function(fallback)
+				})
+				opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
 					if require("luasnip").expandable() then
 						require("luasnip").expand()
 					elseif require("luasnip").expand_or_jumpable() then
 						require("luasnip").expand_or_jump()
 					elseif require("user.utils").has_words_before() then
-						require("cmp").complete()
+						cmp.complete()
 					else
-						require("cmp").mapping.confirm({ select = false })
+						cmp.mapping.confirm({ select = false })
 					end
 				end, {
 					"i",
 					"s",
-				}),
-			},
-			source_priority = {
-				luasnip = 1000,
-				nvim_lsp = 750,
-				buffer = 500,
-				path = 250,
-			},
+				})
+				opts.sources = cmp.config.sources({
+					{ name = "luasnip", priority = 1000 },
+					{ name = "nvim_lsp", priority = 750 },
+					{ name = "buffer", priority = 500 },
+					{ name = "path", priority = 250 },
+				})
+
+				-- return the new table to be used
+				return opts
+			end,
 		},
-		telescope = {
-			defaults = {
-				mappings = {
-					i = {
-						["<esc>"] = require("telescope.actions").close,
-						["<C-u>"] = false,
-						["<C-[>"] = require("telescope.actions").close,
-						["<C-j>"] = require("telescope.actions").select_default,
-						["<C-d>"] = require("telescope.actions").delete_buffer,
-						["<C-s>"] = require("telescope.actions").select_horizontal,
-						["<C-n>"] = require("telescope.actions").move_selection_next,
-						["<C-p>"] = require("telescope.actions").move_selection_previous,
-						["<A-j>"] = require("telescope.actions").cycle_previewers_next,
-						["<A-k>"] = require("telescope.actions").cycle_previewers_prev,
-					},
-				},
-			},
-			pickers = {
-				find_files = {
-					find_command = { "fd", "-L", "--type", "f", "--strip-cwd-prefix" },
-				},
-				live_grep = {
-					additional_args = { "-L" },
-				},
-			},
-		},
-		init = {
-			["goolord/alpha-nvim"] = { disable = true },
-			["numToStr/Comment.nvim"] = { disable = true }, -- Using vim-commentary
-			-- It's bugged in stable channel
-			-- https://github.com/AstroNvim/AstroNvim/issues/1376 fixes in nightly
-			-- nightly has its own issues
-			-- https://github.com/AstroNvim/AstroNvim/issues/1523
-			["Darazaki/indent-o-matic"] = { disable = true },
-			["max397574/better-escape.nvim"] = { disable = true },
-			{
-				"nvim-telescope/telescope-bibtex.nvim",
-				after = {
-					"telescope.nvim",
-				},
-				config = function()
-					require("telescope").load_extension("bibtex")
-				end,
-			},
-			{ "https://github.com/andymass/vim-matchup" },
-			{
-				"https://github.com/echasnovski/mini.nvim",
-				config = function()
-					require("mini.surround").setup({
+		{
+			"nvim-telescope/telescope.nvim",
+			opts = function()
+				local actions = require("telescope.actions")
+   			local get_icon = require("astronvim.utils").get_icon
+				return {
+					defaults = {
+						-- prompt_prefix = string.format("%s ", get_icon("Search")),
+						-- selection_caret = string.format("%s ", get_icon("Selected")),
+						path_display = { "truncate" },
+						sorting_strategy = "ascending",
+						layout_config = {
+							horizontal = {
+								prompt_position = "top",
+								preview_width = 0.55,
+							},
+							vertical = {
+								mirror = false,
+							},
+							width = 0.87,
+							height = 0.80,
+							preview_cutoff = 120,
+						},
+
 						mappings = {
-							add = "ys",
-							delete = "ds",
-							find = "",
-							find_left = "",
-							highlight = "",
-							replace = "cs",
-							update_n_lines = "",
-							-- Add this only if you don't want to use extended mappings
-							suffix_last = "",
-							suffix_next = "",
-						},
-						search_method = "cover_or_next",
-					})
-					require("mini.align").setup()
-					require("mini.bufremove").setup()
-					-- Remap adding surrounding to Visual mode selection
-					vim.api.nvim_del_keymap("x", "ys")
-					vim.api.nvim_set_keymap("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
-					-- Make special mapping for "add surrounding for line",
-					vim.api.nvim_set_keymap("n", "yss", "ys_", { noremap = false })
-				end,
-			},
-			{
-				"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-				after = "nvim-treesitter",
-			},
-			{ "https://github.com/aymericbeaumet/vim-symlink" },
-			{
-				"https://github.com/ziontee113/syntax-tree-surfer",
-				after = "nvim-treesitter",
-			},
-			{
-				"https://github.com/linty-org/readline.nvim",
-				config = function()
-					local readline = require("readline")
-					vim.keymap.set("!", "<C-k>", readline.kill_line)
-					vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
-					vim.keymap.set("!", "<M-d>", readline.kill_word)
-					vim.keymap.set("!", "<M-BS>", readline.backward_kill_word)
-					vim.keymap.set("!", "<C-d>", "<Delete>") -- delete-char
-					vim.keymap.set("!", "<C-h>", "<BS>") -- backward-delete-char
-					vim.keymap.set("!", "<C-a>", readline.beginning_of_line)
-					-- vim.keymap.set("!", "<C-e>", readline.end_of_line) -- used by luasnip to switch between choices
-					vim.keymap.set("!", "<M-f>", readline.forward_word)
-					vim.keymap.set("!", "<M-b>", readline.backward_word)
-					vim.keymap.set("!", "<C-f>", "<Right>") -- forward-char
-					vim.keymap.set("!", "<C-b>", "<Left>") -- backward-char
-				end,
-			},
-			{ "https://github.com/tpope/vim-unimpaired" },
-			{ "https://github.com/tpope/vim-repeat" }, -- Used to repeat vim-unimpaired actions
-			{
-				"https://github.com/folke/todo-comments.nvim",
-				requires = "nvim-lua/plenary.nvim",
-				config = function()
-					require("todo-comments").setup({
-						signs = false,
-						keywords = {
-							REFACTOR = { icon = "" },
-						},
-					})
-				end,
-			},
-			{ "https://github.com/lervag/vimtex" },
-			{ "https://github.com/jbyuki/nabla.nvim" },
-			{ "https://github.com/jpalardy/vim-slime" },
-			{
-				"https://github.com/hanschen/vim-ipython-cell",
-				ft = "python",
-				config = function()
-					local wk = require("which-key")
-					wk.register({
-						["<localleader>"] = {
-							n = {
-								r = { ":w<CR>:IPythonCellRun<CR>", "Run file" },
-								R = { ":w<CR>:IPythonCellRunTime<CR>", "Run file with timer" },
-								c = { ":IPythonCellExecuteCell<CR>", "Execute cell" },
-								vc = { " :IPythonCellExecuteVerboseCell<CR>", "Execute cell verbosely" },
-								C = { ":IPythonCellExecuteCellJump<CR>", "Execute cell and jump to next" },
-								vC = {
-									" :IPythonCellExecuteCellVerboseJump<CR>",
-									"Execute cell verbosly and jump to next",
-								},
-								l = { ":IPythonCellClear<CR>", "Clear shell" },
-								x = { ":IPythonCellClose<CR>", "Close shell" },
-								Q = { ":IPythonCellRestart<CR>", "Restart shell" },
-								p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
-								s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
-								h = { "<Plug>SlimeLineSend", "Send line" },
-								d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
-								q = { ":SlimeSend1 exit<CR>", "Exit" },
-								m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
-								I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
-								i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
-								j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
-								k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
+							i = {
+								["<esc>"] = actions.close,
+								["<C-u>"] = false,
+								["<C-[>"] = actions.close,
+								["<C-j>"] = actions.select_default,
+								["<C-d>"] = actions.delete_buffer,
+								["<C-s>"] = actions.select_horizontal,
+								["<C-n>"] = actions.move_selection_next,
+								["<C-p>"] = actions.move_selection_previous,
+								["<A-j>"] = actions.cycle_previewers_next,
+								["<A-k>"] = actions.cycle_previewers_prev,
 							},
 						},
-						["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
-						["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
-					})
-					wk.register({
-						["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-						["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-
-						["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-						["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-					}, { mode = "i" })
-					wk.register({
-						["<localleader>"] = {
-							n = {
-								name = "python-cell",
-								h = { "<Plug>SlimeRegionSend", "Send shell" },
+						pickers = {
+							find_files = {
+								find_command = { "fd", "-L", "--type", "f", "--strip-cwd-prefix" },
+							},
+							live_grep = {
+								additional_args = { "-L" },
 							},
 						},
-					}, { mode = "v" })
-				end,
-			},
-			{
-				"https://github.com/EdenEast/nightfox.nvim",
-				groups = {
-					all = {
-						-- Some examples, make sure only to define Conceal once
-						Conceal = {
-							link = "Comment",
-							fg = "syntax.comment",
-						}, -- link `Conceal` to a spec value
 					},
-				},
-			},
-			-- { "https://github.com/Ron89/thesaurus_query.vim" },
-			--  File type support
-			{ "https://github.com/fladson/vim-kitty" },
-			{ "https://github.com/YasserKa/vim-sxhkdrc" },
-			{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
-
-			-- Git
-			{ "https://github.com/tpope/vim-fugitive" },
-			{ "https://github.com/junegunn/gv.vim", requires = "https://github.com/tpope/vim-fugitive" },
-			{ "https://github.com/tpope/vim-rhubarb", requires = "https://github.com/tpope/vim-fugitive" },
-
-			{ "https://github.com/terryma/vim-expand-region" },
-			{ "https://github.com/jeetsukumaran/vim-commentary" },
-			{ "https://github.com/szw/vim-maximizer" },
-			{ "https://github.com/simnalamburt/vim-mundo" },
-
-			{
-				"https://github.com/ggandor/leap.nvim",
-				config = function()
-					require("leap").add_default_mappings()
-				end,
-			},
-			{
-				"https://github.com/iamcco/markdown-preview.nvim",
-				run = function()
-					vim.fn["mkdp#util#install"]()
-				end,
-				setup = function()
-					vim.g.mkdp_filetypes = { "markdown", "plantuml" }
-				end,
-				ft = { "markdown", "plantuml" },
-			},
-			{ "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
-			{
-				"https://github.com/kdheepak/cmp-latex-symbols",
-				after = "nvim-cmp",
-
-				config = function()
-					astronvim.add_user_cmp_source("latex_symbols")
-				end,
-			},
-			{
-				"https://github.com/danymat/neogen",
-				config = function()
-					require("neogen").setup({
-						snippet_engine = "luasnip",
-					})
-				end,
-				requires = "nvim-treesitter/nvim-treesitter",
-			},
-			{ "https://github.com/romainl/vim-cool" }, -- Disable search highlighting when done}
-			{ "https://github.com/honza/vim-snippets" },
+				}
+			end,
 		},
-		["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
-			-- config variable is the default configuration table for the setup function call
-			local null_ls = require("null-ls")
-
-			-- Supported formatters and linters
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-			-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-			config.sources = {
-				null_ls.builtins.diagnostics.flake8.with({
-					-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
-				}),
-				null_ls.builtins.formatting.shfmt.with({
-					extra_args = { "--case-indent" },
-				}),
-				-- null_ls.builtins.diagnostics.mypy,
-				-- Set a formatter
-				-- null_ls.builtins.formatting.stylua,
-				-- null_ls.builtins.formatting.prettier,
-			}
-			return config -- return final config table
-		end,
-		["neo-tree"] = {
-			window = {
-				mappings = {
-					["<tab>"] = {
-						"toggle_node",
-						nowait = false,
-					},
-					["l"] = {
-						"toggle_node",
-						nowait = false,
-					},
-					["h"] = {
-						"close_node",
-						nowait = false,
-					},
-					["v"] = "open_vsplit",
-					["x"] = "open_split",
-				},
-			},
-			filesystem = {
-				window = {
+		{ "goolord/alpha-nvim", enabled = false },
+		{ "numToStr/Comment.nvim", enabled = false }, -- Using vim-commentary
+		-- It's bugged in stable channel
+		-- https://github.com/AstroNvim/AstroNvim/issues/1376 fixes in nightly
+		-- nightly has its own issues
+		-- https://github.com/AstroNvim/AstroNvim/issues/1523
+		{ "Darazaki/indent-o-matic", enabled = false },
+		{ "max397574/better-escape.nvim", enabled = false },
+		{
+			"nvim-telescope/telescope-bibtex.nvim",
+			dependencies = { "nvim-telescope/telescope.nvim", },
+			ft = { "tex" },
+			config = function()
+				require("telescope").load_extension("bibtex")
+			end,
+		},
+		{ "https://github.com/andymass/vim-matchup"},
+		{
+			"https://github.com/echasnovski/mini.nvim", lazy = false,
+			config = function()
+				require("mini.surround").setup({
 					mappings = {
-						["<leader>H"] = "toggle_hidden",
-						["h"] = {
-							"close_node",
-							nowait = false,
+						add = "ys",
+						delete = "ds",
+						find = "",
+						find_left = "",
+						highlight = "",
+						replace = "cs",
+						update_n_lines = "",
+						-- Add this only if you don't want to use extended mappings
+						suffix_last = "",
+						suffix_next = "",
+					},
+					search_method = "cover_or_next",
+				})
+				require("mini.align").setup()
+				require("mini.bufremove").setup()
+				-- Remap adding surrounding to Visual mode selection
+				vim.api.nvim_del_keymap("x", "ys")
+				vim.api.nvim_set_keymap("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { noremap = true })
+				-- Make special mapping for "add surrounding for line",
+				vim.api.nvim_set_keymap("n", "yss", "ys_", { noremap = false })
+			end,
+		},
+		{
+			"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+			after = "nvim-treesitter",
+		},
+		{ "https://github.com/aymericbeaumet/vim-symlink" },
+		{
+			"https://github.com/ziontee113/syntax-tree-surfer",
+			after = "nvim-treesitter",
+		},
+		{
+			"https://github.com/linty-org/readline.nvim",
+			config = function()
+				local readline = require("readline")
+				vim.keymap.set("!", "<C-k>", readline.kill_line)
+				vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
+				vim.keymap.set("!", "<M-d>", readline.kill_word)
+				vim.keymap.set("!", "<M-BS>", readline.backward_kill_word)
+				vim.keymap.set("!", "<C-d>", "<Delete>") -- delete-char
+				vim.keymap.set("!", "<C-h>", "<BS>") -- backward-delete-char
+				vim.keymap.set("!", "<C-a>", readline.beginning_of_line)
+				-- vim.keymap.set("!", "<C-e>", readline.end_of_line) -- used by luasnip to switch between choices
+				vim.keymap.set("!", "<M-f>", readline.forward_word)
+				vim.keymap.set("!", "<M-b>", readline.backward_word)
+				vim.keymap.set("!", "<C-f>", "<Right>") -- forward-char
+				vim.keymap.set("!", "<C-b>", "<Left>") -- backward-char
+			end,
+		},
+		{ "https://github.com/tpope/vim-unimpaired" },
+		{ "https://github.com/tpope/vim-repeat" }, -- Used to repeat vim-unimpaired actions
+		{
+			"https://github.com/folke/todo-comments.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("todo-comments").setup({
+					signs = false,
+					keywords = {
+						REFACTOR = { icon = "" },
+					},
+				})
+			end,
+		},
+		{ "https://github.com/lervag/vimtex", ft = "tex" },
+		{ "https://github.com/jbyuki/nabla.nvim", ft = "tex" },
+		{ "https://github.com/jpalardy/vim-slime" },
+		{
+			"https://github.com/hanschen/vim-ipython-cell",
+			ft = "python",
+			config = function()
+				local wk = require("which-key")
+				wk.register({
+					["<localleader>"] = {
+						n = {
+							r = { ":w<CR>:IPythonCellRun<CR>", "Run file" },
+							R = { ":w<CR>:IPythonCellRunTime<CR>", "Run file with timer" },
+							c = { ":IPythonCellExecuteCell<CR>", "Execute cell" },
+							vc = { " :IPythonCellExecuteVerboseCell<CR>", "Execute cell verbosely" },
+							C = { ":IPythonCellExecuteCellJump<CR>", "Execute cell and jump to next" },
+							vC = {
+								" :IPythonCellExecuteCellVerboseJump<CR>",
+								"Execute cell verbosly and jump to next",
+							},
+							l = { ":IPythonCellClear<CR>", "Clear shell" },
+							x = { ":IPythonCellClose<CR>", "Close shell" },
+							Q = { ":IPythonCellRestart<CR>", "Restart shell" },
+							p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
+							s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
+							h = { "<Plug>SlimeLineSend", "Send line" },
+							d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
+							q = { ":SlimeSend1 exit<CR>", "Exit" },
+							m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
+							I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
+							i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
+							j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
+							k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
 						},
 					},
+					["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
+					["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
+				})
+				wk.register({
+					["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
+					["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
+
+					["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
+					["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
+				}, { mode = "i" })
+				wk.register({
+					["<localleader>"] = {
+						n = {
+							name = "python-cell",
+							h = { "<Plug>SlimeRegionSend", "Send shell" },
+						},
+					},
+				}, { mode = "v" })
+			end,
+		},
+		{
+			"https://github.com/EdenEast/nightfox.nvim",
+			groups = {
+				all = {
+					-- Some examples, make sure only to define Conceal once
+					Conceal = {
+						link = "Comment",
+						fg = "syntax.comment",
+					}, -- link `Conceal` to a spec value
 				},
 			},
 		},
-		treesitter = { -- overrides `require("treesitter").setup(...)`
-			ensure_installed = { "lua", "python", "bash", "latex", "json" },
+		-- { "https://github.com/Ron89/thesaurus_query.vim" },
+		--  File type support
+		{ "https://github.com/fladson/vim-kitty" },
+		{ "https://github.com/YasserKa/vim-sxhkdrc" },
+		{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
 
-			indent = { enable = true, disable = { "python" } },
-			matchup = { enable = true },
-			highlight = {
-				enable = true,
-				-- vimtex conceal doesn't work with treesitter check :h vimtex-faq-treesitter
-				disable = { "latex", "help", "man" },
-			},
-			tree_surfer = { enable = true },
-			textobjects = {
-				select = {
-					enable = true,
-					disable = { "man" },
+		-- Git
+		{ "https://github.com/tpope/vim-fugitive" },
+		{ "https://github.com/junegunn/gv.vim", requires = "https://github.com/tpope/vim-fugitive" },
+		{ "https://github.com/tpope/vim-rhubarb", requires = "https://github.com/tpope/vim-fugitive" },
 
-					-- Automatically jump forward to textobj, similar to targets.vim
-					lookahead = true,
+		{ "https://github.com/terryma/vim-expand-region" },
+		{ "https://github.com/jeetsukumaran/vim-commentary", event="VeryLazy" },
+		{ "https://github.com/szw/vim-maximizer" },
+		{ "https://github.com/simnalamburt/vim-mundo" },
 
-					keymaps = {
-						-- You can use the capture groups defined in textobjects.scm
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
-						["ac"] = "@class.outer",
-						["a/"] = "@comment.outer",
-						-- You can optionally set descriptions to the mappings (used in the desc parameter of
-						-- nvim_buf_set_keymap) which plugins like which-key display
-						["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+		{
+			"https://github.com/ggandor/leap.nvim",
+			config = function()
+				require("leap").add_default_mappings()
+			end,
+		},
+		{
+			"https://github.com/iamcco/markdown-preview.nvim",
+			run = function()
+				vim.fn["mkdp#util#install"]()
+			end,
+			setup = function()
+				vim.g.mkdp_filetypes = { "markdown", "plantuml" }
+			end,
+			ft = { "markdown", "plantuml" },
+		},
+		{ "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+		{
+			"https://github.com/kdheepak/cmp-latex-symbols",
+			after = "nvim-cmp",
+
+			config = function()
+				astronvim.add_user_cmp_source("latex_symbols")
+			end,
+		},
+		{
+			"https://github.com/danymat/neogen",
+			config = function()
+				require("neogen").setup({
+					snippet_engine = "luasnip",
+				})
+			end,
+			requires = "nvim-treesitter/nvim-treesitter",
+		},
+		{ "https://github.com/romainl/vim-cool" }, -- Disable search highlighting when done
+		{ "https://github.com/honza/vim-snippets" },
+		{
+			"jose-elias-alvarez/null-ls.nvim",
+			opts = function(config) -- overrides `require("null-ls").setup(config)`
+				-- config variable is the default configuration table for the setup function call
+				local null_ls = require("null-ls")
+
+				-- Supported formatters and linters
+				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+				config.sources = {
+					null_ls.builtins.diagnostics.flake8.with({
+						-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
+					}),
+					null_ls.builtins.formatting.shfmt.with({
+						extra_args = { "--case-indent" },
+					}),
+					-- null_ls.builtins.diagnostics.mypy,
+					-- Set a formatter
+					-- null_ls.builtins.formatting.stylua,
+					-- null_ls.builtins.formatting.prettier,
+				}
+				return config
+			end,
+		},
+		{
+			"nvim-neo-tree/neo-tree.nvim",
+			opts = function()
+				return {
+					window = {
+						mappings = {
+							["<tab>"] = {
+								"toggle_node",
+								nowait = false,
+							},
+							["l"] = {
+								"toggle_node",
+								nowait = false,
+							},
+							["h"] = {
+								"close_node",
+								nowait = false,
+							},
+							["v"] = "open_vsplit",
+							["x"] = "open_split",
+						},
 					},
-					-- You can choose the select mode (default is charwise 'v')
-					--
-					-- Can also be a function which gets passed a table with the keys
-					-- * query_string: eg '@function.inner'
-					-- * method: eg 'v' or 'o'
-					-- and should return the mode ('v', 'V', or '<c-v>') or a table
-					-- mapping query_strings to modes.
-					selection_modes = {
-						["@parameter.outer"] = "v", -- charwise
-						["@function.outer"] = "V", -- linewise
-						["@class.outer"] = "<c-v>", -- blockwise
+					filesystem = {
+						window = {
+							mappings = {
+								["<leader>H"] = "toggle_hidden",
+								["h"] = {
+									"close_node",
+									nowait = false,
+								},
+							},
+						},
 					},
-					-- If you set this to `true` (default is `false`) then any textobject is
-					-- extended to include preceding or succeeding whitespace. Succeeding
-					-- whitespace has priority in order to act similarly to eg the built-in
-					-- `ap`.
-					--
-					-- Can also be a function which gets passed a table with the keys
-					-- * query_string: eg '@function.inner'
-					-- * selection_mode: eg 'v'
-					-- and should return true of false
-					include_surrounding_whitespace = true,
-				},
-				move = {
-					enable = true,
-					set_jumps = true, -- whether to set jumps in the jumplist
-					goto_next_start = {
-						["]k"] = "@function.outer",
-						["]]"] = { query = "@class.outer", desc = "Next class start" },
+				}
+			end,
+		},
+		{
+			"nvim-treesitter/nvim-treesitter",
+			opts = function()
+				return {
+					ensure_installed = { "lua", "python", "bash", "latex", "json" },
+
+					indent = { enable = true, disable = { "python" } },
+					matchup = { enable = true },
+					highlight = {
+						enable = true,
+						-- vimtex conceal doesn't work with treesitter check :h vimtex-faq-treesitter
+						disable = { "latex", "help", "man" },
 					},
-					goto_next_end = {
-						["]M"] = "@function.outer",
-						["]["] = "@class.outer",
+					tree_surfer = { enable = true },
+					textobjects = {
+						select = {
+							enable = true,
+							disable = { "man" },
+
+							-- Automatically jump forward to textobj, similar to targets.vim
+							lookahead = true,
+
+							keymaps = {
+								-- You can use the capture groups defined in textobjects.scm
+								["af"] = "@function.outer",
+								["if"] = "@function.inner",
+								["ac"] = "@class.outer",
+								["a/"] = "@comment.outer",
+								-- You can optionally set descriptions to the mappings (used in the desc parameter of
+								-- nvim_buf_set_keymap) which plugins like which-key display
+								["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+							},
+							-- You can choose the select mode (default is charwise 'v')
+							--
+							-- Can also be a function which gets passed a table with the keys
+							-- * query_string: eg '@function.inner'
+							-- * method: eg 'v' or 'o'
+							-- and should return the mode ('v', 'V', or '<c-v>') or a table
+							-- mapping query_strings to modes.
+							selection_modes = {
+								["@parameter.outer"] = "v", -- charwise
+								["@function.outer"] = "V", -- linewise
+								["@class.outer"] = "<c-v>", -- blockwise
+							},
+							-- If you set this to `true` (default is `false`) then any textobject is
+							-- extended to include preceding or succeeding whitespace. Succeeding
+							-- whitespace has priority in order to act similarly to eg the built-in
+							-- `ap`.
+							--
+							-- Can also be a function which gets passed a table with the keys
+							-- * query_string: eg '@function.inner'
+							-- * selection_mode: eg 'v'
+							-- and should return true of false
+							include_surrounding_whitespace = true,
+						},
+						move = {
+							enable = true,
+							set_jumps = true, -- whether to set jumps in the jumplist
+							goto_next_start = {
+								["]k"] = "@function.outer",
+								["]]"] = { query = "@class.outer", desc = "Next class start" },
+							},
+							goto_next_end = {
+								["]M"] = "@function.outer",
+								["]["] = "@class.outer",
+							},
+							goto_previous_start = {
+								["[k"] = "@function.outer",
+								["[["] = "@class.outer",
+							},
+							goto_previous_end = {
+								["[M"] = "@function.outer",
+								["[]"] = "@class.outer",
+							},
+						},
 					},
-					goto_previous_start = {
-						["[k"] = "@function.outer",
-						["[["] = "@class.outer",
-					},
-					goto_previous_end = {
-						["[M"] = "@function.outer",
-						["[]"] = "@class.outer",
-					},
-				},
-			},
+				}
+			end,
 		},
 		-- use mason-lspconfig to configure LSP installations
-		["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
-			ensure_installed = { "pyright", "bashls" },
+		{
+			"williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
+			opts = function()
+				return {
+					ensure_installed = { "pyright", "bashls" },
+				}
+			end,
 		},
 		-- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-		["mason-null-ls"] = { -- overrides `require("mason-null-ls").setup(...)`
-			ensure_installed = { "prettier", "stylua", "isort", "flake8", "black", "shellcheck", "shfmt", "" },
+		{
+			"jay-babu/mason-null-ls.nvim", -- overrides `require("mason-null-ls").setup(...)`
+			opts = function()
+				return {
+					ensure_installed = { "prettier", "stylua", "isort", "flake8", "black", "shellcheck", "shfmt", "" },
+				}
+			end,
 		},
 	},
 
@@ -962,7 +1016,7 @@ local config = {
 		vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
 
 		vim.keymap.set("x", "@", '":norm @" . getcharstr() . "<cr>"', { expr = true })
-		vim.keymap.set("n", "<leader>c", MiniBufremove.delete) -- Remove buffer, but keep split
+		-- vim.keymap.set("n", "<leader>c", MiniBufremove.delete) -- Remove buffer, but keep split
 		vim.keymap.set("n", "<leader>C", "<cmd>bdelete<cr>")
 
 		-- {{{
@@ -1138,38 +1192,38 @@ local config = {
 		-- end, opts)
 
 		-- Navigate between elements
-		vim.keymap.set("n", "]f", function()
-			sts.filtered_jump({
-				"if_statement",
-			}, true)
-		end, opts)
-		vim.keymap.set("n", "[f", function()
-			sts.filtered_jump({
-				"if_statement",
-			}, false)
-		end, opts)
-
-		vim.keymap.set("n", "]c", function()
-			sts.filtered_jump({
-				"class",
-			}, true)
-		end, opts)
-		vim.keymap.set("n", "[c", function()
-			sts.filtered_jump({
-				"class",
-			}, false)
-		end, opts)
-
-		vim.keymap.set("n", "]/", function()
-			sts.filtered_jump({
-				"comment",
-			}, true)
-		end, opts)
-		vim.keymap.set("n", "[/", function()
-			sts.filtered_jump({
-				"comment",
-			}, false)
-		end, opts)
+		 vim.keymap.set("n", "]f", function()
+		 	sts.filtered_jump({
+		 		"if_statement",
+		 	}, true)
+		 end, opts)
+		 vim.keymap.set("n", "[f", function()
+		 	sts.filtered_jump({
+		 		"if_statement",
+		 	}, false)
+		 end, opts)
+		
+		 vim.keymap.set("n", "]c", function()
+		 	sts.filtered_jump({
+		 		"class",
+		 	}, true)
+		 end, opts)
+		 vim.keymap.set("n", "[c", function()
+		 	sts.filtered_jump({
+		 		"class",
+		 	}, false)
+		 end, opts)
+		
+		 vim.keymap.set("n", "]/", function()
+		 	sts.filtered_jump({
+		 		"comment",
+		 	}, true)
+		 end, opts)
+		 vim.keymap.set("n", "[/", function()
+		 	sts.filtered_jump({
+		 		"comment",
+		 	}, false)
+		 end, opts)
 
 		-- "default" means that you jump to the default_desired_types or your lastest jump types
 		vim.keymap.set("n", "<A-n>", function()
@@ -1274,8 +1328,8 @@ local config = {
 			callback = function()
 				vim.cmd([[
 				nnoremap <silent> <buffer> q :close<CR>
-		nnoremap <silent> <buffer> <esc> :close<CR>
-		set nobuflisted
+				nnoremap <silent> <buffer> <esc> :close<CR>
+				set nobuflisted
 				]])
 			end,
 		})
@@ -1285,14 +1339,14 @@ local config = {
 			callback = function()
 				vim.cmd([[
 				hi MyStrikethrough gui=strikethrough
-call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
-call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
-call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+				call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
+				call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+				call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
 
-hi MyUnderlineMatch gui=underline
-call matchadd('MyUnderlineMatch', '__\zs[^X]\+\ze__')
-call matchadd('Conceal',  '__\ze[^X]\+__', 10, -1, {'conceal':''})
-call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
+				hi MyUnderlineMatch gui=underline
+				call matchadd('MyUnderlineMatch', '__\zs[^X]\+\ze__')
+				call matchadd('Conceal',  '__\ze[^X]\+__', 10, -1, {'conceal':''})
+				call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 
 				]])
 			end,
@@ -1310,95 +1364,95 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 			[[
 		xnoremap gcc :Commentary<cr>
 
-              augroup TMP_FILES
-              autocmd!
-              autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
-              autocmd BufRead,BufNewFile tmp.* set noswapfile
-              autocmd ExitPre tmp.* :w
-              augroup END
-              let g:python3_host_prog  = '/bin/python3.10'
-              let g:ipython_cell_run_command	= '%run -t "{filepath}"'
+    augroup TMP_FILES
+    autocmd!
+    autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
+    autocmd BufRead,BufNewFile tmp.* set noswapfile
+    autocmd ExitPre tmp.* :w
+    augroup END
+    let g:python3_host_prog  = '/bin/python3.10'
+    let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
 
-              " {{{ vim-ipython-cell / vim-slime
-              " Slime
-              " always use tmux
-              let g:slime_target = 'tmux'
+    " {{{ vim-ipython-cell / vim-slime
+    " Slime
+    " always use tmux
+    let g:slime_target = 'tmux'
 
-              " https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
-              let g:slime_bracketed_ipython = 1
+    " https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+    let g:slime_bracketed_ipython = 1
 
-              " always send text to the top-right pane in the current tmux tab without asking
-              let g:slime_default_config = {
-              \ 'socket_name': get(split($TMUX, ','), 0),
-              \ 'target_pane': ':{next}.1' }
+    " always send text to the top-right pane in the current tmux tab without asking
+    let g:slime_default_config = {
+      \ 'socket_name': get(split($TMUX, ','), 0),
+      \ 'target_pane': ':{next}.1' }
 
-              let g:slime_dont_ask_default = 1
+      let g:slime_dont_ask_default = 1
 
-              " Override the comment that makes a cell take "##", this will cause a problem if
-              " there's a string having "##"
-              let g:ipython_cell_tag = ['# %%']
+      " Override the comment that makes a cell take "##", this will cause a problem if
+      " there's a string having "##"
+      let g:ipython_cell_tag = ['# %%']
 
-              " }}}
-              "  {{{ markdown-preview.nvim
-              let g:mkdp_command_for_global = 1
-              let g:mkdp_page_title = '${name}'
-              let g:mkdp_auto_close = 0
-              nmap <leader>em <Plug>MarkdownPreviewToggle
+      " }}}
+      "  {{{ markdown-preview.nvim
+      let g:mkdp_command_for_global = 1
+      let g:mkdp_page_title = '${name}'
+      let g:mkdp_auto_close = 0
+      nmap <leader>em <Plug>MarkdownPreviewToggle
 
-              " open page in new window
-              function! OpenNewBrowserWindow(url)
-              execute "silent ! qutebrowser --target window " . a:url
-              endfunction
+      " open page in new window
+      function! OpenNewBrowserWindow(url)
+      execute "silent ! qutebrowser --target window " . a:url
+      endfunction
 
  			" https://github.com/Ron89/thesaurus_query.vim
 			let g:tq_openoffice_en_file =  "./spell/MyThes-1.0/th_en_US_new"
 			let g:tq_mthesaur_file =  "./spell/mthesaur.txt"
  	 	 	let g:tq_enabled_backends= ["datamuse_com", "openoffice_en", "mthesaur_txt"]
 
-              let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
-              " }}}
-              " {{{ vimtex
-              let g:vimtex_compiler_silent = 1
-              " Use nabla.nvim
-              " let g:vimtex_syntax_conceal_disable=1
-              let g:tex_conceal = 'abdg'
-              let g:vimtex_syntax_conceal = {
-              \ 'accents': 1,
-              \ 'ligatures': 1,
-              \ 'cites': 1,
-              \ 'fancy': 1,
-              \ 'greek': 0,
-              \ 'math_bounds': 0,
-              \ 'math_delimiters': 0,
-              \ 'math_fracs': 0,
-              \ 'math_super_sub': 0,
-              \ 'math_symbols': 0,
-              \ 'sections': 0,
-              \ 'styles': 1,
-              \}
-              let g:vimtex_view_method = 'zathura'
-              let g:vimtex_fold_enabled = 1
-              let g:vimtex_compiler_latexmk = {
-              \ 'build_dir' : './tex_output',
-              \ 'options' : [
-              \   '-verbose',
-              \   '-file-line-error',
-              \   '-shell-escape',
-              \   '-synctex=1',
-              \   '-interaction=nonstopmode',
-              \ ],
-              \}
+      let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
+      " }}}
+      " {{{ vimtex
+      let g:vimtex_compiler_silent = 1
+      " Use nabla.nvim
+      " let g:vimtex_syntax_conceal_disable=1
+      let g:tex_conceal = 'abdg'
+      let g:vimtex_syntax_conceal = {
+        \ 'accents': 1,
+        \ 'ligatures': 1,
+        \ 'cites': 1,
+        \ 'fancy': 1,
+        \ 'greek': 0,
+        \ 'math_bounds': 0,
+        \ 'math_delimiters': 0,
+        \ 'math_fracs': 0,
+        \ 'math_super_sub': 0,
+        \ 'math_symbols': 0,
+        \ 'sections': 0,
+        \ 'styles': 1,
+        \}
+        let g:vimtex_view_method = 'zathura'
+        let g:vimtex_fold_enabled = 1
+        let g:vimtex_compiler_latexmk = {
+          \ 'build_dir' : './tex_output',
+          \ 'options' : [
+          \   '-verbose',
+          \   '-file-line-error',
+          \   '-shell-escape',
+          \   '-synctex=1',
+          \   '-interaction=nonstopmode',
+          \ ],
+          \}
 
-              vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
-              \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
-              \ <CR> `<
-              \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
-              " Surround capital characters with $
-              vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
-              \ :let @/ = "" <bar> set hlsearch<CR>
-              " }}}
-      	      ]],
+          vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
+          \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
+          \ <CR> `<
+          \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
+          " Surround capital characters with $
+          vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
+          \ :let @/ = "" <bar> set hlsearch<CR>
+          " }}}
+      	  ]],
 			true
 		)
 	end,
