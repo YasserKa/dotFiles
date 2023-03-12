@@ -162,7 +162,80 @@ local config = {
 
 	mappings = {
 		-- first key is the mode
-		n = {
+			n = {
+				-- ["]"] = {
+				-- 	f = "Next function start",
+				-- 	x = "Next class start",
+				-- 	F = "Next function end",
+				-- 	X = "Next class end",
+				-- },
+				-- ["["] = {
+				-- 	f = "Previous function start",
+				-- 	x = "Previous class start",
+				-- 	F = "Previous function end",
+				-- 	X = "Previous class end",
+				-- },
+				["<leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+				["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },
+				-- -- second key is the prefix, <leader> prefixes
+				["<localleader>l"] = false,
+				["<localleader>m"] = {
+						function()
+							require("nabla").popup()
+						end,
+						desc = "Preview Math",
+					},
+				["<localleader>M"] = {
+						function()
+							require("nabla").toggle_virt()
+						end,
+						desc = "Preview Math",
+					},
+				["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
+				-- 	-- third key is the key to bring up next level and its displayed
+				-- 	-- group name in which-key top level menu
+				["<leader>bO"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", desc = "Remove all other buffers" },
+ ["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Buffer", },
+ ["<leader>gU"] = { function() require("gitsigns").reset_buffer_index() end, desc = "Unstage Buffer", },
+ -- ["<leader>gc"] = { name = "Commit"}
+ ["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
+				-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
+				-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
+			["<leader>a"] = { name = "Annotate" }, 
+			["<leader>a<cr>"] = {
+							function()
+								require("neogen").generate()
+							end,
+							desc = "Current",
+						},
+		["<leader>ac"] = {
+							function()
+								require("neogen").generate({ type = "class" })
+							end,
+							desc = "Class",
+						},
+		["<leader>af"] = {
+							function()
+								require("neogen").generate({ type = "func" })
+							end,
+							desc = "Function",
+						}, 
+			["<leader>at"] = {
+							function()
+								require("neogen").generate({ type = "type" })
+							end,
+							desc = "Type",
+						}, 
+		["<leader>aF"] = {
+							function()
+								require("neogen").generate({ type = "file" })
+							end,
+							desc = "File",
+						},
+						["<leader>f?"] = { "<cmd>Telescope help_tags<cr>", desc = "Find help" },
+						["<leader>f'"] = { "<cmd>Telescope marks<cr>",desc ="Marks" },
+						["<leader>f."] = { "<cmd>Telescope resume<cr>",desc ="Open previous picker" },
+			["<leader>fB"] = { "<cmd>Telescope bibtex<cr>",desc ="BibTeX" },
 			-- second key is the lefthand side of the map
 			-- mappings seen under group name "Buffer"
 			["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
@@ -275,7 +348,20 @@ local config = {
 			["<C-l>"] = { "<c-g>u<Esc>[s1z=`]a<c-g>u", desc = "Fix last misspell" },
 			["<C-s>"] = { "<C-o>:w!<cr>", desc = "Save File" },
 		},
+		x = {
+			["il"] = { "g_o^", desc = "Inside line text object" },
+			["al"] = { "$o^", desc = "Around line text object" },
+		},
+		o = {
+			-- line text-objects
+			["il"] = { ":normal vil<cr>", desc = "Inside line text object" },
+			["al"] = { ":normal val<cr>", desc = "Around line text object" },
+		},
 	},
+	icons = {
+		-- Remove buffer close icon
+		BufferClose = ""
+ 	},
 	-- Configure plugins
 	plugins = {
 		{ -- override nvim-cmp plugin
@@ -296,9 +382,9 @@ local config = {
 					else
 						fallback()
 					end
-				end, {
-					"i",
-					"s",
+					end, {
+						"i",
+						"s",
 				})
 				opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
 					if require("luasnip").expandable() then
@@ -310,9 +396,9 @@ local config = {
 					else
 						cmp.mapping.confirm({ select = false })
 					end
-				end, {
-					"i",
-					"s",
+					end, {
+						"i",
+						"s",
 				})
 				opts.sources = cmp.config.sources({
 					{ name = "luasnip", priority = 1000 },
@@ -504,7 +590,7 @@ local config = {
 
 					["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
 					["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-				}, { mode = "i" })
+					}, { mode = "i" })
 				wk.register({
 					["<localleader>"] = {
 						n = {
@@ -512,7 +598,7 @@ local config = {
 							h = { "<Plug>SlimeRegionSend", "Send shell" },
 						},
 					},
-				}, { mode = "v" })
+					}, { mode = "v" })
 			end,
 		},
 		{
@@ -534,7 +620,7 @@ local config = {
 		{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
 
 		-- Git
-		{ "https://github.com/tpope/vim-fugitive" },
+		{ "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
 		{ "https://github.com/junegunn/gv.vim", requires = "https://github.com/tpope/vim-fugitive" },
 		{ "https://github.com/tpope/vim-rhubarb", requires = "https://github.com/tpope/vim-fugitive" },
 
@@ -542,7 +628,6 @@ local config = {
 		{ "https://github.com/jeetsukumaran/vim-commentary", event="VeryLazy" },
 		{ "https://github.com/szw/vim-maximizer" },
 		{ "https://github.com/simnalamburt/vim-mundo" },
-
 		{
 			"https://github.com/ggandor/leap.nvim",
 			config = function()
@@ -595,7 +680,7 @@ local config = {
 					null_ls.builtins.formatting.shfmt.with({
 						extra_args = { "--case-indent" },
 					}),
-					-- null_ls.builtins.diagnostics.mypy,
+					-- null_l.builtins.diagnostics.mypy,
 					-- Set a formatter
 					-- null_ls.builtins.formatting.stylua,
 					-- null_ls.builtins.formatting.prettier,
@@ -736,6 +821,7 @@ local config = {
 				}
 			end,
 		},
+
 	},
 
 	-- LuaSnip Options
@@ -767,125 +853,6 @@ local config = {
 		},
 	},
 
-	-- Modify which-key registration (Use this with mappings table in the above.)
-	["which-key"] = {
-		-- Add bindings which show up as group name
-		register = {
-			-- first key is the mode, n == normal mode
-			n = {
-				-- ["]"] = {
-				-- 	f = "Next function start",
-				-- 	x = "Next class start",
-				-- 	F = "Next function end",
-				-- 	X = "Next class end",
-				-- },
-				-- ["["] = {
-				-- 	f = "Previous function start",
-				-- 	x = "Previous class start",
-				-- 	F = "Previous function end",
-				-- 	X = "Previous class end",
-				-- },
-				["<leader>ex"] = { "<cmd>Neotree toggle<cr>", "Toggle Explorer" },
-				["<space><space>"] = { "<cmd>buffer#<cr>", "Alternate buffer" },
-				-- second key is the prefix, <leader> prefixes
-				["<localleader>"] = {
-					l = {},
-					m = {
-						function()
-							require("nabla").popup()
-						end,
-						"Preview Math",
-					},
-					M = {
-						function()
-							require("nabla").toggle_virt()
-						end,
-						"Preview Math",
-					},
-				},
-				["<leader>"] = {
-					["."] = { "<cmd>cd %:p:h<cr>", "Set CWD" },
-					-- third key is the key to bring up next level and its displayed
-					-- group name in which-key top level menu
-					["b"] = {
-						name = "Buffer",
-						["O"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", "Remove all other buffers" },
-					},
-					g = {
-						S = {
-							function()
-								require("gitsigns").stage_buffer()
-							end,
-							"Stage Buffer",
-						},
-						U = {
-							function()
-								require("gitsigns").reset_buffer_index()
-							end,
-							"Unstage Buffer",
-						},
-						c = {
-							name = "Commit",
-							c = { "<cmd>silent Git commit --quiet<CR>", noremap = true, "Commit" },
-
-							noremap = true,
-						},
-						-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
-						-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
-					},
-					a = {
-						name = "Annotate",
-						["<cr>"] = {
-							function()
-								require("neogen").generate()
-							end,
-							"Current",
-						},
-						c = {
-							function()
-								require("neogen").generate({ type = "class" })
-							end,
-							"Class",
-						},
-						f = {
-							function()
-								require("neogen").generate({ type = "func" })
-							end,
-							"Function",
-						},
-						t = {
-							function()
-								require("neogen").generate({ type = "type" })
-							end,
-							"Type",
-						},
-						F = {
-							function()
-								require("neogen").generate({ type = "file" })
-							end,
-							"File",
-						},
-					},
-					f = {
-						name = "Telescope",
-						["?"] = { "<cmd>Telescope help_tags<cr>", "Find help" },
-						["'"] = { "<cmd>Telescope marks<cr>", "Marks" },
-						["."] = { "<cmd>Telescope resume<cr>", "Open previous picker" },
-						B = { "<cmd>Telescope bibtex<cr>", "BibTeX" },
-					},
-				},
-			},
-			x = {
-				["il"] = { "g_o^", "Inside line text object" },
-				["al"] = { "$o^", "Around line text object" },
-			},
-			o = {
-				-- line text-objects
-				["il"] = { ":normal vil<cr>", "Inside line text object" },
-				["al"] = { ":normal val<cr>", "Around line text object" },
-			},
-		},
-	},
 	["nvim-autopairs"] = {
 		add_rules = function()
 			local Rule = require("nvim-autopairs.rule")
@@ -988,18 +955,18 @@ local config = {
 		_G.YankOrgLink = function()
 			local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
 			local cmd = '"${TERMINAL}" --directory "'
-				.. vim.fn.expand("%:p:h")
-				.. '" --detach -e "${EDITOR}" +'
-				.. r
-				.. ' "'
-				.. vim.fn.expand("%:t")
-				.. '"'
+			.. vim.fn.expand("%:p:h")
+			.. '" --detach -e "${EDITOR}" +'
+			.. r
+			.. ' "'
+			.. vim.fn.expand("%:t")
+			.. '"'
 			local encoded_org_link = "[["
-				.. "link-handler://"
-				.. encodeString(cmd)
-				.. "]["
-				.. vim.fn.expand("%:t")
-				.. "]]"
+			.. "link-handler://"
+			.. encodeString(cmd)
+			.. "]["
+			.. vim.fn.expand("%:t")
+			.. "]]"
 			vim.fn.setreg("+", encoded_org_link)
 		end
 		vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
@@ -1007,10 +974,10 @@ local config = {
 		_G.WatchFile = function()
 			vim.cmd(
 				'silent !"${TERMINAL}" --detach --directory "'
-					.. vim.fn.expand("%:p:h")
-					.. '" bash -c \'echo "'
-					.. vim.fn.expand("%:t")
-					.. "\" | entr -c /_'"
+				.. vim.fn.expand("%:p:h")
+				.. '" bash -c \'echo "'
+				.. vim.fn.expand("%:t")
+				.. "\" | entr -c /_'"
 			)
 		end
 		vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
@@ -1192,38 +1159,38 @@ local config = {
 		-- end, opts)
 
 		-- Navigate between elements
-		 vim.keymap.set("n", "]f", function()
+		vim.keymap.set("n", "]f", function()
 		 	sts.filtered_jump({
 		 		"if_statement",
-		 	}, true)
-		 end, opts)
-		 vim.keymap.set("n", "[f", function()
+		 		}, true)
+		end, opts)
+		vim.keymap.set("n", "[f", function()
 		 	sts.filtered_jump({
 		 		"if_statement",
-		 	}, false)
-		 end, opts)
-		
-		 vim.keymap.set("n", "]c", function()
+		 		}, false)
+		end, opts)
+
+		vim.keymap.set("n", "]c", function()
 		 	sts.filtered_jump({
 		 		"class",
-		 	}, true)
-		 end, opts)
-		 vim.keymap.set("n", "[c", function()
+		 		}, true)
+		end, opts)
+		vim.keymap.set("n", "[c", function()
 		 	sts.filtered_jump({
 		 		"class",
-		 	}, false)
-		 end, opts)
-		
-		 vim.keymap.set("n", "]/", function()
+		 		}, false)
+		end, opts)
+
+		vim.keymap.set("n", "]/", function()
 		 	sts.filtered_jump({
 		 		"comment",
-		 	}, true)
-		 end, opts)
-		 vim.keymap.set("n", "[/", function()
+		 		}, true)
+		end, opts)
+		vim.keymap.set("n", "[/", function()
 		 	sts.filtered_jump({
 		 		"comment",
-		 	}, false)
-		 end, opts)
+		 		}, false)
+		end, opts)
 
 		-- "default" means that you jump to the default_desired_types or your lastest jump types
 		vim.keymap.set("n", "<A-n>", function()
