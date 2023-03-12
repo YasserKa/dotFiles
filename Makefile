@@ -5,7 +5,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 # MyMuPDF: getting highlighted text in pdf
 # pyperclip: used to yank to clipboard by zathura's handle_document
 # adblock tldextract sci-hub: qutebrowser 
-PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip jupyter_contrib_nbextensions poetry notebook neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
+PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip poetry notebook neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
 
 .PHONY: install
 install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers show-final-instructions-message 
@@ -23,7 +23,8 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@rm -rf $(HOME)/.bashrc $(HOME)/.bash_profile
 	@# https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Hide_GRUB_unless_the_Shift_key_is_held_down
-	@sudo echo 'GRUB_FORCE_HIDDEN_MENU="true"' >| /boot/grub/grub.cfg
+	@sudo sh -c "echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /boot/grub/grub.cfg"
+	@sudo curl https://gist.githubusercontent.com/anonymous/8eb2019db2e278ba99be/raw/257f15100fd46aeeb8e33a7629b209d0a14b9975/gistfile1.sh --output /etc/grub.d/31_hold_shift 
 	@sudo grub-mkconfig -o /boot/grub/grub.cfg
 	@# Install stow and neovim
 	sudo pacman --sync --refresh --sysupgrade --noconfirm stow neovim
@@ -31,12 +32,16 @@ pre-install-packages:
 .PHONY: update-sudoers
 update-sudoers:
 	# Don't timeout sudo privilege through the installation period
-	# Defaults        env_reset,timestamp_timeout=0
-	sudo EDITOR=neovim visudo
+	# Defaults        env_reset,timestamp_timeout=-1
+	sleep 3
+	sudo EDITOR=nvim visudo
 
 .PHONY: install-packages
-install-packages: creat-clean-pkglist install-aur-helper
-	@sudo paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
+install-packages: create-clean-pkglist install-aur-helper
+	@sudo pacman -Syu
+	@paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
+	@# Get nvim preconfiguration before stowing
+	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
 	@rm -f *tmp
 
 # create a file containing list of packages for package manager
@@ -57,16 +62,11 @@ install-aur-helper: stow-etc
 	rm -rf /tmp/paru
 
 .PHONY: post-install-packages
-post-install-packages: stow-packages setup-systemd-services setup-jupyter-notebook setup-qutebrowser setup-ambient-music 
-	# Setup neovim
-	git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+post-install-packages: stow-packages setup-systemd-services setup-jupyter-notebook setup-qutebrowser
+	@# Setup neovim
 	nvim  --headless -c 'autocmd User LazyDone quitall'
-	# Setup Emacs
-	emacs --batch --load=$(XDG_CONFIG_HOME)/emacs/init.el
 	@# Accurate date
 	sudo timedatectl set-ntp true
-	@# Setup autokey (don't show tray icon)
-	sed -i '/.*"showTrayIcon": false,/c\"showTrayIcon": true,' "$(HOME)/.config/autokey/autokey.json"
 	@# Sync pkgfile database for command-no-found-handler function to work
 	sudo pkgfile -u
 	@echo "Upgrading PYPI packages"
@@ -114,26 +114,28 @@ setup-systemd-services:
 stow-packages:
 	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular picom polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xmodmap zathura
 
+
+EXT_DIR=$(HOME)/.local/share/jupyter/nbextension?vim_binding
 .PHONY: setup-jupyter-notebook
 setup-jupyter-notebook:
-	jupyter nbextensions_configurator enable --user
-	# You may need the following to create the directoy
-	mkdir -p $(jupyter --data-dir)/nbextensions
+	@echo "Setting up jupyter notebook"
+	# pip install --user jupyter jupyter_contrib_nbextensions
+	# export PATH=$(PATH):$(HOME)/.local/bin
+	# jupyter nbextensions_configurator enable --user
 	# Now clone the repository
-	cd "$(jupyter --data-dir)/nbextensions"
-	git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
-	chmod -R go-w vim_binding
+	git clone https://github.com/lambdalisue/jupyter-vim-binding $(EXT_DIR)
+	chmod -R go-w $(EXT_DIR)
 	jupyter nbextension enable vim_binding/vim_binding
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
 	git submodule update --init --recursive
-	cd "$(XDG_CONFIG_HOME)/qutebrowser/" && pip install -e . --user
+	cd $(XDG_CONFIG_HOME)/qutebrowser/qutescript && pip install -e . --user
 	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all --install --bin=yank_all
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
-	paru -S chromium-widevine # viewing DRM content (Spotify)
-	paru -S qtwebkit-plugins-git # For SpellChecking
+	paru --sync --noconfirm --skipreview  chromium-widevine # viewing DRM content (Spotify)
+	paru --sync --noconfirm --skipreview qtwebkit-plugins-git # For SpellChecking
 	# Update adblock list
 	qutebrowser :adblock-update
 	pkill qutebrowser
