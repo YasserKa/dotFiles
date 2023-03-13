@@ -1255,16 +1255,18 @@ see how ARG affects this command."
 
 (use-package counsel)
 (use-package consult)
+(use-package embark-consult)
 
 (use-package embark
   :bind (("C-." . embark-act))
   :config
 
   ;; C-v and C-x splits window for org roam node prompts only
-  (embark-define-keymap embark-org-roam-nodes-actions
-                        "Keymap for actions for org roam nodes"
-                        ("x" my/org-roam-node-find-window-x)
-                        ("v" my/org-roam-node-find-window-v))
+  (defvar-keymap embark-org-roam-nodes-actions
+    :doc "Keymap for actions for org roam nodes"
+    :parent embark-general-map
+    "x" #'my/org-roam-node-find-window-x
+    "v" #'my/org-roam-node-find-window-v)
 
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
