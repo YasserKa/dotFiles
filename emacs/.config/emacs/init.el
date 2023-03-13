@@ -652,7 +652,7 @@
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   ;; Insert mode after going to add a note to logs
-  (add-hook 'org-log-buffer-setup-hook '(lambda () (evil-insert 0)))
+  (add-hook 'org-log-buffer-setup-hook #'(lambda () (evil-insert 0)))
 
   ;; Save capture on :wq
   (evil-define-key nil org-capture-mode-map
