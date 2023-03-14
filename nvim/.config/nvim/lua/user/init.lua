@@ -807,6 +807,19 @@ local config = {
 				}
 			end,
 		},
+		{ -- override nvim-autopairs plugin
+      "windwp/nvim-autopairs",
+      config = function(plugin, opts)
+        -- run default AstroNvim config
+        require "plugins.configs.nvim-autopairs"(plugin, opts)
+        -- require Rule function
+        local Rule = require "nvim-autopairs.rule"
+        local npairs = require "nvim-autopairs"
+        npairs.add_rules({
+ 					Rule("$", "$", { "tex", "latex", "plaintex" }),
+        })
+      end,
+    },
 		-- use mason-lspconfig to configure LSP installations
 		{
 			"williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
@@ -855,16 +868,6 @@ local config = {
 			buffer = 500,
 			path = 250,
 		},
-	},
-
-	["nvim-autopairs"] = {
-		add_rules = function()
-			local Rule = require("nvim-autopairs.rule")
-
-			return {
-				Rule("$", "$", { "tex", "latex", "plaintex" }),
-			}
-		end,
 	},
 
 	-- This function is run last and is a good place to configuring
@@ -1164,36 +1167,36 @@ local config = {
 
 		-- Navigate between elements
 		vim.keymap.set("n", "]f", function()
-		 	sts.filtered_jump({
-		 		"if_statement",
-		 		}, true)
+			sts.filtered_jump({
+				"if_statement",
+				}, true)
 		end, opts)
 		vim.keymap.set("n", "[f", function()
-		 	sts.filtered_jump({
-		 		"if_statement",
-		 		}, false)
+			sts.filtered_jump({
+				"if_statement",
+				}, false)
 		end, opts)
 
 		vim.keymap.set("n", "]c", function()
-		 	sts.filtered_jump({
-		 		"class",
-		 		}, true)
+			sts.filtered_jump({
+				"class",
+				}, true)
 		end, opts)
 		vim.keymap.set("n", "[c", function()
-		 	sts.filtered_jump({
-		 		"class",
-		 		}, false)
+			sts.filtered_jump({
+				"class",
+				}, false)
 		end, opts)
 
 		vim.keymap.set("n", "]/", function()
-		 	sts.filtered_jump({
-		 		"comment",
-		 		}, true)
+			sts.filtered_jump({
+				"comment",
+				}, true)
 		end, opts)
 		vim.keymap.set("n", "[/", function()
-		 	sts.filtered_jump({
-		 		"comment",
-		 		}, false)
+			sts.filtered_jump({
+				"comment",
+				}, false)
 		end, opts)
 
 		-- "default" means that you jump to the default_desired_types or your lastest jump types
@@ -1242,7 +1245,7 @@ local config = {
 		-- 	sts.filtered_jump({
 		-- 		"if_statement",
 		-- 		"else_clause",
-		-- 		"else_statement",
+		-- 		"else_st atement",
 		-- 	}, true, { destination = "children" })
 		-- end, opts)
 
@@ -1298,10 +1301,10 @@ local config = {
 			pattern = { "help", "man" },
 			callback = function()
 				vim.cmd([[
-				nnoremap <silent> <buffer> q :close<CR>
-				nnoremap <silent> <buffer> <esc> :close<CR>
-				set nobuflisted
-				]])
+nnoremap <silent> <buffer> q :close<CR>
+nnoremap <silent> <buffer> <esc> :close<CR>
+set nobuflisted
+]])
 			end,
 		})
 		-- }}}
@@ -1309,17 +1312,17 @@ local config = {
 			pattern = { "markdown" },
 			callback = function()
 				vim.cmd([[
-				hi MyStrikethrough gui=strikethrough
-				call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
-				call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
-				call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
+hi MyStrikethrough gui=strikethrough
+call matchadd('MyStrikethrough', '\~\~\zs.\+\ze\~\~')
+call matchadd('Conceal',  '\~\~\ze.\+\~\~', 10, -1, {'conceal':''})
+call matchadd('Conceal',  '\~\~.\+\zs\~\~\ze', 10, -1, {'conceal':''})
 
-				hi MyUnderlineMatch gui=underline
-				call matchadd('MyUnderlineMatch', '__\zs[^X]\+\ze__')
-				call matchadd('Conceal',  '__\ze[^X]\+__', 10, -1, {'conceal':''})
-				call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
+hi MyUnderlineMatch gui=underline
+call matchadd('MyUnderlineMatch', '__\zs[^X]\+\ze__')
+call matchadd('Conceal',  '__\ze[^X]\+__', 10, -1, {'conceal':''})
+call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 
-				]])
+]])
 			end,
 		})
 		-- Binding to open command-line window
@@ -1333,97 +1336,97 @@ local config = {
 		-- }}}
 		vim.api.nvim_exec(
 			[[
-		xnoremap gcc :Commentary<cr>
+xnoremap gcc :Commentary<cr>
 
-    augroup TMP_FILES
-    autocmd!
-    autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
-    autocmd BufRead,BufNewFile tmp.* set noswapfile
-    autocmd ExitPre tmp.* :w
-    augroup END
-    let g:python3_host_prog  = '/bin/python3.10'
-    let g:ipython_cell_run_command	= '%run -t "{filepath}"'
+augroup TMP_FILES
+autocmd!
+autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
+autocmd BufRead,BufNewFile tmp.* set noswapfile
+autocmd ExitPre tmp.* :w
+augroup END
+let g:python3_host_prog  = '/bin/python3.10'
+let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
 
-    " {{{ vim-ipython-cell / vim-slime
-    " Slime
-    " always use tmux
-    let g:slime_target = 'tmux'
+" {{{ vim-ipython-cell / vim-slime
+" Slime
+" always use tmux
+let g:slime_target = 'tmux'
 
-    " https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
-    let g:slime_bracketed_ipython = 1
+" https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+let g:slime_bracketed_ipython = 1
 
-    " always send text to the top-right pane in the current tmux tab without asking
-    let g:slime_default_config = {
-      \ 'socket_name': get(split($TMUX, ','), 0),
-      \ 'target_pane': ':{next}.1' }
+" always send text to the top-right pane in the current tmux tab without asking
+let g:slime_default_config = {
+\ 'socket_name': get(split($TMUX, ','), 0),
+\ 'target_pane': ':{next}.1' }
 
-      let g:slime_dont_ask_default = 1
+let g:slime_dont_ask_default = 1
 
-      " Override the comment that makes a cell take "##", this will cause a problem if
-      " there's a string having "##"
-      let g:ipython_cell_tag = ['# %%']
+" Override the comment that makes a cell take "##", this will cause a problem if
+" there's a string having "##"
+let g:ipython_cell_tag = ['# %%']
 
-      " }}}
-      "  {{{ markdown-preview.nvim
-      let g:mkdp_command_for_global = 1
-      let g:mkdp_page_title = '${name}'
-      let g:mkdp_auto_close = 0
-      nmap <leader>em <Plug>MarkdownPreviewToggle
+" }}}
+"  {{{ markdown-preview.nvim
+let g:mkdp_command_for_global = 1
+let g:mkdp_page_title = '${name}'
+let g:mkdp_auto_close = 0
+nmap <leader>em <Plug>MarkdownPreviewToggle
 
-      " open page in new window
-      function! OpenNewBrowserWindow(url)
-      execute "silent ! qutebrowser --target window " . a:url
-      endfunction
+" open page in new window
+function! OpenNewBrowserWindow(url)
+execute "silent ! qutebrowser --target window " . a:url
+endfunction
 
- 			" https://github.com/Ron89/thesaurus_query.vim
-			let g:tq_openoffice_en_file =  "./spell/MyThes-1.0/th_en_US_new"
-			let g:tq_mthesaur_file =  "./spell/mthesaur.txt"
- 	 	 	let g:tq_enabled_backends= ["datamuse_com", "openoffice_en", "mthesaur_txt"]
+" https://github.com/Ron89/thesaurus_query.vim
+let g:tq_openoffice_en_file =  "./spell/MyThes-1.0/th_en_US_new"
+let g:tq_mthesaur_file =  "./spell/mthesaur.txt"
+let g:tq_enabled_backends= ["datamuse_com", "openoffice_en", "mthesaur_txt"]
 
-      let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
-      " }}}
-      " {{{ vimtex
-      let g:vimtex_compiler_silent = 1
-      " Use nabla.nvim
-      " let g:vimtex_syntax_conceal_disable=1
-      let g:tex_conceal = 'abdg'
-      let g:vimtex_syntax_conceal = {
-        \ 'accents': 1,
-        \ 'ligatures': 1,
-        \ 'cites': 1,
-        \ 'fancy': 1,
-        \ 'greek': 0,
-        \ 'math_bounds': 0,
-        \ 'math_delimiters': 0,
-        \ 'math_fracs': 0,
-        \ 'math_super_sub': 0,
-        \ 'math_symbols': 0,
-        \ 'sections': 0,
-        \ 'styles': 1,
-        \}
-        let g:vimtex_view_method = 'zathura'
-        let g:vimtex_fold_enabled = 1
-        let g:vimtex_compiler_latexmk = {
-          \ 'build_dir' : './tex_output',
-          \ 'options' : [
-          \   '-verbose',
-          \   '-file-line-error',
-          \   '-shell-escape',
-          \   '-synctex=1',
-          \   '-interaction=nonstopmode',
-          \ ],
-          \}
+let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
+" }}}
+" {{{ vimtex
+let g:vimtex_compiler_silent = 1
+" Use nabla.nvim
+" let g:vimtex_syntax_conceal_disable=1
+let g:tex_conceal = 'abdg'
+let g:vimtex_syntax_conceal = {
+\ 'accents': 1,
+\ 'ligatures': 1,
+\ 'cites': 1,
+\ 'fancy': 1,
+\ 'greek': 0,
+\ 'math_bounds': 0,
+\ 'math_delimiters': 0,
+\ 'math_fracs': 0,
+\ 'math_super_sub': 0,
+\ 'math_symbols': 0,
+\ 'sections': 0,
+\ 'styles': 1,
+\}
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_compiler_latexmk = {
+\ 'build_dir' : './tex_output',
+\ 'options' : [
+\   '-verbose',
+\   '-file-line-error',
+\   '-shell-escape',
+\   '-synctex=1',
+\   '-interaction=nonstopmode',
+\ ],
+\}
 
-          vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
-          \ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
-          \ <CR> `<
-          \ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
-          " Surround capital characters with $
-          vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
-          \ :let @/ = "" <bar> set hlsearch<CR>
-          " }}}
-      	  ]],
+vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
+\ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
+\ <CR> `<
+\ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
+" Surround capital characters with $
+vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
+\ :let @/ = "" <bar> set hlsearch<CR>
+" }}}
+]],
 			true
 		)
 	end,
