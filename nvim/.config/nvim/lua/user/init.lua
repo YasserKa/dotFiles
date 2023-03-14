@@ -197,7 +197,7 @@ local config = {
 			["<leader>bO"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", desc = "Remove all other buffers" },
  			["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Buffer", },
  			["<leader>gU"] = { function() require("gitsigns").reset_buffer_index() end, desc = "Unstage Buffer", },
- 			["<leader>gc"] = { name = "Commit"},
+ 			[ "<leader>gc"] = { name = "Commit" },
  			["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
 			-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
 			-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
