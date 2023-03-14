@@ -246,7 +246,11 @@ local config = {
 			["<leader>q"] = { "<cmd>exit<cr>", desc = "Delete buffer" },
 			["<leader>Q"] = { "<cmd>quitall<cr>", desc = "Exit Vim" },
 
-			-- navigating wrapped lines
+			-- Navigation
+			-- Buffer
+			["L"] = { "<cmd>bnext<cr>", desc = "Next buffer" },
+			["H"] = { "<cmd>bprevious<cr>", desc = "Previous buffer" },
+			-- Text
 			["j"] = { "gj" },
 			["k"] = { "gk" },
 			["gj"] = { "j" },
