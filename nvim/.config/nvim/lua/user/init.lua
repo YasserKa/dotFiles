@@ -162,79 +162,79 @@ local config = {
 
 	mappings = {
 		-- first key is the mode
-			n = {
-				-- ["]"] = {
-				-- 	f = "Next function start",
-				-- 	x = "Next class start",
-				-- 	F = "Next function end",
-				-- 	X = "Next class end",
-				-- },
-				-- ["["] = {
-				-- 	f = "Previous function start",
-				-- 	x = "Previous class start",
-				-- 	F = "Previous function end",
-				-- 	X = "Previous class end",
-				-- },
-				["<leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
-				["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },
-				-- -- second key is the prefix, <leader> prefixes
-				["<localleader>l"] = false,
-				["<localleader>m"] = {
-						function()
-							require("nabla").popup()
-						end,
-						desc = "Preview Math",
-					},
-				["<localleader>M"] = {
-						function()
-							require("nabla").toggle_virt()
-						end,
-						desc = "Preview Math",
-					},
-				["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
-				-- 	-- third key is the key to bring up next level and its displayed
-				-- 	-- group name in which-key top level menu
-				["<leader>bO"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", desc = "Remove all other buffers" },
- ["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Buffer", },
- ["<leader>gU"] = { function() require("gitsigns").reset_buffer_index() end, desc = "Unstage Buffer", },
- -- ["<leader>gc"] = { name = "Commit"}
- ["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
-				-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
-				-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
+		n = {
+			-- ["]"] = {
+			-- 	f = "Next function start",
+			-- 	x = "Next class start",
+			-- 	F = "Next function end",
+			-- 	X = "Next class end",
+			-- },
+			-- ["["] = {
+			-- 	f = "Previous function start",
+			-- 	x = "Previous class start",
+			-- 	F = "Previous function end",
+			-- 	X = "Previous class end",
+			-- },
+			["<leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+			["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },
+			-- -- second key is the prefix, <leader> prefixes
+			["<localleader>l"] = false,
+			["<localleader>m"] = {
+				function()
+					require("nabla").popup()
+				end,
+				desc = "Preview Math",
+			},
+			["<localleader>M"] = {
+				function()
+					require("nabla").toggle_virt()
+				end,
+				desc = "Preview Math",
+			},
+			["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
+			-- 	-- third key is the key to bring up next level and its displayed
+			-- 	-- group name in which-key top level menu
+			["<leader>bO"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", desc = "Remove all other buffers" },
+ 			["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Buffer", },
+ 			["<leader>gU"] = { function() require("gitsigns").reset_buffer_index() end, desc = "Unstage Buffer", },
+ 			-- ["<leader>gc"] = { name = "Commit"}
+ 			["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
+			-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
+			-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
 			["<leader>a"] = { name = "Annotate" }, 
 			["<leader>a<cr>"] = {
-							function()
-								require("neogen").generate()
-							end,
-							desc = "Current",
-						},
-		["<leader>ac"] = {
-							function()
-								require("neogen").generate({ type = "class" })
-							end,
-							desc = "Class",
-						},
-		["<leader>af"] = {
-							function()
-								require("neogen").generate({ type = "func" })
-							end,
-							desc = "Function",
-						}, 
+				function()
+					require("neogen").generate()
+				end,
+				desc = "Current",
+			},
+			["<leader>ac"] = {
+				function()
+					require("neogen").generate({ type = "class" })
+				end,
+				desc = "Class",
+			},
+			["<leader>af"] = {
+				function()
+					require("neogen").generate({ type = "func" })
+				end,
+				desc = "Function",
+			}, 
 			["<leader>at"] = {
-							function()
-								require("neogen").generate({ type = "type" })
-							end,
-							desc = "Type",
-						}, 
-		["<leader>aF"] = {
-							function()
-								require("neogen").generate({ type = "file" })
-							end,
-							desc = "File",
-						},
-						["<leader>f?"] = { "<cmd>Telescope help_tags<cr>", desc = "Find help" },
-						["<leader>f'"] = { "<cmd>Telescope marks<cr>",desc ="Marks" },
-						["<leader>f."] = { "<cmd>Telescope resume<cr>",desc ="Open previous picker" },
+				function()
+					require("neogen").generate({ type = "type" })
+				end,
+				desc = "Type",
+			}, 
+			["<leader>aF"] = {
+				function()
+					require("neogen").generate({ type = "file" })
+				end,
+				desc = "File",
+			},
+			["<leader>f?"] = { "<cmd>Telescope help_tags<cr>", desc = "Find help" },
+			["<leader>f'"] = { "<cmd>Telescope marks<cr>",desc ="Marks" },
+			["<leader>f."] = { "<cmd>Telescope resume<cr>",desc ="Open previous picker" },
 			["<leader>fB"] = { "<cmd>Telescope bibtex<cr>",desc ="BibTeX" },
 			-- second key is the lefthand side of the map
 			-- mappings seen under group name "Buffer"
