@@ -315,10 +315,6 @@ appname = neomutt
 new_icon = neomutt-64
 timeout = 10
 
-[tea]
-summary = "*Tea*"
-new_icon = tea-64
-
 [battery]
 summary = "*Battery*"
 new_icon = low-battery-64
