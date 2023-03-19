@@ -493,17 +493,6 @@ local config = {
 			end,
 		},
 		{
-			"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-			dependencies = "nvim-treesitter",
-			lazy = false,
-		},
-		{ "https://github.com/aymericbeaumet/vim-symlink", lazy=false },
-		{
-			"https://github.com/ziontee113/syntax-tree-surfer",
-			dependencies = "nvim-treesitter",
-			lazy = false,
-		},
-		{
 			"https://github.com/linty-org/readline.nvim",
 			lazy = false,
 			config = function()
@@ -640,16 +629,7 @@ local config = {
 			dependencies = "hrsh7th/nvim-cmp",
 			ft={"tex"},
 		},
-		{
-			"https://github.com/danymat/neogen",
-			dependencies = "nvim-treesitter/nvim-treesitter",
-			cmd = "Neogen",
-			config = function()
-				require("neogen").setup({
-					snippet_engine = "luasnip",
-				})
-			end,
-		},
+		{ "https://github.com/aymericbeaumet/vim-symlink", lazy=false },
 		{ "https://github.com/romainl/vim-cool", lazy=false }, -- Disable search highlighting when done
 		{ "https://github.com/honza/vim-snippets",lazy=false },
 		{
@@ -794,6 +774,26 @@ local config = {
 					},
 				}
 			end,
+		},
+		{
+			"https://github.com/danymat/neogen",
+			dependencies = "nvim-treesitter/nvim-treesitter",
+			cmd = "Neogen",
+			config = function()
+				require("neogen").setup({
+					snippet_engine = "luasnip",
+				})
+			end,
+		},
+		{
+			"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+			dependencies = "nvim-treesitter",
+			lazy = false,
+		},
+		{
+			"https://github.com/ziontee113/syntax-tree-surfer",
+			dependencies = "nvim-treesitter",
+			lazy = false,
 		},
 		{ -- override nvim-autopairs plugin
       "windwp/nvim-autopairs",
@@ -1327,7 +1327,6 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 		-- }}}
 		vim.api.nvim_exec(
 			[[
-xnoremap gcc :Commentary<cr>
 
 augroup TMP_FILES
 autocmd!
