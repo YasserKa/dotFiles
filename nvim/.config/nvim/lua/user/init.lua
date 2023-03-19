@@ -906,7 +906,7 @@ local config = {
 
 		vim.api.nvim_create_autocmd({ "FileType" }, {
 			pattern = { "gitcommit" },
-			command = "inoremap <C-c><C-c> <cmd>wq<cr> | startinsert",
+			command = "startinsert | set spell | inoremap <C-c><C-c> <cmd>wq<cr>",
 		})
 
 		vim.api.nvim_create_autocmd("BufNewFile", {
@@ -933,10 +933,7 @@ local config = {
 			pattern = { "markdown", "tex" },
 			command = "set spell textwidth=100",
 		})
-		vim.api.nvim_create_autocmd({ "FileType" }, {
-			pattern = { "gitcommit" },
-			command = "set spell",
-		})
+
 		vim.api.nvim_create_augroup("user_markdown", {
 			clear = true,
 		})
