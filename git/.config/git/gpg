@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
-
-# https://github.com/tpope/vim-fugitive/issues/1836
+#
+# This script resolves the problem of the unability to enter the password using
+# vim-fugitive
+#
+# One possible solution: https://github.com/tpope/vim-fugitive/issues/1836
+# The problem with this solution is that there's no visual prompt
+#
+# Another one is to use a GUI pinentry like pinentry-qt for vim-fugitive only
 if [[ -n "$FUGITIVE" ]]; then
-	set -- --pinentry-mode loopback "$@"
+	export PINENTRY_USER_DATA="qt"
 fi
 exec /usr/bin/gpg "$@"

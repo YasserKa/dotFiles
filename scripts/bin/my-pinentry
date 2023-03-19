@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# This script is taken and editied from https://a3nm.net/git/mybin/file/my-pinentry.html
+#
+# choose pinentry depending on PINENTRY_USER_DATA
+# requires pinentry-curses and pinentry-gtk2
+# this *only works* with gpg 2
+# see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=802020
+
+case "$PINENTRY_USER_DATA" in
+  qt)   exec /usr/bin/pinentry-qt "$@" ;;
+  none) exit 1 ;;
+  *) exec /usr/bin/pinentry-tty "$@" ;;
+esac
+
