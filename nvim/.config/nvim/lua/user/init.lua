@@ -349,8 +349,17 @@ local config = {
  	},
 	-- Configure plugins
 	plugins = {
+		{ "goolord/alpha-nvim", enabled = false },
+		{ "numToStr/Comment.nvim", enabled = false }, -- Using vim-commentary
+		-- It's bugged in stable channel
+		-- https://github.com/AstroNvim/AstroNvim/issues/1376 fixes in nightly
+		-- nightly has its own issues
+		-- https://github.com/AstroNvim/AstroNvim/issues/1523
+		{ "Darazaki/indent-o-matic", enabled = false },
+		{ "max397574/better-escape.nvim", enabled = false },
 		{ -- override nvim-cmp plugin
 			"hrsh7th/nvim-cmp",
+			dependencies= {"https://github.com/kdheepak/cmp-latex-symbols"},
 			-- override the options table that is used in the `require("cmp").setup()` call
 			opts = function(_, opts)
 				-- opts parameter is the default options table
@@ -388,6 +397,7 @@ local config = {
 				opts.sources = cmp.config.sources({
 					{ name = "luasnip", priority = 1000 },
 					{ name = "nvim_lsp", priority = 750 },
+					{ name = "latex_symbols", priority = 500 },
 					{ name = "buffer", priority = 500 },
 					{ name = "path", priority = 250 },
 				})
@@ -446,14 +456,6 @@ local config = {
 				}
 			end,
 		},
-		{ "goolord/alpha-nvim", enabled = false },
-		{ "numToStr/Comment.nvim", enabled = false }, -- Using vim-commentary
-		-- It's bugged in stable channel
-		-- https://github.com/AstroNvim/AstroNvim/issues/1376 fixes in nightly
-		-- nightly has its own issues
-		-- https://github.com/AstroNvim/AstroNvim/issues/1523
-		{ "Darazaki/indent-o-matic", enabled = false },
-		{ "max397574/better-escape.nvim", enabled = false },
 		{
 			"nvim-telescope/telescope-bibtex.nvim",
 			dependencies = { "nvim-telescope/telescope.nvim", },
@@ -495,7 +497,7 @@ local config = {
 			dependencies = "nvim-treesitter",
 			lazy = false,
 		},
-		{ "https://github.com/aymericbeaumet/vim-symlink" },
+		{ "https://github.com/aymericbeaumet/vim-symlink", lazy=false },
 		{
 			"https://github.com/ziontee113/syntax-tree-surfer",
 			dependencies = "nvim-treesitter",
@@ -503,6 +505,7 @@ local config = {
 		},
 		{
 			"https://github.com/linty-org/readline.nvim",
+			lazy = false,
 			config = function()
 				local readline = require("readline")
 				vim.keymap.set("!", "<C-k>", readline.kill_line)
@@ -519,11 +522,12 @@ local config = {
 				vim.keymap.set("!", "<C-b>", "<Left>") -- backward-char
 			end,
 		},
-		{ "https://github.com/tpope/vim-unimpaired" },
-		{ "https://github.com/tpope/vim-repeat" }, -- Used to repeat vim-unimpaired actions
+		{ "https://github.com/tpope/vim-unimpaired", lazy = false },
+		{ "https://github.com/tpope/vim-repeat", lazy = false }, -- Used to repeat vim-unimpaired actions
 		{
 			"https://github.com/folke/todo-comments.nvim",
-			requires = "nvim-lua/plenary.nvim",
+			dependencies = "nvim-lua/plenary.nvim",
+
 			config = function()
 				require("todo-comments").setup({
 					signs = false,
@@ -535,7 +539,7 @@ local config = {
 		},
 		{ "https://github.com/lervag/vimtex", ft = "tex" },
 		{ "https://github.com/jbyuki/nabla.nvim", ft = "tex" },
-		{ "https://github.com/jpalardy/vim-slime" },
+		{ "https://github.com/jpalardy/vim-slime", ft="python" },
 		{
 			"https://github.com/hanschen/vim-ipython-cell",
 			ft = "python",
@@ -602,14 +606,14 @@ local config = {
 		},
 		-- { "https://github.com/Ron89/thesaurus_query.vim" },
 		--  File type support
-		{ "https://github.com/fladson/vim-kitty" },
-		{ "https://github.com/YasserKa/vim-sxhkdrc" },
-		{ "https://github.com/sheerun/vim-polyglot" }, -- provides better indentation & syntax highlight
+		{ "https://github.com/fladson/vim-kitty", ft="kitty" },
+		{ "https://github.com/YasserKa/vim-sxhkdrc", ft="sxhkdrc" },
+		{ "https://github.com/sheerun/vim-polyglot", lazy=false }, -- provides better indentation & syntax highlight
 
 		-- Git
 		{ "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
-		{ "https://github.com/junegunn/gv.vim", requires = "https://github.com/tpope/vim-fugitive" },
-		{ "https://github.com/tpope/vim-rhubarb", requires = "https://github.com/tpope/vim-fugitive" },
+		{ "https://github.com/junegunn/gv.vim", dependencies = "https://github.com/tpope/vim-fugitive" },
+		{ "https://github.com/tpope/vim-rhubarb", dependencies = "https://github.com/tpope/vim-fugitive" },
 
 		{ "https://github.com/terryma/vim-expand-region", lazy= false },
 		{ "https://github.com/jeetsukumaran/vim-commentary", event="VeryLazy" },
@@ -633,20 +637,18 @@ local config = {
 		},
 		{
 			"https://github.com/kdheepak/cmp-latex-symbols",
-			after = "nvim-cmp",
-
-			config = function()
-				astronvim.add_user_cmp_source("latex_symbols")
-			end,
+			dependencies = "hrsh7th/nvim-cmp",
+			ft={"tex"},
 		},
 		{
 			"https://github.com/danymat/neogen",
+			dependencies = "nvim-treesitter/nvim-treesitter",
+			cmd = "Neogen",
 			config = function()
 				require("neogen").setup({
 					snippet_engine = "luasnip",
 				})
 			end,
-			requires = "nvim-treesitter/nvim-treesitter",
 		},
 		{ "https://github.com/romainl/vim-cool", lazy=false }, -- Disable search highlighting when done
 		{ "https://github.com/honza/vim-snippets",lazy=false },
