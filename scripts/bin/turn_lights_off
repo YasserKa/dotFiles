@@ -4,18 +4,9 @@
 #
 # Dependencies: xdotool
 
-declare MOUSE_POS
-MOUSE_POS="$(xdotool getmouselocation)"
-readonly MOUSE_POS
+# Disable standby, suspend, and off modes 
+xset dpms 0 0 0
 
-# turn off display
+# No difference among standby, suspend, and off modes
+# Wait for keyboard input to finish then turn off display
 sleep 0.5 && xset dpms force off
-
-# turn it on again when the mouse position changes
-# NOTE: The display is turned on again without this code block.
-#       Without this code block, the display will turn off automatically in the
-#       absence of activity
-while [[ "$MOUSE_POS" == "$(xdotool getmouselocation)" ]]; do 
-    sleep 10
-done
-xset dpms force on
