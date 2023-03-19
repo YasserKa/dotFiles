@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Captures a URL and its title to org mode while not focusing the Emacs window
+#
+# Dependencies: Emacs, i3
+#
+# INPUT: 
+#   URL (MANDATORY)
+#   TITLE
+
+(($#==0)) && { notify-send --urgency=critical "Org capture requires at least a URL" && exit 1; }
+
+URL="$1"
+TITLE="$2"
+
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none
+
+emacsclient --no-wait "org-protocol://capture?url=$URL&title=$TITLE"
+EXIT_STATUS="$?"
+
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" smart
+
+exit "$EXIT_STATUS"

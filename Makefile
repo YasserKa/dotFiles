@@ -37,7 +37,7 @@ update-sudoers:
 	sudo EDITOR=nvim visudo
 
 .PHONY: install-packages
-install-packages: create-clean-pkglist install-aur-helper
+install-packages: create-clean-pkglist install-aur-helper setup-tuir
 	@sudo pacman --sync --refresh --upgrade
 	@paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
 	@# Get nvim preconfiguration before stowing
@@ -62,6 +62,11 @@ install-aur-helper: stow-etc
 	sudo pacman --sync --refresh
 	cd /tmp/paru && makepkg --install --syncdeps --noconfir	cd /tmp/paru && makepkg --install --syncdeps --noconfirm
 	rm -rf /tmp/paru
+
+.PHONY: setup-tuir
+setup-tuir:
+	@git clone https://gitlab.com/YasserKa/tuir /tmp/tuir
+	@cd /tmp/tuir && pip install . && cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages upgrade-pypi-packages setup-systemd-services setup-jupyter-notebook setup-qutebrowser
@@ -143,7 +148,6 @@ setup-qutebrowser:
 	# Update adblock list
 	qutebrowser :adblock-update
 	pkill qutebrowser
-
 
 ## compare-packages: compare the current installed packages with the list
 .PHONY: compare-packages

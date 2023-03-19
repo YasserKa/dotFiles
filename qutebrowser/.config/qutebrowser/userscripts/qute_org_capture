@@ -22,9 +22,8 @@ encode_url() {
 QUTE_TITLE="$(encode_url "$QUTE_TITLE")"
 QUTE_URL="$(encode_url "$QUTE_URL")"
 
-if emacsclient --no-wait "org-protocol://capture?url=$QUTE_URL&title=$QUTE_TITLE"; then
+if org_capture "$QUTE_URL" "$QUTE_TITLE"; then
 	echo ":message-info 'Note captured'" >>"$QUTE_FIFO"
-	"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" smart
 else
 	echo ":message-error 'Note not captured'" >>"$QUTE_FIFO"
 fi
