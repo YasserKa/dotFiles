@@ -58,7 +58,7 @@ def check_discord(driver):
 def send_notification(notification_text, url):
     subprocess.Popen(
         f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
-        f" --action='action,label') == 'action' ]] && qutebrowser {url} || pass",
+        f" --action='action,label') == 'action' ]] && qutebrowser {url} || exit 1",
         shell=True,
         text=True,
     )
