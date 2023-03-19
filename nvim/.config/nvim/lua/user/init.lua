@@ -434,13 +434,13 @@ local config = {
 								["<A-k>"] = actions.cycle_previewers_prev,
 							},
 						},
-						pickers = {
-							find_files = {
-								find_command = { "fd", "-L", "--type", "f", "--strip-cwd-prefix" },
-							},
-							live_grep = {
-								additional_args = { "-L" },
-							},
+					},
+					pickers = {
+						find_files = {
+							find_command = { "fd", "--follow", "--type", "f", "--strip-cwd-prefix" },
+						},
+						live_grep = {
+							additional_args = { "--follow" },
 						},
 					},
 				}
