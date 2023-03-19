@@ -933,6 +933,10 @@ local config = {
 			pattern = { "markdown", "tex" },
 			command = "set spell textwidth=100",
 		})
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "gitcommit" },
+			command = "set spell",
+		})
 		vim.api.nvim_create_augroup("user_markdown", {
 			clear = true,
 		})
