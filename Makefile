@@ -57,7 +57,7 @@ stow-etc:
 .PHONY: install-aur-helper
 install-aur-helper: stow-etc
 	rm -rf /tmp/paru
-	git clone https://aur.archlinux.org/paru.git  /tmp/paru
+	git clone --depth 1 https://aur.archlinux.org/paru.git  /tmp/paru
 	# Get multilib and archlinuxfr databases
 	sudo pacman --sync --refresh
 	cd /tmp/paru && makepkg --install --syncdeps --noconfir	cd /tmp/paru && makepkg --install --syncdeps --noconfirm
@@ -65,7 +65,7 @@ install-aur-helper: stow-etc
 
 .PHONY: setup-tuir
 setup-tuir:
-	@git clone https://gitlab.com/YasserKa/tuir /tmp/tuir
+	@git clone --depth 1 https://gitlab.com/YasserKa/tuir /tmp/tuir
 	@cd /tmp/tuir && pip install . && cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages
@@ -77,7 +77,7 @@ post-install-packages: stow-packages upgrade-pypi-packages setup-systemd-service
 	@# Sync pkgfile database for command-no-found-handler function to work
 	sudo pkgfile -u
 	@# Setup Tmux plugin manager
-	git clone https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+	git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
 	@#Setup notes
 	git clone https://github.com/YasserKa/notes $(HOME)/notes
 	@# Setup ambient music
@@ -132,7 +132,7 @@ setup-jupyter-notebook:
 	@echo "Setting up jupyter notebook"
 	pip install --user jupyter jupyter_contrib_nbextensions
 	jupyter nbextensions_configurator enable --user
-	git clone https://github.com/lambdalisue/jupyter-vim-binding $(EXT_DIR)
+	git clone --depth 1 https://github.com/lambdalisue/jupyter-vim-binding $(EXT_DIR)
 	chmod -R go-w $(EXT_DIR)
 	jupyter nbextension enable vim_binding/vim_binding
 
