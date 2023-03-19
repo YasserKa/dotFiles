@@ -726,6 +726,10 @@ local config = {
 						disable = { "latex", "help", "man" },
 					},
 					tree_surfer = { enable = true },
+					context_commentstring = { 
+						enable = true,
+          	commentary_integration = { CommentaryLine = false, },
+					},
 					textobjects = {
 						select = {
 							enable = true,
