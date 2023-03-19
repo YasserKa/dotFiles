@@ -161,23 +161,9 @@ local config = {
 	-- automatically pick-up stored data by this setting.)
 
 	mappings = {
-		-- first key is the mode
 		n = {
-			-- ["]"] = {
-			-- 	f = "Next function start",
-			-- 	x = "Next class start",
-			-- 	F = "Next function end",
-			-- 	X = "Next class end",
-			-- },
-			-- ["["] = {
-			-- 	f = "Previous function start",
-			-- 	x = "Previous class start",
-			-- 	F = "Previous function end",
-			-- 	X = "Previous class end",
-			-- },
 			["<leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
 			["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },
-			-- -- second key is the prefix, <leader> prefixes
 			["<localleader>l"] = false,
 			["<localleader>m"] = {
 				function()
@@ -192,15 +178,11 @@ local config = {
 				desc = "Preview Math",
 			},
 			["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
-			-- 	-- third key is the key to bring up next level and its displayed
-			-- 	-- group name in which-key top level menu
 			["<leader>bO"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", desc = "Remove all other buffers" },
  			["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Buffer", },
  			["<leader>gU"] = { function() require("gitsigns").reset_buffer_index() end, desc = "Unstage Buffer", },
  			[ "<leader>gc"] = { name = "Commit" },
  			["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
-			-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ca', '<cmd>Git commit --quiet --amend<CR>', opts)
-			-- 		-- vim.api.nvim_buf_set_keymap(current_buffer, 'n', 'ce', '<cmd>Git commit --quiet --amend --no-edit<CR>', opts)
 			["<leader>a"] = { name = "Annotate" }, 
 			["<leader>a<cr>"] = {
 				function()
@@ -236,8 +218,6 @@ local config = {
 			["<leader>f'"] = { "<cmd>Telescope marks<cr>",desc ="Marks" },
 			["<leader>f."] = { "<cmd>Telescope resume<cr>",desc ="Open previous picker" },
 			["<leader>fB"] = { "<cmd>Telescope bibtex<cr>",desc ="BibTeX" },
-			-- second key is the lefthand side of the map
-			-- mappings seen under group name "Buffer"
 			["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
 			["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
@@ -422,8 +402,8 @@ local config = {
    			local get_icon = require("astronvim.utils").get_icon
 				return {
 					defaults = {
-						-- prompt_prefix = string.format("%s ", get_icon("Search")),
-						-- selection_caret = string.format("%s ", get_icon("Selected")),
+						prompt_prefix = string.format("%s ", get_icon("Search")),
+						selection_caret = string.format("%s ", get_icon("Selected")),
 						path_display = { "truncate" },
 						sorting_strategy = "ascending",
 						layout_config = {
@@ -481,7 +461,7 @@ local config = {
 				require("telescope").load_extension("bibtex")
 			end,
 		},
-		{ "https://github.com/andymass/vim-matchup"},
+		{ "https://github.com/andymass/vim-matchup", lazy=false },
 		{
 			"https://github.com/echasnovski/mini.nvim", lazy = false,
 			config = function()
@@ -511,12 +491,14 @@ local config = {
 		},
 		{
 			"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-			after = "nvim-treesitter",
+			dependencies = "nvim-treesitter",
+			lazy = false,
 		},
 		{ "https://github.com/aymericbeaumet/vim-symlink" },
 		{
 			"https://github.com/ziontee113/syntax-tree-surfer",
-			after = "nvim-treesitter",
+			dependencies = "nvim-treesitter",
+			lazy = false,
 		},
 		{
 			"https://github.com/linty-org/readline.nvim",
@@ -628,27 +610,26 @@ local config = {
 		{ "https://github.com/junegunn/gv.vim", requires = "https://github.com/tpope/vim-fugitive" },
 		{ "https://github.com/tpope/vim-rhubarb", requires = "https://github.com/tpope/vim-fugitive" },
 
-		{ "https://github.com/terryma/vim-expand-region" },
+		{ "https://github.com/terryma/vim-expand-region", lazy= false },
 		{ "https://github.com/jeetsukumaran/vim-commentary", event="VeryLazy" },
-		{ "https://github.com/szw/vim-maximizer" },
-		{ "https://github.com/simnalamburt/vim-mundo" },
+		{ "https://github.com/szw/vim-maximizer" , lazy = false},
+		{ "https://github.com/simnalamburt/vim-mundo", cmd = "MundoToggle"},
 		{
-			"https://github.com/ggandor/leap.nvim",
+			"https://github.com/ggandor/leap.nvim", lazy = false,
 			config = function()
 				require("leap").add_default_mappings()
 			end,
 		},
 		{
-			"https://github.com/iamcco/markdown-preview.nvim",
-			run = function()
+			"https://github.com/iamcco/markdown-preview.nvim", cmd = "MarkdownPreviewToggle", 
+			build = function()
 				vim.fn["mkdp#util#install"]()
 			end,
-			setup = function()
+			config = function()
 				vim.g.mkdp_filetypes = { "markdown", "plantuml" }
 			end,
 			ft = { "markdown", "plantuml" },
 		},
-		{ "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 		{
 			"https://github.com/kdheepak/cmp-latex-symbols",
 			after = "nvim-cmp",
@@ -666,8 +647,8 @@ local config = {
 			end,
 			requires = "nvim-treesitter/nvim-treesitter",
 		},
-		{ "https://github.com/romainl/vim-cool" }, -- Disable search highlighting when done
-		{ "https://github.com/honza/vim-snippets" },
+		{ "https://github.com/romainl/vim-cool", lazy=false }, -- Disable search highlighting when done
+		{ "https://github.com/honza/vim-snippets",lazy=false },
 		{
 			"jose-elias-alvarez/null-ls.nvim",
 			opts = function(config) -- overrides `require("null-ls").setup(config)`
@@ -938,7 +919,7 @@ local config = {
 			desc = "Settings for mail files",
 			group = "user_mail",
 			pattern = "neomutt-*",
-			command = "normal 50%",
+			command = "normal )j",
 		})
 
 		vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -1220,19 +1201,19 @@ local config = {
 		-- 	sts.filtered_jump({ "if_statement", "else_clause", "else_statement" }, true, { destination = "siblings" })
 		-- end, opts)
 
-		local gen_spec = require("mini.ai").gen_spec
-		require("mini.ai").setup({
-			custom_textobjects = {
-				["*"] = gen_spec.pair("*", "*", { type = "greedy" }),
-				["_"] = gen_spec.pair("_", "_", { type = "greedy" }),
-				B = gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
-				C = gen_spec.treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
-				F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
-				L = gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
-				P = gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
-				x = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
-			},
-		})
+		-- local gen_spec = require("mini.ai").gen_spec
+		-- require("mini.ai").setup({
+		-- 	custom_textobjects = {
+		-- 		["*"] = gen_spec.pair("*", "*", { type = "greedy" }),
+		-- 		["_"] = gen_spec.pair("_", "_", { type = "greedy" }),
+		-- 		B = gen_spec.treesitter({ a = "@block.outer", i = "@block.inner" }),
+		-- 		C = gen_spec.treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
+		-- 		F = gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+		-- 		L = gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
+		-- 		P = gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+		-- 		x = gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+		-- 	},
+		-- })
 		-- jump to parent or child nodes only
 		-- vim.keymap.set("n", "_", function()
 		-- 	sts.filtered_jump({
