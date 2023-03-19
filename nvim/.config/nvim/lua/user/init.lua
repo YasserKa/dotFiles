@@ -993,6 +993,9 @@ local config = {
 		vim.keymap.set("n", "n", "nzzzv")
 		vim.keymap.set("n", "J", "mzJ`z") -- Join line without moving cursor
 		vim.keymap.set("n", "N", "Nzzzv")
+		-- Keep visual selection after indenting
+		vim.keymap.set("v", "<", "<gv")
+		vim.keymap.set("v", ">", ">gv")
 
 		local Path = require("plenary.path")
 		require("session_manager").setup({
