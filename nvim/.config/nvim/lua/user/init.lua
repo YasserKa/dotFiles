@@ -382,13 +382,13 @@ local config = {
 				})
 				opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
 					if require("luasnip").expandable() then
-						require("luasnip").expand()
+ 						cmp.confirm()
 					elseif require("luasnip").expand_or_jumpable() then
 						require("luasnip").expand_or_jump()
 					elseif require("user.utils").has_words_before() then
 						cmp.complete()
 					else
-						cmp.mapping.confirm({ select = false })
+						fallback()
 					end
 					end, {
 						"i",
