@@ -260,16 +260,31 @@
   (setq ispell-personal-dictionary (getenv "DICPATH"))
   )
 
-(defun my-save-word ()
+(defun my/save-word-to-dictionary ()
   (interactive)
   (let ((current-location (point))
         (word (flyspell-get-word)))
     (when (consp word)
-      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))
+    (message "Word \"%s\" added to dictionary." (car word))
+    )
+  )
+
+(defun my/remove-word-from-dictionary ()
+  (interactive)
+  (let ((word (thing-at-point 'word)))
+    (with-temp-file (getenv "DICPATH")
+      (insert-file-contents (getenv "DICPATH"))
+      (goto-char (point-min))
+      (while (re-search-forward (concat "^" word "$") nil t)
+        (kill-whole-line)))
+    (message "Word \"%s\" removed from dictionary." word)))
 
 ;; Add vim's binding
 (with-eval-after-load 'evil
-  (evil-define-key 'normal 'global (kbd "zg")  #'my-save-word))
+  (evil-define-key 'normal 'global (kbd "zg")  #'my/save-word-to-dictionary)
+  (evil-define-key 'normal 'global (kbd "zw")  #'my/remove-word-from-dictionary)
+  )
 
 ;; Snippet engine
 (use-package yasnippet
