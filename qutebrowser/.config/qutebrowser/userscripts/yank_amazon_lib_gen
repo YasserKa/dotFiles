@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 lib_link="https://libgen.li/index.php"
-link="$lib_link?req=$QUTE_SELECTED_TEXT&order=year&ordermode=desc&covers=on"
-echo "$link" | xclip -selection clipboard
-echo "message-info 'URL copied to clipboard'" >> "$QUTE_FIFO"
+query="$(grep "(Author)" <(cat "$QUTE_TEXT") | sed s/"(Author)"//g | tr ' ' +)"
+link="$lib_link?req=$QUTE_SELECTED_TEXT+${query:2:-1}&order=year&ordermode=desc&covers=on"
+echo "open -w $link" >> "$QUTE_FIFO"
