@@ -57,6 +57,9 @@ export GTK_THEME="Adwaita:dark" # Remove the warning from GTK apps "gtk-containe
 # Specifying language environment
 export LC_ALL="en_US.utf8"
 
+# Hunspell's Dictionary path
+export DICPATH="$XDG_CONFIG_HOME/.dictionary_en"
+
 # Used by polybar config
 # Network interfaces
 export IFACE_WLAN=$(ls /sys/class/net | grep -E '^(wlan|wlp)' | tail -n1 | cut -d ' ' -f1)

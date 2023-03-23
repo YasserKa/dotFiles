@@ -237,9 +237,6 @@
   :custom
   ;; Showing error messages slows down using flyspell-buffer
   (flyspell-issue-message-flag t)
-  ;; Use hunspell instead of ispell
-  (ispell-program-name (executable-find "hunspell"))
-  (ispell-dictionary "en_US")
   :hook (;; Enable spelling mode for files
          ;; Enable flyspell for comments and strings only in programming modes
          (text-mode . flyspell-mode)
@@ -255,6 +252,24 @@
                             (evil-collection-define-operator-key 'yank 'global-map "os" #'flyspell-mode)
                             )))
   )
+
+
+(with-eval-after-load "ispell"
+  ;; Use hunspell instead of ispell
+  (setq ispell-program-name (executable-find "hunspell"))
+  (setq ispell-personal-dictionary (getenv "DICPATH"))
+  )
+
+(defun my-save-word ()
+  (interactive)
+  (let ((current-location (point))
+        (word (flyspell-get-word)))
+    (when (consp word)
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+
+;; Add vim's binding
+(with-eval-after-load 'evil
+  (evil-define-key 'normal 'global (kbd "zg")  #'my-save-word))
 
 ;; Snippet engine
 (use-package yasnippet
@@ -395,10 +410,10 @@
   :after evil
   :config
   (evil-define-key '(normal visual) 'global
-  (kbd "C-a") 'evil-numbers/inc-at-pt
-  ;; (kbd "C-x") 'evil-numbers/dec-at-pt
+    (kbd "C-a") 'evil-numbers/inc-at-pt
+    ;; (kbd "C-x") 'evil-numbers/dec-at-pt
+    )
   )
-)
 
 ;; Align operator
 (use-package evil-lion

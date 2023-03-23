@@ -601,8 +601,8 @@ local config = {
 
 		-- Git
 		{ "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
-		{ "https://github.com/junegunn/gv.vim", dependencies = "https://github.com/tpope/vim-fugitive" },
-		{ "https://github.com/tpope/vim-rhubarb", dependencies = "https://github.com/tpope/vim-fugitive" },
+		{ "https://github.com/junegunn/gv.vim", dependencies = "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
+		{ "https://github.com/tpope/vim-rhubarb", dependencies = "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
 
 		{ "https://github.com/terryma/vim-expand-region", lazy= false },
 		{ "https://github.com/jeetsukumaran/vim-commentary", event="VeryLazy" },
