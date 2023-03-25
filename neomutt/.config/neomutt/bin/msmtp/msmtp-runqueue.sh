@@ -26,6 +26,7 @@ while [ -e "$LOCKFILE" ] && [ "$WAIT" -lt "$MAXWAIT" ]; do
     WAIT="$((WAIT + 1))"
 done
 if [ -e "$LOCKFILE" ]; then
+    notify-send --urgency critical --timeout=60000 "Can't send mail, please remove $LOCKFILE"
     echo "Cannot use $QUEUEDIR: waited $MAXWAIT seconds for"
     echo "lockfile $LOCKFILE to vanish, giving up."
     echo "If you are sure that no other instance of this script is"
