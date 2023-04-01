@@ -629,7 +629,6 @@ local config = {
 			dependencies = "hrsh7th/nvim-cmp",
 			ft={"tex"},
 		},
-		{ "https://github.com/aymericbeaumet/vim-symlink", lazy=false },
 		{ "https://github.com/romainl/vim-cool", lazy=false }, -- Disable search highlighting when done
 		{ "https://github.com/honza/vim-snippets",lazy=false },
 		{
@@ -1328,6 +1327,30 @@ call matchadd('Conceal',  '__[^X]\+\zs__\ze', 10, -1, {'conceal':''})
 		-- }}}
 		vim.api.nvim_exec(
 			[[
+ function! MyFollowSymlink(...)
+    if exists('w:no_resolve_symlink') && w:no_resolve_symlink
+      return
+    endif
+    let fname = a:0 ? a:1 : expand('%')
+    if fname =~ '^\w\+:/'
+      " do not mess with 'fugitive://' etc
+      return
+    endif
+    let fname = simplify(fname)
+
+    let resolvedfile = resolve(fname)
+    if resolvedfile == fname
+      return
+    endif
+    let resolvedfile = fnameescape(resolvedfile)
+    " echohl WarningMsg | echomsg 'Resolving symlink' fname '=>' resolvedfile | echohl None
+    " exec 'noautocmd file ' . resolvedfile
+    " XXX: problems with AutojumpLastPosition: line("'\"") is 1 always.
+    exec 'file ' . resolvedfile
+  endfunction
+  command! FollowSymlink call MyFollowSymlink()
+  command! ToggleFollowSymlink let w:no_resolve_symlink = !get(w:, 'no_resolve_symlink', 0) | echo "w:no_resolve_symlink =>" w:no_resolve_symlink
+  au BufReadPost * call MyFollowSymlink(expand('<afile>'))
 
 augroup TMP_FILES
 autocmd!
