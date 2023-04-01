@@ -35,9 +35,8 @@ echo "$@" > "$MSMTPFILE" || exit 1
 cat > "$MAILFILE" || exit 1
 
 # If we are online, run the queue immediately.
-$HOME/bin/wait_internet
-if [ $? -eq 0 ]; then
-  $XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-runqueue.sh > /dev/null &
+if "$HOME/bin/wait_internet"; then
+  "$XDG_CONFIG_HOME/neomutt/bin/msmtp/msmtp-runqueue.sh" > /dev/null &
 else
   # Notify me if it gets queuedd
   dunstify --timeout=60000 "Mail is queued"
