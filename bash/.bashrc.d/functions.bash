@@ -207,10 +207,10 @@ open_file() {
 		# exiting for editing multiple files
 		# -o open files in windows and +only keep one of them
 		# shellcheck disable=SC2046,SC2116
-		cd "${DIRECTORY_PATH}" && "${EDITOR}" ${ONLY_OPTION} -o $(echo "$@")
+		cd "${DIRECTORY_PATH}" && "${EDITOR}" "${ONLY_OPTION}" -o $(echo "$@")
 	else
 		# shellcheck disable=SC2046,SC2116
-		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" ${ONLY_OPTION} -o "$@"
+		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" "${ONLY_OPTION}" -o "$@"
 	fi
 }
 
