@@ -159,7 +159,7 @@ macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract U
 macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 # view email in browser
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > $XDG_CACHE_HOME/neomutt/mail.html <enter><shell-escape>$BROWSER $XDG_CACHE_HOME/neomutt/mail.html<enter>"
-
+macro attach s '<save-entry> <bol>~/Downloads/<eol>' 'Save attachment'
 
 # mailboxes
 set mbox_type = Maildir

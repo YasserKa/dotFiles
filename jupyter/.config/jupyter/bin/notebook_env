@@ -14,8 +14,9 @@
 
 if [[ "$1" == "init" ]]; then
     # Install jupytext and jupyter_ascending for syncing
-    poetry add --group dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
+    poetry init
     poetry shell
+    poetry add --group dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
 
     jupyter nbextension install jupytext --py --user
     jupyter nbextension enable  jupytext  --py --user

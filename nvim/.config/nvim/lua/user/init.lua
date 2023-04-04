@@ -1161,42 +1161,42 @@ local config = {
 			sts.filtered_jump({
 				"if_statement",
 				}, true)
-		end, opts)
+			end, opts)
 		vim.keymap.set("n", "[f", function()
 			sts.filtered_jump({
 				"if_statement",
 				}, false)
-		end, opts)
+			end, opts)
 
 		vim.keymap.set("n", "]c", function()
 			sts.filtered_jump({
 				"class",
 				}, true)
-		end, opts)
+			end, opts)
 		vim.keymap.set("n", "[c", function()
 			sts.filtered_jump({
 				"class",
 				}, false)
-		end, opts)
+			end, opts)
 
 		vim.keymap.set("n", "]/", function()
 			sts.filtered_jump({
 				"comment",
 				}, true)
-		end, opts)
+			end, opts)
 		vim.keymap.set("n", "[/", function()
 			sts.filtered_jump({
 				"comment",
 				}, false)
-		end, opts)
+			end, opts)
 
 		-- "default" means that you jump to the default_desired_types or your lastest jump types
 		vim.keymap.set("n", "<A-n>", function()
 			sts.filtered_jump("default", true) --> true means jump forward
-		end, opts)
+			end, opts)
 		vim.keymap.set("n", "<A-p>", function()
 			sts.filtered_jump("default", false) --> false means jump backwards
-		end, opts)
+			end, opts)
 		-------------------------------
 		-- jump with limited targets --
 		-- jump to sibling nodes only
@@ -1361,6 +1361,7 @@ augroup END
 let g:python3_host_prog  = '/bin/python3.10'
 let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
+xnoremap gcc :Commentary<cr>
 
 " {{{ vim-ipython-cell / vim-slime
 " Slime
