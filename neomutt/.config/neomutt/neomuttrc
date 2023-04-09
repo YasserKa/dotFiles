@@ -150,7 +150,8 @@ macro generic,index,browser,pager ,ss '\
 macro generic,index,browser,pager ,es "<shell-escape>nohup nvim-qt $my_neomuttrc > /dev/null<enter>"
 
 # Contacts
-set query_command= "khard email --parsable %s"
+set query_command= "khard email --parsable %s || notmuch address from:/%s/"
+set query_format="%4c %t %-70.70a %-70.70n %?e?(%e)?"
 macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>khard add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
 bind editor <Tab> complete-query
 
