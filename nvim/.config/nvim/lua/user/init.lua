@@ -163,6 +163,7 @@ local config = {
 	mappings = {
 		n = {
 			["<leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+			["gx"] = {"<cmd>lua system_open()<cr>", desc ="Open the file under cursor with system app"},
 			["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },
 			["<localleader>l"] = false,
 			["<localleader>m"] = {
@@ -1298,6 +1299,24 @@ set nobuflisted
 ]])
 			end,
 		})
+
+		-- Updated version of utils.system_open adding fn.expand, so paths with ~
+		-- are expanded
+		function system_open(path)
+  		local cmd
+  		if vim.fn.has "win32" == 1 and vim.fn.executable "explorer" == 1 then
+    		cmd = "explorer"
+  		elseif vim.fn.has "unix" == 1 and vim.fn.executable "xdg-open" == 1 then
+    		cmd = "xdg-open"
+  		elseif (vim.fn.has "mac" == 1 or vim.fn.has "unix" == 1) and vim.fn.executable "open" == 1 then
+    		cmd = "open"
+  		end
+
+  		local file_path = vim.fn.expand "<cfile>"
+  		if not cmd then M.notify("Available system opening tool not found!", "error") end
+  		vim.fn.jobstart({ cmd, path or vim.fn.expand(file_path) }, { detach = true })
+		end
+
 		-- }}}
 		vim.api.nvim_create_autocmd({ "FileType" }, {
 			pattern = { "markdown" },
