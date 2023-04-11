@@ -206,11 +206,12 @@ open_file() {
 		# The -o +only arguments are a hack to mitigate nvim's warning upon
 		# exiting for editing multiple files
 		# -o open files in windows and +only keep one of them
-		# shellcheck disable=SC2046,SC2116
-		cd "${DIRECTORY_PATH}" && "${EDITOR}" "${ONLY_OPTION}" -o $(echo "$@")
+		# shellcheck disable=SC2046,SC2116,SC2086
+		cd "${DIRECTORY_PATH}" && "${EDITOR}" $ONLY_OPTION -o $(echo "$@")
+
 	else
-		# shellcheck disable=SC2046,SC2116
-		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" "${ONLY_OPTION}" -o "$@"
+		# shellcheck disable=SC2046,SC2116,SC2086
+		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" ${ONLY_OPTION} -o "$@"
 	fi
 }
 
