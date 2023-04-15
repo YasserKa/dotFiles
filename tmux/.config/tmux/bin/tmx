@@ -57,7 +57,7 @@ create_new_client() {
         echo "Launching copy of base session ${SESSION} ..."
         # Create a new session (without attaching it) and to session
         # to share windows
-        tmux new-session -d -t "${SESSION}" -s "$CLIENT_NAME"
+        tmux new-session -d -t "${SESSION}#0" -s "$CLIENT_NAME"
         # Attach to the new session & kill it if it's not the original on detach
         if (( "$SESSION_ID" == 0 )); then
             tmux attach-session -t "$CLIENT_NAME"
