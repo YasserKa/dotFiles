@@ -397,9 +397,9 @@ local config = {
 					else
 						fallback()
 					end
-				end, {
-					"i",
-					"s",
+					end, {
+						"i",
+						"s",
 				})
 				opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
 					if require("luasnip").expandable() then
@@ -411,9 +411,9 @@ local config = {
 					else
 						fallback()
 					end
-				end, {
-					"i",
-					"s",
+					end, {
+						"i",
+						"s",
 				})
 				opts.sources = cmp.config.sources({
 					{ name = "luasnip", priority = 1000 },
@@ -857,7 +857,102 @@ local config = {
 				}
 			end,
 		},
+		-- Misc
+		{
+			"untitled-ai/jupyter_ascending.vim",
+			event = "BufEnter *sync.py",
+			config = function()
+				local wk = require("which-key")
+				wk.register({
+					["<localleader>"] = {
+						n = {
+							name = "jupyter ascending",
+							c = { "<Plug>JupyterExecute", "Execute cell" },
+							r = { "<Plug>JupyterExecuteAll", "Run file" },
+							R = { "<Plug>JupyterRestart", "Restart Jupyter" },
+						},
+					},
+				})
+			end,
+		},
+		{
+			"https://github.com/luk400/vim-jukit",
+			event = "BufEnter *.ipynb",
+			config = function()
+				vim.g["jukit_terminal"] = "tmux"
+				vim.cmd([[
+let g:jukit_layout = {
+    \'split': 'horizontal',
+    \'p1': 0.6, 
+    \'val': [
+        \'file_content',
+        \{
+            \'split': 'vertical',
+            \'p1': 0.6,
+            \'val': ['output', 'output_history']
+        \}
+    \]
+\}
 
+]])
+				local wk = require("which-key")
+				wk.register({
+					["<localleader>"] = {
+						o = {
+							s = { ":call jukit#splits#output()<cr>", "Open output window" },
+						},
+						n = {
+							r = { ":call jukit#send#all()<cr>", "Run file" },
+							p = {
+								':call jukit#convert#notebook_convert("jupyter-notebook")<cr>',
+								"Convert to ipynb or py",
+							},
+
+							c = { ":call jukit#send#section(0)<cr>", "Execute cell" },
+							C = {
+								":call jukit#send#section(0) | call jukit#cells#jump_to_next_cell()<cr>",
+								"Execute cell and jump to next",
+							},
+							vC = {
+								" :IPythonCellExecuteCellVerboseJump<CR>",
+								"Execute cell verbosly and jump to next",
+							},
+							-- l = { ":IPythonCellClear<CR>", "Clear shell" },
+							-- x = { ":IPythonCellClose<CR>", "Close shell" },
+							-- Q = { ":IPythonCellRestart<CR>", "Restart shell" },
+							-- p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
+							-- s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
+							-- h = { "<Plug>SlimeLineSend", "Send line" },
+							-- d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
+							-- q = { ":SlimeSend1 exit<CR>", "Exit" },
+							-- m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
+							-- I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
+							-- i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
+							-- j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
+							-- k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
+						},
+					},
+					["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
+					["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
+				})
+				-- wk.register({
+				-- ["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
+				-- ["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
+
+				-- ["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
+				-- ["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
+				-- }, { mode = "i" })
+				-- wk.register({
+				-- ["<localleader>"] = {
+				-- n = {
+				-- name = "python-cell",
+				-- h = { "<Plug>SlimeRegionSend", "Send shell" },
+				-- },
+				-- },
+				-- }
+				-- , { mode = "v" })
+			end,
+		},
 	},
 
 	-- LuaSnip Options
@@ -982,18 +1077,18 @@ local config = {
 		_G.YankOrgLink = function()
 			local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
 			local cmd = '"${TERMINAL}" --directory "'
-				.. vim.fn.expand("%:p:h")
-				.. '" --detach -e "${EDITOR}" +'
-				.. r
-				.. ' "'
-				.. vim.fn.expand("%:t")
-				.. '"'
+			.. vim.fn.expand("%:p:h")
+			.. '" --detach -e "${EDITOR}" +'
+			.. r
+			.. ' "'
+			.. vim.fn.expand("%:t")
+			.. '"'
 			local encoded_org_link = "[["
-				.. "link-handler://"
-				.. encodeString(cmd)
-				.. "]["
-				.. vim.fn.expand("%:t")
-				.. "]]"
+			.. "link-handler://"
+			.. encodeString(cmd)
+			.. "]["
+			.. vim.fn.expand("%:t")
+			.. "]]"
 			vim.fn.setreg("+", encoded_org_link)
 		end
 		vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
@@ -1001,10 +1096,10 @@ local config = {
 		_G.WatchFile = function()
 			vim.cmd(
 				'silent !"${TERMINAL}" --detach --directory "'
-					.. vim.fn.expand("%:p:h")
-					.. '" bash -c \'echo "'
-					.. vim.fn.expand("%:t")
-					.. "\" | entr -c /_'"
+				.. vim.fn.expand("%:p:h")
+				.. '" bash -c \'echo "'
+				.. vim.fn.expand("%:t")
+				.. "\" | entr -c /_'"
 			)
 		end
 		vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
@@ -1192,34 +1287,34 @@ local config = {
 		vim.keymap.set("n", "]f", function()
 			sts.filtered_jump({
 				"if_statement",
-			}, true)
+				}, true)
 		end, opts)
 		vim.keymap.set("n", "[f", function()
 			sts.filtered_jump({
 				"if_statement",
-			}, false)
+				}, false)
 		end, opts)
 
 		vim.keymap.set("n", "]c", function()
 			sts.filtered_jump({
 				"class",
-			}, true)
+				}, true)
 		end, opts)
 		vim.keymap.set("n", "[c", function()
 			sts.filtered_jump({
 				"class",
-			}, false)
+				}, false)
 		end, opts)
 
 		vim.keymap.set("n", "]/", function()
 			sts.filtered_jump({
 				"comment",
-			}, true)
+				}, true)
 		end, opts)
 		vim.keymap.set("n", "[/", function()
 			sts.filtered_jump({
 				"comment",
-			}, false)
+				}, false)
 		end, opts)
 
 		-- "default" means that you jump to the default_desired_types or your lastest jump types
