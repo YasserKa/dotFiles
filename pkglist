@@ -163,9 +163,10 @@ lsof # List open files for running Unix processes
 parallel # A shell tool for executing jobs in parallel
 
 newsboat # An RSS/Atom feed reader for text terminals
-tuir # Browse Reddit from your terminal
-# TUIR dependency
-python-kitchen # Useful snippets of python code
+# Using a personal fork that adds more features
+# tuir # Browse Reddit from your terminal
+# # TUIR dependency
+# python-kitchen # Useful snippets of python code
 
 vimpager-git # A vim-based script to use as a PAGER - git checkout
 mpv # a free, open source, and cross-platform media player

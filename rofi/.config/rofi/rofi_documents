@@ -85,7 +85,7 @@ main() {
     SELECTED_DOCUMENT="${DOCUMENTS[${SELECTED_INDEX}]}"
     readonly SELECTED_DOCUMENT
     local DOCUMENT_PATH
-    DOCUMENT_PATH="$(fd -F "${SELECTED_DOCUMENT}" "${PATHS_TO_SEARCH[@]}" | head -n 1)"
+    DOCUMENT_PATH="$(fd -g "${SELECTED_DOCUMENT}" "${PATHS_TO_SEARCH[@]}" | head -n 1)"
     readonly DOCUMENT_PATH
 
     if (( ROFI_EXIT_STATUS == 10 )); then
