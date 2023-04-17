@@ -163,7 +163,7 @@ local config = {
 	mappings = {
 		n = {
 			["<leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
-			["gx"] = {"<cmd>lua system_open()<cr>", desc ="Open the file under cursor with system app"},
+			["gx"] = { "<cmd>lua system_open()<cr>", desc = "Open the file under cursor with system app" },
 			["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },
 			["<localleader>l"] = false,
 			["<localleader>m"] = {
@@ -180,11 +180,21 @@ local config = {
 			},
 			["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
 			["<leader>bO"] = { "<cmd>silent :%bdelete | edit# | bdelete#<cr>", desc = "Remove all other buffers" },
- 			["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Buffer", },
- 			["<leader>gU"] = { function() require("gitsigns").reset_buffer_index() end, desc = "Unstage Buffer", },
- 			[ "<leader>gc"] = { name = "Commit" },
- 			["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
-			["<leader>a"] = { name = "Annotate" }, 
+			["<leader>gS"] = {
+				function()
+					require("gitsigns").stage_buffer()
+				end,
+				desc = "Stage Buffer",
+			},
+			["<leader>gU"] = {
+				function()
+					require("gitsigns").reset_buffer_index()
+				end,
+				desc = "Unstage Buffer",
+			},
+			["<leader>gc"] = { name = "Commit" },
+			["<leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
+			["<leader>a"] = { name = "Annotate" },
 			["<leader>a<cr>"] = {
 				function()
 					require("neogen").generate()
@@ -202,13 +212,13 @@ local config = {
 					require("neogen").generate({ type = "func" })
 				end,
 				desc = "Function",
-			}, 
+			},
 			["<leader>at"] = {
 				function()
 					require("neogen").generate({ type = "type" })
 				end,
 				desc = "Type",
-			}, 
+			},
 			["<leader>aF"] = {
 				function()
 					require("neogen").generate({ type = "file" })
@@ -216,9 +226,9 @@ local config = {
 				desc = "File",
 			},
 			["<leader>f?"] = { "<cmd>Telescope help_tags<cr>", desc = "Find help" },
-			["<leader>f'"] = { "<cmd>Telescope marks<cr>",desc ="Marks" },
-			["<leader>f."] = { "<cmd>Telescope resume<cr>",desc ="Open previous picker" },
-			["<leader>fB"] = { "<cmd>Telescope bibtex<cr>",desc ="BibTeX" },
+			["<leader>f'"] = { "<cmd>Telescope marks<cr>", desc = "Marks" },
+			["<leader>f."] = { "<cmd>Telescope resume<cr>", desc = "Open previous picker" },
+			["<leader>fB"] = { "<cmd>Telescope bibtex<cr>", desc = "BibTeX" },
 			["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
 			["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
 			["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
@@ -229,8 +239,18 @@ local config = {
 
 			-- Navigation
 			-- Buffer
-			["L"] = { function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" },
-			["H"] = { function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end, desc = "Previous buffer" },
+			["L"] = {
+				function()
+					require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+				end,
+				desc = "Next buffer",
+			},
+			["H"] = {
+				function()
+					require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+				end,
+				desc = "Previous buffer",
+			},
 
 			-- Text
 			["j"] = { "gj" },
@@ -346,8 +366,8 @@ local config = {
 	},
 	icons = {
 		-- Remove buffer close icon
-		BufferClose = ""
- 	},
+		BufferClose = "",
+	},
 	-- Configure plugins
 	plugins = {
 		{ "goolord/alpha-nvim", enabled = false },
@@ -360,7 +380,7 @@ local config = {
 		{ "max397574/better-escape.nvim", enabled = false },
 		{ -- override nvim-cmp plugin
 			"hrsh7th/nvim-cmp",
-			dependencies= {"https://github.com/kdheepak/cmp-latex-symbols"},
+			dependencies = { "https://github.com/kdheepak/cmp-latex-symbols" },
 			-- override the options table that is used in the `require("cmp").setup()` call
 			opts = function(_, opts)
 				-- opts parameter is the default options table
@@ -377,13 +397,13 @@ local config = {
 					else
 						fallback()
 					end
-					end, {
-						"i",
-						"s",
+				end, {
+					"i",
+					"s",
 				})
 				opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
 					if require("luasnip").expandable() then
- 						cmp.confirm()
+						cmp.confirm()
 					elseif require("luasnip").expand_or_jumpable() then
 						require("luasnip").expand_or_jump()
 					elseif require("user.utils").has_words_before() then
@@ -391,9 +411,9 @@ local config = {
 					else
 						fallback()
 					end
-					end, {
-						"i",
-						"s",
+				end, {
+					"i",
+					"s",
 				})
 				opts.sources = cmp.config.sources({
 					{ name = "luasnip", priority = 1000 },
@@ -411,7 +431,7 @@ local config = {
 			"nvim-telescope/telescope.nvim",
 			opts = function()
 				local actions = require("telescope.actions")
-   			local get_icon = require("astronvim.utils").get_icon
+				local get_icon = require("astronvim.utils").get_icon
 				return {
 					defaults = {
 						prompt_prefix = string.format("%s ", get_icon("Search")),
@@ -459,15 +479,16 @@ local config = {
 		},
 		{
 			"nvim-telescope/telescope-bibtex.nvim",
-			dependencies = { "nvim-telescope/telescope.nvim", },
+			dependencies = { "nvim-telescope/telescope.nvim" },
 			ft = { "tex" },
 			config = function()
 				require("telescope").load_extension("bibtex")
 			end,
 		},
-		{ "https://github.com/andymass/vim-matchup", lazy=false },
+		{ "https://github.com/andymass/vim-matchup", lazy = false },
 		{
-			"https://github.com/echasnovski/mini.nvim", lazy = false,
+			"https://github.com/echasnovski/mini.nvim",
+			lazy = false,
 			config = function()
 				require("mini.surround").setup({
 					mappings = {
@@ -529,7 +550,7 @@ local config = {
 		},
 		{ "https://github.com/lervag/vimtex", ft = "tex" },
 		{ "https://github.com/jbyuki/nabla.nvim", ft = "tex" },
-		{ "https://github.com/jpalardy/vim-slime", ft="python" },
+		{ "https://github.com/jpalardy/vim-slime", ft = "python" },
 		{
 			"https://github.com/hanschen/vim-ipython-cell",
 			ft = "python",
@@ -596,27 +617,37 @@ local config = {
 		},
 		-- { "https://github.com/Ron89/thesaurus_query.vim" },
 		--  File type support
-		{ "https://github.com/fladson/vim-kitty", ft="kitty" },
-		{ "https://github.com/YasserKa/vim-sxhkdrc", ft="sxhkdrc" },
-		{ "https://github.com/sheerun/vim-polyglot", lazy=false }, -- provides better indentation & syntax highlight
+		{ "https://github.com/fladson/vim-kitty", ft = "kitty" },
+		{ "https://github.com/YasserKa/vim-sxhkdrc", ft = "sxhkdrc" },
+		{ "https://github.com/sheerun/vim-polyglot", lazy = false }, -- provides better indentation & syntax highlight
 
 		-- Git
-		{ "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
-		{ "https://github.com/junegunn/gv.vim", dependencies = "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
-		{ "https://github.com/tpope/vim-rhubarb", dependencies = "https://github.com/tpope/vim-fugitive", event="VeryLazy" },
-
-		{ "https://github.com/terryma/vim-expand-region", lazy= false },
-		{ "https://github.com/jeetsukumaran/vim-commentary", event="VeryLazy" },
-		{ "https://github.com/szw/vim-maximizer" , lazy = false},
-		{ "https://github.com/simnalamburt/vim-mundo", cmd = "MundoToggle"},
+		{ "https://github.com/tpope/vim-fugitive", event = "VeryLazy" },
 		{
-			"https://github.com/ggandor/leap.nvim", lazy = false,
+			"https://github.com/junegunn/gv.vim",
+			dependencies = "https://github.com/tpope/vim-fugitive",
+			event = "VeryLazy",
+		},
+		{
+			"https://github.com/tpope/vim-rhubarb",
+			dependencies = "https://github.com/tpope/vim-fugitive",
+			event = "VeryLazy",
+		},
+
+		{ "https://github.com/terryma/vim-expand-region", lazy = false },
+		{ "https://github.com/jeetsukumaran/vim-commentary", event = "VeryLazy" },
+		{ "https://github.com/szw/vim-maximizer", lazy = false },
+		{ "https://github.com/simnalamburt/vim-mundo", cmd = "MundoToggle" },
+		{
+			"https://github.com/ggandor/leap.nvim",
+			lazy = false,
 			config = function()
 				require("leap").add_default_mappings()
 			end,
 		},
 		{
-			"https://github.com/iamcco/markdown-preview.nvim", cmd = "MarkdownPreviewToggle", 
+			"https://github.com/iamcco/markdown-preview.nvim",
+			cmd = "MarkdownPreviewToggle",
 			build = function()
 				vim.fn["mkdp#util#install"]()
 			end,
@@ -628,10 +659,10 @@ local config = {
 		{
 			"https://github.com/kdheepak/cmp-latex-symbols",
 			dependencies = "hrsh7th/nvim-cmp",
-			ft={"tex"},
+			ft = { "tex" },
 		},
-		{ "https://github.com/romainl/vim-cool", lazy=false }, -- Disable search highlighting when done
-		{ "https://github.com/honza/vim-snippets",lazy=false },
+		{ "https://github.com/romainl/vim-cool", lazy = false }, -- Disable search highlighting when done
+		{ "https://github.com/honza/vim-snippets", lazy = false },
 		{
 			"jose-elias-alvarez/null-ls.nvim",
 			opts = function(config) -- overrides `require("null-ls").setup(config)`
@@ -706,9 +737,9 @@ local config = {
 						disable = { "latex", "help", "man" },
 					},
 					tree_surfer = { enable = true },
-					context_commentstring = { 
+					context_commentstring = {
 						enable = true,
-          	commentary_integration = { CommentaryLine = false, },
+						commentary_integration = { CommentaryLine = false },
 					},
 					textobjects = {
 						select = {
@@ -796,18 +827,18 @@ local config = {
 			lazy = false,
 		},
 		{ -- override nvim-autopairs plugin
-      "windwp/nvim-autopairs",
-      config = function(plugin, opts)
-        -- run default AstroNvim config
-        require "plugins.configs.nvim-autopairs"(plugin, opts)
-        -- require Rule function
-        local Rule = require "nvim-autopairs.rule"
-        local npairs = require "nvim-autopairs"
-        npairs.add_rules({
- 					Rule("$", "$", { "tex", "latex", "plaintex" }),
-        })
-      end,
-    },
+			"windwp/nvim-autopairs",
+			config = function(plugin, opts)
+				-- run default AstroNvim config
+				require("plugins.configs.nvim-autopairs")(plugin, opts)
+				-- require Rule function
+				local Rule = require("nvim-autopairs.rule")
+				local npairs = require("nvim-autopairs")
+				npairs.add_rules({
+					Rule("$", "$", { "tex", "latex", "plaintex" }),
+				})
+			end,
+		},
 		-- use mason-lspconfig to configure LSP installations
 		{
 			"williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
@@ -951,18 +982,18 @@ local config = {
 		_G.YankOrgLink = function()
 			local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
 			local cmd = '"${TERMINAL}" --directory "'
-			.. vim.fn.expand("%:p:h")
-			.. '" --detach -e "${EDITOR}" +'
-			.. r
-			.. ' "'
-			.. vim.fn.expand("%:t")
-			.. '"'
+				.. vim.fn.expand("%:p:h")
+				.. '" --detach -e "${EDITOR}" +'
+				.. r
+				.. ' "'
+				.. vim.fn.expand("%:t")
+				.. '"'
 			local encoded_org_link = "[["
-			.. "link-handler://"
-			.. encodeString(cmd)
-			.. "]["
-			.. vim.fn.expand("%:t")
-			.. "]]"
+				.. "link-handler://"
+				.. encodeString(cmd)
+				.. "]["
+				.. vim.fn.expand("%:t")
+				.. "]]"
 			vim.fn.setreg("+", encoded_org_link)
 		end
 		vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
@@ -970,10 +1001,10 @@ local config = {
 		_G.WatchFile = function()
 			vim.cmd(
 				'silent !"${TERMINAL}" --detach --directory "'
-				.. vim.fn.expand("%:p:h")
-				.. '" bash -c \'echo "'
-				.. vim.fn.expand("%:t")
-				.. "\" | entr -c /_'"
+					.. vim.fn.expand("%:p:h")
+					.. '" bash -c \'echo "'
+					.. vim.fn.expand("%:t")
+					.. "\" | entr -c /_'"
 			)
 		end
 		vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
@@ -1161,43 +1192,43 @@ local config = {
 		vim.keymap.set("n", "]f", function()
 			sts.filtered_jump({
 				"if_statement",
-				}, true)
-			end, opts)
+			}, true)
+		end, opts)
 		vim.keymap.set("n", "[f", function()
 			sts.filtered_jump({
 				"if_statement",
-				}, false)
-			end, opts)
+			}, false)
+		end, opts)
 
 		vim.keymap.set("n", "]c", function()
 			sts.filtered_jump({
 				"class",
-				}, true)
-			end, opts)
+			}, true)
+		end, opts)
 		vim.keymap.set("n", "[c", function()
 			sts.filtered_jump({
 				"class",
-				}, false)
-			end, opts)
+			}, false)
+		end, opts)
 
 		vim.keymap.set("n", "]/", function()
 			sts.filtered_jump({
 				"comment",
-				}, true)
-			end, opts)
+			}, true)
+		end, opts)
 		vim.keymap.set("n", "[/", function()
 			sts.filtered_jump({
 				"comment",
-				}, false)
-			end, opts)
+			}, false)
+		end, opts)
 
 		-- "default" means that you jump to the default_desired_types or your lastest jump types
 		vim.keymap.set("n", "<A-n>", function()
 			sts.filtered_jump("default", true) --> true means jump forward
-			end, opts)
+		end, opts)
 		vim.keymap.set("n", "<A-p>", function()
 			sts.filtered_jump("default", false) --> false means jump backwards
-			end, opts)
+		end, opts)
 		-------------------------------
 		-- jump with limited targets --
 		-- jump to sibling nodes only
@@ -1303,18 +1334,20 @@ set nobuflisted
 		-- Updated version of utils.system_open adding fn.expand, so paths with ~
 		-- are expanded
 		function system_open(path)
-  		local cmd
-  		if vim.fn.has "win32" == 1 and vim.fn.executable "explorer" == 1 then
-    		cmd = "explorer"
-  		elseif vim.fn.has "unix" == 1 and vim.fn.executable "xdg-open" == 1 then
-    		cmd = "xdg-open"
-  		elseif (vim.fn.has "mac" == 1 or vim.fn.has "unix" == 1) and vim.fn.executable "open" == 1 then
-    		cmd = "open"
-  		end
+			local cmd
+			if vim.fn.has("win32") == 1 and vim.fn.executable("explorer") == 1 then
+				cmd = "explorer"
+			elseif vim.fn.has("unix") == 1 and vim.fn.executable("xdg-open") == 1 then
+				cmd = "xdg-open"
+			elseif (vim.fn.has("mac") == 1 or vim.fn.has("unix") == 1) and vim.fn.executable("open") == 1 then
+				cmd = "open"
+			end
 
-  		local file_path = vim.fn.expand "<cfile>"
-  		if not cmd then M.notify("Available system opening tool not found!", "error") end
-  		vim.fn.jobstart({ cmd, path or vim.fn.expand(file_path) }, { detach = true })
+			local file_path = vim.fn.expand("<cfile>")
+			if not cmd then
+				M.notify("Available system opening tool not found!", "error")
+			end
+			vim.fn.jobstart({ cmd, path or vim.fn.expand(file_path) }, { detach = true })
 		end
 
 		-- }}}
