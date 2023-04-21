@@ -550,59 +550,6 @@ local config = {
 		},
 		{ "https://github.com/lervag/vimtex", ft = "tex" },
 		{ "https://github.com/jbyuki/nabla.nvim", ft = "tex" },
-		{ "https://github.com/jpalardy/vim-slime", ft = "python" },
-		{
-			"https://github.com/hanschen/vim-ipython-cell",
-			ft = "python",
-			config = function()
-				local wk = require("which-key")
-				wk.register({
-					["<localleader>"] = {
-						n = {
-							r = { ":w<CR>:IPythonCellRun<CR>", "Run file" },
-							R = { ":w<CR>:IPythonCellRunTime<CR>", "Run file with timer" },
-							c = { ":IPythonCellExecuteCell<CR>", "Execute cell" },
-							vc = { " :IPythonCellExecuteVerboseCell<CR>", "Execute cell verbosely" },
-							C = { ":IPythonCellExecuteCellJump<CR>", "Execute cell and jump to next" },
-							vC = {
-								" :IPythonCellExecuteCellVerboseJump<CR>",
-								"Execute cell verbosly and jump to next",
-							},
-							l = { ":IPythonCellClear<CR>", "Clear shell" },
-							x = { ":IPythonCellClose<CR>", "Close shell" },
-							Q = { ":IPythonCellRestart<CR>", "Restart shell" },
-							p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
-							s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
-							h = { "<Plug>SlimeLineSend", "Send line" },
-							d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
-							q = { ":SlimeSend1 exit<CR>", "Exit" },
-							m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
-							I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
-							i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
-							j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
-							k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
-						},
-					},
-					["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
-					["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
-				})
-				wk.register({
-					["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-					["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-
-					["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-					["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-					}, { mode = "i" })
-				wk.register({
-					["<localleader>"] = {
-						n = {
-							name = "python-cell",
-							h = { "<Plug>SlimeRegionSend", "Send shell" },
-						},
-					},
-					}, { mode = "v" })
-			end,
-		},
 		{
 			"https://github.com/EdenEast/nightfox.nvim",
 			groups = {
@@ -868,89 +815,42 @@ local config = {
 						n = {
 							name = "jupyter ascending",
 							c = { "<Plug>JupyterExecute", "Execute cell" },
+							C = { "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>", "Execute cell and jump to next cell" },
 							r = { "<Plug>JupyterExecuteAll", "Run file" },
 							R = { "<Plug>JupyterRestart", "Restart Jupyter" },
+							J = { '<cmd>silent !jupyter notebook ' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
 						},
 					},
 				})
 			end,
 		},
+		-- For inserting and navigating cells
 		{
-			"https://github.com/luk400/vim-jukit",
-			event = "BufEnter *.ipynb",
+			"https://github.com/hanschen/vim-ipython-cell",
+			event="BufRead *.sync.py",
+			dependencies = "untitled-ai/jupyter_ascending.vim",
 			config = function()
-				vim.g["jukit_terminal"] = "tmux"
-				vim.cmd([[
-let g:jukit_layout = {
-    \'split': 'horizontal',
-    \'p1': 0.6, 
-    \'val': [
-        \'file_content',
-        \{
-            \'split': 'vertical',
-            \'p1': 0.6,
-            \'val': ['output', 'output_history']
-        \}
-    \]
-\}
-
-]])
 				local wk = require("which-key")
 				wk.register({
 					["<localleader>"] = {
-						o = {
-							s = { ":call jukit#splits#output()<cr>", "Open output window" },
-						},
 						n = {
-							r = { ":call jukit#send#all()<cr>", "Run file" },
-							p = {
-								':call jukit#convert#notebook_convert("jupyter-notebook")<cr>',
-								"Convert to ipynb or py",
-							},
-
-							c = { ":call jukit#send#section(0)<cr>", "Execute cell" },
-							C = {
-								":call jukit#send#section(0) | call jukit#cells#jump_to_next_cell()<cr>",
-								"Execute cell and jump to next",
-							},
-							vC = {
-								" :IPythonCellExecuteCellVerboseJump<CR>",
-								"Execute cell verbosly and jump to next",
-							},
-							-- l = { ":IPythonCellClear<CR>", "Clear shell" },
-							-- x = { ":IPythonCellClose<CR>", "Close shell" },
-							-- Q = { ":IPythonCellRestart<CR>", "Restart shell" },
-							-- p = { ":IPythonCellPrevCommand<CR>", "Execute last command" },
-							-- s = { ":SlimeSend1 ipython --matplotlib<CR>", "Start shell" },
-							-- h = { "<Plug>SlimeLineSend", "Send line" },
-							-- d = { ":SlimeSend1 %debug<CR>", "Execute cell with debug" },
-							-- q = { ":SlimeSend1 exit<CR>", "Exit" },
-							-- m = { "<Plug>IPythonCellToMarkdown", "To markdown" },
-							-- I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
-							-- i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
-							-- j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
-							-- k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
+							m = { "<cmd>IPythonCellToMarkdown<cr>", "To markdown" },
+							I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
+							i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
+							j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
+							k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
 						},
 					},
 					["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
 					["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
 				})
-				-- wk.register({
-				-- ["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-				-- ["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
+				wk.register({
+					["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
+					["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
 
-				-- ["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-				-- ["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-				-- }, { mode = "i" })
-				-- wk.register({
-				-- ["<localleader>"] = {
-				-- n = {
-				-- name = "python-cell",
-				-- h = { "<Plug>SlimeRegionSend", "Send shell" },
-				-- },
-				-- },
-				-- }
-				-- , { mode = "v" })
+					["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
+					["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
+					}, { mode = "i" })
 			end,
 		},
 	},

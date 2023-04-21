@@ -15,15 +15,15 @@
 if [[ "$1" == "init" ]]; then
     # Install jupytext and jupyter_ascending for syncing
     poetry init
-    poetry shell
     poetry add --group dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
 
-    jupyter nbextension install jupytext --py --user
-    jupyter nbextension enable  jupytext  --py --user
+    poetry run jupyter nbextension install jupytext --py --user
+    poetry run jupyter nbextension enable  jupytext  --py --user
 
-    jupyter nbextension install jupyter_ascending --py --user
-    jupyter nbextension enable  jupyter_ascending --py --user
+    poetry run jupyter nbextension install jupyter_ascending --py --user
+    poetry run jupyter nbextension enable  jupyter_ascending --py --user
     jupyter serverextension enable jupyter_ascending --py --user
+    poetry shell
 else
     # Create file using jupyter ascending
     python -m jupyter_ascending.scripts.make_pair --base "$2"
