@@ -1,6 +1,15 @@
 session_name: python
 start_directory: ${HOME}/.sandbox/python
+shell_command_before: 
+- cmd: poetry shell
+  sleep_before: 1
+  sleep_after: 1
 windows:
   - window_name: python
     panes:
-    - pane
+      - shell_command:
+          - ${EDITOR} ./test.sync.py
+  - window_name: jupyter
+    panes:
+      - shell_command:
+          - jupyter notebook ./test.sync.ipynb

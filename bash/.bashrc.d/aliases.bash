@@ -90,7 +90,7 @@ alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
 
 # SSH setup
 # shellcheck disable=SC2048,SC2086
-ssh() { command ssh $* -t 'export yasser_config_env=1; bash -login'; }
+ssh() { command ssh $* -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
 ssh_config_setup() { make --file ~/dotfiles/instance_setup/Makefile --keep-going move_config_to_server "host=$*"; }
 
 # misc
