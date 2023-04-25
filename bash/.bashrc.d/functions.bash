@@ -65,6 +65,7 @@ upgrade_system() {
   (auto-packages-update-now))"
 
 	make --file="${HOME}/dotfiles/Makefile" upgrade-pypi-packages
+	pipx upgrade-all
 
 	echo 'Use the following commands to checkup on the system:
   systemctl --failed --user
@@ -309,6 +310,7 @@ reload_browser() {
 	sleep 0.5
 	xdotool windowfocus "${FOCUSED_ID}"
 }
+
 
 # Commands run in background automatically
 zathura() { (command zathura "$@" &>/dev/null &) }

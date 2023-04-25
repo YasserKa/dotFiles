@@ -72,7 +72,6 @@ git # the fast distributed version control system
 entr # Run arbitrary commands when files change
 
 tmux # A terminal multiplexer
-tmuxp # Tmux session manager built on libtmux
 # Dependency for tmux
 msgpack-c # An efficient object serialization library
 alacritty # A cross-platform GPU-accelerated terminal emulator

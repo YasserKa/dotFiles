@@ -5,7 +5,8 @@ XDG_DATA_HOME=$(HOME)/.local/share
 # MyMuPDF: getting highlighted text in pdf
 # pyperclip: used to yank to clipboard by zathura's handle_document
 # adblock tldextract sci-hub: qutebrowser 
-PYPI_PACKAGES = i3ipc PyMuPDF tmuxp pyperclip poetry jupyter jupyter_contrib_nbextensions neovim-remote selenium flake8 black isort autoimport adblock tldextract sci-hub ipython pip
+PYPI_PACKAGES_PIP = i3ipc PyMuPDF pyperclip neovim-remote selenium adblock pip pipx
+PYPI_PACKAGES_PIPX = tmuxp poetry pdm notebook jupyter_contrib_nbextensions flake8 black isort autoimport tldextract sci-hub ipython
 
 .PHONY: install
 install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers
@@ -91,7 +92,8 @@ stow-packages:
 .PHONY:upgrade-pypi-packages
 upgrade-pypi-packages: 
 	@echo "Upgrading PYPI packages"
-	@pip install --upgrade --user  $(PYPI_PACKAGES)
+	@pip install --upgrade --user  $(PYPI_PACKAGES_PIP)
+	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"; done
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
