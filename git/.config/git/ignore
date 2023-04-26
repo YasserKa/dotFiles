@@ -95,6 +95,7 @@ eggs/
 lib/
 lib64/
 parts/
+.pdm-python
 sdist/
 var/
 wheels/

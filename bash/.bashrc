@@ -18,7 +18,9 @@ shopt -s cmdhist    # History records commands with multiple lines as such inste
 stty -ixon          # Enable search C-s for history searching (Enable XON/XOFF flow control)
 
 source_file() {
-	[[ -f "$1" ]] && . "$1"
+	[[ -f "$1" ]] || exit
+	# shellcheck source=/dev/null
+	source "$1"
 }
 
 # Complete command names and file names for super user
@@ -30,10 +32,15 @@ source_file /usr/share/bash-completion/bash_completion
 
 source_file "$XDG_CONFIG_HOME/tmux/tmux_completion"
 
+for bash in "$HOME"/.bash_completion.d/[^_]*.bash ; do
+  source_file "$bash"
+done
+unset -v bash
+
 # Prompt with info about git repo
 if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
 	# https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
-	. "$XDG_CONFIG_HOME/git/git-prompt.sh"
+	source_file "$XDG_CONFIG_HOME/git/git-prompt.sh"
 	export GIT_PS1_SHOWDIRTYSTATE=1
 	PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]❯ \[\e[m\]'
 else
@@ -49,7 +56,7 @@ if command -v fasd >/dev/null; then
 	if [[ ! -s "$fasd_cache" ]]; then
 		fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >|"$fasd_cache"
 	fi
-	. "$fasd_cache"
+	source_file "$fasd_cache"
 	unset -v fasd_cache
 
 	_fasd_bash_hook_cmd_complete j
@@ -81,7 +88,7 @@ source_file "$XDG_CONFIG_HOME/readline/autopairs"
 
 # Source files
 for bash in "$HOME"/.bashrc.d/*.bash; do
-	. "$bash"
+	source_file "$bash"
 done
 unset -v bash
 

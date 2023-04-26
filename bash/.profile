@@ -78,6 +78,9 @@ export FZF_DEFAULT_OPTS="--color=light --preview='bat --color=always --style=num
 # Expand PATH
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin
 
+# Disable pipx's emojis
+export USE_EMOJI=0
+
 # Start manager for GPG & SSH agents
 eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh" id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)"
 
