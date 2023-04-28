@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-lib_link="https://libgen.li/index.php"
-query="$(grep "(Author)" <(cat "$QUTE_TEXT") | sed s/"(Author)"//g | tr ' ' +)"
-link="$lib_link?req=${QUTE_SELECTED_TEXT:2}+${query:2:-1}&order=year&ordermode=desc&covers=on"
-echo "open -w $link" >> "$QUTE_FIFO"
+LIB_LINK="https://libgen.li/index.php"
+QUERY="$(grep "(Author)" <(cat "$QUTE_TEXT") | sed s/"(Author)"//g | tr ' ' +)"
+# Remove format line
+QUERY="${QUERY%Format*}"
+cp "$QUTE_HTML" ~/bla.html
+
+TITLE="$(pup --file "$QUTE_HTML" "#productTitle text{}")"
+LINK="$LIB_LINK?req=${TITLE:2}+${QUERY:2:-1}&order=year&ordermode=desc&covers=on"
+
+echo "open -w $LINK" >> "$QUTE_FIFO"
