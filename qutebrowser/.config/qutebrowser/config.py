@@ -49,6 +49,7 @@ c.bindings.commands = {
         "<space>ord": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent",
         "<space>dd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
         "<space>drd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent",
+        "<Ctrl+i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         # Yank/Goto URL without anchors
         "yp": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler",
         "gc": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors",
@@ -89,6 +90,7 @@ c.bindings.commands = {
         "<Ctrl-w>": "fake-key <Ctrl-backspace>",
         "<Ctrl-l>": "fake-key <Shift-Home>;; later 50 spawn --userscript"
         " ~/.config/qutebrowser/userscripts/fix_last_typo",
+        "<Ctrl+i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
         "<Ctrl-n>": "fake-key <Down>",
