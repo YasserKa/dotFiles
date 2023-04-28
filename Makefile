@@ -6,7 +6,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 # pyperclip: used to yank to clipboard by zathura's handle_document
 # adblock tldextract sci-hub: qutebrowser 
 PYPI_PACKAGES_PIP = i3ipc PyMuPDF pyperclip neovim-remote selenium adblock tldextract pip pipx
-PYPI_PACKAGES_PIPX = tmuxp poetry pdm notebook jupyter_contrib_nbextensions flake8 black isort autoimport sci-hub ipython
+PYPI_PACKAGES_PIPX = tmuxp poetry pdm notebook jupyter_contrib_nbextensions ruff black isort autoimport sci-hub ipython
 
 .PHONY: install
 install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers
