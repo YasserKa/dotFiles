@@ -1,9 +1,8 @@
 import os
 
-c = c  # type: ignore
-config = config  #  type: ignore
+c = c  # type: ignore # noqa: F821
+config = config  #  type: ignore # noqa: F821
 
-c.hints.selectors["amazon"] = ["[id=productTitle]"]
 c.bindings.commands = {
     "normal": {
         "J": "forward",
@@ -33,7 +32,9 @@ c.bindings.commands = {
         ":t": "hint inputs",
         ":y": "hint links yank",
         ":e": "hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id",
-        ":a": "hint amazon userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen",
+        ":a": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen"
+        ),
         # Override f and F by download documents from libgen
         ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
         "<space>q": "close",
@@ -43,20 +44,41 @@ c.bindings.commands = {
         "<space>ss": 'config-source ;; message-info "Configuration file sourced"',
         # Clear search
         "<space>h": "search",
-        "<space>c": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture",
+        "<space>c": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture"
+        ),
         # Open/Delete download files
-        "<space>od": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
-        "<space>ord": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --recent",
-        "<space>dd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete",
-        "<space>drd": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download --delete --recent",
+        "<space>od": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
+        ),
+        "<space>ord": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
+            " --recent"
+        ),
+        "<space>dd": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
+            " --delete"
+        ),
+        "<space>drd": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
+            " --delete --recent"
+        ),
         "<Ctrl+i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         # Yank/Goto URL without anchors
-        "yp": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler",
-        "gc": "spawn --userscript ~/.config/qutebrowser/userscripts/go_to_url_without_anchors",
+        "yp": (
+            "spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/yank_url_with_scroll_link_handler"
+        ),
+        "gc": (
+            "spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/go_to_url_without_anchors"
+        ),
         # Yanking URLs
         "ya": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_all",
         "yo": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link",
-        "yc": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean",  # Github repo names only
+        "yc": (  # Github repo names only
+            "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean"
+        ),
         "yl": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_latex_link",
         "ys": "spawn --userscript ~/.config/qutebrowser/userscripts/link_shortener",
         # Google search
@@ -69,27 +91,43 @@ c.bindings.commands = {
         # Overrides gt, by allowing chosen tabs in hidden workspaces to be focused
         "gt": "spawn --userscript ~/.config/qutebrowser/userscripts/override_gt",
         # Check open ports
-        "gl": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
+        "gl": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list"
+        ),
         # Create session and store command to open it in clipboard
-        "ss": "spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session",
+        "ss": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/create_yank_session"
+        ),
         # Google translate
-        "<space>t": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
+        "<space>t": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate"
+        ),
         # Use <C-S-v> instead of <C-v> for passthrough mode
         "<Ctrl-v>": "nop",
         "<Ctrl-Shift-v>": "mode-enter passthrough",
         # Password manager
         "<z><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden",
-        "<z><u><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --username-only",
-        "<z><p><l>": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden --password-only",
+        "<z><u><l>": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden"
+            " --username-only"
+        ),
+        "<z><p><l>": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_bitwarden"
+            " --password-only"
+        ),
         # Others
-        "<space>H": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
+        "<space>H": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list"
+        ),
         # Unbind <C-h> from home
         "<Ctrl-h>": "nop",
     },
     "insert": {
         "<Ctrl-w>": "fake-key <Ctrl-backspace>",
-        "<Ctrl-l>": "fake-key <Shift-Home>;; later 50 spawn --userscript"
-        " ~/.config/qutebrowser/userscripts/fix_last_typo",
+        "<Ctrl-l>": (
+            "fake-key <Shift-Home>;; later 50 spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/fix_last_typo"
+        ),
         "<Ctrl+i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
@@ -145,7 +183,9 @@ c.aliases = {
     "h": "help -t",
     "H": "help -w",
     "json": "open -t https://codebeautify.org/jsonviewer?url={url}",
-    "download_youtube": "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube",
+    "download_youtube": (
+        "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube"
+    ),
     "paywall": "open https://12ft.io/proxy?q={url}",
     "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
     "org_capture_website": (
@@ -154,10 +194,14 @@ c.aliases = {
     ),
     "kde_share": "spawn kdeconnect-cli -n 'Lenovo tablet' --share {url}",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
-    "generate_password": "spawn --userscript ~/.config/qutebrowser/userscripts/generate_password",
+    "generate_password": (
+        "spawn --userscript ~/.config/qutebrowser/userscripts/generate_password"
+    ),
     "hosts": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
     "translate": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
-    "open_download": "spawn --userscript ~/.config/qutebrowser/userscripts/open_download",
+    "open_download": (
+        "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
+    ),
 }
 
 config.load_autoconfig()
@@ -323,10 +367,12 @@ c.colors.contextmenu.menu.bg = bg0
 # Foreground color of the context menu. If set to null, the Qt default is used.
 c.colors.contextmenu.menu.fg = fg2
 
-# Background color of the context menu’s selected item. If set to null, the Qt default is used.
+# Background color of the context menu’s selected item. If set to null, the Qt default
+# is used.
 c.colors.contextmenu.selected.bg = bg2
 
-# Foreground color of the context menu’s selected item. If set to null, the Qt default is used.
+# Foreground color of the context menu’s selected item. If set to null, the Qt default
+# is used.
 c.colors.contextmenu.selected.fg = c.colors.contextmenu.menu.fg
 
 # Downloads

@@ -615,22 +615,43 @@ local config = {
 			opts = function(config) -- overrides `require("null-ls").setup(config)`
 				-- config variable is the default configuration table for the setup function call
 				local null_ls = require("null-ls")
+  	 	 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 				-- Supported formatters and linters
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 				config.sources = {
-					null_ls.builtins.diagnostics.flake8.with({
+					-- null_ls.builtins.diagnostics.flake8.with({
+					-- 	-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
+					-- }),
+					null_ls.builtins.diagnostics.ruff.with({
 						-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
 					}),
 					null_ls.builtins.formatting.shfmt.with({
 						extra_args = { "--case-indent" },
+					}),
+					null_ls.builtins.formatting.black.with({
+						extra_args = { "--experimental-string-processing" },
 					}),
 					-- null_l.builtins.diagnostics.mypy,
 					-- Set a formatter
 					-- null_ls.builtins.formatting.stylua,
 					-- null_ls.builtins.formatting.prettier,
 				}
+    		-- you can reuse a shared lspconfig on_attach callback here
+    		config.on_attach = function(client, bufnr)
+        	if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                vim.lsp.buf.format({ bufnr = bufnr })
+              end,
+            })
+        	end
+    		end
 				return config
 			end,
 		},
@@ -800,7 +821,7 @@ local config = {
 			"jay-babu/mason-null-ls.nvim", -- overrides `require("mason-null-ls").setup(...)`
 			opts = function()
 				return {
-					ensure_installed = { "prettier", "stylua", "isort", "flake8", "black", "shellcheck", "shfmt", "" },
+					ensure_installed = { "prettier", "stylua", "isort", "ruff", "black", "shellcheck", "shfmt", "" },
 				}
 			end,
 		},
@@ -911,12 +932,6 @@ local config = {
 			group = "my_skeletons",
 			pattern = { "*.bash" },
 			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.bash | exe 'normal jo' | startinsert",
-		})
-		vim.api.nvim_create_autocmd("BufNewFile", {
-			desc = "Skeleton",
-			group = "my_skeletons",
-			pattern = "*.py",
-			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.py | exe 'normal jo' | startinsert",
 		})
 		vim.api.nvim_create_augroup("user_mail", {
 			clear = true,
