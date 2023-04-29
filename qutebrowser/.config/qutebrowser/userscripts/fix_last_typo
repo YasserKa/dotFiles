@@ -11,10 +11,9 @@ get_text_with_last_fixed_typo() {
 	[[ -z "$LAST_TYPO" ]] && echo "fake-key <Right>" >>"$QUTE_FIFO" && exit 0
 	LAST_TYPO_FIXED="$(echo "$LAST_TYPO" | aspell pipe | grep -oP ".*:\K.*?(?=,)")"
 	# Add spaces around text to be able to repalce the last typo
-	TEXT=" ${TEXT} "
-	local FIXED_TEXT="${TEXT% $LAST_TYPO *} $LAST_TYPO_FIXED ${TEXT##* $LAST_TYPO }"
+	local FIXED_TEXT="${TEXT%"$LAST_TYPO"*}${LAST_TYPO_FIXED:1}${TEXT##*"$LAST_TYPO"}"
 
-	echo $FIXED_TEXT
+	echo "$FIXED_TEXT"
 }
 
 FIXED_TEXT="$(get_text_with_last_fixed_typo "${QUTE_SELECTED_TEXT}")"
