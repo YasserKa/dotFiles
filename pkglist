@@ -57,6 +57,7 @@ screen
 # Aesthetics
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal
 ttf-inconsolata-nerd # Patched font Inconsolata from nerd fonts library
+ttf-twemoji # Twitter Color Emoji (Used for terminal)
 ttf-font-awesome # Iconic font designed for Bootstrap
 adapta-gtk-theme # An adaptive Gtk+ theme based on Material Design Guidelines
 unclutter # hide cursor if not active
@@ -259,6 +260,10 @@ reflector # A Python 3 module and script to retrieve and filter the latest Pacma
 deepin-screen-recorder # Easy-to-use screen recording tool for linuxdeepin desktop environment with xclip copy patch
 # Dependency for deepin
 ocl-icd # OpenCL ICD Bindings
+deepin-qt-dbus-factory # https://bugs.archlinux.org/task/78223
+
+docker # Container
+docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
 
 nautilus # Default file manager for GNOME
 ncdu # Disk usage analyzer with an ncurses interface
