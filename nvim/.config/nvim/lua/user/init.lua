@@ -831,15 +831,23 @@ local config = {
 			event = "BufEnter *sync.py",
 			config = function()
 				local wk = require("which-key")
+				execute_cell = function()
+  				local linenr = vim.api.nvim_win_get_cursor(0)[1]
+  				vim.cmd('silent !python -m jupyter_ascending.requests.execute --filename ' .. vim.fn.expand('%:p') .. ' --linenumber ' .. linenr .. '  >/dev/null &')
+ 				end
 				wk.register({
 					["<localleader>"] = {
+
 						n = {
 							name = "jupyter ascending",
+
+							-- c = { execute_cell, "Execute cell" },
 							c = { "<Plug>JupyterExecute", "Execute cell" },
 							C = { "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>", "Execute cell and jump to next cell" },
 							r = { "<Plug>JupyterExecuteAll", "Run file" },
 							R = { "<Plug>JupyterRestart", "Restart Jupyter" },
-							J = { '<cmd>silent !jupyter notebook ' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
+							-- J = { '<cmd>silent !jupyter notebook ' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
+							J = { '<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
 						},
 					},
 				})

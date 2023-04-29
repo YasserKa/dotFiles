@@ -128,7 +128,7 @@ c.bindings.commands = {
             "fake-key <Shift-Home>;; later 50 spawn --userscript"
             " ~/.config/qutebrowser/userscripts/fix_last_typo"
         ),
-        "<Ctrl+i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
+        "<Ctrl-i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
         "<Ctrl-n>": "fake-key <Down>",

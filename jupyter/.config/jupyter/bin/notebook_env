@@ -1,36 +1,35 @@
 #!/usr/bin/env bash
 
-# Dependencies: poetry
+# Dependencies: pdm
 
 # Install packages needed for using vim and jupyter notebook
 # and create notebooks that sync both notebooks and python files
 
+[[ ! "$1" && "$1" != "init" && "$1" != "create" ]] &&
+	echo "Need an argument, 'init' or 'create <notebook>'" && exit
 
-[[ ! "$1" && "$1" != "init" && "$1" != "create" ]] && \
-    echo "Need an argument, 'init' or 'create <notebook>'" && exit
-
-[[ "$1" == "create" && -z "$2" ]] && \
-    echo "Need notebook name as an argument" && exit
+[[ "$1" == "create" && -z "$2" ]] &&
+	echo "Need notebook name as an argument" && exit
 
 if [[ "$1" == "init" ]]; then
-    # Install jupytext and jupyter_ascending for syncing
-    poetry init
-    poetry add --group dev jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
+	# Install jupytext and jupyter_ascending for syncing
+	pdm init
+	pdm add --group --dev jupyter jupyter_nbextensions_configurator jupytext jupyter_ascending jupyter
 
-    poetry run jupyter nbextension install jupytext --py --user
-    poetry run jupyter nbextension enable  jupytext  --py --user
+	pdm run jupyter nbextension install jupytext --py --user
+	pdm run jupyter nbextension enable jupytext --py --user
 
-    poetry run jupyter nbextension install jupyter_ascending --py --user
-    poetry run jupyter nbextension enable  jupyter_ascending --py --user
-    jupyter serverextension enable jupyter_ascending --py --user
-    poetry shell
+	pdm run jupyter nbextension install jupyter_ascending --py --user
+	pdm run jupyter nbextension enable jupyter_ascending --py --user
+	pdm run jupyter serverextension enable jupyter_ascending --py --user
+	eval "$(pdm venv activate in-project)"
 else
-    # Create file using jupyter ascending
-    python -m jupyter_ascending.scripts.make_pair --base "$2"
+	# Create file using jupyter ascending
+	pdm run python -m jupyter_ascending.scripts.make_pair --base "$2"
 
-    jupytext --set-formats ipynb,py:percent "$2.sync.ipynb"
+	pdm run python -m jupytext --set-formats ipynb,py:percent "$2.sync.ipynb"
 
-    # open notebook
-    jupyter notebook "$(pwd)/$2.sync.ipynb" &> /dev/null &
-    nvim "$(pwd)/$2.sync.py"
+	# open notebook
+	pdm run python -m jupyter notebook "$(pwd)/$2.sync.ipynb" &>/dev/null &
+	nvim "$(pwd)/$2.sync.py"
 fi
