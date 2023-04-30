@@ -97,3 +97,5 @@ ssh_config_setup() { make --file ~/dotfiles/instance_setup/Makefile --keep-going
 alias get_mail='polybar-msg hook mail 2 && syncmail && polybar-msg hook mail 1'
 alias testmail='echo | command neomutt -s "Testing mail" yasser.kaddoura19@gmail.com &> /dev/null'
 alias myip='curl ifconfig.me; echo'
+# Activate virtual env
+alias pdmshell='eval "$(pdm venv activate in-project)"'
