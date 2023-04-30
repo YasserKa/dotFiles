@@ -32,8 +32,8 @@ source_file /usr/share/bash-completion/bash_completion
 
 source_file "$XDG_CONFIG_HOME/tmux/tmux_completion"
 
-for bash in "$HOME"/.bash_completion.d/[^_]*.bash ; do
-  source_file "$bash"
+for bash in "$HOME"/.bash_completion.d/[^_]*.bash; do
+	source_file "$bash"
 done
 unset -v bash
 

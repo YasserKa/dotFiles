@@ -214,7 +214,7 @@
              (?\{ . ?\})))
   :config
   (defun my/ignore-elec-pairs ()
-    ;; Ignore < in org mode for yassnippets
+    ;; Ignore < in org mode for yasnippets
     (setq electric-pair-inhibit-predicate
           (lambda (c)
             (cond ((char-equal c ?\<) (electric-pair-default-inhibit c) t)
@@ -547,6 +547,10 @@
   (dolist (mode '(prog-mode-hook
                   conf-mode-hook))
     (add-hook mode 'git-gutter-mode))
+
+  (evil-collection-define-key 'normal 'global-map
+    (kbd "[g") 'git-gutter:previous-hunk
+    (kbd "]g") 'git-gutter:next-hunk)
 
   (custom-set-variables
    '(git-gutter:visual-line t)
