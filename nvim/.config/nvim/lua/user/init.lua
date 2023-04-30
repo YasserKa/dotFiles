@@ -826,31 +826,67 @@ local config = {
 			end,
 		},
 		-- Misc
+		-- Jupyter notebook
 		{
 			"untitled-ai/jupyter_ascending.vim",
 			event = "BufEnter *sync.py",
 			config = function()
 				local wk = require("which-key")
-				execute_cell = function()
-  				local linenr = vim.api.nvim_win_get_cursor(0)[1]
-  				vim.cmd('silent !python -m jupyter_ascending.requests.execute --filename ' .. vim.fn.expand('%:p') .. ' --linenumber ' .. linenr .. '  >/dev/null &')
+
+  			-- Execute cells using the command line by passing the line numbers
+				execute_cells = function(line_nums)
+ 					local file_path = vim.fn.expand('%:p')
+ 					local shell_command = "silent !{ "
+ 					-- { python -m jupyter_ascending.requests.execute --filename a.sync.py --line 1 && python -m jupyter_ascending.requests.execute --filename a.sync.py --line 6; } >/dev/null & disown
+  				for index, line_num in ipairs(line_nums) do
+  				  shell_command = shell_command .. ' python -m jupyter_ascending.requests.execute --filename ' .. file_path .. ' --linenumber ' .. line_num .. ';'
+  				end
+ 					shell_command = shell_command .. " } >/dev/null & disown"
+  				vim.cmd(shell_command)
  				end
+
+ 				-- Execute visually selected cells
+ 				execute_selected_cells = function()
+ 					-- Leave visual mode to update the "<" and ">" marks
+  				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "v", true)
+  				local start_line = vim.api.nvim_buf_get_mark(0, '<')[1]
+  				local end_line = vim.api.nvim_buf_get_mark(0, '>')[1]
+  				local lines = {}
+      		-- Add first cell if the # %% isn't selected
+    			local first_line = vim.api.nvim_buf_get_lines(0, start_line-1, start_line, false)[1]
+    			if not first_line:find('^# %%') then
+      		 	table.insert(lines, start_line)
+    			end
+
+  				for line_num = start_line, end_line do
+    				local line = vim.api.nvim_buf_get_lines(0, line_num-1, line_num, false)[1]
+    				if line:find('^# %%') then
+      				table.insert(lines, line_num)
+    				end
+  				end
+  				execute_cells(lines)
+				end
+
 				wk.register({
 					["<localleader>"] = {
-
 						n = {
 							name = "jupyter ascending",
-
-							-- c = { execute_cell, "Execute cell" },
 							c = { "<Plug>JupyterExecute", "Execute cell" },
 							C = { "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>", "Execute cell and jump to next cell" },
 							r = { "<Plug>JupyterExecuteAll", "Run file" },
 							R = { "<Plug>JupyterRestart", "Restart Jupyter" },
-							-- J = { '<cmd>silent !jupyter notebook ' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
 							J = { '<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
 						},
 					},
 				})
+
+				wk.register({
+					["<localleader>"] = {
+						n = {
+							name = "Jupyter Ascending",
+							c = { ":lua execute_selected_cells()<CR>", "Execute selected cells" },
+						},
+					}}, { mode = "v" })
 			end,
 		},
 		-- For inserting and navigating cells

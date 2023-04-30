@@ -64,7 +64,7 @@ upgrade_system() {
   (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
   (auto-packages-update-now))"
 
-	make --file="${HOME}/dotfiles/Makefile" upgrade-pypi-packages
+	# Upgrade pipx
 	pipx upgrade-all
 
 	echo 'Use the following commands to checkup on the system:
