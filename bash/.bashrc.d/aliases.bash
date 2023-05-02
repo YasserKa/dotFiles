@@ -5,12 +5,15 @@ alias vi='nvim'
 alias vim='nvim'
 alias h='history'
 alias hg='history | grep'
+
 alias pac='sudo pacman'
 alias z='zathura'
 alias b='~-'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 alias vimdiff='nvim -d'
+# Expand sudo aliases
+alias sudo='sudo '
 
 # Create directories and cd/edit immedietly
 mkdircd() { command mkdir -pv "$1" && cd "$1" || exit; }
