@@ -638,6 +638,9 @@ local config = {
 					-- Set a formatter
 					-- null_ls.builtins.formatting.stylua,
 					-- null_ls.builtins.formatting.prettier,
+					-- TOML
+ 					null_ls.builtins.formatting.dprint,
+ 	 	 	 	  null_ls.builtins.formatting.taplo,
 				}
     		-- you can reuse a shared lspconfig on_attach callback here
     		config.on_attach = function(client, bufnr)
@@ -814,8 +817,8 @@ local config = {
 			opts = function()
 				return {
  	 	 	 	  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-				  -- tablo: toml
-					ensure_installed = { "pyright", "bashls", "tablo" },
+				  -- taplo: toml
+					ensure_installed = { "pyright", "bashls", "taplo" },
 				}
 			end,
 		},
@@ -1279,13 +1282,6 @@ local config = {
 				}, false)
 		end, opts)
 
-		-- "default" means that you jump to the default_desired_types or your lastest jump types
-		vim.keymap.set("n", "<A-n>", function()
-			sts.filtered_jump("default", true) --> true means jump forward
-		end, opts)
-		vim.keymap.set("n", "<A-p>", function()
-			sts.filtered_jump("default", false) --> false means jump backwards
-		end, opts)
 		-------------------------------
 		-- jump with limited targets --
 		-- jump to sibling nodes only
@@ -1550,6 +1546,7 @@ vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#
 vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
 \ :let @/ = "" <bar> set hlsearch<CR>
 " }}}
+
 ]],
 			true
 		)
