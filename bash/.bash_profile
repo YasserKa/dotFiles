@@ -7,7 +7,7 @@ export HISTFILESIZE=1000000
 # Ignore duplicate commands
 export HISTCONTROL="erasedups:ignoreboth"
 # Ignore common commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear:*/pypoetry/virtualenvs/*"
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:pls:clear:*/pypoetry/virtualenvs/*"
 # Bash stores history when the session terminates
 # Make it so that it when the command is executed
 export PROMPT_COMMAND='history -a'
