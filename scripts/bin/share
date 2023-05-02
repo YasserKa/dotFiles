@@ -24,9 +24,9 @@ function note_path_org_roam(){
 }
 
 case $1 in
-    -v) deepin-screen-recorder --screenRecord;;
-    -i | -c) deepin-screen-recorder --screenShot --save-path $target_path;;
-    -n) target_path=$(note_path_org_roam);;
+    -v) deepin-screen-recorder --screenRecord ;;
+    -i | -c) deepin-screen-recorder --screenShot --save-path $target_path ;;
+    -n) target_path=$(note_path_org_roam) ;;
     -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
         notify-send "Saved to Clipboard" ;exit ;;
 esac
@@ -70,8 +70,8 @@ fi
 
 # update target path depending on media type
 case $extension in
-    png | jpg | bmp) target_path=$target_img_dir;;
-    mp4 | gif | mkv) target_path=$target_vid_dir;;
+    png | jpg | bmp) target_path=$target_img_dir ;;
+    mp4 | gif | mkv) target_path=$target_vid_dir ;;
 esac
 
 new_name="$date.$extension"

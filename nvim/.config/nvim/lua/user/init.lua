@@ -812,7 +812,9 @@ local config = {
 			"williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
 			opts = function()
 				return {
-					ensure_installed = { "pyright", "bashls" },
+ 	 	 	 	  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+				  -- tablo: toml
+					ensure_installed = { "pyright", "bashls", "tablo" },
 				}
 			end,
 		},
@@ -821,7 +823,7 @@ local config = {
 			"jay-babu/mason-null-ls.nvim", -- overrides `require("mason-null-ls").setup(...)`
 			opts = function()
 				return {
-					ensure_installed = { "prettier", "stylua", "isort", "ruff", "black", "shellcheck", "shfmt", "" },
+					ensure_installed = { "prettier", "stylua", "isort", "ruff", "black", "shellcheck", "shfmt", "dprint", "taplo" },
 				}
 			end,
 		},
