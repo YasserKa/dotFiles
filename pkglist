@@ -101,6 +101,7 @@ texlive-fontsextra
 texlive-latexextra
 # Used in vim
 write-good # Naive linter for English prose
+dotenv-linter-bin # Linter for .env files
 
 pandoc-cli # Conversion between markup formats
 plantuml # Component that allows to quickly write uml diagrams

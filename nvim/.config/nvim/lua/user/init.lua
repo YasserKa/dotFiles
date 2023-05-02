@@ -627,6 +627,7 @@ local config = {
 					null_ls.builtins.diagnostics.ruff.with({
 						-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
 					}),
+ 	 	 	 	 	null_ls.builtins.diagnostics.dotenv_linter,
 					null_ls.builtins.formatting.shfmt.with({
 						extra_args = { "--case-indent" },
 					}),
