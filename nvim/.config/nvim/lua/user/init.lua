@@ -632,7 +632,6 @@ local config = {
 					null_ls.builtins.formatting.black.with({
 						extra_args = { "--experimental-string-processing" },
 					}),
-					null_ls.builtins.diagnostics.mypy,
 					null_ls.builtins.formatting.pyflyby,
 					-- TOML
  					null_ls.builtins.formatting.dprint,
@@ -698,7 +697,7 @@ local config = {
 			"nvim-treesitter/nvim-treesitter",
 			opts = function()
 				return {
-					ensure_installed = { "lua", "python", "bash", "latex", "json" },
+					ensure_installed = { "lua", "python", "bash", "latex", "json", "toml", "dockerfile" },
 
 					indent = { enable = true, disable = { "python" } },
 					matchup = { enable = true },
