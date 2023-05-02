@@ -621,26 +621,27 @@ local config = {
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 				config.sources = {
-					-- null_ls.builtins.diagnostics.flake8.with({
-					-- 	-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
-					-- }),
-					null_ls.builtins.diagnostics.ruff.with({
-						-- extra_args = { "--max-line-length=88", "--extend-ignore=E203" },
-					}),
+					-- Bash
+					null_ls.builtins.code_actions.shellcheck,
+					null_ls.builtins.hover.printenv,
  	 	 	 	 	null_ls.builtins.diagnostics.dotenv_linter,
 					null_ls.builtins.formatting.shfmt.with({
 						extra_args = { "--case-indent" },
 					}),
+					-- Python
+					null_ls.builtins.diagnostics.ruff,
+ 					null_ls.builtins.formatting.isort,
 					null_ls.builtins.formatting.black.with({
 						extra_args = { "--experimental-string-processing" },
 					}),
-					-- null_l.builtins.diagnostics.mypy,
-					-- Set a formatter
-					-- null_ls.builtins.formatting.stylua,
-					-- null_ls.builtins.formatting.prettier,
+					null_ls.builtins.diagnostics.mypy,
+					null_ls.builtins.formatting.pyflyby,
 					-- TOML
  					null_ls.builtins.formatting.dprint,
  	 	 	 	  null_ls.builtins.formatting.taplo,
+
+					-- null_ls.builtins.formatting.stylua,
+					null_ls.builtins.formatting.prettier,
 				}
     		-- you can reuse a shared lspconfig on_attach callback here
     		config.on_attach = function(client, bufnr)
