@@ -12,8 +12,10 @@ alias b='~-'
 alias vpn_up='sudo wg-quick up wg0'
 alias vpn_down='sudo wg-quick down wg0'
 alias vimdiff='nvim -d'
+
 # Expand sudo aliases
 alias sudo='sudo '
+alias pls='sudo $(fc -ln -1)'
 
 # Create directories and cd/edit immedietly
 mkdircd() { command mkdir -pv "$1" && cd "$1" || exit; }
