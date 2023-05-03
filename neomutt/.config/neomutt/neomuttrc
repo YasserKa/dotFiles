@@ -85,6 +85,7 @@ bind attach l view-mailcap
 bind pager,attach h exit
 bind index G last-entry
 bind index gg first-entry
+bind index N search-opposite
 bind pager,index dd delete-message
 # Threading
 bind pager,index dT delete-thread
