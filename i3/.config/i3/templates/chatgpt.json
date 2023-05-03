@@ -1,0 +1,5 @@
+{
+  "swallows": [
+    { "class": "^qutebrowser$", "title": "^New\\ chat\\ \\-\\ qutebrowser$" }
+  ]
+}
