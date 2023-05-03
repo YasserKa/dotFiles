@@ -997,13 +997,6 @@ local config = {
 			command = "startinsert | set spell | inoremap <C-c><C-c> <cmd>wq<cr>",
 		})
 
-		vim.api.nvim_create_autocmd("BufNewFile", {
-			desc = "Skeleton",
-			group = "my_skeletons",
-			pattern = { "*.sh" },
-			command = "0r ~/.config/nvim/lua/user/skeletons/skeleton.sh | exe 'normal jo' | startinsert",
-		})
-
 		vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 			desc = "Settings for mail files",
 			group = "user_mail",
