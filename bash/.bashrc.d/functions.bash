@@ -272,6 +272,13 @@ org() {
 	open_gui $name "emacs --title=$name --file=$_NOTES_ORG_HOME/capture.org"
 }
 
+#######################################
+# Pick a color and store it in clipbaord
+#######################################
+pick_color() {
+	command -v gpick >/dev/null && gpick -so | pbcopy
+}
+
 magit() {
 	local name="magit_name"
 	local git_root

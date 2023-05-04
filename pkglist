@@ -109,9 +109,6 @@ npm # A package manager for javascript
 python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
 
-# LSP
-bash-language-server # Bash language server implementation based on Tree Sitter and its grammar for Bash
-
 # Command line
 bash-completion # Programmable completion for the bash shell
 shellcheck      # Shell script analysis tool
@@ -227,6 +224,7 @@ which # A utility to show the full path of commands
 sudo # Give certain users the ability to run some commands as root
 moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
 libby-git # Download books from Library Genesis
+gpick # Color picker
 
 # Network
 keychain # agent for gpg & ssh keys
