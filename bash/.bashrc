@@ -66,7 +66,7 @@ fi
 # https://github.com/garabik/grc
 if command -v grc >/dev/null; then
 	GRC_ALIASES=true
-	[[ -x /etc/profile.d/grc.sh ]] && . /etc/profile.d/grc.sh
+	source_file /etc/profile.d/grc.sh
 fi
 
 if command -v fzf >/dev/null; then
