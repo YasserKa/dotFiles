@@ -1,5 +1,5 @@
 set runtimepath+=/home/yasser/.local/share/nvim/lazy/nightfox.nvim
-colorscheme nordfox
+colorscheme duskfox
 set clipboard+=unnamedplus    " System clipboard
 
 if !exists('g:less')
