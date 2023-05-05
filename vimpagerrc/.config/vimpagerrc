@@ -1,7 +1,5 @@
-" vim: ft=vim
-"
-
-colorscheme duskfox
+set runtimepath+=/home/yasser/.local/share/nvim/lazy/nightfox.nvim
+colorscheme nordfox
 set clipboard+=unnamedplus    " System clipboard
 
 if !exists('g:less')
@@ -24,3 +22,5 @@ noremap ; :
 noremap : ;
 
 nnoremap <silent> q :q!<cr>
+
+" vim: ft=vim
