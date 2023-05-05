@@ -811,23 +811,32 @@ local config = {
 		-- use mason-lspconfig to configure LSP installations
 		{
 			"williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
-			opts = function()
-				return {
- 	 	 	 	  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-				  -- taplo: toml
-					ensure_installed = { "pyright", "bashls", "taplo" },
-				}
+   		opts = function(_, opts)
+ 	 	 	 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+				-- taplo: toml
+      	opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+        	-- "lua_ls",
+					"pyright", "bashls", "taplo"
+      	})
 			end,
 		},
 		-- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
 		{
 			"jay-babu/mason-null-ls.nvim", -- overrides `require("mason-null-ls").setup(...)`
-			opts = function()
-				return {
-					ensure_installed = { "prettier", "stylua", "isort", "ruff", "black", "shellcheck", "shfmt", "dprint", "taplo" },
-				}
+			opts = function(_, opts)
+      	opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+					"prettier", "stylua", "isort", "ruff", "black", "shellcheck", "shfmt", "dprint", "taplo"
+      	})
 			end,
 		},
+  	{
+    	"jay-babu/mason-nvim-dap.nvim",
+    	opts = function(_, opts)
+      	-- add more things to the ensure_installed table protecting against community packs modifying it
+      	opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+      	})
+    	end,
+  	},
 		-- Misc
 		-- Jupyter notebook
 		{
@@ -1453,7 +1462,7 @@ autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
 autocmd BufRead,BufNewFile tmp.* set noswapfile
 autocmd ExitPre tmp.* :w
 augroup END
-let g:python3_host_prog  = '/bin/python3.10'
+let g:python3_host_prog  = '/bin/python'
 let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
 xnoremap gcc :Commentary<cr>

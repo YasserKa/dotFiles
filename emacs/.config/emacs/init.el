@@ -189,6 +189,14 @@
   :ensure t
   :hook (after-init . doom-modeline-mode))
 
+;; Icons for doom-modeline
+(use-package nerd-icons
+  :ensure t
+  :config
+  (unless (package-installed-p 'nerd-icons)
+      (nerd-icons-install-fonts))
+  )
+
 ;; Highlight matching braces
 (use-package paren
   :ensure nil

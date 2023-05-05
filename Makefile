@@ -9,7 +9,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 # mypi needs to be exposed to other libraries to get stubs
 PYPI_PACKAGES_PIP = i3ipc PyMuPDF pyperclip neovim-remote selenium adblock tldextract mypy pip pipx jupyter-ascending notebook
 # jupyter notebook related packages are injected in the jupyter rule
-PYPI_PACKAGES_PIPX = tmuxp poetry pdm notebook ruff black pyflyby isort autoimport sci-hub ipython isort
+PYPI_PACKAGES_PIPX = tmuxp pdm notebook sci-hub ipython
 
 .PHONY: install
 install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers
@@ -96,7 +96,7 @@ stow-packages:
 install-pypi-packages: 
 	@echo "Installing PYPI packages"
 	@pip install --user  $(PYPI_PACKAGES_PIP)
-	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"
+	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"; done
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
