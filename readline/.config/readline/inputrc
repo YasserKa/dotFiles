@@ -74,8 +74,8 @@ $if mode=vi
     $if Bash
         SPACE: magic-space
     $endif
-    "\ep": history-search-backward
-    "\en": history-search-forward
+    "\C-p": history-search-backward
+    "\C-n": history-search-forward
     # pressing tab will list all completions & select the first one. pressing it
     # again will cycle through available completions.
     TAB: menu-complete
