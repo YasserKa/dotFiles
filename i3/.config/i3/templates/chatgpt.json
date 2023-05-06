@@ -1,5 +1,9 @@
 {
   "swallows": [
-    { "class": "^qutebrowser$", "title": "^New\\ chat\\ \\-\\ qutebrowser$" }
+    { "class": "^qutebrowser$", "title": "^New\\ chat\\ \\-\\ qutebrowser$" },
+    {
+      "class": "^qutebrowser$",
+      "title": "^ChatGPT\\ \\|\\ OpenAI\\ \\-\\ qutebrowser$"
+    }
   ]
 }
