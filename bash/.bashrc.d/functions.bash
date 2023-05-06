@@ -198,7 +198,7 @@ open_file() {
 		notify-send "$TERMINAL not supported for open_file function" &&
 		return 1
 
-	local -r DIRECTORY_PATH="$1"
+	local -r DIRECTORY_PATH="$HOME/dotfiles/$1"
 	shift
 	[[ ! -d "${DIRECTORY_PATH}" ]] && notify-send "${DIRECTORY_PATH} doesn't exist" && exit 1
 
@@ -219,26 +219,26 @@ open_file() {
 	fi
 }
 
-alias rcreadline='open_file $XDG_CONFIG_HOME/readline inputrc $XDG_CONFIG_HOME/readline/*'
-alias rcgpg='open_file $GNUPGHOME gpg-agent.conf $GNUPGHOME/*'
-alias rcgit='open_file $XDG_CONFIG_HOME/git config'
-alias rcssh='open_file $HOME/.ssh config $HOME/.ssh*'
-alias rcx11='open_file ${XINITRC%/*} xinitrc ${XINITRC%/*}/*'
-alias rcbash='open_file $HOME/.bashrc.d ../.bashrc ../.bash_profile ../.profile $HOME/.bashrc.d/*'
-alias rckitty='open_file $XDG_CONFIG_HOME/kitty kitty.conf $XDG_CONFIG_HOME/kitty/*'
-alias rcvim='open_file $XDG_CONFIG_HOME/nvim ./lua/user/init.lua'
-alias rci3='open_file $XDG_CONFIG_HOME/i3 config $XDG_CONFIG_HOME/i3/*'
-alias rcneomutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc'
-alias rcmutt='open_file $XDG_CONFIG_HOME/neomutt neomuttrc'
-alias rctuir='open_file $XDG_CONFIG_HOME/tuir tuir.cfg $XDG_CONFIG_HOME/tuir/*'
-alias rcnewsboat='open_file $XDG_CONFIG_HOME/newsboat $XDG_CONFIG_HOME/newsboat/*'
-alias rcfeh='open_file $XDG_CONFIG_HOME/feh keys $XDG_CONFIG_HOME/feh/*'
-alias rcrofi='open_file $XDG_CONFIG_HOME/rofi config.rasi $XDG_CONFIG_HOME/rofi/*'
-alias rcdunst='open_file $XDG_CONFIG_HOME/dunst dunstrc $XDG_CONFIG_HOME/dunst/*'
-alias rcpolybar='open_file $XDG_CONFIG_HOME/polybar config.ini $XDG_CONFIG_HOME/polybar/*'
-alias rctmux='open_file $XDG_CONFIG_HOME/tmux tmux.conf $XDG_CONFIG_HOME/tmux/*'
-alias rczathura='open_file $XDG_CONFIG_HOME/zathura zathurarc $XDG_CONFIG_HOME/zathura/*'
-alias rcqutebrowser='open_file $XDG_CONFIG_HOME/qutebrowser config.py'
+alias rcreadline='open_file readline/.config/readline inputrc '
+alias rcgpg='open_file gnupg/.local/share/gnupg gpg-agent.conf'
+alias rcgit='open_file git/.config/git config'
+alias rcssh='open_file ssh/.ssh config'
+alias rcx11='open_file X11/.config/X11 xinitrc'
+alias rcbash='open_file bash/ .bashrc.d ../.bashrc ../.bash_profile ../.profile .bashrc.d/*'
+alias rckitty='open_file kitty/.config/kitty kitty.conf'
+alias rcvim='open_file nvim/.config/nvim ./lua/user/init.lua'
+alias rci3='open_file i3/.config/i3 config'
+alias rcneomutt='open_file neomutt/.config/neomutt neomuttrc'
+alias rcmutt='open_file neomutt/.config/neomutt neomuttrc'
+alias rctuir='open_file tuir/.config/tuir tuir.cfg'
+alias rcnewsboat='open_file newsboat/.config/newsboat config'
+alias rcfeh='open_file feh/.config/feh keys'
+alias rcrofi='open_file rofi/.config/rofi config.rasi'
+alias rcdunst='open_file dunst/.config/dunst/ dunstrc'
+alias rcpolybar='open_file polybar/.config/polybar config.ini'
+alias rctmux='open_file tmux/.config/tmux tmux.conf'
+alias rczathura='open_file zathura/.config/zathura zathurarc'
+alias rcqutebrowser='open_file qutebrowser/.config/qutebrowser config'
 
 # Open Emacs's config file in Emacs
 alias rcemacs='emacs --file $XDG_CONFIG_HOME/emacs/init.el'
@@ -250,7 +250,7 @@ rcdotfiles() {
 		"${TERMINAL}" -e --directory "${HOME}/dotfiles/"
 	fi
 }
-alias cron='open_file $XDG_CONFIG_HOME/cron crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
+alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
 open_gui() {
 	local name="$1"
