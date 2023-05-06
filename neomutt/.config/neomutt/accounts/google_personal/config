@@ -1,7 +1,7 @@
 # vim:filetype=muttrc
 
 set my_mail = "yasser.kaddoura19@gmail.com"
-set my_account_name = yasserkaddoura19
+set my_account_name = google_personal
 set my_config_path = $my_neomutt_config_folder/accounts/$my_account_name
 
 set realname = "Yasser Kaddoura"

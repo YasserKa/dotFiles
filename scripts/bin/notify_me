@@ -3,13 +3,13 @@
 import os
 import re
 import subprocess
-from datetime import datetime, timedelta
+from datetime import datetime
 from time import sleep
 
 from dateutil.parser import parse
-from dateutil.relativedelta import relativedelta
 from selenium import webdriver
-from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
+from selenium.common.exceptions import (SessionNotCreatedException,
+                                        TimeoutException)
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -27,13 +27,12 @@ profile_path = "/home/yasser/.config/chromium/notify_me_profile"
 discord = " Discord"
 facebook = " Facebook"
 reddit = " Reddit"
-whatsapp = "Whatsapp"
+whatsapp = " Whatsapp"
 
 
 # flake8: max-line-length = 88
 # flake8: extend-ignore = E203
 def check_discord(driver):
-
     driver.get(URL_DISCORD)
     WebDriverWait(driver, 10).until(
         lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(), "Friends")]'))
@@ -45,8 +44,7 @@ def check_discord(driver):
 
     discord_servers = driver.find_elements(
         By.XPATH,
-        './/div[contains(@aria-label, "Servers")]/'
-        '*/div/span[contains(@class, "item")]',
+        './/div[contains(@aria-label, "Servers")]/*/div/span[contains(@class, "item")]',
     )
 
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
@@ -57,8 +55,10 @@ def check_discord(driver):
 
 def send_notification(notification_text, url):
     subprocess.Popen(
-        f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
-        f" --action='action,label') == 'action' ]] && qutebrowser {url} || exit 1",
+        (
+            f"[[ $(dunstify '{notification_text}' --appname={APP_NAME}"
+            f" --action='action,label') == 'action' ]] && qutebrowser {url} || exit 1"
+        ),
         shell=True,
         text=True,
     )
@@ -103,9 +103,11 @@ def check_whatsapp(driver):
 
     missed_calls = driver.find_elements(
         By.XPATH,
-        './/*[contains(text(),"Missed voice call")]/parent::node()/'
-        "parent::node()/parent::node()/parent::node()"
-        '//*[contains(text(),":")]',
+        (
+            './/*[contains(text(),"Missed voice call")]/parent::node()/'
+            "parent::node()/parent::node()/parent::node()"
+            '//*[contains(text(),":")]'
+        ),
     )
 
     has_recent_missed_call = False

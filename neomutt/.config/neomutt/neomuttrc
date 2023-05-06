@@ -61,9 +61,9 @@ set crypt_replyencrypt = yes
 set crypt_replysignencrypted = yes
 # attempt to verify email signatures automatically
 set crypt_verify_sig = yes
-set pgp_sign_as="116F256041ACF55D33334B77F69626AEBEC29AA7"
-set pgp_default_key="116F256041ACF55D33334B77F69626AEBEC29AA7"
-my_hdr X-PGP-Key: https://keyserver.ubuntu.com/pks/lookup?search=0x116F256041ACF55D33334B77F69626AEBEC29AA7&fingerprint=on&op=index
+set pgp_sign_as="B08290CD65BD78DAC41A38368DBCA4F866308AAC"
+set pgp_default_key="B08290CD65BD78DAC41A38368DBCA4F866308AAC"
+my_hdr X-PGP-Key: http://keyserver.ubuntu.com/pks/lookup?search=B08290CD65BD78DAC41A38368DBCA4F866308AAC&fingerprint=on&op=index
 
 # formatting
 set date_format="%m/%d %I:%M%p"
@@ -167,8 +167,8 @@ macro attach s '<save-entry> <bol>~/Downloads/<eol>' 'Save attachment'
 set mbox_type = Maildir
 
 # Default
-source $my_neomutt_config_folder/accounts/yasserkaddoura19/config
+source $my_neomutt_config_folder/accounts/google_personal/config
 
-macro index,pager <f1> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/yasserkaddoura19/config"<enter><change-folder>!<enter>'
+macro index,pager <f1> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/google_personal/config"<enter><change-folder>!<enter>'
 # macro index,pager <f2> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/template/config"<enter><change-folder>!<enter>'
 

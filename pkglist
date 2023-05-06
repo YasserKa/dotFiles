@@ -28,10 +28,10 @@ thinkfan # A minimalist fan control program. Supports the sysfs hwmon interface 
 
 # Drivers
 displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
-evdi-git # kernel module that that enables management of multiple screens.
+#evdi-git # kernel module that that enables management of multiple screens.
 
 # Video
-nvidia-dkms       # NVIDIA drivers
+nvidia       # NVIDIA drivers
 nvidia-utils # NVIDIA drivers utilities
 
 # Needed microcode
@@ -106,6 +106,7 @@ dotenv-linter-bin # Linter for .env files
 pandoc-cli # Conversion between markup formats
 plantuml # Component that allows to quickly write uml diagrams
 npm # A package manager for javascript
+python # Scripting language
 python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
 
@@ -137,7 +138,6 @@ the_silver_searcher # Code searching tool similar to Ack, but faster
 lnav # A curses-based tool for viewing and analyzing log files
 
 qutebrowser # A keyboard-driven, vim-like browser based on PyQt5
-qtwebkit-plugins-git # Spell checking plugin using Hunspell and HTML5 Notifications plugin for QtWebKit.
 python-pygments # Python syntax highlighter
 
 # Automation

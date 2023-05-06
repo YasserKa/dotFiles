@@ -1,7 +1,6 @@
 */1 * * * * . $HOME/.config/cron/cron_env && $HOME/bin/battery_low_alert
 
 # Sync mega material
-0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/university mega:university --exclude ".git/**"
 0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Documents/personal mega:personal
 
 # Sync notes

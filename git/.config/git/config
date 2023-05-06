@@ -1,7 +1,7 @@
 [user]
     email = yasser.kaddoura19@gmail.com
     name = Yasser Kaddoura
-    signingKey = 116F256041ACF55D33334B77F69626AEBEC29AA7
+    signingKey = B08290CD65BD78DAC41A38368DBCA4F866308AAC
 
 [init]
     defaultBranch = main

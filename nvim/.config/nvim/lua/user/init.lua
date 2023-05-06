@@ -397,9 +397,9 @@ local config = {
 					else
 						fallback()
 					end
-					end, {
-						"i",
-						"s",
+				end, {
+					"i",
+					"s",
 				})
 				opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
 					if require("luasnip").expandable() then
@@ -411,9 +411,9 @@ local config = {
 					else
 						fallback()
 					end
-					end, {
-						"i",
-						"s",
+				end, {
+					"i",
+					"s",
 				})
 				opts.sources = cmp.config.sources({
 					{ name = "luasnip", priority = 1000 },
@@ -614,45 +614,45 @@ local config = {
 			opts = function(config) -- overrides `require("null-ls").setup(config)`
 				-- config variable is the default configuration table for the setup function call
 				local null_ls = require("null-ls")
-  	 	 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+				local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 				-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 				config.sources = {
 					-- Bash
 					null_ls.builtins.code_actions.shellcheck,
 					null_ls.builtins.hover.printenv,
- 	 	 	 	 	null_ls.builtins.diagnostics.dotenv_linter,
+					null_ls.builtins.diagnostics.dotenv_linter,
 					null_ls.builtins.formatting.shfmt.with({
 						extra_args = { "--case-indent" },
 					}),
 					-- Python
 					null_ls.builtins.diagnostics.ruff,
- 					null_ls.builtins.formatting.isort,
+					null_ls.builtins.formatting.isort,
 					null_ls.builtins.formatting.black.with({
 						extra_args = { "--experimental-string-processing" },
 					}),
 					null_ls.builtins.formatting.pyflyby,
 					-- TOML
- 					null_ls.builtins.formatting.dprint,
- 	 	 	 	  null_ls.builtins.formatting.taplo,
+					null_ls.builtins.formatting.dprint,
+					null_ls.builtins.formatting.taplo,
 
 					-- null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.prettier,
 				}
-    		-- you can reuse a shared lspconfig on_attach callback here
-    		config.on_attach = function(client, bufnr)
-        	if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-                vim.lsp.buf.format({ bufnr = bufnr })
-              end,
-            })
-        	end
-    		end
+				-- you can reuse a shared lspconfig on_attach callback here
+				config.on_attach = function(client, bufnr)
+					if client.supports_method("textDocument/formatting") then
+						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							group = augroup,
+							buffer = bufnr,
+							callback = function()
+								-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+								vim.lsp.buf.format({ bufnr = bufnr })
+							end,
+						})
+					end
+				end
 				return config
 			end,
 		},
@@ -811,32 +811,42 @@ local config = {
 		-- use mason-lspconfig to configure LSP installations
 		{
 			"williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
-   		opts = function(_, opts)
- 	 	 	 	-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+			opts = function(_, opts)
+				-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 				-- taplo: toml
-      	opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-        	-- "lua_ls",
-					"pyright", "bashls", "taplo"
-      	})
+				opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+					-- "lua_ls",
+					"pyright",
+					"bashls",
+					"taplo",
+				})
 			end,
 		},
 		-- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
 		{
 			"jay-babu/mason-null-ls.nvim", -- overrides `require("mason-null-ls").setup(...)`
 			opts = function(_, opts)
-      	opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-					"prettier", "stylua", "isort", "ruff", "black", "shellcheck", "shfmt", "dprint", "taplo"
-      	})
+				opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+					"prettier",
+					"pyflyby",
+					"stylua",
+					"isort",
+					"ruff",
+					"black",
+					"shellcheck",
+					"shfmt",
+					"dprint",
+					"taplo",
+				})
 			end,
 		},
-  	{
-    	"jay-babu/mason-nvim-dap.nvim",
-    	opts = function(_, opts)
-      	-- add more things to the ensure_installed table protecting against community packs modifying it
-      	opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
-      	})
-    	end,
-  	},
+		{
+			"jay-babu/mason-nvim-dap.nvim",
+			opts = function(_, opts)
+				-- add more things to the ensure_installed table protecting against community packs modifying it
+				opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {})
+			end,
+		},
 		-- Misc
 		-- Jupyter notebook
 		{
@@ -845,38 +855,43 @@ local config = {
 			config = function()
 				local wk = require("which-key")
 
-  			-- Execute cells using the command line by passing the line numbers
+				-- Execute cells using the command line by passing the line numbers
 				execute_cells = function(line_nums)
- 					local file_path = vim.fn.expand('%:p')
- 					local shell_command = "silent !{ "
- 					-- { python -m jupyter_ascending.requests.execute --filename a.sync.py --line 1 && python -m jupyter_ascending.requests.execute --filename a.sync.py --line 6; } >/dev/null & disown
-  				for index, line_num in ipairs(line_nums) do
-  				  shell_command = shell_command .. ' python -m jupyter_ascending.requests.execute --filename ' .. file_path .. ' --linenumber ' .. line_num .. ';'
-  				end
- 					shell_command = shell_command .. " } >/dev/null & disown"
-  				vim.cmd(shell_command)
- 				end
+					local file_path = vim.fn.expand("%:p")
+					local shell_command = "silent !{ "
+					-- { python -m jupyter_ascending.requests.execute --filename a.sync.py --line 1 && python -m jupyter_ascending.requests.execute --filename a.sync.py --line 6; } >/dev/null & disown
+					for index, line_num in ipairs(line_nums) do
+						shell_command = shell_command
+							.. " python -m jupyter_ascending.requests.execute --filename "
+							.. file_path
+							.. " --linenumber "
+							.. line_num
+							.. ";"
+					end
+					shell_command = shell_command .. " } >/dev/null & disown"
+					vim.cmd(shell_command)
+				end
 
- 				-- Execute visually selected cells
- 				execute_selected_cells = function()
- 					-- Leave visual mode to update the "<" and ">" marks
-  				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "v", true)
-  				local start_line = vim.api.nvim_buf_get_mark(0, '<')[1]
-  				local end_line = vim.api.nvim_buf_get_mark(0, '>')[1]
-  				local lines = {}
-      		-- Add first cell if the # %% isn't selected
-    			local first_line = vim.api.nvim_buf_get_lines(0, start_line-1, start_line, false)[1]
-    			if not first_line:find('^# %%') then
-      		 	table.insert(lines, start_line)
-    			end
+				-- Execute visually selected cells
+				execute_selected_cells = function()
+					-- Leave visual mode to update the "<" and ">" marks
+					vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "v", true)
+					local start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
+					local end_line = vim.api.nvim_buf_get_mark(0, ">")[1]
+					local lines = {}
+					-- Add first cell if the # %% isn't selected
+					local first_line = vim.api.nvim_buf_get_lines(0, start_line - 1, start_line, false)[1]
+					if not first_line:find("^# %%") then
+						table.insert(lines, start_line)
+					end
 
-  				for line_num = start_line, end_line do
-    				local line = vim.api.nvim_buf_get_lines(0, line_num-1, line_num, false)[1]
-    				if line:find('^# %%') then
-      				table.insert(lines, line_num)
-    				end
-  				end
-  				execute_cells(lines)
+					for line_num = start_line, end_line do
+						local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+						if line:find("^# %%") then
+							table.insert(lines, line_num)
+						end
+					end
+					execute_cells(lines)
 				end
 
 				wk.register({
@@ -884,10 +899,18 @@ local config = {
 						n = {
 							name = "jupyter ascending",
 							c = { "<Plug>JupyterExecute", "Execute cell" },
-							C = { "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>", "Execute cell and jump to next cell" },
+							C = {
+								"<Plug>JupyterExecute <cmd>call search('# %%$')<cr>",
+								"Execute cell and jump to next cell",
+							},
 							r = { "<Plug>JupyterExecuteAll", "Run file" },
 							R = { "<Plug>JupyterRestart", "Restart Jupyter" },
-							J = { '<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"' .. vim.fn.expand('%:r') .. '.ipynb &>/dev/null & disown<cr>' , "Run Jupyter server" },
+							J = {
+								'<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"'
+									.. vim.fn.expand("%:r")
+									.. ".ipynb &>/dev/null & disown<cr>",
+								"Run Jupyter server",
+							},
 						},
 					},
 				})
@@ -898,13 +921,14 @@ local config = {
 							name = "Jupyter Ascending",
 							c = { ":lua execute_selected_cells()<CR>", "Execute selected cells" },
 						},
-					}}, { mode = "v" })
+					},
+				}, { mode = "v" })
 			end,
 		},
 		-- For inserting and navigating cells
 		{
 			"https://github.com/hanschen/vim-ipython-cell",
-			event="BufRead *.sync.py",
+			event = "BufRead *.sync.py",
 			dependencies = "untitled-ai/jupyter_ascending.vim",
 			config = function()
 				local wk = require("which-key")
@@ -927,7 +951,7 @@ local config = {
 
 					["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
 					["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-					}, { mode = "i" })
+				}, { mode = "i" })
 			end,
 		},
 	},
@@ -1041,18 +1065,18 @@ local config = {
 		_G.YankOrgLink = function()
 			local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
 			local cmd = '"${TERMINAL}" --directory "'
-			.. vim.fn.expand("%:p:h")
-			.. '" --detach -e "${EDITOR}" +'
-			.. r
-			.. ' "'
-			.. vim.fn.expand("%:t")
-			.. '"'
+				.. vim.fn.expand("%:p:h")
+				.. '" --detach -e "${EDITOR}" +'
+				.. r
+				.. ' "'
+				.. vim.fn.expand("%:t")
+				.. '"'
 			local encoded_org_link = "[["
-			.. "link-handler://"
-			.. encodeString(cmd)
-			.. "]["
-			.. vim.fn.expand("%:t")
-			.. "]]"
+				.. "link-handler://"
+				.. encodeString(cmd)
+				.. "]["
+				.. vim.fn.expand("%:t")
+				.. "]]"
 			vim.fn.setreg("+", encoded_org_link)
 		end
 		vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
@@ -1060,10 +1084,10 @@ local config = {
 		_G.WatchFile = function()
 			vim.cmd(
 				'silent !"${TERMINAL}" --detach --directory "'
-				.. vim.fn.expand("%:p:h")
-				.. '" bash -c \'echo "'
-				.. vim.fn.expand("%:t")
-				.. "\" | entr -c /_'"
+					.. vim.fn.expand("%:p:h")
+					.. '" bash -c \'echo "'
+					.. vim.fn.expand("%:t")
+					.. "\" | entr -c /_'"
 			)
 		end
 		vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
@@ -1251,34 +1275,34 @@ local config = {
 		vim.keymap.set("n", "]f", function()
 			sts.filtered_jump({
 				"if_statement",
-				}, true)
+			}, true)
 		end, opts)
 		vim.keymap.set("n", "[f", function()
 			sts.filtered_jump({
 				"if_statement",
-				}, false)
+			}, false)
 		end, opts)
 
 		vim.keymap.set("n", "]c", function()
 			sts.filtered_jump({
 				"class",
-				}, true)
+			}, true)
 		end, opts)
 		vim.keymap.set("n", "[c", function()
 			sts.filtered_jump({
 				"class",
-				}, false)
+			}, false)
 		end, opts)
 
 		vim.keymap.set("n", "]/", function()
 			sts.filtered_jump({
 				"comment",
-				}, true)
+			}, true)
 		end, opts)
 		vim.keymap.set("n", "[/", function()
 			sts.filtered_jump({
 				"comment",
-				}, false)
+			}, false)
 		end, opts)
 
 		-------------------------------

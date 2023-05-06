@@ -25,6 +25,14 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs
 	@mkdir -p $(XDG_CONFIG_HOME)/nvim
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
+	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
+	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
+	@mkdir -p $(XDG_CONFIG_HOME)/autokey
+	@mkdir -p $(HOME)/.ssh
+	@chmod 700 $(HOME)/.ssh
+	@mkdir -p $(XDG_DATA_HOME)/icons/hicolor
+	@mkdir -p $(XDG_DATA_HOME)/.gnugp
+	@chmod 700 $(XDG_DATA_HOME)/.gnugp
 	@rm -rf $(HOME)/.bashrc $(HOME)/.bash_profile
 	@# https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Hide_GRUB_unless_the_Shift_key_is_held_down
 	@sudo sh -c "echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /boot/grub/grub.cfg"
@@ -41,8 +49,8 @@ update-sudoers:
 	sudo EDITOR=nvim visudo
 
 .PHONY: install-packages
-install-packages: create-clean-pkglist install-aur-helper setup-tuir
-	@sudo pacman --sync --refresh --upgrade
+install-packages: create-clean-pkglist install-aur-helper
+	@sudo pacman --sync --refresh --sysupgrade
 	@paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
 	@# Get nvim preconfiguration before stowing
 	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
@@ -51,7 +59,8 @@ install-packages: create-clean-pkglist install-aur-helper setup-tuir
 # create a file containing list of packages for package manager
 .PHONY: clean-pkglist
 create-clean-pkglist:
-	@cat pkglist | grep -o "^[^#]*" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
+	@# pacman doesn't show the following installed packages
+	@cat pkglist | grep -o "^[^#]*" | grep -vE "(binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
 .PHONY: stow-etc
 stow-etc:
@@ -159,7 +168,6 @@ setup-qutebrowser:
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
 	paru --sync --noconfirm --skipreview  chromium-widevine # viewing DRM content (Spotify)
-	paru --sync --noconfirm --skipreview qtwebkit-plugins-git # For SpellChecking
 	# Update adblock list
 	qutebrowser :adblock-update
 	pkill qutebrowser
