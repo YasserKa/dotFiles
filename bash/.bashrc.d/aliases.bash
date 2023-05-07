@@ -35,7 +35,7 @@ alias cat='bat --pager=less --theme="gruvbox-dark"'
 
 # Logging
 # grc aliases journalctl to add colourify
-unalias journalctl
+alias journalctl >/dev/null && unalias journalctl
 # Can't override journalctl without using a function
 journalctl() { command journalctl "$@" | lnav; }
 alias logxorg='cat $HOME/.local/share/xorg/Xorg.0.log'

@@ -520,14 +520,14 @@ local config = {
 				local readline = require("readline")
 				vim.keymap.set("!", "<C-k>", readline.kill_line)
 				vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
-				vim.keymap.set("!", "<M-d>", readline.kill_word)
+				vim.keymap.set("!", "<C-S-d>", readline.kill_word)
 				vim.keymap.set("!", "<M-BS>", readline.backward_kill_word)
 				vim.keymap.set("!", "<C-d>", "<Delete>") -- delete-char
 				vim.keymap.set("!", "<C-h>", "<BS>") -- backward-delete-char
 				vim.keymap.set("!", "<C-a>", readline.beginning_of_line)
 				-- vim.keymap.set("!", "<C-e>", readline.end_of_line) -- used by luasnip to switch between choices
-				vim.keymap.set("!", "<M-f>", readline.forward_word)
-				vim.keymap.set("!", "<M-b>", readline.backward_word)
+				vim.keymap.set("!", "<C-S-f>", readline.forward_word)
+				vim.keymap.set("!", "<C-S-b>", readline.backward_word)
 				vim.keymap.set("!", "<C-f>", "<Right>") -- forward-char
 				vim.keymap.set("!", "<C-b>", "<Left>") -- backward-char
 			end,
@@ -631,7 +631,6 @@ local config = {
 					null_ls.builtins.formatting.black.with({
 						extra_args = { "--experimental-string-processing" },
 					}),
-					null_ls.builtins.formatting.pyflyby,
 					-- TOML
 					null_ls.builtins.formatting.dprint,
 					null_ls.builtins.formatting.taplo,
@@ -828,7 +827,6 @@ local config = {
 			opts = function(_, opts)
 				opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
 					"prettier",
-					"pyflyby",
 					"stylua",
 					"isort",
 					"ruff",

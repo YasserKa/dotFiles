@@ -82,15 +82,15 @@ $if mode=vi
     # Shift-TAB cycles completions backward
     "\e[Z": menu-complete-backward
 
-    # Moving around
+    # Movng around
     # Character
     "\C-b": backward-char
     "\C-f": forward-char
     "\C-d": delete-char
-    # Word
-    "\eb": backward-word
-    "\ef": forward-word
-    "\ed": kill-word
+    # Word (Used with shift modifier)
+    "\e[98;6u": backward-word
+    "\e[102;6u": forward-word
+    "\e[100;6u": kill-word
     # Line
     "\C-a": beginning-of-line
     "\C-e": end-of-line
