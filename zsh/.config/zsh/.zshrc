@@ -12,6 +12,8 @@ setopt AUTO_CD   # Auto cd without using cd
 setopt CORRECT # Correct spelling of commands
 setopt INTERACTIVECOMMENTS # # On interactive line for comment
 setopt BASH_REMATCH
+# Stop highlighting pasted text
+zle_highlight+=(paste:none)
 
 # History {{{
 export HISTFILE=$XDG_CONFIG_HOME/zsh/history
@@ -66,9 +68,12 @@ bindkey -M viins '^f' vi-forward-char
 bindkey -M viins '^d' delete-char
 
 # With shift modifier
-bindkey -M viins '\e[98;6u' vi-backward-word
-bindkey -M viins '\e[102;6u' vi-forward-word
-bindkey -M viins '\e[100;6u' delete-word
+# bindkey -M viins '\e[98;6u' vi-backward-word
+# bindkey -M viins '\e[102;6u' vi-forward-word
+# bindkey -M viins '\e[100;6u' delete-word
+bindkey -M viins '[^b' vi-backward-word
+bindkey -M viins '[^f' vi-forward-word
+bindkey -M viins '[^d' delete-word
 # }}}
 # Autocompletion {{{
 
@@ -97,10 +102,12 @@ plug "zdharma-continuum/fast-syntax-highlighting"
 # 10ms for key sequences delay
 KEYTIMEOUT=1
 
+MODE_INDICATOR=""
 plug "softmoth/zsh-vim-mode"
 plug "hlissner/zsh-autopair"
+# Make zsh use system clipboard
+plug "kutsan/zsh-system-clipboard"
 # Remove the normal mode indication
-RPROMPT=""
 MODE_CURSOR_VICMD="blinking block"
 MODE_CURSOR_VIINS="blinking bar"
 
