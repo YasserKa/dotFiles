@@ -70,6 +70,9 @@ upgrade_system() {
 	# Upgrade pipx
 	pipx upgrade-all
 
+	# Update Zsh plugins
+	zap update
+
 	echo 'Use the following commands to checkup on the system:
   systemctl --failed --user
   logxorg
@@ -89,17 +92,18 @@ ranger() {
 
 # Use fasd and FZF to jump through directories
 j() {
+	local paths
 	paths=$(fasd -dlR "$@")
-	path="$HOME"
+	local my_path="$HOME"
 	# If only one path exists, go to it
 	if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
-		path=$paths
+		my_path=$paths
 	else # Use fzf otherwise
-		path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+		my_path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
 	fi
 	EXIT_CODE="$?"
 	((EXIT_CODE != 0)) && return
-	cd "$path" || exit 1
+	cd "$my_path" || exit 1
 }
 
 # Use fasd and FZF to a open file and go to the directory it's in
@@ -139,16 +143,33 @@ fclast() { command fc "-${1}" 0; }
 # Copy last command
 cl() { history -p '!!' | tr -d \\n | pbcopy &>/dev/null; }
 
-copyline() { printf %s "$READLINE_LINE" | pbcopy &>/dev/null; }
-bind -m vi-insert -x '"\C-y":copyline'
-bind -m vi-command -x '"\C-y":copyline'
+if [[ "$BASH" ]]; then
+	copyline() { printf %s "$READLINE_LINE" | pbcopy &>/dev/null; }
+	bind -m vi-insert -x '"\C-y":copyline'
+	bind -m vi-command -x '"\C-y":copyline'
+elif [[ "$ZSH_NAME" ]]; then
+	cmd_to_clip() { echo "$BUFFER" | xclip -selection clipboard; }
+	zle -N cmd_to_clip
+	bindkey -M vicmd '^y' cmd_to_clip
+	bindkey -M viins '^y' cmd_to_clip
+fi
 
 # Use Alt-h to view documentation for commands
-run_help() {
-	local -r cmd="$READLINE_LINE"
-	help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || $cmd --help | $PAGER
-}
-bind -m vi-insert -x '"\eh": run_help'
+# Replicate bash
+if [[ "$BASH" ]]; then
+	run_help() {
+		local -r cmd="$READLINE_LINE"
+		help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || $cmd --help | $PAGER
+	}
+	bind -m vi-insert -x '"\eh": run_help'
+elif [[ "$ZSH_NAME" ]]; then
+	run_help() {
+		local -r cmd="$BUFFER"
+		run-help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || $cmd --help | $PAGER
+	}
+	zle -N run_help
+	bindkey '^[h' run_help
+fi
 
 # Attach job & send notification after it's finished
 alert_last() {
@@ -224,7 +245,8 @@ alias rcgpg='open_file gnupg/.local/share/gnupg gpg-agent.conf'
 alias rcgit='open_file git/.config/git config'
 alias rcssh='open_file ssh/.ssh config'
 alias rcx11='open_file X11/.config/X11 xinitrc'
-alias rcbash='open_file bash/ .bashrc.d ../.bashrc ../.bash_profile ../.profile .bashrc.d/*'
+alias rcbash='open_file bash .bashrc .bash_profile .profile .bashrc.d/*'
+alias rczsh='open_file zsh/.config/zsh .zshrc'
 alias rckitty='open_file kitty/.config/kitty kitty.conf'
 alias rcvim='open_file nvim/.config/nvim ./lua/user/init.lua'
 alias rci3='open_file i3/.config/i3 config'

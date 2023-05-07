@@ -7,6 +7,12 @@
 # Personal envs (Not used by applications) have a _ prefix (e.g. _EDITOR_GUI)
 # Note: Before making a new env var, Use something like "rg --hidden <pattern>" to figure out which files are dependent on it
 
+# History
+# Ongoing session
+export HISTSIZE=10000
+# Ignore common commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:pls:clear:*/pypoetry/virtualenvs/*"
+
 # Default
 export EDITOR=nvim
 export VISUAL=nvim
@@ -72,7 +78,12 @@ export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap"
+# CTRL-Y to copy the command into clipboard
+export FZF_CTRL_R_OPTS="
+--preview 'echo {}' --preview-window up:3:hidden:wrap
+--bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
+ --color header:italic
+--header 'Press CTRL-Y to copy command into clipboard'"
 export FZF_DEFAULT_OPTS="--color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}' --bind='ctrl-j:accept,alt-j:preview-page-down,alt-k:preview-page-up'"
 
 # Expand PATH

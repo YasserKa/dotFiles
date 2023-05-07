@@ -28,6 +28,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
 	@mkdir -p $(XDG_CONFIG_HOME)/autokey
+	@mkdir -p $(XDG_CONFIG_HOME)/zsh
 	@mkdir -p $(HOME)/.ssh
 	@chmod 700 $(HOME)/.ssh
 	@mkdir -p $(XDG_DATA_HOME)/icons/hicolor
@@ -85,6 +86,9 @@ setup-tuir:
 post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-jupyter-notebook setup-qutebrowser
 	@# Setup neovim
 	nvim  --headless -c 'autocmd User LazyDone quitall'
+	@# Setup Zsh plugin manager & shell
+	@zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+	@sudo usermod --shell /bin/zsh yasser
 	@# Accurate date
 	sudo timedatectl set-ntp true
 	@# Sync pkgfile database for command-no-found-handler function to work
@@ -98,7 +102,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 
 .PHONY: stow-packages
 stow-packages:
-	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xmodmap zathura
+	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xmodmap zathura zsh
 	sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages

@@ -111,6 +111,7 @@ python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
 
 # Command line
+zsh             # Z-Shell
 bash-completion # Programmable completion for the bash shell
 shellcheck      # Shell script analysis tool
 shfmt           # Format shell programs
