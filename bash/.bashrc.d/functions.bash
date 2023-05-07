@@ -260,7 +260,7 @@ alias rcdunst='open_file dunst/.config/dunst/ dunstrc'
 alias rcpolybar='open_file polybar/.config/polybar config.ini'
 alias rctmux='open_file tmux/.config/tmux tmux.conf'
 alias rczathura='open_file zathura/.config/zathura zathurarc'
-alias rcqutebrowser='open_file qutebrowser/.config/qutebrowser config'
+alias rcqutebrowser='open_file qutebrowser/.config/qutebrowser config.py'
 
 # Open Emacs's config file in Emacs
 alias rcemacs='emacs --file $XDG_CONFIG_HOME/emacs/init.el'

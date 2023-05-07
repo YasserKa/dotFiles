@@ -111,6 +111,9 @@ plug "kutsan/zsh-system-clipboard"
 MODE_CURSOR_VICMD="blinking block"
 MODE_CURSOR_VIINS="blinking bar"
 
+# Override plugin's C-w to normal behaviour
+bindkey -M viins '^w' vi-backward-kill-word
+
 # NOTE: needs to be after vim, so the visual mode in vim doesn't disturb the
 # plugin
 # History backward with suggestions

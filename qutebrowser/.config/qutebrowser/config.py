@@ -1,4 +1,5 @@
 import os
+
 # mypy: ignore-errors
 
 c = c  # type: ignore # noqa: F821
