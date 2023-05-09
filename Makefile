@@ -26,6 +26,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/nvim
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
+	@mkdir -p $(XDG_DATA_HOME)/okular
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
 	@mkdir -p $(XDG_CONFIG_HOME)/autokey
 	@mkdir -p $(XDG_CONFIG_HOME)/zsh
@@ -113,10 +114,10 @@ install-pypi-packages:
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
-	# Display link
+	sudo systemctl start cronie
+	sudo systemctl enable cronie
 	systemctl start displaylink
 	systemctl enable displaylink
-	# Cmus
 	systemctl start cmus --user
 	systemctl enable cmus --user
 	systemctl enable notify-me.timer --user

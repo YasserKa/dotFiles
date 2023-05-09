@@ -18,6 +18,7 @@ zle_highlight+=(paste:none)
 # History {{{
 export HISTFILE=$XDG_CONFIG_HOME/zsh/history
 export SAVEHIST=$HISTSIZE
+export HISTORY_IGNORE="(&|[ ]*|exit|ls|bg|fg|history|pls|clear|*/pypoetry/virtualenvs/*)"
 
 setopt HIST_IGNORE_ALL_DUPS  # do not put duplicated command into history list
 setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
@@ -118,6 +119,10 @@ bindkey -M viins '^w' vi-backward-kill-word
 # plugin
 # History backward with suggestions
 plug "zsh-users/zsh-history-substring-search"
+bindkey -M viins '^p' history-substring-search-up
+bindkey -M viins '^n' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 # }}}
 # Setup FZF {{{
 if command -v fzf > /dev/null; then
