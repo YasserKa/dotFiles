@@ -84,7 +84,7 @@ export FZF_CTRL_R_OPTS="
 --bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
  --color header:italic
 --header 'Press CTRL-Y to copy command into clipboard'"
-export FZF_DEFAULT_OPTS="--color=light --preview='bat --color=always --style=numbers --theme gruvbox-dark {}' --bind='ctrl-j:accept,alt-j:preview-page-down,alt-k:preview-page-up'"
+export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white --preview='bat --color=always --style=numbers --theme gruvbox-dark {}' --bind='ctrl-j:accept,alt-j:preview-page-down,alt-k:preview-page-up'"
 
 # Expand PATH
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin
