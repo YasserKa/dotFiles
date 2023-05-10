@@ -143,6 +143,9 @@ function zvm_after_init() {
   bindkey -M viins '^n' history-substring-search-down
   bindkey -M vicmd 'k' history-substring-search-up
   bindkey -M vicmd 'j' history-substring-search-down
+
+  # Override plugin's C-w to normal behaviour
+  bindkey -M viins '^w' vi-backward-kill-word
 }
 
 # }}}
