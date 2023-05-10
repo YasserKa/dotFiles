@@ -11,14 +11,26 @@ unsetopt CLOBBER # Don't overwrite when redireting using shell
 setopt AUTO_CD   # Auto cd without using cd
 setopt CORRECT # Correct spelling of commands
 setopt INTERACTIVECOMMENTS # # On interactive line for comment
-setopt BASH_REMATCH
+# setopt BASH_REMATCH # This option makes vim plugin not work for c and d operators
+
 # Stop highlighting pasted text
 zle_highlight+=(paste:none)
 
 # History {{{
 export HISTFILE=$XDG_CONFIG_HOME/zsh/history
 export SAVEHIST=$HISTSIZE
-export HISTORY_IGNORE="(&|[ ]*|exit|ls|bg|fg|history|pls|clear|*/pypoetry/virtualenvs/*)"
+export HISTORY_IGNORE="(&|[ ]*|exit|ls(*| )|cd|cd ..|bg|fg|history|pls|clear|*/pypoetry/virtualenvs/*)"
+
+# Don't show ignored history commands the when navigating history
+# Doesn't work on the last executed command
+zshaddhistory() {
+  emulate -L zsh
+  ## uncomment if HISTORY_IGNORE
+  ## should use EXTENDED_GLOB syntax
+  # setopt extendedglob
+  # $1 adds a line break to the command
+  [[ "${1//[$'\n']}" != ${~HISTORY_IGNORE} ]]
+}
 
 setopt HIST_IGNORE_ALL_DUPS  # do not put duplicated command into history list
 setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
@@ -33,7 +45,7 @@ NEWLINE=$'\n'
 
 plug "woefe/git-prompt.zsh"
 source "$ZAP_PATH/plugins/git-prompt.zsh/git-prompt.zsh"
- 
+
 PROMPT='%B%F{cyan}%~%b $(gitprompt) ${NEWLINE}%F{#008C00}❯ %b%f'
 # }}}
 # Keybindings {{{
@@ -68,13 +80,14 @@ bindkey -M viins '^b' vi-backward-char
 bindkey -M viins '^f' vi-forward-char
 bindkey -M viins '^d' delete-char
 
-# With shift modifier
+# With C-shift modifier
+# Disabled because tmux doesn't accept C-S modifier
 # bindkey -M viins '\e[98;6u' vi-backward-word
 # bindkey -M viins '\e[102;6u' vi-forward-word
 # bindkey -M viins '\e[100;6u' delete-word
-bindkey -M viins '[^b' vi-backward-word
-bindkey -M viins '[^f' vi-forward-word
-bindkey -M viins '[^d' delete-word
+bindkey -M viins '\eb' vi-backward-word
+bindkey -M viins '\ef' vi-forward-word
+bindkey -M viins '\ed' delete-word
 # }}}
 # Autocompletion {{{
 
@@ -103,8 +116,9 @@ plug "zdharma-continuum/fast-syntax-highlighting"
 # 10ms for key sequences delay
 KEYTIMEOUT=1
 
-MODE_INDICATOR=""
-plug "softmoth/zsh-vim-mode"
+plug "jeffreytse/zsh-vi-mode"
+source "$ZAP_PATH/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+
 plug "hlissner/zsh-autopair"
 # Make zsh use system clipboard
 plug "kutsan/zsh-system-clipboard"
@@ -119,16 +133,25 @@ bindkey -M viins '^w' vi-backward-kill-word
 # plugin
 # History backward with suggestions
 plug "zsh-users/zsh-history-substring-search"
-bindkey -M viins '^p' history-substring-search-up
-bindkey -M viins '^n' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=red,standout"
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=green,standout"
+# The plugin will auto execute this zvm_after_init function
+function zvm_after_init() {
+  init_fzf
+  bindkey -M viins '^p' history-substring-search-up
+  bindkey -M viins '^n' history-substring-search-down
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
+}
+
 # }}}
 # Setup FZF {{{
-if command -v fzf > /dev/null; then
-  [[ -f /usr/share/fzf/completion.zsh ]] && . /usr/share/fzf/completion.zsh
-  [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
-fi
+function init_fzf() {
+  if command -v fzf > /dev/null; then
+    [[ -f /usr/share/fzf/completion.zsh ]] && . /usr/share/fzf/completion.zsh
+    [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
+  fi
 
 # Use C-e and C-j to edit and execute command
 fzf-history-widget() {
@@ -146,7 +169,7 @@ fzf-history-widget() {
     num=$selected[1]
     if [ -n "$num" ]; then
       zle vi-fetch-history -n $num
- 		[[ $accept = 0 ]] && zle accept-line
+ 		  [[ $accept = 0 ]] && zle accept-line
     fi
   fi
   zle reset-prompt
@@ -167,6 +190,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:*' fzf-preview 'lsd -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+}
 
 
 # }}}
@@ -199,7 +223,6 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|r
 fi
 # }}}
 # Others {{{
-#
 source ~/.bashrc.d/functions.bash
 source ~/.bashrc.d/aliases.bash
 
