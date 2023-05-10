@@ -244,7 +244,7 @@ mode $system_mode {
 
 # >>>
 # Bindings <<<
-bindsym $mod+Return exec --no-startup-id $TERMINAL
+bindsym $mod+g exec --no-startup-id $TERMINAL
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show run
 

@@ -75,7 +75,7 @@ bindkey -M vicmd ':' vi-repeat-find
 bindkey -M viins '^w' vi-backward-kill-word
 bindkey -M viins '^a' beginning-of-line
 bindkey -M viins '^e' end-of-line
-bindkey -M viins '^h' vi-backward-delete-char
+bindkey -M viins '^h' backward-delete-char
 bindkey -M viins '^b' vi-backward-char
 bindkey -M viins '^f' vi-forward-char
 bindkey -M viins '^d' delete-char
@@ -95,6 +95,8 @@ bindkey -M viins '\ed' delete-word
 # https://github.com/trapd00r/LS_COLORS
 source /usr/share/LS_COLORS/dircolors.sh
 
+# Directories to search for autoloadings
+fpath+=($ZDOTDIR/zsh-completions)
 zstyle ':completion:*' menu select
 autoload -Uz compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -134,7 +136,7 @@ plug "zsh-users/zsh-history-substring-search"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=red,standout"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=green,standout"
 # The plugin will auto execute this zvm_after_init function
-function zvm_after_init() {
+function setup_keybindings() {
   init_fzf
   bindkey -M viins '^p' history-substring-search-up
   bindkey -M viins '^n' history-substring-search-down
@@ -143,7 +145,11 @@ function zvm_after_init() {
 
   # Override plugin's C-w to normal behaviour
   bindkey -M viins '^w' vi-backward-kill-word
+
 }
+zvm_after_init_commands+=(setup_keybindings init_fzf)
+
+[[ $NEED_SOURCE_VENV ]] && source ./.venv/bin/activate
 
 # }}}
 # Setup FZF {{{

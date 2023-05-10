@@ -90,7 +90,7 @@ alias tmpsh="\${EDITOR} /tmp/tmp.sh"
 
 # List last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
-alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'Ctrl-j:execute(pacman -Qil {} | \$PAGER)+abort'"
 
 # Music player
 alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
