@@ -149,7 +149,7 @@ if [[ "$BASH" ]]; then
 	bind -m vi-command -x '"\C-y":copyline'
 elif [[ "$ZSH_NAME" ]]; then
 	# shellcheck disable=2317
-	cmd_to_clip() { echo "$BUFFER" | xclip -selection clipboard; }
+	cmd_to_clip() { printf "%s" "$BUFFER" | xsel -i --clipboard; }
 	zle -N cmd_to_clip
 	bindkey -M vicmd '^y' cmd_to_clip
 	bindkey -M viins '^y' cmd_to_clip
