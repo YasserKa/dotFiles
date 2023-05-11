@@ -148,15 +148,11 @@ if [[ "$BASH" ]]; then
 	bind -m vi-insert -x '"\C-y":copyline'
 	bind -m vi-command -x '"\C-y":copyline'
 elif [[ "$ZSH_NAME" ]]; then
-	function setup_clip() {
-		# shellcheck disable=2317
-		cmd_to_clip() { echo "$BUFFER" | xclip -selection clipboard; }
-		zle -N cmd_to_clip
-		bindkey -M vicmd '^y' cmd_to_clip
-		bindkey -M viins '^y' cmd_to_clip
-	}
-
-	zvm_after_init_commands+=(setup_clip)
+	# shellcheck disable=2317
+	cmd_to_clip() { echo "$BUFFER" | xclip -selection clipboard; }
+	zle -N cmd_to_clip
+	bindkey -M vicmd '^y' cmd_to_clip
+	bindkey -M viins '^y' cmd_to_clip
 fi
 
 # Use Alt-h to view documentation for commands

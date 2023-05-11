@@ -147,6 +147,7 @@ wmctrl # Control your EWMH compliant window manager from command line
 # Dependency for wmctrl
 openresolv # resolv.conf management framework (resolvconf)
 xclip # Command line interface to the X11 clipboard
+xsel # Another X clipboard, needed for zsh-system-clipboard to work
 xdotool # Command-line X11 automation tool
 # Key binding
 autokey-common

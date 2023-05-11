@@ -65,7 +65,7 @@ bindkey '^[v' edit-command-line
 bindkey " " magic-space
 
 ## Readline
-# showkey -a
+# bindings can showkey -a
 # Shift-TAB cycles completions backward
 bindkey -M viins '\e[Z' reverse-menu-complete
 # C-S-i
@@ -80,11 +80,6 @@ bindkey -M viins '^b' vi-backward-char
 bindkey -M viins '^f' vi-forward-char
 bindkey -M viins '^d' delete-char
 
-# With C-shift modifier
-# Disabled because tmux doesn't accept C-S modifier
-# bindkey -M viins '\e[98;6u' vi-backward-word
-# bindkey -M viins '\e[102;6u' vi-forward-word
-# bindkey -M viins '\e[100;6u' delete-word
 bindkey -M viins '\eb' vi-backward-word
 bindkey -M viins '\ef' vi-forward-word
 bindkey -M viins '\ed' delete-word
@@ -106,7 +101,6 @@ compinit
 plug "zsh-users/zsh-autosuggestions"
 bindkey '^ ' autosuggest-accept
 
-
 # Add autocompletion for newly added packages
 # https://wiki.archlinux.org/title/zsh#Persistent_rehash
 zstyle ':completion:*' rehash true
@@ -118,15 +112,22 @@ plug "zdharma-continuum/fast-syntax-highlighting"
 # 10ms for key sequences delay
 KEYTIMEOUT=1
 
-plug "jeffreytse/zsh-vi-mode"
-source "$ZAP_PATH/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+# Disable vim prompt indication for normal mode
+MODE_INDICATOR=""
+plug "softmoth/zsh-vim-mode"
+source "$ZAP_PATH/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
+MODE_CURSOR_VICMD="blinking block"
+MODE_CURSOR_VIINS="blinking bar"
+# plug "jeffreytse/zsh-vi-mode"
+# source "$ZAP_PATH/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 plug "hlissner/zsh-autopair"
 # Make zsh use system clipboard
 plug "kutsan/zsh-system-clipboard"
-# Remove the normal mode indication
-MODE_CURSOR_VICMD="blinking block"
-MODE_CURSOR_VIINS="blinking bar"
+source "$ZAP_PATH/plugins/zsh-system-clipboard/zsh-system-clipboard.plugin.zsh"
+# Change clipboard method to xsel, since xclip is bugged
+# https://github.com/kutsan/zsh-system-clipboard/issues/46
+ZSH_SYSTEM_CLIPBOARD_METHOD="xsp"
 
 # NOTE: needs to be after vim, so the visual mode in vim doesn't disturb the
 # plugin
@@ -135,39 +136,34 @@ plug "zsh-users/zsh-history-substring-search"
 
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND="fg=red,standout"
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="fg=green,standout"
+
 # The plugin will auto execute this zvm_after_init function
-function setup_keybindings() {
-  init_fzf
-  bindkey -M viins '^p' history-substring-search-up
-  bindkey -M viins '^n' history-substring-search-down
-  bindkey -M vicmd 'k' history-substring-search-up
-  bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M viins '^p' history-substring-search-up
+bindkey -M viins '^n' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
-  # Override plugin's C-w to normal behaviour
-  bindkey -M viins '^w' vi-backward-kill-word
-
-}
-zvm_after_init_commands+=(setup_keybindings init_fzf)
+# Override plugin's C-w to normal behaviour
+bindkey -M viins '^w' vi-backward-kill-word
 
 [[ $NEED_SOURCE_VENV ]] && source ./.venv/bin/activate
 
 # }}}
 # Setup FZF {{{
-function init_fzf() {
-  if command -v fzf > /dev/null; then
-    [[ -f /usr/share/fzf/completion.zsh ]] && . /usr/share/fzf/completion.zsh
-    [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
-  fi
+if command -v fzf > /dev/null; then
+  [[ -f /usr/share/fzf/completion.zsh ]] && . /usr/share/fzf/completion.zsh
+  [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
+fi
 
 # Use C-e and C-j to edit and execute command
 fzf-history-widget() {
-  local selected num
-  setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-  selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS-} -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS-}  --expect=ctrl-e --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+local selected num
+setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
+selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
+  FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS-} -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS-}  --expect=ctrl-e --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
-     local accept=0
+    local accept=0
     if [[ $selected[1] = ctrl-e ]]; then
       accept=1
       shift selected
@@ -193,10 +189,9 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:*' fzf-preview 'lsd -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers --theme gruvbox-dark $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
-}
 
 
 # }}}
@@ -227,6 +222,7 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|r
 	add-zsh-hook -Uz precmd xterm_title_precmd
 	add-zsh-hook -Uz preexec xterm_title_preexec
 fi
+
 # }}}
 # Others {{{
 source ~/.bashrc.d/functions.bash
