@@ -160,13 +160,15 @@ fi
 if [[ "$BASH" ]]; then
 	run_help() {
 		local -r cmd="$READLINE_LINE"
-		help "$cmd" 2>/dev/null || man "$cmd" 2>/dev/null || $cmd --help | $PAGER
+		# shellcheck disable=2046,2116
+		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
 	}
 	bind -m vi-insert -x '"\eh": run_help'
 elif [[ "$ZSH_NAME" ]]; then
 	run_help() {
 		local -r cmd="$BUFFER"
-		man "$cmd" 2>/dev/null || $cmd --help | $PAGER
+		# shellcheck disable=2046,2116
+		man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
 	}
 	zle -N run_help
 	bindkey '^[h' run_help
