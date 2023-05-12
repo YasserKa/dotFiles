@@ -21,6 +21,22 @@ local config = {
 			mods = "CTRL",
 			action = wezterm.action.ResetFontSize,
 		},
+		{
+			key = "e",
+			mods = "CTRL|ALT",
+			action = wezterm.action({
+				QuickSelectArgs = {
+					patterns = {
+						"http?://\\S+",
+						"https?://\\S+",
+					},
+					action = wezterm.action_callback(function(window, pane)
+						local url = window:get_selection_text_for_pane(pane)
+						wezterm.open_with(url)
+					end),
+				},
+			}),
+		},
 	},
 }
 return config

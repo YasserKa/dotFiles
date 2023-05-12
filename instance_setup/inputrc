@@ -34,9 +34,8 @@ $if mode=vi
     Control-l: clear-screen
 
     set keymap vi-insert
-    "\e[A": history-search-backward
-    "\e[B": history-search-forward
-    "\ep": yank-last-arg
+    "\C-p": history-search-backward
+    "\C-n": history-search-forward
     Control-l: clear-screen
 $endif
 

@@ -10,7 +10,10 @@ set confirm                   " Confirm :q in case of unsaved changes
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
+autocmd TextYankPost *
+    \ if v:event.operator is 'y' && v:event.regname is '' |
+    \ execute 'OSCYankRegister' |
+    \ endif
 
 let g:oscyank_term = 'default'
 
