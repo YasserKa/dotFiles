@@ -71,8 +71,16 @@ bindkey -M viins '\e[Z' reverse-menu-complete
 # C-S-i
 bindkey '\e[105;6u' reverse-menu-complete
 
+# vi-backward-kill-word stops working after going to insert mode
+# create a word using these seperators
+WORDCHARS=' *?_-.[]~=&;!#$%^(){}<>/'
+autoload -Uz select-word-style
+select-word-style normal
+zstyle ':zle:*' word-style unspecified
+zle -N backward-kill-dir
+
 bindkey -M vicmd ':' vi-repeat-find
-bindkey -M viins '^w' vi-backward-kill-word
+bindkey -M viins '^w' backward-kill-word
 bindkey -M viins '^a' beginning-of-line
 bindkey -M viins '^e' end-of-line
 bindkey -M viins '^h' backward-delete-char
@@ -143,8 +151,13 @@ bindkey -M viins '^n' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# Override plugin's C-w to normal behaviour
-bindkey -M viins '^w' vi-backward-kill-word
+source_zsh_config() {
+  source "$ZDOTDIR/.zshrc"
+}
+zle -N source_zsh_config
+# NOTE: doesn't work for \e, ,since it goes to normal mode after pressing \e,
+bindkey -M vicmd -r ','
+bindkey -M vicmd  ',ss' source_zsh_config
 
 [[ $NEED_SOURCE_VENV ]] && source ./.venv/bin/activate
 
