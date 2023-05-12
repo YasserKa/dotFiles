@@ -587,7 +587,8 @@
   ;; Open file using nvim
   (defun my/vil-diff-visit-file (file &optional other-window)
     (interactive (list (magit-file-at-point t t) current-prefix-arg))
-    (shell-command (concat (getenv "_EDITOR_GUI") " " file nil)))
+    (start-process-shell-command "Start default application" nil (concat (getenv "_EDITOR_GUI") " " file nil))
+    )
   )
 
 (use-package magit-delta
