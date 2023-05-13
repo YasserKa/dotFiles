@@ -20,6 +20,17 @@ bash:
 	@[[ ! -f ~/.bashrc ]] || ! grep -qs yasser ~/.bashrc && \
 		echo -e '\n# Yasser'\''s Config\n[[ -e ~/.yasser_rc/.bashrc && $$yasser_config_env ]] && source ~/.yasser_rc/.bashrc' >> ~/.bashrc || echo "Bash already configured"
 
+clipboard: 
+	@echo "Setting up clipboard sharing"
+	@yes | sudo apt install xclip
+	@echo -e "Need following /etc/ssh/sshd_config settings
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+
+Use ssh -CY
+	"
+
 vim:
 	@echo "Setting up vim"
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
