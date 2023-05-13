@@ -88,9 +88,10 @@ bindkey -M viins '^b' vi-backward-char
 bindkey -M viins '^f' vi-forward-char
 bindkey -M viins '^d' delete-char
 
-bindkey -M viins '\eb' vi-backward-word
-bindkey -M viins '\ef' vi-forward-word
-bindkey -M viins '\ed' delete-word
+# With Ctrl-Shift modifier
+bindkey -M viins '\e[98;6u' vi-backward-word
+bindkey -M viins '\e[102;6u' vi-forward-word
+bindkey -M viins '\e[100;6u' kill-word
 # }}}
 # Autocompletion {{{
 

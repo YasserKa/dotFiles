@@ -381,7 +381,10 @@
     (kbd "C-d") 'delete-char
     (kbd "C-k") 'evil-delete-line
     ;; Kill from current position to start of next word
-    (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word))))))
+    (kbd "C-S-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word)))))
+    (kbd "C-S-b") 'backward-word
+    (kbd "C-S-f") 'forward-word
+    )
 
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
   (modify-syntax-entry ?_ "w")
