@@ -1,0 +1,28 @@
+{
+    "type": "script",
+    "description": "scroll up",
+    "store": {},
+    "modes": [
+        3
+    ],
+    "usageCount": 30,
+    "prompt": false,
+    "omitTrigger": false,
+    "showInTrayMenu": false,
+    "abbreviation": {
+        "abbreviations": [],
+        "backspace": true,
+        "ignoreCase": false,
+        "immediate": false,
+        "triggerInside": false,
+        "wordChars": "[\\w]"
+    },
+    "hotkey": {
+        "modifiers": [],
+        "hotKey": "k"
+    },
+    "filter": {
+        "regex": "^.*DevDocs.*$",
+        "isRecursive": false
+    }
+}
