@@ -7,7 +7,6 @@ reload-threads 4
 download-retries 4
 download-timeout 10
 prepopulate-query-feeds yes
-feed-sort-order title
 goto-next-feed no
 
 confirm-exit no
