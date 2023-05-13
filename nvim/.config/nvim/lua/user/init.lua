@@ -711,7 +711,18 @@ local config = {
 			"nvim-treesitter/nvim-treesitter",
 			opts = function()
 				return {
-					ensure_installed = { "lua", "python", "bash", "latex", "json", "toml", "dockerfile" },
+					ensure_installed = {
+						"bash",
+						"dockerfile",
+						"html",
+						"javascript",
+						"json",
+						"latex",
+						"lua",
+						"python",
+						"toml",
+						"vim",
+					},
 
 					indent = { enable = true, disable = { "python" } },
 					matchup = { enable = true },
@@ -862,6 +873,23 @@ local config = {
 			end,
 		},
 		-- Misc
+		-- Offline Documentation
+		{
+			"KabbAmine/zeavim.vim",
+			lazy = false,
+			-- ft = "python",
+			config = function()
+				vim.api.nvim_exec(
+					[[
+nmap <leader>z <Plug>Zeavim
+vmap <leader>z <Plug>ZVVisSelection
+nmap gz <Plug>ZVOperator
+nmap <leader><leader>z <Plug>ZVKeyDocset
+					]],
+					true
+				)
+			end,
+		},
 		-- Jupyter notebook
 		{
 			"untitled-ai/jupyter_ascending.vim",
