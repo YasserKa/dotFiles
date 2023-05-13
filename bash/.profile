@@ -17,12 +17,12 @@ export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:pls:clear:*/pypoetry/virtualenvs
 export EDITOR=nvim
 export VISUAL=nvim
 export BROWSER=qutebrowser
-export TERMINAL=wezterm
+export TERMINAL=kitty
 export DIFFPROG=vimdiff
 export PAGER=vimpager
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
-export _EDITOR_GUI=nvim-qt
+export _EDITOR_GUI=neovide
 
 # Conform to XDG standards
 export XDG_CONFIG_HOME="$HOME/.config"

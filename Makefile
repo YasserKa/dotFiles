@@ -55,6 +55,9 @@ update-sudoers:
 install-packages: create-clean-pkglist install-aur-helper
 	@sudo pacman --sync --refresh --sysupgrade
 	@paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
+	# Need to be installed afterwrds because displaylink depend son evdi which
+	# conflicts with evdi-git
+	@paru --sync evdi-git
 	@# Get nvim preconfiguration before stowing
 	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
 	@rm -f *tmp
@@ -183,7 +186,7 @@ setup-qutebrowser:
 compare-packages: create-clean-pkglist
 	@# Make expects a 0, otherwise it fails.
 	@# diff returns 1 if a difference is found
-	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE paru | sort) || echo ""
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git)" | sort) || echo ""
 	@rm -f *tmp
 
 .PHONY: help
