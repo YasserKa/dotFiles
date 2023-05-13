@@ -1013,6 +1013,7 @@ see how ARG affects this command."
   (use-package yaml-mode)
   (use-package dockerfile-mode)
   (use-package docker-compose-mode)
+  (use-package lua-mode)
 
   (require 'ob-makefile)
   ;; Run/highlight code using babel in org-mode
@@ -1020,6 +1021,7 @@ see how ARG affects this command."
    'org-babel-load-languages
    '((python . t)
      (sql . t)
+     (lua . t)
      (plantuml . t)
      (makefile . t)
      (emacs-lisp . t)
@@ -1036,7 +1038,9 @@ see how ARG affects this command."
     (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
     (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
     (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
-    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp")))
+    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+    )
 
   ;; Go in the block with insert mode after inserting it
   (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
