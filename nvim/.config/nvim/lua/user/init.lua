@@ -514,6 +514,29 @@ local config = {
 			end,
 		},
 		{
+			"https://github.com/sQVe/sort.nvim",
+			lazy = false,
+			config = function()
+				vim.api.nvim_exec(
+					[[
+		nnoremap <silent> gs <Cmd>Sort<CR>
+		vnoremap <silent> gs <Esc><Cmd>Sort<CR>
+
+		nnoremap <silent> gsi" vi"<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi' vi'<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi( vi(<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi) vi)<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi] vi]<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi[ vi[<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsip vip<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi{ vi{<Esc><Cmd>Sort<CR>
+		nnoremap <silent> gsi} vi}<Esc><Cmd>Sort<CR>
+					]],
+					true
+				)
+			end,
+		},
+		{
 			"https://github.com/linty-org/readline.nvim",
 			lazy = false,
 			config = function()
@@ -584,13 +607,6 @@ local config = {
 		{ "https://github.com/jeetsukumaran/vim-commentary", event = "VeryLazy" },
 		{ "https://github.com/szw/vim-maximizer", lazy = false },
 		{ "https://github.com/simnalamburt/vim-mundo", cmd = "MundoToggle" },
-		{
-			"https://github.com/ggandor/leap.nvim",
-			lazy = false,
-			config = function()
-				require("leap").add_default_mappings()
-			end,
-		},
 		{
 			"https://github.com/iamcco/markdown-preview.nvim",
 			cmd = "MarkdownPreviewToggle",
