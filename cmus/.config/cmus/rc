@@ -2,3 +2,4 @@ fset colorscheme=cyan
 
 # bindings
 bind -f common u shell ~/.config/cmus/update_music_library
+bind -f common q shell screen -d cmus
