@@ -21,13 +21,17 @@ URL_DISCORD = "https://discordapp.com/channels/@me"
 URL_WHATS_APP = "https://web.whatsapp.com/"
 URL_FACEBOOK = "https://www.facebook.com/"
 
+# Kill chromedriver if it didn't exit from the last script execution
+os.system("pkill chromedriver")
+driver = None
+
 executable_path = "/home/yasser/.config/chromium/chromedriver"
 profile_path = "/home/yasser/.config/chromium/notify_me_profile"
 
-discord = " Discord"
-facebook = " Facebook"
-reddit = " Reddit"
-whatsapp = " Whatsapp"
+discord = "  Discord"
+facebook = "  Facebook"
+reddit = "  Reddit"
+whatsapp = "  Whatsapp"
 
 
 # flake8: max-line-length = 88
@@ -134,7 +138,6 @@ def main():
     options.add_argument("user-data-dir=" + profile_path)
 
     options.add_argument("binary_location=/bin/chromium")
-    os.system("pkill chromedriver")
     driver = webdriver.Chrome(
         service=Service(executable_path=executable_path), options=options
     )
@@ -147,12 +150,24 @@ def main():
         pass
 
     driver.close()
-    os.system("pkill chromedriver")
 
 
 if __name__ == "__main__":
-    os.system("pkill chromedriver")
+    # The script sometimes fails. If it fails two times, send me notification.
+    # The state of failure is tracked by a temporary file
+    TEMPORARY_FILE_PATH = "/tmp/notify_me_exception"
     try:
         main()
     except SessionNotCreatedException:
-        subprocess.run("dunstify 'Maybe need a new chromium version'", shell=True)
+        if os.path.exists(TEMPORARY_FILE_PATH):
+            subprocess.run("dunstify 'Maybe need a new chromium version'", shell=True)
+        with open(TEMPORARY_FILE_PATH, "w") as fp:
+            pass
+    except Exception:
+        if os.path.exists(TEMPORARY_FILE_PATH):
+            subprocess.run("dunstify 'notify_me didnt work'", shell=True)
+        with open(TEMPORARY_FILE_PATH, "w") as fp:
+            pass
+    else:
+        if os.path.exists(TEMPORARY_FILE_PATH):
+            os.remove(TEMPORARY_FILE_PATH)
