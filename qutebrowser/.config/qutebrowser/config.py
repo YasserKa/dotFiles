@@ -65,7 +65,7 @@ c.bindings.commands = {
             "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
             " --delete --recent"
         ),
-        "<Ctrl+i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
+        "<Ctrl-i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         # Yank/Goto URL without anchors
         "yp": (
             "spawn --userscript"
@@ -125,17 +125,18 @@ c.bindings.commands = {
         "<Ctrl-h>": "nop",
     },
     "insert": {
-        "<Ctrl-w>": "fake-key <Ctrl-backspace>",
         "<Ctrl-l>": (
             "fake-key <Shift-Home>;; later 50 spawn --userscript"
             " ~/.config/qutebrowser/userscripts/fix_last_typo"
         ),
         "<Ctrl-i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
+        # Readline
+        "<Ctrl-w>": "fake-key <Ctrl-backspace>",
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
         "<Ctrl-n>": "fake-key <Down>",
         "<Ctrl-j>": "fake-key <enter>",
-        # Readline
+        "<Ctrl-m>": "fake-key <enter>",
         "<Ctrl-b>": "fake-key <Left>",
         "<Ctrl-f>": "fake-key <Right>",
         "<Ctrl-d>": "fake-key <Delete>",
@@ -147,6 +148,7 @@ c.bindings.commands = {
         "<Ctrl-k>": "fake-key <Shift-End><Delete>",
         "<Ctrl-a>": "fake-key <Home>",
         "<Ctrl-Shift-a>": "fake-key <Ctrl-a>",
+        # Copy
         "<Ctrl-y>": "fake-key <Ctrl-a><Ctrl-c><Right>",
         # Use another binding for editing in external editor
         "<Ctrl-Shift-e>": "edit-text",

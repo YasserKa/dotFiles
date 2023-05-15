@@ -1014,6 +1014,10 @@ see how ARG affects this command."
   (use-package dockerfile-mode)
   (use-package docker-compose-mode)
   (use-package lua-mode)
+  ; (use-package jupyter)
+  ; (require 'jupyter)
+  ; (require 'ox-ipynb)
+  ; (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 
   (require 'ob-makefile)
   ;; Run/highlight code using babel in org-mode
@@ -1025,7 +1029,10 @@ see how ARG affects this command."
      (plantuml . t)
      (makefile . t)
      (emacs-lisp . t)
-     (shell . t)))
+     (shell . t)
+     ; (jupyter . t)
+     ))
+  ; (org-babel-jupyter-override-src-block "python")
 
   ;; Enables to add snippets for code blocks
   (use-package org-tempo
@@ -1169,6 +1176,7 @@ see how ARG affects this command."
                               (kbd "<C-SPC>") 'org-cycle
                               (kbd "zl")  #'org-latex-preview
                               ;; Open files at cursor
+                              (kbd "gx") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
                               (kbd "<return>") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
                               (kbd "<S-return>") #'(lambda () (interactive)
                                                      ;; Open link without losing focus of window
