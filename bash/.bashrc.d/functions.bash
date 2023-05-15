@@ -282,7 +282,7 @@ open_gui() {
 	local command="$2"
 
 	if ! xdotool search --name "$name" windowactivate; then
-		bash -c "chronic ${command} & disown"
+		bash -c "nohup ${command} >/dev/null 2>&1 & disown"
 
 		# --sync doesn't seem to work, so keep activating until it works
 		while [[ "$(xdotool getactivewindow getwindowname)" != "$name" ]]; do
