@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
+import os
+
 import pandas as pd
 
 FOOD = {
     # "Weight", "Energy", "fat", "saturated fat", "carbohydrates", "sugar", "fiber", "protein", "salt",
     "muesli": [100, 426, 17, 1.8, 52, 3.7, 8.1, 12, 0.08],
+    "peanut butter": [100, 591, 49, 11, 7.6, 4.7, 8.5, 25.7, 0.43],
+    "toast bread": [100, 266, 4.7, 0.6, 42, 4.9, 5, 11, 1],
     "yogurt": [100, 40, 0.5, 0.3, 4, 4, 0, 4.1, 0.1],
     "vanilla yogurt": [100, 70, 2, 1.3, 8.7, 8.7, 0, 3.9, 0.1],
     "brown rice": [100, 350, 1.7, 0, 77, 0, 1, 7.8, 0],
@@ -16,6 +20,7 @@ FOOD = {
     "feta cheese": [100, 280, 24, 15, 0.5, 0.5, 0, 16, 3],
     "tofu": [100, 136, 7.8, 1.3, 0.6, 0.5, 0, 15, 0.01],
     "cucumber": [99, 10, 0, 0, 2, 1, 1, 1, 0],
+    "apple": [100, 52, 0.2, 0, 14, 10, 2.4, 0.3, 0.01],
     "walnut": [100, 654, 65.21, 6.126, 13.71, 2.61, 6.7, 15.32, 0.02],
     # Monounsaturated	8.933 g Polyunsaturated 47.174 g omega‑3 9 g omega‑6 38 g
     "almond": [100, 579, 49.9, 3.8, 21.6, 4.4, 12.5, 21.2, 0.01],
@@ -50,9 +55,12 @@ NUTRIENTS = [
 
 needed_food = {
     "spinach": 0.15,
+    # "peanut butter": 0.35,
+    "toast bread": 0.57 * 2,
     "greek yogurt": 1,
     "cherry tomato": 0.85,
-    "almond": 0.15,
+    "apple": 1.5,
+    # "almond": 0.15,
     "muesli": 1,
     "vanilla yogurt": 2,
     "flaxseed": 0.14,

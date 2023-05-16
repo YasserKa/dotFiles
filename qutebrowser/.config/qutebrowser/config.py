@@ -77,6 +77,10 @@ c.bindings.commands = {
         ),
         # Yanking URLs
         "ya": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_all",
+        "yh": (
+            "spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/yank_url_with_highlighted_text"
+        ),
         "yo": "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link",
         "yc": (  # Github repo names only
             "spawn --userscript ~/.config/qutebrowser/userscripts/yank_org_link --clean"

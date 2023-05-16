@@ -628,7 +628,7 @@ local config = {
 		{ "https://github.com/honza/vim-snippets", lazy = false },
 		{
 			"jose-elias-alvarez/null-ls.nvim",
-			opts = function(_,config) -- overrides `require("null-ls").setup(config)`
+			opts = function(_, config) -- overrides `require("null-ls").setup(config)`
 				-- config variable is the default configuration table for the setup function call
 				local null_ls = require("null-ls")
 				local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -655,7 +655,7 @@ local config = {
 					-- null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.prettier,
 				}
- 			return config
+				return config
 			end,
 		},
 		{

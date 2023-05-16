@@ -22,7 +22,7 @@ export DIFFPROG=vimdiff
 export PAGER=vimpager
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
-export _EDITOR_GUI=neovide
+export _EDITOR_GUI=nvim-qt
 
 # Conform to XDG standards
 export XDG_CONFIG_HOME="$HOME/.config"

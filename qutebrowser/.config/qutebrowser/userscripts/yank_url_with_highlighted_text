@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Description: A qutebrowser usercript that yanks a URL that contains the
+# highlighted text
+# Dependencies:
+#    xclip to place text in clipboard
+
+encode_url() {
+	# Reliable localization
+	local LC_ALL=C
+	# Go through each character
+	for ((i = 0; i < ${#1}; i++)); do
+		: "${1:i:1}"
+		case "$_" in
+			# Keep allowed characters
+			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+			# Encode disallowed characters
+			*) printf '%%%02X' "'$_" ;;
+		esac
+	done
+	printf '\n'
+}
+
+SELECTED_TEXT="$QUTE_SELECTED_TEXT"
+MAX_WORDS=6
+
+if (($(wc -w <<<"${SELECTED_TEXT}") > MAX_WORDS)); then
+
+	FIRST_PORTION="$(echo "$SELECTED_TEXT" | cut -d ' ' -f -3)"
+	ENCODED_FIRST_PORTION="$(encode_url "$FIRST_PORTION")"
+
+	SECOND_PORTION="$(echo "$SELECTED_TEXT" | rev | cut -d ' ' -f -3 | rev)"
+	ENCODED_SECOND_PORTION="$(encode_url "$SECOND_PORTION")"
+
+	# "," is needed to include the text between the portions
+	ENCODED_SELECTED_TEXT="${ENCODED_FIRST_PORTION},${ENCODED_SECOND_PORTION}"
+else
+	ENCODED_SELECTED_TEXT="$(encode_url "${SELECTED_TEXT}")"
+fi
+
+URL_WITH_NO_ANCHOR="$(echo "${QUTE_URL}" | cut -d '#' -f -1)"
+
+echo -n "${URL_WITH_NO_ANCHOR}#:~:text=${ENCODED_SELECTED_TEXT}" | xclip -selection c
+echo "message-info 'Yanked URL with selected text'" >>"$QUTE_FIFO"

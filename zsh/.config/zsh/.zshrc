@@ -119,7 +119,7 @@ plug "zdharma-continuum/fast-syntax-highlighting"
 # Vim {{{
 
 # 10ms for key sequences delay
-KEYTIMEOUT=1
+KEYTIMEOUT=10
 
 # Disable vim prompt indication for normal mode
 MODE_INDICATOR=""
@@ -152,13 +152,12 @@ bindkey -M viins '^n' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-source_zsh_config() {
-  source "$ZDOTDIR/.zshrc"
-}
+source_zsh_config() { exec zsh }
 zle -N source_zsh_config
 # NOTE: doesn't work for \e, ,since it goes to normal mode after pressing \e,
-bindkey -M vicmd -r ','
-bindkey -M vicmd  ',ss' source_zsh_config
+bindkey -M vicmd -r ' '
+bindkey -M vicmd  ' ss' source_zsh_config
+
 
 [[ $NEED_SOURCE_VENV ]] && source ./.venv/bin/activate
 
