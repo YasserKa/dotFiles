@@ -1062,7 +1062,7 @@ nmap <leader><leader>z <Plug>ZVKeyDocset
 		vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 			desc = "Settings for mail files",
 			group = "user_mail",
-			pattern = "neomutt-*",
+			pattern = { "neomutt-*", "tuir*" },
 			command = "set spell textwidth=100",
 		})
 		vim.api.nvim_create_autocmd({ "BufRead" }, {
