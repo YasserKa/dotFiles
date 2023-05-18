@@ -184,7 +184,7 @@ hunspell-en_us # US English hunspell dictionaries
 # Applications
 bitwarden-cli # The command line vault
 pass # Stores, retrieves, generates, and synchronizes passwords securely
-chromium # A web browser built for speed, simplicity, and security
+google-chrome # Web browser
 # Needed by chromium
 m4 # The GNU macro processor
 texinfo # GNU documentation system for on-line information and printed output
@@ -259,6 +259,7 @@ khard # Console CardDAV client
 # Others
 reflector # A Python 3 module and script to retrieve and filter the latest Pacman mirror list.
 deepin-screen-recorder # Easy-to-use screen recording tool for linuxdeepin desktop environment with xclip copy patch
+asciinema # Record and share terminal sessions
 # Dependency for deepin
 ocl-icd # OpenCL ICD Bindings
 deepin-qt-dbus-factory # https://bugs.archlinux.org/task/78223

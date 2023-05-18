@@ -8,8 +8,7 @@ from time import sleep
 
 from dateutil.parser import parse
 from selenium import webdriver
-from selenium.common.exceptions import (SessionNotCreatedException,
-                                        TimeoutException)
+from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -25,8 +24,8 @@ URL_FACEBOOK = "https://www.facebook.com/"
 os.system("pkill chromedriver")
 driver = None
 
-executable_path = "/home/yasser/.config/chromium/chromedriver"
-profile_path = "/home/yasser/.config/chromium/notify_me_profile"
+executable_path = "/home/yasser/.config/google-chrome/chromedriver"
+profile_path = "/home/yasser/.config/google-chrome/notify_me_profile"
 
 discord = "  Discord"
 facebook = "  Facebook"
@@ -137,7 +136,7 @@ def main():
     options = webdriver.ChromeOptions()
     options.add_argument("user-data-dir=" + profile_path)
 
-    options.add_argument("binary_location=/bin/chromium")
+    options.add_argument("binary_location=/bin/google-chrome-stable")
     driver = webdriver.Chrome(
         service=Service(executable_path=executable_path), options=options
     )
