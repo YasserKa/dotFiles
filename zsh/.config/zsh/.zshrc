@@ -114,7 +114,6 @@ bindkey '^ ' autosuggest-accept
 # https://wiki.archlinux.org/title/zsh#Persistent_rehash
 zstyle ':completion:*' rehash true
 
-plug "zdharma-continuum/fast-syntax-highlighting"
 # }}}
 # Vim {{{
 
@@ -126,9 +125,11 @@ MODE_INDICATOR=""
 plug "softmoth/zsh-vim-mode"
 source "$ZAP_PATH/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh"
 MODE_CURSOR_VICMD="blinking block"
+MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady"
 MODE_CURSOR_VIINS="blinking bar"
-# plug "jeffreytse/zsh-vi-mode"
-# source "$ZAP_PATH/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+
+# NOTE: has to be after zsh-vim-mode so vi" highlighting work
+plug "zdharma-continuum/fast-syntax-highlighting"
 
 plug "hlissner/zsh-autopair"
 # Make zsh use system clipboard
