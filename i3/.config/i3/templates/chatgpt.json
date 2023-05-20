@@ -3,6 +3,10 @@
     { "class": "^qutebrowser$", "title": "^New\\ chat\\ \\-\\ qutebrowser$" },
     {
       "class": "^qutebrowser$",
+      "title": "^https\\:\\/\\/chat\\.openai\\.com\\ \\-\\ qutebrowser$"
+    },
+    {
+      "class": "^qutebrowser$",
       "title": "^ChatGPT\\ \\|\\ OpenAI\\ \\-\\ qutebrowser$"
     }
   ]
