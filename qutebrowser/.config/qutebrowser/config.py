@@ -173,6 +173,11 @@ c.bindings.commands = {
     },
     "command": {
         "<Ctrl-p>": "completion-item-focus --history prev",
+        "<Ctrl-Shift-b>": "rl-backward-word",
+        "<Ctrl-Shift-f>": "rl-forward-word",
+        "<Ctrl-Shift-d>": "rl-kill-word",
+        "<Ctrl-d>": "rl-delete-char",
+        "<Alt-d>": "completion-item-del",
         "<Ctrl-n>": "completion-item-focus --history next",
         "<Ctrl-w>": "rl-backward-kill-word",
     },
