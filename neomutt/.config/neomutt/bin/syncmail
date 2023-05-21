@@ -20,8 +20,23 @@ pgrep -x mbsync >/dev/null && {
 	exit
 }
 
+contains_element() {
+	local SUBSTRING STRING="$1"
+	shift
+	for SUBSTRING; do
+		[[ -z "${STRING##*"$SUBSTRING"*}" ]] && return 0
+	done
+	return 1
+}
+
 messageinfo() {
-	# shellcheck disable=SC2015
+	IGNORED_SUBJECTS=("delivery update" "order confirmation" "has shipped")
+	# Ignore AliExpress emails
+	if [[ -z "${from##*AliExpress*}" ]] && contains_element "$subject" "${IGNORED_SUBJECTS[@]}"; then
+		return 0
+	fi
+
+	[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
 	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt || return 0
 }
 
@@ -59,8 +74,6 @@ else
 	done
 	accounts=$*
 fi
-
-[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
 
 for account in $accounts; do
 	syncandnotify &
