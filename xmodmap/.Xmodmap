@@ -261,6 +261,8 @@ clear Mod3
 
 keycode 66 = Control_L
 
+! Bind page up to Alt
+keycode 112 = Alt_R
 add Control = Control_L Control_R
 ! .inputrc uses Mod1 for mod which is Alt_L by default
 add Mod1 = Alt_L
