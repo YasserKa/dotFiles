@@ -194,7 +194,7 @@
   :ensure t
   :config
   (unless (package-installed-p 'nerd-icons)
-      (nerd-icons-install-fonts))
+    (nerd-icons-install-fonts))
   )
 
 ;; Highlight matching braces
@@ -764,7 +764,23 @@ Made for `org-tab-first-hook' in evil-mode."
     (interactive)
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
 
-  (add-hook 'emacs-startup-hook #'my/open-all-org-agenda-files)
+  ;; Icons for org-link-beautify
+  (use-package all-the-icons
+    :if (display-graphic-p))
+  ;; Add icons to links
+  (use-package org-link-beautify
+    :after org
+    :requires all-the-icons
+    :custom
+    ;; Increase performance
+    (org-element-use-cache t)
+    :config
+    (org-link-beautify-mode 1)
+    ;; Org agenda hangs when using the mode
+    ;; Disable the mode in agenda mode and re-enable
+    (add-hook 'org-agenda-mode-hook 'org-link-beautify-disable)
+    (add-hook 'org-agenda-finalize-hook 'org-link-beautify-enable)
+    )
 
   (defun my/open-super-agenda ()
     (interactive) (org-agenda nil "z") (delete-other-windows))
