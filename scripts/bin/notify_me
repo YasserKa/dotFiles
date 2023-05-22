@@ -118,7 +118,7 @@ def check_whatsapp(driver):
     if len(missed_calls) > 0:
         time_text = missed_calls[0].text
 
-        if re.search("[0-9]{1,2}:[0-9]{2}[  ](am|pm)", time_text) is not None:
+        if re.search("[0-9]{1,2}:[0-9]{2}[  ](am|pm|Pm|Am)", time_text) is not None:
             minutes_since = (datetime.now() - parse(time_text)).total_seconds() // 60
             # Check if last missed call is before 32 minutes from current time
             has_recent_missed_call = minutes_since < 32
