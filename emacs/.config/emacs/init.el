@@ -479,7 +479,11 @@
   ;; s : selection
   :after evil
   :init (global-undo-tree-mode)
-  :custom (undo-tree-visualizer-diff t)
+  :custom
+  (undo-tree-visualizer-diff t)
+  ;; Place undo files in one directory
+  ;; NOTE: using (concat user-emacs-directory "/undo") doesn't work
+  (undo-tree-history-directory-alist '(("." . "~/.config/emacs/undo")))
   :config
   ;; Save undo steps between sessions
   (use-package undo-fu-session)
@@ -688,10 +692,6 @@
                 ("CANCELLED" :foreground "forest green" :weight bold)
                 ("HOLD" :foreground "magenta" :weight bold)
                 )))
-
-  (setq org-tag-alist
-        '(("productivity" . ?p)
-          ("important" . ?i)))
 
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
