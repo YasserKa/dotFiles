@@ -1124,6 +1124,7 @@ nmap <leader><leader>z <Plug>ZVKeyDocset
 		vim.keymap.set("x", "@", '":norm @" . getcharstr() . "<cr>"', { expr = true })
 		-- vim.keymap.set("n", "<leader>c", MiniBufremove.delete) -- Remove buffer, but keep split
 		vim.keymap.set("n", "<leader>C", "<cmd>bdelete<cr>")
+		vim.keymap.set({ "n" }, "<C-Space>", "<cmd>bdelete<cr>")
 
 		-- {{{
 		require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/user/snippets" })
