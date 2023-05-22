@@ -19,9 +19,10 @@
   var hypothesisConfig = doc.createElement("script");
   hypothesisConfig.setAttribute("type", "application/json");
   hypothesisConfig.setAttribute("class", "js-hypothesis-config");
-  // theme: clean (don't show the sidebar)
+  // "theme": "clean" (don't show the sidebar)
   hypothesisConfig.innerText = `{
-"showHighlights": false
+"showHighlights": false,
+"theme": "clean"
 }`;
   doc.body.appendChild(hypothesisConfig);
 
