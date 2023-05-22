@@ -13,14 +13,18 @@
  ,* Repo: https://github.com/tim-hub/Hypothesis-Assistant
  ,*/
 (function () {
-  // https://h.readthedocs.io/projects/client/en/latest/publishers/config.html#config-settings
-  window.hypothesisConfig = function () {
-    return {
-      showHighlights: false,
-      openSidebar: true,
-    };
-  };
   var doc = document;
+
+  // https://h.readthedocs.io/projects/client/en/latest/publishers/config.html#config-settings
+  var hypothesisConfig = doc.createElement("script");
+  hypothesisConfig.setAttribute("type", "application/json");
+  hypothesisConfig.setAttribute("class", "js-hypothesis-config");
+  // theme: clean (don't show the sidebar)
+  hypothesisConfig.innerText = `{
+"showHighlights": false
+}`;
+  doc.body.appendChild(hypothesisConfig);
+
   var script = doc.createElement("script");
   script.setAttribute("src", "https://hypothes.is/embed.js");
   script.setAttribute("async", "");
