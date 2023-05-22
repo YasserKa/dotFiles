@@ -1559,10 +1559,17 @@ selection of all minor-modes, active or not."
   (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node" :column " node")
   )
 
+;; Git diff, git blame, reset buffer can be added using magit
 (defhydra git-hydra (:exit t :hint nil :idle 1)
   (" r" git-gutter:revert-hunk "revert hunk" :column " hunks")
   (" j" git-gutter:next-hunk  "next hunk")
   (" k" git-gutter:previous-hunk "previous hunk")
+  (" s" git-gutter:stage-hunk "stage hunk")
+  (" S" magit-stage-file "stage buffer")
+  (" s" magit-unstage "unstage hunk")
+  (" S" magit-unstage-file "unstage buffer")
+  (" h" git-gutter:revert-hunk "reset hunk" :column " magit")
+  (" p" git-gutter:popup-hunk "preview hunk" :column " magit")
   (" g" magit-status "status" :column " magit")
   (" c" magit-show-commit "show commit")
   (" L" magit-log-buffer-file "log")
