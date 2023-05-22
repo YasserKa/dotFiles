@@ -74,17 +74,8 @@ export IFACE_ETH=$(ls /sys/class/net | grep -E '^(eth|enp)' | tail -n1 | cut -d 
 export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d ' ' -f1)
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
 
-#
-# Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='ag --follow --hidden --ignore .git -g ""'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# CTRL-Y to copy the command into clipboard
-export FZF_CTRL_R_OPTS="
---preview 'echo {}' --preview-window up:3:hidden:wrap
---bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
- --color header:italic
---header 'Press CTRL-Y to copy command into clipboard'"
-export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white --preview='bat --color=always --style=numbers --theme gruvbox-dark {}' --bind='ctrl-j:accept,alt-j:preview-page-down,alt-k:preview-page-up'"
+# shellcheck disable=1091
+source "$XDG_CONFIG_HOME/fzf/.fzf"
 
 # Expand PATH
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin
