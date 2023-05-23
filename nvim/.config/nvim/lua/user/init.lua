@@ -589,6 +589,7 @@ local config = {
 		--  File type support
 		{ "https://github.com/fladson/vim-kitty", ft = "kitty" },
 		{ "https://github.com/YasserKa/vim-sxhkdrc", ft = "sxhkdrc" },
+		{ "https://github.com/Fymyte/mbsync.vim", ft = "mbsync" },
 		{ "https://github.com/sheerun/vim-polyglot", lazy = false }, -- provides better indentation & syntax highlight
 
 		-- Git

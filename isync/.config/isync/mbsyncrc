@@ -23,4 +23,4 @@ SyncState *
 MaxMessages 0
 ExpireUnread no
 
-# vim:filetype=msmtp commentstring=#%s
+# vim:filetype=mbsync
