@@ -42,6 +42,7 @@ c.bindings.commands = {
         "<Escape>": (
             "clear-keychain ;; search ;; fullscreen --leave;; set"
             " new_instance_open_target_window last-focused;; set"
+            " new_instance_open_target tab"
         ),
         ":y": "hint links yank",
         ":e": "hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id",
