@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Dependencies: qutebrowser
+
+qutebrowser "$QUTE_URL"

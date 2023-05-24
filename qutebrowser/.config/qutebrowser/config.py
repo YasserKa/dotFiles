@@ -32,6 +32,17 @@ c.bindings.commands = {
         ":o": "hint links fill :open {hint-url}",
         ":r": "hint --rapid links tab-bg",
         ":t": "hint inputs",
+        # Open tabs in the newest window
+        ":w": (
+            "set new_instance_open_target_window last-opened;; set"
+            " new_instance_open_target tab-silent;; hint --rapid links userscript"
+            " ~/.config/qutebrowser/userscripts/open_rapid_tabs_in_new_window"
+        ),
+        # Needed to revert the changes that :w does
+        "<Escape>": (
+            "clear-keychain ;; search ;; fullscreen --leave;; set"
+            " new_instance_open_target_window last-focused;; set"
+        ),
         ":y": "hint links yank",
         ":e": "hint id userscript ~/.config/qutebrowser/userscripts/yank_link_id",
         ":a": (
