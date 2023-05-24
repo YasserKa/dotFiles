@@ -636,6 +636,8 @@
   ;; Calendar starts at Monday
   (calendar-week-start-day 1)
   (org-deadline-warning-days 7)
+  ;; Hide the deadline prewarning prior to scheduled date.
+  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
   (org-agenda-compact-blocks t)
   (org-agenda-block-separator nil)
   (org-agenda-start-on-weekday nil "Show today +7 days")
@@ -1332,8 +1334,8 @@ see how ARG affects this command."
 
   (add-hook 'emacs-startup-hook 'org-agenda-to-appt-clear-message)
 
-  ;; generate the appt list from org agenda files on emacs launch
-  (run-at-time nil 3600 'org-agenda-to-appt-clear-message))
+  ;; Generate the appt list from org agenda files on emacs launch
+  (run-at-time nil 900 'org-agenda-to-appt-clear-message))
 ;; }}}
 ;; Navigation {{{
 (use-package vertico
