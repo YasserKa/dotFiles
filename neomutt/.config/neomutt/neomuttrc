@@ -45,6 +45,9 @@ set mime_forward = yes                 # attachments are forwarded with mail
 set forward_format = "Fwd: %s"         # format of subject when forwarding
 set forward_quote                      # include message in forwards
 
+# Use local timezone for date
+set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4})/date +'Date: %a, %d %b %Y %H:%M:%S %z' -d '\\1'/e\""
+
 # Thread
 bind index <space> collapse-thread
 set sort_aux = reverse-date
