@@ -1574,7 +1574,7 @@ selection of all minor-modes, active or not."
   (" e" toggle-plugins/body "toggle plugins")
   (" g" git-hydra/body "git")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
-  (" q" evil-save-modified-and-close "Close buffer")
+  (" q" (lambda () (interactive) (let ((inhibit-message t)) (save-buffer) (evil-delete-buffer (current-buffer)))) "Save and delete buffer")
   (" Q" evil-quit-all "Exit Emacs")
   (" w" (lambda () (interactive) (let ((inhibit-message t)) (save-buffer))) "Save buffer")
   ("ss" (lambda () (interactive) (load-file (concat user-emacs-directory "/init.el"))) "source rc")
