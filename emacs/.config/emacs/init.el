@@ -212,31 +212,13 @@
          (prog-mode . ws-butler-mode)))
 
 ;; Auto close pairs
-(use-package elec-pair
-  :ensure nil
-  :custom (electric-pair-pairs
-           '((?\" . ?\")
-             (?\[ . ?\])
-             (?\< . ?\>)
-             (?\` . ?\`)
-             (?\{ . ?\})))
+(use-package smartparens
   :config
-  (defun my/ignore-elec-pairs ()
-    ;; Ignore < in org mode for yasnippets
-    (setq electric-pair-inhibit-predicate
-          (lambda (c)
-            (cond ((char-equal c ?\<) (electric-pair-default-inhibit c) t)
-                  ))
-          ))
-  (add-hook 'org-mode-hook 'my/ignore-elec-pairs)
-
-  (add-hook 'org-mode-hook (lambda ()
-                             (add-to-list 'insert-pair-alist (list ?\$ ?\$))
-                             (define-key org-mode-map (kbd "$")
-                               #'(lambda () (interactive)
-                                   (if (org-in-src-block-p) (insert "$") (insert-pair)))))
-            )
-  (electric-pair-mode 1)
+  (smartparens-global-mode 1)
+  (sp-pair "\{" "\}") ;; latex literal brackets (included by default)
+  (sp-pair "~" "~")
+  (sp-pair "$" "$")   ;; latex inline math mode. Pairs can have same opening and closing string
+  (sp-pair "$$" "$$")
   )
 
 ;; Spell checking
@@ -1598,8 +1580,8 @@ selection of all minor-modes, active or not."
   (" k" git-gutter:previous-hunk "previous hunk")
   (" s" git-gutter:stage-hunk "stage hunk")
   (" S" magit-stage-file "stage buffer")
-  (" s" magit-unstage "unstage hunk")
-  (" S" magit-unstage-file "unstage buffer")
+  (" u" magit-unstage "unstage hunk")
+  (" U" magit-unstage-file "unstage buffer")
   (" h" git-gutter:revert-hunk "reset hunk" :column " magit")
   (" p" git-gutter:popup-hunk "preview hunk" :column " magit")
   (" g" magit-status "status" :column " magit")
