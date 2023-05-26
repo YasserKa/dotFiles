@@ -30,4 +30,18 @@
   script.setAttribute("src", "https://hypothes.is/embed.js");
   script.setAttribute("async", "");
   doc.body.appendChild(script);
+  const element = document.querySelector("[data-component='AdderToolbar']");
+
+  // Remove UI that pops up after selecting text
+  function addGlobalStyle(css) {
+    var head, style;
+    head = document.getElementsByTagName("head")[0];
+    if (!head) return;
+    style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = css;
+    head.appendChild(style);
+  }
+  css = "hypothesis-adder { display: none }";
+  addGlobalStyle(css);
 })();
