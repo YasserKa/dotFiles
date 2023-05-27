@@ -143,7 +143,8 @@
   )
 ;; }}}
 ;; Aesthetics {{{
-(add-to-list 'default-frame-alist '(font . "Inconsolata-16"))
+(setq my/default-font "firacodenerdfont-16")
+(add-to-list 'default-frame-alist '(font . my/default-font))
 
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
@@ -656,8 +657,7 @@
                     (org-level-6 . 1.1)
                     (org-level-7 . 1.1)
                     (org-level-8 . 1.1)))
-      (set-face-attribute (car face) nil :font "Inconsolata-16" :weight 'regular :height (cdr face))
-      ))
+      (set-face-attribute (car face) nil :font my/default-font :weight 'regular :height (cdr face))))
   (my/update-org-level-face)
 
   ;; Doesn't work in use-package
