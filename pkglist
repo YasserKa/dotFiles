@@ -55,6 +55,7 @@ cmus # Feature-rich ncurses-based music player
 screen
 
 # Aesthetics
+ttf-inconsolata # Monospace font for pretty code listings and for the terminal
 ttf-firacode-nerd # Patched font Fira Code
 ttf-twemoji # Twitter Color Emoji (Used for terminal)
 ttf-font-awesome # Iconic font designed for Bootstrap

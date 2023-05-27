@@ -143,7 +143,9 @@
   )
 ;; }}}
 ;; Aesthetics {{{
-(setq my/default-font "firacodenerdfont-16")
+(setq my/default-font "firacodenerdfont")
+(set-face-attribute 'default nil :height 160)
+
 (add-to-list 'default-frame-alist '(font . my/default-font))
 
 ;; Enable line numbers for some modes
