@@ -143,7 +143,7 @@
   )
 ;; }}}
 ;; Aesthetics {{{
-(add-to-list 'default-frame-alist '(font . "Inconsolata-14"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-16"))
 
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
@@ -182,8 +182,8 @@
   :config
   )
 
-(use-package gruvbox-theme
-  :config (load-theme 'gruvbox-light-medium t))
+(use-package modus-themes
+  :config (load-theme 'modus-operandi-tinted :no-confirm))
 
 (use-package doom-modeline
   :ensure t
@@ -219,6 +219,9 @@
   (sp-pair "~" "~")
   (sp-pair "$" "$")   ;; latex inline math mode. Pairs can have same opening and closing string
   (sp-pair "$$" "$$")
+
+  ;; Mode that works in minibuffer
+  (electric-pair-mode 1)
   )
 
 ;; Spell checking
@@ -501,9 +504,12 @@
   ;; Trigger the background theme
   (defun my/trigger-theme ()
     (interactive)
-    (if (eq (car custom-enabled-themes) 'gruvbox-light-medium)
-        (load-theme 'gruvbox-dark-soft t)
-      (load-theme 'gruvbox-light-medium t)))
+    (if (eq (car custom-enabled-themes) 'modus-operandi-tinted)
+        (load-theme 'modus-vivendi-tinted :no-confirm)
+      (load-theme 'modus-operandi-tinted :no-confirm))
+
+    (my/update-org-level-face)
+    )
 
   (evil-collection-define-operator-key 'yank 'global-map "ob" #'my/trigger-theme)
   (evil-collection-define-operator-key 'yank 'global-map "ow" #'visual-line-mode)
@@ -641,16 +647,18 @@
 
   (setq org-open-link-functions 'org-pass-link-to-system)
 
-  ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.25)
-                  (org-level-2 . 1.15)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.1)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Inconsolata-14" :weight 'regular :height (cdr face)))
+  (defun my/update-org-level-face ()
+    (dolist (face '((org-level-1 . 1.25)
+                    (org-level-2 . 1.15)
+                    (org-level-3 . 1.05)
+                    (org-level-4 . 1.1)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "Inconsolata-16" :weight 'regular :height (cdr face))
+      ))
+  (my/update-org-level-face)
 
   ;; Doesn't work in use-package
   (custom-set-faces
@@ -668,13 +676,17 @@
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELLED(c@/!)"))))
+
+  (defface org-todo-default '((t :weight bold :inverse-video t :height 0.8)) "default face for todo keywords")
+
   (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "red" :weight bold)
-                ("NEXT" :foreground "blue" :weight bold)
-                ("DONE" :foreground "forest green" :weight bold)
-                ("WAITING" :foreground "orange" :weight bold)
-                ("CANCELLED" :foreground "forest green" :weight bold)
-                ("HOLD" :foreground "magenta" :weight bold)
+        (quote (
+                ("TODO" :foreground "dark red" :inherit org-todo-default :box (:line-width 3 :color "dark red"))
+                ("NEXT" :foreground "blue" :inherit org-todo-default :box (:line-width 3 :color "blue"))
+                ("HOLD" :foreground "dark orange" :inherit org-todo-default :box (:line-width 3 :color "dark orange"))
+                ("WAITING" :foreground "dark orange" :inherit org-todo-default :box (:line-width 3 :color "dark orange"))
+                ("DONE" :foreground "forest green" :inherit org-todo-default :box (:line-width 3 :color "forest green"))
+                ("CANCELLED" :foreground "forest green" :inherit org-todo-default :box (:line-width 3 :color "forest green"))
                 )))
 
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
