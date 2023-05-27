@@ -76,7 +76,14 @@
 (use-package helpful)
 ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
-;; Remove backup files (ends with ~)
+;; Store all backup files in one place
+(setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
+  backup-by-copying t    ; Don't delink hard links
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )
 ;; Remove auto-recover files
 (setq auto-save-default nil)
 (setq ad-redefinition-action 'accept)
@@ -306,6 +313,7 @@
   :custom
   (company-minimum-prefix-length 4)
   (company-selection-wrap-around t)
+  (company-idle-delay 0.0)
   :config
 
   ;; Load basic company backend
