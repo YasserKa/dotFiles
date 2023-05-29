@@ -207,6 +207,7 @@ c.aliases = {
     "wqa": "quit --save",
     "h": "help -t",
     "H": "help -w",
+    "archive_page": "spawn ~/bin/archive_web_page {url}",
     "json": "open -t https://codebeautify.org/jsonviewer?url={url}",
     "download_youtube": (
         "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube"
