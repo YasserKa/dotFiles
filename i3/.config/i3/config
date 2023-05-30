@@ -176,7 +176,7 @@ mode $cmus_mode {
     bindsym Escape mode "default";
 }
 
-set $sharing_mode "(i)mage, (c)lipbaord, (v)ideo, (t)ext, (n)ote"
+set $sharing_mode "(i)mage, (c)lipboard, (v)ideo, (t)ext, (n)ote"
 bindsym $mod+s mode $sharing_mode
 mode $sharing_mode {
     bindsym i exec --no-startup-id $HOME/bin/share -i; mode "default";
