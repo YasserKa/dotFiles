@@ -150,11 +150,8 @@
   )
 ;; }}}
 ;; Aesthetics {{{
-(setq my/default-font "firacodenerdfont")
-;; Above than this will result for agenda to popup from the bottom
-(set-face-attribute 'default nil :height 140)
-
-(add-to-list 'default-frame-alist '(font . my/default-font))
+(setq my/default-font "Firacode Nerd Font-14")
+(add-to-list 'default-frame-alist `(font . ,my/default-font))
 
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
