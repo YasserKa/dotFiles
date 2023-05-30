@@ -77,7 +77,7 @@
 ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
 ;; Store all backup files in one place
-(setq backup-directory-alist '(("." . "~/.config/emacs/backup"))
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "/backup")))
   backup-by-copying t    ; Don't delink hard links
   version-control t      ; Use version numbers on backups
   delete-old-versions t  ; Automatically delete excess backups
@@ -476,8 +476,7 @@
   :custom
   (undo-tree-visualizer-diff t)
   ;; Place undo files in one directory
-  ;; NOTE: using (concat user-emacs-directory "/undo") doesn't work
-  (undo-tree-history-directory-alist '(("." . "~/.config/emacs/undo")))
+  (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "/undo"))))
   :config
   ;; Save undo steps between sessions
   (use-package undo-fu-session)
