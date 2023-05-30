@@ -7,8 +7,7 @@
 # see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=802020
 
 case "$PINENTRY_USER_DATA" in
-  qt)   exec /usr/bin/pinentry-qt "$@" ;;
-  none) exit 1 ;;
-  *) exec /usr/bin/pinentry-tty "$@" ;;
+	gtk) exec /usr/bin/pinentry-gtk-2 "$@" ;;
+	none) exit 1 ;;
+	*) exec /usr/bin/pinentry-tty "$@" ;;
 esac
-
