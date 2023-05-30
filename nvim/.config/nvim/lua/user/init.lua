@@ -713,7 +713,8 @@ local config = {
 					},
 
 					indent = { enable = true, disable = { "python" } },
-					matchup = { enable = true },
+					matchup = { enable = true, enable_quotes = true },
+					auto_install = true,
 					highlight = {
 						enable = true,
 						-- vimtex conceal doesn't work with treesitter check :h vimtex-faq-treesitter
