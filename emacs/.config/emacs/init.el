@@ -767,6 +767,11 @@ Made for `org-tab-first-hook' in evil-mode."
     (interactive)
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
 
+  ;; Make the agenda window to appear the right
+  (defadvice org-agenda (around split-vertically activate)
+    (let ((split-width-threshold 80))
+      ad-do-it))
+
   ;; Icons for org-link-beautify
   (use-package all-the-icons
     :if (display-graphic-p))
