@@ -183,6 +183,9 @@
 (setq scroll-margin 5)
 (setq scroll-conservatively 5)
 
+;; Prioritize vertical on horizontal split
+(setq split-width-threshold 80)
+
 ;; Unfolding an item with emojis is slow, this package fixes this problem
 (use-package emojify
   :init
@@ -767,11 +770,6 @@ Made for `org-tab-first-hook' in evil-mode."
     (interactive)
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
 
-  ;; Make the agenda window to appear the right
-  (defadvice org-agenda (around split-vertically activate)
-    (let ((split-width-threshold 80))
-      ad-do-it))
-
   ;; Icons for org-link-beautify
   (use-package all-the-icons
     :if (display-graphic-p))
@@ -1260,7 +1258,6 @@ see how ARG affects this command."
 
 (use-package org-roam
   :after org
-  :bind (("C-c r i" . org-roam-node-insert))
   :custom
   (org-roam-directory (getenv "_NOTES_ORG_HOME"))
   (org-roam-node-display-template
