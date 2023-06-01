@@ -7,6 +7,3 @@
 [submodule "qutebrowser/.config/qutebrowser/qutescript"]
 	path = qutebrowser/.config/qutebrowser/qutescript
 	url = https://github.com/hiway/python-qutescript.git
-[submodule "dotfiles-private"]
-	path = dotfiles-private
-	url = https://github.com/YasserKa/dotfiles-private
