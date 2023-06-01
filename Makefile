@@ -61,6 +61,8 @@ install-packages: create-clean-pkglist install-aur-helper
 	@# Get nvim preconfiguration before stowing
 	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
 	@rm -f *tmp
+	# Install submodules
+	@git sbmodule update --init --recursive
 
 # create a file containing list of packages for package manager
 .PHONY: clean-pkglist
@@ -108,6 +110,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 .PHONY: stow-packages
 stow-packages:
 	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir vimpagerrc wallpapers X11 xmodmap wezterm zathura zsh
+  stow --target=$HOME --dir=dotfiles-private qutebrowser bash zsh
 	sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
@@ -171,7 +174,6 @@ setup-jupyter-notebook:
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
-	git submodule update --init --recursive
 	cd $(XDG_CONFIG_HOME)/qutebrowser/qutescript && pip install -e . --user
 	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all --install --bin=yank_all
 	# Download dictionary
