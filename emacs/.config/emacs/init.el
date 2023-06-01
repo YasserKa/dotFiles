@@ -685,19 +685,27 @@
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w)" "HOLD(h)" "|" "CANCELLED(c@/!)"))))
+                (sequence "WAITING(w@)" "|" "CANCELLED(c@/!)")
+                )))
 
   (defface org-todo-default '((t :weight bold :inverse-video t :height 0.8)) "default face for todo keywords")
 
+  (setq
+   TODO_color "red4"
+   NEXT_color "blue1"
+   WAITING_color "darkorange3"
+   DONE_color "forest green"
+   CANCELLED_color "forest green"
+        )
+
   (setq org-todo-keyword-faces
-        (quote (
-                ("TODO" :foreground "dark red" :inherit org-todo-default :box (:line-width 3 :color "dark red"))
-                ("NEXT" :foreground "blue" :inherit org-todo-default :box (:line-width 3 :color "blue"))
-                ("HOLD" :foreground "dark orange" :inherit org-todo-default :box (:line-width 3 :color "dark orange"))
-                ("WAITING" :foreground "dark orange" :inherit org-todo-default :box (:line-width 3 :color "dark orange"))
-                ("DONE" :foreground "forest green" :inherit org-todo-default :box (:line-width 3 :color "forest green"))
-                ("CANCELLED" :foreground "forest green" :inherit org-todo-default :box (:line-width 3 :color "forest green"))
-                )))
+        (list
+                `("TODO" :foreground ,TODO_color :inherit org-todo-default :box (:line-width 3 :color ,TODO_color))
+                `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
+                `("WAITING" :foreground ,WAITING_color :inherit org-todo-default :box (:line-width 3 :color ,WAITING_color))
+                `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
+                `("CANCELLED" :foreground ,CANCELLED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELLED_color))
+                ))
 
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -839,10 +847,10 @@ Made for `org-tab-first-hook' in evil-mode."
                                   :date today
                                   :scheduled today)))))
             (alltodo "" ((org-super-agenda-groups
-                          '((:name "Waiting"
+                          '((:name "Next"
+                                   :todo "NEXT")
+                            (:name "Waiting"
                                    :todo "WAITING")
-                            (:name "On Hold"
-                                   :todo "HOLD")
                             (:name "High priority"
                                    :priority "A")
                             (:name "Capture"
@@ -854,7 +862,6 @@ Made for `org-tab-first-hook' in evil-mode."
             (alltodo "" ((org-super-agenda-groups
                           '((:priority "A")
                             (:priority "B")
-                            (:tag "Productivity")
                             (:name "Short"
                                    :tag "effort< 1:01")
                             (:auto-category)
@@ -885,7 +892,8 @@ Made for `org-tab-first-hook' in evil-mode."
     ;; Removed TODO from item
     (if (= (length org-state) 0)
         ;; No TODOs in buffer, so remove it, otherwise add it
-        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|HOLD\\\|CANCELLED}" 'file)) 0)
+        ;; TODO: make the string dynamic
+        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|CANCELLED}" 'file)) 0)
             (setq curr-files (my/remove-from-agenda-files buffer-file-name))
           (setq curr-files (my/add-to-agenda-files buffer-file-name))
           )
@@ -940,7 +948,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
 
   (defun my/org-clock-in-if-next ()
-    "Clock in when the task is marked NEXT."
+    "Clock in when the task is marked NEXT"
     (when (and (string= org-state "NEXT")
                (not (string= org-last-state org-state)))
       (org-clock-in)))
