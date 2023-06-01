@@ -6,4 +6,6 @@
 # Sync notes
 */30 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -n -s
 
+*/1 * * * * . $HOME/.config/cron/cron_env && $HOME/dotfiles/dotfiles-private/ && $HOME/bin/git-sync -n -s
+
 # vim: syntax=crontab commentstring=#%s
