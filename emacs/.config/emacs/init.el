@@ -1551,23 +1551,45 @@ selection of all minor-modes, active or not."
         (helpful-function symbol)
       (helpful-variable symbol))))
 
-(defun my/org-insert-last-stored-link (arg)
-  "A hack using org-insert-last-stored-link to insert the last link stored without removing it from
-   org-stored-links"
+(defun my/org-insert-last-stored-link-with-title (arg)
+  "Insert the last stored link with the title of the file and the header without removing it from the link list."
   (interactive "P")
   (let ((org-link-keep-stored-after-insertion t)
         (links (copy-sequence org-stored-links))
         (pr "- ")
         (po "\n")
-        (cnt 1) l)
+        (cnt 1) l
+        file-buffer)
     (if (null org-stored-links)
         (message "No link to insert")
       (while (and (or (listp 1) (>= 1 cnt))
                   (setq l (pop links)))
         (setq cnt (1+ cnt))
-        (insert pr)
-        (org-insert-link nil (car l) (or (cadr l) "<no description>"))
-        (insert po)))))
+        (let* ((file-path (car l))
+               (header (cadr l))
+               (file-buffer (find-file-noselect (nth 1 (split-string file-path ":"))))
+               (file-title (org-global-prop-value "TITLE" file-buffer))
+               (file-link (format "%s" (abbreviate-file-name file-path)))
+               (link-text (format "%s: %s" file-title header))
+               (link (concat file-link "::" header)))
+          (insert pr)
+          (message file-title)
+          (org-insert-link nil link link-text)
+          (insert po)))
+      (when file-buffer
+        (kill-buffer file-buffer)))))
+
+;; Get property value for a buffer
+;; https://emacs.stackexchange.com/questions/21713/how-to-get-property-values-from-org-file-headers
+(defun org-global-prop-value (key buffer)
+  "Get global org property KEY of current buffer."
+  (org-element-property :value (car (org-global-props key buffer))))
+
+(defun org-global-props (&optional property buffer)
+  "Get the plists of global org properties of current buffer."
+  (unless property (setq property "PROPERTY"))
+  (with-current-buffer (or buffer (current-buffer))
+    (org-element-map (org-element-parse-buffer) 'keyword (lambda (el) (when (string-match property (org-element-property :key el)) el)))))
 
 (use-package hydra)
 (defun org-capture-full-screen ()
@@ -1703,7 +1725,7 @@ selection of all minor-modes, active or not."
   (" y" org-store-link "yank" :column " links")
   (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
   (" t" org-toggle-link-display "toggle")
-  (" p" my/org-insert-last-stored-link "paste last")
+  (" p" my/org-insert-last-stored-link-with-title "paste last")
   )
 
 ;; Agenda
