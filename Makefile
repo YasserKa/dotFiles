@@ -26,6 +26,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs
 	@mkdir -p $(XDG_CONFIG_HOME)/nvim
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
+	@mkdir -p $(XDG_CONFIG_HOME)/lnav/configs
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
 	@mkdir -p $(XDG_DATA_HOME)/okular
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine

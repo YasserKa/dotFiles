@@ -320,8 +320,9 @@ syncorg() {
 	# resync is used because rclone stops functioning if its executed on a file
 	# that's being edited (this will override the remote files)
 	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org ||
-		rclone bisync --resync "${_NOTES_ORG_HOME}" org_notes:org ||
+		rclone bisync --resync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
 		notify-send --urgency=critical "Sync org not working"
+
 }
 
 reboot() {
