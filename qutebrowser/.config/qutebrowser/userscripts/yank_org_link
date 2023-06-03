@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # Yank org link
+# dependencies:
+# remove_emoji script
 # options:
 # --clean: If it's a github repo root, get the package name only
 
@@ -9,7 +11,7 @@ url="$QUTE_URL"
 
 # Assign it to the github repo name only
 if [[ "$1" == "--clean" ]]; then
-	url_root="$(echo $QUTE_URL | awk -F '/' '{print $3}')"
+	url_root="$(echo "$QUTE_URL" | awk -F '/' '{print $3}')"
 
 	# Should be at root of the repo
 	# Checked by counting number of dashes
@@ -21,5 +23,8 @@ if [[ "$1" == "--clean" ]]; then
 	url="${url%#*}"
 fi
 
-echo -n "[[$url][$title]]" | xclip -selection c
+# Emojis are removed because org link-prettier shows the link twice for titles
+# containing emojis
+title_no_emoji="$("$HOME/bin/remove_emoji" "$title")"
+echo -n "[[$url][$title_no_emoji]]" | xclip -selection c
 echo "message-info 'url turned to org url'" >>"$QUTE_FIFO"
