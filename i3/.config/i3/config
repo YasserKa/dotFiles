@@ -157,7 +157,7 @@ mode $clock_mode {
 
 # Music player
 # (f)ilter option means that it resets the (c)lassic filter done
-set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)lassic, (a)mbient, (f)ilter"
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)lassic, (a)mbient, (g)rey, (f)ilter"
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
@@ -168,6 +168,7 @@ mode $cmus_mode {
     bindsym c exec cmus-remote -C "filter classical" && cmus-remote --next; mode "default";
     bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default";
     bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
+    bindsym g exec cmus-remote --volume 70% --file $HOME/Music/grey_noise.mp3; mode "default";
 
     bindsym h exec --no-startup-id cmus-remote --volume +2%;
     bindsym l exec --no-startup-id cmus-remote --volume -2%;
