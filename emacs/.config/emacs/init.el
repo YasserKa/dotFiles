@@ -1060,7 +1060,7 @@ see how ARG affects this command."
         org-edit-src-content-indentation 0)
 
   (custom-set-faces
-   '(org-block ((t (:inherit fixed-pitch))))
+   '(org-block ((t (:inherit fixed-pitch :height 1.1))))
    ;; Background is nil because org-block-end-line background shows in header
    ;; Check https://github.com/doomemacs/themes/issues/453
    '(org-block-begin-line ((t (:background nil :weight bold))))
