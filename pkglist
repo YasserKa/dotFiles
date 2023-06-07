@@ -157,6 +157,7 @@ cronie # Daemon that runs specified programs at scheduled times and related tool
 dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands
 sxhkd # Simple X hotkey daemon
+xcape # Configure modifier keys to act as other keys when pressed and released on
 rofi # A window switcher, application launcher and dmenu replacement
 rofi-calc # Do calculations in rofi
 polybar # A fast and easy-to-use status bar
