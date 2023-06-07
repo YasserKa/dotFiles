@@ -1,3 +1,32 @@
 #!/usr/bin/env bash
-alias | awk -F'[ =]' '{print $2}'
-declare -f | awk -F'[ ()]' '{print $1}' | grep -E '^[[:alpha:]]'
+# alias | awk -F'[ =]' '{print $2}'
+# declare -f | awk -F'[ ()]' '{print $1}' | grep -E '^[[:alpha:]]'
+# Faster than the above method
+cat <<EOF
+org
+syncorg
+pick_color
+rcreadline
+rcdotfiles
+rcgpg
+rcgit
+rcssh
+rcx11
+rcbash
+rczsh
+rckitty
+rcvim
+rci3
+rcneomutt
+rcmutt
+rctuir
+rcnewsboat
+rcfeh
+rcrofi
+rcdunst
+rcpolybar
+rctmux
+rczathura
+rcqutebrowser
+rcemacs
+EOF

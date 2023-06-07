@@ -634,7 +634,7 @@
   (org-agenda-start-day "-3d")
   ;; Calendar starts at Monday
   (calendar-week-start-day 1)
-  (org-deadline-warning-days 7)
+  (org-deadline-warning-days 0)
   ;; Hide the deadline prewarning prior to scheduled date.
   (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
   (org-agenda-compact-blocks t)
