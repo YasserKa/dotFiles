@@ -14,3 +14,18 @@ super + shift + apostrophe
 # context menu. for selecting URLs and actions
 super + comma
     [[ "$(xdotool getwindowclassname $(xdotool getactivewindow))" == "okular" ]] && ~/bin/store_highlightes_of_active_doc_to_clipboard
+
+
+XF86AudioLowerVolume
+    pactl set-sink-volume @DEFAULT_SINK@ -1000
+
+XF86AudioRaiseVolume
+    pactl set-sink-volume @DEFAULT_SINK@ +1000
+
+# Mute volume
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Mute microphone
+XF86AudioMicMute
+"pactl set-source-mute @DEFAULT_SOURCE@ toggle
