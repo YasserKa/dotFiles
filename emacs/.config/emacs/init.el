@@ -796,6 +796,11 @@ Made for `org-tab-first-hook' in evil-mode."
     (add-hook 'org-agenda-finalize-hook 'org-link-beautify-enable)
     )
 
+  (use-package org-download
+    :after org
+    :config (setq-default org-download-image-dir "~/notes/org/images/drag_drop")
+    )
+
   (defun my/open-super-agenda ()
     (interactive) (org-agenda nil "z") (delete-other-windows))
 
