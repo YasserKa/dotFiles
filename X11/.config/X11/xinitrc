@@ -17,6 +17,10 @@ xdotool mousemove --polar 0 0
 unclutter &
 disown
 
+# Set capslock to Ctrl when pressed; Esc when held
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape' -t 200
+
 # Keyboard bindings
 [ -f "$HOME/.Xmodmap" ] && xmodmap "$HOME/.Xmodmap"
 
