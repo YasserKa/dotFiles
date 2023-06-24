@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-UPLOAD_URL="https://share.yasserkaddoura.com//upload"
+UPLOAD_URL="https://share.yasserk.com/upload"
 
 TOKEN=$(pass xbackbone)
 RESPONSE="$(curl -s -F "token=$TOKEN" -F "upload=@${1}" $UPLOAD_URL)"
