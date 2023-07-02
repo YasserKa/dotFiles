@@ -28,4 +28,8 @@ XF86AudioMute
 
 # Mute microphone
 XF86AudioMicMute
-"pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# ZMK doesn't have have XF86AudioMicMute, so this is used instead
+XF86Phone
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
