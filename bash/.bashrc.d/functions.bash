@@ -67,8 +67,10 @@ upgrade_system() {
   (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
   (auto-packages-update-now))"
 
-	# Upgrade pipx
+	# Upgrade python packages
 	pipx upgrade-all
+	pip list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade --user
+	pdm self update
 
 	# Update Zsh plugins
 	zap update

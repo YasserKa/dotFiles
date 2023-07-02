@@ -8,6 +8,7 @@ alias hg='history | grep'
 
 alias pac='sudo pacman'
 alias parin='paru --sync --skipreview'
+alias pacin='sudo pacman --sync'
 alias z='zathura'
 alias b='~-'
 alias vpn_up='sudo wg-quick up wg0'

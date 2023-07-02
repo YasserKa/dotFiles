@@ -14,13 +14,12 @@ options = webdriver.ChromeOptions()
 
 options.add_argument("binary_location=/bin/chromium")
 options.add_argument("--headless")
+driver = None
 
 os.system("pkill chromedriver")
 
-executable_path = "/home/yasser/.config/chromium/chromedriver"
-driver = webdriver.Chrome(
-    service=Service(executable_path=executable_path), options=options
-)
+executable_path = "/home/yasser/.config/google-chrome/chromedriver"
+profile_path = "/home/yasser/.config/google-chrome/notify_me_profile"
 
 URL = "https://audionline.bankaudi.com.lb/CustomLogin/RetailLogin.aspx?sID=-1"
 
@@ -54,6 +53,14 @@ def notify(amount):
 
 
 def main():
+    global driver
+    options = webdriver.ChromeOptions()
+    options.add_argument("user-data-dir=" + profile_path)
+
+    options.add_argument("binary_location=/bin/google-chrome-stable")
+    driver = webdriver.Chrome(
+        service=Service(executable_path=executable_path), options=options
+    )
     driver.get(URL)
     fill_sign_in()
     amount = get_amount()
