@@ -95,6 +95,7 @@ tree-sitter # An incremental parsing system for programming tools
 ctags # Generates an index file of language objects found in source files
 # Contains latexmk that's used by nvim
 texlive-core
+texlive-binextra
 biber # A Unicode-capable BibTeX replacement for biblatex users
 texlive-bibtexextra # Bibliography 
 # Needed by org mode for latex fragments 
