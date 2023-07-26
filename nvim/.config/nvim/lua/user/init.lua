@@ -801,11 +801,6 @@ local config = {
 			end,
 		},
 		{
-			"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-			dependencies = "nvim-treesitter",
-			lazy = false,
-		},
-		{
 			"https://github.com/ziontee113/syntax-tree-surfer",
 			dependencies = "nvim-treesitter",
 			lazy = false,
@@ -1558,9 +1553,10 @@ let g:vimtex_syntax_conceal = {
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_fold_enabled = 1
 let g:vimtex_compiler_latexmk = {
-\ 'build_dir' : './tex_output',
+\ 'aux_dir' : './tex_output',
 \ 'options' : [
 \   '-verbose',
+\   '-outdir=./tex_output',
 \   '-file-line-error',
 \   '-shell-escape',
 \   '-synctex=1',
