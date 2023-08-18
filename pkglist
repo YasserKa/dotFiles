@@ -29,6 +29,7 @@ thinkfan # A minimalist fan control program. Supports the sysfs hwmon interface 
 # Drivers
 displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
 #evdi-git # kernel module that that enables management of multiple screens.
+evdi-compat-git
 
 # Video
 nvidia       # NVIDIA drivers
@@ -93,8 +94,11 @@ python-pynvim # Python client for Neovim
 vim # Vi Improved, a highly configurable, improved version of the vi text editor
 tree-sitter # An incremental parsing system for programming tools
 ctags # Generates an index file of language objects found in source files
+texlive-basic
+texlive-fontsrecommended
+# Contains ulem.sty, needed by org mode to show latex fragements
+texlive-plaingeneric
 # Contains latexmk that's used by nvim
-texlive-core
 texlive-binextra
 biber # A Unicode-capable BibTeX replacement for biblatex users
 texlive-bibtexextra # Bibliography 
