@@ -2,11 +2,12 @@
 
 OPTION="$(printf "phone\nemail" | rofi -dmenu)"
 
-
 case $OPTION in
-  "phone") INFO="734157591";;
-  "email") INFO="yasser.kaddoura19@gmail.com";;
-  "*") dunstify "option not avaialble"; exit 1;
-    ;;
+	"phone") INFO="734157591" ;;
+	"email") INFO="yasser.kaddoura19@gmail.com" ;;
+	"*")
+		dunstify "option not avaialble"
+		exit 1
+		;;
 esac
-echo "fake-key $INFO" >> "$QUTE_FIFO"
+echo "fake-key $INFO" >>"$QUTE_FIFO"

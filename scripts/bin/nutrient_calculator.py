@@ -59,7 +59,7 @@ needed_food = {
     "toast bread": 0.57 * 2,
     "greek yogurt": 1,
     "cherry tomato": 0.85,
-    "apple": 1.5,
+    # "apple": 1.5,
     # "almond": 0.15,
     "muesli": 1,
     "vanilla yogurt": 2,

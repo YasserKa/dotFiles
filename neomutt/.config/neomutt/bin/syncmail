@@ -38,7 +38,6 @@ messageinfo() {
 		return 0
 	fi
 
-	[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
 	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt || return 0
 }
 
@@ -77,6 +76,7 @@ else
 	accounts=$*
 fi
 
+[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
 for account in $accounts; do
 	syncandnotify &
 done

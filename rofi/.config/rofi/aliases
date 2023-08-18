@@ -6,6 +6,7 @@ cat <<EOF
 org
 syncorg
 pick_color
+gitdotfiles
 rcreadline
 rcdotfiles
 rcgpg
