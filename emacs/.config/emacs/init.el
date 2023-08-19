@@ -694,7 +694,11 @@
       nil)
     )
 
-  (setq org-open-link-functions 'org-pass-link-to-system)
+  ;; Change search module to make it work for invisible text in org mode
+  ;; This approach is used instead of using (setq org-fold-core-style 'overlays)
+  ;; since the default value "text-properties" is faster than "overlays"
+  ;; https://github.com/emacs-evil/evil/issues/1630
+  (evil-select-search-module 'evil-search-module 'isearch)
 
   (defun my/update-org-level-face ()
     (dolist (face '((org-level-1 . 1.25)
