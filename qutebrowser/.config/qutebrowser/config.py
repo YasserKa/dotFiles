@@ -19,7 +19,7 @@ c.bindings.commands = {
         "waO": "open -w {url} ;; tab-close",
         "cm": "clear-messages ;; download-clear",
         # Swap ; and :
-        ";": "set-cmd-text :",
+        ";": "cmd-set-text :",
         ":I": "hint images tab",
         ":O": "hint links fill :open -t -r {hint-url}",
         ":R": "hint --rapid links window",
@@ -142,7 +142,7 @@ c.bindings.commands = {
     },
     "insert": {
         "<Ctrl-l>": (
-            "fake-key <Shift-Home>;; later 50 spawn --userscript"
+            "fake-key <Shift-Home>;; cmd-later 50 spawn --userscript"
             " ~/.config/qutebrowser/userscripts/fix_last_typo"
         ),
         "<Ctrl-i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
@@ -160,7 +160,7 @@ c.bindings.commands = {
         "<Alt-f>": "fake-key <Ctrl-Right>",
         "<Alt-d>": "fake-key <Ctrl-Delete>",
         "<Ctrl-e>": "fake-key <End>",
-        "<Ctrl-u>": "fake-key <Shift-Home>;; later 3 fake-key <Delete>",
+        "<Ctrl-u>": "fake-key <Shift-Home>;; cmd-later 3 fake-key <Delete>",
         "<Ctrl-k>": "fake-key <Shift-End><Delete>",
         "<Ctrl-a>": "fake-key <Home>",
         "<Ctrl-Shift-a>": "fake-key <Ctrl-a>",
@@ -238,7 +238,7 @@ c.content.blocking.method = "both"
 c.content.notifications.enabled = False
 c.content.tls.certificate_errors = "ask-block-thirdparty"
 # Enable save to clipbaord buttons
-c.content.javascript.can_access_clipboard = True
+c.content.javascript.clipboard = "access-paste"
 
 with config.pattern("https://www.google.com") as p:
     p.content.geolocation = True
