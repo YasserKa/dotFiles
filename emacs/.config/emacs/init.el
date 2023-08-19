@@ -1134,8 +1134,8 @@ see how ARG affects this command."
    '(org-block ((t (:inherit fixed-pitch :height 1.1))))
    ;; Background is nil because org-block-end-line background shows in header
    ;; Check https://github.com/doomemacs/themes/issues/453
-   '(org-block-begin-line ((t (:background nil :weight bold))))
-   '(org-block-end-line ((t (:background nil :weight bold))))
+   '(org-block-begin-line ((t (:background unspecified :weight bold))))
+   '(org-block-end-line ((t (:background unspecified :weight bold))))
    '(org-code ((t (:foreground "dim gray" :background "#f2e5bc"))))
    )
 
