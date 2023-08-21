@@ -684,15 +684,8 @@
   (org-hidden-keywords '(title))
   :config
 
-  (setq org-file-apps '((t . (lambda (file link)
-                               (start-process-shell-command "Start default application" nil (concat  "xdg-open \"" file "\"" nil))))
-                        (".org" . emacs)))
-
-  (defun org-pass-link-to-system (link)
-    (if (string-match "^[-a-zA-Z0-9]+:" link)
-        (start-process-shell-command "Start default application" nil (concat "xdg-open \""link"\""))
-      nil)
-    )
+  (setq org-link-abbrev-alist  '(("link-handler" . "shell:xdg-open link-handler://%s")))
+  (setq org-link-shell-confirm-function nil)
 
   ;; Change search module to make it work for invisible text in org mode
   ;; This approach is used instead of using (setq org-fold-core-style 'overlays)

@@ -3,24 +3,24 @@
 # Open a document to a page or using its name
 # Dependencies: fd
 
-PATHS_TO_SEARCH=("${HOME}" "${XDG_DATA_HOME}/Zotero")
+PATHS_TO_SEARCH=("${HOME}")
 file_path="$1"
 page_num="$2"
 
 encode_url() {
-  # Reliable localization
-  local LC_ALL=C
-  # Go through each character
-  for (( i = 0; i < ${#1}; i++ )); do
-    : "${1:i:1}"
-    case "$_" in
-      # Keep allowed characters
-      [a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-      # Encode disallowed characters
-      *) printf '%%%02X' "'$_" ;;
-    esac
-  done
-  printf '\n'
+	# Reliable localization
+	local LC_ALL=C
+	# Go through each character
+	for ((i = 0; i < ${#1}; i++)); do
+		: "${1:i:1}"
+		case "$_" in
+			# Keep allowed characters
+			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+			# Encode disallowed characters
+			*) printf '%%%02X' "'$_" ;;
+		esac
+	done
+	printf '\n'
 }
 
 doc_basename="${file_path##*/}"
@@ -31,13 +31,13 @@ link_name="$doc_name"
 cmd='zathura "$(fd --no-ignore-vcs --fixed-strings "'${doc_name}'" '${PATHS_TO_SEARCH[*]}'  | head -1)"'
 # dunstify "$cmd"
 if [[ $page_num ]]; then
-    cmd+=" --page=$page_num"
-    link_name+=", page $page_num"
+	cmd+=" --page=$page_num"
+	link_name+=", page $page_num"
 fi
 cmd+=" & disown"
 
 encoded_command="$(encode_url "$cmd")"
 
-org_url="[[link-handler://${encoded_command}][${link_name}]]"
+org_url="[[link-handler:${encoded_command}][${link_name}]]"
 
 echo "$org_url" | xclip -selection clipboard
