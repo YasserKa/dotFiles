@@ -394,6 +394,7 @@
   (evil-mode 1)
   (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-define-key nil 'global (kbd "M-u") 'universal-argument)
+  (define-key key-translation-map (kbd "C-<escape>") (kbd "ESC"))
 
   (evil-define-key 'normal 'global
     (kbd "0") 'evil-beginning-of-line
@@ -1442,7 +1443,10 @@ see how ARG affects this command."
   )
 
 (use-package counsel)
-(use-package consult)
+(use-package consult
+  :config
+  (global-set-key [remap repeat-complex-command] #'consult-complex-command)
+  )
 (use-package embark-consult)
 
 (use-package embark
