@@ -194,7 +194,12 @@
   )
 
 (use-package modus-themes
-  :config (load-theme 'modus-operandi-tinted :no-confirm))
+  :config
+  ;; Better org mode code block syntax
+(setq modus-themes-bold-constructs t
+      modus-themes-italic-constructs t
+      modus-themes-org-blocks 'tinted-background)
+  (load-theme 'modus-operandi-tinted :no-confirm))
 
 (use-package doom-modeline
   :ensure t
