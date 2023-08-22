@@ -415,10 +415,12 @@
     (kbd "C-e") 'end-of-line
     (kbd "C-d") 'delete-char
     (kbd "C-k") 'evil-delete-line
+    (kbd "C-f") 'forward-char
+    (kbd "C-b") 'backward-char
     ;; Kill from current position to start of next word
-    (kbd "C-S-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word)))))
-    (kbd "C-S-b") 'backward-word
-    (kbd "C-S-f") 'forward-word
+    (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word)))))
+    (kbd "M-b") 'backward-word
+    (kbd "M-f") 'forward-word
     )
 
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
@@ -573,12 +575,14 @@
                   minibuffer-local-isearch-map
                   evil-ex-completion-map
                   ))
+
     (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
     (evil-collection-define-key 'insert map (kbd "C-j") 'exit-minibuffer)
     (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
     (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
     )
   )
+
 ;; }}}
 ;; Git {{{
 ;; Traverse file changes in git
@@ -685,6 +689,7 @@
   :config
 
   (setq org-link-abbrev-alist  '(("link-handler" . "shell:xdg-open link-handler://%s")))
+
   (setq org-link-shell-confirm-function nil)
 
   ;; Change search module to make it work for invisible text in org mode
