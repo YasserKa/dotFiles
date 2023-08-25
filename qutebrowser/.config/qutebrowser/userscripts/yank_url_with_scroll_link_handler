@@ -4,28 +4,28 @@
 # Store a link_handler link that opens a web page in a certain scroll position
 
 encode_url() {
-  # Reliable localization
-  local LC_ALL=C
-  # Go through each character
-  for (( i = 0; i < ${#1}; i++ )); do
-    : "${1:i:1}"
-    case "$_" in
-      # Keep allowed characters
-      [a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-      # Encode disallowed characters
-      *) printf '%%%02X' "'$_" ;;
-    esac
-  done
-  printf '\n'
+	# Reliable localization
+	local LC_ALL=C
+	# Go through each character
+	for ((i = 0; i < ${#1}; i++)); do
+		: "${1:i:1}"
+		case "$_" in
+			# Keep allowed characters
+			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+			# Encode disallowed characters
+			*) printf '%%%02X' "'$_" ;;
+		esac
+	done
+	printf '\n'
 }
 
 # Save a session to have an up to date information about the web page
 # (i.e. the scroll position)
 session_name="link_handler"
-echo ":session-save --quiet $session_name" >> "$QUTE_FIFO"
+echo ":session-save --quiet $session_name" >>"$QUTE_FIFO"
 
 session_path="${QUTE_DATA_DIR}/sessions/${session_name}.yml"
- # Configuring qutebrowser - qutebrowser
+# Configuring qutebrowser - qutebrowser
 
 y_scroll="$(yq ".windows[]  | select (.active ==true) | .tabs[] | select (.active == true) | .history[] | select (.active == true and .title == \"$QUTE_TITLE\" and .url == \"$QUTE_URL\") | .\"scroll-pos\".y" "$session_path")"
 
@@ -44,4 +44,4 @@ link_handler_url="[[link-handler://${encoded_command}][$QUTE_TITLE, scroll 0 $y_
 
 echo "$link_handler_url" | xclip -selection clipboard
 
-echo "message-info 'yanked link handler URL'" >> "$QUTE_FIFO"
+echo "message-info 'yanked link handler URL'" >>"$QUTE_FIFO"
