@@ -2,7 +2,7 @@
 Description=Mailbox synchronization timer
 
 [Timer]
-OnBootSec=0m
+OnBootSec=1m
 OnUnitInactiveSec=5m
 Unit=mbsync.service
 

@@ -274,9 +274,6 @@ bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
 # >>>
 # Startup <<<
-# Fetch email
-exec --no-startup-id $HOME/bin/wait_internet && check_mail
-
 # Pick a random background image
 exec_always --no-startup-id feh --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 
