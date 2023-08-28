@@ -189,7 +189,7 @@
 
 ;; Unfolding an item with emojis is slow, this package fixes this problem
 (use-package emojify
-  :init
+  :disabled
   :hook (after-init . global-emojify-mode)
   :config
   )
