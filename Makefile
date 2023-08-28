@@ -8,7 +8,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 # jupyter-ascending require notebook library
 # mypi needs to be exposed to other libraries to get stubs
 # pandas used for scripts
-PYPI_PACKAGES_PIP = adblock i3ipc jupyter-ascending mypy neovim-remote notebook pandas pip pipx pymupdf pyperclip selenium tldextract
+PYPI_PACKAGES_PIP = adblock i3ipc jupyter-ascending mypy neovim-remote notebook pandas pip pipx pymupdf pyperclip python-rofi selenium tldextract
 # jupyter notebook related packages are injected in the jupyter rule
 PYPI_PACKAGES_PIPX = tmuxp pdm notebook sci-hub ipython
 
