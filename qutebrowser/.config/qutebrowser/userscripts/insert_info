@@ -1,13 +1,34 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python
+# coding=utf-8
+# Description: A userscript for qutebrowser to insert snippets
+# Dependencies: Rofi 
 
-OPTION="$(printf "phone\nemail" | rofi -dmenu)"
+from rofi import Rofi
+from qutescript import userscript
+import os
 
-case $OPTION in
-	"phone") INFO="734157591" ;;
-	"email") INFO="yasser.kaddoura19@gmail.com" ;;
-	"*")
-		dunstify "option not avaialble"
-		exit 1
-		;;
-esac
-echo "fake-key $INFO" >>"$QUTE_FIFO"
+@userscript
+def main(request):
+    r = Rofi()
+
+    myvars = {}
+     
+    snippets_file_path = os.path.expanduser("~/.config/.snippets")
+
+    with open(snippets_file_path) as myfile:
+        for line in myfile:
+            name, var = line.partition("=")[::2]
+            myvars[name.strip()] = var.strip()
+
+
+    options = myvars.keys()
+    index, key = r.select('Insert snippet', options)
+
+    if key != 0:
+        exit()
+
+    snippet = list(myvars.values())[index]
+    request.send_command(f"insert-text {snippet}")
+
+if __name__ == '__main__':
+    main()
