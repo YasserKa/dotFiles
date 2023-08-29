@@ -294,6 +294,13 @@
   (evil-define-key 'normal 'global (kbd "zw")  #'my/remove-word-from-dictionary)
   )
 
+;; Terminal emulator
+(use-package vterm
+  :config
+  ;; Remove current line highlight
+  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
+  )
+
 ;; Snippet engine
 (use-package yasnippet
   :custom
@@ -585,6 +592,7 @@
     (evil-collection-define-key 'insert map (kbd "C-j") 'exit-minibuffer)
     (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
     (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
+    (evil-collection-define-key 'insert map (kbd "C-.") 'embark-act)
     )
   )
 
