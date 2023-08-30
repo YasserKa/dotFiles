@@ -299,6 +299,7 @@
   :config
   ;; Remove current line highlight
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
+  (evil-define-key 'insert 'vterm-mode-map (kbd "C-h") 'vterm-send-backspace)
   )
 
 ;; Snippet engine
@@ -1586,7 +1587,7 @@ see how ARG affects this command."
   (general-define-key
    :states 'insert
    :keymaps 'global
-   "C-SPC" 'main-hydra/body)
+   "M-SPC" 'main-hydra/body)
 
   (add-hook 'org-mode-hook
             #'(lambda ()
