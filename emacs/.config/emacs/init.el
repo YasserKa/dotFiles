@@ -299,7 +299,6 @@
   :config
   ;; Remove current line highlight
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
-  (evil-define-key 'insert 'vterm-mode-map (kbd "C-h") 'vterm-send-backspace)
   )
 
 ;; Snippet engine
@@ -325,7 +324,6 @@
 
   ;; Optionally use TAB for cycling, default is `corfu-complete'.
   :bind (:map corfu-map
-              ("M-SPC"      . corfu-insert-separator)
               ("TAB"        . corfu-next)
               ([tab]        . corfu-next)
               ("S-TAB"      . corfu-previous)
@@ -580,6 +578,8 @@
 
   ;; Use evil bindings for search
   (evil-select-search-module 'evil-search-module 'evil-search)
+
+  (evil-collection-define-key 'insert 'vterm-mode-map (kbd "C-h") 'vterm-send-backspace)
 
   (dolist (map '( minibuffer-local-map
                   minibuffer-local-ns-map
@@ -1598,7 +1598,7 @@ see how ARG affects this command."
                 (general-define-key
                  :states '(insert)
                  :keymaps 'local
-                 "C-SPC" 'org-hydra/body))
+                 "M-SPC" 'org-hydra/body))
             )
 
   (add-hook 'org-agenda-mode-hook
