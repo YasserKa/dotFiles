@@ -625,6 +625,15 @@ local config = {
 			dependencies = "hrsh7th/nvim-cmp",
 			ft = { "tex" },
 		},
+		{
+			"ray-x/lsp_signature.nvim",
+			event = "VeryLazy",
+			opts = function(_, config)
+				require("lsp_signature").setup(opts)
+				config.hint_enable = false
+				return config
+			end,
+		},
 		{ "https://github.com/romainl/vim-cool", lazy = false }, -- Disable search highlighting when done
 		{ "https://github.com/honza/vim-snippets", lazy = false },
 		{
