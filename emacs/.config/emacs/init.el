@@ -5,7 +5,7 @@
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; Remove startup screen and miniuffer message
+;; Remove startup screen and minibuffer message
 (setq inhibit-startup-message t)
 (defun display-startup-echo-area-message () (message nil))
 
@@ -401,6 +401,12 @@
   (tab-always-indent nil)
   :config
   (evil-mode 1)
+
+  ;; Change search module to make it work for invisible text in org mode
+  ;; This approach is used instead of using (setq org-fold-core-style 'overlays)
+  ;; since the default value "text-properties" is faster than "overlays"
+  ;; https://github.com/emacs-evil/evil/issues/1630
+  (evil-select-search-module 'evil-search-module 'isearch)
   (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
   (evil-define-key nil 'global (kbd "M-u") 'universal-argument)
   (define-key key-translation-map (kbd "C-<escape>") (kbd "ESC"))
@@ -704,12 +710,6 @@
 
 (require 'ol-man)
 (require 'ol-link-handler)
-
-  ;; Change search module to make it work for invisible text in org mode
-  ;; This approach is used instead of using (setq org-fold-core-style 'overlays)
-  ;; since the default value "text-properties" is faster than "overlays"
-  ;; https://github.com/emacs-evil/evil/issues/1630
-  (evil-select-search-module 'evil-search-module 'isearch)
 
   (defun my/update-org-level-face ()
     (dolist (face '((org-level-1 . 1.25)
