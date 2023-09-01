@@ -278,5 +278,4 @@ docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
 nautilus # Default file manager for GNOME
 ncdu # Disk usage analyzer with an ncurses interface
 zoom # Video Conferencing and Web Conferencing Service
-zotero # Zotero Standalone. Is a free, easy-to-use tool to help you collect, organize, cite, and share your research sources.
 slack-desktop # Slack Desktop (Beta) for Linux

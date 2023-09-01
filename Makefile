@@ -5,12 +5,10 @@ XDG_DATA_HOME=$(HOME)/.local/share
 # MyMuPDF: getting highlighted text in pdf
 # pyperclip: used to yank to clipboard by zathura's handle_document
 # adblock tldextract sci-hub: qutebrowser 
-# jupyter-ascending require notebook library
 # mypi needs to be exposed to other libraries to get stubs
 # pandas used for scripts
-PYPI_PACKAGES_PIP = adblock i3ipc jupyter-ascending mypy neovim-remote notebook pandas pip pipx pymupdf pyperclip python-rofi selenium tldextract
-# jupyter notebook related packages are injected in the jupyter rule
-PYPI_PACKAGES_PIPX = tmuxp pdm notebook sci-hub ipython
+PYPI_PACKAGES_PIP = adblock i3ipc  mypy neovim-remote pandas pip pipx pymupdf pyperclip python-rofi selenium tldextract
+PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython jupyter
 
 .PHONY: install
 install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers
@@ -92,7 +90,7 @@ setup-tuir:
 	@cd /tmp/tuir && pip install . && cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages
-post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-jupyter-notebook setup-qutebrowser
+post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser
 	@# Setup neovim
 	nvim  --headless -c 'autocmd User LazyDone quitall'
 	@# Setup Zsh plugin manager & shell
@@ -118,7 +116,9 @@ stow-packages:
 .PHONY:install-pypi-packages
 install-pypi-packages: 
 	@echo "Installing PYPI packages"
-	@pip install --user  $(PYPI_PACKAGES_PIP)
+	@# https://peps.python.org/pep-0668/ recommends to use packages to be installed
+	@# using OS package manager
+	@pip install --user  $(PYPI_PACKAGES_PIP) --break-system-packags
 	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"; done
 
 .PHONY: setup-systemd-services
@@ -151,28 +151,6 @@ setup-systemd-services:
 	sudo systemctl enable fstrim.timer
 	systemctl --user daemon-reload
 	systemctl daemon-reload
-
-# Setup vim_binding jupyter extension
-EXT_DIR=$(HOME)/.local/share/jupyter/nbextension/vim_binding
-export PATH := $(PATH):$(HOME)/.local/bin
-.PHONY: setup-jupyter-notebook
-setup-jupyter-notebook:
-	@echo "Setting up jupyter notebook"
-	@echo "Setting up jupyter ascending"
-	@# jupyter-ascending need notebook library
-	@pip install notebook jupyter-ascending --user
-	@pipx install notebook
-	@pipx inject notebook jupytext 
-	@pipx inject notebook jupyter_contrib_nbextensions
-	@jupyter nbextension install jupytext --py --user
-	@jupyter nbextension enable jupytext --py --user
-	@jupyter nbextension install jupyter_ascending --py --user
-	@jupyter nbextension enable jupyter_ascending --py --user
-	@jupyter serverextension enable jupyter_ascending --py --user
-	@echo "Setting up vim_binding extension"
-	@git clone --depth 1 https://github.com/lambdalisue/jupyter-vim-binding $(EXT_DIR)
-	@chmod -R go-w $(EXT_DIR)
-	@jupyter nbextension enable vim_binding/vim_binding
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:

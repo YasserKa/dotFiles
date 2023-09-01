@@ -69,7 +69,10 @@ upgrade_system() {
 
 	# Upgrade python packages
 	pipx upgrade-all
-	pip list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade --user
+
+	# https://peps.python.org/pep-0668/ recommends to use packages to be installed
+	# using OS package manager
+	pip list -o | cut -f1 -d' ' | tr " " "\n" | awk '{if(NR>=3)print}' | cut -d' ' -f1 | xargs -n1 pip install --upgrade --user --break-system-packages
 	pdm self update
 
 	# Update Zsh plugins
