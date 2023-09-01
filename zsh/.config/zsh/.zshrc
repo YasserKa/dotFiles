@@ -48,51 +48,6 @@ source "$ZAP_PATH/plugins/git-prompt.zsh/git-prompt.zsh"
 
 PROMPT='%B%F{cyan}%~%b $(gitprompt) ${NEWLINE}%F{#008C00}❯ %b%f'
 # }}}
-# Keybindings {{{
-# Vi keybindings
-bindkey -v
-
-autoload -Uz run-help
-(( ${+aliases[run-help]} )) && unalias run-help
-alias help=run-help
-
-# Edit command in $EDITOR
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^[v' edit-command-line
-
-# Expands history
-bindkey " " magic-space
-
-## Readline
-# bindings can showkey -a
-# Shift-TAB cycles completions backward
-bindkey -M viins '\e[Z' reverse-menu-complete
-# C-S-i
-bindkey '\e[105;6u' reverse-menu-complete
-
-# vi-backward-kill-word stops working after going to insert mode
-# create a word using these seperators
-WORDCHARS=' *?_-.[]~=&;!#$%^(){}<>/'
-autoload -Uz select-word-style
-select-word-style normal
-zstyle ':zle:*' word-style unspecified
-zle -N backward-kill-dir
-
-bindkey -M vicmd ':' vi-repeat-find
-bindkey -M viins '^w' backward-kill-word
-bindkey -M viins '^a' beginning-of-line
-bindkey -M viins '^e' end-of-line
-bindkey -M viins '^h' backward-delete-char
-bindkey -M viins '^b' vi-backward-char
-bindkey -M viins '^f' vi-forward-char
-bindkey -M viins '^d' delete-char
-
-# With Ctrl-Shift modifier
-bindkey -M viins '\e[98;6u' vi-backward-word
-bindkey -M viins '\e[102;6u' vi-forward-word
-bindkey -M viins '\e[100;6u' kill-word
-# }}}
 # Autocompletion {{{
 
 # Files with colors
@@ -162,6 +117,63 @@ bindkey -M vicmd  ' ss' source_zsh_config
 
 [[ $NEED_SOURCE_VENV ]] && source ./.venv/bin/activate
 
+# }}}
+#
+# Keybindings {{{
+# Vi keybindings
+bindkey -v
+
+autoload -Uz run-help
+(( ${+aliases[run-help]} )) && unalias run-help
+alias help=run-help
+
+# Edit command in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^[v' edit-command-line
+
+# Expands history
+bindkey " " magic-space
+
+## Readline
+# bindings can showkey -a
+# Shift-TAB cycles completions backward
+bindkey -M viins '\e[Z' reverse-menu-complete
+# C-S-i
+bindkey '\e[105;6u' reverse-menu-complete
+
+# NOTE: vi-backward-kill-word stops working after going to insert mode
+# create a word using these seperators
+WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
+
+vi-backward-kill-word () {
+    local WORDCHARS=""
+    zle backward-kill-word
+    zle -f kill
+}
+
+zle -N vi-backward-kill-word
+
+bindkey -M vicmd ':' vi-repeat-find
+bindkey -M viins '^w' vi-backward-kill-word
+bindkey -M viins '^a' beginning-of-line
+bindkey -M viins '^e' end-of-line
+bindkey -M viins '^h' backward-delete-char
+bindkey -M viins '^b' vi-backward-char
+bindkey -M viins '^f' vi-forward-char
+bindkey -M viins '^d' delete-char
+
+# With Ctrl-Shift modifier
+bindkey -M viins '^[b' vi-backward-word
+bindkey -M viins '^[f' vi-forward-word
+vi-backawrd-kill-word () {
+    local WORDCHARS=""
+    zle kill-word
+    zle -f kill
+}
+
+zle -N vi-backawrd-kill-word
+bindkey -M viins '^[d' vi-backawrd-kill-word
 # }}}
 # Setup FZF {{{
 if command -v fzf > /dev/null; then
