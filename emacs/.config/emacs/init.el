@@ -662,6 +662,47 @@
   :disabled
   :hook (magit-mode . magit-delta-mode))
 ;; }}}
+
+;; LateX {{{
+(use-package latex
+  :ensure nil
+  :init
+  :after tex
+  :config
+  (defun my/setup-latex-mode ()
+    (setq server-name "latex-mode")
+    (load "server")
+    (unless (server-running-p) (server-start))
+    )
+  ;; TODO: Server problems
+  (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+  (add-hook 'LaTeX-mode-hook #'my/setup-latex-mode)
+  (setq TeX-PDF-mode t
+        TeX-source-correlate-mode t
+        ;; TeX-source-correlate-method 'synctex
+        TeX-source-correlate-start-server t
+        TeX-output-dir "./tex_output"
+        TeX-auto-save t
+        TeX-parse-self t
+        TeX-electric-escape nil
+        TeX-error-overview-open-after-TeX-run nil
+        LaTeX-command "latex -synctex=1")
+
+  (setq-default TeX-output-dir "./tex_output")
+  (add-to-list 'TeX-expand-list
+	             '("%sn" (lambda () server-name)))
+
+  (add-to-list 'TeX-view-program-list
+	             '("Zathura"
+	               ("zathura %o"
+		              (mode-io-correlate " --synctex-forward %n:0:\"%b\" -x \"emacsclient --socket-name=%sn +%{line} %{input}\""))
+	               "zathura"))
+
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "Zathura"))
+  )
+
+;; }}}
 ;; Org {{{
 
 (defun my/org-mode-setup ()
