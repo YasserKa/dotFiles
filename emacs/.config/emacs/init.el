@@ -5,8 +5,11 @@
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; Remove startup screen and minibuffer message
-(setq inhibit-startup-message t)
+;; Inhibit some defaults and remove UI elements
+(setq inhibit-startup-message t               ;; No startup message
+      initial-scratch-message nil             ;; Empty scratch buffer
+      default-directory       (getenv "HOME") ;; Set default directory
+      )
 (defun display-startup-echo-area-message () (message nil))
 
 ;; Raise gc while during startup and when minibuffer is active
@@ -79,12 +82,12 @@
 (setq help-char (string-to-char "?"))
 ;; Store all backup files in one place
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "/backup")))
-  backup-by-copying t    ; Don't delink hard links
-  version-control t      ; Use version numbers on backups
-  delete-old-versions t  ; Automatically delete excess backups
-  kept-new-versions 20   ; how many of the newest versions to keep
-  kept-old-versions 5    ; and how many of the old
-  )
+      backup-by-copying t    ; Don't delink hard links
+      version-control t      ; Use version numbers on backups
+      delete-old-versions t  ; Automatically delete excess backups
+      kept-new-versions 20   ; how many of the newest versions to keep
+      kept-old-versions 5    ; and how many of the old
+      )
 ;; Remove auto-recover files
 (setq auto-save-default nil)
 (setq ad-redefinition-action 'accept)
@@ -150,7 +153,7 @@
   (evil-collection-define-key 'normal 'global-map (kbd "C-w m") #'golden-ratio-mode)
   )
 ;; }}}
-;; Aesthetics {{{
+;; Appearance {{{
 (setq my/default-font "Firacode Nerd Font-12")
 (add-to-list 'default-frame-alist `(font . ,my/default-font))
 
@@ -163,11 +166,18 @@
                    (setq display-line-numbers 'relative))))
 
 ;; Remove emacs' bars
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(menu-bar-mode -1)          ; Disable the menu bar
-(set-fringe-mode -1)        ; Remove the extra finges at the left
+(dolist (mode
+         '(scroll-bar-mode        ; Disable visible scrollbar
+           tool-bar-mode          ; Disable the toolbar
+           tooltip-mode           ; Disable tooltips
+           menu-bar-mode          ; Disable the menu bar
+           set-fringe-mode))        ; Remove the extra finges at the left
+  (funcall mode 0))
+
+;; Show tooltips (e.g. org links) in modeline
+(setq help-at-pt-display-when-idle t
+      help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
 
 ;; Show column number
 (column-number-mode)
@@ -197,9 +207,9 @@
 (use-package modus-themes
   :config
   ;; Better org mode code block syntax
-(setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs t
-      modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-bold-constructs t
+        modus-themes-italic-constructs t
+        modus-themes-org-blocks 'gray-background)
   (load-theme 'modus-operandi-tinted :no-confirm))
 
 (use-package doom-modeline
@@ -337,8 +347,8 @@
   :config
   (add-hook 'eshell-mode-hook
             (lambda () (setq-local corfu-quit-at-boundary t
-                              corfu-quit-no-match t
-                              corfu-auto nil)
+                                   corfu-quit-no-match t
+                                   corfu-auto nil)
               (corfu-mode))))
 
 (use-package kind-icon
@@ -347,11 +357,11 @@
   (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
- (add-hook 'my-completion-ui-mode-hook
-   	    (lambda ()
-   	      (setq completion-in-region-function
-   		    (kind-icon-enhance-completion
-   		     completion-in-region-function))))
+  (add-hook 'my-completion-ui-mode-hook
+   	        (lambda ()
+   	          (setq completion-in-region-function
+   		              (kind-icon-enhance-completion
+   		               completion-in-region-function))))
 
   )
 (use-package cape
@@ -748,8 +758,8 @@
   (org-hidden-keywords '(title))
   :config
 
-(require 'ol-man)
-(require 'ol-link-handler)
+  (require 'ol-man)
+  (require 'ol-link-handler)
 
   (defun my/update-org-level-face ()
     (dolist (face '((org-level-1 . 1.25)
@@ -789,16 +799,16 @@
    WAITING_color "darkorange3"
    DONE_color "forest green"
    CANCELLED_color "forest green"
-        )
+   )
 
   (setq org-todo-keyword-faces
         (list
-                `("TODO" :foreground ,TODO_color :inherit org-todo-default :box (:line-width 3 :color ,TODO_color))
-                `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
-                `("WAITING" :foreground ,WAITING_color :inherit org-todo-default :box (:line-width 3 :color ,WAITING_color))
-                `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
-                `("CANCELLED" :foreground ,CANCELLED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELLED_color))
-                ))
+         `("TODO" :foreground ,TODO_color :inherit org-todo-default :box (:line-width 3 :color ,TODO_color))
+         `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
+         `("WAITING" :foreground ,WAITING_color :inherit org-todo-default :box (:line-width 3 :color ,WAITING_color))
+         `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
+         `("CANCELLED" :foreground ,CANCELLED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELLED_color))
+         ))
 
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -893,394 +903,395 @@ Made for `org-tab-first-hook' in evil-mode."
       (if (string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link") nil))
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-link-handler-icon)
-)
+    )
 
-(use-package org-download
-  :after org
-  :config (setq-default org-download-image-dir "~/notes/org/images/drag_drop")
-  )
+  (use-package org-download
+    :after org
+    :config (setq-default org-download-image-dir "~/notes/org/images/drag_drop")
+    )
 
-(defun my/open-super-agenda ()
-  (interactive) (org-agenda nil "z") (delete-other-windows))
+  (defun my/open-super-agenda ()
+    (interactive) (org-agenda nil "z") (delete-other-windows))
 
-(add-hook 'emacs-startup-hook 'my/open-super-agenda)
+  (add-hook 'emacs-startup-hook 'my/open-super-agenda)
 
-(set-face-attribute 'org-agenda-date nil :height 1.05)
-(set-face-attribute 'org-agenda-clocking nil :background "light gray")
+  (set-face-attribute 'org-agenda-date nil :height 1.05)
+  (set-face-attribute 'org-agenda-clocking nil :background "light gray")
 
-'(org-document-info ((t (:foreground "dark orange"))))
-(set-face-attribute 'org-agenda-date-today nil :height 1.05)
-(set-face-attribute 'org-agenda-date-weekend nil :height 1.05)
+  '(org-document-info ((t (:foreground "dark orange"))))
+  (set-face-attribute 'org-agenda-date-today nil :height 1.05)
+  (set-face-attribute 'org-agenda-date-weekend nil :height 1.05)
 
-;; Get roam alias, otherwise the title of node
-(defun my/get-title-property ()
-  (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
-  (setq roam_alias (org-entry-get-with-inheritance "ROAM_ALIASES"))
-  (setq max_length 11)
-  (if (> (length title) max_length ) (setq title (concat (substring title 0 max_length) "...")))
-  (if roam_alias roam_alias (if title title "")))
+  ;; Get roam alias, otherwise the title of node
+  (defun my/get-title-property ()
+    (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
+    (setq roam_alias (org-entry-get-with-inheritance "ROAM_ALIASES"))
+    (setq max_length 11)
+    (if (> (length title) max_length ) (setq title (concat (substring title 0 max_length) "...")))
+    (if roam_alias roam_alias (if title title "")))
 
-(setq org-agenda-current-time-string "┈┈┈┈┈┈┈┈┈┈┈ now"
-      org-agenda-time-grid '((weekly today require-timed)
-                             (800 1000 1200 1400 1600 1800 2000)
-                             "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
-      org-agenda-prefix-format '((agenda . " %-16(my/get-title-property)%-12t%-6e% s")
-                                 (todo . " %-14:(my/get-title-property) %-6e")
-                                 (tags . " %-12:(my/get-title-property) %-6e")
-                                 (search . " %-12:(my/get-title-property) %-6e")))
+  (setq org-agenda-current-time-string "┈┈┈┈┈┈┈┈┈┈┈ now"
+        org-agenda-time-grid '((weekly today require-timed)
+                               (800 1000 1200 1400 1600 1800 2000)
+                               "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
+        org-agenda-prefix-format '((agenda . " %-16(my/get-title-property)%-12t%-6e% s")
+                                   (todo . " %-14:(my/get-title-property) %-6e")
+                                   (tags . " %-12:(my/get-title-property) %-6e")
+                                   (search . " %-12:(my/get-title-property) %-6e")))
 
-;; Save org buffers after quiting agenda mode
-(advice-add 'org-agenda-quit :before #'(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
+  ;; Save org buffers after quiting agenda mode
+  (advice-add 'org-agenda-quit :before #'(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
 
-;; Log the state change
-(setq org-agenda-start-with-log-mode t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-;; Show closed items, not the clocked ones
-(setq org-agenda-log-mode-items '(closed))
-;; Show today's clocked report
-(setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :block today :properties ("Effort")))
-;; Persist clock history on Emacs close
-(org-clock-persistence-insinuate)
-(setq org-clock-persist 'clock)
+  ;; Log the state change
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  ;; Show closed items, not the clocked ones
+  (setq org-agenda-log-mode-items '(closed))
+  ;; Show today's clocked report
+  (setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :block today :properties ("Effort")))
+  ;; Persist clock history on Emacs close
+  (org-clock-persistence-insinuate)
+  (setq org-clock-persist 'clock)
 
-;; Super agenda
-(setq org-agenda-custom-commands
-      '(("z" "Super view"
-         ((agenda "" ((org-agenda-span 'day)
-                      (org-super-agenda-groups
-                       '((:name "Today"
-                                :time-grid t
-                                :date today
-                                :scheduled today)))))
-          (alltodo "" ((org-super-agenda-groups
-                        '((:name "Next"
-                                 :todo "NEXT")
-                          (:name "Waiting"
-                                 :todo "WAITING")
-                          (:name "High priority"
-                                 :priority "A")
-                          (:name "Capture"
-                                 :file-path ".*capture.org")
-                          (:discard (:anything))
-                          ))))))
-        ("o" "Others"
-         ((todo "DONE")
-          (alltodo "" ((org-super-agenda-groups
-                        '((:priority "A")
-                          (:priority "B")
-                          (:name "Short"
-                                 :tag "effort< 1:01")
-                          (:auto-category)
-                          ))))))
-        ))
+  ;; Super agenda
+  (setq org-agenda-custom-commands
+        '(("z" "Super view"
+           ((agenda "" ((org-agenda-span 'day)
+                        (org-super-agenda-groups
+                         '((:name "Today"
+                                  :time-grid t
+                                  :date today
+                                  :scheduled today)))))
+            (alltodo "" ((org-super-agenda-groups
+                          '((:name "Next"
+                                   :todo "NEXT")
+                            (:name "Waiting"
+                                   :todo "WAITING")
+                            (:name "High priority"
+                                   :priority "A")
+                            (:name "Capture"
+                                   :file-path ".*capture.org")
+                            (:discard (:anything))
+                            ))))))
+          ("o" "Others"
+           ((todo "DONE")
+            (alltodo "" ((org-super-agenda-groups
+                          '((:priority "A")
+                            (:priority "B")
+                            (:name "Short"
+                                   :tag "effort< 1:01")
+                            (:auto-category)
+                            ))))))
+          ))
 
-(use-package org-super-agenda
-  ;; Should be loaded at the start
-  :init (org-super-agenda-mode)
-  :config
+  (use-package org-super-agenda
+    ;; Should be loaded at the start
+    :init (org-super-agenda-mode)
+    :config
 
-  (defun my/org-agenda-switch-to ()
-    "Go to entry and expand parent element"
+    (defun my/org-agenda-switch-to ()
+      "Go to entry and expand parent element"
+      (interactive)
+      (org-agenda-switch-to)
+      (bookmark-set "agenda")
+      (org-up-element)
+      (org-up-element)
+      (evil-toggle-fold)
+      (evil-toggle-fold)
+      (bookmark-jump "agenda")
+      )
+
+    ;; Open parent element when switching from agenda
+    (advice-add 'org-agenda-switch-to :after #'(lambda ()
+                                                 (bookmark-set "agenda")
+                                                 (org-up-element)
+                                                 (org-up-element)
+                                                 (evil-toggle-fold)
+                                                 (evil-toggle-fold)
+                                                 (bookmark-jump "agenda")
+                                                 ))
+
+    (evil-define-key 'motion 'org-super-agenda-header-map
+      (kbd "q") 'org-agenda-quit
+      (kbd "C-h") 'evil-window-left
+      (kbd "C-j") 'org-agenda-switch-to
+      (kbd "gj") 'org-agenda-next-item
+      (kbd "gk") 'org-agenda-previous-item
+      (kbd "gx") 'org-open-at-point-global)
+    (setq org-super-agenda-header-map (make-sparse-keymap))
+    )
+
+
+  (setq org-capture-templates
+        `(("d" "default" entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+           "* TODO %?\n")))
+
+  ;; Update org-agenda-files after updating item states
+  ;; If the state is removed, remove the file from agenda if there are no other states, otherwise, add it
+  (defun my/update-agenda-files ()
+    ;; Removed TODO from item
+    (if (= (length org-state) 0)
+        ;; No TODOs in buffer, so remove it, otherwise add it
+        ;; TODO: make the string dynamic
+        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|CANCELLED}" 'file)) 0)
+            (setq curr-files (my/remove-from-agenda-files buffer-file-name))
+          (setq curr-files (my/add-to-agenda-files buffer-file-name))
+          )
+      ;; There's a TODO in buffer
+      (setq curr-files (my/add-to-agenda-files buffer-file-name))
+      )
+    (org-store-new-agenda-file-list curr-files)
+    ;; Sort agenda files, so that there's not that often changes to be tracked by git
+    (shell-command (concat "sort " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files") " | sponge " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files")))
+    (let ((inhibit-message)) (org-install-agenda-files-menu))
+    )
+
+  (defun my/get-relative-path (file-path)
+    ;; Transform full paths to relative paths
+    (if (string= (substring file-path 1) "~")
+        (file_path)
+      (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-path)))
+
+  ;; Accepts full path
+  (defun my/remove-from-agenda-files (file-full-path)
+    (setq relative-path (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
+    (setq curr-files (org-agenda-files))
+    (setq curr-files (delete file-full-path curr-files))
+    (setq curr-files (delete relative-path curr-files))
+    curr-files
+    )
+
+  (defun my/add-to-agenda-files (file-full-path)
+    ;; org transforms current paths to full paths then adds a relative path
+    ;; Better to remove relative and full path then add the path
+    (setq curr-files (my/remove-from-agenda-files file-full-path))
+    (add-to-list 'curr-files (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
+    curr-files
+    )
+
+  (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
+
+  (my/add-to-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+  ;; Clocking
+  ;; Loading emacs server is needed by emacsclient
+  ;; emacsclient used by clocking
+  (setq server-name "org-mode")
+  (load "server")
+  (unless (server-running-p) (server-start))
+
+  (setq org-clock-persist 'history ;; Save clock history on Emacs close
+        ;; Resume when clocking into task with open clock
+        org-clock-in-resume t
+        ;; Remove log if task was clocked for 0:00 (accidental clocking)
+        org-clock-out-remove-zero-time-clocks t
+        ;; The default value (5) is too conservative.
+        org-clock-history-length 20)
+
+
+  (defun my/org-clock-in-if-next ()
+    "Clock in when the task is marked NEXT"
+    (when (and (string= org-state "NEXT")
+               (not (string= org-last-state org-state)))
+      (org-clock-in)))
+
+  (add-hook 'org-after-todo-state-change-hook
+            'my/org-clock-in-if-next)
+
+  (setq org-clock-out-switch-to-state "TODO")
+  (setq org-clock-in-switch-to-state "NEXT")
+
+  (defun my/org-clock-out-done ()
+    "Clock out and switch state of task to done"
     (interactive)
-    (org-agenda-switch-to)
-    (bookmark-set "agenda")
-    (org-up-element)
-    (org-up-element)
-    (evil-toggle-fold)
-    (evil-toggle-fold)
-    (bookmark-jump "agenda")
+    (setq org-clock-out-switch-to-state "DONE")
+    (org-clock-out)
+    (setq org-clock-out-switch-to-state "TODO"))
+
+
+  (defun my/org-clock-out-if-todo ()
+    "Clock out when the task is marked TODO."
+    (when (and (string= org-state "TODO")
+               (equal (marker-buffer org-clock-marker) (current-buffer))
+               (< (point) org-clock-marker)
+               (> (save-excursion (outline-next-heading) (point))
+                  org-clock-marker)
+               (not (string= org-last-state org-state)))
+      (org-clock-out)))
+  (add-hook 'org-after-todo-state-change-hook
+            'my/org-clock-out-if-todo)
+
+  ;; Clock in clock out hooks with Polybar
+  (defun my/add-clock-tmp-file ()
+    (shell-command (concat "/bin/echo -e "
+                           "\"" (org-get-heading t t t t) " \n"
+                           (org-entry-get nil "Effort") " \n"
+                           (substring-no-properties (org-clock-get-clock-string)) " \n"
+                           (what-line) " \n"
+                           (buffer-file-name) "\""
+                           " > /tmp/org_current_task"))
     )
 
-  ;; Open parent element when switching from agenda
-  (advice-add 'org-agenda-switch-to :after #'(lambda ()
-                                               (bookmark-set "agenda")
-                                               (org-up-element)
-                                               (org-up-element)
-                                               (evil-toggle-fold)
-                                               (evil-toggle-fold)
-                                               (bookmark-jump "agenda")
-                                               ))
+  ;; Generated by chatGPT
+  (defun my/org-goto-next-scheduled ()
+    "Go to the next entry with the closest future scheduled timestamp (including time) from all Org files in the agenda."
+    (interactive)
+    (let ((closest-entry nil)
+          (closest-timestamp (time-add (current-time) (days-to-time 365)))) ; Initialize with a far future timestamp
 
-  (evil-define-key 'motion 'org-super-agenda-header-map
-    (kbd "q") 'org-agenda-quit
-    (kbd "C-h") 'evil-window-left
-    (kbd "C-j") 'org-agenda-switch-to
-    (kbd "gj") 'org-agenda-next-item
-    (kbd "gk") 'org-agenda-previous-item
-    (kbd "gx") 'org-open-at-point-global)
-  (setq org-super-agenda-header-map (make-sparse-keymap))
-  )
+      ;; Read the list of files from the file specified by org-agenda-files
+      (with-temp-buffer
+        (insert-file-contents org-agenda-files)
+        (setq org-agenda-file-list (split-string (buffer-string) "\n" t)))
 
+      ;; Iterate over each file in the Org agenda file list
+      (dolist (file org-agenda-file-list)
+        (with-current-buffer (find-file-noselect file)
+          ;; Iterate over each entry in the buffer
+          (org-map-entries
+           (lambda ()
+             (let* ((scheduled (org-entry-get nil "SCHEDULED"))
+                    (timestamp (and scheduled (org-time-string-to-time scheduled))))
+               ;; Compare the timestamp (with time) with the closest-timestamp and future timestamps
+               (when (and timestamp
+                          (time-less-p (current-time) timestamp)
+                          (time-less-p timestamp closest-timestamp)
+                          (string-match-p "[0-9]+:[0-9]+" scheduled))
+                 (setq closest-entry (point-marker))
+                 (setq closest-timestamp timestamp)))))))
 
-(setq org-capture-templates
-      `(("d" "default" entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
-         "* TODO %?\n")))
+      ;; Go to the closest entry if found
+      (if closest-entry
+          (progn
+            (switch-to-buffer (marker-buffer closest-entry))
+            (goto-char (marker-position closest-entry)))
+        (message "No entry found with a future scheduled timestamp including time."))))
 
-;; Update org-agenda-files after updating item states
-;; If the state is removed, remove the file from agenda if there are no other states, otherwise, add it
-(defun my/update-agenda-files ()
-  ;; Removed TODO from item
-  (if (= (length org-state) 0)
-      ;; No TODOs in buffer, so remove it, otherwise add it
-      ;; TODO: make the string dynamic
-      (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|CANCELLED}" 'file)) 0)
-          (setq curr-files (my/remove-from-agenda-files buffer-file-name))
-        (setq curr-files (my/add-to-agenda-files buffer-file-name))
-        )
-    ;; There's a TODO in buffer
-    (setq curr-files (my/add-to-agenda-files buffer-file-name))
+  (add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
+
+  (dolist (advice '(org-clock-out
+                    org-clock-cancel))
+    (advice-add advice :before #'(lambda (&rest pos) (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null")))
     )
-  (org-store-new-agenda-file-list curr-files)
-  ;; Sort agenda files, so that there's not that often changes to be tracked by git
-  (shell-command (concat "sort " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files") " | sponge " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files")))
-  (let ((inhibit-message)) (org-install-agenda-files-menu))
-  )
 
-(defun my/get-relative-path (file-path)
-  ;; Transform full paths to relative paths
-  (if (string= (substring file-path 1) "~")
-      (file_path)
-    (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-path)))
-
-;; Accepts full path
-(defun my/remove-from-agenda-files (file-full-path)
-  (setq relative-path (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
-  (setq curr-files (org-agenda-files))
-  (setq curr-files (delete file-full-path curr-files))
-  (setq curr-files (delete relative-path curr-files))
-  curr-files
-  )
-
-(defun my/add-to-agenda-files (file-full-path)
-  ;; org transforms current paths to full paths then adds a relative path
-  ;; Better to remove relative and full path then add the path
-  (setq curr-files (my/remove-from-agenda-files file-full-path))
-  (add-to-list 'curr-files (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
-  curr-files
-  )
-
-(add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
-
-(my/add-to-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
-;; Clocking
-;; Loading emacs server is needed by emacsclient
-;; emacsclient used by clocking
-(load "server")
-(unless (server-running-p) (server-start))
-
-(setq org-clock-persist 'history ;; Save clock history on Emacs close
-      ;; Resume when clocking into task with open clock
-      org-clock-in-resume t
-      ;; Remove log if task was clocked for 0:00 (accidental clocking)
-      org-clock-out-remove-zero-time-clocks t
-      ;; The default value (5) is too conservative.
-      org-clock-history-length 20)
-
-
-(defun my/org-clock-in-if-next ()
-  "Clock in when the task is marked NEXT"
-  (when (and (string= org-state "NEXT")
-             (not (string= org-last-state org-state)))
-    (org-clock-in)))
-
-(add-hook 'org-after-todo-state-change-hook
-          'my/org-clock-in-if-next)
-
-(setq org-clock-out-switch-to-state "TODO")
-(setq org-clock-in-switch-to-state "NEXT")
-
-(defun my/org-clock-out-done ()
-  "Clock out and switch state of task to done"
-  (interactive)
-  (setq org-clock-out-switch-to-state "DONE")
-  (org-clock-out)
-  (setq org-clock-out-switch-to-state "TODO"))
-
-
-(defun my/org-clock-out-if-todo ()
-  "Clock out when the task is marked TODO."
-  (when (and (string= org-state "TODO")
-             (equal (marker-buffer org-clock-marker) (current-buffer))
-             (< (point) org-clock-marker)
-             (> (save-excursion (outline-next-heading) (point))
-                org-clock-marker)
-             (not (string= org-last-state org-state)))
-    (org-clock-out)))
-(add-hook 'org-after-todo-state-change-hook
-          'my/org-clock-out-if-todo)
-
-;; Clock in clock out hooks with Polybar
-(defun my/add-clock-tmp-file ()
-  (shell-command (concat "/bin/echo -e "
-                         "\"" (org-get-heading t t t t) " \n"
-                         (org-entry-get nil "Effort") " \n"
-                         (substring-no-properties (org-clock-get-clock-string)) " \n"
-                         (what-line) " \n"
-                         (buffer-file-name) "\""
-                         " > /tmp/org_current_task"))
-  )
-
-;; Generated by chatGPT
-(defun my/org-goto-next-scheduled ()
-  "Go to the next entry with the closest future scheduled timestamp (including time) from all Org files in the agenda."
-  (interactive)
-  (let ((closest-entry nil)
-        (closest-timestamp (time-add (current-time) (days-to-time 365)))) ; Initialize with a far future timestamp
-
-    ;; Read the list of files from the file specified by org-agenda-files
-    (with-temp-buffer
-      (insert-file-contents org-agenda-files)
-      (setq org-agenda-file-list (split-string (buffer-string) "\n" t)))
-
-    ;; Iterate over each file in the Org agenda file list
-    (dolist (file org-agenda-file-list)
-      (with-current-buffer (find-file-noselect file)
-        ;; Iterate over each entry in the buffer
-        (org-map-entries
-         (lambda ()
-           (let* ((scheduled (org-entry-get nil "SCHEDULED"))
-                  (timestamp (and scheduled (org-time-string-to-time scheduled))))
-             ;; Compare the timestamp (with time) with the closest-timestamp and future timestamps
-             (when (and timestamp
-                        (time-less-p (current-time) timestamp)
-                        (time-less-p timestamp closest-timestamp)
-                        (string-match-p "[0-9]+:[0-9]+" scheduled))
-               (setq closest-entry (point-marker))
-               (setq closest-timestamp timestamp)))))))
-
-    ;; Go to the closest entry if found
-    (if closest-entry
-        (progn
-          (switch-to-buffer (marker-buffer closest-entry))
-          (goto-char (marker-position closest-entry)))
-      (message "No entry found with a future scheduled timestamp including time."))))
-
-(add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
-
-(dolist (advice '(org-clock-out
-                  org-clock-cancel))
-  (advice-add advice :before #'(lambda (&rest pos) (shell-command "/bin/rm /tmp/org_current_task 2> /dev/null")))
-  )
-
-(defun my/org-toggle-last-clock (arg)
-  "Toggles last
+  (defun my/org-toggle-last-clock (arg)
+    "Toggles last
 Clock out if an active clock is running (or cancel it if prefix ARG is non-nil).
 If no clock is active, then clock into the last item. See `org-clock-in-last' to
 see how ARG affects this command."
-  (interactive "P")
-  (require 'org-clock)
-  (cond ((org-clocking-p)
-         (if arg
-             (org-clock-cancel)
-           (org-clock-out)))
-        ((and (null org-clock-history)
-              (or (org-on-heading-p)
-                  (org-at-item-p))
-              (y-or-n-p "No active clock. Clock in on current item?"))
-         (org-clock-in))
-        ((org-clock-in-last arg))))
+    (interactive "P")
+    (require 'org-clock)
+    (cond ((org-clocking-p)
+           (if arg
+               (org-clock-cancel)
+             (org-clock-out)))
+          ((and (null org-clock-history)
+                (or (org-on-heading-p)
+                    (org-at-item-p))
+                (y-or-n-p "No active clock. Clock in on current item?"))
+           (org-clock-in))
+          ((org-clock-in-last arg))))
 
 
-;; Source code indentation
-(setq org-src-preserve-indentation t
-      org-fontify-quote-and-verse-blocks t
-      org-src-fontify-natively t               ;; Syntax highlight in #+BEGIN_SRC blocks
-      org-confirm-babel-evaluate nil
-      org-src-tab-acts-natively t
-      org-edit-src-content-indentation 0)
+  ;; Source code indentation
+  (setq org-src-preserve-indentation t
+        org-fontify-quote-and-verse-blocks t
+        org-src-fontify-natively t               ;; Syntax highlight in #+BEGIN_SRC blocks
+        org-confirm-babel-evaluate nil
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 0)
 
-(custom-set-faces
- '(org-block ((t (:inherit fixed-pitch :height 1.1))))
- ;; Background is nil because org-block-end-line background shows in header
- ;; Check https://github.com/doomemacs/themes/issues/453
- '(org-block-begin-line ((t (:background unspecified :weight bold))))
- '(org-block-end-line ((t (:background unspecified :weight bold))))
- '(org-code ((t (:foreground "dim gray" :background "#f2e5bc"))))
- )
+  (custom-set-faces
+   '(org-block ((t (:inherit fixed-pitch :height 1.1))))
+   ;; Background is nil because org-block-end-line background shows in header
+   ;; Check https://github.com/doomemacs/themes/issues/453
+   '(org-block-begin-line ((t (:background unspecified :weight bold))))
+   '(org-block-end-line ((t (:background unspecified :weight bold))))
+   '(org-code ((t (:foreground "dim gray" :background "#f2e5bc"))))
+   )
 
 
-;; Used by babel
-(use-package plantuml-mode
-  :config
-  (setq org-plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
-  (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+  ;; Used by babel
+  (use-package plantuml-mode
+    :config
+    (setq org-plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+    )
+  (use-package yaml-mode)
+  (use-package dockerfile-mode)
+  (use-package docker-compose-mode)
+  (use-package lua-mode)
+
+  (require 'ob-makefile)
+  ;; Run/highlight code using babel in org-mode
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (sql . t)
+     (lua . t)
+     (plantuml . t)
+     (makefile . t)
+     (emacs-lisp . t)
+     (shell . t)
+     ))
+
+  ;; Enables to add snippets for code blocks
+  (use-package org-tempo
+    :ensure nil
+    :after org
+    :config
+    (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
+    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
+    (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
+    (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
+    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+    )
+
+  ;; Go in the block with insert mode after inserting it
+  (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
+
+
+
+  ;; To export to markdown
+  (require 'ox-md)
+
+  ;; Exporting settings
+  (setq org-export-with-broken-links t
+        org-export-preserve-breaks t
+        org-export-with-todo-keywords nil)
+
+  ;; Update the document header for latex preview
+  (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+
+  ;; Latex image size
+  (plist-put org-format-latex-options :scale 1.5)
+
+  (use-package org-protocol
+    :ensure nil
+    :config
+
+    (add-to-list 'org-capture-templates
+                 `("q" "org-capture-url" entry
+                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+                   "* TODO [[%:link][%:description]]" :immediate-finish t))
+
+    (add-to-list 'org-capture-templates
+                 `("n" "org-capture-note" entry
+                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+                   "* TODO %:description" :immediate-finish t))
+    (add-to-list 'org-capture-templates
+                 `("w" "Web site" entry
+                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/org_protocol_html.org")) ;
+                   "* %a :website:\n\n%U %?\n\n%:initial"))
+
+    (setq org-protocol-default-template-key "q")
+    )
+  (use-package org-protocol-capture-html
+    :ensure nil)
   )
-(use-package yaml-mode)
-(use-package dockerfile-mode)
-(use-package docker-compose-mode)
-(use-package lua-mode)
-
-(require 'ob-makefile)
-;; Run/highlight code using babel in org-mode
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)
-   (sql . t)
-   (lua . t)
-   (plantuml . t)
-   (makefile . t)
-   (emacs-lisp . t)
-   (shell . t)
-   ))
-
-;; Enables to add snippets for code blocks
-(use-package org-tempo
-  :ensure nil
-  :after org
-  :config
-  (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
-  (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
-  (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
-  (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
-  (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
-  )
-
-;; Go in the block with insert mode after inserting it
-(advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
-
-
-
-;; To export to markdown
-(require 'ox-md)
-
-;; Exporting settings
-(setq org-export-with-broken-links t
-      org-export-preserve-breaks t
-      org-export-with-todo-keywords nil)
-
-;; Update the document header for latex preview
-(setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
-
-;; Latex image size
-(plist-put org-format-latex-options :scale 1.5)
-
-(use-package org-protocol
-  :ensure nil
-  :config
-
-  (add-to-list 'org-capture-templates
-               `("q" "org-capture-url" entry
-                 (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
-                 "* TODO [[%:link][%:description]]" :immediate-finish t))
-
-  (add-to-list 'org-capture-templates
-               `("n" "org-capture-note" entry
-                 (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
-                 "* TODO %:description" :immediate-finish t))
-  (add-to-list 'org-capture-templates
-               `("w" "Web site" entry
-                 (file ,(concat (getenv "_NOTES_ORG_HOME") "/org_protocol_html.org")) ;
-                 "* %a :website:\n\n%U %?\n\n%:initial"))
-
-  (setq org-protocol-default-template-key "q")
-  )
-(use-package org-protocol-capture-html
-  :ensure nil)
-)
 
 ;; Previewing Latex fragments
 (use-package auctex
