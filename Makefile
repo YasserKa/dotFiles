@@ -1,14 +1,8 @@
 XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
-# i3ipc: autokey for emacs script
-# MyMuPDF: getting highlighted text in pdf
-# pyperclip: used to yank to clipboard by zathura's handle_document
-# adblock tldextract sci-hub: qutebrowser 
-# mypi needs to be exposed to other libraries to get stubs
-# pandas used for scripts
-PYPI_PACKAGES_PIP = adblock i3ipc  mypy neovim-remote pandas pip pipx pymupdf pyperclip python-rofi selenium tldextract
-PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython jupyter
+# sci-hub for qutebrowser
+PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython
 
 .PHONY: install
 install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers
@@ -115,10 +109,7 @@ stow-packages:
 
 .PHONY:install-pypi-packages
 install-pypi-packages: 
-	@echo "Installing PYPI packages"
-	@# https://peps.python.org/pep-0668/ recommends to use packages to be installed
-	@# using OS package manager
-	@pip install --user  $(PYPI_PACKAGES_PIP) --break-system-packags
+	@echo "Installing Python appliations"
 	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"; done
 
 .PHONY: setup-systemd-services

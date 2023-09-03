@@ -115,6 +115,17 @@ npm # A package manager for javascript
 python # Scripting language
 python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
+# Installed by system's package manager adhering to https://peps.python.org/pep-0668
+jupyter-notebook
+python-pipx # Tool to install Python applications
+python-pandas # Used by scripts
+python-adblock # Used by qutebrowser
+python-i3ipc # Usd by autokey for emacs script
+python-pymupdf # Used by script to get highlighted text in pdf
+python-pyperclip # Needed to yank clipboard by zathura's handle_document
+python-tldextract # Needed by Qutebrowser bitwarden script
+python-selenium # Used by scripts
+python-rofi    # Used by scripts
 
 # Command line
 zsh             # Z-Shell
