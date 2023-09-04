@@ -318,7 +318,7 @@ magit() {
 alias gitdotfiles='cd $HOME/dotfiles && magit'
 
 syncorg() {
-	emacsclient --no-wait --eval "(org-save-all-org-buffers)" 2>/dev/null
+	emacsclient --no-wait --socket-name="org-mode" --eval "(org-save-all-org-buffers)" 2>/dev/null
 	# resync is used because rclone stops functioning if its executed on a file
 	# that's being edited (this will override the remote files)
 	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||

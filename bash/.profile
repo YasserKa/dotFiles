@@ -75,7 +75,7 @@ export BATTERY=$(ls /sys/class/power_supply | grep -E '^BAT' | tail -n1 | cut -d
 export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d ' ' -f1)
 
 # shellcheck disable=1091
-source "$XDG_CONFIG_HOME/fzf/.fzf"
+source "$XDG_CONFIG_HOME/fzf/config"
 
 # Expand PATH
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin
