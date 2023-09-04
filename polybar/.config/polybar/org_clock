@@ -4,6 +4,7 @@
 # This is used by i3 to trigger the functions and by polybar to present the output
 
 # Dependencies: emacs, wmctrl, notify-send
+#
 
 # Path to the file that contains info about the entry
 declare -r TMP_FILE_PATH="/tmp/org_current_task"
@@ -21,7 +22,7 @@ go_to_entry() {
 	# Focus window
 	xdotool search --sync --name "emacs_org_name" windowactivate
 	# Go to clocked or most recently clocked entry
-	emacsclient -e "(org-clock-goto)"
+	execute_emacs_command "(org-clock-goto)"
 }
 
 ################################################################################
@@ -33,7 +34,7 @@ go_to_scheduled_entry() {
 	# Focus window
 	xdotool search --sync --name "emacs_org_name" windowactivate
 	# Go to clocked or most recently clocked entry
-	emacsclient -e "(my/org-goto-next-scheduled)"
+	execute_emacs_command "(my/org-goto-next-scheduled)"
 }
 
 ################################################################################
@@ -157,13 +158,17 @@ get_time() {
 	echo "${TIME_SINCE_CREATION} - ${TIME}"
 }
 
+execute_emacs_command() {
+	emacsclient --socket-name="org-mode" -e "$@"
+}
+
 main() {
 	case "$1" in
-		"clock_in") emacsclient -e "(org-clock-in-last)" ;;
-		"clock_out") emacsclient -e "(org-clock-out)" ;;
-		"clock_out_done") emacsclient -e "(my/org-clock-out-done)" ;;
-		"clock_toggle") emacsclient -e "(my/org-toggle-last-clock nil)" ;;
-		"clock_cancel") emacsclient -e "(org-clock-cancel)" ;;
+		"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
+		"clock_out") execute_emacs_command "(org-clock-out)" ;;
+		"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
+		"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
+		"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
 		"go_to_entry") go_to_entry ;;
 		"go_to_scheduled_entry") go_to_scheduled_entry ;;
 		"get_info") get_info "$2" 0 ;;
