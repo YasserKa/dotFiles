@@ -103,7 +103,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 
 .PHONY: stow-packages
 stow-packages:
-	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers X11 xmodmap wezterm yt-dlp zathura zsh
+	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg geoclue gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers X11 xmodmap wezterm yt-dlp zathura zsh
 	stow --target=$HOME --dir="$HOME/.dotfiles-private" qutebrowser bash zsh hunspell khard
 	sudo stow root --target=/root/
 
@@ -114,32 +114,21 @@ install-pypi-packages:
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
-	sudo systemctl start cronie
-	sudo systemctl enable cronie
-	systemctl start displaylink
-	systemctl enable displaylink
-	systemctl start cmus --user
-	systemctl enable cmus --user
-	systemctl enable notify-me.timer --user
-	systemctl start notify-me.timer --user
-	systemctl enable udiskie.service --user
-	systemctl start udiskie.service --user
-	systemctl enable dunst.service --user
-	systemctl start dunst --user
-	systemctl enable sxhkd.service --user
-	systemctl start sxhkd.service --user
-	systemctl enable msmtp-runqueue.timer --user
-	systemctl start msmtp-runqueue.timer --user
-	systemctl enable mbsync.timer --user
-	systemctl start mbsync.timer --user
-	sudo systemctl enable nftables.service
-	sudo systemctl start nftables.service
-	sudo systemctl enable acpid.service
-	sudo systemctl start acpid.service
-	sudo systemctl enable firewalld.service
-	sudo systemctl start firewalld.service
+	systemctl enable --now cmus --user
+	systemctl enable --now notify-me.timer --user
+	systemctl enable --now udiskie.service --user
+	systemctl enable --now dunst.service --user
+	systemctl enable --now sxhkd.service --user
+	systemctl enable --now msmtp-runqueue.timer --user
+	systemctl enable --now mbsync.timer --user
+	systemctl enable --now snapd.socket
+	sudo systemctl enable --now displaylink
+	sudo systemctl enable --now cronie
+	sudo systemctl enable --now nftables.service
+	sudo systemctl enable --now acpid.service
+	sudo systemctl enable --now firewalld.service
 	@# Weekly, discard unused blocks in filesystem
-	sudo systemctl enable fstrim.timer
+	sudo systemctl enable --now fstrim.timer
 	systemctl --user daemon-reload
 	systemctl daemon-reload
 

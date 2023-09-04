@@ -579,7 +579,6 @@
   (evil-collection-translate-key nil 'evil-motion-state-map
     ";" ":"
     ":" ";")
-  (evil-define-key 'normal  'global (kbd "M-;") 'eval-expression)
 
   ;; Trigger the background theme
   (defun my/trigger-theme ()

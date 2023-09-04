@@ -157,6 +157,7 @@ lnav # A curses-based tool for viewing and analyzing log files
 
 qutebrowser # A keyboard-driven, vim-like browser based on PyQt5
 python-pygments # Python syntax highlighter
+geoclue # Geoinformation service. Used by qutebrowser
 
 # Automation
 make # GNU make utility to maintain groups of programs
