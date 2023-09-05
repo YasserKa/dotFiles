@@ -89,16 +89,29 @@ def check_facebook(driver):
 
 def check_whatsapp(driver):
     driver.get(URL_WHATS_APP)
-    WebDriverWait(driver, 20).until(
+    WebDriverWait(driver, 10).until(
         lambda x: len(
-            x.find_elements(
-                By.XPATH, './/*[contains(text(),"Search or start new chat")]'
-            )
+            x.find_elements(By.XPATH, './/*[contains(text(),"WhatsApp Web")]')
         )
         > 0
     )
     # Needed to extract unread_messages correctly
     sleep(5)
+
+    # Check if the web app is logged in
+    whatsapp_not_logged_in = (
+        len(
+            driver.find_elements(
+                By.XPATH,
+                './/*[contains(text(), "Use WhatsApp on your computer")]',
+            )
+        )
+        > 0
+    )
+
+    if whatsapp_not_logged_in:
+        send_notification("Whatsapp not logged in", URL_WHATS_APP)
+        return
 
     unread_messages = driver.find_elements(
         By.CSS_SELECTOR, "div > *[role=gridcell] > span > div"
@@ -141,12 +154,12 @@ def main():
         service=Service(executable_path=executable_path), options=options
     )
 
-    try:
-        check_discord(driver)
-        check_facebook(driver)
-        check_whatsapp(driver)
-    except TimeoutException:
-        pass
+    # try:
+    # check_discord(driver)
+    # check_facebook(driver)
+    check_whatsapp(driver)
+    # except TimeoutException:
+    #     pass
 
     driver.close()
 
