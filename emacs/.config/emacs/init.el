@@ -310,6 +310,15 @@
   (use-package yasnippet-snippets)
   )
 
+(use-package abbrev
+  :ensure nil
+  :config
+  (setq-default abbrev-mode t)
+  (define-abbrev-table 'global-abbrev-table
+    '(("latex" "LaTeX" nil 1)
+      ))
+  )
+
 ;; Auto completion
 (use-package corfu
   :custom
