@@ -4,12 +4,8 @@
 # Dependencies: curl, pup, zathura, dunstify
 
 if [[ "$QUTE_URL" == "" ]]; then
-    exit
+	exit
 fi
-
-url_root_special_case="libgen.rocks"
-# url_root_special_case="library.lol"
-count=60
 
 alias urldecode='python -c "import sys, urllib.parse as ul; \
     print(ul.unquote_plus(sys.argv[1]))"'
@@ -17,18 +13,9 @@ alias urldecode='python -c "import sys, urllib.parse as ul; \
 alias urlencode='python -c "import sys, urllib.parse as ul; \
     print(ul.quote_plus(sys.argv[1]))"'
 
-get_file_size() {
-    ls -ls "$document_path" | awk -F ' ' '{print $1}'
-}
+MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]' "attr{href}")
+DOWNLOAD_LINK="${MIRROR_LINK%/*}/$(curl -s "$MIRROR_LINK" | pup 'a[href*="get"]' 'attr{href}')"
 
-url_root="$(echo $QUTE_URL | awk -F '/' '{print $3}')"
+DOWNLOAD_LINK="${DOWNLOAD_LINK/amp;/}"
 
-#  Open file normally if the url is not a special case
-[[ $url_root != $url_root_special_case ]] && echo "open $QUTE_URL"  >> $QUTE_FIFO && exit
-
-# Otherwise download the document
-download_url=$(curl -s $QUTE_URL | pup 'a[href*="get"]' attr{href})
-
-url_download=$(echo "https://$url_root_special_case/$download_url" | sed 's/amp;//')
-
-echo "open $url_download" >> $QUTE_FIFO
+echo "open $DOWNLOAD_LINK" >>"$QUTE_FIFO"
