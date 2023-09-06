@@ -132,6 +132,18 @@ vf() {
 	"${EDITOR}" "${FILE_PATH}" || return 1
 }
 
+vpn_toggle() {
+	local -r CON="wg0"
+
+	if [[ $(nmcli connection show --active "$CON" | wc -c) -ne 0 ]]; then
+		# shellcheck disable=2015
+		nmcli connection down "$CON" && notify-send "vpn down" || notify-send "problem with vpn"
+	else
+		# shellcheck disable=2015
+		nmcli connection up "$CON" && notify-send "vpn up" || notify-send "problem with vpn"
+	fi
+}
+
 # Pick tmux sessions using FZF
 fzftmux() {
 	TMUX_SESSION=$(tmux list-sessions | cut -d: -f1 | fzf)

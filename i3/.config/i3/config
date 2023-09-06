@@ -201,7 +201,7 @@ mode $audio_mode {
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(l)ights off, (m)ail, (d)ictionary, (u)sb unmount, (s)chedule"
+set $utility_mode "(l)ights off, (m)ail, (d)ictionary, (u)sb unmount, (s)chedule (v)pn"
 bindsym $mod+u mode $utility_mode
 mode $utility_mode {
 # Unmount all storage devices;
@@ -213,6 +213,8 @@ mode $utility_mode {
     bindsym d exec --no-startup-id search_dictionary; mode "default";
 
     bindsym s exec --no-startup-id $XDG_CONFIG_HOME/dunst/org_mode_schedule; mode "default";
+
+    bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
