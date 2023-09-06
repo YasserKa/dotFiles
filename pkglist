@@ -152,6 +152,7 @@ fx  # Command-line tool and terminal JSON viewer
 fd # Simple, fast and user-friendly alternative to find
 fasd # Command-line productivity booster, offers quick access to files and directories
 fzf # Command-line fuzzy finder
+sysz # fzf terminal UI for systeml
 the_silver_searcher # Code searching tool similar to Ack, but faster
 lnav # A curses-based tool for viewing and analyzing log files
 
