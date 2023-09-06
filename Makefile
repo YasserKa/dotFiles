@@ -98,13 +98,17 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
 	@#Setup notes
 	git clone https://github.com/YasserKa/notes $(HOME)/notes
+	git -C $(HOME)/notes config --bool branch.master.sync true
+	git -C $(HOME)/notes config --bool branch.master.syncNewFiles true
 	@# Setup ambient music
 	yt-dlp -x -o "$(HOME)/Music/ambient_music.%(ext)s" https://www.youtube.com/watch?v=6uVUv8gZHBE
 
 .PHONY: stow-packages
 stow-packages:
 	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg geoclue gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers X11 xmodmap wezterm yt-dlp zathura zsh
-	stow --target=$HOME --dir="$HOME/.dotfiles-private" qutebrowser bash zsh hunspell khard
+	stow --target=$HOME --dir="$HOME/.dotfiles-private" qutebrowser bash zsh hunspell khard snippets
+	git -C $(HOME)/.dotfiles-private config --bool branch.main.sync true
+	git -C $(HOME)/.dotfiles-private config --bool branch.main.syncNewFiles true
 	sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages

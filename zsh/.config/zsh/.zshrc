@@ -50,6 +50,10 @@ PROMPT='%B%F{cyan}%~%b $(gitprompt) ${NEWLINE}%F{#008C00}❯ %b%f'
 # }}}
 # Autocompletion {{{
 
+# Commands with colors
+# https://github.com/garabik/grc
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+
 # Files with colors
 # https://github.com/trapd00r/LS_COLORS
 source /usr/share/LS_COLORS/dircolors.sh
