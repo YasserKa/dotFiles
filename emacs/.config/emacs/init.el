@@ -914,7 +914,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (add-hook 'emacs-startup-hook 'my/open-super-agenda)
 
   (set-face-attribute 'org-agenda-date nil :height 1.05)
-  (set-face-attribute 'org-agenda-clocking nil :background "light gray")
+  (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
 
   '(org-document-info ((t (:foreground "dark orange"))))
   (set-face-attribute 'org-agenda-date-today nil :height 1.05)
