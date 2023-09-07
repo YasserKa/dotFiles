@@ -124,12 +124,27 @@ vf() {
 		FILE_PATH="${PATHS}"
 	else # Use fzf otherwise
 		FILE_PATH=$(echo -e "${PATHS}" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
+		[[ -z $FILE_PATH ]] && return 0
 	fi
 	local EXIT_CODE
 	EXIT_CODE="$?"
 	((EXIT_CODE != 0)) && return
 	cd "${FILE_PATH%/*}" || return 1
 	"${EDITOR}" "${FILE_PATH}" || return 1
+}
+
+# fkill - kill processes - list only the ones you can kill
+fkill() {
+	local pid
+	if [ "$UID" != "0" ]; then
+		pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+	else
+		pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+	fi
+
+	if [ "x$pid" != "x" ]; then
+		echo "$pid" | xargs kill "-${1:-9}"
+	fi
 }
 
 vpn_toggle() {
