@@ -14,8 +14,8 @@ alias urlencode='python -c "import sys, urllib.parse as ul; \
     print(ul.quote_plus(sys.argv[1]))"'
 
 MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]' "attr{href}")
-DOWNLOAD_LINK="${MIRROR_LINK%/*}/$(curl -s "$MIRROR_LINK" | pup 'a[href*="get"]' 'attr{href}')"
+# BOOK_NAME="$(pup --file "$QUTE_HTML" ":parent-of(:parent-of(:parent-of(a[href=$MIRROR_LINK]))) :nth-child(2) > a:first-of-type json{}" | jq .[0].text)"
 
-DOWNLOAD_LINK="${DOWNLOAD_LINK/amp;/}"
+DOWNLOAD_LINK="$(curl -s "$MIRROR_LINK" | pup "#download" 'a:contains("GET")' 'attr{href}')"
 
-echo "open $DOWNLOAD_LINK" >>"$QUTE_FIFO"
+echo "download $DOWNLOAD_LINK" >>"$QUTE_FIFO"
