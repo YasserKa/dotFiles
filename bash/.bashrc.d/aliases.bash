@@ -60,7 +60,7 @@ alias syncbooks='wait_internet && rclone sync $HOME/books books:books'
 
 # Alternatives
 alias top="btm --color=gruvbox"
-alias cat='bat --pager=less --theme="gruvbox-dark"'
+alias cat='bat'
 
 # Logging
 # grc aliases journalctl to add colourify
