@@ -10,37 +10,35 @@ DEVICE="6C:D3:EE:04:51:E2"
 PICKED_SINK="$1"
 case $PICKED_SINK in
 	"Bluetooth")
-		if ! systemctl status bluetooth; then
-			password="$(rofi -dmenu -l 0 -password -mesg 'Enter password')"
-			echo "$password" | sudo -S systemctl start bluetooth
-		fi
-		echo -e "connect $DEVICE" | bluetoothctl
-		# Wait until the device is connected
-		while sleep 1; do grep -nE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break; done
-		# Extra time before check the Audio Sink
-		sleep 1
 		Name="bluez_output"
 		icon="bluetooth-64"
+
+		rfkill unblock bluetooth
+
+		# Wait until the device is connected
+		while sleep 1; do
+			grep -nE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break
+			echo -e "connect $DEVICE" | bluetoothctl
+		done
 		;;
 	"Built In")
 		icon="laptop-sound-64"
 		Name="pci"
-		if systemctl status bluetooth; then
-			echo -e "disconnect 6C:D3:EE:04:51:E2" | bluetoothctl
-		fi
+		rfkill block bluetooth
 		;;
 	"DisplayLink")
 		icon="earbud-sound-64"
 		Name="DisplayLink"
-		if systemctl status bluetooth; then
-			echo -e "disconnect 6C:D3:EE:04:51:E2" | bluetoothctl
-		fi
+		rfkill block bluetooth
 		;;
 	*) notify-send --app-name=$APP_NAME --expire-time=1000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
 esac
 
-# Get the name of the sink
-NEW_SINK=$(pactl list sinks | grep -nE "Name.*$Name" | cut -d : -f 3- | xargs)
+# It takes sometime for bluetooth sink to be available
+while sleep 1; do
+	NEW_SINK=$(pactl list sinks | grep -nE "Name.*$Name" | cut -d : -f 3- | xargs)
+	[[ -n "$NEW_SINK" ]] && break
+done
 
 notify-send --app-name=$APP_NAME --expire-time=1000 --icon="$icon" "Switching to $PICKED_SINK sink"
 pactl set-default-sink "$NEW_SINK"

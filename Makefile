@@ -133,6 +133,7 @@ setup-systemd-services:
 	sudo systemctl enable --now nftables.service
 	sudo systemctl enable --now acpid.service
 	sudo systemctl enable --now firewalld.service
+	sudo systemctl enable --now bluetooth.service
 	@# Weekly, discard unused blocks in filesystem
 	sudo systemctl enable --now fstrim.timer
 	systemctl --user daemon-reload

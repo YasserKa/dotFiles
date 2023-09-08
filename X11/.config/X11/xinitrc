@@ -16,6 +16,8 @@ xdotool mousemove --polar 0 0
 # Hotkeys
 sxhkd &
 
+rfkill block bluetooth
+
 # Hide cursor
 unclutter &
 # shellcheck disable=SC3044
