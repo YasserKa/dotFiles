@@ -100,6 +100,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	git clone https://github.com/YasserKa/notes $(HOME)/notes
 	git -C $(HOME)/notes config --bool branch.master.sync true
 	git -C $(HOME)/notes config --bool branch.master.syncNewFiles true
+	git -C $(HOME)/notes config --local commit.gpgsign false
 	@# Setup ambient music
 	yt-dlp -x -o "$(HOME)/Music/ambient_music.%(ext)s" https://www.youtube.com/watch?v=6uVUv8gZHBE
 
@@ -109,6 +110,7 @@ stow-packages:
 	stow --target=$HOME --dir="$HOME/.dotfiles-private" qutebrowser bash zsh hunspell khard snippets
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.sync true
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.syncNewFiles true
+	git -C $(HOME)/.dotfiles-private config --local commit.gpgsign false
 	sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
