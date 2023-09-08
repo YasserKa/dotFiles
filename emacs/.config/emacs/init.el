@@ -12,26 +12,23 @@
       )
 (defun display-startup-echo-area-message () (message nil))
 
-;; Raise gc while during startup and when minibuffer is active
-(setq my/gc-cons-threshold 16777216) ;; 16mb
+;; Temporarily raise garbage collection limit for initialization
 
-(defun my/defer-garbage-collection-h ()
-  (setq gc-cons-threshold most-positive-fixnum))
+(defvar my/backup-gc-cons-threshold gc-cons-threshold)
 
-;; Startup
-(my/defer-garbage-collection-h)
+(defun my/lower-gc-cons-threshold ()
+  "Revert back to something slightly bigger than the default."
+  (setq gc-cons-threshold (+ my/backup-gc-cons-threshold 200000))
+  (remove-function after-focus-change-function #'my/lower-gc-cons-threshold)
+  (remove-hook 'after-focus-change-function #'my/lower-gc-cons-threshold))
 
-(add-hook 'emacs-init-hook (lambda () (setq gc-cons-threshold my/gc-cons-threshold)))
+(add-hook 'after-init-hook
+          (lambda ()
+            (run-with-idle-timer 3 nil #'my/lower-gc-cons-threshold)
+            (add-function :after after-focus-change-function #'my/lower-gc-cons-threshold)))
 
-;; Minibuffer
-(defun my/restore-garbage-collection-h ()
-  ;; Defer it so that commands launched immediately after will enjoy the
-  ;; benefits.
-  (run-at-time
-   1 nil (lambda () (setq gc-cons-threshold my/gc-cons-threshold))))
-
-(add-hook 'minibuffer-setup-hook #'my/defer-garbage-collection-h)
-(add-hook 'minibuffer-exit-hook #'my/restore-garbage-collection-h)
+(setq gc-cons-threshold (* 1024 gc-cons-threshold))
+(setq use-package-compute-statistics t)
 
 ;; https://github.com/hlissner/doom-emacs/blob/master/docs/faq.org#user-content-unset-file-na me-handler-alist-temporarily
 ;; Unset this variable during startup to make Emacs ignore it
