@@ -414,7 +414,13 @@
   ;; since the default value "text-properties" is faster than "overlays"
   ;; https://github.com/emacs-evil/evil/issues/1630
   (evil-select-search-module 'evil-search-module 'isearch)
-  (define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
+  (defun my/remove-char-in-isearch-mode ()
+    "Delete last char of the search string."
+    (interactive)
+    (unless (equal isearch-string "") (isearch-pop-state))
+    (isearch-update))
+
+  (define-key isearch-mode-map (kbd "C-h") 'my/remove-char-in-isearch-mode)
 
   (evil-define-key nil 'global (kbd "M-u") 'universal-argument)
   (define-key key-translation-map (kbd "C-<escape>") (kbd "ESC"))
