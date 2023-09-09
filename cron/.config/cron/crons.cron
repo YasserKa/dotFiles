@@ -7,6 +7,6 @@
 */30 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -n -s
 
 # NOTE: can't have soft link on zsh history file
-* */1 * * * . $HOME/.config/cron/cron_env && (yes | cp --force $HISTFILE $HOME/.dotfiles-private/zsh/.config/zsh) && cd $HOME/.dotfiles-private && $HOME/bin/git-sync -n -s
+0 */1 * * * . $HOME/.config/cron/cron_env && (yes | cp --force $HISTFILE $HOME/.dotfiles-private/zsh/.config/zsh) && cd $HOME/.dotfiles-private && $HOME/bin/git-sync -n -s
 
 # vim: syntax=crontab commentstring=#%s
