@@ -95,7 +95,7 @@ ranger() {
 # Use fasd and FZF to jump through directories
 j() {
 	local paths
-	paths=$(fasd -dlR "$@")
+	paths=$(fasd -dlR "$@" | grep -v dotfiles)
 	local my_path="$HOME"
 	# If only one path exists, go to it
 	if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
