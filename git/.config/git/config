@@ -55,10 +55,12 @@
 
     save = !git add -A && git commit -m 'chore: commit save point'
     # Reset
-    undo = reset HEAD~1 --mixed 
-    res = !git reset --hard
+    reset-mixed = reset HEAD~1 --mixed 
+    reset-hard = reset --hard HEAD
+    reset-soft = reset --soft HEAD
 
-    done = !git push origin HEAD
+    done = push origin HEAD
+    please = push -u --force-with-lease
     amend = commit --amend
 
     cm = commit -m 
@@ -78,7 +80,7 @@
 
     # Logs
     last = show --stat HEAD
-    lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+    lg = log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
     countcommits = shortlog -sn --no-merges
     graph = log --graph --oneline --decorate
 

@@ -1343,6 +1343,8 @@ see how ARG affects this command."
   :custom
   ;; Ignore leading stars or tags on headings for appending end of line of going to start of line
   (org-special-ctrl-a/e t)
+  ;; Don't insert a new item when pressing o/O in org-mode
+  (evil-org-special-o/O '(table-row))
   ;; Enabled, because evil has a bug with repeat command and shifting
   (evil-org-retain-visual-state-on-shift t)
   (evil-org-use-additional-insert t)
@@ -1398,7 +1400,6 @@ see how ARG affects this command."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
-
   (setq org-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/agenda_files"))
   )
 
