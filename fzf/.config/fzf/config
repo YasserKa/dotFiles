@@ -5,7 +5,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="
 --preview 'echo {}' --preview-window up:3:hidden:wrap
 --bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
- --color header:italic
+--bind 'ctrl-/:change-preview-window(down|hidden|)'
+--color header:italic
 --header 'Press CTRL-Y to copy command into clipboard'"
 export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white --bind='ctrl-n:down,ctrl-p:up,ctrl-j:accept,alt-j:preview-page-down,alt-k:preview-page-up,alt-n:next-history,alt-p:prev-history'"
 # export FZF_DEFAULT_OPTS="--bind=,alt-n:next-history, alt-p:prev-history'"
