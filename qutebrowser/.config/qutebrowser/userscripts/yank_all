@@ -31,7 +31,7 @@ def get_markdown_urls():
     org_urls = [f"- [[{title}][{url}]]" for (url, title) in urls.items()]
     # markdown_urls = [f"- [{url}]({title})" for (url, title) in urls.items()]
 
-    parsed_urls = '\n'.join(org_urls)
+    parsed_urls = '\n'+'\n'.join(org_urls)
 
     return parsed_urls
 
