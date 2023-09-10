@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Dependencies: pdm
+
+# Initialize environment and create jupyter notebooks with jupyter_ascending
+# https://github.com/untitled-ai/jupyter_ascending
+# which uses jupytext to sync sync.py and .sync.ipynb and adding "cell
+# execution" cababilities from within the .py file
+
+[[ "$1" == "create" && -z "$2" ]] &&
+	echo "Need notebook name as an argument" && exit
+
+if [[ "$1" == "init" ]]; then
+	# Install jupytext and jupyter_ascending for syncing
+	pdm init
+	# notebook is locked, since nbextensions and jupyter notebook don't work with
+	# 7.0 notebook
+	pdm add -dG jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator jupytext jupyter_ascending notebook==6.5.5
+
+	pdmshell
+	jupyter nbextension install jupytext --py --user
+	jupyter nbextension enable jupytext --py --user
+
+	jupyter nbextension install jupyter_ascending --py --user
+	jupyter nbextension enable jupyter_ascending --py --user
+	jupyter serverextension enable jupyter_ascending --py --user
+else
+	# Create file using jupyter ascending
+	python -m jupyter_ascending.scripts.make_pair --base "$2"
+
+	jupytext --set-formats ipynb,py:percent "$2.sync.ipynb"
+
+	# open notebook
+	jupyter notebook "$(pwd)/$2.sync.ipynb" &>/dev/null &
+	nvim "$(pwd)/$2.sync.py"
+fi
