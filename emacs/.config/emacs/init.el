@@ -815,6 +815,11 @@
                              (org-agenda-files :maxlevel . 3)
                              (org-buffer-list :maxlevel . 2)))
 
+  (setq org-refile-use-outline-path 'file      ;; Allow files in refiling candidates
+        org-outline-path-complete-in-steps nil ;; Don't remove headings
+        org-refile-allow-creating-parent-nodes 'confirm ;; Add a new parent header to the refiled header
+        )
+
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   ;; Insert mode after going to add a note to logs
