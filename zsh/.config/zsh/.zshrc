@@ -238,11 +238,19 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers --theme gruvbox-dark $realpath'
-zstyle ':fzf-tab:complete:lsd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers --theme gruvbox-dark $realpath'
-zstyle ':fzf-tab:complete:_rg:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers --theme gruvbox-dark $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
+zstyle ':fzf-tab:complete:lsd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
+zstyle ':fzf-tab:complete:_rg:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
+# Remove the prefix "."
+zstyle ':fzf-tab:*' prefix ''
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+# zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+  '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
 
 
 # }}}
