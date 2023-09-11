@@ -7,7 +7,6 @@
 
 ;; Inhibit some defaults and remove UI elements
 (setq inhibit-startup-message t               ;; No startup message
-      initial-scratch-message nil             ;; Empty scratch buffer
       default-directory       (getenv "HOME") ;; Set default directory
       )
 (defun display-startup-echo-area-message () (message nil))
