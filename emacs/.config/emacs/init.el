@@ -54,6 +54,8 @@
   (setq auto-package-update-delete-old-versions t))
 
 (add-to-list 'load-path (concat user-emacs-directory "/lisp"))
+
+(require 'functions)
 ;; }}}
 ;; Misc {{{
 ;; Use y/n for yes/no prompts
