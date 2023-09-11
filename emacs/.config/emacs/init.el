@@ -1372,12 +1372,13 @@ see how ARG affects this command."
                               ;; Insert a bullet in case point is on a bullet point
                               (kbd "<C-return>") #'(lambda () (interactive)
                                                      (cond ((org-at-item-p)
-                                                            (evil-org-open-above 1) t)
+                                                            (let ((evil-org-special-o/O '(table-row item))) (evil-org-open-above 1)) t)
                                                            ((progn (beginning-of-line) (org-insert-heading) (evil-insert 0)))))
                               (kbd "<C-S-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0))
-                              (kbd "<M-return>") #'(lambda () (interactive) (cond ((org-at-item-p)
-                                                                                   (evil-org-open-below 1) t)
-                                                                                  ((progn (org-insert-heading-after-current) (evil-insert 0)))))
+                              (kbd "<M-return>") #'(lambda () (interactive)
+                                                     (cond ((org-at-item-p)
+                                                            (let ((evil-org-special-o/O '(table-row item))) (evil-org-open-below 1)) t)
+                                                           ((progn (org-insert-heading-after-current) (evil-insert 0)))))
                               (kbd "<M-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
                             ;; readline keybinding
                             (evil-define-key 'insert 'evil-org-mode
