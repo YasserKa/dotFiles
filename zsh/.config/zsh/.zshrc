@@ -287,14 +287,15 @@ fi
 # Helper function to integrate paru and fzf
 yzf() {
   pos=$1
+  AUR_URL='https://aur.archlinux.org/packages'
+  OFFICIAL_URL='https://archlinux.org/packages'
   shift
   sed "s/ /\t/g" |
     fzf --ansi --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-yzf$pos" \
     --preview-window=60%,border-left \
-    --bind="alt-enter:execute(xdg-open 'https://aur.archlinux.org/packages?K={$pos}&SB=p&SO=d&PP=100' 2>/dev/null)" \
-		--bind="ctrl-o:execute(xdg-open \$(pacman -Si {$pos} | grep URL | awk '{print \$NF}') 2>/dev/null)" \
-		--bind="alt-o:execute(xdg-open 'https://archlinux.org/packages/{$pos}' 2>/dev/null)" \
-		--header 'C-o: Open repo, A-o: Open package in official, A-enter: Search in AUR' \
+		--bind="ctrl-o:execute(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
+		--bind="alt-o:execute(2>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
+		--header 'C-o: Upstream URL, A-o: Official or AUR URL' \
     "$@" | cut -f$pos | xargs
   }
 
