@@ -6,25 +6,26 @@
 # options:
 # --clean: If it's a github repo root, get the package name only
 
-title="$QUTE_TITLE"
-url="$QUTE_URL"
+TITLE="$QUTE_TITLE"
+URL="$QUTE_URL"
 
 # Assign it to the github repo name only
 if [[ "$1" == "--clean" ]]; then
-	url_root="$(echo "$QUTE_URL" | awk -F '/' '{print $3}')"
+	URL_ROOT="$(echo "$URL" | awk -F '/' '{print $3}')"
 
 	# Should be at root of the repo
 	# Checked by counting number of dashes
-	num_dashes=$(echo "$QUTE_URL" | grep -o "/" | wc -l)
+	NUM_DASHES=$(echo "$URL" | grep -o "/" | wc -l)
 
-	if [[ "$url_root" == "github.com" && $num_dashes == 4 ]]; then
-		title=$(echo "$QUTE_TITLE" | awk -F : '{ print $1}')
+	if [[ "$URL_ROOT" == "github.com" && $((NUM_DASHES)) -ge 4 ]]; then
+		# shellcheck disable=2026
+		URL="$(echo "$URL" | cut -d / -f -5)"
+		TITLE="$(echo "$URL" | cut -d / -f 4-)"
 	fi
-	url="${url%#*}"
 fi
 
 # Emojis are removed because org link-prettier shows the link twice for titles
 # containing emojis
-title_no_emoji="$("$HOME/bin/remove_emoji" "$title")"
-echo -n "[[$url][$title_no_emoji]]" | xclip -selection c
+TITLE_NO_EMOJI="$("$HOME/bin/remove_emoji" "$TITLE")"
+echo -n "[[$URL][$TITLE_NO_EMOJI]]" | xclip -selection c
 echo "message-info 'url turned to org url'" >>"$QUTE_FIFO"

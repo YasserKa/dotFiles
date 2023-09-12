@@ -1813,7 +1813,7 @@ selection of all minor-modes, active or not."
   (" b" embark-bindings "binding")
   (" f" helpful-callable "function")
   (" c" helpful-command "command")
-  (" p" helpful-at-point "at point")
+  (" ." helpful-at-point "at point")
   (" l" find-library "library file")
   (" L" apropos-library "library commands" :column "")
   (" m" describe-mode "all modes")
