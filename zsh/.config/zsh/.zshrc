@@ -285,13 +285,13 @@ fi
 # }}}
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
-yzf() {
+pzf() {
   pos=$1
   AUR_URL='https://aur.archlinux.org/packages'
   OFFICIAL_URL='https://archlinux.org/packages'
   shift
   sed "s/ /\t/g" |
-    fzf --ansi --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-yzf$pos" \
+    fzf --ansi --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf$pos" \
     --preview-window=60%,border-left \
 		--bind="ctrl-o:execute(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
 		--bind="alt-o:execute(2>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
@@ -302,8 +302,8 @@ yzf() {
 # Dev note: print -s adds a shell history entry
 
 # List installable packages into fzf and install selection
-yas() {
-  cache_dir="/tmp/yas-$USER"
+pai() {
+  cache_dir="/tmp/pas-$USER"
   test "$1" = "-y" && rm -rf "$cache_dir" && shift
   mkdir -p "$cache_dir"
   preview_cache="$cache_dir/preview_{2}"
@@ -311,7 +311,7 @@ yas() {
   { test "$(cat "$list_cache$@" | wc -l)" -lt 50000 && rm "$list_cache$@"; } 2>/dev/null
 
   	pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
-      yzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
+      pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
           if test -n "$pkg"
           then echo "Installing $pkg..."
             cmd="paru -S $pkg"
@@ -322,8 +322,8 @@ yas() {
         }
         # List installed packages into fzf and remove selection
         # Tip: use -e to list only explicitly installed packages
-        yar() {
-          pkg=$(paru --color=always -Q "$@" | yzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
+        par() {
+          pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
           if test -n "$pkg"
           then echo "Removing $pkg..."
             cmd="paru -R --cascade --recursive $pkg"
