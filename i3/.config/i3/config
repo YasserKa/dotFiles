@@ -102,6 +102,7 @@ bindsym $mod+z workspace back_and_forth
 bindsym $mod+Shift+minus move scratchpad
 
 # Opening softwares to a default workspaces
+# Use xprop to check window attributes
 assign [title="^emacs_org_name$"] workspace $notes
 assign [title="^magit_name$"] workspace $git
 assign [title="^rc_magit_title$"] workspace $git
@@ -149,7 +150,6 @@ mode $clock_mode {
     bindsym t exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock clock_toggle; mode "default";
     bindsym p exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock toggle_polybar_time; mode "default";
     bindsym g exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock go_to_entry; mode "default";
-    bindsym s exec --no-startup-id $XDG_CONFIG_HOME/polybar/org_clock go_to_scheduled_entry; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";

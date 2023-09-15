@@ -35,7 +35,7 @@ mailboxes =INBOX\
 
 macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail --verbose $my_account_name<enter> \
           <sync-mailbox> \
-          <shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
+          <shell-escape>pkill -RTMIN+8 waybar 2>1 > /dev/null<enter> \
           <shell-escape>notmuch new<enter>" \
           "run syncmail to sync personal"
 

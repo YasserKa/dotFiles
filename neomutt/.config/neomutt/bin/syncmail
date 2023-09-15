@@ -76,13 +76,14 @@ else
 	accounts=$*
 fi
 
-[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
+# [[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
 for account in $accounts; do
 	syncandnotify &
 done
 
 wait
-polybar-msg action "#mail.hook.0"
+# polybar-msg action "#mail.hook.0"
+pkill -RTMIN+8 waybar
 
 notmuch new 2>/dev/null
 #Create a touch file that indicates the time of the last run of syncmail

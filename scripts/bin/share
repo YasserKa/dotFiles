@@ -10,68 +10,88 @@ mkdir -p $target_img_dir
 mkdir -p $target_vid_dir
 
 # returns the path for the course
-function note_path(){
-    # note lectures
-    notes_dir="$HOME/notes/latex"
-    note_picked=$(exa -l $notes_dir | awk -F' ' '{print $NF}' | rofi -dmenu)
-    note_dir="$notes_dir/$note_picked/images"
-    echo $note_dir
+function note_path() {
+	# note lectures
+	notes_dir="$HOME/notes/latex"
+	note_picked=$(exa -l $notes_dir | awk -F' ' '{print $NF}' | rofi -dmenu)
+	note_dir="$notes_dir/$note_picked/images"
+	echo $note_dir
 }
 
-function note_path_org_roam(){
-    notes_dir="$HOME/notes/org/images"
-    echo $notes_dir
+function note_path_org_roam() {
+	notes_dir="$HOME/notes/org/images"
+	echo $notes_dir
 }
 
 case $1 in
-    -v) deepin-screen-recorder --screenRecord ;;
-    -i | -c) deepin-screen-recorder --screenShot --save-path $target_path ;;
-    -n) target_path=$(note_path_org_roam) ;;
-    -t)  xclip -o -selection clipboard | gist -p | xclip -selection clipboard
-        notify-send "Saved to Clipboard" ;exit ;;
+	-v)
+		if [ -n "${WAYLAND_DISPLAY}" ]; then
+			# NOTE: Can add GIF via -c gif
+			wf-recorder -g "$(slurp)" -f "$HOME/Videos/Screen Recordings/video.mp4"
+		else
+			deepin-screen-recorder --screenRecord
+		fi
+		;;
+	-i | -c)
+		if [ -n "${WAYLAND_DISPLAY}" ]; then
+			/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
+		else
+			deepin-screen-recorder --screenShot --save-path $target_path
+		fi
+		;;
+	-n) target_path=$(note_path_org_roam) ;;
+	-t)
+		xclip -o -selection clipboard | gist -p | xclip -selection clipboard
+		notify-send "Saved to Clipboard"
+		exit
+		;;
 esac
 
 if [ "$1" == "-n" ]; then
-    mkdir -p $target_path
+	mkdir -p $target_path
 
-    deepin-screen-recorder --save-path $target_path
-    old_file_name=`ls $target_path | grep -E 'Screen'`
-    extension="${old_file_name##*.}"
+	if [ -n "${WAYLAND_DISPLAY}" ]; then
+		/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
+	else
+		deepin-screen-recorder --save-path $target_path
+	fi
+	old_file_name=$(ls $target_path | grep -E 'Screen')
+	extension="${old_file_name##*.}"
 
-    if [[ "$extension" == "" ]]; then
-        exit
-    fi
+	if [[ "$extension" == "" ]]; then
+		exit
+	fi
 
-    old_path="$target_path/$old_file_name"
-    new_file_name="$(date +"%Y-%m-%d_%T").$extension"
-    new_path="$target_path/$new_file_name"
-    mv "$old_path" "$new_path"
-    echo -en "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]" | xclip -selection clipboard
-    notify-send "Saved as $new_file_name"
-    exit
+	old_path="$target_path/$old_file_name"
+	new_file_name="$(date +"%Y-%m-%d_%T").$extension"
+	new_path="$target_path/$new_file_name"
+	mv "$old_path" "$new_path"
+	echo -en "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]" | xclip -selection clipboard
+	notify-send "Saved as $new_file_name"
+	exit
 fi
 
 arg=$1
-date=`date +"%Y-%m-%d_%T"`
+date=$(date +"%Y-%m-%d_%T")
 if [[ $1 == "-v" ]]; then
-    file_name=$(ls -t "$HOME/Videos/Screen Recordings/" | head -n 1)
-    old_path="$HOME/Videos/Screen Recordings/$file_name"
+	file_name=$(ls -t "$HOME/Videos/Screen Recordings/" | head -n 1)
+	old_path="$HOME/Videos/Screen Recordings/$file_name"
 else
-    file_name=$(ls $target_path | grep -E 'Screen|Record')
-    old_path="$target_path/$file_name"
+	file_name=$(ls $target_path | grep -E 'Screen|Record')
+	old_path="$target_path/$file_name"
 fi
-
+# exit
 
 extension="${file_name##*.}"
 
 if [[ "$extension" == "" ]]; then
-    exit
+	exit
 fi
 
 # update target path depending on media type
 case $extension in
-    png | jpg | bmp) target_path=$target_img_dir ;;
-    mp4 | gif | mkv) target_path=$target_vid_dir ;;
+	png | jpg | bmp) target_path=$target_img_dir ;;
+	mp4 | gif | mkv) target_path=$target_vid_dir ;;
 esac
 
 new_name="$date.$extension"
@@ -81,13 +101,12 @@ new_path="$target_path/$new_name"
 mv "$old_path" "$new_path"
 
 if [[ "$extension" == "gif" ]]; then
-    arg='-i'
+	arg='-i'
 fi
 
-
 if [ "$1" == "-c" ]; then
-    cat $new_path | xclip -selection clipboard -t $(file -b --mime-type $new_path)
-    notify-send "Image saved to clipboard"
+	cat $new_path | xclip -selection clipboard -t $(file -b --mime-type $new_path)
+	notify-send "Image saved to clipboard"
 else
-    xback $new_path
+	xback $new_path
 fi

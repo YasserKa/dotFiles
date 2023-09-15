@@ -106,7 +106,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 
 .PHONY: stow-packages
 stow-packages:
-	stow abook alacritty autorandr autokey bash bat cmus cron dunst emacs fasd flake8 fzf feh git gnupg geoclue gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom dprint polybar qutebrowser ranger readline rofi scripts ssh sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers X11 xmodmap wezterm yt-dlp zathura zsh
+	X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts ssh stow sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
 	stow --target=$HOME --dir="$HOME/.dotfiles-private" qutebrowser bash zsh hunspell khard snippets
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.sync true
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.syncNewFiles true
@@ -125,6 +125,7 @@ setup-systemd-services:
 	systemctl enable --now udiskie.service --user
 	systemctl enable --now dunst.service --user
 	systemctl enable --now sxhkd.service --user
+	systemctl enable --now geoclue-agent.service --user
 	systemctl enable --now msmtp-runqueue.timer --user
 	systemctl enable --now mbsync.timer --user
 	systemctl enable --now snapd.socket

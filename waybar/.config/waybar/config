@@ -1,0 +1,46 @@
+[
+    {
+        "output": ["eDP-1"], // center
+        "include": [
+		    "~/.config/waybar/default-modules.json",
+	    ],
+        "modules-left": ["sway/workspaces", "sway/mode"],
+        "modules-center": ["custom/clock"],
+        "modules-right": [
+            "pulseaudio",
+            "network",
+            "cpu",
+            "memory",
+            "battery",
+            "clock",
+            "custom/mail", 
+            "tray"
+        ],
+        "custom/mail": {
+            "format": "{} ",
+            "interval": "once",
+            "exec": "$XDG_CONFIG_HOME/neomutt/bin/get_number_new_mail",
+            "signal": 8
+        },
+        "custom/clock": {
+            "format": "{}  ",
+            "interval": 1,
+            "on-click": "$XDG_CONFIG_HOME/my_emacs/bin/org_clock go_to_entry",
+            "exec-if": "bat /tmp/org_current_task 2>/dev/null",
+            // get current task and the time since it got created
+            "exec": "$XDG_CONFIG_HOME/my_emacs/bin/org_clock get_info [TIME_PLACEHOLDER]",
+        },
+
+        "tray": {
+            "spacing": 10
+        }
+    },
+    {
+        "output": ["DVI-I-2", "DVI-I-1"],
+        "include": [
+		    "~/.config/waybar/default-modules.json",
+	    ],
+    }
+]
+
+// vim:filetype=javascript

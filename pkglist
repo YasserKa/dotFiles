@@ -32,8 +32,9 @@ displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
 evdi-compat-git
 
 # Video
-nvidia       # NVIDIA drivers
-nvidia-utils # NVIDIA drivers utilities
+# nvidia       # NVIDIA drivers
+# nvidia-utils # NVIDIA drivers utilities
+xf86-video-nouveau # Open source driver for NVIDIA card
 
 # Needed microcode
 intel-ucode # Microcode update files for Intel CPUs
@@ -176,7 +177,8 @@ dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands
 sxhkd # Simple X hotkey daemon
 xcape # Configure modifier keys to act as other keys when pressed and released on
-rofi # A window switcher, application launcher and dmenu replacement
+# rofi # A window switcher, application launcher and dmenu replacement
+rofi-lbonn-wayland-git # rofi's wayland fork
 rofi-calc # Do calculations in rofi
 polybar # A fast and easy-to-use status bar
 lsof # List open files for running Unix processes
@@ -224,6 +226,14 @@ xorg-server # Xorg X server
 xorg-xev # Print contents of X events
 xorg-xinit # X.Org initialisation program
 xorg-xkill # Kill a client by its X resource
+
+wlroots # Compositor library for wayland
+wlroots-debug
+xorg-xwayland # run X clients under wayland
+sway          # Tiling Wayland compositor similar to i3
+swaybg        # Wallpaper tool
+swaylock      # Screen locker
+waybar        # Wayland bar
 
 zathura # Minimalistic document viewer
 zathura-djvu # DjVu support for Zathura
@@ -283,6 +293,11 @@ asciinema # Record and share terminal sessions
 # Dependency for deepin
 ocl-icd # OpenCL ICD Bindings
 deepin-qt-dbus-factory # https://bugs.archlinux.org/task/78223
+
+# (Wayland) Screen recording and shots
+grim    # Screenshot utility for Wayland
+slurp   # Selection a region in Wayland
+wf-recorder # Screen recorder for wlroots-based compositors
 
 docker # Container
 docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit

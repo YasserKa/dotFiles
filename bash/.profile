@@ -86,8 +86,10 @@ export USE_EMOJI=0
 # Start manager for GPG & SSH agents
 eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh" id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)"
 
-# XDG_VTNR is set by pam_systemd upon login
-# If there's no DISPLAY, start X11
-if [[ -z "${DISPLAY}" ]] && [[ "$XDG_VTNR" -eq 1 ]]; then
-	exec startx "$XINITRC"
+# Use a display server (X or Wayland)
+if [ "${XDG_VTNR}" -eq 1 ]; then
+	if [ -z "${WAYLAND_DISPLAY}" ] || [ -z "${DISPLAY}" ]; then
+		exec sway
+		# exec startx "${XINITRC}"
+	fi
 fi

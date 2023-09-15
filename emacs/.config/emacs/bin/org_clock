@@ -20,7 +20,11 @@ declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_polybar"
 ################################################################################
 go_to_entry() {
 	# Focus window
-	xdotool search --sync --name "emacs_org_name" windowactivate
+	if [ -n "${WAYLAND_DISPLAY}" ]; then
+		swaymsg '[title="^emacs_org_name$"] focus'
+	else
+		xdotool search --sync --name "emacs_org_name" windowactivate
+	fi
 	# Go to clocked or most recently clocked entry
 	execute_emacs_command "(org-clock-goto)"
 }
@@ -31,8 +35,11 @@ go_to_entry() {
 #     None
 ################################################################################
 go_to_scheduled_entry() {
-	# Focus window
-	xdotool search --sync --name "emacs_org_name" windowactivate
+	if [ -n "${WAYLAND_DISPLAY}" ]; then
+		swaymsg '[title="^emacs_org_name$"] focus'
+	else
+		xdotool search --sync --name "emacs_org_name" windowactivate
+	fi
 	# Go to clocked or most recently clocked entry
 	execute_emacs_command "(my/org-goto-next-scheduled)"
 }
@@ -61,6 +68,7 @@ toggle_polybar_time() {
 notify_info() {
 	local INFO
 	INFO="$(get_info "$1" "$2")"
+	echo "$1" >|~/ba
 	notify-send "$(echo -e "$INFO")"
 }
 
@@ -108,7 +116,7 @@ get_info() {
 get_name() {
 	local -ir NAME_MAX_SIZE=52
 
-	TASK_NAME="$(cut -d ' ' -f 3- <(echo "$1"))"
+	TASK_NAME="$(cut -d ' ' -f 2- <(echo "$1"))"
 
 	# Limit the size of information to not overwhelm polybar when the string is too big
 	[[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"

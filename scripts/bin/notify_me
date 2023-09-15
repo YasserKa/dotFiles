@@ -154,12 +154,12 @@ def main():
         service=Service(executable_path=executable_path), options=options
     )
 
-    # try:
-    # check_discord(driver)
-    # check_facebook(driver)
-    check_whatsapp(driver)
-    # except TimeoutException:
-    #     pass
+    try:
+        check_discord(driver)
+        check_facebook(driver)
+        check_whatsapp(driver)
+    except TimeoutException:
+        pass
 
     driver.close()
 
