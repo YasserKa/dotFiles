@@ -224,7 +224,7 @@ mode $mail_mode {
     bindsym o exec bash -ic "open_cli neomutt"; mode "default";
     bindsym s exec bash -ic "syncmail trigger-polybar"; mode "default";
 # Mark messages as read
-    # bindsym c exec $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && polybar-msg action "#mail.hook.0" && dunstctl close; mode "default";
+    bindsym c exec $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && pkill -RTMIN+8 waybar && dunstctl close; mode "default";
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
