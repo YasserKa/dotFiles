@@ -67,8 +67,12 @@ unclutter # hide cursor if not active
 picom-git # X compositor (fork of compton) (git-version)
 
 # Monitor management
+# X
 arandr # Provide a simple visual front end for XRandR 1.2.
 autorandr # Auto-detect connected display hardware and load appropiate X11 setup using xrandr
+# Wayland
+nwg-displays # Output management utility
+shikane # Dynamic output configuration tool
 
 # Programming
 patch # A utility to apply patch files to original sources

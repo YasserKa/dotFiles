@@ -62,9 +62,9 @@ set $monitor_center eDP-1
 set $monitor_right DVI-I-1
 
 output * bg $HOME/Pictures/WallPapers/763859.jpg fill
-output $monitor_left   resolution 1920x1080 position 0,0
-output $monitor_center resolution 1920x1080 position 1920,0
-output $monitor_right  resolution 1920x1080 position 3840,0
+
+# Manage output configuration dynamically
+exec shikane & disown
 
 workspace $browser output $monitor_center
 workspace $coding output $monitor_center
