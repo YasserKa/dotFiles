@@ -2,7 +2,7 @@
 #
 # Captures a URL and its title to org mode while not focusing the Emacs window
 #
-# Dependencies: Emacs, i3
+# Dependencies: Emacs, i3 or sway
 #
 # INPUT:
 #   URL (MANDATORY)
@@ -13,11 +13,9 @@
 URL="$1"
 TITLE="$2"
 
-"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none
+# Don't do it for Sway
+# if [ -z "${WAYLAND_DISPLAY}" ]; then
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2
+# fi
 
 emacsclient --socket-name="org-mode" --no-wait "org-protocol://capture?url=$URL&title=$TITLE"
-EXIT_STATUS="$?"
-
-"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" smart
-
-exit "$EXIT_STATUS"

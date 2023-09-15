@@ -123,8 +123,7 @@ for_window [class="Vlc|feh|Shutter"] floating enable
 for_window [instance="floating"] floating enable
 
 # Change workspace when window is activated (used for qutebrowser gt)
-# include ./focus_on_window_activation_config
-focus_on_window_activation none
+include ./focus_on_window_activation_config
 # >>>
 # Modes <<<
 bindsym $mod+r mode "resize"
