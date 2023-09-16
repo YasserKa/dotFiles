@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none
-
 encode_url() {
 	# Reliable localization
 	local LC_ALL=C

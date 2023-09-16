@@ -19,7 +19,9 @@ export VISUAL=nvim
 export BROWSER=qutebrowser
 export TERMINAL=kitty
 export DIFFPROG=vimdiff
-export PAGER=vimpager
+export PAGER=less
+# Vimpager for man pager
+export MANOPT=-Pvimpager
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
 export _EDITOR_GUI=nvim-qt
