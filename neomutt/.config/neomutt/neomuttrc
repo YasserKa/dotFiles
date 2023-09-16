@@ -140,10 +140,10 @@ macro compose a "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/rangerpicker attach<
 
 # Sync mail then update polybar after reading new emails
 # message-hook ~N 'push "$!polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"'
-message-hook ~N 'push "$![ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" &<enter>"'
+message-hook ~N 'push "$!{ [ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\"; } >/dev/null &<enter>"'
 # Save changes
 # macro index,pager S "<sync-mailbox><shell-escape>polybar-msg action \"#mail.hook.0\" > /dev/null<enter>"
-macro index,pager S "<sync-mailbox><shell-escape>[ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" &pkill -RTMIN+8 waybar > /dev/null<enter>"
+macro index,pager S "<sync-mailbox><shell-escape>{ [ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" &pkill -RTMIN+8 waybar; } > /dev/null<enter>"
 
 
 # Source config file

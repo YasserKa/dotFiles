@@ -27,5 +27,7 @@ fi
 # Emojis are removed because org link-prettier shows the link twice for titles
 # containing emojis
 TITLE_NO_EMOJI="$("$HOME/bin/remove_emoji" "$TITLE")"
-echo -n "[[$URL][$TITLE_NO_EMOJI]]" | xclip -selection c
+
+copy_to_clipboard "[[$URL][$TITLE_NO_EMOJI]]"
+
 echo "message-info 'url turned to org url'" >>"$QUTE_FIFO"

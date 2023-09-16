@@ -89,7 +89,7 @@ eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh
 # Use a display server (X or Wayland)
 if [ "${XDG_VTNR}" -eq 1 ]; then
 	if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ]; then
-		exec sway
-		# exec startx "${XINITRC}"
+		# exec sway
+		exec startx "${XINITRC}"
 	fi
 fi

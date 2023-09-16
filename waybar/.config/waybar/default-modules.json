@@ -30,12 +30,10 @@
       "6": "6",
       "7": "7",
       "8": "",
-      "9": "",
-      "urgent": ""
+      "9": ""
     }
   },
   "sway/mode": {
-    // "format": "<span style=\"italic\">{}</span>"
     "format": "{}"
   },
   "sway/scratchpad": {
@@ -49,8 +47,6 @@
     "spacing": 10
   },
   "clock": {
-    // "timezone": "America/New_York",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
     "format-alt": "{:%Y-%m-%d}"
   },
   "cpu": {

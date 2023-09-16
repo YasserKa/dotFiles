@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Copy to clipboard using:
+#  xclip (X)
+#  wl-clibpard (Wayland)
+if [ -n "${WAYLAND_DISPLAY}" ]; then
+	echo "$@" | wl-copy
+else
+	echo "$@" | xclip -selection c
+fi

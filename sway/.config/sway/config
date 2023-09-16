@@ -43,7 +43,7 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
 
 # Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # Worspaces
 set $browser 1
@@ -64,7 +64,7 @@ set $monitor_right DVI-I-1
 output * bg $HOME/Pictures/WallPapers/763859.jpg fill
 
 # Manage output configuration dynamically
-exec shikane
+exec_always killall shikane; shikane & disown
 
 workspace $browser output $monitor_center
 workspace $coding output $monitor_center
@@ -178,7 +178,7 @@ mode $cmus_mode {
 }
 
 set $sharing_mode "(i)mage, (c)lipboard, (v)ideo, (t)ext, (n)ote"
-# bindsym $mod+s mode $sharing_mode
+bindsym $mod+s mode $sharing_mode
 mode $sharing_mode {
     bindsym i exec $HOME/bin/share -i; mode "default";
     bindsym c exec $HOME/bin/share -c; mode "default";
@@ -248,6 +248,27 @@ bindsym $mod+g exec $TERMINAL
 bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show run
 
+bindsym $mod+space exec dunstctl close
+
+# redisplay last message().
+bindsym $mod+apostrophe exec dunstctl history-pop
+
+# context menu. for selecting URLs and actions
+bindsym $mod+shift+apostrophe exec dunstctl action
+
+# context menu. for selecting URLs and actions
+bindsym $mod+comma exec [[ "$(xdotool getwindowclassname $(xdotool getactivewindow))" == "okular" ]] && $HOME/bin/store_highlightes_of_active_doc_to_clipboard
+
+# bindsym space exec 
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1000
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1000
+# Mute volume
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# Mute microphone
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# ZMK doesn't have have XF86AudioMicMute, so this is used instead
+bindsym XF86Phone exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
 # Drag/resize floating with mouse left/right+$mod
 floating_modifier $mod normal
 
@@ -266,6 +287,8 @@ bindsym $mod+Shift+d exec $XDG_CONFIG_HOME/rofi/rofi_documents
 bindsym $mod+n exec $HOME/bin/open_general_notes
 # Show any window besides general notes
 bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
+# Put general notes in scratchpad
+for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 
 for_window [class="^bitwarden_editor$"] floating enable, move position center, resize set 990 820
 
