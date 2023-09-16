@@ -64,7 +64,7 @@ set $monitor_right DVI-I-1
 output * bg $HOME/Pictures/WallPapers/763859.jpg fill
 
 # Manage output configuration dynamically
-exec shikane & disown
+exec shikane
 
 workspace $browser output $monitor_center
 workspace $coding output $monitor_center

@@ -68,22 +68,27 @@ syncandnotify() {
 
 # Sync accounts passed as argument or all.
 if [ "$#" -eq "0" ]; then
-	accounts="$(awk '/^Channel/ {print $2}' $XDG_CONFIG_ISYNC)"
+	accounts="$(awk '/^Channel/ {print $2}' "$XDG_CONFIG_ISYNC")"
 else
 	for arg in "$@"; do
-		[ "${arg%${arg#?}}" = '-' ] && opts="${opts:+${opts} }${arg}" && shift 1
+		[ "${arg%"${arg#?}"}" = '-' ] && opts="${opts:+${opts} }${arg}" && shift 1
 	done
 	accounts=$*
 fi
 
-# [[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
+if [ -z "${WAYLAND_DISPLAY}" ]; then
+	[[ $TRIGGER_POLYBAR -eq 1 ]] && polybar-msg action "#mail.hook.1"
+fi
 for account in $accounts; do
 	syncandnotify &
 done
 
 wait
-# polybar-msg action "#mail.hook.0"
-pkill -RTMIN+8 waybar
+if [ -n "${WAYLAND_DISPLAY}" ]; then
+	pkill -RTMIN+8 waybar
+else
+	polybar-msg action "#mail.hook.0"
+fi
 
 notmuch new 2>/dev/null
 #Create a touch file that indicates the time of the last run of syncmail
