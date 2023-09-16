@@ -26,8 +26,11 @@ function note_path_org_roam() {
 case $1 in
 	-v)
 		if [ -n "${WAYLAND_DISPLAY}" ]; then
+			# If recording is running stop it
+			pgrep wf-recorder && pkill wf-recorder && exit 0
 			# NOTE: Can add GIF via -c gif
-			wf-recorder -g "$(slurp)" -f "$HOME/Videos/Screen Recordings/video.mp4"
+			GEOMETRY="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)"
+			wf-recorder -g "$GEOMETRY" -f "$HOME/Videos/Screen Recordings/video.mp4"
 		else
 			deepin-screen-recorder --screenRecord
 		fi
