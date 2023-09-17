@@ -25,10 +25,10 @@
         "custom/clock": {
             "format": "{}  ",
             "interval": 1,
-            "on-click": "$XDG_CONFIG_HOME/my_emacs/bin/org_clock go_to_entry",
+            "on-click": "$XDG_CONFIG_HOME/emacs/bin/org_clock go_to_entry",
             "exec-if": "bat /tmp/org_current_task 2>/dev/null",
             // get current task and the time since it got created
-            "exec": "$XDG_CONFIG_HOME/my_emacs/bin/org_clock get_info [TIME_PLACEHOLDER]",
+            "exec": "$XDG_CONFIG_HOME/emacs/bin/org_clock get_info [TIME_PLACEHOLDER]",
         },
 
         "tray": {

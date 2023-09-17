@@ -142,16 +142,16 @@ set $clock_mode "clock (I)nfo, (i)n, (o)ut, (d)one, (c)ancel, (t)oggle, (g)o_to,
 bindsym $mod+q mode $clock_mode
 
 mode $clock_mode {
-    bindsym i exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock clock_in; mode "default";
-    bindsym shift+i exec $XDG_CONFIG_HOME/polybar/org_clock \
+    bindsym i exec $XDG_CONFIG_HOME/emacs/bin/org_clock clock_in; mode "default";
+    bindsym shift+i exec $XDG_CONFIG_HOME/emacs/bin/org_clock \
         notify_info "NAME_PLACEHOLDER\n[TIME_PLACEHOLDER]"; mode "default";
-    bindsym o exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock clock_out; mode "default";
-    bindsym d exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock clock_out_done; mode "default";
-    bindsym c exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock clock_cancel; mode "default";
-    bindsym t exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock clock_toggle; mode "default";
-    bindsym p exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock toggle_polybar_time; mode "default";
-    bindsym g exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock go_to_entry; mode "default";
-    bindsym s exec $XDG_CONFIG_HOME/my_emacs/bin/org_clock go_to_scheduled_entry; mode "default";
+    bindsym o exec $XDG_CONFIG_HOME/emacs/bin/org_clock clock_out; mode "default";
+    bindsym d exec $XDG_CONFIG_HOME/emacs/bin/org_clock clock_out_done; mode "default";
+    bindsym c exec $XDG_CONFIG_HOME/emacs/bin/org_clock clock_cancel; mode "default";
+    bindsym t exec $XDG_CONFIG_HOME/emacs/bin/org_clock clock_toggle; mode "default";
+    bindsym p exec $XDG_CONFIG_HOME/emacs/bin/org_clock toggle_polybar_time; mode "default";
+    bindsym g exec $XDG_CONFIG_HOME/emacs/bin/org_clock go_to_entry; mode "default";
+    bindsym s exec $XDG_CONFIG_HOME/emacs/bin/org_clock go_to_scheduled_entry; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
