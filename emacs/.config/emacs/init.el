@@ -643,6 +643,7 @@
    '(git-gutter:visual-line t)
    '(git-gutter:window-width 1))
   )
+(use-package git-modes)
 
 (use-package magit
   :after evil-collection
