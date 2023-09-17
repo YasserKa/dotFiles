@@ -898,6 +898,8 @@ Made for `org-tab-first-hook' in evil-mode."
     :custom
     ;; Increase performance
     (org-element-use-cache t)
+    ;; Disable PDF preview
+    (org-link-beautify-pdf-preview nil)
     :config
     (org-link-beautify-mode 1)
     ;; Org agenda hangs when using the mode
