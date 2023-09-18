@@ -151,6 +151,8 @@ mode $clock_mode {
     bindsym p exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock toggle_polybar_time; mode "default";
     bindsym g exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock go_to_entry; mode "default";
 
+    bindsym s exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock go_to_scheduled_entry; mode "default";
+
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
@@ -211,8 +213,6 @@ mode $utility_mode {
     bindsym l exec --no-startup-id turn_lights_off; mode "default";
 
     bindsym d exec --no-startup-id search_dictionary; mode "default";
-
-    bindsym s exec --no-startup-id $XDG_CONFIG_HOME/dunst/org_mode_schedule; mode "default";
 
     bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
 
