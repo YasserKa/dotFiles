@@ -61,7 +61,7 @@ install-packages: create-clean-pkglist install-aur-helper
 # create a file containing list of packages for package manager
 .PHONY: clean-pkglist
 create-clean-pkglist:
-	@# pacman doesn't show the following installed packages
+	@# pacman doesn\'t show the following installed packages
 	@cat pkglist | grep -o "^[^#]*" | grep -vE "(binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
 .PHONY: stow-etc
