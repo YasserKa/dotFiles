@@ -83,4 +83,4 @@ df = df.multiply(needed_food.values())
 df = df.round(2)
 df["taking"] = df.loc[:, df.columns != "suggested"].sum(axis=1)
 df["needed"] = df["suggested"] - df["taking"]
-print(df)
+print(df.T)

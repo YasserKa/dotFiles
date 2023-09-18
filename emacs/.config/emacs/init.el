@@ -1733,8 +1733,7 @@ selection of all minor-modes, active or not."
                (link-text (format "%s: %s" file-title header))
                (link (concat file-link "::" header)))
           (insert pr)
-          (message file-title)
-          (org-insert-link nil link link-text)
+          (insert (concat "[["file-link"]["link-text"]]"))
           (insert po)))
       (when file-buffer
         (kill-buffer file-buffer)))))
