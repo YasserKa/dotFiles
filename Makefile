@@ -62,7 +62,7 @@ install-packages: create-clean-pkglist install-aur-helper
 .PHONY: clean-pkglist
 create-clean-pkglist:
 	@# pacman doesn\'t show the following installed packages
-	@cat pkglist | grep -o "^[^#]*" | grep -vE "(binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
+	@cat pkglist | grep -o "^[^#]*" | grep -vE "(binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which|wlroots)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
 .PHONY: stow-etc
 stow-etc:
@@ -158,7 +158,7 @@ setup-qutebrowser:
 compare-packages: create-clean-pkglist
 	@# Make expects a 0, otherwise it fails.
 	@# diff returns 1 if a difference is found
-	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git)" | sort) || echo ""
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git|wlroots-debug)" | sort) || echo ""
 	@rm -f *tmp
 
 .PHONY: help

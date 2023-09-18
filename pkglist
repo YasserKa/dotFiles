@@ -231,7 +231,7 @@ xorg-xev # Print contents of X events
 xorg-xinit # X.Org initialisation program
 xorg-xkill # Kill a client by its X resource
 
-wlroots # Compositor library for wayland
+wlroots       # Compositor library for wayland
 wlroots-debug
 xorg-xwayland # run X clients under wayland
 sway          # Tiling Wayland compositor similar to i3
