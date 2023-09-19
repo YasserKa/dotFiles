@@ -96,6 +96,7 @@ get_info() {
 	if [[ "$(cat "$TMP_FILE_FLAG_PATH")" == 1 ]] || [[ "$2" == 1 ]]; then
 		local TIME
 		TIME="$(get_time "${FILE_LINES}")"
+
 		INFO="${1/TIME_PLACEHOLDER/${TIME}}"
 	fi
 	local NAME
@@ -133,7 +134,7 @@ get_name() {
 ################################################################################
 get_time() {
 	local TASK_TIME
-	TASK_TIME="$(cut -d ' ' -f -2 <(echo "$1"))"
+	TASK_TIME="$(cut -d ' ' -f -1 <(echo "$1"))"
 	readonly TASK_TIME
 
 	# Seconds since the temp file got created
@@ -163,6 +164,7 @@ get_time() {
 	else
 		TIME="$TIME_ALREADY_SPENT"
 	fi
+
 	echo "${TIME_SINCE_CREATION} - ${TIME}"
 }
 
