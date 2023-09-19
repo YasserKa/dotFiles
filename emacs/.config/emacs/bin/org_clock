@@ -68,7 +68,6 @@ toggle_polybar_time() {
 notify_info() {
 	local INFO
 	INFO="$(get_info "$1" "$2")"
-	echo "$1" >|~/ba
 	notify-send "$(echo -e "$INFO")"
 }
 
