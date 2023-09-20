@@ -7,6 +7,10 @@ xset -b
 xset -dpms
 xset s off
 
+xrandr --dpi 96
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+
 # Monitor setup
 autorandr --change
 

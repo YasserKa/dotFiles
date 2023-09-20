@@ -218,7 +218,10 @@ c.aliases = {
         "spawn --userscript ~/.config/emacs/shell_scripts/org-protocol-capture-html.sh"
         " --readability --url '{url}'"
     ),
-    "kde_share": "spawn kdeconnect-cli -n 'Lenovo TB128FU' --share {url} || kdeconnect-cli -n 'Yasser Kaddoura mobile' --share {url}",
+    "kde_share": (
+        "spawn kdeconnect-cli -n 'Lenovo TB128FU' --share {url} || kdeconnect-cli -n"
+        " 'Yasser Kaddoura mobile' --share {url}"
+    ),
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
     "generate_password": (
         "spawn --userscript ~/.config/qutebrowser/userscripts/generate_password"

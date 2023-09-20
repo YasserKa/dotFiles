@@ -423,7 +423,6 @@
 
   (define-key isearch-mode-map (kbd "C-h") 'my/remove-char-in-isearch-mode)
 
-  (evil-define-key nil 'global (kbd "M-u") 'universal-argument)
   (define-key key-translation-map (kbd "C-<escape>") (kbd "ESC"))
 
   (evil-define-key 'normal 'global
@@ -1615,6 +1614,11 @@ see how ARG affects this command."
   )
 ;; }}}
 ;; Vim leader / which-key {{{
+
+;; Remap universal argument
+(global-set-key (kbd "M-u") 'universal-argument)
+(define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
+
 (use-package which-key
   :init
   :custom
@@ -1710,6 +1714,9 @@ selection of all minor-modes, active or not."
     (if (fboundp symbol)
         (helpful-function symbol)
       (helpful-variable symbol))))
+
+;; Keep links stored after insertion
+(setq org-link-keep-stored-after-insertion t)
 
 (defun my/org-insert-last-stored-link-with-title (arg)
   "Insert the last stored link with the title of the file and the header without removing it from the link list."
