@@ -3,6 +3,8 @@
 # Sync mega material
 0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Documents mega:documents
 
+0 12 * * * . $HOME/.config/cron/cron_env && $HOME/bin/wait_internet && $HOME/bin/download_manuals
+
 # Sync notes
 */30 * * * * . $HOME/.config/cron/cron_env && bash -ic syncorg && cd $HOME/notes && $HOME/bin/git-sync -n -s
 

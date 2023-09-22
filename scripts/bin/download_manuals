@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+declare -A MAN_ARR=(
+	[bash]='https://www.gnu.org/s/bash/manual/bash.pdf bash_manual.pdf bash'
+	[org]='https://orgmode.org/org.pdf org_manual.pdf emacs'
+)
+
+declare -r ROOT_DIR="$HOME/Documents/books"
+
+download_man_page() {
+	MAN_URL="$1"
+	# Bash for bash manual
+	MAN_NAME="$2"
+	PARENT_DIR="$3"
+
+	# Find the path for the parent directory
+	PARENT_DIR_ABS_PATH="$(fd --absolute-path --type d --base-directory="$ROOT_DIR" -- "$PARENT_DIR")"
+	ABS_PATH="$PARENT_DIR_ABS_PATH$MAN_NAME"
+
+	wget -o "/tmp/download_document_$MAN_NAME" -N --output-document="$ABS_PATH.new" -- "$MAN_URL"
+
+	if [[ -f "$ABS_PATH" ]]; then
+		DOWNLOADED_HASH=$(md5sum "$ABS_PATH.new" | awk '{print $1}')
+		CURRENT_HASH=$(md5sum "$ABS_PATH" | awk '{print $1}')
+		if [[ "$CURRENT_HASH" != "$DOWNLOADED_HASH" ]]; then
+
+			cp "$ABS_PATH.new" "/tmp/$MAN_NAME"
+			[[ $(dunstify --timeout=60000 "A manual got updates" "There's a new manual for $PARENT_DIR" --action="action,label") == "action" ]] &&
+				diff-pdf --view -- "$ABS_PATH" "/tmp/$MAN_NAME" &
+			disown
+		fi
+	fi
+
+	mv --force "$ABS_PATH.new" "$ABS_PATH"
+}
+
+main() {
+	for MAN in "${!MAN_ARR[@]}"; do #
+
+		read -ra namesArray <<<"${MAN_ARR[$MAN]}"
+		download_man_page "${namesArray[@]}"
+	done
+}
+
+main
