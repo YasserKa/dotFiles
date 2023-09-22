@@ -718,14 +718,14 @@
 ;; Org {{{
 
 (defun my/org-mode-setup ()
-  ;; Indentation for headings and items
+  "Setup after org-mode is loaded"
+  ;; Indent headlines
   (org-indent-mode)
   ;; Automatically break lines
   (auto-fill-mode)
   ;; Remove number lines to the right
   (display-line-numbers-mode 0)
   )
-
 
 (use-package org
   :defer t
@@ -736,6 +736,7 @@
   (org-hide-emphasis-markers t "Hide symbols")
   (org-startup-folded 'content)
   (org-startup-folded t)
+  (org-cycle-include-plain-lists 'integrate "Keep items folded when cycling")
   (org-enforce-todo-dependencies t)
   (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
   (org-startup-with-inline-images t)
@@ -888,6 +889,9 @@ Made for `org-tab-first-hook' in evil-mode."
     (interactive)
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
 
+  (custom-set-faces
+   '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
+   )
   ;; Icons for org-link-beautify
   (use-package all-the-icons
     :if (display-graphic-p))

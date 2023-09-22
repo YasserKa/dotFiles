@@ -24,7 +24,7 @@ fi
 # and check its existence on a later execution
 if [[ $2 == [[:digit:]] ]]; then
 	curr_pid="$(cat "$tmp_file_path" 2>/dev/null)"
-	kill -0 "$curr_pid" && kill "$curr_pid"
+	{ kill -0 "$curr_pid" && kill "$curr_pid"; } 2>/dev/null
 	revert_changes_after_delay "$2" &
 	curr_pid=$!
 	echo $curr_pid >$tmp_file_path
