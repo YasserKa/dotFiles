@@ -14,6 +14,9 @@ shopt -s extglob    # extend pattern matching
 shopt -s cmdhist    # History records commands with multiple lines as such instead of using ";"
 stty -ixon          # Enable search C-s for history searching (Enable XON/XOFF flow control)
 
+# Override Zsh's History path
+export HISTFILE=$HOME/.bash_history
+
 source_file() {
 	[[ -f "$1" ]] || exit
 	# shellcheck source=/dev/null
