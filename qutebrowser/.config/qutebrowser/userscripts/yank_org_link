@@ -4,30 +4,41 @@
 # dependencies:
 # remove_emoji script
 # options:
-# --clean: If it's a github repo root, get the package name only
+# --clean: If it's a github repo root, get the repo name without description
 
 TITLE="$QUTE_TITLE"
 URL="$QUTE_URL"
 
-# Assign it to the github repo name only
-if [[ "$1" == "--clean" ]]; then
-	URL_ROOT="$(echo "$URL" | awk -F '/' '{print $3}')"
+# Emojis are removed because org link-prettier shows the link twice for titles
+# containing emojis
+TITLE="$("$HOME/bin/remove_emoji" "$TITLE")"
 
-	# Should be at root of the repo
+# Remove last "/" if it exists
+if [[ "${URL: -1}" == '/' ]]; then
+	URL="${URL:0:-1}"
+fi
+
+# Assign it to the github repo name only
+URL_ROOT="$(echo "$URL" | awk -F '/' '{print $3}')"
+
+ORG_URL="[[$URL][$TITLE]]"
+
+if [[ "$URL_ROOT" == "github.com" ]]; then
 	# Checked by counting number of dashes
 	NUM_DASHES=$(echo "$URL" | grep -o "/" | wc -l)
-
-	if [[ "$URL_ROOT" == "github.com" && $((NUM_DASHES)) -ge 4 ]]; then
+	# Remove repo discription
+	if [[ "$1" == "--clean" && $((NUM_DASHES)) -ge 4 ]]; then
 		# shellcheck disable=2026
 		URL="$(echo "$URL" | cut -d / -f -5)"
 		TITLE="$(echo "$URL" | cut -d / -f 4-)"
+		ORG_URL="[[$URL][$TITLE]]"
+		# If github URL is at root
+	elif [[ $((NUM_DASHES)) -eq 4 ]]; then
+		# Reverse the description and name of repo
+		ORG_URL="$(awk -F ":" ' {gsub(/^ /, "", $2); print "- "$2" [[https://github.com/"$1"]["$1"]]" }' <(echo "$TITLE"))"
 	fi
 fi
 
-# Emojis are removed because org link-prettier shows the link twice for titles
-# containing emojis
-TITLE_NO_EMOJI="$("$HOME/bin/remove_emoji" "$TITLE")"
-
-copy_to_clipboard "[[$URL][$TITLE_NO_EMOJI]]"
+copy_to_clipboard "$ORG_URL"
 
 echo "message-info 'url turned to org url'" >>"$QUTE_FIFO"
