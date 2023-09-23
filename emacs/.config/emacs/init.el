@@ -1547,6 +1547,15 @@ see how ARG affects this command."
   :bind (("C-." . embark-act))
   :config
 
+  (evil-define-key 'normal 'global (kbd "C-.") 'embark-act)
+
+  ;; Use helpful package
+  (defvar-keymap embark-command-map
+    :doc "Actions for helpful command"
+    :parent embark-general-map
+    "h" #'helpful-command
+    )
+
   ;; C-v and C-x splits window for org roam node prompts only
   (defvar-keymap embark-org-roam-nodes-actions
     :doc "Keymap for actions for org roam nodes"
