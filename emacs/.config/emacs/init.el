@@ -68,6 +68,8 @@
 (use-package helpful)
 ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
+;; Use C-h as backspace
+(define-key key-translation-map [?\C-h] [?\C-?])
 ;; Store all backup files in one place
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "/backup")))
       backup-by-copying t    ; Don't delink hard links
@@ -226,18 +228,33 @@
   :hook ((text-mode . ws-butler-mode)
          (prog-mode . ws-butler-mode)))
 
-;; Auto close pairs
-(use-package smartparens
+(use-package elec-pair
+  :ensure nil
+  :custom (electric-pair-pairs
+           '((?\" . ?\")
+             (?\[ . ?\])
+             (?\' . ?\')
+             (?\< . ?\>)
+             (?\` . ?\`)
+             (?\{ . ?\})))
   :config
-  (smartparens-global-mode 1)
-  (sp-pair "\{" "\}") ;; latex literal brackets (included by default)
-  (sp-pair "~" "~")
-  (sp-pair "$" "$")   ;; latex inline math mode. Pairs can have same opening and closing string
-  (sp-pair "$$" "$$")
+  (defun my/ignore-elec-pairs ()
+    ;; Ignore < in org mode for yasnippets
+    (setq electric-pair-inhibit-predicate
+          (lambda (c)
+            (cond ((char-equal c ?\<) (electric-pair-default-inhibit c) t)
+                  ))
+          )
+    )
+  (add-hook 'org-mode-hook 'my/ignore-elec-pairs)
+ (setq electric-pair-inhibit-predicate (lambda (c) t))
+ (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 
-  ;; Mode that works in minibuffer
+(setq-default electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+
   (electric-pair-mode 1)
   )
+
 
 ;; Spell checking
 (use-package flyspell
@@ -411,7 +428,8 @@
   :config
   (evil-mode 1)
 
-  (evil-define-key 'insert 'global (kbd "C-h") 'evil-delete-backward-char-and-join)
+  ;;   (evil-define-key 'insert 'global (kbd "C-h") 'delete-backward-char)
+  ;; (global-set-key "\C-h" 'delete-backward-char)
   ;; Change search module to make it work for invisible text in org mode
   ;; This approach is used instead of using (setq org-fold-core-style 'overlays)
   ;; since the default value "text-properties" is faster than "overlays"
@@ -747,7 +765,6 @@
   ;; The time when it get closed will be shown
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-skip-timestamp-if-done t)
   (org-agenda-start-day "-3d")
   ;; Calendar starts at Monday
   (calendar-week-start-day 1)
@@ -1097,8 +1114,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (load "server")
   (unless (server-running-p) (server-start))
 
-  (setq org-clock-persist 'history ;; Save clock history on Emacs close
-        ;; Resume when clocking into task with open clock
+  (setq ;; Resume when clocking into task with open clock
         org-clock-in-resume t
         ;; Remove log if task was clocked for 0:00 (accidental clocking)
         org-clock-out-remove-zero-time-clocks t
@@ -1589,10 +1605,7 @@ see how ARG affects this command."
     :parent embark-general-map
     "l" 'my/org-link-heading-here)
 
-  (add-to-list 'embark-keymap-alist '((consult-org-heading . embark-consult-org-heading-map)
-                                      (consult-org-agenda . embark-consult-org-heading-map)
-                                      )
-               )
+  (add-to-list 'embark-keymap-alist '(consult-org-heading . embark-consult-org-heading-map))
   )
 
 ;; Improves Vertico's completion
@@ -1890,7 +1903,9 @@ selection of all minor-modes, active or not."
   (" c" org-clock-cancel "cancel")
   (" g" org-clock-goto "goto" :column "")
   (" e" org-set-effort "effort")
+  (" m" org-clock-modify-effort-estimate "modify current effort")
   (" r" org-clock-report "report")
+  (" d" org-clock-display "display subtree times")
   )
 
 (defhydra roam-hydra (:exit t :idle 1)

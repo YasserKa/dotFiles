@@ -22,12 +22,12 @@ xset r rate 300 30
 # Hotkeys
 sxhkd &
 
+dunst &
+
 rfkill block bluetooth
 
 # Hide cursor
 unclutter &
-# shellcheck disable=SC3044
-disown
 
 # Set capslock to Ctrl when pressed; Esc when held
 setxkbmap -option ctrl:nocaps

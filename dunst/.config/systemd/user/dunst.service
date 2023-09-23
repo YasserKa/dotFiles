@@ -1,8 +1,11 @@
 [Unit]
 Description=dunst daemon
+After=graphical.service
 
 [Service]
 Type=simple
+Restart=always
+RestartSec=30
 ExecStart=/bin/dunst
 
 [Install]
