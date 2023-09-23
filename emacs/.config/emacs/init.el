@@ -206,6 +206,8 @@
 ;; Icons for doom-modeline
 (use-package nerd-icons
   :config
+  ;; Add a glyph for hypothesis links
+  (add-to-list 'nerd-icons-url-alist '("^\\(https?://\\)?\\(www\\.\\)?hyp\\.is" nerd-icons-mdicon "nf-md-alpha_h_box"))
   (unless (package-installed-p 'nerd-icons)
     (nerd-icons-install-fonts))
   )
@@ -913,7 +915,9 @@ Made for `org-tab-first-hook' in evil-mode."
 
     (defun add-link-handler-icon (orig-fun &rest args)
       "Add link-handler icon"
-      (if (string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link") nil))
+      (if (string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link") nil)
+      (if (string= "https://hyp.is/" orig-fun) (nerd-icons-faicon "nf-fa-link") nil)
+      )
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-link-handler-icon)
     )
@@ -1560,6 +1564,26 @@ see how ARG affects this command."
     (interactive)
     (evil-window-split)
     (org-roam-node-find))
+
+  ;; Insert using embark on searching for org headings
+  ;; https://gist.github.com/jdtsmith/8602d998116b953725218224b77b8766?permalink_comment_id=4465637
+  (defun my/org-link-heading-here (cand)
+    (when-let ((marker (get-text-property 0 'consult--candidate cand)))
+      (save-excursion
+        (with-current-buffer (marker-buffer marker)
+          (goto-char marker)
+          (org-store-link nil t)))
+      (org-insert-all-links 1 "" " ")))
+
+  (defvar-keymap embark-consult-org-heading-map
+    :doc "Keymap for operating on org headings"
+    :parent embark-general-map
+    "l" 'my/org-link-heading-here)
+
+  (add-to-list 'embark-keymap-alist '((consult-org-heading . embark-consult-org-heading-map)
+                                      (consult-org-agenda . embark-consult-org-heading-map)
+                                      )
+               )
   )
 
 ;; Improves Vertico's completion

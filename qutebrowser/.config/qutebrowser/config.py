@@ -77,6 +77,26 @@ c.bindings.commands = {
             "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
             " --delete --recent"
         ),
+        ",hs": (
+            "jseval --quiet"
+            " document.querySelector('hypothesis-sidebar').shadowRoot.querySelector('[aria-label=\"Annotation"
+            " sidebar\"]').click()"
+        ),
+        ",hS": (
+            "jseval --quiet"
+            " document.querySelector('hypothesis-sidebar').shadowRoot.querySelector('[aria-label=\"Show"
+            " highlights\"]').click()"
+        ),
+        ",hh": (
+            "spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/hypothesis_highlight_and_yank_link"
+            " highlight"
+        ),
+        ",ha": (
+            "spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/hypothesis_highlight_and_yank_link"
+            " annotate"
+        ),
         "<Ctrl-i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         # Yank/Goto URL without anchors
         "yp": (
