@@ -68,8 +68,6 @@
 (use-package helpful)
 ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
-;; Use C-h as backspace
-(define-key key-translation-map [?\C-h] [?\C-?])
 ;; Store all backup files in one place
 (setq backup-directory-alist `(("." . ,(concat user-emacs-directory "/backup")))
       backup-by-copying t    ; Don't delink hard links
@@ -136,6 +134,7 @@
         )
       )
     )
+  (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
   (my/toggle-evil-window-keys-golden-ratio)
 
   (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
