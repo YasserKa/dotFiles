@@ -32,7 +32,6 @@ if [[ $page_num ]]; then
 	cmd+=" $page_num"
 	link_name+=", page $page_num"
 fi
-cmd+=" & disown"
 
 encoded_command="$(encode_url "$cmd")"
 
