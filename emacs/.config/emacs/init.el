@@ -477,6 +477,18 @@
   ;; between dollar signs
   (define-and-bind-text-object "$" "\\$" "\\$")
   (define-and-bind-text-object "~" "\\~" "\\~")
+
+  (defun my/join-line-keep-point ()
+    "Join line without moving point"
+    (interactive)
+    (point-to-register 'z)
+    (let ((current-prefix-arg 4)) ;; emulate C-u
+      (call-interactively 'join-line) ;; invoke align-regexp interactively
+      )
+    (jump-to-register 'z)
+    )
+
+  (evil-define-key 'normal 'global (kbd "J") 'my/join-line-keep-point)
   )
 
 (use-package windresize
