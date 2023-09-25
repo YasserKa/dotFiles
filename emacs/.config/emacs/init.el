@@ -134,7 +134,6 @@
         )
       )
     )
-  (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
   (my/toggle-evil-window-keys-golden-ratio)
 
   (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
@@ -426,6 +425,8 @@
   (tab-always-indent nil)
   :config
   (evil-mode 1)
+
+  (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
 
   ;;   (evil-define-key 'insert 'global (kbd "C-h") 'delete-backward-char)
   ;; (global-set-key "\C-h" 'delete-backward-char)
@@ -1114,11 +1115,11 @@ Made for `org-tab-first-hook' in evil-mode."
   (unless (server-running-p) (server-start))
 
   (setq ;; Resume when clocking into task with open clock
-        org-clock-in-resume t
-        ;; Remove log if task was clocked for 0:00 (accidental clocking)
-        org-clock-out-remove-zero-time-clocks t
-        ;; The default value (5) is too conservative.
-        org-clock-history-length 20)
+   org-clock-in-resume t
+   ;; Remove log if task was clocked for 0:00 (accidental clocking)
+   org-clock-out-remove-zero-time-clocks t
+   ;; The default value (5) is too conservative.
+   org-clock-history-length 20)
 
 
   (defun my/org-clock-in-if-next ()

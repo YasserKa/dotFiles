@@ -170,6 +170,17 @@ bindkey -M viins '^d' delete-char
 # With Ctrl-Shift modifier
 bindkey -M viins '^[b' vi-backward-word
 bindkey -M viins '^[f' vi-forward-word
+
+# Digit arguments
+bindkey -M viins '^[1' digit-argument
+bindkey -M viins '^[2' digit-argument
+bindkey -M viins '^[3' digit-argument
+bindkey -M viins '^[4' digit-argument
+bindkey -M viins '^[5' digit-argument
+bindkey -M viins '^[6' digit-argument
+
+bindkey -M viins '^[-' neg-argument 
+
 vi-backawrd-kill-word () {
     local WORDCHARS=""
     zle kill-word
