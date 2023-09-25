@@ -228,27 +228,13 @@
 
 (use-package elec-pair
   :ensure nil
-  :custom (electric-pair-pairs
-           '((?\" . ?\")
-             (?\[ . ?\])
-             (?\' . ?\')
-             (?\< . ?\>)
-             (?\` . ?\`)
-             (?\{ . ?\})))
   :config
-  (defun my/ignore-elec-pairs ()
-    ;; Ignore < in org mode for yasnippets
-    (setq electric-pair-inhibit-predicate
-          (lambda (c)
-            (cond ((char-equal c ?\<) (electric-pair-default-inhibit c) t)
-                  ))
-          )
-    )
-  (add-hook 'org-mode-hook 'my/ignore-elec-pairs)
- (setq electric-pair-inhibit-predicate (lambda (c) t))
- (setq electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
 
-(setq-default electric-pair-inhibit-predicate 'electric-pair-conservative-inhibit)
+  (with-eval-after-load 'org
+    (modify-syntax-entry ?$ "($" org-mode-syntax-table)
+    (modify-syntax-entry ?* "(*" org-mode-syntax-table)
+    (modify-syntax-entry ?_ "(_" org-mode-syntax-table)
+    )
 
   (electric-pair-mode 1)
   )
