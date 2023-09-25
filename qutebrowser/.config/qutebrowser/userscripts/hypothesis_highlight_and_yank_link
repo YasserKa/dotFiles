@@ -6,5 +6,5 @@ elif [[ "$1" == "annotate" ]]; then
 	echo -n "jseval --quiet document.querySelector('hypothesis-adder').shadowRoot.querySelector('[aria-label=\"Annotate (a)\"]').click()" >>"$QUTE_FIFO"
 fi
 
-LINK="$("$XDG_CONFIG_HOME"/qutebrowser/userscripts/print_hypothesis_link)"
+LINK="$("$XDG_CONFIG_HOME"/qutebrowser/userscripts/print_hypothesis_link "$QUTE_URL")"
 copy_to_clipboard "[[$LINK][$QUTE_TITLE]]"

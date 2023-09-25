@@ -232,8 +232,6 @@
 
   (with-eval-after-load 'org
     (modify-syntax-entry ?$ "($" org-mode-syntax-table)
-    (modify-syntax-entry ?* "(*" org-mode-syntax-table)
-    (modify-syntax-entry ?_ "(_" org-mode-syntax-table)
     )
 
   (electric-pair-mode 1)
