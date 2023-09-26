@@ -828,6 +828,10 @@
          `("CANCELLED" :foreground ,CANCELLED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELLED_color))
          ))
 
+  (defun get-org-files ()
+    (interactive)
+    (directory-files (getenv "_NOTES_ORG_HOME") nil ".org$"))
+ ;; (get-org-files :maxlevel . 3)
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
                              (org-buffer-list :maxlevel . 2)))
