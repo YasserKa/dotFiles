@@ -563,6 +563,7 @@
   :after evil
   :init (global-undo-tree-mode)
   :custom
+  (undo-tree-auto-save-history t)
   (undo-tree-visualizer-diff t)
   ;; Place undo files in one directory
   (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "/undo"))))
