@@ -32,9 +32,9 @@ displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
 evdi-compat-git
 
 # Video
-# nvidia       # NVIDIA drivers
+nvidia       # NVIDIA drivers
 # nvidia-utils # NVIDIA drivers utilities
-xf86-video-nouveau # Open source driver for NVIDIA card
+# xf86-video-nouveau # Open source driver for NVIDIA card
 
 # Needed microcode
 intel-ucode # Microcode update files for Intel CPUs
@@ -248,6 +248,7 @@ kdegraphics-mobipocket # Needed by Okular for mobi support
 # Needed by Okular for epub support
 ebook-tools # Tools for accessing and converting various ebook file formats
 xournalpp # Handwriting notetaking software with PDF annotation support
+diff-pdf # Visually comparing two PDF files
 
 # Utility
 ripgrep # A search tool that combines the usability of ag with the raw speed of grep
