@@ -7,11 +7,7 @@ from requests.exceptions import HTTPError, RequestException
 TIMEOUT = 30
 MAX_TRIES = 2
 
-tries = 0
-
-
-def archive_web_page(url):
-    global tries
+def archive_web_page(url, tries=0):
     # Format the URL for the API call
     tries += 1
     api_url = f"http://web.archive.org/save/{url}"
@@ -25,11 +21,8 @@ def archive_web_page(url):
 
     except (RequestException, HTTPError) as e:
         if tries < MAX_TRIES:
-            print(
-                f"An error occurred: {e}\n"
-                f"Trying again. Try: {tries+1}/{MAX_TRIES}"
-            )
-            archive_web_page(url)
+            print(f"An error occurred: {e}\nTrying again. Try: {tries+1}/{MAX_TRIES}")
+            archive_web_page(url, ++tries)
         raise RequestException(f"Couldn't archive {url}")
 
 

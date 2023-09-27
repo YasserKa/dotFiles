@@ -1,21 +1,21 @@
-# dunst
-# close notification.
+# Dunst
+# Close notification
 super + space
     dunstctl close
 
-# redisplay last message().
+# Redisplay last message
 super + apostrophe
     dunstctl history-pop
 
-# context menu. for selecting URLs and actions
+# Execute default actions
 super + shift + apostrophe
     dunstctl action
 
-# context menu. for selecting URLs and actions
-super + comma
-    [[ "$(xdotool getwindowclassname $(xdotool getactivewindow))" == "okular" ]] && ~/bin/store_highlightes_of_active_doc_to_clipboard
+# Show context menua
+super + shift semicolon
+    dunstctl context
 
-
+# Mulimedia controls
 XF86AudioLowerVolume
     pactl set-sink-volume @DEFAULT_SINK@ -1000
 
