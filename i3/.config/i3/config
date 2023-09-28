@@ -203,17 +203,16 @@ mode $audio_mode {
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(l)ights off, (m)ail, (d)ictionary, (u)sb unmount, (s)chedule (v)pn"
+set $utility_mode "(b)attery, (l)ights off, (s)chedule, (u)sb unmount, (v)pn"
 bindsym $mod+u mode $utility_mode
-mode $utility_mode {
-# Unmount all storage devices;
-    bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
+mode --pango_markup $utility_mode {
+    bindsym b exec --no-startup-id get_earphones_battery; mode "default";
 
 # Switch off light
     bindsym l exec --no-startup-id turn_lights_off; mode "default";
 
-    bindsym d exec --no-startup-id search_dictionary; mode "default";
-    bindsym b exec --no-startup-id get_earphones_battery; mode "default";
+# Unmount all storage devices;
+    bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
 
     bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
 
@@ -221,7 +220,7 @@ mode $utility_mode {
     bindsym Escape mode "default";
 }
 
-set $mail_mode "mail (o)pen, (s)ync, (c)lear"
+set $mail_mode "(o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
     bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
