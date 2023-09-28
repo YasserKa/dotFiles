@@ -79,12 +79,13 @@ c.bindings.commands = {
         ),
         ",hs": (
             "jseval --quiet"
-            " document.querySelector('hypothesis-sidebar').shadowRoot.querySelector('[aria-label=\"Annotation"
-            " sidebar\"]').click()"
+            " document.querySelector('hypothesis-sidebar').shadowRoot."
+            "querySelector('[aria-label=\"Annotation" " sidebar\"]').click()"
         ),
         ",hS": (
             "jseval --quiet"
-            " document.querySelector('hypothesis-sidebar').shadowRoot.querySelector('[aria-label=\"Show"
+            " document.querySelector('hypothesis-sidebar').shadowRoot."
+            "querySelector('[aria-label=\"Show"
             " highlights\"]').click()"
         ),
         ",hh": (
@@ -206,7 +207,7 @@ c.bindings.commands = {
         "<Ctrl-p>": "completion-item-focus --history prev",
         "<Alt-b>": "rl-backward-word",
         "<Alt-f>": "rl-forward-word",
-        "<Alt-d>": "rl-kill-word",
+        # "<Alt-d>": "rl-kill-word",
         "<Ctrl-d>": "rl-delete-char",
         "<Alt-d>": "completion-item-del",
         "<Ctrl-n>": "completion-item-focus --history next",
@@ -234,10 +235,6 @@ c.aliases = {
     ),
     "paywall": "open https://12ft.io/proxy?q={url}",
     "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
-    "org_capture_website": (
-        "spawn --userscript ~/.config/emacs/shell_scripts/org-protocol-capture-html.sh"
-        " --readability --url '{url}'"
-    ),
     "kde_share": (
         "spawn kdeconnect-cli -n 'Lenovo TB128FU' --share {url} || kdeconnect-cli -n"
         " 'Yasser Kaddoura mobile' --share {url}"
@@ -248,9 +245,6 @@ c.aliases = {
     ),
     "hosts": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
     "translate": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
-    "open_download": (
-        "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
-    ),
 }
 
 config.load_autoconfig()
