@@ -542,18 +542,38 @@ local config = {
 			lazy = false,
 			config = function()
 				local readline = require("readline")
+
+				-- Navigation
+				vim.keymap.set("!", "<C-a>", readline.dwim_beginning_of_line) -- Goes to start of line or non-blank
+				vim.keymap.set("!", "<C-x><C-a>", "<C-a>") -- Goes to start of line or non-blank
+				vim.keymap.set("!", "<M-a>", "<C-o>^")
+				vim.keymap.set("c", "<C-a>", readline.beginning_of_line) -- C-o doesn't work in command mode
+				vim.keymap.set("!", "<C-e>", readline.end_of_line)
+
+				vim.keymap.set("!", "<C-b>", "<Left>")
+				vim.keymap.set("!", "<C-f>", "<Right>")
+				vim.keymap.set("!", "<M-f>", "<S-Right>") -- This is preferred, since it doesn't consider symbols as words
+				vim.keymap.set("c", "<M-f>", readline.forward_word) -- S-Right/Left works for WORD instead of word in command mode
+				vim.keymap.set("!", "<M-b>", "<S-Left>")
+				vim.keymap.set("c", "<M-b>", readline.backward_word)
+
+				vim.keymap.set("!", "<M-S-f>", "<C-o>E<Right>")
+				vim.keymap.set("c", "<M-S-f>", "<S-Right>")
+				vim.keymap.set("!", "<M-S-b>", "<C-o>B")
+				vim.keymap.set("c", "<M-S-b>", "<S-Left>")
+
+				-- # Editing
+				-- vim.keymap.set("!", "<C-u>", readline.backward_kill_line) (Already exists)
 				vim.keymap.set("!", "<C-k>", readline.kill_line)
-				vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
-				vim.keymap.set("!", "<M-d>", readline.kill_word)
-				vim.keymap.set("!", "<M-BS>", readline.backward_kill_word)
-				vim.keymap.set("!", "<C-d>", "<Delete>") -- delete-char
+
 				vim.keymap.set("!", "<C-h>", "<BS>") -- backward-delete-char
-				vim.keymap.set("!", "<C-a>", readline.beginning_of_line)
-				-- vim.keymap.set("!", "<C-e>", readline.end_of_line) -- used by luasnip to switch between choices
-				vim.keymap.set("!", "<M-f>", readline.forward_word)
-				vim.keymap.set("!", "<M-b>", readline.backward_word)
-				vim.keymap.set("!", "<C-f>", "<Right>") -- forward-char
-				vim.keymap.set("!", "<C-b>", "<Left>") -- backward-char
+				vim.keymap.set("!", "<C-d>", "<Delete>") -- delete-char
+				-- bind 'C-w'   backward-kill-word (Already exists)
+				vim.keymap.set("!", "<M-d>", "<C-o>dw")
+				vim.keymap.set("c", "<M-d>", readline.kill_word)
+				vim.keymap.set("!", "<M-w>", readline.unix_word_rubout)
+				vim.keymap.set("!", "<M-S-d>", "<C-o>dE")
+				vim.keymap.set("c", "<M-S-d>", readline.kill_word)
 			end,
 		},
 		{ "https://github.com/tpope/vim-unimpaired", lazy = false },

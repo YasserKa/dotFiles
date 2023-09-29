@@ -1,13 +1,22 @@
 /* https://github.com/davatorium/rofi/blob/1ab3e571eca1768d437246ca6ec09f44432b0e20/doc/rofi.1.markdown */
 configuration {
-    modi: "window,run,ssh";
     width: 40;
     lines: 10;
     font: "inconsolata 15";
-    kb-remove-char-forward: "Delete";
+    modi: "window,run,ssh";
     run-command: "/bin/bash -ic '{cmd}'";
     run-list-command: "source $XDG_CONFIG_HOME/rofi/aliases";
-    kb-delete-entry: "Control+d";
+    kb-remove-char-forward: "Ctrl+d";
+	kb-row-select: "Control+i";
+	kb-remove-word-forward: "Alt+D";
+	kb-remove-word-back: "Ctrl+w";
+
+	kb-page-prev: "Alt+p";
+	kb-page-next: "Alt+n";
+
+	kb-clear-line: "Control+Shift+BackSpace";
+	kb-accept-alt: "Control+space";
+    kb-delete-entry: "Control+Alt+d";
 /*	columns: 1;*/
 /*	bw: 1;*/
 /*	location: 0;*/

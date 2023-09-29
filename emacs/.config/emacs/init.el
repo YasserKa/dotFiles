@@ -443,18 +443,32 @@
     (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
 
-  ;; Readline keybinding
+  ;; Navigate through start of line, indentation, comment
+  (use-package mwim)
+
+  ;; Emacs' keybinding
   (evil-define-key 'insert 'global
-    (kbd "C-a") 'back-to-indentation ;; Start of line
-    (kbd "C-e") 'end-of-line
-    (kbd "C-d") 'delete-char
-    (kbd "C-k") 'evil-delete-line
-    (kbd "C-f") 'forward-char
+    ;; Navigation
+    ;; Line
+    (kbd "C-a") 'mwim-beginning      ;; Navigate through start of line, non-blank, comment
+    (kbd "M-a") 'back-to-indentation
+    (kbd "C-e") 'mwim-end
+    ;; Word
     (kbd "C-b") 'backward-char
-    ;; Kill from current position to start of next word
-    (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word)))))
+    (kbd "C-f") 'forward-char
     (kbd "M-b") 'backward-word
     (kbd "M-f") 'forward-word
+    (kbd "M-B") 'backward-sexp
+    (kbd "M-F") 'forward-sexp
+    ;; Editing
+    ;; Line
+    (kbd "C-k") 'evil-delete-line
+    ;; Word
+    (kbd "C-d") 'delete-char
+    ;; Kill from current position to start of next word
+    (kbd "M-d") #'(lambda () (interactive) (apply 'evil-delete (list (point) (nth 1 (evil-a-word)))))
+    (kbd "M-w") 'backward-kill-sexp
+    (kbd "M-D") 'kill-sexp
     )
 
   ;; Make underscore to be identified as a part of word, so <C-w> removes it
@@ -1543,6 +1557,8 @@ see how ARG affects this command."
                 #'consult-completion-in-region
               #'completion--in-region)
             args)))
+ :bind (:map vertico-map
+              ("M-C-j" . vertico-quick-jump))
   :config
   (when evil-collection-setup-minibuffer
     ;; Open buffer in a new window, uses embark's v and x

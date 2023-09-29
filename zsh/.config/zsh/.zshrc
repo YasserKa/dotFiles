@@ -1,4 +1,4 @@
-# Ony run if interactive
+# Only run if interactive
 [[ $- != *i* ]] && return
 
 # NOTE: Load plugins in this order
@@ -147,29 +147,63 @@ bindkey -M viins '\e[Z' reverse-menu-complete
 bindkey '\e[105;6u' reverse-menu-complete
 
 # NOTE: vi-backward-kill-word stops working after going to insert mode
-# create a word using these seperators
-WORDCHARS='~!#$%^&*(){}[]<>?.+;-'
-
-vi-backward-kill-word () {
-    local WORDCHARS=""
-    zle backward-kill-word
-    zle -f kill
+# From the docs:
+# Kill the word behind the cursor, without going past the point where insert mode was last entered.
+#
+# Alternative: Set mark at cursor position, move backward a word, then delete
+# region.
+my-backward-kill-word () {
+    zle set-mark-command
+    zle vi-backward-word
+    zle kill-region
 }
+zle -N my-backward-kill-word
 
-zle -N vi-backward-kill-word
+# Remove (word)- instead of (word-)
+my-forward-kill-word () {
+    zle set-mark-command
+    zle vi-forward-word
+    zle kill-region
+}
+zle -N my-forward-kill-word
+
+my-forward-kill-blank-word () {
+    zle set-mark-command
+    zle vi-forward-blank-word-end
+    zle forward-char
+    zle kill-region
+}
+zle -N my-forward-kill-blank-word
+
+my-forward-blank-word () {
+    zle vi-forward-blank-word-end
+    zle forward-char
+}
+zle -N my-forward-blank-word
 
 bindkey -M vicmd ':' vi-repeat-find
-bindkey -M viins '^w' vi-backward-kill-word
+# Navigation
 bindkey -M viins '^a' beginning-of-line
+bindkey -M viins '^[a' vi-first-non-blank
 bindkey -M viins '^e' end-of-line
-bindkey -M viins '^h' backward-delete-char
+
 bindkey -M viins '^b' vi-backward-char
 bindkey -M viins '^f' vi-forward-char
-bindkey -M viins '^d' delete-char
-
-# With Ctrl-Shift modifier
 bindkey -M viins '^[b' vi-backward-word
 bindkey -M viins '^[f' vi-forward-word
+bindkey -M viins '^[B' vi-backward-blank-word
+bindkey -M viins '^[F' my-forward-blank-word
+
+# Editing
+bindkey -M viins '^u' backward-kill-line
+bindkey -M viins '^k' kill-line
+
+bindkey -M viins '^h' backward-delete-char
+bindkey -M viins '^d' delete-char
+bindkey -M viins '^w' my-backward-kill-word
+bindkey -M viins '^[d' my-forward-kill-word
+bindkey -M viins '^[w' backward-kill-word
+bindkey -M viins '^[D' my-forward-kill-blank-word
 
 # Digit arguments
 bindkey -M viins '^[1' digit-argument
@@ -180,22 +214,12 @@ bindkey -M viins '^[5' digit-argument
 bindkey -M viins '^[6' digit-argument
 
 bindkey -M viins '^[-' neg-argument 
-
-vi-backawrd-kill-word () {
-    local WORDCHARS=""
-    zle kill-word
-    zle -f kill
-}
-
-zle -N vi-backawrd-kill-word
-bindkey -M viins '^[d' vi-backawrd-kill-word
 # }}}
 # Setup FZF {{{
 if command -v fzf > /dev/null; then
   [[ -f /usr/share/fzf/completion.zsh ]] && . /usr/share/fzf/completion.zsh
   [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
 fi
-
 
 # Man widget via C-A-h
 fzf-man-widget() {
@@ -251,18 +275,17 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
 zstyle ':fzf-tab:complete:lsd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
-zstyle ':fzf-tab:complete:_rg:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
+
 # Remove the prefix "."
 zstyle ':fzf-tab:*' prefix ''
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
-# zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 # give a preview of commandline arguments when completing `kill`
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
-
 
 # }}}
 # Autojumping {{{
@@ -315,34 +338,34 @@ pzf() {
 # List installable packages into fzf and install selection
 pai() {
   cache_dir="/tmp/pas-$USER"
-  test "$1" = "-y" && rm -rf "$cache_dir" && shift
   mkdir -p "$cache_dir"
   preview_cache="$cache_dir/preview_{2}"
   list_cache="$cache_dir/list"
   { test "$(cat "$list_cache$@" | wc -l)" -lt 50000 && rm "$list_cache$@"; } 2>/dev/null
 
-  	pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
-      pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
-          if test -n "$pkg"
-          then echo "Installing $pkg..."
-            cmd="paru -S $pkg"
-            print -s "$cmd"
-            eval "$cmd"
-            rehash
-          fi
-        }
-        # List installed packages into fzf and remove selection
-        # Tip: use -e to list only explicitly installed packages
-        par() {
-          pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
-          if test -n "$pkg"
-          then echo "Removing $pkg..."
-            cmd="paru -R --cascade --recursive $pkg"
-            print -s "$cmd"
-            eval "$cmd"
-          fi
-        }
-				# }}}
+  pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
+             pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
+  if test -n "$pkg"
+  then echo "Installing $pkg..."
+       cmd="paru -S $pkg"
+       print -s "$cmd"
+       eval "$cmd"
+       rehash
+       rm -rf "$cache_dir"
+  fi
+}
+# List installed packages into fzf and remove selection
+# Tip: use -e to list only explicitly installed packages
+par() {
+  pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
+  if test -n "$pkg"
+  then echo "Removing $pkg..."
+    cmd="paru -R --cascade --recursive $pkg"
+    print -s "$cmd"
+    eval "$cmd"
+  fi
+}
+# }}}
 # Others {{{
 source ~/.bashrc.d/functions.bash
 source ~/.bashrc.d/aliases.bash

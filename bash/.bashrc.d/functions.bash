@@ -133,6 +133,16 @@ vf() {
 	"${EDITOR}" "${FILE_PATH}" || return 1
 }
 
+# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+fps() {
+	local pid
+	if [ "$UID" != "0" ]; then
+		pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+	else
+		pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+	fi
+}
+
 # fkill - kill processes - list only the ones you can kill
 fkill() {
 	local pid

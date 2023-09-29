@@ -80,7 +80,8 @@ c.bindings.commands = {
         ",hs": (
             "jseval --quiet"
             " document.querySelector('hypothesis-sidebar').shadowRoot."
-            "querySelector('[aria-label=\"Annotation" " sidebar\"]').click()"
+            "querySelector('[aria-label=\"Annotation"
+            " sidebar\"]').click()"
         ),
         ",hS": (
             "jseval --quiet"
@@ -167,22 +168,25 @@ c.bindings.commands = {
             " ~/.config/qutebrowser/userscripts/fix_last_typo"
         ),
         # Readline
-        "<Ctrl-w>": "fake-key <Ctrl-backspace>",
+        # Navigation
+        "<Ctrl-a>": "fake-key <Home>",
+        "<Ctrl-e>": "fake-key <End>",
+        "<Ctrl-b>": "fake-key <Left>",
+        "<Ctrl-f>": "fake-key <Right>",
+        "<Alt-b>": "fake-key <Ctrl-Left>",
+        "<Alt-f>": "fake-key <Ctrl-Right>",
+        # Editing
+        "<Ctrl-u>": "fake-key <Shift-Home>;; cmd-later 3 fake-key <Delete>",
+        "<Ctrl-k>": "fake-key <Shift-End><Delete>",
         "<Ctrl-h>": "fake-key <backspace>",
+        "<Ctrl-d>": "fake-key <Delete>",
+        "<Ctrl-w>": "fake-key <Ctrl-backspace>",
+        "<Alt-d>": "fake-key <Ctrl-Delete>",
+        # Others
         "<Ctrl-p>": "fake-key <Up>",
         "<Ctrl-n>": "fake-key <Down>",
         "<Ctrl-j>": "fake-key <enter>",
         "<Ctrl-m>": "fake-key <enter>",
-        "<Ctrl-b>": "fake-key <Left>",
-        "<Ctrl-f>": "fake-key <Right>",
-        "<Ctrl-d>": "fake-key <Delete>",
-        "<Alt-b>": "fake-key <Ctrl-Left>",
-        "<Alt-f>": "fake-key <Ctrl-Right>",
-        "<Alt-d>": "fake-key <Ctrl-Delete>",
-        "<Ctrl-e>": "fake-key <End>",
-        "<Ctrl-u>": "fake-key <Shift-Home>;; cmd-later 3 fake-key <Delete>",
-        "<Ctrl-k>": "fake-key <Shift-End><Delete>",
-        "<Ctrl-a>": "fake-key <Home>",
         "<Ctrl-Shift-a>": "fake-key <Ctrl-a>",
         # Copy
         "<Ctrl-y>": "fake-key <Ctrl-a><Ctrl-c><Right>",
@@ -198,20 +202,33 @@ c.bindings.commands = {
         "<Ctrl-h>": "fake-key <backspace>",
         "<Ctrl-p>": "fake-key <Up>",
         "<Ctrl-n>": "fake-key <Down>",
-        # Commented out for the time being, since it messes up vim binding
+        # NOTE: Commented out for the time being, since it messes up vim binding
         # in jupyter notebooks
-        # '<Ctrl-j>': 'fake-key <enter>',
+        "<Ctrl-j>": "fake-key <enter>",
         "<Ctrl-Shift-v>": "mode-leave",
     },
     "command": {
-        "<Ctrl-p>": "completion-item-focus --history prev",
+        # Navigation
         "<Alt-b>": "rl-backward-word",
         "<Alt-f>": "rl-forward-word",
-        # "<Alt-d>": "rl-kill-word",
+        "<Alt-Shift-b>": "rl-backward-word",  # Doesn't work
+        "<Alt-Shift-f>": "rl-forward-word",  # Doesn't work
+        # # Editing
         "<Ctrl-d>": "rl-delete-char",
-        "<Alt-d>": "completion-item-del",
-        "<Ctrl-n>": "completion-item-focus --history next",
         "<Ctrl-w>": "rl-backward-kill-word",
+        "<Alt-d>": "rl-kill-word",
+        "<Alt-w>": "rl-rubout ' '",
+        "<Alt-Shift-d>": "rl-kill-word",  # Doesn't work
+        # Candidates
+        "<Ctrl-p>": "completion-item-focus prev",
+        "<Ctrl-n>": "completion-item-focus next",
+        "<Alt-Shift-p>": "completion-item-focus prev-page",
+        "<Alt-Shift-n>": "completion-item-focus next-page",
+        "<Alt-p>": "command-history-prev",
+        "<Alt-n>": "command-history-next",
+        "<Ctrl-m>": "command-accept",
+        "<Alt-m>": "command-accept --rapid",
+        "<Ctrl-Alt-d>": "completion-item-del",
     },
 }
 config.unbind(":", mode="normal")

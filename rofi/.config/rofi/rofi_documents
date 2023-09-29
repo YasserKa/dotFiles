@@ -8,12 +8,12 @@ ROFI_OPTIONS=(
 	-p "Document" # Prompt
 	-i            # Search case sensitive
 	-dmenu
-	-mesg "<b>Control+d</b>: Delete document" # Message below filter entry box
-	-no-custom                                # Can't choose entry that's not available
-	-kb-delete-entry ""                       # Override <C-d> entry to delete documents
-	-kb-custom-1 Control+d                    # exit status 10
-	-format "i f"                             # option index, user's input
-	-only-custom                              # Don't allow custom values
+	-mesg "<b>C-M-d</b>: Delete document" # Message below filter entry box
+	-no-custom                            # Can't choose entry that's not available
+	-kb-delete-entry ""                   # Override <C-d> entry to delete documents
+	-kb-custom-1 Control+Alt+d            # exit status 10
+	-format "i f"                         # option index, user's input
+	-only-custom                          # Don't allow custom values
 )
 readonly ROFI_OPTIONS
 
