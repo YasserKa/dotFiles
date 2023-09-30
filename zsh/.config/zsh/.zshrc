@@ -112,7 +112,7 @@ bindkey -M viins '^n' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-source_zsh_config() { exec zsh }
+source_zsh_config() { . "$ZSHRC" }
 zle -N source_zsh_config
 # NOTE: doesn't work for \e, ,since it goes to normal mode after pressing \e,
 bindkey -M vicmd -r ' '
