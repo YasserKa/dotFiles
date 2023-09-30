@@ -410,6 +410,16 @@
   :config
   (evil-mode 1)
 
+  ;; Support Ibeam cursor for insert mode in the terminal
+  (use-package evil-terminal-cursor-changer
+    :after evil
+    :config
+    (unless (display-graphic-p)
+      (require 'evil-terminal-cursor-changer)
+      (evil-terminal-cursor-changer-activate) ; or (etcc-on)
+      )
+    )
+
   (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
 
   ;;   (evil-define-key 'insert 'global (kbd "C-h") 'delete-backward-char)
