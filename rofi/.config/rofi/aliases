@@ -3,6 +3,7 @@
 # declare -f | awk -F'[ ()]' '{print $1}' | grep -E '^[[:alpha:]]'
 # Faster than the above method
 cat <<EOF
+calc
 org
 syncorg
 pick_color

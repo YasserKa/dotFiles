@@ -8,7 +8,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 --bind 'ctrl-alt-j:jump'
 
 --bind 'ctrl-i:replace-query'
---bind 'ctrl-m:replace-query+accept'
+--bind 'ctrl-m:accept'
 
 --bind 'alt-t:change-preview-window(down|hidden|)'
 --bind 'alt-j:preview-down,alt-k:preview-up'
