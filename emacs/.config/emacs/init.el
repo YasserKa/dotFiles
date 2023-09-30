@@ -300,6 +300,12 @@
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
   )
 
+;; Expands on conf-mode for i3 config files
+(use-package i3wm-config-mode
+  :custom
+  indent-line-function (lambda () "noindent") "Disable auto-indentation"
+  )
+
 ;; Snippet engine
 (use-package yasnippet
   :custom
@@ -856,7 +862,7 @@
   (defun get-org-files ()
     (interactive)
     (directory-files (getenv "_NOTES_ORG_HOME") nil ".org$"))
- ;; (get-org-files :maxlevel . 3)
+  ;; (get-org-files :maxlevel . 3)
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
                              (org-buffer-list :maxlevel . 2)))
@@ -1567,7 +1573,7 @@ see how ARG affects this command."
                 #'consult-completion-in-region
               #'completion--in-region)
             args)))
- :bind (:map vertico-map
+  :bind (:map vertico-map
               ("M-C-j" . vertico-quick-jump))
   :config
   (when evil-collection-setup-minibuffer
