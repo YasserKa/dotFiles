@@ -297,14 +297,16 @@
 (use-package vterm
   :config
   ;; Remove current line highlight
-  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
-  )
+  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
 
 ;; Expands on conf-mode for i3 config files
 (use-package i3wm-config-mode
   :custom
-  indent-line-function (lambda () "noindent") "Disable auto-indentation"
-  )
+  indent-line-function (lambda () "noindent") "Disable auto-indentation")
+
+(use-package crontab-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.cron\\'" . crontab-mode)))
 
 ;; Snippet engine
 (use-package yasnippet
