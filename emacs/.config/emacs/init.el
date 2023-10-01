@@ -248,7 +248,7 @@
          ;; Enable flyspell for comments and strings only in programming modes
          (text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode)
-         (flyspell-mode . (lambda ()
+         (evil-collection-setup . (lambda (mode-keymaps &rest _rest)
                             ;; Remove annoying bindings
                             (evil-define-key nil flyspell-mode-map (kbd "C-,") nil)
                             (evil-define-key nil flyspell-mode-map (kbd "C-M-i") nil)
@@ -326,6 +326,37 @@
       ))
   )
 
+;; (use-package company
+;;   :after (evil evil-collection)
+;;   :hook ((after-init . global-company-mode)
+;;          (evil-collection-setup .
+;;                                 (lambda (mode-keymaps &rest _rest)
+;;                                   (evil-collection-define-key nil 'company-active-map
+;;                                     (kbd "C-h") 'evil-delete-backward-char-and-join
+;;                                     (kbd "C-w") 'evil-delete-backward-word
+;;                                     (kbd "<return>") 'newline))))
+;;   :custom
+;;   (company-minimum-prefix-length 4)
+;;   (company-selection-wrap-around t)
+;;   (company-idle-delay 0.0)
+;;   :config
+
+;;  (add-hook 'company-completion-finished-hook #'my-company-insert-parens-function t)
+
+;; (defun my-company-insert-parens-function (candidate)
+;;   ;; This part will be different for different backends
+;;   (when (string= (plist-get (text-properties-at 0 candidate) :symbol) "m")
+;;     (insert "()")
+;;     (backward-char)))
+
+;;   ;; Load basic company backend
+;;   (defun my/append-company-backends ()
+;;     (setq-local company-backends
+;;                 (append '((company-capf company-yasnippet)) company-backends)))
+;;   (add-hook 'org-mode #'my/append-company-backends)
+
+;;   )
+
 ;; Auto completion
 (use-package corfu
   :custom
@@ -340,11 +371,9 @@
 
   ;; Optionally use TAB for cycling, default is `corfu-complete'.
   :bind (:map corfu-map
-              ("TAB"        . corfu-next)
-              ([tab]        . corfu-next)
-              ("S-TAB"      . corfu-previous)
-              ([backtab]    . corfu-previous)
-              ("RET" . corfu-insert))
+              ("C-n"        . corfu-next)
+              ("C-p"      . corfu-previous)
+              ("C-m" . corfu-insert))
 
   :init
   (global-corfu-mode)
@@ -2000,4 +2029,67 @@ selection of all minor-modes, active or not."
   (" w"	org-agenda-week-view "week")
   (" m"	org-agenda-month-view "month")
   (" y"	org-agenda-year-view "year"))
-;; }}}
+;;;; }}}
+;;
+;;;; LSP
+;;(use-package lsp-mode
+;;  :init
+;;  (setenv "LSP_USE_PLISTS" "true")
+;;  (setq lsp-keymap-prefix "C-c l")
+;;  :custom
+;;(lsp-use-plist t)
+;;(read-process-output-max (* 1024 1024))
+;;  ;; (lsp-auto-guess-root t)
+;;  (lsp-log-io nil)
+;;  ;; (lsp-restart 'auto-restart)
+;;  ;; (lsp-enable-symbol-highlighting nil)
+;;  (lsp-enable-on-type-formatting nil)
+;;  (lsp-signature-auto-activate nil)
+;;  (lsp-prefer-capf t)
+;;  ;; (lsp-signature-render-documentation nil)
+;;  ;; (lsp-eldoc-hook nil)
+;;  ;; (lsp-modeline-code-actions-enable nil)
+;;  ;; (lsp-modeline-diagnostics-enable nil)
+;;  (lsp-headerline-breadcrumb-enable nil)
+;;  ;; (lsp-semantic-tokens-enable nil)
+;;  (lsp-enable-folding nil)
+;;  ;; (lsp-enable-imenu nil)
+;;  (lsp-enable-snippet t)
+;;  ;; (read-process-output-max (* 1024 1024)) ;; 1MB
+;;  ;; (lsp-idle-delay 0.5)
+;;  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+;;  :hook ((python-mode . lsp)
+;;         (lsp-mode . lsp-enable-which-key-integration))
+;;  :commands lsp
+;;  :config
+;;  ;; (setq lsp-enable-file-watchers nil)
+;;  )
+;;(use-package lsp-pyright
+;;  :ensure t
+;;  :hook (python-mode . (lambda ()
+;;                         (require 'lsp-pyright)
+;;                         (lsp)))
+;;  :config
+;;  (setq lsp-pyright-diagnostic-mode "workspace")
+;;  )
+;;
+;;;; optionally
+;;(use-package lsp-ui :commands lsp-ui-mode)
+;;;; if you are helm user
+;;(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+;;;; if you are ivy user
+;;(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+;;(use-package treemacs
+;;  :ensure t
+;;  :defer t
+;;  :init
+;;  (with-eval-after-load 'winum
+;;    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+;;
+;;)
+;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list
+;;  :config
+;;  ;; (treemacs-follow-mode t)
+;;  ;; (treemacs-filewatch-mode t)
+;;  )
+;;(use-package projectile)
