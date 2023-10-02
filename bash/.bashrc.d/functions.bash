@@ -1,5 +1,22 @@
 # shellcheck shell=bash
-#
+
+#######################################
+# Extand cd by making it accept a non-directory paramater as well
+# Arguments:
+#   $1 Path to file
+#######################################
+function cd() {
+	if [ $# -eq 0 ]; then
+		builtin cd || exit
+	elif [ -d "$1" ]; then
+		# argument is a directory
+		builtin cd "$1" || exit
+	else
+		# argument is not a directory
+		cd "$(dirname "$1")" || exit
+	fi
+}
+
 # https://github.com/xvoland/Extract/blob/master/extract.sh
 function extract {
 	if [ $# -eq 0 ]; then
