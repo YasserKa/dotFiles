@@ -10,4 +10,11 @@
         (delete-file filename))
       (kill-buffer buffer))))
 
+(defun my/scratch-buffer-other ()
+  "Open scratch buffer in another window"
+  (interactive)
+  (split-window-vertically)
+  (other-window 1)
+  (scratch-buffer))
+
 (provide 'functions)

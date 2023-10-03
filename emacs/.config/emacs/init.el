@@ -399,8 +399,8 @@
    		               completion-in-region-function))))
 
   )
+
 (use-package cape
-  :defer 10
   :bind ("C-c f" . cape-file)
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
@@ -1630,11 +1630,11 @@ see how ARG affects this command."
   (evil-define-key 'normal 'global (kbd "C-.") 'embark-act)
 
   ;; Use helpful package
-  (defvar-keymap embark-command-map
+  (defvar-keymap embark-command-actions
     :doc "Actions for helpful command"
     :parent embark-general-map
-    "h" #'helpful-command
-    )
+    "h" #'helpful-command)
+  (add-to-list 'embark-keymap-alist '(command . embark-command-actions))
 
   ;; C-v and C-x splits window for org roam node prompts only
   (defvar-keymap embark-org-roam-nodes-actions
@@ -1642,7 +1642,6 @@ see how ARG affects this command."
     :parent embark-general-map
     "x" #'my/org-roam-node-find-window-x
     "v" #'my/org-roam-node-find-window-v)
-
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
   (defun my/org-roam-node-find-window-v ()
