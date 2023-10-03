@@ -167,6 +167,13 @@ my-forward-kill-word () {
 }
 zle -N my-forward-kill-word
 
+my-backward-kill-blank-word () {
+    zle set-mark-command
+    zle vi-backward-blank-word
+    zle kill-region
+}
+zle -N my-backward-kill-blank-word
+
 my-forward-kill-blank-word () {
     zle set-mark-command
     zle vi-forward-blank-word-end
@@ -202,7 +209,7 @@ bindkey -M viins '^h' backward-delete-char
 bindkey -M viins '^d' delete-char
 bindkey -M viins '^w' my-backward-kill-word
 bindkey -M viins '^[d' my-forward-kill-word
-bindkey -M viins '^[w' backward-kill-word
+bindkey -M viins '^[w' my-backward-kill-blank-word
 bindkey -M viins '^[D' my-forward-kill-blank-word
 
 # Digit arguments
