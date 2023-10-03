@@ -66,13 +66,18 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 compinit
 
-plug "zsh-users/zsh-autosuggestions"
-bindkey '^ ' autosuggest-accept
-
 # Add autocompletion for newly added packages
 # https://wiki.archlinux.org/title/zsh#Persistent_rehash
 zstyle ':completion:*' rehash true
 
+plug "zsh-users/zsh-autosuggestions"
+
+export ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(vi-forward-word my-forward-blank-word vi-forward-char)
+# Remove forward-char, since it's used in my-forward-blank-word, leading for
+# double expansion
+EXCEPT=(forward-char vi-forward-char)
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=${ZSH_AUTOSUGGEST_ACCEPT_WIDGETS:|EXCEPT}
+bindkey '^ ' autosuggest-execute
 # }}}
 # Vim {{{
 
