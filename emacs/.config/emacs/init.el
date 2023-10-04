@@ -203,6 +203,14 @@
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode))
 
+;; Minor mode to show total matches during search
+  (use-package anzu
+    :after isearch-mode)
+
+(use-package evil-anzu
+   :after evil
+   :config (global-anzu-mode +1))
+
 ;; Icons for doom-modeline
 (use-package nerd-icons
   :config
