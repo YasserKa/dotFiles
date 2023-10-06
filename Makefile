@@ -49,14 +49,10 @@ install-packages: create-clean-pkglist install-aur-helper
 	@sudo pacman --sync --refresh --sysupgrade
 	@paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
 	# Need to be installed afterwrds because displaylink depend son evdi which
-	# conflicts with evdi-git
-	@paru --sync evdi-git
 	@# Get nvim preconfiguration before stowing
-	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
 	@rm -f *tmp
 	# Install submodules
-	@git clone  https://github.com/YasserKa/dotfiles-private ~/.dotfiles-private
-	@git sbmodule update --init --recursive
+	@git submodule update --init --recursive
 
 # create a file containing list of packages for package manager
 .PHONY: clean-pkglist
@@ -101,12 +97,10 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	git -C $(HOME)/notes config --bool branch.master.sync true
 	git -C $(HOME)/notes config --bool branch.master.syncNewFiles true
 	git -C $(HOME)/notes config --local commit.gpgsign false
-	@# Setup ambient music
-	yt-dlp -x -o "$(HOME)/Music/ambient_music.%(ext)s" https://www.youtube.com/watch?v=6uVUv8gZHBE
 
 .PHONY: stow-packages
 stow-packages:
-	X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk hunspell i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh stow sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
+	stow X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
 	stow --target=$HOME --dir="$HOME/.dotfiles-private" qutebrowser bash zsh hunspell khard snippets
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.sync true
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.syncNewFiles true
@@ -120,27 +114,23 @@ install-pypi-packages:
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
-	systemctl enable --now cmus --user
-	systemctl enable --now notify-me.timer --user
-	systemctl enable --now udiskie.service --user
-	systemctl enable --now dunst.service --user
-	systemctl enable --now sxhkd.service --user
-	systemctl enable --now geoclue-agent.service --user
-	systemctl enable --now msmtp-runqueue.timer --user
-	systemctl enable --now mbsync.timer --user
-	systemctl enable --now snapd.socket
-	sudo systemctl enable --now displaylink
-	sudo systemctl enable --now cronie
-	sudo systemctl enable --now nftables.service
-	sudo systemctl enable --now acpid.service
-	sudo systemctl enable --now firewalld.service
-	sudo systemctl enable --now bluetooth.service
-	sudo systemctl enable --now networkmanager.service
-	sudo systemctl enable --now systemd-resolved.service
-	@# Weekly, discard unused blocks in filesystem
-	sudo systemctl enable --now fstrim.timer
-	systemctl --user daemon-reload
-	systemctl daemon-reload
+	#systemctl enable --now cmus --user
+	#systemctl enable --now notify-me.timer --user
+	#systemctl enable --now udiskie.service --user
+	#systemctl enable --now dunst.service --user
+	#systemctl enable --now sxhkd.service --user
+	#systemctl enable --now geoclue-agent.service --user
+	#systemctl enable --now msmtp-runqueue.timer --user
+	#systemctl enable --now mbsync.timer --user
+	##sudo systemctl enable --now displaylink
+	#sudo systemctl enable --now cronie
+	#sudo systemctl enable --now nftables.service
+	#sudo systemctl enable --now acpid.service
+	#sudo systemctl enable --now firewalld.service
+	#sudo systemctl enable --now bluetooth.service
+#	sudo systemctl enable --now systemd-resolved.service
+#	@# Weekly, discard unused blocks in filesystem
+#	sudo systemctl enable --now fstrim.timer
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
