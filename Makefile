@@ -16,13 +16,14 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/cmus
 	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs
+	@mkdir -p $(XDG_CONFIG_HOME)/tmux/plugins
 	@mkdir -p $(XDG_CONFIG_HOME)/nvim
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav/configs
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
 	@mkdir -p $(XDG_DATA_HOME)/okular
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
-	@mkdir -p $(XDG_CONFIG_HOME)/autokey
+	@mkdir -p $(XDG_CONFIG_HOME)/autokey/data
 	@mkdir -p $(XDG_CONFIG_HOME)/zsh
 	@mkdir -p $(HOME)/.ssh
 	@chmod 700 $(HOME)/.ssh
@@ -114,23 +115,24 @@ install-pypi-packages:
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
-	#systemctl enable --now cmus --user
-	#systemctl enable --now notify-me.timer --user
-	#systemctl enable --now udiskie.service --user
-	#systemctl enable --now dunst.service --user
-	#systemctl enable --now sxhkd.service --user
-	#systemctl enable --now geoclue-agent.service --user
-	#systemctl enable --now msmtp-runqueue.timer --user
-	#systemctl enable --now mbsync.timer --user
-	##sudo systemctl enable --now displaylink
-	#sudo systemctl enable --now cronie
-	#sudo systemctl enable --now nftables.service
-	#sudo systemctl enable --now acpid.service
-	#sudo systemctl enable --now firewalld.service
-	#sudo systemctl enable --now bluetooth.service
-#	sudo systemctl enable --now systemd-resolved.service
-#	@# Weekly, discard unused blocks in filesystem
-#	sudo systemctl enable --now fstrim.timer
+	systemctl enable cmus --user
+	systemctl enable notify-me.timer --user
+	systemctl enable udiskie.service --user
+	systemctl enable dunst.service --user
+	systemctl enable sxhkd.service --user
+	systemctl enable geoclue-agent.service --user
+	systemctl enable msmtp-runqueue.timer --user
+	systemctl enable mbsync.timer --user
+	sudo systemctl enable greetd.service
+	sudo systemctl enable displaylink
+	sudo systemctl enable cronie
+	sudo systemctl enable nftables.service
+	sudo systemctl enable acpid.service
+	sudo systemctl enable firewalld.service
+	sudo systemctl enable bluetooth.service
+	sudo systemctl enable systemd-resolved.service
+	@# Weekly, discard unused blocks in filesystem
+	sudo systemctl enable fstrim.timer
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
@@ -148,7 +150,7 @@ setup-qutebrowser:
 compare-packages: create-clean-pkglist
 	@# Make expects a 0, otherwise it fails.
 	@# diff returns 1 if a difference is found
-	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git|wlroots-debug)" | sort) || echo ""
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git|wlroots-debug|cmake)" | sort) || echo ""
 	@rm -f *tmp
 
 .PHONY: help

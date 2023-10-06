@@ -31,7 +31,7 @@ displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
 #evdi-git # kernel module that that enables management of multiple screens.
 evdi-compat-git
 
-# Video
+# Graphics
 nvidia       # NVIDIA drivers
 # nvidia-utils # NVIDIA drivers utilities
 # xf86-video-nouveau # Open source driver for NVIDIA card
@@ -167,6 +167,7 @@ geoclue # Geoinformation service. Used by qutebrowser
 
 # Automation
 make # GNU make utility to maintain groups of programs
+cmake # Cross-platform open-source make system
 wmctrl # Control your EWMH compliant window manager from command line
 # Dependency for wmctrl
 openresolv # resolv.conf management framework (resolvconf)
@@ -298,6 +299,7 @@ asciinema # Record and share terminal sessions
 # Dependency for deepin
 ocl-icd # OpenCL ICD Bindings
 deepin-qt-dbus-factory # https://bugs.archlinux.org/task/78223
+greetd # Generic greeter daemon
 
 # (Wayland) Screen recording and shots
 grim    # Screenshot utility for Wayland

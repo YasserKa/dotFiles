@@ -1,4 +1,5 @@
 fset colorscheme=cyan
+fset softvol=true
 
 # bindings
 bind -f common u shell ~/.config/cmus/update_music_library
