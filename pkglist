@@ -23,8 +23,6 @@ acpi # Client for battery, power, and thermal readings
 # Enabling actions like pressing F keys buttons
 acpid # A daemon for delivering ACPI power management events with netlink support
 acpilight # a backward-compatible xbacklight replacement based on ACPI
-# Used in thinkpads
-thinkfan # A minimalist fan control program. Supports the sysfs hwmon interface and thinkpad_acpi
 
 # Drivers
 displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00

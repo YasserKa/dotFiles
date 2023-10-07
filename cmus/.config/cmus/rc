@@ -1,5 +1,9 @@
 fset colorscheme=cyan
-fset softvol=true
+# Play tracks from playlist 
+set play_library=false
+set shuffle=tracks
+set continue=true
+set repeat=true
 
 # bindings
 bind -f common u shell ~/.config/cmus/update_music_library

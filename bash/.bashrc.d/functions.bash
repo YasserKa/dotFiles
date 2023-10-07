@@ -384,14 +384,21 @@ syncorg() {
 }
 
 reboot() {
-	"$HOME"/bin/wait_internet || [[ $(dunstify "No internet connection" "Reboot without <b>syncorg</b>" --action="action,label") == "action" ]] || command shutdown --reboot now
-	syncorg
+
+	if "$HOME/bin/wait_internet"; then
+		syncorg
+	else
+		[[ $(dunstify "No internet connection" "Reboot without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
+	fi
 	command shutdown --reboot now
 }
 
 shutdown() {
-	"$HOME"/bin/wait_internet || [[ $(dunstify "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || command shutdown now
-	syncorg
+	if "$HOME/bin/wait_internet"; then
+		syncorg
+	else
+		[[ $(dunstify "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
+	fi
 	command shutdown now
 }
 
