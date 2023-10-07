@@ -1,10 +1,12 @@
 fset colorscheme=cyan
+
 # Play tracks from playlist 
 set play_library=false
+
 set shuffle=tracks
 set continue=true
 set repeat=true
 
-# bindings
+# Bindings
 bind -f common u shell ~/.config/cmus/update_music_library
 bind -f common q shell screen -d cmus

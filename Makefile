@@ -21,6 +21,8 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav/configs
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
+	@# Used by pai function
+	@mkdir -p $(HOME)/.local/state/fzf
 	@mkdir -p $(XDG_DATA_HOME)/okular
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
 	@mkdir -p $(XDG_CONFIG_HOME)/autokey/data
