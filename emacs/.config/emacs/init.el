@@ -245,6 +245,7 @@
   (electric-pair-mode 1)
   )
 
+(use-package flycheck)
 
 ;; Spell checking
 (use-package flyspell
@@ -333,37 +334,6 @@
     '(("latex" "LaTeX" nil 1)
       ))
   )
-
-;; (use-package company
-;;   :after (evil evil-collection)
-;;   :hook ((after-init . global-company-mode)
-;;          (evil-collection-setup .
-;;                                 (lambda (mode-keymaps &rest _rest)
-;;                                   (evil-collection-define-key nil 'company-active-map
-;;                                     (kbd "C-h") 'evil-delete-backward-char-and-join
-;;                                     (kbd "C-w") 'evil-delete-backward-word
-;;                                     (kbd "<return>") 'newline))))
-;;   :custom
-;;   (company-minimum-prefix-length 4)
-;;   (company-selection-wrap-around t)
-;;   (company-idle-delay 0.0)
-;;   :config
-
-;;  (add-hook 'company-completion-finished-hook #'my-company-insert-parens-function t)
-
-;; (defun my-company-insert-parens-function (candidate)
-;;   ;; This part will be different for different backends
-;;   (when (string= (plist-get (text-properties-at 0 candidate) :symbol) "m")
-;;     (insert "()")
-;;     (backward-char)))
-
-;;   ;; Load basic company backend
-;;   (defun my/append-company-backends ()
-;;     (setq-local company-backends
-;;                 (append '((company-capf company-yasnippet)) company-backends)))
-;;   (add-hook 'org-mode #'my/append-company-backends)
-
-;;   )
 
 ;; Auto completion
 (use-package corfu
