@@ -277,6 +277,9 @@ zle     -N            fzf-history-widget
 bindkey -M vicmd '^R' fzf-history-widget
 bindkey -M viins '^R' fzf-history-widget
 
+# Navi's widget
+eval "$(navi widget zsh)"
+
 plug "Aloxaf/fzf-tab"
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false

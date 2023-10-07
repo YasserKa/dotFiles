@@ -1,0 +1,45 @@
+; https://github.com/denisidoro/navi/blob/master/docs/cheatsheet_syntax.md
+% Pacman
+
+$pkg-local: pacman --query --explicit --quiet
+$pkg-remote: pacman --sync --list --quiet
+
+# Display files provided by a remote package
+pacman -Fl <pkg-remote>
+
+# Display files provided by a local package
+pacman -Ql <pkg-local>
+
+# Search for packages that contains a specific file
+pkgfile --search --verbose <file>
+
+# Search for local packages that contains a specific file
+pacman --query --owns <file>
+
+% code patches
+
+# Create patch
+diff -u <old> <new> > patch.patch
+
+# Apply patch
+patch <code> <patch>
+
+% Others
+
+# Download youtube playlist
+yt-dlp --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --output "%(title)s.%(ext)s" --yes-playlist <playlist>
+
+# Share kde file
+kdeconnect-cli -n "<device>" --share <file>
+
+$device: kdeconnect-cli -a --name-only
+$file: fd 
+
+% Zsh
+
+# Start without rc
+zsh -d -f -i
+
+
+
+# vim:ft=bash

@@ -125,6 +125,7 @@ setup-systemd-services:
 	systemctl enable geoclue-agent.service --user
 	systemctl enable msmtp-runqueue.timer --user
 	systemctl enable mbsync.timer --user
+	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
 	sudo systemctl enable displaylink
 	sudo systemctl enable cronie
