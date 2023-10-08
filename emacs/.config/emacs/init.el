@@ -1292,7 +1292,9 @@ see how ARG affects this command."
   (use-package docker-compose-mode)
   (use-package lua-mode)
 
+  (use-package ob-async)
   (require 'ob-makefile)
+
   ;; Run/highlight code using babel in org-mode
   (org-babel-do-load-languages
    'org-babel-load-languages

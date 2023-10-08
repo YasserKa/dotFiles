@@ -20,9 +20,17 @@ pacman --query --owns <file>
 
 # Create patch
 diff -u <old> <new> > patch.patch
+$old: fd 
+$new: fd 
 
 # Apply patch
 patch <code> <patch>
+$code: fd 
+$patch: fd 
+
+% Zsh
+# Start without rc
+zsh -d -f -i
 
 % Others
 
@@ -35,11 +43,8 @@ kdeconnect-cli -n "<device>" --share <file>
 $device: kdeconnect-cli -a --name-only
 $file: fd 
 
-% Zsh
-
-# Start without rc
-zsh -d -f -i
-
+# Bluetooth GUI
+blueman-manager
 
 
 # vim:ft=bash
