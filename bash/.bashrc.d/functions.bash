@@ -76,13 +76,14 @@ upgrade_system() {
 	sudo -v
 	orphans
 	yes | paru --sync --refresh --sysupgrade --noconfirm
+
 	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
 	nvim --headless -c 'autocmd User LazySync quitall' -c "MasonUpdateAll" "+Lazy! sync"
+
 	printf "%s\n" "Updating Emacs packages"
-	# Update packages and exit afterwards
-	emacs --no-window-system --eval "(progn
+	emacsclient --eval "(progn
   (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
-  (auto-packages-update-now))"
+  (auto-package-update-now))"
 
 	# Upgrade python packages
 	pipx upgrade-all
@@ -91,11 +92,6 @@ upgrade_system() {
 
 	# Update Zsh plugins
 	zap update
-
-	echo 'Use the following commands to checkup on the system:
-  systemctl --failed --user
-  logxorg
-  sudo journalctl -p 3 -b'
 }
 
 # Automatically change current directory to the last visited one after ranger quits
@@ -324,7 +320,7 @@ alias rczathura='open_file zathura/.config/zathura zathurarc'
 alias rcqutebrowser='open_file qutebrowser/.config/qutebrowser config.py'
 
 # Open Emacs's config file in Emacs
-alias rcemacs='emacs --file $XDG_CONFIG_HOME/emacs/init.el'
+alias rcemacs='emacsclient --no-wait --socket-name="default" --create-frame  "$XDG_CONFIG_HOME/emacs/init.el"'
 
 rcdotfiles() {
 	if [[ "$-" != *c* ]]; then
@@ -335,52 +331,43 @@ rcdotfiles() {
 }
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
-open_gui() {
-	local name="$1"
-	local command="$2"
+goto_window() { timeout 3 xdotool search --sync --name "^$1$" windowactivate; }
 
-	if ! xdotool search --name "$name" windowactivate; then
-		bash -c "nohup ${command} >/dev/null 2>&1 & disown"
-
-		# --sync doesn't seem to work, so keep activating until it works
-		while [[ "$(xdotool getactivewindow getwindowname)" != "$name" ]]; do
-			xdotool search --sync --name "$name" windowactivate
-		done
-	fi
-}
+is_window_exists() { xdotool search --name "^$1$" >/dev/null; }
 
 org() {
-	local name="emacs_org_name"
-
-	open_gui $name "emacs --title=$name --file=$_NOTES_ORG_HOME/capture.org"
-}
-
-#######################################
-# Pick a color and store it in clipbaord
-#######################################
-pick_color() {
-	command -v gpick >/dev/null && gpick -so | pbcopy
+	local NAME="emacs_org"
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="org" --create-frame --frame-parameters '((title . "'"$NAME"'"))' -n "$_NOTES_ORG_HOME/capture.org"
+	goto_window $NAME
 }
 
 magit() {
-	local name="magit_name"
+	local NAME="emacs_magit"
 	local git_root
 	git_root=$(git rev-parse --show-toplevel)
-
 	chronic git rev-parse --show-toplevel || return 1
-	open_gui $name "emacs --title=$name --eval '(magit-status \"${git_root}\")'"
+
+	is_window_exists "$NAME" ||
+		emacsclient --no-wait --socket-name="default" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
+	goto_window $NAME
+
 }
 
 alias gitdotfiles='cd $HOME/dotfiles && magit'
 
 syncorg() {
-	emacsclient --no-wait --socket-name="org-mode" --eval "(org-save-all-org-buffers)" 2>/dev/null
+	emacsclient --no-wait --socket-name="org" --eval "(org-save-all-org-buffers)" 2>/dev/null
 	# resync is used because rclone stops functioning if its executed on a file
 	# that's being edited (this will override the remote files)
 	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
 		rclone bisync --resync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
 		notify-send --urgency=critical "Sync org not working"
 
+}
+
+# Pick a color and store it in clipbaord
+pick_color() {
+	command -v gpick >/dev/null && gpick -so | pbcopy
 }
 
 reboot() {

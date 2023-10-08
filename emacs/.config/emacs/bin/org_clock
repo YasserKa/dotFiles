@@ -168,7 +168,7 @@ get_time() {
 }
 
 execute_emacs_command() {
-	emacsclient --socket-name="org-mode" -e "$@"
+	emacsclient --socket-name="org" -e "$@"
 }
 
 main() {

@@ -103,9 +103,8 @@ bindsym $mod+Shift+minus move scratchpad
 
 # Opening softwares to a default workspaces
 # Use xprop to check window attributes
-assign [title="^emacs_org_name$"] workspace $notes
-assign [title="^magit_name$"] workspace $git
-assign [title="^rc_magit_title$"] workspace $git
+assign [title="^emacs_org$"] workspace $notes
+assign [title="^emacs_magit$"] workspace $git
 assign [class="Slack"] workspace $social
 assign [class="Zathura"] workspace $documents
 assign [class="Chromium"] workspace $wp9

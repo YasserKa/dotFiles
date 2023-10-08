@@ -58,6 +58,9 @@
 (require 'functions)
 ;; }}}
 ;; Misc {{{
+
+;; Suppress "When done with this frame, type C-x 5 0" message when using emacsclient
+(setq server-client-instructions nil)
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; Don't save bookmarks, because it's making annoying prompts
@@ -1148,12 +1151,6 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (my/add-to-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
   ;; Clocking
-  ;; Loading emacs server is needed by emacsclient
-  ;; emacsclient used by clocking
-  (setq server-name "org-mode")
-  (load "server")
-  (unless (server-running-p) (server-start))
-
   (setq ;; Resume when clocking into task with open clock
    org-clock-in-resume t
    ;; Remove log if task was clocked for 0:00 (accidental clocking)
