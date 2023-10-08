@@ -16,4 +16,4 @@ TITLE="$2"
 "$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2 &
 disown
 
-emacsclient --socket-name="org-mode" --no-wait "org-protocol://capture?url=$URL&title=$TITLE"
+emacsclient --socket-name="org" --no-wait "org-protocol://capture?url=$URL&title=$TITLE"

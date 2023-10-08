@@ -46,5 +46,8 @@ $file: fd
 # Bluetooth GUI
 blueman-manager
 
+# Backup
+rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exclude="chromium" --exclude=".cache" --exclude="Music" --exclude="VirtualBox" $HOME /run/media/yasser/YASSER/backup; alert_last
+
 
 # vim:ft=bash

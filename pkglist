@@ -41,6 +41,7 @@ intel-ucode # Microcode update files for Intel CPUs
 bluez # Daemons for bluetooth
 bluez-utils # Utilities for bluetooth
 bluetuith # TUI-based bluetooth manager
+blueman # GTK+ Bluetooth Manager
 rofi-bluetooth-git # Manage bluetooth using rofi
 
 # Sound
@@ -312,4 +313,4 @@ docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
 nautilus # Default file manager for GNOME
 ncdu # Disk usage analyzer with an ncurses interface
 zoom # Video Conferencing and Web Conferencing Service
-slack-desktop # Slack Desktop (Beta) for Linux
+# slack-desktop # Slack Desktop (Beta) for Linux

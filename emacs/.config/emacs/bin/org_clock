@@ -21,9 +21,9 @@ declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_polybar"
 go_to_entry() {
 	# Focus window
 	if [ -n "${WAYLAND_DISPLAY}" ]; then
-		swaymsg '[title="^emacs_org_name$"] focus'
+		swaymsg '[title="^emacs_org$"] focus'
 	else
-		xdotool search --sync --name "emacs_org_name" windowactivate
+		xdotool search --sync --name "emacs_org" windowactivate
 	fi
 	# Go to clocked or most recently clocked entry
 	execute_emacs_command "(org-clock-goto)"
@@ -36,9 +36,9 @@ go_to_entry() {
 ################################################################################
 go_to_scheduled_entry() {
 	if [ -n "${WAYLAND_DISPLAY}" ]; then
-		swaymsg '[title="^emacs_org_name$"] focus'
+		swaymsg '[title="^emacs_org$"] focus'
 	else
-		xdotool search --sync --name "emacs_org_name" windowactivate
+		xdotool search --sync --name "emacs_org" windowactivate
 	fi
 	# Go to clocked or most recently clocked entry
 	execute_emacs_command "(my/org-goto-next-scheduled)"

@@ -1,7 +1,8 @@
 */1 * * * * . $HOME/.config/cron/cron_env && $HOME/bin/battery_low_alert
 
 # Sync mega material
-0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Documents mega:documents
+0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Documents mega:Documents
+0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Music mega:Music
 
 0 12 * * * . $HOME/.config/cron/cron_env && $HOME/bin/wait_internet && $HOME/bin/download_manuals
 
