@@ -260,7 +260,7 @@ unset cli
 # Open TUIR with top page within 24 hours by pressing "g t 2"
 tuir() {
 	(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
-	open_cli "$HOME/.pyenv/versions/3.10.13/bin/tuir"
+	open_cli tuir
 }
 
 ################################################################################

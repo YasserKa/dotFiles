@@ -79,9 +79,8 @@ install-aur-helper: stow-etc
 
 .PHONY: setup-tuir
 setup-tuir:
-	@pyenv install 3.10
 	@git clone --depth 1 https://gitlab.com/YasserKa/tuir /tmp/tuir
-	@cd /tmp/tuir/ && $(HOME)/.pyenv/versions/3.10.13/bin/python -m pip install .
+	@cd /tmp/tuir/ && python -m pip install .
 	@cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages

@@ -130,7 +130,6 @@ python-pyperclip # Needed to yank clipboard by zathura's handle_document
 python-tldextract # Needed by Qutebrowser bitwarden script
 python-selenium # Used by scripts
 python-rofi    # Used by scripts
-pyenv # Switch between multiple versions of Python
 
 # Command line
 zsh             # Z-Shell
