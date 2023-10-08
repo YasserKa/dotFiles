@@ -679,9 +679,6 @@
 ;; }}}
 ;; Git {{{
 ;; Traverse file changes in git
-;; Avoid being prompted with symbolic link to git-controlled
-(setq vc-follow-symlinks t)
-
 (use-package git-timemachine
   :after (evil-collection)
   :config
@@ -691,7 +688,8 @@
 
 (use-package browse-at-remote)
 (use-package git-gutter
-  :init
+  :custom
+  (git-gutter:update-interval 2)
   :config
   (dolist (mode '(prog-mode-hook
                   conf-mode-hook))
@@ -714,7 +712,7 @@
   (evil-collection-magit-want-horizontal-movement t)
   ;; Update return in repo list, should be done after evil-collection
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (magit-repository-directories '(("~/dotfiles" . 0) ("~/Projects/" . 1)))
+  (magit-repository-directories '(("~/dotfiles" . 0)))
   :config
 
   ;; This is needed to enter password for signing via gpg , since I am using curses for pinentry
@@ -1889,23 +1887,22 @@ selection of all minor-modes, active or not."
 
 ;; Git diff, git blame, reset buffer can be added using magit
 (defhydra git-hydra (:exit t :hint nil :idle 1)
-  (" r" git-gutter:revert-hunk "revert hunk" :column " hunks")
-  (" j" git-gutter:next-hunk  "next hunk")
-  (" k" git-gutter:previous-hunk "previous hunk")
+  (" r" git-gutter:revert-hunk "revert hunk" :column " hunk")
   (" s" git-gutter:stage-hunk "stage hunk")
-  (" S" magit-stage-file "stage buffer")
-  (" u" magit-unstage "unstage hunk")
-  (" U" magit-unstage-file "unstage buffer")
-  (" h" git-gutter:revert-hunk "reset hunk" :column " magit")
-  (" p" git-gutter:popup-hunk "preview hunk" :column " magit")
+  (" p" git-gutter:popup-hunk "preview hunk")
+  (" k" git-gutter:previous-hunk "previous hunk")
+  (" j" git-gutter:next-hunk  "next hunk")
+  (" S" magit-stage-buffer-file "stage buffer" :column " buffer")
+  (" U" magit-unstage-buffer-file "unstage buffer")
   (" g" magit-status "status" :column " magit")
-  (" c" magit-show-commit "show commit")
+  (" c" magit-commit "commit")
+  (" C" magit-show-commit "show commit")
   (" L" magit-log-buffer-file "log")
 
   (" o" browse-at-remote "browse at remote")
 
-  (" t" git-timemachine-toggle "toggle" :column " timemachine")
   ;; C-j C-k previous/forward historic version
+  (" t" git-timemachine-toggle "toggle" :column " timemachine")
   )
 
 (defhydra help-hydra (:exit t :idle 1)
