@@ -204,7 +204,11 @@
   (load-theme 'modus-operandi-tinted :no-confirm))
 
 (use-package doom-modeline
-  :hook (after-init . doom-modeline-mode))
+  :custom
+  (doom-modeline-buffer-file-name-style 'relative-from-project "Show full path")
+  (doom-modeline-buffer-encoding 'nondefault "Only show file encoding if it's non-UTF-8")
+  :hook (after-init . doom-modeline-mode)
+  )
 
 ;; Minor mode to show total matches during search
   (use-package anzu
@@ -1964,6 +1968,8 @@ selection of all minor-modes, active or not."
   (" e" org-export-dispatch "export")
   (" a" org-archive-subtree "archive")
   (" g" org-goto-hydra/body "goto")
+  (" c" (find-file (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+ "goto capture")
   )
 
 (defhydra org-goto-hydra (:exit t :idle 1)
