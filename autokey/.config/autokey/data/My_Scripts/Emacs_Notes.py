@@ -1,7 +1,7 @@
 from  i3ipc import Connection
 
 # Window title
-NAME = "emacs_org_name"
+NAME = "emacs_org"
 
 # Get workspace number for the window 
 i3 = Connection()
