@@ -10,7 +10,7 @@ DEVICE="6C:D3:EE:04:51:E2"
 PICKED_SINK="$1"
 case $PICKED_SINK in
 	"Bluetooth")
-		Name="bluez_output"
+		Description="Redmi"
 		icon="bluetooth-64"
 
 		rfkill unblock bluetooth
@@ -25,12 +25,12 @@ case $PICKED_SINK in
 		;;
 	"Built In")
 		icon="laptop-sound-64"
-		Name="pci"
+		Description="Built-in"
 		rfkill block bluetooth
 		;;
 	"DisplayLink")
 		icon="earbud-sound-64"
-		Name="DisplayLink"
+		Description="LAPDOCK"
 		rfkill block bluetooth
 		;;
 	*) notify-send --app-name=$APP_NAME --expire-time=1000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
@@ -38,7 +38,7 @@ esac
 
 # It takes sometime for bluetooth sink to be available
 while sleep 1; do
-	NEW_SINK=$(pactl list sinks | grep -nE "Name.*$Name" | cut -d : -f 3- | xargs)
+	NEW_SINK=$(pactl list sinks | pactl list sinks | awk '/Name/ {line=$2; next}; /'"Description:.*$Description"'/ {print line; exit}')
 	[[ -n "$NEW_SINK" ]] && break
 done
 

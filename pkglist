@@ -50,6 +50,8 @@ alsa-plugins # Additional ALSA plugins
 alsa-utils # Advanced Linux Sound Architecture - Utilities
 pipewire # Low-latency audio/video router and processor
 pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
+pipewire-alsa # Route all applications using ALSA API through PipeWire
+wireplumber # Session manager for Pipewire watching streams (better than pipewire-media-sesion)
 pavucontrol # PulseAudio Volume Control
 cmus # Feature-rich ncurses-based music player
 # To place cmus in the background

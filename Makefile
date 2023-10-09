@@ -120,6 +120,7 @@ install-pypi-packages:
 setup-systemd-services:
 	systemctl enable cmus --user
 	systemctl enable notify-me.timer --user
+	systemctl enable wireplumber.service --user
 	systemctl enable udiskie.service --user
 	systemctl enable dunst.service --user
 	systemctl enable sxhkd.service --user
