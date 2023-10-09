@@ -16,10 +16,12 @@ case $PICKED_SINK in
 		rfkill unblock bluetooth
 
 		# Wait until the device is connected
-		while sleep 1; do
-			grep -nE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break
+		for i in {1..5}; do
+			sleep 1
+			grep -nqE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break
 			echo -e "connect $DEVICE" | bluetoothctl
 		done
+		[[ $i == 5 ]] && dunstify "Device not found" && exit 1
 		;;
 	"Built In")
 		icon="laptop-sound-64"

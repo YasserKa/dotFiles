@@ -1,20 +1,39 @@
 ; https://github.com/denisidoro/navi/blob/master/docs/cheatsheet_syntax.md
-% Pacman
+; Comment lenght should be at most min_width (55), since truncated text wont be searchable
+; https://github.com/denisidoro/navi/issues/459
+% Pacman/Paru
 
 $pkg-local: pacman --query --explicit --quiet
 $pkg-remote: pacman --sync --list --quiet
 
-# Display files provided by a remote package
+# Display files provided by a remote pkg
 pacman -Fl <pkg-remote>
 
-# Display files provided by a local package
+# Display files provided by a local pkg
 pacman -Ql <pkg-local>
 
-# Search for packages that contains a specific file
+# Search for pkgs that contains a specific file
 pkgfile --search --verbose <file>
 
-# Search for local packages that contains a specific file
+# Search for local pkgs that contains a specific file
 pacman --query --owns <file>
+
+# Downgrade pkg
+sudo pacman -U <pkg>
+$pkg: ls /var/cache/pacman/pkg/*zst
+
+# Remove not installed AUR pkgs from cache
+paru -Scad
+
+# Remove not installed Official pkgs from cache
+sudo pacman -Sc
+
+# Remove all AUR pkgs from cache
+paru -Sccad
+
+# Remove all Official pkgs from cache
+sudo pacman -Scc
+
 
 % code patches
 

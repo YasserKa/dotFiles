@@ -678,6 +678,9 @@
 
 ;; }}}
 ;; Git {{{
+;; If visited file is a symbolic link to a file under VC, visit the real file
+(setq vc-follow-symlinks t)
+
 ;; Traverse file changes in git
 (use-package git-timemachine
   :after (evil-collection)

@@ -235,7 +235,7 @@ fi
 
 # Man widget via C-A-h
 fzf-man-widget() {
-  batman="man {1} | col -bx | bat --language=man --plain --color always"
+  batman="man {1} 2>/dev/null | col -bx | bat --language=man --plain --color always"
    man -k . | sort \
    | awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' \
    | fzf  \
@@ -335,12 +335,13 @@ fi
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
 pzf() {
+  # Position of the value in each candidate
   pos=$1
   AUR_URL='https://aur.archlinux.org/packages'
   OFFICIAL_URL='https://archlinux.org/packages'
   shift
   sed "s/ /\t/g" |
-    fzf --ansi --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf$pos" \
+    fzf --ansi --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
     --preview-window=60%,border-left \
 		--bind="ctrl-o:execute(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
 		--bind="alt-o:execute(2>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
