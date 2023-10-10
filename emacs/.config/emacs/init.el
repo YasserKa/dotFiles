@@ -1,18 +1,6 @@
 ;; -*- lexical-binding: t; -*-
-;; {{{ Initialization / Startup
-;; Initialize package sources
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("nognu" . "https://elpa.nongnu.org/nongnu/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-
-;; Inhibit some defaults and remove UI elements
-(setq inhibit-startup-message t               ;; No startup message
-      default-directory       (getenv "HOME") ;; Set default directory
-      )
-(defun display-startup-echo-area-message () (message nil))
-
+;; Speed up startup time {{{
 ;; Temporarily raise garbage collection limit for initialization
-
 (defvar my/backup-gc-cons-threshold gc-cons-threshold)
 
 (defun my/lower-gc-cons-threshold ()
@@ -29,23 +17,20 @@
 (setq gc-cons-threshold (* 1024 gc-cons-threshold))
 (setq use-package-compute-statistics t)
 
-;; https://github.com/hlissner/doom-emacs/blob/master/docs/faq.org#user-content-unset-file-na me-handler-alist-temporarily
-;; Unset this variable during startup to make Emacs ignore it
+;; Speed up Inhibit file handlers during startup
 (defvar my/file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
-
 (add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my/file-name-handler-alist)))
-;; Load Emacs Lisp packages, and activate them
-(package-initialize)
+;; }}}
+;; {{{ Package/Lisp management
+;; Initialize package sources
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("nognu" . "https://elpa.nongnu.org/nongnu/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 ;; Ensure that all packages are installed
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
-
-;; Don't make package-selected-packages to be created
-(defun package--save-selected-packages (&rest opt) nil)
-;; Place Emacs generated variables somewhere else, and don't load them
-(setq custom-file (concat user-emacs-directory "custom.el"))
 
 ;; Used to update the package from upgrade_system bash function
 (use-package auto-package-update
@@ -54,34 +39,60 @@
   (setq auto-package-update-delete-old-versions t))
 
 (add-to-list 'load-path (concat user-emacs-directory "/lisp"))
-
 (require 'functions)
 ;; }}}
-;; Misc {{{
-
-;; Suppress "When done with this frame, type C-x 5 0" message when using emacsclient
-(setq server-client-instructions nil)
+;; Better defaults {{{
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
-;; Don't save bookmarks, because it's making annoying prompts
-(setq bookmark-save-flag nil)
 ;; Exit emacs without getting a prompt to kill processes
 (setq confirm-kill-processes nil)
+;; Load the newest version of a file
+(setq  load-prefer-newer t)
+;; Place point where it was lastly placed when visiting a file
+;; https://www.emacswiki.org/emacs/SavePlace
+(save-place-mode 1)
+;; Use /path1/file /path2/file instead of file file<2> for buffer names of files for same name
+(setq uniquify-buffer-name-style 'forward)
+(setq inhibit-startup-message t      ;; No startup message
+      server-client-instructions nil ;; Suppress "When done with this frame, type C-x 5 0" message when using emacsclient
+      )
 ;; Better help
 (use-package helpful)
 ;; Setting it from <C-h>
 (setq help-char (string-to-char "?"))
-;; Store all backup files in one place
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "/backup")))
-      backup-by-copying t    ; Don't delink hard links
+
+;; Remove UI
+(dolist (mode
+         '(scroll-bar-mode        ; Disable visible scrollbar
+           tool-bar-mode          ; Disable the toolbar
+           tooltip-mode           ; Disable tooltips
+           menu-bar-mode          ; Disable the menu bar
+           set-fringe-mode))      ; Remove the extra finges at the left
+  (funcall mode 0))
+
+;; Persist history over Emacs restarts.
+(use-package savehist
+  :ensure nil
+  :config (savehist-mode))
+
+;; Backups
+(setq backup-by-copying t    ; Don't delink hard links
       version-control t      ; Use version numbers on backups
       delete-old-versions t  ; Automatically delete excess backups
       kept-new-versions 20   ; how many of the newest versions to keep
       kept-old-versions 5    ; and how many of the old
       )
-;; Remove auto-recover files
-(setq auto-save-default nil)
-(setq ad-redefinition-action 'accept)
+
+(use-package no-littering
+  :custom
+  (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  (custom-file (no-littering-expand-etc-file-name "custom.el") "Place Emacs generated variables somewhere else, and don't load them")
+  :config
+  ;; Setup undo, backup, and auto-save files
+  (no-littering-theme-backups))
+
+;; Bindings
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (use-package openwith
   :config
@@ -97,56 +108,23 @@
                 '("markdown")) (getenv "_EDITOR_GUI") '(file))
          ))
   (openwith-mode t))
-
-;; Saves files such as undo tree and auto saves in .emacs.d
-(use-package no-littering
-  :custom
-  (auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-
-(defun my/message-off-advice (oldfun &rest args)
-  "Quiet down messages in adviced OLDFUN."
-  (let ((message-off (make-symbol "message-off")))
-    (unwind-protect
-        (progn
-          (advice-add #'message :around #'ignore (list 'name message-off))
-          (apply oldfun args))
-      (advice-remove #'message message-off))))
-
-;; Auto update to window size
-(use-package golden-ratio
-  :init
-  (golden-ratio-mode 1)
-  :after (evil evil-collection)
-  :config
-  (defun my/toggle-evil-window-keys-golden-ratio ()
-    (if (bound-and-true-p golden-ratio-mode)
-        ;; Enable
-        (progn
-          (advice-add 'evil-window-down :after 'golden-ratio)
-          (advice-add 'evil-window-up :after 'golden-ratio)
-          (advice-add 'evil-window-right :after 'golden-ratio)
-          (advice-add 'evil-window-left :after 'golden-ratio)
-          )
-      ;; Disable
-      (progn
-        (balance-windows)
-        (advice-remove 'evil-window-down  'golden-ratio)
-        (advice-remove 'evil-window-up  'golden-ratio)
-        (advice-remove 'evil-window-right  'golden-ratio)
-        (advice-remove 'evil-window-left  'golden-ratio)
-        )
-      )
-    )
-  (my/toggle-evil-window-keys-golden-ratio)
-
-  (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
-
-  (evil-collection-define-key 'normal 'global-map (kbd "C-w m") #'golden-ratio-mode)
-  )
 ;; }}}
 ;; Appearance {{{
 (setq my/default-font "Firacode Nerd Font-12")
 (add-to-list 'default-frame-alist `(font . ,my/default-font))
+
+;; Emacs, recenter the screen after reaching the edge,
+;; disable that by making it move with the screen with n lines
+(setq scroll-margin 5)
+(setq scroll-conservatively 5)
+
+;; Prioritize vertical on horizontal split
+(setq split-width-threshold 80)
+
+;; Show tooltips (e.g. org links) in modeline
+(setq help-at-pt-display-when-idle t
+      help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
 
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
@@ -156,44 +134,15 @@
                    (display-line-numbers-mode)
                    (setq display-line-numbers 'relative))))
 
-;; Remove emacs' bars
-(dolist (mode
-         '(scroll-bar-mode        ; Disable visible scrollbar
-           tool-bar-mode          ; Disable the toolbar
-           tooltip-mode           ; Disable tooltips
-           menu-bar-mode          ; Disable the menu bar
-           set-fringe-mode))        ; Remove the extra finges at the left
-  (funcall mode 0))
-
-;; Show tooltips (e.g. org links) in modeline
-(setq help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
-
 ;; Show column number
-(column-number-mode)
+(column-number-mode 1)
 ;; Treat each long line as multiple screen lines
-(global-visual-line-mode t)
+(global-visual-line-mode 1)
 
 ;; Line wrapping
 (setq-default fill-column 100)
 ;; Highlight current line
 (global-hl-line-mode 1)
-
-;; Emacs, recenter the screen after reaching the edge,
-;; Disable that by making it move with the screen with n lines
-(setq scroll-margin 5)
-(setq scroll-conservatively 5)
-
-;; Prioritize vertical on horizontal split
-(setq split-width-threshold 80)
-
-;; Unfolding an item with emojis is slow, this package fixes this problem
-(use-package emojify
-  :disabled
-  :hook (after-init . global-emojify-mode)
-  :config
-  )
 
 (use-package modus-themes
   :config
@@ -207,16 +156,11 @@
   :custom
   (doom-modeline-buffer-file-name-style 'relative-from-project "Show full path")
   (doom-modeline-buffer-encoding 'nondefault "Only show file encoding if it's non-UTF-8")
-  :hook (after-init . doom-modeline-mode)
-  )
+  :hook (after-init . doom-modeline-mode))
+;; Minor mode to show total matches during search in modeline
+(use-package anzu :after isearch-mode)
+(use-package evil-anzu :after evil :config (global-anzu-mode +1))
 
-;; Minor mode to show total matches during search
-  (use-package anzu
-    :after isearch-mode)
-
-(use-package evil-anzu
-   :after evil
-   :config (global-anzu-mode +1))
 
 ;; Icons for doom-modeline
 (use-package nerd-icons
@@ -226,6 +170,12 @@
   (unless (package-installed-p 'nerd-icons)
     (nerd-icons-install-fonts))
   )
+
+;; Unfolding an item with emojis is slow, this package fixes this problem
+;; (use-package emojify
+;;   :disabled
+;;   :hook (after-init . global-emojify-mode)
+;;   :config)
 
 ;; Highlight matching braces
 (use-package paren
@@ -547,6 +497,38 @@
     )
   )
 
+;; Auto update to window size
+(use-package golden-ratio
+  :init
+  (golden-ratio-mode 1)
+  :after (evil evil-collection)
+  :config
+  (defun my/toggle-evil-window-keys-golden-ratio ()
+    (if (bound-and-true-p golden-ratio-mode)
+        ;; Enable
+        (progn
+          (advice-add 'evil-window-down :after 'golden-ratio)
+          (advice-add 'evil-window-up :after 'golden-ratio)
+          (advice-add 'evil-window-right :after 'golden-ratio)
+          (advice-add 'evil-window-left :after 'golden-ratio)
+          )
+      ;; Disable
+      (progn
+        (balance-windows)
+        (advice-remove 'evil-window-down  'golden-ratio)
+        (advice-remove 'evil-window-up  'golden-ratio)
+        (advice-remove 'evil-window-right  'golden-ratio)
+        (advice-remove 'evil-window-left  'golden-ratio)
+        )
+      )
+    )
+  (my/toggle-evil-window-keys-golden-ratio)
+
+  (add-hook 'golden-ratio-mode-hook 'my/toggle-evil-window-keys-golden-ratio)
+
+  (evil-collection-define-key 'normal 'global-map (kbd "C-w m") #'golden-ratio-mode)
+  )
+
 (use-package evil-vimish-fold
   :init (add-hook 'prog-mode-hook 'evil-vimish-fold-mode)
   :config (use-package vimish-fold)
@@ -593,13 +575,6 @@
 (use-package evil-matchit
   :config (global-evil-matchit-mode 1))
 
-;; Persist history over Emacs restarts.
-;; Vertico sorts by history position.
-;; Used for evil jumps
-(use-package savehist
-  :ensure nil
-  :config (savehist-mode))
-
 ;; Needed for evil-undo-system
 ;; Used instead of undo-fu because of tree visualizer
 (use-package undo-tree
@@ -611,8 +586,6 @@
   :custom
   (undo-tree-auto-save-history t)
   (undo-tree-visualizer-diff t)
-  ;; Place undo files in one directory
-  (undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "/undo"))))
   :config
   ;; Save undo steps between sessions
   (use-package undo-fu-session)
@@ -738,7 +711,6 @@
   :disabled
   :hook (magit-mode . magit-delta-mode))
 ;; }}}
-
 ;; LateX {{{
 (use-package latex
   :ensure nil
@@ -777,10 +749,8 @@
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "Zathura"))
   )
-
 ;; }}}
 ;; Org {{{
-
 (defun my/org-mode-setup ()
   "Setup after org-mode is loaded"
   ;; Indent headlines
@@ -1709,7 +1679,6 @@ see how ARG affects this command."
   )
 ;; }}}
 ;; Vim leader / which-key {{{
-
 ;; Remap universal argument
 (global-set-key (kbd "M-u") 'universal-argument)
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
@@ -1969,7 +1938,7 @@ selection of all minor-modes, active or not."
   (" a" org-archive-subtree "archive")
   (" g" org-goto-hydra/body "goto")
   (" c" (find-file (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
- "goto capture")
+   "goto capture")
   )
 
 (defhydra org-goto-hydra (:exit t :idle 1)
