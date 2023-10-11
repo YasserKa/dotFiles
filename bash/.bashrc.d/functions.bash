@@ -320,7 +320,7 @@ alias rczathura='open_file zathura/.config/zathura zathurarc'
 alias rcqutebrowser='open_file qutebrowser/.config/qutebrowser config.py'
 
 # Open Emacs's config file in Emacs
-alias rcemacs='emacsclient --no-wait --socket-name="default" --create-frame  "$XDG_CONFIG_HOME/emacs/init.el"'
+rcemacs() { emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame "$XDG_CONFIG_HOME/emacs/init.el"; }
 
 rcdotfiles() {
 	if [[ "$-" != *c* ]]; then
@@ -335,9 +335,42 @@ goto_window() { timeout 3 xdotool search --sync --name "^$1$" windowactivate; }
 
 is_window_exists() { xdotool search --name "^$1$" >/dev/null; }
 
+#######################################
+# Override emacsclient by running the server if it's not running in the background
+#######################################
+emacsclient() {
+	ARGS=("$@")
+	parsed=$(getopt --options=s: --longoptions=socket-name: --name "$0" -- "$@" 2>/dev/null)
+	eval set -- "$parsed"
+
+	SOCKET_NAME=
+	while :; do
+		case "$1" in
+			-s | --socket-name)
+				SOCKET_NAME="$2"
+				break
+				;;
+			--)
+				shift
+				break
+				;;
+			*)
+				echo "Socket name doesndsafd't exist"
+				;;
+		esac
+	done
+
+	# If server isn't running, run it
+	if ! command emacsclient --socket-name="$SOCKET_NAME" -a false -e 't' >/dev/null 2>&1; then
+		emacs --bg-daemon="$SOCKET_NAME"
+		wait
+	fi
+	command emacsclient "${ARGS[@]}"
+}
+
 org() {
 	local NAME="emacs_org"
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="org" --create-frame --frame-parameters '((title . "'"$NAME"'"))' -n "$_NOTES_ORG_HOME/capture.org"
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n "$_NOTES_ORG_HOME/capture.org"
 	goto_window $NAME
 }
 
@@ -348,7 +381,7 @@ magit() {
 	chronic git rev-parse --show-toplevel || return 1
 
 	is_window_exists "$NAME" ||
-		emacsclient --no-wait --socket-name="default" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
+		emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
 	goto_window $NAME
 
 }
@@ -356,7 +389,7 @@ magit() {
 alias gitdotfiles='cd $HOME/dotfiles && magit'
 
 syncorg() {
-	emacsclient --no-wait --socket-name="org" --eval "(org-save-all-org-buffers)" 2>/dev/null
+	emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
 	# resync is used because rclone stops functioning if its executed on a file
 	# that's being edited (this will override the remote files)
 	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
@@ -371,7 +404,6 @@ pick_color() {
 }
 
 reboot() {
-
 	if "$HOME/bin/wait_internet"; then
 		syncorg
 	else

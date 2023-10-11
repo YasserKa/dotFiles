@@ -26,7 +26,7 @@ while [[ ! -z $(wmctrl -xl | grep " $CLASS") ]]; do sleep 0.5; done
 if [[ $EXTENSION == "org_protocol" ]]; then
 	# Don't let Emacs take focus during the process
 	$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none
-	cat $TEMP_PATH | xargs -I % emacsclient --socket-name="org-mode" --no-wait "org-protocol://capture?template=n&title=%"
+	cat $TEMP_PATH | xargs -I % emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=n&title=%"
 	wait
 	$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration smart
 	[[ $? != 0 ]] && dunstify "Note not captured" "Emacs server isn't running"

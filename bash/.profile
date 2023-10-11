@@ -88,8 +88,11 @@ export USE_EMOJI=0
 # Start manager for GPG & SSH agents
 eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh" id_rsa 116F256041ACF55D33334B77F69626AEBEC29AA7)"
 
-emacs --bg-daemon=default &
-emacs --bg-daemon=org &
+export EMACS_DEFAULT_SOCKET="default"
+export EMACS_ORG_SOCKET="org"
+
+emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
+emacs --bg-daemon=$EMACS_ORG_SOCKET &
 
 # Use a display server (X or Wayland)
 if [ "${XDG_VTNR}" -eq 1 ]; then

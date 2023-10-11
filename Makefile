@@ -105,7 +105,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 .PHONY: stow-packages
 stow-packages:
 	stow X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
-	stow --target=$HOME --dir="$HOME/.dotfiles-private" bash fasd hunspell khard qutebrowser snippets zsh
+	stow --target=$HOME --dir="$HOME/.dotfiles-private" bash emacs fasd hunspell khard qutebrowser snippets zsh
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.sync true
 	git -C $(HOME)/.dotfiles-private config --bool branch.main.syncNewFiles true
 	git -C $(HOME)/.dotfiles-private config --local commit.gpgsign false
