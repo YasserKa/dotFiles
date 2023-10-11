@@ -9,17 +9,17 @@
 # 1: No option has been selected
 # 10-28: Row accepted by custom keybinding
 declare -ra ROFI_OPTIONS=(
-    -p "Tmux Session"                      # Prompt
-    -i                                     # Search case sensitive
-    -dmenu
-    -mesg "<b>C-d</b>: Kill session  <b>C-e</b>: Edit template" # Message below filter entry 
-    -no-custom                             # Can't choose entry that's not 
-    -kb-delete-entry ""                    # Override <C-d>
-    -kb-move-end ""                        # Override <C-e>
-    -kb-custom-1 Control+d                 # exit status 
-    -kb-custom-2 Control+e                 # edit tmuxp template
-    -format "i f"                          # option index, user's 
-    -only-custom                           # Don't allow custom 
+	-p "Tmux Session" # Prompt
+	-i                # Search case sensitive
+	-dmenu
+	-mesg "<b>C-M-d</b>: Kill session  <b>C-M-e</b>: Edit template" # Message below filter entry
+	-no-custom                                                      # Can't choose entry that's not
+	-kb-delete-entry ""                                             # Override <C-d>
+	-kb-move-end ""                                                 # Override <C-e>
+	-kb-custom-1 Control+Alt+d                                      # exit status
+	-kb-custom-2 Control+Alt+e                                      # edit tmuxp template
+	-format "i f"                                                   # option index, user's
+	-only-custom                                                    # Don't allow custom
 )
 
 # Tmux sessions
