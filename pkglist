@@ -236,7 +236,7 @@ xorg-xkill # Kill a client by its X resource
 wlroots       # Compositor library for wayland
 wlroots-debug
 xorg-xwayland # run X clients under wayland
-sway          # Tiling Wayland compositor similar to i3
+swayfx        # Sway with eye candy
 swaybg        # Wallpaper tool
 swaylock      # Screen locker
 waybar        # Wayland bar
@@ -263,6 +263,7 @@ zip # Compressor/archiver for creating and modifying zipfiles
 which # A utility to show the full path of commands
 sudo # Give certain users the ability to run some commands as root
 moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
+usbutils # A collection of USB tools to query connected USB devices
 gpick # Color picker
 navi # An interactive cheatsheet tool for the command-line
 
@@ -279,6 +280,12 @@ wireguard-tools # next generation secure network tunnel - tools for configuratio
 net-tools # Configuration tools
 transmission-gtk # BitTorren client
 firewalld # Firewall daemon with D-Bus interface
+
+# Virtualization
+qemu-full # Full QEMU setup
+libvirt # API for controlling virtualization engines (openvz,kvm, qemu, virtualbox, xen)
+dnsmasq # Lightweight, easy to configure DNS forwarder and DHCP server
+virt-manager # Desktop user interface for managing virtual machines
 
 # Mutt
 neomutt # A version of mutt with added features
