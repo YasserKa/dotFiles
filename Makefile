@@ -34,13 +34,13 @@ pre-install-packages:
 	@sudo curl https://gist.githubusercontent.com/anonymous/8eb2019db2e278ba99be/raw/257f15100fd46aeeb8e33a7629b209d0a14b9975/gistfile1.sh --output /etc/grub.d/31_hold_shift 
 	@sudo chmod +x /etc/grub.d/31_hold_shift
 	@sudo grub-mkconfig -o /boot/grub/grub.cfg
-	@# Install stow and neovim
-	sudo pacman --sync --refresh --sysupgrade --noconfirm stow neovim
+	sudo pacman --sync --refresh --sysupgrade --noconfirm stow
 
 .PHONY: update-sudoers
 update-sudoers:
 	# Don't timeout sudo privilege through the installation period
 	# Defaults        env_reset,timestamp_timeout=-1
+	sudo pacman --sync --refresh --sysupgrade --noconfirm neovim
 	sudo EDITOR=nvim visudo
 
 .PHONY: install-packages
@@ -50,6 +50,8 @@ install-packages: create-clean-pkglist install-aur-helper
 	@yes | paru -S --skipreview evdi-compat-git
 	@# Get nvim preconfiguration before stowing
 	@rm -f *tmp
+	@# remove go packages installed by AUR packages
+	@sudo rm $(HOME)/go -r
 	# Install submodules
 	@git submodule update --init --recursive
 

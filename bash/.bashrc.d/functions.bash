@@ -354,11 +354,9 @@ emacsclient() {
 				shift
 				break
 				;;
-			*)
-				echo "Socket name doesndsafd't exist"
-				;;
 		esac
 	done
+	[[ ! "$SOCKET_NAME" ]] && SOCKET_NAME="$EMACS_DEFAULT_SOCKET" && ARGS+=("--socket-name=$EMACS_DEFAULT_SOCKET")
 
 	# If server isn't running, run it
 	if ! command emacsclient --socket-name="$SOCKET_NAME" -a false -e 't' >/dev/null 2>&1; then
@@ -367,6 +365,7 @@ emacsclient() {
 	fi
 	command emacsclient "${ARGS[@]}"
 }
+alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
 	local NAME="emacs_org"
