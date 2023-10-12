@@ -691,7 +691,6 @@
   (use-package pinentry
     :config (pinentry-start))
 
-  (setenv "PINENTRY_USER_DATA" "USE_CURSES=0")
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward
     (kbd "<return>") 'my/vil-diff-visit-file)

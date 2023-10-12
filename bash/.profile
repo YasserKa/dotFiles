@@ -20,7 +20,7 @@ export PAGER=less
 export MANOPT=-Pvimpager
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
-export DOTFILE_DIR="$HOME/.dotfiles"
+export DOTFILES_DIR="$HOME/.dotfiles"
 export EDITOR_GUI=nvim-qt
 
 # Conform to XDG standards
