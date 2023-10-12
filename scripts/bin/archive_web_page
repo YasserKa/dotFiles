@@ -8,6 +8,7 @@ from requests.exceptions import HTTPError, RequestException
 TIMEOUT = 30
 MAX_TRIES = 2
 
+
 def archive_web_page(url, tries=0):
     # Format the URL for the API call
     tries += 1

@@ -48,6 +48,8 @@
 (setq confirm-kill-processes nil)
 ;; Load the newest version of a file
 (setq  load-prefer-newer t)
+;; Revert buffer when the file changes on disk
+(auto-revert-mode 1)
 ;; Place point where it was lastly placed when visiting a file
 ;; https://www.emacswiki.org/emacs/SavePlace
 (save-place-mode 1)
@@ -259,12 +261,6 @@
   (evil-define-key 'normal 'global (kbd "zw")  #'my/remove-word-from-dictionary)
   )
 
-;; Terminal emulator
-(use-package vterm
-  :config
-  ;; Remove current line highlight
-  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
-
 ;; Expands on conf-mode for i3 config files
 (use-package i3wm-config-mode
   :custom
@@ -285,6 +281,8 @@
 
 (use-package abbrev
   :ensure nil
+  :custom
+  (save-abbrevs 'silently)
   :config
   (setq-default abbrev-mode t)
   (define-abbrev-table 'global-abbrev-table
@@ -630,8 +628,6 @@
 
   (evil-collection-define-operator-key 'yank 'global-map "ob" #'my/trigger-theme)
   (evil-collection-define-operator-key 'yank 'global-map "ow" #'visual-line-mode)
-
-  (evil-collection-define-key 'insert 'vterm-mode-map (kbd "C-h") 'vterm-send-backspace)
 
   (dolist (map '( minibuffer-local-map
                   minibuffer-local-ns-map

@@ -46,7 +46,8 @@ update-sudoers:
 .PHONY: install-packages
 install-packages: create-clean-pkglist install-aur-helper
 	@sudo pacman --sync --refresh --sysupgrade
-	@yes | paru --sync --refresh --sysupgrade --skipreview --needed - < pkglist_clean.tmp
+	@paru --sync --refresh --noconfirm --sysupgrade --skipreview --needed - < pkglist_clean.tmp
+	@yes | paru -S --skipreview evdi-compat-git
 	@# Get nvim preconfiguration before stowing
 	@rm -f *tmp
 	# Install submodules
@@ -60,7 +61,9 @@ create-clean-pkglist:
 
 .PHONY: stow-etc
 stow-etc:
-	sudo rm /etc/pacman.conf
+	@# Needs to be installed before stowing its config, else it will make an error
+	@sudo pacman -S --noconfirm greetd
+	sudo rm -r /etc/{pacman.conf,greetd}
 	sudo stow etc --target=/
 
 .PHONY: install-aur-helper
@@ -75,27 +78,30 @@ install-aur-helper: stow-etc
 .PHONY: setup-tuir
 setup-tuir:
 	@git clone --depth 1 https://gitlab.com/YasserKa/tuir /tmp/tuir
-	@cd /tmp/tuir/ && python -m pip install .
+	@cd /tmp/tuir/ && python -m pip install . --break-system-packages
 	@cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir
-	@# Setup neovim
-	nvim  --headless -c 'autocmd User LazyDone quitall'
+	@# Setup editors
+	@nvim  --headless -c 'autocmd User LazyDone quitall'
+	@emacs --kill
 	@# Setup Zsh plugin manager & shell
 	@zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
-	@sudo usermod --shell /bin/zsh yasser
+	@sudo usermod --shell /bin/zsh $(USER)
 	@# Accurate date
-	sudo timedatectl set-ntp true
+	@sudo timedatectl set-ntp true
 	@# Sync pkgfile database for command-no-found-handler function to work
-	sudo pkgfile -u
+	@sudo pkgfile -u
 	@# Setup Tmux plugin manager
-	git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+	@git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
 
 .PHONY: stow-packages
 stow-packages:
-	stow X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
-	sudo stow root --target=/root/
+  # Install neovim starter kit before stowing
+  @git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
+	@stow X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
+	@sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
 install-pypi-packages: 
@@ -127,14 +133,11 @@ setup-systemd-services:
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
-	cd $(XDG_CONFIG_HOME)/qutebrowser/qutescript && pip install -e . --user
+	cd $(XDG_CONFIG_HOME)/qutebrowser/qutescript && pip install -e . --user --break-system-packages
 	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all --install --bin=yank_all
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
 	paru --sync --noconfirm --skipreview  chromium-widevine # viewing DRM content (Spotify)
-	# Update adblock list
-	qutebrowser :adblock-update
-	pkill qutebrowser
 
 ## compare-packages: compare the current installed packages with the list
 .PHONY: compare-packages
