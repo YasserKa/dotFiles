@@ -183,8 +183,8 @@ dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands
 sxhkd # Simple X hotkey daemon
 xcape # Configure modifier keys to act as other keys when pressed and released on
-# rofi # A window switcher, application launcher and dmenu replacement
-rofi-lbonn-wayland-git # rofi's wayland fork
+rofi # A window switcher, application launcher and dmenu replacement
+# rofi-lbonn-wayland-git # rofi's wayland fork
 rofi-calc # Do calculations in rofi
 polybar # A fast and easy-to-use status bar
 lsof # List open files for running Unix processes
@@ -273,6 +273,7 @@ rsync # A fast and versatile file copying tool for remote and local files
 sshfs # FUSE client based on the SSH File Transfer Protocol
 wget # Network utility to retrieve files from the Web
 nftables # Netfilter tables userspace tools
+dosfstools # Fromatting fat32 partitions
 nethogs # A net top tool which displays traffic used per process instead of per IP or interface
 networkmanager # Network connection manager and user applications
 networkmanager-dmenu-git # Control NetworkManager via dmenu

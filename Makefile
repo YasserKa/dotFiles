@@ -5,7 +5,7 @@ XDG_DATA_HOME=$(HOME)/.local/share
 PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython
 
 .PHONY: install
-install: pre-install-packages update-sudoers install-packages post-install-packages update-sudoers
+install: update-sudoers pre-install-packages install-packages post-install-packages update-sudoers
 
 .PHONY: pre-install-packages
 pre-install-packages:
@@ -27,11 +27,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
 	@mkdir -p $(XDG_CONFIG_HOME)/autokey/data
 	@mkdir -p $(XDG_CONFIG_HOME)/zsh
-	@mkdir -p $(HOME)/.ssh
-	@chmod 700 $(HOME)/.ssh
 	@mkdir -p $(XDG_DATA_HOME)/icons/hicolor
-	@mkdir -p $(XDG_DATA_HOME)/.gnugp
-	@chmod 700 $(XDG_DATA_HOME)/.gnugp
 	@rm -rf $(HOME)/.bashrc $(HOME)/.bash_profile
 	@# https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Hide_GRUB_unless_the_Shift_key_is_held_down
 	@sudo sh -c "echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /boot/grub/grub.cfg"
@@ -50,8 +46,7 @@ update-sudoers:
 .PHONY: install-packages
 install-packages: create-clean-pkglist install-aur-helper
 	@sudo pacman --sync --refresh --sysupgrade
-	@paru --sync --refresh --sysupgrade --noconfirm --skipreview --needed - < pkglist_clean.tmp
-	# Need to be installed afterwrds because displaylink depend son evdi which
+	@yes | paru --sync --refresh --sysupgrade --skipreview --needed - < pkglist_clean.tmp
 	@# Get nvim preconfiguration before stowing
 	@rm -f *tmp
 	# Install submodules
@@ -84,7 +79,7 @@ setup-tuir:
 	@cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages
-post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser
+post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir
 	@# Setup neovim
 	nvim  --headless -c 'autocmd User LazyDone quitall'
 	@# Setup Zsh plugin manager & shell
@@ -96,19 +91,10 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	sudo pkgfile -u
 	@# Setup Tmux plugin manager
 	git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
-	@#Setup notes
-	git clone https://github.com/YasserKa/notes $(HOME)/notes
-	git -C $(HOME)/notes config --bool branch.master.sync true
-	git -C $(HOME)/notes config --bool branch.master.syncNewFiles true
-	git -C $(HOME)/notes config --local commit.gpgsign false
 
 .PHONY: stow-packages
 stow-packages:
 	stow X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
-	stow --target=$HOME --dir="$HOME/.dotfiles-private" bash emacs fasd hunspell khard qutebrowser snippets zsh
-	git -C $(HOME)/.dotfiles-private config --bool branch.main.sync true
-	git -C $(HOME)/.dotfiles-private config --bool branch.main.syncNewFiles true
-	git -C $(HOME)/.dotfiles-private config --local commit.gpgsign false
 	sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
