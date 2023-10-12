@@ -10,8 +10,8 @@ move_config_to_server:
 	@[[ -n "$(host)" ]] || { echo 'need a host name' && exit 1; }
 	@command -v make >/dev/null || { echo "GNU make is needed at '$(host)' server" && exit 1; }
 	@ssh -t "$(host)" "mkdir -p $(config_path)"
-	@shopt -s dotglob; scp  -qr "$(HOME)"/dotfiles/instance_setup/* "$(host):$(config_path)"
-	@scp  -qr "$(HOME)"/dotfiles/readline/.config/readline "$(host):$(config_path)"
+	@shopt -s dotglob; scp  -qr "$(DOTFILES_DIR)"/instance_setup/* "$(host):$(config_path)"
+	@scp  -qr "$(DOTFILES_DIR)"/readline/.config/readline "$(host):$(config_path)"
 	@ssh -t "$(host)" "cd $(config_path) && make --keep-going"
 	@echo -e "Notes: Jupyter notebook can be setup via Makefile"
 

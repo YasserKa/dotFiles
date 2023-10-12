@@ -7,4 +7,4 @@ Type=forking
 TimeoutStartSec=0
 ExecStartPre=/home/yasser/bin/wait_internet
 ExecStart=/home/yasser/bin/notify_me
-Environment="HOME=/home/yasser" "USERNAME=yasser" "XDG_CONFIG_HOME=/home/yasser/.config" "_EDITOR_GUI=nvim-qt"
+Environment="HOME=/home/yasser" "USERNAME=yasser" "XDG_CONFIG_HOME=/home/yasser/.config" "EDITOR_GUI=nvim-qt"

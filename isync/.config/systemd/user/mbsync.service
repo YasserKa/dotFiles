@@ -4,7 +4,7 @@ OnFailure=notify-popup-send@%i.service
 
 [Service]
 Type=forking
-Environment="HOME=/home/yasser" "XDG_CONFIG_HOME=/home/yasser/.config" "XDG_CACHE_HOME=/home/yasser/.cache" "PASSWORD_STORE_DIR=/home/yasser/.local/share/pass" "XDG_CONFIG_ISYNC=/home/yasser/.config/isync/mbsyncrc" "XDG_DATA_HOME=/home/yasser/.local/share"  "GNUPGHOME=/home/yasser/.local/share/gnupg" "DISPLAY=:0" "EDITOR=nvim" "BROWSER=qutebrowser" "_EDITOR_GUI=nvim-qt" "XDG_STATE_HOME=/home/yasser/.config/.local/state" "NOTMUCH_CONFIG=/home/yasser/.config/notmuch/config"
+Environment="HOME=/home/yasser" "XDG_CONFIG_HOME=/home/yasser/.config" "XDG_CACHE_HOME=/home/yasser/.cache" "PASSWORD_STORE_DIR=/home/yasser/.local/share/pass" "XDG_CONFIG_ISYNC=/home/yasser/.config/isync/mbsyncrc" "XDG_DATA_HOME=/home/yasser/.local/share"  "GNUPGHOME=/home/yasser/.local/share/gnupg" "DISPLAY=:0" "EDITOR=nvim" "BROWSER=qutebrowser" "EDITOR_GUI=nvim-qt" "XDG_STATE_HOME=/home/yasser/.config/.local/state" "NOTMUCH_CONFIG=/home/yasser/.config/notmuch/config"
 ExecStart=/home/yasser/.config/neomutt/bin/syncmail
 
 [Install]

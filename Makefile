@@ -84,8 +84,8 @@ setup-tuir:
 .PHONY: post-install-packages
 post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir
 	@# Setup editors
-	@nvim  --headless -c 'autocmd User LazyDone quitall'
-	@emacs --kill
+	nvim  --headless -c 'quitall'
+	emacs --kill
 	@# Setup Zsh plugin manager & shell
 	@zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
 	@sudo usermod --shell /bin/zsh $(USER)
@@ -98,8 +98,8 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 
 .PHONY: stow-packages
 stow-packages:
-  # Install neovim starter kit before stowing
-  @git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
+	# Install neovim starter kit before stowing
+	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
 	@stow X11 abook alacritty autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar wezterm xmodmap yt-dlp zathura zsh
 	@sudo stow root --target=/root/
 
@@ -122,7 +122,8 @@ setup-systemd-services:
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
 	sudo systemctl enable displaylink
-	sudo systemctl enable cronie
+	# Disables to not override backups
+	# sudo systemctl enable cronie
 	sudo systemctl enable nftables.service
 	sudo systemctl enable acpid.service
 	sudo systemctl enable firewalld.service

@@ -107,7 +107,7 @@
          (list (openwith-make-extension-regexp
                 '("pdf" "epub" "djvu")) "okular" '(file))
          (list (openwith-make-extension-regexp
-                '("markdown")) (getenv "_EDITOR_GUI") '(file))
+                '("markdown")) (getenv "EDITOR_GUI") '(file))
          ))
   (openwith-mode t))
 ;; }}}
@@ -684,7 +684,7 @@
   (evil-collection-magit-want-horizontal-movement t)
   ;; Update return in repo list, should be done after evil-collection
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-  (magit-repository-directories '(("~/dotfiles" . 0)))
+  (magit-repository-directories '(("$DOTFILES_DIR" . 0)))
   :config
 
   ;; This is needed to enter password for signing via gpg , since I am using curses for pinentry
@@ -699,7 +699,7 @@
   ;; Open file using nvim
   (defun my/vil-diff-visit-file (file &optional other-window)
     (interactive (list (magit-file-at-point t t) current-prefix-arg))
-    (start-process-shell-command "Start default application" nil (concat (getenv "_EDITOR_GUI") " " file nil))
+    (start-process-shell-command "Start default application" nil (concat (getenv "EDITOR_GUI") " " file nil))
     )
   )
 
@@ -844,7 +844,7 @@
 
   (defun get-org-files ()
     (interactive)
-    (directory-files (getenv "_NOTES_ORG_HOME") nil ".org$"))
+    (directory-files (getenv "NOTES_ORG_HOME") nil ".org$"))
   ;; (get-org-files :maxlevel . 3)
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -1072,7 +1072,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
 
   (setq org-capture-templates
-        `(("d" "default" entry (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+        `(("d" "default" entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
            "* TODO %?\n")))
 
   ;; Update org-agenda-files after updating item states
@@ -1091,7 +1091,7 @@ Made for `org-tab-first-hook' in evil-mode."
       )
     (org-store-new-agenda-file-list curr-files)
     ;; Sort agenda files, so that there's not that often changes to be tracked by git
-    (shell-command (concat "sort " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files") " | sponge " (concat (getenv "_NOTES_ORG_HOME") "/agenda_files")))
+    (shell-command (concat "sort " (concat (getenv "NOTES_ORG_HOME") "/agenda_files") " | sponge " (concat (getenv "NOTES_ORG_HOME") "/agenda_files")))
     (let ((inhibit-message)) (org-install-agenda-files-menu))
     )
 
@@ -1120,7 +1120,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
 
-  (my/add-to-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+  (my/add-to-agenda-files (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
   ;; Clocking
   (setq ;; Resume when clocking into task with open clock
    org-clock-in-resume t
@@ -1318,16 +1318,16 @@ see how ARG affects this command."
 
     (add-to-list 'org-capture-templates
                  `("q" "org-capture-url" entry
-                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+                   (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
     (add-to-list 'org-capture-templates
                  `("n" "org-capture-note" entry
-                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+                   (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
     (add-to-list 'org-capture-templates
                  `("w" "Web site" entry
-                   (file ,(concat (getenv "_NOTES_ORG_HOME") "/org_protocol_html.org")) ;
+                   (file ,(concat (getenv "NOTES_ORG_HOME") "/org_protocol_html.org")) ;
                    "* %a :website:\n\n%U %?\n\n%:initial"))
 
     (setq org-protocol-default-template-key "q")
@@ -1443,7 +1443,7 @@ see how ARG affects this command."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
-  (setq org-agenda-files (concat (getenv "_NOTES_ORG_HOME") "/agenda_files"))
+  (setq org-agenda-files (concat (getenv "NOTES_ORG_HOME") "/agenda_files"))
   )
 
 (use-package org-superstar
@@ -1457,7 +1457,7 @@ see how ARG affects this command."
 (use-package org-roam
   :after org
   :custom
-  (org-roam-directory (getenv "_NOTES_ORG_HOME"))
+  (org-roam-directory (getenv "NOTES_ORG_HOME"))
   (org-roam-node-display-template
    (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   ;; It's slow, so disable it
@@ -1637,7 +1637,7 @@ see how ARG affects this command."
 ;; Search text
 (use-package deft
   :custom
-  (deft-directory (getenv "_NOTES_ORG_HOME"))
+  (deft-directory (getenv "NOTES_ORG_HOME"))
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
@@ -1933,7 +1933,7 @@ selection of all minor-modes, active or not."
   (" e" org-export-dispatch "export")
   (" a" org-archive-subtree "archive")
   (" g" org-goto-hydra/body "goto")
-  (" c" (find-file (concat (getenv "_NOTES_ORG_HOME") "/capture.org"))
+  (" c" (find-file (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
    "goto capture")
   )
 

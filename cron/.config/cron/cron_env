@@ -9,7 +9,7 @@ export XAUTHORITY=$HOME/.Xauthority
 export XDG_RUNTIME_DIR=/run/user/1000
 
 # Needed by syncorg function
-export _NOTES_ORG_HOME=$HOME/notes/org
+export NOTES_ORG_HOME=$HOME/notes/org
 export XDG_DATA_HOME=$HOME/.local/share
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR=$XDG_DATA_HOME/pass

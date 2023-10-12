@@ -309,7 +309,7 @@ c.prompt.filebrowser = False
 c.downloads.location.suggestion = "both"
 c.downloads.remove_finished = 0
 
-c.editor.command = [os.getenv("_EDITOR_GUI"), "{file}", "--nofork"]
+c.editor.command = [os.getenv("EDITOR_GUI"), "{file}", "--nofork"]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
 
 c.url.default_page = "https://www.google.com"

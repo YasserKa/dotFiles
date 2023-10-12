@@ -108,7 +108,7 @@ ranger() {
 # Use fasd and FZF to jump through directories
 j() {
 	local paths
-	paths=$(fasd -dlR "$@" | grep -v dotfiles)
+	paths=$(fasd -dlR "$@" | grep -v "$DOTFILES_DIR")
 	local my_path="$HOME"
 	# If only one path exists, go to it
 	if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
@@ -274,7 +274,7 @@ open_file() {
 		notify-send "$TERMINAL not supported for open_file function" &&
 		return 1
 
-	local -r DIRECTORY_PATH="$HOME/dotfiles/$1"
+	local -r DIRECTORY_PATH="$DOTFILES_DIR/$1"
 	shift
 	[[ ! -d "${DIRECTORY_PATH}" ]] && notify-send "${DIRECTORY_PATH} doesn't exist" && exit 1
 
@@ -324,9 +324,9 @@ rcemacs() { emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create
 
 rcdotfiles() {
 	if [[ "$-" != *c* ]]; then
-		cd "${HOME}/dotfiles/" || return
+		cd "$DOTFILES_DIR/" || return
 	else
-		"${TERMINAL}" -e --directory "${HOME}/dotfiles/"
+		"${TERMINAL}" -e --directory "$DOTFILES_DIR/"
 	fi
 }
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
@@ -370,7 +370,7 @@ emacsclient() {
 
 org() {
 	local NAME="emacs_org"
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n "$_NOTES_ORG_HOME/capture.org"
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n "$NOTES_ORG_HOME/capture.org"
 	goto_window $NAME
 }
 
@@ -386,14 +386,14 @@ magit() {
 
 }
 
-alias gitdotfiles='cd $HOME/dotfiles && magit'
+alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
 syncorg() {
 	emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
 	# resync is used because rclone stops functioning if its executed on a file
 	# that's being edited (this will override the remote files)
-	"$HOME"/bin/wait_internet && rclone bisync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
-		rclone bisync --resync "${_NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
+	"$HOME"/bin/wait_internet && rclone bisync "${NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
+		rclone bisync --resync "${NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
 		notify-send --urgency=critical "Sync org not working"
 
 }

@@ -2,10 +2,6 @@
 # shellcheck disable=SC2155,SC2010
 
 # Shared profile among shells
-#
-# Guideline
-# Personal envs (Not used by applications) have a _ prefix (e.g. _EDITOR_GUI)
-# Note: Before making a new env var, Use something like "rg --hidden <pattern>" to figure out which files are dependent on it
 
 # History
 # Ongoing session
@@ -24,7 +20,8 @@ export PAGER=less
 export MANOPT=-Pvimpager
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
-export _EDITOR_GUI=nvim-qt
+export DOTFILE_DIR="$HOME/.dotfiles"
+export EDITOR_GUI=nvim-qt
 
 # Conform to XDG standards
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -50,7 +47,7 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export XAUTHORITY="$HOME/.Xauthority"
 
 # Path to notes
-export _NOTES_ORG_HOME="$HOME/notes/org"
+export NOTES_ORG_HOME="$HOME/notes/org"
 
 # Go packages
 export GOPATH="$XDG_DATA_HOME/go"
