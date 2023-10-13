@@ -1,0 +1,23 @@
+#!/bin/python3
+
+import subprocess
+import sys
+
+from hypothepy.v1.api import HypoApi
+
+API = (
+    subprocess.run(["pass", "hypo_api"], stdout=subprocess.PIPE).stdout.decode().strip()
+)
+hypo = HypoApi(
+    api_key=API,
+    user_name="yasser_kaddoura",
+)
+
+link = hypo.annotations.search(
+    user="yasser_kaddoura",
+    uri=sys.argv[1],
+    sort="created",
+    limit=1,
+).json()["rows"][0]["links"]["incontext"]
+
+print(link)

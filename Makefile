@@ -10,6 +10,7 @@ install: update-sudoers pre-install-packages install-packages post-install-packa
 .PHONY: pre-install-packages
 pre-install-packages:
 	@echo "Creating directories"
+	@mkdir -p $(HOME)/.cache # For fasd
 	@mkdir -p $(HOME)/Pictures
 	@mkdir -p $(XDG_DATA_HOME)/applications
 	@mkdir -p $(XDG_CONFIG_HOME)/systemd/user
@@ -108,6 +109,7 @@ stow-packages:
 .PHONY:install-pypi-packages
 install-pypi-packages: 
 	@echo "Installing Python appliations"
+	@python -m pip install hypothepy --break-system-packages # Getting hypothesis links
 	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"; done
 
 .PHONY: setup-systemd-services

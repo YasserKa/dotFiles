@@ -54,7 +54,7 @@ set $wp9 9
 set $wp0 0
 
 # Workspaces on specific screens
-set $monitor_primary eDP-1-1
+set $monitor_primary eDP-1
 set $monitor_left DVI-I-3-2
 set $monitor_right DVI-I-2-1
 
@@ -202,7 +202,7 @@ mode $audio_mode {
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(b)attery, (l)ights off, (s)chedule, (u)sb unmount, (v)pn"
+set $utility_mode "(b)attery, (l)ights off, (u)nmount usb, (m)ount usb, (v)pn"
 bindsym $mod+u mode $utility_mode
 mode --pango_markup $utility_mode {
     bindsym b exec --no-startup-id get_earphones_battery; mode "default";
@@ -212,6 +212,7 @@ mode --pango_markup $utility_mode {
 
 # Unmount all storage devices;
     bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
+    bindsym m exec --no-startup-id udiskie-mount -a; mode "default";
 
     bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
 

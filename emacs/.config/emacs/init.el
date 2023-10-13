@@ -163,12 +163,12 @@
 (use-package anzu :after isearch-mode)
 (use-package evil-anzu :after evil :config (global-anzu-mode +1))
 
-
 ;; Icons for doom-modeline
 (use-package nerd-icons
   :config
   ;; Add a glyph for hypothesis links
   (add-to-list 'nerd-icons-url-alist '("^\\(https?://\\)?\\(www\\.\\)?hyp\\.is" nerd-icons-mdicon "nf-md-alpha_h_box"))
+  (add-to-list 'nerd-icons-url-alist '("^link-handler://" nerd-icons-mdicon "nf-md-alpha_h_box"))
   (unless (package-installed-p 'nerd-icons)
     (nerd-icons-install-fonts))
   )
@@ -946,7 +946,6 @@ Made for `org-tab-first-hook' in evil-mode."
     (defun add-link-handler-icon (orig-fun &rest args)
       "Add link-handler icon"
       (if (string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link") nil)
-      (if (string= "https://hyp.is/" orig-fun) (nerd-icons-faicon "nf-fa-link") nil)
       )
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-link-handler-icon)
