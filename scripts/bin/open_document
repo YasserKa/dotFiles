@@ -13,7 +13,8 @@ APPLICATION=$(xdg-mime query default "$FILETYPE")
 if [[ "$APPLICATION" == "zathura.desktop" ]]; then
 	CMD="zathura $DOC_PATH"
 	if [[ -n "$PAGE_NUM" ]]; then
-		CMD+="$CMD -P $PAGE_NUM"
+		CMD+=" -P $PAGE_NUM"
 	fi
 fi
+
 bash -ic "$CMD"
