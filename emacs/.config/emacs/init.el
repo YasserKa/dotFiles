@@ -44,8 +44,13 @@
 ;; Better defaults {{{
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
+(setopt use-short-answers t)
 ;; Exit emacs without getting a prompt to kill processes
 (setq confirm-kill-processes nil)
+;; Ediff mode
+(setq ediff-split-window-function 'split-window-horizontally
+      ediff-window-setup-function 'ediff-setup-windows-plain)
+(add-hook 'ediff-mode-hook '(lambda () (golden-ratio-mode 0)))
 ;; Load the newest version of a file
 (setq  load-prefer-newer t)
 ;; Revert buffer when the file changes on disk
