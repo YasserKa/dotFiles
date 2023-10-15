@@ -88,9 +88,6 @@ eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh
 export EMACS_DEFAULT_SOCKET="default"
 export EMACS_ORG_SOCKET="org"
 
-emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
-emacs --bg-daemon=$EMACS_ORG_SOCKET &
-
 # Use a display server (X or Wayland)
 if [ "${XDG_VTNR}" -eq 1 ]; then
 	if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ]; then

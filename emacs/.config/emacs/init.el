@@ -692,9 +692,8 @@
   (magit-repository-directories '(("$DOTFILES_DIR" . 0)))
   :config
 
-  ;; This is needed to enter password for signing via gpg , since I am using curses for pinentry
-  (use-package pinentry
-    :config (pinentry-start))
+  ;; Use External GTK pinetry program to run pinentry
+  (setenv "PINENTRY_USER_DATA" "gtk")
 
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward

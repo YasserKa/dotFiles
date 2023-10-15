@@ -299,6 +299,9 @@ exec --no-startup-id sleep 3; i3-msg "workspace --no-auto-back-and-forth 1"
 # Manages some key bindings
 exec --no-startup-id autokey-qt & disown
 
+exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
+exec --no-startup-id emacs --bg-daemon=$EMACS_ORG_SOCKET &
+
 # Manages devices remotely
 exec /usr/lib/kdeconnectd & disown
 # >>>
