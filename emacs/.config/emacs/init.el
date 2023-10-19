@@ -1461,7 +1461,7 @@ see how ARG affects this command."
   :custom
   (org-roam-directory (getenv "NOTES_ORG_HOME"))
   (org-roam-node-display-template
-   (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+   (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
   ;; It's slow, so disable it
   (org-roam-db-update-on-save nil)
   ;; Node completion
