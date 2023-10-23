@@ -269,7 +269,12 @@
 ;; Expands on conf-mode for i3 config files
 (use-package i3wm-config-mode
   :custom
-  indent-line-function (lambda () "noindent") "Disable auto-indentation")
+  indent-line-function (lambda () "noindent") "Disable auto-indentation"
+  :config
+  ;; Enable mode for sway config files as well
+  (add-to-list 'auto-mode-alist '("/sway/.*config.*/" . i3wm-config-mode))
+  (add-to-list 'auto-mode-alist '("/sway/config\\'" . i3wm-config-mode))
+  )
 
 (use-package crontab-mode
   :init
@@ -1025,6 +1030,15 @@ Made for `org-tab-first-hook' in evil-mode."
                             (:discard (:anything))
                             ))))))
           ("o" "Others"
+           ((todo "DONE")
+            (alltodo "" ((org-super-agenda-groups
+                          '((:priority "A")
+                            (:priority "B")
+                            (:name "Short"
+                                   :tag "effort< 1:01")
+                            (:discard (:priority "C"))
+                            ))))))
+          ("A" "All"
            ((todo "DONE")
             (alltodo "" ((org-super-agenda-groups
                           '((:priority "A")
