@@ -832,13 +832,14 @@
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w@)" "|" "CANCELLED(c@/!)")
+                (sequence "TO-READ(r)" "WAITING(w@)" "|" "CANCELLED(c@/!)")
                 )))
 
   (defface org-todo-default '((t :weight bold :inverse-video t :height 0.8)) "default face for todo keywords")
 
   (setq
    TODO_color "red4"
+   TOREAD_color "dark green"
    NEXT_color "blue1"
    WAITING_color "darkorange3"
    DONE_color "forest green"
@@ -848,6 +849,7 @@
   (setq org-todo-keyword-faces
         (list
          `("TODO" :foreground ,TODO_color :inherit org-todo-default :box (:line-width 3 :color ,TODO_color))
+         `("TO-READ" :foreground ,TOREAD_color :inherit org-todo-default :box (:line-width 3 :color ,TOREAD_color))
          `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
          `("WAITING" :foreground ,WAITING_color :inherit org-todo-default :box (:line-width 3 :color ,WAITING_color))
          `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
@@ -1026,7 +1028,7 @@ Made for `org-tab-first-hook' in evil-mode."
                           '((:name "Next"
                                    :todo "NEXT")
                             (:name "Waiting"
-                                   :todo "WAITING")
+                                   :todo "WAIT")
                             (:name "High priority"
                                    :priority "A")
                             (:name "Capture"
@@ -1038,6 +1040,7 @@ Made for `org-tab-first-hook' in evil-mode."
             (alltodo "" ((org-super-agenda-groups
                           '((:priority "A")
                             (:priority "B")
+                            (:todo "TO-READ")
                             (:name "Short"
                                    :tag "effort< 1:01")
                             (:discard (:priority "C"))
@@ -1102,7 +1105,7 @@ Made for `org-tab-first-hook' in evil-mode."
     (if (= (length org-state) 0)
         ;; No TODOs in buffer, so remove it, otherwise add it
         ;; TODO: make the string dynamic
-        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\|CANCELLED}" 'file)) 0)
+        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\TO-READ\\\|CANCELLED}" 'file)) 0)
             (setq curr-files (my/remove-from-agenda-files buffer-file-name))
           (setq curr-files (my/add-to-agenda-files buffer-file-name))
           )
