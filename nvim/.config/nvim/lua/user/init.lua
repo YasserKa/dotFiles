@@ -580,6 +580,7 @@ local config = {
 		{ "https://github.com/tpope/vim-repeat", lazy = false }, -- Used to repeat vim-unimpaired actions
 		{
 			"https://github.com/folke/todo-comments.nvim",
+			lazy = false,
 			dependencies = "nvim-lua/plenary.nvim",
 
 			config = function()

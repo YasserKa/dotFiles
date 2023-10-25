@@ -23,7 +23,7 @@ pre_active_window_name="$(get_active_window_name)"
 # Make it focus the new tab
 $XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration "focus"
 
-echo "set-cmd-text -s :tab-select" >> $QUTE_FIFO
+echo "cmd-set-text -s :tab-select" >> $QUTE_FIFO
 
 curr_active_window_name="$(get_active_window_name)"
 

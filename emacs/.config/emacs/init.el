@@ -168,6 +168,10 @@
 (use-package anzu :after isearch-mode)
 (use-package evil-anzu :after evil :config (global-anzu-mode +1))
 
+;; Balance balance window margins
+(use-package olivetti
+  :disabled)
+
 ;; Icons for doom-modeline
 (use-package nerd-icons
   :config
@@ -1993,66 +1997,3 @@ selection of all minor-modes, active or not."
   (" m"	org-agenda-month-view "month")
   (" y"	org-agenda-year-view "year"))
 ;;;; }}}
-;;
-;;;; LSP
-;;(use-package lsp-mode
-;;  :init
-;;  (setenv "LSP_USE_PLISTS" "true")
-;;  (setq lsp-keymap-prefix "C-c l")
-;;  :custom
-;;(lsp-use-plist t)
-;;(read-process-output-max (* 1024 1024))
-;;  ;; (lsp-auto-guess-root t)
-;;  (lsp-log-io nil)
-;;  ;; (lsp-restart 'auto-restart)
-;;  ;; (lsp-enable-symbol-highlighting nil)
-;;  (lsp-enable-on-type-formatting nil)
-;;  (lsp-signature-auto-activate nil)
-;;  (lsp-prefer-capf t)
-;;  ;; (lsp-signature-render-documentation nil)
-;;  ;; (lsp-eldoc-hook nil)
-;;  ;; (lsp-modeline-code-actions-enable nil)
-;;  ;; (lsp-modeline-diagnostics-enable nil)
-;;  (lsp-headerline-breadcrumb-enable nil)
-;;  ;; (lsp-semantic-tokens-enable nil)
-;;  (lsp-enable-folding nil)
-;;  ;; (lsp-enable-imenu nil)
-;;  (lsp-enable-snippet t)
-;;  ;; (read-process-output-max (* 1024 1024)) ;; 1MB
-;;  ;; (lsp-idle-delay 0.5)
-;;  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-;;  :hook ((python-mode . lsp)
-;;         (lsp-mode . lsp-enable-which-key-integration))
-;;  :commands lsp
-;;  :config
-;;  ;; (setq lsp-enable-file-watchers nil)
-;;  )
-;;(use-package lsp-pyright
-;;  :ensure t
-;;  :hook (python-mode . (lambda ()
-;;                         (require 'lsp-pyright)
-;;                         (lsp)))
-;;  :config
-;;  (setq lsp-pyright-diagnostic-mode "workspace")
-;;  )
-;;
-;;;; optionally
-;;(use-package lsp-ui :commands lsp-ui-mode)
-;;;; if you are helm user
-;;(use-package helm-lsp :commands helm-lsp-workspace-symbol)
-;;;; if you are ivy user
-;;(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-;;(use-package treemacs
-;;  :ensure t
-;;  :defer t
-;;  :init
-;;  (with-eval-after-load 'winum
-;;    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-;;
-;;)
-;;(use-package lsp-treemacs :commands lsp-treemacs-errors-list
-;;  :config
-;;  ;; (treemacs-follow-mode t)
-;;  ;; (treemacs-filewatch-mode t)
-;;  )
-;;(use-package projectile)
