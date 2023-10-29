@@ -13,7 +13,7 @@ mkdir -p $target_vid_dir
 function note_path() {
 	# note lectures
 	notes_dir="$HOME/notes/latex"
-	note_picked=$(exa -l $notes_dir | awk -F' ' '{print $NF}' | rofi -dmenu)
+	note_picked=$(lsd -l $notes_dir | awk -F' ' '{print $NF}' | rofi -dmenu)
 	note_dir="$notes_dir/$note_picked/images"
 	echo $note_dir
 }

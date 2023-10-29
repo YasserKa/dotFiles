@@ -936,6 +936,10 @@ Made for `org-tab-first-hook' in evil-mode."
     (interactive)
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
 
+  ;; Add daylight saving schedule to agenda
+  (setq org-agenda-include-diary t
+        calendar-holidays holiday-solar-holidays)
+
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
    )

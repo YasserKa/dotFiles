@@ -287,7 +287,7 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
+# Preview directory's content when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
 zstyle ':fzf-tab:complete:lsd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
 
