@@ -11,7 +11,7 @@ FILETYPE=$(xdg-mime query filetype "$DOC_PATH")
 APPLICATION=$(xdg-mime query default "$FILETYPE")
 
 if [[ "$APPLICATION" == "zathura.desktop" ]]; then
-	CMD="zathura $DOC_PATH"
+	CMD="zathura '$DOC_PATH'"
 	if [[ -n "$PAGE_NUM" ]]; then
 		CMD+=" -P $PAGE_NUM"
 	fi
