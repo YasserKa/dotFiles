@@ -26,7 +26,7 @@ download_man_page() {
 		if [[ "$CURRENT_HASH" != "$DOWNLOADED_HASH" ]]; then
 
 			cp "$ABS_PATH.new" "/tmp/$MAN_NAME"
-			[[ $(dunstify --timeout=60000 "A manual got updates" "There's a new manual for $PARENT_DIR" --action="action,label") == "action" ]] &&
+			[[ $(dunstify --timeout=60000 "A manual got updates" "There's a new manual for $MAN_NAME" --action="action,label") == "action" ]] &&
 				diff-pdf --view -- "$ABS_PATH" "/tmp/$MAN_NAME" &
 			disown
 		fi
