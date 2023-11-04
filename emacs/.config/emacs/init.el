@@ -783,19 +783,6 @@
   (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
   (org-startup-with-inline-images t)
   (org-image-actual-width nil)
-  ;; Remove completed deadline, scheduled, completed from agenda
-  ;; The time when it get closed will be shown
-  (org-agenda-skip-deadline-if-done t)
-  (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-start-day "-3d")
-  ;; Calendar starts at Monday
-  (calendar-week-start-day 1)
-  (org-deadline-warning-days 0)
-  ;; Hide the deadline prewarning prior to scheduled date.
-  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
-  (org-agenda-compact-blocks t)
-  (org-agenda-block-separator nil)
-  (org-agenda-start-on-weekday nil "Show today +7 days")
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
@@ -932,6 +919,21 @@ Made for `org-tab-first-hook' in evil-mode."
 
   ;; Agenda
   ;; Open agenda files to buffer at startup
+  (setq
+   ;; Remove completed deadline, scheduled, completed from agenda
+   ;; The time when it get closed will be shown
+   org-agenda-skip-deadline-if-done t
+   org-agenda-skip-scheduled-if-done t
+   ;; Hide the deadline prewarning prior to scheduled date.
+   org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+   ;; Calendar starts at Monday
+   calendar-week-start-day 1
+   org-deadline-warning-days 0
+   org-agenda-compact-blocks t
+   org-agenda-block-separator nil
+   ;;Show today +7 days
+   org-agenda-start-on-weekday nil)
+
   (defun my/open-all-org-agenda-files ()
     (interactive)
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
@@ -1323,13 +1325,12 @@ see how ARG affects this command."
   ;; Go in the block with insert mode after inserting it
   (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
 
-
-
   ;; To export to markdown
   (require 'ox-md)
 
   ;; Exporting settings
   (setq org-export-with-broken-links t
+        org-export-coding-system 'utf-8
         org-export-preserve-breaks t
         org-export-with-todo-keywords nil)
 
@@ -1562,7 +1563,7 @@ see how ARG affects this command."
 
   (add-hook 'emacs-startup-hook 'org-agenda-to-appt-clear-message)
 
-  ;; Generate the appt list from org agenda files on emacs launch
+  ;; Generate the appt list from org agenda files on emacs launch and every 15 minutes
   (run-at-time nil 900 'org-agenda-to-appt-clear-message))
 ;; }}}
 ;; Navigation {{{
