@@ -1277,7 +1277,8 @@ see how ARG affects this command."
    ;; Check https://github.com/doomemacs/themes/issues/453
    '(org-block-begin-line ((t (:background unspecified :weight bold))))
    '(org-block-end-line ((t (:background unspecified :weight bold))))
-   '(org-code ((t (:foreground "dim gray" :background "#f2e5bc"))))
+   '(org-code ((t (:inherit (shadow fixed-pitch) :height 1.1))))
+   '(org-verbatim ((t (:inherit (shadow fixed-pitch) :height 1.1))))
    )
 
 
