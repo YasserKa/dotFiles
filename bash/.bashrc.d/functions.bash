@@ -369,8 +369,13 @@ alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
 	local NAME="emacs_org"
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n "$NOTES_ORG_HOME/capture.org"
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "z") (delete-other-windows))'
 	goto_window $NAME
+}
+
+# Open org notes without emacsclient to test config
+rorg() {
+	command emacs --file="$NOTES_ORG_HOME/capture.org"
 }
 
 magit() {
