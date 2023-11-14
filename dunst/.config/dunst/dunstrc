@@ -312,7 +312,7 @@ history_ignore = yes
 
 [mail]
 appname = neomutt
-new_icon = neomutt-64
+new_icon = mail
 timeout = 10
 
 [battery]
