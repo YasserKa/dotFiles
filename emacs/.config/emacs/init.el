@@ -1444,7 +1444,8 @@ see how ARG affects this command."
                                                      (cond ((org-at-item-p)
                                                             (let ((evil-org-special-o/O '(table-row item))) (evil-org-open-below 1)) t)
                                                            ((progn (org-insert-heading-after-current) (evil-insert 0)))))
-                              (kbd "<M-S-return>") #'(lambda () (interactive) (org-insert-todo-heading-respect-content) (evil-insert 0)))
+                              (kbd "<M-S-return>") #'(lambda () (interactive) (end-of-line) (let ((current-prefix-arg '(16))) (call-interactively 'org-insert-todo-heading)) (evil-insert 0))
+                            )
                             ;; readline keybinding
                             (evil-define-key 'insert 'evil-org-mode
                               (kbd "C-d") 'delete-char
