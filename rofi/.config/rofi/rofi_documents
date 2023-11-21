@@ -52,7 +52,7 @@ get_documents() {
 	ALL_DOCS="$(echo -e "$FASD_DOCS\n$DOCS_BASENAME")"
 	readonly ALL_DOCS
 	local NO_DUPLICATES
-	NO_DUPLICATES=$(echo "$ALL_DOCS" | awk '!a[$0]++' | tail -n +2)
+	NO_DUPLICATES=$(echo "$ALL_DOCS" | awk '!a[$0]++' | tail -n +1)
 	readonly NO_DUPLICATES
 	echo "$NO_DUPLICATES"
 }

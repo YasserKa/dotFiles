@@ -495,7 +495,8 @@
     )
 
   (evil-define-key 'normal 'global (kbd "J") 'my/join-line-keep-point)
-  )
+  (evil-define-key 'visual 'global (kbd "J") 'join-line)
+)
 
 (use-package windresize
   :after evil
