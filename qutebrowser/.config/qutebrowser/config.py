@@ -254,7 +254,7 @@ c.aliases = {
     "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
     "kde_share": (
         "spawn kdeconnect-cli -n 'Lenovo TB128FU' --share {url} || kdeconnect-cli -n"
-        " 'Yasser Kaddoura mobile' --share {url}"
+        " 'Redmi 5 Plus' --share {url}"
     ),
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
     "generate_password": (

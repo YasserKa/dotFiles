@@ -16,7 +16,7 @@ case $PICKED_SINK in
 		rfkill unblock bluetooth
 
 		# Wait until the device is connected
-		for i in {1..5}; do
+		for i in {1..10}; do
 			sleep 1
 			grep -nqE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break
 			echo -e "connect $DEVICE" | bluetoothctl
