@@ -99,7 +99,6 @@ c.bindings.commands = {
             " ~/.config/qutebrowser/userscripts/hypothesis_highlight_and_yank_link"
             " annotate"
         ),
-        "<Ctrl-i>": "spawn --userscript ~/.config/qutebrowser/userscripts/insert_info",
         # Yank/Goto URL without anchors
         "yp": (
             "spawn --userscript"
