@@ -91,7 +91,7 @@ upgrade_system() {
 	pdm self update
 
 	# Update Zsh plugins
-	zap update
+	zap update all
 }
 
 # Automatically change current directory to the last visited one after ranger quits
