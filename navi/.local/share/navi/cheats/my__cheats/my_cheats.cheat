@@ -57,7 +57,7 @@ zsh -d -f -i
 yt-dlp --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --output "%(title)s.%(ext)s" --yes-playlist <playlist>
 
 # Share kde file
-kdeconnect-cli -n "<device>" --share <file>
+kdeconnect-cli -n "<device>" --share "<file>"
 
 $device: kdeconnect-cli -a --name-only
 $file: fd 
@@ -71,5 +71,8 @@ rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exc
 # Unlock locked user
 faillock --user <user> --reset
 
+
+# Unlock locked user
+faillock --user <user> --reset
 
 # vim:ft=bash

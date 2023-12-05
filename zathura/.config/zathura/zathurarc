@@ -14,6 +14,7 @@ map yo exec '/home/yasser/.config/zathura/yank_zathura_link_handler "$FILE"'
 # Yank document with page to that's understood by link_handler protocol
 # This kind of quoting is necessary to bypass word splitting
 map yp exec '/home/yasser/.config/zathura/yank_zathura_link_handler "$FILE" "$PAGE"'
+map ys exec '/home/yasser/.config/zathura/handle_document yank_section "$FILE" "$PAGE"'
 # Yank link in the document to clipboard
 map yl feedkeys c
 

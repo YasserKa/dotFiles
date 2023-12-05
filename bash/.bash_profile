@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 # History
-export HISTFILE=$HOME/.bash_history
+export HISTFILE="$XDG_STATE_HOME"/bash/history
 # Bash stores history when the session terminates
 # Make it so that it when the command is executed
 export PROMPT_COMMAND='history -a'

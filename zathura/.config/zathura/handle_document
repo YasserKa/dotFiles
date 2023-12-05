@@ -2,11 +2,13 @@
 
 """ Remove/Yank annotated text """
 
-import sys
-import fitz 
-from typing import List, Tuple
 import subprocess
+import sys
+from typing import List, Tuple
+
+import fitz
 import pyperclip as pc
+
 
 def parse_highlight(annot: fitz.Annot, wordlist: List[Tuple[float, float, float, float, str, int, int, int]]) -> str:
     points = annot.vertices
@@ -43,7 +45,46 @@ def yank_highlights(file_path: str) -> List:
     for page in doc:
         highlights += handle_page(page)
 
-    return highlights
+    pc.copy("\n".join(highlights))
+
+def yank_section_name_of_page(file_path: str, page_num: int):
+    """Get the section name of the highlighted text
+
+    Args:
+        page_num: page number
+        text: selected text
+        file_path: file path
+    """
+    doc = fitz.open(file_path)
+    text = pc.paste()
+
+    toc = doc.get_toc()
+    section_name = ""
+    for index, section in enumerate(toc):
+        curr_section = section
+        curr_index = index
+        # Get the section that's after this page
+        if page_num  < curr_section[2]:
+            page_text = doc.get_page_text(page_num-1, flags=0)
+            # Get the current section (could be in current page or before)
+            curr_section = toc[curr_index-1]
+            section_name = curr_section[1]
+
+            # If the section in current page, check if text is after the section
+            while page_num == curr_section[2]:
+                # Pages index start from 0 in this method
+                section_name = curr_section[1]
+                # If text is below the section, use it
+                if page_text.rfind(text) > page_text.rfind(section_name):
+                    break
+                else:
+                    curr_index = curr_index-1
+                    curr_section = toc[curr_index-1]
+                    section_name = curr_section[1]
+            break
+    subprocess.run(["/home/yasser/.config/zathura/yank_zathura_link_handler",
+                    file_path, str(page_num), section_name])
+    
 
 def remove_annotations(file_path: str):
     doc = fitz.open(file_path)
@@ -54,14 +95,17 @@ def remove_annotations(file_path: str):
     doc.save(file_path, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 4:
         raise ValueError
     file_path = sys.argv[2]
     if sys.argv[1] == "get_annotations":
-        pc.copy("\n".join(yank_highlights(file_path)))
+        yank_highlights(file_path)
         list_files = subprocess.run(["dunstify", "Copied to clipboard"])
     elif sys.argv[1] == "remove_annotations":
         print("removing")
         remove_annotations(file_path)
+    elif sys.argv[1] == "yank_section":
+        print("Getting section")
+        yank_section_name_of_page(file_path, int(sys.argv[3]))
     else:
         raise ValueError

@@ -11,6 +11,9 @@ alias z='zathura'
 alias b='~-'
 alias vimdiff='nvim -d'
 
+# Conform to XDG standards
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
 # Expand sudo aliases
 alias sudo='sudo '
 alias pls='sudo $(fc -ln -1)'

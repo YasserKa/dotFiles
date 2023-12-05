@@ -1,0 +1,31 @@
+import sys
+import os
+os.sys("pass hyp_api")
+import subprocess
+subprocess.run("pass hyp_api")
+subprocess.run(["pass hyp_api"])
+subprocess.run(["pass", "hyp_api"])
+subprocess.run(["pass", "hypo_api"])
+x=subprocess.run(["pass", "hypo_api"])
+x
+x=subprocess.run(["pass", "hypo_api"], stdout=subprocess.PIPE)
+x
+x.stdou.decode()
+x.stdout.decode()
+subprocess.run(["pass", "hypo_api"], stdout=subprocess.PIPE).stdout.decode().strip()
+import unidecode
+from from unidecode import unidecode
+text_with_diacritics = "Tento text obsahuje diakritiku."
+text_without_diacritics = unidecode(text_with_diacritics)
+print(text_without_diacritics)
+from unidecode import unidecode
+text_with_diacritics = "Tento text obsahuje diakritiku."
+text_without_diacritics = unidecode(text_with_diacritics)
+print(text_without_diacritics)
+text_with_diacritics = "Tento text obsahuje diakritiku.Á"
+text_without_diacritics = unidecode(text_with_diacritics)
+print(text_without_diacritics)
+import spacy
+import sagemaker
+import flood_detection
+import nltk

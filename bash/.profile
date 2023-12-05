@@ -29,8 +29,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_MUSIC_HOME="$HOME/Music"
+export XAUTHORITY="$HOME"/.Xauthority
 
-# Conform to XDG standards
 # https://wiki.archlinux.org/title/XDG_Base_Directory
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export VIMPAGER_RC="$XDG_CONFIG_HOME/vimpagerrc"
@@ -38,19 +38,23 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XDG_CONFIG_ISYNC="$XDG_CONFIG_HOME/isync/mbsyncrc"
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
-# Cookie needed to acces the X server
-export XAUTHORITY="$HOME/.Xauthority"
+export GOPATH="$XDG_DATA_HOME/go"
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 
 # Path to notes
 export NOTES_ORG_HOME="$HOME/notes/org"
-
-# Go packages
-export GOPATH="$XDG_DATA_HOME/go"
 
 # Make cmus <escape> works
 export ESCDELAY=25

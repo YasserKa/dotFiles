@@ -3,8 +3,11 @@
 # Open a document to a page or using its name
 # Dependencies: fd
 
+# [[link-handler://open_document%20%22sml-book-draft-latest%22][sml-book-draft-latest]]
+dunstify $section_name
 file_path="$1"
 page_num="$2"
+section_name="$3"
 
 encode_url() {
 	# Reliable localization
@@ -30,7 +33,11 @@ cmd='open_document "'${doc_name}'"'
 
 if [[ $page_num ]]; then
 	cmd+=" $page_num"
-	link_name+=", page $page_num"
+	if [[ $section_name ]]; then
+		link_name+=", $section_name"
+	else
+		link_name+=", page $page_num"
+	fi
 fi
 
 encoded_command="$(encode_url "$cmd")"
