@@ -71,8 +71,10 @@ rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exc
 # Unlock locked user
 faillock --user <user> --reset
 
+# Convert MOBI to PDF
+ebook-convert "<file>" "<file_name>.pdf"
 
-# Unlock locked user
-faillock --user <user> --reset
+$file: fd
+$file_name: echo ${file%.mobi}
 
 # vim:ft=bash
