@@ -202,7 +202,7 @@ min_icon_size = 0
 max_icon_size = 32
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/hicolor/:/usr/share/doc/neomutt/logo/
+icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/hicolor/32x32/apps/:/home/yasser/.local/share/icons/:/usr/share/doc/neomutt/logo/
 
 ### History ###
 
@@ -297,17 +297,17 @@ script=~/.config/dunst/slack_delegate
 
 [slack-delegate]
 appname = slack-delegate
-new_icon = slack-40
+new_icon = slack
 
 
 [sleep]
 summary = "*sleep*"
-new_icon = bed-80
+new_icon = bed
 history_ignore = yes
 
 [music]
 appname = cmus
-new_icon = music-64
+new_icon = music
 history_ignore = yes
 
 [mail]
@@ -317,16 +317,20 @@ timeout = 10
 
 [battery]
 summary = "*Battery*"
-new_icon = low-battery-64
+new_icon = low-battery
+
+[earphones-battery]
+summary = "*Earphones Battery*"
+new_icon = battery
 
 [clipboard]
 summary = "*Clipboard*"
-new_icon = clipboard-64
+new_icon = clipboard
 history_ignore = yes
 
 [clipboard-1]
 summary = "*Upload completed*"
-new_icon = clipboard-64
+new_icon = clipboard
 history_ignore = yes
 
 # Remove deepinscreenshot notifications
@@ -354,14 +358,14 @@ history_ignore = yes
 appname = switch-sink
 timeout = 1
 summary = "*displaylink sink"
-new_icon = earbud-sound-64
+new_icon = earbud-sound
 history_ignore = yes
 
 [switch-sink-in]
 appname = switch-sink
 timeout = 1
 summary = "*built-in sink"
-new_icon = laptop-sound-64
+new_icon = laptop-sound
 history_ignore = yes
 
 # increase timeout

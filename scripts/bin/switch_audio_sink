@@ -11,7 +11,7 @@ PICKED_SINK="$1"
 case $PICKED_SINK in
 	"Bluetooth")
 		Description="Redmi"
-		icon="bluetooth-64"
+		icon="bluetooth"
 
 		rfkill unblock bluetooth
 
@@ -24,12 +24,12 @@ case $PICKED_SINK in
 		[[ $i == 5 ]] && dunstify "Device not found" && exit 1
 		;;
 	"Built In")
-		icon="laptop-sound-64"
+		icon="laptop-sound"
 		Description="Built-in"
 		rfkill block bluetooth
 		;;
 	"DisplayLink")
-		icon="earbud-sound-64"
+		icon="earbud"
 		Description="LAPDOCK"
 		rfkill block bluetooth
 		;;
