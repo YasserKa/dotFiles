@@ -1618,7 +1618,8 @@ see how ARG affects this command."
     "h" #'helpful-command)
   (add-to-list 'embark-keymap-alist '(command . embark-command-actions))
 
-  ;; C-v and C-x splits window for org roam node prompts only
+  ;; C-v and C-x window splits window
+  ;; Org-roam-nodes
   (defvar-keymap embark-org-roam-nodes-actions
     :doc "Keymap for actions for org roam nodes"
     :parent embark-general-map
@@ -1634,6 +1635,42 @@ see how ARG affects this command."
     (interactive)
     (evil-window-split)
     (org-roam-node-find))
+
+  ;; Buffers
+  (defvar-keymap embark-buffer-actions
+    :doc "Keymap for actions for buffers"
+    :parent embark-general-map
+    "x" #'my/switch-to-buffer-other-window-x
+    "v" #'my/switch-to-buffer-other-window-v)
+  (add-to-list 'embark-keymap-alist '(buffer . embark-buffer-actions))
+
+  (defun my/switch-to-buffer-other-window-x (buf)
+    (interactive "bBuffer: ")
+    (split-window-below) (windmove-down)
+    (switch-to-buffer buf))
+
+  (defun my/switch-to-buffer-other-window-v (buf)
+    (interactive "bBuffer: ")
+    (split-window-right) (windmove-right)
+    (switch-to-buffer buf))
+
+  ;; Files
+  (defvar-keymap embark-file-actions
+    :doc "Keymap for actions for files"
+    :parent embark-general-map
+    "x" #'my/switch-to-file-other-window-x
+    "v" #'my/switch-to-file-other-window-v)
+  (add-to-list 'embark-keymap-alist '(file . embark-file-actions))
+
+  (defun my/switch-to-file-other-window-x (file)
+    (interactive "bFile: ")
+    (split-window-below) (windmove-down)
+    (find-file file))
+
+  (defun my/switch-to-file-other-window-v (file)
+    (interactive "bFile: ")
+    (split-window-right) (windmove-right)
+    (find-file file))
 
   ;; Insert using embark on searching for org headings
   ;; https://gist.github.com/jdtsmith/8602d998116b953725218224b77b8766?permalink_comment_id=4465637
