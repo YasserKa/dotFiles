@@ -775,6 +775,7 @@
   :ensure org-contrib
   :hook ((org-mode . my/org-mode-setup))
   :custom
+  (org-directory (getenv "NOTES_ORG_HOME"))
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t "Hide symbols")
   (org-startup-folded 'content)
