@@ -7,24 +7,32 @@
 #   $1: file path
 #######################################
 
-FILE_PATH="$1"
+main() {
+	local -r FILE_PATH="$1"
+	local -r FILES="$*"
 
-# Extract directory path from the file path
-DIR_PATH="$(dirname "$FILE_PATH")"
+	local ONLY_OPTION=""
+	(($# > 1)) && ONLY_OPTION="+only"
+	# Extract directory path from the file path
+	local DIR_PATH
+	DIR_PATH="$(dirname "$FILE_PATH")"
 
-# Check if the directory exists, if not, create it after accepting a prompt
-if [[ ! -d "$DIR_PATH" ]]; then
+	# Check if the directory exists, if not, create it after accepting a prompt
+	if [[ ! -d "$DIR_PATH" ]]; then
 
-	QUESTION=" $DIR_PATH path doesn't exist, create it? (y/n) "
-	if [[ "$BASH" ]]; then
-		read -rp "$QUESTION" CHOICE
-	elif [[ "$ZSH_NAME" ]]; then
-		read -rq "CHOICE?$QUESTION"
+		local -r QUESTION=" $DIR_PATH path doesn't exist, create it? (y/n) "
+		if [[ "$BASH" ]]; then
+			read -rp "$QUESTION" CHOICE
+		elif [[ "$ZSH_NAME" ]]; then
+			read -rq "CHOICE?$QUESTION"
+		fi
+
+		[[ "$CHOICE" != "y" ]] && return 0
+
+		mkdir -p "$DIR_PATH"
 	fi
+	# shellcheck disable=2086
+	command nvim $ONLY_OPTION -o -- $FILES
+}
 
-	[[ "$CHOICE" != "y" ]] && return 0
-
-	mkdir -p "$DIR_PATH"
-fi
-
-nvim "$FILE_PATH"
+main "$@"
