@@ -3,6 +3,7 @@
 # Sync mega material
 0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Documents mega:Documents
 0 12 * * * $HOME/bin/wait_internet && rclone sync $HOME/Music mega:Music
+0 12 * * * $HOME/bin/wait_internet && rclone sync google_photos:media/all $HOME/Pictures/Phone
 
 0 12 * * * . $HOME/.config/cron/cron_env && $HOME/bin/wait_internet && $HOME/bin/download_manuals
 
