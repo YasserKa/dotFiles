@@ -26,6 +26,7 @@ acpilight # a backward-compatible xbacklight replacement based on ACPI
 
 # Drivers
 displaylink # Linux driver for DL-6xxx, DL-5xxx, DL-41xx and DL-3x00
+dkms
 #evdi-git # kernel module that that enables management of multiple screens.
 #evdi-compat-git
 
@@ -133,6 +134,7 @@ python-tldextract # Needed by Qutebrowser bitwarden script
 python-selenium # Used by scripts
 python-rofi    # Used by scripts
 ruff # Python linter
+prettier # An opinionated code formatter for JS, JSON, CSS, YAMK..
 
 # Command line
 zsh             # Z-Shell
@@ -267,6 +269,7 @@ moreutils # A growing collection of the unix tools that nobody thought to write 
 usbutils # A collection of USB tools to query connected USB devices
 gpick # Color picker
 navi # An interactive cheatsheet tool for the command-line
+pv # Monitoring progress of data through pipeline
 
 # Network
 keychain # agent for gpg & ssh keys

@@ -327,7 +327,7 @@ rcdotfiles() {
 	if [[ "$-" != *c* ]]; then
 		cd "$DOTFILES_DIR/" || return
 	else
-		"${TERMINAL}" -e --directory "$DOTFILES_DIR/"
+		"${TERMINAL}" -e --directory "$DOTFILES_DIR/Makefile"
 	fi
 }
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
