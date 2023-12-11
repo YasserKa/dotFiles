@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Search online dictionary on web browser for term in clipboard
+#
+# Dependencies: xdotool, xclip
+
+is_window_exists() { xdotool search --name "^$1$" >/dev/null; }
+
+INPUT="$(xclip -selection clipboard -o)"
+
+is_window_exists "$BROWSER" || xdg-open "$BROWSER" &&
+	xdg-open "https://www.merriam-webster.com/dictionary/$INPUT"
+
+# Focus the visible instance, else pick an available one using pid (the list is
+# reversed, because the first pid can't be activated)
+xdotool search --onlyvisible --class "^$BROWSER$" windowactivate ||
+	for pid in $(xdotool search --class "$BROWSER" | tac); do
+		xdotool windowactivate "$pid" && break
+	done
