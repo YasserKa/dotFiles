@@ -61,7 +61,6 @@ screen
 # Aesthetics
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal
 ttf-firacode-nerd # Patched font Fira Code
-ttf-fira-sans # Used for org mode italic face, since firacode lack it
 ttf-twemoji # Twitter Color Emoji (Used for terminal)
 ttf-font-awesome # Iconic font designed for Bootstrap
 gtk2 # GUI toolkit (needed for pinentry-gtk-2)

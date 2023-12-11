@@ -158,7 +158,6 @@
         modus-themes-italic-constructs t
         modus-themes-org-blocks 'gray-background)
   (load-theme 'modus-operandi-tinted :no-confirm))
-(set-face-attribute 'italic nil :family "FiraSans" :slant 'italic)
 
 (use-package doom-modeline
   :custom
