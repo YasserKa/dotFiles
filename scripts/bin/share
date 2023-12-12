@@ -35,7 +35,7 @@ case $1 in
 			deepin-screen-recorder --screenRecord
 		fi
 		;;
-	-i | -c)
+	-i | -c | -l)
 		if [ -n "${WAYLAND_DISPLAY}" ]; then
 			/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
 		else
@@ -108,8 +108,11 @@ if [[ "$extension" == "gif" ]]; then
 fi
 
 if [ "$1" == "-c" ]; then
-	cat $new_path | xclip -selection clipboard -t $(file -b --mime-type $new_path)
+	xclip -selection clipboard -t image/png -i "$new_path"
+	notify-send "Image saved to clipboard"
+elif [ "$1" == "-l" ]; then
+	echo "$new_path" | xclip -selection clipboard
 	notify-send "Image saved to clipboard"
 else
-	xback $new_path
+	xback "$new_path"
 fi
