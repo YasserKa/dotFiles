@@ -1,6 +1,6 @@
-; https://github.com/denisidoro/navi/blob/master/docs/cheatsheet_syntax.md
-; Comment lenght should be at most min_width (55), since truncated text wont be searchable
-; https://github.com/denisidoro/navi/issues/459
+# https://github.com/denisidoro/navi/blob/master/docs/cheatsheet_syntax.md
+# Comment lenght should be at most min_width (55), since truncated text wont be searchable
+# https://github.com/denisidoro/navi/issues/459
 % Pacman/Paru
 
 $pkg-local: pacman --query --explicit --quiet
@@ -34,8 +34,12 @@ paru -Sccad
 # Remove all Official pkgs from cache
 sudo pacman -Scc
 
+% Systemd
 
-% code patches
+# List user started timers
+systemctl list-timers --user
+
+% Code patches
 
 # Create patch
 diff -u <old> <new> > patch.patch
