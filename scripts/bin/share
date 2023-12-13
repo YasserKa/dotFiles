@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 target_img_dir="$HOME/Pictures/Shareables"
+target_img_tmp_dir="/tmp/Screenshots"
 target_vid_dir="$HOME/Videos/Shareables"
 target_path="$HOME"
 
@@ -7,6 +8,7 @@ target_path="$HOME"
 rm -f $target_path/Screen*
 
 mkdir -p $target_img_dir
+mkdir -p $target_img_tmp_dir
 mkdir -p $target_vid_dir
 
 # returns the path for the course
@@ -36,6 +38,8 @@ case $1 in
 		fi
 		;;
 	-i | -c | -l)
+		# Place latex paths in tmp directory
+		[[ "$1" == "-l" ]] && target_img_dir=$target_img_tmp_dir
 		if [ -n "${WAYLAND_DISPLAY}" ]; then
 			/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
 		else
