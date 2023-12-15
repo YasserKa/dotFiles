@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Description: A qutebrowser usercript that yanks a URL that contains the
 # highlighted text
+# Useful resources: https://github.com/WICG/scroll-to-text-fragment#target
 # Dependencies:
 #    xclip to place text in clipboard
 

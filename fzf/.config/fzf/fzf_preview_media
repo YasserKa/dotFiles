@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# Preview media for fzf
+# Solution inspired by ranger's scope.sh
+#
+# Possible improvements:
+# - Could be extended to include file's metadata using exiftool, ebook-meta, mediainfo
+# - Support video preview/thumbnail
+#   https://github.com/jarun/nnn/blob/f2a8648861ff88e1c2d5a95ae4d76b7367e12c9b/plugins/preview-tui#L468
+#
+
+array::contains() {
+	[[ $# -lt 2 ]] && printf "%s: Missing arguments\n" "${FUNCNAME[0]}" && return 2
+	declare query="${1:-}"
+	shift
+
+	for element in "${@}"; do
+		[[ "${element}" == "${query}" ]] && return 0
+	done
+
+	return 1
+}
+
+main() {
+	MIME_TYPE="$(file -bL --mime-type -- "$1")"
+	EXTENSION="${1##*.}"
+
+	# Clear kitty image
+	printf "\x1b_Ga=d,d=A\x1b\\"
+
+	local -r IMAGE_CACHE_PATH="/tmp/img_preview_media"
+	local -r DEFAULT_SIZE="1920x1080"
+
+	# Generate an image for PDF/djvu/epub...
+	if [[ "$MIME_TYPE" == "application/pdf" ]]; then
+		pdftoppm -f 1 -l 1 \
+			-scale-to-x "${DEFAULT_SIZE%x*}" \
+			-scale-to-y -1 \
+			-singlefile \
+			-jpeg -tiffcompression jpeg \
+			-- "${1}" "$IMAGE_CACHE_PATH"
+		wait
+		set -- "${IMAGE_CACHE_PATH}.jpg"
+		MIME_TYPE="image/jpeg"
+	fi
+
+	if [[ "$MIME_TYPE" == "image/vnd.djvu" ]]; then
+		ddjvu -format=tiff -quality=90 -page=1 -size="${DEFAULT_SIZE}" \
+			- "${IMAGE_CACHE_PATH}" <"$1"
+		wait
+		set -- "${IMAGE_CACHE_PATH}"
+		MIME_TYPE="image/tiff"
+	fi
+
+	DOCUMENT_MIME_TYPES=("application/epub+zip" "application/x-mobipocket-ebook" "application/x-fictionbook+xml")
+	if array::contains "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
+		ebook-meta --get-cover="${IMAGE_CACHE_PATH}" -- "$1" >/dev/null
+		wait
+		set -- "${IMAGE_CACHE_PATH}"
+		MIME_TYPE="image/jpeg"
+	fi
+
+	# Directory
+	if [[ -d "$1" ]]; then
+		lsd -1 --color=always "$1"
+		return
+	fi
+
+	COMPRESSED_EXT=("a" "ace" "alz" "arc" "arj" "bz" "bz2" "cab" "cpio" "deb" "gz" "jar" "lha" "lz" "lzh" "lzma" "lzo" "rpm" "rz" "t7z" "tar" "tbz" "tbz2" "tgz" "tlz" "txz" "tZ" "tzo" "war" "xpi" "xz" "Z" "zip")
+	if array::contains "$EXTENSION" "${COMPRESSED_EXT[@]}"; then
+		atool --list -- "$1"
+		return
+	fi
+
+	case "$MIME_TYPE" in
+		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+		text/*) bat -n --color=always "$1" ;;
+		video/* | audio/*) exiftool "$1" ;;
+		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+		*) bat -n --color=always "$1" ;;
+	esac
+}
+
+main "$@"

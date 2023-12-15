@@ -277,6 +277,15 @@ zle     -N            fzf-history-widget
 bindkey -M vicmd '^R' fzf-history-widget
 bindkey -M viins '^R' fzf-history-widget
 
+# Override the widget to remove images made by kitty on completion
+_fzf-file-widget() {
+fzf-file-widget
+printf "\x1b_Ga=d,d=A\x1b\\"
+}
+zle     -N            _fzf-file-widget
+bindkey -M vicmd '^T' _fzf-file-widget
+bindkey -M viins '^T' _fzf-file-widget
+
 # Navi's widget
 eval "$(navi widget zsh)"
 
@@ -287,9 +296,6 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# Preview directory's content when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
-zstyle ':fzf-tab:complete:lsd:*' fzf-preview '[[ -d "$realpath" ]] && lsd -1 --color=always $realpath || bat --color=always --style=numbers $realpath'
 
 # Remove the prefix "."
 zstyle ':fzf-tab:*' prefix ''
@@ -301,6 +307,18 @@ zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w 
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+
+zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
+
+# Override the widget to remove images made by kitty on completion
+_fzf-tab-complete() {
+fzf-tab-complete
+printf "\x1b_Ga=d,d=A\x1b\\"
+}
+
+zle     -N            _fzf-tab-complete
+bindkey -M emacs '^I'  _fzf-tab-complete
+bindkey -M viins '^I'  _fzf-tab-complete
 
 # }}}
 # Autojumping {{{

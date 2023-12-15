@@ -6,6 +6,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 --bind 'ctrl-space:toggle'
 --bind 'alt-space:toggle-all'
 --bind 'ctrl-alt-j:jump'
+--preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {}'
 
 --bind 'ctrl-i:replace-query'
 --bind 'ctrl-m:accept'
@@ -19,6 +20,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --follow --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
 
 # CTRL-Y to copy the command into clipboard
 export FZF_CTRL_R_OPTS="
