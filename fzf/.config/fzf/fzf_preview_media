@@ -4,7 +4,7 @@
 #
 # Possible improvements:
 # - Could be extended to include file's metadata using exiftool, ebook-meta, mediainfo
-# - Support video preview/thumbnail
+# - Support video preview
 #   https://github.com/jarun/nnn/blob/f2a8648861ff88e1c2d5a95ae4d76b7367e12c9b/plugins/preview-tui#L468
 #
 
@@ -51,6 +51,13 @@ main() {
 		MIME_TYPE="image/tiff"
 	fi
 
+	if [[ "$MIME_TYPE" == video/* ]]; then
+		ffmpegthumbnailer -m -s0 -i "$1" -o "${IMAGE_CACHE_PATH}.jpg" &>/dev/null
+		wait
+		set -- "${IMAGE_CACHE_PATH}.jpg"
+		MIME_TYPE="image/jpeg"
+	fi
+
 	DOCUMENT_MIME_TYPES=("application/epub+zip" "application/x-mobipocket-ebook" "application/x-fictionbook+xml")
 	if array::contains "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
 		ebook-meta --get-cover="${IMAGE_CACHE_PATH}" -- "$1" >/dev/null
@@ -74,7 +81,7 @@ main() {
 	case "$MIME_TYPE" in
 		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
 		text/*) bat -n --color=always "$1" ;;
-		video/* | audio/*) exiftool "$1" ;;
+		audio/*) exiftool "$1" ;;
 		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
 		*) bat -n --color=always "$1" ;;
 	esac
