@@ -13,7 +13,11 @@
 URL="$1"
 TITLE="$2"
 
-"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2 &
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2 >/dev/null &
 disown
 
-emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?url=$URL&title=$TITLE"
+if [[ -n "$URL" ]]; then
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?title=$TITLE&url=$URL"
+else
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=n&title=$TITLE"
+fi
