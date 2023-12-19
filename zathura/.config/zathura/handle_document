@@ -84,6 +84,21 @@ def yank_section_name_of_page(file_path: str, page_num: int):
             break
     subprocess.run(["/home/yasser/.config/zathura/yank_zathura_link_handler",
                     file_path, str(page_num), section_name])
+
+def yank_chapters_as_tasks(file_path: str):
+    """Yank chapters as Org tasks in the following format
+    ** TODO Read <chapter name> chapter (<chapter index>)
+
+    Args:
+        file_path: path fo file
+    """
+    doc = fitz.open(file_path)
+    toc = doc.get_toc()
+
+    chapters = filter(lambda x: x[0] == 1, toc)
+    tasks = [f"** TODO Read {chapter[1]} chapter ({index})" for index, chapter
+             in enumerate(chapters)]
+    pc.copy("\n".join(tasks))
     
 
 def remove_annotations(file_path: str):
@@ -95,8 +110,6 @@ def remove_annotations(file_path: str):
     doc.save(file_path, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        raise ValueError
     file_path = sys.argv[2]
     if sys.argv[1] == "get_annotations":
         yank_highlights(file_path)
@@ -104,6 +117,9 @@ if __name__ == "__main__":
     elif sys.argv[1] == "remove_annotations":
         print("removing")
         remove_annotations(file_path)
+    elif sys.argv[1] == "yank_chapters_as_tasks":
+        print("Yanking chapters as tasks")
+        yank_chapters_as_tasks(file_path)
     elif sys.argv[1] == "yank_section":
         print("Getting section")
         yank_section_name_of_page(file_path, int(sys.argv[3]))
