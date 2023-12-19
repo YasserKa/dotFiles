@@ -128,11 +128,6 @@
 ;; Prioritize vertical on horizontal split
 (setq split-width-threshold 80)
 
-;; Show tooltips (e.g. org links) in modeline
-(setq help-at-pt-display-when-idle t
-      help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
-
 ;; Enable line numbers for some modes
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
