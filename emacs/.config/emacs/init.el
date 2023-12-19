@@ -819,7 +819,7 @@
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "TO-READ(r)" "WAITING(w@)" "|" "CANCELLED(c@/!)")
+                (sequence "TO-READ(r)" "BLOCKED(b@)" "|" "CANCELLED(c@/!)")
                 )))
 
   (defface org-todo-default '((t :weight bold :inverse-video t :height 0.8)) "default face for todo keywords")
@@ -828,7 +828,7 @@
    TODO_color "red4"
    TOREAD_color "dark green"
    NEXT_color "blue1"
-   WAITING_color "darkorange3"
+   BLOCKED_color "darkorange3"
    DONE_color "forest green"
    CANCELLED_color "forest green"
    )
@@ -838,7 +838,7 @@
          `("TODO" :foreground ,TODO_color :inherit org-todo-default :box (:line-width 3 :color ,TODO_color))
          `("TO-READ" :foreground ,TOREAD_color :inherit org-todo-default :box (:line-width 3 :color ,TOREAD_color))
          `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
-         `("WAITING" :foreground ,WAITING_color :inherit org-todo-default :box (:line-width 3 :color ,WAITING_color))
+         `("BLOCKED" :foreground ,BLOCKED_color :inherit org-todo-default :box (:line-width 3 :color ,BLOCKED_color))
          `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
          `("CANCELLED" :foreground ,CANCELLED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELLED_color))
          ))
@@ -1020,6 +1020,11 @@ Made for `org-tab-first-hook' in evil-mode."
   ;; Persist clock history on Emacs close
   (org-clock-persistence-insinuate)
   (setq org-clock-persist 'clock)
+   (setq org-global-properties
+        '(("Effort_ALL". "0:10 0:15 0:30 0:45 1:00 2:00 3:00 4:00")
+          ("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Time){:} %5CLOCKSUM(Clock)")
+          ))
+
 
   ;; Super agenda
   (setq org-agenda-custom-commands
@@ -1111,7 +1116,7 @@ Made for `org-tab-first-hook' in evil-mode."
     (if (= (length org-state) 0)
         ;; No TODOs in buffer, so remove it, otherwise add it
         ;; TODO: make the string dynamic
-        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|WAITING\\\TO-READ\\\|CANCELLED}" 'file)) 0)
+        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|BLOCKED\\\TO-READ\\\|CANCELLED}" 'file)) 0)
             (setq curr-files (my/remove-from-agenda-files buffer-file-name))
           (setq curr-files (my/add-to-agenda-files buffer-file-name))
           )
@@ -1445,7 +1450,7 @@ see how ARG affects this command."
                                                             (let ((evil-org-special-o/O '(table-row item))) (evil-org-open-below 1)) t)
                                                            ((progn (org-insert-heading-after-current) (evil-insert 0)))))
                               (kbd "<M-S-return>") #'(lambda () (interactive) (end-of-line) (let ((current-prefix-arg '(16))) (call-interactively 'org-insert-todo-heading)) (evil-insert 0))
-                            )
+                              )
                             ;; readline keybinding
                             (evil-define-key 'insert 'evil-org-mode
                               (kbd "C-d") 'delete-char
