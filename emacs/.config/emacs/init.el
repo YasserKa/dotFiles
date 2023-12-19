@@ -1889,6 +1889,11 @@ selection of all minor-modes, active or not."
   (with-current-buffer (or buffer (current-buffer))
     (org-element-map (org-element-parse-buffer) 'keyword (lambda (el) (when (string-match property (org-element-property :key el)) el)))))
 
+(defun my/org-columns-buffer ()
+  (interactive)
+  (let ((current-prefix-arg 4)) (call-interactively 'org-columns))
+  )
+
 (use-package hydra)
 (defun org-capture-full-screen ()
   (interactive)
@@ -1987,6 +1992,7 @@ selection of all minor-modes, active or not."
   (" m" org-clock-modify-effort-estimate "modify current effort")
   (" r" org-clock-report "report")
   (" d" org-clock-display "display subtree times")
+  (" v" my/org-columns-buffer  "column view")
   )
 
 (defhydra roam-hydra (:exit t :idle 1)
@@ -2041,6 +2047,7 @@ selection of all minor-modes, active or not."
   (" g" org-agenda-clock-goto "goto")
   (" i" org-agenda-clock-in "in")
   (" o" org-agenda-clock-out "out")
+  (" v" my/org-columns-buffer "column view")
   (" r" org-agenda-clockreport-mode "report"))
 
 (defhydra agenda-view-hydra (:exit t :idle 1)
