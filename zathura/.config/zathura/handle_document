@@ -2,12 +2,32 @@
 
 """ Remove/Yank annotated text """
 
+# pyright: ignore [reportGeneralTypeIssues]
+
 import subprocess
 import sys
 from typing import List, Tuple
 
 import fitz
 import pyperclip as pc
+
+FILE_PATH = sys.argv[2]
+
+def main():
+    if sys.argv[1] == "get_annotations":
+        yank_highlights()
+        subprocess.run(["dunstify", "Copied to clipboard"])
+    elif sys.argv[1] == "remove_annotations":
+        print("removing")
+        remove_annotations()
+    elif sys.argv[1] == "yank_chapters_as_tasks":
+        print("Yanking chapters as tasks")
+        yank_chapters_as_tasks()
+    elif sys.argv[1] == "yank_section":
+        print("Getting section")
+        yank_section_name_of_page(int(sys.argv[3]))
+    else:
+        raise ValueError
 
 
 def parse_highlight(annot: fitz.Annot, wordlist: List[Tuple[float, float, float, float, str, int, int, int]]) -> str:
@@ -38,8 +58,8 @@ def handle_page(page):
         annot = annot.next
     return highlights
 
-def yank_highlights(file_path: str) -> List:
-    doc = fitz.open(file_path)
+def yank_highlights():
+    doc = fitz.open(FILE_PATH)
 
     highlights = []
     for page in doc:
@@ -47,15 +67,14 @@ def yank_highlights(file_path: str) -> List:
 
     pc.copy("\n".join(highlights))
 
-def yank_section_name_of_page(file_path: str, page_num: int):
+def yank_section_name_of_page(page_num: int):
     """Get the section name of the highlighted text
 
     Args:
         page_num: page number
         text: selected text
-        file_path: file path
     """
-    doc = fitz.open(file_path)
+    doc = fitz.open(FILE_PATH)
     text = pc.paste()
 
     toc = doc.get_toc()
@@ -83,45 +102,31 @@ def yank_section_name_of_page(file_path: str, page_num: int):
                     section_name = curr_section[1]
             break
     subprocess.run(["/home/yasser/.config/zathura/yank_zathura_link_handler",
-                    file_path, str(page_num), section_name])
+                    FILE_PATH, str(page_num), section_name])
 
-def yank_chapters_as_tasks(file_path: str):
+def yank_chapters_as_tasks():
     """Yank chapters as Org tasks in the following format
     ** TODO Read <chapter name> chapter (<chapter index>)
 
     Args:
         file_path: path fo file
     """
-    doc = fitz.open(file_path)
+    doc = fitz.open(FILE_PATH)
     toc = doc.get_toc()
 
     chapters = filter(lambda x: x[0] == 1, toc)
     tasks = [f"** TODO Read {chapter[1]} chapter ({index})" for index, chapter
              in enumerate(chapters)]
     pc.copy("\n".join(tasks))
-    
 
-def remove_annotations(file_path: str):
-    doc = fitz.open(file_path)
+
+def remove_annotations():
+    doc = fitz.open(FILE_PATH)
     for page in doc:
         annot = page.first_annot
         while annot:
             annot = page.delete_annot(annot)
-    doc.save(file_path, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
+    doc.save(FILE_PATH, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
 
 if __name__ == "__main__":
-    file_path = sys.argv[2]
-    if sys.argv[1] == "get_annotations":
-        yank_highlights(file_path)
-        list_files = subprocess.run(["dunstify", "Copied to clipboard"])
-    elif sys.argv[1] == "remove_annotations":
-        print("removing")
-        remove_annotations(file_path)
-    elif sys.argv[1] == "yank_chapters_as_tasks":
-        print("Yanking chapters as tasks")
-        yank_chapters_as_tasks(file_path)
-    elif sys.argv[1] == "yank_section":
-        print("Getting section")
-        yank_section_name_of_page(file_path, int(sys.argv[3]))
-    else:
-        raise ValueError
+    main()
