@@ -375,8 +375,13 @@ org() {
 }
 
 # Open org notes without emacsclient to test config
-rorg() {
+_org() {
 	command emacs --file="$NOTES_ORG_HOME/capture.org"
+}
+
+# Open daemonless Emacs
+_emacs() {
+	command emacs
 }
 
 magit() {
