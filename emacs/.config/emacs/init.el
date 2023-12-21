@@ -940,7 +940,21 @@ Made for `org-tab-first-hook' in evil-mode."
 
   ;; Add daylight saving schedule to agenda
   (setq org-agenda-include-diary t
-        calendar-holidays holiday-solar-holidays)
+        ;; Show only daylight saving start and end dates
+        calendar-holidays '((holiday-sexp calendar-daylight-savings-starts
+               (format "Daylight Saving Time Begins %s"
+                       (solar-time-string
+                        (/ calendar-daylight-savings-starts-time
+                           (float 60))
+                        calendar-standard-time-zone-name)))
+ (holiday-sexp calendar-daylight-savings-ends
+               (format "Daylight Saving Time Ends %s"
+                       (solar-time-string
+                        (/ calendar-daylight-savings-ends-time
+                           (float 60))
+                        calendar-daylight-time-zone-name))))
+        )
+
 
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
@@ -1021,7 +1035,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (org-clock-persistence-insinuate)
   (setq org-clock-persist 'clock)
    (setq org-global-properties
-        '(("Effort_ALL". "0:10 0:15 0:30 0:45 1:00 2:00 3:00 4:00")
+        '(("Effort_ALL". "0:05 0:10 0:15 0:30 0:45 1:00 2:00 3:00 4:00")
           ("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Time){:} %5CLOCKSUM(Clock)")
           ))
 
@@ -2017,7 +2031,7 @@ selection of all minor-modes, active or not."
 
 (defhydra org-goto-hydra (:exit t :idle 1)
   (" g" consult-org-heading "file" :column " goto")
-  (" r" 'org-refile-goto-last-stored "refile")
+  (" r" org-refile-goto-last-stored "refile")
   (" G" consult-org-agenda "all")
   )
 
