@@ -2024,9 +2024,10 @@ selection of all minor-modes, active or not."
   (" l" org-links-hydra/body "links")
   (" e" org-export-dispatch "export")
   (" a" org-archive-subtree "archive")
-  (" g" org-goto-hydra/body "goto")
-  (" c" (find-file (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
-   "goto capture")
+  (" g" org-roam-ui-mode                  "goto" :column " ")
+  (" c" (find-file (concat (getenv "NOTES_ORG_HOME") "/capture.org") "goto capture"))
+  (" p" (find-file (concat (getenv "NOTES_ORG_HOME") "/projects.org") "goto projects"))
+  (" g" org-goto-hydra/body "goto hydra")
   )
 
 (defhydra org-goto-hydra (:exit t :idle 1)
