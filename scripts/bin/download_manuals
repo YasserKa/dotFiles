@@ -18,7 +18,7 @@ download_man_page() {
 	PARENT_DIR_ABS_PATH="$(fd --absolute-path --type d --base-directory="$ROOT_DIR" -- "$PARENT_DIR")"
 	ABS_PATH="$PARENT_DIR_ABS_PATH$MAN_NAME"
 
-	wget -o "/tmp/download_document_$MAN_NAME" -N --output-document="$ABS_PATH.new" -- "$MAN_URL"
+	wget --quiet --output-document="/tmp/$MAN_NAME.new" -- "$MAN_URL"
 
 	if [[ -f "$ABS_PATH" ]]; then
 		DOWNLOADED_HASH=$(md5sum "$ABS_PATH.new" | awk '{print $1}')
@@ -27,12 +27,13 @@ download_man_page() {
 
 			cp "$ABS_PATH.new" "/tmp/$MAN_NAME"
 			[[ $(dunstify --timeout=60000 "A manual got updates" "There's a new manual for $MAN_NAME" --action="action,label") == "action" ]] &&
-				diff-pdf --view -- "$ABS_PATH" "/tmp/$MAN_NAME" &
+				cp "$ABS_PATH" "/tmp/$MAN_NAME.old"
+			diff-pdf --view -- "/tmp/$MAN_NAME.old" "/tmp/$MAN_NAME.new" &
 			disown
 		fi
 	fi
 
-	mv --force "$ABS_PATH.new" "$ABS_PATH"
+	cp --force "/tmp/$ABS_PATH.new" "$ABS_PATH"
 }
 
 main() {
