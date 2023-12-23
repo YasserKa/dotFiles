@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-EARPHONES_BATTERY="$(upower -d | sed -e '/headset/,/percentage/!d' | grep percentage | cut -d ':' -f 2-)"
+EARPHONES_BATTERY="$(upower -d | sed -e '/bluez/,/percentage/!d' | grep percentage | cut -d ':' -f 2-)"
 dunstify "Earphones Battery: ${EARPHONES_BATTERY##* }"
