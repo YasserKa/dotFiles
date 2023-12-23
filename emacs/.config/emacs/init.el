@@ -1088,28 +1088,16 @@ Made for `org-tab-first-hook' in evil-mode."
     ;; Should be loaded at the start
     :init (org-super-agenda-mode)
     :config
-
-    (defun my/org-agenda-switch-to ()
-      "Go to entry and expand parent element"
-      (interactive)
-      (org-agenda-switch-to)
-      (bookmark-set "agenda")
-      (org-up-element)
-      (org-up-element)
-      (evil-toggle-fold)
-      (evil-toggle-fold)
-      (bookmark-jump "agenda")
-      )
-
     ;; Open parent element when switching from agenda
-    (advice-add 'org-agenda-switch-to :after #'(lambda ()
-                                                 (bookmark-set "agenda")
-                                                 (org-up-element)
-                                                 (org-up-element)
-                                                 (evil-toggle-fold)
-                                                 (evil-toggle-fold)
-                                                 (bookmark-jump "agenda")
-                                                 ))
+    (advice-add 'org-agenda-switch-to :after
+                #'(lambda ()
+                    (bookmark-set "agenda")
+                    (org-up-element)
+                    (org-up-element)
+                    (evil-toggle-fold)
+                    (evil-toggle-fold)
+                    (bookmark-jump "agenda")
+                    ))
 
     (evil-define-key 'motion 'org-super-agenda-header-map
       (kbd "q") 'org-agenda-quit
