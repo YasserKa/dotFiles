@@ -41,6 +41,9 @@
 (add-to-list 'load-path (concat user-emacs-directory "/lisp"))
 (require 'functions)
 ;; }}}
+;; Defining variables {{{
+(defconst notes-dir (getenv "NOTES_ORG_HOME") "Notes directory")
+;; }}}
 ;; Better defaults {{{
 ;; Use y/n for yes/no prompts
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -770,7 +773,7 @@
   :ensure org-contrib
   :hook ((org-mode . my/org-mode-setup))
   :custom
-  (org-directory (getenv "NOTES_ORG_HOME"))
+  (org-directory notes-dir)
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t "Hide symbols")
   (org-startup-folded 'content)
@@ -845,7 +848,7 @@
 
   (defun get-org-files ()
     (interactive)
-    (directory-files (getenv "NOTES_ORG_HOME") nil ".org$"))
+    (directory-files notes-dir nil ".org$"))
   ;; (get-org-files :maxlevel . 3)
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -1120,7 +1123,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
 
   (setq org-capture-templates
-        `(("d" "default" entry (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+        `(("d" "default" entry (file ,(concat notes-dir "/capture.org"))
            "* TODO %?\n")))
 
   ;; Update org-agenda-files after updating item states
@@ -1139,7 +1142,7 @@ Made for `org-tab-first-hook' in evil-mode."
       )
     (org-store-new-agenda-file-list curr-files)
     ;; Sort agenda files, so that there's not that often changes to be tracked by git
-    (shell-command (concat "sort " (concat (getenv "NOTES_ORG_HOME") "/agenda_files") " | sponge " (concat (getenv "NOTES_ORG_HOME") "/agenda_files")))
+    (shell-command (concat "sort " (concat notes-dir "/agenda_files") " | sponge " (concat notes-dir "/agenda_files")))
     (let ((inhibit-message)) (org-install-agenda-files-menu))
     )
 
@@ -1168,7 +1171,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
 
-  (my/add-to-agenda-files (concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+  (my/add-to-agenda-files (concat notes-dir "/capture.org"))
   ;; Clocking
   (setq ;; Resume when clocking into task with open clock
    org-clock-in-resume t
@@ -1366,16 +1369,16 @@ see how ARG affects this command."
 
     (add-to-list 'org-capture-templates
                  `("q" "org-capture-url" entry
-                   (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+                   (file ,(concat notes-dir "/capture.org"))
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
     (add-to-list 'org-capture-templates
                  `("n" "org-capture-note" entry
-                   (file ,(concat (getenv "NOTES_ORG_HOME") "/capture.org"))
+                   (file ,(concat notes-dir "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
     (add-to-list 'org-capture-templates
                  `("w" "Web site" entry
-                   (file ,(concat (getenv "NOTES_ORG_HOME") "/org_protocol_html.org")) ;
+                   (file ,(concat notes-dir "/org_protocol_html.org")) ;
                    "* %a :website:\n\n%U %?\n\n%:initial"))
 
     (setq org-protocol-default-template-key "q")
@@ -1492,7 +1495,7 @@ see how ARG affects this command."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
-  (setq org-agenda-files (concat (getenv "NOTES_ORG_HOME") "/agenda_files"))
+  (setq org-agenda-files (concat notes-dir "/agenda_files"))
   )
 
 (use-package org-superstar
@@ -1506,7 +1509,7 @@ see how ARG affects this command."
 (use-package org-roam
   :after org
   :custom
-  (org-roam-directory (getenv "NOTES_ORG_HOME"))
+  (org-roam-directory notes-dir)
   (org-roam-node-display-template
    (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
   ;; It's slow, so disable it
@@ -1723,7 +1726,7 @@ see how ARG affects this command."
 ;; Search text
 (use-package deft
   :custom
-  (deft-directory (getenv "NOTES_ORG_HOME"))
+  (deft-directory notes-dir)
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
@@ -2025,8 +2028,8 @@ selection of all minor-modes, active or not."
   (" e" org-export-dispatch "export")
   (" a" org-archive-subtree "archive")
   (" g" org-roam-ui-mode                  "goto" :column " ")
-  (" c" (find-file (concat (getenv "NOTES_ORG_HOME") "/capture.org") "goto capture"))
-  (" p" (find-file (concat (getenv "NOTES_ORG_HOME") "/projects.org") "goto projects"))
+  (" c" (find-file (concat notes-dir "/capture.org") "goto capture"))
+  (" p" (find-file (concat notes-dir "/projects.org") "goto projects"))
   (" g" org-goto-hydra/body "goto hydra")
   )
 

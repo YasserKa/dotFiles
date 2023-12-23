@@ -54,7 +54,7 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 
 # Path to notes
-export NOTES_ORG_HOME="$HOME/notes/org"
+export NOTES_ORG_HOME="$HOME/notes"
 
 # Make cmus <escape> works
 export ESCDELAY=25
