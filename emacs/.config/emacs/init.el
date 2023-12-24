@@ -1131,7 +1131,7 @@ Made for `org-tab-first-hook' in evil-mode."
                     ))
 
     ;; Truncate lines in agenda buffer
-    (add-hook 'org-agenda-finalize-hook (lambda () (interactive) (toggle-truncate-lines t)))
+    (add-hook 'org-agenda-finalize-hook (lambda () (interactive) (let ((inhibit-message t)) (setq truncate-lines t))))
 
     (evil-define-key 'motion 'org-super-agenda-header-map
       (kbd "q") 'org-agenda-quit
