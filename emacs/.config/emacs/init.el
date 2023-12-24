@@ -822,15 +822,14 @@
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "TO-READ(r)" "BLOCKED(b@)" "|" "CANCELLED(c@/!)")
+                (sequence "BLOCKED(b@)" "|" "CANCELLED(c@/!)")
                 )))
 
   (defface org-todo-default '((t :weight bold :inverse-video t :height 0.8)) "default face for todo keywords")
 
   (setq
    TODO_color "red4"
-   TOREAD_color "dark green"
-   NEXT_color "blue1"
+   NEXT_color "DarkCyan"
    BLOCKED_color "darkorange3"
    DONE_color "forest green"
    CANCELLED_color "forest green"
@@ -839,7 +838,6 @@
   (setq org-todo-keyword-faces
         (list
          `("TODO" :foreground ,TODO_color :inherit org-todo-default :box (:line-width 3 :color ,TODO_color))
-         `("TO-READ" :foreground ,TOREAD_color :inherit org-todo-default :box (:line-width 3 :color ,TOREAD_color))
          `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
          `("BLOCKED" :foreground ,BLOCKED_color :inherit org-todo-default :box (:line-width 3 :color ,BLOCKED_color))
          `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
@@ -995,33 +993,33 @@ Made for `org-tab-first-hook' in evil-mode."
     )
 
   (defun my/open-super-agenda ()
-    (interactive) (org-agenda nil "z") (delete-other-windows))
+    (interactive) (org-agenda nil "a") (delete-other-windows))
 
   (add-hook 'emacs-startup-hook 'my/open-super-agenda)
 
-  (set-face-attribute 'org-agenda-date nil :height 1.05)
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
-
   '(org-document-info ((t (:foreground "dark orange"))))
-  (set-face-attribute 'org-agenda-date-today nil :height 1.05)
-  (set-face-attribute 'org-agenda-date-weekend nil :height 1.05)
 
-  ;; Get roam alias, otherwise the title of node
-  (defun my/get-title-property ()
-    (setq title (elt (elt (org-collect-keywords '("TITLE")) 0) 1))
-    (setq roam_alias (org-entry-get-with-inheritance "ROAM_ALIASES"))
-    (setq max_length 11)
-    (if (> (length title) max_length ) (setq title (concat (substring title 0 max_length) "...")))
-    (if roam_alias roam_alias (if title title "")))
-
-  (setq org-agenda-current-time-string "┈┈┈┈┈┈┈┈┈┈┈ now"
+  (defun get-top-heading-in-block ()
+    "Get the title of the top-level heading in the current block."
+    (interactive)
+    (save-excursion
+      ;; Get the top most heading
+      (while (org-up-heading-safe))
+      (let ((categroy (org-entry-get nil "CATEGORY"))
+            (file-name (file-name-sans-extension (buffer-name)))
+            (org-heading-title (org-get-heading t t)))
+        (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
+            )))
+    )
+  (setq org-agenda-current-time-string "---*> now <*---"
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
-                               "---" "┈┈┈┈┈┈┈┈┈┈┈┈┈")
-        org-agenda-prefix-format '((agenda . " %-16(my/get-title-property)%-12t%-6e% s")
-                                   (todo . " %-14:(my/get-title-property) %-6e")
-                                   (tags . " %-12:(my/get-title-property) %-6e")
-                                   (search . " %-12:(my/get-title-property) %-6e")))
+                               "....  " "---------------")
+        org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block)%12t  %s")
+                                   (todo . " %-18:(get-top-heading-in-block)  %-4e ")
+                                   (tags . " %-12:(get-top-heading-in-block) %-6e")
+                                   (search . " %-12:(get-top-heading-in-block) %-6e")))
 
   ;; Save org buffers after quiting agenda mode
   (advice-add 'org-agenda-quit :before #'(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
@@ -1037,51 +1035,84 @@ Made for `org-tab-first-hook' in evil-mode."
   ;; Persist clock history on Emacs close
   (org-clock-persistence-insinuate)
   (setq org-clock-persist 'clock)
-   (setq org-global-properties
+  (setq org-global-properties
         '(("Effort_ALL". "0:05 0:10 0:15 0:30 0:45 1:00 2:00 3:00 4:00")
-          ("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Time){:} %5CLOCKSUM(Clock)")
+          ("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
           ))
 
+  ;; Remove space before header
+  (setq org-super-agenda-header-prefix "")
 
-  ;; Super agenda
+  ;; Agenda setup
+  ;; Date for one week from today; used for deadline
+  (setq one-week-from-today (format-time-string "%Y-%m-%d" (org-read-date nil t "+1w")))
+  ;; Move habit bar
+  (setq org-habit-graph-column 60)
   (setq org-agenda-custom-commands
-        '(("z" "Super view"
-           ((agenda "" ((org-agenda-span 'day)
-                        (org-super-agenda-groups
-                         '((:name "Today"
-                                  :time-grid t
-                                  :date today
-                                  :scheduled today)))))
-            (alltodo "" ((org-super-agenda-groups
-                          '((:name "Next"
-                                   :todo "NEXT")
-                            (:name "Waiting"
-                                   :todo "WAIT")
-                            (:name "High priority"
-                                   :priority "A")
-                            (:name "Capture"
-                                   :file-path ".*capture.org")
-                            (:discard (:anything))
-                            ))))))
+        '(("a" "Default agenda"
+           (
+            (agenda ""
+                    ((org-agenda-span 'day)
+                     (org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block)%-10t  %s")))
+                     (org-super-agenda-groups
+                      '((:discard (:log closed))
+                        (:name none
+                               :time-grid t
+                               :scheduled today
+                               :scheduled past)
+                        (:discard (:anything))
+                        ))))
+            (todo "NEXT" ((org-agenda-overriding-header "\nTasks")))
+            (agenda nil
+                    (
+                     (org-agenda-span 'day)
+                     (org-super-agenda-header-separator "")
+                     (org-agenda-format-date "")
+                     (org-deadline-warning-days 7)
+                     (org-agenda-prefix-format '((agenda . " %-19(get-top-heading-in-block)% s")))
+                     (org-agenda-deadline-leaders '("Deadline: " "(%1dd.)" "%2d d. ago: "))
+                     (org-super-agenda-groups
+                      `((:discard (:log closed))
+                        (:discard (:scheduled t))
+                        (:name "Deadline"
+                               :deadline (before ,one-week-from-today))
+                        (:discard (:anything))
+                        ))))
+            (alltodo ""
+                     (
+                      (org-agenda-overriding-header "")
+                      (org-super-agenda-groups
+                       '(
+                         (:name "Blocked" :todo "BLOCKED")
+                         (:name "High priority"
+                                :priority "A")
+                         (:name "Capture"
+                                :file-path ".*capture.org")
+                         (:discard (:anything))
+                         ))))
+            ))
           ("o" "Others"
-           ((todo "DONE")
-            (alltodo "" ((org-super-agenda-groups
-                          '((:priority "A")
-                            (:priority "B")
-                            (:todo "TO-READ")
-                            (:name "Short"
-                                   :tag "effort< 1:01")
-                            (:discard (:priority "C"))
-                            ))))))
-          ("A" "All"
-           ((todo "DONE")
-            (alltodo "" ((org-super-agenda-groups
-                          '((:priority "A")
-                            (:priority "B")
-                            (:name "Short"
-                                   :tag "effort< 1:01")
-                            (:auto-category)
-                            ))))))
+           ((alltodo ""
+                     (
+                      (org-agenda-prefix-format '((todo . " %-5e")))
+                      (org-agenda-overriding-header "")
+                      (org-super-agenda-header-separator "")
+                      (org-super-agenda-groups
+                       '(
+                         (:name "Capture"
+                                :file-path ".*capture.org")
+                         (:name "\nTasks"
+                                :file-path ".*/tasks.org")
+                         (:discard (:anything))
+                         ))))
+            (todo "DONE" ((org-agenda-overriding-header "\nCompleted")))
+            (todo "CANCELLED" ((org-agenda-overriding-header "\nCancelled")))
+            ))
+          ("c" "Calendar"
+           (
+            (agenda ""
+                    ((org-agenda-prefix-format '((agenda . " %-16:c%?-12t% s"))))
+                    )))
           ))
 
   (use-package org-super-agenda
@@ -1112,7 +1143,6 @@ Made for `org-tab-first-hook' in evil-mode."
     (setq org-super-agenda-header-map (make-sparse-keymap))
     )
 
-
   (setq org-capture-templates
         `(("d" "default" entry (file ,(concat notes-dir "/capture.org"))
            "* TODO %?\n")))
@@ -1124,7 +1154,7 @@ Made for `org-tab-first-hook' in evil-mode."
     (if (= (length org-state) 0)
         ;; No TODOs in buffer, so remove it, otherwise add it
         ;; TODO: make the string dynamic
-        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|BLOCKED\\\TO-READ\\\|CANCELLED}" 'file)) 0)
+        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|BLOCKED\\\|CANCELLED}" 'file)) 0)
             (setq curr-files (my/remove-from-agenda-files buffer-file-name))
           (setq curr-files (my/add-to-agenda-files buffer-file-name))
           )
@@ -1170,39 +1200,6 @@ Made for `org-tab-first-hook' in evil-mode."
    org-clock-out-remove-zero-time-clocks t
    ;; The default value (5) is too conservative.
    org-clock-history-length 20)
-
-
-  (defun my/org-clock-in-if-next ()
-    "Clock in when the task is marked NEXT"
-    (when (and (string= org-state "NEXT")
-               (not (string= org-last-state org-state)))
-      (org-clock-in)))
-
-  (add-hook 'org-after-todo-state-change-hook
-            'my/org-clock-in-if-next)
-
-  (setq org-clock-out-switch-to-state "TODO")
-  (setq org-clock-in-switch-to-state "NEXT")
-
-  (defun my/org-clock-out-done ()
-    "Clock out and switch state of task to done"
-    (interactive)
-    (setq org-clock-out-switch-to-state "DONE")
-    (org-clock-out)
-    (setq org-clock-out-switch-to-state "TODO"))
-
-
-  (defun my/org-clock-out-if-todo ()
-    "Clock out when the task is marked TODO."
-    (when (and (string= org-state "TODO")
-               (equal (marker-buffer org-clock-marker) (current-buffer))
-               (< (point) org-clock-marker)
-               (> (save-excursion (outline-next-heading) (point))
-                  org-clock-marker)
-               (not (string= org-last-state org-state)))
-      (org-clock-out)))
-  (add-hook 'org-after-todo-state-change-hook
-            'my/org-clock-out-if-todo)
 
   ;; Clock in clock out hooks with Polybar
   (defun my/add-clock-tmp-file ()
@@ -1388,8 +1385,6 @@ see how ARG affects this command."
   :config
   ;; Inserting latex env and templates using C-j
   (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab)
-  ;; Disable ` functionality that prompts for symbols
-  (evil-define-key 'insert org-cdlatex-mode-map (kbd "`") #'(lambda () (interactive) (insert "`")))
   )
 
 (use-package citar
@@ -2056,7 +2051,7 @@ selection of all minor-modes, active or not."
   (" g" org-agenda-clock-goto "goto")
   (" i" org-agenda-clock-in "in")
   (" o" org-agenda-clock-out "out")
-  (" v" my/org-columns-buffer "column view")
+  (" v" org-agenda-columns "column view")
   (" r" org-agenda-clockreport-mode "report"))
 
 (defhydra agenda-view-hydra (:exit t :idle 1)
