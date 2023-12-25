@@ -342,7 +342,6 @@
    	          (setq completion-in-region-function
    		              (kind-icon-enhance-completion
    		               completion-in-region-function))))
-
   )
 
 (use-package cape
@@ -1678,23 +1677,6 @@ see how ARG affects this command."
     (interactive "bFile: ")
     (split-window-right) (windmove-right)
     (find-file file))
-
-  ;; Insert using embark on searching for org headings
-  ;; https://gist.github.com/jdtsmith/8602d998116b953725218224b77b8766?permalink_comment_id=4465637
-  (defun my/org-link-heading-here (cand)
-    (when-let ((marker (get-text-property 0 'consult--candidate cand)))
-      (save-excursion
-        (with-current-buffer (marker-buffer marker)
-          (goto-char marker)
-          (org-store-link nil t)))
-      (org-insert-all-links 1 "" " ")))
-
-  (defvar-keymap embark-consult-org-heading-map
-    :doc "Keymap for operating on org headings"
-    :parent embark-general-map
-    "l" 'my/org-link-heading-here)
-
-  (add-to-list 'embark-keymap-alist '(consult-org-heading . embark-consult-org-heading-map))
   )
 
 ;; Improves Vertico's completion
