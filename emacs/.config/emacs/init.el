@@ -53,7 +53,7 @@
 ;; Ediff mode
 (setq ediff-split-window-function 'split-window-horizontally
       ediff-window-setup-function 'ediff-setup-windows-plain)
-(add-hook 'ediff-mode-hook '(lambda () (golden-ratio-mode 0)))
+(add-hook 'ediff-mode-hook (lambda () (golden-ratio-mode 0)))
 ;; Load the newest version of a file
 (setq  load-prefer-newer t)
 ;; Revert buffer when the file changes on disk
@@ -202,13 +202,28 @@
 
 (use-package elec-pair
   :ensure nil
+  :hook (org-mode . (lambda () (modify-syntax-entry ?$ "\"" org-mode-syntax-table)))
+  :custom
+  (electric-pair-preserve-balance nil)
   :config
+  (electric-pair-mode t)
 
-  (with-eval-after-load 'org
-    (modify-syntax-entry ?$ "($" org-mode-syntax-table)
-    )
+  (defun my/ignore-elec-pairs (c)
+    (if (and (char-equal c ?$) (org-in-src-block-p)) 0
+      ;; Account for buffer-end weirdness
+      (unless (eq (following-char) 0)
+        (or
+         ;; (electric-pair-inhibit-if-helps-balance char)
+         ;; TODO This logic isn't quite right, check out how
+         ;; `electric-pair-inhibit-if-helps-balance' does it.
+         ;; (electric-pair-conservative-inhibit char)
+         ;; Don't pair after before a word
+         (memq (char-syntax (char-before)) '(?w ?.))
+         (memq (char-syntax (following-char)) '(?w ?.))
+         (memq (char-syntax (char-after (- (point) 2))) '(?w ?.)))
+        )))
 
-  (electric-pair-mode 1)
+  (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
   )
 
 (use-package flycheck)
@@ -224,15 +239,15 @@
          (text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode)
          (evil-collection-setup . (lambda (mode-keymaps &rest _rest)
-                            ;; Remove annoying bindings
-                            (evil-define-key nil flyspell-mode-map (kbd "C-,") nil)
-                            (evil-define-key nil flyspell-mode-map (kbd "C-M-i") nil)
+                                    ;; Remove annoying bindings
+                                    (evil-define-key nil flyspell-mode-map (kbd "C-,") nil)
+                                    (evil-define-key nil flyspell-mode-map (kbd "C-M-i") nil)
 
-                            ;; Correct last misspelled word
-                            (evil-define-key 'insert flyspell-mode-map "\C-l"  'flyspell-auto-correct-previous-word)
-                            ;; Spell checking toggle with yos
-                            (evil-collection-define-operator-key 'yank 'global-map "os" #'flyspell-mode)
-                            )))
+                                    ;; Correct last misspelled word
+                                    (evil-define-key 'insert flyspell-mode-map "\C-l"  'flyspell-auto-correct-previous-word)
+                                    ;; Spell checking toggle with yos
+                                    (evil-collection-define-operator-key 'yank 'global-map "os" #'flyspell-mode)
+                                    )))
   )
 
 
