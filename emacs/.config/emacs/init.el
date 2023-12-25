@@ -1024,12 +1024,12 @@ Made for `org-tab-first-hook' in evil-mode."
   ;; Save org buffers after quiting agenda mode
   (advice-add 'org-agenda-quit :before #'(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
 
-  ;; Log the state change
-  (setq org-agenda-start-with-log-mode t)
+  ;; Don't show logs at startup
+  (setq org-agenda-start-with-log-mode nil)
+  ;; Show closed items, not the clocked ones
+  (setq org-agenda-log-mode-items '(closed clock))
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
-  ;; Show closed items, not the clocked ones
-  (setq org-agenda-log-mode-items '(closed))
   ;; Show today's clocked report
   (setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :block today :properties ("Effort")))
   ;; Persist clock history on Emacs close
@@ -1055,8 +1055,7 @@ Made for `org-tab-first-hook' in evil-mode."
                     ((org-agenda-span 'day)
                      (org-agenda-prefix-format '((agenda . " %-25:(get-top-heading-in-block)%-11t %s")))
                      (org-super-agenda-groups
-                      '((:discard (:log closed))
-                        (:name none
+                      '((:name none
                                :time-grid t
                                :scheduled today
                                :scheduled past)
