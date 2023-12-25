@@ -11,10 +11,10 @@
 
 (add-hook 'after-init-hook
           (lambda ()
+            (setq gc-cons-threshold (* 1024 gc-cons-threshold))
             (run-with-idle-timer 3 nil #'my/lower-gc-cons-threshold)
             (add-function :after after-focus-change-function #'my/lower-gc-cons-threshold)))
 
-(setq gc-cons-threshold (* 1024 gc-cons-threshold))
 (setq use-package-compute-statistics t)
 
 ;; Speed up Inhibit file handlers during startup
