@@ -1053,7 +1053,7 @@ Made for `org-tab-first-hook' in evil-mode."
            (
             (agenda ""
                     ((org-agenda-span 'day)
-                     (org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block)%-10t  %s")))
+                     (org-agenda-prefix-format '((agenda . " %-25:(get-top-heading-in-block)%-11t %s")))
                      (org-super-agenda-groups
                       '((:discard (:log closed))
                         (:name none
