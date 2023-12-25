@@ -940,22 +940,26 @@ Made for `org-tab-first-hook' in evil-mode."
     (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
 
   ;; Add daylight saving schedule to agenda
-  (setq org-agenda-include-diary t
-        ;; Show only daylight saving start and end dates
-        calendar-holidays '((holiday-sexp calendar-daylight-savings-starts
-               (format "Daylight Saving Time Begins %s"
-                       (solar-time-string
-                        (/ calendar-daylight-savings-starts-time
-                           (float 60))
-                        calendar-standard-time-zone-name)))
- (holiday-sexp calendar-daylight-savings-ends
-               (format "Daylight Saving Time Ends %s"
-                       (solar-time-string
-                        (/ calendar-daylight-savings-ends-time
-                           (float 60))
-                        calendar-daylight-time-zone-name))))
-        )
+  (setq org-agenda-include-diary t)
 
+  ;; Show only daylight saving start and end dates
+  ;; Hook is needed to wait for library to load
+  (add-hook 'org-agenda-finalize-hook
+            (lambda ()
+              (setq calendar-holidays
+                    '((holiday-sexp calendar-daylight-savings-starts
+                                    (format "Daylight Saving Time Begins %s"
+                                            (solar-time-string
+                                             (/ calendar-daylight-savings-starts-time
+                                                (float 60))
+                                             calendar-standard-time-zone-name)))
+                      (holiday-sexp calendar-daylight-savings-ends
+                                    (format "Daylight Saving Time Ends %s"
+                                            (solar-time-string
+                                             (/ calendar-daylight-savings-ends-time
+                                                (float 60))
+                                             calendar-daylight-time-zone-name))))
+                    )))
 
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
