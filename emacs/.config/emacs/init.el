@@ -211,17 +211,9 @@
   (defun my/ignore-elec-pairs (c)
     (if (and (char-equal c ?$) (org-in-src-block-p)) 0
       ;; Account for buffer-end weirdness
-      (unless (eq (following-char) 0)
-        (or
-         ;; (electric-pair-inhibit-if-helps-balance char)
-         ;; TODO This logic isn't quite right, check out how
-         ;; `electric-pair-inhibit-if-helps-balance' does it.
-         ;; (electric-pair-conservative-inhibit char)
-         ;; Don't pair after before a word
-         (memq (char-syntax (char-before)) '(?w ?.))
-         (memq (char-syntax (following-char)) '(?w ?.))
-         (memq (char-syntax (char-after (- (point) 2))) '(?w ?.)))
-        )))
+      (when (eq (following-char) 0)
+        t)
+      ))
 
   (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
   )
