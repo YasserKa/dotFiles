@@ -4,6 +4,8 @@ declare -A MAN_ARR=(
 	[bash]='https://www.gnu.org/s/bash/manual/bash.pdf bash_manual.pdf bash'
 	[org]='https://orgmode.org/org.pdf org_manual.pdf emacs'
 	[elisp]='https://www.gnu.org/software/emacs/manual/pdf/elisp.pdf elisp_manual.pdf emacs'
+	[refcard]='https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf refcard.pdf emacs'
+
 )
 
 declare -r ROOT_DIR="$HOME/Documents/books"
@@ -21,19 +23,18 @@ download_man_page() {
 	wget --quiet --output-document="/tmp/$MAN_NAME.new" -- "$MAN_URL"
 
 	if [[ -f "$ABS_PATH" ]]; then
-		DOWNLOADED_HASH=$(md5sum "$ABS_PATH.new" | awk '{print $1}')
+		DOWNLOADED_HASH=$(md5sum "/tmp/$MAN_NAME.new" | awk '{print $1}')
 		CURRENT_HASH=$(md5sum "$ABS_PATH" | awk '{print $1}')
 		if [[ "$CURRENT_HASH" != "$DOWNLOADED_HASH" ]]; then
 
-			cp "$ABS_PATH.new" "/tmp/$MAN_NAME"
+			cp "$ABS_PATH" "/tmp/$MAN_NAME.old"
 			[[ $(dunstify --timeout=60000 "A manual got updates" "There's a new manual for $MAN_NAME" --action="action,label") == "action" ]] &&
-				cp "$ABS_PATH" "/tmp/$MAN_NAME.old"
-			diff-pdf --view -- "/tmp/$MAN_NAME.old" "/tmp/$MAN_NAME.new" &
+				diff-pdf --view -- "/tmp/$MAN_NAME.old" "/tmp/$MAN_NAME.new" &
 			disown
 		fi
 	fi
 
-	cp --force "/tmp/$ABS_PATH.new" "$ABS_PATH"
+	cp --force "/tmp/$MAN_NAME.new" "$ABS_PATH"
 }
 
 main() {

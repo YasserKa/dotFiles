@@ -204,7 +204,7 @@
   :ensure nil
   :hook (org-mode . (lambda () (modify-syntax-entry ?$ "\"" org-mode-syntax-table)))
   :custom
-  (electric-pair-preserve-balance nil)
+  (electric-pair-preserve-balance t)
   :config
   (electric-pair-mode t)
 
