@@ -28,6 +28,30 @@
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
+
+;; Disable package.el in favor of straight.el
+(setq package-enable-at-startup nil)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+(use-package straight
+  :custom
+  (straight-use-package-by-default t))
+
 ;; Ensure that all packages are installed
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
@@ -299,14 +323,19 @@
   )
 
 (use-package abbrev
+  :straight nil
   :ensure nil
   :custom
   (save-abbrevs 'silently)
   :config
   (setq-default abbrev-mode t)
-  (define-abbrev-table 'global-abbrev-table
-    '(("latex" "LaTeX" nil 1)
-      ))
+  (setq abbrev-list '(("latex" "LaTeX" nil 1)))
+
+  (define-abbrev-table 'latex-mode-abbrev-table
+    abbrev-list)
+
+  (define-abbrev-table 'org-mode-abbrev-table
+    abbrev-list)
   )
 
 ;; Auto completion
@@ -580,9 +609,6 @@
 (use-package evil-commentary
   :config (evil-commentary-mode))
 
-;; Better sentence navigation with ) & (
-(use-package sentence-navigation)
-
 (use-package evil-surround
   :after evil
   :config
@@ -725,7 +751,9 @@
   :hook (magit-mode . magit-delta-mode))
 ;; }}}
 ;; LateX {{{
+(add-hook 'org-mode-hook 'org-toggle-pretty-entities)
 (use-package latex
+  :straight nil
   :ensure nil
   :init
   :after tex
@@ -738,6 +766,8 @@
   ;; TODO: Server problems
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
   (add-hook 'LaTeX-mode-hook #'my/setup-latex-mode)
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+  (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
   (setq TeX-PDF-mode t
         TeX-source-correlate-mode t
         ;; TeX-source-correlate-method 'synctex
@@ -1329,6 +1359,7 @@ see how ARG affects this command."
 
   ;; Enables to add snippets for code blocks
   (use-package org-tempo
+    :straight nil
     :ensure nil
     :after org
     :config
@@ -1361,9 +1392,9 @@ see how ARG affects this command."
   (plist-put org-format-latex-options :scale 1.5)
 
   (use-package org-protocol
+    :straight nil
     :ensure nil
     :config
-
     (add-to-list 'org-capture-templates
                  `("q" "org-capture-url" entry
                    (file ,(concat notes-dir "/capture.org"))
@@ -1544,6 +1575,7 @@ see how ARG affects this command."
 
 (use-package org-roam-ui
   :after org-roam
+  :straight (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :custom
   (org-roam-ui-sync-theme t)
   (org-roam-ui-follow t)
@@ -1553,6 +1585,7 @@ see how ARG affects this command."
 
 ;; ORG NOTIFICATION
 (use-package appt
+  :straight nil
   :after org
   :ensure nil
   :config

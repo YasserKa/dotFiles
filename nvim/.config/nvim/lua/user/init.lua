@@ -1602,14 +1602,6 @@ let g:vimtex_compiler_latexmk = {
 \   '-interaction=nonstopmode',
 \ ],
 \}
-
-vnoremap <silent> <leader>lu <ESC>:set nohlsearch<CR>:set textwidth=1000<CR>`>a#<ESC>`<i#<ESC> <bar>
-\ :s/#\(\_[^#]*\)#/\=trim(system("latex_to_unicode '".trim(submatch(1))."'"))
-\ <CR> `<
-\ :let @/ = "" <bar> set hlsearch<CR>:set textwidth=80<CR>
-" Surround capital characters with $
-vnoremap <silent> <leader>l$ <ESC>:set nohlsearch<CR>gv :substitute:\(\u\)\(\s\\|\.\\|,\\|(\):$\1$\2:gc <bar>
-\ :let @/ = "" <bar> set hlsearch<CR>
 " }}}
 
 ]],
