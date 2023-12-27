@@ -1019,12 +1019,14 @@ Made for `org-tab-first-hook' in evil-mode."
     (add-hook 'org-agenda-mode-hook 'org-link-beautify-disable)
     (add-hook 'org-agenda-finalize-hook 'org-link-beautify-enable)
 
-    (defun add-link-handler-icon (orig-fun &rest args)
-      "Add link-handler icon"
+    (defun add-icons (orig-fun &rest args)
+      "Add icons to links"
       (if (string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link") nil)
+      ;; org-glossary
+      (if (string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search") nil)
       )
 
-    (advice-add 'org-link-beautify--return-icon :before-until #'add-link-handler-icon)
+    (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     )
 
   (use-package org-download
@@ -1330,6 +1332,8 @@ see how ARG affects this command."
    '(org-verbatim ((t (:inherit (shadow fixed-pitch) :height 1.1))))
    )
 
+  (use-package org-glossary
+    :straight (:host github :repo "tecosaur/org-glossary"))
 
   ;; Used by babel
   (use-package plantuml-mode
