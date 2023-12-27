@@ -226,20 +226,27 @@
 
 (use-package elec-pair
   :ensure nil
-  :hook (org-mode . (lambda () (modify-syntax-entry ?$ "\"" org-mode-syntax-table)))
+  :hook (org-mode . (lambda ()
+                      (setq electric-pair-pairs '((?\( . ?\))
+                                                  (?\[ . ?\])))
+                      (modify-syntax-entry ?$ "\"" org-mode-syntax-table)
+                      (modify-syntax-entry ?\( "-" org-mode-syntax-table)
+                      (modify-syntax-entry ?\[ "-" org-mode-syntax-table)
+                      ))
   :custom
-  (electric-pair-preserve-balance t)
+  (electric-pair-preserve-balance nil)
   :config
   (electric-pair-mode t)
 
-  (defun my/ignore-elec-pairs (c)
-    (if (and (char-equal c ?$) (org-in-src-block-p)) 0
-      ;; Account for buffer-end weirdness
-      (when (eq (following-char) 0)
-        t)
-      ))
 
-  (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
+  (defun my/ignore-elec-pairs (c)
+    (cond
+     ((and (char-equal c ?$) (org-in-src-block-p)) 0)
+     ((when (char-equal c (preceding-char)) t))
+     ((when (eq (following-char) 0) t))
+     ))
+
+     (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
   )
 
 (use-package flycheck)
@@ -529,7 +536,7 @@
 
   (evil-define-key 'normal 'global (kbd "J") 'my/join-line-keep-point)
   (evil-define-key 'visual 'global (kbd "J") 'join-line)
-)
+  )
 
 (use-package windresize
   :after evil
@@ -1023,8 +1030,8 @@ Made for `org-tab-first-hook' in evil-mode."
       "Add icons to links"
       (cond
        ((string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link"))
-      ((string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search"))
-      ))
+       ((string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search"))
+       ))
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     )
