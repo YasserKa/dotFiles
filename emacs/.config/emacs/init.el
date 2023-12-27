@@ -1021,10 +1021,10 @@ Made for `org-tab-first-hook' in evil-mode."
 
     (defun add-icons (orig-fun &rest args)
       "Add icons to links"
-      (if (string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link") nil)
-      ;; org-glossary
-      (if (string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search") nil)
-      )
+      (cond
+       ((string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link"))
+      ((string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search"))
+      ))
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     )
