@@ -238,7 +238,6 @@
   :config
   (electric-pair-mode t)
 
-
   (defun my/ignore-elec-pairs (c)
     (cond
      ((and (char-equal c ?$) (org-in-src-block-p)) 0)
@@ -387,11 +386,15 @@
    		               completion-in-region-function))))
   )
 
+;; Use company backends for Corfu
+(use-package company)
+
 (use-package cape
   :bind ("C-c f" . cape-file)
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   (defalias 'dabbrev-after-2 (cape-capf-prefix-length #'cape-dabbrev 2))
+
   (add-to-list 'completion-at-point-functions 'dabbrev-after-2 t)
   (cl-pushnew #'cape-file completion-at-point-functions)
   :config
@@ -400,7 +403,16 @@
 
   ;; Ensure that pcomplete does not write to the buffer
   ;; and behaves as a pure `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
+
+  ;; Use Company backends as Capfs.
+  (require 'company)
+  ;; Use the company-dabbrev and company-elisp backends together.
+  (add-to-list 'completion-at-point-functions
+         (cape-company-to-capf
+          (apply-partially #'company--multi-backend-adapter
+                           '(company-yasnippet))))
+  )
 
 (use-package evil
   :init
