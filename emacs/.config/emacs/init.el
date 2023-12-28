@@ -238,8 +238,6 @@
   (electric-pair-preserve-balance nil)
   :config
   (electric-pair-mode t)
-  ;; (setq electric-pair-pairs '((?\( . ?\))
-  ;;                            (?\[ . ?\])))
 
   (defun my/ignore-elec-pairs (c)
     (cond
@@ -1127,7 +1125,15 @@ Made for `org-tab-first-hook' in evil-mode."
                                :scheduled past)
                         (:discard (:anything))
                         ))))
-            (todo "NEXT" ((org-agenda-overriding-header "\nTasks")))
+            (alltodo ""
+                     (
+                      (org-agenda-overriding-header "")
+                      (org-super-agenda-groups
+                       '(
+                         (:discard (:scheduled t))
+                         (:name "Tasks" :todo "NEXT")
+                         (:discard (:anything))
+                         ))))
             (agenda nil
                     (
                      (org-agenda-span 'day)
