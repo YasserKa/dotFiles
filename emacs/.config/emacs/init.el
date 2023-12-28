@@ -1061,9 +1061,11 @@ Made for `org-tab-first-hook' in evil-mode."
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
   '(org-document-info ((t (:foreground "dark orange"))))
 
-  (defun get-top-heading-in-block ()
+(defun get-top-heading-in-block ()
     "Get the title of the top-level heading in the current block."
     (interactive)
+    ;; Check if the current line is a heading (in agenda, empty lines (e.g. 8:00 ----) needs to be skipped)
+    (if (org-at-heading-p)
     (save-excursion
       ;; Get the top most heading
       (while (org-up-heading-safe))
@@ -1071,13 +1073,13 @@ Made for `org-tab-first-hook' in evil-mode."
             (file-name (file-name-sans-extension (buffer-name)))
             (org-heading-title (org-get-heading t t)))
         (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
-            )))
+            ))) "")
     )
   (setq org-agenda-current-time-string "---*> now <*---"
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "....  " "---------------")
-        org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block)%12t  %s")
+        org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block-agenda)%12t  %s")
                                    (todo . " %-18:(get-top-heading-in-block)  %-4e ")
                                    (tags . " %-12:(get-top-heading-in-block) %-6e")
                                    (search . " %-12:(get-top-heading-in-block) %-6e")))
@@ -1171,7 +1173,7 @@ Made for `org-tab-first-hook' in evil-mode."
           ("c" "Calendar"
            (
             (agenda ""
-                    ((org-agenda-prefix-format '((agenda . " %-16:c%?-12t% s"))))
+                    ((org-agenda-prefix-format '((agenda . " %-16c%?-12t%s %?-4e "))))
                     )))
           ))
 
