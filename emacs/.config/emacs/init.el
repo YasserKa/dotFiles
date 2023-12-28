@@ -1466,6 +1466,13 @@ see how ARG affects this command."
   :config
   ;; Inserting latex env and templates using C-j
   (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab)
+
+  ;; Insert $$ when using cdlatex-math-symbol by overriding org--math-p behavior that makes it get ignored
+  (defun my/update-command-name (orig-fun &rest args)
+    (let ((this-command "random-command"))
+      (apply orig-fun args))
+    )
+  (advice-add 'org--math-p :around #'my/update-command-name)
   )
 
 (use-package citar
