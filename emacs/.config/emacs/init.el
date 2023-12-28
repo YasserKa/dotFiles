@@ -227,22 +227,25 @@
 (use-package elec-pair
   :ensure nil
   :hook (org-mode . (lambda ()
-                      (setq electric-pair-pairs '((?\( . ?\))
-                                                  (?\[ . ?\])))
                       (modify-syntax-entry ?$ "\"" org-mode-syntax-table)
                       (modify-syntax-entry ?\( "-" org-mode-syntax-table)
                       (modify-syntax-entry ?\[ "-" org-mode-syntax-table)
+                      ))
+(emacs-lisp-mode . (lambda ()
+  (setq electric-pair-preserve-balance t)
                       ))
   :custom
   (electric-pair-preserve-balance nil)
   :config
   (electric-pair-mode t)
+  ;; (setq electric-pair-pairs '((?\( . ?\))
+  ;;                            (?\[ . ?\])))
 
   (defun my/ignore-elec-pairs (c)
     (cond
-     ((and (char-equal c ?$) (org-in-src-block-p)) 0)
-     ((when (char-equal c (preceding-char)) t))
-     ((when (eq (following-char) 0) t))
+     ((and (char-equal c ?$) (org-in-src-block-p)) nil)
+     ((when (char-equal c (preceding-char))) t)
+     ((when (eq (following-char) 0) ) t)
      ))
 
      (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
