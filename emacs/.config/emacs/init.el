@@ -1066,7 +1066,7 @@ Made for `org-tab-first-hook' in evil-mode."
     "Get the title of the top-level heading in the current block."
     (interactive)
     ;; Check if the current line is a heading (in agenda, empty lines (e.g. 8:00 ----) needs to be skipped)
-    (if (org-at-heading-p)
+    (if (org-get-heading)
     (save-excursion
       ;; Get the top most heading
       (while (org-up-heading-safe))
@@ -1080,7 +1080,7 @@ Made for `org-tab-first-hook' in evil-mode."
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "....  " "---------------")
-        org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block-agenda)%12t  %s %-4e")
+        org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block)%12t  %s %-4e")
                                    (todo . " %-18:(get-top-heading-in-block)  %-4e ")
                                    (tags . " %-12:(get-top-heading-in-block) %-6e")
                                    (search . " %-12:(get-top-heading-in-block) %-6e")))
@@ -1117,7 +1117,7 @@ Made for `org-tab-first-hook' in evil-mode."
            (
             (agenda ""
                     ((org-agenda-span 'day)
-                     (org-agenda-prefix-format '((agenda . " %?-20(get-top-heading-in-block)%?-12t%?-s %?4e ")))
+                     (org-agenda-prefix-format '((agenda . " %?-20:(get-top-heading-in-block)%?-12t%?-s %?4e ")))
                      (org-super-agenda-groups
                       '((:name none
                                :time-grid t
