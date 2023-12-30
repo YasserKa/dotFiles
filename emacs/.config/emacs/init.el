@@ -1854,26 +1854,31 @@ see how ARG affects this command."
     "C-l" 'evil-window-right
     )
 
+  (setq my/leader-key "SPC")
+  (setq my/leader-key-insert (concat "M-" my/leader-key))
+  (setq my/local-leader-key ",")
+  (setq my/local-leader-key-insert (concat "M-" my/local-leader-key))
+
   (general-define-key
    :states '(normal visual motion)
-   :keymaps 'global
-   "SPC" 'main-hydra/body)
+   :keymaps 'override
+   my/leader-key 'main-hydra/body)
 
   (general-define-key
    :states 'insert
    :keymaps 'global
-   "M-SPC" 'main-hydra/body)
+   my/leader-key-insert 'main-hydra/body)
 
   (add-hook 'org-mode-hook
             #'(lambda ()
                 (general-define-key
                  :states '(normal visual motion)
-                 :keymaps 'local
-                 "SPC" 'org-hydra/body)
+                 :keymaps 'override
+                 my/local-leader-key 'org-hydra/body)
                 (general-define-key
-                 :states '(insert)
-                 :keymaps 'local
-                 "M-SPC" 'org-hydra/body))
+                 :states 'insert
+                 :keymaps 'override
+                 my/local-leader-key-insert 'org-hydra/body))
             )
 
   (add-hook 'org-agenda-mode-hook
@@ -1881,7 +1886,7 @@ see how ARG affects this command."
                 (general-define-key
                  :states '(normal visual motion)
                  :keymaps 'local
-                 "SPC" 'agenda-hydra/body))
+                 my/local-leader-key 'agenda-hydra/body))
             )
   )
 
@@ -2047,7 +2052,7 @@ selection of all minor-modes, active or not."
   )
 
 ;; Org
-(defhydra org-hydra (:hint nil :exit t :idle 1 :inherit (main-hydra/heads))
+(defhydra org-hydra (:hint nil :exit t :idle 1 )
   (" *" org-ctrl-c-star "make header" :column " org")
   (" -" org-ctrl-c-minus "make item")
   (" c" org-clock-hydra/body "clock")
@@ -2113,7 +2118,7 @@ selection of all minor-modes, active or not."
   )
 
 ;; Agenda
-(defhydra agenda-hydra (:exit t :idle 1 :inherit (main-hydra/heads))
+(defhydra agenda-hydra (:exit t :idle 1)
   (" c" agenda-clock-hydra/body " clock" :column " agenda")
   (" v" agenda-view-hydra/body " view")
   (" r" roam-hydra/body "roam")

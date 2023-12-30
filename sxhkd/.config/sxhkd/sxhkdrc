@@ -12,7 +12,7 @@ super + shift + apostrophe
     dunstctl action
 
 # Show context menua
-super + shift semicolon
+super + shift + semicolon
     dunstctl context
 
 # Mulimedia controls
