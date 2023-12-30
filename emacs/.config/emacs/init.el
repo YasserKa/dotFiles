@@ -1066,7 +1066,7 @@ Made for `org-tab-first-hook' in evil-mode."
     "Get the title of the top-level heading in the current block."
     (interactive)
     ;; Check if the current line is a heading (in agenda, empty lines (e.g. 8:00 ----) needs to be skipped)
-    (if (org-get-heading)
+    (if (and (org-at-heading-p) (not (string= major-mode "org-agenda-mode")))
     (save-excursion
       ;; Get the top most heading
       (while (org-up-heading-safe))
@@ -1873,11 +1873,11 @@ see how ARG affects this command."
             #'(lambda ()
                 (general-define-key
                  :states '(normal visual motion)
-                 :keymaps 'override
+                 :keymaps 'local
                  my/local-leader-key 'org-hydra/body)
                 (general-define-key
                  :states 'insert
-                 :keymaps 'override
+                 :keymaps 'local
                  my/local-leader-key-insert 'org-hydra/body))
             )
 
@@ -2055,10 +2055,13 @@ selection of all minor-modes, active or not."
   (" *" org-ctrl-c-star "make header" :column " org")
   (" -" org-ctrl-c-minus "make item")
   (" c" org-clock-hydra/body "clock")
-  (" r" roam-hydra/body "roam")
-  (" o" org-org-hydra/body "org")
+  (" r" org-roam-hydra/body "org-roam")
+  (" R" org-refile-hydra/body "refile")
+  (" l" org-links-hydra/body "links")
   (" a" org-agenda "agenda")
+  (" A" (lambda() (interactive) (org-agenda nil "a")) "default agenda")
   (" p" org-set-property "set property")
+  (" g" org-goto-hydra/body "goto hydra")
   )
 
 (defhydra org-clock-hydra (:exit t :hint nil :idle 1)
@@ -2075,7 +2078,16 @@ selection of all minor-modes, active or not."
   (" v" my/org-columns-buffer  "column view")
   )
 
-(defhydra roam-hydra (:exit t :idle 1)
+(defhydra org-goto-hydra (:exit t :idle 1)
+  (" g" consult-org-heading "file")
+  (" r" org-refile-goto-last-stored "refile")
+  (" G" consult-org-agenda "agenda" :column "files")
+  (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
+  (" p" (find-file (concat notes-dir "/projects.org"))"projects.org")
+  (" t" (find-file (concat notes-dir "/tasks.org"))"tasks.org")
+  )
+
+(defhydra org-roam-hydra (:exit t :idle 1)
   (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node" :column " node")
   (" i" org-roam-node-insert              "insert node")
   (" r" org-roam-buffer-toggle            "linked to here")
@@ -2083,23 +2095,6 @@ selection of all minor-modes, active or not."
   (" g" org-roam-ui-mode                  "graph" :column " ")
   (" a" org-roam-alias-add                "add alias")
   (" s" org-roam-db-sync                 "sync")
-  )
-
-(defhydra org-org-hydra (:exit t :idle 1)
-  (" r" org-refile-hydra/body "refile" :column " org")
-  (" l" org-links-hydra/body "links")
-  (" e" org-export-dispatch "export")
-  (" a" org-archive-subtree "archive")
-  (" g" org-roam-ui-mode                  "goto" :column " ")
-  (" c" (find-file (concat notes-dir "/capture.org") "goto capture"))
-  (" p" (find-file (concat notes-dir "/projects.org") "goto projects"))
-  (" g" org-goto-hydra/body "goto hydra")
-  )
-
-(defhydra org-goto-hydra (:exit t :idle 1)
-  (" g" consult-org-heading "file" :column " goto")
-  (" r" org-refile-goto-last-stored "refile")
-  (" G" consult-org-agenda "all")
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
@@ -2118,10 +2113,15 @@ selection of all minor-modes, active or not."
 
 ;; Agenda
 (defhydra agenda-hydra (:exit t :idle 1)
-  (" c" agenda-clock-hydra/body " clock" :column " agenda")
-  (" v" agenda-view-hydra/body " view")
-  (" r" roam-hydra/body "roam")
-  (" f"	org-agenda-follow-mode "follow"))
+  (" c" agenda-clock-hydra/body "clock" :column " org")
+  (" g" org-goto-hydra/body "goto hydra")
+  (" r" org-roam-hydra/body "org-roam")
+  (" R" org-refile-hydra/body "refile")
+  (" c" agenda-clock-hydra/body "clock" :column " agenda")
+  (" v" agenda-view-hydra/body "view")
+  (" l" org-agenda-log-mode "log")
+  (" f"	org-agenda-follow-mode "follow")
+  )
 
 (defhydra agenda-clock-hydra (:exit t :idle 1)
   (" c" org-agenda-clock-cancel "cancel")
