@@ -2008,7 +2008,6 @@ selection of all minor-modes, active or not."
 (defhydra find-hydra (:exit t :idle 1)
   (" b" switch-to-buffer "Buffer")
   (" B" org-cite-insert "BibTex")
-  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node" :column " node")
   )
 
 ;; Git diff, git blame, reset buffer can be added using magit
