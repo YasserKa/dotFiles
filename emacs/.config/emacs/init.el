@@ -2116,9 +2116,10 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
-  (" ." my/org-refile-to-current-file "current file" :column " refile")
-  (" c" my/org-refile-to-running-clock "clock")
-  (" a" org-refile "agenda")
+  (" ." my/org-refile-to-current-file "to current file" :column " refile")
+  (" c" my/org-refile-to-running-clock "to clocked")
+  (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
+  (" a" org-refile "to agenda")
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
