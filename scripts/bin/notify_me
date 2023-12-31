@@ -44,7 +44,9 @@ def check_discord(driver):
     )
     sleep(1)
 
-    notificaitons_el = driver.find_elements(By.CSS_SELECTOR, "div[class*=pill_] > span")
+    # There are two pills, the one that shows unread messages (height 8px), the
+    # one that shows the focused server (height 40px)
+    notificaitons_el = driver.find_elements(By.CSS_SELECTOR, 'div[class*=pill_] > span[style*="8px"]')
 
     discord_servers = driver.find_elements(
         By.XPATH,

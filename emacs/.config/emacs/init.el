@@ -974,6 +974,22 @@ Made for `org-tab-first-hook' in evil-mode."
            (call-interactively #'tab-to-tab-stop)
            t)))
 
+  ;; Archive
+  (defun my/update-archive-location (orig-fun &rest args)
+    "Update org-archive-location to use the top- level heading"
+    (let (org-archive-location)
+      (save-excursion
+        (let ((current-heading-title (org-get-heading t t)))
+        (while (org-up-heading-safe))
+        ;; If it's top-level heading, just archive it as is
+        (setq org-archive-location
+              (if (string= current-heading-title (org-get-heading t t)) "%s_archive::"
+              (concat "%s_archive::* " (org-get-heading t t))))))
+      (apply orig-fun args)
+    ))
+
+  (advice-add 'org-archive-subtree :around #'my/update-archive-location)
+
   ;; Agenda
   ;; Open agenda files to buffer at startup
   (setq
@@ -1062,19 +1078,21 @@ Made for `org-tab-first-hook' in evil-mode."
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
   '(org-document-info ((t (:foreground "dark orange"))))
 
-(defun get-top-heading-in-block ()
+  (defun get-top-heading-in-block ()
     "Get the title of the top-level heading in the current block."
     (interactive)
+
     ;; Check if the current line is a heading (in agenda, empty lines (e.g. 8:00 ----) needs to be skipped)
-    (if (and (org-at-heading-p) (not (string= major-mode "org-agenda-mode")))
-    (save-excursion
-      ;; Get the top most heading
-      (while (org-up-heading-safe))
-      (let ((categroy (org-entry-get nil "CATEGORY"))
-            (file-name (file-name-sans-extension (buffer-name)))
-            (org-heading-title (org-get-heading t t)))
-        (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
-            ))) "")
+    ;; org-agenda-clock has org-at-heading-p set to nil, so check if the command is used
+    (if (or (org-at-heading-p) (string-match  "org-agenda-clock-.*" (format "%s" this-command)))
+        (save-excursion
+          ;; Get the top most heading
+          (while (org-up-heading-safe))
+          (let ((categroy (org-entry-get nil "CATEGORY"))
+                (file-name (file-name-sans-extension (buffer-name)))
+                (org-heading-title (org-get-heading t t)))
+            (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
+                ))) "")
     )
   (setq org-agenda-current-time-string "---*> now <*---"
         org-agenda-time-grid '((weekly today require-timed)
@@ -1117,7 +1135,7 @@ Made for `org-tab-first-hook' in evil-mode."
            (
             (agenda ""
                     ((org-agenda-span 'day)
-                     (org-agenda-prefix-format '((agenda . " %?-20:(get-top-heading-in-block)%?-12t%?-s %?4e ")))
+                     (org-agenda-prefix-format '((agenda . " %?-20:(get-top-heading-in-block)%?-12t%?-s %4e ")))
                      (org-super-agenda-groups
                       '((:name none
                                :time-grid t
@@ -1130,7 +1148,7 @@ Made for `org-tab-first-hook' in evil-mode."
                       (org-agenda-overriding-header "")
                       (org-super-agenda-groups
                        '(
-                         (:discard (:scheduled t))
+                         (:discard (:scheduled today))
                          (:name "Tasks" :todo "NEXT")
                          (:discard (:anything))
                          ))))
@@ -1990,7 +2008,6 @@ selection of all minor-modes, active or not."
   (" d" deft "deft")
   (" e" toggle-plugins/body "toggle plugins")
   (" g" git-hydra/body "git")
-  (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   ;; Exit Emacs (1 window) or window (>1 window)
   (" q" (lambda () (interactive) (let ((inhibit-message t)) (save-buffer)
                                       (if (eq (length (window-list)) 1) (save-buffers-kill-emacs) (delete-window))
@@ -2055,6 +2072,7 @@ selection of all minor-modes, active or not."
   (" *" org-ctrl-c-star "make header" :column " org")
   (" -" org-ctrl-c-minus "make item")
   (" c" org-clock-hydra/body "clock")
+  (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" r" org-roam-hydra/body "org-roam")
   (" R" org-refile-hydra/body "refile")
   (" l" org-links-hydra/body "links")
