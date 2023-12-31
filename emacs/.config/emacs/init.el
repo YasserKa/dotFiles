@@ -772,6 +772,7 @@
 ;; }}}
 ;; LateX {{{
 (add-hook 'org-mode-hook 'org-toggle-pretty-entities)
+
 (use-package latex
   :straight nil
   :ensure nil
@@ -2035,6 +2036,7 @@ selection of all minor-modes, active or not."
   (" k" git-gutter:previous-hunk "previous hunk")
   (" j" git-gutter:next-hunk  "next hunk")
   (" S" magit-stage-buffer-file "stage buffer" :column " buffer")
+  (" R" vc-revert "revert file" :column " hunk")
   (" U" magit-unstage-buffer-file "unstage buffer")
   (" g" magit-status "status" :column " magit")
   (" c" magit-commit "commit")
@@ -2074,6 +2076,7 @@ selection of all minor-modes, active or not."
   (" c" org-clock-hydra/body "clock")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" r" org-roam-hydra/body "org-roam")
+  (" f" org-find-hydra/body "find")
   (" R" org-refile-hydra/body "refile")
   (" l" org-links-hydra/body "links")
   (" a" org-agenda "agenda")
@@ -2103,6 +2106,10 @@ selection of all minor-modes, active or not."
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
   (" p" (find-file (concat notes-dir "/projects.org"))"projects.org")
   (" t" (find-file (concat notes-dir "/tasks.org"))"tasks.org")
+  )
+
+(defhydra org-find-hydra (:exit t :idle 1)
+  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node")
   )
 
 (defhydra org-roam-hydra (:exit t :idle 1)
