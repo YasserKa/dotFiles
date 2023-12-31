@@ -8,7 +8,8 @@ from time import sleep
 
 from dateutil.parser import parse
 from selenium import webdriver
-from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
+from selenium.common.exceptions import (SessionNotCreatedException,
+                                        TimeoutException)
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -43,7 +44,7 @@ def check_discord(driver):
     )
     sleep(1)
 
-    notificaitons_el = driver.find_elements(By.CSS_SELECTOR, "div[class*=lowerBadge-]")
+    notificaitons_el = driver.find_elements(By.CSS_SELECTOR, "div[class*=pill_] > span")
 
     discord_servers = driver.find_elements(
         By.XPATH,
@@ -148,6 +149,7 @@ def main():
     global driver
     options = webdriver.ChromeOptions()
     options.add_argument("user-data-dir=" + profile_path)
+    options.add_argument("--headless=new")
 
     options.add_argument("binary_location=/bin/google-chrome-stable")
     driver = webdriver.Chrome(
