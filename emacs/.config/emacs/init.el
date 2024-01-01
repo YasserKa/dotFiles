@@ -228,8 +228,6 @@
   :ensure nil
   :hook (org-mode . (lambda ()
                       (modify-syntax-entry ?$ "\"" org-mode-syntax-table)
-                      (modify-syntax-entry ?\( "-" org-mode-syntax-table)
-                      (modify-syntax-entry ?\[ "-" org-mode-syntax-table)
                       ))
 (emacs-lisp-mode . (lambda ()
   (setq electric-pair-preserve-balance t)
@@ -241,9 +239,9 @@
 
   (defun my/ignore-elec-pairs (c)
     (cond
-     ((and (char-equal c ?$) (org-in-src-block-p)) nil)
-     ((when (char-equal c (preceding-char))) t)
-     ((when (eq (following-char) 0) ) t)
+     ((and (char-equal c ?$) (org-in-src-block-p)) t)
+     ((when (char-equal c (preceding-char))) nil)
+     ((when (eq (following-char) 0) ) nil)
      ))
 
      (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
@@ -773,10 +771,74 @@
 ;; LateX {{{
 (add-hook 'org-mode-hook 'org-toggle-pretty-entities)
 
+(use-package laas
+  :hook ((LaTeX-mode . laas-mode)
+         (org-mode . laas-mode))
+  :config ; do whatever here
+  (aas-set-snippets 'laas-mode
+                    ;; set condition!
+                    "dm" '(yas "\\[
+                                   `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
+                                \\] ")
+                    :cond #'texmathp ; expand only while in math
+                    "supp" "\\supp"
+                    "On" "O(n)"
+                    "O1" "O(1)"
+                    "Olog" "O(\\log n)"
+                    "Olon" "O(n \\log n)"
+                    ;; bind to functions!
+                    "Sum" '(yas "\\sum_{$1}^{$2} $0")
+                    "Prod" '(yas "\\prod_{$1}^{$2} $0")
+                    "Span" '(yas "\\Span($1)$0")
+                    ;; add accent snippets
+                    :cond #'laas-object-on-left-condition
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+
+;; Used to insert latex environments and math templates
+;; Previewing Latex fragments
+(use-package cdlatex
+  :hook (org-mode . org-cdlatex-mode)
+  :config
+  ;; Navigation & inserting latex env and templates using C-j
+  (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab)
+
+  (setq
+   cdlatex-math-symbol-alist
+   '( ;; adding missing functions to 3rd level symbols
+     (?2    ("^2"           "\\sqrt{?}"     ""     ))
+     (?3    ("^3"           "\\sqrt[3]{?}"  ""     ))
+     (?F    ("\\Phi"))
+     (?.    ("\\cdot" "\\dots"))
+     (?:    ("\\vdots" "\\ddots"))
+     (?*    ("\\times" "\\star" "\\ast")))
+   cdlatex-math-modify-alist
+   '(
+     (?b "\\bm" "\\textbf" t nil nil)
+     (?B "\\mathbb" nil t nil)
+     ))
+
+  ;; Insert $$ when using cdlatex-math-symbol by overriding org--math-p behavior that makes it get ignored
+  (defun my/update-command-name (orig-fun &rest args)
+    ;; If it's before a dollar, it's in LaTeX fragment
+    (if (eq (following-char) ?$) t
+      (let ((this-command "random-command"))
+        (apply orig-fun args)))
+    )
+  (advice-add 'org--math-p :around #'my/update-command-name)
+  )
+
+(use-package evil-tex
+  :after (:any org latex)
+  :hook ((org-mode . evil-tex-mode)
+         (LaTeX-mode . evil-tex-mode)
+         )
+  :config
+  (evil-tex-bind-to-cdlatex-accents-map '(("b" . "bm")))
+  )
+
 (use-package latex
   :straight nil
   :ensure nil
-  :init
   :after tex
   :config
   (defun my/setup-latex-mode ()
@@ -981,13 +1043,13 @@ Made for `org-tab-first-hook' in evil-mode."
     (let (org-archive-location)
       (save-excursion
         (let ((current-heading-title (org-get-heading t t)))
-        (while (org-up-heading-safe))
-        ;; If it's top-level heading, just archive it as is
-        (setq org-archive-location
-              (if (string= current-heading-title (org-get-heading t t)) "%s_archive::"
-              (concat "%s_archive::* " (org-get-heading t t))))))
+          (while (org-up-heading-safe))
+          ;; If it's top-level heading, just archive it as is
+          (setq org-archive-location
+                (if (string= current-heading-title (org-get-heading t t)) "%s_archive::"
+                  (concat "%s_archive::* " (org-get-heading t t))))))
       (apply orig-fun args)
-    ))
+      ))
 
   (advice-add 'org-archive-subtree :around #'my/update-archive-location)
 
@@ -1201,7 +1263,7 @@ Made for `org-tab-first-hook' in evil-mode."
           ("c" "Calendar"
            (
             (agenda ""
-                    ((org-agenda-prefix-format '((agenda . " %-16c%?-12t%s %?-4e "))))
+                    ((org-agenda-prefix-format '((agenda . " %-16c%?-12t%s %4e "))))
                     )))
           ))
 
@@ -1388,9 +1450,6 @@ see how ARG affects this command."
    '(org-verbatim ((t (:inherit (shadow fixed-pitch) :height 1.1))))
    )
 
-  (use-package org-glossary
-    :straight (:host github :repo "tecosaur/org-glossary"))
-
   ;; Used by babel
   (use-package plantuml-mode
     :config
@@ -1473,25 +1532,6 @@ see how ARG affects this command."
     )
   (use-package org-protocol-capture-html
     :ensure nil)
-  )
-
-;; Previewing Latex fragments
-(use-package auctex
-  :after org-mode)
-;; Used to insert latex environments and math templates
-;; Previewing Latex fragments
-(use-package cdlatex
-  :hook (org-mode . org-cdlatex-mode)
-  :config
-  ;; Inserting latex env and templates using C-j
-  (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab)
-
-  ;; Insert $$ when using cdlatex-math-symbol by overriding org--math-p behavior that makes it get ignored
-  (defun my/update-command-name (orig-fun &rest args)
-    (let ((this-command "random-command"))
-      (apply orig-fun args))
-    )
-  (advice-add 'org--math-p :around #'my/update-command-name)
   )
 
 (use-package citar
