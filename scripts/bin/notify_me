@@ -174,15 +174,17 @@ if __name__ == "__main__":
     TEMPORARY_FILE_PATH = "/tmp/notify_me_exception"
     try:
         main()
-    except SessionNotCreatedException:
+    except SessionNotCreatedException as e:
         if os.path.exists(TEMPORARY_FILE_PATH):
             subprocess.run("dunstify 'Maybe need a new chromium version'", shell=True)
         with open(TEMPORARY_FILE_PATH, "w") as fp:
+            fp.write(str(e))
             pass
-    except Exception:
+    except Exception as e:
         if os.path.exists(TEMPORARY_FILE_PATH):
             subprocess.run("dunstify 'notify_me didnt work'", shell=True)
         with open(TEMPORARY_FILE_PATH, "w") as fp:
+            fp.write(str(e))
             pass
     else:
         if os.path.exists(TEMPORARY_FILE_PATH):

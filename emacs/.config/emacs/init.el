@@ -2044,6 +2044,7 @@ selection of all minor-modes, active or not."
 (defhydra main-hydra (:exit t :idle 1)
   (" '" vertico-repeat "resume last search" :column " general")
   (" H" help-hydra/body "help")
+  (" x" my/scratch-buffer-other "scratch")
   (" h" evil-ex-nohighlight "highlight")
   (" f" find-hydra/body "find")
   (" d" deft "deft")
