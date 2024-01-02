@@ -905,7 +905,7 @@
   (org-enforce-todo-dependencies t)
   (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
   (org-startup-with-inline-images t)
-  (org-image-actual-width nil)
+  (org-image-actual-width 500)
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
@@ -1185,6 +1185,8 @@ Made for `org-tab-first-hook' in evil-mode."
 
   ;; Don't show logs at startup
   (setq org-agenda-start-with-log-mode nil)
+  ;; Don't show repeated tasks in the future
+  (setq org-agenda-show-future-repeats nil)
   ;; Show closed items, not the clocked ones
   (setq org-agenda-log-mode-items '(closed clock))
   (setq org-log-done 'time)
@@ -1365,7 +1367,10 @@ Made for `org-tab-first-hook' in evil-mode."
    ;; Remove log if task was clocked for 0:00 (accidental clocking)
    org-clock-out-remove-zero-time-clocks t
    ;; The default value (5) is too conservative.
-   org-clock-history-length 20)
+   org-clock-history-length 20
+   ;; Only today's clocked time is considered
+   org-clock-mode-line-total 'today
+   )
 
   ;; Clock in clock out hooks with Polybar
   (defun my/add-clock-tmp-file ()
