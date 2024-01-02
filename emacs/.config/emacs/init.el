@@ -1519,7 +1519,8 @@ see how ARG affects this command."
         org-export-with-todo-keywords nil)
 
   ;; Update the document header for latex preview
-  (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+  (add-hook 'emacs-startup-hook
+            #'(lambda () (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))))
 
   ;; Latex image size
   (plist-put org-format-latex-options :scale 1.5)
@@ -1737,7 +1738,7 @@ see how ARG affects this command."
   (add-hook 'emacs-startup-hook 'org-agenda-to-appt-clear-message)
 
   ;; Generate the appt list from org agenda files on emacs launch and every 15 minutes
-  (run-at-time nil 900 'org-agenda-to-appt-clear-message))
+  (run-at-time t 900 'org-agenda-to-appt-clear-message))
 ;; }}}
 ;; Navigation {{{
 (use-package vertico
