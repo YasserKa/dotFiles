@@ -123,7 +123,11 @@
   (custom-file (no-littering-expand-etc-file-name "custom.el") "Place Emacs generated variables somewhere else, and don't load them")
   :config
   ;; Setup undo, backup, and auto-save files
-  (no-littering-theme-backups))
+  (no-littering-theme-backups)
+
+  ;; Create a savehistory file for each daemon, so they don't complain about stealing it from each other
+  (when (daemonp) (setq savehist-file (concat user-emacs-directory "var/savehist_" (daemonp) ".el")))
+  )
 
 ;; Bindings
 (global-set-key (kbd "C-x C-b") 'ibuffer)
