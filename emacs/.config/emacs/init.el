@@ -976,6 +976,16 @@
         org-refile-allow-creating-parent-nodes 'confirm ;; Add a new parent header to the refiled header
         )
 
+  (defun my/save-current-refiled-files ()
+    "Save current and refiled files"
+    (interactive)
+    (let ((refiled-to-file (bookmark-get-filename (plist-get org-bookmark-names-plist :last-refile)))
+           )
+      (save-some-buffers '(refiled-to-file buffer-file-name))
+    ))
+
+  (advice-add 'org-refile :after (lambda (&rest _) (my/save-current-refiled-files)))
+
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
   ;; Insert mode after going to add a note to logs
