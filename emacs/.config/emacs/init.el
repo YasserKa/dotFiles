@@ -1500,6 +1500,13 @@ see how ARG affects this command."
     :straight nil
     :ensure nil
     :after org
+    :init
+    ;; Hack to make sure that preambles are added once only
+    ;; Init and emacs startup hooks doesn't work while using daemons
+    (unless (boundp 'preambles-flag)
+              (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+              )
+    (setq preambles-flag t)
     :config
     (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
     (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
@@ -1522,10 +1529,6 @@ see how ARG affects this command."
         org-export-coding-system 'utf-8
         org-export-preserve-breaks t
         org-export-with-todo-keywords nil)
-
-  ;; Update the document header for latex preview
-  (add-hook 'emacs-startup-hook
-            #'(lambda () (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))))
 
   ;; Latex image size
   (plist-put org-format-latex-options :scale 1.5)
