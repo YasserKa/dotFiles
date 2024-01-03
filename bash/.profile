@@ -42,7 +42,7 @@ export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XDG_CONFIG_ISYNC="$XDG_CONFIG_HOME/isync/mbsyncrc"
 export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
-export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc.py"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
