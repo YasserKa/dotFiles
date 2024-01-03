@@ -785,15 +785,9 @@
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
                     :cond #'texmathp ; expand only while in math
-                    "supp" "\\supp"
-                    "On" "O(n)"
-                    "O1" "O(1)"
-                    "Olog" "O(\\log n)"
-                    "Olon" "O(n \\log n)"
-                    ;; bind to functions!
+                    "t=" "\\triangleq"
                     "Sum" '(yas "\\sum_{$1}^{$2} $0")
                     "Prod" '(yas "\\prod_{$1}^{$2} $0")
-                    "Span" '(yas "\\Span($1)$0")
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
@@ -837,7 +831,7 @@
          (LaTeX-mode . evil-tex-mode)
          )
   :config
-  (evil-tex-bind-to-cdlatex-accents-map '(("b" . "bm")))
+  (evil-tex-bind-to-cdlatex-accents-map '(("b" . "bm") ("t" . "text")))
   )
 
 (use-package latex
@@ -1084,10 +1078,6 @@ Made for `org-tab-first-hook' in evil-mode."
    ;;Show today +7 days
    org-agenda-start-on-weekday nil)
 
-  (defun my/open-all-org-agenda-files ()
-    (interactive)
-    (let ((files (org-agenda-files))) (mapcar (lambda (x) (find-file-noselect x)) files)))
-
   ;; Add daylight saving schedule to agenda
   (setq org-agenda-include-diary t)
 
@@ -1315,52 +1305,6 @@ Made for `org-tab-first-hook' in evil-mode."
         `(("d" "default" entry (file ,(concat notes-dir "/capture.org"))
            "* TODO %?\n")))
 
-  ;; Update org-agenda-files after updating item states
-  ;; If the state is removed, remove the file from agenda if there are no other states, otherwise, add it
-  (defun my/update-agenda-files ()
-    ;; Removed TODO from item
-    (if (= (length org-state) 0)
-        ;; No TODOs in buffer, so remove it, otherwise add it
-        ;; TODO: make the string dynamic
-        (if (= (length (org-map-entries nil  "+TODO={TODO\\\|NEXT\\\|DONE\\\|BLOCKED\\\|CANCELLED}" 'file)) 0)
-            (setq curr-files (my/remove-from-agenda-files buffer-file-name))
-          (setq curr-files (my/add-to-agenda-files buffer-file-name))
-          )
-      ;; There's a TODO in buffer
-      (setq curr-files (my/add-to-agenda-files buffer-file-name))
-      )
-    (org-store-new-agenda-file-list curr-files)
-    ;; Sort agenda files, so that there's not that often changes to be tracked by git
-    (shell-command (concat "sort " (concat notes-dir "/agenda_files") " | sponge " (concat notes-dir "/agenda_files")))
-    (let ((inhibit-message)) (org-install-agenda-files-menu))
-    )
-
-  (defun my/get-relative-path (file-path)
-    ;; Transform full paths to relative paths
-    (if (string= (substring file-path 1) "~")
-        (file_path)
-      (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-path)))
-
-  ;; Accepts full path
-  (defun my/remove-from-agenda-files (file-full-path)
-    (setq relative-path (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
-    (setq curr-files (org-agenda-files))
-    (setq curr-files (delete file-full-path curr-files))
-    (setq curr-files (delete relative-path curr-files))
-    curr-files
-    )
-
-  (defun my/add-to-agenda-files (file-full-path)
-    ;; org transforms current paths to full paths then adds a relative path
-    ;; Better to remove relative and full path then add the path
-    (setq curr-files (my/remove-from-agenda-files file-full-path))
-    (add-to-list 'curr-files (replace-regexp-in-string "\\(^/.*?/.*?/\\)" "~/" file-full-path))
-    curr-files
-    )
-
-  (add-hook 'org-after-todo-state-change-hook 'my/update-agenda-files)
-
-  (my/add-to-agenda-files (concat notes-dir "/capture.org"))
   ;; Clocking
   (setq ;; Resume when clocking into task with open clock
    org-clock-in-resume t
@@ -1651,7 +1595,9 @@ see how ARG affects this command."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
-  (setq org-agenda-files (concat notes-dir "/agenda_files"))
+  (setq org-agenda-files
+        (list (concat notes-dir "/projects.org") (concat notes-dir "/capture.org")
+              (concat notes-dir "/tasks.org") (concat notes-dir "/other_tasks.org")))
   )
 
 (use-package org-superstar
@@ -1743,10 +1689,8 @@ see how ARG affects this command."
   (defun org-agenda-to-appt-clear-message ()
     (interactive) (let ((inhibit-message t)) (setq appt-time-msg-list nil) (org-agenda-to-appt)))
 
-  (add-hook 'emacs-startup-hook 'org-agenda-to-appt-clear-message)
-
   ;; Generate the appt list from org agenda files on emacs launch and every 15 minutes
-  (run-at-time t 900 'org-agenda-to-appt-clear-message))
+  (run-at-time nil 900 'org-agenda-to-appt-clear-message))
 ;; }}}
 ;; Navigation {{{
 (use-package vertico
