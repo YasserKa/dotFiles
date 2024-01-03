@@ -22,7 +22,7 @@ readonly ROFI_OPTIONS
 declare -a PATHS_TO_SEARCH
 # TODO: if this changes, zotero's link handler should be changed as well. Try to
 # resolve this duplication
-PATHS_TO_SEARCH=("${HOME}" "${XDG_DATA_HOME}/Zotero")
+PATHS_TO_SEARCH=("${HOME}")
 readonly PATHS_TO_SEARCH
 
 ################################################################################
@@ -42,7 +42,7 @@ get_documents() {
 	readonly DOCS_PATH
 	local DOCS_BASENAME
 	DOCS_BASENAME=$(echo "${DOCS_PATH}" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)
-	readonly "${DOCS_BASENAME}"
+	readonly DOCS_BASENAME
 	# For frecency (tracks only the visited files)
 	local FASD_DOCS
 	FASD_DOCS="$(fasd -lR "${DOCS_BASENAME}" | sed -e 's/\(.*\)/"\1"/' | xargs basename --multiple)"
@@ -94,7 +94,7 @@ main() {
 		main "${USER_INPUT}"
 	else
 		# Append path to fasd for frecency (frequency and recency)
-		fasd -a "${DOCUMENT_PATH}"
+		fasd -A "${DOCUMENT_PATH}"
 		xdg-open "${DOCUMENT_PATH}" >/dev/null &
 		disown
 		i3-msg 'workspace --no-auto-back-and-forth 8'
