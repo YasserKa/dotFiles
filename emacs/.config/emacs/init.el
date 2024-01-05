@@ -1996,6 +1996,16 @@ selection of all minor-modes, active or not."
   (with-current-buffer (or buffer (current-buffer))
     (org-element-map (org-element-parse-buffer) 'keyword (lambda (el) (when (string-match property (org-element-property :key el)) el)))))
 
+(defun get-file-paths-for-open-buffers ()
+  "Return a list of file paths for all open file buffers."
+  (interactive)
+  (let ((file-paths '()))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (and (buffer-file-name) (file-readable-p (buffer-file-name)))
+          (push (buffer-file-name) file-paths))))
+    file-paths))
+
 (defun my/org-columns-buffer ()
   (interactive)
   (let ((current-prefix-arg 4)) (call-interactively 'org-columns))
@@ -2108,9 +2118,10 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra org-goto-hydra (:exit t :idle 1)
-  (" g" consult-org-heading "file")
-  (" r" org-refile-goto-last-stored "refile")
-  (" G" consult-org-agenda "agenda" :column "files")
+  (" g" consult-org-heading "file" :column "headers")
+  (" G" (consult-org-heading t (get-file-paths-for-open-buffers)) "opened buffers")
+  (" a" consult-org-agenda "agenda")
+  (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
   (" p" (find-file (concat notes-dir "/projects.org"))"projects.org")
   (" t" (find-file (concat notes-dir "/tasks.org"))"tasks.org")
