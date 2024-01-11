@@ -49,8 +49,11 @@
 
 (straight-use-package 'use-package)
 (use-package straight
+  :init
+  (when (daemonp) (setq straight-build-dir (concat straight-build-dir "_" (daemonp))))
   :custom
-  (straight-use-package-by-default t))
+  (straight-use-package-by-default t)
+  )
 
 ;; Ensure that all packages are installed
 (require 'use-package-ensure)
