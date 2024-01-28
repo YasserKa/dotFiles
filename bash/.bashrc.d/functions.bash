@@ -370,7 +370,7 @@ alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
 	local NAME="emacs_org"
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "z") (delete-other-windows))'
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows))'
 	goto_window $NAME
 }
 
