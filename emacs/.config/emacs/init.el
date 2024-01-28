@@ -28,9 +28,6 @@
                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
-
-;; Disable package.el in favor of straight.el
-(setq package-enable-at-startup nil)
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -56,8 +53,8 @@
   )
 
 ;; Ensure that all packages are installed
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
+;; (require 'use-package-ensure)
+;; (setq use-package-always-ensure t)
 
 ;; Used to update the package from upgrade_system bash function
 (use-package auto-package-update
@@ -784,6 +781,7 @@
   :config ; do whatever here
   (aas-set-snippets 'laas-mode
                     ;; set condition!
+                    :cond (lambda () string= (sexp-at-point) "dm")
                     "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
