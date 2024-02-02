@@ -975,15 +975,9 @@
         org-refile-allow-creating-parent-nodes 'confirm ;; Add a new parent header to the refiled header
         )
 
-  (defun my/save-current-refiled-files ()
-    "Save current and refiled files"
-    (interactive)
-    (let ((refiled-to-file (bookmark-get-filename (plist-get org-bookmark-names-plist :last-refile)))
-           )
-      (save-some-buffers '(refiled-to-file buffer-file-name))
-    ))
-
-  (advice-add 'org-refile :after (lambda (&rest _) (my/save-current-refiled-files)))
+  ;; Save files after 5 idle minutes
+  (setq my/idle-timer-until-save-buffers (* 5 60))
+  (run-with-idle-timer my/idle-timer-until-save-buffers my/idle-timer-until-save-buffers (lambda () (intercative) (save-some-buffers t)))
 
   ;; Insert mode after going to capture
   (add-hook 'org-capture-mode-hook 'evil-insert-state)
