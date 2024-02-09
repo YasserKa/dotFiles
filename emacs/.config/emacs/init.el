@@ -1,32 +1,9 @@
 ;; -*- lexical-binding: t; -*-
-;; Speed up startup time {{{
-;; Temporarily raise garbage collection limit for initialization
-(defvar my/backup-gc-cons-threshold gc-cons-threshold)
-
-(defun my/lower-gc-cons-threshold ()
-  "Revert back to something slightly bigger than the default."
-  (setq gc-cons-threshold (+ my/backup-gc-cons-threshold 200000))
-  (remove-function after-focus-change-function #'my/lower-gc-cons-threshold)
-  (remove-hook 'after-focus-change-function #'my/lower-gc-cons-threshold))
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (setq gc-cons-threshold (* 1024 gc-cons-threshold))
-            (run-with-idle-timer 3 nil #'my/lower-gc-cons-threshold)
-            (add-function :after after-focus-change-function #'my/lower-gc-cons-threshold)))
-
-(setq use-package-compute-statistics t)
-
-;; Speed up Inhibit file handlers during startup
-(defvar my/file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
-(add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my/file-name-handler-alist)))
-;; }}}
 ;; {{{ Package/Lisp management
 ;; Initialize package sources
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("nognu" . "https://elpa.nongnu.org/nongnu/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+;;                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
+;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -2176,4 +2153,63 @@ selection of all minor-modes, active or not."
   (" w"	org-agenda-week-view "week")
   (" m"	org-agenda-month-view "month")
   (" y"	org-agenda-year-view "year"))
+;;;; }}}
+;;;; {{{ Programming
+;; LSP-mode
+(use-package lsp-mode
+  :init
+  ;; (setenv "LSP_USE_PLISTS" "true")
+  (setq lsp-keymap-prefix "C-c l")
+  :custom
+  ;; (lsp-use-plist t)
+  (read-process-output-max (* 1024 1024))
+  ;; (lsp-auto-guess-root t)
+  (lsp-log-io nil)
+  ;; (lsp-restart 'auto-restart)
+  ;; (lsp-enable-symbol-highlighting nil)
+  (lsp-enable-on-type-formatting nil)
+  (lsp-signature-auto-activate nil)
+  (lsp-prefer-capf t)
+  ;; (lsp-signature-render-documentation nil)
+  ;; (lsp-eldoc-hook nil)
+  ;; (lsp-modeline-code-actions-enable nil)
+  ;; (lsp-modeline-diagnostics-enable nil)
+  (lsp-headerline-breadcrumb-enable nil)
+  ;; (lsp-semantic-tokens-enable nil)
+  (lsp-enable-folding nil)
+  ;; (lsp-enable-imenu nil)
+  (lsp-enable-snippet t)
+  ;; (read-process-output-max (* 1024 1024)) ;; 1MB
+  ;; (lsp-idle-delay 0.5)
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  :hook ((python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp
+  :config
+  ;; (setq lsp-enable-file-watchers nil)
+
+  (setq lsp-completion-provider :none)
+  (defun corfu-lsp-setup ()
+    (setq-local completion-styles '(orderless)
+                completion-category-defaults nil))
+  (add-hook 'lsp-mode-hook #'corfu-lsp-setup)
+  )
+
+(use-package lsp-ui :commands lsp-ui-mode)
+;; if you are helm user
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+
+;; Python
+(setq major-mode-remap-alist
+      '((python-mode . python-ts-mode)))
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-ts-mode . (lambda ()
+                            (require 'lsp-pyright)
+                            (lsp)))
+  :config
+  ;; (setq lsp-pyright-diagnostic-mode "workspace")
+  )
+
+
 ;;;; }}}
