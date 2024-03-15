@@ -1,37 +1,37 @@
 ;; -*- lexical-binding: t; -*-
 ;; {{{ Package/Lisp management
+
+;; (defvar bootstrap-version)
+;; (let ((bootstrap-file
+;;        (expand-file-name
+;;         "straight/repos/straight.el/bootstrap.el"
+;;         (or (bound-and-true-p straight-base-dir)
+;;             user-emacs-directory)))
+;;       (bootstrap-version 7))
+;;   (unless (file-exists-p bootstrap-file)
+;;     (with-current-buffer
+;;         (url-retrieve-synchronously
+;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+;;          'silent 'inhibit-cookies)
+;;       (goto-char (point-max))
+;;       (eval-print-last-sexp)))
+;;  (setq straight-check-for-modifications '(find-when-checking
+;;                                            check-on-save)
+;;         straight-vc-git-default-clone-depth 2)
+;; (when (daemonp) (setq straight-build-dir (concat "build" "_" (daemonp))))
+;;   (load bootstrap-file nil 'nomessage))
+
+;; (setq straight-use-package-by-default t)
+;; (straight-use-package 'use-package)
+
+;; PACKAGE.el
 ;; Initialize package sources
-;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-;;                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
-;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-(use-package straight
-  :init
-  (when (daemonp) (setq straight-build-dir (concat straight-build-dir "_" (daemonp))))
-  :custom
-  (straight-use-package-by-default t)
-  )
-
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("nognu" . "https://elpa.nongnu.org/nongnu/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 ;; Ensure that all packages are installed
-;; (require 'use-package-ensure)
-;; (setq use-package-always-ensure t)
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
 ;; Used to update the package from upgrade_system bash function
 (use-package auto-package-update
@@ -309,7 +309,7 @@
   )
 
 (use-package abbrev
-  :straight nil
+  ;; :straight nil
   :ensure nil
   :custom
   (save-abbrevs 'silently)
@@ -323,6 +323,54 @@
   (define-abbrev-table 'org-mode-abbrev-table
     abbrev-list)
   )
+
+;; Source https://tony-zorman.com/posts/join-lines-comments.html
+(defun delete-indentation (&optional arg beg end)
+  "Join this line to previous and fix up whitespace at join.
+If there is a fill prefix, delete it from the beginning of this
+line.
+With prefix ARG, join the current line to the following line.
+When BEG and END are non-nil, join all lines in the region they
+define.  Interactively, BEG and END are, respectively, the start
+and end of the region if it is active, else nil.  (The region is
+ignored if prefix ARG is given.)
+
+When joining lines, smartly delete comment beginnings, such that one
+does not have to do this by oneself."
+  (interactive
+   (progn (barf-if-buffer-read-only)
+          (cons current-prefix-arg
+                (and (use-region-p)
+                     (list (region-beginning) (region-end))))))
+  ;; Consistently deactivate mark even when no text is changed.
+  (setq deactivate-mark t)
+  (if (and beg (not arg))
+      ;; Region is active.  Go to END, but only if region spans
+      ;; multiple lines.
+      (and (goto-char beg)
+           (> end (line-end-position))
+           (goto-char end))
+    ;; Region is inactive.  Set a loop sentinel
+    ;; (subtracting 1 in order to compare less than BOB).
+    (setq beg (1- (line-beginning-position (and arg 2))))
+    (when arg (forward-line)))
+  (let ((prefix (and (> (length comment-start) 0)
+                     (regexp-quote comment-start))))
+    (while (and (> (line-beginning-position) beg)
+                (forward-line 0)
+                (= (preceding-char) ?\n))
+      (if (save-excursion (forward-line -1) (eolp))
+          (delete-char -1)
+        (delete-char -1)
+        ;; If the appended line started with the fill prefix, delete it.
+        (let ((prev-comment?            ; Don't delete the start of a comment.
+               (save-excursion
+                 (back-to-indentation)
+                 (looking-at prefix))))
+          (delete-horizontal-space)
+          (while (and prev-comment? prefix (looking-at prefix))
+            (replace-match "" t t))
+          (fixup-whitespace))))))
 
 ;; Auto completion
 (use-package corfu
@@ -813,7 +861,7 @@
   )
 
 (use-package latex
-  :straight nil
+  ;; :straight nil
   :ensure nil
   :after tex
   :config
@@ -865,7 +913,7 @@
 
 (use-package org
   :defer t
-  :ensure org-contrib
+  ;; :ensure org-contrib
   :hook ((org-mode . my/org-mode-setup))
   :custom
   (org-directory notes-dir)
@@ -1413,7 +1461,7 @@ see how ARG affects this command."
 
   ;; Enables to add snippets for code blocks
   (use-package org-tempo
-    :straight nil
+    ;; :straight nil
     :ensure nil
     :after org
     :init
@@ -1450,7 +1498,7 @@ see how ARG affects this command."
   (plist-put org-format-latex-options :scale 1.5)
 
   (use-package org-protocol
-    :straight nil
+    ;; :straight nil
     :ensure nil
     :config
     (add-to-list 'org-capture-templates
@@ -1623,7 +1671,7 @@ see how ARG affects this command."
 
 (use-package org-roam-ui
   :after org-roam
-  :straight (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+  ;; :straight (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :custom
   (org-roam-ui-sync-theme t)
   (org-roam-ui-follow t)
@@ -1633,7 +1681,7 @@ see how ARG affects this command."
 
 ;; ORG NOTIFICATION
 (use-package appt
-  :straight nil
+  ;; :straight nil
   :after org
   :ensure nil
   :config
