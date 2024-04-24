@@ -11,7 +11,7 @@ workspace_list = [x.workspace().num for x in containers if x.window_title == f"{
 
 # Open Emacs if it's not open
 if len(workspace_list) == 0:
-    system.exec_command(f"emacs --title={NAME} --file=$NOTES_ORG_HOME/capture.org")
+    system.exec_command(f"""emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"{NAME}"'"))' -n -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows))'""")
     window.wait_for_exist(NAME, timeOut=10)
     workspace_num = 3
 else:
