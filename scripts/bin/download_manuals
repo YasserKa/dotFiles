@@ -8,7 +8,7 @@ declare -A MAN_ARR=(
 
 )
 
-declare -r ROOT_DIR="$HOME/Documents/books"
+declare -r ROOT_DIR="$HOME/Documents/Books"
 
 download_man_page() {
 	MAN_URL="$1"
