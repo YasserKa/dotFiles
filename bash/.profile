@@ -81,7 +81,7 @@ export ADAPTER=$(ls /sys/class/power_supply | grep -E '^ADP' | tail -n1 | cut -d
 source "$XDG_CONFIG_HOME/fzf/config"
 
 # Expand PATH
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_CONFIG_HOME/neomutt/bin:$XDG_CONFIG_HOME/tmux/bin:$XDG_DATA_HOME/cargo/bin
 
 # Disable pipx's emojis
 export USE_EMOJI=0
