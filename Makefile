@@ -69,6 +69,8 @@ stow-etc:
 	@sudo pacman -S --noconfirm greetd
 	sudo rm -r /etc/{pacman.conf,greetd}
 	sudo stow etc --target=/
+	@# pkgfile-update needs specific file permission to work
+	yes | sudo cp /etc/etc/pacman.conf /etc
 
 .PHONY: install-aur-helper
 install-aur-helper: stow-etc
