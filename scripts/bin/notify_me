@@ -8,8 +8,7 @@ from time import sleep
 
 from dateutil.parser import parse
 from selenium import webdriver
-from selenium.common.exceptions import (SessionNotCreatedException,
-                                        TimeoutException)
+from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -46,7 +45,9 @@ def check_discord(driver):
 
     # There are two pills, the one that shows unread messages (height 8px), the
     # one that shows the focused server (height 40px)
-    notificaitons_el = driver.find_elements(By.CSS_SELECTOR, 'div[class*=pill_] > span[style*="8px"]')
+    notificaitons_el = driver.find_elements(
+        By.CSS_SELECTOR, 'div[class*=pill_] > span[style*="8px"]'
+    )
 
     discord_servers = driver.find_elements(
         By.XPATH,
@@ -159,7 +160,7 @@ def main():
     )
 
     try:
-        check_discord(driver)
+        # check_discord(driver)
         check_facebook(driver)
         check_whatsapp(driver)
     except TimeoutException:

@@ -312,13 +312,15 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_med
 
 # Override the widget to remove images made by kitty on completion
 _fzf-tab-complete() {
-fzf-tab-complete
-printf "\x1b_Ga=d,d=A\x1b\\"
+  fzf-tab-complete
+  printf "\x1b_Ga=d,d=A\x1b\\"
 }
 
 zle     -N            _fzf-tab-complete
 bindkey -M emacs '^I'  _fzf-tab-complete
 bindkey -M viins '^I'  _fzf-tab-complete
+# Needed to fix the autocompletion bug that occurs after pessing ^I (keeps previous autosuggestion)
+enable-fzf-tab
 
 # }}}
 # Autojumping {{{
@@ -377,36 +379,36 @@ pai() {
   list_cache="$cache_dir/list"
   { test "$(cat "$list_cache$@" | wc -l)" -lt 50000 && rm "$list_cache$@"; } 2>/dev/null
 
-  pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
-             pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
-  if test -n "$pkg"
-  then echo "Installing $pkg..."
-       cmd="paru -S $pkg"
-       print -s "$cmd"
-       eval "$cmd"
-       rehash
-       rm -rf "$cache_dir"
-  fi
-}
-# List installed packages into fzf and remove selection
-# Tip: use -e to list only explicitly installed packages
-par() {
-  pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
-  if test -n "$pkg"
-  then echo "Removing $pkg..."
-    cmd="paru -R --cascade --recursive $pkg"
-    print -s "$cmd"
-    eval "$cmd"
-  fi
-}
-# }}}
-# Others {{{
-source ~/.bashrc.d/functions.bash
-source ~/.bashrc.d/aliases.bash
+    pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
+      pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
+          if test -n "$pkg"
+          then echo "Installing $pkg..."
+            cmd="paru -S $pkg"
+            print -s "$cmd"
+            eval "$cmd"
+            rehash
+            rm -rf "$cache_dir"
+          fi
+        }
+        # List installed packages into fzf and remove selection
+        # Tip: use -e to list only explicitly installed packages
+        par() {
+          pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
+          if test -n "$pkg"
+          then echo "Removing $pkg..."
+            cmd="paru -R --cascade --recursive $pkg"
+            print -s "$cmd"
+            eval "$cmd"
+          fi
+        }
+        # }}}
+        # Others {{{
+        source ~/.bashrc.d/functions.bash
+        source ~/.bashrc.d/aliases.bash
 
-source /usr/share/doc/pkgfile/command-not-found.zsh
-# Make sure that pinentry uses the correct TTY
-export GPG_TTY=$(tty)
-# }}}
-;
-# vim:foldmethod=marker
+        source /usr/share/doc/pkgfile/command-not-found.zsh
+        # Make sure that pinentry uses the correct TTY
+        export GPG_TTY=$(tty)
+        # }}}
+        ;
+        # vim:foldmethod=marker
