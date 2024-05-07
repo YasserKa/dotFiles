@@ -352,7 +352,7 @@ return {
           extra_args = { "--case-indent" },
         },
         -- Python
-        null_ls.builtins.diagnostics.ruff,
+        -- null_ls.builtins.diagnostics.ruff,
         null_ls.builtins.formatting.isort,
         null_ls.builtins.formatting.black.with {
           extra_args = { "--experimental-string-processing" },
