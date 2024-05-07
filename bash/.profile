@@ -93,9 +93,7 @@ export EMACS_DEFAULT_SOCKET="default"
 export EMACS_ORG_SOCKET="org"
 
 # Use a display server (X or Wayland)
-if [ "${XDG_VTNR}" -eq 1 ]; then
-	if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ]; then
-		# exec sway
-		exec startx "${XINITRC}"
-	fi
+if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ]; then
+	# exec sway
+	exec startx "${XINITRC}"
 fi

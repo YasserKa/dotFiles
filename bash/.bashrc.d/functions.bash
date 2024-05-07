@@ -400,12 +400,9 @@ alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
 syncorg() {
 	emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
-	# resync is used because rclone stops functioning if its executed on a file
-	# that's being edited (this will override the remote files)
-	"$HOME"/bin/wait_internet && rclone bisync "${NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
-		rclone bisync --resync "${NOTES_ORG_HOME}" org_notes:org --include 'fast_access.org' --include 'groceries.org' ||
-		notify-send --urgency=critical "Sync org not working"
-
+	"$HOME"/bin/wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
+	--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *' \
+	||	notify-send --urgency=critical "Sync org not working" 
 }
 
 # Pick a color and store it in clipbaord
