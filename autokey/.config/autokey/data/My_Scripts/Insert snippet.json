@@ -1,11 +1,11 @@
 {
     "type": "script",
-    "description": "New Script",
+    "description": "Insert snippet",
     "store": {},
     "modes": [
         3
     ],
-    "usageCount": 17,
+    "usageCount": 21,
     "prompt": false,
     "omitTrigger": false,
     "showInTrayMenu": false,
