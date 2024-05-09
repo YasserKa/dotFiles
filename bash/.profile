@@ -18,7 +18,7 @@ export DIFFPROG=vimdiff
 export PAGER=less
 # Vimpager for man pager
 export MANOPT=-Pvimpager
-export MYVIMRC="$HOME/.config/nvim/init.vim"
+export MYVIMRC="$HOME/.config/nvim/lua/plugins/user.lua"
 
 export DOTFILES_DIR="$HOME/.dotfiles"
 export EDITOR_GUI=nvim-qt
