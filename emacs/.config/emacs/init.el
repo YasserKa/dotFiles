@@ -798,7 +798,7 @@ does not have to do this by oneself."
   :hook (magit-mode . magit-delta-mode))
 ;; }}}
 ;; LateX {{{
-(add-hook 'org-mode-hook 'org-toggle-pretty-entities)
+(add-hook 'org-mode-hook (lambda () (interactive) (org-toggle-pretty-entities) (setq org-pretty-entities-include-sub-superscripts nil)))
 
 (use-package laas
   :hook ((LaTeX-mode . laas-mode)
