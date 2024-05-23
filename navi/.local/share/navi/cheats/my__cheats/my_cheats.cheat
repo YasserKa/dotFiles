@@ -58,7 +58,7 @@ zsh -d -f -i
 % Others
 
 # Download youtube playlist
-yt-dlp --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --output "%(title)s.%(ext)s" --yes-playlist <playlist>
+yt-dlp --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --output "%(title)s.%(ext)s" --yes-playlist "<playlist>"
 
 # Share kde file
 kdeconnect-cli -n "<device>" --share "<file>"
