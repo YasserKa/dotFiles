@@ -239,7 +239,7 @@ open_cli() {
 	[[ ! $(command -v "$command") ]] &&
 		notify-send "$command doesn't exit" && return 127
 
-	[[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] && notify-send "$TERMINAL is not supported" && return 1
+	[[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return 1
 
 	# Command is run from a shell using -c option
 	if [[ "$-" != *c* ]]; then

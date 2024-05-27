@@ -84,7 +84,6 @@ entr # Run arbitrary commands when files change
 tmux # A terminal multiplexer
 # Dependency for tmux
 msgpack-c # An efficient object serialization library
-alacritty # A cross-platform GPU-accelerated terminal emulator
 kitty # A modern, hackable, featureful, OpenGL-based terminal emulator
 # For images
 imagemagick # An image viewing/manipulation program
