@@ -1,4 +1,6 @@
-fset colorscheme=cyan
+# vim:commentstring=#\ %s
+
+colorscheme cyan
 
 set shuffle=tracks
 set continue=true
