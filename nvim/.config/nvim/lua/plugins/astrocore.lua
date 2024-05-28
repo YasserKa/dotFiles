@@ -30,6 +30,10 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
+        foldmethod = "marker", -- Folds at start
+        foldmarker = "{{{,}}}", -- Folds format
+        scrolloff = 5, -- Show 5 lines above/below the cursor
+        autowrite = true, -- Show 5 lines above/below the cursor
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -41,9 +45,7 @@ return {
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
       n = {
-
-        -- [";"] = { ":" },
-        -- [":"] = { ";" },
+        ["<Leader>e"] = false,
         ["<Leader>ex"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
         ["gx"] = { "<cmd>lua system_open()<cr>", desc = "Open the file under cursor with system app" },
         ["<space><space>"] = { "<cmd>buffer#<cr>", desc = "Alternate buffer" },

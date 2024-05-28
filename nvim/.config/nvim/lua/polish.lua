@@ -453,6 +453,7 @@ function system_open(path)
 end
 
 -- }}}
+--
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "markdown" },
   callback = function()
@@ -470,6 +471,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
  ]]
   end,
 })
+-- Visually select last inserted text
+vim.keymap.set("n", "gl", "`[v`]")
 -- Binding to open command-line window
 vim.o.cedit = "<C-Y>"
 -- Prevent csv for key map overriding space, S-h, S-l
@@ -481,6 +484,7 @@ vim.keymap.set("n", "<C-w>m", "<cmd>MaximizerToggle!<CR>")
 -- }}}
 vim.api.nvim_exec(
   [[
+
 nnoremap ; :
 nnoremap : ;
 augroup TMP_FILES
