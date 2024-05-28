@@ -95,7 +95,7 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'Ctrl-j:execute(pacman -Qil {} | \$PAGER)+abort'"
 
 # Music player
-alias cmus='screen -q -r -D cmus || screen -S cmus $(which cmus)'
+alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
 
 # SSH setup
 # shellcheck disable=SC2048,SC2086

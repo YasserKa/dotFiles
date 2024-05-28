@@ -3,8 +3,7 @@ Description=cmus
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/screen -d -m -S cmus /usr/bin/cmus --listen /run/user/1000/cmus-socket start
-Environment="HOME=/home/yasser" "USERNAME=yasser"
+ExecStart=/usr/bin/tmux new-session -s cmus -d "/usr/bin/cmus --listen /run/user/1000/cmus-socket"
 
 [Install]
 WantedBy=default.target

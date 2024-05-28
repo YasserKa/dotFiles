@@ -55,8 +55,6 @@ pipewire-alsa # Route all applications using ALSA API through PipeWire
 wireplumber # Session manager for Pipewire watching streams (better than pipewire-media-sesion)
 pavucontrol # PulseAudio Volume Control
 cmus # Feature-rich ncurses-based music player
-# To place cmus in the background
-screen
 
 # Aesthetics
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal

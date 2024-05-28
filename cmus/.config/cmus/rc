@@ -7,4 +7,4 @@ set continue=true
 set repeat=true
 
 # Bindings
-bind -f common q shell screen -d cmus
+bind -f common q shell tmux detach-client -s cmus
