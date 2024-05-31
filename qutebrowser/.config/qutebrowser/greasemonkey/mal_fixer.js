@@ -4,8 +4,8 @@
 // @version      0.2
 // @description  displays relations on anime and manga in a more classical layout because the official one sucks
 // @author       RobbiRobb
-// @match        https://myanimelist.net/anime/*
-// @match        https://myanimelist.net/manga/*
+// @match        https://myanimelist.net/anime*
+// @match        https://myanimelist.net/manga*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=myanimelist.net
 // @grant        none
 // @require      https://code.jquery.com/jquery-3.7.1.min.js
