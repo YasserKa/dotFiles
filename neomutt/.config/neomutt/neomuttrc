@@ -19,6 +19,7 @@ set include                            # include message in replies
 set edit_headers                       # Edit headers while composing
 set attribution = ""                   # Remove "On date, X wrote:"  in replies
 set reverse_name                       # reply as whomever it was to
+unset help                             # Remove help line 
 set pager_index_lines = 6              # Show few messages of the index in pager mode
 set pager_stop                         # Don't move to next message after <next-page>
 set mail_check=60                      # to avoid lags using IMAP with some email providers (yahoo for example)
