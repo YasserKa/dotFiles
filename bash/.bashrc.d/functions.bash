@@ -78,7 +78,7 @@ upgrade_system() {
 	yes | paru --sync --refresh --sysupgrade --noconfirm
 
 	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
-	nvim --headless -c 'autocmd User LazySync quitall' -c "MasonUpdateAll" "+Lazy! sync"
+	nvim --headless -c 'autocmd User LazySync quitall' -c "AstroMasonUpdateAll" "+Lazy! sync"
 
 	printf "%s\n" "Updating Emacs packages"
 	emacsclient --eval "(progn
