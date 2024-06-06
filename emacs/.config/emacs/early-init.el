@@ -24,3 +24,6 @@
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my/file-name-handler-alist)))
 ;; }}}
+
+;; Prevent package.el from loading (needed by straight)
+(setq package-enable-at-startup nil)

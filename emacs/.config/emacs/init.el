@@ -1,37 +1,38 @@
 ;; -*- lexical-binding: t; -*-
 ;; {{{ Package/Lisp management
 
-;; (defvar bootstrap-version)
-;; (let ((bootstrap-file
-;;        (expand-file-name
-;;         "straight/repos/straight.el/bootstrap.el"
-;;         (or (bound-and-true-p straight-base-dir)
-;;             user-emacs-directory)))
-;;       (bootstrap-version 7))
-;;   (unless (file-exists-p bootstrap-file)
-;;     (with-current-buffer
-;;         (url-retrieve-synchronously
-;;          "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-;;          'silent 'inhibit-cookies)
-;;       (goto-char (point-max))
-;;       (eval-print-last-sexp)))
-;;  (setq straight-check-for-modifications '(find-when-checking
-;;                                            check-on-save)
-;;         straight-vc-git-default-clone-depth 2)
-;; (when (daemonp) (setq straight-build-dir (concat "build" "_" (daemonp))))
-;;   (load bootstrap-file nil 'nomessage))
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+ (setq straight-check-for-modifications '(find-when-checking
+                                           check-on-save)
+        straight-vc-git-default-clone-depth 2)
+(when (daemonp) (setq straight-build-dir (concat "build" "_" (daemonp))))
+  (load bootstrap-file nil 'nomessage))
 
-;; (setq straight-use-package-by-default t)
-;; (straight-use-package 'use-package)
+(setq package-enable-at-startup nil)
+(setq straight-use-package-by-default t)
+(straight-use-package 'use-package)
 
 ;; PACKAGE.el
 ;; Initialize package sources
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("nognu" . "https://elpa.nongnu.org/nongnu/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+;;                          ("nognu" . "https://elpa.nongnu.org/nongnu/")
+;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
 ;; Ensure that all packages are installed
-(require 'use-package-ensure)
-(setq use-package-always-ensure t)
+;; (require 'use-package-ensure)
+;; (setq use-package-always-ensure t)
 
 ;; Used to update the package from upgrade_system bash function
 (use-package auto-package-update
@@ -309,7 +310,7 @@
   )
 
 (use-package abbrev
-  ;; :straight nil
+  :straight nil
   :ensure nil
   :custom
   (save-abbrevs 'silently)
@@ -861,7 +862,7 @@ does not have to do this by oneself."
   )
 
 (use-package latex
-  ;; :straight nil
+  :straight nil
   :ensure nil
   :after tex
   :config
@@ -899,6 +900,12 @@ does not have to do this by oneself."
   (add-to-list 'TeX-view-program-selection
                '(output-pdf "Zathura"))
   )
+
+  (use-package auctex
+    :straight nil
+    :config
+    (fmakunbound 'ConTeXt-mode)
+    )
 ;; }}}
 ;; Org {{{
 (defun my/org-mode-setup ()
@@ -1461,7 +1468,7 @@ see how ARG affects this command."
 
   ;; Enables to add snippets for code blocks
   (use-package org-tempo
-    ;; :straight nil
+    :straight nil
     :ensure nil
     :after org
     :init
@@ -1498,7 +1505,7 @@ see how ARG affects this command."
   (plist-put org-format-latex-options :scale 1.5)
 
   (use-package org-protocol
-    ;; :straight nil
+    :straight nil
     :ensure nil
     :config
     (add-to-list 'org-capture-templates
@@ -1682,7 +1689,7 @@ see how ARG affects this command."
 
 ;; ORG NOTIFICATION
 (use-package appt
-  ;; :straight nil
+  :straight nil
   :after org
   :ensure nil
   :config
@@ -1717,7 +1724,6 @@ see how ARG affects this command."
 (use-package vertico
   :init (vertico-mode)
   :custom
-  (vertico-cycle t)
   (vertico-resize nil)
   (vertico-count 14)
   (vertico-cycle t)
