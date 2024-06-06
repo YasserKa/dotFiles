@@ -4,14 +4,33 @@
 # Arguments:
 #   $1: seconds to wait
 #######################################
-#
-# Dependencies:
-# pv
+
+
+function cleanup() {
+  tput cnorm
+}
+
+trap cleanup EXIT
+
+# Hide cursor
+tput civis
+
+get_time() {
+	local -r SECONDS="$1"
+  date -d@"$SECONDS" -u +%M:%S
+}
+
 
 main() {
 	local -r SECONDS="$1"
-	echo "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)"
-	sleep "$SECONDS" | pv -et && notify-send --expire-time=$((5 * 60 * 1000)) -- "TIMER UP!"
+	local SECONDS_LEFT="$1"
+	echo -e "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
+
+  while [ "$SECONDS_LEFT" -gt 0 ]; do
+    echo -ne "Left: $(get_time "$SECONDS_LEFT")  Elapsed: $(get_time "$((SECONDS-SECONDS_LEFT))")\033[0K\r"
+    sleep 1
+    SECONDS_LEFT=$((SECONDS_LEFT - 1))
+  done && notify-send --expire-time=$((5 * 60 * 1000)) -- "TIMER UP!"
 }
 
 (($# > 1)) && echo "Only need one option - seconds" && exit 1
