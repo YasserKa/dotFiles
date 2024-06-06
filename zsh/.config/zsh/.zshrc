@@ -312,15 +312,14 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_med
 
 # Override the widget to remove images made by kitty on completion
 _fzf-tab-complete() {
-  fzf-tab-complete
+  zle fzf-tab-complete
   printf "\x1b_Ga=d,d=A\x1b\\"
 }
 
 zle     -N            _fzf-tab-complete
 bindkey -M emacs '^I'  _fzf-tab-complete
 bindkey -M viins '^I'  _fzf-tab-complete
-# Needed to fix the autocompletion bug that occurs after pessing ^I (keeps previous autosuggestion)
-enable-fzf-tab
+
 
 # }}}
 # Autojumping {{{
