@@ -91,8 +91,8 @@ bind index G last-entry
 bind index gg first-entry
 bind index N search-opposite
 macro pager,index dd  "<enter-command>set resolve=no<enter><clear-flag>N<tag-prefix>\
-                       <enter-command>set resolve=yes<enter><delete-message>"\
-                       "Mark read & delete message"
+<enter-command>set resolve=yes<enter><delete-message>"
+bind pager,index dD delete-subthread
 # Threading
 bind pager,index dT delete-thread
 bind pager,index dt delete-subthread

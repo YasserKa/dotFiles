@@ -1548,8 +1548,9 @@ see how ARG affects this command."
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
   :after (org evil)
-  :disabled
   :custom
+  ;; toggle links
+  (org-appear-autolinks t)
   ;; Show markers in insert mode
   (org-appear-trigger 'manual)
   :hook ((org-mode . org-appear-mode)

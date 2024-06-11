@@ -82,7 +82,7 @@ alias ...='cd ../..'
 alias calc='rofi -show calc -modi calc -no-show-match -no-sort'
 
 # Alert after long commands
-alias lert='notify-send --expire-time=99999 "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias alert='notify-send --expire-time=99999 "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias tmp="\${EDITOR} /tmp/tmp"
 alias tmppy="\${EDITOR} /tmp/tmp.py"
