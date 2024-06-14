@@ -232,6 +232,7 @@ xorg-server # Xorg X server
 xorg-xev # Print contents of X events
 xorg-xinit # X.Org initialisation program
 xorg-xkill # Kill a client by its X resource
+xorg-input # Configure devices (used to lock keyboard input during text insertion)
 
 wlroots       # Compositor library for wayland
 wlroots-debug
