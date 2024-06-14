@@ -6,6 +6,14 @@
 #   $1 Path to file
 #######################################
 function cd() {
+	while true ; do
+  	case "$1" in
+  		--)
+  		shift; break ;;
+  	*)
+  		break;;
+  esac
+ done
 	if [ $# -eq 0 ]; then
 		builtin cd || exit
 	elif [ -d "$1" ]; then

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Insert link from qutebrowsers history
+# Dependencies: fzf qutebrowser xdotool xinput xclip
+
+sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;' | uniq >/tmp/links
+
+# shellcheck disable=2016
+cmd='awk '"'"'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" $(NF-1) "\033[0m " "\n" $NF }'"'"' /tmp/links | fzf --read0 --ansi --preview "" >|/tmp/fzf_tmp'
+
+$TERMINAL --class "floating" -e bash -c "$cmd"
+
+# Get list of keyboards and disable then re-enable them
+devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
+
+while IFS= read -r device; do xinput disable "$device" 2>/dev/null ; done <<<"$devices"
+
+tmp="$(xclip -selection clipboard -o)"
+tail -n 1 /tmp/fzf_tmp | xclip -rmlastnl -selection clipboard
+xdotool key --clearmodifiers ctrl+shift+v
+echo "$tmp" | xclip -rmlastnl -selection clipboard
+while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
