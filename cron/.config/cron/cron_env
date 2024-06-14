@@ -9,6 +9,10 @@ export XAUTHORITY=$HOME/.Xauthority
 export XDG_RUNTIME_DIR=/run/user/1000
 export EMACS_ORG_SOCKET="default"
 
+# Used by sxhkd systemd service
+TERMINAL="kitty"
+export TERMINAL
+
 # Needed by syncorg function
 export NOTES_ORG_HOME=$HOME/notes
 export XDG_DATA_HOME=$HOME/.local/share

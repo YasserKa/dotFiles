@@ -11,6 +11,10 @@ super + apostrophe
 super + shift + apostrophe
     dunstctl action
 
+# Execute default actions
+super + shift + u
+    /home/yasser/bin/insert_link
+
 # Show context menua
 super + shift + semicolon
     dunstctl context
