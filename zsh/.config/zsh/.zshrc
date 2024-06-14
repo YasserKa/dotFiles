@@ -354,6 +354,7 @@ fi
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
 pzf() {
+  (($#==0)) && echo "This is a helper function, use pai or par instead" && return
   # Position of the value in each candidate
   pos=$1
   AUR_URL='https://aur.archlinux.org/packages'
