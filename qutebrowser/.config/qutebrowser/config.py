@@ -290,7 +290,12 @@ c.fonts.web.size.default = 19
 # Use ranger for file handling
 c.fileselect.handler = "external"
 c.fileselect.folder.command = ["kitty", "-e", "ranger", "--choosedir={}"]
-c.fileselect.multiple_files.command = ["kitty", "-e", "ranger", "--choosefiles={}"]
+c.fileselect.multiple_files.command = [
+    "kitty",
+    "-e",
+    "/home/yasser/.config/qutebrowser/userscripts/ranger_picker_qute",
+    "{}",
+]
 c.fileselect.single_file.command = ["kitty", "-e", "ranger", "--choosefile={}"]
 
 c.spellcheck.languages = ["en-US"]
