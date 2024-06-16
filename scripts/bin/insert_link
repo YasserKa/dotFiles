@@ -14,8 +14,8 @@ devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-
 
 while IFS= read -r device; do xinput disable "$device" 2>/dev/null ; done <<<"$devices"
 
-tmp="$(xclip -selection clipboard -o)"
+tmp="$(xclip -selection clipboard -o >/dev/null 2>&1)"
 tail -n 1 /tmp/fzf_tmp | xclip -rmlastnl -selection clipboard
 xdotool key --clearmodifiers ctrl+shift+v
-echo "$tmp" | xclip -rmlastnl -selection clipboard
+echo "$tmp" | xclip -rmlastnl -selection clipboard >/dev/null 2>&1 
 while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
