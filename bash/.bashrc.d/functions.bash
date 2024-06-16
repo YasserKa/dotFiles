@@ -456,4 +456,4 @@ reload_browser() {
 zathura() { (command zathura "$@" &>/dev/null &) }
 mpv() { (command mpv "$@" &>/dev/null &) }
 xdg-open() { (command xdg-open "$@" &>/dev/null); }
-nautilus() { (command nautilus "$@" &) }
+pcmanfm() { (command pcmanfm "$@" &) }

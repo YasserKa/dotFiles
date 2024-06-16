@@ -323,7 +323,7 @@ wf-recorder # Screen recorder for wlroots-based compositors
 docker # Container
 docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
 
-nautilus # Default file manager for GNOME
+pcmanfm # Default file manager for GNOME
 ncdu # Disk usage analyzer with an ncurses interface
 zoom # Video Conferencing and Web Conferencing Service
 # slack-desktop # Slack Desktop (Beta) for Linux
