@@ -5,7 +5,12 @@
 sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;' | uniq >/tmp/links
 
 # shellcheck disable=2016
-cmd='awk '"'"'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" $(NF-1) "\033[0m " "\n" $NF }'"'"' /tmp/links | fzf --read0 --ansi --preview "" >|/tmp/fzf_tmp'
+cmd='awk '"'"'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" $(NF-1) "\033[0m " "\n" $NF }'"'"' /tmp/links | 
+  fzf --read0 --ansi --preview "" \
+  --bind "alt-m:execute-silent(echo \[{..-2}\]\({-1..}\) >|/tmp/fzf_tmp)+abort"\
+  --bind "enter:execute-silent(echo {-1..} >|/tmp/fzf_tmp)+abort"\
+  --bind "esc:execute-silent(echo "" >|/tmp/fzf_tmp)+abort"\
+  '
 
 $TERMINAL --class "floating" -e bash -c "$cmd"
 
