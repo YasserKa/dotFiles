@@ -12,7 +12,7 @@ cmd='awk '"'"'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" $(NF-1) "\033[0m 
   --bind "esc:execute-silent(echo "" >|/tmp/fzf_tmp)+abort"\
   '
 
-$TERMINAL --class "floating" -e bash -c "$cmd"
+$TERMINAL --class "floating_terminal" -e bash -c "$cmd"
 
 # Get list of keyboards and disable then re-enable them
 devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"

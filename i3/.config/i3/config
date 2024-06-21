@@ -119,6 +119,8 @@ for_window [class="Vlc|feh|Shutter"] floating enable
 # Enable floating for windows that has floating class
 for_window [instance="floating"] floating enable
 
+for_window [instance="^floating_terminal$"] floating enable, resize set 990 820, move position center, move up 145 px
+
 # Change workspace when window is activated (used for qutebrowser gt)
 include ./focus_on_window_activation_config
 # >>>
