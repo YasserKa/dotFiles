@@ -293,21 +293,15 @@ exec --no-startup-id picom & disown
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
 
 # Open browser & notes
-# Note: The braces are needed for some reason
-
-# exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1'; ${BROWSER} & sleep 1.5; bash -ic "org"
-exec --no-startup-id bash -ic "org"
-# exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 5; append_layout ~/.config/i3/templates/chatgpt.json'
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
 exec --no-startup-id ${BROWSER} --override-restore
-# exec --no-startup-id ${BROWSER} --override-restore --target window https://chat.openai.com/
 exec --no-startup-id sleep 3; i3-msg "workspace --no-auto-back-and-forth 1"
 
 # Manages some key bindings
 exec --no-startup-id autokey-qt & disown
 
 exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
-exec --no-startup-id emacs --bg-daemon=$EMACS_ORG_SOCKET &
+exec --no-startup-id bash -ic "org"
 
 # Manages devices remotely
 exec /usr/lib/kdeconnectd & disown

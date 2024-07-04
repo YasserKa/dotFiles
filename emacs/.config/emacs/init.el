@@ -178,6 +178,7 @@
 
 ;; Icons for doom-modeline
 (use-package nerd-icons
+  :disabled
   :config
   ;; Add a glyph for hypothesis links
   (add-to-list 'nerd-icons-url-alist '("^\\(https?://\\)?\\(www\\.\\)?hyp\\.is" nerd-icons-mdicon "nf-md-alpha_h_box"))
