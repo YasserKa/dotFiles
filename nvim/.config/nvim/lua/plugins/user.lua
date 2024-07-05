@@ -71,7 +71,7 @@ return {
       opts.mapping["<A-k>"] = cmp.mapping(cmp.mapping.scroll_docs(-5), { "i", "c" })
       opts.mapping["<A-j>"] = cmp.mapping(cmp.mapping.scroll_docs(5), { "i", "c" })
 
-      function has_words_before()
+      function Has_words_before()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
       end
@@ -91,7 +91,7 @@ return {
           cmp.confirm()
         elseif require("luasnip").expand_or_jumpable() then
           require("luasnip").expand_or_jump()
-        elseif has_words_before() then
+        elseif Has_words_before() then
           cmp.complete()
         else
           fallback()
@@ -200,7 +200,7 @@ return {
     "https://github.com/sQVe/sort.nvim",
     lazy = false,
     config = function()
-      vim.api.nvim_exec(
+      vim.api.nvim_exec2(
         [[
  		nnoremap <silent> gs <Cmd>Sort<CR>
  		vnoremap <silent> gs <Esc><Cmd>Sort<CR>
@@ -215,7 +215,7 @@ return {
  		nnoremap <silent> gsi{ vi{<Esc><Cmd>Sort<CR>
  		nnoremap <silent> gsi} vi}<Esc><Cmd>Sort<CR>
  					]],
-        true
+        {}
       )
     end,
   },
@@ -327,11 +327,8 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    opts = function(_, config)
-      require("lsp_signature").setup(opts)
-      config.hint_enable = false
-      return config
-    end,
+    opts = {},
+    config = function(_, opts) require("lsp_signature").setup(opts) end,
   },
   { "https://github.com/romainl/vim-cool", lazy = false }, -- Disable search highlighting when done
   { "https://github.com/honza/vim-snippets", lazy = false },
@@ -340,7 +337,6 @@ return {
     opts = function(_, config) -- overrides `require("null-ls").setup(config)`
       -- config variable is the default configuration table for the setup function call
       local null_ls = require "null-ls"
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
       config.sources = {
@@ -558,14 +554,14 @@ return {
     lazy = false,
     -- ft = "python",
     config = function()
-      vim.api.nvim_exec(
+      vim.api.nvim_exec2(
         [[
  nmap <Leader>z <Plug>Zeavim
  vmap <Leader>z <Plug>ZVVisSelection
  nmap gz <Plug>ZVOperator
  nmap <Leader><Leader>z <Plug>ZVKeyDocset
- 					]],
-        true
+ ]],
+        {}
       )
     end,
   },
@@ -577,11 +573,11 @@ return {
       local wk = require "which-key"
 
       -- Execute cells using the command line by passing the line numbers
-      execute_cells = function(line_nums)
+      Execute_cells = function(line_nums)
         local file_path = vim.fn.expand "%:p"
         local shell_command = "silent !{ "
         -- { python -m jupyter_ascending.requests.execute --filename a.sync.py --line 1 && python -m jupyter_ascending.requests.execute --filename a.sync.py --line 6; } >/dev/null & disown
-        for index, line_num in ipairs(line_nums) do
+        for _, line_num in ipairs(line_nums) do
           shell_command = shell_command
             .. " python -m jupyter_ascending.requests.execute --filename "
             .. file_path
@@ -594,7 +590,7 @@ return {
       end
 
       -- Execute visually selected cells
-      execute_selected_cells = function()
+      Execute_selected_cells = function()
         -- Leave visual mode to update the "<" and ">" marks
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "v", true)
         local start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
@@ -608,7 +604,7 @@ return {
           local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
           if line:find "^# %%" then table.insert(lines, line_num) end
         end
-        execute_cells(lines)
+        Execute_cells(lines)
       end
 
       wk.register {
@@ -636,7 +632,7 @@ return {
         ["<localLeader>"] = {
           n = {
             name = "Jupyter Ascending",
-            c = { ":lua execute_selected_cells()<CR>", "Execute selected cells" },
+            c = { ":lua Execute_selected_cells()<CR>", "Execute selected cells" },
           },
         },
       }, { mode = "v" })
