@@ -253,7 +253,7 @@ open_cli() {
 	if [[ "$-" != *c* ]]; then
 		command "$command"
 	else
-		$TERMINAL --detach -e bash -c "$command && exec bash"
+		$TERMINAL --detach -e bash -c "$command && exec $SHELL"
 	fi
 }
 
