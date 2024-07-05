@@ -94,6 +94,8 @@ MODE_CURSOR_VIINS="blinking bar"
 
 # NOTE: has to be after zsh-vim-mode so vi" highlighting work
 plug "zdharma-continuum/fast-syntax-highlighting"
+# Change comment color to grey
+: ${FAST_HIGHLIGHT_STYLES[${FAST_THEME_NAME}comment]::=fg=243}
 
 plug "hlissner/zsh-autopair"
 # Make zsh use system clipboard
