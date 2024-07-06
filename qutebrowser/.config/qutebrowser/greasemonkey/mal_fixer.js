@@ -14,7 +14,6 @@
 
 (function() {
   "use strict";
-  console.log("asdfsadfsa");
 
   function appendList(relations, listElement) {
     for (const key of Object.keys(relations).sort().reverse()) {
