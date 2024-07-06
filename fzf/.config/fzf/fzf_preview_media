@@ -68,7 +68,9 @@ main() {
 
 	# Directory
 	if [[ -d "$1" ]]; then
-		lsd -1 --color=always "$1"
+		# Used instead of lsd, because it properly colors symbolic links
+		# https://github.com/lsd-rs/lsd/issues/1010
+		eza -1 --color=always "$1"
 		return
 	fi
 

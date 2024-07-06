@@ -123,8 +123,8 @@ return {
         ["g:"] = { "g;" },
         ["q;"] = { "q:" },
         ["@;"] = { "@;" },
-        ["<Leader>es"] = { "<cmd>split ~/.config/nvim/lua/user/init.lua<cr>", desc = "Split config file" },
-        ["<Leader>ss"] = { "<cmd>source ~/.config/nvim/init.lua<cr>", desc = "Source config file" },
+        ["<Leader>es"] = { "<cmd>split ~/.config/nvim/lua/plugins/user.lua<cr>", desc = "Split config file" },
+        ["<Leader>ss"] = { "<cmd>source ~/.config/nvim/lua/plugins/user.lua<cr>", desc = "Source config file" },
 
         ["<C-s>"] = { "<cmd>w!<cr>", desc = "Save File" },
 
