@@ -44,16 +44,17 @@ alias logxorg='cat $HOME/.local/share/xorg/Xorg.0.log'
 # Check https://github.com/tstack/lnav/issues/878
 
 # Different options to search for files
-alias ls="lsd"
+alias ls="eza --time-style=relative"
 alias lsa="ls --almost-all"    # ignore . ..
-alias l="ls --long --classify" # */=>@ indicators
-alias la="ls -AFl"
-alias ltree="ls --tree --depth=2"
+alias l="ls --long --classify" # * indicators
+alias la="l --almost-all"
 alias ltreea="ls --tree"
-alias lt="ls -l --sort=time --reverse"
-alias lta="ls -Al --sort=time --reverse"
-alias lss="ls -l --total-size --sort=size --reverse"
-alias lssa="ls -Al --total-size --sort=size --reverse"
+alias ltree="ltreea --level=2"
+alias lt="EZA_COLORS='da=32' ls --long --sort=time --color-scale=age" # Use green for color aging
+alias lta="lt --almost-all"
+# lsd is faster than eza
+alias lss="lsd --long --total-size --sort=size --reverse"
+alias lssa="lss --almost-all"
 
 # More options
 alias mkdir='mkdir -pv'
