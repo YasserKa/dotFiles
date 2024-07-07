@@ -59,7 +59,8 @@ PROMPT='%B%F{cyan}%~%b $(gitprompt) ${NEWLINE}%F{#008C00}❯ %b%f'
 source /usr/share/LS_COLORS/dircolors.sh
 
 # Directories to search for autoloadings
-fpath+=($ZDOTDIR/zsh-completions)
+plug "sunlei/zsh-ssh"
+
 zstyle ':completion:*' menu select
 autoload -Uz compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
