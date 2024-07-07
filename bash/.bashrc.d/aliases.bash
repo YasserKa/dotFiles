@@ -44,13 +44,13 @@ alias logxorg='cat $HOME/.local/share/xorg/Xorg.0.log'
 # Check https://github.com/tstack/lnav/issues/878
 
 # Different options to search for files
-alias ls="eza --time-style=relative"
+alias ls="EZA_COLORS='da=36' eza --time-style=relative --color-scale=age"
 alias lsa="ls --almost-all"    # ignore . ..
-alias l="ls --long --classify" # * indicators
+alias l="ls --long --classify=always" # show file indicators
 alias la="l --almost-all"
 alias ltreea="ls --tree"
 alias ltree="ltreea --level=2"
-alias lt="EZA_COLORS='da=32' ls --long --sort=time --color-scale=age" # Use green for color aging
+alias lt="ls --long --sort=time --color-scale=age" # Use green for color aging
 alias lta="lt --almost-all"
 # lsd is faster than eza
 alias lss="lsd --long --total-size --sort=size --reverse"
