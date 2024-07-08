@@ -203,16 +203,18 @@ fclast() { command fc "-${1}" 0; }
 # Copy last command
 cl() { history -p '!!' | tr -d \\n | pbcopy &>/dev/null; }
 
-if [[ "$BASH" ]]; then
-	copyline() { printf %s "$READLINE_LINE" | pbcopy &>/dev/null; }
-	bind -m vi-insert -x '"\C-y":copyline'
-	bind -m vi-command -x '"\C-y":copyline'
-elif [[ "$ZSH_NAME" ]]; then
-	# shellcheck disable=2317
-	cmd_to_clip() { printf "%s" "$BUFFER" | xsel -i --clipboard; }
-	zle -N cmd_to_clip
-	bindkey -M vicmd '^y' cmd_to_clip
-	bindkey -M viins '^y' cmd_to_clip
+if [[ $- == *i* ]]; then
+	if [[ "$BASH" ]]; then
+		copyline() { printf %s "$READLINE_LINE" | pbcopy &>/dev/null; }
+		bind -m vi-insert -x '"\C-y":copyline'
+		bind -m vi-command -x '"\C-y":copyline'
+	elif [[ "$ZSH_NAME" ]]; then
+		# shellcheck disable=2317
+		cmd_to_clip() { printf "%s" "$BUFFER" | xsel -i --clipboard; }
+		zle -N cmd_to_clip
+		bindkey -M vicmd '^y' cmd_to_clip
+		bindkey -M viins '^y' cmd_to_clip
+	fi
 fi
 
 # Use Alt-h to view documentation for commands
@@ -223,7 +225,9 @@ if [[ "$BASH" ]]; then
 		# shellcheck disable=2046,2116
 		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
 	}
+if [[ $- == *i* ]]; then
 	bind -m vi-insert -x '"\eh": run_help'
+fi
 elif [[ "$ZSH_NAME" ]]; then
 	run_help() {
 		local -r cmd="$BUFFER"

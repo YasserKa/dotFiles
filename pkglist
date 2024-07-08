@@ -313,7 +313,6 @@ deepin-screen-recorder # Easy-to-use screen recording tool for linuxdeepin deskt
 asciinema # Record and share terminal sessions
 # Dependency for deepin
 ocl-icd # OpenCL ICD Bindings
-deepin-qt-dbus-factory # https://bugs.archlinux.org/task/78223
 greetd # Generic greeter daemon
 
 # (Wayland) Screen recording and shots
