@@ -482,93 +482,92 @@ vim.g["csv_nomap_l"] = 1
 -- {{{ vim-maximizer
 vim.keymap.set("n", "<C-w>m", "<cmd>MaximizerToggle!<CR>")
 -- }}}
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
   [[
+ nnoremap ; :
+ nnoremap : ;
+ augroup TMP_FILES
+ autocmd!
+ autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
+ autocmd BufRead,BufNewFile tmp.* set noswapfile
+ autocmd ExitPre tmp.* :w
+ augroup END
+ let g:python3_host_prog  = '/bin/python'
+ let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
-nnoremap ; :
-nnoremap : ;
-augroup TMP_FILES
-autocmd!
-autocmd BufRead,BufNewFile tmp.* inoremap <C-c><C-c> <esc>:q<cr>
-autocmd BufRead,BufNewFile tmp.* set noswapfile
-autocmd ExitPre tmp.* :w
-augroup END
-let g:python3_host_prog  = '/bin/python'
-let g:ipython_cell_run_command	= '%run -t "{filepath}"'
+ xnoremap gcc :Commentary<cr>
 
-xnoremap gcc :Commentary<cr>
+ " {{{ vim-ipython-cell / vim-slime
+ " Slime
+ " always use tmux
+ let g:slime_target = 'tmux'
 
-" {{{ vim-ipython-cell / vim-slime
-" Slime
-" always use tmux
-let g:slime_target = 'tmux'
+ " https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+ let g:slime_bracketed_ipython = 1
 
-" https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
-let g:slime_bracketed_ipython = 1
+ " always send text to the top-right pane in the current tmux tab without asking
+ let g:slime_default_config = {
+ \ 'socket_name': get(split($TMUX, ','), 0),
+ \ 'target_pane': ':{next}.1' }
 
-" always send text to the top-right pane in the current tmux tab without asking
-let g:slime_default_config = {
-\ 'socket_name': get(split($TMUX, ','), 0),
-\ 'target_pane': ':{next}.1' }
+ let g:slime_dont_ask_default = 1
 
-let g:slime_dont_ask_default = 1
+ " Override the comment that makes a cell take "##", this will cause a problem if
+ " there's a string having "##"
+ let g:ipython_cell_tag = ['# %%']
 
-" Override the comment that makes a cell take "##", this will cause a problem if
-" there's a string having "##"
-let g:ipython_cell_tag = ['# %%']
+ " }}}
+ "  {{{ markdown-preview.nvim
+ let g:mkdp_command_for_global = 1
+ let g:mkdp_page_title = '${name}'
+ let g:mkdp_auto_close = 0
+ nmap <Leader>em <Plug>MarkdownPreviewToggle
 
-" }}}
-"  {{{ markdown-preview.nvim
-let g:mkdp_command_for_global = 1
-let g:mkdp_page_title = '${name}'
-let g:mkdp_auto_close = 0
-nmap <Leader>em <Plug>MarkdownPreviewToggle
+ " open page in new window
+ function! OpenNewBrowserWindow(url)
+ execute "silent ! qutebrowser --target window " . a:url
+ endfunction
 
-" open page in new window
-function! OpenNewBrowserWindow(url)
-execute "silent ! qutebrowser --target window " . a:url
-endfunction
+ " https://github.com/Ron89/thesaurus_query.vim
+ let g:tq_openoffice_en_file =  "../../spell/MyThes-1.0/th_en_US_new"
+ let g:tq_mthesaur_file =  "~/.config/nvim/spell/mthesaur.txt"
+ let g:tq_enabled_backends= ["datamuse_com", "openoffice_en", "mthesaur_txt"]
 
-" https://github.com/Ron89/thesaurus_query.vim
-let g:tq_openoffice_en_file =  "../../spell/MyThes-1.0/th_en_US_new"
-let g:tq_mthesaur_file =  "~/.config/nvim/spell/mthesaur.txt"
-let g:tq_enabled_backends= ["datamuse_com", "openoffice_en", "mthesaur_txt"]
-
-let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
-" }}}
-" {{{ vimtex
-let g:vimtex_compiler_silent = 1
-" Use nabla.nvim
-" let g:vimtex_syntax_conceal_disable=1
-let g:tex_conceal = 'abdg'
-let g:vimtex_syntax_conceal = {
-\ 'accents': 1,
-\ 'ligatures': 1,
-\ 'cites': 1,
-\ 'fancy': 1,
-\ 'greek': 0,
-\ 'math_bounds': 0,
-\ 'math_delimiters': 0,
-\ 'math_fracs': 0,
-\ 'math_super_sub': 0,
-\ 'math_symbols': 0,
-\ 'sections': 0,
-\ 'styles': 1,
-\}
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_fold_enabled = 1
-let g:vimtex_compiler_latexmk = {
-\ 'aux_dir' : './tex_output',
-\ 'options' : [
-\   '-verbose',
-\   '-outdir=./tex_output',
-\   '-file-line-error',
-\   '-shell-escape',
-\   '-synctex=1',
-\   '-interaction=nonstopmode',
-\ ],
-\}
-" }}}
+ let g:mkdp_browserfunc = 'OpenNewBrowserWindow'
+ " }}}
+ " {{{ vimtex
+ let g:vimtex_compiler_silent = 1
+ " Use nabla.nvim
+ " let g:vimtex_syntax_conceal_disable=1
+ let g:tex_conceal = 'abdg'
+ let g:vimtex_syntax_conceal = {
+ \ 'accents': 1,
+ \ 'ligatures': 1,
+ \ 'cites': 1,
+ \ 'fancy': 1,
+ \ 'greek': 0,
+ \ 'math_bounds': 0,
+ \ 'math_delimiters': 0,
+ \ 'math_fracs': 0,
+ \ 'math_super_sub': 0,
+ \ 'math_symbols': 0,
+ \ 'sections': 0,
+ \ 'styles': 1,
+ \}
+ let g:vimtex_view_method = 'zathura'
+ let g:vimtex_fold_enabled = 1
+ let g:vimtex_compiler_latexmk = {
+ \ 'aux_dir' : './tex_output',
+ \ 'options' : [
+ \   '-verbose',
+ \   '-outdir=./tex_output',
+ \   '-file-line-error',
+ \   '-shell-escape',
+ \   '-synctex=1',
+ \   '-interaction=nonstopmode',
+ \ ],
+ \}
+ " }}}
 ]],
-  true
+  {}
 )
