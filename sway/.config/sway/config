@@ -305,7 +305,7 @@ exec --no-startup-id bash -ic "org"
 exec qutebrowser
 
 # Manages other devices
-exec /usr/lib/kdeconnectd & disown
+exec /bin/kdeconnectd & disown
 
 # System bar
 exec waybar & disown
