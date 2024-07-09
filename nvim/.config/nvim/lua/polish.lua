@@ -102,7 +102,9 @@ vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
 
 _G.WatchFile = function()
   vim.cmd(
-    'silent !"${TERMINAL}" --detach --directory "'
+    "silent !chmod +x "
+      .. vim.fn.expand "%:p"
+      .. '&& "${TERMINAL}" --detach --directory "'
       .. vim.fn.expand "%:p:h"
       .. '" bash -c \'echo "'
       .. vim.fn.expand "%:t"
