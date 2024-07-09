@@ -39,6 +39,14 @@ vim.api.nvim_create_autocmd("BufNewFile", {
   pattern = { "*.bash" },
   command = "0r ~/.config/nvim/skeletons/skeleton.bash | exe 'normal jo' | startinsert",
 })
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  desc = "Skeleton",
+  group = "my_skeletons",
+  pattern = { "tmp.py" },
+  command = "0r ~/.config/nvim/skeletons/skeleton.py | exe 'normal jo' | startinsert",
+})
+
 vim.api.nvim_create_augroup("user_mail", {
   clear = true,
 })
