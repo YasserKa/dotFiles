@@ -12,7 +12,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 --bind 'ctrl-i:replace-query'
 --bind 'ctrl-m:accept'
 
---bind 'alt-t:change-preview-window(down|hidden|)'
+--bind 'alt-t:change-preview-window(default|hidden)'
 --bind 'alt-j:preview-down,alt-k:preview-up'
 --bind 'alt-J:preview-page-down,alt-K:preview-page-up'
 --bind 'alt->:preview-bottom,alt-<:preview-top'
@@ -26,7 +26,8 @@ export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
 # CTRL-Y to copy the command into clipboard
 export FZF_CTRL_R_OPTS="
 --header 'Press Meta-Y to copy command into clipboard'
---preview 'echo {}' --preview-window up:3:hidden:wrap
+--preview 'echo {}' --preview-window down:3:border-none:hidden:wrap
+--bind 'alt-t:change-preview-window(down|hidden)'
 --color header:italic
 --bind 'alt-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
 "
