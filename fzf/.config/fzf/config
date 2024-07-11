@@ -33,7 +33,7 @@ export FZF_CTRL_R_OPTS="
 --bind 'ctrl-e:accept'
 --bind 'enter:accept+execute(xdotool key enter)'
 --nth=4.. --with-nth=..
---bind 'alt-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
+--bind 'alt-y:execute-silent(echo -n {4..} | xclip -selection clipboard)+abort'
 "
 
 # Print tree structure in the preview window
