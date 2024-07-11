@@ -236,6 +236,10 @@ if command -v fzf > /dev/null; then
   [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
 fi
 
+# Add time to fzf history searching capabilities
+# https://github.com/junegunn/fzf/issues/1049
+source <(fzf --zsh | sed -e '/zmodload/s/perl/perl_off/' -e '/selected/s/fc -rl/fc -rli /')
+
 # Man widget via C-A-h
 fzf-man-widget() {
   batman="man {1} 2>/dev/null | col -bx | bat --language=man --plain --color always"
@@ -253,32 +257,6 @@ fzf-man-widget() {
 }
 bindkey '^[^H' fzf-man-widget
 zle -N fzf-man-widget
-
-# Use C-e and C-j to edit and execute command
-fzf-history-widget() {
-local selected num
-setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
-  FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS-} -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS-}  --expect=ctrl-e --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
-  local ret=$?
-  if [ -n "$selected" ]; then
-    local accept=0
-    if [[ $selected[1] = ctrl-e ]]; then
-      accept=1
-      shift selected
-    fi
-    num=$selected[1]
-    if [ -n "$num" ]; then
-      zle vi-fetch-history -n $num
- 		  [[ $accept = 0 ]] && zle accept-line
-    fi
-  fi
-  zle reset-prompt
-  return $ret
-}
-zle     -N            fzf-history-widget
-bindkey -M vicmd '^R' fzf-history-widget
-bindkey -M viins '^R' fzf-history-widget
 
 # Override the widget to remove images made by kitty on completion
 _fzf-file-widget() {

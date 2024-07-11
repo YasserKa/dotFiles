@@ -25,10 +25,14 @@ export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
 
 # CTRL-Y to copy the command into clipboard
 export FZF_CTRL_R_OPTS="
+--height ${FZF_TMUX_HEIGHT:-40%}
+--color header:italic
 --header 'Press Meta-Y to copy command into clipboard'
 --preview 'echo {}' --preview-window down:3:border-none:hidden:wrap
 --bind 'alt-t:change-preview-window(down|hidden)'
---color header:italic
+--bind 'ctrl-e:accept'
+--bind 'enter:accept+execute(xdotool key enter)'
+--nth=4.. --with-nth=..
 --bind 'alt-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
 "
 
