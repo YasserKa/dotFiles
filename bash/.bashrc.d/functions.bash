@@ -8,12 +8,14 @@
 function cd() {
 	while true ; do
   	case "$1" in
+  		-)
+  			builtin cd - && return;;
   		--)
-  		shift; break ;;
-  	*)
-  		break;;
-  esac
- done
+  			shift; break ;;
+  		*)
+  			break;;
+  	esac
+ 	done
 	if [ $# -eq 0 ]; then
 		builtin cd || exit
 	elif [ -d "$1" ]; then
@@ -58,18 +60,18 @@ function extract {
 			arc) arc e ./"$n" ;;
 			cso) ciso 0 ./"$n" ./"$n.iso" &&
 				extract "$n.iso" && \rm -f "$n" ;;
-			zlib) zlib-flate -uncompress <./"$n" >./"$n.tmp" &&
-				mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n" ;;
-			dmg)
-				hdiutil mount ./"$n" -mountpoint "./$n.mounted"
-				;;
-			*)
-				echo "extract: '$n' - unknown archive method"
-				return 1
-				;;
-		esac
-	done
-}
+						zlib) zlib-flate -uncompress <./"$n" >./"$n.tmp" &&
+							mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n" ;;
+												dmg)
+													hdiutil mount ./"$n" -mountpoint "./$n.mounted"
+													;;
+												*)
+													echo "extract: '$n' - unknown archive method"
+													return 1
+													;;
+											esac
+										done
+									}
 
 # Remove dependencies that are no longer needed
 orphans() {
@@ -225,9 +227,9 @@ if [[ "$BASH" ]]; then
 		# shellcheck disable=2046,2116
 		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
 	}
-if [[ $- == *i* ]]; then
-	bind -m vi-insert -x '"\eh": run_help'
-fi
+	if [[ $- == *i* ]]; then
+		bind -m vi-insert -x '"\eh": run_help'
+	fi
 elif [[ "$ZSH_NAME" ]]; then
 	run_help() {
 		local -r cmd="$BUFFER"
@@ -405,18 +407,18 @@ magit() {
 
 	is_window_exists "$NAME" ||
 		emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
-	goto_window $NAME
+			goto_window $NAME
 
-}
+		}
 
-alias gitdotfiles='cd $DOTFILES_DIR && magit'
+		alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
-syncorg() {
-	emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
-	"$HOME"/bin/wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
-	--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *' \
-	||	notify-send --urgency=critical "Sync org not working" 
-}
+		syncorg() {
+			emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
+			"$HOME"/bin/wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
+				--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *' \
+				||	notify-send --urgency=critical "Sync org not working" 
+			}
 
 # Pick a color and store it in clipbaord
 pick_color() {
