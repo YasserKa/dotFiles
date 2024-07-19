@@ -68,8 +68,8 @@ return {
           function() require("gitsigns").reset_buffer_index() end,
           desc = "Unstage Buffer",
         },
-        ["<Leader>gc"] = { name = "Commit" },
-        ["<Leader>gcc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
+        ["<Leader>gc"] = { "<cmd>silent Git commit --quiet<CR>", noremap = true, desc = "Commit" },
+        ["<Leader><M-f>gc"] = { "<cmd>silent Git commit --force --quiet<CR>", noremap = true, desc = "Commit force" },
         ["<Leader>a"] = { name = "Annotate" },
         ["<Leader>a<cr>"] = {
           function() require("neogen").generate() end,
