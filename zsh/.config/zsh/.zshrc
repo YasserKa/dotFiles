@@ -104,7 +104,7 @@ plug "kutsan/zsh-system-clipboard"
 source "$ZAP_PATH/plugins/zsh-system-clipboard/zsh-system-clipboard.plugin.zsh"
 # Change clipboard method to xsel, since xclip is bugged
 # https://github.com/kutsan/zsh-system-clipboard/issues/46
-ZSH_SYSTEM_CLIPBOARD_METHOD="xsp"
+ZSH_SYSTEM_CLIPBOARD_METHOD="xsc"
 
 # NOTE: needs to be after vim, so the visual mode in vim doesn't disturb the
 # plugin
