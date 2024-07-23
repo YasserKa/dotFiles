@@ -459,6 +459,63 @@ reload_browser() {
 	xdotool windowfocus "${FOCUSED_ID}"
 }
 
+# Yay install and uninstall {{{
+# Helper function to integrate paru and fzf
+pzf() {
+  (($#==0)) && echo "This is a helper function, use pai or par instead" && return
+  # Position of the value in each candidate
+  pos=$1
+  AUR_URL='https://aur.archlinux.org/packages'
+  OFFICIAL_URL='https://archlinux.org/packages'
+  shift
+  sed "s/ /\t/g" \
+  	| fzf --ansi --nth="$pos" --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
+    --preview-window=60%,border-left \
+		--bind="ctrl-o:execute(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
+		--bind="alt-o:execute(2>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
+		--header 'C-o: Upstream URL, A-o: Official or AUR URL' \
+    "$@" | cut -f"$pos" | xargs
+	}
+
+# List installable packages into fzf and install selection
+pai() {
+  cache_dir="/tmp/pas-$USER"
+  mkdir -p "$cache_dir"
+  preview_cache="$cache_dir/preview_{2}"
+  list_cache="$cache_dir/list"
+  { test "$(wc -l <"$list_cache$*")" -lt 50000 && rm "$list_cache$*"; 
+  } 2>/dev/null
+
+  pkg=$( (cat "$list_cache$*" 2>/dev/null || { pacman --color=always -sl "$@"; paru --color=always -sl aur "$@"; } \
+  	| sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$*") \
+  	| pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -si {2} | tee $preview_cache")
+
+  if test -n "$pkg"
+  then echo "installing $pkg..."
+    cmd="paru -s $pkg"
+		# Add a shell history entry
+    print -s "$cmd"
+    eval "$cmd"
+    rehash
+    rm -rf "$cache_dir"
+  fi
+}
+
+# list installed packages into fzf and remove selection
+# tip: use -e to list only explicitly installed packages
+par() {
+  pkg=$(paru --color=always -q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -qli {1}")
+  if test -n "$pkg"
+  then echo "removing $pkg..."
+    cmd="paru -r --cascade --recursive $pkg"
+    print -s "$cmd"
+    eval "$cmd"
+  fi
+}
+
+alias pas="pacman -Qq | pzf 1 --preview 'pacman -Qil {}' --bind 'enter:execute(pacman -Qil {} | \$PAGER)+abort'"
+# }}}
+
 # Commands run in background automatically
 zathura() { (command zathura "$@" &>/dev/null &) }
 mpv() { (command mpv "$@" &>/dev/null &) }

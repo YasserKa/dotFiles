@@ -161,38 +161,38 @@ bindkey '\e[105;6u' reverse-menu-complete
 # Alternative: Set mark at cursor position, move backward a word, then delete
 # region.
 my-backward-kill-word () {
-    zle set-mark-command
-    zle vi-backward-word
-    zle kill-region
+zle set-mark-command
+zle vi-backward-word
+zle kill-region
 }
 zle -N my-backward-kill-word
 
 # Remove (word)- instead of (word-)
 my-forward-kill-word () {
-    zle set-mark-command
-    zle vi-forward-word
-    zle kill-region
+zle set-mark-command
+zle vi-forward-word
+zle kill-region
 }
 zle -N my-forward-kill-word
 
 my-backward-kill-blank-word () {
-    zle set-mark-command
-    zle vi-backward-blank-word
-    zle kill-region
+zle set-mark-command
+zle vi-backward-blank-word
+zle kill-region
 }
 zle -N my-backward-kill-blank-word
 
 my-forward-kill-blank-word () {
-    zle set-mark-command
-    zle vi-forward-blank-word-end
-    zle forward-char
-    zle kill-region
+zle set-mark-command
+zle vi-forward-blank-word-end
+zle forward-char
+zle kill-region
 }
 zle -N my-forward-kill-blank-word
 
 my-forward-blank-word () {
-    zle vi-forward-blank-word-end
-    zle forward-char
+zle vi-forward-blank-word-end
+zle forward-char
 }
 zle -N my-forward-blank-word
 
@@ -242,17 +242,17 @@ source <(fzf --zsh | sed -e '/zmodload/s/perl/perl_off/' -e '/selected/s/fc -rl/
 
 # Man widget via C-A-h
 fzf-man-widget() {
-  batman="man {1} 2>/dev/null | col -bx | bat --language=man --plain --color always"
-   man -k . | sort \
-   | awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' \
-   | fzf  \
-      -q "$1" \
-      --ansi \
-      --tiebreak=begin \
-      --prompt='Man > '  \
-      --preview-window '50%,rounded,<50(up,85%,border-bottom)' \
-      --preview "${batman}" \
-      --bind "enter:execute(man {1})"
+batman="man {1} 2>/dev/null | col -bx | bat --language=man --plain --color always"
+man -k . | sort \
+  | awk -v cyan=$(tput setaf 6) -v blue=$(tput setaf 4) -v res=$(tput sgr0) -v bld=$(tput bold) '{ $1=cyan bld $1; $2=res blue;} 1' \
+  | fzf  \
+  -q "$1" \
+  --ansi \
+  --tiebreak=begin \
+  --prompt='Man > '  \
+  --preview-window '50%,rounded,<50(up,85%,border-bottom)' \
+  --preview "${batman}" \
+  --bind "enter:execute(man {1})"
   zle reset-prompt
 }
 bindkey '^[^H' fzf-man-widget
@@ -287,16 +287,16 @@ zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
-zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-	fzf-preview 'echo ${(P)word}'
+  zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+  zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	  fzf-preview 'echo ${(P)word}'
 
-zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
+  zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
 
 # Override the widget to remove images made by kitty on completion
 _fzf-tab-complete() {
-  zle fzf-tab-complete
-  printf "\x1b_Ga=d,d=A\x1b\\"
+zle fzf-tab-complete
+printf "\x1b_Ga=d,d=A\x1b\\"
 }
 
 zle     -N            _fzf-tab-complete
@@ -334,64 +334,12 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|r
 fi
 
 # }}}
-# Yay install and uninstall {{{
-# Helper function to integrate paru and fzf
-pzf() {
-  (($#==0)) && echo "This is a helper function, use pai or par instead" && return
-  # Position of the value in each candidate
-  pos=$1
-  AUR_URL='https://aur.archlinux.org/packages'
-  OFFICIAL_URL='https://archlinux.org/packages'
-  shift
-  sed "s/ /\t/g" |
-    fzf --ansi --nth=$pos --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
-    --preview-window=60%,border-left \
-		--bind="ctrl-o:execute(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
-		--bind="alt-o:execute(2>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
-		--header 'C-o: Upstream URL, A-o: Official or AUR URL' \
-    "$@" | cut -f$pos | xargs
-  }
+# Others {{{
+source ~/.bashrc.d/functions.bash
+source ~/.bashrc.d/aliases.bash
 
-# Dev note: print -s adds a shell history entry
-
-# List installable packages into fzf and install selection
-pai() {
-  cache_dir="/tmp/pas-$USER"
-  mkdir -p "$cache_dir"
-  preview_cache="$cache_dir/preview_{2}"
-  list_cache="$cache_dir/list"
-  { test "$(cat "$list_cache$@" | wc -l)" -lt 50000 && rm "$list_cache$@"; } 2>/dev/null
-
-    pkg=$( (cat "$list_cache$@" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@" } | sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$@") |
-      pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'Querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
-          if test -n "$pkg"
-          then echo "Installing $pkg..."
-            cmd="paru -S $pkg"
-            print -s "$cmd"
-            eval "$cmd"
-            rehash
-            rm -rf "$cache_dir"
-          fi
-        }
-        # List installed packages into fzf and remove selection
-        # Tip: use -e to list only explicitly installed packages
-        par() {
-          pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
-          if test -n "$pkg"
-          then echo "Removing $pkg..."
-            cmd="paru -R --cascade --recursive $pkg"
-            print -s "$cmd"
-            eval "$cmd"
-          fi
-        }
-        # }}}
-        # Others {{{
-        source ~/.bashrc.d/functions.bash
-        source ~/.bashrc.d/aliases.bash
-
-        source /usr/share/doc/pkgfile/command-not-found.zsh
-        # Make sure that pinentry uses the correct TTY
-        export GPG_TTY=$(tty)
-        # }}}
-        ;
-        # vim:foldmethod=marker
+source /usr/share/doc/pkgfile/command-not-found.zsh
+# Make sure that pinentry uses the correct TTY
+export GPG_TTY=$(tty)
+# }}}
+# vim:foldmethod=marker

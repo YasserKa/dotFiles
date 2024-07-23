@@ -93,7 +93,6 @@ alias tmpsh="\${EDITOR} /tmp/tmp.sh"
 
 # List last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
-alias browse_packages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | \$PAGER)+abort'"
 
 # Music player
 alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
