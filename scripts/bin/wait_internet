@@ -7,7 +7,7 @@
 
 COUNT=5
 
-until wget -q --spider http://google.com || [ $COUNT = 0 ]; do
+until timeout 3 wget -q --spider http://google.com || [ $COUNT = 0 ]; do
     sleep 1
     COUNT=$((COUNT-1))
 done
