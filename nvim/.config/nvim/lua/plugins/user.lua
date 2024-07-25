@@ -400,6 +400,24 @@ return {
     end,
   },
   {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    build = ":TSUpdate",
+    config = function()
+      require("ts_context_commentstring").setup {
+        enable_autocmd = false,
+        context_commentstring = {
+          enable = true,
+          commentary_integration = {
+            -- change default mapping
+            Commentary = "g/",
+            -- disable default mapping
+            CommentaryLine = false,
+          },
+        },
+      }
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = function()
       return {
@@ -425,10 +443,6 @@ return {
           disable = { "latex", "help", "man" },
         },
         tree_surfer = { enable = true },
-        context_commentstring = {
-          enable = true,
-          commentary_integration = { CommentaryLine = false },
-        },
         textobjects = {
           select = {
             enable = true,

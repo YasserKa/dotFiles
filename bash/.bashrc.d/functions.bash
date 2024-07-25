@@ -486,13 +486,13 @@ pai() {
   { test "$(wc -l <"$list_cache$*")" -lt 50000 && rm "$list_cache$*"; 
   } 2>/dev/null
 
-  pkg=$( (cat "$list_cache$*" 2>/dev/null || { pacman --color=always -sl "$@"; paru --color=always -sl aur "$@"; } \
+  pkg=$( (cat "$list_cache$*" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@"; } \
   	| sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$*") \
-  	| pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -si {2} | tee $preview_cache")
+  	| pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
 
   if test -n "$pkg"
   then echo "installing $pkg..."
-    cmd="paru -s $pkg"
+    cmd="paru -S $pkg"
 		# Add a shell history entry
     print -s "$cmd"
     eval "$cmd"
@@ -504,7 +504,7 @@ pai() {
 # list installed packages into fzf and remove selection
 # tip: use -e to list only explicitly installed packages
 par() {
-  pkg=$(paru --color=always -q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -qli {1}")
+  pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
   if test -n "$pkg"
   then echo "removing $pkg..."
     cmd="paru -r --cascade --recursive $pkg"
