@@ -145,9 +145,14 @@ vf() {
 		return 0
 	elif ((NUMBER_FASD_FILES == 1)); then
 		FILE_PATH="${PATHS}"
-	else # Use fzf otherwise
-		FILE_PATH=$(echo -e "${PATHS}" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
-		[[ -z $FILE_PATH ]] && return 0
+	else
+		# Use fzf otherwise
+	echo "$PATHS" >| bla
+		FILE_PATH=$(echo -e "${PATHS}" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse \
+			--bind 'ctrl-alt-d:execute-silent(fasd -D {})+reload(fasd -flR "'"$*"'")'
+	)
+
+	[[ -z $FILE_PATH ]] && return 0
 	fi
 	local EXIT_CODE
 	EXIT_CODE="$?"

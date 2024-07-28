@@ -10,7 +10,7 @@ ROFI_OPTIONS=(
 	-dmenu
 	-mesg "<b>C-M-d</b>: Delete document" # Message below filter entry box
 	-no-custom                            # Can't choose entry that's not available
-	-kb-delete-entry ""                   # Override <C-d> entry to delete documents
+	-kb-delete-entry ""                   # Override <C-M-d> entry to delete documents
 	-kb-custom-1 Control+Alt+d            # exit status 10
 	-format "i f"                         # option index, user's input
 	-only-custom                          # Don't allow custom values
