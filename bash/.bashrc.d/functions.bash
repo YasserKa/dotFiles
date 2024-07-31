@@ -512,7 +512,7 @@ par() {
   pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
   if test -n "$pkg"
   then echo "removing $pkg..."
-    cmd="paru -r --cascade --recursive $pkg"
+    cmd="paru --remove --nosave --recursive $pkg"
     print -s "$cmd"
     eval "$cmd"
   fi
