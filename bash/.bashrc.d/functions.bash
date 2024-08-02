@@ -147,7 +147,6 @@ vf() {
 		FILE_PATH="${PATHS}"
 	else
 		# Use fzf otherwise
-	echo "$PATHS" >| bla
 		FILE_PATH=$(echo -e "${PATHS}" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse \
 			--bind 'ctrl-alt-d:execute-silent(fasd -D {})+reload(fasd -flR "'"$*"'")'
 	)
