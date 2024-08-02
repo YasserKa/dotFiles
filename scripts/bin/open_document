@@ -5,7 +5,7 @@ PAGE_NUM="$2"
 
 PATHS_TO_SEARCH=("${HOME}")
 
-DOC_PATH="$(fd --no-ignore-vcs --fixed-strings "${DOC_NAME}" "${PATHS_TO_SEARCH[*]}" | head -1)"
+DOC_PATH="$(fd --no-ignore-vcs --regex "${DOC_NAME}.*.(pdf|djvu|epub)$" "${PATHS_TO_SEARCH[*]}" | head -1)"
 
 FILETYPE=$(xdg-mime query filetype "$DOC_PATH")
 APPLICATION=$(xdg-mime query default "$FILETYPE")
