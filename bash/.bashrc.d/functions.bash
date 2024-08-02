@@ -85,7 +85,7 @@ orphans() {
 upgrade_system() {
 	sudo -v
 	orphans
-	yes | paru --sync --refresh --sysupgrade --noconfirm
+	yes | paru --sync --refresh --sysupgrade --noconfirm --sudoloop
 
 	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
 	nvim --headless -c 'autocmd User LazySync quitall' -c "AstroMasonUpdateAll" "+Lazy! sync"
