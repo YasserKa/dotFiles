@@ -21,10 +21,12 @@ function cd() {
 	elif [ -d "$1" ]; then
 		# argument is a directory
 		builtin cd "$1" || exit
-	else
+	elif [ -e "$1" ]; then
 		# argument is not a directory
-		cd "$(dirname "$1")" || exit
-	fi
+		builtin cd "$(dirname "$1")" || exit
+	else
+		echo "cd: No such file or directory" >&2
+  fi
 }
 
 # https://github.com/xvoland/Extract/blob/master/extract.sh
