@@ -79,5 +79,6 @@
 		}
 	`);
 
+  document.getElementsByClassName("mxj")[0].parentElement.remove();
   $(document.head).append(style);
 })();
