@@ -249,7 +249,12 @@ fi
 # Attach job & send notification after it's finished
 alert_last() {
 	fg
-	notify-send --expire-time=99999 "$(history | tail -n 2 | head -n 1 | cut -d ' ' -f 3-)"
+	if [[ "$BASH" ]]; then
+		last_cmd="$(history | tail -n 2 | head -n 1 | cut -d ' ' -f 5-)"
+	elif [[ "$ZSH_NAME" ]]; then
+		last_cmd="$(history -1 | cut -d ' ' -f 4-)"
+	fi
+	notify-send --expire-time=99999 "$last_cmd"
 }
 
 # Open TUIR apps from menu picker (spawning a termianl) or the command line
