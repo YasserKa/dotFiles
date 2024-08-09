@@ -70,8 +70,6 @@
       )
 ;; Better help
 (use-package helpful)
-;; Setting it from <C-h>
-(setq help-char (string-to-char "?"))
 
 ;; Remove UI
 (dolist (mode
@@ -486,10 +484,11 @@ does not have to do this by oneself."
       )
     )
 
-  (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
+  ;; Swap C-? & C-h
+  (evil-define-key 'normal 'global  (kbd "C-?") 'help-command)  ;; Bind C-? to help-command
+  (evil-define-key 'insert 'global  (kbd "C-?") 'help-command)  ;; Bind C-? to help-command
 
-  ;;   (evil-define-key 'insert 'global (kbd "C-h") 'delete-backward-char)
-  ;; (global-set-key "\C-h" 'delete-backward-char)
+  (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
   ;; Change search module to make it work for invisible text in org mode
   ;; This approach is used instead of using (setq org-fold-core-style 'overlays)
   ;; since the default value "text-properties" is faster than "overlays"

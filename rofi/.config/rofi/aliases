@@ -5,7 +5,8 @@
 cat <<EOF
 calc
 org
-rorg
+_org
+_emacs
 syncorg
 pick_color
 gitdotfiles
