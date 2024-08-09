@@ -485,8 +485,7 @@ does not have to do this by oneself."
     )
 
   ;; Swap C-? & C-h
-  (evil-define-key 'normal 'global  (kbd "C-?") 'help-command)  ;; Bind C-? to help-command
-  (evil-define-key 'insert 'global  (kbd "C-?") 'help-command)  ;; Bind C-? to help-command
+  (evil-define-key '(normal insert) 'global  (kbd "C-?") 'help-command)  ;; Bind C-? to help-command
 
   (evil-define-key 'insert 'key-translation-map [?\C-h] [?\C-?])
   ;; Change search module to make it work for invisible text in org mode
@@ -719,8 +718,10 @@ does not have to do this by oneself."
     (my/update-org-level-face)
     )
 
-  (evil-collection-define-operator-key 'yank 'global-map "ob" #'my/trigger-theme)
-  (evil-collection-define-operator-key 'yank 'global-map "ow" #'visual-line-mode)
+  (evil-collection-define-operator-key 'yank 'global-map
+    "ob" #'my/trigger-theme
+    "ow" #'visual-line-mode
+    )
 
   (dolist (map '( minibuffer-local-map
                   minibuffer-local-ns-map
@@ -730,11 +731,12 @@ does not have to do this by oneself."
                   evil-ex-completion-map
                   ))
 
-    (evil-collection-define-key 'insert map (kbd "<escape>") 'abort-recursive-edit)
-    (evil-collection-define-key 'insert map (kbd "C-j") 'exit-minibuffer)
-    (evil-collection-define-key 'insert map (kbd "C-p") 'previous-line-or-history-element)
-    (evil-collection-define-key 'insert map (kbd "C-n") 'next-line-or-history-element)
-    (evil-collection-define-key 'insert map (kbd "C-.") 'embark-act)
+    (evil-collection-define-key 'insert map
+      (kbd "<escape>") 'abort-recursive-edit
+      (kbd "C-p") 'previous-line-or-history-element
+      (kbd "C-n") 'next-line-or-history-element
+      (kbd "C-.") 'embark-act
+      )
     )
   )
 
@@ -901,11 +903,11 @@ does not have to do this by oneself."
                '(output-pdf "Zathura"))
   )
 
-  (use-package auctex
-    :straight nil
-    :config
-    (fmakunbound 'ConTeXt-mode)
-    )
+(use-package auctex
+  :straight nil
+  :config
+  (fmakunbound 'ConTeXt-mode)
+  )
 ;; }}}
 ;; Org {{{
 (defun my/org-mode-setup ()
@@ -1475,8 +1477,8 @@ see how ARG affects this command."
     ;; Hack to make sure that preambles are added once only
     ;; Init and emacs startup hooks doesn't work while using daemons
     (unless (boundp 'preambles-flag)
-              (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
-              )
+      (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+      )
     (setq preambles-flag t)
     :config
     (add-to-list 'org-structure-template-alist '("shell" . "src sh"))
