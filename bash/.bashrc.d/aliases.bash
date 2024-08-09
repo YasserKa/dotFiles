@@ -31,7 +31,7 @@ backrm() {
 alias syncbooks='wait_internet && rclone sync $HOME/books books:books'
 
 # Alternatives
-alias top="btm --color=gruvbox"
+alias top="btm --theme=gruvbox"
 alias cat='bat'
 
 # Logging
