@@ -249,6 +249,7 @@ fi
 # Attach job & send notification after it's finished
 alert_last() {
 	fg
+	local last_cmd="Process finished"
 	if [[ "$BASH" ]]; then
 		last_cmd="$(history | tail -n 2 | head -n 1 | cut -d ' ' -f 5-)"
 	elif [[ "$ZSH_NAME" ]]; then
