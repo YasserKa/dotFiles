@@ -81,4 +81,9 @@ ebook-convert "<file>" "<file_name>.pdf"
 $file: fd
 $file_name: echo ${file%.mobi}
 
+# Merge PDF files
+pdfunite <in_files> "<out_file>.pdf"
+$in_files: fd --regex '.*.pdf' --- --multi --expand
+$out_file:
+
 # vim:ft=bash
