@@ -482,9 +482,9 @@ pzf() {
   sed "s/ /\t/g" \
   	| fzf --ansi --nth="$pos" --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
     --preview-window=60%,border-left \
-		--bind="ctrl-o:execute(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
-		--bind="alt-o:execute(2>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
-		--header 'C-o: Upstream URL, A-o: Official or AUR URL' \
+		--bind="ctrl-o:execute-silent(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
+		--bind="alt-o:execute-silent(&>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
+		--header 'C-o: Upstream URL, A-o: ArchLinux.org' \
     "$@" | cut -f"$pos" | xargs
 	}
 

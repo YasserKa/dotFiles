@@ -164,9 +164,10 @@ set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)hil
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
-    bindsym t exec --no-startup-id cmus-remote --volume 21% --pause; mode "default";
-    bindsym n exec --no-startup-id cmus-remote --volume 21% --next; mode "default";
-    bindsym p exec --no-startup-id cmus-remote --volume 21% --prev; mode "default";
+    bindsym t exec --no-startup-id [[ "$(cmus-remote -Q 2> /dev/null | grep file | cut -d '/' -f5)" = ambient* ]] \
+        && cmus-remote --volume 35% --pause || cmus-remote --volume 25% --pause; mode "default";
+    bindsym n exec --no-startup-id cmus-remote --volume 25% --next; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --volume 25% --prev; mode "default";
 
     bindsym c exec cmus-remote -C "clear" && cmus-remote -C "add -l ~/.config/cmus/playlists/chill.m3u" && cmus-remote --next; mode "default"; 
     bindsym shift+c exec cmus-remote -C "clear" && cmus-remote -C "add -l ~/.config/cmus/playlists/classical.m3u" && cmus-remote --next; mode "default"; 
