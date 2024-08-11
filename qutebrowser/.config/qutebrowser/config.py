@@ -77,13 +77,13 @@ c.bindings.commands = {
             "spawn --userscript ~/.config/qutebrowser/userscripts/open_download"
             " --delete --recent"
         ),
-        ",hs": (
+        ",ht": (
             "jseval --quiet"
             " document.querySelector('hypothesis-sidebar').shadowRoot."
             "querySelector('[aria-label=\"Annotation"
             " sidebar\"]').click()"
         ),
-        ",hS": (
+        ",hT": (
             "jseval --quiet"
             " document.querySelector('hypothesis-sidebar').shadowRoot."
             "querySelector('[aria-label=\"Show"
