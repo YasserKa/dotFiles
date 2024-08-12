@@ -259,6 +259,7 @@ c.aliases = {
     "generate_password": (
         "spawn --userscript ~/.config/qutebrowser/userscripts/generate_password"
     ),
+    "qrencode": "spawn bash -ic 'qrencode {url} -o qr.png && feh qr.png && rm qr.png'",
     "hosts": "spawn --userscript ~/.config/qutebrowser/userscripts/open_localhost list",
     "translate": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_translate",
 }

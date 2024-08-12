@@ -271,6 +271,7 @@ navi # An interactive cheatsheet tool for the command-line
 pv # Monitoring progress of data through pipeline
 perl-image-exiftool # Show meta data about media files
 atool # Manage file archives
+qrencode # Encoding data in QR Code symbol
 
 # Network
 keychain # agent for gpg & ssh keys
