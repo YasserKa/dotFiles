@@ -209,14 +209,15 @@ mode $audio_mode {
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(b)attery, (d)ictionary, (l)ights off, (u)nmount usb, (m)ount usb, (v)pn"
+set $utility_mode "(b)attery, (d)ictionary, (l)ights off, (n)otifications, (u)nmount usb, (m)ount usb, (v)pn"
 bindsym $mod+u mode $utility_mode
 mode --pango_markup $utility_mode {
     bindsym b exec --no-startup-id get_earphones_battery; mode "default";
     bindsym d exec --no-startup-id search_dictionary; mode "default";
-
 # Switch off light
     bindsym l exec --no-startup-id turn_lights_off; mode "default";
+
+    bindsym n exec --no-startup-id dunstctl set-paused toggle; mode "default";
 
 # Unmount all storage devices;
     bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
