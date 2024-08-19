@@ -1528,6 +1528,21 @@ see how ARG affects this command."
     )
   (use-package org-protocol-capture-html
     :ensure nil)
+
+  (defun my/org-open-all-links-in-subtree ()
+    "Open all the links in the current subtree.
+Note: this uses Org's internal variable `org-link--search-failed'."
+    (interactive)
+    (save-excursion
+      (save-restriction
+        (org-narrow-to-subtree)
+        (goto-char (point-min))
+        (let ((inhibit-message t)
+              (message-log-max nil))
+          (setq org-link--search-failed nil)
+          (while (progn (org-next-link)
+                        (not org-link--search-failed))
+            (org-open-at-point))))))
   )
 
 (use-package citar
