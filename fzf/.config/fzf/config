@@ -20,8 +20,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --follow --hidden --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS"
+export FZF_CTRL_T_OPTS="--bind  'ctrl-/:replace-query'"
 
 # CTRL-Y to copy the command into clipboard
 export FZF_CTRL_R_OPTS="
