@@ -38,7 +38,7 @@ messageinfo() {
 		return 0
 	fi
 
-	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && kitty neomutt || return 0
+	[[ $(dunstify --appname="neomutt" "From: $from" "Subject: $subject" --action="action,label") == "action" ]] && "$TERMINAL" neomutt || return 0
 }
 
 # Check account for new mail. Notify if there is new content.

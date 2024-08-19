@@ -265,7 +265,7 @@ open_cli() {
 	[[ ! $(command -v "$command") ]] &&
 		notify-send "$command doesn't exit" && return 127
 
-	[[ $TERMINAL != "kitty" ]] && notify-send "$TERMINAL is not supported" && return 1
+	! command -v "$TERMINAL" &>/dev/null && notify-send "$TERMINAL is not supported" && return 1
 
 	# Command is run from a shell using -c option
 	if [[ "$-" != *c* ]]; then
@@ -296,9 +296,8 @@ tuir() {
 #     $@: file name
 ################################################################################
 open_file() {
-	[[ $TERMINAL != "kitty" && $TERMINAL != "alacritty" ]] &&
-		notify-send "$TERMINAL not supported for open_file function" &&
-		return 1
+	! command -v "$TERMINAL" &>/dev/null &&
+		notify-send "$TERMINAL not supported for open_file function" && return 1
 
 	local -r DIRECTORY_PATH="$DOTFILES_DIR/$1"
 	shift
