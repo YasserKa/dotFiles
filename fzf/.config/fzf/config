@@ -1,5 +1,6 @@
 export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 --cycle
+--bind 'ctrl-j:accept,ctrl-k:kill-line'
 --bind 'ctrl-n:down,ctrl-p:up'
 --bind 'alt-n:half-page-down,alt-p:half-page-up'
 --bind 'alt-N:page-down,alt-P:page-up'
