@@ -2164,7 +2164,7 @@ selection of all minor-modes, active or not."
 
 (defhydra org-goto-hydra (:exit t :idle 1)
   (" g" consult-org-heading "file" :column "headers")
-  (" G" (consult-org-heading t (get-file-paths-for-open-buffers)) "opened buffers")
+  (" G" (consult-org-heading t (get-file-paths-for-open-buffers)) "buffers")
   (" a" consult-org-agenda "agenda")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
@@ -2190,7 +2190,7 @@ selection of all minor-modes, active or not."
   (" ." my/org-refile-to-current-file "to current file" :column " refile")
   (" c" my/org-refile-to-running-clock "to clocked")
   (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
-  (" a" org-refile "to agenda")
+  (" a" org-refile "to agenda/buffers")
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
