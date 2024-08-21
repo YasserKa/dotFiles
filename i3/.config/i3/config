@@ -53,22 +53,9 @@ set $documents 8
 set $wp9 9
 set $wp0 0
 
-# Workspaces on specific screens
-set $monitor_primary eDP-1
-set $monitor_left DVI-I-3-2
-set $monitor_right DVI-I-2-1
-
-workspace $browser output $monitor_primary
-workspace $coding output $monitor_primary
-workspace $notes output $monitor_primary
-workspace $video output $monitor_primary
-workspace $documents output $monitor_primary
-
-workspace $git output $monitor_right
-
-workspace $wp6 output $monitor_left
-workspace $wp9 output $monitor_left
-workspace $social output $monitor_left
+# Automatically setup monitor
+exec_always --no-startup-id ~/.config/i3/generate_i3_monitor_setup
+include ./monitor_setup
 
 # Bindsym using mod+# to workspace #
 bindsym $mod+1 workspace $browser
