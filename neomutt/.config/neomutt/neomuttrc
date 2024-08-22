@@ -37,7 +37,8 @@ unignore from: to: cc: date: subject:  # show only these
 unhdr_order *                          # some distros order things by default
 hdr_order from: to: cc: date: subject: # Order headers when viewing message
 alternative_order text/plain text/enriched text/html
-set abort_key ="<Esc>"                 # Clear  ng prompt
+# NOTE: using <Esc> as abort key will disable binding <Alt> modifier
+# set abort_key ="<Esc>"                 # Clear  ng prompt
 set pipe_decode                        # Strip headers and eval mimes when piping
 set thorough_search                    # Strip headers and eval mimes before searching
 
@@ -107,10 +108,10 @@ bind index,pager H view-raw-message
 bind browser l select-entry
 bind pager,browser gg top-page
 bind pager,browser G bottom-page
-bind index,pager,browser \Cd half-down
-bind index,pager,browser \Cu half-up
-bind index,pager,browser \Ck previous-line
-bind index,pager,browser \Cj next-line
+bind index,pager,browser \eK half-up
+bind index,pager,browser \eJ half-down
+bind index,pager,browser \ek previous-line
+bind index,pager,browser \ej next-line
 bind index,pager R group-reply
 bind pager \005 next-line		# Mouse wheel
 # Swap ; & :
