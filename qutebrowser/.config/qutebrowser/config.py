@@ -285,6 +285,7 @@ with config.pattern("https://github.com/*/issues") as p:
     p.hints.selectors = {"inputs": ["input[id='js-issues-search']"]}
 
 c.hints.border = "1px solid #CCCCCC"
+c.fonts.default_family = ["Inconsolata"]
 c.fonts.default_size = "12pt"
 c.fonts.web.size.default = 19
 

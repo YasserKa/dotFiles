@@ -1139,6 +1139,21 @@ Made for `org-tab-first-hook' in evil-mode."
   (use-package org-link-beautify
     :after org
     :requires all-the-icons
+    :init
+    (eval-after-load "org-link-beautify"
+      '(defun org-link-beautify--display-icon (start end description icon)
+         "Display ICON for link on START and END with DESCRIPTION."
+         (put-text-property
+          start end
+          'display
+          (propertize
+           (concat
+            (propertize "[" 'face 'org-link-beautify-link-decorator-face)
+            (propertize description 'face 'org-link-beautify-link-description-face)
+            (propertize "]" 'face 'org-link-beautify-link-decorator-face)
+            (propertize "⟨" 'face 'org-link-beautify-link-decorator-face)
+            (propertize icon)
+            (propertize "⟩" 'face 'org-link-beautify-link-decorator-face))))))
     :custom
     ;; Increase performance
     (org-element-use-cache t)

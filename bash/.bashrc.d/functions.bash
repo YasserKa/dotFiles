@@ -95,7 +95,9 @@ upgrade_system() {
 	printf "%s\n" "Updating Emacs packages"
 	emacsclient --eval "(progn
   (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
-  (auto-package-update-now))"
+  (auto-package-update-now))
+  (unless (featurep 'straight)
+    (straight-pull-all))"
 
 	# Upgrade python packages
 	pipx upgrade-all
