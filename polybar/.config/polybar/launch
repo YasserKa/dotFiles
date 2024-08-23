@@ -6,14 +6,15 @@ killall -q polybar
 while pgrep -u "$UID" -x polybar >/dev/null; do sleep 0.5; done
 
 OUTPUTS=$(xrandr --query | grep " connected" | cut -d" " -f1)
-PRIMARY_OUTPUT=$(xrandr --query | grep "eDP" | cut -d" " -f1)
 
 # execute polybar for each screen and assign tray for the main window
 for OUTPUT in $OUTPUTS; do
 	export MONITOR="$OUTPUT"
 
-	if [[ "${MONITOR}" == "$PRIMARY_OUTPUT" ]]; then
+	if [[ "${MONITOR}" == "$MONITOR_PRIMARY" ]]; then
 		polybar --reload middle_bar >"/var/tmp/polybar-${MONITOR}.log" 2>&1 &
+	elif [[ "${MONITOR}" == "$MONITOR_RIGHT" ]]; then
+		polybar --reload right_bar >"/var/tmp/polybar-${MONITOR}.log" 2>&1 &
 	else
 		polybar --reload generic_bar >"/var/tmp/polybar-${MONITOR}.log" 2>&1 &
 	fi

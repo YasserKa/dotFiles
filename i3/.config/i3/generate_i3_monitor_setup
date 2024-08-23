@@ -1,41 +1,16 @@
 #!/usr/bin/env bash
 
-monitor_primary=""
-monitor_left=""
-monitor_right=""
-
-# Get the primary monitor
-monitor_primary=$(xrandr --query | grep primary | awk '{print $1}')
-
-# Iterate over the monitor list and determine their relative positions
-while read -r _ name details; do
-    # Extract the position
-    position=$(echo "$details" | grep -oP '\+\d+\+\d+')
-
-    # Clean up the monitor name (removing '+' & '*' if present)
-    clean_name=$(echo "$name" | tr -d '+' | tr -d '*')
-
-    # Determine relative position
-    if [ "$name" == "$monitor_primary" ]; then
-        monitor_primary="$clean_name"
-    elif [[ $position < "+1920+0" ]]; then
-        monitor_left="$clean_name"
-    else
-        monitor_right="$clean_name"
-    fi
-done < <(xrandr --listmonitors | tail -n +2)
-
 output="
-workspace \$browser output $monitor_primary
-workspace \$coding output $monitor_primary
-workspace \$notes output $monitor_primary
-workspace \$video output $monitor_primary
-workspace \$documents output $monitor_primary
+workspace \$browser output $MONITOR_PRIMARY
+workspace \$coding output $MONITOR_PRIMARY
+workspace \$notes output $MONITOR_PRIMARY
+workspace \$video output $MONITOR_PRIMARY
+workspace \$documents output $MONITOR_PRIMARY
 
-workspace \$git output $monitor_right
+workspace \$git output $MONITOR_RIGHT
 
-workspace \$wp6 output $monitor_left
-workspace \$wp9 output $monitor_left
-workspace \$social output $monitor_left
+workspace \$wp6 output $MONITOR_LEFT
+workspace \$wp9 output $MONITOR_LEFT
+workspace \$social output $MONITOR_LEFT
 "
 echo -e "$output" >| "$XDG_CONFIG_HOME/i3/monitor_setup"
