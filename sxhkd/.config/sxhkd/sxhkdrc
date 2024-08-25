@@ -11,6 +11,10 @@ super + apostrophe
 super + shift + apostrophe
     dunstctl action
 
+# Capture a note using org mode
+super + e
+    emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval '(yequake-toggle "org-capture-yeq")'
+
 # Execute default actions
 super + shift + u
     /home/yasser/bin/insert_link

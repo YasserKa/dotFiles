@@ -1038,6 +1038,66 @@ does not have to do this by oneself."
   (add-hook 'org-capture-prepare-finalize-hook #'my-finalize-if-no-todo)
   (add-hook 'org-capture-after-finalize-hook #'my-finalize-reset-abort)
 
+  ;; Open buffer anywhere
+  (use-package yequake
+    :straight (yequake :fetcher github :repo "alphapapa/yequake")
+    :init
+    ;; Override the original function by waiting until refiling is done
+    (defun my/yequake-org-capture-refile (&optional goto keys)
+      "Call `org-capture' in a Yequake frame.
+Adds a function to `org-capture-after-finalize-hook' that closes
+the recently toggled Yequake frame and removes itself from the
+hook.
+
+Note: if another Yequake frame is toggled before the capture is
+finalized, when the capture is finalized, the wrong Yequake frame
+will be toggled."
+      (let* ((remove-hook-fn (lambda ()
+                               (remove-hook 'org-capture-after-finalize-hook #'yequake-retoggle)
+                               (advice-remove 'org-after-refile-insert-hook #'yequake-retoggle)
+                               )))
+        (add-hook 'org-capture-after-finalize-hook remove-hook-fn)
+        (add-hook 'org-capture-after-finalize-hook #'yequake-retoggle)
+
+        (advice-add 'org-capture-refile :after remove-hook-fn)
+        (advice-add 'org-capture-refile :after #'yequake-retoggle)
+
+        (advice-add 'yequake-retoggle :around #'toggle-if-not-refiling)
+        ;; MAYBE: Propose an `org-capture-switch-buffer-fn' variable that could be rebound here.
+
+        ;; NOTE: We override `org-switch-to-buffer-other-window' because
+        ;; it always uses `switch-to-buffer-other-window', and we want to
+        ;; display the template menu and capture buffer in the existing
+        ;; window rather than splitting the frame.
+        (cl-letf* (((symbol-function #'org-switch-to-buffer-other-window)
+                    (symbol-function #'switch-to-buffer)))
+          (condition-case nil
+              (progn
+                (org-capture goto keys)
+                (delete-other-windows)
+                ;; Be sure to return the "CAPTURE-" buffer, which is the current
+                ;; buffer at this point.
+                (current-buffer))
+            ((error quit)
+             ;; Capture aborted: remove the hook and hide the capture frame.
+             (remove-hook 'org-capture-after-finalize-hook #'yequake-retoggle)
+             (advice-remove 'org-capture-refile #'yequake-retoggle)
+             (advice-remove 'yequake-retoggle #'toggle-if-not-refiling)
+             (yequake-retoggle))))))
+
+    (defun toggle-if-not-refiling (orig-fun &rest args)
+      (unless org-capture-is-refiling
+        (apply orig-fun args)))
+    :custom
+    (yequake-frames
+     '(("org-capture-yeq"
+        (buffer-fns . ((lambda () (my/yequake-org-capture-refile nil "d"))))
+        (width . 0.75)
+        (height . 0.5)
+        (alpha . 1.0)
+        )))
+    )
+
   ;; Make the first tab behave properly, taken from doomemacs
   (add-hook 'org-tab-first-hook #'my/org-indent-maybe-h)
   (defun my/org-indent-maybe-h ()

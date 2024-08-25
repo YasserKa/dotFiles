@@ -108,6 +108,9 @@ for_window [instance="floating"] floating enable
 
 for_window [instance="^floating_terminal$"] floating enable, resize set 990 820, move position center, move up 145 px
 
+# Capture a note using org mode
+for_window [title="^org-capture-yeq$"] floating enable, move position center
+
 # Change workspace when window is activated (used for qutebrowser gt)
 include ./focus_on_window_activation_config
 # >>>
