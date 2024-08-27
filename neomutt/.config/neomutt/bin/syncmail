@@ -30,9 +30,8 @@ contains_element() {
 }
 
 messageinfo() {
-	IGNORED_SUBJECTS=("delivery update" "order confirmation" "order shipped" "at local delivery company" "delivery confirmed" "at delivery center")
 	# Ignore AliExpress emails
-	if [[ -z "${from##*AliExpress*}" ]] && contains_element "$subject" "${IGNORED_SUBJECTS[@]}"; then
+	if [[ -z "${from##*AliExpress*}" ]]; then
 		# Move mail to read directory
 		mv "$new" "$HOME/.local/share/mail/$acc/INBOX/cur/"
 		return 0
