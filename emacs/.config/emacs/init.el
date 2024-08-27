@@ -1572,6 +1572,15 @@ see how ARG affects this command."
   ;; To export to markdown
   (require 'ox-md)
 
+  (defun my/org-to-clipboard-as-markdown ()
+    "Export to clipboard as markdown"
+    (interactive)
+    (let ((org-export-with-toc nil))
+      (with-current-buffer (org-md-export-as-markdown)
+        (clipboard-kill-region (point-min) (point-max))
+        (delete-window)
+        (evil-exit-visual-state))))
+
   ;; Exporting settings
   (setq org-export-with-broken-links t
         org-export-coding-system 'utf-8
