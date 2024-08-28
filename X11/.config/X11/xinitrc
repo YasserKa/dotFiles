@@ -7,6 +7,7 @@ xset -b
 xset -dpms
 xset s off
 
+xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --dpi 96
 xrandr --auto
 
@@ -19,7 +20,7 @@ generate_monitor_variables() {
   MONITOR_RIGHT=""
 
   # Get the primary monitor
-  MONITOR_PRIMARY=$(xrandr --query | grep primary | awk '{print $1}')
+  MONITOR_PRIMARY=$(xrandr --query | grep eDP | awk '{print $1}')
 
   # Iterate over the monitor list without using a subshell
   IFS="

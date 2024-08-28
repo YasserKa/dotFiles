@@ -1,20 +1,64 @@
 #!/usr/bin/env bash
 #
 # A userscript for qutebrowser to fix the last typo
-#
-# Dependencies: aspell
+# It sets error messages to transparent during the process
+# Dependencies: aspell, rofi
+
+FILE_TYPO="/tmp/qute_typo.txt"
+FILE_PID="/tmp/qute_typo.pid"
+
+cleanup() {
+	rm $FILE_TYPO $FILE_PID
+	echo "set colors.messages.error.fg white;; set colors.messages.error.bg red;; set colors.messages.error.border #bb0000" >>"$QUTE_FIFO"
+}
+
+trap cleanup 0
+
+[[ $1 == "choose" ]] && IS_CHOOSE=true || IS_CHOOSE=false
 
 get_text_with_last_fixed_typo() {
 	local TEXT="$1"
-	LAST_TYPO="$(echo "$TEXT" | aspell list | tail -n 1)"
-	# No typos, get rid of heighlighting all text and exit
-	[[ -z "$LAST_TYPO" ]] && echo "fake-key <Right>" >>"$QUTE_FIFO" && exit 0
-	LAST_TYPO_FIXED="$(echo "$LAST_TYPO" | aspell pipe | grep -oP ".*:\K.*?(?=,)")"
+  if [[ -e "$FILE_TYPO" ]]; then
+  	# Kill the previus process to continue picking candidates
+		OLD_PID=$(cat "$FILE_PID")
+    if ps -p "$OLD_PID" > /dev/null 2>&1; then
+      kill -9 "$OLD_PID"
+			echo $$ >| "$FILE_PID"
+    fi
+
+  	CURRENT_CANIDADTE_INDEX="$(head -n 1 $FILE_TYPO)"
+  	NEXT_CANIDADTE_INDEX="$(($(head -n 1 $FILE_TYPO)+1))"
+		CURRENT_CANDIDATE="$(sed -n "${CURRENT_CANIDADTE_INDEX}p" "$FILE_TYPO")"
+		if [[ "$IS_CHOOSE" == true ]]; then
+			NEXT_CANDIDATE="$(rofi -i -dmenu -sep "\n" -input <(tail +2 "$FILE_TYPO"))"
+		else
+			NEXT_CANDIDATE="$(sed -n "${NEXT_CANIDADTE_INDEX}p" "$FILE_TYPO")"
+		fi
+		sed -i "1s/.*/${NEXT_CANIDADTE_INDEX}/" "$FILE_TYPO"
+  else
+		echo "set colors.messages.error.fg transparent;; set colors.messages.error.bg transparent;; set colors.messages.error.border transparent" >> "$QUTE_FIFO"
+
+		# No typos, get rid of heighlighting all text and exit
+		CURRENT_CANDIDATE="$(echo "$TEXT" | aspell list | tail -n 1)"
+		[[ -z "$CURRENT_CANDIDATE" ]] && echo "fake-key <Right>" >>"$QUTE_FIFO" && exit 0
+
+		echo $$ > "$FILE_PID"
+		CANDIDATES="$(echo "$CURRENT_CANDIDATE" | aspell pipe | sed '1d; s/^[^:]*: //; s/, /\n/g')"
+		printf "%s\n%s" "2" "$CANDIDATES" > "$FILE_TYPO"
+		if [[ "$IS_CHOOSE" == true ]]; then
+			NEXT_CANDIDATE="$(rofi -i -dmenu -sep "\n" -input <(tail +2 "$FILE_TYPO"))"
+		else
+			NEXT_CANDIDATE="$(echo "$CANDIDATES" | head -n 1)"
+		fi
+	fi
+
 	# Add spaces around text to be able to repalce the last typo
-	local FIXED_TEXT="${TEXT%"$LAST_TYPO"*}${LAST_TYPO_FIXED:1}${TEXT##*"$LAST_TYPO"}"
+	local FIXED_TEXT="${TEXT%"$CURRENT_CANDIDATE"*}${NEXT_CANDIDATE}${TEXT##*"$CURRENT_CANDIDATE"}"
 
 	echo "$FIXED_TEXT"
 }
 
 FIXED_TEXT="$(get_text_with_last_fixed_typo "${QUTE_SELECTED_TEXT}")"
 echo "fake-key ${FIXED_TEXT@Q}" >>"$QUTE_FIFO"
+
+[[ "$IS_CHOOSE" == false ]] && sleep 3 && exit 0

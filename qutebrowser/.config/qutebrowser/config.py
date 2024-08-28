@@ -166,6 +166,10 @@ c.bindings.commands = {
             "fake-key <Shift-Home>;; cmd-later 50 spawn --userscript"
             " ~/.config/qutebrowser/userscripts/fix_last_typo"
         ),
+        "<Ctrl-Shift-l>": (
+            "fake-key <Shift-Home>;; cmd-later 50 spawn --userscript"
+            " ~/.config/qutebrowser/userscripts/fix_last_typo choose"
+        ),
         # Readline
         # Navigation
         "<Ctrl-a>": "fake-key <Home>",
