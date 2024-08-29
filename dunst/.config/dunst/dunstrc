@@ -319,10 +319,6 @@ appname = neomutt
 new_icon = mail
 timeout = 10
 
-[battery]
-summary = "*Battery*"
-new_icon = low-battery
-
 [earphones-battery]
 summary = "*Earphones Battery*"
 new_icon = battery

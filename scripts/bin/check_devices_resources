@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Dependencies: dunst
+#
+# Check device's resources
+#
+# NOTE: The status bar shows an icon if monitering is disabled;
+# left clicking the icon, enables monitering
+
+BATTERY_THRESHOLD=10
+MEMORY_THRESHOLD=500
+# Used to disable monitering
+TMP_FILE="/tmp/resources_monitor_disabled"
+DISABLE_MONITOR_DURATION=$((10*60))
+
+send_notification() {
+	[[ $(dunstify --urgency=critical "$@" --action="action,label") == "action" ]] && touch "$TMP_FILE" && (sleep "$DISABLE_MONITOR_DURATION" && rm -f "$TMP_FILE") &
+}
+
+check_device_battery() {
+  local battery_level
+  battery_level="$(acpi -b | grep -P -o '[0-9]+(?=%)')"
+  local is_charging
+  is_charging="$(acpi -a | grep 'on-line')"
+
+  # Alert if less than 10% and not charing
+  if [ "$battery_level" -le $BATTERY_THRESHOLD ] && [ -z "$is_charging" ]; then
+	  send_notificatio "Device: ${battery_level}%" --urgency=critical --icon=low-battery
+  fi
+}
+
+check_bluetooth_devices_battery() {
+  echo 'devices Connected' | bluetoothctl | grep '^Device ' | while read -r dev
+do
+  dev_mac=$(echo "$dev" | cut -d' ' -f2)
+  dev_name=$(echo "$dev" | cut -d' ' -f3-)
+  dev_battery=$(echo "info $dev_mac" | bluetoothctl | sed -n '/Battery Percentage:/ s/.*(\([0-9]*\).*/\1/p')
+
+  [[ "$dev_battery" -le $BATTERY_THRESHOLD ]] && send_notification "$dev_name: $dev_battery%"
+done
+}
+
+check_memory() {
+  local memory
+  memory="$(free -m|awk '/^Mem:/{print $7}')"
+  [[ $memory -lt $MEMORY_THRESHOLD ]] && send_notification --expire-time=99999 "${memory} MB memory left"
+}
+
+is_monitor_enabled() {
+  [[ -e "$TMP_FILE" ]] && exit 0
+}
+
+
+main() {
+  is_monitor_enabled
+  check_device_battery
+  check_bluetooth_devices_battery
+  check_memory
+}
+
+main
