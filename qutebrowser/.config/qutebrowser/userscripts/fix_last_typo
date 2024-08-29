@@ -39,7 +39,7 @@ get_text_with_last_fixed_typo() {
 		echo "set colors.messages.error.fg transparent;; set colors.messages.error.bg transparent;; set colors.messages.error.border transparent" >> "$QUTE_FIFO"
 
 		# No typos, get rid of heighlighting all text and exit
-		CURRENT_CANDIDATE="$(echo "$TEXT" | aspell list | tail -n 1)"
+		CURRENT_CANDIDATE="$(echo "${TEXT}" | aspell list | tail -n 1)"
 		[[ -z "$CURRENT_CANDIDATE" ]] && echo "fake-key <Right>" >>"$QUTE_FIFO" && exit 0
 
 		echo $$ > "$FILE_PID"
@@ -59,6 +59,10 @@ get_text_with_last_fixed_typo() {
 }
 
 FIXED_TEXT="$(get_text_with_last_fixed_typo "${QUTE_SELECTED_TEXT}")"
-echo "fake-key ${FIXED_TEXT@Q}" >>"$QUTE_FIFO"
+# Need to be done individually for <key> to work
+for (( i=0; i<${#FIXED_TEXT}; i++ )); do
+	CHAR="${FIXED_TEXT:$i:1}"
+	echo "fake-key ${CHAR@Q}" >>"$QUTE_FIFO"
+done
 
-[[ "$IS_CHOOSE" == false ]] && sleep 3 && exit 0
+[[ "$IS_CHOOSE" == false ]] && { sleep 3 && exit 0; } || exit 0
