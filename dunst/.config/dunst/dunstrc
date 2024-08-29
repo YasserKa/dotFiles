@@ -299,6 +299,10 @@ script=~/.config/dunst/slack_delegate
 appname = slack-delegate
 new_icon = slack
 
+# Whatsapp messages using KDEconnect
+[whatsapp]
+summary = "*WhatsApp*"
+timeout = 9999
 
 [sleep]
 summary = "*sleep*"
