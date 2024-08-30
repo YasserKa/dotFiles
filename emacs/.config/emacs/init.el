@@ -974,7 +974,7 @@ does not have to do this by oneself."
   ;; Keywords
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "BLOCKED(b@)" "|" "CANCELLED(c@/!)")
+                (sequence "BLOCKED(b@)" "|" "CANCELED(c@/!)")
                 )))
 
   (defface org-todo-default '((t :weight bold :inverse-video t :height 0.8)) "default face for todo keywords")
@@ -984,7 +984,7 @@ does not have to do this by oneself."
    NEXT_color "DarkCyan"
    BLOCKED_color "darkorange3"
    DONE_color "forest green"
-   CANCELLED_color "forest green"
+   CANCELED_color "forest green"
    )
 
   (setq org-todo-keyword-faces
@@ -993,7 +993,7 @@ does not have to do this by oneself."
          `("NEXT" :foreground ,NEXT_color :inherit org-todo-default :box (:line-width 3 :color ,NEXT_color))
          `("BLOCKED" :foreground ,BLOCKED_color :inherit org-todo-default :box (:line-width 3 :color ,BLOCKED_color))
          `("DONE" :foreground ,DONE_color :inherit org-todo-default :box (:line-width 3 :color ,DONE_color))
-         `("CANCELLED" :foreground ,CANCELLED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELLED_color))
+         `("CANCELED" :foreground ,CANCELED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELED_color))
          ))
 
   (defun get-org-files ()
@@ -1368,7 +1368,7 @@ Made for `org-tab-first-hook' in evil-mode."
                          (:discard (:anything))
                          ))))
             (todo "DONE" ((org-agenda-overriding-header "\nCompleted")))
-            (todo "CANCELLED" ((org-agenda-overriding-header "\nCancelled")))
+            (todo "CANCELED" ((org-agenda-overriding-header "\nCanceled")))
             ))
           ("c" "Calendar"
            (
