@@ -93,11 +93,14 @@ upgrade_system() {
 	nvim --headless -c 'autocmd User LazySync quitall' -c "AstroMasonUpdateAll" "+Lazy! sync"
 
 	printf "%s\n" "Updating Emacs packages"
-	emacsclient --eval "(progn
+	emacs_update_code="(progn
   (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
   (auto-package-update-now))
   (unless (featurep 'straight)
     (straight-pull-all))"
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "$emacs_update_code"
+	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code"
+
 
 	# Upgrade python packages
 	pipx upgrade-all
