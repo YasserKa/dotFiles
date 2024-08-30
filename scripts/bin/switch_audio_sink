@@ -1,46 +1,58 @@
 #!/usr/bin/env bash
-
-# Switch Input audio sink between built in, displaylink (universal docking station) & bluetooth
+#
+# Switch Input audio sink between built in, displaylink (universal docking station) & bluetooth devices (earphones, headphones)
 
 # For notification server
 APP_NAME="switch-sink"
-# Earphones mac address
-DEVICE="6C:D3:EE:04:51:E2"
+
+EARPHONES_MAC="6C:D3:EE:04:51:E2"
+HEADPHONES_MAC="80:99:E7:1B:2C:B1"
 
 PICKED_SINK="$1"
 case $PICKED_SINK in
 	"Bluetooth")
-		Description="Redmi"
 		icon="bluetooth"
+		DEVICE_PICKED="$2"
+		if	[[ "$DEVICE_PICKED" == "earphones" ]]; then
+			DEVICE_MAC_PICKED="$EARPHONES_MAC"
+		elif [[ "$DEVICE_PICKED" == "headphones" ]]; then
+			DEVICE_MAC_PICKED="$HEADPHONES_MAC"
+		else
+			notify-send --app-name=$APP_NAME --expire-time=2000 "Couldn't find $DEVICE_PICKED device" && exit 1
+		fi
 
 		rfkill unblock bluetooth
 
 		# Wait until the device is connected
 		for i in {1..10}; do
 			sleep 1
-			grep -nqE "Connected: yes" <(echo -e "info $DEVICE" | bluetoothctl) && break
-			echo -e "connect $DEVICE" | bluetoothctl
+			grep "$DEVICE_MAC_PICKED" <(bluetoothctl devices Connected ) && break
+			bluetoothctl connect "$DEVICE_MAC_PICKED"
 		done
-		[[ $i == 5 ]] && dunstify "Device not found" && exit 1
+		PICKED_SINK="$(grep "$DEVICE_MAC_PICKED" <(bluetoothctl devices)  | cut -d ' ' -f3-)"
+
+		[[ $i == 10 ]] && dunstify "$PICKED_SINK not found" && exit 1
+
+		for _ in {1..10}; do
+			sleep 1
+  		NEW_SINK="$(pactl list sinks | awk -F ': ' '/Name/ {prev=$2} /'"$DEVICE_MAC_PICKED"'/ && prev {print prev; prev=""}')"
+  		echo "$NEW_SINK"
+			[[ -n "$NEW_SINK" ]] && break
+		done
 		;;
 	"Built In")
 		icon="laptop-sound"
-		Description="Built-in"
+		NEW_SINK=$(pactl list sinks | awk '/Name/ {line=$2; next}; /Description:.*Built-int/ {print line; exit}')
 		rfkill block bluetooth
 		;;
 	"DisplayLink")
 		icon="earbud"
-		Description="LAPDOCK"
+		NEW_SINK=$(pactl list sinks | awk '/Name/ {line=$2; next}; /Description:.*LAPDOCK/ {print line; exit}')
 		rfkill block bluetooth
 		;;
-	*) notify-send --app-name=$APP_NAME --expire-time=1000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
+	*) notify-send --app-name=$APP_NAME --expire-time=2000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
 esac
 
-# It takes sometime for bluetooth sink to be available
-while sleep 1; do
-	NEW_SINK=$(pactl list sinks | pactl list sinks | awk '/Name/ {line=$2; next}; /'"Description:.*$Description"'/ {print line; exit}')
-	[[ -n "$NEW_SINK" ]] && break
-done
 
-notify-send --app-name=$APP_NAME --expire-time=1000 --icon="$icon" "Switching to $PICKED_SINK sink"
+notify-send --app-name=$APP_NAME --expire-time=2000 --icon="$icon" "Switching to $PICKED_SINK sink"
 pactl set-default-sink "$NEW_SINK"

@@ -188,11 +188,12 @@ mode $sharing_mode {
     bindsym Escape mode "default";
 }
 
-set $audio_mode "built (i)n, (b)luetooth, (d)isplay Link"
+set $audio_mode "built (i)n, (e)arphones, (h)eadpones, (d)isplay Link"
 bindsym $mod+a mode $audio_mode
 mode $audio_mode {
     bindsym i exec --no-startup-id switch_audio_sink "Built In"; mode "default";
-    bindsym b exec --no-startup-id switch_audio_sink "Bluetooth"; mode "default";
+    bindsym e exec --no-startup-id switch_audio_sink "Bluetooth" "earphones"; mode "default";
+    bindsym h exec --no-startup-id switch_audio_sink "Bluetooth" "headphones"; mode "default";
     bindsym d exec --no-startup-id switch_audio_sink "DisplayLink"; mode "default";
 
     bindsym Control+bracketleft mode "default";

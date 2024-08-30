@@ -29,14 +29,14 @@ check_device_battery() {
 }
 
 check_bluetooth_devices_battery() {
-  echo 'devices Connected' | bluetoothctl | grep '^Device ' | while read -r dev
-do
-  dev_mac=$(echo "$dev" | cut -d' ' -f2)
-  dev_name=$(echo "$dev" | cut -d' ' -f3-)
-  dev_battery=$(echo "info $dev_mac" | bluetoothctl | sed -n '/Battery Percentage:/ s/.*(\([0-9]*\).*/\1/p')
+  echo 'devices Connected' | bluetoothctl | grep '^Device ' | while read -r dev; \
+  do
+    dev_mac=$(echo "$dev" | cut -d' ' -f2)
+    dev_name=$(echo "$dev" | cut -d' ' -f3-)
+    dev_battery=$(echo "info $dev_mac" | bluetoothctl | sed -n '/Battery Percentage:/ s/.*(\([0-9]*\).*/\1/p')
 
-  [[ "$dev_battery" -le $BATTERY_THRESHOLD ]] && send_notification "$dev_name: $dev_battery%"
-done
+    [[ "$dev_battery" -le $BATTERY_THRESHOLD ]] && send_notification "$dev_name: $dev_battery%"
+  done
 }
 
 check_memory() {
