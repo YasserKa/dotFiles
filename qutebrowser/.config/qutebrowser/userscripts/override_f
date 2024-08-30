@@ -7,6 +7,8 @@ if [[ "$QUTE_URL" == "" ]]; then
 	exit
 fi
 
+DOMAIN_NAME="$(awk -F[/:] '{print $4}' <(echo "$QUTE_URL"))"
+
 alias urldecode='python -c "import sys, urllib.parse as ul; \
     print(ul.unquote_plus(sys.argv[1]))"'
 
@@ -14,8 +16,14 @@ alias urlencode='python -c "import sys, urllib.parse as ul; \
     print(ul.quote_plus(sys.argv[1]))"'
 
 MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]' "attr{href}")
-# BOOK_NAME="$(pup --file "$QUTE_HTML" ":parent-of(:parent-of(:parent-of(a[href=$MIRROR_LINK]))) :nth-child(2) > a:first-of-type json{}" | jq .[0].text)"
 
-DOWNLOAD_LINK="$(curl -s "$MIRROR_LINK" | pup "#download" 'a:contains("GET")' 'attr{href}')"
+if [[ "$MIRROR_LINK" =~ ^/ ]]; then
+    MIRROR_LINK="${DOMAIN_NAME}${MIRROR_LINK}"
+    URL_PATH="$(curl -s "$MIRROR_LINK" | grep GET | pup -p 'a attr{href}')"
+    DOWNLOAD_LINK="${DOMAIN_NAME}/${URL_PATH}"
+else
+    MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]' "attr{href}")
+    DOWNLOAD_LINK="$(curl -s "$MIRROR_LINK" | pup "#download" 'a:contains("GET")' 'attr{href}')"
+fi
 
-echo "download $DOWNLOAD_LINK" >>"$QUTE_FIFO"
+echo "open $DOWNLOAD_LINK" >>"$QUTE_FIFO"
