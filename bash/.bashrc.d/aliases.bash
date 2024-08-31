@@ -90,6 +90,7 @@ alias tmppy="\${EDITOR} /tmp/tmp.py"
 alias tmptex="\${EDITOR} /tmp/tmp.tex"
 alias tmpmd="\${EDITOR} /tmp/tmp.md"
 alias tmpsh="\${EDITOR} /tmp/tmp.sh"
+alias tmpbash="\${EDITOR} /tmp/tmp.bash"
 
 # List last installed packages
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'

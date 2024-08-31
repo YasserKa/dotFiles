@@ -43,6 +43,8 @@ def main():
     code_text = parse_text_content(element)
     if PYPERCLIP:
         pyperclip.copy(code_text)
+        re_remove_dollars = re.compile(r"^(\$ )", re.MULTILINE)
+        pyperclip.copy(re.sub(re_remove_dollars, '', pyperclip.paste()))
         send_command_to_qute(
             "message-info 'copied to clipboard: {info}{suffix}'".format(
                 info=code_text.splitlines()[0].replace("'", "\""),

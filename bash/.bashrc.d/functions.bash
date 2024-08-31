@@ -236,7 +236,7 @@ if [[ "$BASH" ]]; then
 	run_help() {
 		local -r cmd="$READLINE_LINE"
 		# shellcheck disable=2046,2116
-		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
+		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER
 	}
 	if [[ $- == *i* ]]; then
 		bind -m vi-insert -x '"\eh": run_help'
@@ -245,7 +245,7 @@ elif [[ "$ZSH_NAME" ]]; then
 	run_help() {
 		local -r cmd="$BUFFER"
 		# shellcheck disable=2046,2116
-		man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
+		man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER
 	}
 	zle -N run_help
 	bindkey '^[h' run_help
