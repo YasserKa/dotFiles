@@ -25,6 +25,7 @@ c.bindings.commands = {
         ":R": "hint --rapid links window",
         ":Y": "hint links yank-primary",
         ":b": "hint all tab-bg",
+        ":c": "hint code userscript ~/.config/qutebrowser/userscripts/code_select.py",
         ":d": "hint links download",
         ":f": "hint all tab-fg",
         ":h": "hint all hover",
@@ -282,6 +283,11 @@ with config.pattern("https://www.google.com") as p:
 
 c.auto_save.session = True
 
+c.hints.selectors["code"] = [
+    # Selects all code tags whose direct parent is not a pre tag
+    ":not(pre) > code",
+    "pre",
+]
 # Add a CSS selector for yank_link_id script
 c.hints.selectors["id"] = ["[id]"]
 # Make gi focus issues search bar
