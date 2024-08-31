@@ -153,16 +153,16 @@ mode $clock_mode {
 set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)hill, (C)lassic, (a)mbient, (A)nime, (g)rey, (d)efault"
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
-    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
+    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/bin/cmus_notification; mode "default";
     bindsym t exec --no-startup-id [[ "$(cmus-remote -Q 2> /dev/null | grep file | cut -d '/' -f5)" = ambient* ]] \
         && cmus-remote --volume 35% --pause || cmus-remote --volume 25% --pause; mode "default";
     bindsym n exec --no-startup-id cmus-remote --volume 25% --next; mode "default";
     bindsym p exec --no-startup-id cmus-remote --volume 25% --prev; mode "default";
 
-    bindsym c exec cmus-remote -C "clear" && cmus-remote -C "add -l ~/.config/cmus/playlists/chill.m3u" && cmus-remote --next; mode "default"; 
-    bindsym shift+c exec cmus-remote -C "clear" && cmus-remote -C "add -l ~/.config/cmus/playlists/classical.m3u" && cmus-remote --next; mode "default"; 
-    bindsym d exec cmus-remote -C "clear" && cmus-remote -C "add ~/Music" && cmus-remote --next; mode "default"; 
-    bindsym shift+a exec cmus-remote -C "clear" && cmus-remote -C "add ~/Music/Anime" && cmus-remote --next; mode "default"; 
+    bindsym c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/.config/cmus/playlists/chill.m3u"; mode "default";
+    bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/.config/cmus/playlists/classical.m3u"; mode "default";
+    bindsym d exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music"; mode "default";
+    bindsym shift+a exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/Anime"; mode "default";
 
     bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
     bindsym g exec cmus-remote --volume 70% --file $HOME/Music/grey_noise.mp3; mode "default";
