@@ -35,6 +35,9 @@ check_bluetooth_devices_battery() {
     dev_name=$(echo "$dev" | cut -d' ' -f3-)
     dev_battery=$(echo "info $dev_mac" | bluetoothctl | sed -n '/Battery Percentage:/ s/.*(\([0-9]*\).*/\1/p')
 
+    # During connection, the battery doesn't exist
+    [[ ! $dev_battery ]] && exit 0
+
     [[ "$dev_battery" -le $BATTERY_THRESHOLD ]] && send_notification "$dev_name: $dev_battery%"
   done
 }
