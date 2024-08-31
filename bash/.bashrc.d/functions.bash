@@ -234,21 +234,38 @@ fi
 # Replicate bash
 if [[ "$BASH" ]]; then
 	run_help() {
-		local -r cmd="$READLINE_LINE"
-		# shellcheck disable=2046,2116
-		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER
+		local -r cmd="${READLINE_LINE%% *}"
+		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
 	}
 	if [[ $- == *i* ]]; then
 		bind -m vi-insert -x '"\eh": run_help'
 	fi
 elif [[ "$ZSH_NAME" ]]; then
 	run_help() {
-		local -r cmd="$BUFFER"
-		# shellcheck disable=2046,2116
-		man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER
-	}
-	zle -N run_help
-	bindkey '^[h' run_help
+		# This accomadates git push --help
+		for count in {2,1}; do
+	   	read -r cmd	< <(cut -d ' ' -f -"$count" <(echo "$BUFFER"))
+			{ man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || [[ "$(help -a $(echo "$cmd") 2>&1)" != *"No manual entry for $cmd"* ]]; } &>/dev/null || continue
+				man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help -a $(echo "$cmd") | $PAGER && return 0
+			done
+		}
+		zle -N run_help
+		bindkey '^[h' run_help
+
+		encode_url() {
+    	setopt localoptions extendedglob
+    	input=( ${(s::)1} )
+    	# shellcheck disable=1072,1009,1073
+    	print ${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
+		}
+
+		explainshell() {
+			local -r cmd="$BUFFER"
+
+			xdg-open "https://explainshell.com/explain?cmd=$(encode_url "$cmd")"
+		}
+		zle -N explainshell
+		bindkey '^[e' explainshell
 fi
 
 # Attach job & send notification after it's finished
