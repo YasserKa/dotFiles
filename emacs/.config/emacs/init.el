@@ -702,6 +702,29 @@ does not have to do this by oneself."
   :config
   (evil-collection-init)
 
+  ;; Override evil-collection by removing last empty line (if exists)
+  (defun evil-collection-unimpaired-paste-above ()
+    "Paste above current line with preserving indentation."
+    (interactive)
+    (let ((indent (current-indentation))
+          (column (current-column))
+          (cleaned (replace-regexp-in-string "\n\\s-*$" "" (current-kill 0 t))))
+      (evil-insert-newline-above)
+      (indent-to indent)
+      (insert cleaned)
+      (move-to-column column)))
+
+  (defun evil-collection-unimpaired-paste-below ()
+    "Paste below current line with preserving indentation."
+    (interactive)
+    (let ((indent (current-indentation))
+          (column (current-column))
+          (cleaned (replace-regexp-in-string "\n\\s-*$" "" (current-kill 0 t))))
+      (evil-insert-newline-below)
+      (indent-to indent)
+      (insert cleaned)
+      (move-to-column column)))
+
   ;; Swap ; & :
   ;; evil-collectin-swap-key doesn't make the rebinding in minibuffer work
   (evil-collection-translate-key nil 'evil-motion-state-map
