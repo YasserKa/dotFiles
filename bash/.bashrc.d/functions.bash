@@ -563,6 +563,6 @@ alias pas="pacman -Qq | pzf 1 --preview 'pacman -Qil {}' --bind 'enter:execute(p
 
 # Commands run in background automatically
 zathura() { (command zathura "$@" &>/dev/null &) }
-mpv() { (command mpv --no-terminal "$@" &>/dev/null &) }
+mpv() { (command mpv --input-ipc-server=/tmp/mpv-socket --no-terminal "$@" &>/dev/null &) }
 xdg-open() { (command xdg-open "$@" &>/dev/null); }
 pcmanfm() { (command pcmanfm "$@" &) }
