@@ -280,6 +280,18 @@ alert_last() {
 	notify-send --expire-time=99999 "$last_cmd"
 }
 
+alert() {
+	local cmd="Process finished"
+	if [[ "$BASH" ]]; then
+		cmd="$(history | tail -n1)"
+	elif [[ "$ZSH_NAME" ]]; then
+		cmd="$(history $HISTCMD | cut -d ' ' -f 4-)"
+	fi
+	# Remove alert
+	cmd="$(sed -e '''s/^\s*[0-9]\+\s*//;s/[;&|]*\s*alert$//''' <(echo "$cmd" ))"
+	notify-send --expire-time=99999 "$cmd"
+}
+
 # Open TUIR apps from menu picker (spawning a termianl) or the command line
 open_cli() {
 	local command="$1"
