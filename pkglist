@@ -325,6 +325,6 @@ docker # Container
 docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
 
 pcmanfm # Default file manager for GNOME
-ncdu # Disk usage analyzer with an ncurses interface
+dua-cli # Disk usage analyzer with an ncurses interface
 zoom # Video Conferencing and Web Conferencing Service
 # slack-desktop # Slack Desktop (Beta) for Linux
