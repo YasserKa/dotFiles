@@ -517,6 +517,9 @@ does not have to do this by oneself."
     (kbd "C-=") #'(lambda () (interactive) (let ((inhibit-message t)) (text-scale-adjust 0)))
     )
 
+  ;; Paste using <C-S-v>; used for insert_link
+  (evil-define-key 'insert 'global  (kbd "C-S-v") 'evil-paste-after)
+
   ;; Navigate through start of line, indentation, comment
   (use-package mwim)
 
