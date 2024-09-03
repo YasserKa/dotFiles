@@ -621,64 +621,54 @@ return {
         Execute_cells(lines)
       end
 
-      wk.register {
-        ["<localLeader>"] = {
-          n = {
-            name = "jupyter ascending",
-            c = { "<Plug>JupyterExecute", "Execute cell" },
-            C = {
-              "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>",
-              "Execute cell and jump to next cell",
-            },
-            r = { "<Plug>JupyterExecuteAll", "Run file" },
-            R = { "<Plug>JupyterRestart", "Restart Jupyter" },
-            J = {
-              '<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"'
-                .. vim.fn.expand "%:r"
-                .. ".ipynb &>/dev/null & disown<cr>",
-              "Run Jupyter server",
-            },
-          },
+      wk.add {
+        { "<localLeader>n", group = "jupyter ascending" },
+        {
+          "<localLeader>nC",
+          "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>",
+          desc = "Execute cell and jump to next cell",
         },
+        {
+          "<localLeader>nJ",
+          '<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"t.sync.ipynb &>/dev/null & disown<cr>',
+          desc = "Run Jupyter server",
+        },
+        { "<localLeader>nR", "<Plug>JupyterRestart", desc = "Restart Jupyter" },
+        { "<localLeader>nc", "<Plug>JupyterExecute", desc = "Execute cell" },
+        { "<localLeader>nr", "<Plug>JupyterExecuteAll", desc = "Run file" },
       }
 
-      wk.register({
-        ["<localLeader>"] = {
-          n = {
-            name = "Jupyter Ascending",
-            c = { ":lua Execute_selected_cells()<CR>", "Execute selected cells" },
-          },
-        },
-      }, { mode = "v" })
+      wk.add {
+        { "<localLeader>n", group = "Jupyter Ascending", mode = "v" },
+        { "<localLeader>nc", ":lua Execute_selected_cells()<CR>", desc = "Execute selected cells", mode = "v" },
+      }
     end,
   },
   -- For inserting and navigating cells
   {
     "https://github.com/hanschen/vim-ipython-cell",
-    event = "BufRead *.sync.py",
+    event = "BufEnter *sync.py",
     dependencies = "untitled-ai/jupyter_ascending.vim",
     config = function()
       local wk = require "which-key"
-      wk.register {
-        ["<localLeader>"] = {
-          n = {
-            m = { "<cmd>IPythonCellToMarkdown<cr>", "To markdown" },
-            I = { ":IPythonCellInsertAbove<CR>o", "Insert cell above" },
-            i = { ":IPythonCellInsertBelow<CR>o", "Insert cell below" },
-            j = { "<cmd>call search('# %%$')<cr>", "Go to next cell" },
-            k = { "<cmd>call search('# %%$', 'b')<cr>", "Go to previous cell" },
-          },
-        },
-        ["[c"] = { ":IPythonCellPrevCell<CR>", "Previous Cell" },
-        ["]c"] = { ":IPythonCellNextCell<CR>", "Next Cell" },
+      wk.add {
+        { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
+        { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
+        { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
+        { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
+        { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
+        { "[c", ":IPythonCellPrevCell<CR>", desc = "Previous Cell" },
+        { "]c", ":IPythonCellNextCell<CR>", desc = "Next Cell" },
       }
-      wk.register({
-        ["<C-,>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-        ["<F2>nI"] = { "<C-o>:IPythonCellInsertAbove<CR><CR>", "Insert cell above" },
-
-        ["<C-,>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-        ["<F2>ni"] = { "<C-o>:IPythonCellInsertBelow<CR><CR>", "Insert cell below" },
-      }, { mode = "i" })
+      wk.add {
+        {
+          mode = { "i" },
+          { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+          { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+          { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+          { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+        },
+      }
     end,
   },
 }
