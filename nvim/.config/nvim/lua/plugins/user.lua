@@ -320,6 +320,37 @@ return {
     ft = { "markdown", "plantuml" },
   },
   {
+    "https://github.com/vim-pandoc/vim-markdownfootnotes",
+    event = "BufEnter qutebrowser-editor-*,tuir*,neomutt-*",
+    ft = { "markdown" },
+    config = function()
+      vim.api.nvim_exec2(
+        [[
+        source .local/share/nvim/lazy/vim-markdownfootnotes/autoload/markdownfootnotes.vim 
+        source .local/share/nvim/lazy/vim-markdownfootnotes/ftplugin/markdown/markdownfootnotes.vim 
+        " Remove plugin bindings
+        iunmap <buffer> <Leader>f
+        iunmap <buffer> <Leader>r
+        ]],
+        {}
+      )
+      local wk = require "which-key"
+      wk.add {
+        {
+          { "<localleader>i", "<Plug>AddVimFootnote", desc = "Insert footnote" },
+          { "<localleader>r", "<Plug>ReturnFromFootnote", desc = "Return from footnote" },
+          { "<localleader>c", "<Plug>FootnoteNumber", desc = "Return from footnote" },
+        },
+        {
+          { "<C-,>f", "<C-o><Plug>AddVimFootnote", desc = "Insert footnote" },
+          { "<C-,>r", "<C-o><Plug>ReturnFromFootnote", desc = "Return from footnote" },
+          { "<C-,>c", "<C-o><Plug>FootnoteNumber", desc = "Return from footnote" },
+          mode = "i",
+        },
+      }
+    end,
+  },
+  {
     "https://github.com/kdheepak/cmp-latex-symbols",
     dependencies = "hrsh7th/nvim-cmp",
     ft = { "tex" },
