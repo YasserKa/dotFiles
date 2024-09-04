@@ -129,10 +129,10 @@ setup-systemd-services:
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
 	sudo systemctl enable displaylink
-	# Disables to not override backups
+	# Disables to not override backups while setting up the environment
+	# Enable afterwards
 	# sudo systemctl enable cronie
 	sudo systemctl enable nftables.service
-	sudo systemctl enable acpid.service
 	sudo systemctl enable firewalld.service
 	sudo systemctl enable bluetooth.service
 	sudo systemctl enable systemd-resolved.service
