@@ -179,6 +179,7 @@ return {
       },
       i = {
         ["<C-l>"] = { "<c-g>u<Esc>[s1z=`]a<c-g>u", desc = "Fix last misspell" },
+        ["<C-S-v>"] = { "<c-r>+", desc = "Fix last misspell" },
         ["<C-s>"] = { "<C-o>:w!<cr>", desc = "Save File" },
       },
       x = {
