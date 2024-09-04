@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+
+TMP_FILE="/tmp/polybar_reddit_unread"
+
+[[ ! -e "$TMP_FILE" ]] && exit 0
+
+num_unread=$(jq '.["data"]["children"] | length' "$TMP_FILE")
+
+# Open first unread message
+[[  "$num_unread" -gt 0 && "$1" = "open" ]] && xdg-open "https://reddit.com$(jq -r '.["data"]["children"].[1]["data"]["context"]' "$TMP_FILE")" && exit 0
+
+
+if [[ "$num_unread" -gt 0 ]]; then
+    echo "$num_unread"
+else
+    echo ""
+fi

@@ -283,7 +283,7 @@ exec_always --no-startup-id feh --no-fehbg --bg-scale `find $HOME/Pictures/WallP
 exec --no-startup-id picom & disown
 
 # Status bar
-exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/launch
+exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 
 # Open browser & notes
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'

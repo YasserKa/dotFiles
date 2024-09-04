@@ -11,6 +11,10 @@ super + apostrophe
 super + shift + apostrophe
     dunstctl action
 
+# Show context menua
+super + shift + semicolon
+    dunstctl context
+
 # Capture a note using org mode
 super + e
     emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval '(yequake-toggle "org-capture-yeq")'
@@ -18,10 +22,6 @@ super + e
 # Execute default actions
 super + shift + u
     /home/yasser/bin/insert_link
-
-# Show context menua
-super + shift + semicolon
-    dunstctl context
 
 # Mulimedia controls
 XF86AudioLowerVolume
