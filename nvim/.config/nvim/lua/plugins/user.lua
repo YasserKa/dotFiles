@@ -344,6 +344,7 @@ return {
         {
           { "<C-,>f", "<C-o><Plug>AddVimFootnote", desc = "Insert footnote" },
           { "<C-,>r", "<C-o><Plug>ReturnFromFootnote", desc = "Return from footnote" },
+          { "<C-c><C-c>", "<C-o><Plug>ReturnFromFootnote", desc = "Return from footnote" },
           { "<C-,>c", "<C-o><Plug>FootnoteNumber", desc = "Return from footnote" },
           mode = "i",
         },
