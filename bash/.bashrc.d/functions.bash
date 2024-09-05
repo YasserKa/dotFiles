@@ -245,8 +245,8 @@ elif [[ "$ZSH_NAME" ]]; then
 		# This accomadates git push --help
 		for count in {2,1}; do
 	   	read -r cmd	< <(cut -d ' ' -f -"$count" <(echo "$BUFFER"))
-			{ man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || [[ "$(help -a $(echo "$cmd") 2>&1)" != *"No manual entry for $cmd"* ]]; } &>/dev/null || continue
-				man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help -a $(echo "$cmd") | $PAGER && return 0
+			{ man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || [[ "$(help $(echo "$cmd") 2>&1)" != *"No manual entry for $cmd"* ]]; } &>/dev/null || continue
+				man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER && return 0
 			done
 		}
 		zle -N run_help
