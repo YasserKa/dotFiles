@@ -150,7 +150,7 @@ mode $clock_mode {
 
 # Music player
 # (f)ilter option means that it resets the (c)lassic filter done
-set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)hill, (C)lassic, (a)mbient, (A)nime, (g)rey, (d)efault"
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (b)rown noise, (c)hill, (C)lassic, (a)mbient, (A)nime, (d)efault"
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/bin/cmus_notification; mode "default";
@@ -159,13 +159,13 @@ mode $cmus_mode {
     bindsym n exec --no-startup-id cmus-remote --volume 25% --next; mode "default";
     bindsym p exec --no-startup-id cmus-remote --volume 25% --prev; mode "default";
 
+    bindsym b exec $HOME/.config/cmus/bin/cmus_queue --volume 70% "$HOME/Music/brown_noise.mp3"; mode "default";
     bindsym c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/leekbeats" "$HOME/Music/cafe_de_touhou" "$HOME/Music/lofi_girl"; mode "default";
     bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/ClassicalMusic" "$HOME/Music/100ClassicalMusicMasterpieces"; mode "default";
     bindsym d exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music"; mode "default";
     bindsym shift+a exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/Anime"; mode "default";
 
-    bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
-    bindsym g exec cmus-remote --volume 70% --file $HOME/Music/grey_noise.mp3; mode "default";
+    bindsym a exec exec $HOME/.config/cmus/bin/cmus_queue --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
 
     bindsym h exec --no-startup-id cmus-remote --volume +2%;
     bindsym l exec --no-startup-id cmus-remote --volume -2%;

@@ -3,7 +3,7 @@
 # Clear queue, make a new one, shuffle it and queue next music track
 
 cmus-remote -c -q 
-cmus-remote -q "$1"
+cmus-remote -q "$@"
 # Randomize queue
 # https://github.com/cmus/cmus/wiki/cmus_randomize_queue
 q=$(cmus-remote -C "save -q -" | sort -R | sed "s/^/add -q /")
