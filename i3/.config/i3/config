@@ -159,8 +159,8 @@ mode $cmus_mode {
     bindsym n exec --no-startup-id cmus-remote --volume 25% --next; mode "default";
     bindsym p exec --no-startup-id cmus-remote --volume 25% --prev; mode "default";
 
-    bindsym c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/.config/cmus/playlists/chill.m3u"; mode "default";
-    bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/.config/cmus/playlists/classical.m3u"; mode "default";
+    bindsym c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/leekbeats" "$HOME/Music/cafe_de_touhou" "$HOME/Music/lofi_girl"; mode "default";
+    bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/ClassicalMusic" "$HOME/Music/100ClassicalMusicMasterpieces"; mode "default";
     bindsym d exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music"; mode "default";
     bindsym shift+a exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/Anime"; mode "default";
 
