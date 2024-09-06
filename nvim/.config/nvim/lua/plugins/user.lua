@@ -326,8 +326,8 @@ return {
     config = function()
       vim.api.nvim_exec2(
         [[
-        source .local/share/nvim/lazy/vim-markdownfootnotes/autoload/markdownfootnotes.vim 
-        source .local/share/nvim/lazy/vim-markdownfootnotes/ftplugin/markdown/markdownfootnotes.vim 
+        source $XDG_DATA_HOME/nvim/lazy/vim-markdownfootnotes/autoload/markdownfootnotes.vim 
+        source $XDG_DATA_HOME/nvim/lazy/vim-markdownfootnotes/ftplugin/markdown/markdownfootnotes.vim 
         " Remove plugin bindings
         iunmap <buffer> <Leader>f
         iunmap <buffer> <Leader>r
