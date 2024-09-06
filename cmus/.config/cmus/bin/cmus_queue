@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 #
-# Clear queue, queue a new one, randomize it, and play next music track
+# Clear queue, make a new one, shuffle it and queue next music track
 
 cmus-remote -c -q 
 cmus-remote -q "$@"
+# Wait until the music tracks are queued else randomizing won't work
+while [[ ! "$(cmus-remote -C "save -q -")" ]]; do : ; done
 cmus-remote -C "rand"
 cmus-remote --next
