@@ -3,7 +3,7 @@
 
 TMP_FILE="/tmp/polybar_reddit_unread"
 
-[[ ! -e "$TMP_FILE" ]] && exit 0
+[[ ! -e "$TMP_FILE" ]] && echo "" && exit 0
 
 num_unread=$(jq '.["data"]["children"] | length' "$TMP_FILE")
 
