@@ -24,6 +24,8 @@ export FZF_DEFAULT_COMMAND='fd --follow --hidden --exclude .git'
 export FZF_CTRL_T_OPTS="--bind  'ctrl-/:replace-query'"
 
 # CTRL-Y to copy the command into clipboard
+# ctrl-alt-d removes history entry
+# https://github.com/junegunn/fzf/discussions/3629#discussioncomment-8475902
 export FZF_CTRL_R_OPTS="
 --height ${FZF_TMUX_HEIGHT:-40%}
 --color header:italic
@@ -34,6 +36,13 @@ export FZF_CTRL_R_OPTS="
 --bind 'enter:accept+execute(xdotool key enter)'
 --nth=4.. --with-nth=..
 --bind 'alt-y:execute-silent(echo -n {4..} | xclip -selection clipboard)+abort'
+$(
+	cat <<'FZF_FTW'
+--bind "ctrl-alt-d:execute-silent(zsh -ic 'builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; for i in {+1}; do ignore+=( \"${(b)history[$i]}\" );done;
+	HISTORY_IGNORE=\"(${(j:|:)ignore})\";builtin fc -W $HISTFILE')+reload:builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; builtin fc -rli 1 |
+	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd); if (!seen[cmd]++) print $0 }'"
+FZF_FTW
+)
 "
 
 # Print tree structure in the preview window

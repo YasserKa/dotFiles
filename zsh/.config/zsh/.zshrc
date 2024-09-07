@@ -237,8 +237,38 @@ if command -v fzf > /dev/null; then
 fi
 
 # Add time to fzf history searching capabilities
+# This disables fzf's line wrapping
 # https://github.com/junegunn/fzf/issues/1049
-source <(fzf --zsh | sed -e '/zmodload/s/perl/perl_off/' -e '/selected/s/fc -rl/fc -rli /')
+
+# Add functionality to remove history entries (check fzf config)
+# https://github.com/junegunn/fzf/discussions/3629#discussioncomment-8475902
+source <(fzf --zsh | sed -e '/zmodload/s/perl/perl_off/' -e '/selected/s/fc -rl/fc -rli /' \
+  | awk '
+  /fzf-history-widget\(\)/ {
+  print;
+  flag = 1;
+  next
+}
+/setopt/ {
+print
+if (flag) {
+  print "  # appends the current shell history buffer to the HISTFILE";
+  print "  builtin fc -AI $HISTFILE";
+  print "  # pushes entries from the $HISTFILE onto a stack and uses this history";
+  print "  builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST";
+}
+next
+}
+/zle reset-prompt/ {
+if (flag) {
+  print "  # Read the history from the history file into the history list"
+  print "  builtin fc -R $HISTFILE";
+  flag = 0
+}
+print
+}
+{ print }
+')
 
 # Man widget via C-A-h
 fzf-man-widget() {
