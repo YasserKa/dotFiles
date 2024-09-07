@@ -9,7 +9,7 @@
 
 main() {
 	local -r FILE_PATH="$1"
-	local -r FILES="$*"
+	local -r FILES=("$@")
 
 	local ONLY_OPTION=""
 	(($# > 1)) && ONLY_OPTION="+only"
@@ -31,8 +31,8 @@ main() {
 
 		mkdir -p "$DIR_PATH"
 	fi
-	# shellcheck disable=2086
-	command nvim $ONLY_OPTION -o -- $FILES
+
+	command nvim $ONLY_OPTION -o -- "${FILES[@]}"
 }
 
 main "$@"

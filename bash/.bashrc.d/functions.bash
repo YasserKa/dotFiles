@@ -340,22 +340,18 @@ open_file() {
 	# Open one file only
 	(($# > 1)) && ONLY_OPTION="+only"
 
-	files=()
-	for name in "$@"; do
-		files+=("$(find "$DIRECTORY_PATH" -maxdepth 1 -type f -name "$name")")
-	done
-
 	# Check if it's in a terminal
 	if [[ "$-" != *c* ]]; then
 		# The -o +only arguments are a hack to mitigate nvim's warning upon
 		# exiting for editing multiple files
 		# -o open files in windows and +only keep one of them
-		cd "${DIRECTORY_PATH}" && "${EDITOR}" "${ONLY_OPTION}" -o "${files[@]}"
+		# shellcheck disable=SC2046,SC2116,SC2086
+		cd "${DIRECTORY_PATH}" && "${EDITOR}" $ONLY_OPTION -o $(echo "$@")
 
 	else
-		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" "${ONLY_OPTION}" -o "${files[@]}"
+		# shellcheck disable=SC2046,SC2116,SC2086
+		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" ${ONLY_OPTION} -o "$@"
 	fi
-
 }
 
 alias rcreadline='open_file readline/.config/readline inputrc '
