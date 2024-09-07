@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+#
+# Dependencies: jq
 
 #######################################
 # Extand cd by making it accept a non-directory paramater as well
@@ -235,6 +237,7 @@ fi
 if [[ "$BASH" ]]; then
 	run_help() {
 		local -r cmd="${READLINE_LINE%% *}"
+		# shellcheck disable=2046,2116
 		help $(echo "$cmd") 2>/dev/null || man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help | $PAGER
 	}
 	if [[ $- == *i* ]]; then
@@ -245,19 +248,16 @@ elif [[ "$ZSH_NAME" ]]; then
 		# This accomadates git push --help
 		for count in {2,1}; do
 	   	read -r cmd	< <(cut -d ' ' -f -"$count" <(echo "$BUFFER"))
+			# shellcheck disable=2046,2116
 			{ man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || [[ "$(help $(echo "$cmd") 2>&1)" != *"No manual entry for $cmd"* ]]; } &>/dev/null || continue
+				# shellcheck disable=2046,2116
 				man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER && return 0
 			done
 		}
 		zle -N run_help
 		bindkey '^[h' run_help
 
-		encode_url() {
-    	setopt localoptions extendedglob
-    	input=( ${(s::)1} )
-    	# shellcheck disable=1072,1009,1073
-    	print ${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
-		}
+		encode_url() { printf %s "$1" | jq -sRr @uri; }
 
 		explainshell() {
 			local -r cmd="$BUFFER"
@@ -285,7 +285,7 @@ alert() {
 	if [[ "$BASH" ]]; then
 		cmd="$(history | tail -n1)"
 	elif [[ "$ZSH_NAME" ]]; then
-		cmd="$(history $HISTCMD | cut -d ' ' -f 4-)"
+		cmd="$(history "$HISTCMD" | cut -d ' ' -f 4-)"
 	fi
 	# Remove alert
 	cmd="$(sed -e '''s/^\s*[0-9]\+\s*//;s/[;&|]*\s*alert$//''' <(echo "$cmd" ))"
@@ -340,18 +340,22 @@ open_file() {
 	# Open one file only
 	(($# > 1)) && ONLY_OPTION="+only"
 
+	files=()
+	for name in "$@"; do
+		files+=("$(find "$DIRECTORY_PATH" -maxdepth 1 -type f -name "$name")")
+	done
+
 	# Check if it's in a terminal
 	if [[ "$-" != *c* ]]; then
 		# The -o +only arguments are a hack to mitigate nvim's warning upon
 		# exiting for editing multiple files
 		# -o open files in windows and +only keep one of them
-		# shellcheck disable=SC2046,SC2116,SC2086
-		cd "${DIRECTORY_PATH}" && "${EDITOR}" $ONLY_OPTION -o $(echo "$@")
+		cd "${DIRECTORY_PATH}" && "${EDITOR}" "${ONLY_OPTION}" -o "${files[@]}"
 
 	else
-		# shellcheck disable=SC2046,SC2116,SC2086
-		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" ${ONLY_OPTION} -o "$@"
+		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" "${ONLY_OPTION}" -o "${files[@]}"
 	fi
+
 }
 
 alias rcreadline='open_file readline/.config/readline inputrc '
@@ -460,8 +464,8 @@ magit() {
 
 		syncorg() {
 			emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
-			"$HOME"/bin/wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
-				--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *' \
+			{ "$HOME"/bin/wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
+				--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *'; } \
 				||	notify-send --urgency=critical "Sync org not working" 
 			}
 
