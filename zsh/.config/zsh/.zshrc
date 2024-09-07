@@ -19,24 +19,14 @@ zle_highlight+=(paste:none)
 # History {{{
 export HISTFILE=$XDG_CONFIG_HOME/zsh/history
 export SAVEHIST=$HISTSIZE
-export HISTORY_IGNORE="(&|[ ]*|exit|ls(*| )|cd|cd ..|bg|fg|history|pls|clear|*/pypoetry/virtualenvs/*)"
-
-# Don't show ignored history commands the when navigating history
-# Doesn't work on the last executed command
-zshaddhistory() {
-  emulate -L zsh
-  ## uncomment if HISTORY_IGNORE
-  ## should use EXTENDED_GLOB syntax
-  # setopt extendedglob
-  # $1 adds a line break to the command
-  [[ "${1//[$'\n']}" != ${~HISTORY_IGNORE} ]]
-}
+export HISTORY_IGNORE="(&|[ ]*|exit|ls(*| )|cd|cd ..|cd -|bg|fg|history|pls|clear|*/pypoetry/virtualenvs/*)"
 
 setopt HIST_IGNORE_ALL_DUPS  # do not put duplicated command into history list
 setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
 setopt HIST_REDUCE_BLANKS  # remove unnecessary blanks
 setopt HIST_IGNORE_SPACE
-setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
+# This resets the history if enabled (C-R -> CMD in HISTORY_IGNORE -> C-c)
+unsetopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
 setopt EXTENDED_HISTORY  # record command start time
 # }}}
 
