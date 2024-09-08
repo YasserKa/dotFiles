@@ -5,7 +5,6 @@ declare -A MAN_ARR=(
 	[org]='https://orgmode.org/org.pdf org_manual.pdf emacs'
 	[elisp]='https://www.gnu.org/software/emacs/manual/pdf/elisp.pdf elisp_manual.pdf emacs'
 	[refcard]='https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf refcard.pdf emacs'
-
 )
 
 declare -r ROOT_DIR="$HOME/Documents/Books"
