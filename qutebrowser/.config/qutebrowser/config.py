@@ -260,6 +260,7 @@ c.aliases = {
         "spawn bash -ic \"kdeconnect-cli -n 'Lenovo TB128FU' --share '{url}'"
         " || kdeconnect-cli -n 'Redmi 5 Plus' --share '{url}'\""
     ),
+    "yt-transcribe": "spawn --userscript ~/.config/qutebrowser/userscripts/yt-transcribe",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
     "generate_password": (
         "spawn --userscript ~/.config/qutebrowser/userscripts/generate_password"
