@@ -58,16 +58,16 @@ zsh -d -f -i
 % Others
 
 # Download youtube playlist's audio
-yt-dlp --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "%(title)s.%(ext)s" --yes-playlist "<playlist>"
+yt-dlp --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --yes-playlist "<playlist>"
 
 # Download youtube playlist's audio, splitting chapters
-yt-dlp --split-chapters --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "%(title)s.%(ext)s"  --no-playlist "<playlist>"
+yt-dlp --split-chapters --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --yes-playlist "<playlist>"
 
 # Download youtube video's audio
-yt-dlp --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "%(title)s.%(ext)s" "<link>" --no-playlist
+yt-dlp --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --no-playlist "<link>"
 
 # Download youtube video's audio, splitting chapters
-yt-dlp --split-chapters --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "%(title)s.%(ext)s" "<link>" --no-playlist
+yt-dlp --split-chapters --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --no-playlist "<link>"
 
 # Share kde file
 kdeconnect-cli -n "<device>" --share "<file>"

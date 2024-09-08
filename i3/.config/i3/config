@@ -154,18 +154,18 @@ set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (b)row
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
     bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/bin/cmus_notification; mode "default";
-    bindsym t exec --no-startup-id [[ "$(cmus-remote -Q 2> /dev/null | grep file | cut -d '/' -f5)" = ambient* ]] \
-        && cmus-remote --volume 35% --pause || cmus-remote --volume 25% --pause; mode "default";
-    bindsym n exec --no-startup-id cmus-remote --volume 25% --next; mode "default";
-    bindsym p exec --no-startup-id cmus-remote --volume 25% --prev; mode "default";
+    bindsym t exec cmus-remote --pause; mode "default";
+
+    bindsym n exec --no-startup-id cmus-remote --next; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
 
     bindsym b exec $HOME/.config/cmus/bin/cmus_queue --volume 70% "$HOME/Music/brown_noise.mp3"; mode "default";
-    bindsym c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/leekbeats" "$HOME/Music/cafe_de_touhou" "$HOME/Music/lofi_girl"; mode "default";
-    bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/ClassicalMusic" "$HOME/Music/100ClassicalMusicMasterpieces"; mode "default";
-    bindsym d exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music"; mode "default";
-    bindsym shift+a exec $HOME/.config/cmus/bin/cmus_queue "$HOME/Music/Anime"; mode "default";
+    bindsym c exec $HOME/.config/cmus/bin/cmus_queue --volume 40% "$HOME/.config/cmus/playlists/chill.m3u"; mode "default";
+    bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue --volume 40% "$HOME/.config/cmus/playlists/classic.m3u"; mode "default";
+    bindsym d exec $HOME/.config/cmus/bin/cmus_queue "$XDG_CONFIG_HOME/cmus/playlists/default.m3u"; mode "default";
+    bindsym shift+a exec $HOME/.config/cmus/bin/cmus_queue --volume 40% "$HOME/Music/Anime"; mode "default";
 
-    bindsym a exec exec $HOME/.config/cmus/bin/cmus_queue --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
+    bindsym a exec $HOME/.config/cmus/bin/cmus_queue --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
 
     bindsym h exec --no-startup-id cmus-remote --volume +2%;
     bindsym l exec --no-startup-id cmus-remote --volume -2%;

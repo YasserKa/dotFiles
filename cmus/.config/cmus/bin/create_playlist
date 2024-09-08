@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Create a playlist for cmus 
+# $1: playlist name
+# $@: music track directories 
+
+main() {
+  playlist_path="$XDG_CONFIG_HOME/cmus/playlists/$1.m3u"
+  shift
+  directories=("$@")
+
+  file_names=()
+  for directory in "${directories[@]}"; do
+	  file_names+=("$(find "$directory" -type f -exec realpath {} \;)")
+  done
+
+  echo "${file_names[@]}" >| "$playlist_path"
+}
+
+main "$@"
