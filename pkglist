@@ -273,6 +273,7 @@ pv # Monitoring progress of data through pipeline
 perl-image-exiftool # Show meta data about media files
 atool # Manage file archives
 qrencode # Encoding data in QR Code symbol
+tesseract-data-eng # OCR program
 
 # Network
 keychain # agent for gpg & ssh keys
