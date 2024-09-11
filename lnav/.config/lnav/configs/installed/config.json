@@ -1,15 +1,17 @@
 {
-    "$schema": "https://lnav.org/schemas/config-v1.schema.json",
-    "ui": {
-        "keymap-defs": {
-            "default": {
-                "x0b" : {
-                    "command": ":relative-goto -10"
-                },
-                "x0a" : {
-                    "command": ":relative-goto +10"
-                }
-            }
+  "$schema": "https://lnav.org/schemas/config-v1.schema.json",
+  "ui": {
+    "keymap-defs": {
+      "default": {
+        "x0b": {
+          "description": "C-k",
+          "command": ":relative-goto -10"
+        },
+        "x0a": {
+          "description": "C-j",
+          "command": ":relative-goto +10"
         }
+      }
     }
+  }
 }
