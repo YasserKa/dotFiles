@@ -2,20 +2,27 @@
 # Insert link from qutebrowsers history
 # Dependencies: fzf qutebrowser xdotool xinput xclip
 
-sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;' | uniq >/tmp/links
+tmp_file="/tmp/fzf_tmp"
+tmp_links="/tmp/links"
 
-# shellcheck disable=2016
-cmd='awk '"'"'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" $(NF-1) "\033[0m " "\n" $NF }'"'"' /tmp/links | 
+trap 'rm "$tmp_file" "$tmp_links" 2>/dev/null' EXIT
+
+sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;' | uniq >| "$tmp_links"
+
+cat "$tmp_links"
+
+IFS='' read -r -d '' cmd <<EOF
+awk 'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" \$(NF-1) "\033[0m " "\n" \$NF }' "$tmp_links" | 
   fzf --read0 --ansi --tiebreak=index --preview "" \
-  --bind "alt-m:execute-silent(echo \[{..-2}\]\({-1..}\) >|/tmp/fzf_tmp)+abort"\
-  --bind "alt-o:execute-silent(echo \[\[{-1..}\]\[{..-2}\]\] >|/tmp/fzf_tmp)+abort"\
-  --bind "enter:execute-silent(echo {-1..} >|/tmp/fzf_tmp)+abort"\
-  --bind "esc:execute-silent(echo "" >|/tmp/fzf_tmp)+abort"\
-  '
+  --bind "alt-m:execute-silent(echo \[{..-2}\]\({-1..}\) >|${tmp_file})+abort"\
+  --bind "alt-o:execute-silent(echo \[\[{-1..}\]\[{..-2}\]\] >|${tmp_file})+abort"\
+  --bind "enter:execute-silent(echo {-1..} >|${tmp_file})+abort"\
+  --bind "esc:execute-silent(echo "" >|${tmp_file})+abort"
+EOF
 
 $TERMINAL --class "floating_terminal" -e bash -c "$cmd"
 
-[[ ! -e "/tmp/fzf_tmp" ]] && exit 0
+[[ ! -e "${tmp_file}" ]] && exit 0
 
 # Get list of keyboards and disable then re-enable them
 devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
@@ -23,7 +30,7 @@ devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-
 while IFS= read -r device; do xinput disable "$device" 2>/dev/null ; done <<<"$devices"
 
 tmp="$(xclip -selection clipboard -o >/dev/null 2>&1)"
-tail -n 1 /tmp/fzf_tmp | xclip -rmlastnl -selection clipboard
+tail -n 1 ${tmp_file} | xclip -rmlastnl -selection clipboard
 xdotool key --clearmodifiers ctrl+shift+v
 echo "$tmp" | xclip -rmlastnl -selection clipboard >/dev/null 2>&1 
 while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
