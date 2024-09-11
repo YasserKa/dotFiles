@@ -8,11 +8,14 @@ sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FRO
 cmd='awk '"'"'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" $(NF-1) "\033[0m " "\n" $NF }'"'"' /tmp/links | 
   fzf --read0 --ansi --tiebreak=index --preview "" \
   --bind "alt-m:execute-silent(echo \[{..-2}\]\({-1..}\) >|/tmp/fzf_tmp)+abort"\
+  --bind "alt-o:execute-silent(echo \[\[{-1..}\]\[{..-2}\]\] >|/tmp/fzf_tmp)+abort"\
   --bind "enter:execute-silent(echo {-1..} >|/tmp/fzf_tmp)+abort"\
   --bind "esc:execute-silent(echo "" >|/tmp/fzf_tmp)+abort"\
   '
 
 $TERMINAL --class "floating_terminal" -e bash -c "$cmd"
+
+[[ ! -e "/tmp/fzf_tmp" ]] && exit 0
 
 # Get list of keyboards and disable then re-enable them
 devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
