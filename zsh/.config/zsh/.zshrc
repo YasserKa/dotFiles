@@ -226,14 +226,12 @@ if command -v fzf > /dev/null; then
   [[ -f /usr/share/fzf/key-bindings.zsh ]] && . /usr/share/fzf/key-bindings.zsh
 fi
 
-# Add time to fzf history searching capabilities
-# This disables fzf's line wrapping
-# https://github.com/junegunn/fzf/issues/1049
-
+# Add timestamp to fzf history
+# This disables fzf's line wrapping because of fc's limitations https://github.com/junegunn/fzf/issues/1049
 # Add functionality to remove history entries (check fzf config)
 # https://github.com/junegunn/fzf/discussions/3629#discussioncomment-8475902
-source <(fzf --zsh | sed -e '/zmodload/s/perl/perl_off/' -e '/selected/s/fc -rl/fc -rli /' \
-  | awk '
+source <(fzf --zsh | sed -e '/zmodload/s/perl/perl_off/' -e '/selected/s/fc -rl 1/fc -rli 1 | awk '\''{$1 = "\\033[2;37m" $1 "\\033[0m"; $2 = "\\033[1;32m" $2; $3 = $3 "\\033[0m"; for (i=4; i<=NF; i++) $i = "\\033[1;38m" $i "\\033[0m"; print}'\''/' \
+| awk '
   /fzf-history-widget\(\)/ {
   print;
   flag = 1;

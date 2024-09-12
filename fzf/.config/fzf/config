@@ -29,19 +29,21 @@ export FZF_CTRL_T_OPTS="--bind  'ctrl-/:replace-query'"
 export FZF_CTRL_R_OPTS="
 --height ${FZF_TMUX_HEIGHT:-40%}
 --color header:italic
+--ansi
+--nth=4.. --with-nth=..
+--preview 'bat --plain --language bash --color always <(echo {4..})' --preview-window down:3:border-none:hidden:wrap
 --header 'Press Meta-Y to copy command into clipboard'
---preview 'echo {}' --preview-window down:3:border-none:hidden:wrap
 --bind 'alt-t:change-preview-window(down|hidden)'
 --bind 'ctrl-e:accept'
 --bind 'enter:accept+execute(xdotool key enter)'
---nth=4.. --with-nth=..
 --bind 'ctrl-i:transform-query(echo -n {4..})'
 --bind 'alt-y:execute-silent(echo -n {4..} | xclip -selection clipboard)+abort'
 $(
 	cat <<'FZF_FTW'
 --bind "ctrl-alt-d:execute-silent(zsh -ic 'builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; for i in {+1}; do ignore+=( \"${(b)history[$i]}\" );done;
 	HISTORY_IGNORE=\"(${(j:|:)ignore})\";builtin fc -W $HISTFILE')+reload:builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; builtin fc -rli 1 |
-	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd); if (!seen[cmd]++) print $0 }'"
+	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd); if (!seen[cmd]++) print $0 }' | awk '{$1 = \"\033[37;2m\" $1 \"\033[0m\"; $2 = \"\033[1;32m\" $2; $3 = $3 \"\033[0m\"; for (i=4; i<=NF; i++) $i = \"\033[1;38m\" $i \"\033[0m\"; print}'
+"
 FZF_FTW
 )
 "
