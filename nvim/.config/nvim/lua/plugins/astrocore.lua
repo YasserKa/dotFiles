@@ -129,47 +129,47 @@ return {
         ["<C-s>"] = { "<cmd>w!<cr>", desc = "Save File" },
 
         ["yod"] = {
-          function() require("astronvim.utils.ui").toggle_diagnostics() end,
+          function() require("astrocore.toggles").diagnostics() end,
           desc = "Toggle diagnostics",
         },
         ["yog"] = {
-          function() require("astronvim.utils.ui").toggle_signcolumn() end,
+          function() require("astrocore.toggles").signcolumn() end,
           desc = "Toggle signcolumn",
         },
         ["yoi"] = {
-          function() require("astronvim.utils.ui").set_indent() end,
+          function() require("astrocore.toggles").indent() end,
           desc = "Change indent setting",
         },
         ["yol"] = {
-          function() require("astronvim.utils.ui").toggle_statusline() end,
+          function() require("astrocore.toggles").statusline() end,
           desc = "Toggle statusline",
         },
         ["yon"] = {
-          function() require("astronvim.utils.ui").change_number() end,
+          function() require("astrocore.toggles").number() end,
           desc = "Change line numbering",
         },
         ["yos"] = {
-          function() require("astronvim.utils.ui").toggle_spell() end,
+          function() require("astrocore.toggles").spell() end,
           desc = "Toggle spellcheck",
         },
         ["yop"] = {
-          function() require("astronvim.utils.ui").toggle_paste() end,
+          function() require("astrocore.toggles").paste() end,
           desc = "Toggle paste mode",
         },
         ["yot"] = {
-          function() require("astronvim.utils.ui").toggle_tabline() end,
+          function() require("astrocore.toggles").tabline() end,
           desc = "Toggle tabline",
         },
         ["you"] = {
-          function() require("astronvim.utils.ui").toggle_url_match() end,
+          function() require("astrocore.toggles").url_match() end,
           desc = "Toggle URL highlight",
         },
         ["yow"] = {
-          function() require("astronvim.utils.ui").toggle_wrap() end,
+          function() require("astrocore.toggles").wrap() end,
           desc = "Toggle wrap",
         },
         ["yoy"] = {
-          function() require("astronvim.utils.ui").toggle_syntax() end,
+          function() require("astrocore.toggles").buffer_syntax() end,
           desc = "Toggle syntax highlight",
         },
       },
