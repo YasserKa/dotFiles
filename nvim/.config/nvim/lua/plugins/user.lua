@@ -331,6 +331,17 @@ return {
         " Remove plugin bindings
         iunmap <buffer> <Leader>f
         iunmap <buffer> <Leader>r
+        " Remove timeout when pressing <C-,>
+        set notimeout
+
+        inoremap <expr> <C-,> CommaPrefix()
+
+        " Function to handle the comma prefix
+        function! CommaPrefix()
+        " Wait for the next key
+        return ''
+        endfunction
+        " Add specific follow-up mappings
         ]],
         {}
       )
