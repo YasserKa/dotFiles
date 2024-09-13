@@ -86,11 +86,23 @@ $EDITOR <dirty_files>
 
 $dirty_files: cat <(git diff --name-only) <(git diff --name-only --staged) <(git ls-files -o --exclude-standard) | xargs -I{} echo $(git rev-parse --show-toplevel)/{} --- --multi --expand
 
+# Diff the output of two commands
+diff <(<cmd1>) <(<cmd2>)
+
+# Fancy diff the output of two commands
+diff -u <(<cmd1>) <(<cmd2>) | delta
+
 # Backup
 rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exclude="chromium" --exclude=".cache" --exclude="Music" --exclude="VirtualBox" $HOME /run/media/yasser/YASSER/backup; alert_last
 
 # Unlock locked user
 faillock --user <user> --reset
+
+# Rerun a command until it succeeds
+until <cmd>; do echo "Restarting" && sleep 1; done
+
+# Generate an SSH Key https://blog.g3rt.nl/upgrade-your-ssh-keys.html
+ssh-keygen -o -a 100 -t ed25519
 
 # Convert MOBI to PDF
 ebook-convert "<file>" "<file_name>.pdf"
