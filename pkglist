@@ -38,6 +38,9 @@ nvidia       # NVIDIA drivers
 # Needed microcode
 intel-ucode # Microcode update files for Intel CPUs
 
+# Performance
+auto-cpufreq # Optimizes CPU speed & power
+
 # Bluetooth
 bluez # Daemons for bluetooth
 bluez-utils # Utilities for bluetooth

@@ -129,6 +129,7 @@ setup-systemd-services:
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
 	sudo systemctl enable displaylink
+	sudo systemctl enable auto-cpufreq.service
 	# Disables to not override backups while setting up the environment
 	# Enable afterwards
 	# sudo systemctl enable cronie
