@@ -21,7 +21,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='fd --follow --hidden --exclude .git'
-export FZF_CTRL_T_OPTS="--bind  'ctrl-/:replace-query'"
+export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude .git"
 
 # CTRL-Y to copy the command into clipboard
 # ctrl-alt-d removes history entry
@@ -48,6 +48,4 @@ FZF_FTW
 )
 "
 
-# Print tree structure in the preview window
-export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude .git"
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+# vim:ft=bash
