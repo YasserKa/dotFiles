@@ -81,6 +81,11 @@ blueman-manager
 # Android device mount
 mkdir "$HOME/mnt" && aft-mtp-mount "$HOME/mnt"
 
+# Pick dirty files to open in $EDITOR
+$EDITOR <dirty_files>
+
+$dirty_files: cat <(git diff --name-only) <(git diff --name-only --staged) <(git ls-files -o --exclude-standard) | xargs -I{} echo $(git rev-parse --show-toplevel)/{} --- --multi --expand
+
 # Backup
 rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exclude="chromium" --exclude=".cache" --exclude="Music" --exclude="VirtualBox" $HOME /run/media/yasser/YASSER/backup; alert_last
 
