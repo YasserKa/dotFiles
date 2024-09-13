@@ -176,6 +176,7 @@ openresolv # resolv.conf management framework (resolvconf)
 xclip # Command line interface to the X11 clipboard
 xsel # Another X clipboard, needed for zsh-system-clipboard to work
 xdotool # Command-line X11 automation tool
+xmacro # Recording and replaying keyboard and mouse events on X
 # Key binding
 autokey-common
 autokey-qt
@@ -274,6 +275,7 @@ perl-image-exiftool # Show meta data about media files
 atool # Manage file archives
 qrencode # Encoding data in QR Code symbol
 tesseract-data-eng # OCR program
+showmethekey # screenkey alternative; works for Wayland and X
 
 # Network
 keychain # agent for gpg & ssh keys
@@ -289,6 +291,7 @@ wireguard-tools # next generation secure network tunnel - tools for configuratio
 net-tools # Configuration tools
 transmission-gtk # BitTorren client
 firewalld # Firewall daemon with D-Bus interface
+fping # Pinging multiple hosts at once
 
 # Virtualization
 qemu-full # Full QEMU setup
