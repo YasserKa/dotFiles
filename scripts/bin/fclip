@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Yank from coyq's clipboard
+#
+# Dependencies: copyq fzf xclip
+
+get_candidates='
+time_ansi = "\x1b[32m";
+text_ansi = "\x1b[1;38m";
+end_ansi = "\x1b[0;39m";
+for (i = 0; i < size(); ++i) {
+  print(
+  i
+  + " "
+  + time_ansi
+  + read("application/x-copyq-user-copy-time", i)
+  + end_ansi
+  + " "
+  + text_ansi
+  + read("text/plain", i)
+  + end_ansi
+  + "\0",
+  );
+}'
+
+# Check if it's in a terminal
+if [[ -t 0 ]]; then
+  clip="$(copyq eval -- "$get_candidates" | fzf --ansi --multi --delimiter ' ' --nth=3.. --with-nth=2.. --read0 --preview-window="hidden" --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {4..}" \
+    --bind 'ctrl-alt-d:execute-silent(copyq remove {1})+reload:copyq eval -- '"'$get_candidates'" \
+    | sed 's/^[0-9]\+ [0-9]\+-[0-9]\+ [0-9:]\+ //')"
+
+else
+  IFS='' read -r -d '' cmd <<EOF
+  get_candidates='${get_candidates}'
+  copyq eval -- "\${get_candidates}" | fzf --multi --ansi --delimiter ' ' --nth=3.. --with-nth=2.. --read0 --preview-window="hidden" --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {4..}" \
+    --bind "enter:execute-silent(echo {4..} >|/tmp/fzf_tmp)+abort" \
+    --bind 'ctrl-alt-d:execute-silent(copyq remove {1})+reload:copyq eval -- '"'\${get_candidates}'" \
+    | sed -E 's/^[0-9]\+ [0-9]\+-[0-9]\+ [0-9:]\+ //'
+EOF
+$TERMINAL --class "floating_terminal" -e bash -c "$cmd"
+clip="$(cat /tmp/fzf_tmp)"
+fi
+
+[[ ! "$clip" ]] && exit 0
+
+copyq disable
+if [[ "$clip" =~ /tmp/copyq..* ]]; then 
+  xclip -selection clipboard -t image/png -i "$clip"
+else
+  xclip -selection clipboard < <(echo "$clip")
+fi
+copyq enable

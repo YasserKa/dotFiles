@@ -21,11 +21,12 @@ array::contains() {
 }
 
 main() {
-	MIME_TYPE="$(file -bL --mime-type -- "$1")"
-	EXTENSION="${1##*.}"
-
 	# Clear kitty image
 	printf "\x1b_Ga=d,d=A\x1b\\"
+	[[ ! -e "$1" ]] && echo "$1" && exit 0
+
+	MIME_TYPE="$(file -bL --mime-type -- "$1")"
+	EXTENSION="${1##*.}"
 
 	local -r IMAGE_CACHE_PATH="/tmp/img_preview_media"
 	local -r DEFAULT_SIZE="1920x1080"

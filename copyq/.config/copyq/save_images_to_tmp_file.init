@@ -1,0 +1,14 @@
+[Command]
+Automatic=true
+Command="
+    copyq:
+    var f = new TemporaryFile()
+    f.open()
+    f.setAutoRemove(false)
+    if (!f.openWriteOnly() || f.write(read('image/png')) == -1)
+      throw 'Failed to save the file: ' + f.errorString()
+    setData('text/plain', f.fileName())
+    "
+Icon=\xf085
+Input=image/png
+Name=Save images to temporary files

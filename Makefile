@@ -16,6 +16,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_DATA_HOME)/applications
 	@mkdir -p $(XDG_CONFIG_HOME)/systemd/user
 	@mkdir -p $(XDG_CONFIG_HOME)/cmus
+	@mkdir -p $(XDG_CONFIG_HOME)/copyq
 	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs
 	@mkdir -p $(XDG_CONFIG_HOME)/tmux/plugins
@@ -106,7 +107,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 stow-packages:
 	# Install neovim starter kit before stowing
 	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
-	@stow X11 autokey autorandr bash bat cmus cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap yt-dlp zathura zsh
+	@stow X11 autokey autorandr bash bat cmus copyq cron dprint dunst emacs fasd feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap yt-dlp zathura zsh
 	@sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
