@@ -260,6 +260,7 @@ kdegraphics-mobipocket # Needed by Okular for mobi support
 ebook-tools # Tools for accessing and converting various ebook file formats
 xournalpp # Handwriting notetaking software with PDF annotation support
 diff-pdf # Visually comparing two PDF files
+qpdf # PDF transformation software
 
 # Utility
 ripgrep # A search tool that combines the usability of ag with the raw speed of grep

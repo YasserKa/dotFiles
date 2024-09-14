@@ -51,11 +51,29 @@ patch <code> <patch>
 $code: fd 
 $patch: fd 
 
+% Documents
+
+# Convert MOBI to PDF
+ebook-convert "<file>" "<file_name>.pdf"
+
+$file: fd
+$file_name: echo ${file%.mobi}
+
+# Merge PDF files
+pdfunite <in_files> "<out_file>.pdf"
+
+# Decrypt PDF file
+qpdf --decrypt <in_file> --replace-input
+
+$in_files: fd --regex '.*.pdf' --- --multi --expand
+$out_file:
+
+
 % Zsh
 # Start without rc
 zsh -d -f -i
 
-% Others
+% Youtube downloader
 
 # Download youtube playlist's audio
 yt-dlp --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --yes-playlist "<playlist>"
@@ -68,6 +86,8 @@ yt-dlp --download-archive "$HOME/Music/archive" --ignore-errors --format bestaud
 
 # Download youtube video's audio, splitting chapters
 yt-dlp --split-chapters --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --no-playlist "<link>"
+
+% Others
 
 # Share kde file
 kdeconnect-cli -n "<device>" --share "<file>"
@@ -103,16 +123,5 @@ until <cmd>; do echo "Restarting" && sleep 1; done
 
 # Generate an SSH Key https://blog.g3rt.nl/upgrade-your-ssh-keys.html
 ssh-keygen -o -a 100 -t ed25519
-
-# Convert MOBI to PDF
-ebook-convert "<file>" "<file_name>.pdf"
-
-$file: fd
-$file_name: echo ${file%.mobi}
-
-# Merge PDF files
-pdfunite <in_files> "<out_file>.pdf"
-$in_files: fd --regex '.*.pdf' --- --multi --expand
-$out_file:
 
 # vim:ft=bash
