@@ -67,6 +67,10 @@ fi
 [[ ! "$chosen_line" ]] && exit 0
 
 file="${files[$chosen_line]}"
+
+# Wait until the download finishes
+[[ "$file" == *.download ]] && inotifywait -e move_self --format '%w%f' "$download_dir/$file" && file="${file%.*}"
+
 path="${download_dir}/${file}"
 
 # Delete the file and exit

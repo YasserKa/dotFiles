@@ -81,6 +81,7 @@ shikane # Dynamic output configuration tool
 patch # A utility to apply patch files to original sources
 git # the fast distributed version control system
 entr # Run arbitrary commands when files change
+inotify-tools # Wait for changes to files 
 
 tmux # A terminal multiplexer
 # Dependency for tmux
