@@ -183,6 +183,8 @@ xdotool # Command-line X11 automation tool
 xmacro # Recording and replaying keyboard and mouse events on X
 copyq # Clipboard manager
 bcompare # comparing, syncing and merging files
+downgrade # Downgrad packages in cache or Archive
+
 # Key binding
 autokey-common
 autokey-qt

@@ -19,8 +19,8 @@ pkgfile --search --verbose <file>
 pacman --query --owns <file>
 
 # Downgrade pkg
-sudo pacman -U <pkg>
-$pkg: ls /var/cache/pacman/pkg/*zst
+sudo downgrade <pkg>
+$pkg: pacman --query --explicit --quiet
 
 # Remove not installed AUR pkgs from cache
 paru -Scad
