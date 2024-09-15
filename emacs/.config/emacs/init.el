@@ -83,7 +83,11 @@
 ;; Persist history over Emacs restarts.
 (use-package savehist
   :ensure nil
-  :config (savehist-mode))
+  :hook (after-init . savehist-mode)
+  :config
+  (setq history-length 1000)
+  (setq history-delete-duplicates t)
+  )
 
 ;; Backups
 (setq backup-by-copying t    ; Don't delink hard links
