@@ -87,7 +87,7 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$XDG_CONFIG_HOME/jupyter/bin:$XDG_C
 export USE_EMOJI=0
 
 # Start manager for GPG & SSH agents
-eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh" id_rsa B08290CD65BD78DAC41A38368DBCA4F866308AAC)"
+eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 --agents "gpg,ssh" id_ed25519 B08290CD65BD78DAC41A38368DBCA4F866308AAC)"
 
 export EMACS_DEFAULT_SOCKET="default"
 export EMACS_ORG_SOCKET="org"
