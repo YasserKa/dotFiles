@@ -52,6 +52,7 @@ c.bindings.commands = {
         ),
         # Override f and F by download documents from libgen
         ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
+        ":g": "hint images userscript ~/.config/qutebrowser/userscripts/view_gif",
         "<space>q": "close",
         "<space>Q": "quit",
         # Sourcing files

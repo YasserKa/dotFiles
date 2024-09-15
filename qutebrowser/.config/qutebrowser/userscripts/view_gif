@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Download a GIF and open it using mpv
+# Dependencies: wget pup mpv
+
+tmp_file="qute_video.mp4"
+
+trap 'rm $tmp_file' EXIT
+
+link="$(pup 'img attr{src}' --file <(echo "$QUTE_SELECTED_HTML"))"
+
+wget  -O "$tmp_file" "$link"
+mpv --x11-name=floating "$tmp_file" --autofit=640x480 --loop-file=inf 
