@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-
+#
+# Get the number of unread reddit messages (stored in tmp file)
+# Dependencies: jq polybar
 
 TMP_FILE="/tmp/polybar_reddit_unread"
 
@@ -7,11 +9,13 @@ TMP_FILE="/tmp/polybar_reddit_unread"
 
 num_unread=$(jq '.["data"]["children"] | length' "$TMP_FILE")
 
-# Open first unread message
-[[  "$num_unread" -gt 0 && "$1" = "open" ]] && xdg-open "https://reddit.com$(jq -r '.["data"]["children"].[0]["data"]["context"]' "$TMP_FILE")" && exit 0
+if [[  $((num_unread > 0)) && "$1" == "open" ]]; then
+    xdg-open "https://reddit.com/message/unread/"
+    rm "$TMP_FILE"
+    polybar-msg action "#notification-reddit.hook.0"
+fi
 
-
-if [[ "$num_unread" -gt 0 ]]; then
+if ((num_unread > 0)); then
     echo "$num_unread"
 else
     echo ""
