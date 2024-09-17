@@ -186,6 +186,12 @@ fkill() {
 	fi
 }
 
+# Copy error code to clipboard
+ferrno() {
+	local -r err_list="$(errno --list | awk '{$1 = "\033[37;2m" $1 "\033[0m"; $2 = "\033[1;32m" $2 "\033[0m"; print }')"
+	echo "$err_list" | fzf --ansi --bind "enter:execute-silent(echo {2} | xclip -rmlastnl -selection clipboard)+abort"
+}
+
 vpn_toggle() {
 	local -r CON="$(nmcli connection show | grep "wireguard" | cut -d ' ' -f -1)"
 
