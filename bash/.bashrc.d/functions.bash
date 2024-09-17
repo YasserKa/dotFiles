@@ -169,32 +169,25 @@ vf() {
 	"${EDITOR}" "${FILE_PATH}" || return 1
 }
 
-# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
+# Search processes
 fps() {
-	local pid
-	if [ "$UID" != "0" ]; then
-		pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-	else
-		pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-	fi
-}
+	grc --colour=on ps --user "$USER" -o ppid,pid,stime,etime,args | sed 1d \
+		| fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
+		--preview 'grc --colour=on ps -F {2} | sed 1d' \
+		--bind 'alt-t:change-preview-window(down|hidden)' | awk '{print $2}'
+	}
 
-# fkill - kill processes - list only the ones you can kill
+# Kill processes
 fkill() {
-	local pid
-	if [ "$UID" != "0" ]; then
-		pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-	else
-		pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-	fi
+	local -r pid="$(fps)"
 
-	if [ "x$pid" != "x" ]; then
+	if [[ "$pid" ]]; then
 		echo "$pid" | xargs kill "-${1:-9}"
 	fi
 }
 
 vpn_toggle() {
-	local -r CON="wg0"
+	local -r CON="$(nmcli connection show | grep "wireguard" | cut -d ' ' -f -1)"
 
 	if [[ $(nmcli connection show --active "$CON" | wc -c) -ne 0 ]]; then
 		# shellcheck disable=2015
@@ -493,15 +486,6 @@ shutdown() {
 which() {
 	printf >&2 'The which command is unreliable. Use type -P %s\n' "$*"
 	return 2
-}
-
-# Reload qutebrowser and return to active window
-reload_browser() {
-	WINDOW_NAME="$1"
-	FOCUSED_ID="$(xdotool getwindowfocus)"
-	xdotool search --onlyvisible --name "${WINDOW_NAME}" windowfocus key --delay 100 --window %@ 'r'
-	sleep 0.5
-	xdotool windowfocus "${FOCUSED_ID}"
 }
 
 # Yay install and uninstall {{{
