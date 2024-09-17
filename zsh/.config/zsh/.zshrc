@@ -247,6 +247,16 @@ if (flag) {
 }
 next
 }
+
+/FZF_DEFAULT_OPTS/ {
+if (flag) {
+gsub(/+m/, "--multi"); print
+} else {
+print
+}
+next
+}
+
 /zle reset-prompt/ {
 if (flag) {
   print "  # Read the history from the history file into the history list"
