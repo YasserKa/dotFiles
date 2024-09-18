@@ -52,10 +52,10 @@ source /usr/share/LS_COLORS/dircolors.sh
 plug "sunlei/zsh-ssh"
 
 zstyle ':completion:*' menu select
-autoload -Uz compinit
+autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-compinit
+source "$ZAP_PATH/plugins/zsh-completions/zsh-completions.plugin.zsh"
+compdef v='nvim'
 
 # Add autocompletion for newly added packages
 # https://wiki.archlinux.org/title/zsh#Persistent_rehash
@@ -305,6 +305,8 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' file-sort access follow
+zstyle ':completion:complete:*:argument-rest' sort false
 
 # Remove the prefix "."
 zstyle ':fzf-tab:*' prefix ''
@@ -337,6 +339,7 @@ bindkey -M viins '^I'  _fzf-tab-complete
 # }}}
 # Autojumping {{{
 fasd_cache="$HOME/.fasd-init-zsh"
+export _FASD_NOCASE=1
 if [[ "$commands[fasd]" -nt "$fasd_cache" || ! -s "$fasd_cache" ]]; then
   fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install \
     zsh-wcomp zsh-wcomp-install >| "$fasd_cache"

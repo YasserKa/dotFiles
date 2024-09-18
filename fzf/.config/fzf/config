@@ -6,7 +6,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 --bind 'alt-N:page-down,alt-P:page-up'
 --bind 'ctrl-alt-n:next-history,ctrl-alt-p:prev-history'
 --bind 'ctrl-space:toggle'
---bind 'ctrl-shift-space:toggle-all'
+--bind 'alt-space:toggle-all'
 --bind 'ctrl-alt-j:jump'
 --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {}'
 
