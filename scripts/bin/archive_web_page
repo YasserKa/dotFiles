@@ -6,26 +6,39 @@ from requests import get
 from requests.exceptions import HTTPError, RequestException
 
 TIMEOUT = 30
-MAX_TRIES = 2
+MAX_TRIES = 3
 
 
 def archive_web_page(url, tries=0):
-    # Format the URL for the API call
-    tries += 1
     api_url = f"http://web.archive.org/save/{url}"
+    available_api_url = f"http://archive.org/wayback/available?url={url}"
+
     try:
-        # Send the API request
+        # Attempt to archive the page
         response = get(api_url, timeout=TIMEOUT)
-        response.raise_for_status()  # Raise an exception for any error status codes
+        response.raise_for_status()
+
+        # Check if the page was archived
+        response = get(available_api_url, timeout=TIMEOUT)
+        response.raise_for_status()
 
         if response.status_code == 200:
-            print("Web page archived successfully!")
+            snapshots = response.json().get("archived_snapshots", {})
+            if not snapshots:
+                print("Page not archived, trying again")
+                if tries < MAX_TRIES:
+                    return archive_web_page(url, tries + 1)
+                else:
+                    raise RequestException(f"Max retries reached. Couldn't archive {url}")
+
+        print("Web page archived successfully!")
 
     except (RequestException, HTTPError) as e:
         if tries < MAX_TRIES:
-            print(f"An error occurred: {e}\nTrying again. Try: {tries+1}/{MAX_TRIES}")
-            archive_web_page(url, ++tries)
-        raise RequestException(f"Couldn't archive {url}")
+            print(f"Error: {e}. Retrying {tries+1}/{MAX_TRIES}")
+            return archive_web_page(url, tries + 1)
+        raise RequestException(f"Failed to archive {url} after {MAX_TRIES} attempts.")
+
 
 
 if len(sys.argv) < 2:
