@@ -1,15 +1,19 @@
-#!/bin/env sh
+#!/bin/env bash
+#
+# Centers the cursor to the center of window after navigating and moving windows in i3
+# Dependencies xdotool i3
 
-# Dependencies xdotool
-# Centers the cursor the window after an i3 action (moving or navigating among windows)
+eval i3-msg "$*"
 
 CURR_WINDOW_ID=$(xdotool getwindowfocus)
 
-eval i3-msg $*
+# Provides WINDOW's PID, X start, Y start, WIDTH, HEIGHT
+eval "$(xdotool getwindowgeometry --shell "$CURR_WINDOW_ID")"
 
-eval $(xdotool getwindowgeometry --shell $CURR_WINDOW_ID)
+NX=$((WIDTH / 2))
+NY=$((HEIGHT / 2))
 
-NX=$(expr $WIDTH / 2)
-NY=$(expr $HEIGHT / 2)
+# Ignore, if there are no windows in workspace (i.e. NX == 0 and NY == 0)
+[[ $NX == 0 || $NY == 0 ]] && exit 0
 
-xdotool mousemove --window $WINDOW $NX $NY
+xdotool mousemove --window "$WINDOW" "$NX" "$NY"

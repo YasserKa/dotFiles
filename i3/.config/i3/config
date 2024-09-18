@@ -14,10 +14,10 @@ font pango:Inconsolata 14
 default_orientation horizontal
 
 # Change focus
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-bindsym $mod+h focus left
+bindsym $mod+j exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus down
+bindsym $mod+k exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus up
+bindsym $mod+l exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus right
+bindsym $mod+h exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus left
 
 # Move focused window
 # There's a bug in i3 that doesn't focus the container after it moves to another
