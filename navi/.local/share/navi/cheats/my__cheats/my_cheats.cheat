@@ -63,7 +63,7 @@ $file_name: echo ${file%.mobi}
 pdfunite <in_files> "<out_file>.pdf"
 
 # Decrypt PDF file
-qpdf --decrypt <in_file> --replace-input
+qpdf --decrypt <in_files> --replace-input
 
 $in_files: fd --regex '.*.pdf' --- --multi --expand
 $out_file:
@@ -88,6 +88,13 @@ yt-dlp --download-archive "$HOME/Music/archive" --ignore-errors --format bestaud
 yt-dlp --split-chapters --download-archive "$HOME/Music/archive" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 10 --output "$HOME/Music/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --no-playlist "<link>"
 
 % Others
+
+# Filetype and default application
+echo "<_file>\n<file_type>\n<default_app>"
+
+$_file: fd --type f
+$file_type: xdg-mime query filetype ${_file}
+$default_app: xdg-mime query default ${file_type}
 
 # Share kde file
 kdeconnect-cli -n "<device>" --share "<file>"
