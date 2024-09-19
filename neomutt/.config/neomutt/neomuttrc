@@ -55,6 +55,7 @@ bind index <space> collapse-thread
 set sort_aux = reverse-date
 set sort=threads
 set collapse_all
+set collapse_unread = no
 
 # Use GPGME
 set crypt_use_gpgme = yes
