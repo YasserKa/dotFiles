@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Clone Git clone repo
+# Possible improvements: track progress using --progress >> file.log 2>&1
+
+main() {
+	local dir="/tmp" url="$1" project_name project_dir
+
+	[[ ! "$url" ]] && return 1
+
+	url="$(echo "$url" | cut -d / -f -5)"
+	project_name="$(echo "$url" | cut -d / -f 5-)"
+	project_dir="$dir/$project_name"
+
+  if [[ ! -e "$project_dir" ]]; then
+  	git clone --depth 1 "$url" "$project_dir" || { return 0; }
+  fi
+
+	if [[ -t 0 ]]; then
+  	cd "$project_dir" && "${EDITOR}" || return
+	else
+  	$TERMINAL --directory  "${project_dir}" -- "${EDITOR}"
+	fi
+}
+
+main "$@"

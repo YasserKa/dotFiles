@@ -255,6 +255,7 @@ c.aliases = {
     "download_youtube": (
         "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube"
     ),
+    "gc": "spawn bash -ic '. $HOME/bin/git_clone {url}'",
     "paywall": "open https://12ft.io/proxy?q={url}",
     "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
     "kde_share": (

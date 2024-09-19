@@ -5,6 +5,7 @@ configuration {
     font: "inconsolata 15";
     modi: "window,run,ssh";
     run-command: "/bin/bash -ic '{cmd}'";
+    run-shell-command: "{terminal} -e zsh -ic '{cmd}'";
     run-list-command: "source $XDG_CONFIG_HOME/rofi/aliases";
     kb-remove-char-forward: "Ctrl+d";
 	kb-row-select: "Control+i";
