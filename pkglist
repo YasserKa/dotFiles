@@ -300,7 +300,7 @@ wireguard-tools # next generation secure network tunnel - tools for configuratio
 net-tools # Configuration tools
 transmission-gtk # BitTorren client
 firewalld # Firewall daemon with D-Bus interface
-fping # Pinging multiple hosts at once
+nmap # Utility for network discovery and security auditing
 
 # Virtualization
 qemu-full # Full QEMU setup
