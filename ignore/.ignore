@@ -1,1 +1,6 @@
 Music
+.local/state
+.local/pipx
+.cache
+
+# vim:ft=gitignore
