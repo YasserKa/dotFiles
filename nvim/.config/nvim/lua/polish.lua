@@ -312,16 +312,16 @@ vim.keymap.set("n", "[f", function()
   }, false)
 end, opts)
 
-vim.keymap.set("n", "]c", function()
-  sts.filtered_jump({
-    "class",
-  }, true)
-end, opts)
-vim.keymap.set("n", "[c", function()
-  sts.filtered_jump({
-    "class",
-  }, false)
-end, opts)
+-- vim.keymap.set("n", "]c", function()
+--   sts.filtered_jump({
+--     "class",
+--   }, true)
+-- end, opts)
+-- vim.keymap.set("n", "[c", function()
+--   sts.filtered_jump({
+--     "class",
+--   }, false)
+-- end, opts)
 
 vim.keymap.set("n", "]/", function()
   sts.filtered_jump({
