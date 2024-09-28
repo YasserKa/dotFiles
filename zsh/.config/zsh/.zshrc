@@ -54,12 +54,13 @@ plug "sunlei/zsh-ssh"
 zstyle ':completion:*' menu select
 autoload -Uz compinit; compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-source "$ZAP_PATH/plugins/zsh-completions/zsh-completions.plugin.zsh"
 compdef v='nvim'
 
 # Add autocompletion for newly added packages
 # https://wiki.archlinux.org/title/zsh#Persistent_rehash
 zstyle ':completion:*' rehash true
+
+plug "zsh-users/zsh-completions"
 
 plug "zsh-users/zsh-autosuggestions"
 
@@ -268,6 +269,66 @@ print
 { print }
 ')
 
+# Autojumping {{{
+# add zsh hook
+_fasd_preexec() {
+  { fasd --proc $(fasd --sanitize "$2") } >> "/dev/null" 2>&1
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _fasd_preexec
+# }}}
+# Fzf Frecency  {{{
+# Relative paths for candidates available in current directory
+IFS='' read -r -d '' fre_candidates <<EOF
+  fasd -lR | grep "\$(pwd)" | sed -e "s|^\$(pwd)/\?||" -e '/^[[:space:]]*$/d'
+EOF
+# export fre_candidates
+
+export FZF_BASE_COMMAND='fd --follow --hidden --exclude .git --ignore-file .ignore'
+# Ignore frecency candidates with fd
+export FZF_DEFAULT_COMMAND='command cat <(eval '$fre_candidates') <('$FZF_BASE_COMMAND' --strip-cwd-prefix | grep -Fvx -f <(eval '$fre_candidates'))'
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --tiebreak=index --scheme=path
+$(
+cat <<'EOF'
+ --bind "ctrl-alt-d:execute-silent(fasd --delete \"$(realpath --strip "$(pwd)/{}" | xargs -I{} sh -c '[ -d "{}" ] && echo "{}/" || echo "{}"')\")+reload(eval \"$FZF_CTRL_T_COMMAND\")"
+EOF
+)"
+
+# Only directories
+IFS='' read -r -d '' fre_candidates <<EOF
+  fasd -dlR | grep "\$(pwd)" | sed -e "s|^\$(pwd)/\?||" -e '/^[[:space:]]*$/d'
+EOF
+export FZF_ALT_C_COMMAND='command cat <(eval '$fre_candidates') <('$FZF_BASE_COMMAND' --strip-cwd-prefix --type d | grep -Fvx -f <(eval '$fre_candidates'))'
+export FZF_ALT_C_OPTS="$FZF_DEFAULT_OPTS --tiebreak=index --scheme=path
+$(
+cat <<'EOF'
+--bind "ctrl-alt-d:execute-silent(fasd --delete \"$(realpath --strip "$(pwd)/{}")/\")+reload(eval \"$FZF_ALT_C_COMMAND\")"
+EOF
+)"
+unset fre_candidates
+
+
+# NOTE: It's possible to use OPTS for each compgen, but it requires injecting it in fzf --zsh or a PR
+# https://github.com/junegunn/fzf/blob/4bedd33c593ab0cb750e17c42750048904fdf7fb/shell/completion.zsh#L160-L163
+_fzf_compgen_path() {
+	local _path="$(realpath --strip $1)"
+  IFS='' read -r -d '' fre_candidates <<EOF
+    fasd -lR | grep "\${_path}[^ ]*" | sed -e "s|^\$(pwd)/\?||" -e '/^[[:space:]]*$/d'
+EOF
+
+command cat <(eval $fre_candidates) <(eval "$FZF_BASE_COMMAND . $1" | grep -Fvx -f <(eval $fre_candidates))
+}
+
+_fzf_compgen_dir() {
+	local _path="$(realpath --strip $1)"
+  IFS='' read -r -d '' fre_candidates <<EOF
+    fasd -dlR | grep "\${_path}[^ ]*" | sed -e "s|^\$(pwd)/\?||" -e '/^[[:space:]]*$/d'
+EOF
+  command cat <(eval $fre_candidates) <(eval "$FZF_BASE_COMMAND --type d . $1" | grep -Fvx -f <(eval $fre_candidates))
+}
+# }}}
 # Man widget via C-A-h
 fzf-man-widget() {
 batman="man {1} 2>/dev/null | col -bx | bat --language=man --plain --color always"
@@ -336,16 +397,6 @@ bindkey -M emacs '^I'  _fzf-tab-complete
 bindkey -M viins '^I'  _fzf-tab-complete
 
 
-# }}}
-# Autojumping {{{
-fasd_cache="$HOME/.fasd-init-zsh"
-export _FASD_NOCASE=1
-if [[ "$commands[fasd]" -nt "$fasd_cache" || ! -s "$fasd_cache" ]]; then
-  fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install \
-    zsh-wcomp zsh-wcomp-install >| "$fasd_cache"
-fi
-source "$fasd_cache"
-unset fasd_cache
 # }}}
 # Update terminal emulator title {{{
 # https://wiki.archlinux.org/title/zsh#xterm_title

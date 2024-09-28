@@ -126,47 +126,28 @@ ranger() {
 
 # Use fasd and FZF to jump through directories
 j() {
-	local paths
-	paths=$(fasd -dlR "$@" | grep -v "$DOTFILES_DIR")
-	local my_path="$HOME"
-	# If only one path exists, go to it
-	if [[ $(echo -e "$paths" | wc -l) == 1 ]]; then
-		my_path=$paths
-	else # Use fzf otherwise
-		my_path=$(echo -e "$paths" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse)
-	fi
-	EXIT_CODE="$?"
-	((EXIT_CODE != 0)) && return
-	cd "$my_path" || exit 1
+	local paths my_path
+
+  paths="$(fasd -dlR "$@" | grep -v "$DOTFILES_DIR")"
+	my_path="$(echo -e "$paths" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
+			--bind "ctrl-alt-d:execute-silent(fasd --delete '{}')+reload(fasd -dlR '$*' | grep -v $DOTFILES_DIR)"
+		)" || return 2
+	[[ ! "$my_path" ]] && \
+  	{ my_path="$(eval "$FZF_ALT_C_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=dir,follow,hidden --scheme=path --query '$*' ${FZF_ALT_C_OPTS:-} +m " fzf)" || return 2;}
+  cd "$my_path" || return 1
 }
 
 # Use fasd and FZF to a open file and go to the directory it's in
 vf() {
-	local PATHS
-	PATHS=$(fasd -flR "$@")
-	local FILE_PATH
-	FILE_PATH=""
-	# If only one path exists, go to it
-	NUMBER_FASD_FILES="$(echo -e "${PATHS}" | wc -l)"
+	local file_path
 
-	if [[ "$NUMBER_FASD_FILES" == 0 || "$PATHS" == "" ]]; then
-		echo "Fasd isn't tracking '$*'"
-		return 0
-	elif ((NUMBER_FASD_FILES == 1)); then
-		FILE_PATH="${PATHS}"
-	else
-		# Use fzf otherwise
-		FILE_PATH=$(echo -e "${PATHS}" | fzf --preview-window hidden --keep-right --height=20 --layout=reverse \
-			--bind 'ctrl-alt-d:execute-silent(fasd -D {})+reload(fasd -flR "'"$*"'")'
-	)
-
-	[[ -z $FILE_PATH ]] && return 0
-	fi
-	local EXIT_CODE
-	EXIT_CODE="$?"
-	((EXIT_CODE != 0)) && return
-	cd "${FILE_PATH%/*}" || return 1
-	"${EDITOR}" "${FILE_PATH}" || return 1
+	file_path="$(fasd -flR "$@" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
+			--bind "ctrl-alt-d:execute-silent(fasd --delete '{}')+reload(fasd -flR '$*')"
+	)" || return 2
+  [[ ! "$file_path" ]] &&	\
+  	{ cd "$HOME" && file_path="$(eval "$FZF_CTRL_T_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=file,follow,hidden --scheme=path --query '$*' ${FZF_CTRL_T_OPTS:-}" fzf)" || return 2; }
+	cd "${file_path%/*}" || return 2
+	"${EDITOR}" "${file_path}" || return 1
 }
 
 # Search processes
