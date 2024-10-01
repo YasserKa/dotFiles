@@ -1926,7 +1926,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   ;; Buffers
   (defvar-keymap embark-buffer-actions
     :doc "Keymap for actions for buffers"
-    :parent embark-general-map
+    :parent embark-buffer-map
     "x" #'my/switch-to-buffer-other-window-x
     "v" #'my/switch-to-buffer-other-window-v)
   (add-to-list 'embark-keymap-alist '(buffer . embark-buffer-actions))
@@ -1944,7 +1944,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   ;; Files
   (defvar-keymap embark-file-actions
     :doc "Keymap for actions for files"
-    :parent embark-general-map
+    :parent embark-file-map
     "x" #'my/switch-to-file-other-window-x
     "v" #'my/switch-to-file-other-window-v
     "w" #'my/switch-to-file-other-frame)
