@@ -1903,12 +1903,20 @@ Note: this uses Org's internal variable `org-link--search-failed'."
     :doc "Keymap for actions for org roam nodes"
     :parent embark-general-map
     "x" #'my/org-roam-node-find-window-x
-    "v" #'my/org-roam-node-find-window-v)
+    "v" #'my/org-roam-node-find-window-v
+    "w" #'my/org-roam-node-find-other-frame
+    )
+
   (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
 
   (defun my/org-roam-node-find-window-v ()
     (interactive)
     (org-roam-node-find t))
+
+  (defun my/org-roam-node-find-other-frame ()
+    (interactive)
+    (clone-frame)
+    (org-roam-node-find))
 
   (defun my/org-roam-node-find-window-x ()
     (interactive)
@@ -1938,7 +1946,8 @@ Note: this uses Org's internal variable `org-link--search-failed'."
     :doc "Keymap for actions for files"
     :parent embark-general-map
     "x" #'my/switch-to-file-other-window-x
-    "v" #'my/switch-to-file-other-window-v)
+    "v" #'my/switch-to-file-other-window-v
+    "w" #'my/switch-to-file-other-frame)
   (add-to-list 'embark-keymap-alist '(file . embark-file-actions))
 
   (defun my/switch-to-file-other-window-x (file)
@@ -1950,6 +1959,24 @@ Note: this uses Org's internal variable `org-link--search-failed'."
     (interactive "bFile: ")
     (split-window-right) (windmove-right)
     (find-file file))
+
+  (defun my/switch-to-file-other-frame (file)
+    (interactive "bFile: ")
+    (clone-frame)
+    (find-file file))
+
+  ;; Override the function by inserting link with title
+  (defun embark-org-insert-link-to (target)
+    "Insert a link to the TARGET in the source window.
+If TARGET is an agenda item and `other-window-for-scrolling' is
+displaying an org mode buffer, then that is the source window.
+If TARGET is a minibuffer completion candidate, then the source
+window is the window selected before the command that opened the
+minibuffer ran."
+    (embark-org--in-source-window target
+                                  (lambda (marker)
+                                    (org-with-point-at marker (org-store-link nil t))
+                                    (my/org-insert-last-stored-link-with-title ""))))
   )
 
 ;; Improves Vertico's completion
@@ -2121,7 +2148,6 @@ selection of all minor-modes, active or not."
   (interactive "P")
   (let ((org-link-keep-stored-after-insertion t)
         (links (copy-sequence org-stored-links))
-        (pr "- ")
         (po "\n")
         (cnt 1) l
         file-buffer)
@@ -2137,7 +2163,6 @@ selection of all minor-modes, active or not."
                (file-link (format "%s" (abbreviate-file-name file-path)))
                (link-text (format "%s: %s" file-title header))
                (link (concat file-link "::" header)))
-          (insert pr)
           (insert (concat "[["file-link"]["link-text"]]"))
           (insert po)))
       (when file-buffer
