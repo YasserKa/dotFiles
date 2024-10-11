@@ -80,5 +80,11 @@
 	`);
 
   document.getElementsByClassName("mxj")[0].parentElement.remove();
+  const els = document.getElementsByClassName("border_top");
+
+  while (els.length > 0) {
+    els[0].remove();
+  }
+
   $(document.head).append(style);
 })();
