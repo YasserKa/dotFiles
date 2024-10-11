@@ -282,6 +282,8 @@ exec_always --no-startup-id feh --no-fehbg --bg-scale `find $HOME/Pictures/WallP
 # Composer for fading affect on window focus and opacity
 exec --no-startup-id picom & disown
 
+exec_always --no-startup-id autotiling --limit 2 -e WINDOW_FOCUS -sr 1.61
+
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 

@@ -236,6 +236,7 @@ libreoffice-fresh # LibreOffice branch which contains new features and program e
 
 i3-wm # A fork of i3wm tiling window manager with more features, including gaps
 i3lock # Improved screenlocker based upon XCB and PAM
+autotiling # Automatically switch window split orientation in i3 and sway
 perl-anyevent-i3 # Communicate with the i3 window manager
 xorg-server # Xorg X server
 xorg-xev # Print contents of X events
