@@ -155,6 +155,7 @@ fps() {
 	grc --colour=on ps --user "$USER" -o ppid,pid,stime,etime,args | sed 1d \
 		| fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
 		--preview 'grc --colour=on ps -F {2} | sed 1d' \
+		--bind "ctrl-r:reload(grc --colour=on ps --user $USER -o ppid,pid,stime,etime,args | sed 1d)" \
 		--bind 'alt-t:change-preview-window(down|hidden)' | awk '{print $2}'
 	}
 
