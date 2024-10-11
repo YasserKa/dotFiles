@@ -16,15 +16,19 @@ trap cleanup EXIT
 tput civis
 
 get_time() {
-	local -r SECONDS="$1"
-  date -d@"$SECONDS" -u +%M:%S
+  local -r SECONDS="$1"
+  if [[ $((SECONDS/60)) -ge 60 ]]; then
+    date -d@"$SECONDS" -u +%H:%M:%S
+  else
+    date -d@"$SECONDS" -u +%M:%S
+  fi
 }
 
 
 main() {
-	local -r SECONDS="$1"
-	local SECONDS_LEFT="$1"
-	echo -e "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
+  local -r SECONDS="$1"
+  local SECONDS_LEFT="$1"
+  echo -e "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
 
   while [ "$SECONDS_LEFT" -gt 0 ]; do
     echo -ne "Left: $(get_time "$SECONDS_LEFT")  Elapsed: $(get_time "$((SECONDS-SECONDS_LEFT))")\033[0K\r"
