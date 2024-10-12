@@ -1,15 +1,28 @@
 #!/usr/bin/env python
+#
+# Archive a web page to web.archive.org, archive.ph, and ghostarchive.org
 
 import sys
+import os
 
 from requests import get
 from requests.exceptions import HTTPError, RequestException
 
+import threading
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+
 TIMEOUT = 30
 MAX_TRIES = 3
 
+# Kill chromedriver if it didn't exit from the last script execution
+os.system("pkill chromedriver")
+XDG_CONFIG_HOME=os.environ['XDG_CONFIG_HOME']
+executable_path = f"{XDG_CONFIG_HOME}/google-chrome/chromedriver"
 
-def archive_web_page(url, tries=0):
+def archive_to_waybackmachine(url, tries=0):
     api_url = f"http://web.archive.org/save/{url}"
     available_api_url = f"http://archive.org/wayback/available?url={url}"
 
@@ -25,20 +38,94 @@ def archive_web_page(url, tries=0):
         if response.status_code == 200:
             snapshots = response.json().get("archived_snapshots", {})
             if not snapshots:
-                print("Page not archived, trying again")
+                show_message("Page not archived, trying again")
                 if tries < MAX_TRIES:
-                    return archive_web_page(url, tries + 1)
+                    return archive_to_waybackmachine(url, tries + 1)
                 else:
-                    raise RequestException(f"Max retries reached. Couldn't archive {url}")
+                    show_message(f"Max retries reached. Couldn't archive {url} to waybackmachine")
 
-        print("Web page archived successfully!")
+        show_message("Archived to waybackmachine")
 
     except (RequestException, HTTPError) as e:
         if tries < MAX_TRIES:
-            print(f"Error: {e}. Retrying {tries+1}/{MAX_TRIES}")
-            return archive_web_page(url, tries + 1)
-        raise RequestException(f"Failed to archive {url} after {MAX_TRIES} attempts.")
+            show_message(f"Error: {e}. Retrying {tries+1}/{MAX_TRIES}")
+            return archive_to_waybackmachine(url, tries + 1)
+        show_message(f"Failed to archive {url} to waybackmachine after {MAX_TRIES} attempts.")
 
+def show_message(message):
+    # Show message in Qutebrowser
+    if 'QUTE_FIFO' in os.environ:
+        with open(os.environ['QUTE_FIFO'], 'w') as fifo:
+            fifo.write(f"message-info '{message}'" + '\n')
+            fifo.flush()
+    else:
+        print(message)
+
+def archive_to_today(driver, link):
+    driver.get(f"https://archive.ph/")
+    WebDriverWait(driver, 10).until(
+        lambda x: len(x.find_elements(By.CSS_SELECTOR, '#submiturl'))
+        > 0
+    )
+
+    driver.find_element(By.CSS_SELECTOR, '#submiturl  input[id=url]').send_keys(link)
+    driver.find_element(By.CSS_SELECTOR, '#submiturl  input[type=submit]').click()
+
+    WebDriverWait(driver, 5*60).until(
+        lambda x: len(x.find_elements(By.ID, 'HEADER'))
+        > 0
+    )
+
+    # If it's archived, archive it again
+    if len(driver.find_elements(By.ID, 'DIVALREADY2')) >= 1:
+        driver.find_element(By.CSS_SELECTOR, '#DIVALREADY2 input[type=submit]').click()
+        WebDriverWait(driver, 5*60).until(
+            lambda x: len(x.find_elements(By.ID, 'HEADER'))
+            > 0
+        )
+
+    if len(driver.find_elements(By.ID, 'HEADER')) == 0:
+        show_message("Page not archived to archive.ph")
+
+    show_message("archived to archive today")
+
+def archive_to_ghost(driver, link):
+    driver.get('https://ghostarchive.org/')
+    WebDriverWait(driver, 10).until(
+        lambda x: len(x.find_elements(By.ID, 'archive'))
+        > 0
+    )
+
+    driver.find_element(By.ID, 'archive').send_keys(link)
+    driver.find_element(By.CSS_SELECTOR, '#archive ~ input[type=submit]').click()
+
+    WebDriverWait(driver, 5*60).until(
+        lambda x: len(x.find_elements(By.XPATH, './/noscript'))
+        > 0
+    )
+    show_message("Archived to ghostarchive")
+    driver.close()
+
+def main(link):
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36")
+    options.add_argument("binary_location=/bin/google-chrome-stable")
+
+    driver1 = webdriver.Chrome(
+        service=Service(executable_path=executable_path), options=options
+    )
+    driver2 = webdriver.Chrome(
+        service=Service(executable_path=executable_path), options=options
+    )
+    threads_args=[
+        [archive_to_today, [driver1, link]],
+        [archive_to_ghost, [driver2, link]],
+        [archive_to_waybackmachine, [link]],
+    ]
+
+    for args in threads_args:
+        threading.Thread(target=args[0], args=(args[1])).start()
 
 
 if len(sys.argv) < 2:
@@ -46,4 +133,4 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 # Archive the web page
-archive_web_page(sys.argv[1])
+main(sys.argv[1])
