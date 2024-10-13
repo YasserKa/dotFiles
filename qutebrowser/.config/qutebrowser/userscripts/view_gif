@@ -9,5 +9,8 @@ trap 'rm $tmp_file' EXIT
 
 link="$(pup 'img attr{src}' --file <(echo "$QUTE_SELECTED_HTML"))"
 
+url_root="$(echo "$QUTE_URL" | cut -d '/' -f -3)"
+[[ "${link:0:4}" != 'http' ]] && link="${url_root}${link}" 
+
 wget  -O "$tmp_file" "$link"
 mpv --x11-name=floating "$tmp_file" --autofit=640x480 --loop-file=inf 
