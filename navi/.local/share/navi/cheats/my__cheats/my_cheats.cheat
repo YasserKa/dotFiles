@@ -119,6 +119,15 @@ diff <(<cmd1>) <(<cmd2>)
 # Fancy diff the output of two commands
 diff -u <(<cmd1>) <(<cmd2>) | delta
 
+# https://stackoverflow.com/questions/1094760/network-tools-that-simulate-slow-network-connection
+# Add bad network simulation
+sudo tc qdisc add dev <dev> root netem delay 10000ms
+
+# Remove bad network simulation
+sudo tc qdisc del dev <dev> root netem delay 10000ms
+
+$dev: ip neigh show | awk '{print $3}' | fzf --select-1
+
 # Backup
 rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exclude="chromium" --exclude=".cache" --exclude="Music" --exclude="VirtualBox" $HOME /run/media/yasser/YASSER/backup; alert_last
 
