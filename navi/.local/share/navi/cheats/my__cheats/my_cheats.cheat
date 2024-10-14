@@ -113,6 +113,13 @@ $EDITOR <dirty_files>
 
 $dirty_files: cat <(git diff --name-only) <(git diff --name-only --staged) <(git ls-files -o --exclude-standard) | xargs -I{} echo $(git rev-parse --show-toplevel)/{} --- --multi --expand
 
+# Compress files
+
+mkdir <file_name> && cp <files_to_compress> <file_name> && zip -r <file_name>.zip <file_name>
+
+$file_name:
+$files_to_compress: fd --- --multi --expand
+
 # Diff the output of two commands
 diff <(<cmd1>) <(<cmd2>)
 

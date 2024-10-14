@@ -179,7 +179,6 @@ openresolv # resolv.conf management framework (resolvconf)
 xclip # Command line interface to the X11 clipboard
 xsel # Another X clipboard, needed for zsh-system-clipboard to work
 xdotool # Command-line X11 automation tool
-xmacro # Recording and replaying keyboard and mouse events on X
 copyq # Clipboard manager
 downgrade # Downgrad packages in cache or Archive
 
