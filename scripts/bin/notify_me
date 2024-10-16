@@ -16,26 +16,11 @@ from selenium.webdriver.support.wait import WebDriverWait
 # used by dunstify/dunst
 APP_NAME = "notify-me"
 
-URL_DISCORD = "https://discordapp.com/channels/@me"
-URL_WHATS_APP = "https://web.whatsapp.com/"
-URL_FACEBOOK = "https://www.facebook.com/"
-
-# Kill chromedriver if it didn't exit from the last script execution
-os.system("pkill chromedriver")
-driver = None
-
-executable_path = "/home/yasser/.config/google-chrome/chromedriver"
-profile_path = "/home/yasser/.config/google-chrome/notify_me_profile"
-
-discord = "  Discord"
-facebook = "  Facebook"
-reddit = "  Reddit"
-whatsapp = "  Whatsapp"
-
-
 # flake8: max-line-length = 88
 # flake8: extend-ignore = E203
 def check_discord(driver):
+    URL_DISCORD="https://discordapp.com/channels/@me"
+
     driver.get(URL_DISCORD)
     WebDriverWait(driver, 10).until(
         lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(), "Friends")]'))
@@ -57,7 +42,7 @@ def check_discord(driver):
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
-        send_notification(discord, URL_DISCORD)
+        send_notification("  Discord" , URL_DISCORD)
 
 
 def send_notification(notification_text, url):
@@ -72,6 +57,8 @@ def send_notification(notification_text, url):
 
 
 def check_facebook(driver):
+    URL_FACEBOOK = "https://www.facebook.com/"
+
     driver.get(URL_FACEBOOK)
     WebDriverWait(driver, 5).until(
         lambda x: len(
@@ -88,12 +75,14 @@ def check_facebook(driver):
     notificaiton_exists = len(notificaitons_el) > 0
 
     if notificaiton_exists:
-        send_notification(facebook, URL_FACEBOOK)
+        send_notification("  Facebook", URL_FACEBOOK)
 
 
 def check_whatsapp(driver):
+    URL_WHATS_APP = "https://web.whatsapp.com/"
+
     driver.get(URL_WHATS_APP)
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, 60).until(
         lambda x: len(
             x.find_elements(By.XPATH, './/*[contains(text(),"WhatsApp Web")]')
         )
@@ -145,21 +134,34 @@ def check_whatsapp(driver):
     )
 
     if unread_messages_missed_callexist:
-        send_notification(whatsapp, URL_WHATS_APP)
+        send_notification("  Whatsapp" , URL_WHATS_APP)
 
 
 def main():
-    global driver
+    # Kill chromedriver if it didn't exit from the last script execution
+    os.system("pkill chromedriver")
+
+    XDG_CONFIG_HOME=os.environ['XDG_CONFIG_HOME']
+    executable_path = f"{XDG_CONFIG_HOME}/google-chrome/chromedriver"
+    profile_path = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile"
+    # Used for another whatsapp account
+    profile_path_1 = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile_l"
+
     options = webdriver.ChromeOptions()
     options.add_argument("user-data-dir=" + profile_path)
-    options.add_argument("--headless=new")
-
+    # options.add_argument("--headless=new")
     options.add_argument("binary_location=/bin/google-chrome-stable")
+
     driver = webdriver.Chrome(
         service=Service(executable_path=executable_path), options=options
     )
-
     try:
+        check_whatsapp(driver)
+
+        options.add_argument("user-data-dir=" + profile_path_1)
+        driver = webdriver.Chrome(
+            service=Service(executable_path=executable_path), options=options
+        )
         check_whatsapp(driver)
     except TimeoutException:
         pass
