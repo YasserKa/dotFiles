@@ -13,13 +13,12 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
-# used by dunstify/dunst
+# Used by dunstify/dunst
 APP_NAME = "notify-me"
 
-# flake8: max-line-length = 88
-# flake8: extend-ignore = E203
+
 def check_discord(driver):
-    URL_DISCORD="https://discordapp.com/channels/@me"
+    URL_DISCORD = "https://discordapp.com/channels/@me"
 
     driver.get(URL_DISCORD)
     WebDriverWait(driver, 10).until(
@@ -42,7 +41,7 @@ def check_discord(driver):
     notificaiton_exists = len(notificaitons_el) > 0 or len(discord_servers) > 0
 
     if notificaiton_exists:
-        send_notification("  Discord" , URL_DISCORD)
+        send_notification("  Discord", URL_DISCORD)
 
 
 def send_notification(notification_text, url):
@@ -134,14 +133,11 @@ def check_whatsapp(driver):
     )
 
     if unread_messages_missed_callexist:
-        send_notification("  Whatsapp" , URL_WHATS_APP)
+        send_notification("  Whatsapp", URL_WHATS_APP)
 
 
 def main():
-    # Kill chromedriver if it didn't exit from the last script execution
-    os.system("pkill chromedriver")
-
-    XDG_CONFIG_HOME=os.environ['XDG_CONFIG_HOME']
+    XDG_CONFIG_HOME = os.environ["XDG_CONFIG_HOME"]
     executable_path = f"{XDG_CONFIG_HOME}/google-chrome/chromedriver"
     profile_path = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile"
     # Used for another whatsapp account

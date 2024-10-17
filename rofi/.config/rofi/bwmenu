@@ -9,7 +9,6 @@ BW_HASH=
 # Options
 CLEAR=$DEFAULT_CLEAR # Clear password after N seconds (0 to disable)
 SHOW_PASSWORD=no # Show part of the password in the notification
-AUTO_LOCK=9999999 # 15 minutes, default for bitwarden apps
 
 # Holds the available items in memory
 ITEMS=
@@ -287,11 +286,6 @@ parse_cli_arguments() {
 					  --version
 					      Show version information and exit.
 
-					  --auto-lock <SECONDS>
-					      Automatically lock the Vault <SECONDS> seconds after last unlock.
-					      Use 0 to lock immediatly.
-					      Default: 900 (15 minutes)
-
 					  -c <SECONDS>, --clear <SECONDS>, --clear=<SECONDS>
 					      Clear password from clipboard after this many seconds.
 					      Defaults: ${DEFAULT_CLEAR} seconds.
@@ -320,10 +314,6 @@ parse_cli_arguments() {
 				echo "$NAME $VERSION"
 				shift
 				exit 0
-				;;
-			--auto-lock)
-				AUTO_LOCK=$2
-				shift 2
 				;;
 			-c | --clear)
 				CLEAR="$2"
