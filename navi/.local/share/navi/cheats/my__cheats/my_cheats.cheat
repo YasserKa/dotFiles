@@ -43,20 +43,20 @@ systemctl list-timers --user
 
 # Create patch
 diff -u <old> <new> > patch.patch
-$old: fd 
-$new: fd 
+$old: fd --type f --- --expand --preview "bat -n --color=always {}"
+$new: fd --type f --- --expand --preview "bat -n --color=always {}"
 
 # Apply patch
 patch <code> <patch>
-$code: fd 
-$patch: fd 
+$code: fd --type f --- --expand --preview "bat -n --color=always {}"
+$patch: fd --type f --- --expand --preview "bat -n --color=always {}"
 
 % Documents
 
 # Convert MOBI to PDF
 ebook-convert "<file>" "<file_name>.pdf"
 
-$file: fd
+$file: fd --regex '.*.mobi' --- --preview "bat -n --color=always {}"
 $file_name: echo ${file%.mobi}
 
 # Merge PDF files
@@ -65,9 +65,7 @@ pdfunite <in_files> "<out_file>.pdf"
 # Decrypt PDF file
 qpdf --decrypt <in_files> --replace-input
 
-$in_files: fd --regex '.*.pdf' --- --multi --expand
-$out_file:
-
+$in_files: fd --regex '.*.pdf' --- --multi --expand --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 
 % Zsh
 # Start without rc
@@ -92,7 +90,7 @@ yt-dlp --split-chapters --download-archive "$HOME/Music/archive" --ignore-errors
 # Filetype and default application
 echo "<_file>\n<file_type>\n<default_app>"
 
-$_file: fd --type f
+$_file: fd --type f --- --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 $file_type: xdg-mime query filetype ${_file}
 $default_app: xdg-mime query default ${file_type}
 
@@ -100,7 +98,7 @@ $default_app: xdg-mime query default ${file_type}
 kdeconnect-cli -n "<device>" --share "<file>"
 
 $device: kdeconnect-cli -a --name-only
-$file: fd 
+$file: fd --- --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 
 # Bluetooth GUI
 blueman-manager
@@ -118,7 +116,7 @@ $dirty_files: cat <(git diff --name-only) <(git diff --name-only --staged) <(git
 mkdir <file_name> && cp <files_to_compress> <file_name> && zip -r <file_name>.zip <file_name>
 
 $file_name:
-$files_to_compress: fd --- --multi --expand
+$files_to_compress: fd --- --multi --expand --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 
 # Diff the output of two commands
 diff <(<cmd1>) <(<cmd2>)
@@ -133,7 +131,7 @@ sudo tc qdisc add dev <dev> root netem delay 10000ms
 # Remove bad network simulation
 sudo tc qdisc del dev <dev> root netem delay 10000ms
 
-$dev: ip neigh show | awk '{print $3}' | fzf --select-1
+$dev: ip neigh show | awk '{print $3}' | fzf --select-1 
 
 # Backup
 rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exclude="chromium" --exclude=".cache" --exclude="Music" --exclude="VirtualBox" $HOME /run/media/yasser/YASSER/backup; alert_last
