@@ -250,6 +250,7 @@ c.aliases = {
     "h": "help -t",
     "H": "help -w",
     "archive_page": "spawn --userscript ~/bin/archive_web_page {url}",
+    "new_reddit": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_new_reddit {url}",
     "gotoarchive_page": "open -t https://web.archive.org/{url}",
     "gotoarchive_page_today": "open -t https://archive.ph/newest/{url}",
     "gotoarchive_page_ghost": "open -t https://ghostarchive.org/search?term={url}",

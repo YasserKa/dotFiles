@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Go to new reddit website
+
+URL="$QUTE_URL"
+
+URL_ROOT="$(echo "$URL" | awk -F '/' '{print $3}')"
+
+if [[ "$URL_ROOT" == "www.reddit.com" ]]; then
+	NEW_URL="$(awk -F '/' '{printf $1 "//new.reddit.com"; for(i=4;i<=NF;++i) printf "/" $i}' <(echo "$URL"))"
+	dunstify "${NEW_URL}"
+	echo "open $NEW_URL" >>"$QUTE_FIFO"
+fi
+
