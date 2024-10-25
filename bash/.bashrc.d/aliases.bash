@@ -96,8 +96,8 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
 
 # SSH setup
-# shellcheck disable=SC2048,SC2086
-ssh() { command ssh $* -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
+ssh() { command ssh "$@" -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
+mosh() { command mosh --ssh="ssh" "$@" -- bash -c 'export yasser_config_env=1; TERM=xterm-256color; exec bash -login'; }
 ssh_config_setup() { make --file "$DOTFILES_DIR"/instance_setup/Makefile --keep-going move_config_to_server "host=$*"; }
 
 # misc

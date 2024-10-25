@@ -288,6 +288,7 @@ showmethekey # screenkey alternative; works for Wayland and X
 keychain # agent for gpg & ssh keys
 rsync # A fast and versatile file copying tool for remote and local files
 sshfs # FUSE client based on the SSH File Transfer Protocol
+mosh # Mobile shell, surviving disconnects
 wget # Network utility to retrieve files from the Web
 nftables # Netfilter tables userspace tools
 dosfstools # Fromatting fat32 partitions
