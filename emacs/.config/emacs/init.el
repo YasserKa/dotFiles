@@ -887,6 +887,8 @@ does not have to do this by oneself."
   )
 
 (use-package evil-tex
+  ;; Needed otherwise package throws an error: AUCTeX-version variable is void
+  :requires (auctex)
   :after (:any org latex)
   :hook ((org-mode . evil-tex-mode)
          (LaTeX-mode . evil-tex-mode)
