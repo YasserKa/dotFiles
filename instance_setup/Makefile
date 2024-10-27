@@ -24,12 +24,6 @@ clipboard:
 	@echo "Setting up clipboard sharing"
 	@yes | sudo apt install xclip
 	@echo -e "Need following /etc/ssh/sshd_config settings
-X11Forwarding yes
-X11DisplayOffset 10
-X11UseLocalhost yes
-
-Use ssh -CY
-	"
 
 vim:
 	@echo "Setting up vim"
