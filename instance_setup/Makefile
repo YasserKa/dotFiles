@@ -3,7 +3,7 @@
 SHELL=/bin/bash
 config_path=~/.yasser_rc
 
-all: bash vim
+all: bash
 
 move_config_to_server:
 	@# Expand files starting with a dot
@@ -25,11 +25,6 @@ clipboard:
 	@yes | sudo apt install xclip
 	@echo -e "Need following /etc/ssh/sshd_config settings
 
-vim:
-	@echo "Setting up vim"
-	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > /dev/null 2>&1 
-	@vim -u ~/.yasser_rc/.vimrc +'PlugInstall --sync' +qa > /dev/null 2>&1 
 
 jupyter:
 	@echo "Setting up jupyter"

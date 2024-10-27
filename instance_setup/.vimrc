@@ -1,25 +1,18 @@
-call plug#begin('~/.vim/plugged')
-Plug 'ojroques/vim-oscyank'
-call plug#end()
+syntax on
+set confirm  " Confirm :q in case of unsaved changes
+set modeline " Don't disable modeline
 
 noremap ; :
 noremap : ;
-set confirm                   " Confirm :q in case of unsaved changes
 
 " Cursor block (normal) & line (insert)
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-autocmd TextYankPost *
-    \ if v:event.operator is 'y' && v:event.regname is '' |
-    \ execute 'OSCYankRegister' |
-    \ endif
-
-let g:oscyank_term = 'default'
-
-let g:oscyank_silent = v:true  " or 1 for older versions of Vim
-
-colorscheme delek
+augroup Osc52Yank
+    autocmd!
+    autocmd TextYankPost * if len(v:event.regcontents[0]) > 1 || len(v:event.regcontents) > 1 | call system("printf $'\\e]52;c;%s\\a' \"$(cat | base64)\" >> /dev/tty", v:event.regcontents) | endif
+augroup END
 
 " Fix indentation problem in tmux
 " https://vi.stackexchange.com/questions/23110/pasting-text-on-vim-inside-tmux-breaks-indentation
