@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+BACKUP_DIR="${1-./docker_volume_backups}"
+mkdir -p "$BACKUP_DIR"
+
+containers=$(docker ps --format '{{.Names}}')
+
+for container in $containers; do
+    echo "Backing up volumes for container: $container"
+    
+    container_backup_dir="$BACKUP_DIR/$container"
+    mkdir -p "$container_backup_dir"
+
+    # Get mounted volumes for the container
+    mounts=$(docker inspect --format '{{range .Mounts}}{{.Destination}} {{end}}' "$container")
+
+    # Loop through each mount point
+    for mount in $mounts; do
+        echo "Copying from $container:$mount to $container_backup_dir"
+        
+        docker cp "$container:$mount" "$container_backup_dir/"
+    done
+done
+
+echo "Backup complete!"
