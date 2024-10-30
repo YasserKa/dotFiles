@@ -300,6 +300,7 @@ net-tools # Configuration tools
 transmission-gtk # BitTorren client
 firewalld # Firewall daemon with D-Bus interface
 nmap # Utility for network discovery and security auditing
+bind # Provides dig for DNS lookup utility
 
 # Virtualization
 qemu-full # Full QEMU setup
@@ -334,7 +335,8 @@ grim    # Screenshot utility for Wayland
 slurp   # Selection a region in Wayland
 wf-recorder # Screen recorder for wlroots-based compositors
 
-docker # Container
+docker # Containers
+docker-compose
 docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
 
 pcmanfm # Default file manager for GNOME
