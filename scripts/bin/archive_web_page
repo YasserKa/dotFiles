@@ -108,15 +108,19 @@ def archive_to_ghost(driver, link):
 
 
 def main(link):
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless=new")
-    options.add_argument("binary_location=/bin/google-chrome-stable")
+    options1 = webdriver.ChromeOptions()
+    options1.add_argument("user-data-dir=/tmp/selenium_chrome_profile1")
+    options1.add_argument("binary_location=/bin/google-chrome-stable")
 
     driver1 = webdriver.Chrome(
-        service=Service(executable_path=executable_path), options=options
+        service=Service(executable_path=executable_path), options=options1
     )
+
+    options2 = webdriver.ChromeOptions()
+    options2.add_argument("user-data-dir=/tmp/selenium_chrome_profile2")
+    options2.add_argument("binary_location=/bin/google-chrome-stable2")
     driver2 = webdriver.Chrome(
-        service=Service(executable_path=executable_path), options=options
+        service=Service(executable_path=executable_path), options=options2
     )
     threads_args = [
         [archive_to_today, [driver1, link]],

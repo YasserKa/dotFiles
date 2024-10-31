@@ -98,6 +98,7 @@ assign [class="Chromium"] workspace $wp9
 
 # For notify_me script
 for_window [instance="notify_me_profile"] move scratchpad
+for_window [instance="selenium_chrome_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
 
 # Making softwares in floating mode
