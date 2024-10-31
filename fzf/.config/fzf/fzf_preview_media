@@ -38,7 +38,7 @@ main() {
 			-scale-to-y -1 \
 			-singlefile \
 			-jpeg -tiffcompression jpeg \
-			-- "${1}" "$IMAGE_CACHE_PATH"
+			-- "${1}" "$IMAGE_CACHE_PATH" 2>/dev/null
 		wait
 		set -- "${IMAGE_CACHE_PATH}.jpg"
 		MIME_TYPE="image/jpeg"
@@ -81,6 +81,7 @@ main() {
 		return
 	fi
 
+	[[ $IS_NAVI ]] && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES-6))
 	case "$MIME_TYPE" in
 		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
 		text/*) bat -n --color=always "$1" ;;

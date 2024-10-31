@@ -65,7 +65,7 @@ pdfunite <in_files> "<out_file>.pdf"
 # Decrypt PDF file
 qpdf --decrypt <in_files> --replace-input
 
-$in_files: fd --regex '.*.pdf' --- --multi --expand --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
+$in_files: fd --regex '.*.pdf' --- --multi --expand --preview "export IS_NAVI=1 $XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 
 % Zsh
 # Start without rc
