@@ -189,6 +189,13 @@
     (nerd-icons-install-fonts))
   )
 
+;; Insert text content using links
+(use-package org-transclusion
+  :after org
+  :hook (org-mode . org-transclusion-mode)
+  :custom (org-transclusion-exclude-elements '(property-drawer planning))
+  )
+
 ;; Unfolding an item with emojis is slow, this package fixes this problem
 ;; (use-package emojify
 ;;   :disabled
