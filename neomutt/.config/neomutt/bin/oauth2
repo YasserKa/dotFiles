@@ -127,6 +127,8 @@ if token["registration"] not in registrations:
         f"and start over."
     )
 registration = registrations[token["registration"]]
+registration["client_id"] = token["client_id"]
+registration["client_secret"] = token["client_secret"]
 
 authflow = token["authflow"]
 if args.authflow:
