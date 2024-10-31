@@ -128,6 +128,9 @@ diff -u <(<cmd1>) <(<cmd2>) | delta
 # Add bad network simulation
 sudo tc qdisc add dev <dev> root netem delay 10000ms
 
+# Get ports: --tcp --udp --listening --processes --numeric
+sudo ss -tulpn
+
 # Remove bad network simulation
 sudo tc qdisc del dev <dev> root netem delay 10000ms
 
