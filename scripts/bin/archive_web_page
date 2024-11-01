@@ -108,6 +108,8 @@ def archive_to_ghost(driver, link):
 
 
 def main(link):
+    # Remove anchors
+    link = link.split("#")[0]
     options1 = webdriver.ChromeOptions()
     options1.add_argument("user-data-dir=/tmp/selenium_chrome_profile1")
     options1.add_argument("binary_location=/bin/google-chrome-stable")
