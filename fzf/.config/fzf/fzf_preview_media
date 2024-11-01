@@ -81,7 +81,9 @@ main() {
 		return
 	fi
 
-	[[ $IS_NAVI ]] && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES-6))
+	# If it's a preview in navi, reduced preview to make it fit
+ 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES-6))
+
 	case "$MIME_TYPE" in
 		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
 		text/*) bat -n --color=always "$1" ;;
