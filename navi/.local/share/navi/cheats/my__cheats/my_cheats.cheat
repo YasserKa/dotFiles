@@ -116,7 +116,8 @@ $dirty_files: cat <(git diff --name-only) <(git diff --name-only --staged) <(git
 
 # Compress files
 
-mkdir <file_name> && cp <files_to_compress> <file_name> && zip -r <file_name>.zip <file_name>
+dir=$(mktemp -d) && cp <files_to_compress> $dir && mv $dir <file_name> && zip -r <file_name>.zip <file_name>
+
 
 $file_name:
 $files_to_compress: fd --- --multi --expand --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
