@@ -77,9 +77,25 @@ main() {
 
 	COMPRESSED_EXT=("a" "ace" "alz" "arc" "arj" "bz" "bz2" "cab" "cpio" "deb" "gz" "jar" "lha" "lz" "lzh" "lzma" "lzo" "rpm" "rz" "t7z" "tar" "tbz" "tbz2" "tgz" "tlz" "txz" "tZ" "tzo" "war" "xpi" "xz" "Z" "zip")
 	if array::contains "$EXTENSION" "${COMPRESSED_EXT[@]}"; then
-		atool --list -- "$1"
-		return
-	fi
+		atool -l ~/archive.zip | awk '/^[[:space:]]*[0-9]+/ {
+    if ($1 != "0" && $1 != "0B") {  # Skip zero-length files
+      size = $1
+      cmd = "echo " size " | numfmt --to=iec-i --suffix=B"
+      cmd | getline hr_size
+      close(cmd)
+      # Align last line correctly
+      if ($4 == "") {
+        $4=$2 " " $3
+        $3=""
+        $2=""
+      }
+      $2=" " $2
+      printf "\033[32m%9s\033[0m %-11s %-7s \033[36m%s\033[0m\n", hr_size, $2, $3, $4
+      {next}
+    }
+	} !/Archive:*/i NF > 1'
+	return
+			fi
 
 	# If it's a preview in navi, reduced preview to make it fit
  	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES-6))
