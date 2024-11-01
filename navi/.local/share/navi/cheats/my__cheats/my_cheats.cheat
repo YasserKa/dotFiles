@@ -106,6 +106,9 @@ blueman-manager
 # Android device mount
 mkdir "$HOME/mnt" && aft-mtp-mount "$HOME/mnt"
 
+# Paste image from clipboard to file
+xclip -selection clipboard -t image/png -o >| ./clipboard.png
+
 # Pick dirty files to open in $EDITOR
 $EDITOR <dirty_files>
 
