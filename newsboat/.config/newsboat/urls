@@ -1,10 +1,19 @@
 https://hnrss.org/frontpage
-https://planet.emacslife.com/atom.xml
-https://terminaltrove.com/new.xml
-https://emacsair.me/feed.xml
-https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml
-https://github.com/kovidgoyal/kitty/releases.atom
-https://github.com/junegunn/fzf/releases.atom
-https://github.com/qutebrowser/qutebrowser/releases.atom
-https://howardism.org/index.xml
-https://neovim.io/news.xml
+"query:Self-host:tags # \"self-host\""
+https://lemmy.world/feeds/c/selfhosted.xml?sort=TopDay self-host !
+https://lemmy.ml/feeds/c/selfhost.xml?sort=TopDay self-host !
+"query:Emacs:tags # \"emacs\""
+https://emacsair.me/feed.xml emacs !
+https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml emacs !
+https://howardism.org/index.xml emacs !
+https://planet.emacslife.com/atom.xml emacs !
+"query:Tools:tags # \"tools\""
+https://www.trackawesomelist.com/awesome-foss/awesome-sysadmin/rss.xml tools !
+https://www.trackawesomelist.com/awesome-selfhosted/awesome-selfhosted/rss.xml tools !
+https://terminaltrove.com/new.xml tools !
+"query:Releases:tags # \"releases\""
+https://github.com/kovidgoyal/kitty/releases.atom realeases !
+https://github.com/junegunn/fzf/releases.atom releases !
+https://github.com/qutebrowser/qutebrowser/releases.atom releases !
+https://neovim.io/news.xml releases !
+https://github.com/dgtlmoon/changedetection.io/releases.atom releases !
