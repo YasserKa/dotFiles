@@ -54,6 +54,28 @@ def archive_to_waybackmachine(url, tries=0):
             f"Failed to archive {url} to waybackmachine after {MAX_TRIES} attempts."
         )
 
+def archive_to_archivebox(url, tries=0):
+    TIMEOUT = 30
+    MAX_TRIES = 3
+    api_url = f"http://archive.home/add?url={url}"
+
+    try:
+        # Attempt to archive the page
+        response = get(api_url, timeout=TIMEOUT)
+        response.raise_for_status()
+
+        if response.status_code == 200:
+            show_message("Archived to archivebox")
+
+    except (RequestException, HTTPError) as e:
+        if tries < MAX_TRIES:
+            show_message(f"Error: {e}. Retrying {tries+1}/{MAX_TRIES}")
+            return archive_to_waybackmachine(url, tries + 1)
+        show_message(
+            f"Failed to archive {url} to archive_to_waybackmachine after {MAX_TRIES} attempts."
+        )
+
+
 
 def show_message(message):
     # Show message in Qutebrowser
@@ -128,6 +150,7 @@ def main(link):
         [archive_to_today, [driver1, link]],
         [archive_to_ghost, [driver2, link]],
         [archive_to_waybackmachine, [link]],
+        [archive_to_archivebox, [link]],
     ]
 
     for args in threads_args:
