@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
+#
+# Backup docker mounted points
+#
+# $1: backup directory
+# $*: name of containers (optional)
 
-BACKUP_DIR="${1-./docker_volume_backups}"
+BACKUP_DIR="${1}"
 mkdir -p "$BACKUP_DIR"
 
-containers=$(docker ps --format '{{.Names}}')
+shift
+containers=${*-$(docker ps --format '{{.Names}}')}
 
 for container in $containers; do
+
     echo "Backing up volumes for container: $container"
     
     container_backup_dir="$BACKUP_DIR/$container"
