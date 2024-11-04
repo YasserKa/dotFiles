@@ -138,7 +138,7 @@ sudo ss -tulpn
 # Remove bad network simulation
 sudo tc qdisc del dev <dev> root netem delay 10000ms
 
-$dev: ip neigh show | awk '{print $3}' | fzf --select-1 
+$dev: ip -o link show up | grep 'state UP' | awk '{print $2}' | sed 's/://' | fzf --select-1
 
 # Backup
 rsync -a --no-links --progress --delete --exclude="paru" --exclude="Slack" --exclude="chromium" --exclude=".cache" --exclude="Music" --exclude="VirtualBox" $HOME /run/media/yasser/YASSER/backup; alert_last
