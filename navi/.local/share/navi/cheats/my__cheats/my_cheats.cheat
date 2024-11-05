@@ -128,15 +128,15 @@ diff <(<cmd1>) <(<cmd2>)
 # Fancy diff the output of two commands
 diff -u <(<cmd1>) <(<cmd2>) | delta
 
+# Get ports: --tcp --udp --listening --processes --numeric
+sudo ss -tulpn
+
 # https://stackoverflow.com/questions/1094760/network-tools-that-simulate-slow-network-connection
 # Add bad network simulation
 sudo tc qdisc add dev <dev> root netem delay 10000ms
 
-# Get ports: --tcp --udp --listening --processes --numeric
-sudo ss -tulpn
-
 # Remove bad network simulation
-sudo tc qdisc del dev <dev> root netem delay 10000ms
+sudo tc qdisc del dev <dev> root netem
 
 $dev: ip -o link show up | grep 'state UP' | awk '{print $2}' | sed 's/://' | fzf --select-1
 
