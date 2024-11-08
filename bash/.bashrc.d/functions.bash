@@ -177,6 +177,14 @@ ferrno() {
 	echo "$err_list" | fzf --ansi --bind "enter:execute-silent(echo {2} | xclip -rmlastnl -selection clipboard)+abort"
 }
 
+# Show country, region, ISP, IPv4, and IPv6
+myip () {
+	CYAN='\033[0;36m'
+	YELLOW='\033[1;33m'
+	curl -s 'http://ip-api.com/json?fields=message,country,city,isp,query' | jq -r '. | to_entries[] | if .key == "query" then "\u001b[0;36mIPv4:\u001b[1;33m \(.value)\u001b[0m" else "\u001b[0;36m\(.key):\u001b[1;33m \(.value)\u001b[0m" end'
+	echo -e "${CYAN}IPv6:${YELLOW} $(curl -s https://v6.ident.me)"
+}
+
 vpn_toggle() {
 	if tailscale exit-node list | grep selected; then
 		tailscale set --exit-node=

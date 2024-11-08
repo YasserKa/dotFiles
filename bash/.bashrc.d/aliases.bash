@@ -102,6 +102,5 @@ ssh_config_setup() { make --file "$DOTFILES_DIR"/instance_setup/Makefile --keep-
 
 # misc
 alias testmail='echo | command neomutt -s "Testing mail" yasser.kaddoura19@gmail.com &> /dev/null'
-alias myip='curl ifconfig.me; echo'
 # Activate virtual env
 alias pdmshell='eval "$(pdm venv activate)"'
