@@ -178,15 +178,13 @@ ferrno() {
 }
 
 vpn_toggle() {
-	local -r CON="$(nmcli connection show | grep "wireguard" | cut -d ' ' -f -1)"
-
-	if [[ $(nmcli connection show --active "$CON" | wc -c) -ne 0 ]]; then
-		# shellcheck disable=2015
-		nmcli connection down "$CON" && notify-send "vpn down" || notify-send "problem with vpn"
+	if tailscale exit-node list | grep selected; then
+		tailscale set --exit-node=
 	else
-		# shellcheck disable=2015
-		nmcli connection up "$CON" && notify-send "vpn up" || notify-send "problem with vpn"
+		tailscale set --exit-node=remote
 	fi
+
+	(($?==1)) && notify-send "VPN not functional"
 }
 
 # Pick tmux sessions using FZF
