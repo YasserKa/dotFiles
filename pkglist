@@ -295,7 +295,7 @@ dosfstools # Fromatting fat32 partitions
 nethogs # A net top tool which displays traffic used per process instead of per IP or interface
 networkmanager # Network connection manager and user applications
 networkmanager-dmenu-git # Control NetworkManager via dmenu
-wireguard-tools # next generation secure network tunnel - tools for configuration
+tailscale # A mesh VPN that makesit easy to connect your devices, wherever they are
 net-tools # Configuration tools
 transmission-gtk # BitTorren client
 firewalld # Firewall daemon with D-Bus interface
