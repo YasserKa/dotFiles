@@ -1271,6 +1271,7 @@ Made for `org-tab-first-hook' in evil-mode."
       "Add icons to links"
       (cond
        ((string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link"))
+       ((string= "roam" orig-fun) (nerd-icons-mdicon "nf-md-text_search"))
        ((string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search"))
        ))
 
