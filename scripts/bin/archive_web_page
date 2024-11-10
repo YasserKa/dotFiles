@@ -57,7 +57,7 @@ def archive_to_waybackmachine(url, tries=0):
 def archive_to_archivebox(url, tries=0):
     TIMEOUT = 30
     MAX_TRIES = 3
-    api_url = f"http://archive.home/add?url={url}"
+    api_url = f"http://archive.home/api/add?url={url}"
 
     try:
         # Attempt to archive the page
