@@ -1,0 +1,10 @@
+# Used by dockercheck to show package releases for outdated docker images
+gotify https://github.com/gotify/server/releases
+caddy https://github.com/caddyserver/caddy/releases
+changedetection ohttps://github.com/dgtlmoon/changedetection.io/releases
+archivebox https://github.com/ArchiveBox/ArchiveBox/releases
+kuma https://github.com/louislam/uptime-kuma/releases
+xback https://github.com/sergix44/XBackBone/releases
+
+headscale https://github.com/juanfont/headscale/releases
+headscale-admin https://github.com/GoodiesHQ/headscale-admin/releases
