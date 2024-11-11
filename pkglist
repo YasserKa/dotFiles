@@ -338,6 +338,8 @@ wf-recorder # Screen recorder for wlroots-based compositors
 docker # Containers
 docker-compose
 docker-buildx # Docker CLI plugin for extended build capabilities with BuildKit
+lazydocker
+regclient-regctl # Utility for accessing docker eregistries - Used by dockercheck
 
 pcmanfm # Default file manager for GNOME
 dua-cli # Disk usage analyzer with an ncurses interface
