@@ -55,7 +55,7 @@ set $wp0 0
 
 # Automatically setup monitor
 exec_always --no-startup-id ~/.config/i3/generate_i3_monitor_setup
-include ./monitor_setup
+include ~/.config/i3/monitor_setup
 
 # Bindsym using mod+# to workspace #
 bindsym $mod+1 workspace $browser
@@ -296,6 +296,7 @@ exec --no-startup-id sleep 3; i3-msg "workspace --no-auto-back-and-forth 1"
 # Manages some key bindings
 exec --no-startup-id autokey-qt & disown
 # Clipboard manager
+for_window [class="^copyq$"] move scratchpad
 exec --no-startup-id copyq & disown && copyq hide
 
 exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
