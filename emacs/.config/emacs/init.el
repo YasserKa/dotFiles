@@ -981,7 +981,10 @@ does not have to do this by oneself."
   ;; Hide title in the header
   (org-hidden-keywords '(title))
   :config
-
+  (use-package helm)
+  (use-package helm-org)
+  (use-package avy)
+  (use-package org-sidebar)
   (require 'ol-man)
   (require 'ol-link-handler)
 
@@ -1897,7 +1900,8 @@ Note: this uses Org's internal variable `org-link--search-failed'."
 (use-package embark-consult)
 
 (use-package embark
-  :bind (("C-." . embark-act))
+  :bind (("C-." . embark-act)
+         ("C-SPC". embark-select))
   :config
 
   (evil-define-key 'normal 'global (kbd "C-.") 'embark-act)
@@ -2004,46 +2008,6 @@ minibuffer ran."
   :after vertico
   :custom (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init (marginalia-mode)
-  )
-
-;; Search text
-(use-package deft
-  :custom
-  (deft-directory notes-dir)
-  (deft-recursive t)
-  (deft-use-filter-string-for-filename t)
-  (deft-default-extension "org")
-  :config
-  ;; Start with insert mode
-  (evil-set-initial-state 'deft-mode 'insert)
-
-  (evil-define-key 'insert deft-mode-map
-    (kbd "C-p") 'previous-line
-    (kbd "C-n") 'next-line
-    (kbd "<escape>") 'quit-window
-    (kbd "C-h") 'deft-filter-decrement
-    (kbd "C-w") 'deft-filter-decrement-word)
-
-  ;; Show the title
-  (defun my/deft-parse-title (file contents)
-    "Parse the given FILE and CONTENTS and determine the title.
-  If `deft-use-filename-as-title' is nil, the title is taken to
-  be the first non-empty line of the FILE.  Else the base name of the FILE is
-  used as title."
-    (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
-      (if begin
-          (string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
-        (deft-base-filename file))))
-
-  (advice-add 'deft-parse-title :override #'my/deft-parse-title)
-
-  ;; Don't show start of org node files
-  (setq deft-strip-summary-regexp
-        (concat "\\("
-                "[\n\t]" ;; blank
-                "\\|^#\\+[[:alpha:]_]+:.*$" ;; org-mode metadata
-                "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
-                "\\)"))
   )
 ;; }}}
 ;; Vim leader / which-key {{{
@@ -2220,7 +2184,6 @@ selection of all minor-modes, active or not."
   (" x" my/scratch-buffer-other "scratch")
   (" h" evil-ex-nohighlight "highlight")
   (" f" find-hydra/body "find")
-  (" d" deft "deft")
   (" e" toggle-plugins/body "toggle plugins")
   (" g" git-hydra/body "git")
   ;; Exit Emacs (1 window) or window (>1 window)
