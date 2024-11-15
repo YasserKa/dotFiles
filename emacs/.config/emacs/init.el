@@ -1817,6 +1817,23 @@ Note: this uses Org's internal variable `org-link--search-failed'."
 
   ;; Add to jump list after visiting a node
   (advice-add 'org-roam-node-find :override #'my/org-roam-node-find)
+
+  (use-package consult-org-roam
+    :ensure t
+    :after org-roam
+    :init
+    (require 'consult-org-roam)
+    (consult-org-roam-mode 1)
+    :custom
+    ;; Use `ripgrep' for searching with `consult-org-roam-search'
+    (consult-org-roam-grep-func #'consult-ripgrep)
+    ;; Configure a custom narrow key for `consult-buffer'
+    (consult-org-roam-buffer-narrow-key ?r)
+    ;; Display org-roam buffers right after non-org-roam buffers
+    ;; in consult-buffer (and not down at the bottom)
+    (consult-org-roam-buffer-after-buffers t)
+:config
+    )
   )
 
 (use-package websocket
@@ -2201,8 +2218,10 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra find-hydra (:exit t :idle 1)
-  (" b" switch-to-buffer "Buffer")
+  (" b" consult-buffer "Buffer")
   (" B" org-cite-insert "BibTex")
+  (" l" consult-line "Line in buffer")
+  (" L" consult-ripgrep "Line in directory")
   )
 
 ;; Git diff, git blame, reset buffer can be added using magit
@@ -2291,10 +2310,10 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra org-roam-hydra (:exit t :idle 1)
-  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node" :column " node")
-  (" i" org-roam-node-insert              "insert node")
-  (" r" org-roam-buffer-toggle            "linked to here")
-  (" R" org-roam-buffer-display-dedicated "linked to a node")
+  (" i" org-roam-node-insert              "insert node" :column " node")
+  (" r" consult-org-roam-backlinks        "links to here")
+  (" R" org-roam-buffer-display-dedicated "links to any node")
+  (" f" consult-org-roam-forward-links    "links from this node")
   (" g" org-roam-ui-mode                  "graph" :column " ")
   (" a" org-roam-alias-add                "add alias")
   (" s" org-roam-db-sync                 "sync")
