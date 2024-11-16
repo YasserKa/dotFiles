@@ -1820,10 +1820,9 @@ Note: this uses Org's internal variable `org-link--search-failed'."
 
   (use-package consult-org-roam
     :ensure t
-    :after org-roam
+    :after (org-roam consult)
     :init
     (require 'consult-org-roam)
-    (consult-org-roam-mode 1)
     :custom
     ;; Use `ripgrep' for searching with `consult-org-roam-search'
     (consult-org-roam-grep-func #'consult-ripgrep)
@@ -1832,7 +1831,10 @@ Note: this uses Org's internal variable `org-link--search-failed'."
     ;; Display org-roam buffers right after non-org-roam buffers
     ;; in consult-buffer (and not down at the bottom)
     (consult-org-roam-buffer-after-buffers t)
-:config
+    :config
+    (consult-customize
+     consult-org-roam-forward-links
+     :preview-key "M-.")
     )
   )
 
@@ -2220,8 +2222,8 @@ selection of all minor-modes, active or not."
 (defhydra find-hydra (:exit t :idle 1)
   (" b" consult-buffer "Buffer")
   (" B" org-cite-insert "BibTex")
-  (" l" consult-line "Line in buffer")
-  (" L" consult-ripgrep "Line in directory")
+  (" t" consult-line "Text in buffer")
+  (" T" consult-ripgrep "Text in directory")
   )
 
 ;; Git diff, git blame, reset buffer can be added using magit
@@ -2310,13 +2312,13 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra org-roam-hydra (:exit t :idle 1)
-  (" i" org-roam-node-insert              "insert node" :column " node")
-  (" r" consult-org-roam-backlinks        "links to here")
-  (" R" org-roam-buffer-display-dedicated "links to any node")
-  (" f" consult-org-roam-forward-links    "links from this node")
-  (" g" org-roam-ui-mode                  "graph" :column " ")
-  (" a" org-roam-alias-add                "add alias")
-  (" s" org-roam-db-sync                 "sync")
+  (" i" org-roam-node-insert                 "insert node" :column " node")
+  (" r" consult-org-roam-backlinks           "links to here")
+  (" R" consult-org-roam-backlinks-recursive "links to here recursive")
+  (" f" consult-org-roam-forward-links       "links from this node")
+  (" g" org-roam-ui-mode                     "graph" :column " ")
+  (" a" org-roam-alias-add                   "add alias")
+  (" s" org-roam-db-sync                     "sync")
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
