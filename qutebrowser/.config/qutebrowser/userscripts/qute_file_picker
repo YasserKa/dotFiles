@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Script used by Qutebrowser's fileselect
+# 
+# $1 path to place file paths
+# $2 command type (directory, file, files)
+
+FILE_PATH="$1"
+
+case "$2" in
+  "directory") fd --type d | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "file") fzf | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "files") fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  *) echo "Only directory, file, & files are valid" ;;
+esac

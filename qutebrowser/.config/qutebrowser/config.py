@@ -309,14 +309,10 @@ c.fonts.web.size.default = 19
 
 # Use ranger for file handling
 c.fileselect.handler = "external"
-c.fileselect.folder.command = ["kitty", "-e", "ranger", "--choosedir={}"]
-c.fileselect.multiple_files.command = [
-    "kitty",
-    "-e",
-    "/home/yasser/.config/qutebrowser/userscripts/ranger_picker_qute",
-    "{}",
-]
-c.fileselect.single_file.command = ["kitty", "-e", "ranger", "--choosefile={}"]
+
+c.fileselect.folder.command = f"kitty -e {os.environ['XDG_CONFIG_HOME']}/qutebrowser/userscripts/qute_file_picker {{}} directory".split()
+c.fileselect.single_file.command = f"kitty -e {os.environ['XDG_CONFIG_HOME']}/qutebrowser/userscripts/qute_file_picker {{}} file".split()
+c.fileselect.multiple_files.command = f"kitty -e {os.environ['XDG_CONFIG_HOME']}/qutebrowser/userscripts/qute_file_picker {{}} files".split()
 
 c.spellcheck.languages = ["en-US"]
 # Open new tabs next to the current one
