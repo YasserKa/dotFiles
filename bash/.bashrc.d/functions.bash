@@ -144,7 +144,8 @@ j() {
 vf() {
 	local file_path
 
-	file_path="$(fasd -flR "$@" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
+	paths="$(fasd -flR "$@")"
+	file_path="$(echo -e "$paths" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
 			--bind "ctrl-alt-d:execute-silent(fasd --delete '{}')+reload(fasd -flR '$*')"
 	)" || return 2
   [[ ! "$file_path" ]] &&	\
