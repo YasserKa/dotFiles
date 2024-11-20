@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Go to awesome tracker list
+
+URL="$QUTE_URL"
+
+URL="$(echo "$URL" | cut -d '/' -f 4-)"
+echo "open https://www.trackawesomelist.com/${URL}/readme" >> "$QUTE_FIFO"
