@@ -20,7 +20,6 @@ pacman --query --owns <file>
 
 # Downgrade pkg
 sudo downgrade <pkg>
-$pkg: pacman --query --explicit --quiet
 
 # Remove not installed AUR pkgs from cache
 paru -Scad
@@ -33,6 +32,11 @@ paru -Sccad
 
 # Remove all Official pkgs from cache
 sudo pacman -Scc
+
+# Remove an official package from cache
+paccache -r <pkg>
+
+$pkg: pacman --query --explicit --quiet
 
 % Systemd
 
