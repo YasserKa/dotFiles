@@ -29,12 +29,14 @@ set keyseq-timeout 0
 
 # Vi mode
 set editing-mode vi
-# Show vim mode using the cursor
-set show-mode-in-prompt on
-# Vertical bar
-set vi-ins-mode-string \1\e[6 q\2
-# Block
-set vi-cmd-mode-string \1\e[2 q\2
+## Show vim mode using the cursor
+# Disabled because it missbehaves lnav
+# https://github.com/tstack/lnav/issues/1341
+#set show-mode-in-prompt on
+## Vertical bar
+#set vi-ins-mode-string \1\e[6 q\2
+## Block
+#set vi-cmd-mode-string \1\e[2 q\2
 
 "\C-l": clear-screen
 
