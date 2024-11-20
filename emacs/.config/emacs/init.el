@@ -2221,6 +2221,7 @@ selection of all minor-modes, active or not."
 
 (defhydra find-hydra (:exit t :idle 1)
   (" b" consult-buffer "Buffer")
+  (" f" find-file "File")
   (" B" org-cite-insert "BibTex")
   (" t" consult-line "Text in buffer")
   (" T" consult-ripgrep "Text in directory")
