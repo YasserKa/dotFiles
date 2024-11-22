@@ -259,6 +259,19 @@ return {
     end,
   },
   { "https://github.com/tpope/vim-unimpaired", lazy = false },
+  {
+    "https://github.com/ColinKennedy/cursor-text-objects.nvim",
+    lazy = false,
+    config = function()
+      local down_description = "Operate from your current cursor to the end of some text-object."
+      local up_description = "Operate from the start of some text-object to your current cursor."
+
+      vim.keymap.set("o", "[", "<Plug>(cursor-text-objects-up)", { desc = up_description })
+      vim.keymap.set("o", "]", "<Plug>(cursor-text-objects-down)", { desc = down_description })
+      vim.keymap.set("x", "[", "<Plug>(cursor-text-objects-up)", { desc = up_description })
+      vim.keymap.set("x", "]", "<Plug>(cursor-text-objects-down)", { desc = down_description })
+    end,
+  },
   { "https://github.com/tpope/vim-repeat", lazy = false }, -- Used to repeat vim-unimpaired actions
   {
     "https://github.com/folke/todo-comments.nvim",
