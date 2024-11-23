@@ -814,8 +814,7 @@ does not have to do this by oneself."
   :custom
   (evil-collection-magit-use-y-for-yank t)
   ;; Disabled because of a bug
-  ;; https://github.com/emacs-evil/evil-collection/issues/831
-  (evil-collection-magit-want-horizontal-movement nil)
+  (evil-collection-magit-want-horizontal-movement t)
   ;; Update return in repo list, should be done after evil-collection
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   (magit-repository-directories '(("$DOTFILES_DIR" . 0)))
