@@ -8,8 +8,8 @@
 FILE_PATH="$1"
 
 case "$2" in
-  "directory") fasd -dlR | fd --type d | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
-  "file") fasd -flR | fzf | xargs -I {} realpath {} > "$FILE_PATH" ;;
-  "files") fasd -flR | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "directory") fd --hidden --type d | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "file") fd --hidden --type f | fzf | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "files") fd --hidden --type f | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
   *) echo "Only directory, file, & files are valid" ;;
 esac
