@@ -33,10 +33,13 @@ check_bluetooth_devices_battery() {
   do
     dev_mac=$(echo "$dev" | cut -d' ' -f2)
     dev_name=$(echo "$dev" | cut -d' ' -f3-)
-    dev_battery=$(echo "info $dev_mac" | bluetoothctl | sed -n '/Battery Percentage:/ s/.*(\([0-9]*\).*/\1/p')
+
+    upower --dump | grep --silent "$dev_mac" || continue
+
+    dev_battery="$(upower --dump | awk -v mac="$dev_mac" ' $1 == "serial:" && $2 == mac { found=1 } found && $1 == "percentage:" { sub(/%/, "", $2); print $2; exit }')"
 
     # During connection, the battery doesn't exist
-    [[ ! $dev_battery ]] && exit 0
+    [[ -z $dev_battery ]] && exit 0
 
     [[ "$dev_battery" -le $BATTERY_THRESHOLD ]] && send_notification "$dev_name: $dev_battery%"
   done
