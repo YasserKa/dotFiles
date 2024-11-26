@@ -1749,6 +1749,9 @@ Note: this uses Org's internal variable `org-link--search-failed'."
                             (evil-define-key 'normal 'evil-org-mode
                               (kbd "zi")  #'org-toggle-inline-images
                               (kbd "<C-SPC>") 'org-cycle
+                              ;; <S-TAB>
+                              (kbd "<backtab>") 'org-fold-hide-subtree
+                              (kbd "<C-tab>") 'org-shifttab
                               (kbd "zl")  #'org-latex-preview
                               ;; Open files at cursor
                               (kbd "gx") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
