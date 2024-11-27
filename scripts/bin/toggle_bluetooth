@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#
+# Toggle bluetooth device
+
+rfkill --json | jq -r '.[] .[] | select(.type == "bluetooth" and .soft=="blocked" )' | grep -q . \
+  && rfkill unblock bluetooth \
+  || rfkill block bluetooth
