@@ -15,6 +15,7 @@ pre-install-packages:
 	@mkdir -p $(HOME)/Pictures
 	@mkdir -p $(XDG_DATA_HOME)/applications
 	@mkdir -p $(XDG_CONFIG_HOME)/systemd/user
+	@mkdir -p $(XDG_CONFIG_HOME)/autorandr
 	@mkdir -p $(XDG_CONFIG_HOME)/cmus
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav
 	@mkdir -p $(XDG_CONFIG_HOME)/copyq

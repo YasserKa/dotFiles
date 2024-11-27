@@ -1,0 +1,308 @@
+# http://i3wm.org/dcs/userguide.html
+# vim:nospell:foldmarker=<<<,>>>:filetype=i3config
+# Gaps <<<
+for_window [all] border pixel 0
+
+gaps inner 5
+gaps outer 5
+# >>>
+# Workspaces <<<
+set $mod Mod4
+
+font pango:Inconsolata 14
+# Openning new containers horizontally
+default_orientation horizontal
+
+# Change focus
+bindsym $mod+j exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus down
+bindsym $mod+k exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus up
+bindsym $mod+l exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus right
+bindsym $mod+h exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh focus left
+
+# Move focused window
+# There's a bug in i3 that doesn't focus the container after it moves to another
+# screen, this script centers the mouse to the moved window mitigating the bug
+# The reason for the bug is that the mouse is placed ontop of the container
+# that's not being moved from one workspace to another
+bindsym $mod+Shift+j exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move down
+bindsym $mod+Shift+k exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move up
+bindsym $mod+Shift+l exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move right
+bindsym $mod+Shift+h exec --no-startup-id $XDG_CONFIG_HOME/i3/i3-center-cursor-on-window.sh move left
+
+# Split in horizontal orientation
+bindsym $mod+v split horizontal
+
+# Split in vertical orientation
+bindsym $mod+Shift+v split vertical
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Worspaces
+set $browser 1
+set $coding 2
+set $notes 3
+set $git 4
+set $video 5
+set $wp6 6
+set $social 7
+set $documents 8
+set $wp9 9
+set $wp0 0
+
+# Automatically setup monitor
+# exec_always --no-startup-id ~/.config/i3/generate_i3_monitor_setup
+# include ~/.config/i3/monitor_setup
+{{{workspace_assignment}}}
+
+# Bindsym using mod+# to workspace #
+bindsym $mod+1 workspace $browser
+bindsym $mod+2 workspace $coding
+bindsym $mod+3 workspace $notes
+bindsym $mod+4 workspace $git
+bindsym $mod+5 workspace $video
+bindsym $mod+6 workspace $wp6
+bindsym $mod+7 workspace $social
+bindsym $mod+8 workspace $documents
+bindsym $mod+9 workspace $wp9
+bindsym $mod+0 workspace $wp0
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $browser
+bindsym $mod+Shift+2 move container to workspace $coding
+bindsym $mod+Shift+3 move container to workspace $notes
+bindsym $mod+Shift+4 move container to workspace $git
+bindsym $mod+Shift+5 move container to workspace $video
+bindsym $mod+Shift+6 move container to workspace $wp6
+bindsym $mod+Shift+7 move container to workspace $social
+bindsym $mod+Shift+8 move container to workspace $documents
+bindsym $mod+Shift+9 move container to workspace $wp9
+bindsym $mod+Shift+0 move container to workspace $wp0
+bindsym $mod+Shift+z move container to workspace back_and_forth
+
+# Go back and forth
+workspace_auto_back_and_forth yes
+
+bindsym $mod+z workspace back_and_forth
+bindsym $mod+Shift+minus move scratchpad
+
+# Opening softwares to a default workspaces
+# Use xprop to check window attributes
+assign [title="^emacs_org$"] workspace $notes
+assign [title="^emacs_magit$"] workspace $git
+assign [class="Slack"] workspace $social
+assign [class="Zathura"] workspace $documents
+assign [class="Chromium"] workspace $wp9
+
+# For notify_me script
+for_window [instance="notify_me_profile"] move scratchpad
+for_window [instance="selenium_chrome_profile"] move scratchpad
+for_window [instance="facebook_bot_profile"] move scratchpad
+
+# Making softwares in floating mode
+for_window [class="Vlc|feh|Shutter"] floating enable
+
+# Enable floating for windows that has floating class
+for_window [instance="floating"] floating enable
+
+for_window [instance="^floating_terminal$"] floating enable, resize set 990 820, move position center, move up 145 px
+
+# Capture a note using org mode
+for_window [title="^org-capture-yeq$"] floating enable, move position center
+
+# Change workspace when window is activated (used for qutebrowser gt)
+include ./focus_on_window_activation_config
+# >>>
+# Modes <<<
+
+# Resize window
+bindsym $mod+r mode "resize"
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt;
+    bindsym j resize grow height 10 px or 10 ppt;
+    bindsym k resize shrink height 10 px or 10 ppt;
+    bindsym l resize grow width 10 px or 10 ppt;
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+# Emacs org clock
+set $clock_mode "clock (I)nfo, (i)n, (o)ut, (d)one, (c)ancel, (t)oggle, (g)o_to, (s)cheduled, (p)olybar"
+bindsym $mod+q mode $clock_mode
+mode $clock_mode {
+    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock clock_in; mode "default";
+    bindsym shift+i exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock \
+        notify_info "NAME_PLACEHOLDER\n[TIME_PLACEHOLDER]"; mode "default";
+    bindsym o exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock clock_out; mode "default";
+    bindsym d exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock clock_out_done; mode "default";
+    bindsym c exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock clock_cancel; mode "default";
+    bindsym t exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock clock_toggle; mode "default";
+    bindsym p exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock toggle_polybar_time; mode "default";
+    bindsym g exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock go_to_entry; mode "default";
+
+    bindsym s exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/org_clock go_to_scheduled_entry; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+# Music player
+# (f)ilter option means that it resets the (c)lassic filter done
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (b)rown noise, (c)hill, (C)lassic, (a)mbient, (A)nime, (d)efault"
+bindsym $mod+c mode $cmus_mode
+mode $cmus_mode {
+    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/bin/cmus_notification; mode "default";
+    bindsym t exec cmus-remote --pause; mode "default";
+
+    bindsym n exec --no-startup-id cmus-remote --next; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
+
+    bindsym b exec $HOME/.config/cmus/bin/cmus_queue --volume 70% "$HOME/Music/brown_noise.mp3"; mode "default";
+    bindsym c exec $HOME/.config/cmus/bin/cmus_queue --volume 40% "$XDG_CONFIG_HOME/cmus/playlists/chill.m3u"; mode "default";
+    bindsym shift+c exec $HOME/.config/cmus/bin/cmus_queue --volume 40% "$XDG_CONFIG_HOME/cmus/playlists/classic.m3u"; mode "default";
+    bindsym d exec $HOME/.config/cmus/bin/cmus_queue "$XDG_CONFIG_HOME/cmus/playlists/default.m3u"; mode "default";
+    bindsym shift+a exec $HOME/.config/cmus/bin/cmus_queue --volume 40% "$XDG_CONFIG_HOME/cmus/playlists/anime.m3u"; mode "default";
+
+    bindsym a exec $HOME/.config/cmus/bin/cmus_queue --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
+
+    bindsym h exec --no-startup-id cmus-remote --volume +2%;
+    bindsym l exec --no-startup-id cmus-remote --volume -2%;
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $sharing_mode "(i)mage, (c)lipboard, (l)atex, (v)ideo, (t)ext, (n)ote"
+bindsym $mod+s mode $sharing_mode
+mode $sharing_mode {
+    bindsym i exec --no-startup-id $HOME/bin/share -i; mode "default";
+    bindsym l exec --no-startup-id $HOME/bin/share -l; mode "default";
+    bindsym c exec --no-startup-id $HOME/bin/share -c; mode "default";
+    bindsym v exec --no-startup-id $HOME/bin/share -v; mode "default";
+    bindsym t exec --no-startup-id $HOME/bin/share -t; mode "default";
+    bindsym n exec --no-startup-id $HOME/bin/share -n; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $audio_mode "built (i)n, (e)arphones, (h)eadpones, (d)isplay Link"
+bindsym $mod+a mode $audio_mode
+mode $audio_mode {
+    bindsym i exec --no-startup-id switch_audio_sink "Built In"; mode "default";
+    bindsym e exec --no-startup-id switch_audio_sink "Bluetooth" "earphones"; mode "default";
+    bindsym h exec --no-startup-id switch_audio_sink "Bluetooth" "headphones"; mode "default";
+    bindsym d exec --no-startup-id switch_audio_sink "DisplayLink"; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $utility_mode "(b)attery, (d)ictionary, (l)ights off, (n)otifications, (u)nmount usb, (m)ount usb, (v)pn"
+bindsym $mod+u mode $utility_mode
+mode --pango_markup $utility_mode {
+    bindsym b exec --no-startup-id get_earphones_battery; mode "default";
+    bindsym d exec --no-startup-id search_dictionary; mode "default";
+# Switch off light
+    bindsym l exec --no-startup-id turn_lights_off; mode "default";
+
+    bindsym n exec --no-startup-id dunstctl set-paused toggle; mode "default";
+
+# Unmount all storage devices;
+    bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
+    bindsym m exec --no-startup-id udiskie-mount -a; mode "default";
+
+    bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $mail_mode "(o)pen, (s)ync, (c)lear"
+bindsym $mod+m mode $mail_mode
+mode $mail_mode {
+    bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
+    bindsym s exec --no-startup-id bash -ic "syncmail trigger-polybar"; mode "default";
+# Mark messages as read
+    bindsym c exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && polybar-msg action "#mail.hook.0" && dunstctl close; mode "default";
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $system_mode "system (l) lock, (e) logout, (s) reload i3, (r) restart i3, (Shift+r) reboot, (Shift+s) shutdown"
+bindsym $mod+x mode $system_mode
+mode $system_mode {
+    bindsym l exec --no-startup-id i3lock --color 000000, mode "default";
+    bindsym e exec --no-startup-id i3-msg exit, mode "default";
+    bindsym s exec --no-startup-id i3-msg reload, mode "default";
+    bindsym r exec --no-startup-id i3-msg restart, mode "default";
+
+    bindsym Shift+r exec --no-startup-id bash -ic reboot, mode "default";
+    bindsym Shift+s exec --no-startup-id bash -ic shutdown, mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default"
+}
+
+# >>>
+# Bindings <<<
+bindsym $mod+g exec --no-startup-id $TERMINAL
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec --no-startup-id rofi -show run
+
+# Rofi applications
+# Password
+bindsym $mod+p exec --no-startup-id $XDG_CONFIG_HOME/rofi/bwmenu
+# Tmux
+bindsym $mod+t exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_tmux
+# Documents
+bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_documents
+
+# Don't show general notes
+bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
+# Show any window besides general notes
+bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
+
+# Put general notes in scratchpad
+for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
+
+for_window [class="^bitwarden_editor$"] floating enable, resize set 990 820, move position center
+
+# note taking
+bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
+
+for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
+# >>>
+# Startup <<<
+# Pick a random background image
+exec_always --no-startup-id feh --no-fehbg --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
+
+# Composer for fading affect on window focus and opacity
+exec --no-startup-id picom & disown
+
+exec_always --no-startup-id autotiling --limit 2 -e WINDOW_FOCUS -sr 1.61
+
+# Status bar
+exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
+
+# Open browser & notes
+exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
+exec --no-startup-id ${BROWSER} --override-restore
+exec --no-startup-id sleep 3; i3-msg "workspace --no-auto-back-and-forth 1"
+
+# Manages some key bindings
+exec --no-startup-id autokey-qt & disown
+# Clipboard manager
+for_window [class="^copyq$"] move scratchpad
+exec --no-startup-id copyq & disown && copyq hide
+
+exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
+exec --no-startup-id bash -ic "org"
+
+# Manages devices remotely
+exec /bin/kdeconnectd & disown
+# >>>

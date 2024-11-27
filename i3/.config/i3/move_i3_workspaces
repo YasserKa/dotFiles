@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# Move workspaces to their assigned display
+#
+# Dependencies: jq
+
+# shellcheck disable=SC1091
+source "$HOME/bin/monitor_varialbes"
+
+# Get the workspaces used by each display
+FOCUSED_WORKSPACES="$(jq -r '.[] | select(.visible == true and .output == "eDP-1") | .name' <(i3-msg -t get_workspaces))"
+
+# Focus each workspace and move it to a display
+i3-msg "workspace 1; move workspace to output $MONITOR_PRIMARY"
+i3-msg "workspace 2; move workspace to output $MONITOR_PRIMARY"
+i3-msg "workspace 3; move workspace to output $MONITOR_PRIMARY"
+i3-msg "workspace 5; move workspace to output $MONITOR_PRIMARY"
+i3-msg "workspace 8; move workspace to output $MONITOR_PRIMARY"
+
+[[ -n "$MONITOR_LEFT" ]]; \
+  i3-msg "workspace 9; move workspace to output $MONITOR_LEFT"; \
+  i3-msg "workspace 7; move workspace to output $MONITOR_LEFT"; \
+  i3-msg "workspace 6; move workspace to output $MONITOR_LEFT" \
+
+[[ -n "$MONITOR_RIGHT" ]]; \
+  i3-msg "workspace 4; move workspace to output $MONITOR_RIGHT"
+
+# Focus the workspaces
+for workspace_num in $FOCUSED_WORKSPACES; do
+  i3-msg workspace "$workspace_num"
+done

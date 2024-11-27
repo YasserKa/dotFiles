@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# NOTE: if the socket isn't specified explicitly, a non-existent one is used
+"$XDG_CONFIG_HOME/i3/generate_i3_monitor_setup"
+# i3-msg --socket "$XDG_RUNTIME_DIR"/i3/ipc-socket.* restart
+i3-msg restart
+"$XDG_CONFIG_HOME/i3/move_i3_workspaces"
+
