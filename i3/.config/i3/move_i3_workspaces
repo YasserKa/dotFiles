@@ -5,7 +5,7 @@
 # Dependencies: jq
 
 # shellcheck disable=SC1091
-source "$HOME/bin/monitor_varialbes"
+source "$HOME/bin/monitor_variables"
 
 # Get the workspaces used by each display
 FOCUSED_WORKSPACES="$(jq -r '.[] | select(.visible == true and .output == "eDP-1") | .name' <(i3-msg -t get_workspaces))"

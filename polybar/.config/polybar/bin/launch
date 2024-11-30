@@ -8,7 +8,7 @@ while pgrep -u "$UID" -x polybar >/dev/null; do sleep 0.5; done
 OUTPUTS=$(xrandr --query | grep " connected" | cut -d" " -f1)
 
 # shellcheck disable=SC1091
-source "$HOME/bin/monitor_varialbes"
+source "$HOME/bin/monitor_variables"
 
 # execute polybar for each screen and assign tray for the main window
 for OUTPUT in $OUTPUTS; do

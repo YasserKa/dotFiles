@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+MONITOR_PRIMARY=""
+MONITOR_LEFT=""
+MONITOR_RIGHT=""
+
+# Get the primary monitor
+MONITOR_PRIMARY=$(xrandr --query | grep eDP | awk '{print $1}')
+
+# Iterate over the monitor list without using a subshell
+IFS="
+"
+while read -r line; do
+  name=$(echo "$line" | awk '{print $4}')
+  details=$(echo "$line" | awk '{print $3}')
+
+
+  # Extract the position
+  position=$(echo "$details" | grep -o '+[0-9]\++[0-9]\+' | tr -d '+')
+
+  x_pos=${position%%+*}
+
+  # Clean up the monitor name (removing '+' & '*' if present)
+  clean_name=$(echo "$name" | tr -d '+' | tr -d '*')
+
+  # Determine relative position
+  if [ "$name" = "$MONITOR_PRIMARY" ]; then
+    MONITOR_PRIMARY="$clean_name"
+    export MONITOR_PRIMARY
+  elif (( x_pos < 1920 )); then
+    MONITOR_LEFT="$clean_name"
+    export MONITOR_LEFT
+  else
+    MONITOR_RIGHT="$clean_name"
+    export MONITOR_RIGHT
+  fi
+done < <(xrandr --listmonitors | tail -n +2)
+
