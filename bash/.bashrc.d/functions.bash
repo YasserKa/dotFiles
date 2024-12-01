@@ -451,7 +451,7 @@ magit() {
 
 		syncorg() {
 			emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
-			{ "$HOME"/bin/wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
+			{ wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
 				--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *'; } \
 				||	notify-send --urgency=critical "Sync org not working" 
 			}
@@ -462,7 +462,7 @@ pick_color() {
 }
 
 reboot() {
-	if "$HOME/bin/wait_internet"; then
+	if wait_internet; then
 		syncorg
 	else
 		[[ $(dunstify "No internet connection" "Reboot without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
@@ -471,7 +471,7 @@ reboot() {
 }
 
 shutdown() {
-	if "$HOME/bin/wait_internet"; then
+	if wait_internet; then
 		syncorg
 	else
 		[[ $(dunstify "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1

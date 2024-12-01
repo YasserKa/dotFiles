@@ -11,7 +11,7 @@ URL="$QUTE_URL"
 
 # Emojis are removed because org link-prettier shows the link twice for titles
 # containing emojis
-TITLE="$("$HOME/bin/remove_emoji" "$TITLE")"
+TITLE="$(remove_emoji "$TITLE")"
 
 # Remove last "/" if it exists
 if [[ "${URL: -1}" == '/' ]]; then

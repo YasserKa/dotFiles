@@ -15,7 +15,7 @@ pgrep -x mbsync >/dev/null && {
 }
 
 # Checks for internet connection and set notification script.
-"${HOME}/bin/wait_internet" || {
+"${HOME}/bin/helpers/wait_internet" || {
 	dunstify "No internet connection detected."
 	exit
 }
