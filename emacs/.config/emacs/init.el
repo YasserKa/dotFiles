@@ -2328,6 +2328,7 @@ selection of all minor-modes, active or not."
   (" ." my/org-refile-to-current-file "to current file" :column " refile")
   (" c" my/org-refile-to-running-clock "to clocked")
   (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
+  (" p" (org-refile nil nil (list nil (concat notes-dir "/projects.org"))) "to projects.org")
   (" a" org-refile "to agenda/buffers")
   (" g" org-refile-goto-last-stored "goto refile")
   )
