@@ -182,5 +182,6 @@ set mbox_type = Maildir
 source $my_neomutt_config_folder/accounts/google_personal/config
 
 macro index,pager <f1> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/google_personal/config"<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/outlook_personal/config"<enter><change-folder>!<enter>'
 # macro index,pager <f2> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/template/config"<enter><change-folder>!<enter>'
 

@@ -311,6 +311,7 @@ virt-manager # Desktop user interface for managing virtual machines
 # Mutt
 neomutt # A version of mutt with added features
 urlscan # Mutt and terminal url selector
+oama-bin # OAuth2 renewal and authorization
 # Show email
 w3m # Text-based Web browser as well as pager
 mailcap # Helper application and MIME type associations for file types

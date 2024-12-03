@@ -8,7 +8,7 @@ After=graphical-session.target
 Type=simple
 Restart=always
 RestartSec=2
-EnvironmentFile=/home/yasser/.config/cron/cron_env
+EnvironmentFile=/home/yasser/.config/systemd/user/env
 ExecStart=/usr/bin/sxhkd
 ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
 

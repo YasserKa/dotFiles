@@ -27,7 +27,7 @@ mailboxes =INBOX\
           =[Gmail].Spam\
           =[Gmail].Archive \
           =[Gmail].All\ Mail\
-#
+
 macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail --verbose $my_account_name<enter> \
           <sync-mailbox> \
           <shell-escape>[ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
