@@ -176,7 +176,6 @@ bind editor <Tab> complete-query
 # URL Selection
 macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 macro index,pager C "<pipe-message> org_capture \"\" \"$(grep 'Subject')\" <Enter>" "capture a TODO to Org mode"
-macro index,pager gG "<pipe-message> grep 'Subject' | sed 's|^|https://mail.google.com/mail/u/0/#search/|' | xargs -i $BROWSER {} >/dev/null 2>&1  & disown<Enter>" "Open entry in gmail"
 macro attach,compose \cb "<pipe-entry> urlscan<Enter>" "call urlscan to extract URLs out of a message"
 # view email in browser
 macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > $XDG_CACHE_HOME/neomutt/mail.html <enter><shell-escape>$BROWSER $XDG_CACHE_HOME/neomutt/mail.html & disown<enter>"

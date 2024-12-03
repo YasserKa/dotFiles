@@ -34,6 +34,9 @@ macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail --verbose $m
           <shell-escape>notmuch new<enter>" \
           "run syncmail to sync personal"
 
+# Go to web client
+macro index,pager gw "<pipe-message> grep 'Subject' | sed 's|^|https://mail.google.com/mail/u/0/#search/|' | xargs -i $BROWSER {} >/dev/null 2>&1  & disown<Enter>" "Open entry in web client"
+
 # Go to mailboxes
 macro index gi "<change-folder>=INBOX<enter><collapse-all>" "Go to inbox"
 macro index gs "<change-folder>=[Gmail].Sent\ Mail<enter>" "Go to sent mail"

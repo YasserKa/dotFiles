@@ -38,6 +38,9 @@ macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail --verbose $m
           <shell-escape>notmuch new<enter>" \
           "run syncmail to sync personal"
 
+# Go to web client
+macro index,pager gw "<shell-escape>xdg-open https://outlook.live.com/mail/0/<enter>" "Open entry in web client"
+
 # Go to mailboxes
 # macro index gi "<change-folder>=INBOX<enter><collapse-all>" "Go to inbox"
 # macro index gs "<change-folder>=[Gmail].Sent\ Mail<enter>" "Go to sent mail"
