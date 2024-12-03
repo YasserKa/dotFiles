@@ -5,5 +5,5 @@ NEW_DIR="INBOX/new"
 CURR_DIR="INBOX/cur"
 
 for MAIL_DIR in $MAIL_DIRS; do
-	mv "${MAIL_DIR}/${NEW_DIR}/"* "$MAIL_DIR/$CURR_DIR"
+	mv "${MAIL_DIR}/${NEW_DIR}/"* "$MAIL_DIR/$CURR_DIR" || true
 done
