@@ -134,13 +134,19 @@ macro index,pager \Cn '<sidebar-next><sidebar-open>
 macro index,pager \Cp '<sidebar-prev><sidebar-open>
 bind index,pager B sidebar-toggle-visible
 
-# mark a read
+# Mark as read
 macro index \Cr "<tag-pattern>~N|~O<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
-macro index O "|grep ^From | awk 'NR==1 {printf "\""macro index Q L%s"\"",$2}' >| /tmp/from<enter><enter-command>source /tmp/from<enter>Q<enter>"
+macro index O "<shell-escape>$my_neomutt_config_folder/bin/syncmail<enter> \
+          <sync-mailbox> \
+          <shell-escape>[ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
+          <shell-escape>notmuch new<enter>" \
+          "run syncmail to sync personal"
 
-# notmuch  searching
-macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/neomutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/neomutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+# Filtering
+bind index \ef noop
+macro index \eF "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/neomutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/neomutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+macro index \eff "|grep ^From | awk 'NR==1 {printf "\""macro index Q L%s"\"",$2}' >| /tmp/from<enter><enter-command>source /tmp/from<enter>Q<enter>"
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
 macro compose a "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/rangerpicker attach<enter><enter-command>source $XDG_CACHE_HOME/ranger/rangerpick<enter>" "Attach with Ranger"
