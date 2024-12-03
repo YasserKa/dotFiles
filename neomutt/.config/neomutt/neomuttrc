@@ -178,8 +178,12 @@ macro attach 'V' "<pipe-entry>iconv -c --to-code=UTF8 > $XDG_CACHE_HOME/neomutt/
 # mailboxes
 set mbox_type = Maildir
 
-# Default
+# Source mailboxes
 source $my_neomutt_config_folder/accounts/google_personal/config
+source $my_neomutt_config_folder/accounts/outlook_personal/config
+
+# Set mailbox to open at startup
+set spoolfile = "$XDG_DATA_HOME/mail/google_personal/INBOX"
 
 macro index,pager <f1> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/google_personal/config"<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/outlook_personal/config"<enter><change-folder>!<enter>'

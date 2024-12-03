@@ -286,6 +286,7 @@ alert() {
 # Open TUIR apps from menu picker (spawning a termianl) or the command line
 open_cli() {
 	local command="$1"
+	shift
 
 	[[ ! $(command -v "$command") ]] &&
 		notify-send "$command doesn't exit" && return 127
@@ -294,9 +295,9 @@ open_cli() {
 
 	# Command is run from a shell using -c option
 	if [[ "$-" != *c* ]]; then
-		command "$command"
+		command "$command" "$@"
 	else
-		$TERMINAL --detach -e bash -c "$command && exec $SHELL"
+		$TERMINAL --detach -e bash -c "$command $* && exec $SHELL"
 	fi
 }
 
