@@ -3,7 +3,6 @@
 # Clear queue, make a new one, generate a playlist out of the queue and play it
 # Playlist is better than queue, since queue doesn't keep previous played music tracks
 
-# Wait until the music tracks are queued else randomizing won't work
-cmus-remote -c
-cmus-remote "$@" 
-cmus-remote --next
+cmus-remote -l -c "$@"
+cmus-remote -l --next
+cmus-remote -l --play
