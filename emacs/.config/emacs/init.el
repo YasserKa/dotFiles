@@ -1334,9 +1334,9 @@ Made for `org-tab-first-hook' in evil-mode."
   ;; Persist clock history on Emacs close
   (org-clock-persistence-insinuate)
   (setq org-clock-persist 'clock)
+  (setq org-effort-durations '(("m" . 1) ("h" . 60) ("d" . 1440) ("w" . 10080) ("mon" . 43200) ("y" . 525960.0)))
   (setq org-global-properties
-        '(("Effort_ALL". "0:05 0:10 0:15 0:30 0:45 1:00 2:00 3:00 4:00")
-          ("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
+        '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
           ))
 
   ;; Remove space before header
