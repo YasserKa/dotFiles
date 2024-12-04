@@ -190,6 +190,10 @@ source $my_neomutt_config_folder/accounts/outlook_personal/config
 # Set mailbox to open at startup
 set spoolfile = "$XDG_DATA_HOME/mail/google_personal/INBOX"
 
+folder-hook "google" 'source $my_neomutt_config_folder/accounts/google_personal/config'
+folder-hook "outlook" 'source $my_neomutt_config_folder/accounts/outlook_personal/config'
+# folder-hook "new_account" 'source $my_neomutt_config_folder/accounts/new_account/config'
+
 macro index,pager <f1> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/google_personal/config"<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/outlook_personal/config"<enter><change-folder>!<enter>'
 # macro index,pager <f2> '<sync-mailbox><enter-command>source "$my_neomutt_config_folder/accounts/template/config"<enter><change-folder>!<enter>'

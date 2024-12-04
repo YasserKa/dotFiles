@@ -9,11 +9,14 @@ alias me Yasser Kaddoura <$my_mail>
 set from = $my_mail
 set sendmail = "/bin/sh $my_neomutt_config_folder/bin/sendmail $my_account_name"
 set folder = $XDG_DATA_HOME/mail/$my_account_name
-reply-hook $my_mail 'source $my_config_path
-folder-hook $folder 'source $my_config_path/config'
+reply-hook $my_mail 'source $my_config_path/config'
 
 set certificate_file = $my_config_path/certificates
 set signature = $my_config_path/signature
+# Store message headers locally to speed things up.
+set header_cache = $my_cache_path/$headers
+# Store messages locally to speed things up, like searching message bodies.
+set message_cachedir = $my_cache_path/bodies
 
 set spoolfile = "+INBOX"
 set record = "+[Gmail].Sent"
@@ -28,7 +31,7 @@ mailboxes =INBOX\
           =[Gmail].Archive \
           =[Gmail].All\ Mail\
 
-macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail --verbose $my_account_name<enter> \
+macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail $my_account_name<enter> \
           <sync-mailbox> \
           <shell-escape>[ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
           <shell-escape>notmuch new<enter>" \
