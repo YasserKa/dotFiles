@@ -105,6 +105,7 @@ main() {
 		text/*) bat -n --color=always "$1" ;;
 		audio/*) exiftool "$1" ;;
 		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+		*wordprocessingml.document) pandoc -s -t markdown -- "$1" ;;
 		*) bat -n --color=always "$1" ;;
 	esac
 }
