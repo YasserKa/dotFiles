@@ -1,0 +1,9 @@
+[Desktop Entry]
+Terminal=false
+Icon=libreoffice-base
+Type=Application
+Categories=Office;Database;X-Red-Hat-Base;
+Exec=libreoffice --base %U
+MimeType=application/x-cbz;application/x-cbc;application/x-mobipocket-ebook;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/ereader;application/x-cb7;application/x-mobi8-ebook;application/vnd.ms-word.document.macroenabled.12;application/vnd.ctc-posml;application/epub+zip;application/oebps-package+xml;image/vnd.djvu;application/x-cbr;application/x-sony-bbeb;application/x-mobipocket-subscription;x-scheme-handler/calibre;
+Name=LibreOffice Base
+

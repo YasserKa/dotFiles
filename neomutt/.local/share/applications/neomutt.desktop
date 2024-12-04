@@ -5,7 +5,6 @@ Keywords=E-mail;
 StartupNotify=true
 Terminal=true
 Type=Application
-Categories=Application;;E-mail client;
 MimeType=x-scheme-handler/mailto
 Icon=mutt
 Exec=kitty -- neomutt %U
