@@ -92,11 +92,9 @@ yt-dlp --split-chapters --download-archive "$HOME/Music/archive" --ignore-errors
 % Others
 
 # Filetype and default application
-echo "<_file>\n<file_type>\n<default_app>"
+file_type="$(xdg-mime query filetype "<_file>")"; default_app="$(xdg-mime query default $file_type)"; echo "$file_type\n$default_app"
 
 $_file: fd --type f --- --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
-$file_type: xdg-mime query filetype ${_file}
-$default_app: xdg-mime query default ${file_type}
 
 # Share kde file
 kdeconnect-cli -n "<device>" --share "<file>"
