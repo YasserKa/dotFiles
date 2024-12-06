@@ -3,6 +3,7 @@
 set my_mail = "yasser.kaddoura19@gmail.com"
 set my_account_name = google_personal
 set my_config_path = $my_neomutt_config_folder/accounts/$my_account_name
+set my_cache_path = $XDG_CACHE_HOME/neomutt/$my_account_name
 
 set realname = "Yasser Kaddoura"
 alias me Yasser Kaddoura <$my_mail>
@@ -22,7 +23,6 @@ set spoolfile = "+INBOX"
 set record = "+[Gmail].Sent"
 set postponed = "+[Gmail].Drafts"
 set trash = "+[Gmail].Trash"
-set mbox = "+[Gmail].other"
 mailboxes =INBOX\
           =[Gmail].Sent\ Mail\
           =[Gmail].Drafts\
@@ -36,6 +36,8 @@ macro index o "<shell-escape>$my_neomutt_config_folder/bin/syncmail $my_account_
           <shell-escape>[ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\" > /dev/null<enter> \
           <shell-escape>notmuch new<enter>" \
           "run syncmail to sync personal"
+
+macro attach,pager i "<pipe-entry>cat >| /tmp/mutt.ics<enter><shell-escape>$my_neomutt_config_folder/bin/reply_to_ical_invites /tmp/mutt.ics -i -e '$realname <$my_mail>'<enter>"
 
 # Go to web client
 macro index,pager gw "<pipe-message> grep 'Subject' | sed 's|^|https://mail.google.com/mail/u/0/#search/|' | xargs -i $BROWSER {} >/dev/null 2>&1  & disown<Enter>" "Open entry in web client"
