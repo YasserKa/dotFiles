@@ -9,6 +9,9 @@ text/html; w3m -I %{charset} -T text/html; copiousoutput;
 image/gif; mpv --x11-name=floating '%s' --autofit=640x480 --loop=inf
 image/*; feh -g 640x480 -. '%s'
 
+text/calendar; mutt-ics; copiousoutput
+application/ics; mutt-ics; copiousoutput
+
 # mpv buffering is too slow
 # video/x-youtube; mpv --x11-name=floating --ytdl-format=bestvideo+bestaudio/best '%s' --autofit=1280x1024
 # video/*; mpv --x11-name=floating '%s' --autofit=1280x1024 --loop=inf

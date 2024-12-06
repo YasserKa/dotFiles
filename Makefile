@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 # sci-hub for qutebrowser
-PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython pix2tex
+PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython pix2tex mutt-ics
 
 .PHONY: install
 install: update-sudoers pre-install-packages install-packages post-install-packages update-sudoers

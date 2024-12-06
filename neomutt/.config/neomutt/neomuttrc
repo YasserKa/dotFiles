@@ -11,26 +11,29 @@ set message_cachedir = $XDG_CACHE_HOME/neomutt/bodies
 
 # General
 set mime_type_query_command = "file --mime-type -b %s" # Query to determine mime type
-set sleep_time = 0                     # Pause 0 seconds for informational messages
+set sleep_time = 0                      # Pause 0 seconds for informational messages
 set editor = $EDITOR
-set fast_reply                         # skip to compose when replying
-set fcc_attach                         # save attachments with the body
-set include                            # include message in replies
-set edit_headers                       # Edit headers while composing
-set attribution = ""                   # Remove "On date, X wrote:"  in replies
-set reverse_name                       # reply as whomever it was to
-unset help                             # Remove help line 
-set pager_index_lines = 6              # Show few messages of the index in pager mode
-set pager_stop                         # Don't move to next message after <next-page>
-set mail_check=60                      # to avoid lags using IMAP with some email providers (yahoo for example)
-set delete                             # Don't ask while purging messages
-set copy = no                          # don't duplicate the outgoing messages
-set recall = no                        # Don't offer to resume postponed message
-set markers = no                       # Disables the `+` displayed at line wraps
-set mark_old = no                      # Unread mail stay unread until read
-set wait_key = no                      # mutt won't ask "press key to continue"
-set confirmappend = no                 # Don't prompt for confirmation when appending mesages to mailboxes
-auto_view text/html                    # automatically show html (mailcap uses lynx)
+set fast_reply                          # skip to compose when replying
+set fcc_attach                          # save attachments with the body
+set include                             # include message in replies
+set edit_headers                        # Edit headers while composing
+set attribution = ""                    # Remove "On date, X wrote:"  in replies
+set reverse_name                        # reply as whomever it was to
+unset help                              # Remove help line 
+set pager_index_lines = 6               # Show few messages of the index in pager mode
+set pager_stop                          # Don't move to next message after <next-page>
+set mail_check=60                       # to avoid lags using IMAP with some email providers (yahoo for example)
+set delete                              # Don't ask while purging messages
+set copy = no                           # don't duplicate the outgoing messages
+set recall = no                         # Don't offer to resume postponed message
+set markers = no                        # Disables the `+` displayed at line wraps
+set mark_old = no                       # Unread mail stay unread until read
+set wait_key = no                       # mutt won't ask "press key to continue"
+set confirmappend = no                  # Don't prompt for confirmation when appending mesages to mailboxes
+auto_view text/calendar application/ics # automatically show mime types (mailcap uses lynx)
+alternative_order text/calendar text/plain text/html
+# auto_view text/calendar
+# auto_view text/plain
 ignore *                               # ignore all headers
 unignore from: to: cc: date: subject:  # show only these
 
