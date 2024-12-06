@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Share url using kdeconnect
+# Dependencies: kdeconnect rofi
+
+choose_device() {
+  local devices choosen_device
+  devices="$(kdeconnect-cli -a --name-only)"
+
+  [[ -z "$devices" ]] && exit 1
+
+  choosen_device="$(echo "$devices" | rofi -show -dmenu -auto-select)"
+  [[ -n "$choosen_device" ]] && echo "$choosen_device" || exit 1
+}
+
+URL="$1"
+DEVICE="$(choose_device)"  || exit 1
+
+kdeconnect-cli -n "$DEVICE" --share "$URL"

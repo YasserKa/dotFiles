@@ -264,10 +264,7 @@ c.aliases = {
     "gc": "spawn bash -ic '. $HOME/bin/git_clone {url}'",
     "paywall": "open https://12ft.io/proxy?q={url}",
     "zotero": "spawn --userscript ~/.config/qutebrowser/userscripts/qute_zotero",
-    "kde_share": (
-        "spawn bash -ic \"kdeconnect-cli -n 'Lenovo TB128FU' --share '{url}'"
-        " || kdeconnect-cli -n 'Redmi 5 Plus' --share '{url}'\""
-    ),
+    "kde_share": "spawn kde_share_url {url}",
     "yt-transcribe": "spawn --userscript ~/.config/qutebrowser/userscripts/yt-transcribe",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
     "generate_password": (
