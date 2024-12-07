@@ -125,7 +125,7 @@ python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
 # Installed by system's package manager adhering to https://peps.python.org/pep-0668
 jupyter-notebook
-python-pipx # Tool to install Python applications
+uv # Python package installer and resolver
 python-pandas # Used by scripts
 python-adblock # Used by qutebrowser
 python-i3ipc # Usd by autokey for emacs script

@@ -106,9 +106,8 @@ emacs_update_code="
 	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code" & disown
 	command emacs --init-directory . --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="($emacs_update_code)" & disown
 
-
 	# Upgrade python packages
-	pipx upgrade-all
+	uv tool upgrade-all
 
 	pdm self update
 

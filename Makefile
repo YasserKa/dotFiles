@@ -2,7 +2,7 @@ XDG_CONFIG_HOME = $(HOME)/.config
 XDG_DATA_HOME=$(HOME)/.local/share
 
 # sci-hub for qutebrowser
-PYPI_PACKAGES_PIPX = tmuxp pdm sci-hub ipython pix2tex mutt-ics
+PYPI_PACKAGES = tmuxp pdm sci-hub ipython pix2tex mutt-ics
 
 .PHONY: install
 install: update-sudoers pre-install-packages install-packages post-install-packages update-sudoers
@@ -116,7 +116,7 @@ stow-packages:
 install-pypi-packages: 
 	@echo "Installing Python appliations"
 	@python -m pip install hypothepy --break-system-packages # Getting hypothesis links
-	@for PACKAGE in $(PYPI_PACKAGES_PIPX); do pipx install "$$PACKAGE"; done
+	@for PACKAGE in $(PYPI_PACKAGES); do uv tool install "$$PACKAGE"; done
 
 .PHONY: setup-systemd-services
 setup-systemd-services:
