@@ -224,7 +224,7 @@ mode --pango_markup $utility_mode {
 set $mail_mode "(o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
-    bindsym o exec --no-startup-id bash -ic "open_cli neomutt"; mode "default";
+    bindsym o exec --no-startup-id eval_interactive_cmd neomutt; mode "default";
     bindsym s exec --no-startup-id bash -ic "syncmail trigger-polybar"; mode "default";
 # Mark messages as read
     bindsym c exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && polybar-msg action "#mail.hook.0" && dunstctl close; mode "default";

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# If attached to a terminal, execute the command, else execute it in a new terminal instance
+# Accepts --floating argument
+
+[[ "$1" == "--floating" ]] && floating="true" && shift
+
+# Eval command in pty only, not ttys (virtual console)
+# Rationale: Handle commands executed by display environments which is executed in tty
+if [[ -t 0 && "$(tty)" != *tty* ]]; then
+  eval "$*"
+else
+  if [[ "$floating" == "true" ]]; then
+    "${TERMINAL}" --class "floating_terminal" -e bash -ic "$@"
+  else
+    "${TERMINAL}" -e bash -ic "$@"
+  fi
+fi

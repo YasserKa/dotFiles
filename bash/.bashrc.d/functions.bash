@@ -292,12 +292,7 @@ open_cli() {
 
 	! command -v "$TERMINAL" &>/dev/null && notify-send "$TERMINAL is not supported" && return 1
 
-	# Command is run from a shell using -c option
-	if [[ "$-" != *c* ]]; then
-		command "$command" "$@"
-	else
-		$TERMINAL --detach -e bash -c "$command $* && exec $SHELL"
-	fi
+	eval_interactive_cmd "$command" "$@"
 }
 
 cli_list=("newsboat" "neomutt")
@@ -331,18 +326,7 @@ open_file() {
 	# Open one file only
 	(($# > 1)) && ONLY_OPTION="+only"
 
-	# Check if it's in a terminal
-	if [[ "$-" != *c* ]]; then
-		# The -o +only arguments are a hack to mitigate nvim's warning upon
-		# exiting for editing multiple files
-		# -o open files in windows and +only keep one of them
-		# shellcheck disable=SC2046,SC2116,SC2086
-		cd "${DIRECTORY_PATH}" && "${EDITOR}" $ONLY_OPTION -o $(echo "$@")
-
-	else
-		# shellcheck disable=SC2046,SC2116,SC2086
-		"${TERMINAL}" --directory "${DIRECTORY_PATH}" --detach -e "${EDITOR}" ${ONLY_OPTION} -o "$@"
-	fi
+	eval_interactive_cmd "cd ${DIRECTORY_PATH} && ${EDITOR} $ONLY_OPTION -o $*"
 }
 
 alias rcreadline='open_file readline/.config/readline inputrc '
