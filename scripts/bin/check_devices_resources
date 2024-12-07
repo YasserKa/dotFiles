@@ -59,7 +59,7 @@ is_monitor_enabled() {
 main() {
   is_monitor_enabled
   check_device_battery
-  check_bluetooth_devices_battery
+  # check_bluetooth_devices_battery
   check_memory
 }
 
