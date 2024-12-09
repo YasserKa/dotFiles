@@ -1242,6 +1242,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (use-package org-link-beautify
     :after org
     :requires all-the-icons
+    :straight (:host github :repo "emacsmirror/org-link-beautify" :branch "master" :files ("*.el" "out"))
     :init
     (eval-after-load "org-link-beautify"
       '(defun org-link-beautify--display-icon (start end description icon)
@@ -2304,8 +2305,9 @@ selection of all minor-modes, active or not."
   (" a" consult-org-agenda "agenda")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
-  (" p" (find-file (concat notes-dir "/projects.org"))"projects.org")
-  (" t" (find-file (concat notes-dir "/tasks.org"))"tasks.org")
+  (" i" (find-file (concat notes-dir "/ideas.org")) "ideas.org")
+  (" p" (find-file (concat notes-dir "/projects.org")) "projects.org")
+  (" t" (find-file (concat notes-dir "/tasks.org")) "tasks.org")
   )
 
 (defhydra org-find-hydra (:exit t :idle 1)
@@ -2326,6 +2328,7 @@ selection of all minor-modes, active or not."
   (" ." my/org-refile-to-current-file "to current file" :column " refile")
   (" c" my/org-refile-to-running-clock "to clocked")
   (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
+  (" i" (org-refile nil nil (list nil (concat notes-dir "/ideas.org"))) "to ideas.org")
   (" p" (org-refile nil nil (list nil (concat notes-dir "/projects.org"))) "to projects.org")
   (" a" org-refile "to agenda/buffers")
   (" g" org-refile-goto-last-stored "goto refile")
