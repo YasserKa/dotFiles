@@ -1772,9 +1772,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat  path_to_script " none 2")))
-  (setq org-agenda-files
-        (list (concat notes-dir "/projects.org") (concat notes-dir "/capture.org") (concat notes-dir "/phd.org")
-              (concat notes-dir "/tasks.org") (concat notes-dir "/other_tasks.org")))
+  (setq org-agenda-files (concat notes-dir "/agenda_files"))
   )
 
 (use-package org-superstar
