@@ -153,13 +153,46 @@ vf() {
 	"${EDITOR}" "${file_path##*/}" || return 1
 }
 
-# Search processes
+#######################################
+# Pick a process interatively using fzf. It gets updated periodically & can be
+# sorted on elapsed time or memory
+#######################################
 fps() {
-	grc --colour=on ps --user "$USER" -o ppid,pid,stime,etime,args | sed 1d \
-		| fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
-		--preview 'grc --colour=on ps -F {2} | sed 1d' \
-		--bind "ctrl-r:reload(grc --colour=on ps --user $USER -o ppid,pid,stime,etime,args | sed 1d)" \
-		--bind 'alt-t:change-preview-window(down|hidden)' | awk '{print $2}'
+	# local isn't used, bcz they are used after exiting the function
+	# they are unset afterwards
+	src_file="/tmp/fzf_ps"
+	src_file_update="$(mktemp)"
+	local span=5
+
+	update_my_ps() {
+  	if [[ "$1" == "mem" ]]; then
+    	my_ps() { grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort -%mem | sed 1d; }
+  	elif [[ "$1" == "time" ]]; then
+    	my_ps() { grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort +etime | sed 1d; }
+  	fi
+
+  	declare -f my_ps >| "/tmp/fzf_ps"
+	}
+
+	cleanup() {
+		# shellcheck disable=2317
+		rm -rf "$src_file" "$src_file_update"
+		# shellcheck disable=2317
+		unset src_file src_file_update
+	}
+
+	trap 'cleanup' EXIT
+
+	update_my_ps "time"
+	declare -f update_my_ps >| "$src_file_update"
+
+	my_ps \
+  	| fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
+  	--preview 'grc --colour=on ps -F {2} | sed 1d' \
+  	--bind "ctrl-alt-t:execute-silent(source $src_file_update; update_my_ps time)+reload(source $src_file; my_ps)" \
+  	--bind "ctrl-alt-m:execute-silent(source $src_file_update; update_my_ps mem)+reload(source $src_file; my_ps)" \
+  	--bind "load:reload-sync(source $src_file; my_ps; sleep $span)" \
+  	--bind 'alt-t:change-preview-window(down|hidden)' | grep . | awk '{print $2}'
 	}
 
 # Kill processes
