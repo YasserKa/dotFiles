@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# Pick a file interactively
+# -f --frecency Can sort by frecency
+# -t --type directory, file, or both
+# -m --multi multiple files
+#
+# Dependencies: fasd
+
+
+is_frecency="false"
+type="both"
+multi=
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -f|--frecency)
+      is_frecency="true"
+      shift
+      ;;
+    -t|--type)
+      type="$2"
+      shift
+      shift
+      ;;
+    -m|--multi)
+      multi="--multi"
+      shift
+      ;;
+  esac
+done
+
+fre_candidates=""
+
+if [[ "$is_frecency" == "true" ]]; then
+  case "$type" in
+    file) fre_candidates="$(fasd -flR)" ;;
+    directory) fre_candidates="$(fasd -dlR)" ;;
+    both) fre_candidates="$(fasd -lR)" ;;
+    *) echo "Type can be either file, directory, or both" >&2 && exit 1;;
+  esac
+fi
+
+
+base_cmd="fd --follow --hidden --exclude .git --ignore-file $HOME/.ignore --strip-cwd-prefix"
+case "$type" in
+  file) cat <(printf "%s" "$fre_candidates") <(eval "$base_cmd --type file" | grep -Fvx -f <(echo "$fre_candidates")) | fzf $multi;;
+  directory) cat <(printf "%s" "$fre_candidates") <(eval "$base_cmd --type dir" | grep -Fvx -f <(echo "$fre_candidates")) | fzf $multi;;
+  both) cat <(printf "%s" "$fre_candidates") <(eval "$base_cmd" | grep -Fvx -f <(echo "$fre_candidates"))  |fzf $multi;;
+  *) echo "Type can be either file, directory, or both" >&2 && exit 1;;
+esac

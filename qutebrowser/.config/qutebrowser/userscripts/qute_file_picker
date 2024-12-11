@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Script used by Qutebrowser's fileselect
+# Script used by Qutebrowser's to select files
 # 
 # $1 path to place file paths
 # $2 command type (directory, file, files)
@@ -8,8 +8,9 @@
 FILE_PATH="$1"
 
 case "$2" in
-  "directory") fd --hidden --type d | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
-  "file") fd --hidden --type f | fzf | xargs -I {} realpath {} > "$FILE_PATH" ;;
-  "files") fd --hidden --type f | fzf --multi | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "directory") pick_file --frecency --type directory | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "file") pick_file --frecency --type file | xargs -I {} realpath {} > "$FILE_PATH" ;;
+  "files") pick_file --frecency --multi --type file | xargs -I {} realpath {} > "$FILE_PATH" ;;
   *) echo "Only directory, file, & files are valid" ;;
 esac
+

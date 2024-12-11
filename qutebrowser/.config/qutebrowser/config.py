@@ -312,7 +312,6 @@ c.fonts.default_family = ["Inconsolata"]
 c.fonts.default_size = "12pt"
 c.fonts.web.size.default = 19
 
-# Use ranger for file handling
 c.fileselect.handler = "external"
 
 c.fileselect.folder.command = f"kitty -e {os.environ['XDG_CONFIG_HOME']}/qutebrowser/userscripts/qute_file_picker {{}} directory".split()

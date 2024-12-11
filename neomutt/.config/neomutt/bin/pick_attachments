@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Pick attachments for neomutt
+
+FILE_PATH="$XDG_CACHE_HOME/ranger/rangerpick"
+
+pick_file --frecency --multi --type file | xargs -I {} realpath {} >| "$FILE_PATH"
+
+awk 'BEGIN {printf "%s", "push "} {printf "%s", "\"<attach-file>"$0"<enter>\""}' "$FILE_PATH" | sponge "$FILE_PATH"

@@ -284,7 +284,7 @@ IFS='' read -r -d '' fre_candidates <<EOF
 EOF
 # export fre_candidates
 
-export FZF_BASE_COMMAND='fd --follow --hidden --exclude .git --ignore-file .ignore'
+export FZF_BASE_COMMAND='fd --follow --hidden --exclude .git --ignore-file $HOME/.ignore'
 # Ignore frecency candidates with fd
 export FZF_DEFAULT_COMMAND='command cat <(eval '$fre_candidates') <('$FZF_BASE_COMMAND' --strip-cwd-prefix | grep -Fvx -f <(eval '$fre_candidates'))'
 
