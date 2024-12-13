@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Paste from clipboard in X or Wayland
+# Dependencies: xsel wl-cliboard
+
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+	wl-paste
+else
+	xsel --output --clipboard
+fi
