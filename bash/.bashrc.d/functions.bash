@@ -136,6 +136,7 @@ j() {
 		)" || return 2
 	[[ ! "$my_path" ]] && \
   	{ my_path="$(eval "$FZF_ALT_C_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=dir,follow,hidden --scheme=path --query '$*' ${FZF_ALT_C_OPTS:-} +m " fzf)" || return 2;}
+	fasd -A "$my_path"
   cd "$my_path" || return 1
 }
 
@@ -150,6 +151,7 @@ vf() {
   [[ ! "$file_path" ]] &&	\
   	{ cd "$HOME" && file_path="$(eval "$FZF_CTRL_T_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=file,follow,hidden --scheme=path --query '$*' ${FZF_CTRL_T_OPTS:-}" fzf)" || return 2; }
 	cd "${file_path%/*}" || return 2
+	fasd -A "${file_path##*/}"
 	"${EDITOR}" "${file_path##*/}" || return 1
 }
 
