@@ -23,6 +23,8 @@ map yl feedkeys c
 map ,dd exec '/home/yasser/.config/zathura/delete_document "$FILE"'
 # Open another instance
 map wo exec '/usr/bin/env zathura "$FILE"'
+# Open link in another instance
+map wf exec '/home/yasser/.config/zathura/open_link_in_new_window "$FILE"'
 
 map ,ad exec '/home/yasser/.config/zathura/handle_document remove_annotations "$FILE"'
 map ,ay exec '/home/yasser/.config/zathura/handle_document get_annotations "$FILE"'
