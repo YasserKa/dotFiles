@@ -3,8 +3,7 @@ set selection-clipboard clipboard
 # Vertical center page after scrolling
 set vertical-center true
 # Change highlights transparency
-set highlight-color rgba(159,251,0,0.3)
-set highlight-fg rgba(0,0,0,0.6)
+set highlight-fg rgba(0,0,0,0.9)
 
 # Using ; instead of : for command mode
 map ; focus_inputbar :
