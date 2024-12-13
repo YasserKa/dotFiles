@@ -42,6 +42,6 @@ cmd="$pre_qutebrowser_command && $xdotool_command && $post_qutebrowser_command"
 encoded_command="$(encode_url "$cmd")"
 link_handler_url="[[link-handler://${encoded_command}][$QUTE_TITLE, scroll 0 $y_scroll]]"
 
-echo "$link_handler_url" | xclip -selection clipboard
+clipboard_copy "$link_handler_url"
 
 echo "message-info 'yanked link handler URL'" >>"$QUTE_FIFO"

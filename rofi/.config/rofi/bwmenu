@@ -13,9 +13,6 @@ SHOW_PASSWORD=no # Show part of the password in the notification
 # Holds the available items in memory
 ITEMS=
 
-# Stores which command will be used to deal with clipboards
-CLIPBOARD_MODE=
-
 # Populated in parse_cli_arguments
 ROFI_OPTIONS=()
 
@@ -162,67 +159,6 @@ auto_type() {
 	esac
 }
 
-# Set $CLIPBOARD_MODE to a command that will put stdin into the clipboard.
-select_copy_command() {
-	if hash xclip 2>/dev/null; then
-		CLIPBOARD_MODE=xclip
-	elif hash xsel 2>/dev/null; then
-		CLIPBOARD_MODE=xsel
-	elif hash wl-copy 2>/dev/null; then
-		CLIPBOARD_MODE=wayland
-	else
-		exit_error 1 "No clipboard command found. Please install either xclip, xsel, or wl-clipboard."
-	fi
-}
-
-clipboard-set() {
-	clipboard-${CLIPBOARD_MODE}-set
-}
-
-clipboard-get() {
-	clipboard-${CLIPBOARD_MODE}-get
-}
-
-clipboard-clear() {
-	clipboard-${CLIPBOARD_MODE}-clear
-}
-
-clipboard-xclip-set() {
-	xclip -selection clipboard -r
-}
-
-clipboard-xclip-get() {
-	xclip -selection clipboard -o
-}
-
-clipboard-xclip-clear() {
-	echo -n "" | xclip -selection clipboard -r
-}
-
-clipboard-xsel-set() {
-	xsel --clipboard --input
-}
-
-clipboard-xsel-get() {
-	xsel --clipboard
-}
-
-clipboard-xsel-clear() {
-	xsel --clipboard --delete
-}
-
-clipboard-wayland-set() {
-	wl-copy
-}
-
-clipboard-wayland-get() {
-	wl-paste
-}
-
-clipboard-wayland-clear() {
-	wl-copy --clear
-}
-
 # Copy the password
 # copy to clipboard and give the user feedback that the password is copied
 # $1: json item
@@ -230,12 +166,12 @@ copy_password() {
 	pass=$(echo "$1" | jq -r '.login.password')
 
 	show_copy_notification "$1"
-	echo -n "$pass" | clipboard-set
+	clipboard_copy "$pass"
 
 	if [[ $CLEAR -gt 0 ]]; then
 		sleep "$CLEAR"
-		if [[ "$(clipboard-get)" == "$pass" ]]; then
-			clipboard-clear
+		if [[ "$(clipboard_paste)" == "$pass" ]]; then
+			clipboard_copy ""
 		fi
 	fi
 }

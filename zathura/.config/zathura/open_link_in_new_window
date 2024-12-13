@@ -3,7 +3,7 @@
 # A zathura script to open a link in another window
 # It opens another zathura instance if one doesn't exist already then move it to the right monitor
 #
-# Dependencies: zathura xdotool i3 xclip/wl-copy
+# Dependencies: zathura xdotool i3
 
 # How it works:
 # Given: Zathura is able to store a link's page number in the clipboard
@@ -30,14 +30,14 @@ main() {
 # Pick a link and get number of page in zathura
 #######################################
 get_page_num() {
-  copy_to_clipboard ""
+  clipboard_copy ""
 
   xdotool key "c"
 
   # Wait until the page number is copied  or the action is aborted
   wait_keys "<esc>" "<ctrl>+m"
 
-  page="$(xclip -selection clipboard -o)"
+  page="$(clipboard_paste)"
 
   [[ ! $page =~ ^[0-9]+$ ]] && echo 'Page needs to be an integer' >&2  && exit 1
 
@@ -85,6 +85,6 @@ open_document() {
 
 
 # Preserve clipboard during script
-old_clipboard="$(xclip -selection clipboard -o)"
+old_clipboard="$(clipboard_paste)"
 main "$@"
-trap 'copy_to_clipboard $old_clipboard' EXIT
+trap 'clipboard_copy $old_clipboard' EXIT

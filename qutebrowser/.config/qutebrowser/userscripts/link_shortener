@@ -23,5 +23,5 @@ response=$(bitly_request "$1") 2>/dev/null
 
 
 shortened_link=$(echo "$response" | jq '.link' | sed 's/"//g')
-copy_to_clipboard "$shortened_link"
+clipboard_copy "$shortened_link"
 echo "message-info 'url shortened'" >> "$QUTE_FIFO"

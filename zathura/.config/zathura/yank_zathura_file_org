@@ -7,4 +7,4 @@ BASE_NAME=$(basename "$FULL_PATH" ".$FILE_EXT")
 
 ORG_LINK="[[file:$FULL_PATH][$BASE_NAME]]"
 
-echo $ORG_LINK | xclip -selection clipboard
+clipboard_copy "$ORG_LINK"

@@ -48,7 +48,7 @@ case $1 in
 		;;
 	-n) target_path=$(note_path_org_roam) ;;
 	-t)
-		xclip -o -selection clipboard | gist -p | xclip -selection clipboard
+		clipboard_paste | gist -p | clipboard_copy
 		notify-send "Saved to Clipboard"
 		exit
 		;;
@@ -73,7 +73,7 @@ if [ "$1" == "-n" ]; then
 	new_file_name="$(date +"%Y-%m-%d_%T").$extension"
 	new_path="$target_path/$new_file_name"
 	mv "$old_path" "$new_path"
-	echo -en "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]" | xclip -selection clipboard
+	clipboard_copy "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]"
 	notify-send "Saved as $new_file_name"
 	exit
 fi
@@ -115,7 +115,7 @@ if [ "$1" == "-c" ]; then
 	xclip -selection clipboard -t image/png -i "$new_path"
 	notify-send "Image saved to clipboard"
 elif [ "$1" == "-l" ]; then
-	echo "$new_path" | xclip -selection clipboard
+	clipboard_copy "$new_path"
 	notify-send "Image saved to clipboard"
 else
 	xback "$new_path"

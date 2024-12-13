@@ -7,6 +7,6 @@ URL=$(echo "${QUTE_CURRENT_URL}" | cut -f -1 -d "#")
 HTML_ID="$(echo "${QUTE_SELECTED_HTML}" | grep -oP 'id="\K(.+?)(?=")' | head -n 1)"
 LINK="${URL}#${HTML_ID}"
 
-echo "${LINK}" | xclip -selection clipboard
+clipboard_copy "${LINK}"
 
 echo "message-info 'url copied to clipboard'" >>"$QUTE_FIFO"

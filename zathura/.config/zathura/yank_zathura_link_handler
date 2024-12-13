@@ -44,4 +44,4 @@ encoded_command="$(encode_url "$cmd")"
 
 org_url="[[link-handler://${encoded_command}][${link_name}]]"
 
-echo "$org_url" | xclip -selection clipboard
+clipboard_copy "$org_url"

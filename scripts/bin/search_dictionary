@@ -2,11 +2,11 @@
 #
 # Search online dictionary on web browser for term in clipboard
 #
-# Dependencies: xdotool, xclip
+# Dependencies: xdotool
 
 is_window_exists() { xdotool search --name "^$1$" >/dev/null; }
 
-INPUT="$(xclip -selection clipboard -o)"
+INPUT="$(clipboard_paste)"
 
 is_window_exists "$BROWSER" || xdg-open "$BROWSER" &&
 	xdg-open "https://www.merriam-webster.com/dictionary/$INPUT"

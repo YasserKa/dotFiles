@@ -39,6 +39,6 @@ if [[ "$URL_ROOT" == "github.com" ]]; then
 	fi
 fi
 
-copy_to_clipboard "$ORG_URL"
+clipboard_copy "$ORG_URL"
 
 echo "message-info 'url turned to org url'" >>"$QUTE_FIFO"

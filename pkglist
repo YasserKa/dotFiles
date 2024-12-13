@@ -177,7 +177,7 @@ cmake # Cross-platform open-source make system
 wmctrl # Control your EWMH compliant window manager from command line
 # Dependency for wmctrl
 openresolv # resolv.conf management framework (resolvconf)
-xclip # Command line interface to the X11 clipboard
+xclip # Used to deal with copying/pasting images
 xsel # Another X clipboard, needed for zsh-system-clipboard to work
 xdotool # Command-line X11 automation tool
 copyq # Clipboard manager

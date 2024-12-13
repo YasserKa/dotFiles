@@ -74,11 +74,6 @@ alias libby='FZF_DEFAULT_OPTS="--tac" libby'
 alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
 
-# Clipboard
-# xclip doesn't close stdout nor stderr, leading for the
-alias pbcopy='xclip -selection clipboard >/dev/null 2>&1'
-alias pbpaste='xclip -selection clipboard -o'
-
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'

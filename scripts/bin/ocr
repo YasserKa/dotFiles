@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Saves text to clipboard from a screnshot
+# Saves text to clipboard from a screenshot
 
 img_path="/tmp/ocr.png"
 
@@ -8,4 +8,4 @@ img_path="/tmp/ocr.png"
 trap 'rm -f "$img_path"' EXIT
 
 deepin-screen-recorder --screenShot --save-path "$img_path"
-< <(tesseract "$img_path" -) xclip -selection clipboard
+clipboard_copy "$(tesseract "$img_path" -)"

@@ -4,4 +4,4 @@ SESSION_NAME="session_$RANDOM"
 
 echo ":session-save $SESSION_NAME" >> "$QUTE_FIFO"
 
-echo "qutebrowser --restore $SESSION_NAME" | xclip -selection clipboard
+clipboard_copy "qutebrowser --restore $SESSION_NAME"

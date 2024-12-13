@@ -41,6 +41,6 @@ copyq disable
 if [[ "$clip" =~ /tmp/copyq..* ]]; then 
   xclip -selection clipboard -t image/png -i "$clip"
 else
-  xclip -selection clipboard < <(echo "$clip")
+   clipboard_copy "$clip"
 fi
 copyq enable

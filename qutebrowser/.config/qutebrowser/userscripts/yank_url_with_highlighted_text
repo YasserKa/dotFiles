@@ -2,8 +2,6 @@
 # Description: A qutebrowser usercript that yanks a URL that contains the
 # highlighted text
 # Useful resources: https://github.com/WICG/scroll-to-text-fragment#target
-# Dependencies:
-#    xclip to place text in clipboard
 
 encode_url() {
 	# Reliable localization
@@ -49,5 +47,6 @@ fi
 
 URL_WITH_NO_ANCHOR="$(echo "${QUTE_URL}" | cut -d '#' -f -1)"
 
-echo -n "${URL_WITH_NO_ANCHOR}#:~:text=${ENCODED_SELECTED_TEXT}" | xclip -selection c
+clipboard_copy "${URL_WITH_NO_ANCHOR}#:~:text=${ENCODED_SELECTED_TEXT}"
+
 echo "message-info 'Yanked URL with selected text'" >>"$QUTE_FIFO"

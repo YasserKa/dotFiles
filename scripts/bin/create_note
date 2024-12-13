@@ -5,7 +5,7 @@
 # 1- persistent general notes
 # 2- Copy latex notes to clipboard
 # 3- org capture note via org protocol
-# Dependencies nvim xclip
+# Dependencies nvim
 # org protocol: emacs
 
 EXTENSION="$1"
@@ -31,7 +31,7 @@ if [[ $EXTENSION == "org_protocol" ]]; then
 	$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration smart
 	[[ $? != 0 ]] && dunstify "Note not captured" "Emacs server isn't running"
 else
-	cat $TEMP_PATH | xclip -selection clipboard
+	clipboard_copy "$TEMP_PATH"
 fi
 
 rm $TEMP_PATH

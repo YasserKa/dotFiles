@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Insert link from qutebrowsers history
-# Dependencies: fzf qutebrowser xdotool xinput xclip
+# Dependencies: fzf qutebrowser xdotool xinput
 
 tmp_file="/tmp/fzf_tmp"
 tmp_links="/tmp/links"
@@ -8,8 +8,6 @@ tmp_links="/tmp/links"
 trap 'rm "$tmp_file" "$tmp_links" 2>/dev/null' EXIT
 
 sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;' | uniq >| "$tmp_links"
-
-cat "$tmp_links"
 
 IFS='' read -r -d '' cmd <<EOF
 awk 'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" \$(NF-1) "\033[0m " "\n" \$NF }' "$tmp_links" | 
@@ -29,8 +27,8 @@ devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-
 
 while IFS= read -r device; do xinput disable "$device" 2>/dev/null ; done <<<"$devices"
 
-tmp="$(xclip -selection clipboard -o >/dev/null 2>&1)"
-tail -n 1 ${tmp_file} | xclip -rmlastnl -selection clipboard
+tmp="$(clipboard_paste)"
+clipboard_copy "$(tail -n 1 ${tmp_file})"
 xdotool key --clearmodifiers ctrl+shift+v
-echo "$tmp" | xclip -rmlastnl -selection clipboard >/dev/null 2>&1 
+clipboard_copy "$tmp"
 while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"

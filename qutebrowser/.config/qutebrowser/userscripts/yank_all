@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
 # Description: yanks URLs of open tabs as org or markdown URLs
-# Dependencies: xclip
 
 import os
 import time
@@ -46,7 +45,7 @@ def main(request):
     time.sleep(0.1)
     # extract urls for buffers
     markdown_urls = get_markdown_urls()
-    command = f'copy_to_clipboard "{markdown_urls}"'
+    command = f'clipboard_copy "{markdown_urls}"'
     os.system(command)
     request.send_command("message-info 'yanked urls'")
 

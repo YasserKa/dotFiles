@@ -7,4 +7,4 @@ elif [[ "$1" == "annotate" ]]; then
 fi
 
 LINK="$("$XDG_CONFIG_HOME"/qutebrowser/userscripts/print_hypothesis_link "$QUTE_URL")"
-copy_to_clipboard "[[$LINK][$QUTE_TITLE]]"
+clipboard_copy "[[$LINK][$QUTE_TITLE]]"

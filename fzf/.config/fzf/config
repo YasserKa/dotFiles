@@ -37,7 +37,7 @@ export FZF_CTRL_R_OPTS="
 --bind 'ctrl-e:accept'
 --bind 'enter:accept+execute(xdotool key enter)'
 --bind 'ctrl-i:transform-query(echo -n {4..})'
---bind 'alt-y:execute-silent(echo -n {4..} | xclip -selection clipboard)+abort'
+--bind 'alt-y:execute-silent(clipboard_copy {4..})+abort'
 $(
 	cat <<'FZF_FTW'
 --bind "ctrl-alt-d:execute-silent(zsh -ic 'builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; for i in {+1}; do ignore+=( \"${(b)history[$i]}\" );done;

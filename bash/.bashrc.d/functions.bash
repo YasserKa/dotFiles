@@ -207,7 +207,7 @@ fkill() {
 # Copy error code to clipboard
 ferrno() {
 	local -r err_list="$(errno --list | awk '{$1 = "\033[37;2m" $1 "\033[0m"; $2 = "\033[1;32m" $2 "\033[0m"; print }')"
-	echo "$err_list" | fzf --ansi --bind "enter:execute-silent(echo {2} | xclip -rmlastnl -selection clipboard)+abort"
+	echo "$err_list" | fzf --ansi --bind "enter:execute-silent(clipboard_copy {2})+abort"
 }
 
 # Show country, region, ISP, IPv4, and IPv6
@@ -239,11 +239,11 @@ fzftmux() {
 fclast() { command fc "-${1}" 0; }
 
 # Copy last command
-cl() { history -p '!!' | tr -d \\n | pbcopy &>/dev/null; }
+cl() { history -p '!!' | tr -d \\n | clipboard_copy; }
 
 if [[ $- == *i* ]]; then
 	if [[ "$BASH" ]]; then
-		copyline() { printf %s "$READLINE_LINE" | pbcopy &>/dev/null; }
+		copyline() { printf %s "$READLINE_LINE" | clipboard_copy &>/dev/null; }
 		bind -m vi-insert -x '"\C-y":copyline'
 		bind -m vi-command -x '"\C-y":copyline'
 	elif [[ "$ZSH_NAME" ]]; then
@@ -475,7 +475,7 @@ magit() {
 
 # Pick a color and store it in clipbaord
 pick_color() {
-	command -v gpick >/dev/null && gpick -so | pbcopy
+	command -v gpick >/dev/null && clipboard_copy | pbcopcy "$(gpick -so)"
 }
 
 reboot() {
