@@ -191,6 +191,7 @@ fps() {
   	--preview 'grc --colour=on ps -F {2} | sed 1d' \
   	--bind "ctrl-alt-t:execute-silent(source $src_file_update; update_my_ps time)+reload(source $src_file; my_ps)" \
   	--bind "ctrl-alt-m:execute-silent(source $src_file_update; update_my_ps mem)+reload(source $src_file; my_ps)" \
+  	--bind "ctrl-r:reload(source $src_file; my_ps)" \
   	--bind "load:reload-sync(source $src_file; my_ps; sleep $span)" \
   	--bind 'alt-t:change-preview-window(down|hidden)' | grep . | awk '{print $3}'
 	}
