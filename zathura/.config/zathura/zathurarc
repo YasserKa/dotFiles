@@ -19,17 +19,16 @@ map ys exec '/home/yasser/.config/zathura/handle_document yank_section "$FILE" "
 # Yank link in the document to clipboard
 map yl feedkeys c
 
+map ,ad exec '/home/yasser/.config/zathura/handle_document remove_annotations "$FILE"'
+map ,ay exec '/home/yasser/.config/zathura/handle_document get_annotations "$FILE"'
+map ,yt exec '/home/yasser/.config/zathura/handle_document yank_chapters_as_tasks "$FILE"'
+
 # Delete current document
 map ,dd exec '/home/yasser/.config/zathura/delete_document "$FILE"'
 # Open another instance
 map wo exec '/usr/bin/env zathura "$FILE"'
 # Open link in another instance
 map wf exec '/home/yasser/.config/zathura/open_link_in_new_window "$FILE"'
-
-map ,ad exec '/home/yasser/.config/zathura/handle_document remove_annotations "$FILE"'
-map ,ay exec '/home/yasser/.config/zathura/handle_document get_annotations "$FILE"'
-map ,yt exec '/home/yasser/.config/zathura/handle_document yank_chapters_as_tasks "$FILE"'
-
 # Open using okular
 map ,oo exec '/home/yasser/.config/zathura/open_book_with_okular "$FILE" "$PAGE"'
 
