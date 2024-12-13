@@ -32,7 +32,7 @@ map ,yt exec '/home/yasser/.config/zathura/handle_document yank_chapters_as_task
 map ,oo exec '/home/yasser/.config/zathura/open_book_with_okular "$FILE" "$PAGE"'
 
 # Open config files
-map ,es exec '/bin/kitty -e bash -ic "cd $XDG_CONFIG_HOME/zathura/ && nvim -o +only zathurarc *"'
+map ,es exec '/bin/kitty -e bash -ic "cd $XDG_CONFIG_HOME/zathura/ && nvim zathurarc"'
 # Source config file
 map ,ss feedkeys ':source<Return>'
 
