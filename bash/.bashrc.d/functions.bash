@@ -162,41 +162,75 @@ vf() {
 fps() {
 	# local isn't used, bcz they are used after exiting the function
 	# they are unset afterwards
-	src_file="/tmp/fzf_ps"
-	src_file_update="$(mktemp)"
-	local span=5
+	# funcstack gets function trace in Zsh
+	# shellcheck disable=2154
+	src_file="$(mktemp -t "${funcstack[-1]}_XXX")"
 
-	update_my_ps() {
-  	if [[ "$1" == "mem" ]]; then
-    	my_ps() { grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort -%mem | sed 1d; }
-  	elif [[ "$1" == "time" ]]; then
-    	my_ps() { grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort +etime | sed 1d; }
-  	fi
-
-  	declare -f my_ps >| "/tmp/fzf_ps"
-	}
+	local update_span=5 # Time between candidates update
+	local pause_span=3  # Time for pauses
+	local func_type="time"
 
 	cleanup() {
 		# shellcheck disable=2317
-		rm -rf "$src_file" "$src_file_update"
+		rm -rf "$src_file"
 		# shellcheck disable=2317
-		unset src_file src_file_update
+		unset src_file func_type
 	}
 
 	trap 'cleanup' EXIT
 
-	update_my_ps "time"
-	declare -f update_my_ps >| "$src_file_update"
-
-	my_ps \
-  	| fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
-  	--preview 'grc --colour=on ps -F {2} | sed 1d' \
-  	--bind "ctrl-alt-t:execute-silent(source $src_file_update; update_my_ps time)+reload(source $src_file; my_ps)" \
-  	--bind "ctrl-alt-m:execute-silent(source $src_file_update; update_my_ps mem)+reload(source $src_file; my_ps)" \
-  	--bind "ctrl-r:reload(source $src_file; my_ps)" \
-  	--bind "load:reload-sync(source $src_file; my_ps; sleep $span)" \
-  	--bind 'alt-t:change-preview-window(down|hidden)' | grep . | awk '{print $3}'
+	gen_cands() {
+	  case "$func_type" in
+	    "time") grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort +etime | sed 1d;;
+	    "mem") grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort -%mem | sed 1d;;
+	  esac
 	}
+
+  #######################################
+  # Save functions and variables used by Fzf shells
+  # Globals:
+  #   src_file
+  #######################################
+  save() {
+	  declare -p src_file pause_span func_type >| "$src_file"
+	  declare -f >> "$src_file"
+  }
+
+  #######################################
+  # Pause the automatic candidates update
+  # - Send STOP signal to sleep process used by fzf's reload-sync
+  # - After $pause_span, send CONT signal to resume the candidate update
+  # Globals:
+  #   pause_span
+  #######################################
+	# shellcheck disable=2317
+  pause() {
+    local -r _ppid="$PPID"
+    local sleep_pid
+    sleep_pid="$(pgrep -P "$_ppid" | grep -v $$)"
+    readonly sleep_pid
+    local -r pid_file="${src_file}.pid" # Storage for the pause process PID
+
+    [[ -f "$pid_file" ]] && kill "$(cat "$pid_file")" # Kill the old sleep command if it exists
+    kill -19 "$sleep_pid" # Send stop signal to sleep command
+    # Continue the sleep command
+    { sleep "$pause_span" && kill -18 "$sleep_pid"; rm "$pid_file"; } &
+      echo "$!" > "$pid_file"
+    }
+
+    save
+
+	  gen_cands \
+  	  | fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
+  		--preview 'grc --colour=on ps -F {2} | sed 1d' \
+  		--bind "ctrl-alt-t:execute-silent(source $src_file; func_type=time)+reload(source $src_file; gen_cands)" \
+  		--bind "ctrl-alt-m:execute-silent(source $src_file; func_type=mem)+reload(source $src_file; gen_cands)" \
+  		--bind 'alt-t:change-preview-window(down|hidden)' \
+  	  --bind "ctrl-r:reload(source $src_file; gen_cands)" \
+      --bind "focus:execute-silent(source $src_file; pause)" \
+  	  --bind "load:reload-sync(source $src_file; gen_cands; sleep $update_span)" \
+ 			| grep . | awk '{print $3}'
+	  }
 
 # Kill processes
 fkill() {
