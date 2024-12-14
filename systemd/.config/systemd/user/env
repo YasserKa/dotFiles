@@ -1,0 +1,13 @@
+# Environment variables for systemd units
+# shellcheck disable=2034
+
+ZDOTDIR="/home/yasser/.config/zsh"
+
+EMACS_ORG_SOCKET="org"
+
+PATH=/home/yasser/bin:/home/yasser/bin/helpers:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+HOME=/home/yasser
+
+# Used by sxhkd systemd service
+TERMINAL="kitty"
