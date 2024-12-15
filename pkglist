@@ -32,6 +32,7 @@ dkms
 
 # Graphics
 nvidia       # NVIDIA drivers
+cuda         # Nvidia's GPU programming toolkit
 # nvidia-utils # NVIDIA drivers utilities
 # xf86-video-nouveau # Open source driver for NVIDIA card
 
