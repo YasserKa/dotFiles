@@ -1,34 +1,36 @@
 #!/usr/bin/env bash
 # Insert link from qutebrowsers history
-# Dependencies: fzf qutebrowser xdotool xinput
+#
+# Dependencies: fzf qutebrowser xdotool
 
-tmp_file="/tmp/fzf_tmp"
-tmp_links="/tmp/links"
+declare TMP_FILE LINKS_FILE
+TMP_FILE="$(mktemp -t fzf_tmp_XXX)"
+readonly TMP_FILE
+LINKS_FILE="$(mktemp -t links_file_XXX)"
+readonly LINKS_FILE
 
-trap 'rm "$tmp_file" "$tmp_links" 2>/dev/null' EXIT
+trap 'rm "$TMP_FILE" "$LINKS_FILE" 2>/dev/null' EXIT
 
-sqlite3 ~/.local/share/qutebrowser/history.sqlite 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;' | uniq >| "$tmp_links"
+sqlite3 "$XDG_DATA_HOME/qutebrowser/history.sqlite" 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;'  >| "$LINKS_FILE"
 
 IFS='' read -r -d '' cmd <<EOF
-awk 'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" \$(NF-1) "\033[0m " "\n" \$NF }' "$tmp_links" | 
+awk 'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" \$(NF-1) "\033[0m " "\n" \$NF }' "$LINKS_FILE" |
   fzf --read0 --ansi --tiebreak=index --preview "" \
-  --bind "alt-m:execute-silent(echo \[{..-2}\]\({-1..}\) >|${tmp_file})+abort"\
-  --bind "alt-o:execute-silent(echo \[\[{-1..}\]\[{..-2}\]\] >|${tmp_file})+abort"\
-  --bind "enter:execute-silent(echo {-1..} >|${tmp_file})+abort"\
-  --bind "esc:execute-silent(echo "" >|${tmp_file})+abort"
+  --bind "alt-m:execute-silent(echo \[{..-2}\]\({-1..}\) >|${TMP_FILE})+abort"\
+  --bind "alt-o:execute-silent(echo \[\[{-1..}\]\[{..-2}\]\] >|${TMP_FILE})+abort"\
+  --bind "enter:execute-silent(echo {-1..} >|${TMP_FILE})+abort"\
+  --bind "esc:execute-silent(echo "" >|${TMP_FILE})+abort"
 EOF
 
-
-[[ ! -e "${tmp_file}" ]] && exit 0
 kitty_control "$cmd"
 
-# Get list of keyboards and disable then re-enable them
-devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
+CLIPBOARD="$(clipboard_paste)"
 
-while IFS= read -r device; do xinput disable "$device" 2>/dev/null ; done <<<"$devices"
+[[ ! -e "${TMP_FILE}" ]] && exit 0
 
-tmp="$(clipboard_paste)"
-clipboard_copy "$(tail -n 1 ${tmp_file})"
-xdotool key --clearmodifiers ctrl+shift+v
-clipboard_copy "$tmp"
-while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
+if [[ -s "${TMP_FILE}" ]]; then
+  clipboard_copy "$(tail -n 1 "${TMP_FILE}")"
+  xdotool key --clearmodifiers ctrl+shift+v
+fi
+
+clipboard_copy "$CLIPBOARD"

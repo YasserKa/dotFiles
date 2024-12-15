@@ -10,6 +10,7 @@ PATH=/home/yasser/bin:/home/yasser/bin/helpers:/usr/local/sbin:/usr/local/bin:/u
 HOME=/home/yasser
 
 XDG_CONFIG_HOME=/home/yasser/.config/
+XDG_DATA_HOME=/home/yasser/.local/share/
 
 # Used by sxhkd systemd service
 TERMINAL="kitty"
