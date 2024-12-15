@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#
+# Send command to a reusable kitty process and wait until its done
+# Arguments:
+# (optional) -g --geometry kitty window's geometry (added to floating enable, scratchpad show)
+#
+# Dependencies: kitty i3 xdotool clipboard_copy clipboard_paste
+
+declare -r SOCKET_ADDRESS="unix:/tmp/kitty.socket"
+declare -r CLASS="terminal_scratch"
+declare LOCK_FILE
+LOCK_FILE="/tmp/kitty_control.lock"
+readonly LOCK_FILE
+declare GEOMETRY="resize set 990 820, move position center, move up 145 px"
+
+main() {
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -g|--geometry)
+        GEOMETRY="$2"; shift; shift ;;
+      *) cmd="$1"; shift ;;
+    esac
+  done
+  readonly GEOMETRY
+
+  # Use a lockfile to wait until the process is finished
+  touch "$LOCK_FILE"
+
+  show_kitty
+  send_cmd "$cmd"
+  i3-msg "[class=^${CLASS}$] floating enable, scratchpad show, $GEOMETRY" >/dev/null
+
+  while [[ -f "$LOCK_FILE" ]]; do
+    sleep 0.1
+  done
+}
+
+#######################################
+# Send command to remote kitty process
+# Globals:
+#   SOCKET_ADDRESS
+#   CLASS
+#   LOCK_FILE
+# Arguments:
+#   $* 
+#######################################
+send_cmd() { 
+  src_file="/tmp/kitty_control_src_file"
+
+  trap 'rm $src_file; unset src_file' EXIT
+
+  clipboard="$(clipboard_paste)"
+
+  # Place command in source file
+  printf "%s\n%s\n%s" "$*" "i3-msg '[class=^${CLASS}$] move scratchpad'" "rm -f $LOCK_FILE" >| "$src_file"
+  # Place source file execution in clipboard 
+  clipboard_copy "cat $src_file | bash"
+
+  # Paste clipboard in remote terminal and execute it
+  kitty @ --to "$SOCKET_ADDRESS" action paste_from_clipboard
+  kitty @ --to "$SOCKET_ADDRESS" send-key 'ctrl+m'
+  sleep 0.07 # Sleep to not show the actions above
+
+  clipboard_copy "$clipboard"
+}
+
+show_kitty() {
+  xdotool search --class "^${CLASS}$" >/dev/null || { kitty --class "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && xdotool search --sync --class "^${CLASS}$"; }
+}
+
+main "$@"

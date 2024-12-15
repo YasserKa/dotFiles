@@ -11,7 +11,7 @@ if [[ -t 0 && "$(tty)" != *tty* ]]; then
   eval "$*"
 else
   if [[ "$floating" == "true" ]]; then
-    "${TERMINAL}" --class "floating_terminal" -e bash -ic "$@"
+    kitty_control "$@"
   else
     "${TERMINAL}" -e bash -ic "$@"
   fi

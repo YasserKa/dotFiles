@@ -269,6 +269,8 @@ bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
 # Put general notes in scratchpad
 for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
 
+for_window [class="^terminal_scratch$"] move scratchpad
+
 for_window [class="^bitwarden_editor$"] floating enable, resize set 990 820, move position center
 
 # note taking
