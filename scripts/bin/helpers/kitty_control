@@ -11,7 +11,7 @@ declare -r CLASS="terminal_scratch"
 declare LOCK_FILE
 LOCK_FILE="/tmp/kitty_control.lock"
 readonly LOCK_FILE
-declare GEOMETRY="resize set 990 820, move position center, move up 145 px"
+declare GEOMETRY="move position center, resize set 990 820, move up 145 px"
 
 main() {
   while [[ $# -gt 0 ]]; do

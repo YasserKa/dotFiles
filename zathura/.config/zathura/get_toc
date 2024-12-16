@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+#
+# Store a document's TOC
+
+import pymupdf
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--document_path", help="Extract TOC from this file")
+parser.add_argument("--toc_path", help="Store the TOC here")
+
+args = parser.parse_args()
+
+if args.document_path is None or args.toc_path is None:
+    raise Exception
+
+doc = pymupdf.open(args.document_path)
+
+toc = doc.get_toc(simple=False)
+
+max_length = max(len(x[1]) + (2 * (x[0] - 1)) for x in toc)
+
+candidates = ""
+for id, header in enumerate(toc):
+    candidates += (
+        " " * 2 * (header[0] - 1)
+        + header[1]
+        + " " * (max_length - len(header[1]) - (2 * (header[0] - 3)))
+        + str(header[2])
+        + "\n"
+    )
+
+with open(args.toc_path, "w") as file:
+    file.write(candidates)

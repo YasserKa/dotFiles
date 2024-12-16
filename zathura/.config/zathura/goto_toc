@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# 
+# Goto to a page in a table of content in Zathura
+#
+# Dependencies: zathura get_toc awk fzf i3
+
+declare -r FILE_PATH="$1"
+declare -r PAGE="$2"
+declare -r DBUS="$3"
+
+declare FILE_BASENAME FILE_TOC # Contains Table of content
+FILE_BASENAME=${FILE_PATH##*/}; FILE_BASENAME=${FILE_BASENAME%.*}
+FILE_TOC="$XDG_CACHE_HOME/documents_toc/${FILE_BASENAME}"
+readonly FILE_BASENAME FILE_TOC
+
+# Store TOC 
+mkdir -p "${FILE_TOC%/*}"
+[[ ! -f "$FILE_TOC"  ]] && "$XDG_CONFIG_HOME/zathura/get_toc" --document_path "$FILE_PATH" --toc_path "$FILE_TOC"
+
+# Get the candidate position containing current page
+pos="$(
+awk -v x="$PAGE" '{ 
+    for (i=NF; i>0; i--) 
+        if ($i ~ /^[0-9]+$/) { 
+            if ($i > x ) {print NR-2; exit} 
+        } 
+}' "$FILE_TOC"
+)"
+
+# Don't focus zathura window when changing pages
+cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 && busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
+# C-A-f toggle follow page
+# C-g go to page
+kitty_control --geometry 'resize set 990 500, move down 500 px' "cat ${FILE_TOC}  \
+  | fzf --reverse \
+  --preview '' \
+  --bind 'result:pos($pos)' \
+  --bind 'focus:execute-silent(page={-1}; $cmd_goto_page \$((page-1)))' \
+  --bind 'load:unbind(focus)' \
+  --prompt '> ' \
+  --bind 'ctrl-alt-f:transform:[[  \$FZF_PROMPT == \"> \"  ]] &&
+  echo \"change-prompt((+f)> )+rebind:focus\" ||
+  echo \"change-prompt(> )+unbind:focus\"' \
+  --bind 'ctrl-g:execute-silent(page={-1}; $cmd_goto_page \$((page-1)))' \
+  | awk '{print \$NF}' | xargs -I {} -- bash -c 'page={}; $cmd_goto_page \$((page-1))'"
