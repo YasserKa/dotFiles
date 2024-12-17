@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+#
+# Pick a process interatively using fzf. It gets updated periodically & can be
+# sorted on elapsed time or memory
+#
+# Dependencies: fzf sed grc
+
+
+declare FILE_BASENAME SRC_FILE 
+FILE_BASENAME="${0##*/}"; FILE_BASENAME="${FILE_BASENAME%.*}"
+SRC_FILE="$(mktemp -t "${FILE_BASENAME}_XXX")"
+readonly SRC_FILE
+
+declare -r UPDATE_SPAN=5 # Time between candidates update
+declare -r PAUSE_SPAN=3  # Time for pauses
+declare FUNC_TYPE="time"
+
+cleanup() {
+	rm -rf "$SRC_FILE"
+}
+
+trap 'cleanup' EXIT
+
+gen_cands() {
+	case "$FUNC_TYPE" in
+	    "time") grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort +etime | sed 1d;;
+	    "mem") grc --colour=on ps -A -o user,ppid,pid,etime,%mem,args --sort -%mem | sed 1d;;
+	esac
+}
+
+#######################################
+# Pause the automatic candidates update
+# - Send STOP signal to sleep process used by fzf's reload-sync
+# - After $PAUSE_SPAN, send CONT signal to resume the candidate update
+# Globals:
+#   PAUSE_SPAN
+#######################################
+pause() {
+  local -r _ppid="$PPID"
+  local sleep_pid
+  sleep_pid="$(pgrep -P "$_ppid" | grep -v $$)"
+  readonly sleep_pid
+  local -r pid_file="${SRC_FILE}.pid" # Storage for the pause process PID
+
+  [[ -f "$pid_file" ]] && kill "$(cat "$pid_file")" # Kill the old sleep command if it exists
+  kill -19 "$sleep_pid" # Send stop signal to sleep command
+  # Continue the sleep command
+  { sleep "$PAUSE_SPAN" && kill -18 "$sleep_pid"; rm "$pid_file"; } &
+  echo "$!" > "$pid_file"
+}
+
+
+#######################################
+# Save functions and variables used by Fzf shells
+# Globals:
+#   SRC_FILE
+#######################################
+save() {
+	declare -p SRC_FILE PAUSE_SPAN FUNC_TYPE >| "$SRC_FILE"
+	declare -f gen_cands pause save >> "$SRC_FILE"
+}
+
+save
+
+gen_cands \
+      | fzf --multi --ansi --preview-window=down,3,wrap,border-none,hidden \
+  	--preview 'grc --colour=on ps -F {2} | sed 1d' \
+  	--bind "ctrl-alt-t:execute-silent(source $SRC_FILE; FUNC_TYPE=time; save)+reload(source $SRC_FILE; gen_cands)" \
+  	--bind "ctrl-alt-m:execute-silent(source $SRC_FILE; FUNC_TYPE=mem; save)+reload(source $SRC_FILE; gen_cands)" \
+  	--bind "ctrl-alt-d:execute-silent(kill -9 {+3})" \
+  	--bind 'alt-t:change-preview-window(down|hidden)' \
+    --bind "ctrl-r:reload(source $SRC_FILE; gen_cands)" \
+    --bind "focus:execute-silent(source $SRC_FILE; pause)" \
+    --bind "load:reload-sync(source $SRC_FILE; gen_cands; sleep $UPDATE_SPAN)" \
+	| grep . | awk '{print $3}'
