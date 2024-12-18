@@ -1607,7 +1607,7 @@ see how ARG affects this command."
     (add-to-list 'org-structure-template-alist '("scala" . "src scala"))
     (add-to-list 'org-structure-template-alist '("markdown" . "src markdown"))
     (add-to-list 'org-structure-template-alist '("sql" . "src sql"))
-    (add-to-list 'org-structure-template-alist '("lisp" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("elisp" . "src emacs-lisp"))
     (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
     )
 
