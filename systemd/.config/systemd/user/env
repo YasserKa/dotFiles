@@ -17,5 +17,9 @@ HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:pls:clear:*/pypoetry/virtualenvs/*"
 XDG_CONFIG_HOME=/home/yasser/.config
 XDG_DATA_HOME=/home/yasser/.local/share
 
+USER="yasser"
 # Used by sxhkd systemd service
 TERMINAL="kitty"
+
+DISPLAY=:0
+XAUTHORITY=/home/yasser/.Xauthority
