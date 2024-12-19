@@ -262,12 +262,10 @@ bindsym $mod+t exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_tmux
 bindsym $mod+Shift+d exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_documents
 
 # Don't show general notes
-bindsym $mod+n exec --no-startup-id $HOME/bin/open_general_notes
-# Show any window besides general notes
-bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
+bindsym $mod+n exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/toggle_org_notes
 
-# Put general notes in scratchpad
-for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
+# Show any window besides these
+bindsym $mod+minus [title="^(?!org_notes)" class="^(?!terminal_scratch)"] scratchpad show
 
 for_window [class="^terminal_scratch$"] move scratchpad
 
@@ -306,4 +304,6 @@ exec --no-startup-id bash -ic "org"
 
 # Manages devices remotely
 exec /bin/kdeconnectd & disown
+
+include $XDG_CONFIG_HOME/i3/config_override
 # >>>

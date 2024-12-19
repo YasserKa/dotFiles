@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# Toggle org notes
+#
+# Dependencies: emacs i3 xdotool jq
+
+
+declare -r CLASS="org_notes"
+
+# If it's visible, move it to scratchpad
+xdotool search  --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
+# shellcheck disable=1091
+source "$HOME/bin/helpers/monitor_variables"
+
+# Move frame to workspace on right output, enable fullscreen, and go to heading
+declare RIGHT_WORKSPACE
+RIGHT_WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.output == \"${MONITOR_RIGHT}\") | .name")"
+readonly RIGHT_WORKSPACE
+
+# If frame doesn't exist, create it, and go to file
+if ! xdotool search --name "^${CLASS}$" >/dev/null; then
+  echo "for_window [title=^${CLASS}$] move scratchpad" >| "$XDG_CONFIG_HOME/i3/config_override"
+  i3-msg reload
+
+  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
+
+  xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${RIGHT_WORKSPACE}, fullscreen enable"
+
+  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
+(let ((frame (seq-find (lambda (frame)
+              (string= \"${CLASS}\" (frame-parameter frame 'name)))
+              (frame-list))))
+  (select-frame-set-input-focus frame)
+  (run-at-time \"0.4 sec\" nil #'vertico--exhibit)
+  (with-selected-frame frame
+  (call-interactively (org-roam-node-find nil \"t_\"))
+  ))"
+fi
+xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${RIGHT_WORKSPACE}, fullscreen enable"
+
+xdotool search --onlyvisible --name "^${CLASS}$" windowfocus
+
+ emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
+  (with-current-buffer (window-buffer (selected-window))
+  (if (minibufferp) (lambda () (minibuffer-keyboard-quit)))
+  (org-overview)
+  (consult-org-heading)
+  (org-fold-show-subtree)
+  )
+  "
+
+echo "" >| "$XDG_CONFIG_HOME/i3/config_override"
+i3-msg reload
+
