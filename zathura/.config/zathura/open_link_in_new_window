@@ -62,8 +62,11 @@ open_document() {
   local -r page="$2"
 
   focused_pid="$(xdotool getactivewindow getwindowpid)"
+  # Quote brackets "( )", because xdotool has special meaning for them
+  file_quoted="${file//(/\\(}"
+  file_quoted="${file_quoted//)/\\)}"
   # All pids using the file
-  all_pids="$(xdotool search --name "^${file}$" getwindowpid %@)"
+  all_pids="$(xdotool search --name "^${file_quoted}$" getwindowpid %@)"
 
   other_pid="$(grep -v "$focused_pid" <(echo "$all_pids"))"
   if [[ -n "$other_pid" ]]; then
@@ -71,10 +74,10 @@ open_document() {
   else
     zathura --page="$page" "$file" & disown
     # Wait until the PID for the new instance is available
-    while ! xdotool search --name "^${file}$" getwindowpid %@ | grep -v "$focused_pid"; do
+    while ! xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid"; do
       sleep 0.1
     done
-    other_pid="$(xdotool search --name "^${file}$" getwindowpid %@  | grep -v "$focused_pid")"
+    other_pid="$(xdotool search --name "^${file_quoted}$" getwindowpid %@  | grep -v "$focused_pid")"
     window_ids="$(xdotool search --pid "$other_pid")"
     for id in $window_ids; do
       i3-msg "[id=$id] move output right" 2>/dev/null
