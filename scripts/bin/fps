@@ -40,12 +40,33 @@ pause() {
   local sleep_pid
   sleep_pid="$(pgrep -P "$_ppid" | grep -v $$)"
   readonly sleep_pid
-  local -r pid_file="${SRC_FILE}.pid" # Storage for the pause process PID
+  local -r pid_file="${SRC_FILE}_pause.pid" # Storage for the pause process PID
 
   [[ -f "$pid_file" ]] && kill "$(cat "$pid_file")" # Kill the old sleep command if it exists
   kill -19 "$sleep_pid" # Send stop signal to sleep command
   # Continue the sleep command
   { sleep "$PAUSE_SPAN" && kill -18 "$sleep_pid"; rm "$pid_file"; } &
+  echo "$!" > "$pid_file"
+
+  update_prompt "$PAUSE_SPAN" &
+}
+
+#######################################
+# Update fzf's prompt showing countdown until candidate updates; also,
+# Disable enter action at 1 second to bypass accidents
+# Globals:
+#   SRC_FILE
+####k##################################
+update_prompt() {
+  local -r pid_file="${SRC_FILE}_prompt.pid"
+  [[ -f "$pid_file" ]] && kill "$(cat "$pid_file")"
+
+  curl -XPOST "localhost:$FZF_PORT" -d "rebind(ctrl-m)"
+  { for i in $(seq 1 "$1" | tac); do
+    curl -XPOST "localhost:$FZF_PORT" -d "change-prompt($i>)"
+    ((i==1)) && curl -XPOST "localhost:$FZF_PORT" -d "unbind(ctrl-m)"
+    sleep 1
+  done; curl -XPOST "localhost:$FZF_PORT" -d "change-prompt( >)"; curl -XPOST "localhost:$FZF_PORT" -d "rebind(ctrl-m)"; rm "$pid_file"; } &
   echo "$!" > "$pid_file"
 }
 
@@ -57,7 +78,7 @@ pause() {
 #######################################
 save() {
 	declare -p SRC_FILE PAUSE_SPAN FUNC_TYPE >| "$SRC_FILE"
-	declare -f gen_cands pause save >> "$SRC_FILE"
+	declare -f gen_cands pause update_prompt save >> "$SRC_FILE"
 }
 
 save
@@ -70,6 +91,7 @@ gen_cands \
   	--bind "ctrl-alt-d:execute-silent(kill -9 {+3})" \
   	--bind 'alt-t:change-preview-window(down|hidden)' \
     --bind "ctrl-r:reload(source $SRC_FILE; gen_cands)" \
+    --listen \
     --bind "focus:execute-silent(source $SRC_FILE; pause)" \
-    --bind "load:reload-sync(source $SRC_FILE; gen_cands; sleep $UPDATE_SPAN)" \
+    --bind "load:reload-sync(source $SRC_FILE; gen_cands; update_prompt $UPDATE_SPAN & sleep $UPDATE_SPAN)" \
 	| grep . | awk '{print $3}'
