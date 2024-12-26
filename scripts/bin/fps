@@ -88,7 +88,7 @@ gen_cands \
   	--preview 'grc --colour=on ps -F {2} | sed 1d' \
   	--bind "ctrl-alt-t:execute-silent(source $SRC_FILE; FUNC_TYPE=time; save)+reload(source $SRC_FILE; gen_cands)" \
   	--bind "ctrl-alt-m:execute-silent(source $SRC_FILE; FUNC_TYPE=mem; save)+reload(source $SRC_FILE; gen_cands)" \
-  	--bind "ctrl-alt-d:execute-silent(kill -9 {+3})" \
+  	--bind "ctrl-alt-d:execute-silent(kill {+3})" \
   	--bind 'alt-t:change-preview-window(down|hidden)' \
     --bind "ctrl-r:reload(source $SRC_FILE; gen_cands)" \
     --listen \

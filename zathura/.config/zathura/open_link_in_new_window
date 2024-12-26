@@ -35,7 +35,7 @@ get_page_num() {
   xdotool key "c"
 
   # Wait until the page number is copied  or the action is aborted
-  wait_keys "<esc>" "<ctrl>+m"
+  uv run --directory ~/projects/python_env wait_keys "<esc>" "<ctrl>+m"
 
   page="$(clipboard_paste)"
 

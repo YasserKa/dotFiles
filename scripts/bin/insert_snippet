@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Insert a snippet
+#
+# Dependencies: rofi clipboard_copy clipboard_paste
+
+SNIPPETS_FILE="$XDG_CONFIG_HOME/.snippets"
+
+# Pick a snippet key using rofi then get its value
+# shellcheck disable=2094
+snippet="$(< "$SNIPPETS_FILE"  cut -d '=' -f -1 | rofi -dmenu | xargs -I{} grep {} "$SNIPPETS_FILE" | cut -d '=' -f 2-)"
+
+[[ -z "$snippet" ]] && exit 1
+
+CLIPBOARD="$(clipboard_paste)"
+clipboard_copy "$snippet"
+xdotool key --clearmodifiers ctrl+shift+v
+clipboard_copy "$CLIPBOARD"

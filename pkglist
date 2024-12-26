@@ -133,9 +133,6 @@ python-i3ipc # Usd by autokey for emacs script
 python-pymupdf # Used by script to get highlighted text in pdf
 python-pyperclip # Needed to yank clipboard by zathura's handle_document
 python-tldextract # Needed by Qutebrowser bitwarden script
-python-selenium # Used by scripts
-python-rofi-git # Used by scripts
-python-pynput # Monitor and control user input devices
 pyenv # Switch between multiple python versions
 prettier # An opinionated code formatter for JS, JSON, CSS, YAMK..
 

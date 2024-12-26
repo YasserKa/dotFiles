@@ -87,12 +87,17 @@ install-aur-helper: stow-etc
 .PHONY: setup-tuir
 setup-tuir:
 	@git clone --depth 1 https://gitlab.com/YasserKa/tuir /tmp/tuir
-  @uv python install 3.12 # mailcap module (used by tuir) is removed at python 3.13
-  @cd /tmp/tuir/ && uv tool install .
-	@cd .. && rm /tmp/tuir -rf
+	@# mailcap module (used by tuir) is removed at python 3.13
+	@uv python install 3.12
+	cd /tmp/tuir/ && uv tool install .
+	cd .. && rm /tmp/tuir -rf
+
+.PHONY: setup-python-env
+setup-python-env:
+	@mkdir -p ~/projects/python_env && cd ~/projects/python_env && uv init && uv add pynput selenium python-dateutil
 
 .PHONY: post-install-packages
-post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir
+post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir setup-python-env
 	@# Setup editors
 	nvim  --headless -c 'quitall'
 	emacs --kill
