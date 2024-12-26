@@ -87,7 +87,8 @@ install-aur-helper: stow-etc
 .PHONY: setup-tuir
 setup-tuir:
 	@git clone --depth 1 https://gitlab.com/YasserKa/tuir /tmp/tuir
-	@cd /tmp/tuir/ && python -m pip install . --break-system-packages
+  @uv python install 3.12 # mailcap module (used by tuir) is removed at python 3.13
+  @cd /tmp/tuir/ && uv tool install .
 	@cd .. && rm /tmp/tuir -rf
 
 .PHONY: post-install-packages
