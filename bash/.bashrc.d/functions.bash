@@ -95,16 +95,12 @@ upgrade_system() {
 	nvim --headless -c 'autocmd User LazySync quitall' -c "AstroMasonUpdateAll" "+Lazy! sync"
 
 	printf "%s\n" "Updating Emacs packages"
-	emacs_update_code="(progn
-  (add-hook 'emacs-startup-hook #'(lambda () (interactive) (save-buffers-kill-emacs)))
-  (auto-package-update-now)) "
-
-emacs_update_code="
-(if (featurep 'straight)
-  (straight-pull-all)))"
+	emacs_update_code="
+	(if (featurep 'straight)
+  	(straight-pull-all)))"
 	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "$emacs_update_code" & disown
 	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code" & disown
-	command emacs --init-directory . --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="($emacs_update_code)" & disown
+	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="$emacs_update_code" & disown
 
 	# Upgrade python packages
 	uv tool upgrade-all
