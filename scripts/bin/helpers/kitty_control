@@ -54,7 +54,7 @@ send_cmd() {
   # Place command in source file
   printf "%s\n%s\n%s" "$*" "i3-msg '[class=^${CLASS}$] move scratchpad'" "rm -f $LOCK_FILE" >| "$src_file"
   # Place source file execution in clipboard 
-  clipboard_copy "cat $src_file | bash"
+  clipboard_copy "< $src_file bash"
 
   # Paste clipboard in remote terminal and execute it
   kitty @ --to "$SOCKET_ADDRESS" action paste_from_clipboard

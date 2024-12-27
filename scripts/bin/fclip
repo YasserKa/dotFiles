@@ -33,7 +33,7 @@ EOF
 
 eval_interactive_cmd --floating "$cmd"
 
-clip="$(cat /tmp/fzf_tmp)"
+clip="$(</tmp/fzf_tmp)"
 
 [[ ! "$clip" ]] && exit 0
 
