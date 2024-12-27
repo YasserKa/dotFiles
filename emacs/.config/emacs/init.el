@@ -1294,6 +1294,11 @@ Made for `org-tab-first-hook' in evil-mode."
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
   '(org-document-info ((t (:foreground "dark orange"))))
 
+  (defun truncate-string-with-ellipsis (string length)
+    "Truncate STRING to a maximum of LENGTH characters, appending '...' if truncated."
+    (if (> (length string) length)
+        (concat (substring string 0 (max 0 (- length 3))) "...")
+      string))
   (defun get-top-heading-in-block ()
     "Get the title of the top-level heading in the current block."
     (interactive)
@@ -1306,7 +1311,8 @@ Made for `org-tab-first-hook' in evil-mode."
           (while (org-up-heading-safe))
           (let ((categroy (org-entry-get nil "CATEGORY"))
                 (file-name (file-name-sans-extension (buffer-name)))
-                (org-heading-title (org-get-heading t t)))
+                (org-heading-title (truncate-string-with-ellipsis (org-get-heading t t) 18))
+                )
             (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
                 ))) "")
     )
