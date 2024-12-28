@@ -23,19 +23,25 @@ for (i = 0; i < size(); ++i) {
   );
 }'
 
+declare TMP_FILE
+TMP_FILE="$(mktemp -t "tmp_XXX")"
+readonly TMP_FILE
+
+trap 'rm $TMP_FILE' EXIT
+
 IFS='' read -r -d '' cmd <<EOF
   get_candidates='${get_candidates}'
   copyq eval -- "\${get_candidates}" | fzf --multi --ansi --delimiter ' ' --nth=3.. --with-nth=2.. --read0 --preview-window="hidden" --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {4..}" \
-    --bind "enter:execute-silent(echo {4..} >|/tmp/fzf_tmp)+abort" \
+    --bind "enter:execute-silent(echo {4..} >|'${TMP_FILE}')+abort" \
     --bind 'ctrl-alt-d:execute-silent(copyq remove {1})+reload:copyq eval -- '"'\${get_candidates}'" \
     | sed -E 's/^[0-9]\+ [0-9]\+-[0-9]\+ [0-9:]\+ //'
 EOF
 
 eval_interactive_cmd --floating "$cmd"
 
-clip="$(</tmp/fzf_tmp)"
+[[ -s "$TMP_FILE" ]] || exit 1
 
-[[ ! "$clip" ]] && exit 0
+clip="$(<"$TMP_FILE")"
 
 copyq disable
 if [[ "$clip" =~ /tmp/copyq..* ]]; then 
