@@ -66,8 +66,9 @@ update_prompt() {
     curl -XPOST "localhost:$FZF_PORT" -d "change-prompt($i>)"
     ((i==1)) && curl -XPOST "localhost:$FZF_PORT" -d "unbind(ctrl-m)"
     sleep 1
-  done; curl -XPOST "localhost:$FZF_PORT" -d "change-prompt( >)"; curl -XPOST "localhost:$FZF_PORT" -d "rebind(ctrl-m)"; rm "$pid_file"; } &
-  echo "$!" > "$pid_file"
+  done; curl -XPOST "localhost:$FZF_PORT" -d "change-prompt( >)"; curl -XPOST "localhost:$FZF_PORT" -d "rebind(ctrl-m)"; } &
+  echo "$!" >| "$pid_file"
+  { sleep "$1"; rm "$pid_file"; } &
 }
 
 
