@@ -125,7 +125,10 @@ def remove_annotations():
     for page in doc:
         annot = page.first_annot
         while annot:
-            annot = page.delete_annot(annot)
+            # Need to store the annotation before deleting it, else pymupdf raises an error for Annot not being boudn to a page
+            next_annot = annot.next
+            page.delete_annot(annot)
+            annot = next_annot
     doc.save(FILE_PATH, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
 
 if __name__ == "__main__":
