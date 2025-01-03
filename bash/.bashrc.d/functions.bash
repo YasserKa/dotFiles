@@ -103,7 +103,7 @@ upgrade_system() {
 	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="$emacs_update_code" & disown
 
 	# Upgrade python packages
-	uv tool upgrade-all
+	uv tool upgrade --all
 
 	pdm self update
 

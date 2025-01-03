@@ -136,6 +136,8 @@ python-tldextract # Needed by Qutebrowser bitwarden script
 pyenv # Switch between multiple python versions
 prettier # An opinionated code formatter for JS, JSON, CSS, YAMK..
 
+dbeaver # SQL Client
+
 # Command line
 zsh             # Z-Shell
 bash-completion # Programmable completion for the bash shell
@@ -263,6 +265,7 @@ diff-pdf # Visually comparing two PDF files
 qpdf # PDF transformation software
 
 # Utility
+hyperfine # Bencmarking tool
 ripgrep # A search tool that combines the usability of ag with the raw speed of grep
 stow # Manage installation of multiple softwares in the same directory tree
 unrar # The RAR uncompression program
