@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Update docker compose
+#
+# $1: server
+# $*: name of containers (optional)
+
+server="$1"
+shift
+containers=${*-$(docker ps --format '{{.Names}}')}
+
+for container in $containers; do
+    echo "Updating $container"
+    docker_compose_path=$(docker inspect --format '{{ index .Config.Labels "com.docker.compose.project.working_dir"}}' "$container")
+    command ssh "$server" -t "cd $docker_compose_path; docker compose down; docker compose pull; docker compose up -d"
+done
+
+echo "Update complete!"
