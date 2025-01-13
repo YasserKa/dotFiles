@@ -1346,6 +1346,27 @@ Made for `org-tab-first-hook' in evil-mode."
         '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
           ))
 
+  ;; Convert effort to HH:MM format
+  (defun org-normalize-effort ()
+    "Convert effort to HH:MM format in Org mode without causing recursion."
+    (when (org-entry-get nil "Effort")
+      (let ((inhibit-org-property-changed-functions t)
+            (effort (org-duration-from-minutes
+                     (org-duration-to-minutes (org-entry-get nil "Effort")))))
+        (org-entry-put nil "Effort" effort))))
+
+
+  (defvar inhibit-org-property-changed-functions nil
+    "Prevent org-property-changed-functions from being triggered.")
+
+  (defun org-effort-normalization-hook (property _value)
+    "Normalize effort format when the Effort property is modified."
+    (when (and (string= property "Effort")
+               (not inhibit-org-property-changed-functions))
+      (org-normalize-effort)))
+
+  (add-hook 'org-property-changed-functions 'org-effort-normalization-hook)
+
   ;; Remove space before header
   (setq org-super-agenda-header-prefix "")
 
