@@ -77,7 +77,7 @@ main() {
 
 	COMPRESSED_EXT=("a" "ace" "alz" "arc" "arj" "bz" "bz2" "cab" "cpio" "deb" "gz" "jar" "lha" "lz" "lzh" "lzma" "lzo" "rpm" "rz" "t7z" "tar" "tbz" "tbz2" "tgz" "tlz" "txz" "tZ" "tzo" "war" "xpi" "xz" "Z" "zip")
 	if array::contains "$EXTENSION" "${COMPRESSED_EXT[@]}"; then
-		atool -l ~/archive.zip | awk '/^[[:space:]]*[0-9]+/ {
+		atool -l "$1" | awk '/^[[:space:]]*[0-9]+/ {
     if ($1 != "0" && $1 != "0B") {  # Skip zero-length files
       size = $1
       cmd = "echo " size " | numfmt --to=iec-i --suffix=B"
