@@ -383,6 +383,7 @@ zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
   zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
 	  fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:*' fzf-min-height 40
 
   zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
 
