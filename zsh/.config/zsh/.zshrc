@@ -374,6 +374,7 @@ zstyle ':fzf-tab:*' prefix ''
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' continuous-trigger 'tab'
+zstyle ':fzf-tab:*' fzf-bindings 'alt-space:toggle-all'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 # give a preview of commandline arguments when completing `kill`
 # zstyle ':completion:*:*:*:*:processes' list-colors '=*=90'

@@ -75,6 +75,9 @@ $in_files: fd --regex '.*.pdf' --- --multi --expand --preview "export IS_NAVI=1;
 # Start without rc
 zsh -d -f -i
 
+# Enable glob patterns
+setopt ksh_glob no_bare_glob_qual
+
 % Youtube downloader
 
 # Download youtube playlist's audio
