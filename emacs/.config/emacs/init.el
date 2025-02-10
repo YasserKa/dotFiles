@@ -810,9 +810,10 @@ does not have to do this by oneself."
 (use-package git-modes)
 
 (use-package magit
-  :after evil-collection
+  :after (evil-collection nerd-icons)
   :custom
   (evil-collection-magit-use-y-for-yank t)
+  (magit-format-file-function #'magit-format-file-nerd-icons)
   ;; Disabled because of a bug
   (evil-collection-magit-want-horizontal-movement t)
   ;; Update return in repo list, should be done after evil-collection
@@ -1283,7 +1284,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (use-package org-download
     :after org
-    :config (setq-default org-download-image-dir "~/notes/org/images/drag_drop")
+    :config (setq-default org-download-image-dir (concat notes-dir "/images/drag_drop"))
     )
 
   (defun my/open-super-agenda ()
@@ -2249,7 +2250,7 @@ selection of all minor-modes, active or not."
 
 (defhydra find-hydra (:exit t :idle 1)
   (" b" consult-buffer "Buffer")
-  (" f" find-file "File")
+  (" f" consult-find "File")
   (" B" org-cite-insert "BibTex")
   (" t" consult-line "Text in buffer")
   (" T" consult-ripgrep "Text in directory")
