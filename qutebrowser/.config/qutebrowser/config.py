@@ -250,7 +250,7 @@ c.aliases = {
     "h": "help -t",
     "H": "help -w",
     "awesome": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_awesome_tracker {url}",
-    "archive_page": "spawn --userscript ~/bin/archive_web_page {url}",
+    "archive_page": "spawn ~/projects/python_env/.venv/bin/python bin/archive_web_page {url}",
     "new_reddit": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_new_reddit {url}",
     "gotoarchive_page_all": "spawn qutebrowser http://archive.home/archive/{url} https://web.archive.org/{url} https://ghostarchive.org/search?term={url} https://archive.ph/newest/{url}",
     "gotoarchive_page_wayback_machine": "open -t https://web.archive.org/{url}",
