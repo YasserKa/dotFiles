@@ -22,7 +22,6 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs
 	@mkdir -p $(XDG_CONFIG_HOME)/tmux/plugins
-	@mkdir -p $(XDG_CONFIG_HOME)/nvim
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav/configs
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
@@ -34,11 +33,6 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/zsh
 	@mkdir -p $(XDG_DATA_HOME)/icons/hicolor
 	@rm -rf $(HOME)/.bashrc $(HOME)/.bash_profile
-	@# https://wiki.archlinux.org/title/GRUB/Tips_and_tricks#Hide_GRUB_unless_the_Shift_key_is_held_down
-	@sudo sh -c "echo 'GRUB_FORCE_HIDDEN_MENU="true"' >> /boot/grub/grub.cfg"
-	@sudo curl https://gist.githubusercontent.com/anonymous/8eb2019db2e278ba99be/raw/257f15100fd46aeeb8e33a7629b209d0a14b9975/gistfile1.sh --output /etc/grub.d/31_hold_shift 
-	@sudo chmod +x /etc/grub.d/31_hold_shift
-	@sudo grub-mkconfig -o /boot/grub/grub.cfg
 	sudo pacman --sync --refresh --sysupgrade --noconfirm stow
 
 .PHONY: update-sudoers
@@ -114,8 +108,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 .PHONY: stow-packages
 stow-packages:
 	# Install neovim starter kit before stowing
-	@git clone --depth 1 https://github.com/AstroNvim/AstroNvim $(XDG_CONFIG_HOME)/nvim
-	@stow X11 autokey autorandr bash bat cmus copyq cron dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane ssh sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap yt-dlp zathura zsh
+	@stow X11 autokey autorandr bash bat cmus copyq dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap yt-dlp zathura zsh
 	@sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
@@ -137,6 +130,7 @@ setup-systemd-services:
 	systemctl enable mbsync.timer --user
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
+	sudo systemctl enable tailscaled
 	sudo systemctl enable displaylink
 	sudo systemctl enable auto-cpufreq.service
 	# Disables to not override backups while setting up the environment
