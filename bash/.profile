@@ -94,7 +94,8 @@ export EMACS_DEFAULT_SOCKET="default"
 export EMACS_ORG_SOCKET="org"
 
 # Use a display server (X or Wayland)
-if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ]; then
+
+if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" ] && [ -z "$SSH_TTY" ]; then
 	# exec sway
 	exec startx "${XINITRC}"
 fi

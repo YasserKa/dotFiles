@@ -37,15 +37,28 @@ for bash in "$HOME"/.bash_completion.d/*.bash; do
 done
 unset -v bash
 
-# Prompt with info about git repo
-if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
-	# https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
-	source_file "$XDG_CONFIG_HOME/git/git-prompt.sh"
-	export GIT_PS1_SHOWDIRTYSTATE=1
-	PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]❯ \[\e[m\]'
+if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_TTY" ]; then
+	if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
+		# https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
+		. "$XDG_CONFIG_HOME/git/git-prompt.sh"
+		export GIT_PS1_SHOWDIRTYSTATE=1
+		PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]\u@\h: \[\e[m\]'
+		PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+	else
+		git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1)/'; }
+		PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[01;32m\]\u@\h\[\033[00m\]\[\033[01;34m\] \[\033[38;5;34m\]❯ \[\e[m\]'
+	fi
 else
-	git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1)/'; }
-	PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
+	# Prompt with info about git repo
+	if [[ -e $XDG_CONFIG_HOME/git/git-prompt.sh ]]; then
+		# https://www.git-scm.com/book/en/v2/Appendix-A%3A-Git-in-Other-Environments-Git-in-Bash
+		source_file "$XDG_CONFIG_HOME/git/git-prompt.sh"
+		export GIT_PS1_SHOWDIRTYSTATE=1
+		PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(__git_ps1 "(%s)")\n\[\033[38;5;34m\]❯ \[\e[m\]'
+	else
+		git_branch() { git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1)/'; }
+		PS1='\[$(tput bold)\]\[\e[36m\]\w\[\033[38;5;87m\] $(git_branch)\n\[\033[38;5;34m\]❯ \[\e[m\]'
+	fi
 fi
 
 # Setup autojumping
