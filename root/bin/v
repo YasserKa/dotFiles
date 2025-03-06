@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Shorter
+# alias v='nvim'
+#######################################
+# If directories doesn't exist, create them after accepting a prompt
+# Arguments:
+#   $1: file path
+#######################################
+
+main() {
+	local -r FILE_PATH="$1"
+	local -r FILES=("$@")
+
+	local ONLY_OPTION=""
+	(($# > 1)) && ONLY_OPTION="+only"
+	# Extract directory path from the file path
+	local DIR_PATH
+	DIR_PATH="$(dirname "$FILE_PATH")"
+
+	# Check if the directory exists, if not, create it after accepting a prompt
+	if [[ ! -d "$DIR_PATH" ]]; then
+
+		local -r QUESTION=" $DIR_PATH path doesn't exist, create it? (y/n) "
+		if [[ "$BASH" ]]; then
+			read -rp "$QUESTION" CHOICE
+		elif [[ "$ZSH_NAME" ]]; then
+			read -rq "CHOICE?$QUESTION"
+		fi
+
+		[[ "$CHOICE" != "y" ]] && return 0
+
+		mkdir -p "$DIR_PATH"
+	fi
+
+	command nvim $ONLY_OPTION -o -- "${FILES[@]}"
+}
+
+main "$@"
