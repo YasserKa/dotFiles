@@ -5,6 +5,7 @@ linux-firmware # Firmware files for Linux
 linux-headers # Headers and scripts for building modules for the Linux kernel
 base # Minimal package set to define a basic Arch Linux installation
 grub # GNU GRand Unified Bootloader (2)
+efibootmgr # Linux user-4pace application to modify the EFI Boot Manager
 # Optionally needed by grub for grub-mkrescue FAT FS support
 mtools # A collection of utilities to access MS-DOS disks
 base-devel # Basic tools to build Arch Linux packages
@@ -55,6 +56,7 @@ alsa-utils # Advanced Linux Sound Architecture - Utilities
 pipewire # Low-latency audio/video router and processor
 pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
 pipewire-alsa # Route all applications using ALSA API through PipeWire
+sof-firmware # Sound open firmware
 wireplumber # Session manager for Pipewire watching streams (better than pipewire-media-sesion)
 pavucontrol # PulseAudio Volume Control
 cmus # Feature-rich ncurses-based music player

@@ -60,17 +60,17 @@ create-clean-pkglist:
 	@# pacman doesn\'t show the following installed packages
 	@cat pkglist | grep -o "^[^#]*" | grep -vE "(binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which|wlroots)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
-.PHONY: stow-etc
-stow-etc:
+.PHONY: stow-root
+stow-root:
 	@# Needs to be installed before stowing its config, else it will make an error
 	@sudo pacman -S --noconfirm greetd
 	sudo rm -r /etc/{pacman.conf,greetd}
-	sudo stow etc --target=/
+	sudo stow root --target=/
 	@# pkgfile-update needs specific file permission to work
 	yes | sudo cp ./etc/etc/pacman.conf /etc
 
 .PHONY: install-aur-helper
-install-aur-helper: stow-etc
+install-aur-helper: stow-root
 	rm -rf /tmp/paru
 	git clone --depth 1 https://aur.archlinux.org/paru.git  /tmp/paru
 	# Get multilib and archlinuxfr databases
