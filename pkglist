@@ -251,6 +251,7 @@ swayfx        # Sway with eye candy
 swaybg        # Wallpaper tool
 swaylock      # Screen locker
 waybar        # Wayland bar
+wl-clipboard # copy/paste utilities for Wayland
 
 zathura # Minimalistic document viewer
 zathura-djvu # DjVu support for Zathura
