@@ -31,11 +31,6 @@ dkms
 #evdi-git # kernel module that that enables management of multiple screens.
 #evdi-compat-git
 
-# Graphics
-nvidia       # NVIDIA drivers
-# nvidia-utils # NVIDIA drivers utilities
-# xf86-video-nouveau # Open source driver for NVIDIA card
-
 # Needed microcode
 intel-ucode # Microcode update files for Intel CPUs
 
