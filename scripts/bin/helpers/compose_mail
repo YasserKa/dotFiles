@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Open neomutt to compose an email
+#
+# $1: sent to email address
+
+ACCOUNTS_PATH="$XDG_CONFIG_HOME/neomutt/accounts"
+MAIL_ACCOUNT="$(find "$ACCOUNTS_PATH"/* -type d ! -regex ".*template.*" -printf "%f\n" | fzf --select-1 --preview-window hidden)"
+
+[[ -z "$MAIL_ACCOUNT" ]] && exit 1
+
+neomutt -e "source $ACCOUNTS_PATH/$MAIL_ACCOUNT/config" "$1"

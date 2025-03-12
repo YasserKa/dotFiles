@@ -7,4 +7,4 @@ Terminal=true
 Type=Application
 MimeType=x-scheme-handler/mailto
 Icon=mutt
-Exec=kitty -- neomutt %U
+Exec=kitty -- /home/yasser/bin/helpers/compose_mail %U
