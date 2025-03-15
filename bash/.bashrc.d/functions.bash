@@ -98,6 +98,8 @@ upgrade_system() {
 	emacs_update_code="
 	(if (featurep 'straight)
   	(straight-pull-all)))"
+	# Updating treesitters
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))"
 	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "$emacs_update_code" & disown
 	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code" & disown
 	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="$emacs_update_code" & disown
