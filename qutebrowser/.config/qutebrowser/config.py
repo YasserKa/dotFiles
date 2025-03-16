@@ -332,6 +332,7 @@ c.tabs.title.format = "{current_title}"
 c.prompt.filebrowser = False
 c.downloads.location.suggestion = "both"
 c.downloads.remove_finished = 0
+c.downloads.location.directory = f"{os.environ['HOME']}/Downloads"
 
 c.editor.command = [os.getenv("EDITOR_GUI"), "{file}", "--nofork"]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
