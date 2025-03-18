@@ -8,7 +8,7 @@ BW_HASH=
 
 # Options
 CLEAR=$DEFAULT_CLEAR # Clear password after N seconds (0 to disable)
-SHOW_PASSWORD=no # Show part of the password in the notification
+SHOW_PASSWORD=no     # Show part of the password in the notification
 
 # Holds the available items in memory
 ITEMS=
@@ -45,15 +45,16 @@ rofi_menu() {
 		# -kb-custom-2 alt+n
 		-kb-custom-3 alt+u
 		-kb-custom-4 alt+c
+		-kb-custom-5 alt+e
 	)
 
-	msg="<b>Alt+r</b>: sync      | <b>Alt+u</b>: urls      | <b>Alt+n</b>: names     | <b>Alt+c</b>: folders"
+	msg="<b>Alt+r</b>: sync      | <b>Alt+u</b>: urls      | <b>Alt+n</b>: names     | <b>Alt+c</b>: folders     | <b>Alt+e</b>: edit"
 
 	hash xdotool 2>/dev/null && {
 		actions+=(
-			-kb-custom-5 Alt+1
-			# -kb-custom-6 Alt+2
-			-kb-custom-7 Alt+3
+			-kb-custom-6 Alt+1
+			# -kb-custom-7 Alt+2
+			-kb-custom-8 Alt+3
 		)
 		msg+="
 <b>Alt+1</b>: Type all  | <b>Alt+2</b>: Type user | <b>Alt+3</b>: Type pass"
@@ -120,20 +121,35 @@ sync_bitwarden() {
 	show_items
 }
 
+edit_item() {
+
+	TMP_FILE=$(mktemp)
+	ITEM=$(echo "$ITEMS" | jq -r ".[] | select(.name == \"$1\")")
+	ITEM_ID="$(echo "$ITEM" | jq -r '.id')"
+	CLASS="bitwarden_editor"
+	echo "$ITEM" >|"$TMP_FILE"
+	"$TERMINAL" --class "$CLASS" -e "$EDITOR" "$TMP_FILE" +":call cursor (12,12)"
+	ENCODED_JSON="$(bw encode <"$TMP_FILE")"
+	echoj"$ENCODED_JSON $ITEM_ID" >|~/bla
+
+	bw edit item "$ITEM_ID" "$ENCODED_JSON"
+}
+
 # Evaluate the rofi exit codes
 on_rofi_exit() {
 	case "$1" in
-		10) sync_bitwarden ;;
-		11)
-			load_items
-			show_items
-			;;
-		12) show_urls ;;
-		13) show_folders ;;
-		14) auto_type all "$2" ;;
-		15) auto_type username "$2" ;;
-		16) auto_type password "$2" ;;
-		*) exit "$1" ;;
+	10) sync_bitwarden ;;
+	11)
+		load_items
+		show_items
+		;;
+	12) show_urls ;;
+	13) show_folders ;;
+	14) edit_item "$2" ;;
+	15) auto_type all "$2" ;;
+	16) auto_type username "$2" ;;
+	17) auto_type password "$2" ;;
+	*) exit "$1" ;;
 	esac
 }
 
@@ -145,17 +161,17 @@ auto_type() {
 	sleep 0.3
 
 	case "$1" in
-		all)
-			xdotool type "$(echo "$item" | jq -r ".username")"
-			xdotool key Tab
-			xdotool type "$(echo "$item" | jq -r ".password")"
-			;;
-		username)
-			xdotool type "$(echo "$item" | jq -r ".username")"
-			;;
-		password)
-			xdotool type "$(echo "$item" | jq -r ".password")"
-			;;
+	all)
+		xdotool type "$(echo "$item" | jq -r ".username")"
+		xdotool key Tab
+		xdotool type "$(echo "$item" | jq -r ".password")"
+		;;
+	username)
+		xdotool type "$(echo "$item" | jq -r ".username")"
+		;;
+	password)
+		xdotool type "$(echo "$item" | jq -r ".password")"
+		;;
 	esac
 }
 
