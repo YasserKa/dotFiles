@@ -55,8 +55,9 @@ set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,
 
 # Thread
 bind index <space> collapse-thread
-set sort_aux = reverse-date
-set sort=threads
+set use_threads=reverse
+set sort=last-date
+set sort_aux = date
 set collapse_all
 set collapse_unread = no
 
