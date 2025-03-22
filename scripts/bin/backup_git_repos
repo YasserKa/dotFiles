@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Backup git repos
+# Arguments:
+#   $1: backup directory
+#   $*: git repos directories
+# Dependencies: git
+
+BACKUP_DIR="${1-./backup}"
+mkdir -p "$BACKUP_DIR"
+
+shift
+
+DIRS="$HOME/.dotfiles $HOME/.dotfiles-private $HOME/notes"
+DIRS="${*-${DIRS[@]}}"
+
+# Clone github repos
+# curl -s curl -s -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer <token>" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/user/repos" | jq -r '.[].clone_url' | xargs -n1 git clone
+# ./backup_git_repos backup "$(find git_repos -mindepth 1 -maxdepth 1 -type d)"
+#
+# Restore repo
+# git clone <backup> <repo-dir>
+
+for dir in $DIRS; do
+  echo "Backing up $dir to $BACKUP_DIR/${dir##*/}"
+  git -C "$(realpath -s "$dir")" bundle create "$(realpath -s "$BACKUP_DIR/${dir##*/}")" --all
+done
