@@ -128,7 +128,6 @@ setup-systemd-services:
 	systemctl enable mbsync.timer --user
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
-	sudo systemctl enable tailscaled
 	sudo systemctl enable displaylink
 	sudo systemctl enable auto-cpufreq.service
 	# Disables to not override backups while setting up the environment
