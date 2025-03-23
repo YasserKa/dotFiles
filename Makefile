@@ -17,6 +17,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/systemd/user
 	@mkdir -p $(XDG_CONFIG_HOME)/autorandr
 	@mkdir -p $(XDG_CONFIG_HOME)/cmus
+	@mkdir -p $(XDG_CONFIG_HOME)/rofi
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav
 	@mkdir -p $(XDG_CONFIG_HOME)/copyq
 	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
@@ -24,11 +25,12 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/tmux/plugins
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav/configs
+	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser/userscripts
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
+	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
 	@# Used by pai function
 	@mkdir -p $(HOME)/.local/state/fzf
 	@mkdir -p $(XDG_DATA_HOME)/okular
-	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
 	@mkdir -p $(XDG_CONFIG_HOME)/autokey/data
 	@mkdir -p $(XDG_CONFIG_HOME)/zsh
 	@mkdir -p $(XDG_DATA_HOME)/icons/hicolor
