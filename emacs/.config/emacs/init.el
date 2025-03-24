@@ -1296,9 +1296,9 @@ Made for `org-tab-first-hook' in evil-mode."
   '(org-document-info ((t (:foreground "dark orange"))))
 
   (defun truncate-string-with-ellipsis (string length)
-    "Truncate STRING to a maximum of LENGTH characters, appending '...' if truncated."
+    "Truncate STRING to a maximum of LENGTH characters, appending '…' if truncated."
     (if (> (length string) length)
-        (concat (substring string 0 (max 0 (- length 3))) "...")
+        (concat (substring string 0 (max 0 (- length 3))) "…")
       string))
   (defun get-top-heading-in-block ()
     "Get the title of the top-level heading in the current block."
@@ -1320,7 +1320,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-agenda-current-time-string "---*> now <*---"
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
-                               "....  " "---------------")
+                               "…  " "---------------")
         org-agenda-prefix-format '((agenda . " %-16:(get-top-heading-in-block)%12t  %s %-4e")
                                    (todo . " %-18:(get-top-heading-in-block)  %-4e ")
                                    (tags . " %-12:(get-top-heading-in-block) %-6e")
