@@ -5,3 +5,4 @@
 !ipython_config.py
 /i3/.config/i3/monitor_setup
 /mpv/.config/mpv/volume
+/nvim/.config/nvim/lazy-lock.json

@@ -12,10 +12,28 @@ return {
     colorscheme = "nordfox",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
-      init = { -- this table overrides highlights in all themes
+      init = function() -- this table overrides highlights in all themes
         -- Normal = { bg = "#000000" },
-      },
-      astrotheme = { -- a table of overrides/changes when applying the astrotheme theme
+        local get_hlgroup = require("astroui").get_hlgroup
+        local bg = get_hlgroup("Normal").bg
+        local bg_alt = get_hlgroup("Visual").bg
+        local green = get_hlgroup("String").fg
+        local red = get_hlgroup("Error").fg
+        return {
+          SnacksPickerBorder = { fg = bg_alt, bg = bg },
+          SnacksPicker = { bg = bg },
+          SnacksPickerPreviewBorder = { fg = bg, bg = bg },
+          SnacksPickerPreview = { bg = bg },
+          SnacksPickerPreviewTitle = { fg = bg, bg = green },
+          SnacksPickerBoxBorder = { fg = bg, bg = bg },
+          SnacksPickerInputBorder = { fg = bg, bg = bg },
+          SnacksPickerInputSearch = { fg = red, bg = bg },
+          SnacksPickerListBorder = { fg = bg, bg = bg },
+          SnacksPickerList = { bg = bg },
+          SnacksPickerListTitle = { fg = bg, bg = bg },
+        }
+      end,
+      astrodark = { -- a table of overrides/changes when applying the astrotheme theme
         -- Normal = { bg = "#000000" },
       },
     },

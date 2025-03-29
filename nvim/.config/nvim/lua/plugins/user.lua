@@ -8,11 +8,7 @@ return {
 
   -- You can disable default plugins as follows:
   { "max397574/better-escape.nvim", enabled = false },
-  { "goolord/alpha-nvim", enabled = false },
   { "stevearc/aerial.nvim", enabled = false },
-
-  -- colorscheme
-  { "EdenEast/nightfox.nvim" },
 
   -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
   {
@@ -54,65 +50,147 @@ return {
       )
     end,
   },
-  -- It's bugged in stable channel
-  -- https://github.com/AstroNvim/AstroNvim/issues/1376 fixes in nightly
-  -- nightly has its own issues
-  -- https://github.com/AstroNvim/AstroNvim/issues/1523
-  { -- override nvim-cmp plugin
-    "hrsh7th/nvim-cmp",
-    dependencies = { "https://github.com/kdheepak/cmp-latex-symbols" },
-    -- override the options table that is used in the `require("cmp").setup()` call
-    opts = function(_, opts)
-      -- opts parameter is the default options table
-      -- the function is lazy loaded so cmp is able to be required
-      local cmp = require "cmp"
-      -- modify the mapping part of the table
-
-      opts.mapping["<A-k>"] = cmp.mapping(cmp.mapping.scroll_docs(-5), { "i", "c" })
-      opts.mapping["<A-j>"] = cmp.mapping(cmp.mapping.scroll_docs(5), { "i", "c" })
-
-      function Has_words_before()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-      end
-
-      opts.mapping["<C-k>"] = cmp.mapping(function(fallback)
-        if require("luasnip").jumpable(-1) then
-          require("luasnip").jump(-1)
-        else
-          fallback()
-        end
-      end, {
-        "i",
-        "s",
-      })
-      opts.mapping["<C-j>"] = cmp.mapping(function(fallback)
-        if require("luasnip").expandable() then
-          cmp.confirm()
-        elseif require("luasnip").expand_or_jumpable() then
-          require("luasnip").expand_or_jump()
-        elseif Has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, {
-        "i",
-        "s",
-      })
-      opts.sources = cmp.config.sources {
-        { name = "luasnip", priority = 1000 },
-        { name = "nvim_lsp", priority = 750 },
-        { name = "latex_symbols", priority = 500 },
-        { name = "buffer", priority = 500 },
-        { name = "path", priority = 250 },
-      }
-
-      -- return the new table to be used
-      return opts
-    end,
-  },
   {
+    "Saghen/blink.cmp",
+    dependencies = {
+      -- add the legacy cmp source as a dependency for `blink.cmp`
+      "kdheepak/cmp-latex-symbols",
+    },
+    specs = {
+      -- install the blink, nvim-cmp compatibility layer
+      { "Saghen/blink.compat", version = "*", lazy = true, opts = {} },
+    },
+    -- require('blink.cmp')[command]
+    opts = {
+      sources = {
+        default = { "latex" },
+        providers = {
+          snippets = { score_offset = 10 },
+          lsp = { score_offset = 7 },
+          latex = {
+            name = "latex_symbols",
+            module = "blink.compat.source",
+            score_offset = -1,
+          },
+          buffer = { score_offset = 5 },
+          path = { score_offset = 2 },
+        },
+      },
+      keymap = {
+        ["<A-k>"] = { function(cmp) cmp.scroll_documentation_up(4) end, "fallback" },
+        ["<A-j>"] = { function(cmp) cmp.scroll_documentation_down(4) end, "fallback" },
+        ["<C-k>"] = { "snippet_backward", "fallback" },
+        ["<C-j>"] = { "snippet_forward", "fallback" },
+      },
+    },
+  },
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        enabled = false,
+      },
+      picker = {
+        layout = "my_layout",
+        layouts = {
+          my_layout = {
+            layout = {
+              box = "horizontal",
+              width = 0.8,
+              height = 0.8,
+              min_width = 120,
+              border = "none",
+              {
+                box = "vertical",
+                {
+                  win = "input",
+                  height = 1,
+                  border = "none",
+                  title = "{title} {live} {flags}",
+                  title_pos = "center",
+                },
+                { win = "list", title = " Results ", title_pos = "center", border = "none" },
+              },
+              {
+                win = "preview",
+                title = "{preview:Preview}",
+                border = "rounded",
+                title_pos = "center",
+              },
+            },
+          },
+        },
+        win = {
+          input = {
+            keys = {
+              ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<C-[>"] = { "close", mode = { "n", "i" } },
+              ["<C-u>"] = false,
+              -- ["<C-d>"] = actions.delete_buffer,
+              -- ["<C-s>"] = actions.select_horizontal,
+              -- ["<C-n>"] = actions.move_selection_next,
+              -- ["<C-p>"] = actions.move_selection_previous,
+              ["<A-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+              ["<A-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            },
+          },
+        },
+        cwd_bonus = true, -- give bonus for matching files in the cwd
+        frecency = true, -- frecency bonus
+      },
+    },
+    keys = {
+      {
+        "<Leader>ff",
+        function()
+          require("snacks").picker.files {
+            cmd = "fd",
+            format = "file",
+            show_empty = false,
+            hidden = false,
+            ignored = false,
+            follow = true,
+            supports_live = true,
+          }
+        end,
+        desc = "Files",
+      },
+      {
+        "<Leader>fF",
+        function()
+          require("snacks").picker.files {
+            cmd = "fd",
+            format = "file",
+            show_empty = false,
+            hidden = true,
+            ignored = false,
+            follow = true,
+            supports_live = true,
+          }
+        end,
+        desc = "Files",
+      },
+      {
+        "<Leader>fw",
+        function() require("snacks").picker.grep {} end,
+        desc = "Words",
+      },
+      {
+        "<Leader>f?",
+        function() require("snacks").picker.help {} end,
+        desc = "Help tags",
+      },
+      {
+        "<Leader>f'",
+        function() require("snacks").picker.marks {} end,
+        desc = "Marks",
+      },
+      ["<Leader>fB"] = { "<cmd>Telescope bibtex<cr>", desc = "BibTeX" },
+    },
+  },
+
+  { -- Used only for bibtex
     "nvim-telescope/telescope.nvim",
     opts = function()
       local actions = require "telescope.actions"
@@ -148,14 +226,6 @@ return {
               ["<A-j>"] = actions.cycle_previewers_next,
               ["<A-k>"] = actions.cycle_previewers_prev,
             },
-          },
-        },
-        pickers = {
-          find_files = {
-            find_command = { "fd", "--follow", "--type", "f", "--strip-cwd-prefix" },
-          },
-          live_grep = {
-            additional_args = { "--follow" },
           },
         },
       }
@@ -326,9 +396,19 @@ return {
   { "https://github.com/szw/vim-maximizer", lazy = false },
   { "https://github.com/simnalamburt/vim-mundo", cmd = "MundoToggle" },
   {
-    "https://github.com/iamcco/markdown-preview.nvim",
-    cmd = "MarkdownPreviewToggle",
-    build = function() vim.fn["mkdp#util#install"]() end,
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = function(plugin)
+      if vim.fn.executable "npx" then
+        vim.cmd("!cd " .. plugin.dir .. " && cd app && npx --yes yarn install")
+      else
+        vim.cmd [[Lazy load markdown-preview.nvim]]
+        vim.fn["mkdp#util#install"]()
+      end
+    end,
+    init = function()
+      if vim.fn.executable "npx" then vim.g.mkdp_filetypes = { "markdown" } end
+    end,
     config = function() vim.g.mkdp_filetypes = { "markdown", "plantuml" } end,
     ft = { "markdown", "plantuml" },
   },
