@@ -95,6 +95,7 @@ return {
         layout = "my_layout",
         layouts = {
           my_layout = {
+            cycle = true,
             layout = {
               box = "horizontal",
               width = 0.8,
@@ -661,23 +662,20 @@ return {
   },
   -- use mason-lspconfig to configure LSP installations
   {
-    "williamboman/mason-lspconfig.nvim", -- overrides `require("mason-lspconfig").setup(...)`
-    opts = function(_, opts)
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-      -- taplo: toml
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "lua_ls",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    -- overrides `require("mason-tool-installer").setup(...)`
+    opts = {
+      -- Make sure to use the names found in `:Mason`
+      ensure_installed = {
+        -- Language servers
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+        -- taplo: toml
+        "lua-language-server",
         "pyright",
-        "bashls",
+        "bash-language-server",
         "taplo",
-      })
-    end,
-  },
-  -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
-  {
-    "jay-babu/mason-null-ls.nvim", -- overrides `require("mason-null-ls").setup(...)`
-    opts = function(_, opts)
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
+
+        -- Formatters
         "prettier",
         "stylua",
         "isort",
@@ -687,15 +685,13 @@ return {
         "shfmt",
         "dprint",
         "taplo",
-      })
-    end,
-  },
-  {
-    "jay-babu/mason-nvim-dap.nvim",
-    opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {})
-    end,
+--         -- install debuggers
+--         "debugpy",
+
+--         -- install any other package
+--         "tree-sitter-cli",
+      },
+    },
   },
   -- Misc
   -- Offline Documentation
