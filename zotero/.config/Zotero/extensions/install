@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+zip -j -r web-socket-server.xpi web-socket-server/*

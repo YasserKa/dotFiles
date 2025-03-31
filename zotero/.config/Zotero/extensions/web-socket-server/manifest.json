@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "WebSocket Server",
+  "version": "1.0",
+  "description": "WebSocket Server",
+  "homepage_url": "https://github.com/YasserKa/dotFiles/zotero",
+  "applications": {
+    "zotero": {
+      "id": "websocket-server",
+      "update_url": "https://github.com/YasserKa/dotFiles/zotero",
+      "strict_min_version": "7.0",
+      "strict_max_version": "7.*"
+    }
+  }
+}

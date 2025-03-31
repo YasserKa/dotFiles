@@ -328,6 +328,7 @@ asciinema # Record and share terminal sessions
 # Dependency for deepin
 ocl-icd # OpenCL ICD Bindings
 greetd # Generic greeter daemon
+zotero-bin # Bibliography manager
 
 # (Wayland) Screen recording and shots
 grim    # Screenshot utility for Wayland
