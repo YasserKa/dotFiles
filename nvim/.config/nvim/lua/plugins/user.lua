@@ -470,15 +470,15 @@ return {
   { "https://github.com/romainl/vim-cool", lazy = false }, -- Disable search highlighting when done
   { "https://github.com/honza/vim-snippets", lazy = false },
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    opts = function(_, config) -- overrides `require("null-ls").setup(config)`
+    "nvimtools/none-ls.nvim",
+    opts = function(_, opts) -- overrides `require("null-ls").setup(config)`
       -- config variable is the default configuration table for the setup function call
       local null_ls = require "null-ls"
 
-      -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-      config.sources = {
+      -- https://github.com/nvimtools/none-ls.nvim/blob/main/doc/BUILTINS.md
+      opts.sources = require("astrocore").list_insert_unique(opts.sources, {
         -- Bash
-        null_ls.builtins.code_actions.shellcheck,
+        -- null_ls.builtins.code_actions.shellcheck,
         null_ls.builtins.hover.printenv,
         null_ls.builtins.diagnostics.dotenv_linter,
         null_ls.builtins.formatting.shfmt.with {
@@ -491,13 +491,12 @@ return {
           extra_args = { "--experimental-string-processing" },
         },
         -- TOML
-        null_ls.builtins.formatting.dprint,
-        null_ls.builtins.formatting.taplo,
+        -- null_ls.builtins.formatting.dprint,
+        -- null_ls.builtins.formatting.taplo,
 
         -- null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.prettier,
-      }
-      return config
+      })
     end,
   },
   {
@@ -685,11 +684,11 @@ return {
         "shfmt",
         "dprint",
         "taplo",
---         -- install debuggers
---         "debugpy",
+        --         -- install debuggers
+        --         "debugpy",
 
---         -- install any other package
---         "tree-sitter-cli",
+        --         -- install any other package
+        --         "tree-sitter-cli",
       },
     },
   },
