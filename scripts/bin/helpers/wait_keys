@@ -18,5 +18,6 @@ def exit():
 hotkeys = {arg: exit for arg in sys.argv[1:]}
 
 with keyboard.GlobalHotKeys(hotkeys) as h:
+    print(stop_program)
     while not stop_program:
         pass

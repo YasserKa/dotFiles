@@ -1711,13 +1711,14 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (citar-bibliography org-cite-global-bibliography)
   ;; Open files using external program
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
+  :config
   ;; Icons
   (setq citar-symbols
         `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
           (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
           (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
   (setq citar-symbol-separator "  ")
-  :bind )
+  )
 
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
