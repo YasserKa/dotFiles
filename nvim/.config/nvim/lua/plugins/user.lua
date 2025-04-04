@@ -671,7 +671,7 @@ return {
         -- taplo: toml
         "lua-language-server",
         "pyright",
-        -- "bash-language-server",
+        "bash-language-server",
         "taplo",
 
         -- Formatters
