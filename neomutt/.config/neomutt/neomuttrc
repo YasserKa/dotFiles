@@ -153,7 +153,7 @@ macro index \eF "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter
 macro index \eff "|grep ^From | awk 'NR==1 {printf "\""macro index Q L%s"\"",$2}' >| /tmp/from<enter><enter-command>source /tmp/from<enter>Q<enter>"
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
-macro compose a "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/pick_attachments<enter><enter-command>source $XDG_CACHE_HOME/ranger/rangerpick<enter>" "Attach with Ranger"
+macro compose a "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/pick_attachments<enter><enter-command>source $XDG_CACHE_HOME/neomutt_attachment<enter>" "Attach file with fzf"
 
 # Sync mail then update polybar after reading new emails
 message-hook ~N 'push "$!{ [ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\"; } >/dev/null &<enter>"'
