@@ -1704,6 +1704,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
 
 (use-package citar
   :no-require
+  :after all-the-icons
   :custom
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
@@ -1712,12 +1713,56 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   ;; Open files using external program
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
   :config
-  ;; Icons
-  (setq citar-symbols
-        `((file ,(all-the-icons-faicon "file-o" :face 'all-the-icons-green :v-adjust -0.1) . " ")
-          (note ,(all-the-icons-material "speaker_notes" :face 'all-the-icons-blue :v-adjust -0.3) . " ")
-          (link ,(all-the-icons-octicon "link" :face 'all-the-icons-orange :v-adjust 0.01) . " ")))
-  (setq citar-symbol-separator "  ")
+  ;; Citar icons
+  (defvar citar-indicator-files-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-faicon
+              "file-pdf-o"
+              :face 'all-the-icons-green
+              :v-adjust -0.05)
+     :function #'citar-has-files
+     :padding " " ; need this because the default padding is too low for these icons
+     :tag "has:files"))
+
+  (defvar citar-indicator-links-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-faicon
+              "link"
+              :face 'all-the-icons-orange
+              :height 0.8
+              :v-adjust 0)
+     :function #'citar-has-links
+     :padding " "
+     :tag "has:links"))
+
+  (defvar citar-indicator-notes-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-faicon
+              "sticky-note-o"
+              :face 'all-the-icons-blue
+              :height 0.95
+              :v-adjust -0.01)
+     :function #'citar-has-notes
+     :padding " "
+     :tag "has:notes"))
+
+  (defvar citar-indicator-cited-icons
+    (citar-indicator-create
+     :symbol (all-the-icons-faicon
+              "circle-o"
+              :v-adjust -0.01
+              :height 0.9
+              :face 'all-the-icons-green)
+     :function #'citar-is-cited
+     :padding " "
+     :tag "is:cited"))
+
+  (setq citar-indicators
+        (list citar-indicator-files-icons
+              citar-indicator-links-icons
+              citar-indicator-notes-icons
+              citar-indicator-cited-icons))
+
   )
 
 ;; Show emphasis markers when hovering over text
