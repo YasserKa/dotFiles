@@ -3,7 +3,7 @@
 #
 # Dependencies: zotero netcat fzf
 
-get_collection() {
+search_entries() {
 	script='
   (async function () {
 
@@ -183,4 +183,4 @@ eval_script_return_value() {
 	rm "$tmp"
 }
 
-get_collection
+search_entries

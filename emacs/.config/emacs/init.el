@@ -268,6 +268,7 @@
   ;; Use hunspell instead of ispell
   (setq ispell-program-name (executable-find "hunspell"))
   (setq ispell-personal-dictionary (getenv "DICPATH"))
+  (setq ispell-alternate-dictionary ispell-personal-dictionary)
   )
 
 (defun my/save-word-to-dictionary ()
@@ -1712,7 +1713,22 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (citar-bibliography org-cite-global-bibliography)
   ;; Open files using external program
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
+  :hook
+  ((org-mode . (lambda ()
+                       (cursor-sensor-mode 1)
+                       (org-cite-csl-activate-render-all)
+                       (citar-capf-setup)
+                       ))
+   ;; Breaks org mode
+   ;; (LaTeX-mode . citar-capf-setup)
+   )
   :config
+
+  ;; Activation processor for Org to show links as a CSL style
+  (require 'oc-csl-activate)
+  (setq org-cite-activate-processor 'csl-activate)
+  (setq org-cite-csl--fallback-style-file "~/.config/Zotero/styles/chicago-manual-of-style-17th-edition-edited-title.csl")
+
   ;; Citar icons
   (defvar citar-indicator-files-icons
     (citar-indicator-create
@@ -1762,8 +1778,34 @@ Note: this uses Org's internal variable `org-link--search-failed'."
               citar-indicator-links-icons
               citar-indicator-notes-icons
               citar-indicator-cited-icons))
-
   )
+
+(use-package citar-embark
+  :after (citar embark)
+  :no-require
+  :custom
+  (citar-at-point-function 'embark-act)
+  :config
+  (citar-embark-mode)
+
+  (defun my/focus-zotero-entry (cite-key)
+    (citar-open-entry-in-zotero cite-key)
+    (start-process-shell-command "" nil (concat "i3-msg '[class=\"Zotero\"] focus'"))
+    )
+
+  (defvar-keymap embark-citar-actions
+    :doc "Keymap for actions for tab-bar tabs (when mentioned by name)."
+    :parent citar-embark-map
+    "z" #'my/focus-zotero-entry)
+
+  (add-to-list 'embark-keymap-alist '(citar-citation . embark-citar-actions))
+  )
+
+(use-package citar-org-roam
+  :after (citar org-roam)
+  :custom
+  (citar-org-roam-subdir "references")
+  :config (citar-org-roam-mode))
 
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
@@ -2297,7 +2339,6 @@ selection of all minor-modes, active or not."
 (defhydra find-hydra (:exit t :idle 1)
   (" b" consult-buffer "Buffer")
   (" f" consult-find "File")
-  (" B" org-cite-insert "BibTex")
   (" t" consult-line "Text in buffer")
   (" T" consult-ripgrep "Text in directory")
   )
@@ -2384,8 +2425,17 @@ selection of all minor-modes, active or not."
   (" t" (find-file (concat notes-dir "/tasks.org")) "tasks.org")
   )
 
+(defun node-not-bib-reference-note (file)
+  "Return FILE if it does not exist in DIR, otherwise return nil."
+  (message (file-name-nondirectory (org-roam-node-file file)))
+  (let ((dir-files (directory-files "~/notes/references" nil directory-files-no-dot-files-regexp)))
+    (if (member (file-name-nondirectory (org-roam-node-file file)) dir-files)
+        nil
+      file)))
+
 (defhydra org-find-hydra (:exit t :idle 1)
-  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find))) "find node")
+  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find nil "" 'node-not-bib-reference-note))) "find node")
+  (" B" org-cite-insert "BibTex")
   )
 
 (defhydra org-roam-hydra (:exit t :idle 1)

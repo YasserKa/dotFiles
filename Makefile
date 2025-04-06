@@ -28,6 +28,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser/userscripts
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser
 	@mkdir -p $(XDG_DATA_HOME)/qutebrowser/webengine
+	@mkdir -p $(XDG_CONFIG_HOME)/Zotero
 	@# Used by pai function
 	@mkdir -p $(HOME)/.local/state/fzf
 	@mkdir -p $(XDG_DATA_HOME)/okular
