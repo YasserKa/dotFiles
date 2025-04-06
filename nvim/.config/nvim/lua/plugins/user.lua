@@ -187,7 +187,6 @@ return {
         function() require("snacks").picker.marks {} end,
         desc = "Marks",
       },
-      ["<Leader>fB"] = { "<cmd>Telescope bibtex<cr>", desc = "BibTeX" },
     },
   },
 
@@ -236,7 +235,14 @@ return {
     "nvim-telescope/telescope-bibtex.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
     ft = { "tex" },
-    config = function() require("telescope").load_extension "bibtex" end,
+    config = function()
+      require("telescope").load_extension "bibtex"
+
+      local wk = require "which-key"
+      wk.add {
+        { "<Leader>fB", "<cmd>Telescope bibtex<cr>", desc = "BibTeX" },
+      }
+    end,
   },
   { "https://github.com/andymass/vim-matchup", lazy = false },
   {
