@@ -65,7 +65,7 @@ result = collections_str
 	TMP_FILE="$(mktemp -t "tmp_XXX")"
 	readonly TMP_FILE
 
-	trap 'rm $TMP_FILE' EXIT
+	trap 'rm $TMP_FILE' RETURN
 	IFS='' read -r -d '' cmd <<EOF
   printf "$result" |  fzf --ansi --with-nth '{2..}' --preview-window hidden >| '${TMP_FILE}'
 EOF
@@ -103,7 +103,13 @@ import_source() {
     await getZoteroPane().addAttachmentFromDialog(false, 0,["'"$SOURCE"'"]);
   })();'
 	elif curl --head "$SOURCE"; then
+
+		HTML_PATH="$(mktemp -t "tmp_XXX")"
+		readonly HTML_PATH
+
+		trap 'rm $HTML_PATH' RETURN
 		# Add URL
+		curl -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0" "$SOURCE" --output "$HTML_PATH"
 		# shellcheck disable=2016
 		import_script='
   (async function () {
@@ -116,7 +122,8 @@ var cookieSandbox = uri
 : null;
 
 var parser = new DOMParser();
-var doc = parser.parseFromString(`<html></html>`, "text/html");
+var data = await Zotero.File.getContentsAsync("'"$HTML_PATH"'");
+var doc = parser.parseFromString(`<html>${data}</html>`, "text/html");
 doc = Zotero.HTTP.wrapDocument(doc, uri);
 
 let translate = (this._translate = new Zotero.Translate.Web());
@@ -143,7 +150,7 @@ eval_script_return_value() {
 	TMP_FILE2="/tmp/zotero_return_value"
 	readonly TMP_FILE2
 
-	trap 'rm $TMP_FILE2' EXIT
+	trap 'rm $TMP_FILE2' RETURN
 	local -r SCRIPT='
   '"$1"'
   await Zotero.File.putContentsAsync("'"$TMP_FILE2"'", result);
