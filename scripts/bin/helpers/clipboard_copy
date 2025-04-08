@@ -6,13 +6,15 @@
 # Dependencies: xsel wl-cliboard
 
 # Capture from stdin if available and not empty
+copyq disable
 if [[ -p /dev/stdin ]]; then
     stdin="$(cat)"
     [[ -n "$stdin" ]] && set -- "$stdin"
 fi
 
 if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-	wl-copy "$@"
+    wl-copy "$@"
 else
-	printf "%s" "$@" | xsel --input --clipboard
+    printf "%s" "$@" | xsel --input --clipboard
 fi
+copyq enable
