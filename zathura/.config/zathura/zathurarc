@@ -22,6 +22,7 @@ map ,ad exec '/home/yasser/.config/zathura/handle_document remove_annotations "$
 map ,ay exec '/home/yasser/.config/zathura/handle_document get_annotations "$FILE"'
 map ,yt exec '/home/yasser/.config/zathura/handle_document yank_chapters_as_tasks "$FILE"'
 map ,z exec '/home/yasser/.config/Zotero/bin/import_to_zotero "$FILE"'
+map ,r exec '/home/yasser/.config/Zotero/bin/import_to_reading_list "$FILE"'
 
 map ,t exec '/home/yasser/.config/zathura/goto_toc "$FILE" "$PAGE" "$DBUS"'
 

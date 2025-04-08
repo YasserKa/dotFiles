@@ -3,8 +3,29 @@
 #
 # Arguments:
 #   $1: URL or path to document
+#   $2: Colletion name (optional)
 #
 # Dependencies: zotero netcat
+#
+
+get_collection_id_from_name() {
+	local -r COLLECTION_NAME="$1"
+
+	script='
+  (async function () {
+let collections = Zotero.Collections.getLoaded()
+let collectionId = 0
+for (let collection of collections) {
+  if (collection.name == "'"$COLLECTION_NAME"'") {
+    collectionId = collection.id;
+    break;
+  }
+}
+
+result=collectionId.toString()
+'
+	eval_script_return_value "$script"
+}
 
 pick_collection_id() {
 	script='
@@ -137,6 +158,7 @@ eval_script_return_value() {
 }
 
 main() {
+	pgrep zotero >/dev/null || { notify-send "Zotero instance doesn't exist" && exit 1; }
 	(($# == 0)) && {
 		echo "Need a source"
 		exit 1
@@ -145,7 +167,11 @@ main() {
 	declare -r FRE_NAME="zotero_collection"
 	declare -r SOURCE="$1"
 
-	declare -r COLLECTION_ID="$(pick_collection_id)"
+	if [[ "$2" ]]; then
+		declare -r COLLECTION_ID="$(get_collection_id_from_name "$2")"
+	else
+		declare -r COLLECTION_ID="$(pick_collection_id)"
+	fi
 	[[ -z "$COLLECTION_ID" ]] && exit 0
 	import_source
 }

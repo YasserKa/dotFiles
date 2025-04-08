@@ -264,6 +264,7 @@ c.aliases = {
     "gc": "spawn bash -ic '. $HOME/bin/git_clone {url}'",
     "paywall": "open https://12ft.io/proxy?q={url}",
     "zotero": "spawn ~/.config/Zotero/bin/import_to_zotero {url}",
+    "read_zotero": "spawn ~/.config/Zotero/bin/import_to_reading_list {url}",
     "kde_share": "spawn kde_share_url {url}",
     "yt-transcribe": "spawn --userscript ~/.config/qutebrowser/userscripts/yt-transcribe",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",

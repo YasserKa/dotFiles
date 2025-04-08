@@ -1674,6 +1674,11 @@ see how ARG affects this command."
                    "* TODO [[%:link][%:description]]" :immediate-finish t))
 
     (add-to-list 'org-capture-templates
+                 `("p" "org-capture-note" entry
+                   (file+headline ,(concat notes-dir "/papers.org")  "Inbox")
+                   "* TODO %:description" :immediate-finish t))
+
+    (add-to-list 'org-capture-templates
                  `("n" "org-capture-note" entry
                    (file ,(concat notes-dir "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
@@ -1727,6 +1732,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   ;; Activation processor for Org to show links as a CSL style
   (require 'oc-csl-activate)
   (setq org-cite-activate-processor 'csl-activate)
+  (setq org-cite-csl-activate-use-citar-cache t)
   (setq org-cite-csl--fallback-style-file "~/.config/Zotero/styles/chicago-manual-of-style-17th-edition-edited-title.csl")
 
   ;; Citar icons
