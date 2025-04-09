@@ -25,6 +25,7 @@ search_entries() {
 
   if (collection.hasChildItems()) {
 
+    collection_path = name + " > " + collection.name
     collection.getChildItems().forEach(function (item) {
     let item_json = item.toJSON();
     let file_path = "null"
@@ -58,7 +59,7 @@ search_entries() {
       creators = creators.substring(0, creators.length -2);
     }
 
-    items_str += item._id + "\t" + item_json.key + "\t" + url + "\t" + file_path + "\t" + item_json.itemType + "\t" + name + "\t" + date + "\t" + creators + "\n" + item_json.title + "\n"
+    items_str += item._id + "\t" + item_json.key + "\t" + url + "\t" + file_path + "\t" + collection_path + "\t" + item_json.itemType + "\t" + date + "\t" + creators + "\n" + item_json.title + "\n"
   });
 }
 }
@@ -84,7 +85,7 @@ let result = collections_str
 NR==FNR { order[NR] = $1; next }
 {
     key = $1;
-    val = $1 "\t" $2 "\t" $3 "\t" $4 "\t\033[1;38m" $5 "\033[0m\t\033[36m" $6 "\033[0m\t\033[37m" $7 "\t" $8 "\033[0m" ;
+    val = $1 "\t" $2 "\t" $3 "\t" $4 "\t\033[36m" $5 "\033[0m\t\033[1;38m" $6 "\033[0m\t\033[37m" $7 "\t" $8 "\033[0m" ;
     getline;
     val = val ORS "\033[1;32m" $0 "\033[0m";
     data[key] = val;
