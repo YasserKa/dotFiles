@@ -44,7 +44,7 @@
 (require 'functions)
 ;; }}}
 ;; Defining variables {{{
-(defconst notes-dir (getenv "NOTES_ORG_HOME") "Notes directory")
+(defconst notes-dir (concat (getenv "NOTES_ORG_HOME") "/") "Notes directory")
 ;; }}}
 ;; Better defaults {{{
 ;; Use y/n for yes/no prompts
@@ -2572,3 +2572,146 @@ selection of all minor-modes, active or not."
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 ;;;; }}}
+(use-package elfeed
+  :custom
+  (elfeed-search-title-max-width 80)
+  (elfeed-search-remain-on-entry t)
+  ;; :hook
+  :config
+
+  (defun my/elfeed-entry-capture-show ()
+    (interactive)
+    (let ((entry (elfeed-search-selected :single)))
+  (start-process-shell-command "" nil (concat "org_capture '" (elfeed-entry-link entry) "' '" (elfeed-entry-title entry)"'")) (elfeed-search-show-entry entry)))
+
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "r") 'elfeed-search-clear-filter)
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "C")  'my/elfeed-entry-capture-show)
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-n")  'scroll-other-window)
+  (defun elfeed-format-relative-time (timestamp)
+    "Format TIMESTAMP as a relative time string."
+    (let* ((now (float-time (current-time)))       ;; Current time in seconds
+           (elapsed-seconds (- now timestamp))     ;; Elapsed time in seconds
+           (days (/ elapsed-seconds 86400))       ;; Days in elapsed time
+           (hours (/ elapsed-seconds 3600))       ;; Hours in elapsed time
+           (minutes (/ elapsed-seconds 60)))      ;; Minutes in elapsed time
+      (cond ((>= days 1) (format "%dd" days (if (= days 1) "")))
+            ((>= hours 1) (format "%dh" hours (if (= hours 1) "")))
+            ((>= minutes 1) (format "%dm" minutes (if (= minutes 1) "")))
+            (t "<1m"))))
+
+  (set-face-attribute 'elfeed-search-date-face nil :foreground "blue1")
+
+  (defface elfeed-search-authors-face
+    '((((class color) (background light)) (:foreground "gold4"))
+      (((class color) (background dark))  (:foreground "gold4")))
+    "Face used in search mode for authors entry titles."
+    :group 'elfeed)
+  (setq elfeed-search-face-alist '((unread elfeed-search-unread-title-face) (self_host elfeed-test)))
+  (defun concatenate-authors (authors-list)
+    "Given AUTHORS-LIST, list of plists; return string of all authors
+concatenated."
+    (mapconcat
+     (lambda (author) (plist-get author :name))
+     authors-list ", "))
+  (defun my/elfeed-search-print (entry)
+    "Print ENTRY to the buffer."
+    (let* ((relative-time (elfeed-format-relative-time (elfeed-entry-date entry)))
+           (entry-title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
+           (feed (elfeed-entry-feed entry))
+           (feed-title
+            (when feed
+              (or (elfeed-meta feed :title) (elfeed-feed-title feed))))
+           (points (elfeed-meta entry :points))
+           (comments (elfeed-meta entry :comments))
+           (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
+           (authors (concatenate-authors
+                     (elfeed-meta entry :authors)))
+           (metadata (cond
+                      ((and points comments) (format "%4d  %4d 󰻞  " points comments))
+                      (points (format "%4d   " points))
+                      (comments (format "%4d 󰻞  " comments))
+                      (t "")))
+           (tags (mapcar #'symbol-name (elfeed-entry-tags entry)))
+           (tags-str (concat "("(mapconcat
+                                 (lambda (s) (propertize s 'face 'elfeed-search-tag-face))
+                                 tags ",") ")"))
+           (date-column (elfeed-format-column
+                         relative-time (elfeed-clamp 2 4 4) :left))
+           (title-width (- (window-width) 10 elfeed-search-trailing-width))
+           (entry-title-column (elfeed-format-column
+                                entry-title (elfeed-clamp elfeed-search-title-min-width title-width elfeed-search-title-max-width) :left))
+           (tag-column (elfeed-format-column
+                        tags-str (elfeed-clamp (length tags-str) 19 30) :left))
+           (metadata-column (elfeed-format-column
+                             metadata (elfeed-clamp 15 15 15) :left))
+           (authors-column (elfeed-format-column
+                            authors (elfeed-clamp elfeed-search-title-min-width 45 50) :left))
+           (feed-title-column (elfeed-format-column
+                               feed-title (elfeed-clamp 10 20 20) :left))
+           )
+      ;; (insert (format "%3s" (propertize relative-time 'face 'elfeed-search-date-face)) " ")
+      (insert (propertize date-column 'face 'elfeed-search-date-face) " ")
+      (insert metadata-column)
+      (insert (propertize feed-title-column 'face 'elfeed-search-feed-face) " ")
+      (insert (propertize tag-column 'face 'elfeed-search-tag-face) " ")
+      (insert (propertize entry-title-column 'face title-faces 'kbd-help entry-title) "  ")
+      (insert (propertize authors-column 'face 'elfeed-search-authors-face 'kbd-help authors))
+      ))
+
+  (setq elfeed-search-print-entry-function #'my/elfeed-search-print)
+
+  )
+
+;; NOTE: Doesn't work inside use-package
+(defun my/elfeed-parse-metadata (_type entry db-entry)
+  "Extract Points and Comments from Hacker News entry description."
+  (let* ((feed-url (elfeed-feed-url (elfeed-entry-feed db-entry)))
+         (content-ref (elfeed-entry-content db-entry))
+         (content (elfeed-deref content-ref))
+         (points nil)
+         (comments nil))
+    (cond ((string= feed-url  "https://hnrss.org/frontpage")
+           (setq points (when (string-match "Points: \\([0-9]+\\)" content)
+                          (string-to-number (match-string 1 content)))
+                 comments (when (string-match "# Comments: \\([0-9]+\\)" content)
+                            (string-to-number (match-string 1 content))))
+           (setf (elfeed-meta (elfeed-entry-feed db-entry) :title) "Hacker News"))
+          ((string-match-p "lemmy" feed-url)
+           (setq points (when (string-match "\\([0-9]+\\) points" content)
+                          (string-to-number (match-string 1 content)))
+                 comments (when (string-match "\\([0-9]+\\) comments" content)
+                            (string-to-number (match-string 1 content))))))
+    (when points
+      (setf (elfeed-meta db-entry :points) points))
+    (when comments
+      (setf (elfeed-meta db-entry :comments) comments))
+    ))
+(add-hook 'elfeed-new-entry-parse-hook #'my/elfeed-parse-metadata)
+
+(use-package elfeed-org
+  :after elfeed
+  :custom (rmh-elfeed-org-files (list (concat notes-dir "feeds.org")))
+  :config (elfeed-org)
+  )
+
+(use-package elfeed-goodies
+  :after elfeed
+  :custom
+  (elfeed-goodies/entry-pane-position 'bottom)
+  (elfeed-goodies/switch-to-entry nil)
+  (elfeed-goodies/feed-source-column-width 50)
+  (elfeed-goodies/tag-column-width 50)
+  (elfeed-show-entry-switch #'elfeed-goodies/switch-pane)
+  (elfeed-show-entry-delete #'elfeed-goodies/delete-pane)
+  :config
+  (require 'elfeed-goodies)
+
+  (setq elfeed-search-print-entry-function #'my/elfeed-search-print)
+  )
+
+(use-package link-hint
+  :ensure t
+  :bind
+  ("C-c l o" . link-hint-open-link)
+  ("C-c l c" . link-hint-copy-link))

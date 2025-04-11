@@ -430,6 +430,9 @@ magit() {
 				--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *'; } \
 				||	notify-send --urgency=critical "Sync org not working" 
 			}
+elfeed() {
+	emacs --eval --create-frame "(progn (elfeed-update) (elfeed))"
+}
 
 # Pick a color and store it in clipbaord
 pick_color() {
