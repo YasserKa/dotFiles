@@ -65,7 +65,7 @@ return {
       sources = {
         default = { "latex" },
         providers = {
-          snippets = { score_offset = 10 },
+          snippets = { score_offset = 8 },
           lsp = { score_offset = 7 },
           latex = {
             name = "latex_symbols",
@@ -73,7 +73,7 @@ return {
             score_offset = -1,
           },
           buffer = { score_offset = 5 },
-          path = { score_offset = 2 },
+          path = { score_offset = 8 },
         },
       },
       keymap = {

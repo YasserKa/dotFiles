@@ -985,6 +985,7 @@ does not have to do this by oneself."
   (use-package helm)
   (use-package helm-org)
   (use-package avy)
+  (use-package org-ql) ;; Needed by org-sidebar
   (use-package org-sidebar)
   (require 'ol-man)
   (require 'ol-link-handler)
@@ -1239,12 +1240,10 @@ Made for `org-tab-first-hook' in evil-mode."
    )
   ;; Icons for org-link-beautify
   (use-package all-the-icons
-    :if (display-graphic-p))
-  ;; Add icons to links
+    :if (or (display-graphic-p) (server-mode)))
+
   (use-package org-link-beautify
-    :after org
-    :requires all-the-icons
-    :straight (:host github :repo "emacsmirror/org-link-beautify" :branch "master" :files ("*.el" "out"))
+    :after (org all-the-icons)
     :init
     (eval-after-load "org-link-beautify"
       '(defun org-link-beautify--display-icon (start end description icon)
@@ -1720,10 +1719,10 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
   :hook
   ((org-mode . (lambda ()
-                       (cursor-sensor-mode 1)
-                       (org-cite-csl-activate-render-all)
-                       (citar-capf-setup)
-                       ))
+                 (cursor-sensor-mode 1)
+                 (org-cite-csl-activate-render-all)
+                 (citar-capf-setup)
+                 ))
    ;; Breaks org mode
    ;; (LaTeX-mode . citar-capf-setup)
    )

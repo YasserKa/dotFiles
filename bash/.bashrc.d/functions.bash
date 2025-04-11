@@ -8,16 +8,20 @@
 #   $1 Path to file
 #######################################
 function cd() {
-	while true ; do
-  	case "$1" in
-  		-)
-  			builtin cd - && return;;
-  		--)
-  			shift; break ;;
-  		*)
-  			break;;
-  	esac
- 	done
+	while true; do
+		case "$1" in
+			-)
+				builtin cd - && return
+				;;
+			--)
+				shift
+				break
+				;;
+			*)
+				break
+				;;
+		esac
+	done
 	if [ $# -eq 0 ]; then
 		builtin cd || exit
 	elif [ -d "$1" ]; then
@@ -28,7 +32,7 @@ function cd() {
 		builtin cd "$(dirname "$1")" || exit
 	else
 		echo "cd: No such file or directory" >&2
-  fi
+	fi
 }
 
 # https://github.com/xvoland/Extract/blob/master/extract.sh
@@ -64,18 +68,18 @@ function extract {
 			arc) arc e ./"$n" ;;
 			cso) ciso 0 ./"$n" ./"$n.iso" &&
 				extract "$n.iso" && \rm -f "$n" ;;
-						zlib) zlib-flate -uncompress <./"$n" >./"$n.tmp" &&
-							mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n" ;;
-												dmg)
-													hdiutil mount ./"$n" -mountpoint "./$n.mounted"
-													;;
-												*)
-													echo "extract: '$n' - unknown archive method"
-													return 1
-													;;
-											esac
-										done
-									}
+			zlib) zlib-flate -uncompress <./"$n" >./"$n.tmp" &&
+				mv ./"$n.tmp" ./"${n%.*zlib}" && rm -f "$n" ;;
+			dmg)
+				hdiutil mount ./"$n" -mountpoint "./$n.mounted"
+				;;
+			*)
+				echo "extract: '$n' - unknown archive method"
+				return 1
+				;;
+		esac
+	done
+}
 
 # Remove dependencies that are no longer needed
 orphans() {
@@ -100,9 +104,12 @@ upgrade_system() {
   	(straight-pull-all)))"
 	# Updating treesitters
 	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))"
-	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "$emacs_update_code" & disown
-	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code" & disown
-	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="$emacs_update_code" & disown
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "$emacs_update_code" &
+	disown
+	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code" &
+	disown
+	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="$emacs_update_code" &
+	disown
 
 	# Upgrade python packages
 	uv tool upgrade --all
@@ -128,14 +135,15 @@ ranger() {
 j() {
 	local paths my_path
 
-  paths="$(fasd -dlR "$@" | grep -v "$DOTFILES_DIR")"
-	my_path="$(echo -e "$paths" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
+	paths="$(fasd -dlR "$@" | grep -v "$DOTFILES_DIR")"
+	my_path="$(
+		echo -e "$paths" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
 			--bind "ctrl-alt-d:execute-silent(fasd --delete '{}')+reload(fasd -dlR '$*' | grep -v $DOTFILES_DIR)"
-		)" || return 2
-	[[ ! "$my_path" ]] && \
-  	{ my_path="$(eval "$FZF_ALT_C_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=dir,follow,hidden --scheme=path --query '$*' ${FZF_ALT_C_OPTS:-} +m " fzf)" || return 2;}
+	)" || return 2
+	[[ ! "$my_path" ]] &&
+		{ my_path="$(eval "$FZF_ALT_C_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=dir,follow,hidden --scheme=path --query '$*' ${FZF_ALT_C_OPTS:-} +m " fzf)" || return 2; }
 	fasd -A "$my_path"
-  cd "$my_path" || return 1
+	cd "$my_path" || return 1
 }
 
 # Use fasd and FZF to a open file and go to the directory it's in
@@ -143,11 +151,12 @@ vf() {
 	local file_path
 
 	paths="$(fasd -flR "$@")"
-	file_path="$(echo -e "$paths" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
+	file_path="$(
+		echo -e "$paths" | fzf --select-1 --preview-window hidden --keep-right --height=20 --layout=reverse \
 			--bind "ctrl-alt-d:execute-silent(fasd --delete '{}')+reload(fasd -flR '$*')"
 	)" || return 2
-  [[ ! "$file_path" ]] &&	\
-  	{ cd "$HOME" && file_path="$(eval "$FZF_CTRL_T_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=file,follow,hidden --scheme=path --query '$*' ${FZF_CTRL_T_OPTS:-}" fzf)" || return 2; }
+	[[ ! "$file_path" ]] &&
+		{ cd "$HOME" && file_path="$(eval "$FZF_CTRL_T_COMMAND" | FZF_DEFAULT_OPTS="--reverse --walker=file,follow,hidden --scheme=path --query '$*' ${FZF_CTRL_T_OPTS:-}" fzf)" || return 2; }
 	cd "${file_path%/*}" || return 2
 	fasd -A "${file_path##*/}"
 	"${EDITOR}" "${file_path##*/}" || return 1
@@ -169,7 +178,7 @@ ferrno() {
 }
 
 # Show country, region, ISP, IPv4, and IPv6
-myip () {
+myip() {
 	CYAN='\033[0;36m'
 	YELLOW='\033[1;33m'
 	curl -s 'http://ip-api.com/json?fields=message,country,city,isp,query' | jq -r '. | to_entries[] | if .key == "query" then "\u001b[0;36mIPv4:\u001b[1;33m \(.value)\u001b[0m" else "\u001b[0;36m\(.key):\u001b[1;33m \(.value)\u001b[0m" end'
@@ -183,7 +192,7 @@ vpn_toggle() {
 		tailscale set --exit-node=remote
 	fi
 
-	(($?==1)) && notify-send "VPN not functional"
+	(($? == 1)) && notify-send "VPN not functional"
 }
 
 # Pick tmux sessions using FZF
@@ -228,25 +237,25 @@ elif [[ "$ZSH_NAME" ]]; then
 	run_help() {
 		# This accomadates git push --help
 		for count in {2,1}; do
-	   	read -r cmd	< <(cut -d ' ' -f -"$count" <(echo "$BUFFER"))
+			read -r cmd < <(cut -d ' ' -f -"$count" <(echo "$BUFFER"))
 			# shellcheck disable=2046,2116
 			{ man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || [[ "$(help $(echo "$cmd") 2>&1)" != *"No manual entry for $cmd"* ]]; } &>/dev/null || continue
-				# shellcheck disable=2046,2116
-				man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER && return 0
-			done
-		}
-		zle -N run_help
-		bindkey '^[h' run_help
+			# shellcheck disable=2046,2116
+			man $(echo "$cmd") 2>/dev/null || $(echo "$cmd") --help || help $(echo "$cmd") | $PAGER && return 0
+		done
+	}
+	zle -N run_help
+	bindkey '^[h' run_help
 
-		encode_url() { printf %s "$1" | jq -sRr @uri; }
+	encode_url() { printf %s "$1" | jq -sRr @uri; }
 
-		explainshell() {
-			local -r cmd="$BUFFER"
+	explainshell() {
+		local -r cmd="$BUFFER"
 
-			xdg-open "https://explainshell.com/explain?cmd=$(encode_url "$cmd")"
-		}
-		zle -N explainshell
-		bindkey '^[e' explainshell
+		xdg-open "https://explainshell.com/explain?cmd=$(encode_url "$cmd")"
+	}
+	zle -N explainshell
+	bindkey '^[e' explainshell
 fi
 
 # Attach job & send notification after it's finished
@@ -269,7 +278,7 @@ alert() {
 		cmd="$(history "$HISTCMD" | cut -d ' ' -f 4-)"
 	fi
 	# Remove alert
-	cmd="$(sed -e '''s/^\s*[0-9]\+\s*//;s/[;&|]*\s*alert$//''' <(echo "$cmd" ))"
+	cmd="$(sed -e '''s/^\s*[0-9]\+\s*//;s/[;&|]*\s*alert$//''' <(echo "$cmd"))"
 	notify-send --expire-time=99999 "$cmd"
 }
 
@@ -396,7 +405,7 @@ alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
 	local NAME="emacs_org"
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -n -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows))'
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
 	goto_window $NAME
 }
 
@@ -418,18 +427,19 @@ magit() {
 
 	is_window_exists "$NAME" ||
 		emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
-			goto_window $NAME
+	goto_window $NAME
 
-		}
+}
 
-		alias gitdotfiles='cd $DOTFILES_DIR && magit'
+alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
-		syncorg() {
-			emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
-			{ wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
-				--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *'; } \
-				||	notify-send --urgency=critical "Sync org not working" 
-			}
+syncorg() {
+	emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
+	{ wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
+		--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '- *'; } ||
+		notify-send --urgency=critical "Sync org not working"
+}
+
 elfeed() {
 	emacs --eval --create-frame "(progn (elfeed-update) (elfeed))"
 }
@@ -467,55 +477,59 @@ which() {
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
 pzf() {
-  (($#==0)) && echo "This is a helper function, use pai or par instead" && return
-  # Position of the value in each candidate
-  pos=$1
-  AUR_URL='https://aur.archlinux.org/packages'
-  OFFICIAL_URL='https://archlinux.org/packages'
-  shift
-  sed "s/ /\t/g" \
-  	| fzf --ansi --nth="$pos" --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
-    --preview-window=60%,border-left \
-		--bind="ctrl-o:execute-silent(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
-		--bind="alt-o:execute-silent(&>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
-		--header 'C-o: Upstream URL, A-o: ArchLinux.org' \
-    "$@" | cut -f"$pos" | xargs
-	}
+	(($# == 0)) && echo "This is a helper function, use pai or par instead" && return
+	# Position of the value in each candidate
+	pos=$1
+	AUR_URL='https://aur.archlinux.org/packages'
+	OFFICIAL_URL='https://archlinux.org/packages'
+	shift
+	sed "s/ /\t/g" |
+		fzf --ansi --nth="$pos" --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
+			--preview-window=60%,border-left \
+			--bind="ctrl-o:execute-silent(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
+			--bind="alt-o:execute-silent(&>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
+			--header 'C-o: Upstream URL, A-o: ArchLinux.org' \
+			"$@" | cut -f"$pos" | xargs
+}
 
 # List installable packages into fzf and install selection
 pai() {
-  cache_dir="/tmp/pas-$USER"
-  mkdir -p "$cache_dir"
-  preview_cache="$cache_dir/preview_{2}"
-  list_cache="$cache_dir/list"
-  { test "$(wc -l <"$list_cache$*")" -lt 50000 && rm "$list_cache$*"; 
-  } 2>/dev/null
+	cache_dir="/tmp/pas-$USER"
+	mkdir -p "$cache_dir"
+	preview_cache="$cache_dir/preview_{2}"
+	list_cache="$cache_dir/list"
+	{
+		test "$(wc -l <"$list_cache$*")" -lt 50000 && rm "$list_cache$*"
+	} 2>/dev/null
 
-  pkg=$( (cat "$list_cache$*" 2>/dev/null || { pacman --color=always -Sl "$@"; paru --color=always -Sl aur "$@"; } \
-  	| sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$*") \
-  	| pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
+	pkg=$( (cat "$list_cache$*" 2>/dev/null || {
+		pacman --color=always -Sl "$@"
+		paru --color=always -Sl aur "$@"
+	} |
+		sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$*") |
+		pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
 
-  if test -n "$pkg"
-  then echo "installing $pkg..."
-    cmd="paru -S $pkg"
+	if test -n "$pkg"; then
+		echo "installing $pkg..."
+		cmd="paru -S $pkg"
 		# Add a shell history entry
-    print -s "$cmd"
-    eval "$cmd"
-    rehash
-    rm -rf "$cache_dir"
-  fi
+		print -s "$cmd"
+		eval "$cmd"
+		rehash
+		rm -rf "$cache_dir"
+	fi
 }
 
 # list installed packages into fzf and remove selection
 # tip: use -e to list only explicitly installed packages
 par() {
-  pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
-  if test -n "$pkg"
-  then echo "removing $pkg..."
-    cmd="paru --remove --nosave --recursive $pkg"
-    print -s "$cmd"
-    eval "$cmd"
-  fi
+	pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
+	if test -n "$pkg"; then
+		echo "removing $pkg..."
+		cmd="paru --remove --nosave --recursive $pkg"
+		print -s "$cmd"
+		eval "$cmd"
+	fi
 }
 
 alias pas="pacman -Qq | pzf 1 --preview 'pacman -Qil {}' --bind 'enter:execute(pacman -Qil {} | \$PAGER)+abort'"
