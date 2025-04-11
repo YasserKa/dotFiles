@@ -184,4 +184,5 @@ eval_script_return_value() {
 	rm "$tmp"
 }
 
+pgrep zotero >/dev/null || { notify-send "Zotero instance doesn't exist" && exit 1; }
 search_entries

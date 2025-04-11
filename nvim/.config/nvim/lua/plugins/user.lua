@@ -128,6 +128,7 @@ return {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
               ["<C-[>"] = { "close", mode = { "n", "i" } },
               ["<C-u>"] = false,
+              ["<C-x>"] = { "edit_split", mode = { "n", "i" } },
               -- ["<C-d>"] = actions.delete_buffer,
               -- ["<C-s>"] = actions.select_horizontal,
               -- ["<C-n>"] = actions.move_selection_next,
