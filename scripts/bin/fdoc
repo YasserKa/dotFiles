@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# Open documents
+#
+# Dependencies: fasd fd fzf
+
+# Paths to search for documents
+# REASON: It's slow to search all directories (including hidden)
+declare -a PATHS_TO_SEARCH
+# TODO: if this changes, zotero's link handler should be changed as well. Try to
+# resolve this duplication
+PATHS_TO_SEARCH=("${HOME}")
+readonly PATHS_TO_SEARCH
+
+################################################################################
+# Get basename for documents in PATHS_TO_SEARCH by using a regex on their
+# extensions. Place priority on documents using fasd (frecency) (i.e. frequency
+# and recently opened)
+# Globals:
+#     PATHS_TO_SEARCH
+# Arguments:
+#     None
+# Outputs:
+#     file names for documents seperated by new line
+################################################################################
+get_documents() {
+	local DOCS_PATH FASD_DOCS NO_DUPLICATES
+	DOCS_PATH="$(fd --regex '.*.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
+	readonly DOCS_PATH
+	FASD_DOCS="$(fasd -lR "${DOCS_PATH}")"
+	readonly FASD_DOCS
+	NO_DUPLICATES="$(cat <(echo "$FASD_DOCS") <(echo "$DOCS_PATH" | grep -Fvx -f <(echo "$FASD_DOCS")))"
+	readonly NO_DUPLICATES
+	echo "$NO_DUPLICATES"
+}
+
+main() {
+	local DOC_SELECTED
+	local -a DOCUMENTS
+	DOCUMENTS="$(get_documents)"
+
+	declare TMP_FILE
+	TMP_FILE="$(mktemp -t "tmp_XXX")"
+	readonly TMP_FILE
+
+	trap 'rm $TMP_FILE' RETURN
+
+	DOCUMENTS="$(printf "%s" "$DOCUMENTS" | awk -F'/' '{
+    full=$0;
+    if (NF >= 2) {
+        dir=$(NF-1);
+        base=$(NF);
+        short = dir "/" "\033[32m" base "\033[0m";
+    } else {
+        short = "\033[32m" $NF "\033[0m";
+    }
+    printf "%s\t%s\n", full, short;
+	}')"
+
+	IFS='' read -r -d '' cmd <<EOF
+	printf "$DOCUMENTS" | fzf --multi --delimiter '\t' --accept-nth 1 --with-nth 2 --ansi --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' >| ${TMP_FILE}
+EOF
+	eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
+
+	DOC_SELECTED="$(<"$TMP_FILE")"
+	readonly DOC_SELECTED
+
+	[[ -z "$DOC_SELECTED" ]] && exit 1
+
+	while read -r DOC; do
+		xdg-open "${DOC}" >/dev/null 2>&1 &
+		fasd -A "${DOC}"
+		disown
+	done <<<"$DOC_SELECTED"
+	i3-msg 'workspace --no-auto-back-and-forth 8'
+}
+
+main

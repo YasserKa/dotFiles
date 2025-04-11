@@ -8,11 +8,12 @@
 # Eval command in pty only, not ttys (virtual console)
 # Rationale: Handle commands executed by display environments which is executed in tty
 if [[ -t 0 && "$(tty)" != *tty* ]]; then
-  eval "$*"
+	[[ "$1" == "--geometry" ]] && shift && shift # Only applicable for floating window
+	eval "$*"
 else
-  if [[ "$floating" == "true" ]]; then
-    kitty_control "$@"
-  else
-    "${TERMINAL}" -e bash -ic "$@"
-  fi
+	if [[ "$floating" == "true" ]]; then
+		kitty_control "$@"
+	else
+		"${TERMINAL}" -e bash -ic "$@"
+	fi
 fi
