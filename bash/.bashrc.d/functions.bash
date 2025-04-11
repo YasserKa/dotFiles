@@ -433,7 +433,7 @@ magit() {
 
 # Pick a color and store it in clipbaord
 pick_color() {
-	command -v gpick >/dev/null && clipboard_copy | pbcopcy "$(gpick -so)"
+	command -v gpick >/dev/null && clipboard_copy "$(gpick -so)"
 }
 
 reboot() {
