@@ -154,7 +154,13 @@ def display(ical):
 
 
 def sendmail():
-    mutt_setting = subprocess.check_output(["neomutt", "-Q", "sendmail"])
+    try:
+        mutt_setting = subprocess.check_output(["neomutt", "-Q", "sendmail"])
+    except subprocess.CalledProcessError as e:
+        mutt_setting = (
+            e.output
+        )  # The output returns an exit code 1 raising this exception
+
     return mutt_setting.strip().decode().split("=")[1].replace('"', "").split()
 
 
