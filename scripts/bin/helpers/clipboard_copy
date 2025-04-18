@@ -2,6 +2,7 @@
 #
 # Copy to clipboard in X or Wayland
 # Arguments:
+#  $1 --interpret-sequence (optional)
 #  $@ Text to be copied
 # Dependencies: xsel wl-cliboard
 

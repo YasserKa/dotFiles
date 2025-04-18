@@ -21,7 +21,7 @@ function note_path() {
 }
 
 function note_path_org_roam() {
-	notes_dir="$HOME/notes/org/images"
+	notes_dir="$HOME/notes/images"
 	echo $notes_dir
 }
 
@@ -70,10 +70,11 @@ if [ "$1" == "-n" ]; then
 	fi
 
 	old_path="$target_path/$old_file_name"
-	new_file_name="$(date +"%Y-%m-%d_%T").$extension"
+	new_file_name="$(date "+%Y%m%d_%H%M%S").$extension"
+
 	new_path="$target_path/$new_file_name"
 	mv "$old_path" "$new_path"
-	clipboard_copy "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]"
+	clipboard_copy --interpret-sequence "#+ATTR_ORG: :width 450\n[[./images/$new_file_name]]"
 	notify-send "Saved as $new_file_name"
 	exit
 fi
