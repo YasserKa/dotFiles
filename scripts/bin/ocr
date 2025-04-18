@@ -9,3 +9,4 @@ trap 'rm -f "$img_path"' EXIT
 
 deepin-screen-recorder --screenShot --save-path "$img_path"
 clipboard_copy "$(tesseract "$img_path" -)"
+notify-send "OCR done"
