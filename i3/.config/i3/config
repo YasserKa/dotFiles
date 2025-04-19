@@ -175,12 +175,13 @@ mode $cmus_mode {
     bindsym Escape mode "default";
 }
 
-set $sharing_mode "(i)mage, (c)lipboard, (l)atex, (v)ideo, (t)ext, (n)ote"
+set $sharing_mode "(i)mage, (c)lipboard, (d)rag/drop, (l)atex, (v)ideo, (t)ext, (n)ote"
 bindsym $mod+s mode $sharing_mode
 mode $sharing_mode {
     bindsym i exec --no-startup-id share -i; mode "default";
     bindsym l exec --no-startup-id share -l; mode "default";
     bindsym c exec --no-startup-id share -c; mode "default";
+    bindsym d exec --no-startup-id share -d; mode "default";
     bindsym v exec --no-startup-id share -v; mode "default";
     bindsym t exec --no-startup-id share -t; mode "default";
     bindsym n exec --no-startup-id share -n; mode "default";

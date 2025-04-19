@@ -26,32 +26,32 @@ function note_path_org_roam() {
 }
 
 case $1 in
-	-v)
-		if [ -n "${WAYLAND_DISPLAY}" ]; then
-			# If recording is running stop it
-			pgrep wf-recorder && pkill wf-recorder && exit 0
-			# NOTE: Can add GIF via -c gif
-			GEOMETRY="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)"
-			wf-recorder -g "$GEOMETRY" -f "$HOME/Videos/Screen Recordings/video.mp4"
-		else
-			deepin-screen-recorder --screenRecord
-		fi
-		;;
-	-i | -c | -l)
-		# Place latex paths in tmp directory
-		[[ "$1" == "-l" ]] && target_img_dir=$target_img_tmp_dir
-		if [ -n "${WAYLAND_DISPLAY}" ]; then
-			/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
-		else
-			deepin-screen-recorder --screenShot --save-path $target_path
-		fi
-		;;
-	-n) target_path=$(note_path_org_roam) ;;
-	-t)
-		clipboard_paste | gist -p | clipboard_copy
-		notify-send "Saved to Clipboard"
-		exit
-		;;
+-v)
+	if [ -n "${WAYLAND_DISPLAY}" ]; then
+		# If recording is running stop it
+		pgrep wf-recorder && pkill wf-recorder && exit 0
+		# NOTE: Can add GIF via -c gif
+		GEOMETRY="$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)"
+		wf-recorder -g "$GEOMETRY" -f "$HOME/Videos/Screen Recordings/video.mp4"
+	else
+		deepin-screen-recorder --screenRecord
+	fi
+	;;
+-i | -c | -l | -d)
+	# Place latex paths in tmp directory
+	[[ "$1" == "-l" ]] && target_img_dir=$target_img_tmp_dir
+	if [ -n "${WAYLAND_DISPLAY}" ]; then
+		/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
+	else
+		deepin-screen-recorder --screenShot --save-path $target_path
+	fi
+	;;
+-n) target_path=$(note_path_org_roam) ;;
+-t)
+	clipboard_paste | gist -p | clipboard_copy
+	notify-send "Saved to Clipboard"
+	exit
+	;;
 esac
 
 if [ "$1" == "-n" ]; then
@@ -118,6 +118,8 @@ if [ "$1" == "-c" ]; then
 elif [ "$1" == "-l" ]; then
 	clipboard_copy "$new_path"
 	notify-send "Image saved to clipboard"
+elif [ "$1" == "-d" ]; then
+	dragon-drop "$new_path"
 else
 	xback "$new_path"
 fi

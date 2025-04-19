@@ -282,6 +282,7 @@ qrencode # Encoding data in QR Code symbol
 tesseract-data-eng # OCR program
 showmethekey # screenkey alternative; works for Wayland and X
 xf86-input-synaptics # Driver for notebook touchpads
+dragon-drop # Simple drag-and-5rop source/sink
 
 # Network
 keychain # agent for gpg & ssh keys
