@@ -1,0 +1,8 @@
+{
+  "swallows": [
+    {
+      "class": "^qutebrowser$",
+      "title": "Mail - Yaser Kaddoura - Outlook - qutebrowser"
+    }
+  ]
+}

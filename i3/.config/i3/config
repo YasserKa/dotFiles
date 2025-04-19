@@ -289,10 +289,13 @@ exec_always --no-startup-id autotiling --limit 2 -e WINDOW_FOCUS -sr 1.61
 # Status bar
 exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 
-# Open browser & notes
+# Open browser
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
 exec --no-startup-id ${BROWSER} --override-restore
-exec --no-startup-id sleep 3; i3-msg "workspace --no-auto-back-and-forth 1"
+exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 7; append_layout ~/.config/i3/templates/outlook.json'
+exec --no-startup-id sleep 1; ${BROWSER} --override-restore --target window https://outlook.office.com/mail/
+
+exec --no-startup-id "slack"
 
 # Manages some key bindings
 exec --no-startup-id autokey-qt & disown
