@@ -100,10 +100,10 @@ file_type="$(xdg-mime query filetype "<_file>")"; default_app="$(xdg-mime query 
 $_file: fd --type f --- --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 
 # Share kde file
-kdeconnect-cli -n "<device>" --share "<file>"
+while read -r file; do kdeconnect-cli -n "<device>" --share "$file"; done <<<  "<files>"
 
 $device: kdeconnect-cli -a --name-only
-$file: fd --- --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
+$files: fd --- --multi --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {}"
 
 # Bluetooth GUI
 blueman-manager
