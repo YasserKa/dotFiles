@@ -296,6 +296,7 @@ nethogs # A net top tool which displays traffic used per process instead of per 
 networkmanager # Network connection manager and user applications
 networkmanager-dmenu-git # Control NetworkManager via dmenu
 tailscale # A mesh VPN that makesit easy to connect your devices, wherever they are
+forticlient-vpn # Forticlient VPN client
 net-tools # Configuration tools
 transmission-gtk # BitTorren client
 firewalld # Firewall daemon with D-Bus interface
@@ -333,6 +334,9 @@ greetd # Generic greeter daemon
 zotero-bin # Bibliography manager
 gnu-netcat # Used to communicate with Zotero
 slack-desktop
+thunderbird # Mail client
+external-editor-revived # Thunderbird extension edit email
+systray-x-common # Thunderbird extension for system tray
 
 # (Wayland) Screen recording and shots
 grim    # Screenshot utility for Wayland

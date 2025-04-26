@@ -226,9 +226,9 @@ set $mail_mode "(o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
     bindsym o exec --no-startup-id eval_interactive_cmd neomutt; mode "default";
-    bindsym s exec --no-startup-id bash -ic "syncmail trigger-polybar"; mode "default";
+    bindsym s exec --no-startup-id bash -ic "syncmail trigger-polybar" && xdotool search --name "Mozilla Thunderbird" key --window %1 shift+F5; mode "default";
 # Mark messages as read
-    bindsym c exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && polybar-msg action "#mail.hook.0" && dunstctl close; mode "default";
+    bindsym c exec --no-startup-id xdotool search --name "Mozilla Thunderbird" key --window %1 shift+c  && $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && polybar-msg action "#mail.hook.0" && dunstctl close; mode "default";
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
@@ -292,8 +292,7 @@ exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 # Open browser
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
 exec --no-startup-id ${BROWSER} --override-restore
-exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 7; append_layout ~/.config/i3/templates/outlook.json'
-exec --no-startup-id sleep 1; ${BROWSER} --override-restore --target window https://outlook.office.com/mail/
+exec --no-startup-id thunderbird
 
 exec --no-startup-id "slack"
 
