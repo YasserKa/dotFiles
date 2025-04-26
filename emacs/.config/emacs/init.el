@@ -2587,6 +2587,10 @@ selection of all minor-modes, active or not."
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "C")  'my/elfeed-entry-capture-show)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-n")  'scroll-other-window)
+
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "A") '(lambda () (interactive) (mark-whole-buffer) (elfeed-search-untag-all-unread)))
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "q")  'save-buffers-kill-terminal)
+
   (defun elfeed-format-relative-time (timestamp)
     "Format TIMESTAMP as a relative time string."
     (let* ((now (float-time (current-time)))       ;; Current time in seconds
@@ -2639,17 +2643,16 @@ concatenated."
                          relative-time (elfeed-clamp 2 4 4) :left))
            (title-width (- (window-width) 10 elfeed-search-trailing-width))
            (entry-title-column (elfeed-format-column
-                                entry-title (elfeed-clamp elfeed-search-title-min-width title-width elfeed-search-title-max-width) :left))
+                                entry-title (elfeed-clamp elfeed-search-title-min-width title-width 90) :left))
            (tag-column (elfeed-format-column
-                        tags-str (elfeed-clamp (length tags-str) 19 30) :left))
+                        tags-str (elfeed-clamp 18 (length tags-str) 30) :left))
            (metadata-column (elfeed-format-column
                              metadata (elfeed-clamp 15 15 15) :left))
            (authors-column (elfeed-format-column
-                            authors (elfeed-clamp elfeed-search-title-min-width 45 50) :left))
+                            authors (elfeed-clamp 16 (length authors) 40) :left))
            (feed-title-column (elfeed-format-column
-                               feed-title (elfeed-clamp 10 20 20) :left))
+                               feed-title (elfeed-clamp 16 (length feed-title) 20) :left))
            )
-      ;; (insert (format "%3s" (propertize relative-time 'face 'elfeed-search-date-face)) " ")
       (insert (propertize date-column 'face 'elfeed-search-date-face) " ")
       (insert metadata-column)
       (insert (propertize feed-title-column 'face 'elfeed-search-feed-face) " ")
