@@ -8,11 +8,17 @@ SNIPPETS_FILE="$XDG_CONFIG_HOME/.snippets"
 
 # Pick a snippet key using rofi then get its value
 # shellcheck disable=2094
-snippet="$(< "$SNIPPETS_FILE"  cut -d '=' -f -1 | rofi -dmenu | xargs -I{} grep {} "$SNIPPETS_FILE" | cut -d '=' -f 2-)"
+snippet="$(<"$SNIPPETS_FILE" cut -d '=' -f -1 | rofi -dmenu | xargs -I{} grep {} "$SNIPPETS_FILE" | cut -d '=' -f 2-)"
 
 [[ -z "$snippet" ]] && exit 1
 
 CLIPBOARD="$(clipboard_paste)"
 clipboard_copy "$snippet"
+
+# Get list of keyboards and disable then re-enable them
+devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
+
+while IFS= read -r device; do xinput disable "$device" 2>/dev/null; done <<<"$devices"
 xdotool key --clearmodifiers ctrl+shift+v
+while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
 clipboard_copy "$CLIPBOARD"
