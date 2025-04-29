@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Org capture mail subjects",
+  "version": "1.0",
+  "applications": {
+    "gecko": {
+      "id": "org_capture_mail_subject@yasser.com"
+    }
+  },
+  "permissions": ["messagesRead", "nativeMessaging"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "commands": {
+    "org-capture-mail-subject": {
+      "suggested_key": {
+        "default": "Ctrl+C"
+      },
+      "description": "Org capture mail subject"
+    }
+  }
+}

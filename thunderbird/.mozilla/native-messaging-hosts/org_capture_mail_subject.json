@@ -1,0 +1,7 @@
+{
+  "name": "org_capture_mail_subject",
+  "description": "Org capture mail subject",
+  "path": "/home/yasser/.config/thunderbird/org_capture_mail_subject.py",
+  "type": "stdio",
+  "allowed_extensions": ["org_capture_mail_subject@yasser.com"]
+}
