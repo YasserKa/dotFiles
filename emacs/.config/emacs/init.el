@@ -2588,6 +2588,7 @@ selection of all minor-modes, active or not."
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-n")  'scroll-other-window)
 
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "o")  'elfeed-search-browse-url)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "A") '(lambda () (interactive) (mark-whole-buffer) (elfeed-search-untag-all-unread)))
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "q")  'save-buffers-kill-terminal)
 
