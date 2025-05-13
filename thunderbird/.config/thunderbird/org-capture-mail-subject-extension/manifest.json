@@ -14,7 +14,7 @@
   "commands": {
     "org-capture-mail-subject": {
       "suggested_key": {
-        "default": "Ctrl+C"
+        "default": "Ctrl+Shift+C"
       },
       "description": "Org capture mail subject"
     }
