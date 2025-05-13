@@ -31,7 +31,7 @@ contains_element() {
 
 messageinfo() {
 	# Ignore AliExpress emails
-	if [[ -z "${from##*AliExpress*}" ]]; then
+	if [[ -z "${from##*AliExpress*}" || -z "${from##*Temu*}" ]]; then
 		# Move mail to read directory
 		mv "$new" "$HOME/.local/share/mail/$acc/INBOX/cur/"
 		return 0
