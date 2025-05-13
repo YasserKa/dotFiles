@@ -8,7 +8,8 @@ from time import sleep
 
 from dateutil.parser import parse
 from selenium import webdriver
-from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
+from selenium.common.exceptions import (SessionNotCreatedException,
+                                        TimeoutException)
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -80,10 +81,7 @@ def check_whatsapp(driver):
 
     driver.get(URL_WHATS_APP)
     WebDriverWait(driver, 60).until(
-        lambda x: len(
-            x.find_elements(By.XPATH, './/*[contains(text(),"WhatsApp Web")]')
-        )
-        > 0
+        lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(),"Chats")]')) > 0
     )
     # Needed to extract unread_messages correctly
     sleep(5)
@@ -139,7 +137,7 @@ def main():
     executable_path = f"{XDG_CONFIG_HOME}/google-chrome/chromedriver"
     profile_path = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile"
     # Used for another whatsapp account
-    profile_path_1 = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile_l"
+    # profile_path_1 = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile_l"
 
     options = webdriver.ChromeOptions()
     options.add_argument("user-data-dir=" + profile_path)
@@ -152,11 +150,11 @@ def main():
     try:
         check_whatsapp(driver)
 
-        options.add_argument("user-data-dir=" + profile_path_1)
-        driver = webdriver.Chrome(
-            service=Service(executable_path=executable_path), options=options
-        )
-        check_whatsapp(driver)
+        # options.add_argument("user-data-dir=" + profile_path_1)
+        # driver = webdriver.Chrome(
+        #     service=Service(executable_path=executable_path), options=options
+        # )
+        # check_whatsapp(driver)
     except TimeoutException:
         pass
 
