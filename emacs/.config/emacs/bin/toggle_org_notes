@@ -4,11 +4,12 @@
 #
 # Dependencies: emacs i3 xdotool jq
 
-
 declare -r CLASS="org_notes"
+declare -r i3_config_override_file="$XDG_CONFIG_HOME/i3/config_override"
+declare -r i3_override_command="for_window [title=^${CLASS}$] move scratchpad"
 
 # If it's visible, move it to scratchpad
-xdotool search  --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
+xdotool search --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
 # shellcheck disable=1091
 source "$HOME/bin/helpers/monitor_variables"
 
@@ -19,7 +20,10 @@ readonly RIGHT_WORKSPACE
 
 # If frame doesn't exist, create it, and go to file
 if ! xdotool search --name "^${CLASS}$" >/dev/null; then
-  echo "for_window [title=^${CLASS}$] move scratchpad" >| "$XDG_CONFIG_HOME/i3/config_override"
+  if ! grep -Fxq "$i3_override_command" "$i3_config_override_file"; then
+    dunstify hello
+    echo "$i3_override_command" >>"$i3_config_override_file"
+  fi
   i3-msg reload
 
   emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
@@ -40,7 +44,7 @@ xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$]
 
 xdotool search --onlyvisible --name "^${CLASS}$" windowfocus
 
- emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
+emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
   (with-current-buffer (window-buffer (selected-window))
   (if (minibufferp) (lambda () (minibuffer-keyboard-quit)))
   (org-overview)
@@ -48,7 +52,5 @@ xdotool search --onlyvisible --name "^${CLASS}$" windowfocus
   (org-fold-show-subtree)
   )
   "
-
-echo "" >| "$XDG_CONFIG_HOME/i3/config_override"
+awk -v pat="$i3_override_command" '$0 != pat' "$i3_config_override_file" | sponge "$i3_config_override_file"
 i3-msg reload
-
