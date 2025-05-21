@@ -12,7 +12,7 @@ BIB_FILE_PATH="$HOME/projects/To_Read.bib"
 
 # Extract cite_key when bib file changes
 old_bib="$(grep "@.*," "$BIB_FILE_PATH" | sed -E 's/^@[^{]+\{([^,]+),.*/\1/')"
-inotifywait -e close_write "$BIB_FILE_PATH" >/dev/null && grep "@.*," "$BIB_FILE_PATH"
+inotifywait -e close_write "$BIB_FILE_PATH" >/dev/null 2>&1 && grep "@.*," "$BIB_FILE_PATH"
 cite_key="$(comm -3 <(echo "$old_bib") <(grep "@.*," "$BIB_FILE_PATH" | sed -E 's/^@[^{]+\{([^,]+),.*/\1/') | sed 's/^\s*//')"
 
 # Add a TODO entry in org file
