@@ -6,14 +6,8 @@
 #
 # Dependencies: Zotero Emacs inotify-tools
 
-BIB_FILE_PATH="$HOME/projects/To_Read.bib"
-# Import Zotero entry
-"$HOME/.config/Zotero/bin/import_to_zotero" "$1" "To_Read" || exit 1
-
-# Extract cite_key when bib file changes
-old_bib="$(grep "@.*," "$BIB_FILE_PATH" | sed -E 's/^@[^{]+\{([^,]+),.*/\1/')"
-inotifywait -e close_write "$BIB_FILE_PATH" >/dev/null 2>&1 && grep "@.*," "$BIB_FILE_PATH"
-cite_key="$(comm -3 <(echo "$old_bib") <(grep "@.*," "$BIB_FILE_PATH" | sed -E 's/^@[^{]+\{([^,]+),.*/\1/') | sed 's/^\s*//')"
+# Import Zotero entry & get citekey
+cite_key="$("$HOME/.config/Zotero/bin/import_to_zotero" "$1" "To_Read")"
 
 # Add a TODO entry in org file
 emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${cite_key}]"

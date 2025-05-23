@@ -93,6 +93,21 @@ import_source() {
 		# Attach document
 		import_script='
   (async function () {
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
+  const startTime = Date.now();
+
+  while (true) {
+    if (conditionFn()) { break; }
+
+    if (Date.now() - startTime > timeoutMs) { break; }
+
+    await sleep(pollIntervalMs);
+  }
+}
   function getZoteroPane() {
 		var windows = Zotero.getMainWindows();
 		for (let win of windows) {
@@ -100,8 +115,12 @@ import_source() {
 		  }
 	  }
     await getZoteroPane().collectionsView.selectCollection('"$COLLECTION_ID"')
-    await getZoteroPane().addAttachmentFromDialog(false, 0,["'"$SOURCE"'"]);
-  })();'
+    items = await getZoteroPane().addAttachmentFromDialog(false, 0,["'"$SOURCE"'"]);
+		await waitForCondition(() => items[0].parentID, 5000);
+    result = await Zotero.BetterBibTeX.KeyManager.get(items[0].parentID).citationKey
+  '
+
+		eval_script_return_value "$import_script"
 	elif curl --head "$SOURCE"; then
 
 		HTML_PATH="$(mktemp -t "tmp_XXX")"
@@ -138,24 +157,23 @@ libraryID,
 collections: ['"$COLLECTION_ID"'],
 });
 })();'
+		nc 127.0.0.1 8080 < <(echo "$import_script")
 	else
 		notify-send "Couldn't import to zotero: $SOURCE"
 		exit 1
 	fi
-
-	nc 127.0.0.1 8080 < <(echo "$import_script")
 }
 
 eval_script_return_value() {
 	TMP_FILE2="/tmp/zotero_return_value"
-	readonly TMP_FILE2
 
-	trap 'rm $TMP_FILE2' RETURN
+	rm -f "$TMP_FILE2"
+	trap 'rm -f $TMP_FILE2' RETURN
 	local -r SCRIPT='
-  '"$1"'
-  await Zotero.File.putContentsAsync("'"$TMP_FILE2"'", result);
-})();
-'
+	'"$1"'
+	await Zotero.File.putContentsAsync("'"$TMP_FILE2"'", result);
+	})();
+	'
 
 	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
 	until [[ -f "$TMP_FILE2" ]]; do
