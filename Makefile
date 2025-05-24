@@ -19,6 +19,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/cmus
 	@mkdir -p $(XDG_CONFIG_HOME)/rofi
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav
+	@mkdir -p $(XDG_CONFIG_HOME)/sunshine
 	@mkdir -p $(XDG_CONFIG_HOME)/copyq
 	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs

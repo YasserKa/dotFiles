@@ -1,0 +1,49 @@
+{
+    "apps": [
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Second monitor below",
+            "output": "",
+            "prep-cmd": [
+                {
+                    "do": "xrandr --addmode HDMI-1 1920x1080",
+                    "undo": "xrandr --output HDMI-1 --off"
+                },
+                {
+                    "do": "xrandr --output HDMI-1 --mode 1920x1080 --below eDP-1",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": [],
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "",
+            "name": "Second monitor left",
+            "output": "",
+            "prep-cmd": [
+                {
+                    "do": "xrandr --addmode HDMI-1 1920x1080",
+                    "undo": "xrandr --output HDMI-1 --off"
+                },
+                {
+                    "do": "xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        }
+    ],
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin"
+    }
+}
