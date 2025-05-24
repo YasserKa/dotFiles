@@ -4,7 +4,7 @@
 # Dependencies: zotero netcat fzf
 
 search_entries() {
-	script='
+  script='
   (async function () {
 
   let libraries = await Zotero.Libraries.getAll()
@@ -76,12 +76,12 @@ for (let library of libraries) {
 let result = collections_str
 '
 
-	result="$(eval_script_return_value "$script")"
-	FRE_NAME="zotero_items"
+  result="$(eval_script_return_value "$script")"
+  FRE_NAME="zotero_items"
 
-	frecency_result="$(fre --store_name "zotero_items" --sorted)"
+  frecency_result="$(fre --store_name "zotero_items" --sorted)"
 
-	result="$(awk -F$'\t' '
+  result="$(awk -F$'\t' '
 NR==FNR { order[NR] = $1; next }
 {
     key = $1;
@@ -114,10 +114,10 @@ END {
     }
   }' <(echo "$frecency_result") <(echo "$result"))"
 
-	awk 'NR==1 {print; next} NR%2==0 {printf "%s\0", $0; next} {print}' < <(echo "$result") >|/tmp/result_null
+  awk 'NR==1 {print; next} NR%2==0 {printf "%s\0", $0; next} {print}' < <(echo "$result") >|/tmp/result_null
 
-	# Focus collection and item in Zotero JS
-	focus_zotero_item='(async function() {
+  # Focus collection and item in Zotero JS
+  focus_zotero_item='(async function() {
     function getZoteroPane() {
 		  let windows = Zotero.getMainWindows();
 		  for (let win of windows) {
@@ -135,12 +135,12 @@ END {
 
   focus_zotero_item('
 
-	TMP_FILE="$(mktemp -t "tmp_XXX")"
-	readonly TMP_FILE
+  TMP_FILE="$(mktemp -t "tmp_XXX")"
+  readonly TMP_FILE
 
-	trap 'rm $TMP_FILE' EXIT
+  trap 'rm $TMP_FILE' EXIT
 
-	IFS='' read -r -d '' cmd <<EOF
+  IFS='' read -r -d '' cmd <<EOF
   cat "/tmp/result_null" |  fzf --read0 --ansi --with-nth {5..} \
   --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {4}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
   --bind 'alt-u:execute-silent(xdg-open {3})' \
@@ -150,39 +150,47 @@ END {
   >| '${TMP_FILE}'
 EOF
 
-	eval_interactive_cmd --floating "$cmd"
+  eval_interactive_cmd --floating "$cmd"
 
-	[[ -s "$TMP_FILE" ]] || exit 1
+  [[ -s "$TMP_FILE" ]] || exit 1
 
-	FILE_PATH="$(<"$TMP_FILE" cut -d $'\t' -f 4 | head -n 1)"
+  FILE_PATH="$(<"$TMP_FILE" cut -d $'\t' -f 4 | head -n 1)"
 
-	# Open document if directory exists; otherwise, open link
-	if [[ -d "$FILE_PATH" ]]; then
-		xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
-		disown
-		i3-msg "workspace 8" &
-	else
-		xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
-	fi
-	fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
+  # Open document if directory exists; otherwise, open link
+  if [[ -d "$FILE_PATH" ]]; then
+    xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
+    disown
+    i3-msg "workspace 8" &
+  else
+    xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
+  fi
+  fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
 }
 
 eval_script_return_value() {
-	tmp="/tmp/search_zotero_${RANDOM}"
+  tmp="/tmp/search_zotero_${RANDOM}"
 
-	SCRIPT='
+  SCRIPT='
   '"$1"'
   await Zotero.File.putContentsAsync("'"$tmp"'", result);
 })();
 '
 
-	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
-	until [[ -f "$tmp" ]]; do
-		sleep 0.1
-	done
-	cat "$tmp"
-	rm "$tmp"
+  nc 127.0.0.1 8080 < <(echo "$SCRIPT")
+  until [[ -f "$tmp" ]]; do
+    sleep 0.1
+  done
+  cat "$tmp"
+  rm "$tmp"
 }
 
-pgrep zotero >/dev/null || { notify-send "Zotero instance doesn't exist" && exit 1; }
+if ! pgrep zotero >/dev/null; then
+  zotero &
+  disown
+  until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
+    sleep 0.1
+  done
+  i3-msg '[class="Zotero"] move scratchpad'
+  sleep 1
+fi
 search_entries

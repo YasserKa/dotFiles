@@ -544,4 +544,5 @@ mpv() { (command mpv --input-ipc-server=/tmp/mpv-socket --no-terminal "$@" &>/de
 xdg-open() { (command xdg-open "$@" &>/dev/null &) }
 pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
-thunderbird() { { wmctrl -l | grep Thunderbird; } && i3-msg '[class="thunderbird"] move workspace current' || command thunderbird & }
+thunderbird() { { wmctrl -l | grep Thunderbird; } && i3-msg '[class="thunderbird"] move workspace current, focus' || command thunderbird & }
+zotero() { { wmctrl -l | grep Zotero; } && i3-msg '[class="Zotero"] move workspace current, focus' || command zotero & }
