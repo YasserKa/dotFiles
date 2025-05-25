@@ -24,29 +24,4 @@ SyncState *
 MaxMessages 0
 ExpireUnread no
 
-IMAPStore outlook_personal-remote
-Host outlook.office365.com
-Port 993
-User yasser.kaddoura191@outlook.com
-AuthMechs XOAUTH2
-PassCmd "oama access yasser.kaddoura191@outlook.com"
-TLSType IMAPS
-Timeout 60
-CertificateFile /etc/ssl/certs/ca-certificates.crt
-
-MaildirStore outlook_personal-local
-Subfolders Verbatim
-Path ~/.local/share/mail/outlook_personal/
-Inbox ~/.local/share/mail/outlook_personal/INBOX
-Flatten .
-
-Channel outlook_personal
-Far :outlook_personal-remote:
-Near :outlook_personal-local:
-Patterns *
-Expunge Both
-Create Both
-Expunge Both
-SyncState *
-
 # vim:filetype=mbsync

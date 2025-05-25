@@ -14,14 +14,4 @@ passwordeval oama access yasser.kaddoura19@gmail.com
 tls on
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
 
-account outlook_personal
-host smtp-mail.outlook.com
-port 587
-from yasser.kaddoura191@outlook.com
-user yasser.kaddoura191@outlook.com
-auth xoauth2
-passwordeval oama access yasser.kaddoura191@outlook.com
-tls on
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
-
 # vim:filetype=msmtp commentstring=#%s
