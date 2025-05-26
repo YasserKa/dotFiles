@@ -185,7 +185,7 @@ eval_script_return_value() {
 }
 
 if ! pgrep zotero >/dev/null; then
-  zotero &
+  nohup zotero >/dev/null 2>&1 &
   disown
   until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
     sleep 0.1
