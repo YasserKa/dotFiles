@@ -2667,22 +2667,15 @@ concatenated."
 
   (setq elfeed-search-print-entry-function #'my/elfeed-search-print)
 
-(defun my/elfeed-search-sort-set (comparator &optional reverse)
-  (setq elfeed-sort-order (if reverse 'descending 'ascending)
-        elfeed-search-sort-function comparator)
-  (elfeed-search-update t))
+    (defun my-elfeed-tag-sort (a b)
+      "Sort on feed title then date"
+      (let* ((a-title (elfeed-feed-title (elfeed-entry-feed a)))
+             (b-title (elfeed-feed-title (elfeed-entry-feed b))))
+        (if (string= a-title b-title)
+            (< (elfeed-entry-date b) (elfeed-entry-date a)))
+          (string< a-title b-title)))
 
-(defun my/elfeed-search-sort--feed-url (a b)
-  (string-lessp
-   (elfeed-feed-title (elfeed-entry-feed a))
-   (elfeed-feed-title (elfeed-entry-feed b))))
-
-(defun my/elfeed-search-sort-feed (&optional reverse)
-  (interactive "P")
-  (my/elfeed-search-sort-set #'my/elfeed-search-sort--feed-url reverse))
-
-  (my/elfeed-search-sort-feed t)
-
+    (setf elfeed-search-sort-function #'my-elfeed-tag-sort)
   )
 
 ;; NOTE: Doesn't work inside use-package
