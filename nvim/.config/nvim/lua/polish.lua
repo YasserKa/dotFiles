@@ -65,15 +65,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  desc = "Settings for mail files",
+  desc = "Settings for various files",
   group = "user_mail",
-  pattern = { "neomutt-*", "tuir*", "qutebrowser-editor-*" },
+  pattern = { "neomutt-*", "tuir*", "qutebrowser-editor-*", "*eml" },
   command = "set spell textwidth=100",
 })
 vim.api.nvim_create_autocmd({ "BufRead" }, {
   desc = "Settings for mail files",
   group = "user_mail",
-  pattern = "neomutt-*",
+  pattern = { "neomutt-*", "*eml" },
   command = "normal )j",
 })
 
