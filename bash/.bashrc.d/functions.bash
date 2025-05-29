@@ -35,6 +35,31 @@ function cd() {
 	fi
 }
 
+#######################################
+# Extand mv by creating the target directory if it doesn't exist
+#######################################
+mv() {
+	last_arg="${*: -1}"
+
+	if [[ "$#" -gt 2 ]]; then
+		parent_dir="$last_arg"
+	else
+		parent_dir="$(dirname "$last_arg")"
+	fi
+
+	# If destination exists, proceed normally
+	if [[ ! -d "$parent_dir" ]]; then
+		echo -n "Destination '$parent_dir' does not exist. Create directory? [y/N] "
+		read -r confirm
+		if [[ "$confirm" =~ ^[Yy]$ ]]; then
+			mkdir -p "$parent_dir"
+		else
+			return 1
+		fi
+	fi
+	command mv -i "$@"
+}
+
 # https://github.com/xvoland/Extract/blob/master/extract.sh
 function extract {
 	if [ $# -eq 0 ]; then

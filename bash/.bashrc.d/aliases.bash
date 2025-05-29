@@ -47,7 +47,7 @@ alias logxorg='cat $HOME/.local/share/xorg/Xorg.0.log'
 # eza colors symbolic links better than lsd
 # da=36 cyan timestamps
 alias ls="EZA_COLORS='da=36' eza --time-style=relative --color-scale=age"
-alias lsa="ls --almost-all"    # ignore . ..
+alias lsa="ls --almost-all"           # ignore . ..
 alias l="ls --long --classify=always" # show file indicators
 alias la="l --almost-all"
 # Tree view
@@ -71,7 +71,6 @@ alias grep='grep --color=auto'
 alias libby='FZF_DEFAULT_OPTS="--tac" libby'
 
 # Prompt before overriding
-alias mv='mv -i'
 alias cp='cp -i --preserve=all --reflink=auto'
 
 # Navigation
