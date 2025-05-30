@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Close window or hide it if it's Zotero
+#
+# Dependencies: i3 jq
+
+focused_class=$(i3-msg -t get_tree | jq -r '
+  recurse(.nodes[]?, .floating_nodes[]?) 
+  | select(.focused) 
+  | .window_properties.class
+')
+
+if [[ "$focused_class" == "Zotero" ]]; then
+	i3-msg '[class="Zotero"] move scratchpad '
+else
+	i3-msg 'kill'
+fi

@@ -251,7 +251,7 @@ mode $system_mode {
 # >>>
 # Bindings <<<
 bindsym $mod+g exec --no-startup-id $TERMINAL
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+q exec --no-startup-id $XDG_CONFIG_HOME/i3/kill_or_toggle_window
 bindsym $mod+d exec --no-startup-id rofi -show run
 
 # Rofi applications
