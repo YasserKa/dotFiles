@@ -42,7 +42,7 @@ $(
 	cat <<'FZF_FTW'
 --bind "ctrl-alt-d:execute-silent(zsh -ic 'builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; for i in {+1}; do ignore+=( \"${(b)history[$i]}\" );done;
 	HISTORY_IGNORE=\"(${(j:|:)ignore})\";builtin fc -W $HISTFILE')+reload:builtin fc -p $HISTFILE $HISTSIZE $SAVEHIST; builtin fc -rli 1 |
-	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd); if (!seen[cmd]++) print $0 }' | awk '{$1 = \"\033[37;2m\" $1 \"\033[0m\"; $2 = \"\033[1;32m\" $2; $3 = $3 \"\033[0m\"; for (i=4; i<=NF; i++) $i = \"\033[1;38m\" $i \"\033[0m\"; print}'
+	awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, \"\", cmd); if (!seen[cmd]++) print $0 }' | awk '{$1 = \"\\033[37;2m\" $1 \"\\033[0m\"; $2 = \"\\033[1;32m\" $2; $3 = $3 \"\\033[0m\"; for (i=4; i<=NF; i++) $i = \"\\033[1;38m\" $i \"\\033[0m\"; print}'
 "
 FZF_FTW
 )
