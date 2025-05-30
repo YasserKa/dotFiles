@@ -1586,8 +1586,8 @@ see how ARG affects this command."
    ;; Check https://github.com/doomemacs/themes/issues/453
    '(org-block-begin-line ((t (:background unspecified :weight bold))))
    '(org-block-end-line ((t (:background unspecified :weight bold))))
-   '(org-code ((t (:inherit (shadow fixed-pitch) :height 1.1))))
-   '(org-verbatim ((t (:inherit (shadow fixed-pitch) :height 1.1))))
+   '(org-code ((t (:background "#e0e0e0" :foreground "#000000"))))
+   '(org-verbatim ((t (:background "#e0e0e0" :foreground "#000000"))))
    )
 
   ;; Used by babel
