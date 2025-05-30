@@ -289,13 +289,6 @@ c.content.javascript.clipboard = "access-paste"
 with config.pattern("https://www.google.com") as p:
     p.content.geolocation = True
 
-# Sciencedirect bans default user_agent
-with config.pattern("https://*.sciencedirect.com/*") as p:
-    p.content.headers.user_agent = "Chrome/133.0.6876.4"
-
-with config.pattern("https://*.sciencedirectassets.com/*") as p:
-    p.content.headers.user_agent = "Chrome/133.0.6876.4"
-
 c.auto_save.session = True
 
 c.hints.selectors["code"] = [
