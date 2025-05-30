@@ -36,6 +36,21 @@ function cd() {
 }
 
 #######################################
+# Attempts to close a window with in a time interval
+# Arguments:
+#   $1 Word to identify the window (e.g. Slack)
+#######################################
+close_window() {
+	local -r TIMEOUT=5
+	local SECONDS=0
+	while sleep 1; do
+		id="$(wmctrl -l | grep "$1" | cut -d ' ' -f -1)"
+		[[ -n "$id" ]] && wmctrl -ic "$id" && exit 0
+		((SECONDS >= TIMEOUT)) && break
+	done
+}
+
+#######################################
 # Extand mv by creating the target directory if it doesn't exist
 #######################################
 mv() {
