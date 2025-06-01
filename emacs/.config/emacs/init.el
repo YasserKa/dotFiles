@@ -1356,6 +1356,30 @@ Made for `org-tab-first-hook' in evil-mode."
                      (org-duration-to-minutes (org-entry-get nil "Effort")))))
         (org-entry-put nil "Effort" effort))))
 
+  ;; For repeated tasks having ADJUST_TO_WEEKEND property
+  ;; adjust the repeated date to a weekend
+  (defun my/org-adjust-to-weekend (date)
+    "Adjust DATE to the next weekend if it falls on a weekday."
+    (let* ((day (calendar-day-of-week (calendar-gregorian-from-absolute (org-time-string-to-absolute date)))))
+      (cond
+       ;; If Monday to Friday, shift to Saturday
+       ((and (>= day 1) (<= day 5))
+        (format-time-string "<%Y-%m-%d %a>" (time-add (org-time-string-to-time date) (days-to-time (- 6 day)))))
+       ;; If Saturday or Sunday, leave as is
+       (t date))))
+
+  (defun my/org-adjust-repeater-to-weekend ()
+    "When a repeater updates, adjust it to the next weekend if it falls on a weekday."
+    (when (org-entry-get nil "ADJUST_TO_WEEKEND")
+      (when (and (org-entry-get nil "LAST_REPEAT"))
+        (let* ((scheduled (org-entry-get nil "SCHEDULED"))
+               (deadline (org-entry-get nil "DEADLINE")))
+          (when scheduled
+            (org-entry-put nil "SCHEDULED" (my/org-adjust-to-weekend scheduled)))
+          (when deadline
+            (org-entry-put nil "DEADLINE" (my/org-adjust-to-weekend deadline)))))))
+
+  (add-hook 'org-todo-repeat-hook #'my/org-adjust-repeater-to-weekend)
 
   (defvar inhibit-org-property-changed-functions nil
     "Prevent org-property-changed-functions from being triggered.")
@@ -2581,7 +2605,7 @@ selection of all minor-modes, active or not."
   (defun my/elfeed-entry-capture-show ()
     (interactive)
     (let ((entry (elfeed-search-selected :single)))
-  (start-process-shell-command "" nil (concat "org_capture '" (elfeed-entry-link entry) "' '" (elfeed-entry-title entry)"'")) (elfeed-search-show-entry entry)))
+      (start-process-shell-command "" nil (concat "org_capture '" (elfeed-entry-link entry) "' '" (elfeed-entry-title entry)"'")) (elfeed-search-show-entry entry)))
 
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "r") 'elfeed-search-clear-filter)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "C")  'my/elfeed-entry-capture-show)
@@ -2667,15 +2691,15 @@ concatenated."
 
   (setq elfeed-search-print-entry-function #'my/elfeed-search-print)
 
-    (defun my-elfeed-tag-sort (a b)
-      "Sort on feed title then date"
-      (let* ((a-title (elfeed-feed-title (elfeed-entry-feed a)))
-             (b-title (elfeed-feed-title (elfeed-entry-feed b))))
-        (if (string= a-title b-title)
-            (< (elfeed-entry-date b) (elfeed-entry-date a)))
-          (string< a-title b-title)))
+  (defun my-elfeed-tag-sort (a b)
+    "Sort on feed title then date"
+    (let* ((a-title (elfeed-feed-title (elfeed-entry-feed a)))
+           (b-title (elfeed-feed-title (elfeed-entry-feed b))))
+      (if (string= a-title b-title)
+          (< (elfeed-entry-date b) (elfeed-entry-date a)))
+      (string< a-title b-title)))
 
-    (setf elfeed-search-sort-function #'my-elfeed-tag-sort)
+  (setf elfeed-search-sort-function #'my-elfeed-tag-sort)
   )
 
 ;; NOTE: Doesn't work inside use-package
