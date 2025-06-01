@@ -58,7 +58,7 @@ main() {
 	}')"
 
 	IFS='' read -r -d '' cmd <<EOF
-	printf "$DOCUMENTS" | fzf --multi --delimiter '\t' --accept-nth 1 --with-nth 2 --ansi --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' >| ${TMP_FILE}
+	printf "$DOCUMENTS" | fzf --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 2 --ansi --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' >| ${TMP_FILE}
 EOF
 	eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
 
