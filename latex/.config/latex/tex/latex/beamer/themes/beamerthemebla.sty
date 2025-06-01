@@ -1,0 +1,46 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+\RequirePackage{tabularx}
+
+% Settings
+\usecolortheme{ltu}
+\useinnertheme{ltu}
+\useoutertheme{ltu}
+
+\setbeamerfont{description item}{parent=item, series=\bfseries}
+\setbeamercolor{description body}{use=structure, fg=structure.fg!70!white}
+
+\setbeamertemplate{navigation symbols}{}
+
+\def\soloframe#1
+{
+\begin{frame}[t]
+\begin{tikzpicture}[remember picture, overlay]
+  \node[anchor=center] at (current page.center) {
+    % White background box
+    \colorbox{white}{
+      \begin{minipage}{0.7\textwidth}  % Outer box = full padded area
+        \vspace*{2em}
+
+        \begin{center}
+          \begin{minipage}{0.9\textwidth}  % Inner block centered = content width
+
+            {\usebeamerfont{title}\usebeamercolor[fg]{title} #1}
+
+            % Left-aligned orange rule within centered block
+            \raggedright
+            \color{beam}\rule[0mm]{1cm}{2pt}
+          \end{minipage}
+        \end{center}
+
+        \vspace*{2em}
+      \end{minipage}
+    }
+  };
+\end{tikzpicture}
+\end{frame}
+}
+
+\mode<all>

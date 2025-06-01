@@ -52,6 +52,7 @@ export CARGO_HOME="$XDG_DATA_HOME"/cargo
 
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
+export TEXMFHOME="$XDG_CONFIG_HOME/latex" # Load beamer themes
 
 # Path to notes
 export NOTES_ORG_HOME="$HOME/notes"

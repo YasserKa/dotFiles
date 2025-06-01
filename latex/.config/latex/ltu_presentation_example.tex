@@ -1,0 +1,166 @@
+\documentclass[aspectratio=169]{beamer}
+%Information to be included in the title page:
+\title{<Presentation title>}
+\subtitle{<Presentation subtitle>}
+\institute{LULEÅ UNIVERSITY OF TECHNOLOGY}
+\usetheme{ltu}
+
+% Add symbols
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Latin Modern fonts
+
+% For hyperlinks
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=black,        % color of links to bibliography
+  filecolor=magenta,
+  urlcolor=blue,
+}
+\setbeameroption{show notes on second screen} % Show notes
+\begin{document}
+
+\titlepage
+
+\begin{frame}
+  \frametitle{Contents}
+  \tableofcontents
+\end{frame}
+
+\section{Lists, columns, image}
+\begin{frame}[t]
+  \frametitle{Lists}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Point A
+      \item Point B
+        \begin{enumerate}
+          \item part 1
+          \item part 2
+        \end{enumerate}
+      \item Point C
+      \item Point D
+    \end{itemize}
+    Descriptions:
+    \begin{description}
+      \item[API] Application Programming Interface
+      \item[LAN] Local Area Network
+      \item[ASCII] American Standard Code for Information Interchange
+    \end{description}
+    \column{0.5\textwidth}
+
+    \begin{figure}
+      \includegraphics[width=.6\textwidth]{example-image}
+      \caption{Caption}
+    \end{figure}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Animation}
+\setbeamercovered{dynamic}
+Use \texttt{\textbackslash pause} or \textbf{overlay specifications} to items, environments, tables, and commands
+Make transparent instead of hiding: \texttt{\textbackslash setbeamercovered\{transparent\}}
+\begin{enumerate}[(I)]
+  \item<1,4> Show this in 1st \& 4th
+  \item<2-> Show this from 2nd to last
+    \begin{itemize}
+      \item<2-3> \textcolor<3>{orange}{Show in 2nd till 3rd \& make it orange only in 3rd}
+      \item<3-> \texttt{\textbackslash begin\{env\}<n-m>...}
+    \end{itemize}
+  \item<1,3-4> Show this in 1st, 3rd and 4th
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overlays}
+\only<1>{First Line of Text only}
+\only<2>{Second Line of Text only}
+
+  \begin{itemize}[<+->]
+\item First point.
+\item Second point.
+\item Third point.
+\end{itemize}
+\begin{align}
+A &= B \\
+\uncover<2->{&= C \\}
+\uncover<3->{&= D}
+\end{align}
+\end{frame}
+
+
+\section{Tables, footnotes, \& hyperlinks}
+\begin{frame}[t]
+  \frametitle{Table}
+
+  \begin{table}
+    \begin{tabular}{l | c | c | c | c }
+      Competitor Name & Swim & Cycle & Run & Total \\
+      \hline \hline
+      John T & 13:04 & 24:15 & 18:34 & 55:53 \\
+      Norman P & 8:00 & 22:45 & 23:02 & 53:47\onslide<2->\\
+      Alex K & 14:00 & 28:00 & n/a & n/a\\
+      Sarah H & 9:22 & 21:10 & 24:03 & 54:35
+    \end{tabular}
+    \caption{Table caption\protect\footnotemark}
+
+  \end{table}
+
+  Hyperlink: \url{https://www.example.com} or \href{https://www.example.com}{Click here to visit Example}
+
+  \footnotetext[1]{This is a caption}
+\end{frame}
+
+\section{Blocks}
+
+\begin{frame}[t]
+  \frametitle{Blocks}
+  \begin{block}{Block Title}
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua.
+  \end{block}
+
+  \begin{example}
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua.
+  \end{example}
+
+  \begin{alertblock}{Alert block}
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua.
+  \end{alertblock}
+\end{frame}
+\begin{frame}[t]
+
+  \begin{definition}
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et
+    dolore magna aliqua.
+  \end{definition}
+  \begin{theorem}
+    $ a^2 + b^2 = c^2$
+  \end{theorem}
+\end{frame}
+
+\section{Code}
+
+\begin{frame}
+
+  \frametitle{Code}
+  \begin{semiverbatim}
+let foo = "bar"
+  \end{semiverbatim}
+\end{frame}
+
+\section{Others}
+\soloframe{Title only frame}
+
+\end{document}

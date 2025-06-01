@@ -1,0 +1,50 @@
+\mode<presentation>
+
+\setbeamertemplate{sections/subsections in toc}[square]
+% Vertically align bullet icon
+\setbeamertemplate{itemize item}{\raisebox{0.22ex}{\tiny$\blacksquare$}\hskip0.1em}
+\setbeamertemplate{itemize subitem}{\raisebox{0.12ex}{\tiny$\blacksquare$}\hskip0.1em}
+
+% Title page
+\defbeamertemplate*{title page}{ltu}
+{ 
+  \tikz[remember picture,overlay] \node[inner sep=0pt] at (current page.center){
+    {\color{structure}\rule{0.5\paperwidth}{\paperheight}}%
+    \includegraphics[width=0.5\paperwidth,height=1\paperheight]{./images/title_page_red_bg.jpg}
+  };
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[anchor=center] at (current page.center) {
+     % White background box
+      \colorbox{white}{
+        \begin{minipage}{0.7\textwidth}  % Outer box = full padded area
+          \vspace*{2em}
+
+          \begin{center}
+            \begin{minipage}{0.9\textwidth}  % Inner block centered = content width
+
+              {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
+             % Left-aligned orange rule within centered block
+              \raggedright
+              {\color{beam}\rule[0mm]{1cm}{2pt}}
+
+              \ifx\insertsubtitle\@empty
+              \else
+                {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+              \fi
+            \end{minipage}
+          \end{center}
+
+          \ifx\insertsubtitle\@empty
+              %  Add less space if there's no subtitle
+            \vspace*{1em}
+          \else
+            \vspace*{2em}
+          \fi
+        \end{minipage}
+      }
+    };
+  \end{tikzpicture}
+}
+
+\mode
+<all>

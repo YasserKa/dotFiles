@@ -1,0 +1,51 @@
+\mode<presentation>
+
+\setbeamercolor*{section in head/foot}{use=palette secondary, bg=palette secondary.bg, fg=white}
+\setbeamercolor*{subsection in head/foot}{use=palette primary, bg=palette primary.bg, fg=white}
+
+\setbeamertemplate{frametitle}
+{
+ \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.5em,dp=0.5em,leftskip=0.8em,rightskip=0.5em]{frametitle}
+    \begin{tabular}{@{}m{4mm}@{} l@{}} % 'm' centers vertically
+    \color{beam}\rule{2pt}{0.75cm} &  % 2pt wide, 1cm tall
+    \usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\textbf\insertframetitle
+  \end{tabular}
+  \end{beamercolorbox}
+}
+
+\defbeamertemplate*{headline}{ltu theme}
+{%
+\ifnum \theframenumber=1
+     % This is the title frame, do nothing
+    \else
+  \leavevmode%
+  \hbox{%
+  \usebeamerfont{section in head/foot}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,right]{section in head/foot}%
+\NoHyper
+    \usebeamerfont{section in head/foot}\usebeamertemplate{section in head/foot}\hspace*{2ex}
+\endNoHyper
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.65ex,dp=1.5ex,left]{subsection in head/foot}%
+    \usebeamerfont{subsection in head/foot}\hspace*{2ex}\usebeamertemplate{subsection in head/foot}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+\fi
+}
+
+\defbeamertemplate*{footline}{ltu theme}
+{ \ifnum \theframenumber=1
+     % This is the title frame, do nothing
+    \else
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex, leftskip=.3cm,rightskip=.3cm plus1fil]{section in head/foot}%
+    \leavevmode
+    \usebeamerfont{institute in head/foot}\usebeamertemplate{institute in head/foot} \insertinstitute
+    \hfill%
+    \usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot} \insertframenumber
+    \end{beamercolorbox}
+    \fi
+}
+
+\mode
+<all>

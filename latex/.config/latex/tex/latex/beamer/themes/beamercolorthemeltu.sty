@@ -1,0 +1,27 @@
+\mode<presentation>
+
+\definecolor{darkblue}{HTML}{05325A}
+\colorlet{beam}{orange}
+
+\setbeamercolor{structure}{fg=darkblue}
+
+\setbeamercolor*{palette primary}{use=structure, bg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure, bg=structure.fg!75!black}
+
+\setbeamercolor{normal text}{use=structure, fg=structure.fg}
+
+\setbeamercolor*{subtitle}{fg=gray}
+
+\setbeamercolor{section in toc}{parent=structure}
+\setbeamercolor{subsection in toc}{parent=structure}
+
+\setbeamercolor{block title}{use=normal,fg=white,bg=structure.fg!90!white}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+
+\setbeamercolor{block title example}{parent=block title, fg=example text.fg!50!white}
+\setbeamercolor{block body example}{parent=block body}
+
+\setbeamercolor{block title alerted}{parent=block title, fg=alerted text.fg!60!white}
+\setbeamercolor{block body alerted}{parent=block body}
+
+\mode<all>

@@ -570,6 +570,7 @@ vim.api.nvim_exec2(
  \ 'aux_dir' : './tex_output',
  \ 'options' : [
  \   '-verbose',
+ \   '-pdflatex=pdflatex',
  \   '-outdir=./tex_output',
  \   '-file-line-error',
  \   '-shell-escape',
