@@ -23,8 +23,12 @@ mkdircd() { command mkdir -pv "$1" && cd "$1" || exit; }
 mkdirv() { mkdircd "${1%/*}" && nvim "${1##*/}" || exit; }
 
 backrm() {
-	CURR_PWD="${PWD}"
-	cd .. && rm -rf "${CURR_PWD}" || exit
+	local -r CURR_PWD="${PWD}"
+	echo -n "Are you sure you want to remove '$CURR_PWD'? [y/N] "
+	read -r confirm
+	if [[ "$confirm" =~ ^[Yy]$ ]]; then
+		cd .. && rm -rf "${CURR_PWD}" || exit
+	fi
 }
 
 # Sync books
