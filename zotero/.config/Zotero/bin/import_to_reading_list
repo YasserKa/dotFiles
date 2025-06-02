@@ -9,5 +9,10 @@
 # Import Zotero entry & get citekey
 cite_key="$("$HOME/.config/Zotero/bin/import_to_zotero" "$1" "To_Read")"
 
-# Add a TODO entry in org file
-emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${cite_key}]"
+if [[ -z "$cite_key" ]]; then
+	notify-send --urgency=critical "Failed to add entry"
+else
+	# Add a TODO entry in org file
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${cite_key}]"
+	notify-send "Entry Added"
+fi
