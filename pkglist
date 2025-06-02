@@ -131,7 +131,9 @@ python-pyperclip # Needed to yank clipboard by zathura's handle_document
 python-tldextract # Needed by Qutebrowser bitwarden script
 pyenv # Switch between multiple python versions
 
+postgresql # DBMS
 dbeaver # SQL Client
+knime-desktop # Graphical workbench for data analysis
 
 # Command line
 zsh             # Z-Shell
@@ -333,7 +335,6 @@ ocl-icd # OpenCL ICD Bindings
 greetd # Generic greeter daemon
 zotero-bin # Bibliography manager
 gnu-netcat # Used to communicate with Zotero
-slack-desktop
 thunderbird # Mail client
 external-editor-revived # Thunderbird extension edit email
 systray-x-common # Thunderbird extension for system tray
@@ -350,6 +351,9 @@ lazydocker
 regclient-regctl # Utility for accessing docker eregistries - Used by dockercheck
 
 pcmanfm # Default file manager for GNOME
+pdfpc # Presenter console for PDF files
 dua-cli # Disk usage analyzer with an ncurses interface
+sunshine-beta-bin # Stream host for moonlight
 zoom # Video Conferencing and Web Conferencing Service
-# slack-desktop # Slack Desktop (Beta) for Linux
+nextcloud-client # Nextcloud desktop client
+slack-desktop # Slack Desktop (Beta) for Linux
