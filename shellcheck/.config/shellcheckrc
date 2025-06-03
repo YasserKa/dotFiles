@@ -1,0 +1,5 @@
+# Ignore short-circuit (A && B || C) warning
+disable=SC2015
+
+
+# vim:ft=ini
