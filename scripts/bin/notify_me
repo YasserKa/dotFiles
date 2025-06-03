@@ -13,6 +13,7 @@ from selenium.common.exceptions import (SessionNotCreatedException,
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Used by dunstify/dunst
 APP_NAME = "notify-me"
@@ -141,12 +142,11 @@ def main():
 
     options = webdriver.ChromeOptions()
     options.add_argument("user-data-dir=" + profile_path)
+    service = Service(ChromeDriverManager().install())
     # options.add_argument("--headless=new")
     options.add_argument("binary_location=/bin/google-chrome-stable")
 
-    driver = webdriver.Chrome(
-        service=Service(executable_path=executable_path), options=options
-    )
+    driver = webdriver.Chrome(service=service, options=options)
     try:
         check_whatsapp(driver)
 
