@@ -14,8 +14,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
-executable_path = f"{os.environ['XDG_CONFIG_HOME']}/google-chrome/chromedriver"
-
 
 def archive_to_waybackmachine(url, tries=0):
     TIMEOUT = 30

@@ -8,8 +8,7 @@ from time import sleep
 
 from dateutil.parser import parse
 from selenium import webdriver
-from selenium.common.exceptions import (SessionNotCreatedException,
-                                        TimeoutException)
+from selenium.common.exceptions import SessionNotCreatedException, TimeoutException
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -135,7 +134,6 @@ def check_whatsapp(driver):
 
 def main():
     XDG_CONFIG_HOME = os.environ["XDG_CONFIG_HOME"]
-    executable_path = f"{XDG_CONFIG_HOME}/google-chrome/chromedriver"
     profile_path = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile"
     # Used for another whatsapp account
     # profile_path_1 = f"{XDG_CONFIG_HOME}/google-chrome/notify_me_profile_l"
