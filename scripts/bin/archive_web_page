@@ -2,18 +2,17 @@
 #
 # Archive a web page to web.archive.org, archive.ph, and ghostarchive.org
 
-import sys
 import os
+import sys
+import threading
 
 from requests import get
 from requests.exceptions import HTTPError, RequestException
-
-import threading
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-
+from webdriver_manager.chrome import ChromeDriverManager
 
 executable_path = f"{os.environ['XDG_CONFIG_HOME']}/google-chrome/chromedriver"
 
@@ -48,16 +47,17 @@ def archive_to_waybackmachine(url, tries=0):
 
     except (RequestException, HTTPError) as e:
         if tries < MAX_TRIES:
-            show_message(f"Error: {e}. Retrying {tries+1}/{MAX_TRIES}")
+            show_message(f"Error: {e}. Retrying {tries + 1}/{MAX_TRIES}")
             return archive_to_waybackmachine(url, tries + 1)
         show_message(
             f"Failed to archive {url} to waybackmachine after {MAX_TRIES} attempts."
         )
 
+
 def archive_to_archivebox(url, tries=0):
     TIMEOUT = 30
     MAX_TRIES = 3
-    api_url = f"http://archive.home/api/add?url={url}"
+    api_url = f"http://archive.lenovo-y700/api/add?url={url}"
 
     try:
         # Attempt to archive the page
@@ -69,12 +69,11 @@ def archive_to_archivebox(url, tries=0):
 
     except (RequestException, HTTPError) as e:
         if tries < MAX_TRIES:
-            show_message(f"Error: {e}. Retrying {tries+1}/{MAX_TRIES}")
+            show_message(f"Error: {e}. Retrying {tries + 1}/{MAX_TRIES}")
             return archive_to_waybackmachine(url, tries + 1)
         show_message(
             f"Failed to archive {url} to archive_to_waybackmachine after {MAX_TRIES} attempts."
         )
-
 
 
 def show_message(message):
@@ -136,16 +135,13 @@ def main(link):
     options1.add_argument("user-data-dir=/tmp/selenium_chrome_profile1")
     options1.add_argument("binary_location=/bin/google-chrome-stable")
 
-    driver1 = webdriver.Chrome(
-        service=Service(executable_path=executable_path), options=options1
-    )
+    service = Service(ChromeDriverManager().install())
+    driver1 = webdriver.Chrome(service=service, options=options1)
 
     options2 = webdriver.ChromeOptions()
     options2.add_argument("user-data-dir=/tmp/selenium_chrome_profile2")
     options2.add_argument("binary_location=/bin/google-chrome-stable2")
-    driver2 = webdriver.Chrome(
-        service=Service(executable_path=executable_path), options=options2
-    )
+    driver2 = webdriver.Chrome(service=service, options=options2)
     threads_args = [
         [archive_to_today, [driver1, link]],
         [archive_to_ghost, [driver2, link]],
