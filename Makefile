@@ -106,6 +106,8 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	@sudo pkgfile -u
 	@# Setup Tmux plugin manager
 	@git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+	@# Install package used for synchronizing Swedish holidays with org mode
+	@npm i -g icsorg
 
 .PHONY: stow-packages
 stow-packages:

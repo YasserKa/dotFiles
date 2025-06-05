@@ -1,0 +1,91 @@
+#!/usr/bin/env python
+# Update Swedish holidays in org mode
+# Dependencies: icsorg
+
+import os
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+MAIN_FILE = Path(f"{os.getenv('NOTES_ORG_HOME')}/sweden.org")
+ICS_URL = "https://ics.calendarlabs.com/71/9bc3661a/Sweden_Holidays.ics"
+HEADING = "* Swedish Holidays"
+
+
+def run_icsorg(tmp_path):
+    print("Fetching and converting ICS data...")
+    try:
+        subprocess.run(
+            [
+                f"{os.getenv('XDG_DATA_HOME')}/npm/bin/icsorg",
+                "-i",
+                ICS_URL,
+                "-o",
+                str(tmp_path),
+            ],
+            check=True,
+        )
+    except subprocess.CalledProcessError:
+        print("Error: Failed to run icsorg.")
+        sys.exit(1)
+
+
+def read_lines(path):
+    return path.read_text(encoding="utf-8").splitlines()
+
+
+def write_lines(path, lines):
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def clean_icsorg_lines(lines):
+    cleaned = []
+    header_skipped = False
+    for line in lines:
+        if not header_skipped:
+            if line.strip().startswith("#+"):
+                continue
+            elif line.strip() == "":
+                continue  # skip empty line after metadata
+            header_skipped = True
+
+        if line.strip().startswith("*"):
+            stars, rest = line.split(" ", 1)
+            line = stars + " " + rest  # promote heading level
+        cleaned.append(line)
+    return cleaned
+
+
+def replace_section(main_lines, insert_lines, heading):
+    start = next(
+        (i for i, line in enumerate(main_lines) if line.strip() == heading), None
+    )
+    if start is None:
+        print(f'Heading "{heading}" not found in {MAIN_FILE}.')
+        sys.exit(1)
+
+    end = start + 1
+    while end < len(main_lines) and not main_lines[end].startswith("**"):
+        end += 1
+
+    return main_lines[: start + 1] + insert_lines + main_lines[end:]
+
+
+def main():
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".org") as tmp:
+        tmp_path = Path(tmp.name)
+
+    run_icsorg(tmp_path)
+    main_lines = read_lines(MAIN_FILE)
+    ics_lines = read_lines(tmp_path)
+    cleaned_lines = clean_icsorg_lines(ics_lines)
+    updated_lines = replace_section(main_lines, cleaned_lines, HEADING)
+    write_lines(MAIN_FILE, updated_lines)
+
+    tmp_path.unlink(missing_ok=True)
+    print(f'✅ Updated "{HEADING}" in {MAIN_FILE}.')
+
+
+if __name__ == "__main__":
+    main()
