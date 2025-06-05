@@ -2171,9 +2171,9 @@ minibuffer ran."
 ;; Enable richer annotations using the Marginalia package
 (use-package marginalia
   :after vertico
-  :custom (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init (marginalia-mode)
-  )
+  :config
+  (add-to-list 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil)))
 ;; }}}
 ;; Vim leader / which-key {{{
 ;; Remap universal argument
