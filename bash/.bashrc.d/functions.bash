@@ -581,7 +581,11 @@ alias pas="pacman -Qq | pzf 1 --preview 'pacman -Qil {}' --bind 'enter:execute(p
 # Commands run in background automatically
 zathura() { (command zathura "$@" &>/dev/null &) }
 mpv() { (command mpv --input-ipc-server=/tmp/mpv-socket --no-terminal "$@" &>/dev/null &) }
-xdg-open() { (command xdg-open "$@" &>/dev/null &) }
+xdg-open() {
+	for file in "$@"; do
+		(command xdg-open "$file" &>/dev/null &)
+	done
+}
 pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
 thunderbird() { { wmctrl -l | grep Thunderbird; } && i3-msg '[class="thunderbird"] move workspace current, focus' || command thunderbird & }
