@@ -17,6 +17,9 @@ autorandr --change
 # Move cursor to center of screen
 xdotool mousemove --polar 0 0
 
+# Enable mouse wrap between outpus with different resolutions
+xedgewarp -b
+
 xset r rate 300 30
 
 rfkill block bluetooth
