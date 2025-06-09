@@ -18,7 +18,7 @@
 
  (defun org-link-link-handler (path)
   "Handler function for link-handler:// links."
-  (shell-command (concat "xdg-open \"link-handler:" path "\"" nil)))
+  (shell-command (concat "xdg-open \"link-handler:" path "\" >/dev/null" nil)))
 
 
 (defcustom org-man-command 'link-handler
