@@ -1,0 +1,201 @@
+#!/usr/bin/env bash
+# Translation script for PDF, images, and text files
+# Dependencies: curl, jq, pdftotext, tesseract, imagemagick
+
+translate_text() {
+	local text="$1"
+	local json_payload response
+
+	# Skip empty text
+	if [ -z "$text" ] || [ "$text" = " " ]; then
+		echo "$text"
+		return
+	fi
+
+	# Prepare JSON payload
+	json_payload=$(jq -n \
+		--arg text "$text" \
+		--arg source "auto" \
+		--arg target "en" \
+		'{q: $text, source: $source, target: $target}')
+
+	# Make request to LibreTranslate
+	response=$(curl -s -X POST \
+		-H "Content-Type: application/json" \
+		-d "$json_payload" \
+		"http://lenovo-y700:4000/translate")
+
+	# Extract translation
+	echo "$response" | jq -r '.translatedText' 2>/dev/null || echo "$text"
+}
+
+# Extract text from PDF
+extract_pdf_text() {
+	local file="$1" temp_text temp_dir page_text
+	temp_text=$(mktemp)
+
+	if pdftotext -layout "$file" "$temp_text" 2>/dev/null; then
+		cat "$temp_text"
+	else
+		# Convert PDF to images and OCR
+		temp_dir=$(mktemp -d)
+		pdftoppm -png "$file" "$temp_dir/page"
+
+		local extracted_text=""
+		for page in "$temp_dir"/page-*.png; do
+			if [ -f "$page" ]; then
+				page_text=$(tesseract "$page" stdout 2>/dev/null)
+				extracted_text="${extracted_text}${page_text}\n"
+			fi
+		done
+
+		echo -e "$extracted_text"
+		rm -rf "$temp_dir"
+	fi
+
+	rm -f "$temp_text"
+}
+
+# Extract text from image
+extract_image_text() {
+	local file="$1" temp_image
+
+	# Preprocess image for better OCR
+	temp_image=$(mktemp --suffix=.png)
+	magick "$file" -resize 200% -sharpen 0x1 "$temp_image"
+
+	# OCR the image
+	tesseract "$temp_image" stdout 2>/dev/null
+
+	rm -f "$temp_image"
+}
+
+# Process file
+process_file() {
+	local file="$1" basename translated_chunk
+	basename=$(basename "$file")
+	local extension="${basename##*.}"
+	local filename="${basename%.*}"
+
+	local extracted_text=""
+
+	case "${extension,,}" in
+		"pdf")
+			extracted_text=$(extract_pdf_text "$file")
+			;;
+		"png" | "jpg" | "jpeg")
+			extracted_text=$(extract_image_text "$file")
+			;;
+		"txt")
+			extracted_text=$(cat "$file")
+			;;
+		*)
+			echo -e "Unsupported file type: $extension"
+			exit 1
+			;;
+	esac
+
+	if [ -z "$extracted_text" ]; then
+		echo -e "No text extracted from $file"
+		exit 1
+	fi
+
+	echo -e "Translating text..."
+
+	local chunk_size=10000
+	local translated_text=""
+
+	local text_length=${#extracted_text}
+	local processed=0
+	local chunk_num=1
+
+	while [ "$processed" -lt "$text_length" ]; do
+		# Calculate chunk end position
+		local chunk_end=$((processed + chunk_size))
+		if [ $chunk_end -gt "$text_length" ]; then
+			chunk_end=$text_length
+		fi
+
+		# Extract chunk
+		local current_chunk="${extracted_text:$processed:$((chunk_end - processed))}"
+
+		# If we're not at the end, try to break at a word boundary
+		if [ "$chunk_end" -lt "$text_length" ]; then
+			# Look for last space/newline in the chunk to avoid breaking words
+			local last_space_pos=-1
+			for ((i = ${#current_chunk} - 1; i >= 0; i--)); do
+				if [[ "${current_chunk:$i:1}" =~ [[:space:]] ]]; then
+					last_space_pos=$i
+					break
+				fi
+			done
+
+			# If we found a space and it's not too far back, use it
+			if [ $last_space_pos -gt $((chunk_size * 3 / 4)) ]; then
+				current_chunk="${current_chunk:0:$((last_space_pos + 1))}"
+				chunk_end=$((processed + last_space_pos + 1))
+			fi
+		fi
+
+		echo -e "${YELLOW}Translating chunk $chunk_num (${#current_chunk} chars, pos: $processed-$chunk_end)...${NC}"
+
+		# Translate the chunk
+		translated_chunk=$(translate_text "$current_chunk" "$SOURCE_LANG" "$TARGET_LANG")
+		translated_text="${translated_text}${translated_chunk}"
+
+		# Move to next chunk
+		processed=$chunk_end
+		chunk_num=$((chunk_num + 1))
+
+		# Rate limiting between chunks
+		if [ "$processed" -lt "$text_length" ]; then
+			sleep 0.3
+		fi
+	done
+
+	# Save translated text
+	local output_file="/tmp/${filename}_translated_en.txt"
+	echo -e "$translated_text" >"$output_file"
+
+	kitty --detach -- nvim "${output_file}"
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		--pdf)
+			TMP_FILE="$(mktemp -t "tmp_XXX")"
+
+			IFS='' read -r -d '' cmd <<EOF
+			cmd="\$(fd --regex '.*.pdf' "\$HOME" | fzf --bind 'enter:execute-silent(echo {} >| '"$TMP_FILE"')+abort')"
+EOF
+
+			eval_interactive_cmd --floating "$cmd"
+
+			[[ -s "$TMP_FILE" ]] || exit 1
+
+			FILE="$(<"$TMP_FILE")"
+			shift
+			;;
+		-c | --clipboard)
+			# Handle text and images differently
+			if xclip -selection clipboard -t TARGETS -o | grep --quiet 'image/png'; then
+				xclip -selection clipboard -t image/png -o >|/tmp/clipboard.png
+				FILE='/tmp/clipboard.png'
+			else
+				clipboard_paste >|/tmp/clipboard.txt
+				FILE='/tmp/clipboard.txt'
+			fi
+			shift
+			;;
+	esac
+done
+
+# File isn't provided and input isn't from clipboard
+if [[ ! -f "$FILE" ]]; then
+	echo -e "Error: No file specified"
+	usage
+	exit 1
+fi
+
+process_file "$FILE"

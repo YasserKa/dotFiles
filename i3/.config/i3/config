@@ -202,7 +202,7 @@ mode $audio_mode {
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(b)luetooth, (d)ictionary, (l)ights off, (n)otifications, (u)nmount usb, (m)ount usb, (v)pn"
+set $utility_mode "(b)luetooth, (d)ictionary, (l)ights off, (n)otifications, (t)ranslate, (u)nmount usb, (m)ount usb, (v)pn"
 bindsym $mod+u mode $utility_mode
 mode --pango_markup $utility_mode {
     bindsym b exec --no-startup-id toggle_bluetooth; mode "default";
@@ -212,11 +212,22 @@ mode --pango_markup $utility_mode {
 
     bindsym n exec --no-startup-id dunstctl set-paused toggle; mode "default";
 
+    bindsym t mode $translate_mode;
+
 # Unmount all storage devices;
     bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
     bindsym m exec --no-startup-id udiskie-mount -a; mode "default";
 
     bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $translate_mode "(p)df, (c)lipboard"
+mode $translate_mode {
+    bindsym p exec --no-startup-id translate --pdf; mode "default";
+    bindsym c exec --no-startup-id translate -c; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
