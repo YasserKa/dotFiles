@@ -759,6 +759,16 @@ return {
         Execute_cells(lines)
       end
 
+      -- Run jupyter server if it's not runing and open jupyter notebook in browser
+      Run_Jupyter_Server = function()
+        local filename = vim.api.nvim_buf_get_name(0)
+        local name_without_ext = vim.fn.fnamemodify(filename, ":t:r")
+        local shell_command = 'silent !{ pgrep jupyter || jupyter notebook --no-browser &; } && $BROWSER --target window "http://localhost:8888/notebooks/'
+          .. name_without_ext
+          .. '.ipynb" >/dev/null & disown'
+        vim.cmd(shell_command)
+      end
+
       wk.add {
         { "<localLeader>n", group = "jupyter ascending" },
         {
@@ -768,7 +778,7 @@ return {
         },
         {
           "<localLeader>nJ",
-          '<cmd>silent !$BROWSER --target window "http://localhost:8888/notebooks/"t.sync.ipynb &>/dev/null & disown<cr>',
+          ":lua Run_Jupyter_Server()<CR>",
           desc = "Run Jupyter server",
         },
         { "<localLeader>nR", "<Plug>JupyterRestart", desc = "Restart Jupyter" },

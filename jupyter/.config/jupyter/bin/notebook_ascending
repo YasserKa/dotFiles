@@ -11,18 +11,14 @@
 
 if [[ "$1" == "init" ]]; then
 	# Install jupytext and jupyter_ascending for syncing
-	pdm init
-	# notebook is locked, since nbextensions and jupyter notebook don't work with
-	# 7.0 notebook
-	pdm add -dG jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator jupytext jupyter_ascending notebook==6.5.5
+	# Using an older python version to make jupyter extension work which is needed by jupyter ascending
+	pdm init --python "$XDG_DATA_HOME/uv/python/cpython-3.10.17-linux-x86_64-gnu/bin/python3.10"
+	pdm add -dG jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator jupytext jupyter_ascending notebook
 
-	pdmshell
-	jupyter nbextension install jupytext --py --user
-	jupyter nbextension enable jupytext --py --user
-
-	jupyter nbextension install jupyter_ascending --py --user
-	jupyter nbextension enable jupyter_ascending --py --user
-	jupyter serverextension enable jupyter_ascending --py --user
+	eval "$(pdm venv activate)"
+	python -m jupyter nbextension install jupyter_ascending --sys-prefix --py &&
+		python -m jupyter nbextension enable jupyter_ascending --sys-prefix --py &&
+		python -m jupyter serverextension enable jupyter_ascending --sys-prefix --py
 else
 	# Create file using jupyter ascending
 	python -m jupyter_ascending.scripts.make_pair --base "$2"
