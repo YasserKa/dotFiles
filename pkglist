@@ -64,7 +64,7 @@ ttf-font-awesome # Iconic font designed for Bootstrap
 gtk2 # GUI toolkit (needed for pinentry-gtk-2)
 adapta-gtk-theme # An adaptive Gtk+ theme based on Material Design Guidelines
 unclutter # hide cursor if not active
-picom-git # X compositor (fork of compton) (git-version)
+picom # X compositor (fork of compton)
 
 # Monitor management
 # X
