@@ -17,6 +17,10 @@
                 {
                     "do": "xrandr --output HDMI-1 --mode 1920x1080 --below eDP-1",
                     "undo": ""
+                },
+                {
+                    "do": "xinput set-prop \"Mouse passthrough\" \"Coordinate Transformation Matrix\" 3.5 0 0 0 3.5 0 0 0 1",
+                    "undo": ""
                 }
             ],
             "wait-all": true
@@ -37,6 +41,10 @@
                 },
                 {
                     "do": "xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1",
+                    "undo": ""
+                },
+                {
+                    "do": "xinput set-prop \"Mouse passthrough\" \"Coordinate Transformation Matrix\" 3.5 0 0 0 3.5 0 0 0 1",
                     "undo": ""
                 }
             ],
