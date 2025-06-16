@@ -20,17 +20,16 @@ readonly RIGHT_WORKSPACE
 
 # If frame doesn't exist, create it, and go to file
 if ! xdotool search --name "^${CLASS}$" >/dev/null; then
-  if ! grep -Fxq "$i3_override_command" "$i3_config_override_file"; then
-    dunstify hello
-    echo "$i3_override_command" >>"$i3_config_override_file"
-  fi
-  i3-msg reload
+	if ! grep -Fxq "$i3_override_command" "$i3_config_override_file"; then
+		echo "$i3_override_command" >>"$i3_config_override_file"
+	fi
+	i3-msg reload
 
-  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
 
-  xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${RIGHT_WORKSPACE}, fullscreen enable"
+	xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${RIGHT_WORKSPACE}, fullscreen enable"
 
-  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
 (let ((frame (seq-find (lambda (frame)
               (string= \"${CLASS}\" (frame-parameter frame 'name)))
               (frame-list))))
