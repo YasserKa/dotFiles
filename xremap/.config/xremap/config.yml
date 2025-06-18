@@ -1,0 +1,34 @@
+# Examples:
+# https://github.com/xremap/xremap?tab=readme-ov-file#keymap
+# https://github.com/xremap/xremap/blob/master/example/config.yml
+# https://github.com/xremap/xremap/blob/master/example/emacs.yml
+modmap:
+keymap:
+  - name: Emacs binding
+    application:
+      only: Slack
+    remap:
+      # Navigation
+      C-a: Home
+      C-e: end
+
+      C-p: up
+      C-n: down
+
+      C-b: left
+      C-f: right
+
+      M-b: C-left
+      M-f: C-right
+
+      # Deleting
+      C-h: backspace
+      C-d: delete
+      C-w: C-backspace
+      C-u: [Shift-Home, backspace]
+      C-k: [Shift-end, backspace]
+      M-w: [Shift-Ctrl-left, backspace]
+      M-d: [Shift-Ctrl-right, backspace]
+
+      C-Shift-a: [End, shift-ctrl-home]
+      C-m: enter

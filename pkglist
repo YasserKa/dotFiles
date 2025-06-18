@@ -187,6 +187,7 @@ cronie # Daemon that runs specified programs at scheduled times and related tool
 dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands
 sxhkd # Simple X hotkey daemon
+xremap-x11-bin # Key remapper
 xcape # Configure modifier keys to act as other keys when pressed and released on
 rofi # A window switcher, application launcher and dmenu replacement
 # rofi-lbonn-wayland-git # rofi's wayland fork
