@@ -14,7 +14,7 @@ array::contains() {
 	shift
 
 	for element in "${@}"; do
-		[[ "${element}" == "${query}" ]] && return 0
+		[[ "${query}" =~ ${element} ]] && return 0
 	done
 
 	return 1
@@ -26,9 +26,11 @@ main() {
 	[[ ! -e "$1" ]] && echo "$1" && exit 0
 
 	MIME_TYPE="$(file -bL --mime-type -- "$1")"
+
 	EXTENSION="${1##*.}"
 
-	local -r IMAGE_CACHE_PATH="/tmp/img_preview_media"
+	local -r IMAGE_CACHE_DIR="/tmp"
+	local -r IMAGE_CACHE_PATH="/${IMAGE_CACHE_DIR}/img_preview_media"
 	local -r DEFAULT_SIZE="1920x1080"
 
 	# Generate an image for PDF/djvu/epub...
@@ -42,6 +44,17 @@ main() {
 		wait
 		set -- "${IMAGE_CACHE_PATH}.jpg"
 		MIME_TYPE="image/jpeg"
+	fi
+
+	# Word processing
+	DOCUMENT_MIME_TYPES=("officedocument" "opendocument")
+	if array::contains "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
+		libreoffice --convert-to jpg "${1}" --outdir "$IMAGE_CACHE_DIR" >/dev/null
+		wait
+		file_name="$(printf "%s" "${1##*/}" | cut -d. -f1)"
+		mv -f "${IMAGE_CACHE_DIR}/$file_name.jpg" "$IMAGE_CACHE_PATH.jpg"
+		MIME_TYPE="image/jpeg"
+		set -- "${IMAGE_CACHE_PATH}.jpg"
 	fi
 
 	if [[ "$MIME_TYPE" == "image/vnd.djvu" ]]; then
@@ -94,19 +107,18 @@ main() {
       {next}
     }
 	} !/Archive:*/i NF > 1'
-	return
-			fi
+		return
+	fi
 
 	# If it's a preview in navi, reduced preview to make it fit
- 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES-6))
+	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES - 6))
 
 	case "$MIME_TYPE" in
-		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
-		text/*) bat -n --color=always "$1" ;;
-		audio/*) exiftool "$1" ;;
-		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
-		*wordprocessingml.document) pandoc -s -t markdown -- "$1" ;;
-		*) bat -n --color=always "$1" ;;
+	image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+	text/*) bat -n --color=always "$1" ;;
+	audio/*) exiftool "$1" ;;
+	application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+	*) bat -n --color=always "$1" ;;
 	esac
 }
 
