@@ -15,40 +15,39 @@
 #   - else, open page in a new instance. Move it to righ output
 # - Place back clipboard
 
-
 main() {
-  local -r file="$1"
+	local -r file="$1"
 
-  local page
-  page="$(get_page_num)" || exit 1
-  readonly page
+	local page
+	page="$(get_page_num)" || exit 1
+	readonly page
 
-  open_document "$file" "$page"
+	open_document "$file" "$page"
 }
 
 #######################################
 # Pick a link and get number of page in zathura
 #######################################
 get_page_num() {
-  clipboard_copy ""
+	clipboard_copy ""
 
-  xdotool key "c"
+	xdotool key "c"
 
-  # Wait until the page number is copied  or the action is aborted
-  uv run --directory ~/projects/python_env wait_keys "<esc>" "<ctrl>+m"
+	# Wait until the page number is copied  or the action is aborted
+	uv run --directory ~/projects/python_env wait_keys "<esc>" "<ctrl>+m" >/dev/null
 
-  page="$(clipboard_paste)"
+	page="$(clipboard_paste)"
 
-  [[ ! $page =~ ^[0-9]+$ ]] && echo 'Page needs to be an integer' >&2  && exit 1
+	[[ ! $page =~ ^[0-9]+$ ]] && echo 'Page needs to be an integer' >&2 && exit 1
 
-  # For some reason, zathura gives page-1
-  page=$((page+1))
+	# For some reason, zathura gives page-1
+	page=$((page + 1))
 
-  xdotool keyup control
-  # Clear zathura's message
-  xdotool key --clearmodifiers Escape
+	xdotool keyup control
+	# Clear zathura's message
+	xdotool key --clearmodifiers Escape
 
-  echo "$page"
+	echo "$page"
 }
 
 #######################################
@@ -58,34 +57,34 @@ get_page_num() {
 #   2: page number
 #######################################
 open_document() {
-  local -r file="$1"
-  local -r page="$2"
+	local -r file="$1"
+	local -r page="$2"
 
-  focused_pid="$(xdotool getactivewindow getwindowpid)"
-  # Quote brackets "( )", because xdotool has special meaning for them
-  file_quoted="${file//(/\\(}"
-  file_quoted="${file_quoted//)/\\)}"
-  # All pids using the file
-  all_pids="$(xdotool search --name "^${file_quoted}$" getwindowpid %@)"
+	focused_pid="$(xdotool getactivewindow getwindowpid)"
+	# Quote brackets "( )", because xdotool has special meaning for them
+	file_quoted="${file//(/\\(}"
+	file_quoted="${file_quoted//)/\\)}"
+	# All pids using the file
+	all_pids="$(xdotool search --name "^${file_quoted}$" getwindowpid %@)"
 
-  other_pid="$(grep -v "$focused_pid" <(echo "$all_pids"))"
-  if [[ -n "$other_pid" ]]; then
-    busctl --user call "org.pwmt.zathura.PID-$other_pid" /org/pwmt/zathura org.pwmt.zathura GotoPage u "$((page-1))"
-  else
-    zathura --page="$page" "$file" & disown
-    # Wait until the PID for the new instance is available
-    while ! xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid"; do
-      sleep 0.1
-    done
-    other_pid="$(xdotool search --name "^${file_quoted}$" getwindowpid %@  | grep -v "$focused_pid")"
-    window_ids="$(xdotool search --pid "$other_pid")"
-    for id in $window_ids; do
-      i3-msg "[id=$id] move output right" 2>/dev/null
-    done
-    xdotool search --onlyvisible --pid "$other_pid" --class 'zathura' windowfocus
-  fi
+	other_pid="$(grep -v "$focused_pid" <(echo "$all_pids"))"
+	if [[ -n "$other_pid" ]]; then
+		busctl --user call "org.pwmt.zathura.PID-$other_pid" /org/pwmt/zathura org.pwmt.zathura GotoPage u "$((page - 1))"
+	else
+		zathura --page="$page" "$file" &
+		disown
+		# Wait until the PID for the new instance is available
+		while ! xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid"; do
+			sleep 0.1
+		done
+		other_pid="$(xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid")"
+		window_ids="$(xdotool search --pid "$other_pid")"
+		for id in $window_ids; do
+			i3-msg "[id=$id] move output right" 2>/dev/null
+		done
+		xdotool search --onlyvisible --pid "$other_pid" --class 'zathura' windowfocus
+	fi
 }
-
 
 # Preserve clipboard during script
 old_clipboard="$(clipboard_paste)"
