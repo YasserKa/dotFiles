@@ -90,7 +90,7 @@ setup-tuir:
 
 .PHONY: setup-python-env
 setup-python-env:
-	@mkdir -p ~/projects/python_env && cd ~/projects/python_env && uv init && uv add pynput selenium python-dateutil requests webdriver-manager
+	@mkdir -p $(XDG_DATA_HOME)/python_env && cd $(XDG_DATA_HOME)/python_env && uv init && uv add pynput selenium python-dateutil requests webdriver-manager
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir setup-python-env
