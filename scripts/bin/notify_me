@@ -81,7 +81,10 @@ def check_whatsapp(driver):
 
     driver.get(URL_WHATS_APP)
     WebDriverWait(driver, 60).until(
-        lambda x: len(x.find_elements(By.XPATH, './/*[contains(text(),"Chats")]')) > 0
+        lambda x: len(
+            x.find_elements(By.CSS_SELECTOR, "div > *[role=gridcell] > span > div")
+        )
+        > 0
     )
     # Needed to extract unread_messages correctly
     sleep(5)
