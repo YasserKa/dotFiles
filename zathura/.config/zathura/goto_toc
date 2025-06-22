@@ -31,7 +31,7 @@ awk -v x="$PAGE" '{
 cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 && busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
 # C-A-f toggle follow page
 # C-g go to page
-kitty_control --geometry 'resize set 990 500, move down 500 px' "cat ${FILE_TOC}  \
+kitty_control --geometry 'resize set 990 500, move down 500 px' "cat '${FILE_TOC}'  \
   | fzf --reverse \
   --preview '' \
   --bind 'result:pos($pos)' \
