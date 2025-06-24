@@ -337,6 +337,7 @@ c.url.start_pages = "https://www.google.com"
 c.url.searchengines = {
     "DEFAULT": "https://www.google.com/search?q={}",
     "duck": "https://www.duckduckgo.com/?q={}",
+    "doi": "https://doi.org/{}",
     "go": "https://www.google.com/search?q={}",
     "def": "https://www.merriam-webster.com/dictionary/{}",
     "wiki": "https://en.wikipedia.org/wiki/{}",
