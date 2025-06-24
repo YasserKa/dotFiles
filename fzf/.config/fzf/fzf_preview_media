@@ -8,13 +8,33 @@
 #   https://github.com/jarun/nnn/blob/f2a8648861ff88e1c2d5a95ae4d76b7367e12c9b/plugins/preview-tui#L468
 #
 
+#######################################
+# Check if a string exists in array strictly or as a substring
+# Arguments:
+#   $1 "strict" or "substring"
+#   $2 string to check
+#   $3 array of values to check against
+# Returns:
+#   0 if string exists in array
+#   1 if string doesn't exists in array
+#######################################
 array::contains() {
-	[[ $# -lt 2 ]] && printf "%s: Missing arguments\n" "${FUNCNAME[0]}" && return 2
-	declare query="${1:-}"
-	shift
 
-	for element in "${@}"; do
-		[[ "${query}" =~ ${element} ]] && return 0
+	local -r mode="$1"
+	local -r target="$2"
+	shift 2
+	local -r values=("$@") # the array of values to check against
+
+	[[ $# -lt 2 ]] && printf "%s: Missing arguments\n" "${FUNCNAME[0]}" && return 2
+
+	for val in "${values[@]}"; do
+		if [[ "$mode" == "strict" && "$target" == "$val" ]]; then
+			echo "Matched strictly: $val"
+			return 0
+		elif [[ "$mode" == "substring" && "$target" == *"$val"* ]]; then
+			echo "Matched substring: $val"
+			return 0
+		fi
 	done
 
 	return 1
@@ -27,7 +47,11 @@ main() {
 
 	MIME_TYPE="$(file -bL --mime-type -- "$1")"
 
-	EXTENSION="${1##*.}"
+	if [[ "$1" == *.* ]]; then
+		EXTENSION="${1##*.}"
+	else
+		EXTENSION=""
+	fi
 
 	local -r IMAGE_CACHE_DIR="/tmp"
 	local -r IMAGE_CACHE_PATH="/${IMAGE_CACHE_DIR}/img_preview_media"
@@ -48,7 +72,7 @@ main() {
 
 	# Word processing
 	DOCUMENT_MIME_TYPES=("officedocument" "opendocument")
-	if array::contains "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
+	if array::contains "substring" "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
 		libreoffice --convert-to jpg "${1}" --outdir "$IMAGE_CACHE_DIR" >/dev/null
 		wait
 		file_name="$(printf "%s" "${1##*/}" | cut -d. -f1)"
@@ -73,7 +97,7 @@ main() {
 	fi
 
 	DOCUMENT_MIME_TYPES=("application/epub+zip" "application/x-mobipocket-ebook" "application/x-fictionbook+xml")
-	if array::contains "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
+	if array::contains "stric" "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
 		ebook-meta --get-cover="${IMAGE_CACHE_PATH}" -- "$1" >/dev/null
 		wait
 		set -- "${IMAGE_CACHE_PATH}"
@@ -89,24 +113,24 @@ main() {
 	fi
 
 	COMPRESSED_EXT=("a" "ace" "alz" "arc" "arj" "bz" "bz2" "cab" "cpio" "deb" "gz" "jar" "lha" "lz" "lzh" "lzma" "lzo" "rpm" "rz" "t7z" "tar" "tbz" "tbz2" "tgz" "tlz" "txz" "tZ" "tzo" "war" "xpi" "xz" "Z" "zip")
-	if array::contains "$EXTENSION" "${COMPRESSED_EXT[@]}"; then
+	if array::contains "strict" "$EXTENSION" "${COMPRESSED_EXT[@]}"; then
 		atool -l "$1" | awk '/^[[:space:]]*[0-9]+/ {
-    if ($1 != "0" && $1 != "0B") {  # Skip zero-length files
-      size = $1
-      cmd = "echo " size " | numfmt --to=iec-i --suffix=B"
-      cmd | getline hr_size
-      close(cmd)
-      # Align last line correctly
-      if ($4 == "") {
-        $4=$2 " " $3
-        $3=""
-        $2=""
-      }
+    	if ($1 != "0" && $1 != "0B") {  # Skip zero-length files
+      	size = $1
+      	cmd = "echo " size " | numfmt --to=iec-i --suffix=B"
+      	cmd | getline hr_size
+      	close(cmd)
+      	# Align last line correctly
+      	if ($4 == "") {
+        	$4=$2 " " $3
+        	$3=""
+        	$2=""
+      	}
       $2=" " $2
       printf "\033[32m%9s\033[0m %-11s %-7s \033[36m%s\033[0m\n", hr_size, $2, $3, $4
       {next}
     }
-	} !/Archive:*/i NF > 1'
+} !/Archive:*/i NF > 1'
 		return
 	fi
 
@@ -114,11 +138,11 @@ main() {
 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES - 6))
 
 	case "$MIME_TYPE" in
-	image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
-	text/*) bat -n --color=always "$1" ;;
-	audio/*) exiftool "$1" ;;
-	application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
-	*) bat -n --color=always "$1" ;;
+		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+		text/*) bat -n --color=always "$1" ;;
+		audio/*) exiftool "$1" ;;
+		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+		*) bat -n --color=always "$1" ;;
 	esac
 }
 
