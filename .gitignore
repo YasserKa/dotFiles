@@ -7,3 +7,4 @@
 /mpv/.config/mpv/volume
 /nvim/.config/nvim/lazy-lock.json
 /i3/.config/i3/config_override
+/qutebrowser/.config/qutebrowser/greasemonkey/zoom.js
