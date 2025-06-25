@@ -6,7 +6,7 @@ modmap:
 keymap:
   - name: Emacs binding
     application:
-      only: Slack
+      only: [Slack]
     remap:
       # Navigation
       C-a: Home
@@ -25,6 +25,34 @@ keymap:
       C-h: backspace
       C-d: delete
       C-w: C-backspace
+      C-u: [Shift-Home, backspace]
+      C-k: [Shift-end, backspace]
+      M-w: [Shift-Ctrl-left, backspace]
+      M-d: [Shift-Ctrl-right, backspace]
+
+      C-Shift-a: [End, shift-ctrl-home]
+      C-m: enter
+  # The only difference from Slack is remove C-w to allow closing tabs
+  - name: Emacs binding for google-chrome
+    application:
+      only: [Google-chrome]
+    remap:
+      # Navigation
+      C-a: Home
+      C-e: end
+
+      C-p: up
+      C-n: down
+
+      C-b: left
+      C-f: right
+
+      M-b: C-left
+      M-f: C-right
+
+      # Deleting
+      C-h: backspace
+      C-d: delete
       C-u: [Shift-Home, backspace]
       C-k: [Shift-end, backspace]
       M-w: [Shift-Ctrl-left, backspace]
