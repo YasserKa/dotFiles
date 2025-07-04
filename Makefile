@@ -155,8 +155,6 @@ setup-systemd-services:
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:
-	cd $(XDG_CONFIG_HOME)/qutebrowser/qutescript && pip install -e . --user --break-system-packages
-	python $(XDG_CONFIG_HOME)/qutebrowser/userscripts/yank_all --install --bin=yank_all
 	# Download dictionary
 	/usr/share/qutebrowser/scripts/dictcli.py install en-US
 	paru --sync --noconfirm --skipreview  chromium-widevine # viewing DRM content (Spotify)

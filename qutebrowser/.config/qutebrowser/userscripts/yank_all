@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
-# Description: yanks URLs of open tabs as org or markdown URLs
+# Description: yanks URLs of open tabs as org URLs
 
 import os
+import subprocess
 import time
 
 import yaml
-from qutescript import userscript
 
 SESSION_FILE_NAME = "userscript_session"
 SESSION_PATH = f"{os.environ['HOME']}/.local/share/qutebrowser/sessions"
@@ -28,26 +28,30 @@ def get_markdown_urls():
             pass
 
     org_urls = [f"- [[{title}][{url}]]" for (url, title) in urls.items()]
-    # markdown_urls = [f"- [{url}]({title})" for (url, title) in urls.items()]
 
     parsed_urls = "\n" + "\n".join(org_urls)
 
     return parsed_urls
 
 
-@userscript
-def main(request):
-    # store session file
-    request.send_command(
-        f"session-save {SESSION_FILE_NAME} --only-active-window --quiet"
+def main():
+    subprocess.Popen(
+        (
+            f"echo 'session-save {SESSION_FILE_NAME} --only-active-window --quiet' >> {os.environ['QUTE_FIFO']}"
+        ),
+        shell=True,
+        text=True,
     )
-    # wait until session file is updated/created
     time.sleep(0.1)
     # extract urls for buffers
     markdown_urls = get_markdown_urls()
     command = f'clipboard_copy "{markdown_urls}"'
     os.system(command)
-    request.send_command("message-info 'yanked urls'")
+    subprocess.Popen(
+        (f"echo 'message-info \"yanked urls\"' >> {os.environ['QUTE_FIFO']}"),
+        shell=True,
+        text=True,
+    )
 
 
 if __name__ == "__main__":
