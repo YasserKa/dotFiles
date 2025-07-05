@@ -3,7 +3,7 @@
 SHELL=/bin/bash
 config_path=~/.yasser_rc
 
-all: bash
+all: bash vim
 
 move_config_to_server:
 	@# Expand files starting with a dot
@@ -14,6 +14,13 @@ move_config_to_server:
 	@scp  -qr "$(DOTFILES_DIR)"/readline/.config/readline "$(host):$(config_path)"
 	@ssh -t "$(host)" "cd $(config_path) && make --keep-going"
 	@echo -e "Notes: Jupyter notebook can be setup via Makefile"
+
+vim:
+	@echo "Setting up vim"
+	@sudo apt install vim
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	@vim +PlugInstall +qall
 
 bash: 
 	@echo "Setting up bash"
