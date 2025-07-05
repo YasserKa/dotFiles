@@ -1368,16 +1368,33 @@ Made for `org-tab-first-hook' in evil-mode."
        ;; If Saturday or Sunday, leave as is
        (t date))))
 
+(defun my/org-first-weekend-of-next-month ()
+  "Return timestamp string for the first weekend (Sat/Sun) of the next month."
+  (let* ((now (current-time))
+         (decoded (decode-time now))
+         (month (nth 4 decoded))
+         (year (nth 5 decoded))
+         ;; Move to first day of next month
+         (first-next-month (encode-time 0 0 0 1 (1+ month) year)))
+    ;; Loop through first 7 days of next month to find Sat or Sun
+    (cl-loop for i from 0 to 6
+             for date = (time-add first-next-month (days-to-time i))
+             for dow = (string-to-number (format-time-string "%u" date)) ; 6=Sat, 7=Sun
+             when (or (= dow 6) (= dow 7))
+             return (format-time-string (org-time-stamp-format) date))))
+
   (defun my/org-adjust-repeater-to-weekend ()
     "When a repeater updates, adjust it to the next weekend if it falls on a weekday."
+  (when (org-entry-get nil "FIRST_WEEKEND_REPEAT")
+      (let ((new-date (my/org-first-weekend-of-next-month)))
+        (org-entry-put nil "SCHEDULED" new-date)))
     (when (org-entry-get nil "ADJUST_TO_WEEKEND")
-      (when (and (org-entry-get nil "LAST_REPEAT"))
         (let* ((scheduled (org-entry-get nil "SCHEDULED"))
                (deadline (org-entry-get nil "DEADLINE")))
           (when scheduled
             (org-entry-put nil "SCHEDULED" (my/org-adjust-to-weekend scheduled)))
           (when deadline
-            (org-entry-put nil "DEADLINE" (my/org-adjust-to-weekend deadline)))))))
+            (org-entry-put nil "DEADLINE" (my/org-adjust-to-weekend deadline))))))
 
   (add-hook 'org-todo-repeat-hook #'my/org-adjust-repeater-to-weekend)
 
