@@ -50,7 +50,7 @@ update-sudoers:
 install-packages: create-clean-pkglist install-aur-helper
 	@sudo pacman --sync --refresh --sysupgrade
 	@paru --sync --refresh --noconfirm --sysupgrade --skipreview --needed - < pkglist_clean.tmp
-	@yes | paru -S --skipreview evdi-compat-git
+	@yes | paru -S --skipreview evdi
 	@# Get nvim preconfiguration before stowing
 	@rm -f *tmp
 	@# remove go packages installed by AUR packages
@@ -94,9 +94,10 @@ setup-python-env:
 
 .PHONY: post-install-packages
 post-install-packages: stow-packages install-pypi-packages setup-systemd-services setup-qutebrowser setup-tuir setup-python-env
+	@# Needed for latex lsp in nvim
+	@npm install -g tree-sitter-cli
 	@# Setup editors
 	nvim  --headless -c 'quitall'
-	emacs --kill
 	@# Setup Zsh plugin manager & shell
 	@zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
 	@sudo usermod --shell /bin/zsh $(USER)
@@ -113,12 +114,12 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	@make
 	@sudo make install
 	@# Install package used for synchronizing Swedish holidays with org mode
-	@npm i -g icsorg
+	@npm install -g icsorg
 
 .PHONY: stow-packages
 stow-packages:
 	# Install neovim starter kit before stowing
-	@stow X11 autokey autorandr bash bat cmus copyq dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane sway sxhkd systemd tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap yt-dlp zathura zsh
+	@stow X11 autokey autorandr bash bat cmus copyq dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane sway sxhkd systemd thunderbird tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap xremap yt-dlp zathura zsh
 	@sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages

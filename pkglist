@@ -220,6 +220,7 @@ hunspell-en_us # US English hunspell dictionaries
 bitwarden-cli # The command line vault
 pass # Stores, retrieves, generates, and synchronizes passwords securely
 google-chrome # Web browser
+chromium
 # Needed by chromium
 m4 # The GNU macro processor
 texinfo # GNU documentation system for on-line information and printed output
@@ -339,6 +340,7 @@ gnu-netcat # Used to communicate with Zotero
 thunderbird # Mail client
 external-editor-revived # Thunderbird extension edit email
 systray-x-common # Thunderbird extension for system tray
+asciidoc # Needed for xedgwarp
 
 # (Wayland) Screen recording and shots
 grim    # Screenshot utility for Wayland
