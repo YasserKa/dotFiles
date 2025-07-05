@@ -17,7 +17,7 @@ setopt INTERACTIVECOMMENTS # # On interactive line for comment
 zle_highlight+=(paste:none)
 
 # History {{{
-export HISTFILE=$XDG_CONFIG_HOME/zsh/history
+export HISTFILE=$HOME/.dotfiles-private/zsh/history
 export SAVEHIST=$HISTSIZE
 export HISTORY_IGNORE="(&|[ ]*|exit|ls(*| )|cd|cd ..|cd -|bg|fg|history|pls|clear|*/pypoetry/virtualenvs/*)"
 

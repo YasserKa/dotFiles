@@ -165,7 +165,7 @@ setup-qutebrowser:
 compare-packages: create-clean-pkglist
 	@# Make expects a 0, otherwise it fails.
 	@# diff returns 1 if a difference is found
-	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git|evdi|evdi-compat-git|wlroots-debug|cmake|intel-media-driver|libva-utils|mesa-utils|nvidia|vulkan-intel)" | sort) || echo ""
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git|evdi|evdi-compat-git|wlroots-debug|cmake|intel-media-driver|libva-utils|mesa-utils|nvidia|vulkan-intel|amd-ucode)" | sort) || echo ""
 	@rm -f *tmp
 
 .PHONY: help
