@@ -374,24 +374,34 @@ zstyle ':fzf-tab:*' prefix ''
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' continuous-trigger 'tab'
-zstyle ':fzf-tab:*' fzf-bindings 'alt-space:toggle-all'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 # give a preview of commandline arguments when completing `kill`
 # zstyle ':completion:*:*:*:*:processes' list-colors '=*=90'
 zstyle ':completion:*:*:*:*:processes' command 'ps --user $USER -o ppid,pid,stime,etime,args'
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && grc --colour=on ps -F $word | sed 1d'
-  zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
-  zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-	  fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:*' fzf-min-height 40
 zstyle ':fzf-tab:*' fzf-min-height 40
 
-  zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
+zstyle ':fzf-tab:complete:*' fzf-bindings \
+  'ctrl-k:kill-line' \
+  'alt-n:half-page-down,alt-p:half-page-up' \
+  'alt-N:page-down,alt-P:page-up' \
+  'ctrl-alt-j:jump' \
+  'alt-space:toggle-all' \
+  'alt-j:preview-down,alt-k:preview-up' \
+  'alt-J:preview-page-down,alt-K:preview-page-up' \
+  'alt->:preview-bottom,alt-<:preview-top'
+
+zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
 
 # Override the widget to remove images made by kitty on completion
 _fzf-tab-complete() {
-zle fzf-tab-complete
-printf "\x1b_Ga=d,d=A\x1b\\"
+  zle fzf-tab-complete
+  printf "\x1b_Ga=d,d=A\x1b\\"
 }
 
 zle     -N            _fzf-tab-complete
