@@ -36,6 +36,8 @@ noremap : ;
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+nnoremap Y y$
+
 " Fix indentation problem in tmux
 " https://vi.stackexchange.com/questions/23110/pasting-text-on-vim-inside-tmux-breaks-indentation
 if &term =~ "tmux"
