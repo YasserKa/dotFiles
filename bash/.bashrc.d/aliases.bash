@@ -42,7 +42,7 @@ alias cat='bat'
 # grc aliases journalctl to add colourify
 alias journalctl >/dev/null 2>&1 && unalias journalctl
 # Can't override journalctl without using a function
-journalctl() { command journalctl "$@" | lnav; }
+journalctl() { command journalctl --follow "$@" | lnav; }
 alias logxorg='cat $HOME/.local/share/xorg/Xorg.0.log'
 # Doesn't work for dmesg
 # Check https://github.com/tstack/lnav/issues/878

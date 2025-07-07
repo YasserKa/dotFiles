@@ -12,6 +12,8 @@ move_config_to_server:
 	@ssh -t "$(host)" "mkdir -p $(config_path)"
 	@shopt -s dotglob; scp  -qr "$(DOTFILES_DIR)"/instance_setup/* "$(host):$(config_path)"
 	@scp  -qr "$(DOTFILES_DIR)"/readline/.config/readline "$(host):$(config_path)"
+	@# Allow vetical and block cursor bars
+	@command ssh -t lenovo-y700 "sed -i '/set show-mode-in-prompt/s/^#//; /set vi-ins/s/^#//; /set vi-cmd/s/^#//' $(config_path)/readline/inputrc"
 	@ssh -t "$(host)" "cd $(config_path) && make --keep-going"
 	@echo -e "Notes: Jupyter notebook can be setup via Makefile"
 
