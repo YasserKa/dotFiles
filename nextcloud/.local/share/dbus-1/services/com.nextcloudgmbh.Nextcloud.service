@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=com.nextcloudgmbh.Nextcloud
+Exec=/usr/bin/false
+
