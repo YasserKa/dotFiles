@@ -3,13 +3,12 @@
 #
 # Dependencies: i3 jq
 
-focused_class=$(i3-msg -t get_tree | jq -r '
-  recurse(.nodes[]?, .floating_nodes[]?) 
-  | select(.focused) 
-  | .window_properties.class
-')
+# Returns true or false
+Zotero_main_window="$(i3-msg -t get_tree | jq -r ' recurse(.nodes[]?, .floating_nodes[]?)
+| select(.focused)
+| .window_properties.class == "Zotero" and  .window_properties.instance == "Navigator"')"
 
-if [[ "$focused_class" == "Zotero" ]]; then
+if [[ "$Zotero_main_window" == "true" ]]; then
 	i3-msg '[class="Zotero"] move scratchpad '
 else
 	i3-msg 'kill'
