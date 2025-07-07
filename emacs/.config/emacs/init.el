@@ -1634,7 +1634,7 @@ see how ARG affects this command."
   ;; Used by babel
   (use-package plantuml-mode
     :config
-    (setq org-plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
+    (setq plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     )
   (use-package yaml-mode)
