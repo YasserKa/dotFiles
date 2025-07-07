@@ -1,8 +1,8 @@
 # Source if the shell is interactive
 # shellcheck disable=SC1091,SC2034,SC2148,SC1090,SC2155
 case "$-" in
-	*i*) ;;
-	*) return ;;
+*i*) ;;
+*) return ;;
 esac
 
 # Bash options https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
@@ -103,7 +103,7 @@ which() {
 	return 2
 }
 
-copyline() { printf %s "$READLINE_LINE" | xclip -selection clipboard &>/dev/null; }
+copyline() { printf %s "$READLINE_LINE" | printf "\033]52;c;%s\007" "$(base64 | tr -d '\n')"; }
 bind -m vi-insert -x '"\C-y":copyline'
 bind -m vi-command -x '"\C-y":copyline'
 
