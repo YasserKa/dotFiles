@@ -22,6 +22,9 @@ xedgewarp -b
 
 xset r rate 300 30
 
+# Set brightness to 100%
+xbacklight -set 100
+
 rfkill block bluetooth
 
 # Hide cursor
