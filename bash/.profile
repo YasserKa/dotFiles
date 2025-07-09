@@ -23,7 +23,7 @@ export MYVIMRC="$HOME/.config/nvim/lua/plugins/user.lua"
 export DOTFILES_DIR="$HOME/.dotfiles"
 export EDITOR_GUI=nvim-qt
 
-cd "$DOTFILES_DIR" && git pull origin main
+git -C "$DOTFILES_DIR" pull origin
 
 # Conform to XDG standards
 export XDG_CONFIG_HOME="$HOME/.config"
