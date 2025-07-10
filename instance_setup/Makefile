@@ -13,9 +13,14 @@ move_config_to_server:
 	@shopt -s dotglob; scp  -qr "$(DOTFILES_DIR)"/instance_setup/* "$(host):$(config_path)"
 	@scp  -qr "$(DOTFILES_DIR)"/readline/.config/readline "$(host):$(config_path)"
 	@# Allow vetical and block cursor bars
-	@command ssh -t lenovo-y700 "sed -i '/set show-mode-in-prompt/s/^#//; /set vi-ins/s/^#//; /set vi-cmd/s/^#//' $(config_path)/readline/inputrc"
+	@command ssh -t $(host) "sed -i '/set show-mode-in-prompt/s/^#//; /set vi-ins/s/^#//; /set vi-cmd/s/^#//' $(config_path)/readline/inputrc"
 	@ssh -t "$(host)" "cd $(config_path) && make --keep-going"
 	@echo -e "Notes: Jupyter notebook can be setup via Makefile"
+
+vim_root:
+	@su - root -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	@sudo cp ~/.yasser_rc/.vimrc /root/
+	@su - root -c 'vim +PlugInstall +qall'
 
 vim:
 	@echo "Setting up vim"
@@ -28,12 +33,6 @@ bash:
 	@echo "Setting up bash"
 	@[[ ! -f ~/.bashrc ]] || ! grep -qs yasser ~/.bashrc && \
 		echo -e '\n# Yasser'\''s Config\n[[ -e ~/.yasser_rc/.bashrc && $$yasser_config_env ]] && source ~/.yasser_rc/.bashrc' >> ~/.bashrc || echo "Bash already configured"
-
-clipboard: 
-	@echo "Setting up clipboard sharing"
-	@yes | sudo apt install xclip
-	@echo -e "Need following /etc/ssh/sshd_config settings
-
 
 jupyter:
 	@echo "Setting up jupyter"
