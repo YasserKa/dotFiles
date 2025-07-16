@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Search Zotero items, focus them in Zotero, and open their documents & links
+# - Search Zotero items, focus them in Zotero, and open their documents & links
+# - If a file path is given as an argument: focus the entry in Zotero
 #
 # Dependencies: zotero netcat fzf
 
@@ -167,6 +168,36 @@ EOF
   fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
 }
 
+focus_zotero_entry_from_path() {
+  path="$1"
+  file_name="${path##*/}"
+  SCRIPT='
+(async function() {
+    function getZoteroPane() {
+		  let windows = Zotero.getMainWindows();
+		  for (let win of windows) {
+			  if (win.ZoteroPane) return win.ZoteroPane
+		  }
+	  }
+
+    async function focus_zotero_item() {
+      rows = await Zotero.DB.queryAsync("SELECT itemID, path FROM itemAttachments WHERE path LIKE ? ", [`storage:'"${file_name}"'`])
+      id = rows[0].itemID;
+      let attachmentItem = await Zotero.Items.get(id)
+      entryItem = attachmentItem.parentItem
+      let zotero_pane = getZoteroPane();
+      // Focus collection
+      await zotero_pane.collectionsView.selectCollection(entryItem._collections[0])
+      // Focus item
+      zotero_pane.selectItem(entryItem._id)
+    }
+
+  await focus_zotero_item();
+})();
+'
+  nc 127.0.0.1 8080 < <(echo "$SCRIPT")
+}
+
 eval_script_return_value() {
   tmp="/tmp/search_zotero_${RANDOM}"
 
@@ -193,4 +224,10 @@ if ! pgrep zotero >/dev/null; then
   i3-msg '[class="Zotero"] move scratchpad'
   sleep 1
 fi
-search_entries
+
+if (($# == 0)); then
+  search_entries
+else
+  i3-msg '[class="Zotero"] move workspace current, focus'
+  focus_zotero_entry_from_path "$1"
+fi
