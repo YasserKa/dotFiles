@@ -18,7 +18,8 @@ clipboard_copy "$snippet"
 # Get list of keyboards and disable then re-enable them
 devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
 
-while IFS= read -r device; do xinput disable "$device" 2>/dev/null; done <<<"$devices"
+# while IFS= read -r device; do xinput disable "$device" 2>/dev/null; done <<<"$devices"
 xdotool key --clearmodifiers ctrl+shift+v
-while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
+# while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
+xdotool key --clearmodifiers
 clipboard_copy "$CLIPBOARD"
