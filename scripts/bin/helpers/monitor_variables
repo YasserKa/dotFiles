@@ -1,38 +1,25 @@
 #!/usr/bin/env bash
+# Create variables for each monitor
 
-MONITOR_PRIMARY=""
-MONITOR_LEFT=""
-MONITOR_RIGHT=""
+MONITORS="$(xrandr --listmonitors | tail -n +2 |
+  awk 'match($0, /\+([0-9]+)\+[0-9]+/, m) { print m[1], $NF }' |
+  sort -n | cut -d' ' -f2-)"
 
-# Get the primary monitor
-MONITOR_PRIMARY=$(xrandr --query | grep eDP | awk '{print $1}')
+MONITORS_ARR=()
+while IFS= read -r line; do
+  MONITORS_ARR+=("$line")
+done <<<"$MONITORS"
 
-# Iterate over the monitor list without using a subshell
-IFS="
-"
-while read -r line; do
-  name=$(echo "$line" | awk '{print $4}')
-  details=$(echo "$line" | awk '{print $3}')
+# If only one monitor exists, make it the middle,
+# If two monitor; left, middle, and if a 3rd one exists add right
+if [[ ${#MONITORS_ARR[@]} == 1 ]]; then
+  export MONITOR_MIDDLE="${MONITORS_ARR[0]}"
+else
+  export MONITOR_LEFT="${MONITORS_ARR[0]}"
+  export MONITOR_MIDDLE="${MONITORS_ARR[1]}"
+  [[ -v MONITORS_ARR[2] ]] && export MONITOR_RIGHT="${MONITORS_ARR[2]}"
+fi
 
-
-  # Extract the position
-  position=$(echo "$details" | grep -o '+[0-9]\++[0-9]\+' | tr -d '+')
-
-  x_pos=${position%%+*}
-
-  # Clean up the monitor name (removing '+' & '*' if present)
-  clean_name=$(echo "$name" | tr -d '+' | tr -d '*')
-
-  # Determine relative position
-  if [ "$name" = "$MONITOR_PRIMARY" ]; then
-    MONITOR_PRIMARY="$clean_name"
-    export MONITOR_PRIMARY
-  elif (( x_pos < 1920 )); then
-    MONITOR_LEFT="$clean_name"
-    export MONITOR_LEFT
-  else
-    MONITOR_RIGHT="$clean_name"
-    export MONITOR_RIGHT
-  fi
-done < <(xrandr --listmonitors | tail -n +2)
-
+echo "$MONITOR_LEFT"
+echo "$MONITOR_MIDDLE"
+echo "$MONITOR_RIGHT"

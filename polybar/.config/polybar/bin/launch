@@ -14,7 +14,7 @@ source "$HOME/bin/helpers/monitor_variables"
 for OUTPUT in $OUTPUTS; do
 	export MONITOR="$OUTPUT"
 
-	if [[ "${MONITOR}" == "$MONITOR_PRIMARY" ]]; then
+	if [[ "${MONITOR}" == "$MONITOR_MIDDLE" ]]; then
 		polybar --reload middle_bar >"/var/tmp/polybar-${MONITOR}.log" 2>&1 &
 	elif [[ "${MONITOR}" == "$MONITOR_RIGHT" ]]; then
 		polybar --reload right_bar >"/var/tmp/polybar-${MONITOR}.log" 2>&1 &
