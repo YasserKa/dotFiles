@@ -251,7 +251,7 @@ c.aliases = {
     "H": "help -w",
     "chrome": "spawn google-chrome-stable {url}",
     "awesome": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_awesome_tracker {url}",
-    "archive_page": f"spawn {os.environ['XDG_DATA_HOME']}/python_env/.venv/bin/python bin/archive_web_page {{url}}",
+    "archive_page": "spawn archive_web_page {url}",
     "new_reddit": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_new_reddit {url}",
     "gotoarchive_page_all": "spawn qutebrowser http://archive.yasserk.com/archive/{url} https://web.archive.org/{url} https://ghostarchive.org/search?term={url} https://archive.ph/newest/{url}",
     "gotoarchive_page_wayback_machine": "open -t https://web.archive.org/{url}",

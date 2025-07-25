@@ -1,4 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env -S uv run --script
+#
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "requests",
+#     "selenium",
+#     "webdriver-manager",
+# ]
+# ///
+
 #
 # Archive a web page to web.archive.org, archive.ph, and ghostarchive.org
 
