@@ -1,9 +1,0 @@
-[Unit]
-Description=Send popup notification of the name of the instance
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/dunstify "%i unit failed"
-
-[Install]
-WantedBy=multi-user.target
