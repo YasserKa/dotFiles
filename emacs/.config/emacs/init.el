@@ -1944,7 +1944,8 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  (org-superstar-remove-leading-stars t)
+  ;; Setting this to t bugs org-cycle; makes it not work on subheadings properly
+  ;; (org-superstar-remove-leading-stars t)
   (org-superstar-item-bullet-alist '((?- . ?•) (?* . ?•) (?+ . ?•)))
   (org-superstar-headline-bullets-list '("●" "○" "●" "○" "●" "○" "●")))
 
