@@ -1632,9 +1632,11 @@ see how ARG affects this command."
    )
 
   ;; Used by babel
+  (use-package deflate) ;; Needed by plantuml-mode
   (use-package plantuml-mode
     :config
-    (setq plantuml-jar-path (concat user-emacs-directory "plantuml.jar"))
+    (setq plantuml-executable-path "plantuml")
+    (setq plantuml-default-exec-mode 'executable)
     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
     )
   (use-package yaml-mode)
