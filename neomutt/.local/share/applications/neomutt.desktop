@@ -3,6 +3,7 @@ Name=neomutt
 Comment=E-mailclient
 Keywords=E-mail;
 StartupNotify=true
+Categories=Internet;
 Terminal=true
 Type=Application
 MimeType=x-scheme-handler/mailto
