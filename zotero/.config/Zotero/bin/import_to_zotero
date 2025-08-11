@@ -9,9 +9,9 @@
 #
 
 get_collection_id_from_name() {
-  local -r COLLECTION_NAME="$1"
+	local -r COLLECTION_NAME="$1"
 
-  script='
+	script='
   (async function () {
 let collections = Zotero.Collections.getLoaded()
 let collectionId = 0
@@ -24,11 +24,11 @@ for (let collection of collections) {
 
 result=collectionId.toString()
 '
-  eval_script_return_value "$script"
+	eval_script_return_value "$script"
 }
 
 pick_collection_id() {
-  script='
+	script='
   (async function () {
   let libraries = await Zotero.Libraries.getAll()
 
@@ -57,28 +57,28 @@ for (let library of libraries) {
 result = collections_str
 '
 
-  result="$(eval_script_return_value "$script")"
+	result="$(eval_script_return_value "$script")"
 
-  result="$(command cat <(fre --store_name "$FRE_NAME" --sorted | grep -Fx -f <(echo "$result")) <(echo "$result" | grep -Fvx -f <(fre --store_name "$FRE_NAME" --sorted)))"
-  result="${result//>>/\\033[36m>>\\033[0m}"
+	result="$(command cat <(fre --store_name "$FRE_NAME" --sorted | grep -Fx -f <(echo "$result")) <(echo "$result" | grep -Fvx -f <(fre --store_name "$FRE_NAME" --sorted)))"
+	result="${result//>>/\\033[36m>>\\033[0m}"
 
-  TMP_FILE="$(mktemp -t "tmp_XXX")"
-  readonly TMP_FILE
+	TMP_FILE="$(mktemp -t "tmp_XXX")"
+	readonly TMP_FILE
 
-  trap 'rm $TMP_FILE' RETURN
+	trap 'rm $TMP_FILE' RETURN
 
-  IFS='' read -r -d '' cmd <<EOF
+	IFS='' read -r -d '' cmd <<EOF
   printf "$result" |  fzf --ansi --with-nth '{2..}' --preview-window hidden >| '${TMP_FILE}'
 EOF
 
-  eval_interactive_cmd --floating "$cmd"
+	eval_interactive_cmd --floating "$cmd"
 
-  [[ -s "$TMP_FILE" ]] || exit 0
+	[[ -s "$TMP_FILE" ]] || exit 0
 
-  fre --store_name "$FRE_NAME" --add "$(cat "$TMP_FILE")"
-  collection_key="$(<"$TMP_FILE" cut -d $'\t' -f 1)"
+	fre --store_name "$FRE_NAME" --add "$(cat "$TMP_FILE")"
+	collection_key="$(<"$TMP_FILE" cut -d $'\t' -f 1)"
 
-  script='
+	script='
 (async function () {
 let libraryId = await Zotero.Libraries.getAll()[0].id
 
@@ -86,13 +86,13 @@ let collectionId = await Zotero.Collections.getByLibraryAndKey(libraryId, "'"$co
 
 result=collectionId.toString()
 '
-  eval_script_return_value "$script"
+	eval_script_return_value "$script"
 }
 
 import_source() {
-  if [[ -f "$SOURCE" ]]; then
-    # Attach document
-    import_script='
+	if [[ -f "$SOURCE" ]]; then
+		# Attach document
+		import_script='
   (async function () {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -121,18 +121,18 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].parentID).citationKey
   '
 
-    eval_script_return_value "$import_script"
-  elif curl --head "$SOURCE" >/dev/null; then
+		eval_script_return_value "$import_script"
+	elif curl --head "$SOURCE" >/dev/null; then
 
-    HTML_PATH="$(mktemp -t "tmp_XXX")"
-    readonly HTML_PATH
+		HTML_PATH="$(mktemp -t "tmp_XXX")"
+		readonly HTML_PATH
 
-    trap 'rm -f $HTML_PATH' RETURN
-    # Add URL
-    curl -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0" "$SOURCE" --output "$HTML_PATH"
+		trap 'rm -f $HTML_PATH' RETURN
+		# Extract web page source code
+		get_page_content "$SOURCE" "$HTML_PATH"
 
-    # shellcheck disable=2016
-    import_script='
+		# shellcheck disable=2016
+		import_script='
   (async function () {
   var { library, collection, editable } = Zotero.Server.Connector.getSaveTarget();
   var libraryID = library.libraryID;
@@ -144,6 +144,7 @@ var cookieSandbox = uri
 
 var parser = new DOMParser();
 var data = await Zotero.File.getContentsAsync("'"$HTML_PATH"'");
+
 var doc = parser.parseFromString(`<html>${data}</html>`, "text/html");
 doc = Zotero.HTTP.wrapDocument(doc, uri);
 
@@ -152,6 +153,9 @@ translate.setDocument(doc);
 cookieSandbox && translate.setCookieSandbox(cookieSandbox);
 
 translators = await translate.getTranslators();
+if (translators.length == 0) {
+    result = "Error: Entry not added"
+} else {
 translate.setTranslator(translators[0].translatorID);
 
 let items = await translate.translate({
@@ -177,57 +181,60 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
 
 		await waitForCondition(() => items[0], 10000);
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].getID()).citationKey
+}
 '
-    eval_script_return_value "$import_script"
-  else
-    notify-send "Couldn't import to zotero: $SOURCE"
-    exit 1
-  fi
+		results="$(eval_script_return_value "$import_script")"
+		grep "Error:" <(echo "$results") && dunstify "$results"
+		exit 1
+	else
+		notify-send "Couldn't import to zotero: $SOURCE"
+		exit 1
+	fi
 }
 
 eval_script_return_value() {
-  TMP_FILE2="/tmp/zotero_return_value"
+	TMP_FILE2="/tmp/zotero_return_value"
 
-  rm -f "$TMP_FILE2"
-  trap 'rm -f $TMP_FILE2' RETURN
+	rm -f "$TMP_FILE2"
+	trap 'rm -f $TMP_FILE2' RETURN
 
-  local -r SCRIPT='
+	local -r SCRIPT='
 	'"$1"'
 	await Zotero.File.putContentsAsync("'"$TMP_FILE2"'", result);
 	})();
 	'
 
-  nc 127.0.0.1 8080 < <(echo "$SCRIPT")
-  until [[ -f "$TMP_FILE2" ]]; do
-    sleep 0.1
-  done
-  cat "$TMP_FILE2"
+	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
+	until [[ -f "$TMP_FILE2" ]]; do
+		sleep 0.1
+	done
+	cat "$TMP_FILE2"
 }
 
 main() {
-  if ! pgrep zotero >/dev/null; then
-    nohup zotero >/dev/null 2>&1 &
-    disown
-    until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
-      sleep 0.1
-    done
-    i3-msg '[class="Zotero"] move scratchpad' >/dev/null
-  fi
-  (($# == 0)) && {
-    echo "Need a source"
-    exit 1
-  }
+	if ! pgrep zotero >/dev/null; then
+		nohup zotero >/dev/null 2>&1 &
+		disown
+		until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
+			sleep 0.1
+		done
+		i3-msg '[class="Zotero"] move scratchpad' >/dev/null
+	fi
+	(($# == 0)) && {
+		echo "Need a source"
+		exit 1
+	}
 
-  declare -r FRE_NAME="zotero_collection"
-  declare -r SOURCE="$1"
+	declare -r FRE_NAME="zotero_collection"
+	declare -r SOURCE="$1"
 
-  if [[ "$2" ]]; then
-    declare -r COLLECTION_ID="$(get_collection_id_from_name "$2")"
-  else
-    declare -r COLLECTION_ID="$(pick_collection_id)"
-  fi
-  [[ -z "$COLLECTION_ID" ]] && exit 0
-  import_source
+	if [[ "$2" ]]; then
+		declare -r COLLECTION_ID="$(get_collection_id_from_name "$2")"
+	else
+		declare -r COLLECTION_ID="$(pick_collection_id)"
+	fi
+	[[ -z "$COLLECTION_ID" ]] && exit 0
+	import_source
 }
 
 main "$@"

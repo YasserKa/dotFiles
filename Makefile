@@ -24,6 +24,7 @@ pre-install-packages:
 	@mkdir -p $(XDG_CONFIG_HOME)/jupyter
 	@mkdir -p $(XDG_CONFIG_HOME)/emacs
 	@mkdir -p $(XDG_CONFIG_HOME)/i3
+	@mkdir -p $(XDG_CONFIG_HOME)/projects
 	@mkdir -p $(XDG_CONFIG_HOME)/tmux/plugins
 	@mkdir -p $(XDG_CONFIG_HOME)/qutebrowser
 	@mkdir -p $(XDG_CONFIG_HOME)/lnav/configs

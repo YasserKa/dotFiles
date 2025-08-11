@@ -1,0 +1,50 @@
+#!/usr/bin/env -S uv run --script
+#
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "selenium",
+#     "webdriver-manager",
+# ]
+# ///
+# Store source code of a web page in a file
+
+import pathlib
+import sys
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
+if len(sys.argv) != 3:
+    print(f"Usage: {sys.argv[0]} <url> <output_file>")
+    sys.exit(1)
+
+url = sys.argv[1]
+output_file = pathlib.Path(sys.argv[2])
+
+options = Options()
+options.add_argument("--headless=new")
+options.add_argument(
+    "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/127.0.0.0 Safari/537.36"
+)
+
+driver = webdriver.Chrome(options=options)
+driver.get(url)
+
+try:
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.ID, "productTitle"))
+    )
+
+    html = driver.page_source
+    output_file.write_text(html, encoding="utf-8")
+
+finally:
+    driver.quit()
+
+# vim: filetype=python
