@@ -12,7 +12,7 @@
 if [[ "$1" == "init" ]]; then
 	# Install jupytext and jupyter_ascending for syncing
 	# Using an older python version to make jupyter extension work which is needed by jupyter ascending
-	pdm init --python "$XDG_DATA_HOME/uv/python/cpython-3.10.17-linux-x86_64-gnu/bin/python3.10"
+	pdm init --python "$XDG_DATA_HOME"/uv/python/cpython-3.10.*-linux-x86_64-gnu/bin/python3.10
 	pdm add -dG jupyter jupyter_contrib_nbextensions jupyter_nbextensions_configurator jupytext jupyter_ascending notebook
 
 	eval "$(pdm venv activate)"
