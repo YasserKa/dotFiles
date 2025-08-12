@@ -1531,7 +1531,7 @@ Made for `org-tab-first-hook' in evil-mode."
    ;; The default value (5) is too conservative.
    org-clock-history-length 20
    ;; Only today's clocked time is considered
-   org-clock-mode-line-total 'today
+   ;; org-clock-mode-line-total 'today
    )
 
   ;; Clock in clock out hooks with Polybar
