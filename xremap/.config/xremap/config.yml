@@ -44,6 +44,8 @@ keymap:
       C-p: up
       C-n: down
 
+      C-w: C-backspace
+
       C-b: left
       C-f: right
 
