@@ -1758,6 +1758,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
+  (citar-bibliography (list (concat (getenv "XDG_CONFIG_HOME") "/Zotero/better-bibtex/my_library.bib")))
   ;; Open files using external program
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
   :hook
