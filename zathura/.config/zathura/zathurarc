@@ -36,6 +36,8 @@ map wf exec '/home/yasser/.config/zathura/open_link_in_new_window "$FILE"'
 # Open using okular
 map ,oo exec '/home/yasser/.config/zathura/open_book_with_okular "$FILE" "$PAGE"'
 
+map ,ot exec '/home/yasser/.config/zathura/open_book_with_tablet "$FILE"'
+
 # Open config files
 map ,es exec '/bin/kitty -e bash -ic "cd $XDG_CONFIG_HOME/zathura/ && nvim zathurarc"'
 # Source config file
