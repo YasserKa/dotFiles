@@ -1312,7 +1312,7 @@ Made for `org-tab-first-hook' in evil-mode."
           (while (org-up-heading-safe))
           (let ((categroy (org-entry-get nil "CATEGORY"))
                 (file-name (file-name-sans-extension (buffer-name)))
-                (org-heading-title (truncate-string-with-ellipsis (org-get-heading t t) 18))
+                (org-heading-title (truncate-string-with-ellipsis (org-get-heading t t) 24))
                 )
             (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
                 ))) "")
@@ -1321,10 +1321,10 @@ Made for `org-tab-first-hook' in evil-mode."
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "…  " "---------------")
-        org-agenda-prefix-format '((agenda . " %-23:(get-top-heading-in-block)  %12t  %s %-4e")
-                                   (todo . " %-18:(get-top-heading-in-block)  %-4e ")
-                                   (tags . " %-12:(get-top-heading-in-block) %-6e")
-                                   (search . " %-12:(get-top-heading-in-block) %-6e")))
+        org-agenda-prefix-format '((agenda . " %-24:(get-top-heading-in-block)  %12t  %s %-4e")
+                                   (todo . " %-24:(get-top-heading-in-block)  %-4e ")
+                                   (tags . " %-24:(get-top-heading-in-block) %-6e")
+                                   (search . " %-24:(get-top-heading-in-block) %-6e")))
 
   ;; Save org buffers after quiting agenda mode
   (advice-add 'org-agenda-quit :before #'(lambda () (interactive) (let ((inhibit-message t)) (org-save-all-org-buffers))))
@@ -1422,7 +1422,7 @@ Made for `org-tab-first-hook' in evil-mode."
            (
             (agenda ""
                     ((org-agenda-span 'day)
-                     (org-agenda-prefix-format '((agenda . " %?-20:(get-top-heading-in-block)%?-12t%?-s %4e ")))
+                     (org-agenda-prefix-format '((agenda . " %?-24:(get-top-heading-in-block)%?-12t%?-s %4e ")))
                      (org-super-agenda-groups
                       '((:name none
                                :time-grid t
@@ -1445,7 +1445,7 @@ Made for `org-tab-first-hook' in evil-mode."
                      (org-super-agenda-header-separator "")
                      (org-agenda-format-date "")
                      (org-deadline-warning-days 7)
-                     (org-agenda-prefix-format '((agenda . " %-20(get-top-heading-in-block)%s %4e ")))
+                     (org-agenda-prefix-format '((agenda . " %-24(get-top-heading-in-block)%s %4e ")))
                      (org-agenda-deadline-leaders '("Deadline: " "(%1dd.)" "%2d d. ago: "))
                      (org-super-agenda-groups
                       `((:discard (:log closed))
@@ -1487,7 +1487,7 @@ Made for `org-tab-first-hook' in evil-mode."
           ("c" "Calendar"
            (
             (agenda ""
-                    ((org-agenda-prefix-format '((agenda . " %-23c  %?-12t%s %4e "))))
+                    ((org-agenda-prefix-format '((agenda . " %-24(get-top-heading-in-block)  %?-12t%s %4e "))))
                     )))
           ))
 
