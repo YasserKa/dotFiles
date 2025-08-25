@@ -272,6 +272,8 @@ bindsym $mod+p exec --no-startup-id $XDG_CONFIG_HOME/rofi/bwmenu
 bindsym $mod+t exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_tmux
 # Documents
 bindsym $mod+Shift+d exec --no-startup-id fdoc
+# Papers
+bindsym $mod+Shift+p exec --no-startup-id $XDG_CONFIG_HOME/Zotero/bin/search_zotero
 
 # Don't show general notes
 bindsym $mod+n exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/toggle_org_notes

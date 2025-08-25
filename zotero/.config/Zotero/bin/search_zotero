@@ -151,7 +151,7 @@ END {
   >| '${TMP_FILE}'
 EOF
 
-  eval_interactive_cmd --floating "$cmd"
+  eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
 
   [[ -s "$TMP_FILE" ]] || exit 1
 
