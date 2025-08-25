@@ -504,6 +504,7 @@ reboot() {
 shutdown() {
 	if wait_internet; then
 		syncorg
+		git_check
 	else
 		[[ $(dunstify "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
 	fi
