@@ -3,5 +3,6 @@ Music
 .local/pipx
 .cache
 !.env
+!*.sql
 
 # vim:ft=gitignore
