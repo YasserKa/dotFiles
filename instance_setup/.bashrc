@@ -21,6 +21,8 @@ XDG_CONFIG_HOME="$HOME/.yasser_rc"
 export MYVIMRC="$XDG_CONFIG_HOME/.vimrc"
 # shellcheck disable=SC2016
 export VIMINIT='source $MYVIMRC'
+# shellcheck disable=SC2139
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux.conf" # Change tmux config path
 
 # Use Alt-h to view documentation for commands
 run_help() {
