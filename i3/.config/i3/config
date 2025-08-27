@@ -304,7 +304,8 @@ exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 
 # Open browser
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
-exec --no-startup-id ${BROWSER} --override-restore
+# Synchronize files before opening browser
+exec --no-startup-id curl -H "X-API-Key:$(pass syncthing_remote_api)" -X POST 'http://sync.yasserk.com/rest/db/scan?folder=tje2h-yngko&sub=qutebrowser' && sleep 1.5 && ${BROWSER} --override-restore
 exec --no-startup-id thunderbird
 
 # Manages some key bindings
