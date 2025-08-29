@@ -82,7 +82,7 @@
     last = show --stat HEAD
     lg = log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
     countcommits = shortlog -sn --no-merges
-    graph = log --graph --oneline --decorate
+    graph = log --graph --oneline --decorate --all
 
 [help]
    ; execute corrected commands immediately
