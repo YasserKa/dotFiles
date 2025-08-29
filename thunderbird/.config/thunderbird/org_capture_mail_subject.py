@@ -16,7 +16,7 @@ def main():
     data = json.loads(message)
 
     subprocess.Popen(
-        (f"org_capture '' '{data['subject']}'"),
+        (f"org_capture '' 'LTU email: {data['subject']}'"),
         shell=True,
         text=True,
     )
