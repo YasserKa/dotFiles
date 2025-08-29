@@ -51,7 +51,7 @@ c.bindings.commands = {
             "spawn --userscript ~/.config/qutebrowser/userscripts/yank_amazon_lib_gen"
         ),
         # Override f and F by download documents from libgen
-        ":p": "hint all userscript ~/.config/qutebrowser/userscripts/override_f",
+        ":p": "hint tr userscript ~/.config/qutebrowser/userscripts/override_f",
         ":g": "hint images userscript ~/.config/qutebrowser/userscripts/view_gif",
         "<space>q": "close",
         "<space>Q": "quit",
@@ -295,6 +295,10 @@ c.hints.selectors["code"] = [
     # Selects all code tags whose direct parent is not a pre tag
     ":not(pre) > code",
     "pre",
+]
+c.hints.selectors["tr"] = [
+    # Selects all code tags whose direct parent is not a pre tag
+    "tr td:last-child",
 ]
 # Add a CSS selector for yank_link_id script
 c.hints.selectors["id"] = ["[id]"]

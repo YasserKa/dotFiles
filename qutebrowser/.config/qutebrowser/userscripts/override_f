@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-# Download and open document it instead of opening the tab in special cases
+# Download and open document instead of opening the tab in special cases
 # Dependencies: curl, pup, zathura, dunstify
 
-if [[ "$QUTE_URL" == "" ]]; then
-	exit
+if [[ "$QUTE_CURRENT_URL" == "" ]]; then
+    exit
 fi
 
 DOMAIN_NAME="$(awk -F[/:] '{print $4}' <(echo "$QUTE_URL"))"
+DOMAIN_NAME="https://$DOMAIN_NAME"
 
 alias urldecode='python -c "import sys, urllib.parse as ul; \
     print(ul.unquote_plus(sys.argv[1]))"'
@@ -17,8 +18,10 @@ alias urlencode='python -c "import sys, urllib.parse as ul; \
 
 MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]' "attr{href}")
 
+dunstify as
 if [[ "$MIRROR_LINK" =~ ^/ ]]; then
     MIRROR_LINK="${DOMAIN_NAME}${MIRROR_LINK}"
+    curl -s "$MIRROR_LINK" -o b.html
     URL_PATH="$(curl -s "$MIRROR_LINK" | grep GET | pup -p 'a attr{href}')"
     DOWNLOAD_LINK="${DOMAIN_NAME}/${URL_PATH}"
 else
