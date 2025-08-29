@@ -1314,7 +1314,7 @@ Made for `org-tab-first-hook' in evil-mode."
                 (file-name (file-name-sans-extension (buffer-name)))
                 (org-heading-title (truncate-string-with-ellipsis (org-get-heading t t) 24))
                 )
-            (if (and (not (member category `("" ,file-name)))) category (if org-heading-title org-heading-title "")
+            (if (and (not (member category `("" ,file-name)))) (truncate-string-with-ellipsis category 24) (if org-heading-title org-heading-title "")
                 ))) "")
     )
   (setq org-agenda-current-time-string "---*> now <*---"
