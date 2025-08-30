@@ -29,10 +29,8 @@ array::contains() {
 
 	for val in "${values[@]}"; do
 		if [[ "$mode" == "strict" && "$target" == "$val" ]]; then
-			echo "Matched strictly: $val"
 			return 0
 		elif [[ "$mode" == "substring" && "$target" == *"$val"* ]]; then
-			echo "Matched substring: $val"
 			return 0
 		fi
 	done
