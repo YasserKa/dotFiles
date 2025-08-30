@@ -10,16 +10,16 @@
 function cd() {
 	while true; do
 		case "$1" in
-		-)
-			builtin cd - && return
-			;;
-		--)
-			shift
-			break
-			;;
-		*)
-			break
-			;;
+			-)
+				builtin cd - && return
+				;;
+			--)
+				shift
+				break
+				;;
+			*)
+				break
+				;;
 		esac
 	done
 	if [ $# -eq 0 ]; then
@@ -89,37 +89,37 @@ function extract {
 		fi
 
 		case "${n}" in
-		*.cbt | *.tar.bz2 | *.tar.gz | *.tar.xz | *.tbz2 | *.tgz | *.txz | *.tar)
-			tar --auto-compress -xvf "$n"
-			;;
-		*.lzma) unlzma "$n" ;;
-		*.bz2) bunzip2 "$n" ;;
-		*.cbr | *.rar) unrar x -ad "$n" ;;
-		*.gz) gunzip "$n" ;;
-		*.cbz | *.epub | *.zip) unzip "$n" ;;
-		*.z) uncompress "$n" ;;
-		*.7z | *.apk | *.arj | *.cab | *.cb7 | *.chm | *.deb | *.iso | *.lzh | *.msi | *.pkg | *.rpm | *.udf | *.wim | *.xar | *.vhd)
-			7z x "$n"
-			;;
-		*.xz) unxz "$n" ;;
-		*.exe) cabextract "$n" ;;
-		*.cpio) cpio -id <"$n" ;;
-		*.cba | *.ace) unace x "$n" ;;
-		*.zpaq) zpaq x "$n" ;;
-		*.arc) arc e "$n" ;;
-		*.cso) ciso 0 "$n" "$n.iso" && extract "$n.iso" && rm -f "$n" ;;
-		*.zlib) zlib-flate -uncompress <"$n" >"${n%.*zlib}" && rm -f "$n" ;;
-		*.dmg)
-			mnt_dir=$(mktemp -d)
-			hdiutil mount "$n" -mountpoint "$mnt_dir"
-			echo "Mounted at: $mnt_dir"
-			;;
-		*.tar.zst) tar -I zstd -xvf "$n" ;;
-		*.zst) zstd -d "$n" ;;
-		*)
-			echo "extract: '$n' - unknown archive method"
-			continue
-			;;
+			*.cbt | *.tar.bz2 | *.tar.gz | *.tar.xz | *.tbz2 | *.tgz | *.txz | *.tar)
+				tar --auto-compress -xvf "$n"
+				;;
+			*.lzma) unlzma "$n" ;;
+			*.bz2) bunzip2 "$n" ;;
+			*.cbr | *.rar) unrar x -ad "$n" ;;
+			*.gz) gunzip "$n" ;;
+			*.cbz | *.epub | *.zip) unzip "$n" ;;
+			*.z) uncompress "$n" ;;
+			*.7z | *.apk | *.arj | *.cab | *.cb7 | *.chm | *.deb | *.iso | *.lzh | *.msi | *.pkg | *.rpm | *.udf | *.wim | *.xar | *.vhd)
+				7z x "$n"
+				;;
+			*.xz) unxz "$n" ;;
+			*.exe) cabextract "$n" ;;
+			*.cpio) cpio -id <"$n" ;;
+			*.cba | *.ace) unace x "$n" ;;
+			*.zpaq) zpaq x "$n" ;;
+			*.arc) arc e "$n" ;;
+			*.cso) ciso 0 "$n" "$n.iso" && extract "$n.iso" && rm -f "$n" ;;
+			*.zlib) zlib-flate -uncompress <"$n" >"${n%.*zlib}" && rm -f "$n" ;;
+			*.dmg)
+				mnt_dir=$(mktemp -d)
+				hdiutil mount "$n" -mountpoint "$mnt_dir"
+				echo "Mounted at: $mnt_dir"
+				;;
+			*.tar.zst) tar -I zstd -xvf "$n" ;;
+			*.zst) zstd -d "$n" ;;
+			*)
+				echo "extract: '$n' - unknown archive method"
+				continue
+				;;
 		esac
 	done
 }
@@ -425,14 +425,14 @@ emacsclient() {
 	SOCKET_NAME=
 	while :; do
 		case "$1" in
-		-s | --socket-name)
-			SOCKET_NAME="$2"
-			break
-			;;
-		--)
-			shift
-			break
-			;;
+			-s | --socket-name)
+				SOCKET_NAME="$2"
+				break
+				;;
+			--)
+				shift
+				break
+				;;
 		esac
 	done
 	[[ ! "$SOCKET_NAME" ]] && SOCKET_NAME="$EMACS_DEFAULT_SOCKET" && ARGS+=("--socket-name=$EMACS_DEFAULT_SOCKET")
@@ -476,13 +476,6 @@ magit() {
 
 alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
-syncorg() {
-	emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --eval "(org-save-all-org-buffers)" 2>/dev/null
-	{ wait_internet && rclone sync "${NOTES_ORG_HOME}" org_notes:org \
-		--filter '- .git/' --filter '- images/' --filter '- ltximg/' --filter '+ groceries.org' --filter '+ fast_access.org' --filter '+ capture.org' --filter '- *'; } ||
-		notify-send --urgency=critical "Sync org not working"
-}
-
 elfeed() {
 	emacs --eval --create-frame "(progn (elfeed) (elfeed-update))"
 }
@@ -494,19 +487,19 @@ pick_color() {
 
 reboot() {
 	if wait_internet; then
-		syncorg
+		sync_files_to_remote || exit 0
 	else
-		[[ $(dunstify "No internet connection" "Reboot without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
+		[[ $(dunstify --urgency=critical "No internet connection" "Reboot without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
 	fi
 	command shutdown --reboot now
 }
 
 shutdown() {
 	if wait_internet; then
-		syncorg
+		sync_files_to_remote || exit 1
 		git_check
 	else
-		[[ $(dunstify "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
+		[[ $(dunstify --urgency=critical "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
 	fi
 	command shutdown now
 }
