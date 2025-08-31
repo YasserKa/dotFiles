@@ -448,7 +448,10 @@ alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
 	local NAME="emacs_org"
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
+	is_window_exists "$NAME" || {
+		sleep 1
+		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
+	}
 	goto_window $NAME
 }
 
@@ -468,8 +471,7 @@ magit() {
 	git_root=$(git rev-parse --show-toplevel)
 	chronic git rev-parse --show-toplevel || return 1
 
-	is_window_exists "$NAME" ||
-		emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
+	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
 	goto_window $NAME
 
 }
