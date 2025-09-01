@@ -7,7 +7,7 @@ if [[ "$QUTE_CURRENT_URL" == "" ]]; then
     exit
 fi
 
-DOMAIN_NAME="$(awk -F[/:] '{print $4}' <(echo "$QUTE_URL"))"
+DOMAIN_NAME="$(awk -F[/:] '{print $4}' <(echo "$QUTE_CURRENT_URL"))"
 DOMAIN_NAME="https://$DOMAIN_NAME"
 
 alias urldecode='python -c "import sys, urllib.parse as ul; \
@@ -16,12 +16,10 @@ alias urldecode='python -c "import sys, urllib.parse as ul; \
 alias urlencode='python -c "import sys, urllib.parse as ul; \
     print(ul.quote_plus(sys.argv[1]))"'
 
-MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]' "attr{href}")
+MIRROR_LINK=$(echo "$QUTE_SELECTED_HTML" | pup 'a[href]:first-of-type' "attr{href}")
 
-dunstify as
 if [[ "$MIRROR_LINK" =~ ^/ ]]; then
     MIRROR_LINK="${DOMAIN_NAME}${MIRROR_LINK}"
-    curl -s "$MIRROR_LINK" -o b.html
     URL_PATH="$(curl -s "$MIRROR_LINK" | grep GET | pup -p 'a attr{href}')"
     DOWNLOAD_LINK="${DOMAIN_NAME}/${URL_PATH}"
 else
