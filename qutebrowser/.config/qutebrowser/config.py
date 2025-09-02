@@ -249,7 +249,7 @@ c.aliases = {
     "wqa": "quit --save",
     "h": "help -t",
     "H": "help -w",
-    "chrome": "spawn google-chrome-stable {url}",
+    "chrome": "spawn --detach google-chrome-stable '{url}'",
     "awesome": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_awesome_tracker {url}",
     "archive_page": "spawn archive_web_page {url}",
     "new_reddit": "spawn --userscript ~/.config/qutebrowser/userscripts/goto_new_reddit {url}",
