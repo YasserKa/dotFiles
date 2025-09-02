@@ -111,8 +111,6 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	@cd /tmp/xedgewarp
 	@make
 	@sudo make install
-	@# Install package used for synchronizing Swedish holidays with org mode
-	@npm install -g icsorg
 
 .PHONY: stow-packages
 stow-packages:

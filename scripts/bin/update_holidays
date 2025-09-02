@@ -2,25 +2,21 @@
 # Update Swedish holidays in org mode
 # Dependencies: icsorg
 
-import os
+import argparse
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
-MAIN_FILE = Path(f"{os.getenv('NOTES_ORG_HOME')}/sweden.org")
-ICS_URL = "https://ics.calendarlabs.com/71/9bc3661a/Sweden_Holidays.ics"
-HEADING = "* Swedish Holidays"
 
-
-def run_icsorg(tmp_path):
+def run_icsorg(tmp_path, ics_url):
     print("Fetching and converting ICS data...")
     try:
         subprocess.run(
             [
-                f"{os.getenv('XDG_DATA_HOME')}/npm/bin/icsorg",
+                "icsorg",
                 "-i",
-                ICS_URL,
+                ics_url,
                 "-o",
                 str(tmp_path),
             ],
@@ -57,13 +53,15 @@ def clean_icsorg_lines(lines):
     return cleaned
 
 
-def replace_section(main_lines, insert_lines, heading):
+def replace_section(insert_lines, heading, file_path):
+    main_lines = read_lines(file_path)
     start = next(
         (i for i, line in enumerate(main_lines) if line.strip() == heading), None
     )
+    # Add the heading if it doesn't exist
     if start is None:
-        print(f'Heading "{heading}" not found in {MAIN_FILE}.')
-        sys.exit(1)
+        main_lines.append(f"{heading}")
+        start = len(main_lines)
 
     end = start + 1
     while end < len(main_lines) and not main_lines[end].startswith("* "):
@@ -73,18 +71,28 @@ def replace_section(main_lines, insert_lines, heading):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ics_url")
+    parser.add_argument("--file_path")
+    parser.add_argument("--heading")
+
+    args = parser.parse_args()
+
+    ICS_URL = args.ics_url
+    FILE_PATH = Path(args.file_path)
+    HEADING = args.heading
+
     with tempfile.NamedTemporaryFile(delete=False, suffix=".org") as tmp:
         tmp_path = Path(tmp.name)
 
-    run_icsorg(tmp_path)
-    main_lines = read_lines(MAIN_FILE)
+    run_icsorg(tmp_path, ICS_URL)
     ics_lines = read_lines(tmp_path)
     cleaned_lines = clean_icsorg_lines(ics_lines)
-    updated_lines = replace_section(main_lines, cleaned_lines, HEADING)
-    write_lines(MAIN_FILE, updated_lines)
+    updated_lines = replace_section(cleaned_lines, HEADING, FILE_PATH)
+    write_lines(FILE_PATH, updated_lines)
 
     tmp_path.unlink(missing_ok=True)
-    print(f'✅ Updated "{HEADING}" in {MAIN_FILE}.')
+    print(f'✅ Updated "{HEADING}" in {FILE_PATH}.')
 
 
 if __name__ == "__main__":
