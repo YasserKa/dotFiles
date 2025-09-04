@@ -23,9 +23,11 @@ for container in $containers; do
 
     # Loop through each mount point
     for mount in $mounts; do
+        # Only backup syncthing config
+        [[ "$container" == "syncthing" ]] && mount="$mount/config"
         echo "Copying from $container:$mount to $container_backup_dir"
-        
-        docker cp "$container:$mount" "$container_backup_dir/"
+
+        docker cp "$container:$mount" "$container_backup_dir"
     done
 done
 
