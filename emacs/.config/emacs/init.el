@@ -213,6 +213,7 @@
 ;; Editing {{{
 ;; Trims spaces from end of line
 (use-package ws-butler
+  :straight (:type git :host github :repo "emacsmirror/nongnu_elpa" :branch "elpa/ws-butler")
   :hook ((text-mode . ws-butler-mode)
          (prog-mode . ws-butler-mode)))
 
