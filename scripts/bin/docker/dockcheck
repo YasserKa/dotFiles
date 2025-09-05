@@ -154,7 +154,7 @@ releasenotes() {
     while read -r container url; do
       [[ $update == $container ]] && Updates+=("$update  ->  $url\n") && found=true
     done < "$ScriptWorkDir"/urls_releases
-    [[ $found == false ]] && Updates+=("$update  ->  url missing") || continue
+    [[ $found == false ]] && Updates+=("$update  ->  url missing\n") || continue
   done
 }
 
@@ -286,7 +286,7 @@ if [[ -n ${GotErrors[*]} ]] ; then
 fi
 if [[ -n ${GotUpdates[*]} ]] ; then
    printf "\n%bContainers with updates available:%b\n" "$c_yellow" "$c_reset"
-   [[ -z "$AutoUp" ]] && options || { releasenotes  && echo "${Updates[@]}"; }
+   [[ -z "$AutoUp" ]] && options || { releasenotes  && echo -e "${Updates[@]}"; }
    [[ -n "$Notify" ]] && { [[ $(type -t send_notification) == function ]] && send_notification "${GotUpdates[@]}" || printf "Could not source notification function.\n" ; }
 fi
 
