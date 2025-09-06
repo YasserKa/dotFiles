@@ -179,6 +179,17 @@ return {
         desc = "Words",
       },
       {
+        "<Leader>fW",
+        function()
+          require("snacks").picker.grep {
+            cmd = "rg",
+            hidden = true,
+            ignored = false,
+          }
+        end,
+        desc = "Words",
+      },
+      {
         "<Leader>f?",
         function() require("snacks").picker.help {} end,
         desc = "Help tags",
