@@ -489,7 +489,7 @@ pick_color() {
 
 reboot() {
 	if wait_internet; then
-		sync_files_to_remote || exit 0
+		push_files_to_remote || exit 0
 	else
 		[[ $(dunstify --urgency=critical "No internet connection" "Reboot without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
 	fi
@@ -498,7 +498,7 @@ reboot() {
 
 shutdown() {
 	if wait_internet; then
-		sync_files_to_remote || exit 1
+		push_files_to_remote || exit 1
 		git_check
 	else
 		[[ $(dunstify --urgency=critical "No internet connection" "Shutdown without <b>syncorg</b>" --action="action,label") == "action" ]] || return 1
