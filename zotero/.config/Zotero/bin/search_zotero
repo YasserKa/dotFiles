@@ -142,7 +142,7 @@ END {
   trap 'rm $TMP_FILE' EXIT
 
   IFS='' read -r -d '' cmd <<EOF
-  cat "/tmp/result_null" |  fzf --read0 --ansi --with-nth {5..} \
+  cat "/tmp/result_null" |  fzf --multi --read0 --ansi --with-nth {5..} \
   --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {4}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
   --bind 'alt-u:execute-silent(xdg-open {3})' \
   --bind 'alt-q:execute-silent(dunstify {1})' \
@@ -155,17 +155,19 @@ EOF
 
   [[ -s "$TMP_FILE" ]] || exit 1
 
-  FILE_PATH="$(<"$TMP_FILE" cut -d $'\t' -f 4 | head -n 1)"
+  FILES_PATH="$(<"$TMP_FILE" cut -d $'\t' -f 4 | sed -n 'p;n')"
 
-  # Open document if directory exists; otherwise, open link
-  if [[ -d "$FILE_PATH" ]]; then
-    xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
-    disown
-    i3-msg "workspace 8" &
-  else
-    xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
-  fi
-  fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
+  while IFS= read -r FILE_PATH; do
+    # Open document if directory exists; otherwise, open link
+    if [[ -d "$FILE_PATH" ]]; then
+      xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
+      disown
+      i3-msg "workspace --no-auto-back-and-forth 8"
+    else
+      xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
+    fi
+    fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
+  done <<<"$FILES_PATH"
 }
 
 focus_zotero_entry_from_path() {
