@@ -9,17 +9,17 @@
 # 1: No option has been selected
 # 10-28: Row accepted by custom keybinding
 declare -ra ROFI_OPTIONS=(
-	-p "Tmux Session" # Prompt
-	-i                # Search case sensitive
-	-dmenu
-	-mesg "<b>C-M-d</b>: Kill session  <b>C-M-e</b>: Edit template" # Message below filter entry
-	-no-custom                                                      # Can't choose entry that's not
-	-kb-delete-entry ""                                             # Override <C-d>
-	-kb-move-end ""                                                 # Override <C-e>
-	-kb-custom-1 Control+Alt+d                                      # exit status
-	-kb-custom-2 Control+Alt+e                                      # edit tmuxp template
-	-format "i f"                                                   # option index, user's
-	-only-custom                                                    # Don't allow custom
+    -p "Tmux Session" # Prompt
+    -i                # Search case sensitive
+    -dmenu
+    -mesg "<b>C-M-d</b>: Kill session  <b>C-M-e</b>: Edit template" # Message below filter entry
+    -no-custom                                                      # Can't choose entry that's not
+    -kb-delete-entry ""                                             # Override <C-d>
+    -kb-move-end ""                                                 # Override <C-e>
+    -kb-custom-1 Control+Alt+d                                      # exit status
+    -kb-custom-2 Control+Alt+e                                      # edit tmuxp template
+    -format "i f"                                                   # option index, user's
+    -only-custom                                                    # Don't allow custom
 )
 
 # Tmux sessions
@@ -28,11 +28,11 @@ declare -ra ROFI_OPTIONS=(
 # Outputs:
 #     available sessions and tmuxp templates
 ################################################################################
-GET_SESSIONS() { 
+GET_SESSIONS() {
     local tmux_sessions
     tmux_sessions="$(tmux ls | cut -d ':' -f -1 | cut -d '#' -f -1)"
     [[ -n $tmux_sessions ]] && tmux_sessions="$tmux_sessions\n"
-    echo -e "${tmux_sessions}$(tmuxp ls)" | grep -vE cmus | sort | uniq
+    echo -e "${tmux_sessions}$(tmuxp ls)" | grep -vE "cmus|system_upgrade" | sort | uniq
 }
 
 ################################################################################
@@ -49,12 +49,12 @@ KILL_SESSIONS() {
     readonly SESSION_IDS
 
     tmux kill-session -t "${SELECTED_SESSION}"
-    for session_id in "${SESSION_IDS[@]}"; do 
+    for session_id in "${SESSION_IDS[@]}"; do
         tmux kill-session -t "${SELECTED_SESSION}#${session_id}"
     done
 }
 
-main () {
+main() {
     # To make Rofi open again with the previous filter, the main function is
     # called again with the previous filtered value
     local ROFI_EXIT_STATUS="$?"
@@ -65,15 +65,14 @@ main () {
     readonly TMUX_SESSIONS
 
     local SELECTED_OPTION
-    SELECTED_OPTION="$(printf "%s\n" "${TMUX_SESSIONS[@]}" \
-        | rofi "${ROFI_OPTIONS[@]}" -filter "$FILTERED_BY")"
+    SELECTED_OPTION="$(printf "%s\n" "${TMUX_SESSIONS[@]}" |
+        rofi "${ROFI_OPTIONS[@]}" -filter "$FILTERED_BY")"
     local -r ROFI_EXIT_STATUS="$?"
     # This should be after the above line, otherwise the exist status is 0
     readonly SELECTED_OPTION
 
-
     # No option has been selected
-    (( ROFI_EXIT_STATUS == 1 )) && exit 0
+    ((ROFI_EXIT_STATUS == 1)) && exit 0
 
     local SELECTED_INDEX
     SELECTED_INDEX="$(echo "${SELECTED_OPTION}" | cut -d ' ' -f -1)"
@@ -82,18 +81,19 @@ main () {
     local -r SELECTED_SESSION="${TMUX_SESSIONS[$SELECTED_INDEX]}"
 
     # C-d has been pressed (kill session & open rofi again)
-    if (( ROFI_EXIT_STATUS == 10 )); then
+    if ((ROFI_EXIT_STATUS == 10)); then
         KILL_SESSIONS "${SELECTED_SESSION}"
         main "$(echo "$SELECTED_OPTION" | cut -d ' ' -f 2-)"
         # C-e has been pressed (edit tmuxp template) if possible
-    elif (( ROFI_EXIT_STATUS == 11 )); then
-        grep -Fw "${SELECTED_SESSION}" <(tmuxp ls) \
-            || { notify-send "${SELECTED_SESSION@Q} tempalte tmuxp not found" && exit 1; }
+    elif ((ROFI_EXIT_STATUS == 11)); then
+        grep -Fw "${SELECTED_SESSION}" <(tmuxp ls) ||
+            { notify-send "${SELECTED_SESSION@Q} tempalte tmuxp not found" && exit 1; }
 
         "${TERMINAL}" --directory "${XDG_CONFIG_HOME}/tmuxp/" -e "${EDITOR}" "${SELECTED_SESSION}.yaml"
-    elif (( ROFI_EXIT_STATUS == 0 )); then
+    elif ((ROFI_EXIT_STATUS == 0)); then
         # $TERMINAL -e tmux attach-session -t "$selected_session" > /dev/null & disown
-        "${TERMINAL}" -e tmx "${SELECTED_SESSION}" > /dev/null & disown
+        "${TERMINAL}" -e tmx "${SELECTED_SESSION}" >/dev/null &
+        disown
     else
         notify-send "Rofi exit status ${ROFI_EXIT_STATUS@Q} is not valid" && exit 1
     fi

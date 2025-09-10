@@ -10,16 +10,16 @@
 function cd() {
 	while true; do
 		case "$1" in
-			-)
-				builtin cd - && return
-				;;
-			--)
-				shift
-				break
-				;;
-			*)
-				break
-				;;
+		-)
+			builtin cd - && return
+			;;
+		--)
+			shift
+			break
+			;;
+		*)
+			break
+			;;
 		esac
 	done
 	if [ $# -eq 0 ]; then
@@ -89,37 +89,37 @@ function extract {
 		fi
 
 		case "${n}" in
-			*.cbt | *.tar.bz2 | *.tar.gz | *.tar.xz | *.tbz2 | *.tgz | *.txz | *.tar)
-				tar --auto-compress -xvf "$n"
-				;;
-			*.lzma) unlzma "$n" ;;
-			*.bz2) bunzip2 "$n" ;;
-			*.cbr | *.rar) unrar x -ad "$n" ;;
-			*.gz) gunzip "$n" ;;
-			*.cbz | *.epub | *.zip) unzip "$n" ;;
-			*.z) uncompress "$n" ;;
-			*.7z | *.apk | *.arj | *.cab | *.cb7 | *.chm | *.deb | *.iso | *.lzh | *.msi | *.pkg | *.rpm | *.udf | *.wim | *.xar | *.vhd)
-				7z x "$n"
-				;;
-			*.xz) unxz "$n" ;;
-			*.exe) cabextract "$n" ;;
-			*.cpio) cpio -id <"$n" ;;
-			*.cba | *.ace) unace x "$n" ;;
-			*.zpaq) zpaq x "$n" ;;
-			*.arc) arc e "$n" ;;
-			*.cso) ciso 0 "$n" "$n.iso" && extract "$n.iso" && rm -f "$n" ;;
-			*.zlib) zlib-flate -uncompress <"$n" >"${n%.*zlib}" && rm -f "$n" ;;
-			*.dmg)
-				mnt_dir=$(mktemp -d)
-				hdiutil mount "$n" -mountpoint "$mnt_dir"
-				echo "Mounted at: $mnt_dir"
-				;;
-			*.tar.zst) tar -I zstd -xvf "$n" ;;
-			*.zst) zstd -d "$n" ;;
-			*)
-				echo "extract: '$n' - unknown archive method"
-				continue
-				;;
+		*.cbt | *.tar.bz2 | *.tar.gz | *.tar.xz | *.tbz2 | *.tgz | *.txz | *.tar)
+			tar --auto-compress -xvf "$n"
+			;;
+		*.lzma) unlzma "$n" ;;
+		*.bz2) bunzip2 "$n" ;;
+		*.cbr | *.rar) unrar x -ad "$n" ;;
+		*.gz) gunzip "$n" ;;
+		*.cbz | *.epub | *.zip) unzip "$n" ;;
+		*.z) uncompress "$n" ;;
+		*.7z | *.apk | *.arj | *.cab | *.cb7 | *.chm | *.deb | *.iso | *.lzh | *.msi | *.pkg | *.rpm | *.udf | *.wim | *.xar | *.vhd)
+			7z x "$n"
+			;;
+		*.xz) unxz "$n" ;;
+		*.exe) cabextract "$n" ;;
+		*.cpio) cpio -id <"$n" ;;
+		*.cba | *.ace) unace x "$n" ;;
+		*.zpaq) zpaq x "$n" ;;
+		*.arc) arc e "$n" ;;
+		*.cso) ciso 0 "$n" "$n.iso" && extract "$n.iso" && rm -f "$n" ;;
+		*.zlib) zlib-flate -uncompress <"$n" >"${n%.*zlib}" && rm -f "$n" ;;
+		*.dmg)
+			mnt_dir=$(mktemp -d)
+			hdiutil mount "$n" -mountpoint "$mnt_dir"
+			echo "Mounted at: $mnt_dir"
+			;;
+		*.tar.zst) tar -I zstd -xvf "$n" ;;
+		*.zst) zstd -d "$n" ;;
+		*)
+			echo "extract: '$n' - unknown archive method"
+			continue
+			;;
 		esac
 	done
 }
@@ -133,35 +133,27 @@ orphans() {
 	fi
 }
 
-upgrade_system() {
-	sudo -v
-	orphans
-	yes | paru --sync --refresh --sysupgrade --noconfirm --sudoloop
+# Used for tmuxp
+# Can't be used directly in tmuxp because of how YAML processes the single quotes
+update_emacs() {
+	emacs
+	org
 
-	printf "%s\n" "Updating Vim packages, LSPs, formatters, etc."
-	nvim --headless -c 'autocmd User LazySync quitall' -c "AstroMasonUpdateAll" "+Lazy! sync"
+	# Updating treesitters
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))"
+	# Open Emacs for each server to track status
 
-	printf "%s\n" "Updating Emacs packages"
 	emacs_update_code="
 	(if (featurep 'straight)
   (straight-pull-all)))"
-	# Updating treesitters
-	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))"
 	emacsclient --socket-name="$EMACS_ORG_SOCKET" --eval "$emacs_update_code" &
 	disown
 	emacsclient --socket-name="$EMACS_DEFAULT_SOCKET" --eval "$emacs_update_code" &
 	disown
-	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --batch -l "$XDG_CONFIG_HOME/emacs/init.el" --eval="$emacs_update_code" &
+	command emacs --init-directory "$XDG_CONFIG_HOME/emacs" --eval="$emacs_update_code" &
 	disown
-
-	# Upgrade python packages
-	uv tool upgrade --all
-
-	pdm self update
-
-	# Update Zsh plugins
-	zap update all
 }
+alias upgrade_system="tmuxp load system_upgrade"
 
 # Automatically change current directory to the last visited one after ranger quits
 # /usr/share/doc/ranger/examples/shell_automatic_cd.sh
@@ -425,14 +417,14 @@ emacsclient() {
 	SOCKET_NAME=
 	while :; do
 		case "$1" in
-			-s | --socket-name)
-				SOCKET_NAME="$2"
-				break
-				;;
-			--)
-				shift
-				break
-				;;
+		-s | --socket-name)
+			SOCKET_NAME="$2"
+			break
+			;;
+		--)
+			shift
+			break
+			;;
 		esac
 	done
 	[[ ! "$SOCKET_NAME" ]] && SOCKET_NAME="$EMACS_DEFAULT_SOCKET" && ARGS+=("--socket-name=$EMACS_DEFAULT_SOCKET")
