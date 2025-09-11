@@ -12,7 +12,7 @@
 if [[ "$1" == "init" ]]; then
 	pdm init
 	# Use older version, because jupyter nbextension doesn't work on newer version
-	pdm add -dG jupyter jupyter_contrib_nbextensions jupyter_ascending editdistance==0.8.1 notebook==6.5.7
+	pdm add -dG jupyter jupyter_contrib_nbextensions jupyter_ascending editdistance==0.8.1 notebook==6.5.7 nbclassic==1.3.1
 
 	eval "$(pdm venv activate)"
 	python -m jupyter nbextension install jupyter_ascending --sys-prefix --py &&
