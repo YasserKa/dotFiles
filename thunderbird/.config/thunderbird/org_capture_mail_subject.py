@@ -13,10 +13,16 @@ def main():
         return
     message_length = int.from_bytes(raw_length, byteorder="little")
     message = sys.stdin.buffer.read(message_length)
-    data = json.loads(message)
+    data = json.loads(message)["subject"]
 
     subprocess.Popen(
-        (f"org_capture '' 'LTU email: {data['subject']}'"),
+        (f"org_capture 'tb:{data['headerMessageId']}' 'LTU email: {data['subject']}'"),
+        shell=True,
+        text=True,
+    )
+
+    subprocess.Popen(
+        ("dunstify 'Note captured'"),
         shell=True,
         text=True,
     )

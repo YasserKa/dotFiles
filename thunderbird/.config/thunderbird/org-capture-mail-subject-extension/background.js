@@ -7,10 +7,8 @@ async function handleClick() {
 
   let messages = await browser.mailTabs.getSelectedMessages();
   if (messages.messages.length > 0) {
-    let subject = messages.messages[0].subject;
+    let subject = messages.messages[0];
 
-    // console.log("Focused email subject:", subject);
-    console.log(subject);
     let response = await browser.runtime.sendNativeMessage(
       "org_capture_mail_subject",
       { subject: subject },
