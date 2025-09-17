@@ -2281,7 +2281,7 @@ minibuffer ran."
             )
   )
 
-(defun my/org-refile-to-current-file (arg &optional file)
+(defun my/org-refile-to-file (arg &optional file)
   "Refile current heading to elsewhere in the current buffer.
 If prefix ARG, copy instead of move."
   (interactive "P")
@@ -2516,11 +2516,11 @@ selection of all minor-modes, active or not."
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
-  (" ." my/org-refile-to-current-file "to current file" :column " refile")
+  (" ." my/org-refile-to-file "to current file" :column " refile")
   (" c" my/org-refile-to-running-clock "to clocked")
-  (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
-  (" i" (org-refile nil nil (list nil (concat notes-dir "/ideas.org"))) "to ideas.org")
-  (" p" (org-refile nil nil (list nil (concat notes-dir "/projects.org"))) "to projects.org")
+  (" t" (my/org-refile-to-file nil (concat notes-dir "/tasks.org")) "to tasks.org")
+  (" i" (my/org-refile-to-file nil (concat notes-dir "/ideas.org")) "to ideas.org")
+  (" p" (my/org-refile-to-file nil (concat notes-dir "/projects.org")) "to projects.org")
   (" a" org-refile "to agenda/buffers")
   (" g" org-refile-goto-last-stored "goto refile")
   )
