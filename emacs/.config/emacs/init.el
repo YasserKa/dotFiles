@@ -991,6 +991,9 @@ does not have to do this by oneself."
   (require 'ol-man)
   (require 'ol-link-handler)
 
+  ;; Use mailcap software for power point files
+  (add-to-list 'org-file-apps '("\\.pptx\\'" . system))
+
   (defun my/update-org-level-face ()
     (dolist (face '((org-level-1 . 1.25)
                     (org-level-2 . 1.15)

@@ -21,6 +21,7 @@ audio/*; cmus-remote -f %s ;
 application/pdf; cp '%s' /tmp/doc.pdf && setsid zathura /tmp/doc.pdf &> /dev/null &;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; cp '%s' /tmp/sheet.xlsx && setsid libreoffice /tmp/sheet.xlsx &> /dev/null &;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document; cp '%s' /tmp/doc.docx && setsid libreoffice /tmp/doc.docx &> /dev/null &;
+application/vnd.openxmlformats-officedocument.presentationml.presentation; cp '%s' /tmp/doc.pptx && setsid libreoffice /tmp/doc.pptx &> /dev/null &;
 application/pgp-encrypted; gpg -d '%s'; copiousoutput;
 application/pgp-keys; gpg --import '%s'; copiousoutput;
 application/zip; atool --list '%s'; copiousoutput;
