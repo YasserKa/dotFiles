@@ -116,8 +116,9 @@ if [ "$1" == "-c" ]; then
 	xclip -selection clipboard -t image/png -i "$new_path"
 	notify-send "Image saved to clipboard"
 elif [ "$1" == "-l" ]; then
-	clipboard_copy "$new_path"
-	notify-send "Image saved to clipboard"
+	latex="$(curl -X POST -F "file=@$new_path" http://pix2tex.lenovo-y700.com/predict/ | jq -r '.')"
+	clipboard_copy "\$${latex}\$"
+	notify-send "Latex saved to clipboard"
 elif [ "$1" == "-d" ]; then
 	dragon-drop "$new_path"
 else
