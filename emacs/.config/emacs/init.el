@@ -1327,12 +1327,53 @@ Made for `org-tab-first-hook' in evil-mode."
             (if (and (not (member category `("" ,file-name)))) (truncate-string-with-ellipsis category 24) (if org-heading-title org-heading-title "")
                 ))) "")
     )
+(defun my/org-agenda-s-or-d-prefix ()
+  "Return plain prefix 'S: MM-DD Ddd' or 'D: MM-DD Ddd' or \"\"."
+  (let ((s (org-entry-get nil "SCHEDULED"))
+        (d (org-entry-get nil "DEADLINE")))
+    (cond
+     (s (format "S: %s"
+                (format-time-string "%m-%d %a"
+                                    (org-time-string-to-time s))))
+     (d (format "D: %s"
+                (format-time-string "%m-%d %a"
+                                    (org-time-string-to-time d))))
+     (t ""))))
+
+;; faces
+(defface my-org-agenda-scheduled-face
+  '((t :foreground "DarkBlue" :weight bold))
+  "Face for scheduled prefix in agenda.")
+
+(defface my-org-agenda-deadline-face
+  '((t :foreground "Firebrick" :weight bold))
+  "Face for deadline prefix in agenda.")
+;; finalize hook: colorize the prefixes in the built agenda buffer
+(defun my/org-agenda-colorize-s-d-prefix ()
+  "Apply faces to `S:` / `D:` prefixes produced by `my/org-agenda-s-or-d-prefix`."
+  (when (derived-mode-p 'org-agenda-mode)
+    (let ((inhibit-read-only t))
+      (save-excursion
+        (goto-char (point-min))
+        ;; match "S: 09-22 Mon" or "D: 09-30 Tue"
+        (while (re-search-forward "\\(S: \\|D: \\)[0-9]\\{2\\}-[0-9]\\{2\\} [A-Za-z]+"
+                                  nil t)
+          (let ((type (match-string 1))
+                (beg (match-beginning 0))
+                (end (match-end 0)))
+            (add-text-properties
+             beg end `(face ,(if (string= type "S: ")
+                                'my-org-agenda-scheduled-face
+                              'my-org-agenda-deadline-face)))))))))
+
+(add-hook 'org-agenda-finalize-hook #'my/org-agenda-colorize-s-d-prefix)
+
   (setq org-agenda-current-time-string "---*> now <*---"
         org-agenda-time-grid '((weekly today require-timed)
                                (800 1000 1200 1400 1600 1800 2000)
                                "…  " "---------------")
         org-agenda-prefix-format '((agenda . " %-24:(get-top-heading-in-block)  %12t  %s %-4e")
-                                   (todo . " %-24:(get-top-heading-in-block)  %-4e ")
+                                   (todo . " %-24:(get-top-heading-in-block) %-4e ")
                                    (tags . " %-24:(get-top-heading-in-block) %-6e")
                                    (search . " %-24:(get-top-heading-in-block) %-6e")))
 
@@ -1378,33 +1419,33 @@ Made for `org-tab-first-hook' in evil-mode."
        ;; If Saturday or Sunday, leave as is
        (t date))))
 
-(defun my/org-first-weekend-of-next-month ()
-  "Return timestamp string for the first weekend (Sat/Sun) of the next month."
-  (let* ((now (current-time))
-         (decoded (decode-time now))
-         (month (nth 4 decoded))
-         (year (nth 5 decoded))
-         ;; Move to first day of next month
-         (first-next-month (encode-time 0 0 0 1 (1+ month) year)))
-    ;; Loop through first 7 days of next month to find Sat or Sun
-    (cl-loop for i from 0 to 6
-             for date = (time-add first-next-month (days-to-time i))
-             for dow = (string-to-number (format-time-string "%u" date)) ; 6=Sat, 7=Sun
-             when (or (= dow 6) (= dow 7))
-             return (format-time-string (org-time-stamp-format) date))))
+  (defun my/org-first-weekend-of-next-month ()
+    "Return timestamp string for the first weekend (Sat/Sun) of the next month."
+    (let* ((now (current-time))
+           (decoded (decode-time now))
+           (month (nth 4 decoded))
+           (year (nth 5 decoded))
+           ;; Move to first day of next month
+           (first-next-month (encode-time 0 0 0 1 (1+ month) year)))
+      ;; Loop through first 7 days of next month to find Sat or Sun
+      (cl-loop for i from 0 to 6
+               for date = (time-add first-next-month (days-to-time i))
+               for dow = (string-to-number (format-time-string "%u" date)) ; 6=Sat, 7=Sun
+               when (or (= dow 6) (= dow 7))
+               return (format-time-string (org-time-stamp-format) date))))
 
   (defun my/org-adjust-repeater-to-weekend ()
     "When a repeater updates, adjust it to the next weekend if it falls on a weekday."
-  (when (org-entry-get nil "FIRST_WEEKEND_REPEAT")
+    (when (org-entry-get nil "FIRST_WEEKEND_REPEAT")
       (let ((new-date (my/org-first-weekend-of-next-month)))
         (org-entry-put nil "SCHEDULED" new-date)))
     (when (org-entry-get nil "ADJUST_TO_WEEKEND")
-        (let* ((scheduled (org-entry-get nil "SCHEDULED"))
-               (deadline (org-entry-get nil "DEADLINE")))
-          (when scheduled
-            (org-entry-put nil "SCHEDULED" (my/org-adjust-to-weekend scheduled)))
-          (when deadline
-            (org-entry-put nil "DEADLINE" (my/org-adjust-to-weekend deadline))))))
+      (let* ((scheduled (org-entry-get nil "SCHEDULED"))
+             (deadline (org-entry-get nil "DEADLINE")))
+        (when scheduled
+          (org-entry-put nil "SCHEDULED" (my/org-adjust-to-weekend scheduled)))
+        (when deadline
+          (org-entry-put nil "DEADLINE" (my/org-adjust-to-weekend deadline))))))
 
   (add-hook 'org-todo-repeat-hook #'my/org-adjust-repeater-to-weekend)
 
@@ -1466,6 +1507,8 @@ Made for `org-tab-first-hook' in evil-mode."
                         ))))
             (alltodo ""
                      (
+                      (org-agenda-sorting-strategy '(timestamp-up))
+                      (org-agenda-prefix-format '((todo . " %-22:(get-top-heading-in-block) %13(my/org-agenda-s-or-d-prefix)  %-4e ")))
                       (org-agenda-overriding-header "")
                       (org-super-agenda-groups
                        '(
