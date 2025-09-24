@@ -741,6 +741,37 @@ does not have to do this by oneself."
       (insert cleaned)
       (move-to-column column)))
 
+  ;; Make [p and ]p insert items above and below in org mode
+  (defun my/org--current-kill-trimmed ()
+    "Return the latest kill without trailing newline."
+    (string-trim-right (current-kill 0)))
+
+  (defun my/unimpaired-paste-below ()
+    "Paste below. If at an Org list item, paste as new item.
+Otherwise call `evil-collection-unimpaired-paste-below`."
+    (interactive)
+    (if (and (derived-mode-p 'org-mode) (org-at-item-p))
+        (progn
+          (end-of-line)
+          (org-insert-item)
+          (insert (my/org--current-kill-trimmed)))
+      (call-interactively #'evil-collection-unimpaired-paste-below)))
+
+  (defun my/unimpaired-paste-above ()
+    "Paste above. If at an Org list item, paste as new item.
+Otherwise call `evil-collection-unimpaired-paste-above`."
+    (interactive)
+    (if (and (derived-mode-p 'org-mode) (org-at-item-p))
+        (progn
+          (org-beginning-of-item)
+          (org-insert-item)
+          (insert (my/org--current-kill-trimmed)))
+      (call-interactively #'evil-collection-unimpaired-paste-above)))
+
+  (evil-collection-define-key 'normal 'evil-collection-unimpaired-mode-map
+    (kbd "]p") 'my/unimpaired-paste-below
+    (kbd "[p") 'my/unimpaired-paste-above)
+
   ;; Swap ; & :
   ;; evil-collectin-swap-key doesn't make the rebinding in minibuffer work
   (evil-collection-translate-key nil 'evil-motion-state-map
