@@ -73,7 +73,7 @@ main() {
 	if array::contains "substring" "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
 		libreoffice --convert-to jpg "${1}" --outdir "$IMAGE_CACHE_DIR" >/dev/null
 		wait
-		file_name="$(printf "%s" "${1##*/}" | cut -d. -f1)"
+		file_name="${1%.*}"
 		mv -f "${IMAGE_CACHE_DIR}/$file_name.jpg" "$IMAGE_CACHE_PATH.jpg"
 		MIME_TYPE="image/jpeg"
 		set -- "${IMAGE_CACHE_PATH}.jpg"
@@ -136,11 +136,11 @@ main() {
 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES - 6))
 
 	case "$MIME_TYPE" in
-		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
-		text/*) bat -n --color=always "$1" ;;
-		audio/*) exiftool "$1" ;;
-		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
-		*) bat -n --color=always "$1" ;;
+	image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+	text/*) bat -n --color=always "$1" ;;
+	audio/*) exiftool "$1" ;;
+	application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+	*) bat -n --color=always "$1" ;;
 	esac
 }
 
