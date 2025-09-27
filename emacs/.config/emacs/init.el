@@ -2595,7 +2595,7 @@ selection of all minor-modes, active or not."
 (defhydra org-refile-hydra (:exit t :idle 1)
   (" ." my/org-refile-to-file "to current file" :column " refile")
   (" c" my/org-refile-to-running-clock "to clocked")
-  (" t" (my/org-refile-to-file nil (concat notes-dir "/tasks.org")) "to tasks.org")
+  (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
   (" i" (my/org-refile-to-file nil (concat notes-dir "/ideas.org")) "to ideas.org")
   (" p" (my/org-refile-to-file nil (concat notes-dir "/projects.org")) "to projects.org")
   (" a" org-refile "to agenda/buffers")
