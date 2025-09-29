@@ -1857,7 +1857,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (citar-file-open-functions (list (cons t 'citar-file-open-external)))
   :hook
   ((org-mode . (lambda ()
-                 ;; (cursor-sensor-mode 1)
+                 (cursor-sensor-mode 1)
                  (org-cite-csl-activate-render-all)
                  (citar-capf-setup)
                  ))
