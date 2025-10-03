@@ -1,0 +1,339 @@
+#!/usr/bin/env -S uv run --script
+#
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "flask",
+#     "selenium",
+#     "webdriver-manager",
+#     "watchdog",
+#     "jupyter-server"
+# ]
+# ///
+
+import os
+import signal
+import subprocess
+import threading
+import time
+
+from flask import Flask, request
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+from webdriver_manager.chrome import ChromeDriverManager
+
+signal_event = threading.Event()
+
+is_signal_recieved_from_vim = False
+
+
+def wait_for_signal(timeout=5):
+    global is_signal_recieved_from_vim
+    if not is_signal_recieved_from_vim:
+        return
+    print("Waiting for signal...")
+    received = signal_event.wait(timeout=timeout)
+    if received:
+        print("Signal received!")
+        signal_event.clear()  # reset for next wait
+    else:
+        print("Timeout, no signal received.")
+    is_signal_recieved_from_vim = False
+    return received
+
+
+class NotebookExecutor:
+    def __init__(self, driver):
+        # Other potential methods to use
+        # notebook:restart-clear-output
+        # notebook:restart-and-run-to-selected
+        self.driver = driver
+
+    def run_cells(self, cell_indices):
+        self.driver.execute_script(
+            f"""
+            const panel = window.jupyterapp.shell.currentWidget;
+            const nb = panel.content;
+            const indexes = {str(cell_indices)};
+
+            nb.scrollToItem({cell_indices[0]});
+            for (let i = 0; i < indexes.length; i++) {{
+                nb.activeCellIndex = indexes[i];
+                nb.select(nb.widgets[indexes[i]]);  // selects first cell and clears previous selection
+            }}
+
+            nb.scrollToItem({cell_indices[-1]});
+            window.jupyterapp.commands.execute('notebook:run-cell');
+
+            """
+        )
+
+        self.driver.find_element(
+            By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel"
+        ).send_keys(Keys.CONTROL + "s")
+        return {"status": f"Executed cell {cell_indices}"}
+
+    def run_all_cells(self):
+        self.driver.execute_script(
+            """
+            window.jupyterapp.commands.execute('notebook:run-all-cells');
+            """
+        )
+
+        self.driver.find_element(
+            By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel"
+        ).send_keys(Keys.CONTROL + "s")
+        return {"status": "Executed all cell"}
+
+    def goto_cell(self, cell_index):
+        self.driver.execute_script(
+            f"""
+            const panel = window.jupyterapp.shell.currentWidget;
+            const nb = panel.content;
+
+            nb.scrollToItem({cell_index});
+            nb.activeCellIndex = {cell_index};
+            """
+        )
+        return {"status": "Going to next cell"}
+
+    def restart_kernel(self):
+        self.driver.execute_script(
+            """
+            window.jupyterapp.commands.execute('notebook:restart-kernel');
+
+            """
+        )
+        return {"status": "Restarting Kernel"}
+
+
+# Flask API
+app = Flask(__name__)
+
+
+# Timeout script if flask hasn't been used for some time
+last_used = time.time()
+
+
+@app.before_request
+def update_last_used():
+    global last_used
+    last_used = time.time()
+
+
+def watchdog(timeout=3600):
+    global last_used
+    while True:
+        time.sleep(60)  # check every minute
+        if time.time() - last_used > timeout:
+            print("Idle for too long, shutting down.")
+            os.kill(os.getpid(), signal.SIGTERM)
+
+
+tabs = {}
+
+
+def goto_page(file_path):
+    notebook_url = get_notebook_link_from_file(file_path)
+    if notebook_url == driver.current_url:
+        return
+    # if tab already exists, switch to it
+    if notebook_url in tabs:
+        handle = tabs[notebook_url]
+        # If tab got closed, update tabs and open page
+        if handle not in driver.window_handles:
+            for key, val in list(tabs.items()):
+                if val == handle:
+                    del tabs[key]
+                    break
+            goto_page(file_path)
+            return
+        driver.switch_to.window(handle)  # switch to the tab
+    else:
+        # Else create new tab and add it in tabs
+        driver.switch_to.new_window("tab")
+        driver.get(notebook_url)
+        body = driver.find_element(By.TAG_NAME, "body")
+        body.send_keys(Keys.TAB)  # or any key, will focus body first
+        tabs[notebook_url] = driver.current_window_handle
+
+
+@app.route("/run_all_cells", methods=["GET"])
+def run_all_cells():
+    data = request.get_json(force=True)
+    file_path = data.get("file_path")
+    goto_page(file_path)
+    executor.run_all_cells()
+    return ""
+
+
+@app.route("/send_save_signal", methods=["GET"])
+def send_save_signal():
+    global is_signal_recieved_from_vim
+    is_signal_recieved_from_vim = True
+    return ""
+
+
+@app.route("/restart_kernel", methods=["GET"])
+def resetart_kernel():
+    data = request.get_json(force=True)
+    file_path = data.get("file_path")
+    goto_page(file_path)
+    executor.restart_kernel()
+    return ""
+
+
+@app.route("/goto_cell", methods=["GET"])
+def goto_cell():
+    data = request.get_json(force=True)
+    idx = data.get("index")
+    file_path = data.get("file_path")
+
+    goto_page(file_path)
+    executor.goto_cell(idx)
+    return ""
+
+
+@app.route("/run_cells", methods=["GET"])
+def run_cells():
+    signal_event.clear()  # reset for next wait
+    wait_for_signal(timeout=2)
+    data = request.get_json(force=True)
+    idx = data.get("index")
+    file_path = data.get("file_path")
+
+    goto_page(file_path)
+    executor.run_cells(idx)
+    return ""
+
+
+class PySyncHandler(FileSystemEventHandler):
+    def __init__(self):
+        self.last_modified = 0
+
+        # def on_modified(self, event):
+
+    def on_closed(self, event):
+        if event.is_directory or not event.src_path.endswith(".py"):
+            return
+
+        file_path = event.src_path
+        notebook_path = f"{event.src_path[:-3]}.ipynb"
+        # If notebook version doesn't exist, don't run jupytext
+
+        if not os.path.exists(notebook_path):
+            return
+        subprocess.run(
+            [
+                "jupytext",
+                "--to",
+                "ipynb",
+                file_path,
+                "--output",
+                notebook_path,
+                "--update",
+            ]
+        )
+        driver.find_element(By.CSS_SELECTOR, ".jp-Notebook").send_keys(
+            Keys.CONTROL + Keys.SHIFT + "q"
+        )
+
+        # If notebook is edited, a reload button is given, press it to override the notebook
+        buttons = driver.find_elements(
+            By.CSS_SELECTOR, ".jp-Dialog-button.jp-mod-accept"
+        )
+
+        if len(buttons) > 0:
+            buttons[0].click()
+
+        driver.find_element(By.CSS_SELECTOR, ".jp-Notebook").send_keys(
+            Keys.CONTROL + "s"
+        )
+        signal_event.set()
+        print("File modified:", event.src_path)
+
+
+def get_running_jupyter_in_cwd(cwd):
+    from jupyter_server.serverapp import list_running_servers
+
+    for server in list_running_servers():
+        if server["root_dir"] == cwd:
+            return server
+    return None
+
+
+def start_jupyter_server(cwd):
+    subprocess.Popen(
+        [
+            "jupyter",
+            "notebook",
+            "--notebook-dir",
+            cwd,
+            "--NotebookApp.answer_yes",
+            "True",
+            "--expose-app-in-browser",
+            "--no-browser",
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+
+
+def get_notebook_link_from_file(file_path):
+    # Get file path from jupyter server root directory
+    jupyter_server = get_running_jupyter_in_cwd(cwd)
+    file_rel_path = file_path[len(jupyter_server["root_dir"]) + 1 :]
+    # Remove .py extension
+    file_rel_path_without_ext = file_rel_path[:-3]
+
+    return f"http://localhost:{jupyter_server['port']}/notebooks/{file_rel_path_without_ext}.ipynb"
+
+
+if __name__ == "__main__":
+    import os
+    import sys
+
+    cwd = os.getcwd()
+    if len(sys.argv) < 3:
+        exit()
+    file_path = sys.argv[1]
+    flask_port = int(sys.argv[2])
+
+    jupyter_server = get_running_jupyter_in_cwd(cwd)
+    if jupyter_server is None:
+        start_jupyter_server(cwd)
+        jupyter_server = get_running_jupyter_in_cwd(cwd)
+
+    # Wait until server is running
+    while not jupyter_server:
+        time.sleep(1)
+        jupyter_server = get_running_jupyter_in_cwd(cwd)
+
+    chrome_options = Options()
+    chrome_options.add_argument("--start-maximized")
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()), options=chrome_options
+    )
+
+    notebook_url = get_notebook_link_from_file(file_path)
+
+    # TODO: Add tab titles when you create new windows to track which tab has which file
+    driver.get(notebook_url)
+    tabs[notebook_url] = driver.current_window_handle
+
+    executor = NotebookExecutor(driver)
+
+    event_handler = PySyncHandler()
+    observer = Observer()
+    observer.schedule(event_handler, ".", recursive=True)
+    observer.start()
+
+    threading.Thread(target=watchdog, daemon=True).start()
+    app.run(port=flask_port)
+
+# vim:filetype=python
