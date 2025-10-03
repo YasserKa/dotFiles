@@ -1797,9 +1797,6 @@ see how ARG affects this command."
         org-export-preserve-breaks t
         org-export-with-todo-keywords nil)
 
-  ;; Latex image size
-  (plist-put org-format-latex-options :scale 1.5)
-
   (use-package org-protocol
     :straight nil
     :ensure nil
