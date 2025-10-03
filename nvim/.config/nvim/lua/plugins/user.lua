@@ -728,106 +728,34 @@ return {
       )
     end,
   },
-  -- Jupyter notebook
-  {
-    "untitled-ai/jupyter_ascending.vim",
-    event = "BufEnter *sync.py",
-    config = function()
-      local wk = require "which-key"
-
-      -- Execute cells using the command line by passing the line numbers
-      Execute_cells = function(line_nums)
-        local file_path = vim.fn.expand "%:p"
-        local shell_command = "silent !{ "
-        -- { python -m jupyter_ascending.requests.execute --filename a.sync.py --line 1 && python -m jupyter_ascending.requests.execute --filename a.sync.py --line 6; } >/dev/null & disown
-        for _, line_num in ipairs(line_nums) do
-          shell_command = shell_command
-            .. " python -m jupyter_ascending.requests.execute --filename "
-            .. file_path
-            .. " --linenumber "
-            .. line_num
-            .. ";"
-        end
-        shell_command = shell_command .. " } >/dev/null & disown"
-        vim.cmd(shell_command)
-      end
-
-      -- Execute visually selected cells
-      Execute_selected_cells = function()
-        -- Leave visual mode to update the "<" and ">" marks
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "v", true)
-        local start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
-        local end_line = vim.api.nvim_buf_get_mark(0, ">")[1]
-        local lines = {}
-        -- Add first cell if the # %% isn't selected
-        local first_line = vim.api.nvim_buf_get_lines(0, start_line - 1, start_line, false)[1]
-        if not first_line:find "^# %%" then table.insert(lines, start_line) end
-
-        for line_num = start_line, end_line do
-          local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
-          if line:find "^# %%" then table.insert(lines, line_num) end
-        end
-        Execute_cells(lines)
-      end
-
-      -- Run jupyter server if it's not runing and open jupyter notebook in browser
-      Run_Jupyter_Server = function()
-        local filename = vim.api.nvim_buf_get_name(0)
-        local name_without_ext = vim.fn.fnamemodify(filename, ":t:r")
-        local shell_command = 'silent !{ pgrep jupyter || jupyter notebook --no-browser &; } && $BROWSER --target window "http://localhost:8888/notebooks/'
-          .. name_without_ext
-          .. '.ipynb" >/dev/null & disown'
-        vim.cmd(shell_command)
-      end
-
-      wk.add {
-        { "<localLeader>n", group = "jupyter ascending" },
-        {
-          "<localLeader>nC",
-          "<Plug>JupyterExecute <cmd>call search('# %%$')<cr>",
-          desc = "Execute cell and jump to next cell",
-        },
-        {
-          "<localLeader>nJ",
-          ":lua Run_Jupyter_Server()<CR>",
-          desc = "Run Jupyter server",
-        },
-        { "<localLeader>nR", "<Plug>JupyterRestart", desc = "Restart Jupyter" },
-        { "<localLeader>nc", "<Plug>JupyterExecute", desc = "Execute cell" },
-        { "<localLeader>nr", "<Plug>JupyterExecuteAll", desc = "Run file" },
-      }
-
-      wk.add {
-        { "<localLeader>n", group = "Jupyter Ascending", mode = "v" },
-        { "<localLeader>nc", ":lua Execute_selected_cells()<CR>", desc = "Execute selected cells", mode = "v" },
-      }
-    end,
-  },
   -- For inserting and navigating cells
   {
     "https://github.com/hanschen/vim-ipython-cell",
-    event = "BufEnter *sync.py",
-    dependencies = "untitled-ai/jupyter_ascending.vim",
+    event = "BufEnter *.py",
     config = function()
-      local wk = require "which-key"
-      wk.add {
-        { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
-        { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
-        { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
-        { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
-        { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
-        { "[c", ":IPythonCellPrevCell<CR>", desc = "Previous Cell" },
-        { "]c", ":IPythonCellNextCell<CR>", desc = "Next Cell" },
-      }
-      wk.add {
-        {
-          mode = { "i" },
-          { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
-          { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
-          { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
-          { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
-        },
-      }
+      local bufnr = vim.api.nvim_get_current_buf()
+      local first_line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]
+      if first_line == "# %%" then
+        local wk = require "which-key"
+        wk.add {
+          { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
+          { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
+          { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
+          { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
+          { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
+          { "[c", ":IPythonCellPrevCell<CR>", desc = "Previous Cell" },
+          { "]c", ":IPythonCellNextCell<CR>", desc = "Next Cell" },
+        }
+        wk.add {
+          {
+            mode = { "i" },
+            { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+            { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+            { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+            { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+          },
+        }
+      end
     end,
   },
 }

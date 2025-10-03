@@ -487,6 +487,10 @@ reboot() {
 	command shutdown --reboot now
 }
 
+make_jupytext_pair() {
+	echo "# %%" >"$1.py" && jupytext --to ipynb "$1.py"
+}
+
 shutdown() {
 	if wait_internet; then
 		push_files_to_remote || exit 1
