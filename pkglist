@@ -60,7 +60,7 @@ cmus # Feature-rich ncurses-based music player
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal
 ttf-firacode-nerd # Patched font Fira Code
 ttf-twemoji # Twitter Color Emoji (Used for terminal)
-ttf-font-awesome # Iconic font designed for Bootstrap
+woff2-font-awesome # Iconic font designed for Bootstrap
 gtk2 # GUI toolkit (needed for pinentry-gtk-2)
 adapta-gtk-theme # An adaptive Gtk+ theme based on Material Design Guidelines
 unclutter # hide cursor if not active
@@ -247,7 +247,7 @@ xorg-xinput # Configure devices (used to lock keyboard input during text inserti
 wlroots       # Compositor library for wayland
 wlroots-debug
 xorg-xwayland # run X clients under wayland
-swayfx        # Sway with eye candy
+# swayfx        # Sway with eye candy
 swaybg        # Wallpaper tool
 swaylock      # Screen locker
 waybar        # Wayland bar
