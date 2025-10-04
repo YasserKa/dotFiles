@@ -73,8 +73,9 @@ main() {
 	if array::contains "substring" "$MIME_TYPE" "${DOCUMENT_MIME_TYPES[@]}"; then
 		libreoffice --convert-to jpg "${1}" --outdir "$IMAGE_CACHE_DIR" >/dev/null
 		wait
-		file_name="${1%.*}"
-		mv -f "${IMAGE_CACHE_DIR}/$file_name.jpg" "$IMAGE_CACHE_PATH.jpg"
+		file_basename="${1##*/}"
+		file_basename="${file_basename%.*}"
+		mv -f "${IMAGE_CACHE_DIR}/$file_basename.jpg" "$IMAGE_CACHE_PATH.jpg"
 		MIME_TYPE="image/jpeg"
 		set -- "${IMAGE_CACHE_PATH}.jpg"
 	fi
