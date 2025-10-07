@@ -1,0 +1,172 @@
+\documentclass[12pt, border=0.2cm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% Remove indentation and labels
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*, label={}}
+
+% Configuration variables - set to true or false
+\newif\ifupdated
+\newif\ifothersources
+
+% Diagram configuration
+\updatedfalse       % Set to \updatedtrue for updated review
+\othersourcesfalse   % Set to \othersourcestrue to include other sources
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[>=latex, font={\sf \small}]
+
+\tikzstyle{bluerect} = [rectangle, rounded corners, minimum width=1.5cm, minimum height=0.75cm, text centered, draw=black, fill=cyan!60!gray!45!white, rotate=90, font=\sffamily]
+
+\tikzstyle{roundedrect} = [rectangle, rounded corners, minimum width=12cm, minimum height=1cm, text centered, draw=black, font=\sffamily]
+
+\tikzstyle{textrect} = [rectangle, minimum width=5.25cm, text width=5.24cm, minimum height=1cm, draw=black, font={\sffamily \footnotesize}]
+
+\tikzstyle{textrect_gray} = [rectangle, minimum width=5.25cm, text width=5.24cm, minimum height=1cm, draw=black, fill=gray!20, font={\sffamily \footnotesize}]
+
+% Previous studies section (only for updated reviews)
+\ifupdated
+  \node (top1_previous) at (-10, 10.5cm) [draw, roundedrect, minimum width =5.5cm, fill=gray!20]
+    {Previous studies};
+
+  \node (r1left_previous) at (-10, 8.0cm) [draw, textrect_gray, minimum height=3cm]
+    {
+       \begin{itemize}[topsep=0pt, partopsep=0pt, leftmargin=*]
+           \item Studies included in previous version of review ($n = $) \\
+           \item Reports of studies included in previous version of review ($n = $)
+       \end{itemize}
+    };
+\fi
+
+% Blue labels
+\node (r1blue) at (\ifupdated-13.5cm\else-6.75cm\fi, 8.0cm) [draw, bluerect, minimum width=3cm]{Identification};
+
+\node (r2blue) at (\ifupdated-13.5cm\else-6.75cm\fi, 1.5cm) [draw, bluerect, minimum width=8.5cm]
+  {Screening};
+
+\node (r5blue) at (\ifupdated-13.5cm\else-6.75cm\fi, \ifupdated-6cm\else-4.5cm\fi) [draw, bluerect, minimum width=\ifupdated5cm\else2cm\fi]
+  {Included};
+
+% Main flow - Databases and registers
+\node (top1) at (0, 10.5cm) [draw, roundedrect, fill=yellow!80!red!70]
+  {Identification of studies via databases and registers};
+
+\node (r1left) at (-3.25cm, 8.0cm) [draw, textrect, minimum height=3cm]
+  {Records identified from:
+     \begin{itemize}
+     \item Databases ($n=$)
+     \item Registers ($n=$)
+     \end{itemize}   
+  };
+
+\node (r1right) at (3.25, 8.0cm) [draw, textrect, minimum height=3cm]
+  {Records removed before screening: 
+    \begin{itemize}
+    \item Duplicates ($n=$)
+    \item Ineligible ($n=$)
+    \item Other reasons ($n=$)
+    \end{itemize} 
+  };
+
+\node (r2left) at (-3.25cm, 5.0cm) [draw, textrect, minimum height=1.5cm]
+  {Records screened ($n=$)};
+
+\node (r2right) at (3.25, 5.0cm) [draw, textrect, minimum height=1.5cm]
+  {Records excluded ($n=$)};
+
+\node (r3left) at (-3.25cm, 2.5cm) [draw, textrect, minimum height=1.5cm]
+  {Reports sought for retrieval ($n=$)};
+
+\node (r3right) at (3.25, 2.5cm) [draw, textrect, minimum height=1.5cm]
+  {Not retrieved ($n=$)};
+
+\node (r4left) at (-3.25cm, 0cm) [draw, textrect, minimum height=1.5cm]
+  {Reports assessed for eligibility ($n=$)};
+
+\node (r4right) at (3.25, -1.0cm) [draw, textrect, minimum height=3.5cm]
+  {Reports Excluded: 
+    \begin{itemize}
+    \item Reason 1 ($n=$)
+    \item Reason 2 ($n=$)
+    \item Reason 3 ($n=$)
+    \item etc.
+    \end{itemize}     
+  };
+
+\node (r5left) at (-3.25cm, -4.5cm) [draw, textrect, minimum height=2cm]
+  {\ifupdated New studies\else Studies\fi{} included in review \\ 
+   ($n=$) \\ 
+   Reports of included studies \\ 
+   ($n=$)  };
+
+% Total studies box (only for updated reviews)
+\ifupdated
+  \node (r6left) at (-3.25cm, -7.5cm) [draw, textrect_gray, minimum height=2cm]
+    {Total studies included in review \\ 
+     ($n=$) \\ 
+     Reports of total included studies \\ 
+     ($n=$)  };
+\fi
+
+% Draw arrows for main flow
+\draw[thick, ->] (r1left) -- (r1right);
+\draw[thick, ->] (r1left) -- (r2left);
+\draw[thick, ->] (r2left) -- (r2right);
+\draw[thick, ->] (r2left) -- (r3left);
+\draw[thick, ->] (r3left) -- (r3right);
+\draw[thick, ->] (r3left) -- (r4left);
+\draw[thick, ->] (r4left) -+ (0.5,0);
+\draw[thick, ->] (r4left) -- (r5left);
+
+\ifupdated
+  \draw[thick, ->] (r5left) -- (r6left);
+  \draw[thick, ->] (r1left_previous.south) |- (r6left.west);
+\fi
+
+% Other sources section (conditional)
+\ifothersources
+  \node (top_others) at (13cm, 10.5cm) [draw, roundedrect, fill=gray!20]
+    {Identification of new studies via other methods};
+
+  \node (r1right_others) at (9.75cm, 8.0cm) [draw, textrect_gray, minimum height=3cm]
+    {Records identified from: 
+      \begin{itemize}
+      \item Websites ($n=$)
+      \item Organisations ($n=$)
+      \item Citation searching ($n=$)
+      etc.
+      \end{itemize} 
+    };
+
+  \node (r3left_others) at (9.75, 2.5cm) [draw, textrect_gray, minimum height=1.5cm]
+    {Reports sought for retrieval ($n=$)};
+
+  \node (r3right_others) at (16.25cm, 2.5cm) [draw, textrect_gray, minimum height=1.5cm]
+    {Not retrieved ($n=$)};
+
+  \node (r4left_others) at (9.75cm, 0cm) [draw, textrect_gray, minimum height=1.5cm]
+    {Reports assessed for eligibility ($n=$)};
+
+  \node (r4right_others) at (16.25cm, -1cm) [draw, textrect_gray, minimum height=3.5cm]
+    {Reports Excluded: 
+      \begin{itemize}
+      \item Reason 1 ($n=$)
+      \item Reason 2 ($n=$)
+      \item Reason 3 ($n=$)
+      etc.
+      \end{itemize}     
+    };
+
+  % Draw arrows for other sources
+  \draw[thick, ->] (r1right_others) -- (r3left_others);
+  \draw[thick, ->] (r3left_others) -- (r3right_others);
+  \draw[thick, ->] (r3left_others) -- (r4left_others);
+  \draw[thick, ->] (r4left_others) -+ (13.5,0);
+  \draw[thick, ->] (r4left_others.south) |- (r5left.east);
+\fi
+
+\end{tikzpicture}
+\end{document}
