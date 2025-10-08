@@ -47,12 +47,12 @@ vim.api.nvim_create_autocmd("BufNewFile", {
   command = "0r ~/.config/nvim/skeletons/skeleton.py | exe 'normal jo' | startinsert",
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = { "*.py" },
   callback = function(args)
     local first_line_file = vim.api.nvim_buf_get_lines(args.buf, 0, 1, false)[1]
-    if first_line_file == "# %%" then
-      vim.api.nvim_create_autocmd({ "BufWrite" }, {
+    if first_line_file:match "^# %%%%" then
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         callback = function()
           local file_path = vim.fn.expand "%:p"
 
@@ -65,32 +65,20 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
           vim.fn.jobstart(cmd, { detach = true })
         end,
       })
-      local wk = require "which-key"
-      local function get_jupyter_root()
-        -- run `jupyter server list`
-        local handle = io.popen "jupyter server list --jsonlist 2>/dev/null"
-        if not handle then return nil end
-        local result = handle:read "*a"
-        handle:close()
 
-        local ok, servers = pcall(vim.json.decode, result)
-        if not ok or not servers then return nil end
-
-        -- current directory in nvim
-        local cwd = vim.fn.getcwd()
-
-        -- find server whose root is prefix of cwd
-        for _, srv in ipairs(servers) do
-          if cwd:find("^" .. vim.pesc(srv.root_dir)) then return srv.root_dir end
-        end
-        return nil
+      local function find_pyproject_root()
+        local root_file = vim.fs.find("pyproject.toml", {
+          upward = true,
+          path = vim.api.nvim_buf_get_name(0),
+        })[1]
+        return root_file and vim.fs.dirname(root_file) or nil
       end
 
       local function find_free_port(start_port)
         local port = start_port or 5000
 
         -- If jupyter running in the driectory, get the PWD of where it's running
-        local root = get_jupyter_root()
+        local root = find_pyproject_root()
         if root then
           local handle = io.popen(
             "ps aux | grep '"
@@ -128,7 +116,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 
         local cell = -1
         for _, line in ipairs(lines) do
-          if line:match "^# %%%%" or line:match "^%%%% %[markdown%]" then cell = cell + 1 end
+          if line:match "^# %%%%$" or line:match "^%%%% %[markdown%]$" then cell = cell + 1 end
         end
 
         return cell
@@ -160,7 +148,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
       Execute_selected_cells = function()
         -- Leave visual mode to update the "<" and ">" marks
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-        -- vim.wait(1000) -- waits 1 second
         local start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
         local end_line = vim.api.nvim_buf_get_mark(0, ">")[1]
 
@@ -220,10 +207,16 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         vim.fn.jobstart(cmd, { detach = true })
       end
 
-      local function run_jupyter_server()
+      local function start_jupyter_selenium_api()
         vim.g.my_free_port = find_free_port(5000)
         local filename = vim.api.nvim_buf_get_name(0)
         local cmd = string.format("$HOME/.config/jupyter/bin/jupyter_selenium '%s' %d", filename, vim.g.my_free_port)
+        vim.fn.jobstart(cmd, { detach = true })
+      end
+
+      local function shutdown_jupyter_selenium_api()
+        local url = "http://localhost:" .. vim.g.my_free_port .. "/shutdown"
+        local cmd = string.format("curl -X POST %s", url)
         vim.fn.jobstart(cmd, { detach = true })
       end
 
@@ -258,6 +251,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         vim.api.nvim_buf_set_lines(bufnr, start_line - 1, end_line - 1, false, {})
       end
 
+      local wk = require "which-key"
       wk.add {
         { "<localLeader>n", group = "Jupyter" },
         { "<localLeader>nc", execute_cell, desc = "Execute cell/s" },
@@ -273,8 +267,13 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
         { "<localLeader>ng", goto_cell, desc = "Goto cell" },
         {
           "<localLeader>nJ",
-          run_jupyter_server,
-          desc = "Run Jupyter server",
+          start_jupyter_selenium_api,
+          desc = "Start API",
+        },
+        {
+          "<localLeader>nS",
+          shutdown_jupyter_selenium_api,
+          desc = "Shutdown API",
         },
         { "<localLeader>nR", restart_kernel, desc = "Restart Kernel" },
         { "<localLeader>nr", execute_all_cells, desc = "Execute all cells" },
@@ -747,27 +746,6 @@ vim.api.nvim_exec2(
  let g:ipython_cell_run_command	= '%run -t "{filepath}"'
 
  xnoremap gcc :Commentary<cr>
-
- " {{{ vim-ipython-cell / vim-slime
- " Slime
- " always use tmux
- let g:slime_target = 'tmux'
-
- " https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
- let g:slime_bracketed_ipython = 1
-
- " always send text to the top-right pane in the current tmux tab without asking
- let g:slime_default_config = {
- \ 'socket_name': get(split($TMUX, ','), 0),
- \ 'target_pane': ':{next}.1' }
-
- let g:slime_dont_ask_default = 1
-
- " Override the comment that makes a cell take "##", this will cause a problem if
- " there's a string having "##"
- let g:ipython_cell_tag = ['# %%']
-
- " }}}
  "  {{{ markdown-preview.nvim
  let g:mkdp_command_for_global = 1
  let g:mkdp_page_title = '${name}'

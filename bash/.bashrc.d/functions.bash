@@ -487,7 +487,7 @@ reboot() {
 	command shutdown --reboot now
 }
 
-make_jupytext_pair() {
+create_jupytext_pair() {
 	echo "# %%" >"$1.py" && jupytext --to ipynb "$1.py"
 }
 

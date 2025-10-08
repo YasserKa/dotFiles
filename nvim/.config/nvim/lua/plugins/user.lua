@@ -504,7 +504,8 @@ return {
         },
         -- Python
         -- null_ls.builtins.diagnostics.ruff,
-        null_ls.builtins.formatting.isort,
+        -- Lags python
+        -- null_ls.builtins.formatting.isort,
         null_ls.builtins.formatting.black.with {
           extra_args = { "--experimental-string-processing" },
         },
@@ -688,14 +689,15 @@ return {
         -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
         -- taplo: toml
         "lua-language-server",
-        "pyright",
+        -- "pyright",
         "bash-language-server",
         "taplo",
 
         -- Formatters
         "prettier",
         "stylua",
-        "isort",
+        -- Lags python
+        -- "isort",
         "ruff",
         "black",
         "shellcheck",
@@ -731,31 +733,60 @@ return {
   -- For inserting and navigating cells
   {
     "https://github.com/hanschen/vim-ipython-cell",
-    event = "BufEnter *.py",
+    event = "BufReadPost *.py",
+    dependencies = "https://github.com/jpalardy/vim-slime",
     config = function()
-      local bufnr = vim.api.nvim_get_current_buf()
-      local first_line = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]
-      if first_line == "# %%" then
-        local wk = require "which-key"
-        wk.add {
-          { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
-          { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
-          { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
-          { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
-          { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
-          { "[c", ":IPythonCellPrevCell<CR>", desc = "Previous Cell" },
-          { "]c", ":IPythonCellNextCell<CR>", desc = "Next Cell" },
-        }
-        wk.add {
-          {
-            mode = { "i" },
-            { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
-            { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
-            { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
-            { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
-          },
-        }
+      -- Vim-slime setting
+      -- always use tmux
+      vim.g.slime_target = "tmux"
+
+      -- https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
+      vim.g.slime_bracketed_ipython = 1
+
+      -- always send text to the top-right pane in the current tmux tab without asking
+      vim.g.slime_default_config = {
+        socket_name = vim.split(vim.env.TMUX or "", ",")[1],
+        target_pane = "{top-right}",
+      }
+
+      vim.g.slime_dont_ask_default = 1
+
+      -- Override the comment that makes a cell take "##"
+      -- this will cause a problem if there's a string having "##"
+      vim.g.ipython_cell_tag = { "# %%" }
+
+      local function setup_python_buffer()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local first_line_file = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]
+        if first_line_file:match "^# %%%%" then
+          local wk = require "which-key"
+          wk.add {
+            { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
+            { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
+            { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
+            { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
+            { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
+            { "[c", ":IPythonCellPrevCell<CR>", desc = "Previous Cell" },
+            { "]c", ":IPythonCellNextCell<CR>", desc = "Next Cell" },
+          }
+          wk.add {
+            {
+              mode = { "i" },
+              { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+              { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+              { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+              { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+            },
+          }
+        end
       end
+
+      vim.api.nvim_create_autocmd({ "BufRead" }, {
+        pattern = { "*.py" },
+        callback = setup_python_buffer,
+      })
+      -- Trigger immediately if current buffer is already a .py file
+      if vim.fn.expand("%"):match "%.py$" then setup_python_buffer() end
     end,
   },
 }

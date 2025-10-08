@@ -18,11 +18,14 @@ import threading
 import time
 
 from flask import Flask, request
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 from webdriver_manager.chrome import ChromeDriverManager
@@ -30,6 +33,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 signal_event = threading.Event()
 
 is_signal_recieved_from_vim = False
+jupyter_process = None
 
 
 def wait_for_signal(timeout=5):
@@ -45,6 +49,11 @@ def wait_for_signal(timeout=5):
         print("Timeout, no signal received.")
     is_signal_recieved_from_vim = False
     return received
+
+
+def set_vim_signal_to_false():
+    global is_signal_recieved_from_vim
+    is_signal_recieved_from_vim = False
 
 
 class NotebookExecutor:
@@ -106,7 +115,14 @@ class NotebookExecutor:
         self.driver.execute_script(
             """
             window.jupyterapp.commands.execute('notebook:restart-kernel');
+            """
+        )
+        return {"status": "Restarting Kernel"}
 
+    def shutdown_kernel(self):
+        self.driver.execute_script(
+            """
+            window.jupyterapp.commands.execute('notebook:shutdown-kernel');
             """
         )
         return {"status": "Restarting Kernel"}
@@ -132,7 +148,7 @@ def watchdog(timeout=3600):
         time.sleep(60)  # check every minute
         if time.time() - last_used > timeout:
             print("Idle for too long, shutting down.")
-            os.kill(os.getpid(), signal.SIGTERM)
+            shutdown()
 
 
 tabs = {}
@@ -140,6 +156,21 @@ tabs = {}
 
 def goto_page(file_path):
     notebook_url = get_notebook_link_from_file(file_path)
+
+    # Don't focus browser when opening and moving through tabs
+    subprocess.Popen(
+        [
+            os.path.expandvars(
+                "$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration"
+            ),
+            "none",
+            "3",
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if driver.current_url is None:
+        driver.switch_to.window(driver.window_handles[-1])
     if notebook_url == driver.current_url:
         return
     # if tab already exists, switch to it
@@ -158,6 +189,13 @@ def goto_page(file_path):
         # Else create new tab and add it in tabs
         driver.switch_to.new_window("tab")
         driver.get(notebook_url)
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel")
+            )
+        )
+
         body = driver.find_element(By.TAG_NAME, "body")
         body.send_keys(Keys.TAB)  # or any key, will focus body first
         tabs[notebook_url] = driver.current_window_handle
@@ -165,6 +203,9 @@ def goto_page(file_path):
 
 @app.route("/run_all_cells", methods=["GET"])
 def run_all_cells():
+    global is_signal_recieved_from_vim
+    is_signal_recieved_from_vim = True
+    threading.Timer(3, set_vim_signal_to_false).start()
     data = request.get_json(force=True)
     file_path = data.get("file_path")
     goto_page(file_path)
@@ -176,6 +217,8 @@ def run_all_cells():
 def send_save_signal():
     global is_signal_recieved_from_vim
     is_signal_recieved_from_vim = True
+    threading.Timer(3, set_vim_signal_to_false).start()
+
     return ""
 
 
@@ -201,6 +244,7 @@ def goto_cell():
 
 @app.route("/run_cells", methods=["GET"])
 def run_cells():
+    threading.Timer(3, set_vim_signal_to_false).start()
     signal_event.clear()  # reset for next wait
     wait_for_signal(timeout=2)
     data = request.get_json(force=True)
@@ -208,32 +252,34 @@ def run_cells():
     file_path = data.get("file_path")
 
     goto_page(file_path)
+    global is_signal_recieved_from_vim
+    is_signal_recieved_from_vim = True
     executor.run_cells(idx)
     return ""
 
 
+@app.route("/shutdown", methods=["POST"])
+def shutdown():
+    executor.shutdown_kernel()
+    driver.quit()
+    jupyter_process.terminate()
+    os.kill(os.getpid(), signal.SIGINT)
+    return "Shutting down", 200
+
+
 class PySyncHandler(FileSystemEventHandler):
     def __init__(self):
-        self.last_modified = 0
+        self.notebook_changed = False
+        self.py_changed = False
+        self._timers = {}  # keep active timers by attribute name
 
-        # def on_modified(self, event):
-
-    def on_closed(self, event):
-        if event.is_directory or not event.src_path.endswith(".py"):
-            return
-
-        file_path = event.src_path
-        notebook_path = f"{event.src_path[:-3]}.ipynb"
-        # If notebook version doesn't exist, don't run jupytext
-
-        if not os.path.exists(notebook_path):
-            return
+    def transform_py_to_ipynb(self, py_path, notebook_path):
         subprocess.run(
             [
                 "jupytext",
                 "--to",
                 "ipynb",
-                file_path,
+                py_path,
                 "--output",
                 notebook_path,
                 "--update",
@@ -251,36 +297,99 @@ class PySyncHandler(FileSystemEventHandler):
         if len(buttons) > 0:
             buttons[0].click()
 
-        driver.find_element(By.CSS_SELECTOR, ".jp-Notebook").send_keys(
-            Keys.CONTROL + "s"
-        )
+        # driver.find_element(By.CSS_SELECTOR, ".jp-Notebook").send_keys(
+        #     Keys.CONTROL + "s"
+        # )
         signal_event.set()
-        print("File modified:", event.src_path)
+        print("Notebook modified:", notebook_path)
+
+    def transform_ipynb_to_py(self, py_path, notebook_path):
+        subprocess.run(
+            [
+                "jupytext",
+                "--to",
+                "py",
+                notebook_path,
+                "--output",
+                py_path,
+            ]
+        )
+        print("Python file modified:", py_path)
+
+    def schedule_var(self, name, value, delay):
+        # cancel previous timer for this var if exists
+        if name in self._timers:
+            self._timers[name].cancel()
+
+        t = threading.Timer(delay, self.set_var, args=(name, value))
+        t.start()
+        self._timers[name] = t
+
+    def set_var(self, name, value):
+        setattr(self, name, value)
+        # timer finished, remove from dict
+        self._timers.pop(name, None)
+
+    def on_closed(self, event):
+        global is_signal_recieved_from_vim
+        if event.is_directory:
+            return
+
+        if event.src_path.endswith(".py"):
+            if self.notebook_changed:
+                self.schedule_var("notebook_changed", False, 3)
+                return ""
+            self.py_changed = True
+            py_path = event.src_path
+            notebook_path = f"{event.src_path[:-3]}.ipynb"
+            # If notebook version doesn't exist, don't run jupytext
+            if not os.path.exists(notebook_path):
+                return ""
+            goto_page(os.path.abspath(py_path))
+            self.transform_py_to_ipynb(py_path, notebook_path)
+
+        if event.src_path.endswith(".ipynb"):
+            if self.py_changed:
+                self.schedule_var("py_changed", False, 3)
+                return ""
+            if is_signal_recieved_from_vim:
+                return ""
+            self.notebook_changed = True
+            notebook_path = event.src_path
+            py_path = f"{event.src_path[:-6]}.py"
+
+            if os.path.exists(py_path):
+                self.transform_ipynb_to_py(py_path, notebook_path)
 
 
 def get_running_jupyter_in_cwd(cwd):
     from jupyter_server.serverapp import list_running_servers
 
+    project_dir = find_pyproject_root(cwd)
     for server in list_running_servers():
-        if server["root_dir"] == cwd:
+        if server["root_dir"] == project_dir:
             return server
     return None
 
 
 def start_jupyter_server(cwd):
-    subprocess.Popen(
+    global jupyter_process
+    project_dir = find_pyproject_root(cwd)
+    jupyter_process = subprocess.Popen(
         [
+            "python",
+            "-m",
             "jupyter",
             "notebook",
             "--notebook-dir",
-            cwd,
+            project_dir,
             "--NotebookApp.answer_yes",
             "True",
             "--expose-app-in-browser",
             "--no-browser",
         ],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
     )
 
 
@@ -292,6 +401,17 @@ def get_notebook_link_from_file(file_path):
     file_rel_path_without_ext = file_rel_path[:-3]
 
     return f"http://localhost:{jupyter_server['port']}/notebooks/{file_rel_path_without_ext}.ipynb"
+
+
+def find_pyproject_root(start_path=None):
+    """Find directory containing pyproject.toml"""
+    path = Path(start_path or Path.cwd()).resolve()
+
+    for directory in [path, *path.parents]:
+        if (directory / "pyproject.toml").exists():
+            return str(directory)
+
+    return None
 
 
 if __name__ == "__main__":
@@ -322,7 +442,6 @@ if __name__ == "__main__":
 
     notebook_url = get_notebook_link_from_file(file_path)
 
-    # TODO: Add tab titles when you create new windows to track which tab has which file
     driver.get(notebook_url)
     tabs[notebook_url] = driver.current_window_handle
 
