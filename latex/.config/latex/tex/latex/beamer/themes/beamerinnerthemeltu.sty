@@ -5,12 +5,13 @@
 \setbeamertemplate{itemize item}{\raisebox{0.22ex}{\tiny$\blacksquare$}\hskip0.1em}
 \setbeamertemplate{itemize subitem}{\raisebox{0.12ex}{\tiny$\blacksquare$}\hskip0.1em}
 
+
 % Title page
 \defbeamertemplate*{title page}{ltu}
 { 
   \tikz[remember picture,overlay] \node[inner sep=0pt] at (current page.center){
     {\color{structure}\rule{0.5\paperwidth}{\paperheight}}%
-    \includegraphics[width=0.5\paperwidth,height=1\paperheight]{./images/title_page_red_bg.jpg}
+    \includegraphics[width=0.5\paperwidth,height=1\paperheight]{title_page_red_bg.jpg}
   };
   \begin{tikzpicture}[remember picture, overlay]
     \node[anchor=center] at (current page.center) {

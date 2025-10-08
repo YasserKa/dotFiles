@@ -5,6 +5,9 @@
 \institute{LULEÅ UNIVERSITY OF TECHNOLOGY}
 \usetheme{ltu}
 
+% \setbeamertemplate{headline}{} % Uncomment to remove headline
+\setbeameroption{show notes on second screen} % Show notes
+
 % Add symbols
 \usepackage[T1]{fontenc}
 \usepackage{lmodern} % Latin Modern fonts
@@ -19,10 +22,19 @@
   filecolor=magenta,
   urlcolor=blue,
 }
-\setbeameroption{show notes on second screen} % Show notes
+
+%%%%
+% \notes<1>
+% \only<1>{... Could be figure}
+% \notes[item]
+% \notes[enuemrate/itemize] (outside of frame)
+% \AtBeginNote{<text>} Add to every note
+% \AtEndNote{<text>}   Add to every note
+%%%%
+
 \begin{document}
 
-\titlepage
+\frame{\titlepage}
 
 \begin{frame}
   \frametitle{Contents}
@@ -31,6 +43,7 @@
 
 \section{Lists, columns, image}
 \begin{frame}[t]
+
   \frametitle{Lists}
   \begin{columns}
     \column{0.5\textwidth}
