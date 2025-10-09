@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
         local cell = -1
         for _, line in ipairs(lines) do
-          if line:match "^# %%%%$" or line:match "^%%%% %[markdown%]$" then cell = cell + 1 end
+          if line:match "^# %%%%$" or line:match "^# %%%% %[markdown%]$" then cell = cell + 1 end
         end
 
         return cell

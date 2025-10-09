@@ -1548,6 +1548,8 @@ Made for `org-tab-first-hook' in evil-mode."
                                 :priority "A")
                          (:name "Capture"
                                 :file-path ".*capture.org")
+                         (:name "Tasks"
+                                :file-path ".*/tasks.org")
                          (:discard (:anything))
                          ))))
             ))
