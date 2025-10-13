@@ -758,7 +758,7 @@ return {
       local function setup_python_buffer()
         local bufnr = vim.api.nvim_get_current_buf()
         local first_line_file = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]
-        if first_line_file:match "^# %%%%" then
+        if first_line_file:match "^#%s*%%%%" then
           local wk = require "which-key"
           wk.add {
             { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },

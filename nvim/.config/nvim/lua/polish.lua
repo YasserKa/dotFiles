@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = { "*.py" },
   callback = function(args)
     local first_line_file = vim.api.nvim_buf_get_lines(args.buf, 0, 1, false)[1]
-    if first_line_file:match "^# %%%%" then
+    if first_line_file:match "^#%s*%%%%" then
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         callback = function()
           local file_path = vim.fn.expand "%:p"
@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
         local cell = -1
         for _, line in ipairs(lines) do
-          if line:match "^# %%%%$" or line:match "^# %%%% %[markdown%]$" then cell = cell + 1 end
+          if line:match "^#%s*%%%%$" or line:match "^#%s*%%%%%s*%[markdown%]$" then cell = cell + 1 end
         end
 
         return cell
@@ -231,7 +231,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         local start_line = 1
         for l = cur_line, 1, -1 do
           local text = vim.api.nvim_buf_get_lines(bufnr, l - 1, l, false)[1]
-          if text:match "^# %%%%" then
+          if text:match "^#%s*%%%%" then
             start_line = l
             break
           end
@@ -241,7 +241,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         local end_line = line_count + 1
         for l = cur_line + 1, line_count do
           local text = vim.api.nvim_buf_get_lines(bufnr, l - 1, l, false)[1]
-          if text:match "^# %%%%" then
+          if text:match "^#%s*%%%%" then
             end_line = l
             break
           end
