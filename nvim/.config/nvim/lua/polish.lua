@@ -210,8 +210,31 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
       local function start_jupyter_selenium_api()
         vim.g.my_free_port = find_free_port(5000)
         local filename = vim.api.nvim_buf_get_name(0)
-        local cmd = string.format("$HOME/.config/jupyter/bin/jupyter_selenium '%s' %d", filename, vim.g.my_free_port)
-        vim.fn.jobstart(cmd, { detach = true })
+
+        local root = find_pyproject_root()
+        local handle = io.popen(
+          "ps aux | grep '"
+            .. root
+            .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
+        )
+        if not handle then return nil end
+        local result = handle:read "*a"
+        -- The result returns an empty line at the end sometimes
+        result = result:gsub("%s+$", "")
+        if result == "" then
+          local cmd = string.format("$HOME/.config/jupyter/bin/jupyter_selenium '%s' %d", filename, vim.g.my_free_port)
+          vim.fn.jobstart(cmd, { detach = true })
+        else
+          local file_path = vim.fn.expand "%:p"
+
+          local payload = {
+            file_path = file_path,
+          }
+          local json = vim.fn.json_encode(payload)
+          local url = "http://localhost:" .. vim.g.my_free_port .. "/run"
+          local cmd = string.format("curl -X POST -H \"Content-Type: application/json\" -d '%s' %s", json, url)
+          vim.fn.jobstart(cmd, { detach = true })
+        end
       end
 
       local function shutdown_jupyter_selenium_api()

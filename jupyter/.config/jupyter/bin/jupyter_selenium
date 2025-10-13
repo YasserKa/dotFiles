@@ -27,6 +27,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from watchdog.events import FileSystemEventHandler
+from selenium.common.exceptions import WebDriverException
 from watchdog.observers import Observer
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -57,14 +58,14 @@ def set_vim_signal_to_false():
 
 
 class NotebookExecutor:
-    def __init__(self, driver):
+    def __init__(self):
+        pass
         # Other potential methods to use
         # notebook:restart-clear-output
         # notebook:restart-and-run-to-selected
-        self.driver = driver
 
     def run_cells(self, cell_indices):
-        self.driver.execute_script(
+        driver.execute_script(
             f"""
             const panel = window.jupyterapp.shell.currentWidget;
             const nb = panel.content;
@@ -82,25 +83,25 @@ class NotebookExecutor:
             """
         )
 
-        self.driver.find_element(
-            By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel"
-        ).send_keys(Keys.CONTROL + "s")
+        driver.find_element(By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel").send_keys(
+            Keys.CONTROL + "s"
+        )
         return {"status": f"Executed cell {cell_indices}"}
 
     def run_all_cells(self):
-        self.driver.execute_script(
+        driver.execute_script(
             """
             window.jupyterapp.commands.execute('notebook:run-all-cells');
             """
         )
 
-        self.driver.find_element(
-            By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel"
-        ).send_keys(Keys.CONTROL + "s")
+        driver.find_element(By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel").send_keys(
+            Keys.CONTROL + "s"
+        )
         return {"status": "Executed all cell"}
 
     def goto_cell(self, cell_index):
-        self.driver.execute_script(
+        driver.execute_script(
             f"""
             const panel = window.jupyterapp.shell.currentWidget;
             const nb = panel.content;
@@ -112,7 +113,7 @@ class NotebookExecutor:
         return {"status": "Going to next cell"}
 
     def restart_kernel(self):
-        self.driver.execute_script(
+        driver.execute_script(
             """
             window.jupyterapp.commands.execute('notebook:restart-kernel');
             """
@@ -120,7 +121,7 @@ class NotebookExecutor:
         return {"status": "Restarting Kernel"}
 
     def shutdown_kernel(self):
-        self.driver.execute_script(
+        driver.execute_script(
             """
             window.jupyterapp.commands.execute('notebook:shutdown-kernel');
             """
@@ -265,6 +266,28 @@ def shutdown():
     jupyter_process.terminate()
     os.kill(os.getpid(), signal.SIGINT)
     return "Shutting down", 200
+
+
+@app.route("/run", methods=["POST"])
+def run():
+    global driver, tabs
+    data = request.get_json(force=True)
+    # If driver exited, run another one
+    try:
+        driver.title
+        return ""
+    except WebDriverException:
+        file_path = data.get("file_path")
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()), options=chrome_options
+        )
+
+        tabs = {}
+        notebook_url = get_notebook_link_from_file(file_path)
+
+        driver.get(notebook_url)
+        tabs[notebook_url] = driver.current_window_handle
+        return ""
 
 
 class PySyncHandler(FileSystemEventHandler):
@@ -445,7 +468,7 @@ if __name__ == "__main__":
     driver.get(notebook_url)
     tabs[notebook_url] = driver.current_window_handle
 
-    executor = NotebookExecutor(driver)
+    executor = NotebookExecutor()
 
     event_handler = PySyncHandler()
     observer = Observer()
