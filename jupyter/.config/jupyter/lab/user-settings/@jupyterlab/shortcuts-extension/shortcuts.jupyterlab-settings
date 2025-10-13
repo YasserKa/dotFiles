@@ -1,0 +1,12 @@
+{
+    "shortcuts":
+        [
+        {
+            "command": "docmanager:reload",
+                "keys": [
+                    "Ctrl Shift Q"
+                ],
+                "selector": ".jp-Notebook.jp-WindowedPanel"
+        }
+        ]
+}
