@@ -78,7 +78,19 @@ class NotebookExecutor:
             }}
 
             nb.scrollToItem({cell_indices[-1]});
-            window.jupyterapp.commands.execute('notebook:run-cell');
+            const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            (async () => {{
+            await window.jupyterapp.commands.execute('notebook:run-cell');
+            await sleep(500); // sleep for 2 seconds
+            const cell = nb.activeCell;
+
+            const output = cell.node.querySelector('.jp-Cell-outputWrapper');
+            if (output) {{
+            output.scrollIntoView({{ block: 'center' }});
+            output.focus();
+            }}
+            }})();
 
             """
         )
