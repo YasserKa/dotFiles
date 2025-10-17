@@ -148,8 +148,10 @@ def notify(line, cell):
 @register_cell_magic
 def execute_if(line, cell):
     """Execute cell if the arguments evaluate to True"""
-    if eval(line):
-        get_ipython().run_cell(cell)
+    ip = get_ipython()
+    user_ns = ip.user_ns  # gives you the notebook’s variable scope
+    if eval(line, user_ns):
+        ip.run_cell(cell)
 
 
 @register_cell_magic
