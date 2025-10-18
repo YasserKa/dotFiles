@@ -2,6 +2,7 @@ import os
 import json
 import time
 import pandas as pd
+import sys
 from IPython import get_ipython
 from IPython.display import display
 from IPython.core.magic import register_cell_magic
@@ -21,6 +22,23 @@ class JupyterUtils:
         pd.reset_option("display.max_rows")
         pd.reset_option("display.max_columns")
         pd.reset_option("display.max_colwidth")
+        if "numpy" in sys.modules:
+            import numpy
+
+            numpy.set_printoptions(
+                edgeitems=3,
+                infstr="inf",
+                linewidth=75,
+                nanstr="nan",
+                precision=8,
+                suppress=False,
+                threshold=1000,
+                formatter=None,
+            )
+        if "torch" in sys.modules:
+            import torch
+
+            torch.set_printoptions(profile="default")
 
     @staticmethod
     def max_display():
@@ -28,27 +46,26 @@ class JupyterUtils:
         pd.set_option("display.max_rows", None)
         pd.set_option("display.max_columns", None)
         pd.set_option("display.max_colwidth", None)
+        if "numpy" in sys.modules:
+            import numpy
+
+            numpy.set_printoptions(threshold=numpy.inf)
+        if "torch" in sys.modules:
+            import torch
+
+            torch.set_printoptions(threshold=float("inf"), linewidth=200)
 
     from contextlib import contextmanager
 
-    @staticmethod
     @contextmanager
-    def full_display():
+    def full_display(self):
         """Temporarily show all rows/columns."""
-        old_max_rows = pd.get_option("display.max_rows")
-        old_max_cols = pd.get_option("display.max_columns")
-        old_max_colwidth = pd.get_option("display.max_colwidth")
-
-        pd.set_option("display.max_rows", None)
-        pd.set_option("display.max_columns", None)
-        pd.set_option("display.max_colwidth", None)
+        self.max_display()
 
         try:
             yield
         finally:
-            pd.set_option("display.max_rows", old_max_rows)
-            pd.set_option("display.max_columns", old_max_cols)
-            pd.set_option("display.max_colwidth", old_max_colwidth)
+            self.reset_display()
 
     # ---------------------------
     # Data saving / loading
