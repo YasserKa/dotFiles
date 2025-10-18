@@ -766,8 +766,8 @@ return {
             { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
             { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
             { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
-            { "[c", ":IPythonCellPrevCell<CR>", desc = "Previous Cell" },
-            { "]c", ":IPythonCellNextCell<CR>", desc = "Next Cell" },
+            { "[c", "<cmd>call search('# %%$', 'b')<cr>", desc = "Previous Cell" },
+            { "]c", "<cmd>call search('# %%$')<cr>", desc = "Next Cell" },
           }
           wk.add {
             {
