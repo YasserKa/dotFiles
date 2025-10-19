@@ -95,6 +95,7 @@ class NotebookExecutor:
             """
         )
 
+        self.sleep_until_kernel_is_idle()
         driver.find_element(By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel").send_keys(
             Keys.CONTROL + "s"
         )
@@ -107,10 +108,57 @@ class NotebookExecutor:
             """
         )
 
+        self.sleep_until_kernel_is_idle()
         driver.find_element(By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel").send_keys(
             Keys.CONTROL + "s"
         )
         return {"status": "Executed all cell"}
+
+    def sync(self):
+        driver.execute_script(
+            """
+            const nbPanel = window.jupyterapp.shell.currentWidget;
+            const context = nbPanel.context;   // NotebookPanel context
+
+            function saveWhenIdle() {
+            const sessionContext = context.sessionContext;
+            if (!sessionContext) return;
+
+            const checkIdle = setInterval(() => {
+                const kernel = sessionContext.session.kernel;
+                if (kernel && kernel.status === 'idle') {
+                clearInterval(checkIdle);
+
+                // Reload from disk first to avoid conflicts
+                context.revert().then(() => {
+                    context.save().then(() => console.log('Notebook saved without conflict'));
+                });
+                }
+            }, 200); // check every 200ms
+            }
+
+            saveWhenIdle();
+            """
+        )
+
+        return {"status": "Synced notebook and python file"}
+
+    def sleep_until_kernel_is_idle(self):
+        status = driver.execute_script(
+            "return window.jupyterapp.shell.currentWidget.context.sessionContext.session.kernel.status"
+        )
+        while status != "idle":
+            time.sleep(0.2)
+            status = driver.execute_script(
+                "return window.jupyterapp.shell.currentWidget.context.sessionContext.session.kernel.status"
+            )
+
+        return {"status": "Synced notebook and python file"}
+
+    def get_active_cell_index(self):
+        return driver.execute_script(
+            "return window.jupyterapp.shell.currentWidget.content.activeCellIndex"
+        )
 
     def goto_cell(self, cell_index):
         driver.execute_script(
@@ -235,6 +283,13 @@ def send_save_signal():
     return ""
 
 
+@app.route("/sync", methods=["GET"])
+def sync():
+    executor.sync()
+
+    return ""
+
+
 @app.route("/restart_kernel", methods=["GET"])
 def resetart_kernel():
     data = request.get_json(force=True)
@@ -309,6 +364,7 @@ class PySyncHandler(FileSystemEventHandler):
         self._timers = {}  # keep active timers by attribute name
 
     def transform_py_to_ipynb(self, py_path, notebook_path):
+        current_active_cell_index = executor.get_active_cell_index()
         subprocess.run(
             [
                 "jupytext",
@@ -336,6 +392,9 @@ class PySyncHandler(FileSystemEventHandler):
         #     Keys.CONTROL + "s"
         # )
         signal_event.set()
+        time.sleep(2)
+        executor.goto_cell(current_active_cell_index)
+        print(current_active_cell_index)
         print("Notebook modified:", notebook_path)
 
     def transform_ipynb_to_py(self, py_path, notebook_path):
@@ -381,6 +440,7 @@ class PySyncHandler(FileSystemEventHandler):
             if not os.path.exists(notebook_path):
                 return ""
             goto_page(os.path.abspath(py_path))
+            executor.sleep_until_kernel_is_idle()
             self.transform_py_to_ipynb(py_path, notebook_path)
 
         if event.src_path.endswith(".ipynb"):
