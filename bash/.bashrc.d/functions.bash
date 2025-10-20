@@ -58,6 +58,9 @@ mv() {
 
 	if [[ "$#" -gt 2 ]]; then
 		parent_dir="$last_arg"
+	# The last arg is the directory if it ends with /
+	elif [[ ${last_arg: -1} == "/" ]]; then
+		parent_dir="$last_arg"
 	else
 		parent_dir="$(dirname "$last_arg")"
 	fi
