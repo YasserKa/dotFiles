@@ -31,12 +31,6 @@ vim:
 
 bash: 
 	@echo "Setting up bash"
+	@sudo apt install tmux
 	@[[ ! -f ~/.bashrc ]] || ! grep -qs yasser ~/.bashrc && \
 		echo -e '\n# Yasser'\''s Config\n[[ -e ~/.yasser_rc/.bashrc && $$yasser_config_env ]] && source ~/.yasser_rc/.bashrc' >> ~/.bashrc || echo "Bash already configured"
-
-jupyter:
-	@echo "Setting up jupyter"
-	@sudo apt install jupyter
-	@yes | sudo apt-get install python3-pip
-	@pip install jupyternotify
-	@yes | jupyter nbextensions_configurator enable --user
