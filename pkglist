@@ -204,6 +204,7 @@ newsboat # An RSS/Atom feed reader for text terminals
 
 vimpager-git # A vim-based script to use as a PAGER - git checkout
 mpv # a free, open source, and cross-platform media player
+losslesscut-bin # Trimming/cutting video/audio files
 socat # Used to control mpv remotely using a relay
 feh # Fast and light imlib2-based image viewer
 
