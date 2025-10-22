@@ -2561,6 +2561,7 @@ selection of all minor-modes, active or not."
   (" g" consult-org-heading "file" :column "headers")
   (" G" (consult-org-heading t (get-file-paths-for-open-buffers)) "buffers")
   (" a" consult-org-agenda "agenda")
+  (" T" (consult-org-agenda "DEADLINE<\"<+7d>\"|SCHEDULED<\"<+7d>\"/!") "Tasks in one week")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
   (" i" (find-file (concat notes-dir "/ideas.org")) "ideas.org")
