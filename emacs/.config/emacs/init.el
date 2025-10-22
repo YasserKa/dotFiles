@@ -2557,9 +2557,18 @@ selection of all minor-modes, active or not."
   (" v" my/org-columns-buffer  "column view")
   )
 
+(defun get-open-org-files ()
+  "Return a list of files from open buffers that are in org-mode with an active element cache."
+  (seq-filter
+   (lambda (file)
+     (with-current-buffer (find-buffer-visiting file)
+       (and (derived-mode-p 'org-mode)
+            org-element-use-cache)))
+   (delq nil (mapcar #'buffer-file-name (buffer-list)))))
+
 (defhydra org-goto-hydra (:exit t :idle 1)
   (" g" consult-org-heading "file" :column "headers")
-  (" G" (consult-org-heading t (get-file-paths-for-open-buffers)) "buffers")
+  (" G" (consult-org-heading t (get-open-org-files)) "buffers")
   (" a" consult-org-agenda "agenda")
   (" T" (consult-org-agenda "DEADLINE<\"<+7d>\"|SCHEDULED<\"<+7d>\"/!") "Tasks in one week")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
