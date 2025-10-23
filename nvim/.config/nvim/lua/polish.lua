@@ -282,7 +282,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
           "<localLeader>nC",
           function()
             execute_cell()
-            vim.cmd [[call search('^# %%')]]
+            vim.cmd [[call search('^# %%\s*$')]]
           end,
           desc = "Execute cell and jump to next cell",
         },
