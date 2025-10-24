@@ -11,7 +11,8 @@ readonly LINKS_FILE
 
 trap 'rm "$TMP_FILE" "$LINKS_FILE" 2>/dev/null' EXIT
 
-sqlite3 "$XDG_DATA_HOME/qutebrowser/history.sqlite" 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;'  >| "$LINKS_FILE"
+# sqlite3 "$XDG_DATA_HOME/qutebrowser/history.sqlite" 'SELECT DISTINCT title,url FROM history ORDER BY atime DESC;'  >| "$LINKS_FILE"
+sqlite3 "$XDG_DATA_HOME/qutebrowser/history.sqlite" 'select title, url from CompletionHistory ORDER BY last_atime DESC' >|"$LINKS_FILE"
 
 IFS='' read -r -d '' cmd <<EOF
 awk 'BEGIN { FS="|"; ORS = "\0" }  { print "\033[34m" \$(NF-1) "\033[0m " "\n" \$NF }' "$LINKS_FILE" |
