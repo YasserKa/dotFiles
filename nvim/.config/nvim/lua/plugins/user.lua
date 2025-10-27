@@ -230,7 +230,6 @@ return {
               ["<esc>"] = actions.close,
               ["<C-u>"] = false,
               ["<C-[>"] = actions.close,
-              ["<C-j>"] = actions.select_default,
               ["<C-d>"] = actions.delete_buffer,
               ["<C-s>"] = actions.select_horizontal,
               ["<C-n>"] = actions.move_selection_next,
