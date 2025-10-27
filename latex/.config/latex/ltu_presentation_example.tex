@@ -24,17 +24,23 @@
 }
 
 %%%%
-% \notes<1>
+% \note{...}
+% \note<1>{...}
 % \only<1>{... Could be figure}
-% \notes[item]
-% \notes[enuemrate/itemize] (outside of frame)
-% \AtBeginNote{<text>} Add to every note
-% \AtEndNote{<text>}   Add to every note
+% \note[item]{...}
+% \note[enuemrate or itemize]{\item ...} (outside of frame)
+% \AtBeginNote{<text>} Add before every note
+% \AtEndNote{<text>}   Add after every note
 %%%%
 
 \begin{document}
 
 \frame{\titlepage}
+
+\note[itemize]{
+  \item note 1
+  \item note 2
+}
 
 \begin{frame}
   \frametitle{Contents}
