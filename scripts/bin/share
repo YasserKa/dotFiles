@@ -41,7 +41,7 @@ case $1 in
 	# Place latex paths in tmp directory
 	[[ "$1" == "-l" ]] && target_img_dir=$target_img_tmp_dir
 	if [ -n "${WAYLAND_DISPLAY}" ]; then
-		/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
+		grimshot save anything "$target_path/Screen_image.png"
 	else
 		deepin-screen-recorder --screenShot --save-path $target_path
 	fi
@@ -58,7 +58,7 @@ if [ "$1" == "-n" ]; then
 	mkdir -p $target_path
 
 	if [ -n "${WAYLAND_DISPLAY}" ]; then
-		/usr/share/sway/scripts/grimshot save window "$target_path/Screen image.png"
+		grimshot save anything "$target_path/Screen_image.png"
 	else
 		deepin-screen-recorder --save-path $target_path
 	fi
@@ -98,8 +98,8 @@ fi
 
 # update target path depending on media type
 case $extension in
-	png | jpg | bmp) target_path=$target_img_dir ;;
-	mp4 | gif | mkv) target_path=$target_vid_dir ;;
+png | jpg | bmp) target_path=$target_img_dir ;;
+mp4 | gif | mkv) target_path=$target_vid_dir ;;
 esac
 
 new_name="$date.$extension"
