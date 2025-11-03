@@ -92,6 +92,13 @@ result=collectionId.toString()
 import_source() {
   if [[ -f "$SOURCE" ]]; then
     # Attach document
+
+    # If filename contains an em-dash replace it, because JS doesn't like em-dashes
+    if [[ "$(basename "$SOURCE")" =~ [—–] ]]; then
+      OLD_SOURCE="$SOURCE"
+      SOURCE="/tmp/$(basename "$OLD_SOURCE" | sed 's/[—–]/-/g')"
+      cp -- "$OLD_SOURCE" "$SOURCE"
+    fi
     import_script='
   (async function () {
 function sleep(ms) {
@@ -185,7 +192,6 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
 '
     results="$(eval_script_return_value "$import_script")"
     if grep "Error:" <(echo "$results"); then
-      dunstify "$results"
       exit 1
     else
       echo "$results"
@@ -231,7 +237,8 @@ main() {
   }
 
   declare -r FRE_NAME="zotero_collection"
-  declare -r SOURCE="$1"
+  # Could be changed to remove em-dashes
+  SOURCE="$1"
 
   if [[ "$2" ]]; then
     declare -r COLLECTION_ID="$(get_collection_id_from_name "$2")"
