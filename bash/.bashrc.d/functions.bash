@@ -507,7 +507,7 @@ shutdown() {
 # Which is unreliable, use type -P instead
 # https://unix.stackexchange.com/questions/85249/why-not-use-which-what-to-use-then
 which() {
-	printf >&2 'The which command is unreliable. Use command -v %s\n' "$*"
+	printf >&2 'The which command is unreliable. Use command -v %s\n' "${@[-1]}"
 	return 2
 }
 
