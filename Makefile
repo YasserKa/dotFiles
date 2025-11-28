@@ -105,6 +105,8 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	@sudo pkgfile -u
 	@# Setup Tmux plugin manager
 	@git clone --depth 1 https://github.com/tmux-plugins/tpm $(XDG_CONFIG_HOME)/tmux/plugins/tpm
+	@# Frecency
+	@cargo install fre
 	@# Install utility Enable mouse wrap between outpus with different resolutions
 	@# The AUR package for it is outdated
 	@git clone --depth 1 https://github.com/Airblader/xedgewarp  /tmp/xedgewarp

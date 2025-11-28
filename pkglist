@@ -343,6 +343,7 @@ thunderbird # Mail client
 external-editor-revived # Thunderbird extension edit email
 systray-x-common # Thunderbird extension for system tray
 asciidoc # Needed for xedgwarp
+rust
 
 # (Wayland) Screen recording and shots
 grim    # Screenshot utility for Wayland
