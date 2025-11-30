@@ -1,0 +1,29 @@
+#!/bin/env bash
+#
+# Centers the cursor to the center of window after navigating and moving windows in i3
+# Dependencies xdotool i3
+#
+# Provides WINDOW's PID, X start, Y start, WIDTH, HEIGHT
+
+CURR_WINDOW_ID=$(xdotool getwindowfocus)
+eval "$(xdotool getwindowgeometry --shell "$CURR_WINDOW_ID")"
+
+swaymsg "$*"
+
+if [[ "$1" == "focus" ]]; then
+	CURR_WINDOW_ID=$(xdotool getwindowfocus)
+fi
+eval "$(xdotool getwindowgeometry --shell "$CURR_WINDOW_ID")"
+
+eval "$(swaymsg -t get_tree -r |
+	jq -r '.. | select(.type? == "con" and .focused == true) |
+"X=\(.rect.x) Y=\(.rect.y) W=\(.rect.width) H=\(.rect.height)"')"
+
+CX=$((X + W / 2))
+CY=$((Y + H / 2))
+
+swaymsg seat seat0 cursor set "$CX" "$CY"
+
+unclutter --start-hidden &
+sleep 3
+kill $!

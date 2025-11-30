@@ -18,16 +18,16 @@ input type:keyboard {
 # >>>
 # Workspaces/Windows <<<
 # Focus windows
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-bindsym $mod+h focus left
+bindsym $mod+j exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus down
+bindsym $mod+k exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus up
+bindsym $mod+l exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus right
+bindsym $mod+h exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus left
 
 # Move focused windows
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move down
+bindsym $mod+Shift+k exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move up
+bindsym $mod+Shift+l exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move right
+bindsym $mod+Shift+h exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move left
 
 # Split in hor/vert orientation
 bindsym $mod+v split horizontal
