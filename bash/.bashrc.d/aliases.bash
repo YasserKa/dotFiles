@@ -97,6 +97,9 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 # Music player
 alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
 
+# Generate Bibtex using citations in Tex file
+alias gen_bib="biber --output-format=bibtex --output_file=bibliography.bib  tex_output/*bcf"
+
 # SSH setup
 ssh() { command ssh "$@" -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
 mosh() { command mosh --ssh="ssh" "$@" -- bash -c 'export yasser_config_env=1; TERM=xterm-256color; exec bash -login'; }
