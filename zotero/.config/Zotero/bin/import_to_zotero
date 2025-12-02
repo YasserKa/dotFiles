@@ -2,8 +2,10 @@
 # Import to zotero from various sources to a collection
 #
 # Arguments:
-#   $1: URL or path to document
-#   $2: Colletion name (optional)
+#   --collection_name <collection_name>: Colletion name (optional)
+#   or
+#   --recent: Import to the collection that was imported before (optional)
+#   <SOURCE>: URL or path to document
 #
 # Dependencies: zotero netcat
 #
@@ -228,6 +230,26 @@ eval_script_return_value() {
 }
 
 main() {
+	TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
+	local COLLECTION_NAME RECENT SOURCE
+	while :; do
+		case $1 in
+		--collection_name)
+			COLLECTION_NAME="$2"
+			shift
+			;;
+		--recent)
+			RECENT="true"
+			;;
+		*)
+			# Could be changed to remove em-dashes
+			SOURCE="$1"
+			break
+			;;
+		esac
+		shift
+	done
+
 	if ! pgrep zotero >/dev/null; then
 		nohup zotero >/dev/null 2>&1 &
 		disown
@@ -236,20 +258,24 @@ main() {
 		done
 		i3-msg '[class="Zotero"] move scratchpad' >/dev/null
 	fi
-	(($# == 0)) && {
-		echo "Need a source"
-		exit 1
-	}
+	# (($# == 0)) && {
+	# 	echo "Need a source"
+	# 	exit 1
+	# }
 
 	declare -r FRE_NAME="zotero_collection"
-	# Could be changed to remove em-dashes
-	SOURCE="$1"
 
-	if [[ "$2" ]]; then
-		declare -r COLLECTION_ID="$(get_collection_id_from_name "$2")"
-	else
+	if [[ "$RECENT" == "true" ]]; then
+		# Use most recent file
+		source "$TMP_FILE_RECENT_COLLECTION_ID"
+	elif [[ -n "$COLLECTION_NAME" ]]; then
+		declare -r COLLECTION_ID="$(get_collection_id_from_name "$COLLECTION_NAME")"
+	else # Pick interactively
 		declare -r COLLECTION_ID="$(pick_collection_id)"
 	fi
+	# Don't track reading collection
+	[[ -n "$COLLECTION_ID" && "$COLLECTION_NAME" != "To_Read" ]] && declare -p COLLECTION_ID >|"$TMP_FILE_RECENT_COLLECTION_ID"
+
 	[[ -z "$COLLECTION_ID" ]] && exit 0
 	import_source
 }

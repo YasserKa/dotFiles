@@ -7,7 +7,7 @@
 # Dependencies: Zotero Emacs inotify-tools
 
 # Import Zotero entry & get citekey
-cite_key="$("$HOME/.config/Zotero/bin/import_to_zotero" "$1" "To_Read")"
+cite_key="$("$HOME/.config/Zotero/bin/import_to_zotero" --collection_name "To_Read" "$1")"
 
 if [[ -z "$cite_key" ]]; then
 	notify-send --urgency=critical "Failed to add entry"
