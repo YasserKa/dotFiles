@@ -54,7 +54,7 @@ pipewire-alsa # Route all applications using ALSA API through PipeWire
 sof-firmware # Sound open firmware
 wireplumber # Session manager for Pipewire watching streams (better than pipewire-media-sesion)
 pavucontrol # PulseAudio Volume Control
-cmus # Feature-rich ncurses-based music player
+cmus-git # Feature-rich ncurses-based music player
 
 # Aesthetics
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal
@@ -77,6 +77,7 @@ shikane # Dynamic output configuration tool
 # Programming
 patch # A utility to apply patch files to original sources
 git # the fast distributed version control system
+git-lfs # Git extension for large files
 entr # Run arbitrary commands when files change
 inotify-tools # Wait for changes to files 
 
@@ -122,6 +123,7 @@ python-pip # The PyPA recommended tool for installing Python packages
 python-pipenv # Sacred Marriage of Pipfile, Pip, & Virtualenv.
 # Installed by system's package manager adhering to https://peps.python.org/pep-0668
 jupyter-notebook
+python-pyarrow # Used to visualize dataframes in jupyer notebooks
 uv # Python package installer and resolver
 python-pandas # Used by scripts
 python-adblock # Used by qutebrowser
@@ -130,6 +132,8 @@ python-pymupdf # Used by script to get highlighted text in pdf
 python-pyperclip # Needed to yank clipboard by zathura's handle_document
 python-tldextract # Needed by Qutebrowser bitwarden script
 pyenv # Switch between multiple python versions
+python-pdm
+python-playwright # Playwright doesn't work in venv in Arch
 
 postgresql # DBMS
 dbeaver # SQL Client
@@ -154,12 +158,14 @@ ranger # file manager
 
 # Used by some xback script
 jq  # Command-line JSON processor
+jless # A CLI viewer for JSON data
 pup # Command line tool for processing HTML
 yq  # YAML, XML, TOML processor
 fx  # Command-line tool and terminal JSON viewer
 
 fd # Simple, fast and user-friendly alternative to find
 fzf # Command-line fuzzy finder
+python-openpyxl # Used to preview Excel files
 sysz # fzf terminal UI for systeml
 the_silver_searcher # Code searching tool similar to Ack, but faster
 lnav # A curses-based tool for viewing and analyzing log files
@@ -188,6 +194,7 @@ dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands
 sxhkd # Simple X hotkey daemon
 xremap-x11-bin # Key remapper
+keyd # A key remapping daemon for linux
 xcape # Configure modifier keys to act as other keys when pressed and released on
 rofi # A window switcher, application launcher and dmenu replacement
 # rofi-lbonn-wayland-git # rofi's wayland fork
