@@ -430,6 +430,7 @@ return {
     config = function() vim.g.mkdp_filetypes = { "markdown", "plantuml" } end,
     ft = { "markdown", "plantuml" },
   },
+  { "https://github.com/qadzek/link.vim", lazy = false },
   {
     "https://github.com/vim-pandoc/vim-markdownfootnotes",
     event = "BufEnter qutebrowser-editor-*,tuir*,neomutt-*",
