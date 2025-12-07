@@ -686,7 +686,7 @@ return {
       -- Make sure to use the names found in `:Mason`
       ensure_installed = {
         -- Language servers
-        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
         -- taplo: toml
         "lua-language-server",
         -- "pyright",
@@ -696,6 +696,7 @@ return {
         -- Formatters
         "prettier",
         "stylua",
+        "basedpyright",
         -- Lags python
         -- "isort",
         "ruff",
