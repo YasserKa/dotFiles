@@ -2,34 +2,44 @@
 #
 # Toggle org notes
 #
-# Dependencies: emacs i3 xdotool jq
+# Dependencies: emacs (i3 or sway) xdotool jq
 
 declare -r CLASS="org_notes"
 declare -r i3_config_override_file="$XDG_CONFIG_HOME/i3/config_override"
 declare -r i3_override_command="for_window [title=^${CLASS}$] move scratchpad"
 
 # If it's visible, move it to scratchpad
-xdotool search --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+  swaymsg -t get_tree | jq -e '.. | select(.window_properties? and .window_properties.title == "'$CLASS'" and .visible == true)' >/dev/null &&
+    i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0
+elif [[ -n "${DISPLAY}" ]]; then
+  xdotool search --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
+fi
+
 # shellcheck disable=1091
 source "$HOME/bin/helpers/monitor_variables"
 
 # Move frame to workspace on right output, enable fullscreen, and go to heading
-declare RIGHT_WORKSPACE
-RIGHT_WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.output == \"${MONITOR_RIGHT}\") | .name")"
-readonly RIGHT_WORKSPACE
+declare WORKSPACE
+if [[ -n "$MONITOR_RIGHT" ]]; then
+  WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.output == \"${MONITOR_RIGHT}\") | .name")"
+else
+  WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.focused == ""true"") | .name")"
+fi
+readonly WORKSPACE
 
 # If frame doesn't exist, create it, and go to file
 if ! xdotool search --name "^${CLASS}$" >/dev/null; then
-	if ! grep -Fxq "$i3_override_command" "$i3_config_override_file"; then
-		echo "$i3_override_command" >>"$i3_config_override_file"
-	fi
-	i3-msg reload
+  if ! grep -Fxq "$i3_override_command" "$i3_config_override_file"; then
+    echo "$i3_override_command" >>"$i3_config_override_file"
+  fi
+  i3-msg reload
 
-	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
+  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
 
-	xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${RIGHT_WORKSPACE}, fullscreen enable"
+  xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
 
-	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
+  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
 (let ((frame (seq-find (lambda (frame)
               (string= \"${CLASS}\" (frame-parameter frame 'name)))
               (frame-list))))
@@ -39,7 +49,8 @@ if ! xdotool search --name "^${CLASS}$" >/dev/null; then
   (call-interactively (org-roam-node-find nil \"t_\"))
   ))"
 fi
-xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${RIGHT_WORKSPACE}, fullscreen enable"
+
+xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
 
 xdotool search --onlyvisible --name "^${CLASS}$" windowfocus
 
