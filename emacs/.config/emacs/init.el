@@ -2542,6 +2542,7 @@ selection of all minor-modes, active or not."
   (" A" (lambda() (interactive) (org-agenda nil "a")) "default agenda")
   (" p" org-set-property "set property")
   (" g" org-goto-hydra/body "goto hydra")
+  (" b" org-cite/body "insert cite")
   )
 
 (defhydra org-clock-hydra (:exit t :hint nil :idle 1)
@@ -2644,6 +2645,11 @@ selection of all minor-modes, active or not."
   (" w"	org-agenda-week-view "week")
   (" m"	org-agenda-month-view "month")
   (" y"	org-agenda-year-view "year"))
+
+(defhydra org-cite (:exit t :hint nil :idle 1)
+  (" i" org-cite-insert "insert cite")
+  )
+
 ;;;; }}}
 ;;;; {{{ Programming
 ;; LSP-mode
