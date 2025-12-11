@@ -98,7 +98,7 @@ alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | 
 alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
 
 # Generate Bibtex using citations in Tex file
-alias gen_bib="biber --output-format=bibtex --tool $XDG_CONFIG_HOME/Zotero/better-bibtex/my_library.bib --output_file=bibliography.bib tex_output/*bcfbiber --output-format=bibtex --output_file=bibliography.bib  tex_output/*bcf"
+alias gen_bib="command cp $XDG_CONFIG_HOME/Zotero/better-bibtex/my_library.bib bibliography.bib && biber --output-format=bibtex --output_file=bibliography.bib tex_output/*bcf"
 
 # SSH setup
 ssh() { command ssh "$@" -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
