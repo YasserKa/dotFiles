@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Send notification about # citations and # influential citations
+#
+# $1: paper DOI
+#
+# Dependencies: notify-send, semanticscholar api key
+
+# With more details
+main() {
+  local DOI="$1"
+  local response citations influential
+
+  response=$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/DOI:${DOI}?fields=citationCount,influentialCitationCount")
+
+  citations=$(echo "$response" | jq -r '.citationCount')
+  influential=$(echo "$response" | jq -r '.influentialCitationCount')
+
+  if [[ "$citations" != "null" ]]; then
+    notify-send --expire-time 10000 "Paper Stats" "📊 Citations: $citations\n⭐ Influential: $influential"
+  else
+    notify-send "Error" "Could not fetch data for DOI: $DOI"
+  fi
+}
+
+main "$@"
