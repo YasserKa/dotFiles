@@ -11,6 +11,7 @@ FILETYPE=$(xdg-mime query filetype "$DOC_PATH")
 APPLICATION=$(xdg-mime query default "$FILETYPE")
 
 if [[ "$APPLICATION" == "zathura.desktop" ]]; then
+	fasd -A "${DOC_PATH}" # Add it for frecency
 	CMD="zathura ${DOC_PATH@Q}"
 	if [[ -n "$PAGE_NUM" ]]; then
 		CMD+=" -P $PAGE_NUM"
