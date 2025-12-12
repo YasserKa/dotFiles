@@ -444,7 +444,7 @@ does not have to do this by oneself."
 
   ;; Ensure that pcomplete does not write to the buffer
   ;; and behaves as a pure `completion-at-point-function'.
-  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify)
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-properties)
 
   ;; Use Company backends as Capfs.
   (require 'company)
