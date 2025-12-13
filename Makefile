@@ -71,6 +71,7 @@ stow-root:
 	@# Needs to be installed before stowing its config, else it will make an error
 	@sudo pacman -S --noconfirm greetd
 	sudo rm -r /etc/{pacman.conf,greetd}
+	sudo mkdir /root/.config/nvim
 	sudo stow root --target=/
 
 .PHONY: install-aur-helper
@@ -118,7 +119,6 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 stow-packages:
 	# Install neovim starter kit before stowing
 	@stow X11 autokey autorandr bash bat cmus copyq dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat nextcloud notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane sunshine sway sxhkd systemd terminal-colors thunderbird tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap xremap yt-dlp zathura zsh
-	@sudo stow root --target=/root/
 
 .PHONY:install-pypi-packages
 install-pypi-packages: 
@@ -142,6 +142,7 @@ setup-systemd-services:
 	sudo systemctl enable greetd.service
 	sudo systemctl enable displaylink
 	sudo systemctl enable auto-cpufreq.service
+	sudo systemctl enable --now tailscale-bypass.service
 	# Disables to not override backups while setting up the environment
 	# Enable afterwards
 	# sudo systemctl enable cronie

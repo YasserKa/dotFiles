@@ -1,0 +1,19 @@
+[Unit]
+Description=Bypass Tailscale
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Google scholar
+ExecStart=/usr/bin/ip -6 rule add to 2a00:1450::/32 lookup main priority 5269
+ExecStart=/usr/bin/ip -6 route add unreachable 2a00:1450::/32
+# Imgur
+ExecStart=/bin/bash -c 'GATEWAY=$(ip route | grep default | grep -v tailscale | awk "{print \$3}"); ip rule add to 199.232.0.0/16 lookup main priority 5269; ip route add 199.232.0.0/16 via $GATEWAY'
+ExecStart=/bin/bash -c 'GATEWAY=$(ip route | grep default | grep -v tailscale | awk "{print \$3}"); ip rule add to 151.101.0.0/16 lookup main priority 5269; ip route add 151.101.0.0/16 via $GATEWAY'
+ExecStart=/usr/bin/ip rule add to 199.232.192.0/24 lookup main priority 5269
+ExecStart=/usr/bin/ip route flush cache
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
