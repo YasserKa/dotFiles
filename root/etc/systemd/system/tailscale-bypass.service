@@ -12,6 +12,8 @@ ExecStart=/usr/bin/ip -6 route add unreachable 2a00:1450::/32
 ExecStart=/bin/bash -c 'GATEWAY=$(ip route | grep default | grep -v tailscale | awk "{print \$3}"); ip rule add to 199.232.0.0/16 lookup main priority 5269; ip route add 199.232.0.0/16 via $GATEWAY'
 ExecStart=/bin/bash -c 'GATEWAY=$(ip route | grep default | grep -v tailscale | awk "{print \$3}"); ip rule add to 151.101.0.0/16 lookup main priority 5269; ip route add 151.101.0.0/16 via $GATEWAY'
 ExecStart=/usr/bin/ip rule add to 199.232.192.0/24 lookup main priority 5269
+# Diva
+ExecStart=/usr/bin/ip rule add to 130.238.7.111 lookup main priority 5269
 ExecStart=/usr/bin/ip route flush cache
 RemainAfterExit=yes
 
