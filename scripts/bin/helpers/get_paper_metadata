@@ -1,30 +1,31 @@
 #!/usr/bin/env bash
-# Get Paper DOI
+# Get a paper's DOI or title
 #
-# $1: URL to paper
-# returns DOI
+# $1: DOI or title
+# $2: URL to paper
 
 function main() {
-	SOURCE="$1"
+	METADATA="$1"
+	URL="$2"
 	TMP_FILE2="/tmp/zotero_return_value"
 	rm -f "$TMP_FILE2"
 	trap 'rm -f $TMP_FILE2' RETURN
 	HTML_PATH="$(mktemp -t "tmp_XXX.html")"
 	readonly HTML_PATH
-	get_page_content "$SOURCE" "$HTML_PATH"
+	get_page_content "$URL" "$HTML_PATH"
 
 	# shellcheck disable=2016
 	SCRIPT='
   (async function () {
-    let uri = "'"$SOURCE"'"
-    var cookieSandbox = uri
-      ? new Zotero.CookieSandbox(null, uri, "", null)
+    let url = "'"$URL"'"
+    var cookieSandbox = url
+      ? new Zotero.CookieSandbox(null, url, "", null)
       : null;
 
     var parser = new DOMParser();
     var data = await Zotero.File.getContentsAsync("'"$HTML_PATH"'");
     var doc = parser.parseFromString(`<html>${data}</html>`, "text/html");
-    doc = Zotero.HTTP.wrapDocument(doc, uri);
+    doc = Zotero.HTTP.wrapDocument(doc, url);
 
     let translate = new Zotero.Translate.Web();
     translate.setDocument(doc);
@@ -39,10 +40,10 @@ function main() {
 
       // Set handler to capture items WITHOUT saving them
       translate.setHandler("itemDone", function(obj, item) {
-        if (item.DOI) {
-          result = item.DOI;
+        if (item.'"$METADATA"') {
+          result = item.'"$METADATA"';
         } else {
-          result = "No DOI found";
+          result = "No '"$METADATA"' found";
         }
       });
 
@@ -64,5 +65,10 @@ function main() {
 
 	cat "$TMP_FILE2"
 }
+
+if [[ "$1" != "DOI" && "$1" != "title" ]]; then
+	dunstify "Error: first argument must be DOI or title."
+	exit 1
+fi
 
 main "$@"

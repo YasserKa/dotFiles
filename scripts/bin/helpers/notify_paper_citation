@@ -1,16 +1,29 @@
 #!/usr/bin/env bash
 # Send notification about # citations and # influential citations
 #
-# $1: paper DOI
+# $1: paper URL
 #
-# Dependencies: notify-send, semanticscholar api key
+# Dependencies: notify-send, jq, semanticscholar api key
 
 # With more details
 main() {
-  local DOI="$1"
+  local URL="$1"
   local response citations influential
 
+  DOI="$("$HOME/bin/helpers/get_paper_metadata" DOI "$URL")"
   response=$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/DOI:${DOI}?fields=citationCount,influentialCitationCount")
+
+  # DOI, didn't work, use title
+  if e || echo "$response" | jq -e 'has("error")' >/dev/null; then
+    dunstify "Couldn't find paper using DOI, trying with title"
+    sleep 1.5 # Rate limit
+    TITLE="$("$HOME/bin/helpers/get_paper_metadata" title "$URL")"
+    ENCODED_TITLE="$(echo "$TITLE" | jq -Rr '@uri')"
+    response="$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/search/match?query=${ENCODED_TITLE}&fields=citationCount,influentialCitationCount")"
+    [[ "$(echo "$response" | jq -r '.data | length')" != 1 ]] && echo dunstify "Note: more than paper identified"
+    # Get first paper
+    response="$(echo "$response" | jq -r '.data[0]')"
+  fi
 
   citations=$(echo "$response" | jq -r '.citationCount')
   influential=$(echo "$response" | jq -r '.influentialCitationCount')
@@ -18,7 +31,7 @@ main() {
   if [[ "$citations" != "null" ]]; then
     notify-send --expire-time 10000 "Paper Stats" "📊 Citations: $citations\n⭐ Influential: $influential"
   else
-    notify-send "Error" "Could not fetch data for DOI: $DOI"
+    notify-send "Error" "Could not fetch data for: $TITLE"
   fi
 }
 
