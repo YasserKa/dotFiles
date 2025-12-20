@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
-# Import to zotero from various sources to a collection
+# Zotero utility:
+# - Import to zotero from various sources to a collection
+# - Get a paper's DOI or title
 #
 # Arguments:
+#   zotero_utility [import|get_metadata] args
+#
+#   import:
 #   --collection_name <collection_name>: Colletion name (optional)
 #   or
 #   --recent: Import to the collection that was imported before (optional)
-#   <SOURCE>: URL or path to document
+#   <SOURCE>: URL or path to paper
 #
-# Dependencies: zotero netcat
+#   get_metadata :
+#   $1: [DOI|title]
+#   $2; SOURCE: URL or path to paper
 #
+# Dependencies: zotero, netcat
 
 get_collection_id_from_name() {
 	local -r COLLECTION_NAME="$1"
@@ -92,6 +100,42 @@ result=collectionId.toString()
 }
 
 import_source() {
+	local TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
+	local COLLECTION_NAME RECENT SOURCE
+
+	while :; do
+		case $1 in
+			--collection_name)
+				COLLECTION_NAME="$2"
+				shift
+				;;
+			--recent)
+				RECENT="true"
+				;;
+			*)
+				# Could be changed to remove em-dashes
+				SOURCE="$1"
+				break
+				;;
+		esac
+		shift
+	done
+
+	declare -r FRE_NAME="zotero_collection"
+
+	if [[ "$RECENT" == "true" ]]; then
+		# Use most recent file
+		source "$TMP_FILE_RECENT_COLLECTION_ID"
+	elif [[ -n "$COLLECTION_NAME" ]]; then
+		declare -r COLLECTION_ID="$(get_collection_id_from_name "$COLLECTION_NAME")"
+	else # Pick interactively
+		declare -r COLLECTION_ID="$(pick_collection_id)"
+	fi
+	# Don't track reading collection
+	[[ -n "$COLLECTION_ID" && "$COLLECTION_NAME" != "To_Read" ]] && declare -p COLLECTION_ID >|"$TMP_FILE_RECENT_COLLECTION_ID"
+
+	[[ -z "$COLLECTION_ID" ]] && exit 0
+
 	if [[ -f "$SOURCE" ]]; then
 		# Attach document
 
@@ -229,27 +273,114 @@ eval_script_return_value() {
 	cat "$TMP_FILE2"
 }
 
-main() {
-	TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
-	local COLLECTION_NAME RECENT SOURCE
-	while :; do
-		case $1 in
-		--collection_name)
-			COLLECTION_NAME="$2"
-			shift
-			;;
-		--recent)
-			RECENT="true"
-			;;
-		*)
-			# Could be changed to remove em-dashes
-			SOURCE="$1"
-			break
-			;;
-		esac
-		shift
-	done
+get_metadata() {
 
+	if [[ "$1" != "DOI" && "$1" != "title" ]]; then
+		dunstify "Error: first argument must be DOI or title."
+		exit 1
+	fi
+
+	METADATA="$1"
+	SOURCE="$2"
+
+	if [[ -f "$SOURCE" ]]; then
+		# Attach document
+
+		# If filename contains an em-dash replace it, because JS doesn't like em-dashes
+		if [[ "$(basename "$SOURCE")" =~ [—–] ]]; then
+			OLD_SOURCE="$SOURCE"
+			SOURCE="/tmp/$(basename "$OLD_SOURCE" | sed 's/[—–]/-/g')"
+			cp -- "$OLD_SOURCE" "$SOURCE"
+		fi
+
+		SOURCE=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("'"$SOURCE"'"))')
+		SCRIPT='
+(async function () {
+    let path = decodeURIComponent("'$SOURCE'");
+
+  try {
+    // Create a linked file attachment (not stored in library)
+    let attachment = await Zotero.Attachments.linkFromFile({
+      file: path
+    });
+
+    // Use autoRecognizeItems to retrieve metadata
+    // This is what "Retrieve Metadata for PDF" does internally
+    await Zotero.RecognizeDocument.autoRecognizeItems([attachment]);
+
+    // Get the DOI from the parent item that was created
+    let metadata = null;
+    if (attachment.parentID) {
+      let parentItem = await Zotero.Items.getAsync(attachment.parentID);
+      if (parentItem) {
+        metadata = parentItem.getField("'"$METADATA"'");
+        // Clean up - delete both parent and attachment
+        await parentItem.eraseTx();
+      }
+    }
+     result = metadata
+
+    // Clean up the attachment if no parent was created
+    if (!attachment.parentID) {
+      await attachment.eraseTx();
+    }
+
+  } catch (error) {
+    return "Error: " + error.message;
+  }
+  '
+	elif curl --head "$SOURCE" >/dev/null; then
+
+		HTML_PATH="$(mktemp -t "tmp_XXX.html")"
+		readonly HTML_PATH
+
+		trap 'rm -f $HTML_PATH' RETURN
+		get_page_content "$SOURCE" "$HTML_PATH"
+
+		# shellcheck disable=2016
+		SCRIPT='
+  (async function () {
+    let url = "'"$SOURCE"'"
+    var cookieSandbox = url
+      ? new Zotero.CookieSandbox(null, url, "", null)
+      : null;
+
+    var parser = new DOMParser();
+    var data = await Zotero.File.getContentsAsync("'"$HTML_PATH"'");
+    var doc = parser.parseFromString(`<html>${data}</html>`, "text/html");
+    doc = Zotero.HTTP.wrapDocument(doc, url);
+
+    let translate = new Zotero.Translate.Web();
+    translate.setDocument(doc);
+    cookieSandbox && translate.setCookieSandbox(cookieSandbox);
+
+    let translators = await translate.getTranslators();
+
+    if (translators.length == 0) {
+      result = "Error: No translators found";
+    } else {
+      translate.setTranslator(translators[0].translatorID);
+
+      // Set handler to capture items WITHOUT saving them
+      translate.setHandler("itemDone", function(obj, item) {
+        if (item.'"$METADATA"') {
+          result = item.'"$METADATA"';
+        } else {
+          result = "No '"$METADATA"' found";
+        }
+      });
+
+      // Translate without saving to library
+      await translate.translate({
+        libraryID: false  // Dont save to any library
+      });
+    }
+  '
+	fi
+	eval_script_return_value "$SCRIPT"
+}
+
+main() {
 	if ! pgrep zotero >/dev/null; then
 		nohup zotero >/dev/null 2>&1 &
 		disown
@@ -258,26 +389,20 @@ main() {
 		done
 		i3-msg '[class="Zotero"] move scratchpad' >/dev/null
 	fi
-	# (($# == 0)) && {
-	# 	echo "Need a source"
-	# 	exit 1
-	# }
 
-	declare -r FRE_NAME="zotero_collection"
-
-	if [[ "$RECENT" == "true" ]]; then
-		# Use most recent file
-		source "$TMP_FILE_RECENT_COLLECTION_ID"
-	elif [[ -n "$COLLECTION_NAME" ]]; then
-		declare -r COLLECTION_ID="$(get_collection_id_from_name "$COLLECTION_NAME")"
-	else # Pick interactively
-		declare -r COLLECTION_ID="$(pick_collection_id)"
-	fi
-	# Don't track reading collection
-	[[ -n "$COLLECTION_ID" && "$COLLECTION_NAME" != "To_Read" ]] && declare -p COLLECTION_ID >|"$TMP_FILE_RECENT_COLLECTION_ID"
-
-	[[ -z "$COLLECTION_ID" ]] && exit 0
-	import_source
+	case $1 in
+		import)
+			shift
+			import_source "$@"
+			;;
+		get_metadata)
+			shift
+			get_metadata "$@"
+			;;
+		*)
+			dunstify "$1 utlity isn't supported" && exit 1
+			;;
+	esac
 }
 
 main "$@"
