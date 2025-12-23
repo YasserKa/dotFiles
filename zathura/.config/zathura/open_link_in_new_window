@@ -3,7 +3,7 @@
 # A zathura script to open a link in another window
 # It opens another zathura instance if one doesn't exist already then move it to the right monitor
 #
-# Dependencies: zathura xdotool i3
+# Dependencies: zathura xdotool ydotool evsieve i3/sway
 
 # How it works:
 # Given: Zathura is able to store a link's page number in the clipboard
@@ -31,7 +31,7 @@ main() {
 get_page_num() {
 	clipboard_copy ""
 
-	xdotool key "c"
+	ydotool key 46:1 46:0
 
 	# Wait until the page number is copied  or the action is aborted
 	wait_keys "<esc>" "<ctrl>+m" >/dev/null
@@ -43,9 +43,15 @@ get_page_num() {
 	# For some reason, zathura gives page-1
 	page=$((page + 1))
 
-	xdotool keyup control
 	# Clear zathura's message
-	xdotool key --clearmodifiers Escape
+	# xdotool key --clearmodifiers Escape
+	#
+	EVENT_NUM="$(keyd -m | head -10 | grep "keyd virtual keyboard" | grep -oP 'event\d+')"
+
+	ydotool key 1:1 1:0 # Possible for ctrl be released fast
+	# Wait until ctrl key is released
+	evsieve --input /dev/input/"$EVENT_NUM" --hook key:leftctrl:0 exec-shell="ydotool key 1:1 1:0; pkill evsieve" >/dev/null 2>&1 &
+	disown
 
 	echo "$page"
 }
@@ -60,29 +66,52 @@ open_document() {
 	local -r file="$1"
 	local -r page="$2"
 
-	focused_pid="$(xdotool getactivewindow getwindowpid)"
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		focused_pid="$(swaymsg -t get_tree | jq '.. | select(.focused?) | .pid')"
+	elif [[ -n "${DISPLAY}" ]]; then
+		focused_pid="$(xdotool getactivewindow getwindowpid)"
+	fi
+
 	# Quote brackets "( )", because xdotool has special meaning for them
 	file_quoted="${file//(/\\(}"
 	file_quoted="${file_quoted//)/\\)}"
 	# All pids using the file
-	all_pids="$(xdotool search --name "^${file_quoted}$" getwindowpid %@)"
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		# Get PIDs
+		all_pids="$(swaymsg -t get_tree | jq -r ".. | select(.name? == \"${file_quoted}\") | .pid")"
+	elif [[ -n "${DISPLAY}" ]]; then
+		all_pids="$(xdotool search --name "^${file_quoted}$" getwindowpid %@)"
+	fi
 
 	other_pid="$(grep -v "$focused_pid" <(echo "$all_pids"))"
 	if [[ -n "$other_pid" ]]; then
 		busctl --user call "org.pwmt.zathura.PID-$other_pid" /org/pwmt/zathura org.pwmt.zathura GotoPage u "$((page - 1))"
 	else
 		zathura --page="$page" "$file" &
-		disown
-		# Wait until the PID for the new instance is available
-		while ! xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid"; do
-			sleep 0.1
-		done
-		other_pid="$(xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid")"
-		window_ids="$(xdotool search --pid "$other_pid")"
-		for id in $window_ids; do
-			i3-msg "[id=$id] move output right" 2>/dev/null
-		done
-		xdotool search --onlyvisible --pid "$other_pid" --class 'zathura' windowfocus
+		if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+			while ! swaymsg -t get_tree | jq -r ".. | select(.name? == \"${file_quoted}\")? | .pid" | grep -v "$focused_pid"; do
+				sleep 0.1
+			done
+			other_pid="$(swaymsg -t get_tree | jq -r ".. | select(.name? == \"${file_quoted}\")? | .pid" | grep -v "$focused_pid")"
+			swaymsg -t get_tree | jq -r --arg pid "$other_pid" '.. | select(.pid? == ($pid | tonumber))? | .id' | while read -r container_id; do
+				swaymsg "[con_id=$container_id] move output right" 2>/dev/null
+			done
+		elif [[ -n "${DISPLAY}" ]]; then
+			# Wait until the PID for the new instance is available
+			while ! xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid"; do
+				sleep 0.1
+			done
+			other_pid="$(xdotool search --name "^${file_quoted}$" getwindowpid %@ | grep -v "$focused_pid")"
+			window_ids="$(xdotool search --pid "$other_pid")"
+			for id in $window_ids; do
+				i3-msg "[id=$id] move output right" 2>/dev/null
+			done
+		fi
+	fi
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		swaymsg "[pid=$other_pid app_id=\"org.pwmt.zathura\"] focus"
+	elif [[ -n "${DISPLAY}" ]]; then
+		xdotool search --onlyvisible --all --pid "$other_pid" --class 'zathura' windowfocus
 	fi
 }
 

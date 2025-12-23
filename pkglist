@@ -183,6 +183,8 @@ openresolv # resolv.conf management framework (resolvconf)
 xclip # Used to deal with copying/pasting images
 xsel # Another X clipboard, needed for zsh-system-clipboard to work
 xdotool # Command-line X11 automation tool
+ydotool # Automation for X11 and Wayland
+evsieve # A utility for mapping events from devices
 copyq # Clipboard manager
 downgrade # Downgrad packages in cache or Archive
 

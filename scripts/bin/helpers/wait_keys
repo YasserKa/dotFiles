@@ -3,7 +3,7 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
-#     "pynput",
+#     "evdev",
 # ]
 # ///
 
@@ -11,22 +11,106 @@
 # Wait for hotkeys press
 # Takes hotkeys as arguments
 # E.g. wait_keys '<esc>' '<ctrl>+m'
-
 import sys
 
-from pynput import keyboard
-
-stop_program = False
+from evdev import InputDevice, categorize, ecodes, list_devices
 
 
-def exit():
-    global stop_program
-    stop_program = True
+def find_keyboard():
+    """Find a keyboard device"""
+    from evdev import list_devices
+
+    devices = [InputDevice(path) for path in list_devices()]
+    for device in devices:
+        # if "kinesis corporation adv360 pro keyboard" in device.name.lower():
+        if device.name in ["xremap", "keyd virtual keyboard"]:
+            return device
+    return devices[0] if devices else None
 
 
-hotkeys = {arg: exit for arg in sys.argv[1:]}
+def parse_hotkey(hotkey_str: str):
+    """Parse hotkey string like '<ctrl>+<alt>+t' into key codes"""
+    # Map common modifier/key names to evdev codes
+    key_map = {
+        "ctrl": [ecodes.KEY_LEFTCTRL, ecodes.KEY_RIGHTCTRL],
+        "alt": [ecodes.KEY_LEFTALT, ecodes.KEY_RIGHTALT],
+        "shift": [ecodes.KEY_LEFTSHIFT, ecodes.KEY_RIGHTSHIFT],
+        "super": [ecodes.KEY_LEFTMETA, ecodes.KEY_RIGHTMETA],
+    }
 
-with keyboard.GlobalHotKeys(hotkeys) as h:
-    print(stop_program)
-    while not stop_program:
-        pass
+    parts = hotkey_str.lower().replace("<", "").replace(">", "").split("+")
+    required_keys = []
+
+    for part in parts:
+        part = part.strip()
+        if part in key_map:
+            required_keys.append(key_map[part])
+        else:
+            # Try to find the key code for regular keys
+            key_code = getattr(ecodes, f"KEY_{part.upper()}", None)
+            if key_code:
+                required_keys.append([key_code])
+
+    return required_keys
+
+
+def check_hotkey_match(pressed_keys: str, hotkey_requirements: str) -> bool:
+    """Check if currently pressed keys match the hotkey requirements"""
+    for requirement in hotkey_requirements:
+        # At least one key from each requirement group must be pressed
+        if not any(key in pressed_keys for key in requirement):
+            return False
+    return True
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: script.py '<ctrl>+<alt>+t' '<super>+q' ...")
+        sys.exit(1)
+
+    device = find_keyboard()
+    if not device:
+        print("No keyboard found!")
+        sys.exit(1)
+
+    print(f"Monitoring: {device.name}")
+
+    # Parse all hotkeys from command line
+    hotkeys = []
+    for arg in sys.argv[1:]:
+        parsed = parse_hotkey(arg)
+        if parsed:
+            hotkeys.append(parsed)
+            print(f"Watching for: {arg}")
+
+    pressed_keys = set()
+    stop_program = False
+
+    try:
+        for event in device.read_loop():
+            if event.type == ecodes.EV_KEY:
+                key_event = categorize(event)
+
+                if key_event.keystate == key_event.key_down:
+                    pressed_keys.add(event.code)
+                elif key_event.keystate == key_event.key_up:
+                    pressed_keys.discard(event.code)
+
+                # Check if any hotkey matches
+                for hotkey in hotkeys:
+                    if check_hotkey_match(pressed_keys, hotkey):
+                        print("Hotkey detected! Exiting...")
+                        stop_program = True
+                        break
+
+                if stop_program:
+                    break
+
+    except KeyboardInterrupt:
+        print("\nInterrupted")
+    finally:
+        device.close()
+
+
+if __name__ == "__main__":
+    main()
