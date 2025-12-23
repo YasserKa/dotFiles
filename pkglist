@@ -177,6 +177,7 @@ geoclue # Geoinformation service. Used by qutebrowser
 make # GNU make utility to maintain groups of programs
 cmake # Cross-platform open-source make system
 wmctrl # Control your EWMH compliant window manager from command line
+wlprop # xprop for wayland
 # Dependency for wmctrl
 openresolv # resolv.conf management framework (resolvconf)
 xclip # Used to deal with copying/pasting images
@@ -253,10 +254,9 @@ xorg-xinit # X.Org initialisation program
 xorg-xkill # Kill a client by its X resource
 xorg-xinput # Configure devices (used to lock keyboard input during text insertion)
 
-wlroots       # Compositor library for wayland
-wlroots-debug
 xorg-xwayland # run X clients under wayland
-# swayfx        # Sway with eye candy
+swayfx        # Sway with eye candy
+sway-contrib  # User-contributed sway scripts (e.g. grimshot)
 swaybg        # Wallpaper tool
 swaylock      # Screen locker
 waybar        # Wayland bar
