@@ -132,7 +132,6 @@ python-pymupdf # Used by script to get highlighted text in pdf
 python-pyperclip # Needed to yank clipboard by zathura's handle_document
 python-tldextract # Needed by Qutebrowser bitwarden script
 pyenv # Switch between multiple python versions
-python-pdm
 python-playwright # Playwright doesn't work in venv in Arch
 
 postgresql # DBMS
