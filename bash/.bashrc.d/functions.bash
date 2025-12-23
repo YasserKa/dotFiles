@@ -343,7 +343,14 @@ unset cli
 
 # Open TUIR with top page within 24 hours by pressing "g t 2"
 tuir() {
-	(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		(timeout 30 sh -c 'while ! swaymsg -t get_tree | jq -e "..|.name?|select(. != null and test(\"Front Page - tuir\"))" >/dev/null; do sleep 0.1; done' && \
+  		swaymsg "[title=\"Front Page - tuir\"]" focus && \
+  		sleep 0.1 && \
+  		ydotool key 34:1 34:0 20:1 20:0 3:1 3:0) &
+	elif [[ -n "${DISPLAY}" ]]; then
+		(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
+	fi
 	open_cli tuir
 }
 
@@ -405,9 +412,24 @@ rcdotfiles() {
 }
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
-goto_window() { timeout 3 xdotool search --sync --name "^$1$" windowactivate; }
+goto_window() {
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		SECONDS=0 TIMEOUT=3
+		while ! swaymsg -t get_tree | jq -e --arg name "$1" '.. | .name? | select(. == $name)' >/dev/null; do
+    	((SECONDS >= TIMEOUT)) && exit 0
+			sleep 0.1; done && swaymsg "[title=\"$1\"]" focus
+		elif [[ -n "${DISPLAY}" ]]; then
+			timeout 3 xdotool search --sync --name "^$1$" windowactivate;
+	fi
+}
 
-is_window_exists() { xdotool search --name "^$1$" >/dev/null; }
+is_window_exists() {
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		swaymsg -t get_tree | jq -e --arg name "$1" '.. | .name? | select(. == $name)' >/dev/null; 
+	elif [[ -n "${DISPLAY}" ]]; then
+		xdotool search --name "^$1$" >/dev/null;
+	fi
+}
 
 #######################################
 # Override emacsclient by running the server if it's not running in the background
@@ -446,7 +468,7 @@ org() {
 	is_window_exists "$NAME" || {
 		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
 	}
-	goto_window $NAME
+goto_window $NAME
 }
 
 # Open org notes without emacsclient to test config
@@ -467,7 +489,6 @@ magit() {
 
 	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
 	goto_window $NAME
-
 }
 
 alias gitdotfiles='cd $DOTFILES_DIR && magit'
@@ -522,52 +543,52 @@ pzf() {
 	shift
 	sed "s/ /\t/g" |
 		fzf --ansi --nth="$pos" --multi --history="${FZF_HISTDIR:-$XDG_STATE_HOME/fzf}/history-pzf" \
-			--preview-window=60%,border-left \
-			--bind="ctrl-o:execute-silent(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
-			--bind="alt-o:execute-silent(&>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
-			--header 'C-o: Upstream URL, A-o: ArchLinux.org' \
-			"$@" | cut -f"$pos" | xargs
-}
+		--preview-window=60%,border-left \
+		--bind="ctrl-o:execute-silent(xdg-open \$(paru -Si {$pos} | grep URL | head -1 | awk '{print \$NF}') 2>/dev/null)" \
+		--bind="alt-o:execute-silent(&>/dev/null { pacman -Si {$pos} &&  xdg-open '$OFFICIAL_URL/{$pos}' || xdg-open '$AUR_URL?K={$pos}&SB=p&SO=d&PP=100'; })" \
+		--header 'C-o: Upstream URL, A-o: ArchLinux.org' \
+		"$@" | cut -f"$pos" | xargs
+	}
 
-# List installable packages into fzf and install selection
-pai() {
-	cache_dir="/tmp/pas-$USER"
-	mkdir -p "$cache_dir"
-	preview_cache="$cache_dir/preview_{2}"
-	list_cache="$cache_dir/list"
-	{
-		test "$(wc -l <"$list_cache$*")" -lt 50000 && rm "$list_cache$*"
-	} 2>/dev/null
+	# List installable packages into fzf and install selection
+	pai() {
+		cache_dir="/tmp/pas-$USER"
+		mkdir -p "$cache_dir"
+		preview_cache="$cache_dir/preview_{2}"
+		list_cache="$cache_dir/list"
+		{
+			test "$(wc -l <"$list_cache$*")" -lt 50000 && rm "$list_cache$*"
+		} 2>/dev/null
 
 	pkg=$( (cat "$list_cache$*" 2>/dev/null || {
 		pacman --color=always -Sl "$@"
-		paru --color=always -Sl aur "$@"
-	} |
-		sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$*") |
-		pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
+			paru --color=always -Sl aur "$@"
+		} |
+			sed 's/ [^ ]*unknown-version[^ ]*//' | tee "$list_cache$*") |
+			pzf 2 --tiebreak=index --preview="cat $preview_cache 2>/dev/null | grep -v 'querying' | grep . || paru --color always -Si {2} | tee $preview_cache")
 
-	if test -n "$pkg"; then
-		echo "installing $pkg..."
-		cmd="paru -S $pkg"
-		# Add a shell history entry
-		print -s "$cmd"
-		eval "$cmd"
-		rehash
-		rm -rf "$cache_dir"
-	fi
-}
+		if test -n "$pkg"; then
+			echo "installing $pkg..."
+			cmd="paru -S $pkg"
+			# Add a shell history entry
+			print -s "$cmd"
+			eval "$cmd"
+			rehash
+			rm -rf "$cache_dir"
+		fi
+	}
 
-# list installed packages into fzf and remove selection
-# tip: use -e to list only explicitly installed packages
-par() {
-	pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
-	if test -n "$pkg"; then
-		echo "removing $pkg..."
-		cmd="paru --remove --nosave --recursive $pkg"
-		print -s "$cmd"
-		eval "$cmd"
-	fi
-}
+	# list installed packages into fzf and remove selection
+	# tip: use -e to list only explicitly installed packages
+	par() {
+		pkg=$(paru --color=always -Q "$@" | pzf 1 --tiebreak=length --preview="paru --color always -Qli {1}")
+		if test -n "$pkg"; then
+			echo "removing $pkg..."
+			cmd="paru --remove --nosave --recursive $pkg"
+			print -s "$cmd"
+			eval "$cmd"
+		fi
+	}
 
 alias pas="pacman -Qq | pzf 1 --preview 'pacman -Qil {}' --bind 'enter:execute(pacman -Qil {} | \$PAGER)+abort'"
 # }}}
