@@ -100,6 +100,8 @@ alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(typ
 # Generate Bibtex using citations in Tex file
 alias gen_bib="command cp $XDG_CONFIG_HOME/Zotero/better-bibtex/my_library.bib bibliography.bib && biber --output-format=bibtex --output_file=bibliography.bib tex_output/*bcf"
 
+alias monitor_keys="sudo showkey --keycodes"
+
 # SSH setup
 ssh() { command ssh "$@" -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
 mosh() { command mosh --ssh="ssh" "$@" -- bash -c 'export yasser_config_env=1; TERM=xterm-256color; exec bash -login'; }
