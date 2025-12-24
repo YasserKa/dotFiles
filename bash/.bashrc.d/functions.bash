@@ -433,7 +433,6 @@ goto_window() {
 	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 			swaymsg "[title=\"$1\"]" focus
 		elif [[ -n "${DISPLAY}" ]]; then
-			dunstify hello
 			timeout 1 xdotool search --sync --name "^$1$" windowactivate;
 	fi
 }
