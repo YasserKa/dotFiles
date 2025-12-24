@@ -253,7 +253,7 @@ if [[ $- == *i* ]]; then
 		bind -m vi-command -x '"\C-y":copyline'
 	elif [[ "$ZSH_NAME" ]]; then
 		# shellcheck disable=2317
-		cmd_to_clip() { printf "%s" "$BUFFER" | xsel -i --clipboard; }
+		cmd_to_clip() { printf "%s" "$BUFFER" | clipboard_copy &>/dev/null; }
 		zle -N cmd_to_clip
 		bindkey -M vicmd '^y' cmd_to_clip
 		bindkey -M viins '^y' cmd_to_clip
@@ -412,22 +412,29 @@ rcdotfiles() {
 }
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
-goto_window() {
-	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-		SECONDS=0 TIMEOUT=3
-		while ! swaymsg -t get_tree | jq -e --arg name "$1" '.. | .name? | select(. == $name)' >/dev/null; do
-    	((SECONDS >= TIMEOUT)) && exit 0
-			sleep 0.1; done && swaymsg "[title=\"$1\"]" focus
-		elif [[ -n "${DISPLAY}" ]]; then
-			timeout 3 xdotool search --sync --name "^$1$" windowactivate;
-	fi
-}
-
 is_window_exists() {
 	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 		swaymsg -t get_tree | jq -e --arg name "$1" '.. | .name? | select(. == $name)' >/dev/null; 
 	elif [[ -n "${DISPLAY}" ]]; then
 		xdotool search --name "^$1$" >/dev/null;
+	fi
+}
+
+wait_for_window() {
+		SECONDS=0 TIMEOUT=3
+		while ! is_window_exists "$1"; do
+    	((SECONDS >= TIMEOUT)) && return 1
+			sleep 0.1
+		done
+}
+
+goto_window() {
+	wait_for_window "$1"
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+			swaymsg "[title=\"$1\"]" focus
+		elif [[ -n "${DISPLAY}" ]]; then
+			dunstify hello
+			timeout 1 xdotool search --sync --name "^$1$" windowactivate;
 	fi
 }
 

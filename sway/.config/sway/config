@@ -304,6 +304,8 @@ exec /usr/share/sway/scripts/inactive-windows-transparency.py & disown
 exec --no-startup-id bash -ic "org"
 exec qutebrowser
 
+exec --no-startup-id kitty_control init
+
 # Manages other devices
 exec /bin/kdeconnectd & disown
 

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 #
 # Send command to a reusable kitty process and wait until its done
+#
+# kitty_control init      ; open kitty terminal & exit
+# kitty_control <cmd> [-g]; run <cmd> in terminal
 # Arguments:
 # (optional) -g --geometry kitty window's geometry (added to floating enable, scratchpad show)
 #
-# Dependencies: kitty i3 xdotool clipboard_copy clipboard_paste
+# Dependencies: kitty i3/sway xdotool clipboard_copy clipboard_paste
 
 declare -r SOCKET_ADDRESS="unix:/tmp/kitty.socket"
 declare -r CLASS="terminal_scratch"
@@ -13,26 +16,39 @@ LOCK_FILE="/tmp/kitty_control.lock"
 readonly LOCK_FILE
 declare GEOMETRY="move position center, resize set 990 820, move up 145 px"
 
+# shellcheck disable=SC1091
+source "$HOME/.bashrc.d/functions.bash"
+
 main() {
-  while [[ $# -gt 0 ]]; do
-    case $1 in
-      -g|--geometry)
-        GEOMETRY="$2"; shift; shift ;;
-      *) cmd="$1"; shift ;;
-    esac
-  done
-  readonly GEOMETRY
+	while [[ $# -gt 0 ]]; do
+		case $1 in
+		-g | --geometry)
+			GEOMETRY="$2"
+			shift
+			shift
+			;;
+		init)
+			is_window_exists "${CLASS}" || kitty --title "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && exit 0
+			;;
+		*)
+			cmd="$1"
+			shift
+			;;
+		esac
+	done
+	readonly GEOMETRY
 
-  # Use a lockfile to wait until the process is finished
-  touch "$LOCK_FILE"
+	# Use a lockfile to wait until the process is finished
+	touch "$LOCK_FILE"
 
-  show_kitty
-  send_cmd "$cmd"
-  i3-msg "[class=^${CLASS}$] floating enable, scratchpad show, $GEOMETRY" >/dev/null
+	show_kitty
+	send_cmd "$cmd"
 
-  while [[ -f "$LOCK_FILE" ]]; do
-    sleep 0.1
-  done
+	i3-msg "[title=\"^${CLASS}$\"] scratchpad show, floating enable,  $GEOMETRY" >/dev/null
+
+	while [[ -f "$LOCK_FILE" ]]; do
+		sleep 0.1
+	done
 }
 
 #######################################
@@ -42,30 +58,29 @@ main() {
 #   CLASS
 #   LOCK_FILE
 # Arguments:
-#   $* 
+#   $*
 #######################################
-send_cmd() { 
-  src_file="/tmp/kitty_control_src_file"
+send_cmd() {
+	src_file="/tmp/kitty_control_src_file"
 
-  trap 'rm $src_file; unset src_file' EXIT
+	trap 'rm $src_file; unset src_file' EXIT
 
-  clipboard="$(clipboard_paste)"
+	# NOTE: Wayland needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		printf "%s\n%s\n%s" "$*" "swaymsg '[title=^${CLASS}$] fullscreen disable' && swaymsg '[title=^${CLASS}$] move scratchpad'" "rm -f $LOCK_FILE" >|"$src_file"
+	elif [[ -n "${DISPLAY}" ]]; then
+		printf "%s\n%s\n%s" "$*" "i3-msg '[title=\"^${CLASS}$\"] move scratchpad'" "rm -f $LOCK_FILE" >|"$src_file"
+	fi
 
-  # Place command in source file
-  printf "%s\n%s\n%s" "$*" "i3-msg '[class=^${CLASS}$] move scratchpad'" "rm -f $LOCK_FILE" >| "$src_file"
-  # Place source file execution in clipboard 
-  clipboard_copy "< $src_file bash"
-
-  # Paste clipboard in remote terminal and execute it
-  kitty @ --to "$SOCKET_ADDRESS" action paste_from_clipboard
-  kitty @ --to "$SOCKET_ADDRESS" send-key 'ctrl+m'
-  sleep 0.07 # Sleep to not show the actions above
-
-  clipboard_copy "$clipboard"
+	kitty @ --to "$SOCKET_ADDRESS" action paste "< $src_file bash"
+	kitty @ --to "$SOCKET_ADDRESS" send-key 'ctrl+m'
+	sleep 0.07 # Sleep to not show the actions above
 }
 
 show_kitty() {
-  xdotool search --class "^${CLASS}$" >/dev/null || { kitty --class "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && xdotool search --sync --class "^${CLASS}$"; }
+	is_window_exists "${CLASS}" >/dev/null || {
+		kitty --title "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && wait_for_window "${CLASS}" && sleep 0.15
+	}
 }
 
 main "$@"
