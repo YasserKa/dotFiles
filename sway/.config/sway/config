@@ -300,7 +300,7 @@ for_window [class="^tmp_"] move scratchpad, floating enable, move position cente
 # Make inactive windows transparent
 exec /usr/share/sway/scripts/inactive-windows-transparency.py & disown
 # System bar
-exec killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown
+exec_always killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown
 
 # Applications
 exec --no-startup-id bash -ic "org"

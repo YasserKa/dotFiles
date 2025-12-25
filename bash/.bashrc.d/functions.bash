@@ -413,28 +413,28 @@ rcdotfiles() {
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
 is_window_exists() {
-	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-		swaymsg -t get_tree | jq -e --arg name "$1" '.. | .name? | select(. == $name)' >/dev/null; 
-	elif [[ -n "${DISPLAY}" ]]; then
-		xdotool search --name "^$1$" >/dev/null;
-	fi
+	i3-msg -t get_tree | jq -e --arg re "$1" 'recurse(.nodes[]?, .floating_nodes[]?) | select(.name != null and (.name | test($re)))' >/dev/null
 }
 
-wait_for_window() {
-		SECONDS=0 TIMEOUT=3
-		while ! is_window_exists "$1"; do
-    	((SECONDS >= TIMEOUT)) && return 1
-			sleep 0.1
-		done
+wait_window() {
+	local TIMEOUT=3 START=$SECONDS
+  while ! is_window_exists "$1"; do
+    (( SECONDS - START >= TIMEOUT )) && return 1
+    sleep 0.1
+  done
+}
+
+wait_window_exit() {
+	local TIMEOUT=999 START=$SECONDS
+  while is_window_exists "$1"; do
+    (( SECONDS - START >= TIMEOUT )) && return 1
+    sleep 0.1
+  done
 }
 
 goto_window() {
-	wait_for_window "$1"
-	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-			swaymsg "[title=\"$1\"]" focus
-		elif [[ -n "${DISPLAY}" ]]; then
-			timeout 1 xdotool search --sync --name "^$1$" windowactivate;
-	fi
+	wait_window "$1"
+	i3-msg "[title=\"$1\"] focus"
 }
 
 #######################################

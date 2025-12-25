@@ -79,7 +79,7 @@ send_cmd() {
 
 show_kitty() {
 	is_window_exists "${CLASS}" >/dev/null || {
-		kitty --title "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && wait_for_window "${CLASS}" && sleep 0.15
+		kitty --title "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && wait_window "${CLASS}" && sleep 0.15
 	}
 }
 
