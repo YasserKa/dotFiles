@@ -1,6 +1,5 @@
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
-  font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+  font-family: monospace; /* Needed to align text properly */
   font-size: 14px;
 }
 
@@ -14,6 +13,11 @@ window#waybar {
 
 window#waybar.hidden {
   opacity: 0.2;
+}
+
+#mode {
+  /* Reduce text size of sway/mode */
+  font-family: FontAwesome;
 }
 
 button {
@@ -58,8 +62,14 @@ button:hover {
 #backlight,
 #network,
 #pulseaudio,
+#bluetooth,
 #wireplumber,
 #custom-mail,
+#custom-vpn,
+#custom-notifications,
+#custom-notification-reddit,
+#custom-notification-lemmy,
+#custom-notification-HN,
 #tray,
 #mode,
 #idle_inhibitor,
