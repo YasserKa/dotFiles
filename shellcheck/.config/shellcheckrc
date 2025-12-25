@@ -1,5 +1,7 @@
 # Ignore short-circuit (A && B || C) warning
 disable=SC2015
+# Ignore "source <path>"
+disable=SC1091
 
 
 # vim:ft=ini
