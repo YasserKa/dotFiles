@@ -36,21 +36,6 @@ function cd() {
 }
 
 #######################################
-# Attempts to close a window with in a time interval
-# Arguments:
-#   $1 Word to identify the window (e.g. Slack)
-#######################################
-close_window() {
-	local -r TIMEOUT=5
-	local SECONDS=0
-	while sleep 1; do
-		id="$(wmctrl -l | grep "$1" | cut -d ' ' -f -1)"
-		[[ -n "$id" ]] && wmctrl -ic "$id" && exit 0
-		((SECONDS >= TIMEOUT)) && break
-	done
-}
-
-#######################################
 # Extand mv by creating the target directory if it doesn't exist
 #######################################
 mv() {
@@ -452,6 +437,12 @@ window_get_condition() {
 	echo "[${CRITERIA}=\"$1\"]"
 }
 
+close_window() {
+	wait_window "$1" || return 1
+	CONDITION="$(window_get_condition "$1")"
+	i3-msg "$CONDITION kill"
+}
+
 goto_window() {
 	wait_window "$1"
 	CONDITION="$(window_get_condition "$1")"
@@ -563,6 +554,7 @@ find_pattern_in_dotfiles() {
   [[ $# -gt 0 ]] || return 1
 	rg --hidden --no-ignore --glob '!**/zsh/history' -- "$1" "$HOME/.dotfiles" "$HOME/.dotfiles-private"
 }
+
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
 pzf() {
