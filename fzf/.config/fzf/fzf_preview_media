@@ -88,7 +88,7 @@ main() {
 		MIME_TYPE="image/tiff"
 	fi
 
-	if [[ "$MIME_TYPE" == "text/html" ]]; then
+	if [[ "$EXTENSION" == "html" ]]; then
 		chromium \
 			--headless \
 			--disable-gpu \
@@ -96,7 +96,7 @@ main() {
 			--no-sandbox \
 			--hide-scrollbars \
 			--screenshot="${IMAGE_CACHE_PATH}.png" \
-			--window-size="${DEFAULT_SIZE}" \
+			--window-size="${DEFAULT_SIZE//x/,}" \
 			"$1" >/dev/null 2>&1
 		wait
 		set -- "${IMAGE_CACHE_PATH}.png"
