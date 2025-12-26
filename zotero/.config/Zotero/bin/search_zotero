@@ -146,7 +146,7 @@ END {
   --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {4}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
   --bind 'alt-u:execute-silent(xdg-open {3})' \
   --bind 'alt-q:execute-silent(dunstify {1})' \
-  --bind 'alt-z:execute-silent(i3-msg '\''[class="Zotero"] focus'\'' && /bin/nc 127.0.0.1 8080 < <(echo "${focus_zotero_item}{1})})();"))+abort' \
+  --bind 'alt-z:execute-silent(i3-msg '\''${ZOTERO_CONDITION} focus'\'' && /bin/nc 127.0.0.1 8080 < <(echo "${focus_zotero_item}{1})})();"))+abort' \
   --header 'Enter open document, A-u open link, A-z focus in zotero' \
   >| '${TMP_FILE}'
 EOF
@@ -217,19 +217,22 @@ eval_script_return_value() {
 	rm "$tmp"
 }
 
+source "$HOME/.bashrc.d/functions.bash"
+ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
+
 if ! pgrep zotero >/dev/null; then
 	nohup zotero >/dev/null 2>&1 &
 	disown
 	until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
 		sleep 0.1
 	done
-	i3-msg '[class="Zotero"] move scratchpad'
+	i3-msg "$ZOTERO_CONDITION move scratchpad"
 	sleep 1
 fi
 
 if (($# == 0)); then
 	search_entries
 else
-	i3-msg '[class="Zotero"] move workspace current, focus'
+	i3-msg "$ZOTERO_CONDITION move workspace current, focus"
 	focus_zotero_entry_from_path "$1"
 fi

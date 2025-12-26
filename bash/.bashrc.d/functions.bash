@@ -413,7 +413,15 @@ rcdotfiles() {
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
 is_window_exists() {
-	i3-msg -t get_tree | jq -e --arg re "$1" 'recurse(.nodes[]?, .floating_nodes[]?) | select(.name != null and (.name | test($re)))' >/dev/null
+	i3-msg -t get_tree |
+	jq -e --arg re "$1" '
+  	recurse(.nodes[]?, .floating_nodes[]?) |
+  	select(
+    	((.name // "") | test($re)) or
+    	((.app_id // "") | test($re)) or
+    	((.window_properties.class // "") | test($re))
+  	)
+	' >/dev/null
 }
 
 wait_window() {
@@ -432,9 +440,22 @@ wait_window_exit() {
   done
 }
 
+window_get_condition() {
+	# Get the condition (app_id, class, name) to use for focusing the window
+	CRITERIA="$(i3-msg -t get_tree | jq -r --arg re "$1" '
+  	recurse(.nodes[]?, .floating_nodes[]?) |
+  	if ((.app_id // "") | test($re)) then "app_id"
+  	elif ((.window_properties.class // "") | test($re)) then "class"
+  	elif ((.window_properties.title // "") | test($re)) then "title"
+  	elif ((.name // "") | test($re)) then "name"
+  	else empty end')"
+	echo "[${CRITERIA}=\"$1\"]"
+}
+
 goto_window() {
 	wait_window "$1"
-	i3-msg "[title=\"$1\"] focus"
+	CONDITION="$(window_get_condition "$1")"
+	i3-msg "$CONDITION focus"
 }
 
 #######################################
@@ -470,11 +491,11 @@ emacsclient() {
 alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
-	local NAME="emacs_org"
+	local NAME="^emacs_org$"
 	is_window_exists "$NAME" || {
 		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
 	}
-goto_window $NAME
+goto_window "$NAME"
 }
 
 # Open org notes without emacsclient to test config
@@ -610,4 +631,8 @@ xdg-open() {
 pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
 thunderbird() { { wmctrl -l | grep Thunderbird; } && i3-msg '[class="thunderbird"] move workspace current, focus' || command thunderbird & }
-zotero() { { wmctrl -l | grep Zotero; } && i3-msg '[class="Zotero"] move workspace current, focus' || command zotero & }
+zotero() {
+	CONDITION=
+	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, focus" && exit 0
+	command zotero &
+}
