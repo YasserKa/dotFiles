@@ -89,7 +89,6 @@ main() {
 	fi
 
 	if [[ "$MIME_TYPE" == "text/html" ]]; then
-		dunstify hello
 		chromium \
 			--headless \
 			--disable-gpu \
@@ -153,11 +152,11 @@ main() {
 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES - 6))
 
 	case "$MIME_TYPE" in
-	image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
-	text/*) bat -n --color=always "$1" ;;
-	audio/*) exiftool "$1" ;;
-	application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
-	*) bat -n --color=always "$1" ;;
+		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+		text/*) bat -n --color=always "$1" ;;
+		audio/*) exiftool "$1" ;;
+		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+		*) bat -n --color=always "$1" ;;
 	esac
 }
 

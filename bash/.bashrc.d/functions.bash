@@ -512,7 +512,16 @@ magit() {
 alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
 elfeed() {
-	emacs --eval --create-frame "(progn (elfeed) (elfeed-update))"
+	emacs --frame-parameters='((title . "fullscreen"))' --eval '(progn
+(elfeed-search-set-filter "@6-months-ago +unread ~Papers")
+(elfeed) (elfeed-update))'
+}
+
+papers() {
+	get_papers
+	emacs --frame-parameters='((title . "fullscreen"))' --eval '(progn
+(elfeed-search-set-filter "@6-months-ago +unread =Papers")
+(elfeed) (elfeed-update))'
 }
 
 # Pick a color and store it in clipbaord

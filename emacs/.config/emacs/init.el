@@ -2786,36 +2786,47 @@ concatenated."
               (or (elfeed-meta feed :title) (elfeed-feed-title feed))))
            (points (elfeed-meta entry :points))
            (comments (elfeed-meta entry :comments))
+           (points (elfeed-meta entry :points))
+           (citations_num (elfeed-meta entry :citations_num))
+           (influential_citations_num (elfeed-meta entry :influential_citations_num))
+           (references_num (elfeed-meta entry :references_num))
            (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
            (authors (concatenate-authors
                      (elfeed-meta entry :authors)))
            (metadata (cond
-                      ((and points comments) (format "%4d  %4d 󰻞  " points comments))
-                      (points (format "%4d   " points))
-                      (comments (format "%4d 󰻞  " comments))
-                      (t "")))
+                       ((and points comments) (format "%4d  %4d 󰻞  " points comments))
+                       (points (format "%4d   " points))
+                       (comments (format "%4d 󰻞  " comments))
+                       ((string= feed-title "Papers") (format "%3d (%d) 󰄠 %3d 󰄝  " citations_num influential_citations_num references_num))
+                       (t "")))
            (tags (mapcar #'symbol-name (elfeed-entry-tags entry)))
            (tags-str (concat "("(mapconcat
                                  (lambda (s) (propertize s 'face 'elfeed-search-tag-face))
                                  tags ",") ")"))
+(display-monitor-attributes-list)
+
            (date-column (elfeed-format-column
-                         relative-time (elfeed-clamp 2 4 4) :left))
+                         relative-time (elfeed-clamp 2 3 3) :left))
+           (title-max-width 130)
            (title-width (- (window-width) 10 elfeed-search-trailing-width))
            (entry-title-column (elfeed-format-column
-                                entry-title (elfeed-clamp elfeed-search-title-min-width title-width 90) :left))
+                                (truncate-string-with-ellipsis entry-title title-max-width) (elfeed-clamp elfeed-search-title-min-width title-width title-max-width) :left))
            (tag-column (elfeed-format-column
                         tags-str (elfeed-clamp 18 (length tags-str) 30) :left))
            (metadata-column (elfeed-format-column
-                             metadata (elfeed-clamp 15 15 15) :left))
+                             metadata (elfeed-clamp 18 18 18) :left))
+           (authors-max-width 98)
            (authors-column (elfeed-format-column
-                            authors (elfeed-clamp 16 (length authors) 40) :left))
+                            (truncate-string-with-ellipsis authors authors-max-width) (elfeed-clamp 16 (length authors) authors-max-width) :left))
            (feed-title-column (elfeed-format-column
                                feed-title (elfeed-clamp 16 (length feed-title) 20) :left))
            )
       (insert (propertize date-column 'face 'elfeed-search-date-face) " ")
       (insert metadata-column)
-      (insert (propertize feed-title-column 'face 'elfeed-search-feed-face) " ")
-      (insert (propertize tag-column 'face 'elfeed-search-tag-face) " ")
+      ;; Remove tag and feed title when showing papers
+      (when (not (string= feed-title "Papers"))
+        (insert (propertize feed-title-column 'face 'elfeed-search-feed-face) " ")
+        (insert (propertize tag-column 'face 'elfeed-search-tag-face) " "))
       (insert (propertize entry-title-column 'face title-faces 'kbd-help entry-title) "  ")
       (insert (propertize authors-column 'face 'elfeed-search-authors-face 'kbd-help authors))
       ))
@@ -2837,10 +2848,15 @@ concatenated."
 (defun my/elfeed-parse-metadata (_type entry db-entry)
   "Extract Points and Comments from Hacker News entry description."
   (let* ((feed-url (elfeed-feed-url (elfeed-entry-feed db-entry)))
+         (feed-title (elfeed-feed-title (elfeed-entry-feed db-entry)))
          (content-ref (elfeed-entry-content db-entry))
          (content (elfeed-deref content-ref))
          (points nil)
-         (comments nil))
+         (comments nil)
+         (citations_num nil)
+         (influential_citations_num nil)
+         (references_num nil)
+         )
     (cond ((string= feed-url  "https://hnrss.org/frontpage")
            (setq points (when (string-match "Points: \\([0-9]+\\)" content)
                           (string-to-number (match-string 1 content)))
@@ -2851,12 +2867,28 @@ concatenated."
            (setq points (when (string-match "\\([0-9]+\\) points" content)
                           (string-to-number (match-string 1 content)))
                  comments (when (string-match "\\([0-9]+\\) comments" content)
-                            (string-to-number (match-string 1 content))))))
+                            (string-to-number (match-string 1 content)))))
+          ((string-match-p "Semantic Scholar Query" feed-title)
+           (setq citations_num (when (string-match "<b># Citations:</b> \\([0-9]+\\)" content)
+                          (string-to-number (match-string 1 content)))
+                 influential_citations_num (when (string-match "<b># Influential Citations:</b> \\([0-9]+\\)" content)
+                                         (string-to-number (match-string 1 content)))
+                 references_num (when (string-match "<b># References:</b> \\([0-9]+\\)" content)
+                                         (string-to-number (match-string 1 content)))
+                 )
+           ))
     (when points
       (setf (elfeed-meta db-entry :points) points))
     (when comments
       (setf (elfeed-meta db-entry :comments) comments))
-    ))
+    (when citations_num
+      (setf (elfeed-meta db-entry :citations_num) citations_num))
+    (when influential_citations_num
+      (setf (elfeed-meta db-entry :influential_citations_num) influential_citations_num))
+    (when references_num
+      (setf (elfeed-meta db-entry :references_num) references_num))
+    )
+  )
 (add-hook 'elfeed-new-entry-parse-hook #'my/elfeed-parse-metadata)
 
 (use-package elfeed-org

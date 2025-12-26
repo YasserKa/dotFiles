@@ -2,6 +2,7 @@
 disable=SC2015
 # Ignore "source <path>"
 disable=SC1091
+disable=SC1090
 
 
 # vim:ft=ini
