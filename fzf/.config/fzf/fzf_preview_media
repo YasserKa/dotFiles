@@ -88,6 +88,22 @@ main() {
 		MIME_TYPE="image/tiff"
 	fi
 
+	if [[ "$MIME_TYPE" == "text/html" ]]; then
+		dunstify hello
+		chromium \
+			--headless \
+			--disable-gpu \
+			--disable-javascript \
+			--no-sandbox \
+			--hide-scrollbars \
+			--screenshot="${IMAGE_CACHE_PATH}.png" \
+			--window-size="${DEFAULT_SIZE}" \
+			"$1" >/dev/null 2>&1
+		wait
+		set -- "${IMAGE_CACHE_PATH}.png"
+		MIME_TYPE="image/png"
+	fi
+
 	if [[ "$MIME_TYPE" == video/* ]]; then
 		ffmpegthumbnailer -m -s0 -i "$1" -o "${IMAGE_CACHE_PATH}.jpg" &>/dev/null
 		wait
@@ -137,11 +153,11 @@ main() {
 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES - 6))
 
 	case "$MIME_TYPE" in
-		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
-		text/*) bat -n --color=always "$1" ;;
-		audio/*) exiftool "$1" ;;
-		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
-		*) bat -n --color=always "$1" ;;
+	image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+	text/*) bat -n --color=always "$1" ;;
+	audio/*) exiftool "$1" ;;
+	application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;
+	*) bat -n --color=always "$1" ;;
 	esac
 }
 
