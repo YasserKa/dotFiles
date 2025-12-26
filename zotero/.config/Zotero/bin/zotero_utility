@@ -12,6 +12,8 @@
 #   --collection_name <collection_name>: Colletion name (optional)
 #   or
 #   --recent: Import to the collection that was imported before (optional)
+#   or
+#   --add_org_entry: Adds entry to org mode
 #   <SOURCE>: URL or path to paper
 #
 #   get_metadata:
@@ -106,7 +108,7 @@ result=collectionId.toString()
 
 import_source() {
 	local TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
-	local COLLECTION_NAME RECENT SOURCE
+	local COLLECTION_NAME RECENT SOURCE ADD_ORG_ENTRY
 
 	while :; do
 		case $1 in
@@ -116,6 +118,9 @@ import_source() {
 				;;
 			--recent)
 				RECENT="true"
+				;;
+			--add_org_entry)
+				ADD_ORG_ENTRY="true"
 				;;
 			*)
 				# Could be changed to remove em-dashes
@@ -152,7 +157,7 @@ import_source() {
 		fi
 
 		# Convert to UTF-8 escape sequence (percent-encoding)
-		SOURCE=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$SOURCE'))")
+		SOURCE=$(python3 -c "import urllib.parse; print(urllib.parse.quote(\"$SOURCE\"))")
 		import_script='
   (async function () {
 function sleep(ms) {
@@ -183,8 +188,6 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
 		await waitForCondition(() => items[0].parentID, 10000);
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].parentID).citationKey
   '
-
-		eval_script_return_value "$import_script"
 	elif curl --head "$SOURCE" >/dev/null; then
 
 		HTML_PATH="$(mktemp -t "tmp_XXX")"
@@ -246,16 +249,19 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].getID()).citationKey
 }
 '
-		results="$(eval_script_return_value "$import_script")"
-		if grep "Error:" <(echo "$results"); then
-			exit 1
-		else
-			echo "$results"
-			dunstify "Entry Added"
-		fi
 	else
 		notify-send "Couldn't import to zotero: $SOURCE"
 		exit 1
+	fi
+	results="$(eval_script_return_value "$import_script")"
+	if grep "Error:" <(echo "$results"); then
+		exit 1
+	else
+		if [[ "$ADD_ORG_ENTRY" == "true" ]]; then
+			emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${results}]"
+		fi
+		# echo "$results"
+		dunstify "Entry Added"
 	fi
 }
 
@@ -576,10 +582,11 @@ eval_script_return_value() {
 	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
 
 	# Send script again, if Zotero doesn't respond
-	local TIMEOUT=2 START=$SECONDS FLAG="false"
+	# local TIMEOUT=2 START=$SECONDS FLAG="false"
 
+	sleep 1
 	until [[ -f "$tmp" ]]; do
-		[[ "$FLAG" != "true" ]] && ((SECONDS - START >= TIMEOUT)) && nc 127.0.0.1 8080 < <(echo "$SCRIPT") && FLAG="true"
+		# [[ "$FLAG" != "true" ]] && ((SECONDS - START >= TIMEOUT)) && nc 127.0.0.1 8080 < <(echo "$SCRIPT") && FLAG="true"
 		sleep 0.1
 	done
 	cat "$tmp"

@@ -266,7 +266,7 @@ c.aliases = {
     "paywall": "open https://12ft.io/proxy?q={url}",
     "import_zotero": "spawn ~/.config/Zotero/bin/zotero_utility import {url}",
     "import_zotero_recent": "spawn ~/.config/Zotero/bin/zotero_utility import --recent {url}",
-    "import_zotero_read": "spawn ~/.config/Zotero/bin/import_to_zotero_reading_list {url}",
+    "import_zotero_read": "spawn ~/.config/Zotero/bin/zotero_utility import --add_org_entry --collection_name 'To_Read' {url}",
     "get_paper_citations": "spawn ~/bin/notify_paper_citation {url}",
     "get_paper_graph": 'spawn bash -ic "xdg-open https://inciteful.xyz/p/$(~/.config/Zotero/bin/zotero_utility get_metadata DOI {url})"',
     "kde_share": "spawn kde_share_url {url}",
