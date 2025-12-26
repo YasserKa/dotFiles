@@ -25,7 +25,7 @@ map ,zi exec '/home/yasser/.config/Zotero/bin/zotero_utility import "$FILE"'
 map ,zr exec '/home/yasser/.config/Zotero/bin/zotero_utility import --recent "$FILE"'
 map ,zc exec '/home/yasser/bin/notify_paper_citation "$FILE"'
 map ,zg exec '/bin/bash -ic "xdg-open https://inciteful.xyz/p/$($XDG_CONFIG_HOME/Zotero/bin/zotero_utility get_metadata DOI \"$FILE\")"'
-map ,zo exec '/home/yasser/.config/Zotero/bin/search_zotero "$FILE"'
+map ,zo exec '/home/yasser/.config/Zotero/bin/zotero_utility focus_entry "$FILE"'
 map ,r exec '/home/yasser/.config/Zotero/bin/import_to_zotero_reading_list "$FILE"'
 
 map ,t exec '/home/yasser/.config/zathura/goto_toc "$FILE" "$PAGE" "$DBUS"'
