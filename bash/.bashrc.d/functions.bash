@@ -555,6 +555,34 @@ find_pattern_in_dotfiles() {
 	rg --hidden --no-ignore --glob '!**/zsh/history' -- "$1" "$HOME/.dotfiles" "$HOME/.dotfiles-private"
 }
 
+run_failguard() {
+  local N="${FAILGUARD_N:-3}"
+	local state_dir="$XDG_STATE_HOME/failguard"
+  local msg="${FAILGUARD_MSG:-$*}"
+
+	mkdir -p "$state_dir"
+
+	local key
+	key=$(printf '%q ' "$@" | sha256sum | cut -d' ' -f1)
+	local state="$state_dir/$key"
+
+	local fails
+	fails=$(cat "$state" 2>/dev/null || echo 0)
+
+	if "$@"; then
+		echo 0 >|"$state"
+		return 0
+	else
+		fails=$((fails + 1))
+		echo "$fails" >|"$state"
+
+		if ((fails >= N)); then
+			notify-send "Command failed $fails times" "$msg"
+		fi
+		return 1
+	fi
+}
+
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
 pzf() {
