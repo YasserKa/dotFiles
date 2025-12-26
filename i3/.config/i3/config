@@ -288,7 +288,7 @@ for_window [class="^bitwarden_editor$"] floating enable, resize set 990 820, mov
 # note taking
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
-for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
+for_window [title="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
 # >>>
 # Startup <<<
 # Pick a random background image
