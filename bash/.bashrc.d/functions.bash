@@ -559,6 +559,10 @@ which() {
 	return 2
 }
 
+find_pattern_in_dotfiles() {
+  [[ $# -gt 0 ]] || return 1
+	rg --hidden --no-ignore --glob '!**/zsh/history' -- "$1" "$HOME/.dotfiles" "$HOME/.dotfiles-private"
+}
 # Yay install and uninstall {{{
 # Helper function to integrate paru and fzf
 pzf() {
