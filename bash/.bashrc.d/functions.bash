@@ -425,7 +425,7 @@ is_window_exists() {
 }
 
 wait_window() {
-	local TIMEOUT=3 START=$SECONDS
+	local TIMEOUT=5 START=$SECONDS
   while ! is_window_exists "$1"; do
     (( SECONDS - START >= TIMEOUT )) && return 1
     sleep 0.1

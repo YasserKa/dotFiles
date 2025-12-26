@@ -210,7 +210,12 @@ eval_script_return_value() {
 '
 
 	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
+
+	# Send script again, if Zotero doesn't respond
+	local TIMEOUT=2 START=$SECONDS FLAG="false"
+
 	until [[ -f "$tmp" ]]; do
+		[[ "$FLAG" != "true" ]] && ((SECONDS - START >= TIMEOUT)) && nc 127.0.0.1 8080 < <(echo "$SCRIPT") && FLAG="true"
 		sleep 0.1
 	done
 	cat "$tmp"
@@ -218,16 +223,19 @@ eval_script_return_value() {
 }
 
 source "$HOME/.bashrc.d/functions.bash"
-ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
 
-if ! pgrep zotero >/dev/null; then
+if ! is_window_exists "^Zotero$"; then
 	nohup zotero >/dev/null 2>&1 &
 	disown
+	wait_window "^Zotero$"
+	ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
 	until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
 		sleep 0.1
 	done
+	sleep 2
 	i3-msg "$ZOTERO_CONDITION move scratchpad"
-	sleep 1
+else
+	ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
 fi
 
 if (($# == 0)); then
