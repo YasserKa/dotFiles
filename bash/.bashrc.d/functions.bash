@@ -526,7 +526,12 @@ papers() {
 
 # Pick a color and store it in clipbaord
 pick_color() {
-	command -v gpick >/dev/null && clipboard_copy "$(gpick -so)"
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		command -v hyprpicker >/dev/null && hyprpicker --autocopy
+    pass
+	elif [[ -n "${DISPLAY}" ]]; then
+		command -v gpick >/dev/null && clipboard_copy "$(gpick -so)"
+	fi
 }
 
 reboot() {

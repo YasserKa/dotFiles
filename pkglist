@@ -290,6 +290,7 @@ sudo # Give certain users the ability to run some commands as root
 moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
 usbutils # A collection of USB tools to query connected USB devices
 gpick # Color picker
+hyprpicker # Color picker for Wayland
 navi # An interactive cheatsheet tool for the command-line
 pv # Monitoring progress of data through pipeline
 perl-image-exiftool # Show meta data about media files
