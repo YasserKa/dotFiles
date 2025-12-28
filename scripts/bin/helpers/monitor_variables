@@ -1,23 +1,30 @@
 #!/usr/bin/env bash
 # Create variables for each monitor
 
-MONITORS="$(xrandr --listmonitors | tail -n +2 |
-  awk 'match($0, /\+([0-9]+)\+[0-9]+/, m) { print m[1], $NF }' |
-  sort -n | cut -d' ' -f2-)"
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+	MONITORS="$(wlr-randr | awk '
+    /^[^ ]/ { name=$1 }
+    /Position:/ { match($0, /Position: ([0-9]+),/, m); print m[1], name }
+    ' | sort -n | cut -d' ' -f2-)"
+elif [[ -n "${DISPLAY}" ]]; then
+	MONITORS="$(xrandr --listmonitors | tail -n +2 |
+		awk 'match($0, /\+([0-9]+)\+[0-9]+/, m) { print m[1], $NF }' |
+		sort -n | cut -d' ' -f2-)"
+fi
 
 MONITORS_ARR=()
 while IFS= read -r line; do
-  MONITORS_ARR+=("$line")
+	MONITORS_ARR+=("$line")
 done <<<"$MONITORS"
 
 # If only one monitor exists, make it the middle,
 # If two monitor; left, middle, and if a 3rd one exists add right
 if [[ ${#MONITORS_ARR[@]} == 1 ]]; then
-  export MONITOR_MIDDLE="${MONITORS_ARR[0]}"
+	export MONITOR_MIDDLE="${MONITORS_ARR[0]}"
 else
-  export MONITOR_LEFT="${MONITORS_ARR[0]}"
-  export MONITOR_MIDDLE="${MONITORS_ARR[1]}"
-  [[ -v MONITORS_ARR[2] ]] && export MONITOR_RIGHT="${MONITORS_ARR[2]}"
+	export MONITOR_LEFT="${MONITORS_ARR[0]}"
+	export MONITOR_MIDDLE="${MONITORS_ARR[1]}"
+	[[ -v MONITORS_ARR[2] ]] && export MONITOR_RIGHT="${MONITORS_ARR[2]}"
 fi
 
 echo "$MONITOR_LEFT"
