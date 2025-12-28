@@ -259,6 +259,7 @@ swayfx        # Sway with eye candy
 sway-contrib  # User-contributed sway scripts (e.g. grimshot)
 swaybg        # Wallpaper tool
 swaylock      # Screen locker
+swayidle      # Idle management daemon
 waybar        # Wayland bar
 wl-clipboard # copy/paste utilities for Wayland
 

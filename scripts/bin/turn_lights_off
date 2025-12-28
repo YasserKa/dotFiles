@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 #
-# Turn off the display for X server
-#
-# Dependencies: xdotool
+# Turn off the display
+# Dependencies: swayidle
 
-# Disable standby, suspend, and off modes 
-xset dpms 0 0 0
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 
-# No difference among standby, suspend, and off modes
-# Wait for keyboard input to finish then turn off display
-sleep 0.5 && xset dpms force off
+  swaymsg "output * dpms off"
+
+  swayidle -w \
+    timeout 1 'true' \
+    resume 'swaymsg "output * dpms on" && pkill swayidle'
+elif [[ -n "${DISPLAY}" ]]; then
+  # Disable standby, suspend, and off modes
+  xset dpms 0 0 0
+
+  # No difference among standby, suspend, and off modes
+  # Wait for keyboard input to finish then turn off display
+  sleep 0.5 && xset dpms force off
+fi
