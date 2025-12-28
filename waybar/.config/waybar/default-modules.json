@@ -85,7 +85,7 @@
     "exec-if": "tailscale exit-node list | grep -q selected"
   },
   "custom/mail": {
-    "format": "{} ",
+    "format": "{:>}  ",
     "interval": "once",
     "exec": "$XDG_CONFIG_HOME/neomutt/bin/get_number_new_mail",
     "signal": 8

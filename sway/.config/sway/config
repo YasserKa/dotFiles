@@ -320,5 +320,7 @@ exec rfkill block bluetooth
 # Hide cursor
 exec swaymsg seat seat0 hide_cursor 3000
 
+exec sudo systemctl start keyd
+
 include /etc/sway/config.d/*
 # >>>
