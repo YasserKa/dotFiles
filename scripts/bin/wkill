@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# Pick and kill window
+
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    wlprop -j | jq -r '.pid' | xargs -r kill -9
+elif [[ -n "$DISPLAY" ]]; then
+    xkill
+fi
