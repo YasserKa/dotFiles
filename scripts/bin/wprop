@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+# Script to click on a window and get its i3 info with pager
+#
+# Dependencies: i3/swap wlprop
+
+display_window_info() {
+    i3-msg -t get_tree | jq -C --arg id "$1" '.. | select(.window? == ($id | tonumber))' | less -R
+}
+
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+    # If not in terminal, open a new one
+    output="$(wlprop | jq -C)"
+    if [ -t 0 ] && [ -t 1 ]; then
+        echo "$output" | less -R
+    else
+        "$TERMINAL" bash -c "echo '$output' | less -R"
+    fi
+elif [[ -n "${DISPLAY}" ]]; then
+    WINDOW_ID=$(xwininfo | grep "Window id:" | awk '{print $4}')
+    WINDOW_ID=$(printf "%d" "$WINDOW_ID")
+    # If not in terminal, open a new one
+    if [ -t 0 ] && [ -t 1 ]; then
+        "$TERMINAL" bash -c "$(declare -f display_window_info); display_window_info $WINDOW_ID"
+    else
+        display_window_info "$WINDOW_ID"
+    fi
+fi
