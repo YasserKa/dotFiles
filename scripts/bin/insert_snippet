@@ -2,7 +2,7 @@
 #
 # Insert a snippet
 #
-# Dependencies: rofi clipboard_copy clipboard_paste
+# Dependencies: rofi clipboard_copy clipboard_paste xdotool wtype
 
 SNIPPETS_FILE="$XDG_CONFIG_HOME/.snippets"
 
@@ -15,11 +15,10 @@ snippet="$(<"$SNIPPETS_FILE" cut -d '=' -f -1 | rofi -dmenu | xargs -I{} grep {}
 CLIPBOARD="$(clipboard_paste)"
 clipboard_copy "$snippet"
 
-# Get list of keyboards and disable then re-enable them
-devices="$(xinput list | cut -d '[' -f 1 | grep -i 'keyboard' | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+' | tail -n+2)"
-
-# while IFS= read -r device; do xinput disable "$device" 2>/dev/null; done <<<"$devices"
-xdotool key --clearmodifiers ctrl+shift+v
-# while IFS= read -r device; do xinput enable "$device"; done <<<"$devices"
-xdotool key --clearmodifiers
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+  wtype -M ctrl -M shift v -m ctrl -m shift
+elif [[ -n "${DISPLAY}" ]]; then
+  xdotool key --clearmodifiers ctrl+shift+v
+  xdotool key --clearmodifiers
+fi
 clipboard_copy "$CLIPBOARD"

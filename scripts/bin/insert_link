@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Insert link from qutebrowsers history
 #
-# Dependencies: fzf qutebrowser xdotool
+# Dependencies: fzf qutebrowser xdotool wtype
 
 declare TMP_FILE LINKS_FILE
 TMP_FILE="$(mktemp -t fzf_tmp_XXX)"
@@ -30,8 +30,13 @@ CLIPBOARD="$(clipboard_paste)"
 [[ ! -e "${TMP_FILE}" ]] && exit 0
 
 if [[ -s "${TMP_FILE}" ]]; then
-  clipboard_copy "$(tail -n 1 "${TMP_FILE}")"
-  xdotool key --clearmodifiers ctrl+shift+v
+	clipboard_copy "$(tail -n 1 "${TMP_FILE}")"
+
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		wtype -M ctrl -M shift v -m ctrl -m shift
+	elif [[ -n "${DISPLAY}" ]]; then
+		xdotool key --clearmodifiers ctrl+shift+v
+	fi
 fi
 
 clipboard_copy "$CLIPBOARD"

@@ -329,10 +329,9 @@ unset cli
 # Open TUIR with top page within 24 hours by pressing "g t 2"
 tuir() {
 	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-		(timeout 30 sh -c 'while ! swaymsg -t get_tree | jq -e "..|.name?|select(. != null and test(\"Front Page - tuir\"))" >/dev/null; do sleep 0.1; done' && \
-  		swaymsg "[title=\"Front Page - tuir\"]" focus && \
-  		sleep 0.1 && \
-  		ydotool key 34:1 34:0 20:1 20:0 3:1 3:0) &
+		{ goto_window "^Front Page - tuir" && \
+  		wtype gt2;  } >/dev/null  &
+  	disown
 	elif [[ -n "${DISPLAY}" ]]; then
 		(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
 	fi
@@ -410,7 +409,7 @@ is_window_exists() {
 }
 
 wait_window() {
-	local TIMEOUT=5 START=$SECONDS
+	local TIMEOUT=10 START=$SECONDS
   while ! is_window_exists "$1"; do
     (( SECONDS - START >= TIMEOUT )) && return 1
     sleep 0.1
@@ -426,14 +425,17 @@ wait_window_exit() {
 }
 
 window_get_condition() {
-	# Get the condition (app_id, class, name) to use for focusing the window
+	# Get the first condition (app_id, class, title) to use for focusing the window
 	CRITERIA="$(i3-msg -t get_tree | jq -r --arg re "$1" '
-  	recurse(.nodes[]?, .floating_nodes[]?) |
+  first(recurse(.nodes[]?, .floating_nodes[]?) |
   	if ((.app_id // "") | test($re)) then "app_id"
   	elif ((.window_properties.class // "") | test($re)) then "class"
   	elif ((.window_properties.title // "") | test($re)) then "title"
   	elif ((.name // "") | test($re)) then "name"
-  	else empty end')"
+  	else empty end
+  	)')"
+  # Title is used as name
+	[[ "$CRITERIA" == "name" ]] && CRITERIA="title"
 	echo "[${CRITERIA}=\"$1\"]"
 }
 
@@ -482,11 +484,11 @@ emacsclient() {
 alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
 org() {
-	local NAME="^emacs_org$"
+	local NAME="emacs_org"
 	is_window_exists "$NAME" || {
 		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
 	}
-goto_window "$NAME"
+goto_window "^${NAME}$"
 }
 
 # Open org notes without emacsclient to test config
@@ -505,23 +507,23 @@ magit() {
 	git_root=$(git rev-parse --show-toplevel)
 	chronic git rev-parse --show-toplevel || return 1
 
-	is_window_exists "$NAME" || emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
-	goto_window $NAME
+	is_window_exists "^${NAME}$" || emacsclient --no-wait --socket-name="$EMACS_DEFAULT_SOCKET" --create-frame --frame-parameters '((title . "'"$NAME"'"))' --eval '(magit-status "'"$git_root"'")' >/dev/null
+	goto_window "^${NAME}$"
 }
 
 alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
 elfeed() {
 	emacs --frame-parameters='((title . "fullscreen"))' --eval '(progn
-(elfeed-search-set-filter "@6-months-ago +unread ~Papers")
-(elfeed) (elfeed-update))'
+	(elfeed-search-set-filter "@6-months-ago +unread ~Papers")
+	(elfeed) (elfeed-update))'
 }
 
 papers() {
 	get_papers
 	emacs --frame-parameters='((title . "fullscreen"))' --eval '(progn
-(elfeed-search-set-filter "@6-months-ago +unread =Papers")
-(elfeed) (elfeed-update))'
+	(elfeed-search-set-filter "@6-months-ago +unread =Papers")
+	(elfeed) (elfeed-update))'
 }
 
 # Pick a color and store it in clipbaord

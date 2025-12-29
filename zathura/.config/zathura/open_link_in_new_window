@@ -3,7 +3,7 @@
 # A zathura script to open a link in another window
 # It opens another zathura instance if one doesn't exist already then move it to the right monitor
 #
-# Dependencies: zathura xdotool ydotool evsieve i3/sway
+# Dependencies: zathura xdotool ydotool wtype i3/sway
 
 # How it works:
 # Given: Zathura is able to store a link's page number in the clipboard
@@ -44,14 +44,11 @@ get_page_num() {
 	page=$((page + 1))
 
 	# Clear zathura's message
-	# xdotool key --clearmodifiers Escape
-	#
-	EVENT_NUM="$(keyd -m | head -10 | grep "keyd virtual keyboard" | grep -oP 'event\d+')"
-
-	ydotool key 1:1 1:0 # Possible for ctrl be released fast
-	# Wait until ctrl key is released
-	evsieve --input /dev/input/"$EVENT_NUM" --hook key:leftctrl:0 exec-shell="ydotool key 1:1 1:0; pkill evsieve" >/dev/null 2>&1 &
-	disown
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		wtype -P escape -p escape
+	elif [[ -n "${DISPLAY}" ]]; then
+		xdotool key --clearmodifiers Escape
+	fi
 
 	echo "$page"
 }

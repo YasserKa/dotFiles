@@ -185,7 +185,7 @@ xclip # Used to deal with copying/pasting images
 xsel # Another X clipboard, needed for zsh-system-clipboard to work
 xdotool # Command-line X11 automation tool
 ydotool # Automation for X11 and Wayland
-evsieve # A utility for mapping events from devices
+wtype # xdotool type for wayland
 copyq # Clipboard manager
 downgrade # Downgrad packages in cache or Archive
 
@@ -251,6 +251,7 @@ autotiling # Automatically switch window split orientation in i3 and sway
 perl-anyevent-i3 # Communicate with the i3 window manager
 xorg-server # Xorg X server
 xorg-xev # Print contents of X events
+wev # xev for Wayland
 xorg-xinit # X.Org initialisation program
 xorg-xkill # Kill a client by its X resource
 xorg-xinput # Configure devices (used to lock keyboard input during text insertion)
