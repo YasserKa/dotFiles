@@ -1,4 +1,18 @@
-#!/usr/bin/env sh
-
+#!/usr/bin/env bash
+#
 # Include window focus after doing dunst action
-[[ $(dunstify "$2" "$3" --appname slack-delegate --action="action,label") == "action" ]] && wmctrl -a slack
+
+source "$HOME/.bashrc.d/functions.bash"
+
+# Needed for i3-msg in Sway to work
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+  I3SOCK="/run/user/$(id -u)/sway-ipc.$(id -u).$(pgrep -x sway).sock"
+  export I3SOCK
+fi
+
+# is_window_exists '^Slack$' && echo hello
+[[ $(dunstify "$2" "$3" --appname slack-delegate --action="action,label") == "action" ]] && {
+  ! is_window_exists '^Slack$' && slack
+  dunstify hello
+  goto_window '^Slack$'
+}

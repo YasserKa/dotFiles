@@ -670,7 +670,10 @@ xdg-open() {
 }
 pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
-thunderbird() { { wmctrl -l | grep Thunderbird; } && i3-msg '[class="thunderbird"] move workspace current, focus' || command thunderbird & }
+thunderbird() {
+	is_window_exists '^org.mozilla.Thunderbird$' && i3-msg '[title="Thunderbird"] move workspace current, focus' && exit 0
+	GDK_BACKEND=x11 command thunderbird &
+}
 zotero() {
 	CONDITION=
 	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, focus" && exit 0

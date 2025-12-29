@@ -3,8 +3,7 @@
 # Use org mode's clocking in emacs
 # This is used by i3 to trigger the functions and by polybar to present the output
 
-# Dependencies: emacs, wmctrl, notify-send
-#
+# Dependencies: emacs, notify-send
 
 # Path to the file that contains info about the entry
 declare -r TMP_FILE_PATH="/tmp/org_current_task"
