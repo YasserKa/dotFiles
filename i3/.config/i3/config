@@ -311,7 +311,7 @@ exec --no-startup-id { pull_files_from_remote && timeout 5 inotifywait -e close_
 exec --no-startup-id sleep 1 && thunderbird
 
 # Manages some key bindings
-exec --no-startup-id autokey-qt & disown
+# exec --no-startup-id autokey-qt & disown
 # Clipboard manager
 for_window [class="^copyq$"] move scratchpad
 exec --no-startup-id copyq & disown && copyq hide

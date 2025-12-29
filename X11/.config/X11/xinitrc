@@ -31,8 +31,9 @@ rfkill block bluetooth
 unclutter &
 
 # Set capslock to Ctrl when pressed; Esc when held
-setxkbmap -option ctrl:nocaps
-xcape -e 'Control_L=Escape' -t 200
+# Using xremap instead
+# setxkbmap -option ctrl:nocaps
+# xcape -e 'Control_L=Escape' -t 200
 
 # Keyboard bindings
 [ -f "$HOME/.Xmodmap" ] && xmodmap "$HOME/.Xmodmap"

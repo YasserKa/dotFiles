@@ -3,8 +3,14 @@
 # https://github.com/xremap/xremap/blob/master/example/config.yml
 # https://github.com/xremap/xremap/blob/master/example/emacs.yml
 modmap:
+  - name: CapsLock to Ctrl/Esc
+    remap:
+      CapsLock:
+        held: Ctrl_L
+        alone: Esc
+        alone_timeout_millis: 200
 keymap:
-  - name: Emacs binding
+  - name: Emacs binding for Slack
     application:
       only: [Slack]
     remap:
@@ -33,9 +39,9 @@ keymap:
       C-Shift-a: [End, shift-ctrl-home]
       C-m: enter
   # The only difference from Slack is remove C-w to allow closing tabs
-  - name: Emacs binding for google-chrome
+  - name: Emacs binding for Google chrome
     application:
-      only: [Google-chrome]
+      only: [Google-chrome, google-chrome]
     remap:
       # Navigation
       C-a: Home
@@ -62,3 +68,19 @@ keymap:
 
       C-Shift-a: [End, shift-ctrl-home]
       C-m: enter
+  - name: Devdocs in qutebrowser
+    window:
+      only: [/.*DevDoc.*/]
+    remap:
+      # Navigation
+      g:
+        remap:
+          g: C-up
+        timeout_millis: 1000 # optional time window
+      Shift-g: C-down
+      k: alt-up
+      j: alt-down
+      C-u: Shift-space
+      C-d: space
+      C-o: M-left
+      C-i: M-right
