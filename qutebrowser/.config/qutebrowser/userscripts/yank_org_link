@@ -35,7 +35,7 @@ if [[ "$URL_ROOT" == "github.com" ]]; then
 		# If github URL is at root
 	elif [[ $((NUM_DASHES)) -eq 4 ]]; then
 		# Reverse the description and name of repo
-		ORG_URL="$(awk -F ":" ' {gsub(/^ /, "", $2); print "- "$2" [[https://github.com/"$1"]["$1"]]" }' <(echo "$TITLE"))"
+		ORG_URL="$(awk -F ":" ' {gsub(/^ /, "", $2); print ""$2" [[https://github.com/"$1"]["$1"]]" }' <(echo "$TITLE"))"
 	fi
 fi
 
