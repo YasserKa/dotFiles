@@ -119,7 +119,7 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 .PHONY: stow-packages
 stow-packages:
 	# Install neovim starter kit before stowing
-	@stow X11 autokey autorandr bash bat cmus copyq dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat nextcloud notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane shellcheck sunshine sway sxhkd systemd terminal-colors thunderbird tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap xremap yt-dlp zathura zsh
+	@stow X11 autokey autorandr bash bat cmus copyq dprint dunst emacs feh flake8 fzf geoclue git gnupg gtk i3 icons ignore ipython isync jupyter khard kitty latex lnav lsd mailcap mime_types mpv msmtp navi neomutt networkmanager_dmenu newsboat nextcloud notmuch npm nvim okular paru picom polybar python qutebrowser ranger readline rofi scripts shikane shellcheck sunshine sway sxhkd swhkd systemd terminal-colors thunderbird tmux tuir urlscan vimpagerrc wallpapers waybar xmodmap xremap yt-dlp zathura zsh
 
 .PHONY:install-pypi-packages
 install-pypi-packages: 
@@ -133,13 +133,11 @@ setup-systemd-services:
 	systemctl enable wireplumber.service --user
 	systemctl enable udiskie.service --user
 	systemctl enable dunst.service --user
-	systemctl enable sxhkd.service --user
 	systemctl enable --now ydotool.service --user
 	systemctl enable geoclue-agent.service --user
 	systemctl enable msmtp-runqueue.timer --user
 	systemctl enable mbsync.timer --user
 	systemctl enable syncthing.service --user
-	systemctl enable xremap.service --user
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
 	sudo systemctl enable displaylink

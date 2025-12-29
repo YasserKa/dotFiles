@@ -303,6 +303,9 @@ exec /usr/share/sway/scripts/inactive-windows-transparency.py & disown
 exec_always killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown
 
 # Applications
+# Manages some key bindings
+exec --no-startup-id systemctl start swhkd.service --user && sleep 1 && systemctl start xremap.service --user
+
 exec --no-startup-id bash -ic "org"
 exec qutebrowser
 

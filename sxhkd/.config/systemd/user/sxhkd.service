@@ -3,7 +3,6 @@ Description=Simple X Hotkey Daemon
 Documentation=man:sxhkd(1)
 PartOf=graphical-session.target
 After=graphical-session.target
-ConditionEnvironment=DISPLAY
 
 
 [Service]

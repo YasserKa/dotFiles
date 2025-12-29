@@ -196,6 +196,7 @@ cronie # Daemon that runs specified programs at scheduled times and related tool
 dunst # Customizable and lightweight notification-daemon
 # Used to run dunst commands
 sxhkd # Simple X hotkey daemon
+swhkd # sxhkd for Wayland
 xremap-x11-bin # Key remapper
 keyd # A key remapping daemon for linux
 xcape # Configure modifier keys to act as other keys when pressed and released on

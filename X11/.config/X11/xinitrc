@@ -30,6 +30,8 @@ rfkill block bluetooth
 # Hide cursor
 unclutter &
 
+systemctl start --user sxhkd.service && systemctl start --user xremap.service
+
 # Set capslock to Ctrl when pressed; Esc when held
 # Using xremap instead
 # setxkbmap -option ctrl:nocaps

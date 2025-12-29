@@ -1,0 +1,11 @@
+[Unit]
+Description=swhkd hotkey daemon
+BindsTo=default.target
+
+[Service]
+Type=simple
+EnvironmentFile=/home/yasser/.config/systemd/user/env
+ExecStart=/home/yasser/bin/helpers/run_swhkd
+
+[Install]
+WantedBy=default.target
