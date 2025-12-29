@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 #
 # Search online dictionary on web browser for term in clipboard
-#
-# Dependencies: xdotool
 
-is_window_exists() { xdotool search --name "^$1$" >/dev/null; }
+source "$HOME/.bashrc.d/functions.bash"
 
 INPUT="$(clipboard_paste)"
 
@@ -13,7 +11,4 @@ is_window_exists "$BROWSER" || xdg-open "$BROWSER" &&
 
 # Focus the visible instance, else pick an available one using pid (the list is
 # reversed, because the first pid can't be activated)
-xdotool search --onlyvisible --class "^$BROWSER$" windowactivate ||
-	for pid in $(xdotool search --class "$BROWSER" | tac); do
-		xdotool windowactivate "$pid" && break
-	done
+goto_window '^org.qutebrowser.qutebrowser$'

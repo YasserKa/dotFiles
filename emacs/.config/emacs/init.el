@@ -2131,8 +2131,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
 
   ;; Set up the call to the notifier
   (defun toast-appt-send-notification (title msg)
-    (start-process-shell-command "" nil (concat "[[ $(dunstify '" title "' '" msg "' --appname emacs_org --action='action,label') == 'action' ]] && xdotool search --sync --name 'emacs_org_name' windowactivate && emacsclient -e '(my/org-goto-next-scheduled)'")))
-
+    (start-process-shell-command "" nil (concat "[[ $(dunstify '" title "' '" msg "' --appname emacs_org --action='action,label') == 'action' ]] && source $HOME/.bashrc.d/functions.bash && goto_window '^emacs_org$'  && emacsclient -e '(my/org-goto-next-scheduled)'")))
 
   ;; Designate the window function for my/appt-send-notification
   (defun toast-appt-display (min-to-app new-time msg)

@@ -36,7 +36,7 @@ sudo pacman -Scc
 # Remove an official package from cache
 paccache -r <pkg>
 
-$pkg: pacman --query --explicit --quiet | fzf --bind 'enter:accept+execute(xdotool key enter)'
+$pkg: pacman --query --explicit --quiet | fzf --bind 'enter:accept+execute(ydotool key 28:1 28:0)'
 
 % Systemd
 

@@ -7,7 +7,7 @@
 # Arguments:
 # (optional) -g --geometry kitty window's geometry (added to floating enable, scratchpad show)
 #
-# Dependencies: kitty i3/sway xdotool clipboard_copy clipboard_paste
+# Dependencies: kitty i3/sway clipboard_copy clipboard_paste
 
 declare -r SOCKET_ADDRESS="unix:/tmp/kitty.socket"
 declare -r CLASS="terminal_scratch"
@@ -22,18 +22,18 @@ source "$HOME/.bashrc.d/functions.bash"
 main() {
 	while [[ $# -gt 0 ]]; do
 		case $1 in
-		-g | --geometry)
-			GEOMETRY="$2"
-			shift
-			shift
-			;;
-		init)
-			is_window_exists "${CLASS}" || kitty --title "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && exit 0
-			;;
-		*)
-			cmd="$1"
-			shift
-			;;
+			-g | --geometry)
+				GEOMETRY="$2"
+				shift
+				shift
+				;;
+			init)
+				is_window_exists "${CLASS}" || kitty --title "${CLASS}" --listen-on="$SOCKET_ADDRESS" --detach && exit 0
+				;;
+			*)
+				cmd="$1"
+				shift
+				;;
 		esac
 	done
 	readonly GEOMETRY

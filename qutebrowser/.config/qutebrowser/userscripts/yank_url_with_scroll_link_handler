@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Dependencies yq
-
+#
 # Store a link_handler link that opens a web page in a certain scroll position
+#
+# Dependencies yq
 
 encode_url() {
 	# Reliable localization
@@ -33,11 +34,10 @@ y_scroll="$(yq ".windows[]  | select (.active ==true) | .tabs[] | select (.activ
 pre_qutebrowser_command="qutebrowser ${QUTE_URL@Q}"
 # Wait until the page is loaded
 # Qutebrowser's WM_NAME changes to the page's title with "- qutebrowser" as a postfix
-# xdotool is used to wait until a window with such properties exist
-xdotool_command="xdotool search --sync --name \"^${QUTE_TITLE} - qutebrowser$\""
+goto_window_command="goto_window '^${QUTE_TITLE} - qutebrowser$'"
 # Scroll to the position
 post_qutebrowser_command="qutebrowser \":scroll-px 0 $y_scroll\""
-cmd="$pre_qutebrowser_command && $xdotool_command && $post_qutebrowser_command"
+cmd="$pre_qutebrowser_command && $goto_window_command && $post_qutebrowser_command"
 
 encoded_command="$(encode_url "$cmd")"
 link_handler_url="[[link-handler://${encoded_command}][$QUTE_TITLE, scroll 0 $y_scroll]]"

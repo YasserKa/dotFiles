@@ -23,7 +23,7 @@ def find_keyboard():
     devices = [InputDevice(path) for path in list_devices()]
     for device in devices:
         # if "kinesis corporation adv360 pro keyboard" in device.name.lower():
-        if device.name in ["xremap", "keyd virtual keyboard"]:
+        if device.name in ["xremap"]:
             return device
     return devices[0] if devices else None
 

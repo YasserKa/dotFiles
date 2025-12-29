@@ -35,7 +35,7 @@ export FZF_CTRL_R_OPTS="
 --header 'Press Meta-Y to copy command into clipboard'
 --bind 'alt-t:change-preview-window(down|hidden)'
 --bind 'ctrl-e:accept'
---bind 'enter:execute(xdotool key enter)+accept'
+--bind 'enter:execute(ydotool key 28:1 28:0)+accept'
 --bind 'ctrl-i:transform-query(echo -n {4..})'
 --bind 'alt-y:execute-silent(clipboard_copy {4..})+abort'
 $(
