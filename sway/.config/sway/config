@@ -69,7 +69,7 @@ include ~/.config/i3/monitor_setup
 output * bg $HOME/Pictures/WallPapers/763859.jpg fill
 
 # Manage output configuration dynamically
-# exec_always killall shikane; shikane & disown
+exec_always killall shikane; shikane & disown
 
 bindsym $mod+1 workspace $browser
 bindsym $mod+2 workspace $coding
@@ -248,7 +248,7 @@ mode $mail_mode {
     bindsym Escape mode "default";
 }
 
-set $system_mode "system (l) lock, (e) logout, (s) reload i3, (Shift+r) reboot, (Shift+s) shutdown"
+set $system_mode "system (l) lock, (e) logout, (s) reload, (Shift+r) reboot, (Shift+s) shutdown"
 bindsym $mod+x mode $system_mode
 mode $system_mode {
     bindsym l exec swaylock --color 000000, mode "default";

@@ -536,6 +536,14 @@ pick_color() {
 	fi
 }
 
+manage_displays() {
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		wdisplays
+	elif [[ -n "${DISPLAY}" ]]; then
+		arandr
+	fi
+}
+
 reboot() {
 	if wait_internet; then
 		push_files_to_remote || exit 0

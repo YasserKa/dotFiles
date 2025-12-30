@@ -71,7 +71,7 @@ picom # X compositor (fork of compton)
 arandr # Provide a simple visual front end for XRandR 1.2.
 autorandr # Auto-detect connected display hardware and load appropiate X11 setup using xrandr
 # Wayland
-nwg-displays # Output management utility
+wdisplays # Output management utility
 wlr-randr # Utility to manage outputs
 shikane # Dynamic output configuration tool
 

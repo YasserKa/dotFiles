@@ -246,7 +246,7 @@ mode $mail_mode {
     bindsym Escape mode "default";
 }
 
-set $system_mode "system (l) lock, (e) logout, (s) reload i3, (r) restart i3, (Shift+r) reboot, (Shift+s) shutdown"
+set $system_mode "system (l) lock, (e) logout, (s) reload, (r) restart, (Shift+r) reboot, (Shift+s) shutdown"
 bindsym $mod+x mode $system_mode
 mode $system_mode {
     bindsym l exec --no-startup-id i3lock --color 000000, mode "default";
