@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# Create virtual displays for sunshine
+
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+	read X Y W H <<<"$(swaymsg -t get_outputs -r | jq -r '.[] | select(.name=="eDP-1") | "\(.rect.x) \(.rect.y) \(.rect.width) \(.rect.height)"')"
+
+	if [[ "$1" == "left" ]]; then
+		swaymsg output eDP-1 pos 0 0
+		swaymsg create_output res 1920x1080
+		OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
+		swaymsg "output $OUTPUT_NAME position $((X - 1920)) $Y"
+	elif [[ "$1" == "below" ]]; then
+		swaymsg output eDP-1 pos 0 0
+		swaymsg create_output res 1920x1080
+		# echo "$X $Y $H"
+		OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
+		swaymsg "output $OUTPUT_NAME position $X $((Y + H))"
+	elif [[ "$1" == "unplug" ]]; then
+		while read -r output_name; do
+			swaymsg output "$output_name" unplug
+		done < <(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')
+	fi
+
+elif [[ -n "${DISPLAY}" ]]; then
+	xrandr --addmode HDMI-1 1920x1080
+	xinput set-prop "Mouse passthrough" "Coordinate Transformation Matrix" 3.5 0 0 0 3.5 0 0 0 1
+	if [[ "$1" == "left" ]]; then
+		xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1
+	elif [[ "$1" == "below" ]]; then
+		xrandr --output HDMI-1 --mode 1920x1080 --below eDP-1
+	elif [[ "$1" == "unplug" ]]; then
+		xrandr --output HDMI-1 --off
+	fi
+fi

@@ -2,50 +2,34 @@
     "apps": [
         {
             "auto-detach": true,
-            "cmd": "",
+            "cmd": [],
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "",
-            "name": "Second monitor below",
+            "name": "Below",
             "output": "",
             "prep-cmd": [
                 {
-                    "do": "xrandr --addmode HDMI-1 1920x1080",
-                    "undo": "xrandr --output HDMI-1 --off"
-                },
-                {
-                    "do": "xrandr --output HDMI-1 --mode 1920x1080 --below eDP-1",
-                    "undo": ""
-                },
-                {
-                    "do": "xinput set-prop \"Mouse passthrough\" \"Coordinate Transformation Matrix\" 3.5 0 0 0 3.5 0 0 0 1",
-                    "undo": ""
+                    "do": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds below\"",
+                    "undo": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds unplug\""
                 }
             ],
             "wait-all": true
         },
         {
             "auto-detach": true,
-            "cmd": [],
+            "cmd": "",
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "",
-            "name": "Second monitor left",
+            "name": "Left",
             "output": "",
             "prep-cmd": [
                 {
-                    "do": "xrandr --addmode HDMI-1 1920x1080",
-                    "undo": "xrandr --output HDMI-1 --off"
-                },
-                {
-                    "do": "xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1",
-                    "undo": ""
-                },
-                {
-                    "do": "xinput set-prop \"Mouse passthrough\" \"Coordinate Transformation Matrix\" 3.5 0 0 0 3.5 0 0 0 1",
-                    "undo": ""
+                    "do": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds left\"",
+                    "undo": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds unplug\""
                 }
             ],
             "wait-all": true
