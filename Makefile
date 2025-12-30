@@ -71,6 +71,8 @@ create-clean-pkglist:
 stow-root:
 	@# Needs to be installed before stowing its config, else it will make an error
 	@sudo pacman -S --noconfirm greetd
+	@# Map CAPSLOCK to CTRL in Virtual console
+  @sudo localectl set-x11-keymap us pc105+inet "" ctrl:nocaps,terminate:ctrl_alt_bksp
 	sudo rm -r /etc/{pacman.conf,greetd}
 	sudo mkdir /root/.config/nvim
 	sudo stow root --target=/
