@@ -263,6 +263,26 @@ mode $system_mode {
 }
 # >>>
 # Key Bindings <<<
+# Doesn't work in swhkd
+# Mulimedia controls
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1000
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1000
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+# Prioritize mpv on music player
+bindsym XF86AudioPlay exec &>/dev/null { pgrep mpv && echo 'set pause no' | socat - /tmp/mpv-socket } || playerctl play
+bindsym XF86AudioPause exec &>/dev/null { pgrep mpv && echo 'set pause yes' | socat - /tmp/mpv-socket }  || playerctl pause
+bindsym XF86AudioNext exec &>/dev/null { pgrep mpv && echo 'next' | socat - /tmp/mpv-socket } || playerctl next
+bindsym XF86AudioPrev exec &>/dev/null { pgrep mpv && echo 'previous' | socat - /tmp/mpv-socket } || playerctl previous
+
+bindsym XF86AudioForward exec playerctl position "1+"
+bindsym XF86AudioRewind exec playerctl position "1-"
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# ZMK doesn't have have XF86AudioMicMute, so this is used instead
+bindsym XF86Phone exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+
 bindsym $mod+g exec --no-startup-id $TERMINAL
 bindsym $mod+Shift+q exec --no-startup-id $XDG_CONFIG_HOME/i3/kill_or_toggle_window
 bindsym $mod+d exec --no-startup-id rofi -show run

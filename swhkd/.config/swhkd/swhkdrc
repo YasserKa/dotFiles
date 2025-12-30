@@ -1,0 +1,29 @@
+# Dunst
+# Close notification
+super + space
+    dunstctl close
+
+# Redisplay last message
+super + apostrophe
+    dunstctl history-pop
+
+# Execute default actions
+super + shift + apostrophe
+    dunstctl action
+
+# Show context menua
+super + shift + semicolon
+    dunstctl context
+
+# Capture a note using org mode
+super + e
+    emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval '(yequake-toggle "org-capture-yeq")'
+
+# Execute default actions
+super + shift + u
+    /home/yasser/bin/insert_link
+
+super + shift + s
+    /home/yasser/bin/insert_snippet
+
+# vim: ft=sxhkdrc

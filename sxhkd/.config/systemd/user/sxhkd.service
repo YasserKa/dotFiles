@@ -10,7 +10,7 @@ Type=simple
 Restart=always
 RestartSec=2
 EnvironmentFile=/home/yasser/.config/systemd/user/env
-ExecStart=/usr/bin/sxhkd
+ExecStart=/usr/bin/sxhkd "/home/yasser/.config/swhkd/swhkdrc"
 ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
 
 [Install]
