@@ -307,7 +307,7 @@ exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 # Open browser
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
 # Synchronize files before opening browser
-exec --no-startup-id { pull_files_from_remote && timeout 5 inotifywait -e close_write --format '%w%f' $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore; } & disown
+exec --no-startup-id { pull_files_from_remote && inotifywait --timeout 5 -e close_write --format '%w%f' $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore; } & disown
 exec --no-startup-id sleep 1 && thunderbird
 
 # Manages some key bindings

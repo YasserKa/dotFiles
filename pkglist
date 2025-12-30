@@ -128,7 +128,6 @@ python-pyarrow # Used to visualize dataframes in jupyer notebooks
 uv # Python package installer and resolver
 python-pandas # Used by scripts
 python-adblock # Used by qutebrowser
-python-i3ipc # Usd by autokey for emacs script
 python-pymupdf # Used by script to get highlighted text in pdf
 python-pyperclip # Needed to yank clipboard by zathura's handle_document
 python-tldextract # Needed by Qutebrowser bitwarden script
@@ -256,6 +255,7 @@ wev # xev for Wayland
 xorg-xinit # X.Org initialisation program
 xorg-xkill # Kill a client by its X resource
 xorg-xinput # Configure devices (used to lock keyboard input during text insertion)
+xorg-xwininfo # Print windows info
 
 xorg-xwayland # run X clients under wayland
 swayfx        # Sway with eye candy

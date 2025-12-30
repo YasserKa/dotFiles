@@ -7,27 +7,30 @@ gaps outer 2
 
 # Set window borders
 default_border pixel 3
-default_floating_border pixel 3
+default_border none
+default_floating_border none
 
-font pango:Inconsolata 13
+# Swayfx settings
+default_dim_inactive 0.2
+blur enable
+# Blur background floating windows
+blur_xray enable
 
-input type:keyboard {
-    repeat_delay 300;
-    repeat_rate 30;
-}
+font pango:Inconsolata 14
+
 # >>>
 # Workspaces/Windows <<<
 # Focus windows
-bindsym $mod+j exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus down
-bindsym $mod+k exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus up
-bindsym $mod+l exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus right
-bindsym $mod+h exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window focus left
+bindsym $mod+j  focus down
+bindsym $mod+k  focus up
+bindsym $mod+l  focus right
+bindsym $mod+h  focus left
 
 # Move focused windows
-bindsym $mod+Shift+j exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move down
-bindsym $mod+Shift+k exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move up
-bindsym $mod+Shift+l exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move right
-bindsym $mod+Shift+h exec --no-startup-id $XDG_CONFIG_HOME/sway/sway-center-cursor-on-window move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
 
 # Split in hor/vert orientation
 bindsym $mod+v split horizontal
@@ -37,13 +40,16 @@ bindsym $mod+z workspace back_and_forth
 bindsym $mod+Shift+minus move scratchpad
 
 # Make the current focus fullscreen
-bindsym $mod+f fullscreen
+bindsym $mod+f fullscreen toggle; focus
 
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
 
+# Drag/resize floating with mouse left/right+$mod
+floating_modifier $mod normal
+
 # Swap focus between the tiling area and the floating area
-# bindsym $mod+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # Worspaces
 set $browser 1
@@ -57,26 +63,13 @@ set $documents 8
 set $wp9 9
 set $wp0 0
 
-set $monitor_left DVI-I-2
-set $monitor_center eDP-1
-set $monitor_right DVI-I-1
+exec_always --no-startup-id ~/.config/i3/generate_i3_monitor_setup
+include ~/.config/i3/monitor_setup
 
 output * bg $HOME/Pictures/WallPapers/763859.jpg fill
 
 # Manage output configuration dynamically
-exec_always killall shikane; shikane & disown
-
-workspace $browser output $monitor_center
-workspace $coding output $monitor_center
-workspace $notes output $monitor_center
-workspace $video output $monitor_center
-workspace $documents output $monitor_center
-
-workspace $git output $monitor_right
-
-workspace $wp6 output $monitor_left
-workspace $wp9 output $monitor_left
-workspace $social output $monitor_left
+# exec_always killall shikane; shikane & disown
 
 bindsym $mod+1 workspace $browser
 bindsym $mod+2 workspace $coding
@@ -109,7 +102,7 @@ workspace_auto_back_and_forth yes
 # Use `swaymsg -t get_tree` to check window attributes
 assign [title="^emacs_org$"] workspace $notes
 assign [title="^emacs_magit$"] workspace $git
-assign [class="Slack"] workspace $social
+assign [app_id="Slack"] workspace $social
 assign [app_id="org.pwmt.zathura"] workspace $documents
 
 # For notify_me script
@@ -120,6 +113,11 @@ for_window [class="Vlc|feh|Shutter"] floating enable
 
 # Enable floating for windows that has floating class
 for_window [instance="floating"] floating enable
+
+for_window [instance="pinentry-gtk"] floating enable
+
+# Capture a note using org mode
+for_window [title="^org-capture-yeq$"] floating enable, move position center
 
 # Change workspace when window is activated (used for qutebrowser gt)
 include ./focus_on_window_activation_config
@@ -156,79 +154,101 @@ mode $clock_mode {
     bindsym Escape mode "default";
 }
 
-set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (c)lassic, (a)mbient, (g)rey, (f)ilter"
+# Music player
+# (f)ilter option means that it resets the (c)lassic filter done
+set $cmus_mode "(i)nfo, (t)oggle, (n)next, (p)revious, (h)igher, (l)ower, (b)rown noise, (c)hill, (C)lassic, (a)mbient, (A)nime, (d)efault"
 bindsym $mod+c mode $cmus_mode
 mode $cmus_mode {
-    bindsym i exec $XDG_CONFIG_HOME/cmus/cmus_notification; mode "default";
-    bindsym t exec cmus-remote --volume 21% --pause; mode "default";
-    bindsym n exec cmus-remote --volume 21% --next; mode "default";
-    bindsym p exec cmus-remote --volume 21% --prev; mode "default";
+    bindsym i exec --no-startup-id $XDG_CONFIG_HOME/cmus/bin/cmus_notification; mode "default";
+    bindsym t exec cmus-remote --pause; mode "default";
 
-    bindsym c exec cmus-remote -C "filter classical" && cmus-remote --next; mode "default";
-    bindsym f exec cmus-remote -C "filter" && cmus-remote --next; mode "default";
-    bindsym a exec cmus-remote --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
-    bindsym g exec cmus-remote --volume 70% --file $HOME/Music/grey_noise.mp3; mode "default";
+    bindsym n exec --no-startup-id cmus-remote --next; mode "default";
+    bindsym p exec --no-startup-id cmus-remote --prev; mode "default";
 
-    bindsym h exec cmus-remote --volume +2%;
-    bindsym l exec cmus-remote --volume -2%;
+    bindsym b exec $XDG_CONFIG_HOME/cmus/bin/cmus_queue --volume 70% "$HOME/Music/brown_noise.mp3"; mode "default";
+    bindsym c exec $XDG_CONFIG_HOME/cmus/bin/cmus_queue --volume 40% "$XDG_CONFIG_HOME/cmus/playlists/chill.m3u"; mode "default";
+    bindsym shift+c exec $XDG_CONFIG_HOME/cmus/bin/cmus_queue --volume 40% "$XDG_CONFIG_HOME/cmus/playlists/classic.m3u"; mode "default";
+    bindsym d exec $XDG_CONFIG_HOME/cmus/bin/cmus_queue "$XDG_CONFIG_HOME/cmus/playlists/default.m3u"; mode "default";
+    bindsym shift+a exec $XDG_CONFIG_HOME/cmus/bin/cmus_queue --volume 40% "$HOME/Music/Anime"; mode "default";
+
+    bindsym a exec $XDG_CONFIG_HOME/cmus/bin/cmus_queue --volume 35% --file $HOME/Music/ambient_music.opus; mode "default";
+
+    bindsym h exec --no-startup-id cmus-remote --volume +2%;
+    bindsym l exec --no-startup-id cmus-remote --volume -2%;
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
 
-set $sharing_mode "(i)mage, (c)lipboard, (v)ideo, (t)ext, (n)ote"
+set $sharing_mode "(i)mage, (c)lipboard, (d)rag/drop, (l)atex, (v)ideo, (t)ext, (n)ote"
 bindsym $mod+s mode $sharing_mode
 mode $sharing_mode {
-    bindsym i exec $HOME/bin/share -i; mode "default";
-    bindsym c exec $HOME/bin/share -c; mode "default";
-    bindsym v exec $HOME/bin/share -v; mode "default";
-    bindsym t exec $HOME/bin/share -t; mode "default";
-    bindsym n exec $HOME/bin/share -n; mode "default";
+    bindsym i exec --no-startup-id share -i; mode "default";
+    bindsym l exec --no-startup-id share -l; mode "default";
+    bindsym c exec --no-startup-id share -c; mode "default";
+    bindsym d exec --no-startup-id share -d; mode "default";
+    bindsym v exec --no-startup-id share -v; mode "default";
+    bindsym t exec --no-startup-id share -t; mode "default";
+    bindsym n exec --no-startup-id share -n; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
 
-set $audio_mode "built (i)n, (b)luetooth, (d)isplay Link"
+set $audio_mode "built (i)n, (e)arphones, (h)eadpones, (d)isplay Link"
 bindsym $mod+a mode $audio_mode
 mode $audio_mode {
-    bindsym i exec switch_audio_sink "Built In"; mode "default";
-    bindsym b exec switch_audio_sink "Bluetooth"; mode "default";
-    bindsym d exec switch_audio_sink "DisplayLink"; mode "default";
+    bindsym i exec --no-startup-id switch_audio_sink "Built In"; mode "default";
+    bindsym e exec --no-startup-id switch_audio_sink "Bluetooth" "earphones"; mode "default";
+    bindsym h exec --no-startup-id switch_audio_sink "Bluetooth" "headphones"; mode "default";
+    bindsym d exec --no-startup-id switch_audio_sink "DisplayLink"; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
 
-set $utility_mode "(l)ights off, (m)ail, (d)ictionary, (u)sb unmount, (s)chedule (v)pn"
+set $utility_mode "(b)luetooth, (d)ictionary, (l)ights off, (n)otifications, (t)ranslate, (u)nmount usb, (m)ount usb, (v)pn"
 bindsym $mod+u mode $utility_mode
-mode $utility_mode {
-# Unmount all storage devices;
-    bindsym u exec udiskie-umount -a; mode "default";
-
+mode --pango_markup $utility_mode {
+    bindsym b exec --no-startup-id toggle_bluetooth; mode "default";
+    bindsym d exec --no-startup-id search_dictionary; mode "default";
 # Switch off light
-    bindsym l exec turn_lights_off; mode "default";
+    bindsym l exec --no-startup-id turn_lights_off; mode "default";
 
-    bindsym d exec search_dictionary; mode "default";
+    bindsym n exec --no-startup-id dunstctl set-paused toggle; mode "default";
 
-    bindsym v exec bash -ic "vpn_toggle"; mode "default";
+    bindsym t mode $translate_mode;
+
+# Unmount all storage devices;
+    bindsym u exec --no-startup-id udiskie-umount -a; mode "default";
+    bindsym m exec --no-startup-id udiskie-mount -a; mode "default";
+
+    bindsym v exec --no-startup-id bash -ic "vpn_toggle"; mode "default";
 
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
 
-set $mail_mode "mail (o)pen, (s)ync, (c)lear"
+set $translate_mode "(p)df, (c)lipboard"
+mode $translate_mode {
+    bindsym p exec --no-startup-id translate --pdf; mode "default";
+    bindsym c exec --no-startup-id translate -c; mode "default";
+
+    bindsym Control+bracketleft mode "default";
+    bindsym Escape mode "default";
+}
+
+set $mail_mode "(o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
-    bindsym o exec bash -ic "open_cli neomutt"; mode "default";
-    bindsym s exec bash -ic "syncmail trigger-polybar"; mode "default";
-# Mark messages as read
-    bindsym c exec $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && pkill -RTMIN+8 waybar && dunstctl close; mode "default";
+    bindsym o exec --no-startup-id eval_interactive_cmd neomutt; mode "default";
+    bindsym s exec --no-startup-id bash -ic "syncmail"; mode "default";
+    bindsym c exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && pkill -RTMIN+8 waybar && dunstctl close; mode "default";
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
 
-set $system_mode "system (l) lock, (e) logout, (s) reload config, (S+r) reboot, (S+s) shutdown"
+set $system_mode "system (l) lock, (e) logout, (s) reload i3, (Shift+r) reboot, (Shift+s) shutdown"
 bindsym $mod+x mode $system_mode
 mode $system_mode {
     bindsym l exec swaylock --color 000000, mode "default";
@@ -243,66 +263,48 @@ mode $system_mode {
 }
 # >>>
 # Key Bindings <<<
-bindsym $mod+g exec $TERMINAL
-bindsym $mod+Shift+q kill
-bindsym $mod+d exec rofi -show run
-
-bindsym $mod+space exec dunstctl close
-
-# redisplay last message().
-bindsym $mod+apostrophe exec dunstctl history-pop
-
-# context menu. for selecting URLs and actions
-bindsym $mod+shift+apostrophe exec dunstctl action
-
-# context menu. for selecting URLs and actions
-bindsym $mod+comma exec [[ "$(xdotool getwindowclassname $(xdotool getactivewindow))" == "okular" ]] && $HOME/bin/store_highlightes_of_active_doc_to_clipboard
-
-# bindsym space exec 
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1000
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1000
-# Mute volume
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-# Mute microphone
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-# ZMK doesn't have have XF86AudioMicMute, so this is used instead
-bindsym XF86Phone exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
-# Drag/resize floating with mouse left/right+$mod
-floating_modifier $mod normal
-
-# Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+g exec --no-startup-id $TERMINAL
+bindsym $mod+Shift+q exec --no-startup-id $XDG_CONFIG_HOME/i3/kill_or_toggle_window
+bindsym $mod+d exec --no-startup-id rofi -show run
 
 # Rofi applications
 # Password
-bindsym $mod+p exec $XDG_CONFIG_HOME/rofi/bwmenu
+bindsym $mod+p exec --no-startup-id $XDG_CONFIG_HOME/rofi/bwmenu
 # Tmux
-bindsym $mod+t exec $XDG_CONFIG_HOME/rofi/rofi_tmux
+bindsym $mod+t exec --no-startup-id $XDG_CONFIG_HOME/rofi/rofi_tmux
 # Documents
-bindsym $mod+Shift+d exec $XDG_CONFIG_HOME/rofi/rofi_documents
+bindsym $mod+Shift+d exec --no-startup-id fdoc
+# Papers
+bindsym $mod+Shift+p exec --no-startup-id $XDG_CONFIG_HOME/Zotero/bin/zotero_utility search
 
 # Don't show general notes
-bindsym $mod+n exec $HOME/bin/open_general_notes
-# Show any window besides general notes
-bindsym $mod+minus [class="^(?!.*_notes).*$"] scratchpad show
-# Put general notes in scratchpad
-for_window [class="^general_notes$"] move scratchpad, floating enable, move position center, resize set 990 820
+bindsym $mod+n exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/toggle_org_notes
 
-for_window [class="^bitwarden_editor$"] floating enable, move position center, resize set 990 820
+# Show any window besides these
+bindsym $mod+minus exec $XDG_CONFIG_HOME/sway/show_scratchpad
+
+for_window [title="^terminal_scratch$"] move scratchpad
+
+for_window [class="^bitwarden_editor$"] floating enable, resize set 990 820, move position center
 
 # note taking
 bindsym $mod+Shift+n exec --no-startup-id $HOME/bin/create_note "tex"
 
-for_window [class="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
+for_window [title="^tmp_"] move scratchpad, floating enable, move position center, resize set 800 400
 # >>>
 # Startup <<<
-# Make inactive windows transparent
-exec /usr/share/sway/scripts/inactive-windows-transparency.py & disown
+exec --no-startup-id autotiling --limit 2 -e WINDOW_FOCUS -sr 1.61
+
 # System bar
-exec_always killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown
+# Needs to use bash to source the monitors properly
+exec_always bash -ic 'killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown'
 
 # Applications
+# Synchronize files before opening browser
+exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5 -e close_write --format "%w%f" $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore'
+
+exec --no-startup-id sleep 1 && GDK_BACKEND=x11 thunderbird
+
 # Manages some key bindings
 exec --no-startup-id systemctl start swhkd.service --user && sleep 1 && systemctl start xremap.service --user
 
@@ -310,24 +312,25 @@ exec --no-startup-id systemctl start swhkd.service --user && sleep 1 && systemct
 for_window [title="^CopyQ$"] move scratchpad
 exec --no-startup-id env QT_QPA_PLATFORM=xcb copyq & disown && copyq hide
 
+exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
+# Synchronize notes
 exec --no-startup-id bash -ic "org"
-exec qutebrowser
 
 exec --no-startup-id kitty_control init
 
 # Manages other devices
 exec /bin/kdeconnectd & disown
 
-# System bar
-exec waybar & disown
-
 # Disable bluetooth
 exec rfkill block bluetooth
+
+# Move cursor to middle of screen
+exec swaymsg seat - cursor set $(swaymsg -t get_outputs -r \
+  | jq -r '.[] | select(.focused) | "\(.rect.x + .rect.width/2) \(.rect.y + .rect.height/2)"')
 
 # Hide cursor
 exec swaymsg seat seat0 hide_cursor 3000
 
-exec sudo systemctl start keyd
-
 include /etc/sway/config.d/*
+include $XDG_CONFIG_HOME/i3/config_override
 # >>>

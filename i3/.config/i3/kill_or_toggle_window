@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
-# Close window or hide it if it's Zotero
+# close window or hide it if it's zotero
 #
-# Dependencies: i3 jq
+# dependencies: i3/sway jq
 
-# Returns true or false
-Zotero_main_window="$(i3-msg -t get_tree | jq -r ' recurse(.nodes[]?, .floating_nodes[]?)
-| select(.focused)
-| .window_properties.class == "Zotero" and  .window_properties.instance == "Navigator"')"
-
-if [[ "$Zotero_main_window" == "true" ]]; then
-	i3-msg '[class="Zotero"] move scratchpad '
+is_zotero_main_window="$(i3-msg -t get_tree |
+	jq --arg re "- Zotero$" '
+  any(
+    recurse(.nodes[]?, .floating_nodes[]?);
+    .focused and (
+      ((.name // "") | test($re)) or
+      ((.app_id // "") | test($re)) or
+      ((.window_properties.class // "") | test($re))
+    )
+  )
+  ')"
+if [[ "$is_zotero_main_window" == "true" ]]; then
+	i3-msg '[title="Zotero$"]' move scratchpad
 else
 	i3-msg 'kill'
 fi

@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# EXCLUSION RULES
+EXCLUDE_TITLE_PREFIXES=("org_notes")
+EXCLUDE_APPID=("terminal_scratch")
+EXCLUDE_CLASS=("terminal_scratch")
+EXCLUDE_TITLE=("terminal_scratch")
+
+TREE=$(swaymsg -t get_tree)
+
+# Extract all scratchpad windows
+SCRATCHPAD_IDS=$(echo "$TREE" | jq '
+  .. | objects | select(.scratchpad_state? == "fresh") | .id
+')
+
+[ -z "$SCRATCHPAD_IDS" ] && exit 0
+
+# Determine if scratchpad is currently visible (any window shown)
+VISIBLE=false
+for ID in $SCRATCHPAD_IDS; do
+	WIN=$(echo "$TREE" | jq ".. | objects | select(.id==$ID)")
+	if [[ $(echo "$WIN" | jq -r '.visible // false') == "true" ]]; then
+		VISIBLE=true
+		break
+	fi
+done
+
+# Loop through windows and toggle all allowed ones
+for ID in $SCRATCHPAD_IDS; do
+	WIN=$(echo "$TREE" | jq ".. | objects | select(.id==$ID)")
+
+	TITLE=$(echo "$WIN" | jq -r '.name // ""')
+	APPID=$(echo "$WIN" | jq -r '.app_id // ""')
+	CLASS=$(echo "$WIN" | jq -r '.window_properties.class // ""')
+
+	# Check exclusion
+	skip=false
+
+	for p in "${EXCLUDE_TITLE_PREFIXES[@]}"; do
+		if [[ "$TITLE" == "$p"* ]]; then skip=true; fi
+	done
+
+	for a in "${EXCLUDE_APPID[@]}"; do
+		if [[ "$APPID" == "$a" ]]; then skip=true; fi
+	done
+
+	for c in "${EXCLUDE_CLASS[@]}"; do
+		if [[ "$CLASS" == "$c" ]]; then skip=true; fi
+	done
+
+	for t in "${EXCLUDE_TITLE[@]}"; do
+		if [[ "$TITLE" == "$t" ]]; then skip=true; fi
+	done
+
+	# Skip excluded windows
+	$skip && continue
+
+	# Toggle behavior
+	if $VISIBLE; then
+		# If at least one is visible → hide all allowed ones
+		swaymsg "[con_id=$ID]" move scratchpad
+	else
+		# If none visible → show all allowed ones
+		swaymsg "[con_id=$ID]" scratchpad show
+	fi
+done
+
+exit 0

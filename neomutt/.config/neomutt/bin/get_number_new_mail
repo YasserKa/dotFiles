@@ -3,7 +3,7 @@
 # Get number of new e-mails
 
 if [[ -d $XDG_DATA_HOME/mail/ ]]; then
-  out=$(find $XDG_DATA_HOME/mail/*/INBOX/new/ -type f|wc -l)
+  out=$(find $XDG_DATA_HOME/mail/*/INBOX/new/ -type f | wc -l)
 
   if [ "$out" != "0" ]; then
     echo $out

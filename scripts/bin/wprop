@@ -2,7 +2,7 @@
 #
 # Script to click on a window and get its i3 info with pager
 #
-# Dependencies: i3/swap wlprop
+# Dependencies: i3/swap wlprop xwininfo
 
 display_window_info() {
     i3-msg -t get_tree | jq -C --arg id "$1" '.. | select(.window? == ($id | tonumber))' | less -R
