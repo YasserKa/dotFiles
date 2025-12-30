@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 # Use org mode's clocking in emacs
-# This is used by i3 to trigger the functions and by polybar to present the output
+# This is used by i3 and sway to trigger the functions and by polybar or waybar to present the output
 
 # Dependencies: emacs, notify-send
 
 # Path to the file that contains info about the entry
 declare -r TMP_FILE_PATH="/tmp/org_current_task"
-# Path to the file that contains flag to show clocked time in polybar
-declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_polybar"
+# Path to the file that contains flag to show clocked time in the bar
+declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_bar"
 
 [[ ! -e "${TMP_FILE_FLAG_PATH}" ]] && echo 1 >"${TMP_FILE_FLAG_PATH}"
 
@@ -38,7 +38,7 @@ go_to_scheduled_entry() {
 ################################################################################
 # Toggle if the time for the clock should be shown or not
 ################################################################################
-toggle_polybar_time() {
+toggle_bar_time() {
 	local -i OLD_FLAG
 	OLD_FLAG="$(tail -n 1 "${TMP_FILE_FLAG_PATH}")"
 	readonly OLD_FLAG
@@ -109,7 +109,7 @@ get_name() {
 
 	TASK_NAME="$(cut -d ' ' -f 2- <(echo "$1"))"
 
-	# Limit the size of information to not overwhelm polybar when the string is too big
+	# Limit the size of information to not overwhelm the bar when the string is too big
 	[[ ${#TASK_NAME} -gt $NAME_MAX_SIZE ]] && TASK_NAME=${TASK_NAME:0:NAME_MAX_SIZE}"...)"
 	echo "$TASK_NAME"
 }
@@ -164,17 +164,17 @@ execute_emacs_command() {
 
 main() {
 	case "$1" in
-		"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
-		"clock_out") execute_emacs_command "(org-clock-out)" ;;
-		"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
-		"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
-		"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
-		"go_to_entry") go_to_entry ;;
-		"go_to_scheduled_entry") go_to_scheduled_entry ;;
-		"get_info") get_info "$2" 0 ;;
-		"notify_info") notify_info "$2" 1 ;;
-		"toggle_polybar_time") toggle_polybar_time ;;
-		*) echo "$1 is a wrong argument" ;;
+	"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
+	"clock_out") execute_emacs_command "(org-clock-out)" ;;
+	"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
+	"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
+	"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
+	"go_to_entry") go_to_entry ;;
+	"go_to_scheduled_entry") go_to_scheduled_entry ;;
+	"get_info") get_info "$2" 0 ;;
+	"notify_info") notify_info "$2" 1 ;;
+	"toggle_bar_time") toggle_bar_time ;;
+	*) echo "$1 is a wrong argument" ;;
 	esac
 }
 

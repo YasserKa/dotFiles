@@ -1620,7 +1620,7 @@ Made for `org-tab-first-hook' in evil-mode."
    ;; org-clock-mode-line-total 'today
    )
 
-  ;; Clock in clock out hooks with Polybar
+  ;; Clock in clock out hooks with the bar
   (defun my/add-clock-tmp-file ()
     (shell-command (concat "/bin/echo -e "
                            "\"" (org-get-heading t t t t) " \n"
