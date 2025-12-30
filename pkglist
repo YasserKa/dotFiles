@@ -265,6 +265,7 @@ swaylock      # Screen locker
 swayidle      # Idle management daemon
 waybar        # Wayland bar
 wl-clipboard # copy/paste utilities for Wayland
+xdg-desktop-portal-wlr # Allows screensharing
 
 zathura # Minimalistic document viewer
 zathura-djvu # DjVu support for Zathura

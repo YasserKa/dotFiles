@@ -1933,7 +1933,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
 
   (defun my/focus-zotero-entry (cite-key)
     (citar-open-entry-in-zotero cite-key)
-    (start-process-shell-command "" nil (concat "i3-msg '[class=\"Zotero\"] focus'"))
+    (start-process-shell-command "" nil (concat "i3-msg '[title=\"Zotero$\"] focus'"))
     )
 
   (defvar-keymap embark-citar-actions
