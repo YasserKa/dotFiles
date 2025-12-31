@@ -68,6 +68,13 @@ keymap:
 
       C-Shift-a: [End, shift-ctrl-home]
       C-m: enter
+  - name: Exit satty on Escape
+    application:
+      only: [satty]
+    remap:
+      Esc:
+        launch: ["bash", "-c", "pkill satty"]
+      # Navigation
   - name: Devdocs in qutebrowser
     window:
       only: [/.*DevDoc.*/]
