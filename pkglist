@@ -243,6 +243,9 @@ android-tools # Android platform tools (e.g. adb)
 rclone # Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox and Google Cloud Storage
 syncthing # Open Source Continuous Replication / Cluster Sunchronization Thing
 kdeconnect # Communication with other devices
+deskflow # Share mouse & keyboard on multiple computers (doesn't work as client in Wayland)
+lan-mouse # Share mouse & keyboard on multiple computers
+waynergy # Acts as client for X11 host for m&kb sharing
 libreoffice-fresh # LibreOffice branch which contains new features and program enhancements
 
 i3-wm # A fork of i3wm tiling window manager with more features, including gaps
