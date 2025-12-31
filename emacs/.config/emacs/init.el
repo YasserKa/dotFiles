@@ -1331,7 +1331,9 @@ Made for `org-tab-first-hook' in evil-mode."
   (defun my/open-super-agenda ()
     (interactive) (org-agenda nil "a") (delete-other-windows))
 
-  (add-hook 'emacs-startup-hook 'my/open-super-agenda)
+  (add-hook 'after-init-hook
+            (lambda ()
+              (run-with-idle-timer 0.5 nil #'my/open-super-agenda)))
 
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
   '(org-document-info ((t (:foreground "dark orange"))))

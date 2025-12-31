@@ -486,7 +486,7 @@ alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 org() {
 	local NAME="emacs_org"
 	is_window_exists "$NAME" || {
-		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (org-agenda nil "a") (delete-other-windows) (load-file (concat user-emacs-directory "/init.el")))'
+		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (load-file (concat user-emacs-directory "/init.el")))'
 	}
 goto_window "^${NAME}$"
 }
