@@ -322,6 +322,8 @@ exec_always bash -ic 'killall -9q waybar; source $HOME/bin/helpers/monitor_varia
 # Applications
 # Synchronize files before opening browser
 exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5 -e close_write --format "%w%f" $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore'
+# Move qutebrowser to fist workspace
+exec --no-startup-id bash -ic '{ wait_window "^qutebrowser$" && i3-msg "$(window_get_condition "^qutebrowser$")" move container to workspace 1; }'
 
 exec --no-startup-id sleep 1 && GDK_BACKEND=x11 thunderbird
 
@@ -349,6 +351,8 @@ exec rfkill block bluetooth
 # Move cursor to middle of screen
 exec swaymsg seat - cursor set $(swaymsg -t get_outputs -r \
   | jq -r '.[] | select(.focused) | "\(.rect.x + .rect.width/2) \(.rect.y + .rect.height/2)"')
+
+exec_always systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK DISPLAY XDG_CURRENT_DESKTOP
 
 # Hide cursor
 exec swaymsg seat seat0 hide_cursor 3000
