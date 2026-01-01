@@ -322,6 +322,8 @@ exec --no-startup-id bash -ic "org"
 
 exec --no-startup-id kitty_control init
 
+exec gammastep -m randr
+
 # Manages devices remotely
 exec /bin/kdeconnectd & disown
 

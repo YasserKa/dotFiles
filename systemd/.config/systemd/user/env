@@ -21,5 +21,4 @@ USER="yasser"
 # Used by sxhkd systemd service
 TERMINAL="kitty"
 
-DISPLAY=:0
 XAUTHORITY=/home/yasser/.Xauthority

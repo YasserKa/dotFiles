@@ -1,4 +1,5 @@
 XDG_CONFIG_HOME = $(HOME)/.config
+MAKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 XDG_DATA_HOME=$(HOME)/.local/share
 
 # sci-hub for qutebrowser
@@ -115,6 +116,8 @@ post-install-packages: stow-packages install-pypi-packages setup-systemd-service
 	@# The AUR package for it is outdated
 	@git clone --depth 1 https://github.com/Airblader/xedgewarp  /tmp/xedgewarp
 	@cd /tmp/xedgewarp
+	@# Setup geoclue config
+	@sudo install -Dm644 $(MAKFILE_PATH)/geoclue/.config/geoclue/99-beacondb.conf /etc/geoclue/conf.d/99-beacondb.conf
 	@make
 	@sudo make install
 

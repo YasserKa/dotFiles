@@ -361,6 +361,7 @@ thunderbird # Mail client
 external-editor-revived # Thunderbird extension edit email
 systray-x-common # Thunderbird extension for system tray
 asciidoc # Needed for xedgwarp
+gammastep # Adjust screen's color temperture
 rust
 
 # (Wayland) Screen recording and shots
