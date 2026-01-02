@@ -240,6 +240,10 @@ config.unbind(":", mode="normal")
 # Don't close window on C-q
 config.unbind("<Ctrl-q>", mode="normal")
 
+# Needed to make window focusing work in Wayland
+if "WAYLAND_DISPLAY" in os.environ:
+    c.qt.force_platform = "XCB"
+
 c.aliases = {
     "q": "close",
     "yank_footnote": 'yank inline "[] []: {url}"',
