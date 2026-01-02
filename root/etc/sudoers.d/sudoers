@@ -1,3 +1,0 @@
-yasser ALL=(ALL) NOPASSWD: /usr/bin/systemctl start keyd, /usr/bin/systemctl stop keyd, /usr/bin/systemctl restart keyd
-
-# vim: ft = sudoers

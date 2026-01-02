@@ -114,6 +114,8 @@ for_window [class="Vlc|feh|Shutter"] floating enable
 # Enable floating for windows that has floating class
 for_window [instance="floating"] floating enable
 
+for_window [title="^fullscreen$"] fullscreen enable
+
 for_window [instance="pinentry-gtk"] floating enable
 
 # Capture a note using org mode

@@ -996,7 +996,6 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
 
 (use-package org
   :defer t
-  ;; :ensure org-contrib
   :hook ((org-mode . my/org-mode-setup))
   :custom
   (org-directory notes-dir)
@@ -2894,6 +2893,7 @@ concatenated."
 
 (use-package elfeed-org
   :after elfeed
+  :defer t
   :custom (rmh-elfeed-org-files (list (concat notes-dir "feeds.org")))
   :config (elfeed-org)
   )
