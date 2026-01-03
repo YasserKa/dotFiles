@@ -854,8 +854,8 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (magit-repository-directories '(("$DOTFILES_DIR" . 0)))
   :config
 
-  ;; Use External GTK pinetry program to run pinentry
-  (setenv "PINENTRY_USER_DATA" "gtk")
+  ;; Use External pinetry program to run pinentry
+  (setenv "PINENTRY_USER_DATA" "gnome")
 
   (evil-define-key 'normal magit-status-mode-map
     (kbd "?") 'evil-search-backward

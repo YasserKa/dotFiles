@@ -8,6 +8,7 @@
 
 case "$PINENTRY_USER_DATA" in
 	gtk) exec /usr/bin/pinentry-gtk "$@" ;;
+	gnome) exec /usr/bin/pinentry-gnome3 "$@" ;;
 	none) exit 1 ;;
 	*) exec /usr/bin/pinentry-tty "$@" ;;
 esac
