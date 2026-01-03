@@ -330,8 +330,6 @@ exec --no-startup-id bash -ic '{ wait_window "^qutebrowser$" && i3-msg "$(window
 exec --no-startup-id sleep 1 && GDK_BACKEND=x11 thunderbird
 
 # Manages some key bindings
-exec --no-startup-id systemctl start swhkd.service --user && sleep 1 && systemctl start xremap.service --user
-
 # Clipboard manager
 for_window [title="^CopyQ$"] move scratchpad
 exec --no-startup-id env QT_QPA_PLATFORM=xcb copyq & disown && copyq hide
@@ -353,8 +351,6 @@ exec rfkill block bluetooth
 # Move cursor to middle of screen
 exec swaymsg seat - cursor set $(swaymsg -t get_outputs -r \
   | jq -r '.[] | select(.focused) | "\(.rect.x + .rect.width/2) \(.rect.y + .rect.height/2)"')
-
-exec_always systemctl --user import-environment WAYLAND_DISPLAY SWAYSOCK DISPLAY XDG_CURRENT_DESKTOP
 
 # Hide cursor
 exec swaymsg seat seat0 hide_cursor 3000

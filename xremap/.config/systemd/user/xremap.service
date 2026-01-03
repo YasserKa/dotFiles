@@ -1,6 +1,7 @@
 [Unit]
 Description=Xremap
-After=default.target
+After=swhkd.service
+Requires=swhkd.service
 
 [Service]
 ExecStart=/usr/bin/xremap --watch=device %h/.config/xremap/config.yml

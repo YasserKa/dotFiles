@@ -140,6 +140,8 @@ setup-systemd-services:
 	systemctl enable dunst.service --user
 	systemctl enable --now ydotool.service --user
 	systemctl enable geoclue-agent.service --user
+	systemctl enable --now swhkd --user
+	systemctl enable --now xremap --user
 	systemctl enable msmtp-runqueue.timer --user
 	systemctl enable mbsync.timer --user
 	systemctl enable syncthing.service --user
