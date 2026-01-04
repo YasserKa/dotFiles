@@ -1676,7 +1676,9 @@ Made for `org-tab-first-hook' in evil-mode."
       (if closest-entry
           (progn
             (switch-to-buffer (marker-buffer closest-entry))
-            (goto-char (marker-position closest-entry)))
+            (goto-char (marker-position closest-entry))
+            (org-reveal) (org-fold-show-entry) (org-fold-show-children)
+            )
         (message "No entry found with a future scheduled timestamp including time."))))
 
   (add-hook 'org-clock-in-hook #'my/add-clock-tmp-file)
