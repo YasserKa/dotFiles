@@ -18,6 +18,8 @@ blur_xray enable
 
 font pango:Inconsolata 14
 
+xwayland disable
+
 # >>>
 # Workspaces/Windows <<<
 # Focus windows
@@ -342,7 +344,7 @@ exec --no-startup-id sleep 2 && birdtray
 # Clipboard manager
 for_window [title="^CopyQ$"] move scratchpad
 # xcb is needed to make global keybindings work in Xwayland
-exec_always --no-startup-id bash -ic '{ [[ -n "$WAYLAND_DISPLAY" ]] && [[ -n "$DISPLAY" ]] && env QT_QPA_PLATFORM=xcb; }; copyq & disown && copyq hide'
+exec --no-startup-id copyq & disown && copyq hide
 
 # In Wayland, dunst doesn't follow focus, use the middle monitor instead
 exec --no-startup-id [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && $XDG_CONFIG_HOME/dunst/update_monitor_id

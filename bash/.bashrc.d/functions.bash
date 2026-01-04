@@ -703,12 +703,9 @@ pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
 thunderbird() {
 	is_window_exists '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, focus && exit 0
-	{ [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && export GDK_BACKEND=x11; };
-    export QT_QPA_PLATFORM="wayland"
-		command thunderbird
+	command thunderbird
 }
 zotero() {
-	CONDITION=
 	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, focus" && exit 0
 	command zotero &
 }

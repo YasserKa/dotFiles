@@ -97,9 +97,19 @@ eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 id_ed25519 B08290
 export EMACS_DEFAULT_SOCKET="default"
 export EMACS_ORG_SOCKET="org"
 
-# Use a display server (X or Wayland)
+SERVER="WAYLAND"
 
 if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" ] && [ -z "$SSH_TTY" ]; then
-	# exec sway
-	exec startx "${XINITRC}"
+	if [ "$SERVER" = "WAYLAND" ]; then
+		# Xwayland
+		if grep -wq "xwayland disable" "$XDG_CONFIG_HOME/sway/config"; then
+			export QT_QPA_PLATFORM="wayland"
+		else
+			export GDK_BACKEND="x11"
+			export QT_QPA_PLATFORM="xcb"
+		fi
+		exec sway
+	elif [ "$SERVER" = "X" ]; then
+		exec startx "${XINITRC}"
+	fi
 fi
