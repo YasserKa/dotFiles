@@ -1,0 +1,6 @@
+[binds]
+
+<Ctrl+p> = prev 1
+<Ctrl+n> = next 1
+f = overlay
+<equal> = reset

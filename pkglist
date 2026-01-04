@@ -217,6 +217,7 @@ mpv # a free, open source, and cross-platform media player
 losslesscut-bin # Trimming/cutting video/audio files
 socat # Used to control mpv remotely using a relay
 feh # Fast and light imlib2-based image viewer
+imv # image viewer for Wayland & X11
 
 yt-dlp # A command-line program to download videos from YouTube.com and a few more sites
 gist # Potentially the best command line gister

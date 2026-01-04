@@ -7,7 +7,7 @@ text/plain; cat %s; copiousoutput;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
 
 image/gif; mpv --x11-name=floating '%s' --autofit=640x480 --loop=inf
-image/*; feh -g 640x480 -. '%s'
+image/*; [[ -n $DISPLAY ]] && feh -g 640x480 -. '%s' || imv -W 640 -H 480 -s shrink '%s'
 
 text/calendar; mutt-ics; copiousoutput
 application/ics; mutt-ics; copiousoutput

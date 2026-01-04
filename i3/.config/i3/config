@@ -102,7 +102,7 @@ for_window [instance="selenium_chrome_profile"] move scratchpad
 for_window [instance="facebook_bot_profile"] move scratchpad
 
 # Making softwares in floating mode
-for_window [class="Vlc|feh|Shutter"] floating enable
+for_window [class="Vlc|feh|Shutter|imv"] floating enable
 
 # Enable floating for windows that has floating class
 for_window [instance="floating"] floating enable
