@@ -1337,11 +1337,6 @@ Made for `org-tab-first-hook' in evil-mode."
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
   '(org-document-info ((t (:foreground "dark orange"))))
 
-  (defun truncate-string-with-ellipsis (string length)
-    "Truncate STRING to a maximum of LENGTH characters, appending '…' if truncated."
-    (if (> (length string) length)
-        (concat (substring string 0 (max 0 (- length 3))) "…")
-      string))
   (defun get-top-heading-in-block ()
     "Get the title of the top-level heading in the current block."
     (interactive)
@@ -1843,6 +1838,12 @@ Note: this uses Org's internal variable `org-link--search-failed'."
                         (not org-link--search-failed))
             (org-open-at-point))))))
   )
+
+  (defun truncate-string-with-ellipsis (string length)
+    "Truncate STRING to a maximum of LENGTH characters, appending '…' if truncated."
+    (if (> (length string) length)
+        (concat (substring string 0 (max 0 (- length 3))) "…")
+      string))
 
 (use-package citar
   :no-require
@@ -2580,16 +2581,18 @@ selection of all minor-modes, active or not."
   (" t" (find-file (concat notes-dir "/tasks.org")) "tasks.org")
   )
 
-(defun node-not-bib-reference-note (file)
-  "Return FILE if it does not exist in DIR, otherwise return nil."
+(defun my/get-filtered-nodes (file)
+  "Return FILE if it does not exist in DIR and doesn't start with t_, otherwise return nil."
   (message (file-name-nondirectory (org-roam-node-file file)))
-  (let ((dir-files (directory-files "~/notes/references" nil directory-files-no-dot-files-regexp)))
-    (if (member (file-name-nondirectory (org-roam-node-file file)) dir-files)
+  (let* ((dir-files (directory-files "~/notes/references" nil directory-files-no-dot-files-regexp))
+         (filename (file-name-nondirectory (org-roam-node-file file))))
+    (if (or (member filename dir-files)
+            (string-prefix-p "t_" filename))
         nil
       file)))
 
 (defhydra org-find-hydra (:exit t :idle 1)
-  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find nil "" 'node-not-bib-reference-note))) "find node")
+  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find nil "" 'my/get-filtered-nodes))) "find node")
   (" B" org-cite-insert "BibTex")
   )
 

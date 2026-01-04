@@ -514,16 +514,20 @@ magit() {
 alias gitdotfiles='cd $DOTFILES_DIR && magit'
 
 elfeed() {
-	emacs --frame-parameters='((title . "fullscreen"))' --eval '(progn
-	(elfeed-search-set-filter "@6-months-ago +unread ~Papers")
-	(elfeed) (elfeed-update))'
+	# Reload elfeed buffer after full screen
+	emacs --frame-parameters='((fullscreen . fullboth))' --eval "(progn
+		(elfeed-search-set-filter \"@6-months-ago +unread ~Papers\")
+		(elfeed) (elfeed-update)  (add-hook 'window-size-change-functions (lambda (_) (when (get-buffer \"*elfeed-search*\") (elfeed-search-update--force))))
+	)"
 }
 
 papers() {
 	get_papers
-	emacs --frame-parameters='((title . "fullscreen"))' --eval '(progn
-	(elfeed-search-set-filter "@6-months-ago +unread =Papers")
-	(elfeed) (elfeed-update))'
+	# Reload elfeed buffer after full screen
+	emacs --frame-parameters='((fullscreen . fullboth))' --eval "(progn
+		(elfeed-search-set-filter \"@6-months-ago +unread =Papers\")
+		(elfeed) (elfeed-update)  (add-hook 'window-size-change-functions (lambda (_) (when (get-buffer \"*elfeed-search*\") (elfeed-search-update--force))))
+	)"
 }
 
 # Pick a color and store it in clipbaord

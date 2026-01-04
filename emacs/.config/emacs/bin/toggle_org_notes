@@ -5,41 +5,38 @@
 # Dependencies: emacs i3/sway xdotool jq
 
 declare -r CLASS="org_notes"
-declare -r i3_config_override_file="$XDG_CONFIG_HOME/i3/config_override"
-declare -r i3_override_command="for_window [title=^${CLASS}$] move scratchpad"
+
+source "$HOME/bin/helpers/monitor_variables"
+source "$HOME/.bashrc.d/functions.bash"
 
 # If it's visible, move it to scratchpad
 if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-  swaymsg -t get_tree | jq -e '.. | select(.window_properties? and .window_properties.title == "'$CLASS'" and .visible == true)' >/dev/null &&
-    swaymsg "[title=^${CLASS}$] fullscreen disable" && swaymsg "[title=^${CLASS}$] move scratchpad" && exit 0
+	i3-msg -t get_tree |
+		jq -e --arg re "^${CLASS}$" '
+    recurse(.nodes[]?, .floating_nodes[]?) |
+    select(
+      ((.name // "") | test($re))
+    ) | select(.visible == true)' && swaymsg "[title=^${CLASS}$] fullscreen disable" && swaymsg "[title=^${CLASS}$] move scratchpad" && exit 0
 elif [[ -n "${DISPLAY}" ]]; then
-  xdotool search --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
+	xdotool search --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
 fi
-
-# shellcheck disable=1091
-source "$HOME/bin/helpers/monitor_variables"
 
 # Move frame to workspace on right output, enable fullscreen, and go to heading
 declare WORKSPACE
 if [[ -n "$MONITOR_RIGHT" ]]; then
-  WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.output == \"${MONITOR_RIGHT}\") | .name")"
+	WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.output == \"${MONITOR_RIGHT}\") | .name")"
 else
-  WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.focused == ""true"") | .name")"
+	WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.focused == ""true"") | .name")"
 fi
 readonly WORKSPACE
 
 # If frame doesn't exist, create it, and go to file
-if ! xdotool search --name "^${CLASS}$" >/dev/null; then
-  if ! grep -Fxq "$i3_override_command" "$i3_config_override_file"; then
-    echo "$i3_override_command" >>"$i3_config_override_file"
-  fi
-  i3-msg reload
+if ! is_window_exists "^${CLASS}$"; then
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
 
-  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(let ((frame (make-frame '((name . \"${CLASS}\") (minibuffer . t))))))"
+	wait_window "^${CLASS}$" && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
 
-  xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
-
-  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
 (let ((frame (seq-find (lambda (frame)
               (string= \"${CLASS}\" (frame-parameter frame 'name)))
               (frame-list))))
@@ -50,17 +47,15 @@ if ! xdotool search --name "^${CLASS}$" >/dev/null; then
   ))"
 fi
 
-xdotool search --sync --name "^$CLASS$" >/dev/null && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
+wait_window "^${CLASS}$" && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
 
-xdotool search --onlyvisible --name "^${CLASS}$" windowfocus
+goto_window "^${CLASS}$"
 
 emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "
   (with-current-buffer (window-buffer (selected-window))
   (if (minibufferp) (lambda () (minibuffer-keyboard-quit)))
   (org-overview)
   (consult-org-heading)
+  (add-hook 'focus-out-hook (lambda () (vertico-exit)))
   (org-fold-show-subtree)
-  )
-  "
-awk -v pat="$i3_override_command" '$0 != pat' "$i3_config_override_file" | sponge "$i3_config_override_file"
-i3-msg reload
+  )"
