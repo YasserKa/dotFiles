@@ -296,6 +296,9 @@ for_window [title="^tmp_"] move scratchpad, floating enable, move position cente
 # Pick a random background image
 exec_always --no-startup-id feh --no-fehbg --bg-scale `find $HOME/Pictures/WallPapers/. -type f | shuf -n1`
 
+# Cron environment
+exec cat <(cat ~/.config/cron/cron_env_template) <(echo "$(declare -p DISPLAY)") >| ~/.cache/cron_env
+
 # Composer for fading affect on window focus and opacity
 exec --no-startup-id picom & disown
 

@@ -321,6 +321,9 @@ exec --no-startup-id autotiling --limit 2 -e WINDOW_FOCUS -sr 1.61
 # Needs to use bash to source the monitors properly
 exec_always bash -ic 'killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown'
 
+# Cron environment
+exec cat <(cat ~/.config/cron/cron_env_template) <(echo "$(declare -p DISPLAY WAYLAND_DISPLAY)") >| ~/.cache/cron_env
+
 # Applications
 # Synchronize files before opening browser
 exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5 -e close_write --format "%w%f" $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore'
