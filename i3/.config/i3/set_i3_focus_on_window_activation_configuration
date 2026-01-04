@@ -12,7 +12,7 @@ declare -r tmp_file_path=/tmp/i3_focus_config
 # Sleep for $1 seconds and revert back to normal behaviour
 revert_changes_after_delay() {
 	sleep "$1"
-	"$0" "smart"
+	"$0" "focus"
 }
 
 if [[ ! ${options[*]} =~ $1 ]]; then
@@ -25,18 +25,17 @@ fi
 if [[ $2 == [[:digit:]] ]]; then
 	curr_pid="$(cat "$tmp_file_path" 2>/dev/null)"
 	{ kill -0 "$curr_pid" && kill "$curr_pid"; } 2>/dev/null
-	# TODO: Add
-	{
-		revert_changes_after_delay "$2"
-		i3-msg reload
-	} &
+	revert_changes_after_delay "$2" &
 	curr_pid=$!
 	echo $curr_pid >$tmp_file_path
 fi
 
-if [ -n "${WAYLAND_DISPLAY}" ]; then
-	swaymsg "focus_on_window_activation $1"
-else
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+	swaymsg focus_on_window_activation "$1"
+elif [[ -n "${DISPLAY}" ]]; then
 	sed -i "1s/.*/focus_on_window_activation $1/" "$XDG_CONFIG_HOME/i3/focus_on_window_activation_config"
 	i3-msg reload
 fi
+
+# Wait until reverting is finished
+[[ -n "$curr_pid" ]] && wait "$curr_pid"

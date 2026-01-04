@@ -121,8 +121,8 @@ for_window [instance="pinentry-gtk"] floating enable
 # Capture a note using org mode
 for_window [title="^org-capture-yeq$"] floating enable, move position center
 
-# Change workspace when window is activated (used for qutebrowser gt)
-include ./focus_on_window_activation_config
+# Focus window if it's visible
+focus_on_window_activation smart
 # >>>
 # Modes <<<
 bindsym $mod+r mode "resize"
