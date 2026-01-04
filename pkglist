@@ -361,7 +361,6 @@ gnu-netcat # Used to communicate with Zotero
 thunderbird # Mail client
 birdtray # Thunderbird system tray
 external-editor-revived # Thunderbird extension edit email
-systray-x-common # Thunderbird extension for system tray
 asciidoc # Needed for xedgwarp
 gammastep # Adjust screen's color temperture
 rust
