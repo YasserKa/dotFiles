@@ -123,6 +123,9 @@ for_window [title="^org-capture-yeq$"] floating enable, move position center
 
 # Focus window if it's visible
 focus_on_window_activation smart
+
+# Sway in Wayland doesn't focus windows; this makes it possible
+exec [[ -z $DISPLAY ]] && swaymsg -mt subscribe '["window"]' | jq --unbuffered 'select(.change == "urgent").container.id' | xargs -I{} swaymsg '[con_id={} urgent=latest]' focus &>/dev/null &
 # >>>
 # Modes <<<
 bindsym $mod+r mode "resize"
