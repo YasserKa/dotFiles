@@ -7,6 +7,7 @@ config = config  #  type: ignore # noqa: F821
 
 c.bindings.commands = {
     "normal": {
+        "<Ctrl-w>": "nop",  # Removes tab
         "J": "forward",
         "K": "back",
         "H": "tab-prev",
