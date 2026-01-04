@@ -483,12 +483,23 @@ emacsclient() {
 }
 alias emacs="emacsclient --no-wait --create-frame --alternate-editor='' "
 
+#######################################
+# Opens org files; opens agenda at startup
+#######################################
 org() {
 	local NAME="emacs_org"
+	first_time=false
+
+	if ! command emacsclient --socket-name="$EMACS_ORG_SOCKET" -a false -e 't' >/dev/null 2>&1; then
+		first_time="true"
+	fi
 	is_window_exists "$NAME" || {
-		emacsclient --no-wait --socket-name="$EMACS_ORG_SOCKET" --create-frame --frame-parameters='((title . "'"$NAME"'"))' -e '(progn (find-file "'"$NOTES_ORG_HOME/capture.org"'") (load-file (concat user-emacs-directory "/init.el")))'
+		emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait  --create-frame --frame-parameters='((title . "'"$NAME"'"))' "$NOTES_ORG_HOME/capture.org"
 	}
-goto_window "^${NAME}$"
+	if [[ "$first_time" == "true" ]]; then
+		emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(my/open-super-agenda)"
+	fi
+	goto_window "^${NAME}$"
 }
 
 # Open org notes without emacsclient to test config

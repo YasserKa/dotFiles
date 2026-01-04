@@ -1330,7 +1330,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (defun my/open-super-agenda ()
     (interactive) (org-agenda nil "a") (delete-other-windows))
 
-  (add-hook 'after-init-hook
+  (add-hook 'emacs-startup-hook
             (lambda ()
               (run-with-idle-timer 0.5 nil #'my/open-super-agenda)))
 
