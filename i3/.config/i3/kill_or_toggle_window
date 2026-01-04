@@ -1,21 +1,29 @@
 #!/usr/bin/env bash
-# close window or hide it if it's zotero
+# Move specific windows to scratchpad or kill them
 #
 # dependencies: i3/sway jq
 
-is_zotero_main_window="$(i3-msg -t get_tree |
-	jq --arg re "- Zotero$" '
-  any(
-    recurse(.nodes[]?, .floating_nodes[]?);
-    .focused and (
-      ((.name // "") | test($re)) or
-      ((.app_id // "") | test($re)) or
-      ((.window_properties.class // "") | test($re))
-    )
-  )
-  ')"
-if [[ "$is_zotero_main_window" == "true" ]]; then
-	i3-msg '[title="Zotero$"]' move scratchpad
-else
-	i3-msg 'kill'
-fi
+SCRATCHPAD_WINDOWS=(
+	"Zotero"
+	"org.mozilla.Thunderbird"
+)
+
+for window in "${SCRATCHPAD_WINDOWS[@]}"; do
+	is_match="$(i3-msg -t get_tree | jq --arg re "$window" '
+      any(
+        recurse(.nodes[]?, .floating_nodes[]?);
+        .focused and (
+          ((.name // "") | test($re)) or
+          ((.app_id // "") | test($re)) or
+          ((.window_properties.class // "") | test($re))
+        )
+      )
+    ')"
+
+	if [[ "$is_match" == "true" ]]; then
+		i3-msg "$(window_get_condition "$window")" move scratchpad
+		exit 0
+	fi
+done
+
+i3-msg kill

@@ -409,7 +409,7 @@ is_window_exists() {
 }
 
 wait_window() {
-	local TIMEOUT=10 START=$SECONDS
+	local TIMEOUT="${2-10}" START=$SECONDS
   while ! is_window_exists "$1"; do
     (( SECONDS - START >= TIMEOUT )) && return 1
     sleep 0.1
@@ -692,7 +692,9 @@ pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
 thunderbird() {
 	is_window_exists '^org.mozilla.Thunderbird$' && i3-msg '[title="Thunderbird"] move workspace current, focus' && exit 0
-	GDK_BACKEND=x11 command thunderbird &
+	{ [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && export GDK_BACKEND=x11; };
+    export QT_QPA_PLATFORM="wayland"
+		command thunderbird
 }
 zotero() {
 	CONDITION=

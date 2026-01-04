@@ -2,7 +2,7 @@
 
 # EXCLUSION RULES
 EXCLUDE_TITLE_PREFIXES=("org_notes")
-EXCLUDE_APPID=("terminal_scratch")
+EXCLUDE_APPID=("terminal_scratch" "com.github.hluk.copyq" "org.mozilla.Thunderbird" "Zotero")
 EXCLUDE_CLASS=("terminal_scratch")
 EXCLUDE_TITLE=("terminal_scratch")
 

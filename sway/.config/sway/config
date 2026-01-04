@@ -328,14 +328,16 @@ exec cat <(cat ~/.config/cron/cron_env_template) <(echo "$(declare -p DISPLAY WA
 # Synchronize files before opening browser
 exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5 -e close_write --format "%w%f" $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore'
 # Move qutebrowser to fist workspace
-exec --no-startup-id bash -ic '{ wait_window "^qutebrowser$" && i3-msg "$(window_get_condition "^qutebrowser$")" move container to workspace 1; }'
+exec --no-startup-id bash -ic '{ wait_window "^qutebrowser$" 999 && sleep 0.5 && i3-msg "$(window_get_condition "^qutebrowser$")" move container to workspace 1; }'
 
-exec --no-startup-id sleep 1 && GDK_BACKEND=x11 thunderbird
+exec --no-startup-id sleep 1 && thunderbird
+exec birdtray
 
 # Manages some key bindings
 # Clipboard manager
 for_window [title="^CopyQ$"] move scratchpad
-exec --no-startup-id env QT_QPA_PLATFORM=xcb copyq & disown && copyq hide
+# xcb is needed to make global keybindings work in Xwayland
+exec --no-startup-id { [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && env QT_QPA_PLATFORM=xcb; }; copyq & disown && copyq hide
 
 exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
 # Synchronize notes
