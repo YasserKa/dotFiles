@@ -8,7 +8,14 @@
 
 case "$PINENTRY_USER_DATA" in
 	gtk) exec /usr/bin/pinentry-gtk "$@" ;;
-	gnome) exec /usr/bin/pinentry-gnome3 "$@" ;;
+	gnome)
+		source "$HOME/.bashrc.d/functions.bash"
+		PATTERN="^Gcr-prompter$|^gcr-prompter$|^Pinentry-gtki$"
+		# Redirecting stdout is needed for it to work
+		{ wait_window "$PATTERN" && goto_window "$PATTERN"; } >/dev/null &
+		disown
+		exec /usr/bin/pinentry-gnome3 "$@"
+		;;
 	none) exit 1 ;;
 	*) exec /usr/bin/pinentry-tty "$@" ;;
 esac

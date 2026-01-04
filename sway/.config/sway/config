@@ -368,6 +368,9 @@ exec swaymsg seat - cursor set $(swaymsg -t get_outputs -r \
 # Hide cursor
 exec swaymsg seat seat0 hide_cursor 3000
 
+# Needed to make gpg pinentary use i3-msg -t get_tree
+exec systemctl --user import-environment SWAYSOCK WAYLAND_DISPLAY XDG_RUNTIME_DIR
+
 include /etc/sway/config.d/*
 include $XDG_CONFIG_HOME/i3/config_override
 # >>>
