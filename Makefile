@@ -66,7 +66,7 @@ install-packages: create-clean-pkglist install-aur-helper
 create-clean-pkglist:
 	@# pacman doesn\'t show the following installed packages
 	@# Added xremap bcz there are one for each x11 and wayland
-	@cat pkglist | grep -o "^[^#]*" | grep -vE "(binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which|xremap-x11-bin)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
+	@cat pkglist | grep -o "^[^#]*" | grep -vE "(emacs.*|binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which|xremap-x11-bin)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
 .PHONY: stow-root
 stow-root:
@@ -171,7 +171,7 @@ compare-packages: create-clean-pkglist
 	@# Make expects a 0, otherwise it fails.
 	@# diff returns 1 if a difference is found
 	@#NOTE: To mark pkg as explicity installed: sudo pacman -D --asexplicit <pkg>
-	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|evdi-git|evdi|evdi-compat-git|cmake|xremap-wlroots-bin|xremap-x11-bin|intel-media-driver|libva-utils|mesa-utils|nvidia|vulkan-intel|amd-ucode|vulkan-radeon)" | sort) || echo ""
+	@diff -y --suppress-common-lines --color pkglist_clean.tmp <(pacman -Qqe | grep -vE "(paru|emacs.*|evdi-git|evdi|evdi-compat-git|cmake|xremap-wlroots-bin|xremap-x11-bin|intel-media-driver|libva-utils|mesa-utils|nvidia|vulkan-intel|amd-ucode|vulkan-radeon)" | sort) || echo ""
 	@rm -f *tmp
 
 .PHONY: help

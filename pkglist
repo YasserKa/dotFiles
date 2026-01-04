@@ -92,6 +92,7 @@ imagemagick # An image viewing/manipulation program
 libtool # A generic library support script
 
 emacs # The extensible, customizable, self-documenting real-time display editor
+emacs-wayland
 # Used by magit
 git-delta # Syntax-highlighting pager for git and diff output
 
