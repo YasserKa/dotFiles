@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Sync mail or clear mail by focusing window and send keystrokes
+#
+# Options:
+# - clear
+# - sync
+#
+# Dependencies: sway wtype
+
+[[ -z "$1" ]] && exit 1
+
+swaymsg create_output res 1920x1080
+OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
+MARK="pre_thunderbird_focus"
+
+i3-msg '[app_id="org.mozilla.Thunderbird"]' move window to output "$OUTPUT_NAME"
+
+swaymsg mark "$MARK"
+i3-msg '[app_id="org.mozilla.Thunderbird"]' focus
+
+if [[ "$1" == "sync" ]]; then
+	wtype -M shift -k F5 -m shift
+elif [[ "$1" == "clear" ]]; then
+	wtype -M shift -k c -m shift
+fi
+swaymsg [con_mark="$MARK"] focus
+i3-msg '[app_id="org.mozilla.Thunderbird"]' move scratchpad
+
+while read -r output_name; do
+	swaymsg output "$output_name" unplug
+done < <(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')

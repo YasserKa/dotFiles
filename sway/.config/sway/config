@@ -248,8 +248,8 @@ set $mail_mode "(o)pen, (s)ync, (c)lear"
 bindsym $mod+m mode $mail_mode
 mode $mail_mode {
     bindsym o exec --no-startup-id eval_interactive_cmd neomutt; mode "default";
-    bindsym s exec --no-startup-id bash -ic "syncmail"; mode "default";
-    bindsym c exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && pkill -RTMIN+8 waybar && dunstctl close; mode "default";
+    bindsym s exec --no-startup-id bash -ic "syncmail" & $XDG_CONFIG_HOME/thunderbird/thunderbird_utility sync; mode "default";
+    bindsym c exec --no-startup-id bash -ic '{ $XDG_CONFIG_HOME/neomutt/bin/move_new_mail_to_cur && pkill -RTMIN+8 waybar; } & $XDG_CONFIG_HOME/thunderbird/thunderbird_utility clear && dunstctl close'; mode "default";
     bindsym Control+bracketleft mode "default";
     bindsym Escape mode "default";
 }
@@ -332,10 +332,11 @@ exec cat <(cat ~/.config/cron/cron_env_template) <(echo "$(declare -p DISPLAY WA
 # Synchronize files before opening browser
 exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5 -e close_write --format "%w%f" $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore'
 # Move qutebrowser to fist workspace
-exec --no-startup-id bash -ic '{ wait_window "^qutebrowser$" 999 && sleep 0.5 && i3-msg "$(window_get_condition "^qutebrowser$")" move container to workspace 1; }'
+exec --no-startup-id bash -ic '{ wait_window "^org.qutebrowser.qutebrowser$" 999 && sleep 0.5 && i3-msg "$(window_get_condition "^org.qutebrowser.qutebrowser$")" move container to workspace 1; }'
 
+for_window [app_id="org.mozilla.Thunderbird"] move scratchpad
 exec --no-startup-id sleep 1 && thunderbird
-exec birdtray
+exec --no-startup-id sleep 2 && birdtray
 
 # Manages some key bindings
 # Clipboard manager

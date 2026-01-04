@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-dunstify hello
 declare -r CONFIG_FILE="$XDG_CONFIG_HOME/dunst/dunstrc"
 OUTPUT=$(mktemp)
 declare -r OUTPUT

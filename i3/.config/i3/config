@@ -311,8 +311,10 @@ exec_always --no-startup-id $XDG_CONFIG_HOME/polybar/bin/launch
 exec --no-startup-id i3-msg 'workspace --no-auto-back-and-forth 1; append_layout ~/.config/i3/templates/google.json'
 # Synchronize files before opening browser
 exec --no-startup-id { pull_files_from_remote && inotifywait --timeout 5 -e close_write --format '%w%f' $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore; } & disown
+
+for_window [class="org.mozilla.Thunderbird"] move scratchpad
 exec --no-startup-id sleep 1 && thunderbird
-exec birdtray
+exec --no-startup-id sleep 2 && birdtray
 
 # Manages some key bindings
 # exec --no-startup-id autokey-qt & disown

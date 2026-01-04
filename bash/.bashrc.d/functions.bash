@@ -691,7 +691,7 @@ xdg-open() {
 pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace
 thunderbird() {
-	is_window_exists '^org.mozilla.Thunderbird$' && i3-msg '[title="Thunderbird"] move workspace current, focus' && exit 0
+	is_window_exists '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, focus && exit 0
 	{ [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && export GDK_BACKEND=x11; };
     export QT_QPA_PLATFORM="wayland"
 		command thunderbird

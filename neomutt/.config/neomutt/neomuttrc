@@ -96,6 +96,7 @@ bind pager,attach h exit
 bind index G last-entry
 bind index gg first-entry
 bind index N search-opposite
+bind index \en toggle-new
 macro pager,index dd  "<enter-command>set resolve=no<enter><clear-flag>N<tag-prefix>\
 <enter-command>set resolve=yes<enter><delete-message>"
 bind pager,index dD delete-subthread
