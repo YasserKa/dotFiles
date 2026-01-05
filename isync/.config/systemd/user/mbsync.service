@@ -1,6 +1,5 @@
 [Unit]
 Description=Mailbox synchronization service
-OnFailure=notify-popup-send@%i.service
 
 [Service]
 Type=forking
