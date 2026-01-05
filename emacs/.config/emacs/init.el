@@ -2732,10 +2732,11 @@ selection of all minor-modes, active or not."
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 ;;;; }}}
 (use-package elfeed
+  :defer t
   :custom
   (elfeed-search-title-max-width 80)
   (elfeed-search-remain-on-entry t)
-  ;; :hook
+  :commands elfeed
   :config
 
   (defun my/elfeed-entry-capture-show ()
@@ -2898,7 +2899,6 @@ concatenated."
 
 (use-package elfeed-org
   :after elfeed
-  :defer t
   :custom (rmh-elfeed-org-files (list (concat notes-dir "feeds.org")))
   :config (elfeed-org)
   )
