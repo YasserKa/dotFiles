@@ -5,7 +5,6 @@ Description=udiskie automounter for removable media daemon
 Type=simple
 Restart=always
 RestartSec=2
-EnvironmentFile=/home/yasser/.config/systemd/user/env
 ExecStart=/bin/udiskie
 
 [Install]

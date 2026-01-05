@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+export HISTSIZE=10000
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:pls:clear:*/pypoetry/virtualenvs/*"
+vars="SWAYSOCK      I3SOCK      WAYLAND_DISPLAY   DISPLAY        XDG_RUNTIME_DIR  DISPLAY
+XDG_CONFIG_ISYNC    NOTMUCH_CONFIG    XAUTHORITY     GNUPGHOME        BROWSER                 
+PASSWORD_STORE_DIR  XDG_CONFIG_HOME   XDG_DATA_HOME  XDG_STATE_HOME   XDG_CACHE_HOME          
+ZDOTDIR             EMACS_ORG_SOCKET  PATH           HOME             TERMINAL        EDITOR  EDITOR_GUI
+"
+
+set --
+
+set_vars=""
+for v in $vars; do
+	[[ -n "${!v+x}" ]] && set -- "$@" "$v"
+done
+
+[[ "$#" -gt 0 ]] && systemctl --user import-environment "$@"

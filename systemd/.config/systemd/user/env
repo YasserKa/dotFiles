@@ -16,9 +16,19 @@ HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:pls:clear:*/pypoetry/virtualenvs/*"
 
 XDG_CONFIG_HOME=/home/yasser/.config
 XDG_DATA_HOME=/home/yasser/.local/share
+XDG_STATE_HOME=/home/yasser/.local/state
 
 USER="yasser"
 # Used by sxhkd systemd service
 TERMINAL="kitty"
 
-XAUTHORITY=/home/yasser/.Xauthority
+# DISPLAY=:0
+# EDITOR=nvim
+# EDITOR_GUI=nvim-qt
+# XAUTHORITY=/home/yasser/.Xauthority
+# NOTMUCH_CONFIG=/home/yasser/.config/notmuch/config
+# XDG_CACHE_HOME=/home/yasser/.cache
+# PASSWORD_STORE_DIR=/home/yasser/.local/share/pass
+# BROWSER=qutebrowser
+# GNUPGHOME=/home/yasser/.local/share/gnupg
+# XDG_CONFIG_ISYNC=/home/yasser/.config/isync/mbsyncrc

@@ -1,11 +1,13 @@
 [Unit]
 Description=swhkd hotkey daemon
-BindsTo=default.target
+After=graphical-session.target
+PartOf=graphical-session.target
 
 [Service]
 Type=simple
-EnvironmentFile=/home/yasser/.config/systemd/user/env
 ExecStart=/home/yasser/bin/helpers/run_swhkd
+Restart=on-failure
+RestartSec=5s
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
