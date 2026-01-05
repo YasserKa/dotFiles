@@ -10,7 +10,6 @@ if [[ -n "${WAYLAND_DISPLAY}" ]]; then
   export I3SOCK
 fi
 
-# is_window_exists '^Slack$' && echo hello
 [[ $(dunstify "$2" "$3" --appname slack-delegate --action="action,label") == "action" ]] && {
   ! is_window_exists '^Slack$' && slack
   dunstify hello
