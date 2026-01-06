@@ -112,7 +112,7 @@ for_window [instance="notify_me_profile"] move scratchpad
 
 # Making softwares in floating mode
 for_window [class="Vlc|feh|Shutter"] floating enable
-for_window [app_id="imv"] floating enable
+for_window [app_id="imv|mpv"] floating enable
 
 # Enable floating for windows that has floating class
 for_window [instance="floating"] floating enable

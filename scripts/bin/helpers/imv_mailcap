@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+# Open image from local storage or on the internet
+
+if [[ "$1" =~ ^https?:// ]]; then
+    tmpfile=$(mktemp --suffix=.img)
+    curl -sL "$1" -o "$tmpfile"
+    imv "$tmpfile"
+    rm "$tmpfile"
+else
+    imv "$1"
+fi
