@@ -329,11 +329,41 @@ unset cli
 # Open TUIR with top page within 24 hours by pressing "g t 2"
 tuir() {
 	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-		{ goto_window "^Front Page - tuir" && \
-  		wtype gt2;  } >/dev/null  &
-  	disown
-	elif [[ -n "${DISPLAY}" ]]; then
-		(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
+		# Wayland doesn't change window name when tuir loads front page, so using goto_window doesn't work
+		# Use network activity instead
+		{
+  		# Wait for tuir process
+  		while ! pgrep -x tuir > /dev/null; do
+    		sleep 0.1
+  		done
+
+  		# Wait for initial burst of network connections to complete
+  		tuir_pid=$(pgrep -x tuir)
+  		sleep 1
+
+  		# Wait until connection count stabilizes
+  		prev_count=0
+  		stable_count=0
+  		while [ $stable_count -lt 3 ]; do
+    		curr_count=$(lsof -p "$tuir_pid" 2>/dev/null | grep -c ESTABLISHED || echo 0)
+    		if [ "$curr_count" -eq "$prev_count" ]; then
+      		stable_count=$((stable_count + 1))
+    		else
+      		stable_count=0
+    		fi
+    		prev_count=$curr_count
+    		sleep 0.3
+  		done
+  		# Focus kitty window
+			kitty_pid="$(pstree -sp "$tuir_pid" | grep -oP 'kitty\(\K[0-9]+')"
+			i3-msg "[pid=$kitty_pid]" focus
+			sleep 0.5
+
+  		wtype gt2
+		} &>/dev/null &
+	 	disown
+elif [[ -n "${DISPLAY}" ]]; then
+	(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
 	fi
 	open_cli tuir
 }
