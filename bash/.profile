@@ -104,9 +104,6 @@ if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" 
 		# Xwayland
 		if grep -wq "xwayland disable" "$XDG_CONFIG_HOME/sway/config"; then
 			export QT_QPA_PLATFORM="wayland"
-		else
-			export GDK_BACKEND="x11"
-			export QT_QPA_PLATFORM="xcb"
 		fi
 		exec sway
 	elif [ "$SERVER" = "X" ]; then
