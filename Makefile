@@ -135,6 +135,7 @@ install-pypi-packages:
 .PHONY: setup-systemd-services
 setup-systemd-services:
 	systemctl enable cmus --user
+	systemctl enable tmux --user
 	systemctl enable wireplumber.service --user
 	systemctl enable udiskie.service --user
 	systemctl enable dunst.service --user
