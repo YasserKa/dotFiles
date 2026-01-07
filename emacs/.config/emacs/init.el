@@ -1328,7 +1328,9 @@ Made for `org-tab-first-hook' in evil-mode."
     )
 
   (defun my/open-super-agenda ()
-    (interactive) (org-agenda nil "a") (delete-other-windows))
+    (interactive)
+    (unless (get-buffer "*elfeed-search*")
+      (progn (org-agenda nil "a") (delete-other-windows))))
 
   (add-hook 'emacs-startup-hook
             (lambda ()
@@ -1354,46 +1356,46 @@ Made for `org-tab-first-hook' in evil-mode."
             (if (and (not (member category `("" ,file-name)))) (truncate-string-with-ellipsis category 24) (if org-heading-title org-heading-title "")
                 ))) "")
     )
-(defun my/org-agenda-s-or-d-prefix ()
-  "Return plain prefix 'S: MM-DD Ddd' or 'D: MM-DD Ddd' or \"\"."
-  (let ((s (org-entry-get nil "SCHEDULED"))
-        (d (org-entry-get nil "DEADLINE")))
-    (cond
-     (s (format "S: %s"
-                (format-time-string "%m-%d %a"
-                                    (org-time-string-to-time s))))
-     (d (format "D: %s"
-                (format-time-string "%m-%d %a"
-                                    (org-time-string-to-time d))))
-     (t ""))))
+  (defun my/org-agenda-s-or-d-prefix ()
+    "Return plain prefix 'S: MM-DD Ddd' or 'D: MM-DD Ddd' or \"\"."
+    (let ((s (org-entry-get nil "SCHEDULED"))
+          (d (org-entry-get nil "DEADLINE")))
+      (cond
+       (s (format "S: %s"
+                  (format-time-string "%m-%d %a"
+                                      (org-time-string-to-time s))))
+       (d (format "D: %s"
+                  (format-time-string "%m-%d %a"
+                                      (org-time-string-to-time d))))
+       (t ""))))
 
-;; faces
-(defface my-org-agenda-scheduled-face
-  '((t :foreground "DarkBlue" :weight bold))
-  "Face for scheduled prefix in agenda.")
+  ;; faces
+  (defface my-org-agenda-scheduled-face
+    '((t :foreground "DarkBlue" :weight bold))
+    "Face for scheduled prefix in agenda.")
 
-(defface my-org-agenda-deadline-face
-  '((t :foreground "Firebrick" :weight bold))
-  "Face for deadline prefix in agenda.")
-;; finalize hook: colorize the prefixes in the built agenda buffer
-(defun my/org-agenda-colorize-s-d-prefix ()
-  "Apply faces to `S:` / `D:` prefixes produced by `my/org-agenda-s-or-d-prefix`."
-  (when (derived-mode-p 'org-agenda-mode)
-    (let ((inhibit-read-only t))
-      (save-excursion
-        (goto-char (point-min))
-        ;; match "S: 09-22 Mon" or "D: 09-30 Tue"
-        (while (re-search-forward "\\(S: \\|D: \\)[0-9]\\{2\\}-[0-9]\\{2\\} [A-Za-z]+"
-                                  nil t)
-          (let ((type (match-string 1))
-                (beg (match-beginning 0))
-                (end (match-end 0)))
-            (add-text-properties
-             beg end `(face ,(if (string= type "S: ")
-                                'my-org-agenda-scheduled-face
-                              'my-org-agenda-deadline-face)))))))))
+  (defface my-org-agenda-deadline-face
+    '((t :foreground "Firebrick" :weight bold))
+    "Face for deadline prefix in agenda.")
+  ;; finalize hook: colorize the prefixes in the built agenda buffer
+  (defun my/org-agenda-colorize-s-d-prefix ()
+    "Apply faces to `S:` / `D:` prefixes produced by `my/org-agenda-s-or-d-prefix`."
+    (when (derived-mode-p 'org-agenda-mode)
+      (let ((inhibit-read-only t))
+        (save-excursion
+          (goto-char (point-min))
+          ;; match "S: 09-22 Mon" or "D: 09-30 Tue"
+          (while (re-search-forward "\\(S: \\|D: \\)[0-9]\\{2\\}-[0-9]\\{2\\} [A-Za-z]+"
+                                    nil t)
+            (let ((type (match-string 1))
+                  (beg (match-beginning 0))
+                  (end (match-end 0)))
+              (add-text-properties
+               beg end `(face ,(if (string= type "S: ")
+                                   'my-org-agenda-scheduled-face
+                                 'my-org-agenda-deadline-face)))))))))
 
-(add-hook 'org-agenda-finalize-hook #'my/org-agenda-colorize-s-d-prefix)
+  (add-hook 'org-agenda-finalize-hook #'my/org-agenda-colorize-s-d-prefix)
 
   (setq org-agenda-current-time-string "---*> now <*---"
         org-agenda-time-grid '((weekly today require-timed)
@@ -1841,11 +1843,11 @@ Note: this uses Org's internal variable `org-link--search-failed'."
             (org-open-at-point))))))
   )
 
-  (defun truncate-string-with-ellipsis (string length)
-    "Truncate STRING to a maximum of LENGTH characters, appending '…' if truncated."
-    (if (> (length string) length)
-        (concat (substring string 0 (max 0 (- length 3))) "…")
-      string))
+(defun truncate-string-with-ellipsis (string length)
+  "Truncate STRING to a maximum of LENGTH characters, appending '…' if truncated."
+  (if (> (length string) length)
+      (concat (substring string 0 (max 0 (- length 3))) "…")
+    string))
 
 (use-package citar
   :no-require
@@ -2732,12 +2734,61 @@ selection of all minor-modes, active or not."
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 ;;;; }}}
 (use-package elfeed
-  :defer t
   :custom
   (elfeed-search-title-max-width 80)
   (elfeed-search-remain-on-entry t)
   :commands elfeed
+  :defer t
   :config
+  ;; Needed to make (setf (elfeed-meta ...)) work
+  ;; https://github.com/skeeto/elfeed/issues/292
+  (eval-when-compile (require 'elfeed))
+  (defun my/elfeed-parse-metadata (entry)
+    "Extract Points and Comments from Hacker News entry description."
+
+    (let* ((feed (elfeed-entry-feed entry))
+           (feed-url (elfeed-feed-url feed))
+           (feed-title (elfeed-feed-title feed))
+           (content-ref (elfeed-entry-content entry))
+           (content (elfeed-deref content-ref))
+           (points nil)
+           (comments nil)
+           (citations_num nil)
+           (influential_citations_num nil)
+           (references_num nil)
+           )
+      (cond ((string= feed-url  "https://hnrss.org/frontpage")
+             (setq points (when (string-match "Points: \\([0-9]+\\)" content)
+                            (string-to-number (match-string 1 content)))
+                   comments (when (string-match "# Comments: \\([0-9]+\\)" content)
+                              (string-to-number (match-string 1 content))))
+             )
+            ((string-match-p "lemmy" feed-url)
+             (setq points (when (string-match "\\([0-9]+\\) points" content)
+                            (string-to-number (match-string 1 content)))
+                   comments (when (string-match "\\([0-9]+\\) comments" content)
+                              (string-to-number (match-string 1 content)))))
+            ((string-match-p "Semantic Scholar Query" feed-title)
+             (setq citations_num (when (string-match "<b># Citations:</b> \\([0-9]+\\)" content)
+                                   (string-to-number (match-string 1 content)))
+                   influential_citations_num (when (string-match "<b># Influential Citations:</b> \\([0-9]+\\)" content)
+                                               (string-to-number (match-string 1 content)))
+                   references_num (when (string-match "<b># References:</b> \\([0-9]+\\)" content)
+                                    (string-to-number (match-string 1 content)))
+                   )
+             ))
+      (when points
+        (setf (elfeed-meta entry :points) points))
+      (when comments
+        (setf (elfeed-meta entry :comments) comments))
+      (when citations_num
+        (setf (elfeed-meta entry :citations_num) citations_num))
+      (when influential_citations_num
+        (setf (elfeed-meta entry :influential_citations_num) influential_citations_num))
+      (when references_num
+        (setf (elfeed-meta entry :references_num) references_num)))
+    )
+  (add-hook 'elfeed-new-entry-hook #'my/elfeed-parse-metadata)
 
   (defun my/elfeed-entry-capture-show ()
     (interactive)
@@ -2800,16 +2851,16 @@ concatenated."
            (authors (concatenate-authors
                      (elfeed-meta entry :authors)))
            (metadata (cond
-                       ((and points comments) (format "%4d  %4d 󰻞  " points comments))
-                       (points (format "%4d   " points))
-                       (comments (format "%4d 󰻞  " comments))
-                       ((string= feed-title "Papers") (format "%3d (%d) 󰄠 %3d 󰄝  " citations_num influential_citations_num references_num))
-                       (t "")))
+                      ((and points comments) (format "%4d  %4d 󰻞  " points comments))
+                      (points (format "%4d   " points))
+                      (comments (format "%4d 󰻞  " comments))
+                      ((string= feed-title "Papers") (format "%3d (%d) 󰄠 %3d 󰄝  " citations_num influential_citations_num references_num))
+                      (t "")))
            (tags (mapcar #'symbol-name (elfeed-entry-tags entry)))
            (tags-str (concat "("(mapconcat
                                  (lambda (s) (propertize s 'face 'elfeed-search-tag-face))
                                  tags ",") ")"))
-(display-monitor-attributes-list)
+           (display-monitor-attributes-list)
 
            (date-column (elfeed-format-column
                          relative-time (elfeed-clamp 2 3 3) :left))
@@ -2850,52 +2901,6 @@ concatenated."
   (setf elfeed-search-sort-function #'my-elfeed-tag-sort)
   )
 
-;; NOTE: Doesn't work inside use-package
-(defun my/elfeed-parse-metadata (_type entry db-entry)
-  "Extract Points and Comments from Hacker News entry description."
-  (let* ((feed-url (elfeed-feed-url (elfeed-entry-feed db-entry)))
-         (feed-title (elfeed-feed-title (elfeed-entry-feed db-entry)))
-         (content-ref (elfeed-entry-content db-entry))
-         (content (elfeed-deref content-ref))
-         (points nil)
-         (comments nil)
-         (citations_num nil)
-         (influential_citations_num nil)
-         (references_num nil)
-         )
-    (cond ((string= feed-url  "https://hnrss.org/frontpage")
-           (setq points (when (string-match "Points: \\([0-9]+\\)" content)
-                          (string-to-number (match-string 1 content)))
-                 comments (when (string-match "# Comments: \\([0-9]+\\)" content)
-                            (string-to-number (match-string 1 content))))
-           (setf (elfeed-meta (elfeed-entry-feed db-entry) :title) "Hacker News"))
-          ((string-match-p "lemmy" feed-url)
-           (setq points (when (string-match "\\([0-9]+\\) points" content)
-                          (string-to-number (match-string 1 content)))
-                 comments (when (string-match "\\([0-9]+\\) comments" content)
-                            (string-to-number (match-string 1 content)))))
-          ((string-match-p "Semantic Scholar Query" feed-title)
-           (setq citations_num (when (string-match "<b># Citations:</b> \\([0-9]+\\)" content)
-                          (string-to-number (match-string 1 content)))
-                 influential_citations_num (when (string-match "<b># Influential Citations:</b> \\([0-9]+\\)" content)
-                                         (string-to-number (match-string 1 content)))
-                 references_num (when (string-match "<b># References:</b> \\([0-9]+\\)" content)
-                                         (string-to-number (match-string 1 content)))
-                 )
-           ))
-    (when points
-      (setf (elfeed-meta db-entry :points) points))
-    (when comments
-      (setf (elfeed-meta db-entry :comments) comments))
-    (when citations_num
-      (setf (elfeed-meta db-entry :citations_num) citations_num))
-    (when influential_citations_num
-      (setf (elfeed-meta db-entry :influential_citations_num) influential_citations_num))
-    (when references_num
-      (setf (elfeed-meta db-entry :references_num) references_num))
-    )
-  )
-(add-hook 'elfeed-new-entry-parse-hook #'my/elfeed-parse-metadata)
 
 (use-package elfeed-org
   :after elfeed
