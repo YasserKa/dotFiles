@@ -538,7 +538,6 @@ EOF
     if [[ -d "$FILE_PATH" ]]; then
       xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
       disown
-      find "$FILE_PATH" -type f -name "*" ! -name ".*" >|~/bla
       i3-msg "workspace --no-auto-back-and-forth 8"
     else
       xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
