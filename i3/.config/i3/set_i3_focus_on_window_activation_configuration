@@ -30,10 +30,11 @@ if [[ $2 == [[:digit:]] ]]; then
 	echo $curr_pid >$tmp_file_path
 fi
 
+# Neded for sway to track the focus state
+sed -i "1s/.*/focus_on_window_activation $1/" "$XDG_CONFIG_HOME/i3/focus_on_window_activation_config"
 if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 	swaymsg focus_on_window_activation "$1"
 elif [[ -n "${DISPLAY}" ]]; then
-	sed -i "1s/.*/focus_on_window_activation $1/" "$XDG_CONFIG_HOME/i3/focus_on_window_activation_config"
 	i3-msg reload
 fi
 

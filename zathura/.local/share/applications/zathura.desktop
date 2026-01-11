@@ -8,4 +8,4 @@ Type=Application
 Categories=Application;;PDF;
 MimeType=application/epub;application/pdf;
 Icon=zathura
-Exec=/usr/bin/zathura %F
+Exec=/home/yasser/bin/helpers/open_document %F

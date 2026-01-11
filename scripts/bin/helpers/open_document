@@ -5,7 +5,7 @@ PAGE_NUM="$2"
 
 PATHS_TO_SEARCH=("${HOME}" "${XDG_CONFIG_HOME}/Zotero/storage")
 
-DOC_PATH="$(fd --no-ignore-vcs -F "${DOC_NAME}" "${PATHS_TO_SEARCH[@]}" | head -1)"
+[[ -f "$DOC_NAME" ]] && DOC_PATH="$DOC_NAME" || DOC_PATH="$(fd --no-ignore-vcs -F "${DOC_NAME}" "${PATHS_TO_SEARCH[@]}" | head -1)"
 
 FILETYPE=$(xdg-mime query filetype "$DOC_PATH")
 APPLICATION=$(xdg-mime query default "$FILETYPE")
@@ -18,4 +18,28 @@ if [[ "$APPLICATION" == "zathura.desktop" ]]; then
 	fi
 fi
 
+old_pids=$(pgrep -x zathura || true)
 bash -ic "$CMD"
+
+# Wait until new zathura process opens
+while :; do
+	current_pids=$(pgrep -x zathura || true)
+	new_pid=$(comm -13 <(echo "$old_pids" | sort) <(echo "$current_pids" | sort))
+	[[ -n "$new_pid" ]] && break
+	sleep 0.05
+done
+
+if ! <"$XDG_CONFIG_HOME/i3/focus_on_window_activation_config" grep -q 'none'; then
+	while :; do
+		# Wait until the DM registers the window
+		win_id=$(i3-msg -t get_tree | jq -r --arg pid "$new_pid" '
+    .. | objects
+    | select(.pid == ($pid|tonumber))
+    | .id
+    ')
+
+		[[ -n "$win_id" ]] && break
+		sleep 0.05
+	done
+	swaymsg "[con_id=$win_id]" focus
+fi
