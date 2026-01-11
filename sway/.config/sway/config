@@ -370,7 +370,7 @@ exec swaymsg seat - cursor set $(swaymsg -t get_outputs -r \
 # Hide cursor
 exec swaymsg seat seat0 hide_cursor 3000
 
-exec --no-startup-id $HOME/bin/helpers/import_systemd_environments && systemctl --user start sway-session.target
+exec --no-startup-id $HOME/bin/helpers/import_systemd_environments && systemctl --user start sway-session.target && gpgconf --kill gpg-agent && gpgconf --launch gpg-agent
 
 include /etc/sway/config.d/*
 include $XDG_CONFIG_HOME/i3/config_override

@@ -8,6 +8,6 @@
 #
 # Another one is to use a GUI pinentry like pinentry-qt for vim-fugitive only
 if [[ -n "$FUGITIVE" ]]; then
-	export PINENTRY_USER_DATA="gtk"
+	export PINENTRY_USER_DATA="gnome"
 fi
 exec /usr/bin/gpg "$@"
