@@ -88,6 +88,6 @@ application=$(xdg-mime query default "$filetype")
 
 message "Opening $file"
 
-xdg-open "$path" &
+xdg-open "$path"
 
 exit 0
