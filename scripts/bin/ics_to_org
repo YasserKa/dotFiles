@@ -79,6 +79,7 @@ def process_events(lines):
     """
     - Remove events (org headings) that are older than today
     - Remove trailing empty lines
+    - Remove :ID: properties
     """
     today = datetime.now().date()
     filtered = []
@@ -103,6 +104,11 @@ def process_events(lines):
 
             # Only include this event if it's today or in the future
             if event_date is None or event_date >= today:
+                # Remove :ID: properties
+                event_lines = [
+                    line for line in event_lines if not re.match(r"^\s*:ID:\s+", line)
+                ]
+
                 # Remove trailing empty lines from event
                 while event_lines and event_lines[-1].strip() == "":
                     event_lines.pop()

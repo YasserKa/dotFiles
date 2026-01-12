@@ -21,7 +21,6 @@
 (when (daemonp) (setq straight-build-dir (concat "build" "_" (daemonp))))
   (load bootstrap-file nil 'nomessage))
 
-(setq package-enable-at-startup nil)
 (setq straight-use-package-by-default t)
 (straight-use-package 'use-package)
 
@@ -868,6 +867,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
     )
   )
 
+;; Doesn't work
 (use-package magit-delta
   :disabled
   :hook (magit-mode . magit-delta-mode))
@@ -2738,11 +2738,10 @@ selection of all minor-modes, active or not."
   (elfeed-search-title-max-width 80)
   (elfeed-search-remain-on-entry t)
   :commands elfeed
-  :defer t
   :config
   ;; Needed to make (setf (elfeed-meta ...)) work
   ;; https://github.com/skeeto/elfeed/issues/292
-  (eval-when-compile (require 'elfeed))
+  (eval-when-compile (require 'elfeed-db))
   (defun my/elfeed-parse-metadata (entry)
     "Extract Points and Comments from Hacker News entry description."
 

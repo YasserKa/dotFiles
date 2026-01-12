@@ -8,7 +8,3 @@ INPUT="$(clipboard_paste)"
 
 is_window_exists "$BROWSER" || xdg-open "$BROWSER" &&
 	xdg-open "https://www.merriam-webster.com/dictionary/$INPUT"
-
-# Focus the visible instance, else pick an available one using pid (the list is
-# reversed, because the first pid can't be activated)
-goto_window '^org.qutebrowser.qutebrowser$'
