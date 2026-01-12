@@ -82,7 +82,8 @@
   "custom/vpn": {
     "exec": "echo ''",
     "interval": 5,
-    "exec-if": "tailscale exit-node list | grep -q selected"
+    // Tailscale is up & using an exit node
+    "exec-if": "{ tailscale exit-node list | grep -q selected && tailscale status | grep -vq stopped; }"
   },
   "custom/mail": {
     "format": "{:>}  ",

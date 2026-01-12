@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # Update Swedish holidays in org mode
 # Dependencies: icsorg
-
 import argparse
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from datetime import datetime
+import re
 
 
 def run_icsorg(tmp_path, ics_url):
@@ -35,9 +36,102 @@ def write_lines(path, lines):
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def clean_icsorg_lines(lines):
+def parse_org_date(line):
+    """Extract date from org-mode timestamp."""
+    # Matches patterns like <2024-12-25 Wed> or <2024-12-25>
+    match = re.search(r"<(\d{4}-\d{2}-\d{2})", line)
+    if match:
+        try:
+            return datetime.strptime(match.group(1), "%Y-%m-%d").date()
+        except ValueError:
+            return None
+    return None
+
+
+def parse_org_datetime(line):
+    """Extract datetime from org-mode timestamp including time if present.
+
+    Returns datetime object if time is present, date object otherwise, or None.
+    Examples:
+        <2026-01-16 Fri 15:30-16:15> -> datetime(2026, 1, 16, 15, 30)
+        <2026-01-16 Fri> -> date(2026, 1, 16)
+    """
+    # Try to match date with time: <2026-01-16 Fri 15:30-16:15> or <2026-01-16 Fri 15:30>
+    match = re.search(r"<(\d{4}-\d{2}-\d{2})\s+\w+\s+(\d{2}:\d{2})", line)
+    if match:
+        try:
+            date_str = match.group(1)
+            time_str = match.group(2)
+            return datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
+        except ValueError:
+            pass
+
+    # Fall back to date only
+    date_only = parse_org_date(line)
+    if date_only:
+        # Convert date to datetime at midnight for consistent comparison
+        return datetime.combine(date_only, datetime.min.time())
+
+    return None
+
+
+def process_events(lines):
+    """
+    - Remove events (org headings) that are older than today
+    - Remove trailing empty lines
+    """
+    today = datetime.now().date()
+    filtered = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Check if this is a heading line
+        if line.strip().startswith("*"):
+            # Look ahead to find the date in the next few lines
+            event_date = None
+            event_lines = [line]
+            j = i + 1
+
+            # Collect lines belonging to this event (until next heading or end)
+            while j < len(lines) and not lines[j].strip().startswith("*"):
+                event_lines.append(lines[j])
+                if event_date is None:
+                    event_date = parse_org_date(lines[j])
+                j += 1
+
+            # Only include this event if it's today or in the future
+            if event_date is None or event_date >= today:
+                # Remove trailing empty lines from event
+                while event_lines and event_lines[-1].strip() == "":
+                    event_lines.pop()
+                filtered.extend(event_lines)
+            else:
+                print(f"  Filtering out old event: {line.strip()} ({event_date})")
+
+            i = j
+        else:
+            # Non-heading line (shouldn't happen if events are well-formed)
+            filtered.append(line)
+            i += 1
+
+    return filtered
+
+
+def clean_icsorg_lines(lines, heading):
     cleaned = []
     header_skipped = False
+
+    # Count the number of stars at the start of the heading
+    heading_level = 0
+    for char in heading:
+        if char == "*":
+            heading_level += 1
+        else:
+            break
+    child_prefix = "*" * (heading_level + 1) + " "
+
     for line in lines:
         if not header_skipped:
             if line.strip().startswith("#+"):
@@ -45,10 +139,11 @@ def clean_icsorg_lines(lines):
             elif line.strip() == "":
                 continue  # skip empty line after metadata
             header_skipped = True
-
-        if line.strip().startswith("*"):
+        # Only treat lines starting with * at column 0 as headings
+        if line.startswith("*"):
+            # Replace the stars with the child level
             stars, rest = line.split(" ", 1)
-            line = stars + " " + rest  # promote heading level
+            line = child_prefix + rest
         cleaned.append(line)
     return cleaned
 
@@ -62,12 +157,54 @@ def replace_section(insert_lines, heading, file_path):
     if start is None:
         main_lines.append(f"{heading}")
         start = len(main_lines)
-
     end = start + 1
     while end < len(main_lines) and not main_lines[end].startswith("* "):
         end += 1
-
     return main_lines[: start + 1] + insert_lines + main_lines[end:]
+
+
+def sort_events_by_date(lines):
+    """Sort events by their date and time, earliest first."""
+    events = []
+    non_events = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Check if this is a heading line (starts with * at column 0)
+        if line.startswith("*"):
+            event_lines = [line]
+            j = i + 1
+
+            # Collect lines belonging to this event (until next heading or end)
+            while j < len(lines) and not lines[j].startswith("*"):
+                event_lines.append(lines[j])
+                j += 1
+
+            # Find the datetime for this event
+            event_datetime = None
+            for event_line in event_lines:
+                event_datetime = parse_org_datetime(event_line)
+                if event_datetime:
+                    break
+
+            events.append((event_datetime, event_lines))
+            i = j
+        else:
+            # Non-heading line (shouldn't happen if events are well-formed)
+            non_events.append(line)
+            i += 1
+
+    # Sort events by datetime (None dates go to the end)
+    events.sort(key=lambda x: (x[0] is None, x[0] or datetime.max))
+
+    # Flatten back to lines
+    result = non_events
+    for _, event_lines in events:
+        result.extend(event_lines)
+
+    return result
 
 
 def main():
@@ -75,7 +212,6 @@ def main():
     parser.add_argument("--ics_url")
     parser.add_argument("--file_path")
     parser.add_argument("--heading")
-
     args = parser.parse_args()
 
     ICS_URL = args.ics_url
@@ -87,11 +223,19 @@ def main():
 
     run_icsorg(tmp_path, ICS_URL)
     ics_lines = read_lines(tmp_path)
-    cleaned_lines = clean_icsorg_lines(ics_lines)
-    updated_lines = replace_section(cleaned_lines, HEADING, FILE_PATH)
-    write_lines(FILE_PATH, updated_lines)
+    cleaned_lines = clean_icsorg_lines(ics_lines, HEADING)
 
+    print("Processing events...")
+    filtered_lines = process_events(cleaned_lines)
+
+    # Sort events by date
+    print("Sorting events by date...")
+    filtered_lines = sort_events_by_date(filtered_lines)
+
+    updated_lines = replace_section(filtered_lines, HEADING, FILE_PATH)
+    write_lines(FILE_PATH, updated_lines)
     tmp_path.unlink(missing_ok=True)
+
     print(f'✅ Updated "{HEADING}" in {FILE_PATH}.')
 
 
