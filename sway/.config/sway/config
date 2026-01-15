@@ -336,7 +336,8 @@ exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5
 # Move qutebrowser to fist workspace
 exec --no-startup-id bash -ic '{ wait_window "^org.qutebrowser.qutebrowser$" 999 && sleep 0.5 && i3-msg "$(window_get_condition "^org.qutebrowser.qutebrowser$")" move container to workspace 1; }'
 
-for_window [app_id="org.mozilla.Thunderbird"] move scratchpad
+for_window [app_id="org.mozilla.Thunderbird" title="Mozilla Thunderbird$"] move scratchpad
+
 exec --no-startup-id sleep 1 && thunderbird & sleep 5 && $XDG_CONFIG_HOME/thunderbird/thunderbird_utility sync
 exec --no-startup-id sleep 2 && birdtray
 

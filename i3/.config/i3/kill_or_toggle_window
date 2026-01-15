@@ -21,6 +21,17 @@ for window in "${SCRATCHPAD_WINDOWS[@]}"; do
     ')"
 
 	if [[ "$is_match" == "true" ]]; then
+		# Only move to scratch the thunderbird main window & kill secondary ones
+		if [[ "$window" == "org.mozilla.Thunderbird" ]]; then
+			is_thunder_main_window="$(i3-msg -t get_tree | jq '
+        .. |
+        select(.focused? == true) |
+        select(.app_id == "org.mozilla.Thunderbird") |
+        select(.name | test("Mozilla Thunderbird$")) |
+        {app_id, name}
+        ')"
+			[[ -z "$is_thunder_main_window" ]] && break
+		fi
 		i3-msg "$(window_get_condition "$window")" move scratchpad
 		exit 0
 	fi
