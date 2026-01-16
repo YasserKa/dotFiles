@@ -5,6 +5,10 @@ OUTPUT=$(mktemp)
 declare -r OUTPUT
 trap 'rm -f $OUTPUT' EXIT
 
-sed 's/follow[[:space:]]*=[[:space:]]*[a-z]\+/follow = none/' "$CONFIG_FILE" >"$OUTPUT"
+source "$HOME/bin/helpers/monitor_variables" >/dev/null
+sed "
+s/follow[[:space:]]*=[[:space:]]*[a-z]\+/follow = none/
+s/monitor[[:space:]]*=[[:space:]]*[a-zA-Z1-9\-]\+/monitor = $MONITOR_MIDDLE/
+" "$CONFIG_FILE" >"$OUTPUT"
 
 dunstctl reload "$OUTPUT"
