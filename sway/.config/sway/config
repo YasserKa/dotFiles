@@ -70,7 +70,9 @@ output * bg $HOME/Pictures/WallPapers/763859.jpg fill
 # Manage output configuration dynamically
 # exec bash -ic 'killall shikane; shikane & disown'
 # Create file to avoid infinite shikane reload
-exec_always touch /tmp/flag_sway_reloaded && shikane --oneshot
+# Reload waybar (Needs to be after shikane reload && it needs bash to source the monitors properly)
+exec_always touch /tmp/flag_sway_reloaded && shikane --oneshot && bash -ic 'killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown'
+
 include ~/.config/i3/monitor_setup
 
 bindsym $mod+1 workspace $browser
@@ -322,10 +324,6 @@ for_window [title="^tmp_"] move scratchpad, floating enable, move position cente
 # >>>
 # Startup <<<
 exec --no-startup-id autotiling --limit 2 -e WINDOW_FOCUS -sr 1.61
-
-# System bar
-# Needs to use bash to source the monitors properly
-exec_always bash -ic 'killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown'
 
 # Cron environment
 exec cat <(cat ~/.config/cron/cron_env_template) <(echo "$(declare -p DISPLAY WAYLAND_DISPLAY)") >| ~/.cache/cron_env
