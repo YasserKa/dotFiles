@@ -129,6 +129,14 @@
     "signal": 7,
     "on-click": "xdg-open https://news.ycombinator.com/threads?id=yasser_kaddoura &&  mv -f '/tmp/HN_inbox.json' \"$XDG_CACHE_HOME/HN_inbox.json\" && pkill -SIGRTMIN+7 waybar"
   },
+  "custom/notification-canvas": {
+    "format": "",
+    "interval": 1,
+    "on-click": "$HOME/bin/canvas_utility open_assignment_link",
+    "on-click-right": "$HOME/bin/canvas_utility open_file",
+    "return-type": "json",
+    "exec": "$HOME/bin/canvas_utility get_tooltip"
+  },
   "tray": {
     "spacing": 10
   }

@@ -22,6 +22,7 @@
       "custom/notification-reddit",
       "custom/notification-lemmy",
       "custom/notification-HN",
+      "custom/notification-canvas",
       "tray",
     ],
   },
@@ -46,6 +47,7 @@
       "custom/notification-reddit",
       "custom/notification-lemmy",
       "custom/notification-HN",
+      "custom/notification-canvas",
     ],
     "clock": {
       "format": "{:%m-%d}",

@@ -1,5 +1,5 @@
 * {
-  font-family: monospace; /* Needed to align text properly */
+  font-family: "monospace", "fontello"; /* Needed to align text properly */
   font-size: 14px;
 }
 
@@ -70,6 +70,7 @@ button:hover {
 #custom-notification-reddit,
 #custom-notification-lemmy,
 #custom-notification-HN,
+#custom-notification-canvas,
 #tray,
 #mode,
 #idle_inhibitor,
