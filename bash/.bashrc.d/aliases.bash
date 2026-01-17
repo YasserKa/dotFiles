@@ -95,8 +95,13 @@ alias tmpbash="\${EDITOR} /tmp/tmp.bash"
 alias last='expac --timefmt="%Y-%m-%d %T" "%l\t%w\t%n" | grep explicit | sort | tail -n 20'
 
 # Music player
-alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
+# alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type cmus | cut -d " " -f 3-)"'
 
+if [[ "$ZSH_NAME" ]]; then
+	alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type -p cmus | cut -d " " -f 3)"'
+elif [[ "$BASH" ]]; then
+	alias cmus='tmux attach-session -t cmus || tmux new-session -A -D -s cmus "$(type -P cmus)"'
+fi
 # Generate Bibtex using citations in Tex file
 alias gen_bib="command cp $XDG_CONFIG_HOME/Zotero/better-bibtex/my_library.bib bibliography.bib && biber --output-format=bibtex --output_file=bibliography.bib tex_output/*bcf"
 

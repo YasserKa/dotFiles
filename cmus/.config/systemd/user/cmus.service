@@ -1,7 +1,5 @@
 [Unit]
 Description=cmus
-After=tmux.service
-Requires=tmux.service
 
 [Service]
 Type=forking

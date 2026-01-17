@@ -3,6 +3,8 @@
 # shellcheck disable=SC1091,SC2034,SC1090,SC2155,SC2016
 [[ $- != *i* ]] && return
 
+[[ -f "$HOME/.profile" ]] && source "$HOME/.profile"
+
 # Bash options https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 set -o vi           # Vi mode
 set -o noclobber    # Don't overwrite when redireting using shell

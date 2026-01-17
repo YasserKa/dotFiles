@@ -23,9 +23,6 @@ export MYVIMRC="$HOME/.config/nvim/lua/plugins/user.lua"
 export DOTFILES_DIR="$HOME/.dotfiles"
 export EDITOR_GUI=nvim-qt
 
-git -C "$DOTFILES_DIR" pull origin >/dev/null 2>&1 &
-disown
-
 # Conform to XDG standards
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -91,15 +88,18 @@ export PATH
 # Disable pipx's emojis
 export USE_EMOJI=0
 
-# Start manager for GPG & SSH agents
-eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 id_ed25519 B08290CD65BD78DAC41A38368DBCA4F866308AAC)"
-
 export EMACS_DEFAULT_SOCKET="default"
 export EMACS_ORG_SOCKET="org"
 
 SERVER="WAYLAND"
 
-if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" ] && [ -z "$SSH_TTY" ]; then
+if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" ] && [ -z "$SSH_TTY" ] && [ -z "$TMUX" ]; then
+	# Execute at start of session
+	# Start manager for GPG & SSH agents
+	eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 id_ed25519 B08290CD65BD78DAC41A38368DBCA4F866308AAC)"
+	git -C "$DOTFILES_DIR" pull origin >/dev/null 2>&1 &
+	disown
+
 	if [ "$SERVER" = "WAYLAND" ]; then
 		# Xwayland
 		if grep -wq "xwayland disable" "$XDG_CONFIG_HOME/sway/config"; then
