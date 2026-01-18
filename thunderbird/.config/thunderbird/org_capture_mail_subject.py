@@ -4,6 +4,7 @@
 import json
 import subprocess
 import sys
+from urllib.parse import quote
 
 
 def main():
@@ -15,8 +16,11 @@ def main():
     message = sys.stdin.buffer.read(message_length)
     data = json.loads(message)["subject"]
 
+    header_message_id_encoded = quote(data["headerMessageId"], safe="")
     subprocess.Popen(
-        (f"org_capture 'tb:{data['headerMessageId']}' 'LTU email: {data['subject']}'"),
+        (
+            f"org_capture 'tb:{header_message_id_encoded}' 'LTU email: {data['subject']}'"
+        ),
         shell=True,
         text=True,
     )
