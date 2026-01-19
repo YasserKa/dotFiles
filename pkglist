@@ -188,6 +188,7 @@ ydotool # Automation for X11 and Wayland
 wtype # xdotool type for wayland
 copyq # Clipboard manager
 downgrade # Downgrad packages in cache or Archive
+libinput-tools # Input device management & event handling library
 
 # Key binding
 autokey-common
