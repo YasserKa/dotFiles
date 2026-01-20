@@ -32,7 +32,9 @@ for window in "${SCRATCHPAD_WINDOWS[@]}"; do
         ')"
 			[[ -z "$is_thunder_main_window" ]] && break
 		fi
-		i3-msg "$(window_get_condition "$window")" move scratchpad
+
+		# NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
+		i3-msg "$(window_get_condition "$window")" fullscreen disable && i3-msg "$(window_get_condition "$window")" move scratchpad
 		exit 0
 	fi
 done
