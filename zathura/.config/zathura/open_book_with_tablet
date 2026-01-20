@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
-
+#
 # Open document on tablet
-# Dependencies: adb
 
 declare -r DOC_PATH="$1"
-file_type="$(xdg-mime query filetype "$DOC_PATH")"
-file_basename="${DOC_PATH##*/}"
+quoted_file_basename="$(printf '%q' "${DOC_PATH##*/}")"
 
-# Connect to tablet if it's not connected
-adb devices | grep -E 'tablet' | grep -Ev 'offline' || { timeout 3 adb connect tablet:5555 || dunstify "Couldn't connect to tablet" && exit 1; }
-
-adb shell 'am start -a android.intent.action.VIEW -d "file://$(find /sdcard/Documents -type f -iname "*'"$file_basename"'" | head -n 1)"' -t "$file_type"
+curl -m 1 -X POST http://lenovo-idea:1821/openfile -d "$quoted_file_basename" &
+curl -m 1 -X POST http://tablet:1821/openfile -d "$quoted_file_basename" &
