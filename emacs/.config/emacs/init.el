@@ -2865,7 +2865,7 @@ concatenated."
 
            (date-column (elfeed-format-column
                          relative-time (elfeed-clamp 2 3 3) :left))
-           (title-max-width 130)
+           (title-max-width 150)
            (title-width (- (window-width) 10 elfeed-search-trailing-width))
            (entry-title-column (elfeed-format-column
                                 (truncate-string-with-ellipsis entry-title title-max-width) (elfeed-clamp elfeed-search-title-min-width title-width title-max-width) :left))
@@ -2873,7 +2873,7 @@ concatenated."
                         tags-str (elfeed-clamp 18 (length tags-str) 30) :left))
            (metadata-column (elfeed-format-column
                              metadata (elfeed-clamp 18 18 18) :left))
-           (authors-max-width 98)
+           (authors-max-width 79)
            (authors-column (elfeed-format-column
                             (truncate-string-with-ellipsis authors authors-max-width) (elfeed-clamp 16 (length authors) authors-max-width) :left))
            (feed-title-column (elfeed-format-column

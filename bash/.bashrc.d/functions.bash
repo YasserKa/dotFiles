@@ -558,7 +558,6 @@ elfeed() {
 	# Reload elfeed buffer after full screen
 	emacs --frame-parameters='((fullscreen . fullboth))' --eval "(progn
 		(elfeed) (elfeed-search-set-filter \"@6-months-ago +unread ~Papers\") (elfeed-update)
-		(add-hook 'window-size-change-functions (lambda (_) (when (get-buffer \"*elfeed-search*\") (elfeed-search-update--force))))
 	)"
 }
 
@@ -566,8 +565,7 @@ papers() {
 	get_papers
 	# Reload elfeed buffer after full screen
 	emacs --frame-parameters='((fullscreen . fullboth))' --eval "(progn
-		(elfeed-search-set-filter \"@6-months-ago +unread =Papers\")
-		(elfeed) (elfeed-update)  (add-hook 'window-size-change-functions (lambda (_) (when (get-buffer \"*elfeed-search*\") (elfeed-search-update--force))))
+		(elfeed)  (elfeed-search-set-filter \"@6-months-ago +unread =Papers\") (elfeed-update)
 	)"
 }
 
