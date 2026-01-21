@@ -1513,6 +1513,8 @@ Made for `org-tab-first-hook' in evil-mode."
             (alltodo ""
                      (
                       (org-agenda-overriding-header "")
+                      (org-agenda-sorting-strategy '(timestamp-up))
+                      (org-agenda-prefix-format '((todo . " %-22:(get-top-heading-in-block) %13(my/org-agenda-s-or-d-prefix)  %-4e ")))
                       (org-super-agenda-groups
                        '(
                          (:discard (:scheduled today))
