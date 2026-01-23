@@ -1269,6 +1269,15 @@ Made for `org-tab-first-hook' in evil-mode."
                                              calendar-daylight-time-zone-name))))
                     )))
 
+;; Improve performance for interactive cmds (e.g. agenda, calendar blocks, etc.) in daemon mode
+(defun my/command-with-high-gc (orig-fn &rest args)
+  (let ((gc-cons-threshold most-positive-fixnum)
+        (gc-cons-percentage 0.6))
+    (apply orig-fn args)))
+
+(when (daemonp)
+  (advice-add 'command-execute :around #'my/command-with-high-gc))
+
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
    )
@@ -1843,6 +1852,54 @@ Note: this uses Org's internal variable `org-link--search-failed'."
           (while (progn (org-next-link)
                         (not org-link--search-failed))
             (org-open-at-point))))))
+  )
+
+(use-package calfw-org
+  :straight (calfw-org :type git :host github :repo "kiwanami/emacs-calfw")
+  :after (org)
+  :commands (calfw-org-open-calendar)
+  :custom
+  ;; Make calendar goto-date use org-calendar
+  (calfw-read-date-command 'calfw-org-read-date-command)
+  :config
+  (defun my/calfw-org-open-agenda-day-no-focus ()
+    "Open Org agenda for the selected calfw date without selecting its window."
+    (interactive)
+    (let ((date (calfw-cursor-to-nearest-date)))
+      (when date
+        (save-selected-window
+          (org-agenda-list
+           nil
+           (calendar-absolute-from-gregorian date)
+           'day)))))
+
+  (evil-define-key 'normal calfw-org-schedule-map
+    (kbd "o") #'my/calfw-org-open-agenda-day-no-focus
+    (kbd "gr") #'calfw-refresh-calendar-buffer
+
+    (kbd "l") #'calfw-navi-next-day-command
+    (kbd "h") #'calfw-navi-previous-day-command
+    (kbd "k") #'calfw-navi-previous-week-command
+    (kbd "j") #'calfw-navi-next-week-command
+    (kbd "^") #'calfw-navi-goto-week-begin-command
+    (kbd "$") #'calfw-navi-goto-week-end-command
+
+    (kbd "gd") #'calfw-navi-goto-date-command
+
+    (kbd "[[") #'calfw-navi-prev-view
+    (kbd "]]") #'calfw-navi-next-view
+    (kbd ".") #'calfw-navi-goto-today-command
+    (kbd "TAB") #'calfw-navi-next-item-command
+    (kbd "C-i") #'calfw-navi-next-item-command
+    (kbd "<backtab>") #'calfw-navi-prev-item-command
+    (kbd "S-TAB") #'calfw-navi-prev-item-command
+
+    (kbd "D") #'calfw-change-view-day
+    (kbd "W") #'calfw-change-view-week
+    (kbd "T") #'calfw-change-view-two-weeks
+    (kbd "M") #'calfw-change-view-month
+
+    (kbd "q") #'bury-buffer)
   )
 
 (defun truncate-string-with-ellipsis (string length)
@@ -2540,6 +2597,7 @@ selection of all minor-modes, active or not."
   (" *" org-ctrl-c-star "make header" :column " org")
   (" -" org-ctrl-c-minus "make item")
   (" c" org-clock-hydra/body "clock")
+  (" C" calfw-org-open-calendar "calendar block view")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" r" org-roam-hydra/body "org-roam")
   (" f" org-find-hydra/body "find")
