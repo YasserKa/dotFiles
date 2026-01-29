@@ -14,9 +14,11 @@ swaymsg create_output res 1920x1080
 OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
 MARK="pre_thunderbird_focus"
 
-i3-msg '[app_id="org.mozilla.Thunderbird"]' move window to output "$OUTPUT_NAME"
+thunderbird_focused="$(i3-msg -t get_tree | jq -e '.. | select(.focused? == true) | .app_id == "org.mozilla.Thunderbird"')"
 
-swaymsg mark "$MARK"
+[[ "$thunderbird_focused" == "false" ]] && swaymsg mark "$MARK"
+
+i3-msg '[app_id="org.mozilla.Thunderbird"]' move window to output "$OUTPUT_NAME"
 i3-msg '[app_id="org.mozilla.Thunderbird"]' focus
 
 if [[ "$1" == "sync" ]]; then
@@ -24,8 +26,15 @@ if [[ "$1" == "sync" ]]; then
 elif [[ "$1" == "clear" ]]; then
 	wtype -M shift -k c -m shift
 fi
-swaymsg [con_mark="$MARK"] focus
-i3-msg '[app_id="org.mozilla.Thunderbird"]' move scratchpad
+
+# If the focused window is not thunderbird, focus it again, otherwise
+# move thunderbird back to workspace
+if [[ "$thunderbird_focused" == "true" ]]; then
+	i3-msg '[app_id="org.mozilla.Thunderbird"]' move container to workspace back_and_forth
+else
+	i3-msg '[app_id="org.mozilla.Thunderbird"]' move scratchpad
+	swaymsg [con_mark="$MARK"] focus
+fi
 
 while read -r output_name; do
 	swaymsg output "$output_name" unplug
