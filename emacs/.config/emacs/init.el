@@ -1325,7 +1325,9 @@ Made for `org-tab-first-hook' in evil-mode."
     (org-link-set-parameters
       "tb"  ; short prefix
       :follow (lambda (message-id)
-                (start-process "thunderbird" nil "thunderbird" "-mail" (concat "mid:" message-id)))
+                (start-process "thunderbird" nil "thunderbird" "-mail" (concat "mid:" message-id))
+                (start-process "bash" nil "bash" "-ic" "thunderbird")
+                )
       )
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)

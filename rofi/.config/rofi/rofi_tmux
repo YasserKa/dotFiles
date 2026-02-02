@@ -32,7 +32,7 @@ GET_SESSIONS() {
     local tmux_sessions
     tmux_sessions="$(tmux ls | cut -d ':' -f -1 | cut -d '#' -f -1)"
     [[ -n $tmux_sessions ]] && tmux_sessions="$tmux_sessions\n"
-    echo -e "${tmux_sessions}$(tmuxp ls)" | grep -vE "cmus|system_upgrade" | sort | uniq
+    echo -e "${tmux_sessions}$(tmuxp ls --json | jq -r '.workspaces | .[] | .name')" | grep -vE "cmus|system_upgrade" | sort | uniq
 }
 
 ################################################################################
