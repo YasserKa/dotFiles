@@ -438,6 +438,20 @@ is_window_exists() {
 	' >/dev/null
 }
 
+is_window_visible() {
+    i3-msg -t get_tree |
+    jq -e --arg re "$1" '
+        recurse(.nodes[]?, .floating_nodes[]?) |
+        select(
+            (
+                ((.name // "") | test($re)) or
+                ((.app_id // "") | test($re)) or
+                ((.window_properties.class // "") | test($re))
+            ) and .visible
+        )
+    ' >/dev/null
+}
+
 wait_window() {
 	local TIMEOUT="${2-10}" START=$SECONDS
   while ! is_window_exists "$1"; do
@@ -728,9 +742,11 @@ xdg-open() {
 	done
 }
 pcmanfm() { (command pcmanfm "$@" &) }
-# Open thunderbird window if it doesn't exist, else move it to current workspace
+# Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
 thunderbird() {
-	is_window_exists '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, focus && exit 0
+	is_window_exists '^org.mozilla.Thunderbird$' && \
+		{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current; } && \
+			i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && exit 0
 	command thunderbird
 }
 zotero() {
