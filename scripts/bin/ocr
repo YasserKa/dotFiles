@@ -7,6 +7,10 @@ img_path="/tmp/ocr.png"
 # Trap to clean up on exit
 trap 'rm -f "$img_path"' EXIT
 
-deepin-screen-recorder --screenShot --save-path "$img_path"
+if [ -n "${WAYLAND_DISPLAY}" ]; then
+  grimshot save anything "$img_path"
+else
+  deepin-screen-recorder --screenShot --save-path "$img_path"
+fi
 clipboard_copy "$(tesseract "$img_path" -)"
 notify-send "OCR done"
