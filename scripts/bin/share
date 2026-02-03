@@ -86,7 +86,7 @@ if [ "$1" == "-n" ]; then
 fi
 
 arg=$1
-date=$(date +"%Y-%m-%d_%T")
+date=$(date +"%Y-%m-%d_%H-%M-%S")
 if [[ $1 == "-v" ]]; then
 	file_name=$(ls -t "$HOME/Videos/Screen Recordings/" | head -n 1)
 	old_path="$HOME/Videos/Screen Recordings/$file_name"
