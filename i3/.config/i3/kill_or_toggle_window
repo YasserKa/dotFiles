@@ -4,12 +4,12 @@
 # dependencies: i3/sway jq
 
 SCRATCHPAD_WINDOWS=(
-	"Zotero"
-	"org.mozilla.Thunderbird"
+    "Zotero"
+    "org.mozilla.Thunderbird"
 )
 
 for window in "${SCRATCHPAD_WINDOWS[@]}"; do
-	is_match="$(i3-msg -t get_tree | jq --arg re "$window" '
+    is_match="$(i3-msg -t get_tree | jq --arg re "$window" '
       any(
         recurse(.nodes[]?, .floating_nodes[]?);
         .focused and (
@@ -20,23 +20,23 @@ for window in "${SCRATCHPAD_WINDOWS[@]}"; do
       )
     ')"
 
-	if [[ "$is_match" == "true" ]]; then
-		# Only move to scratch the thunderbird main window & kill secondary ones
-		if [[ "$window" == "org.mozilla.Thunderbird" ]]; then
-			is_thunder_main_window="$(i3-msg -t get_tree | jq '
+    if [[ "$is_match" == "true" ]]; then
+        # Only move to scratch the thunderbird main window & kill secondary ones
+        if [[ "$window" == "org.mozilla.Thunderbird" ]]; then
+            is_thunder_main_window="$(i3-msg -t get_tree | jq '
         .. |
         select(.focused? == true) |
         select(.app_id == "org.mozilla.Thunderbird") |
-        select(.name | test("Mozilla Thunderbird$")) |
+        select(.name | test("^(?!Save All Attachments).*Mozilla Thunderbird$")) |
         {app_id, name}
         ')"
-			[[ -z "$is_thunder_main_window" ]] && break
-		fi
+            [[ -z "$is_thunder_main_window" ]] && break
+        fi
 
-		# NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
-		i3-msg "$(window_get_condition "$window")" fullscreen disable && i3-msg "$(window_get_condition "$window")" move scratchpad
-		exit 0
-	fi
+        # NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
+        i3-msg "$(window_get_condition "$window")" fullscreen disable && i3-msg "$(window_get_condition "$window")" move scratchpad
+        exit 0
+    fi
 done
 
 i3-msg kill
