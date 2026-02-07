@@ -14,8 +14,12 @@ ExecStart=/bin/bash -c 'GATEWAY=$(ip route | grep default | grep -v tailscale | 
 ExecStart=/usr/bin/ip rule add to 199.232.192.0/24 lookup main priority 5269
 # Diva
 ExecStart=/usr/bin/ip rule add to 130.238.7.111 lookup main priority 5269
+# Arxiv
+ExecStart=/usr/bin/ip rule add to 151.101.67.42 lookup main priority 5269
 ExecStart=/usr/bin/ip route flush cache
 RemainAfterExit=yes
+
+
 
 [Install]
 WantedBy=multi-user.target
