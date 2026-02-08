@@ -1432,7 +1432,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :block today :properties ("Effort")))
   ;; Persist clock history on Emacs close
   (org-clock-persistence-insinuate)
-  (setq org-clock-persist 'clock)
+  (setq org-clock-persist t)
   (setq org-effort-durations '(("m" . 1) ("h" . 60) ("d" . 1440) ("w" . 10080) ("mon" . 43200) ("y" . 525960.0)))
   (setq org-global-properties
         '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
