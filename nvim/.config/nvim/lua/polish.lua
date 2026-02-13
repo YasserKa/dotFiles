@@ -808,11 +808,13 @@ vim.api.nvim_exec2(
  \}
  let g:vimtex_view_method = 'zathura'
  let g:vimtex_fold_enabled = 1
+ let g:vimtex_compiler_method = "latexmk"
+
  let g:vimtex_compiler_latexmk = {
  \ 'aux_dir' : './tex_output',
  \ 'options' : [
+ \   '-xelatex',
  \   '-verbose',
- \   '-pdflatex=pdflatex',
  \   '-outdir=./tex_output',
  \   '-file-line-error',
  \   '-shell-escape',

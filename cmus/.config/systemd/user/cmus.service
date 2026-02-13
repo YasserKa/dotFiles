@@ -1,9 +1,11 @@
 [Unit]
 Description=cmus
+After=graphical-session.target
+PartOf=graphical-session.target
 
 [Service]
 Type=forking
 ExecStart=/usr/bin/tmux new-session -s cmus -d "/usr/bin/cmus --listen /run/user/1000/cmus-socket"
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
