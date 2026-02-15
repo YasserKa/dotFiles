@@ -689,7 +689,7 @@ does not have to do this by oneself."
   :after evil
   :init (global-undo-tree-mode)
   :custom
-  (undo-tree-auto-save-history t)
+  (undo-tree-auto-save-history nil) ;; Don't make Emacs lag on save
   (undo-tree-visualizer-diff t)
   :config
   ;; Save undo steps between sessions
