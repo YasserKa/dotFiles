@@ -1606,10 +1606,33 @@ Made for `org-tab-first-hook' in evil-mode."
     ;; Truncate lines in agenda buffer
     (add-hook 'org-agenda-finalize-hook (lambda () (interactive) (let ((inhibit-message t)) (setq truncate-lines t))))
 
+    (defun my/org-agenda-goto-smart ()
+      "Go to org heading, reusing window if file is already visible.
+      If the target buffer is already visible in another window, close the agenda window."
+      (interactive)
+      (let* ((marker (or (org-get-at-bol 'org-marker)
+                         (org-agenda-error)))
+             (buffer (marker-buffer marker))
+             (pos (marker-position marker))
+             (window (get-buffer-window buffer))
+             (agenda-window (selected-window)))
+        (if window
+            ;; Buffer already visible, switch to that window and close agenda
+            (progn
+              (select-window window)
+              (delete-window agenda-window))
+          ;; Buffer not visible, use current window
+          (switch-to-buffer buffer))
+        (goto-char pos)
+        (org-show-context 'agenda)
+        (recenter)))
+
     (evil-define-key 'motion 'org-super-agenda-header-map
       (kbd "q") 'org-agenda-quit
       (kbd "C-h") 'evil-window-left
-      (kbd "C-j") 'org-agenda-switch-to
+      (kbd "C-j") 'my/org-agenda-goto-smart
+      (kbd "C-m") 'my/org-agenda-goto-smart
+      (kbd "<return>") 'my/org-agenda-goto-smart
       (kbd "gj") 'org-agenda-next-item
       (kbd "gk") 'org-agenda-previous-item
       (kbd "gx") 'org-open-at-point-global)
