@@ -80,7 +80,7 @@
     "ignored-sinks": ["Easy Effects Sink"]
   },
   "custom/vpn": {
-    "exec": "echo ''",
+    "exec": "echo ''",
     "interval": 5,
     // Tailscale is up & using an exit node
     "exec-if": "{ tailscale exit-node list | grep -q selected && tailscale status | grep -vq stopped; }"
@@ -131,7 +131,7 @@
   },
   "custom/notification-canvas": {
     "format": "",
-    "interval": 1,
+    "interval": 30,
     "on-click": "$HOME/bin/canvas_utility open_assignment_link",
     "on-click-right": "$HOME/bin/canvas_utility open_file",
     "return-type": "json",
