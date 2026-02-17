@@ -2884,6 +2884,8 @@ selection of all minor-modes, active or not."
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-n")  'scroll-other-window)
 
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "<return>")  'elfeed-search-show-entry)
+
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gj")  'elfeed-goodies/split-show-next)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gk")  'elfeed-goodies/split-show-prev)
 
