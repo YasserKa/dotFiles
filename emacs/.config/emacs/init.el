@@ -1627,15 +1627,34 @@ Made for `org-tab-first-hook' in evil-mode."
         (org-show-context 'agenda)
         (recenter)))
 
-    (evil-define-key 'motion 'org-super-agenda-header-map
-      (kbd "q") 'org-agenda-quit
-      (kbd "C-h") 'evil-window-left
-      (kbd "C-j") 'my/org-agenda-goto-smart
-      (kbd "C-m") 'my/org-agenda-goto-smart
-      (kbd "<return>") 'my/org-agenda-goto-smart
-      (kbd "gj") 'org-agenda-next-item
-      (kbd "gk") 'org-agenda-previous-item
-      (kbd "gx") 'org-open-at-point-global)
+    (with-eval-after-load 'org
+      (with-eval-after-load 'evil
+        (defun my/org-agenda-evil-bindings ()
+          ;; 1) Normal agenda buffer bindings: buffer-local to this agenda buffer
+          (evil-local-set-key 'motion (kbd "q") #'org-agenda-quit)
+          (evil-local-set-key 'motion (kbd "C-h") #'evil-window-left)
+          (evil-local-set-key 'motion (kbd "C-j") #'my/org-agenda-goto-smart)
+          (evil-local-set-key 'motion (kbd "C-m") #'my/org-agenda-goto-smart)
+          (evil-local-set-key 'motion (kbd "<return>") #'my/org-agenda-goto-smart)
+          (evil-local-set-key 'motion (kbd "gj") #'org-agenda-next-item)
+          (evil-local-set-key 'motion (kbd "gk") #'org-agenda-previous-item)
+          (evil-local-set-key 'motion (kbd "gx") #'org-open-at-point-global)
+
+          ;; 2) Super-agenda *header* bindings: buffer-local copy of the header map
+          (when (boundp 'org-super-agenda-header-map)
+            (setq-local org-super-agenda-header-map
+                        (copy-keymap org-super-agenda-header-map))
+            (evil-define-key 'motion org-super-agenda-header-map
+              (kbd "q") #'org-agenda-quit
+              (kbd "C-h") #'evil-window-left
+              (kbd "C-j") #'my/org-agenda-goto-smart
+              (kbd "C-m") #'my/org-agenda-goto-smart
+              (kbd "<return>") #'my/org-agenda-goto-smart
+              (kbd "gj") #'org-agenda-next-item
+              (kbd "gk") #'org-agenda-previous-item
+              (kbd "gx") #'org-open-at-point-global)))
+
+        (add-hook 'org-agenda-mode-hook #'my/org-agenda-evil-bindings)))
     (setq org-super-agenda-header-map (make-sparse-keymap))
     )
 
@@ -2883,8 +2902,6 @@ selection of all minor-modes, active or not."
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "C")  'my/elfeed-entry-capture-show)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-n")  'scroll-other-window)
-
-  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "<return>")  'elfeed-search-show-entry)
 
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gj")  'elfeed-goodies/split-show-next)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gk")  'elfeed-goodies/split-show-prev)
