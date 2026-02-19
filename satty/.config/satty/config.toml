@@ -37,7 +37,7 @@ actions-on-enter = ["save-to-file", "exit"]
 actions-on-escape = []
 # Action to perform when the Enter key is pressed [possible values: save-to-clipboard, save-to-file]
 # Deprecated: use actions-on-enter instead
-action-on-enter = "save-to-clipboard"
+# action-on-enter = "save-to-clipboard"
 # Right click to copy
 # Deprecated: use actions-on-right-click instead
 right-click-copy = false
