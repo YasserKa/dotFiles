@@ -30,7 +30,7 @@ export FZF_CTRL_R_OPTS="
 --height ${FZF_TMUX_HEIGHT:-40%}
 --color header:italic
 --ansi
---nth=4.. --with-nth=..
+--nth=4.. --with-nth=.. --accept-nth=4..
 --preview 'bat --plain --language bash --color always <(echo {4..})' --preview-window down:3:border-none:hidden:wrap
 --header 'Press Meta-Y to copy command into clipboard'
 --bind 'alt-t:change-preview-window(down|hidden)'

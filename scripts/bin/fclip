@@ -31,7 +31,7 @@ trap 'rm $TMP_FILE' EXIT
 
 IFS='' read -r -d '' cmd <<EOF
   get_candidates='${get_candidates}'
-  copyq eval -- "\${get_candidates}" | fzf --multi --ansi --delimiter ' ' --nth=3.. --with-nth=2.. --read0 --preview-window="hidden" --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {4..}" \
+  copyq eval -- "\${get_candidates}" | fzf --multi --ansi --delimiter ' ' --nth=3.. --accept-nth=3.. --with-nth=2.. --read0 --preview-window="hidden" --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {4..}" \
     --bind "enter:execute-silent(echo {4..} >|'${TMP_FILE}')+abort" \
     --bind 'ctrl-alt-d:execute-silent(copyq remove {1})+reload:copyq eval -- '"'\${get_candidates}'" \
     | sed -E 's/^[0-9]\+ [0-9]\+-[0-9]\+ [0-9:]\+ //'
@@ -44,9 +44,9 @@ eval_interactive_cmd --floating "$cmd"
 clip="$(<"$TMP_FILE")"
 
 copyq disable
-if [[ "$clip" =~ /tmp/copyq..* ]]; then 
-  xclip -selection clipboard -t image/png -i "$clip"
+if [[ "$clip" =~ /tmp/copyq..* ]]; then
+	xclip -selection clipboard -t image/png -i "$clip"
 else
-   clipboard_copy "$clip"
+	clipboard_copy "$clip"
 fi
 copyq enable
