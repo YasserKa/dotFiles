@@ -366,11 +366,11 @@ exec swaymsg seat - cursor set $(swaymsg -t get_outputs -r \
 
 # Hide cursor & move to center of container
 mouse_warping container
-exec hide_cursor_on_idle
-exec_always [[ "$(cat /tmp/cursor_state)" == "true" ]] && swaymsg seat seat0 xcursor_theme "transparent"
+# exec hide_cursor_on_idle
+# exec_always [[ "$(cat /tmp/cursor_state)" == "true" ]] && swaymsg seat seat0 xcursor_theme "transparent"
 
 
-exec --no-startup-id $HOME/bin/helpers/import_systemd_environments && systemctl --user start sway-session.target && systemctl restart --user cmus && gpgconf --kill gpg-agent && gpgconf --launch gpg-agent
+exec --no-startup-id $HOME/bin/helpers/import_systemd_environments && systemctl --user start sway-session.target && systemctl restart --user cmus && systemctl restart --user xremap && gpgconf --kill gpg-agent && gpgconf --launch gpg-agent
 
 include /etc/sway/config.d/*
 include $XDG_CONFIG_HOME/i3/config_override

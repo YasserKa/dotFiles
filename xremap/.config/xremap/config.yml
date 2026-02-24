@@ -10,6 +10,33 @@ modmap:
         alone: Esc
         alone_timeout_millis: 200
 keymap:
+  - name: Generic bindings
+    remap:
+      SUPER-Space:
+        launch: ["bash", "-c", "dunstctl close"]
+      SUPER-Shift-Space:
+        launch: ["bash", "-c", "i3-msg floating toggle"]
+      SUPER-apostrophe:
+        launch: ["bash", "-c", "dunstctl history-pop"]
+      # Execute default actions
+      SUPER-Shift-apostrophe:
+        launch: ["bash", "-c", "dunstctl action"]
+      # Show context menua
+      SUPER-Shift-semicolon:
+        launch: ["bash", "-c", "dunstctl context"]
+      # Capture a note using org mode
+      SUPER-e:
+        launch:
+          [
+            "bash",
+            "-c",
+            'emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval ''(yequake-toggle "org-capture-yeq")''',
+          ]
+      # Execute default actions
+      SUPER-Shift-u:
+        launch: ["bash", "-c", "/home/yasser/bin/insert_link"]
+      SUPER-Shift-s:
+        launch: ["bash", "-c", "/home/yasser/bin/insert_snippet"]
   - name: Emacs binding for Slack
     application:
       only: [Slack]

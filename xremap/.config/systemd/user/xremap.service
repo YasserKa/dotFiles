@@ -1,14 +1,14 @@
 [Unit]
 Description=Xremap
-After=swhkd.service
-Requires=swhkd.service
+After=graphical-session.target
+PartOf=graphical-session.target
 
 [Service]
-ExecStart=/usr/bin/xremap --device="swhkd" %h/.config/xremap/config.yml
+ExecStart=/usr/bin/xremap --watch=device %h/.config/xremap/config.yml
 Restart=always
 RestartSec=5s
 StandardOutput=journal
 StandardError=journal
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target

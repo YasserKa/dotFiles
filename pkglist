@@ -113,6 +113,9 @@ texlive-bibtexextra # Bibliography
 # Needed by org mode for latex fragments 
 texlive-fontsextra
 texlive-latexextra
+# Needed to compile IRIS paper
+tex-gyre-fonts # Substitute PostScript fonts in OpenType format
+ttf-ms-fonts  # Core TTF Fonts for Microsoft
 # Used in vim
 write-good # Naive linter for English prose
 dotenv-linter-bin # Linter for .env files
@@ -371,6 +374,7 @@ rust
 grim    # Screenshot utility for Wayland
 slurp   # Selection a region in Wayland
 satty   # Screenshot annotation
+gimp    # Image Manipulation Program
 wf-recorder # Screen recorder for wlroots-based compositors
 
 docker # Containers
