@@ -878,10 +878,28 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
 (use-package laas
   :hook ((LaTeX-mode . laas-mode)
          (org-mode . laas-mode))
-  :config ; do whatever here
+  :config
+  (defun my/aas-wordish-char-p (ch)
+    (and ch (memq (char-syntax ch) '(?w ?_))))
+
+  (defun my/nonmath-standalone-dm-p ()
+    "Expand only when the key is exactly \"dm\" as a standalone token, outside math."
+    (and (not (texmathp))
+         ;; point is at *start* of the key when :cond runs
+         (string= aas-transient-snippet-key "dm")
+         (looking-at "dm")
+         ;; require boundary before
+         (not (my/aas-wordish-char-p (char-before)))
+         ;; require boundary after
+         (not (my/aas-wordish-char-p
+               (save-excursion
+                 (forward-char (length aas-transient-snippet-key))
+                 (char-after))))))
+
   (aas-set-snippets 'laas-mode
                     ;; set condition!
-                    :cond (lambda () string= (sexp-at-point) "dm")
+                    ;; :cond #'my/tex-nonmathp
+                    :cond #'my/nonmath-standalone-dm-p
                     "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
@@ -891,7 +909,8 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                     "Prod" '(yas "\\prod_{$1}^{$2} $0")
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt"))))
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
+  )
 
 ;; Used to insert latex environments and math templates
 ;; Previewing Latex fragments
@@ -1269,14 +1288,14 @@ Made for `org-tab-first-hook' in evil-mode."
                                              calendar-daylight-time-zone-name))))
                     )))
 
-;; Improve performance for interactive cmds (e.g. agenda, calendar blocks, etc.) in daemon mode
-(defun my/command-with-high-gc (orig-fn &rest args)
-  (let ((gc-cons-threshold most-positive-fixnum)
-        (gc-cons-percentage 0.6))
-    (apply orig-fn args)))
+  ;; Improve performance for interactive cmds (e.g. agenda, calendar blocks, etc.) in daemon mode
+  (defun my/command-with-high-gc (orig-fn &rest args)
+    (let ((gc-cons-threshold most-positive-fixnum)
+          (gc-cons-percentage 0.6))
+      (apply orig-fn args)))
 
-(when (daemonp)
-  (advice-add 'command-execute :around #'my/command-with-high-gc))
+  (when (daemonp)
+    (advice-add 'command-execute :around #'my/command-with-high-gc))
 
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
@@ -1323,12 +1342,12 @@ Made for `org-tab-first-hook' in evil-mode."
        ((string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search"))
        ))
     (org-link-set-parameters
-      "tb"  ; short prefix
-      :follow (lambda (message-id)
-                (start-process "thunderbird" nil "thunderbird" "-mail" (concat "mid:" message-id))
-                (start-process "bash" nil "bash" "-ic" "thunderbird")
-                )
-      )
+     "tb"  ; short prefix
+     :follow (lambda (message-id)
+               (start-process "thunderbird" nil "thunderbird" "-mail" (concat "mid:" message-id))
+               (start-process "bash" nil "bash" "-ic" "thunderbird")
+               )
+     )
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     )
