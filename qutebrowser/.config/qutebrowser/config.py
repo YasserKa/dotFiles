@@ -3,7 +3,7 @@ import os
 # mypy: ignore-errors
 
 c = c  # type: ignore # noqa: F821
-config = config  #  type: ignore # noqa: F821
+config = config  # type: ignore # noqa: F821
 
 c.bindings.commands = {
     "normal": {
