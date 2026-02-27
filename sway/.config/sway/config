@@ -337,7 +337,7 @@ exec --no-startup-id bash -ic '{ wait_window "^org.qutebrowser.qutebrowser$" 999
 
 for_window [app_id="org.mozilla.Thunderbird" title="^(?!Save All Attachments).*Mozilla Thunderbird$"] move scratchpad
 
-exec --no-startup-id sleep 1 && thunderbird & sleep 5 && $XDG_CONFIG_HOME/thunderbird/thunderbird_utility sync
+exec --no-startup-id bash -c 'sleep 1; thunderbird & sleep 5; "$XDG_CONFIG_HOME"/thunderbird/thunderbird_utility sync'
 exec --no-startup-id sleep 2 && birdtray
 
 # Manages some key bindings
