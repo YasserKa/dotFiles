@@ -2628,7 +2628,6 @@ selection of all minor-modes, active or not."
   (" c" magit-commit "commit")
   (" C" magit-show-commit "show commit")
   (" L" magit-log-buffer-file "log")
-
   (" o" browse-at-remote "browse at remote")
 
   ;; C-j C-k previous/forward historic version
@@ -2659,6 +2658,7 @@ selection of all minor-modes, active or not."
 (defhydra org-hydra (:hint nil :exit t :idle 1 )
   (" *" org-ctrl-c-star "make header" :column " org")
   (" -" org-ctrl-c-minus "make item")
+  (" B" org-cite-insert "BibTex")
   (" c" org-clock-hydra/body "clock")
   (" C" calfw-org-open-calendar "calendar block view")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
@@ -2720,7 +2720,6 @@ selection of all minor-modes, active or not."
 
 (defhydra org-find-hydra (:exit t :idle 1)
   (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find nil "" 'my/get-filtered-nodes))) "find node")
-  (" B" org-cite-insert "BibTex")
   )
 
 (defhydra org-roam-hydra (:exit t :idle 1)
