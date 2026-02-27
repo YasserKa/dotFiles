@@ -286,40 +286,68 @@ get_metadata() {
     fi
 
     SOURCE=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("'"$SOURCE"'"))')
+
     SCRIPT='
 (async function () {
     let path = decodeURIComponent("'$SOURCE'");
 
-  try {
-    // Create a linked file attachment (not stored in library)
-    let attachment = await Zotero.Attachments.linkFromFile({
-      file: path
-    });
+    // If file exists, use Zotero metadata; 
+    // else, upload to Zotero, get metadata, and delete file
+    let m = path.match(/\/storage\/([A-Z0-9]{8})\//);
+    if (m) {
+      // Extract attachment key from .../storage/<KEY>/...
+      const attachmentKey = m[1];
 
-    // Use autoRecognizeItems to retrieve metadata
-    // This is what "Retrieve Metadata for PDF" does internally
-    await Zotero.RecognizeDocument.autoRecognizeItems([attachment]);
+      // Find the attachment itemID by key
+      const itemID = await Zotero.DB.valueQueryAsync(
+        "SELECT itemID FROM items WHERE key=?",
+        [attachmentKey]
+      );
+      if (!itemID) throw new Error("No Zotero item for key: " + attachmentKey);
 
-    // Get the DOI from the parent item that was created
-    let metadata = null;
-    if (attachment.parentID) {
-      let parentItem = await Zotero.Items.getAsync(attachment.parentID);
-      if (parentItem) {
-        metadata = parentItem.getField("'"$METADATA"'");
-        // Clean up - delete both parent and attachment
-        await parentItem.eraseTx();
+      const attachment = await Zotero.Items.getAsync(itemID);
+      if (!attachment || !attachment.isAttachment()) {
+        throw new Error("Key is not an attachment item: " + attachmentKey);
+      }
+
+      const parent = attachment.parentID
+        ? await Zotero.Items.getAsync(attachment.parentID)
+        : null;
+
+      result = parent ? parent.getField("'"$METADATA"'") : null;
+    } else {
+      try {
+        // Create a linked file attachment (not stored in library)
+        let attachment = await Zotero.Attachments.linkFromFile({
+          file: path
+        });
+
+        // Use autoRecognizeItems to retrieve metadata
+        // This is what "Retrieve Metadata for PDF" does internally
+        await Zotero.RecognizeDocument.autoRecognizeItems([attachment]);
+
+        // Get the DOI from the parent item that was created
+        let metadata = null;
+        if (attachment.parentID) {
+          let parentItem = await Zotero.Items.getAsync(attachment.parentID);
+          if (parentItem) {
+            metadata = parentItem.getField("'"$METADATA"'");
+            // Clean up - delete both parent and attachment
+            await parentItem.eraseTx();
+          }
+        }
+        result = metadata
+
+        // Clean up the attachment if no parent was created
+        if (!attachment.parentID) {
+          await attachment.eraseTx();
+        }
+
+      } catch (error) {
+        return "Error: " + error.message;
       }
     }
-     result = metadata
-
-    // Clean up the attachment if no parent was created
-    if (!attachment.parentID) {
-      await attachment.eraseTx();
-    }
-
-  } catch (error) {
-    return "Error: " + error.message;
-  }
+    await Zotero.File.putContentsAsync("/home/yasser/bla", result);
   '
   elif curl --head "$SOURCE" >/dev/null; then
 
