@@ -258,7 +258,7 @@ next
 
 /FZF_DEFAULT_OPTS/ {
 if (flag) {
-gsub(/+m/, "--multi"); print
+gsub(/\+m/, "--multi"); print
 } else {
 print
 }
