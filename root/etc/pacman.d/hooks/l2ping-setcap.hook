@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = bluez
+
+[Action]
+Description = Reapplying capabilities for /usr/bin/l2ping
+When = PostTransaction
+Exec = /usr/bin/setcap cap_net_raw,cap_net_admin+eip /usr/bin/l2ping
