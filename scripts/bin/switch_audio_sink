@@ -33,7 +33,7 @@ case $PICKED_SINK in
 		done
 		[[ -n "$DEVICE_MAC_AVAILABLE" ]] && bluetoothctl connect "$DEVICE_MAC_AVAILABLE" && break
 	done
-	PICKED_SINK="$(grep "$DEVICE_MAC_AVAILABLE" <(bluetoothctl devices) | cut -d ' ' -f3-)"
+	PICKED_SINK="$(grep "$DEVICE_MAC_AVAILABLE" <(bluetoothctl devices) | tail -n 1 | cut -d ' ' -f3-)"
 
 	[[ $i == 10 ]] && dunstify "$DEVICE_PICKED not found" && exit 1
 
@@ -47,12 +47,12 @@ case $PICKED_SINK in
 "Built In")
 	icon="laptop-sound"
 	NEW_SINK=$(pactl list sinks | awk '/Name/ {line=$2; next}; /Description:.*Built-int/ {print line; exit}')
-	rfkill block bluetooth
+	# rfkill block bluetooth
 	;;
 "DisplayLink")
 	icon="earbud"
 	NEW_SINK=$(pactl list sinks | awk '/Name/ {line=$2; next}; /Description:.*LAPDOCK/ {print line; exit}')
-	rfkill block bluetooth
+	# rfkill block bluetooth
 	;;
 *) notify-send --app-name=$APP_NAME --expire-time=2000 "Couldn't find the $PICKED_SINK sink" && exit 1 ;;
 esac
