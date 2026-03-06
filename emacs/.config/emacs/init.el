@@ -168,6 +168,7 @@
   :custom
   (doom-modeline-buffer-file-name-style 'relative-from-project "Show full path")
   (doom-modeline-buffer-encoding 'nondefault "Only show file encoding if it's non-UTF-8")
+  (doom-modeline-modal-icon t) ;; Use icon instead of word for evil state
   :hook (after-init . doom-modeline-mode))
 ;; Minor mode to show total matches during search in modeline
 (use-package anzu :after isearch-mode)
