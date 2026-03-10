@@ -46,7 +46,7 @@ case $PICKED_SINK in
 	;;
 "Built In")
 	icon="laptop-sound"
-	NEW_SINK=$(pactl list sinks | awk '/Name/ {line=$2; next}; /Description:.*Built-int/ {print line; exit}')
+	NEW_SINK=$(pactl list sinks | awk '/Name/ {line=$2; next}; /Description:.*Built-in/ {print line; exit}')
 	# rfkill block bluetooth
 	;;
 "DisplayLink")

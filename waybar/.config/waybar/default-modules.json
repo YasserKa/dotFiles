@@ -74,9 +74,10 @@
       "phone-muted": "",
       "portable": "",
       "car": "",
-      "default": ["", ""]
+      "alsa_output.usb-DisplayLink_LAPDOCK_U3D2338310892-02.iec958-stereo": "",
+      "default": ["󰖀", "󰕾"]
     },
-    "on-click": "pavucontrol",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "ignored-sinks": ["Easy Effects Sink"]
   },
   "custom/vpn": {
