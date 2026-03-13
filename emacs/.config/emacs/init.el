@@ -1653,6 +1653,7 @@ Made for `org-tab-first-hook' in evil-mode."
           ;; 1) Normal agenda buffer bindings: buffer-local to this agenda buffer
           (evil-local-set-key 'motion (kbd "q") #'org-agenda-quit)
           (evil-local-set-key 'motion (kbd "C-h") #'evil-window-left)
+          (evil-local-set-key 'motion (kbd "C-l") #'evil-window-right)
           (evil-local-set-key 'motion (kbd "C-j") #'my/org-agenda-goto-smart)
           (evil-local-set-key 'motion (kbd "C-m") #'my/org-agenda-goto-smart)
           (evil-local-set-key 'motion (kbd "<return>") #'my/org-agenda-goto-smart)
@@ -1667,6 +1668,7 @@ Made for `org-tab-first-hook' in evil-mode."
             (evil-define-key 'motion org-super-agenda-header-map
               (kbd "q") #'org-agenda-quit
               (kbd "C-h") #'evil-window-left
+              (kbd "C-l") #'evil-window-right
               (kbd "C-j") #'my/org-agenda-goto-smart
               (kbd "C-m") #'my/org-agenda-goto-smart
               (kbd "<return>") #'my/org-agenda-goto-smart
