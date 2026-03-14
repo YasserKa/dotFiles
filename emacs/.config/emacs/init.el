@@ -2593,6 +2593,7 @@ selection of all minor-modes, active or not."
   (" H" help-hydra/body "help")
   (" x" my/scratch-buffer-other "scratch")
   (" h" evil-ex-nohighlight "highlight")
+  (" o" indirect-open-hydra/body "indirect open")
   (" f" find-hydra/body "find")
   (" e" toggle-plugins/body "toggle plugins")
   (" g" git-hydra/body "git")
@@ -2609,6 +2610,31 @@ selection of all minor-modes, active or not."
   (" u" undo-tree-visualize "undo tree")
   (" s" (lambda () (interactive) (split-window-below) (find-file (concat user-emacs-directory "/init.el"))) "edit rc")
   )
+
+(defun clone-indirect-buffer-new-frame ()
+  "Open an indirect clone of the current buffer in a new frame that displays only that buffer."
+  (interactive)
+  (let* ((orig (current-buffer))
+         (newname (generate-new-buffer-name (format "%s<indirect>" (buffer-name orig))))
+         ;; create the indirect buffer (returns the buffer object) without switching
+         (ind (make-indirect-buffer orig newname t))
+         (frame (make-frame)))
+    ;; display the indirect buffer in the newly created frame and keep it as the sole window
+    (with-selected-frame frame
+      (switch-to-buffer ind)
+      (delete-other-windows)
+      (select-frame-set-input-focus frame))))
+
+(defhydra indirect-open-hydra (:exit t :idle 1)
+  (" b" (clone-indirect-buffer nil t) "open in new buffer")
+  (" f" (clone-indirect-buffer-new-frame) "open in new frame")
+  )
+
+(defun org-tree-to-indirect-buffer-new-frame (&optional arg)
+  "Open subtree in a new frame as an indirect buffer (always a new frame)."
+  (interactive "P")
+  (let ((org-indirect-buffer-display 'new-frame))
+    (org-tree-to-indirect-buffer arg)))
 
 (defhydra find-hydra (:exit t :idle 1)
   (" b" consult-buffer "Buffer")
@@ -2667,6 +2693,7 @@ selection of all minor-modes, active or not."
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" r" org-roam-hydra/body "org-roam")
   (" f" org-find-hydra/body "find")
+  (" o" org-indirect-open-hydra/body "indirect open")
   (" R" org-refile-hydra/body "refile")
   (" l" org-links-hydra/body "links")
   (" a" org-agenda "agenda")
@@ -2720,6 +2747,17 @@ selection of all minor-modes, active or not."
             (string-prefix-p "t_" filename))
         nil
       file)))
+
+(defun org-tree-to-indirect-buffer-new-frame (&optional arg)
+  "Open subtree in a new frame as an indirect buffer (always a new frame)."
+  (interactive "P")
+  (let ((org-indirect-buffer-display 'new-frame))
+    (org-tree-to-indirect-buffer arg)))
+
+(defhydra org-indirect-open-hydra (:exit t :idle 1)
+  (" b" (lambda () (interactive) (org-tree-to-indirect-buffer) (other-window 1)) "open in new buffer")
+  (" f" (org-tree-to-indirect-buffer-new-frame) "open in new frame")
+  )
 
 (defhydra org-find-hydra (:exit t :idle 1)
   (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find nil "" 'my/get-filtered-nodes))) "find node")
