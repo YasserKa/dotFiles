@@ -10,17 +10,16 @@ encode_url() {
 	for ((i = 0; i < ${#1}; i++)); do
 		: "${1:i:1}"
 		case "$_" in
-			# Keep allowed characters
-			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-			# Encode disallowed characters
-			*) printf '%%%02X' "'$_" ;;
+		# Keep allowed characters
+		[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+		# Encode disallowed characters
+		*) printf '%%%02X' "'$_" ;;
 		esac
 	done
 	printf '\n'
 }
 
 # Encode it in case a title has ampersand "&"
-QUTE_TITLE="$(encode_url "$QUTE_TITLE")"
 QUTE_URL="$(encode_url "$QUTE_URL")"
 
 if org_capture "$QUTE_URL" "$QUTE_TITLE"; then
