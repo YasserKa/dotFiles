@@ -19,6 +19,14 @@ encode_url() {
 	printf '\n'
 }
 
+URL_HOST="$(echo "$QUTE_URL" | awk -F '/' '{print $3}')"
+# Store word definition in different way
+if [[ "$URL_HOST" == "www.merriam-webster.com" ]]; then
+	WORD="$(echo "$QUTE_URL" | awk -F '/' '{print $NF}')"
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=word&url=$WORD&title=$(encode_url "$(dict "$WORD")")"
+	exit 0
+fi
+
 # Encode it in case a title has ampersand "&"
 QUTE_URL="$(encode_url "$QUTE_URL")"
 

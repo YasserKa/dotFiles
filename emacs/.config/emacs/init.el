@@ -1027,7 +1027,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (org-enforce-todo-dependencies t)
   (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
   (org-startup-with-inline-images t)
-  (org-image-actual-width 500)
+  (org-image-actual-width '(500))
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
@@ -1894,10 +1894,18 @@ see how ARG affects this command."
                  `("n" "org-capture-note" entry
                    (file ,(concat notes-dir "/capture.org"))
                    "* TODO %:description" :immediate-finish t))
+
     (add-to-list 'org-capture-templates
                  `("w" "Web site" entry
                    (file ,(concat notes-dir "/org_protocol_html.org")) ;
-                   "* %a :website:\n\n%U %?\n\n%:initial"))
+                   "* %a :website:\n\n%U %?\n\n%:initial")
+
+    (add-to-list 'org-capture-templates
+                 `("word" "Word" entry
+                   (file ,(concat notes-dir "/words.org"))
+                   "* %:link\n%:description" :immediate-finish t))
+
+                 )
 
     (setq org-protocol-default-template-key "q")
     )
