@@ -1583,6 +1583,16 @@ Made for `org-tab-first-hook' in evil-mode."
                                 :file-path ".*/tasks.org")
                          (:discard (:anything))
                          ))))
+             (alltodo ""
+                     (
+                      (org-agenda-overriding-header "")
+                      (org-agenda-sorting-strategy '(timestamp-up))
+                      (org-agenda-prefix-format '((todo . " %-22:(get-top-heading-in-block) %13(my/org-agenda-s-or-d-prefix)  %-4e ")))
+                      (org-super-agenda-groups
+                       `((:discard (:scheduled today))
+                         (:name "In a week" :scheduled (before ,one-week-from-today))
+                         (:discard (:anything))
+                         ))))
             ))
           ("o" "Others"
            ((alltodo ""
@@ -1900,10 +1910,10 @@ see how ARG affects this command."
                    (file ,(concat notes-dir "/org_protocol_html.org")) ;
                    "* %a :website:\n\n%U %?\n\n%:initial")
 
-    (add-to-list 'org-capture-templates
-                 `("word" "Word" entry
-                   (file ,(concat notes-dir "/words.org"))
-                   "* %:link\n%:description" :immediate-finish t))
+                 (add-to-list 'org-capture-templates
+                              `("word" "Word" entry
+                                (file ,(concat notes-dir "/words.org"))
+                                "* %:link\n%:description" :immediate-finish t))
 
                  )
 
