@@ -74,7 +74,7 @@
       "phone-muted": "",
       "portable": "",
       "car": "",
-      "alsa_output.usb-DisplayLink_LAPDOCK_U3D2338310892-02.iec958-stereo": "",
+      "alsa_output.usb-DisplayLink_LAPDOCK_U3D2338310892-02.iec958-stereo": "󰕓",
       "default": ["󰖀", "󰕾"]
     },
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
