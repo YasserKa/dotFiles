@@ -289,6 +289,7 @@ diff-pdf # Visually comparing two PDF files
 qpdf # PDF transformation software
 
 # Utility
+dictd # Online dictionary client & server
 hyperfine # Bencmarking tool
 ripgrep # A search tool that combines the usability of ag with the raw speed of grep
 stow # Manage installation of multiple softwares in the same directory tree
@@ -326,6 +327,7 @@ nethogs # A net top tool which displays traffic used per process instead of per 
 networkmanager # Network connection manager and user applications
 networkmanager-dmenu-git # Control NetworkManager via dmenu
 tailscale # A mesh VPN that makesit easy to connect your devices, wherever they are
+sing-box-bin # Proxy platform (used to bypass tailscale for certain web pages in browser)
 forticlient-vpn # Forticlient VPN client
 net-tools # Configuration tools
 transmission-gtk # BitTorren client

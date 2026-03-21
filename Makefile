@@ -151,6 +151,7 @@ setup-systemd-services:
 	sudo systemctl enable displaylink
 	sudo systemctl enable auto-cpufreq.service
 	sudo systemctl enable --now tailscale-bypass.service
+	sudo systemctl enable --now sing-box
 	# Disables to not override backups while setting up the environment
 	# Enable afterwards
 	# sudo systemctl enable cronie

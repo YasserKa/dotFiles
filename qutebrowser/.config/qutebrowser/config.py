@@ -268,7 +268,6 @@ c.aliases = {
         "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube"
     ),
     "gc": "spawn bash -ic '. $HOME/bin/git_clone {url}'",
-    "paywall": "open https://12ft.io/proxy?q={url}",
     "import_zotero": "spawn ~/.config/Zotero/bin/zotero_utility import {url}",
     "import_zotero_recent": "spawn ~/.config/Zotero/bin/zotero_utility import --recent {url}",
     "import_zotero_read": "spawn ~/.config/Zotero/bin/zotero_utility import --add_org_entry --collection_name 'To_Read' {url}",
@@ -293,6 +292,8 @@ c.content.notifications.enabled = False
 c.content.tls.certificate_errors = "ask-block-thirdparty"
 # Enable save to clipbaord buttons
 c.content.javascript.clipboard = "access-paste"
+c.content.proxy = "http://127.0.0.1:7890"
+
 
 with config.pattern("https://www.google.com") as p:
     p.content.geolocation = True

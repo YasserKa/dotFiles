@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+TEMPLATE="/etc/sing-box/config.json.in"
+CONFIG="/etc/sing-box/config.json"
+TMP="$(mktemp)"
+
+# Pick the active physical uplink from NetworkManager-managed devices.
+# Adjust this if you use only ethernet or only wifi.
+IFACE="$(
+  nmcli -t -f DEVICE,TYPE,STATE device status 2>/dev/null |
+  awk -F: '$3=="connected" && ($2=="ethernet" || $2=="wifi") { print $1; exit }'
+)"
+
+[ -n "$IFACE" ] || exit 0
+
+sed "s/__BYPASS_IFACE__/$IFACE/g" "$TEMPLATE" > "$TMP"
+
+if ! cmp -s "$TMP" "$CONFIG"; then
+  install -m 0644 "$TMP" "$CONFIG"
+  systemctl restart sing-box
+fi
+
+rm -f "$TMP"

@@ -1,0 +1,33 @@
+{
+  "inbounds": [
+    {
+      "type": "http",
+      "listen": "127.0.0.1",
+      "listen_port": 7890
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "via_tailscale"
+    },
+    {
+      "type": "direct",
+      "tag": "bypass_vpn",
+      "bind_interface": "__BYPASS_IFACE__"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "domain_suffix": [
+          "archive.is",
+          "archive.today",
+          "archive.ph"
+        ],
+        "outbound": "bypass_vpn"
+      }
+    ],
+    "final": "via_tailscale"
+  }
+}
