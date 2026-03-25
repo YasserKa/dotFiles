@@ -21,11 +21,12 @@
     "tooltip": false
   },
   "cpu": {
-    "format": "{usage}% "
+    "format-icons": "",
+    "format": "{usage:>2}% {icon}",
   },
   "memory": {
     "format-icons": "",
-    "format": "{}% {icon}"
+    "format": "{percentage:>2}% {icon}"
   },
   "battery": {
     "states": {
