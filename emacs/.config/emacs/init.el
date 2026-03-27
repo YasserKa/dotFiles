@@ -2077,6 +2077,8 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   :no-require
   :custom
   (citar-at-point-function 'embark-act)
+  (citar-library-file-extensions (list "pdf")) ;; Only show PDF files
+  (citar-file-additional-files-separator "-")
   :config
   (citar-embark-mode)
 
