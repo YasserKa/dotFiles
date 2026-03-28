@@ -3,7 +3,63 @@
 # Open document on tablet
 
 declare -r DOC_PATH="$1"
+BOOKS_DIR="$HOME/Documents/books/"
+PAPERS_DIR="$XDG_CONFIG_HOME/Zotero/storage"
 quoted_file_basename="$(printf '%q' "${DOC_PATH##*/}")"
+
+DOC_PATH=$(realpath "$DOC_PATH")
+
+# If document doesn't exists in syncthing, move it to books/tmp/ & sync it
+[[ "$DOC_PATH" != "$BOOKS_DIR"/* && "$DOC_PATH" != "$PAPERS_DIR"/* ]] && {
+  mv "$DOC_PATH" "$BOOKS_DIR/tmp/"
+
+  if [[ "$(uname -n)" == "lenovo-g4" ]]; then
+    HOME_API_KEY="$(pass syncthing_g4_api)"
+  else
+    HOME_API_KEY="$(pass syncthing_p14s_api)"
+  fi
+
+  LENOVO_Y700_API_KEY="$(pass syncthing_y700_api)"
+  if curl -Ss --connect-timeout 1 tablet:8384; then
+    TABLET_API_KEY="$(pass syncthing_tablet_api)"
+    TABLET_URL="http://tablet:8384"
+  else
+    TABLET_API_KEY="$(pass syncthing_lenovo_idea_api)"
+    TABLET_URL="http://lenovo-idea:8384"
+  fi
+
+  wait_for_sync() {
+    API="$1"
+    URL="$2"
+    FOLDER_ID="$3"
+
+    curl -fsS -H "X-API-Key:$API" -X POST "$URL/rest/db/scan?folder=$FOLDER_ID"
+
+    while true; do
+      state=$(curl -fsS -H "X-API-Key:$API" \
+        "$URL/rest/db/status?folder=$FOLDER_ID" |
+        jq -r '.state')
+
+      need=$(curl -fsS -H "X-API-Key:$API" \
+        "$URL/rest/db/status?folder=$FOLDER_ID" |
+        jq '.needFiles + .needDirectories + .needDeletes')
+
+      if [ "$state" = "idle" ] && [ "$need" = "0" ]; then
+        break
+      fi
+
+      sleep 1
+    done
+  }
+
+  wait_for_sync "$HOME_API_KEY" "http://localhost:8384" "wfca6-kjbgn" # Documents folder
+
+  wait_for_sync "$LENOVO_Y700_API_KEY" "http://sync.lenovo-y700.com" "wfca6-kjbgn"
+
+  wait_for_sync "$LENOVO_Y700_API_KEY" "http://sync.lenovo-y700.com" "5aamy-4drje" # Books folder
+
+  wait_for_sync "$TABLET_API_KEY" "$TABLET_URL" "5aamy-4drje"
+}
 
 curl -m 1 -X POST http://lenovo-idea:1821/openfile -d "$quoted_file_basename" &
 curl -m 1 -X POST http://tablet:1821/openfile -d "$quoted_file_basename" &
