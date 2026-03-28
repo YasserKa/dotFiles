@@ -13,7 +13,7 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 --bind 'ctrl-i:replace-query'
 --bind 'ctrl-m:accept'
 
---bind 'alt-t:change-preview-window(default|hidden)'
+--bind 'alt-t:change-preview-window(hidden|default)+execute(printf "\x1b_Ga=d,d=A\x1b\\")'
 --bind 'alt-j:preview-down,alt-k:preview-up'
 --bind 'alt-J:preview-page-down,alt-K:preview-page-up'
 --bind 'alt->:preview-bottom,alt-<:preview-top'
