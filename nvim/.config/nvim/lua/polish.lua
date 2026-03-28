@@ -372,16 +372,23 @@ end
 vim.api.nvim_create_user_command("YankOrgLink", _G.YankOrgLink, {})
 
 _G.WatchFile = function()
+  local filepath = vim.fn.expand "%:p"
+  local dirpath = vim.fn.expand "%:p:h"
+  local filename = vim.fn.expand "%:t"
+
   vim.cmd(
     "silent !chmod +x "
-      .. vim.fn.expand "%:p"
-      .. '&& "${TERMINAL}" --detach --directory "'
-      .. vim.fn.expand "%:p:h"
-      .. '" bash -c \'echo "'
-      .. vim.fn.expand "%:t"
-      .. "\" | entr -c /_'"
+      .. filepath
+      .. ' && "${TERMINAL}" --detach --directory "'
+      .. dirpath
+      .. '" bash -c "echo \\"'
+      .. filename
+      .. '\\" | entr -c '
+      .. filepath
+      .. '"'
   )
 end
+
 vim.api.nvim_create_user_command("WatchFile", _G.WatchFile, {})
 
 vim.keymap.set("x", "@", '":norm @" . getcharstr() . "<cr>"', { expr = true })
