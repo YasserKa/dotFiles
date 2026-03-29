@@ -5,12 +5,12 @@
 \RequirePackage{tabularx}
 
 % Settings
-\usecolortheme{ltu}
-\useinnertheme{ltu}
-\useoutertheme{ltu}
+\usecolortheme{ltu_dark}
+\useinnertheme{ltu_dark}
+\useoutertheme{ltu_dark}
 
 \setbeamerfont{description item}{parent=item, series=\bfseries}
-\setbeamercolor{description body}{use=structure, fg=structure.fg!70!white}
+\setbeamercolor{description body}{use=backgroundg, fg=background}
 
 \setbeamertemplate{navigation symbols}{}
 
@@ -20,14 +20,14 @@
 \begin{tikzpicture}[remember picture, overlay]
   \node[anchor=center] at (current page.center) {
     % White background box
-    \colorbox{white}{
+    \colorbox{background}{
       \begin{minipage}{0.7\textwidth}  % Outer box = full padded area
         \vspace*{2em}
 
         \begin{center}
           \begin{minipage}{0.9\textwidth}  % Inner block centered = content width
 
-            {\usebeamerfont{title}\usebeamercolor[fg]{title} #1}
+          \textbf{{\usebeamerfont{title}\usebeamercolor[fg]{white} #1}}
 
             % Left-aligned orange rule within centered block
             \raggedright

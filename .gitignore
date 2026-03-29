@@ -9,3 +9,4 @@
 /i3/.config/i3/config_override
 /qutebrowser/.config/qutebrowser/greasemonkey/zoom.js
 /waybar/.config/waybar/config.jsonc
+/latex/.config/latex/tex_output/

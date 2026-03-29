@@ -1,0 +1,93 @@
+\mode<presentation>
+
+
+% #b3cad9
+% #a0cff6
+% #81a6bf
+% #106dba
+% #0d5089
+% #0B1E33
+% #111827
+
+\definecolor{blue-900}{HTML}{032040} 
+\definecolor{blue-600}{HTML}{81a6bf} 
+\definecolor{blue-300}{HTML}{b3cad9} 
+\definecolor{white}{HTML}{F8FAFC} 
+
+\colorlet{background}{blue-900}
+\colorlet{textPrimary}{white}
+\colorlet{textMuted}{gray}
+\colorlet{urls}{blue!60!white}
+
+\setbeamercolor{background canvas}{bg=background} % slides background
+\setbeamercolor{normal text}{fg=textPrimary,bg=background} % text; background
+
+\colorlet{beam}{blue-300} % beams color
+
+% URLs
+\hypersetup{
+  colorlinks=true,
+  linkcolor=cyan!70!white,
+  urlcolor=cyan!70!white,
+  citecolor=cyan!70!white
+}
+
+\setbeamercolor{title}{fg=blue-900}
+\setbeamercolor{subtitle}{fg=textMuted}
+\setbeamercolor{frametitle}{fg=textPrimary,bg=blue-900}
+\setbeamercolor{author}{fg=textMuted}
+\setbeamercolor{institute}{fg=textMuted}
+\setbeamercolor{date}{fg=textMuted}
+
+% Impacts some other elements
+\setbeamercolor{structure}{fg=blue-600}
+\setbeamercolor*{palette primary}{fg=textPrimary,bg=blue-900}
+\setbeamercolor*{palette secondary}{fg=blue-600,bg=blue-900}
+\setbeamercolor*{palette tertiary}{fg=blue-900,bg=textPrimary}
+\setbeamercolor*{palette quaternary}{fg=blue-900,bg=textPrimary}
+
+% TOC
+\setbeamercolor{section in toc}{parent=blue-900}
+\setbeamercolor{subsection in toc}{parent=blue-900}
+
+% Items
+\setbeamercolor{item}{fg=blue-600, bg=textPrimary}
+\setbeamercolor{subitem}{fg=blue-600, bg=textPrimary}
+\setbeamercolor{subsubitem}{fg=blue-600, bg=textPrimary}
+
+\addtobeamertemplate{note page}{%
+  \setbeamercolor{item}{fg=blue-600}
+  \setbeamertemplate{itemize item}{
+    \color{blue-600}\tiny$\blacksquare$
+  }
+}{}
+
+
+% Example, alert, description blocks
+\setbeamercolor{block title}{use=normal,fg=white,bg=structure.fg!90!white}
+\setbeamercolor{block body}{fg=textPrimary, bg=blue-600}
+
+\setbeamercolor{block title example}{parent=block title, fg=example text.fg!50!white}
+\setbeamercolor{block body example}{parent=block body}
+
+\setbeamercolor{block title alerted}{parent=block title, fg=alerted text.fg!60!white}
+\setbeamercolor{block body alerted}{parent=block body}
+
+\definecolor{panelTitle}{HTML}{111827}   % panels / bars
+\definecolor{panelBody}{HTML}{05325A}  % secondary panel
+
+\setbeamercolor{block title}{fg=textPrimary,bg=panelTitle}
+\setbeamercolor{block body}{fg=textPrimary,bg=panelBody}
+
+\definecolor{example}{HTML}{6f806f}    % header/footer variant
+\setbeamercolor{block title example}{fg=example text.fg!50!white,bg=panelTitle}
+\setbeamercolor{block body example}{parent=block body}
+
+\setbeamercolor{block title alerted}{fg=alerted text.fg!60!white,bg=panelTitle}
+\setbeamercolor{block body example}{parent=block body}
+
+% Notes
+\setbeamercolor{note page}{fg=white,bg=blue-900}
+\setbeamercolor{note title}{fg=white,bg=blue-900}
+
+\mode<all>

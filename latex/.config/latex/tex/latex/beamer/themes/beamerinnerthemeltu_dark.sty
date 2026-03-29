@@ -1,18 +1,24 @@
 \mode<presentation>
 
-\setbeamertemplate{sections/subsections in toc}[square]
 % Vertically align bullet icon
 \setbeamertemplate{itemize item}{\raisebox{0.22ex}{\tiny$\blacksquare$}\hskip0.1em}
 \setbeamertemplate{itemize subitem}{\raisebox{0.12ex}{\tiny$\blacksquare$}\hskip0.1em}
 
+% Make lists in TOC numbered
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\setbeamercolor{section in toc}{fg=blue-600}
+\setbeamercolor{subsection in toc}{fg=blue-600}
+
 \RequirePackage{graphicx}
 \graphicspath{{theme/images/}} % Added, so Overleaf
 % Title page
-\defbeamertemplate*{title page}{ltu}
+\defbeamertemplate*{title page}{ltu dark}
 { 
   \tikz[remember picture,overlay] \node[inner sep=0pt] at (current page.center){
-    {\color{structure}\rule{0.5\paperwidth}{\paperheight}}%
-    \includegraphics[width=0.5\paperwidth,height=1\paperheight]{title_page_red_bg.jpg}
+    {\color{background}\rule{0.5\paperwidth}{\paperheight}}%
+    \includegraphics[width=0.5\paperwidth,height=1\paperheight]{title_page_blue_bg.jpg}
   };
   \begin{tikzpicture}[remember picture, overlay]
     \node[anchor=center] at (current page.center) {
