@@ -1590,7 +1590,7 @@ Made for `org-tab-first-hook' in evil-mode."
                       (org-agenda-prefix-format '((todo . " %-22:(get-top-heading-in-block) %13(my/org-agenda-s-or-d-prefix)  %-4e ")))
                       (org-super-agenda-groups
                        `((:discard (:scheduled today))
-                         (:name "In a week" :scheduled (before ,one-week-from-today))
+                         (:name "In a week" :and (:scheduled (before ,one-week-from-today) :not (:todo "NEXT")))
                          (:discard (:anything))
                          ))))
             ))
