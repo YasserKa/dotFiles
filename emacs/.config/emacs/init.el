@@ -1574,6 +1574,7 @@ Made for `org-tab-first-hook' in evil-mode."
                       (org-agenda-overriding-header "")
                       (org-super-agenda-groups
                        '(
+                         (:discard (:todo "NEXT"))
                          (:name "Blocked" :todo "BLOCKED")
                          (:name "High priority"
                                 :priority "A")
