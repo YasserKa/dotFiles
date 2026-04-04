@@ -12,13 +12,8 @@ snippet="$(<"$SNIPPETS_FILE" cut -d '=' -f -1 | rofi -dmenu | xargs -I{} grep {}
 
 [[ -z "$snippet" ]] && exit 1
 
-CLIPBOARD="$(clipboard_paste)"
-clipboard_copy "$snippet"
-
 if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-  wtype -M ctrl -M shift v -m ctrl -m shift
+	wtype "$snippet"
 elif [[ -n "${DISPLAY}" ]]; then
-  xdotool key --clearmodifiers ctrl+shift+v
-  xdotool key --clearmodifiers
+	xdotool type --clearmodifiers "$snippet"
 fi
-clipboard_copy "$CLIPBOARD"
