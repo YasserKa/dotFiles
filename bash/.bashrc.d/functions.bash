@@ -187,7 +187,7 @@ vf() {
 
 # Kill processes
 fkill() {
-	local -r pid="$(fps)"
+	local -r pid="$(fps --kill)"
 
 	if [[ "$pid" ]]; then
 		echo "$pid" | xargs kill "-${1:-9}"
