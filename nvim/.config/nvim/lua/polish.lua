@@ -438,7 +438,7 @@ vim.keymap.set({ "i" }, "<C-e>", function()
   end
 end)
 
-require "syntax-tree-surfer" -- {{{
+-- require "syntax-tree-surfer" -- {{{
 -- Syntax Tree Surfer
 -- local opts = { noremap = true, silent = true }
 
@@ -485,7 +485,7 @@ require "syntax-tree-surfer" -- {{{
 --vim.keymap.set("x", "<A-k>", "<cmd>STSSwapPrevVisual<cr>", opts)
 ---- Syntax Tree Surfer V2 Mappings
 ---- Targeted Jump with virtual_text
-local sts = require "syntax-tree-surfer"
+-- local sts = require "syntax-tree-surfer"
 --vim.keymap.set("n", "gsv", function() -- only jump to variable_declarations
 --	sts.targeted_jump({ "variable_declaration" })
 --end, opts)
