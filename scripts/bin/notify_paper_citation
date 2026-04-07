@@ -11,6 +11,7 @@ main() {
 	local response citations influential
 
 	DOI="$("$XDG_CONFIG_HOME/Zotero/bin/zotero_utility" get_metadata DOI "$URL")"
+	[[ "$DOI" == "DOI not found" ]] && dunstify "DOI not found" && exit 0
 	response=$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/DOI:${DOI}?fields=citationCount,influentialCitationCount")
 
 	# DOI, didn't work, use title
