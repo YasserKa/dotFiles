@@ -2071,6 +2071,56 @@ Note: this uses Org's internal variable `org-link--search-failed'."
               citar-indicator-links-icons
               citar-indicator-notes-icons
               citar-indicator-cited-icons))
+
+    (defun my-citar--parse-time-seconds (s)
+      "Return sortable seconds for timestamp string S, or 0 if missing."
+      (let ((tm (and (stringp s)
+                     (not (string-empty-p s))
+                     (condition-case nil
+                         (date-to-time s)
+                       (error nil)))))
+        (if tm
+            (float-time tm)
+          0)))
+
+    (defun citar--completion-table (candidates &optional filter &rest metadata)
+      "Return a completion table for CANDIDATES, sorted by timestamp."
+      (let ((items nil)
+            (meta `(metadata
+                    (category . citar-candidate)
+                    (affixation-function . ,#'citar--ref-affix)
+                    ,@metadata)))
+        ;; Build a sortable list once.
+        (maphash
+         (lambda (display citekey)
+           (let* ((entry (citar-get-entry citekey))
+                  (ts    (cdr (assoc "timestamp" entry)))
+                  (score  (my-citar--parse-time-seconds ts)))
+             (when (or (null filter) (funcall filter citekey))
+               (push (cons score (cons display citekey)) items))))
+         candidates)
+
+        ;; Newest first.
+        (setq items
+              (sort items
+                    (lambda (a b) (> (car a) (car b)))))
+
+        (setq items (mapcar #'cdr items))
+
+        (lambda (string predicate action)
+          (if (eq action 'metadata)
+              meta
+            (complete-with-action action items string predicate)))))
+
+  (with-eval-after-load 'vertico
+    (defun my-vertico-no-sort-for-citar ()
+      (let ((m (completion-metadata (minibuffer-contents)
+                                    minibuffer-completion-table
+                                    minibuffer-completion-predicate)))
+        (when (eq (completion-metadata-get m 'category) 'citar-candidate)
+          (setq-local vertico-sort-function nil))))
+    (add-hook 'minibuffer-setup-hook #'my-vertico-no-sort-for-citar))
+
   )
 
 (use-package citar-embark
