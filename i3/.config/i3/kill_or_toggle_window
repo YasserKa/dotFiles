@@ -9,34 +9,38 @@ SCRATCHPAD_WINDOWS=(
 )
 
 for window in "${SCRATCHPAD_WINDOWS[@]}"; do
-    is_match="$(i3-msg -t get_tree | jq --arg re "$window" '
-      any(
-        recurse(.nodes[]?, .floating_nodes[]?);
-        .focused and (
-          ((.name // "") | test($re)) or
-          ((.app_id // "") | test($re)) or
-          ((.window_properties.class // "") | test($re))
-        )
-      )
+
+    focused_window_id="$(i3-msg -t get_tree | jq --arg re "$window" '
+    .. | objects
+    | select(
+    .focused and (
+        (.name? == $re) or
+        (.app_id? == $re) or
+        (.window_properties.class? == $re))
+    ) | .id
     ')"
 
-    if [[ "$is_match" == "true" ]]; then
-        # Only move to scratch the thunderbird main window & kill secondary ones
-        if [[ "$window" == "org.mozilla.Thunderbird" ]]; then
-            is_thunder_main_window="$(i3-msg -t get_tree | jq '
-        .. |
-        select(.focused? == true) |
-        select(.app_id == "org.mozilla.Thunderbird") |
-        select(.name | test("^(?!Save All Attachments).*Mozilla Thunderbird$")) |
-        {app_id, name}
-        ')"
-            [[ -z "$is_thunder_main_window" ]] && break
-        fi
+    # Window focus isn't in the list
+    [[ -z "$focused_window_id" ]] && continue
 
-        # NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
-        i3-msg "$(window_get_condition "$window")" fullscreen disable && i3-msg "$(window_get_condition "$window")" move scratchpad
-        exit 0
+    # Get all window ids that have same property
+    windows_ids="$(i3-msg -t get_tree | jq --arg re "$window" '
+    .. | objects
+    | select(
+        (.name? == $re) or
+        (.app_id? == $re) or
+        (.window_properties.class? == $re)
+    ) | .id
+    ')"
+
+    # If the window id is not the smallest -> it's a secondary window
+    if [[ "$(echo "$windows_ids" | wc -l)" -gt 1 ]]; then
+        [[ "$("$windows_ids" | head -n 1)" != "$focused_window_id" ]] && break
     fi
+
+    # NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
+    i3-msg "[con_id=$focused_window_id] fullscreen disable" && i3-msg "[con_id=$focused_window_id] move scratchpad"
+    exit 0
 done
 
 i3-msg kill
