@@ -23,6 +23,19 @@
 (defvar my/file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 (add-hook 'emacs-startup-hook (lambda () (setq file-name-handler-alist my/file-name-handler-alist)))
+
+;; Performance Tweaks from https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/
+;; Disable Bidirectional Text Scanning
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+;; Skip Fontification During Input
+(setq redisplay-skip-fontification-on-input t)
+;; Increase Process Output Buffer for LSP
+(setq read-process-output-max (* 4 1024 1024)) ; 4MB
+;; Don't render cursors in non-focused windows
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
 ;; }}}
 
 ;; Prevent package.el from loading (needed by straight)
