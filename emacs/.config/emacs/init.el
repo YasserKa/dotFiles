@@ -2127,7 +2127,10 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   :after (citar embark)
   :no-require
   :custom
-  (citar-at-point-function 'embark-act)
+  ;; Bind <enter> to opening file
+  (citar-at-point-function 'citar-dwim)
+  (citar-default-action 'citar-open-files) ;; Used by citar-dwim
+
   (citar-library-file-extensions (list "pdf")) ;; Only show PDF files
   (citar-file-additional-files-separator "-")
   :config
@@ -2177,6 +2180,18 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   ;; Enabled, because evil has a bug with repeat command and shifting
   (evil-org-retain-visual-state-on-shift t)
   (evil-org-use-additional-insert t)
+  :init
+(defun my/org-shift-return ()
+  ;; Use embark-act for citar links, otherwise, use org-open-at-point-global
+  (interactive)
+  (let* ((ctx (org-element-context))
+         (type (org-element-type ctx)))
+    (if (memq type '(citation citation-reference))
+        (embark-act)
+      (let ((inhibit-message t))
+       ;; Open link without losing focus of window
+        (update_i3_focus_window_config)
+        (org-open-at-point-global)))))
   :hook ((org-mode . evil-org-mode)
          (evil-org-mode . (lambda ()
                             (evil-org-set-key-theme '(textobjects insert navigation todo calendar additional))
@@ -2218,12 +2233,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
                               ;; Open files at cursor
                               (kbd "gx") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
                               (kbd "<return>") #'(lambda () (interactive) (let ((inhibit-message t)) (org-open-at-point)))
-                              (kbd "<S-return>") #'(lambda () (interactive)
-                                                     ;; Open link without losing focus of window
-                                                     (let ((inhibit-message t))
-                                                       (update_i3_focus_window_config)
-                                                       (org-open-at-point-global)
-                                                       ))))))
+                              (kbd "<S-return>") #'my/org-shift-return))))
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
