@@ -2017,6 +2017,19 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   :config
 
   ;; Activation processor for Org to show links as a CSL style
+  (with-eval-after-load 'oc-csl-activate
+    (defun my/org-cite-csl-activate--sensor-fun (_event prev motion)
+      "Keep rendered citations visible on hover."
+      (when (eq motion 'left)
+        (let* ((pos prev)
+               (citation (org-cite-csl-activate--get-citation pos)))
+          (pcase-let ((`(,beg . ,end)
+                       (org-cite-csl-activate--get-boundaries pos)))
+            (when (and beg end citation)
+              (org-cite-csl-activate--fontify-rendered citation beg end))))))
+
+    (advice-add 'org-cite-csl-activate--sensor-fun :override
+                #'my/org-cite-csl-activate--sensor-fun))
   (require 'oc-csl-activate)
   (setq org-cite-activate-processor 'csl-activate)
   (setq org-cite-csl-activate-use-citar-cache t)
