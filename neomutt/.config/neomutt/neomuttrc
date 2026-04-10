@@ -88,14 +88,15 @@ bind index,pager M noop
 bind index,pager C noop
 bind index h noop
 bind editor <space> noop
-bind index j next-entry
-bind index k previous-entry
+macro index,pager j "<next-entry><sync-mailbox>"
+macro index,pager k "<previous-entry><sync-mailbox>"
 bind pager l view-attachments
 bind attach l view-mailcap
 bind pager,attach h exit
 bind index G last-entry
 bind index gg first-entry
 bind index N search-opposite
+bind index,pager S sync-mailbox
 bind index \en toggle-new
 macro pager,index dd  "<enter-command>set resolve=no<enter><clear-flag>N<tag-prefix>\
 <enter-command>set resolve=yes<enter><delete-message>"
@@ -107,6 +108,7 @@ bind pager,index ]t next-thread
 bind pager,index [t previous-thread
 bind index L limit
 bind index l display-message
+macro index l "<display-message><sync-mailbox>" "view message and save state"
 bind attach <return> view-mailcap
 # bind index,query <space> tag-entry
 macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
@@ -155,12 +157,6 @@ macro index \eff "|grep ^From | awk 'NR==1 {printf "\""macro index Q L%s"\"",$2}
 macro index A "<limit>all\n" "show all messages (undo limit)"
 
 macro compose a "<shell-escape>$XDG_CONFIG_HOME/neomutt/bin/pick_attachments<enter><enter-command>source $XDG_CACHE_HOME/neomutt_attachment<enter>" "Attach file with fzf"
-
-# Sync mail then update polybar after reading new emails
-message-hook ~N 'push "$!{ [ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\"; } >/dev/null &<enter>"'
-# Save changes
-macro index,pager S "<sync-mailbox><shell-escape>{ [ -n \"${WAYLAND_DISPLAY}\" ] && pkill -RTMIN+8 waybar || polybar-msg action \"#mail.hook.0\"; } > /dev/null<enter>"
-
 
 # Source config file
 set my_neomuttrc = $my_neomutt_config_folder/neomuttrc

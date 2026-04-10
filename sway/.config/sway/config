@@ -346,6 +346,8 @@ for_window [title="^CopyQ$"] move scratchpad
 # xcb is needed to make global keybindings work in Xwayland
 exec --no-startup-id copyq & disown && copyq hide
 
+exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/watch_mail_dir
+
 exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
 # Synchronize notes
 exec --no-startup-id bash -ic "org"

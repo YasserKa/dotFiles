@@ -316,11 +316,13 @@ for_window [class="org.mozilla.Thunderbird"] move scratchpad
 exec --no-startup-id sleep 1 && thunderbird
 exec --no-startup-id sleep 2 && birdtray
 
-# Manages some key bindings
+# Open programs
 # exec --no-startup-id autokey-qt & disown
 # Clipboard manager
 for_window [class="^copyq$"] move scratchpad
 exec --no-startup-id copyq & disown && copyq hide
+
+exec --no-startup-id $XDG_CONFIG_HOME/neomutt/bin/watch_mail_dir
 
 exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
 # Synchronize notes

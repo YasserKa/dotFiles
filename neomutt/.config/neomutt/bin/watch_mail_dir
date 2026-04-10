@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# Watch directory for number of emails; update bars if there's a change
+
+MAIL_DIR="$XDG_DATA_HOME/mail"
+STATEFILE="${XDG_RUNTIME_DIR:-/tmp}/mail-new.total"
+
+shopt -s nullglob
+dirs=("$MAIL_DIR"/*/INBOX/new)
+
+[[ ! -d "$MAIL_DIR" ]] && exit 0
+
+count_total() {
+  find "${dirs[@]}" -maxdepth 1 -type f 2>/dev/null | wc -l
+}
+
+last=$([[ -f "$STATEFILE" ]] && cat "$STATEFILE" || echo -1)
+
+while inotifywait -q \
+  -e create -e delete -e moved_to -e moved_from \
+  "${dirs[@]}" >/dev/null; do
+
+  now=$(count_total)
+  if [[ "$now" != "$last" ]]; then
+    printf '%s
+' "$now" >"$STATEFILE"
+    "$SCRIPT" >/dev/null 2>&1 &
+    [[ -n "${WAYLAND_DISPLAY}" ]] && pkill -RTMIN+8 waybar || polybar-msg action "#mail.hook.0"
+    last="$now"
+  fi
+done
