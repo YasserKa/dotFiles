@@ -51,7 +51,7 @@ set forward_format = "Fwd: %s"         # format of subject when forwarding
 set forward_quote                      # include message in forwards
 
 # Use local timezone for date
-set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4})/date +'Date: %a, %d %b %Y %H:%M:%S %z' -d '\\1'/e\""
+set display_filter='exec sed -E "s/^Date:[[:space:]]*([^()]+)([[:space:]]+\([^)]+\))?$/date +'\''Date: %a, %d %b %Y %H:%M:%S %z'\'' -d '\''\1'\''/e"'
 
 # Thread
 bind index <space> collapse-thread
@@ -107,7 +107,6 @@ bind pager,index dt delete-subthread
 bind pager,index ]t next-thread
 bind pager,index [t previous-thread
 bind index L limit
-bind index l display-message
 macro index l "<display-message><sync-mailbox>" "view message and save state"
 bind attach <return> view-mailcap
 # bind index,query <space> tag-entry
