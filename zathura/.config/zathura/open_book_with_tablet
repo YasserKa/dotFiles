@@ -2,12 +2,19 @@
 #
 # Open document on tablet
 
-declare -r DOC_PATH="$1"
-BOOKS_DIR="$HOME/Documents/books/"
+DOC_PATH="$1"
+BOOKS_DIR="/home/yasser/Documents/books"
 PAPERS_DIR="$XDG_CONFIG_HOME/Zotero/storage"
-quoted_file_basename="$(printf '%q' "${DOC_PATH##*/}")"
+quoted_file_basename="${DOC_PATH##*/}"
 
 DOC_PATH=$(realpath "$DOC_PATH")
+
+is_inside() {
+  case "$1" in
+  "$2" | "$2"/*) return 0 ;;
+  *) return 1 ;;
+  esac
+}
 
 # If document doesn't exists in syncthing, move it to books/tmp/ & sync it
 [[ "$DOC_PATH" != "$BOOKS_DIR"/* && "$DOC_PATH" != "$PAPERS_DIR"/* ]] && {
