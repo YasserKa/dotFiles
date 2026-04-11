@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 
+#
 # Goto to a page in a table of content in Zathura
 #
 # Dependencies: zathura get_toc awk fzf i3
@@ -9,17 +9,18 @@ declare -r PAGE="$2"
 declare -r DBUS="$3"
 
 declare FILE_BASENAME FILE_TOC # Contains Table of content
-FILE_BASENAME=${FILE_PATH##*/}; FILE_BASENAME=${FILE_BASENAME%.*}
+FILE_BASENAME=${FILE_PATH##*/}
+FILE_BASENAME=${FILE_BASENAME%.*}
 FILE_TOC="$XDG_CACHE_HOME/documents_toc/${FILE_BASENAME}"
 readonly FILE_BASENAME FILE_TOC
 
-# Store TOC 
+# Store TOC
 mkdir -p "${FILE_TOC%/*}"
-[[ ! -f "$FILE_TOC"  ]] && "$XDG_CONFIG_HOME/zathura/get_toc" --document_path "$FILE_PATH" --toc_path "$FILE_TOC"
+[[ ! -f "$FILE_TOC" ]] && "$XDG_CONFIG_HOME/zathura/get_toc" --document_path "$FILE_PATH" --toc_path "$FILE_TOC"
 
 # Get the candidate position containing current page
 pos="$(
-awk -v x="$PAGE" '{ 
+  awk -v x="$PAGE" '{ 
     for (i=NF; i>0; i--) 
         if ($i ~ /^[0-9]+$/) { 
             if ($i > x ) {print NR-2; exit} 
@@ -28,10 +29,10 @@ awk -v x="$PAGE" '{
 )"
 
 # Don't focus zathura window when changing pages
-cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 && busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
+cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 & busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
 # C-A-f toggle follow page
 # C-g go to page
-kitty_control --geometry 'resize set 990 500, move down 500 px' "cat '${FILE_TOC}'  \
+kitty_control --geometry 'resize set 990 500, move position 35 ppt 63 ppt' "cat '${FILE_TOC}'  \
   | fzf --reverse \
   --preview '' \
   --bind 'result:pos($pos)' \
