@@ -15,6 +15,8 @@ from IPython.core.magic import register_cell_magic
 # ju.reset_display()
 # with ju.full_display():
 #     print(df)
+# ju.save_interim(df, <name>)
+# ju.load_interim(<name>)
 # ju.vz(df)
 #
 # %%notify <(optional) message>
@@ -84,25 +86,45 @@ class JupyterUtils:
     # ---------------------------
     # Data saving / loading
     # ---------------------------
-    def save_interim(self, df, name="tmp"):
-        """Save DataFrame as parquet."""
-        path = os.path.join(self.tmp_folder, f"{name}.parquet")
-        df.to_parquet(path, index=False)
-        print(f"Saved: {path}")
-
     def load_interim(self, name="tmp"):
-        """Load DataFrame from parquet."""
-        path = os.path.join(self.tmp_folder, f"{name}.parquet")
-        df = pd.read_parquet(path)
-        print(f"Loaded: {path}")
-        return df
+        """Load dataFrame or dictionary"""
+        path = os.path.join(self.tmp_folder, f"{name}")
+        if os.path.exists(f"{path}.parquet"):
+            object = pd.read_parquet(f"{path}.parquet")
+        elif os.path.exists(f"{path}.json"):
+            import json
 
-    def dump_var(self, var, name="var"):
-        """Save arbitrary variable as JSON."""
-        path = os.path.join(self.tmp_folder, f"{name}.json")
-        with open(path, "w") as f:
-            json.dump(var, f, default=str, indent=4)
-        print(f"Variable saved: {path}")
+            with open(f"{path}.json") as f:
+                object = json.load(f)
+        else:
+            print(f"path not found {path}")
+            return None
+
+        print(f"Loaded: {path}")
+        return object
+
+    def save_interim(self, obj, name="tmp"):
+        """Save dataFrame as parquet or dictionary as JSON object"""
+        from pathlib import Path
+
+        # Remove files with same extension to load the correct one
+        directory = Path(self.tmp_folder)
+
+        for path in directory.glob(f"{name}.*"):
+            if path.is_file():
+                path.unlink()
+        match obj:
+            case dict():
+                path = os.path.join(self.tmp_folder, f"{name}.json")
+                with open(path, "w") as f:
+                    json.dump(obj, f, default=str, indent=4)
+                print(f"Dictionary saved: {path}")
+            case pd.DataFrame():
+                path = os.path.join(self.tmp_folder, f"{name}.parquet")
+                obj.to_parquet(path, index=False)
+                print(f"Dataframe saved: {path}")
+            case _:
+                print("Unknown type")
 
     # ---------------------------
     # Object visualization
@@ -110,14 +132,13 @@ class JupyterUtils:
     def vz(self, obj, name="data"):
         """Visualize dicts or DataFrames with external viewer."""
         file_path = os.path.join(self.tmp_folder, name)
+        self.save_interim(obj, name)
         match obj:
             case dict():
-                self.dump_var(obj, name)
                 os.system(
                     f"kitty_control --floating --geometry 'fullscreen toggle' \"jless {file_path}.json\""
                 )
             case pd.DataFrame():
-                self.save_interim(obj, name)
                 os.system(
                     f"kitty_control --floating --geometry 'fullscreen toggle' \"vd {file_path}.parquet\""
                 )
@@ -178,7 +199,7 @@ def notify(line, cell):
     if notification_msg == "":
         notification_msg = "Cell execution done"
 
-    os.system(f"dunstify '{notification_msg}'")
+    os.system(f"dunstify --timeout 9999 '{notification_msg}'")
 
 
 @register_cell_magic
