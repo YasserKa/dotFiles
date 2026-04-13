@@ -7,6 +7,20 @@ from IPython import get_ipython
 from IPython.display import display
 from IPython.core.magic import register_cell_magic
 
+# Usage
+# import jupyter_utils
+# ju = jupyter_utils.JupyterUtils()
+#
+# ju.max_display()
+# ju.reset_display()
+# with ju.full_display():
+#     print(df)
+# ju.vz(df)
+#
+# %%notify <(optional) message>
+# %%timer
+# %%execute_if <bool>
+
 
 class JupyterUtils:
     def __init__(self, tmp_folder="/tmp/data"):
@@ -113,6 +127,7 @@ class JupyterUtils:
     # ---------------------------
     # Quick summary / profiling
     # ---------------------------
+    @staticmethod
     def summarize(df, include_stats=False):
         """Enhanced DataFrame summary."""
         print("Shape:", df.shape)
@@ -159,7 +174,11 @@ class JupyterUtils:
 def notify(line, cell):
     """Send notification after cell execution."""
     get_ipython().run_cell(cell)
-    os.system("dunstify Cell execution done")
+    notification_msg = line
+    if notification_msg == "":
+        notification_msg = "Cell execution done"
+
+    os.system(f"dunstify '{notification_msg}'")
 
 
 @register_cell_magic
