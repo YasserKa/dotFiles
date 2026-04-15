@@ -306,6 +306,12 @@ script=~/.config/dunst/slack_delegate
 appname = slack-delegate
 new_icon = slack
 
+[thunderbird]
+appname = Thunderbird
+skip_display = yes
+history_ignore = no
+script=~/.config/dunst/thunderbird_delegate
+
 # Whatsapp messages using KDEconnect
 [whatsapp]
 summary = "*WhatsApp*"

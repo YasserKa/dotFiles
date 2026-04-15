@@ -744,9 +744,10 @@ pcmanfm() { (command pcmanfm "$@" &) }
 # Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
 thunderbird() {
 	is_window_exists '^org.mozilla.Thunderbird$' && \
-		{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current; } && \
+		{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
 			i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && exit 0
-	command thunderbird
+	command thunderbird &
+	wait_window '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
 }
 zotero() {
 	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, focus" && exit 0
