@@ -750,6 +750,7 @@ thunderbird() {
 	wait_window '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
 }
 zotero() {
-	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, focus" && exit 0
+	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, floating disable, focus" && exit 0
 	command zotero &
+	wait_window '^Zotero$' && i3-msg "$(window_get_condition '^Zotero$') move scratchpad"
 }
