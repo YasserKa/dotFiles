@@ -35,7 +35,7 @@ for window in "${SCRATCHPAD_WINDOWS[@]}"; do
 
     # If the window id is not the smallest -> it's a secondary window
     if [[ "$(echo "$windows_ids" | wc -l)" -gt 1 ]]; then
-        [[ "$("$windows_ids" | head -n 1)" != "$focused_window_id" ]] && break
+        [[ "$(echo "$windows_ids" | head -n 1)" != "$focused_window_id" ]] && break
     fi
 
     # NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
