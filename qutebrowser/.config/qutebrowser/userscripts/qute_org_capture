@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2 &
-disown
+"$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2
 
 encode_url() {
 	# Reliable localization
@@ -10,10 +9,10 @@ encode_url() {
 	for ((i = 0; i < ${#1}; i++)); do
 		: "${1:i:1}"
 		case "$_" in
-		# Keep allowed characters
-		[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-		# Encode disallowed characters
-		*) printf '%%%02X' "'$_" ;;
+			# Keep allowed characters
+			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+			# Encode disallowed characters
+			*) printf '%%%02X' "'$_" ;;
 		esac
 	done
 	printf '\n'

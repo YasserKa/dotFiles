@@ -37,6 +37,3 @@ if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 elif [[ -n "${DISPLAY}" ]]; then
 	i3-msg reload
 fi
-
-# Wait until reverting is finished
-[[ -n "$curr_pid" ]] && wait "$curr_pid"

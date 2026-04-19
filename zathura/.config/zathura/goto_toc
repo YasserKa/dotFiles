@@ -29,7 +29,7 @@ pos="$(
 )"
 
 # Don't focus zathura window when changing pages
-cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 & busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
+cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 && busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
 # C-A-f toggle follow page
 # C-g go to page
 kitty_control --geometry 'resize set 990 500, move position 35 ppt 63 ppt' "cat '${FILE_TOC}'  \
