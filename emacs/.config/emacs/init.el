@@ -1528,6 +1528,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq one-week-from-today (format-time-string "%Y-%m-%d" (org-read-date nil t "+1w")))
   ;; Move habit bar
   (setq org-habit-graph-column 60)
+  (add-to-list 'org-default-properties "SKIP_IN_A_WEEK") ;; Property to ignore tasks in agenda
   (setq org-agenda-custom-commands
         '(("a" "Default agenda"
            (
@@ -1591,24 +1592,24 @@ Made for `org-tab-first-hook' in evil-mode."
                       (org-agenda-prefix-format '((todo . " %-22:(get-top-heading-in-block) %13(my/org-agenda-s-or-d-prefix)  %-4e ")))
                       (org-super-agenda-groups
                        `((:discard (:scheduled today))
-                         (:name "In a week" :and (:scheduled (before ,one-week-from-today) :not (:todo "NEXT") :not (:file-path ".*/tasks.org") :not (:file-path ".*/capture.org")))
+                         (:name "In a week" :and (:scheduled (before ,one-week-from-today) :not (:property "SKIP_IN_A_WEEK") :not (:todo "NEXT") :not (:file-path ".*/tasks.org") :not (:file-path ".*/other_tasks.org") :not (:file-path ".*/capture.org")))
                          (:discard (:anything))
-                         ))))
-            ))
-          ("o" "Others"
-           ((alltodo ""
-                     (
-                      (org-agenda-prefix-format '((todo . " %-5e")))
-                      (org-agenda-overriding-header "")
-                      (org-super-agenda-header-separator "")
-                      (org-super-agenda-groups
-                       '(
-                         (:name "Capture"
-                                :file-path ".*capture.org")
-                         (:name "\nTasks"
-                                :file-path ".*/tasks.org")
-                         (:discard (:anything))
-                         ))))
+                ))))
+              ))
+            ("o" "Others"
+            ((alltodo ""
+                      (
+                        (org-agenda-prefix-format '((todo . " %-5e")))
+                        (org-agenda-overriding-header "")
+                        (org-super-agenda-header-separator "")
+                        (org-super-agenda-groups
+                        '(
+                          (:name "Capture"
+                                  :file-path ".*capture.org")
+                          (:name "\nTasks"
+                                  :file-path ".*/tasks.org")
+                          (:discard (:anything))
+                          ))))
             (todo "DONE" ((org-agenda-overriding-header "\nCompleted")))
             (todo "CANCELED" ((org-agenda-overriding-header "\nCanceled")))
             ))
