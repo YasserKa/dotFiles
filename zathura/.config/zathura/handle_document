@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-""" Remove/Yank annotated text """
+"""Remove/Yank annotated text"""
 
 # pyright: ignore [reportGeneralTypeIssues]
 
@@ -12,6 +12,7 @@ import fitz
 import pyperclip as pc
 
 FILE_PATH = sys.argv[2]
+
 
 def main():
     if sys.argv[1] == "get_annotations":
@@ -30,7 +31,10 @@ def main():
         raise ValueError
 
 
-def parse_highlight(annot: fitz.Annot, wordlist: List[Tuple[float, float, float, float, str, int, int, int]]) -> str:
+def parse_highlight(
+    annot: fitz.Annot,
+    wordlist: List[Tuple[float, float, float, float, str, int, int, int]],
+) -> str:
     points = annot.vertices
     quad_count = int(len(points) / 4)
     sentences = []
@@ -53,10 +57,11 @@ def handle_page(page):
     while annot:
         if annot.type[0] == 8:
             highlights.append(parse_highlight(annot, wordlist))
-            if 'content' in annot.info:
+            if "content" in annot.info:
                 highlights.append(f" {annot.info['content']} ")
         annot = annot.next
     return highlights
+
 
 def yank_highlights():
     doc = fitz.open(FILE_PATH)
@@ -66,6 +71,7 @@ def yank_highlights():
         highlights += handle_page(page)
 
     pc.copy("\n".join(highlights))
+
 
 def yank_section_name_of_page(page_num: int):
     """Get the section name of the highlighted text
@@ -83,10 +89,10 @@ def yank_section_name_of_page(page_num: int):
         curr_section = section
         curr_index = index
         # Get the section that's after this page
-        if page_num  < curr_section[2]:
-            page_text = doc.get_page_text(page_num-1, flags=0)
+        if page_num < curr_section[2]:
+            page_text = doc.get_page_text(page_num - 1, flags=0)
             # Get the current section (could be in current page or before)
-            curr_section = toc[curr_index-1]
+            curr_section = toc[curr_index - 1]
             section_name = curr_section[1]
 
             # If the section in current page, check if text is after the section
@@ -97,12 +103,19 @@ def yank_section_name_of_page(page_num: int):
                 if page_text.rfind(text) > page_text.rfind(section_name):
                     break
                 else:
-                    curr_index = curr_index-1
-                    curr_section = toc[curr_index-1]
+                    curr_index = curr_index - 1
+                    curr_section = toc[curr_index - 1]
                     section_name = curr_section[1]
             break
-    subprocess.run(["/home/yasser/.config/zathura/yank_zathura_link_handler",
-                    FILE_PATH, str(page_num), section_name])
+    subprocess.run(
+        [
+            "/home/yasser/.config/zathura/yank_zathura_link_handler",
+            FILE_PATH,
+            str(page_num),
+            section_name,
+        ]
+    )
+
 
 def yank_chapters_as_tasks():
     """Yank chapters as Org tasks in the following format
@@ -111,13 +124,23 @@ def yank_chapters_as_tasks():
     Args:
         file_path: path fo file
     """
+    from urllib.parse import quote
+    from pathlib import Path
+
     doc = fitz.open(FILE_PATH)
     toc = doc.get_toc()
 
+    file_name = Path(FILE_PATH).name
+
     chapters = filter(lambda x: x[0] == 1, toc)
-    tasks = [f"** TODO Read {chapter[1]} chapter ({index})" for index, chapter
-             in enumerate(chapters)]
-    pc.copy("\n".join(tasks))
+    tasks = ""
+    for index, chapter in enumerate(chapters):
+        encoded_command = quote(f'open_document "{file_name}" {chapter[2]}', safe="")
+        link_name = f"{file_name}, page {chapter[2]}"
+        org_url = f"[[link-handler://{encoded_command}][{link_name}]]"
+        tasks += f"** TODO Read {chapter[1]} chapter ({index})\n{org_url}\n"
+
+    pc.copy(tasks)
 
 
 def remove_annotations():
@@ -130,6 +153,7 @@ def remove_annotations():
             page.delete_annot(annot)
             annot = next_annot
     doc.save(FILE_PATH, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
+
 
 if __name__ == "__main__":
     main()
