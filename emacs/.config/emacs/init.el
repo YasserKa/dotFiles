@@ -1565,7 +1565,7 @@ Made for `org-tab-first-hook' in evil-mode."
                       `((:discard (:log closed))
                         (:discard (:scheduled t))
                         (:name "Deadline"
-                               :deadline (before ,one-week-from-today))
+                               :and (:deadline (before ,one-week-from-today) :not (:todo "BLOCKED")))
                         (:discard (:anything))
                         ))))
             (alltodo ""
@@ -1575,7 +1575,7 @@ Made for `org-tab-first-hook' in evil-mode."
                       (org-agenda-overriding-header "")
                       (org-super-agenda-groups
                        '(
-                         (:discard (:todo "NEXT"))
+                         (:discard (:todo "NEXT" :scheduled today))
                          (:name "Blocked" :todo "BLOCKED")
                          (:name "High priority"
                                 :priority "A")
@@ -1591,7 +1591,7 @@ Made for `org-tab-first-hook' in evil-mode."
                       (org-agenda-sorting-strategy '(timestamp-up))
                       (org-agenda-prefix-format '((todo . " %-22:(get-top-heading-in-block) %13(my/org-agenda-s-or-d-prefix)  %-4e ")))
                       (org-super-agenda-groups
-                       `((:discard (:scheduled today))
+                       `((:discard (:scheduled today :priority "A"))
                          (:name "In a week" :and (:scheduled (before ,one-week-from-today) :not (:property "SKIP_IN_A_WEEK") :not (:todo "NEXT") :not (:file-path ".*/tasks.org") :not (:file-path ".*/other_tasks.org") :not (:file-path ".*/capture.org")))
                          (:discard (:anything))
                 ))))
