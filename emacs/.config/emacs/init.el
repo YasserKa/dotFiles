@@ -906,8 +906,8 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                                 \\] ")
                     :cond #'texmathp ; expand only while in math
                     "t=" "\\triangleq"
-                    "Sum" '(yas "\\sum_{$1}^{$2} $0")
-                    "Prod" '(yas "\\prod_{$1}^{$2} $0")
+                    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
+                    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
                     ;; add accent snippets
                     :cond #'laas-object-on-left-condition
                     "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
@@ -1707,16 +1707,31 @@ Made for `org-tab-first-hook' in evil-mode."
    ;; org-clock-mode-line-total 'today
    )
 
+  (defun my/org-clock-sum-today-current-entry ()
+    (save-restriction
+      (org-narrow-to-subtree)
+      (let* ((today (format-time-string "%Y-%m-%d"))
+            (tstart (concat today " 00:00"))
+            (tend   (concat today " 23:59")))
+        (org-clock-sum tstart tend))))
+
   ;; Clock in clock out hooks with the bar
   (defun my/add-clock-tmp-file ()
+  (let ((today-mins (save-restriction
+                      (org-narrow-to-subtree)
+                      (let* ((today (format-time-string "%Y-%m-%d"))
+                             (tstart (concat today " 00:00"))
+                             (tend   (concat today " 23:59")))
+                        (org-clock-sum tstart tend)))))
     (shell-command (concat "/bin/echo -e "
                            "\"" (org-get-heading t t t t) " \n"
                            (org-entry-get nil "Effort") " \n"
                            (substring-no-properties (org-clock-get-clock-string)) " \n"
+                           (format "%s" today-mins) " \n"
                            (what-line) " \n"
                            (buffer-file-name) "\""
                            " > /tmp/org_current_task"))
-    )
+    ))
 
   (defun my/org-clock-out-done ()
     "Clock out and switch state of task to done"

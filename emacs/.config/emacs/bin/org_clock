@@ -8,9 +8,12 @@
 # Path to the file that contains info about the entry
 declare -r TMP_FILE_PATH="/tmp/org_current_task"
 # Path to the file that contains flag to show clocked time in the bar
-declare -r TMP_FILE_FLAG_PATH="/tmp/org_current_task_flag_bar"
+declare -r TMP_FILE_FLAG_PATH_BAR="${XDG_CACHE_HOME}/org_current_task_flag_bar"
+# Path to the file that contains flag to show clocked time done today/total
+declare -r TMP_FILE_FLAG_PATH_TODAY="${XDG_CACHE_HOME}/org_current_task_flag_today"
 
-[[ ! -e "${TMP_FILE_FLAG_PATH}" ]] && echo 1 >"${TMP_FILE_FLAG_PATH}"
+[[ ! -e "${TMP_FILE_FLAG_PATH_BAR}" ]] && echo 1 >"${TMP_FILE_FLAG_PATH_BAR}"
+[[ ! -e "${TMP_FILE_FLAG_PATH_TODAY}" ]] && echo 0 >"${TMP_FILE_FLAG_PATH_TODAY}"
 
 ################################################################################
 # Focus emacs window that's used for org mode and go to the clocked in entry
@@ -40,12 +43,25 @@ go_to_scheduled_entry() {
 ################################################################################
 toggle_bar_time() {
 	local -i OLD_FLAG
-	OLD_FLAG="$(tail -n 1 "${TMP_FILE_FLAG_PATH}")"
+	OLD_FLAG="$(tail -n 1 "${TMP_FILE_FLAG_PATH_BAR}")"
 	readonly OLD_FLAG
 	local -i FLAG
 	((OLD_FLAG == 0)) && FLAG=1 || FLAG=0
 	readonly FLAG
-	sed -i "\$s/${OLD_FLAG}/${FLAG}/" "${TMP_FILE_FLAG_PATH}"
+	sed -i "\$s/${OLD_FLAG}/${FLAG}/" "${TMP_FILE_FLAG_PATH_BAR}"
+}
+
+################################################################################
+# Toggle if the time for the clock should be shown or not
+################################################################################
+toggle_today_time() {
+	local -i OLD_FLAG
+	OLD_FLAG="$(tail -n 1 "${TMP_FILE_FLAG_PATH_TODAY}")"
+	readonly OLD_FLAG
+	local -i FLAG
+	((OLD_FLAG == 0)) && FLAG=1 || FLAG=0
+	readonly FLAG
+	sed -i "\$s/${OLD_FLAG}/${FLAG}/" "${TMP_FILE_FLAG_PATH_TODAY}"
 }
 
 ################################################################################
@@ -83,7 +99,7 @@ get_info() {
 
 	local INFO
 
-	if [[ "$(cat "$TMP_FILE_FLAG_PATH")" == 1 ]] || [[ "$2" == 1 ]]; then
+	if [[ "$(cat "$TMP_FILE_FLAG_PATH_BAR")" == 1 ]] || [[ "$2" == 1 ]]; then
 		local TIME
 		TIME="$(get_time "${FILE_LINES}")"
 
@@ -144,18 +160,22 @@ get_time() {
 	# Convert time to seconds
 	SECONDS_ALREADY_SPENT="$(echo "$TIME_ALREADY_SPENT" | awk -F: '{ print ($1 * 3600) + ($2 * 60) }')"
 	# Add time spent
-	SECONDS_ALREADY_SPENT=$((SECONDS_SINCE_CREATION + SECONDS_ALREADY_SPENT))
+	TODAY_SECONDS="$(($(head -4 $TMP_FILE_PATH | tail -1) * 60))"
+
+	SECONDS_ALREADY_SPENT_TODAY=$((SECONDS_SINCE_CREATION + TODAY_SECONDS))
+	SECONDS_ALREADY_SPENT_TOTAL=$((SECONDS_SINCE_CREATION + SECONDS_ALREADY_SPENT))
 	# Convert it back to HH:MM
-	TIME_ALREADY_SPENT=$(date --date="@$SECONDS_ALREADY_SPENT" -u +%H:%M)
+	TIME_ALREADY_SPENT_TODAY=$(date --date="@$SECONDS_ALREADY_SPENT_TODAY" -u +%H:%M)
+	TIME_ALREADY_SPENT_TOTAL=$(date --date="@$SECONDS_ALREADY_SPENT_TOTAL" -u +%H:%M)
 
 	# Add time needed if it exists (Effort might not exist for a task)
 	if [[ $TIME_NEEDED != "" ]]; then
-		TIME="$TIME_ALREADY_SPENT/$TIME_NEEDED"
+		TIME_TOTAL="$TIME_ALREADY_SPENT_TOTAL/$TIME_NEEDED"
 	else
-		TIME="$TIME_ALREADY_SPENT"
+		TIME_TOTAL="$TIME_ALREADY_SPENT_TOTAL"
 	fi
 
-	echo "${TIME_SINCE_CREATION} - ${TIME}"
+	echo "<span alpha=\"60%\">${TIME_SINCE_CREATION}</span> · <b>${TIME_ALREADY_SPENT_TODAY}</b> | <span alpha=\"70%\">${TIME_TOTAL}</span>"
 }
 
 execute_emacs_command() {
@@ -164,17 +184,18 @@ execute_emacs_command() {
 
 main() {
 	case "$1" in
-	"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
-	"clock_out") execute_emacs_command "(org-clock-out)" ;;
-	"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
-	"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
-	"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
-	"go_to_entry") go_to_entry ;;
-	"go_to_scheduled_entry") go_to_scheduled_entry ;;
-	"get_info") get_info "$2" 0 ;;
-	"notify_info") notify_info "$2" 1 ;;
-	"toggle_bar_time") toggle_bar_time ;;
-	*) echo "$1 is a wrong argument" ;;
+		"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
+		"clock_out") execute_emacs_command "(org-clock-out)" ;;
+		"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
+		"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
+		"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
+		"go_to_entry") go_to_entry ;;
+		"go_to_scheduled_entry") go_to_scheduled_entry ;;
+		"get_info") get_info "$2" 0 ;;
+		"notify_info") notify_info "$2" 1 ;;
+		"toggle_bar_time") toggle_bar_time ;;
+		"toggle_today_time") toggle_today_time ;;
+		*) echo "$1 is a wrong argument" ;;
 	esac
 }
 

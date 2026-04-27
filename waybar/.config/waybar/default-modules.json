@@ -22,7 +22,7 @@
   },
   "cpu": {
     "format-icons": "",
-    "format": "{usage:>2}% {icon}",
+    "format": "{usage:>2}% {icon}"
   },
   "memory": {
     "format-icons": "",
@@ -94,7 +94,7 @@
     "signal": 8
   },
   "custom/clock": {
-    "format": "  {}",
+    "format": "{}  ",
     "interval": 1,
     "on-click": "$XDG_CONFIG_HOME/emacs/bin/org_clock go_to_entry",
     "exec-if": "bat /tmp/org_current_task 2>/dev/null",
