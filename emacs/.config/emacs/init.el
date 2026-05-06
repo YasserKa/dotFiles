@@ -1581,8 +1581,7 @@ Made for `org-tab-first-hook' in evil-mode."
                                 :priority "A")
                          (:name "Capture"
                                 :file-path ".*capture.org")
-                         (:name "Tasks"
-                                :file-path ".*/tasks.org")
+                         (:name "Tasks" :and (:file-path ".*/tasks.org" :not (:property "SKIP_IN_A_WEEK")))
                          (:discard (:anything))
                          ))))
              (alltodo ""
@@ -2840,7 +2839,7 @@ selection of all minor-modes, active or not."
   (" g" consult-org-heading "file" :column "headers")
   (" G" (consult-org-heading t (get-open-org-files)) "buffers")
   (" a" consult-org-agenda "agenda")
-  (" w" (consult-org-agenda "DEADLINE<\"<+7d>\"|SCHEDULED<\"<+7d>\"/!") "Tasks deadline/scheduled in one week")
+  (" w" (consult-org-agenda "DEADLINE<\"<+7d>\"|SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
   (" n" (consult-org-agenda "TODO=\"NEXT\"") "NEXT tasks")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
