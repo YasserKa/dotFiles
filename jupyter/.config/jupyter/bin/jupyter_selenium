@@ -65,8 +65,7 @@ class NotebookExecutor:
         # notebook:restart-and-run-to-selected
 
     def run_cells(self, cell_indices):
-        driver.execute_script(
-            f"""
+        driver.execute_script(f"""
             const panel = window.jupyterapp.shell.currentWidget;
             const nb = panel.content;
             const indexes = {str(cell_indices)};
@@ -92,8 +91,7 @@ class NotebookExecutor:
             }}
             }})();
 
-            """
-        )
+            """)
 
         self.sleep_until_kernel_is_idle()
         driver.find_element(By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel").send_keys(
@@ -102,11 +100,9 @@ class NotebookExecutor:
         return {"status": f"Executed cell {cell_indices}"}
 
     def run_all_cells(self):
-        driver.execute_script(
-            """
+        driver.execute_script("""
             window.jupyterapp.commands.execute('notebook:run-all-cells');
-            """
-        )
+            """)
 
         self.sleep_until_kernel_is_idle()
         driver.find_element(By.CSS_SELECTOR, ".jp-Notebook.jp-WindowedPanel").send_keys(
@@ -115,8 +111,7 @@ class NotebookExecutor:
         return {"status": "Executed all cell"}
 
     def sync(self):
-        driver.execute_script(
-            """
+        driver.execute_script("""
             const nbPanel = window.jupyterapp.shell.currentWidget;
             const context = nbPanel.context;   // NotebookPanel context
 
@@ -138,8 +133,7 @@ class NotebookExecutor:
             }
 
             saveWhenIdle();
-            """
-        )
+            """)
 
         return {"status": "Synced notebook and python file"}
 
@@ -161,31 +155,25 @@ class NotebookExecutor:
         )
 
     def goto_cell(self, cell_index):
-        driver.execute_script(
-            f"""
+        driver.execute_script(f"""
             const panel = window.jupyterapp.shell.currentWidget;
             const nb = panel.content;
 
             nb.scrollToItem({cell_index});
             nb.activeCellIndex = {cell_index};
-            """
-        )
+            """)
         return {"status": "Going to next cell"}
 
     def restart_kernel(self):
-        driver.execute_script(
-            """
+        driver.execute_script("""
             window.jupyterapp.commands.execute('notebook:restart-kernel');
-            """
-        )
+            """)
         return {"status": "Restarting Kernel"}
 
     def shutdown_kernel(self):
-        driver.execute_script(
-            """
+        driver.execute_script("""
             window.jupyterapp.commands.execute('notebook:shutdown-kernel');
-            """
-        )
+            """)
         return {"status": "Restarting Kernel"}
 
 
@@ -547,7 +535,7 @@ if __name__ == "__main__":
     observer.schedule(event_handler, ".", recursive=True)
     observer.start()
 
-    threading.Thread(target=watchdog, daemon=True).start()
+    # threading.Thread(target=watchdog, daemon=True).start()
     app.run(port=flask_port)
 
 # vim:filetype=python
