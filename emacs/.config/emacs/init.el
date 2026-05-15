@@ -2839,7 +2839,7 @@ selection of all minor-modes, active or not."
   (" g" consult-org-heading "file" :column "headers")
   (" G" (consult-org-heading t (get-open-org-files)) "buffers")
   (" a" consult-org-agenda "agenda")
-  (" w" (consult-org-agenda "DEADLINE<\"<+7d>\"|SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
+  (" w" (consult-org-agenda "TODO<>\"DONE\"+TODO<>\"CANCELLED\"+DEADLINE<\"<+7d>\"|TODO<>\"DONE\"+TODO<>\"CANCELLED\"+SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
   (" n" (consult-org-agenda "TODO=\"NEXT\"") "NEXT tasks")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
