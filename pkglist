@@ -116,6 +116,7 @@ texlive-latexextra
 # Needed to compile IRIS paper
 tex-gyre-fonts # Substitute PostScript fonts in OpenType format
 ttf-ms-fonts  # Core TTF Fonts for Microsoft
+texlive-xetex # TeX Live - XeTeX and packages (for xelatex)
 # Used in vim
 write-good # Naive linter for English prose
 dotenv-linter-bin # Linter for .env files
