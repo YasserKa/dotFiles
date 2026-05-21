@@ -11,4 +11,47 @@ fi
 
 [[ $(dunstify "$2" "$3" --appname Thunderbird-delegate --action="action,label") == "action" ]] && {
 	thunderbird
+} &
+
+# Reduce brigness if idle
+SECONDS_WAIT=10
+
+lower_brighness_if_idle() {
+	# 1. Fetch valid bus numbers
+	buses=$(ddcutil detect | awk '/^Display/ {p=1} /^Invalid/ {p=0} p && /\/dev\/i2c-/ {print $NF}' | sed 's/.*i2c-//')
+
+	# Initialize the base swayidle resume string
+	resume_cmd="brightnessctl set 80% &"
+
+	# Loop through each valid bus number to dim them immediately AND build the resume command
+	for bus in $buses; do
+		echo "Setting brightness to 0% on bus $bus..."
+		ddcutil --bus "$bus" --noverify --sleep-multiplier .5 setvcp 10 0 &
+
+		# Append the optimized resume command for this specific bus
+		resume_cmd="$resume_cmd ddcutil --bus $bus --noverify --sleep-multiplier .5 setvcp 10 80 &"
+	done
+
+	# Append the final kill command to the end of the resume string
+	resume_cmd="$resume_cmd pkill swayidle"
+
+	# 2. Dim laptop display and launch swayidle with your dynamic string
+	brightnessctl set 5% &
+
+	swayidle -w \
+		timeout 1 'true' \
+		resume "$resume_cmd"
 }
+
+# Lower brighness if there's a timeout of $SECOND_WAIT seconds
+trap 'lower_brighness_if_idle; pkill -P $$; exit 0' SIGUSR1
+
+swayidle -w \
+	timeout "$SECONDS_WAIT" "kill -USR1 $$" &
+SWAYIDLE_PID=$!
+
+# Otherwise, kill swayidle after $SECONDS_WAIT+1 seonds
+sleep $((SECONDS_WAIT + 1))
+
+kill $SWAYIDLE_PID 2>/dev/null
+pkill -P $$
