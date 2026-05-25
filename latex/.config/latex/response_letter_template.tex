@@ -1,0 +1,150 @@
+% Response-to-reviewers LaTeX template
+% Compile with pdflatex or lualatex.
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[landscape,margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+% Define custom column type with ragged boundaries and cell-level hbadness control
+\newcolumntype{L}[1]{>{\RaggedRight\hbadness=10000\arraybackslash}m{#1}}
+
+% Table layout tuning
+\setlength{\tabcolsep}{8pt} 
+\renewcommand{\arraystretch}{1.4} 
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\setlength{\LTpre}{0pt}
+\setlength{\LTpost}{0pt}
+
+% Alternating row color
+\definecolor{rowgray}{gray}{0.96}
+\definecolor{headerblue}{RGB}{220,230,242}
+\definecolor{sectionblue}{RGB}{235,241,250}
+
+% Column widths math tuned exactly to \linewidth
+\newcolumntype{I}{L{\dimexpr 0.06\linewidth - 1\tabcolsep \relax}}
+\newcolumntype{R}{L{\dimexpr 0.46\linewidth - 2\tabcolsep \relax}}
+\newcolumntype{A}{L{\dimexpr 0.48\linewidth - 1\tabcolsep \relax}}
+
+\newcounter{commentrow}
+
+\newenvironment{reviewertable}[1]{%
+  \setcounter{commentrow}{0}%
+  \small
+  \begin{longtable}{@{} I R A @{}}
+  \toprule
+  \rowcolor{headerblue}
+  \textbf{ID} & \textbf{Reviewer comment} & \textbf{Author response and action}\\
+  \midrule
+  \endfirsthead
+
+  \toprule
+  \rowcolor{headerblue}
+  \textbf{ID} & \textbf{Reviewer comment} & \textbf{Author response and action}\\
+  \midrule
+  \endhead
+
+  \midrule
+  \multicolumn{3}{r}{\emph{Continued on next page}}\\
+  \endfoot
+
+  \bottomrule
+  \endlastfoot
+}{%
+  \end{longtable}
+}
+
+\newenvironment{reviewersection}[1]{%
+  \section*{#1}%
+  \begin{reviewertable}{#1}%
+}{%
+  \end{reviewertable}%
+}
+
+% FIXED: Section header row uses a defined-width paragraph box spanning 100% of \linewidth
+\newcommand{\SectionRow}[1]{%
+  \rowcolor{sectionblue}%
+  \multicolumn{3}{@{}L{\linewidth}@{}}{\large\bfseries \hspace{5pt}#1}\\
+  \hline
+}
+
+% Syntax: \CommentRow{ID}{Label}{Comment}{Response}{ActionText}
+\newcommand{\CommentRow}[5]{%
+  \noalign{%
+    \stepcounter{commentrow}%
+    \ifodd\value{commentrow}%
+      \global\let\currentrowcolor\relax
+    \else
+      \gdef\currentrowcolor{\rowcolor{rowgray}}%
+    \fi
+  }%
+  \currentrowcolor
+  \phantomsection\label{#2}#1 & #3 & #4%
+  % If the 5th argument is not completely blank, format and print it
+  \if\relax\detokenize{#5}\relax
+    % If argument #5 is empty, do nothing
+  \else
+    \par\vspace{0.4em}\textbf{Action:} #5%
+  \fi
+  \\ \hline
+}
+
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{Authors' Response to Reviewers of}}\\[0.5em]
+  {\LARGE Manuscript Title Here}
+\end{center}
+
+We thank the reviewers for their constructive comments and suggestions that helped
+improve the quality of the manuscript. The manuscript has undergone a revision according to the
+reviewers' comments. Please see below our response.
+
+We group comments by reviewer and by their review sections.
+Each comment is assigned an ID (for example, \texttt{R1.C1}), which can be referenced later.
+% Page and line numbers are abbreviated as p. and l., respectively.
+
+\begin{reviewersection}{Reviewer 1}
+\SectionRow{Section A}
+\CommentRow{R1.C1}{r1c1}{
+This is a reviewer comment
+}{
+  This is author's response
+}{Optional action}
+
+\CommentRow{R1.C2}{r1c2}{
+...
+}{
+Reference to other comments \hyperref[r1c1]{R1.C1}
+}{}
+\end{reviewersection}
+
+\begin{reviewersection}{Reviewer 2}
+\SectionRow{Section A}
+\CommentRow{R2.C1}{r2c1}{
+Second reviewer comment
+}{
+...
+}{}
+\end{reviewersection} 
+
+\vspace{0.4em}
+
+\end{document}
