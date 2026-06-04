@@ -196,7 +196,7 @@ return {
             format = "file",
             show_empty = false,
             hidden = true,
-            ignored = false,
+            ignored = true,
             follow = true,
             supports_live = true,
           }
