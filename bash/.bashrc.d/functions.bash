@@ -51,7 +51,7 @@ mv() {
 	fi
 
 	# If destination exists, proceed normally
-	if [[ ! -d "$parent_dir" ]]; then
+	if [[ ! -d "$parent_dir" && ${last_arg: -1} == "/" ]]; then
 		echo -n "Destination '$parent_dir' does not exist. Create directory? [y/N] "
 		read -r confirm
 		if [[ "$confirm" =~ ^[Yy]$ ]]; then
