@@ -65,6 +65,29 @@ zstyle ':completion:*' rehash true
 
 plug "zsh-users/zsh-completions"
 
+# Per directori autosuggestions
+_per_dir_history_precmd() {
+    local dir_hist="$HOME/.dotfiles-private/zsh/.config/zsh/.zsh_dir_histories/$(echo $PWD | tr '/' '_')"
+    mkdir -p "$(dirname $dir_hist)"
+    [[ ! -e "$dir_hist" ]] && touch "$dir_hist"
+    echo "$1" >> "$dir_hist"
+    local tmp=$(mktemp)
+    tac "$dir_hist" | awk '!seen[$0]++' | tac | tail -500 >> "$tmp" && mv -f "$tmp" "$dir_hist"
+}
+add-zsh-hook preexec _per_dir_history_precmd
+
+_zsh_autosuggest_strategy_dir_history() {
+    local dir_hist="$HOME/.dotfiles-private/zsh/.config/zsh/.zsh_dir_histories/$(echo $PWD | tr '/' '_')"
+    if [[ -f "$dir_hist" ]]; then
+        suggestion=$(grep "^$1" "$dir_hist" | tail -1)
+    fi
+    # Fall back to normal history if nothing found
+    [[ -z "$suggestion" ]] && suggestion=$(fc -ln 1 | grep "^$1" | tail -1)
+}
+
+ZSH_AUTOSUGGEST_STRATEGY=(dir_history history)
+
+
 plug "zsh-users/zsh-autosuggestions"
 
 export ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(vi-forward-word my-forward-blank-word vi-forward-char)
