@@ -170,6 +170,12 @@ class NotebookExecutor:
             """)
         return {"status": "Restarting Kernel"}
 
+    def interrupt_kernel(self):
+        driver.execute_script("""
+                window.jupyterapp.commands.execute('notebook:interrupt-kernel');
+            """)
+        return {"status": "Restarting Kernel"}
+
     def shutdown_kernel(self):
         driver.execute_script("""
             window.jupyterapp.commands.execute('notebook:shutdown-kernel');
@@ -311,6 +317,12 @@ def run_cells():
     global is_signal_recieved_from_vim
     is_signal_recieved_from_vim = True
     executor.run_cells(idx)
+    return ""
+
+
+@app.route("/interrupt", methods=["POST"])
+def interrupt():
+    executor.interrupt_kernel()
     return ""
 
 

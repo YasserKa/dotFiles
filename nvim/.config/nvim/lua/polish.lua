@@ -82,8 +82,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         if root then
           local handle = io.popen(
             "ps aux | grep '"
-              .. root
-              .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
+            .. root
+            .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
           )
           if not handle then return nil end
           local result = handle:read "*a"
@@ -214,8 +214,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         local root = find_pyproject_root()
         local handle = io.popen(
           "ps aux | grep '"
-            .. root
-            .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
+          .. root
+          .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
         )
         if not handle then return nil end
         local result = handle:read "*a"
@@ -239,6 +239,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
       local function shutdown_jupyter_selenium_api()
         local url = "http://localhost:" .. vim.g.my_free_port .. "/shutdown"
+        local cmd = string.format("curl -X POST %s", url)
+        vim.fn.jobstart(cmd, { detach = true })
+      end
+
+      local function interrupt_jupyter_selenium_api()
+        local url = "http://localhost:" .. vim.g.my_free_port .. "/interrupt"
         local cmd = string.format("curl -X POST %s", url)
         vim.fn.jobstart(cmd, { detach = true })
       end
@@ -276,8 +282,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
       local wk = require "which-key"
       wk.add {
-        { "<localLeader>n", group = "Jupyter" },
-        { "<localLeader>nc", execute_cell, desc = "Execute cell/s" },
+        { "<localLeader>n",  group = "Jupyter" },
+        { "<localLeader>nc", execute_cell,     desc = "Execute cell/s" },
         {
           "<localLeader>nC",
           function()
@@ -287,23 +293,28 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
           desc = "Execute cell and jump to next cell",
         },
         { "<localLeader>nd", delete_cell, desc = "Delete cell" },
-        { "<localLeader>ng", goto_cell, desc = "Goto cell" },
+        { "<localLeader>ng", goto_cell,   desc = "Goto cell" },
         {
           "<localLeader>nJ",
           start_jupyter_selenium_api,
           desc = "Start API",
         },
         {
+          "<localLeader>ns",
+          interrupt_jupyter_selenium_api,
+          desc = "Interrupt kernel",
+        },
+        {
           "<localLeader>nS",
           shutdown_jupyter_selenium_api,
           desc = "Shutdown API",
         },
-        { "<localLeader>nR", restart_kernel, desc = "Restart Kernel" },
+        { "<localLeader>nR", restart_kernel,    desc = "Restart Kernel" },
         { "<localLeader>nr", execute_all_cells, desc = "Execute all cells" },
       }
 
       wk.add {
-        { "<localLeader>n", group = "Jupyter Ascending", mode = "v" },
+        { "<localLeader>n",  group = "Jupyter Ascending",         mode = "v" },
         { "<localLeader>nc", ":lua Execute_selected_cells()<CR>", desc = "Execute selected cells", mode = "v" },
       }
     end
@@ -360,12 +371,12 @@ end
 _G.YankOrgLink = function()
   local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
   local cmd = '"${TERMINAL}" --directory "'
-    .. vim.fn.expand "%:p:h"
-    .. '" --detach -e "${EDITOR}" +'
-    .. r
-    .. ' "'
-    .. vim.fn.expand "%:t"
-    .. '"'
+      .. vim.fn.expand "%:p:h"
+      .. '" --detach -e "${EDITOR}" +'
+      .. r
+      .. ' "'
+      .. vim.fn.expand "%:t"
+      .. '"'
   local encoded_org_link = "[[" .. "link-handler://" .. encodeString(cmd) .. "][" .. vim.fn.expand "%:t" .. "]]"
   vim.fn.setreg("+", encoded_org_link)
 end
@@ -378,14 +389,14 @@ _G.WatchFile = function()
 
   vim.cmd(
     "silent !chmod +x "
-      .. filepath
-      .. ' && "${TERMINAL}" --detach --directory "'
-      .. dirpath
-      .. '" bash -c "echo \\"'
-      .. filename
-      .. '\\" | entr -c '
-      .. filepath
-      .. '"'
+    .. filepath
+    .. ' && "${TERMINAL}" --detach --directory "'
+    .. dirpath
+    .. '" bash -c "echo \\"'
+    .. filename
+    .. '\\" | entr -c '
+    .. filepath
+    .. '"'
   )
 end
 
