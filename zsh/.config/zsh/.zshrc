@@ -77,12 +77,12 @@ _per_dir_history_precmd() {
 add-zsh-hook preexec _per_dir_history_precmd
 
 _zsh_autosuggest_strategy_dir_history() {
+    local prefix="${1//\\/}"
     local dir_hist="$HOME/.dotfiles-private/zsh/.config/zsh/.zsh_dir_histories/$(echo $PWD | tr '/' '_')"
     if [[ -f "$dir_hist" ]]; then
-        suggestion=$(grep "^$1" "$dir_hist" | tail -1)
+        suggestion=$(awk -v prefix="$prefix" 'substr($0, 1, length(prefix)) == prefix' "$dir_hist" | tail -1)
     fi
-    # Fall back to normal history if nothing found
-    [[ -z "$suggestion" ]] && suggestion=$(fc -ln 1 | grep "^$1" | tail -1)
+    [[ -z "$suggestion" ]] && suggestion=$(fc -ln 1 | awk -v prefix="$prefix" 'substr($0, 1, length(prefix)) == prefix' | tail -1)
 }
 
 ZSH_AUTOSUGGEST_STRATEGY=(dir_history history)
