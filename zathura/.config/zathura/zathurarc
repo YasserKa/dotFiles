@@ -30,6 +30,10 @@ map ,r exec '/home/yasser/.config/Zotero/bin/zotero_utility import --add_org_ent
 
 map ,t exec '/home/yasser/.config/zathura/goto_toc "$FILE" "$PAGE" "$DBUS"'
 
+map ,gr exec '/home/yasser/.local/share/references_viewer/fzf_select_references "$FILE" "$DBUS"'
+# Enrich papers
+map ,er exec '/home/yasser/.local/share/references_viewer/generate_paper_metadata "$FILE"'
+
 # Delete current document
 map ,dd exec '/home/yasser/.config/zathura/delete_document "$FILE"'
 # Open another instance

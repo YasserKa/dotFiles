@@ -490,10 +490,17 @@ let result = collections_str
 NR==FNR { order[NR] = $1; next }
 {
     key = $1;
-    icon = ($4 != "null") ? "\033[31m \033[0m" : "   ";
+
+    # Icon for cashed referenced metadata
+    zotero_key = $4
+    sub(/^.*\//, "", zotero_key)
+    ref_icon = (system("[ -f \"" "/home/yasser/.cache/papers_references/" zotero_key "/references_enriched.json" "\" ]") == 0) ? "\033[34m󰆼 \033[0m" : "   ";
+
+    # Icon for document existance for the bib entry
+    pdf_icon = ($4 != "null") ? "\033[31m \033[0m" : "   ";
     val = $1 "\t" $2 "\t" $3 "\t" $4 "\t\033[36m" $5 "\033[0m\t\033[1;38m" $6 "\033[0m\t\033[37m" $7 "\t" $8 "\033[0m" ;
     getline;
-    val = val ORS icon "\033[1;33m" $0 "\033[0m";
+    val = val ORS pdf_icon ref_icon "\033[1;33m" $0 "\033[0m";
     data[key] = val;
     keys[++count] = key;
 }
