@@ -427,6 +427,8 @@ zstyle ':fzf-tab:complete:*' fzf-bindings \
   'alt->:preview-bottom,alt-<:preview-top'
 
 zstyle ':fzf-tab:complete:*:*' fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+  fzf-preview '$XDG_CONFIG_HOME/fzf/fzf_preview_media ${(Q)realpath}'
 
 # Override the widget to remove images made by kitty on completion
 _fzf-tab-complete() {
