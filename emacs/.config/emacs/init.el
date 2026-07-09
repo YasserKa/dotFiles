@@ -817,7 +817,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
 
 ;; Traverse file changes in git
 (use-package git-timemachine
-  :after (evil-collection)
+  :after (evil-collection magit) ;; Load after magit, because git-timemachine needs llama pkg which is needed by magit
   :config
   (evil-define-minor-mode-key 'normal 'git-timemachine-mode (kbd "C-n") 'git-timemachine-show-next-revision)
   (evil-define-minor-mode-key 'normal 'git-timemachine-mode (kbd "C-p") 'git-timemachine-show-previous-revision)
