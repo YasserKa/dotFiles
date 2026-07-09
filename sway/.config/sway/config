@@ -331,7 +331,7 @@ exec cat <(cat ~/.config/cron/cron_env_template) <(echo "$(declare -p DISPLAY WA
 
 # Applications
 # Synchronize files before opening browser
-exec --no-startup-id bash -ic 'pull_files_from_remote && inotifywait --timeout 5 -e close_write --format "%w%f" $HOME/.dotfiles-private/qutebrowser/.local/share/qutebrowser/history.sqlite; ${BROWSER} --override-restore'
+exec --no-startup-id bash -ic 'pull_files_from_remote; ${BROWSER} --override-restore'
 # Move qutebrowser to fist workspace
 exec --no-startup-id bash -ic '{ wait_window "^org.qutebrowser.qutebrowser$" 999 && sleep 0.5 && i3-msg "$(window_get_condition "^org.qutebrowser.qutebrowser$") move --no-auto-back-and-forth container to workspace 1"; }'
 
