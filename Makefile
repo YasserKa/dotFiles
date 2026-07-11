@@ -82,7 +82,7 @@ stow-root:
 .PHONY: install-aur-helper
 install-aur-helper: stow-root
 	rm -rf /tmp/paru
-	git clone --depth 1 https://aur.archlinux.org/paru.git  /tmp/paru
+	git clone --depth 1 https://aur.archlinux.org/paru-git.git  /tmp/paru
 	# Get multilib and archlinuxfr databases
 	sudo pacman --sync --refresh
 	cd /tmp/paru && makepkg --install --syncdeps --noconfir	cd /tmp/paru && makepkg --install --syncdeps --noconfirm
