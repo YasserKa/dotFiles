@@ -148,7 +148,7 @@ setup-systemd-services:
 	systemctl enable syncthing.service --user
 	sudo systemctl enable pkgfile-update.timer
 	sudo systemctl enable greetd.service
-	sudo systemctl enable displaylink
+	# sudo systemctl enable displaylink
 	sudo systemctl enable auto-cpufreq.service
 	sudo systemctl enable --now tailscale-bypass.service
 	sudo systemctl enable --now sing-box
