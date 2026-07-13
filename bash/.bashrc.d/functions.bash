@@ -741,6 +741,20 @@ xdg-open() {
 	done
 }
 pcmanfm() { (command pcmanfm "$@" &) }
+
+# Create headless output if needed to be used by sunshine
+sunshine() {
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+	swaymsg -t get_outputs -r | grep HEADLESS || {
+		swaymsg create_output res 1920x1080
+		OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
+		echo "output_name = ${OUTPUT_NAME}" >|"$XDG_CONFIG_HOME/sunshine/sunshine.conf"
+	} && command sunshine
+else
+	command sunshine
+fi
+}
+
 # Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
 thunderbird() {
 	is_window_exists '^org.mozilla.Thunderbird$' && \

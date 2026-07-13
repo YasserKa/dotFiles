@@ -3,22 +3,21 @@
 # Create virtual displays for sunshine
 
 if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-	read X Y W H <<<"$(swaymsg -t get_outputs -r | jq -r '.[] | select(.name=="eDP-1") | "\(.rect.x) \(.rect.y) \(.rect.width) \(.rect.height)"')"
+	read X Y _ H <<<"$(swaymsg -t get_outputs -r | jq -r '.[] | select(.name=="eDP-1") | "\(.rect.x) \(.rect.y) \(.rect.width) \(.rect.height)"')"
 
 	if [[ "$1" == "left" ]]; then
 		swaymsg output eDP-1 pos 0 0
-		swaymsg create_output res 1920x1080
 		OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
 		swaymsg "output $OUTPUT_NAME position $((X - 1920)) $Y"
+		swaymsg output "$OUTPUT_NAME" enable
 	elif [[ "$1" == "below" ]]; then
 		swaymsg output eDP-1 pos 0 0
-		swaymsg create_output res 1920x1080
-		# echo "$X $Y $H"
 		OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
 		swaymsg "output $OUTPUT_NAME position $X $((Y + H))"
+		swaymsg output "$OUTPUT_NAME" enable
 	elif [[ "$1" == "unplug" ]]; then
 		while read -r output_name; do
-			swaymsg output "$output_name" unplug
+			swaymsg output "$output_name" disable
 		done < <(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')
 	fi
 

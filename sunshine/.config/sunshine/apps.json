@@ -11,8 +11,8 @@
             "output": "",
             "prep-cmd": [
                 {
-                    "do": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds below\"",
-                    "undo": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds unplug\""
+                    "do": "bash -ic \"$XDG_CONFIG_HOME/sunshine/sunshine_cmds below\"",
+                    "undo": "bash -ic \"$XDG_CONFIG_HOME/sunshine/sunshine_cmds unplug\""
                 }
             ],
             "wait-all": true
@@ -28,8 +28,8 @@
             "output": "",
             "prep-cmd": [
                 {
-                    "do": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds left\"",
-                    "undo": "bash -ic \"$XDG_CONFIG_HOME/sunshine_cmds unplug\""
+                    "do": "bash -ic \"$XDG_CONFIG_HOME/sunshine/sunshine_cmds left\"",
+                    "undo": "bash -ic \"$XDG_CONFIG_HOME/sunshine/sunshine_cmds unplug\""
                 }
             ],
             "wait-all": true
