@@ -401,8 +401,8 @@ zstyle ':completion:complete:*:argument-rest' sort false
 
 # Remove the prefix "."
 zstyle ':fzf-tab:*' prefix ''
-# switch group using `,` and `.`
-zstyle ':fzf-tab:*' switch-group ',' '.'
+# switch group using `A-,` and `A-.`
+zstyle ':fzf-tab:*' switch-group 'alt-,' 'alt-.'
 zstyle ':fzf-tab:*' continuous-trigger 'tab'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 # give a preview of commandline arguments when completing `kill`
