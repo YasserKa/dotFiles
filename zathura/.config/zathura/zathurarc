@@ -36,6 +36,8 @@ map ,er exec '/home/yasser/.local/share/references_viewer/generate_paper_metadat
 
 # Delete current document
 map ,dd exec '/home/yasser/.config/zathura/delete_document "$FILE"'
+
+unmap w
 # Open another instance
 map wo exec '/usr/bin/env zathura "$FILE"'
 # Open link in another instance
