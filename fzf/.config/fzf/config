@@ -23,16 +23,17 @@ export FZF_DEFAULT_OPTS="--color=light,bg+:#363D4B,fg+:white
 export FZF_DEFAULT_COMMAND='fd --follow --hidden --exclude .git'
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude .git"
 
+COLOR=$'\033[1;36m'
+COLOR_END=$'\033[0m'
 # CTRL-Y to copy the command into clipboard
 # ctrl-alt-d removes history entry
 # https://github.com/junegunn/fzf/discussions/3629#discussioncomment-8475902
 export FZF_CTRL_R_OPTS="
 --height ${FZF_TMUX_HEIGHT:-40%}
---color header:italic
 --ansi
 --nth=4.. --with-nth=.. --accept-nth=4..
 --preview 'bat --plain --language bash --color always <(echo {4..})' --preview-window down:3:border-none:hidden:wrap
---header 'Press Meta-Y to copy command into clipboard'
+--header '${COLOR}A-y${COLOR_END}: yank command'
 --bind 'alt-t:change-preview-window(down|hidden)'
 --bind 'ctrl-e:accept'
 --bind 'enter:execute(ydotool key 28:1 28:0)+accept'

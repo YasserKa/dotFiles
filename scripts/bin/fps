@@ -48,7 +48,15 @@ printf '0\n' >"$reload_file"
 
 SOCKET_PATH="/tmp/fzf_fps.sock"
 
+COLOR=$'\033[1;36m'
+COLOR_END=$'\033[0m'
+FZF_HEADER="${COLOR}C-A-t${COLOR_END}:sort by time, ${COLOR}C-A-m${COLOR_END}:sort by mem"
+if ((enable_kill == 1)); then
+	FZF_HEADER="${COLOR}A-m${COLOR_END}:kill process, ${FZF_HEADER}"
+fi
+
 fzf --ansi --multi --track --id-nth 3,-1 \
+	--header="$FZF_HEADER" \
 	--preview-window=down,3,wrap-word,border-none,hidden \
 	--listen "$SOCKET_PATH" \
 	--prompt "next update in ?s > " \
@@ -62,6 +70,7 @@ fzf --ansi --multi --track --id-nth 3,-1 \
 	--bind "focus:execute-silent(sh -c 'now=\$(date +%s); last_reload=\$(cat \"$reload_file\" 2>/dev/null || echo 0); if [ \$((now - last_reload)) -ge 1 ]; then echo \$((now + $PAUSE_SECONDS)) > \"$pause_file\"; fi')" |
 	grep . | awk '{print $3}' &
 
+# Bind alt-m only for fkill command (i.e., --kill exists)
 curl -s localhost --unix-socket "$SOCKET_PATH" http -d "unbind(alt-m)"
 ((enable_kill == 1)) && curl -s localhost --unix-socket "$SOCKET_PATH" http -d "rebind(alt-m)"
 
