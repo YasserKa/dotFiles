@@ -12,6 +12,7 @@
 
 URL="$1"
 TITLE="$2"
+TEMPLATE="${3:-url}"
 
 "$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2 >/dev/null &
 disown
@@ -21,7 +22,7 @@ encode_url() { printf %s "$1" | jq -sRr @uri; }
 TITLE="$(encode_url "$TITLE")"
 
 if [[ -n "$URL" ]]; then
-	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?title=$TITLE&url=$URL"
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=${TEMPLATE}&title=$TITLE&url=$URL"
 else
 	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=n&title=$TITLE"
 fi

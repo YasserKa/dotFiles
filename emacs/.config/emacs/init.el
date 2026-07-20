@@ -1906,35 +1906,33 @@ see how ARG affects this command."
     :straight nil
     :ensure nil
     :config
-    (add-to-list 'org-capture-templates
-                 `("q" "org-capture-url" entry
-                   (file ,(concat notes-dir "/capture.org"))
-                   "* TODO [[%:link][%:description]]" :immediate-finish t))
 
-    (add-to-list 'org-capture-templates
-                 `("p" "org-capture-note" entry
-                   (file+headline ,(concat notes-dir "/papers.org")  "Inbox")
-                   "* TODO %:description" :immediate-finish t))
+    (dolist (template
+             `(("url" "org-capture-url" entry
+                (file ,(concat notes-dir "/capture.org"))
+                "* TODO %:annotation" :immediate-finish t)
+               ("clock" "URL to clock" plain
+                (clock)
+                "- %:annotation" :immediate-finish t :prepend t)
+               ("p" "org-capture-note" entry
+                (file+headline ,(concat notes-dir "/papers.org") "Inbox")
+                "* TODO %:description" :immediate-finish t)
+               ("n" "org-capture-note" entry
+                (file ,(concat notes-dir "/capture.org"))
+                "* TODO %:description" :immediate-finish t)
+               ("w" "Web site" entry
+                (file ,(concat notes-dir "/org_protocol_html.org")) ;
+                "* %a :website:\n\n%U %?\n\n%:initial")
+               ("word" "Word" entry
+                (file ,(concat notes-dir "/words.org"))
+                "* %:link\n%:description" :immediate-finish t)
+               ))
 
-    (add-to-list 'org-capture-templates
-                 `("n" "org-capture-note" entry
-                   (file ,(concat notes-dir "/capture.org"))
-                   "* TODO %:description" :immediate-finish t))
-
-    (add-to-list 'org-capture-templates
-                 `("w" "Web site" entry
-                   (file ,(concat notes-dir "/org_protocol_html.org")) ;
-                   "* %a :website:\n\n%U %?\n\n%:initial")
-
-                 (add-to-list 'org-capture-templates
-                              `("word" "Word" entry
-                                (file ,(concat notes-dir "/words.org"))
-                                "* %:link\n%:description" :immediate-finish t))
-
-                 )
+      (add-to-list 'org-capture-templates template))
 
     (setq org-protocol-default-template-key "q")
     )
+
   (use-package org-protocol-capture-html
     :ensure nil)
 
@@ -2100,45 +2098,45 @@ Note: this uses Org's internal variable `org-link--search-failed'."
               citar-indicator-notes-icons
               citar-indicator-cited-icons))
 
-    (defun my-citar--parse-time-seconds (s)
-      "Return sortable seconds for timestamp string S, or 0 if missing."
-      (let ((tm (and (stringp s)
-                     (not (string-empty-p s))
-                     (condition-case nil
-                         (date-to-time s)
-                       (error nil)))))
-        (if tm
-            (float-time tm)
-          0)))
+  (defun my-citar--parse-time-seconds (s)
+    "Return sortable seconds for timestamp string S, or 0 if missing."
+    (let ((tm (and (stringp s)
+                   (not (string-empty-p s))
+                   (condition-case nil
+                       (date-to-time s)
+                     (error nil)))))
+      (if tm
+          (float-time tm)
+        0)))
 
-    (defun citar--completion-table (candidates &optional filter &rest metadata)
-      "Return a completion table for CANDIDATES, sorted by timestamp."
-      (let ((items nil)
-            (meta `(metadata
-                    (category . citar-candidate)
-                    (affixation-function . ,#'citar--ref-affix)
-                    ,@metadata)))
-        ;; Build a sortable list once.
-        (maphash
-         (lambda (display citekey)
-           (let* ((entry (citar-get-entry citekey))
-                  (ts    (cdr (assoc "timestamp" entry)))
-                  (score  (my-citar--parse-time-seconds ts)))
-             (when (or (null filter) (funcall filter citekey))
-               (push (cons score (cons display citekey)) items))))
-         candidates)
+  (defun citar--completion-table (candidates &optional filter &rest metadata)
+    "Return a completion table for CANDIDATES, sorted by timestamp."
+    (let ((items nil)
+          (meta `(metadata
+                  (category . citar-candidate)
+                  (affixation-function . ,#'citar--ref-affix)
+                  ,@metadata)))
+      ;; Build a sortable list once.
+      (maphash
+       (lambda (display citekey)
+         (let* ((entry (citar-get-entry citekey))
+                (ts    (cdr (assoc "timestamp" entry)))
+                (score  (my-citar--parse-time-seconds ts)))
+           (when (or (null filter) (funcall filter citekey))
+             (push (cons score (cons display citekey)) items))))
+       candidates)
 
-        ;; Newest first.
-        (setq items
-              (sort items
-                    (lambda (a b) (> (car a) (car b)))))
+      ;; Newest first.
+      (setq items
+            (sort items
+                  (lambda (a b) (> (car a) (car b)))))
 
-        (setq items (mapcar #'cdr items))
+      (setq items (mapcar #'cdr items))
 
-        (lambda (string predicate action)
-          (if (eq action 'metadata)
-              meta
-            (complete-with-action action items string predicate)))))
+      (lambda (string predicate action)
+        (if (eq action 'metadata)
+            meta
+          (complete-with-action action items string predicate)))))
 
   (with-eval-after-load 'vertico
     (defun my-vertico-no-sort-for-citar ()
@@ -2209,17 +2207,17 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (evil-org-retain-visual-state-on-shift t)
   (evil-org-use-additional-insert t)
   :init
-(defun my/org-shift-return ()
-  ;; Use embark-act for citar links, otherwise, use org-open-at-point-global
-  (interactive)
-  (let* ((ctx (org-element-context))
-         (type (org-element-type ctx)))
-    (if (memq type '(citation citation-reference))
-        (embark-act)
-      (let ((inhibit-message t))
-       ;; Open link without losing focus of window
-        (update_i3_focus_window_config)
-        (org-open-at-point-global)))))
+  (defun my/org-shift-return ()
+    ;; Use embark-act for citar links, otherwise, use org-open-at-point-global
+    (interactive)
+    (let* ((ctx (org-element-context))
+           (type (org-element-type ctx)))
+      (if (memq type '(citation citation-reference))
+          (embark-act)
+        (let ((inhibit-message t))
+          ;; Open link without losing focus of window
+          (update_i3_focus_window_config)
+          (org-open-at-point-global)))))
   :hook ((org-mode . evil-org-mode)
          (evil-org-mode . (lambda ()
                             (evil-org-set-key-theme '(textobjects insert navigation todo calendar additional))
