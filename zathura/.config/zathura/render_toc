@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Usage: render_toc <master_toc_file> <fold_state_file> <max_text_width>
+master="$1"
+foldfile="$2"
+max_text_width="${3:-75}"
+touch "$foldfile"
+
+awk -v foldfile="$foldfile" -v budget="$max_text_width" '
+BEGIN {
+    FS="\t"; OFS="\t"
+    while ((getline fline < foldfile) > 0) if (fline != "") folded[fline] = 1
+    close(foldfile)
+    hide_until = -1
+    COL_COLLAPSED = "\033[33m"
+    COL_EXPANDED  = "\033[36m"
+    RESET         = "\033[0m"
+}
+{
+    id = $1; level = $2; endid = $3; parent = $4; title = $5; page = $6
+    if (id <= hide_until) next
+    haschild = (endid > id)
+
+    indent = ""
+    for (k = 0; k < level - 1; k++) indent = indent "  "
+
+    if (haschild) {
+        if (id in folded) { marker = ">"; hide_until = endid; col = COL_COLLAPSED }
+        else              { marker = "v";                     col = COL_EXPANDED  }
+    } else {
+        marker = " "; col = ""
+    }
+
+    prefix = indent marker " " title
+    if (length(prefix) > budget) {
+        keep = budget - length(indent marker " ") - 1
+        if (keep < 1) keep = 1
+        prefix = indent marker " " substr(title, 1, keep) "\xe2\x80\xa6"
+    }
+    pad = budget - length(prefix) + 3
+    if (pad < 3) pad = 3
+    plain_display = prefix sprintf("%*s", pad, "") page
+
+    marker_pos = length(indent) + 1
+    before = substr(plain_display, 1, marker_pos - 1)
+    mchar  = substr(plain_display, marker_pos, 1)
+    after  = substr(plain_display, marker_pos + 1)
+    colored_display = before (col != "" ? col mchar RESET : mchar) after
+
+    print id, endid, parent, colored_display, page
+}
+' "$master"

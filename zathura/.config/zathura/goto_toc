@@ -2,43 +2,74 @@
 #
 # Goto to a page in a table of content in Zathura
 #
-# Dependencies: zathura get_toc awk fzf i3
-
+# Dependencies: zathura get_toc render_toc toggle_and_reload awk fzf i3
 declare -r FILE_PATH="$1"
 declare -r PAGE="$2"
 declare -r DBUS="$3"
-
-declare FILE_BASENAME FILE_TOC # Contains Table of content
+declare FILE_BASENAME FILE_TOC FOLD_STATE
 FILE_BASENAME=${FILE_PATH##*/}
 FILE_BASENAME=${FILE_BASENAME%.*}
 FILE_TOC="$XDG_CACHE_HOME/documents_toc/${FILE_BASENAME}"
-readonly FILE_BASENAME FILE_TOC
+FOLD_STATE="${FILE_TOC}.fold"
+readonly FILE_BASENAME FILE_TOC FOLD_STATE
+
+declare -r RENDER_TOC="$XDG_CONFIG_HOME/zathura/render_toc"
+declare -r TOGGLE_AND_RELOAD="$XDG_CONFIG_HOME/zathura/toggle_and_reload"
+declare -r TOC_WIDTH=75
 
 # Store TOC
 mkdir -p "${FILE_TOC%/*}"
 [[ ! -f "$FILE_TOC" ]] && "$XDG_CONFIG_HOME/zathura/get_toc" --document_path "$FILE_PATH" --toc_path "$FILE_TOC"
+touch "$FOLD_STATE"
 
-# Get the candidate position containing current page
-pos="$(
-  awk -v x="$PAGE" '{ 
-    for (i=NF; i>0; i--) 
-        if ($i ~ /^[0-9]+$/) { 
-            if ($i > x ) {print NR-2; exit} 
-        } 
-}' "$FILE_TOC"
+# Find which TOC entry contains the current page, using the raw master file
+# (must scan the master, not the rendered list, since the target row may be hidden)
+target_id="$(
+  awk -F'\t' -v x="$PAGE" '
+    { 
+      if ($6 > x) { print prev; found=1; exit } 
+      prev = $1 
+    } 
+    END { if (!found && prev != "") print prev }
+  ' "$FILE_TOC"
 )"
+
+# Unfold every ancestor of the target so it is not hidden by a collapsed parent
+if [[ -n "$target_id" ]]; then
+  current="$(awk -F'\t' -v id="$target_id" '$1 == id { print $4 }' "$FILE_TOC")"
+  while [[ -n "$current" && "$current" != "-1" ]]; do
+    awk -v t="$current" '$0 != t' "$FOLD_STATE" >"${FOLD_STATE}.tmp" && mv "${FOLD_STATE}.tmp" "$FOLD_STATE"
+    current="$(awk -F'\t' -v id="$current" '$1 == id { print $4 }' "$FILE_TOC")"
+  done
+fi
+
+# Now the target is guaranteed visible; find its row in the rendered list
+pos="$(
+  "$RENDER_TOC" "$FILE_TOC" "$FOLD_STATE" "$TOC_WIDTH" |
+    awk -F'\t' -v want="$target_id" '$1 == want { print NR; exit }'
+)"
+
+[[ -z "$pos" ]] && pos=0
 
 # Don't focus zathura window when changing pages
 cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration none 1 && busctl --user call $DBUS /org/pwmt/zathura org.pwmt.zathura GotoPage u"
+COLOR=$'\033[1;36m'
+COLOR_END=$'\033[0m'
+
+FZF_HEADER="${COLOR}<tab>${COLOR_END}: toggle fold, ${COLOR}<C-A-f>${COLOR_END}: toggle follow mode, ${COLOR}<C-g>${COLOR_END}: goto page"
 # C-A-f toggle follow page
 # C-g go to page
-kitty_control --geometry 'resize set 990 500, move position 35 ppt 63 ppt' "cat '${FILE_TOC}'  \
-  | fzf --reverse \
+# Tab folds/unfolds the section under the cursor (or its parent, for leaves)
+kitty_control --geometry 'resize set 990 500, move position 35 ppt 63 ppt' "'$RENDER_TOC' '$FILE_TOC' '$FOLD_STATE' '$TOC_WIDTH' \
+  | fzf --reverse --ansi \
+  --header \"$FZF_HEADER\" \
+  --delimiter '\t' --with-nth 4 \
   --preview '' \
-  --bind 'result:pos($pos)' \
+  --bind 'result:pos($pos)+unbind(result)' \
   --bind 'focus:execute-silent(page={-1}; $cmd_goto_page \$((page-1)))' \
   --bind 'load:unbind(focus)' \
   --prompt '> ' \
+  --bind 'tab:transform:\"$TOGGLE_AND_RELOAD\" {1} {2} {3} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
   --bind 'ctrl-alt-f:transform:[[  \$FZF_PROMPT == \"> \"  ]] &&
   echo \"change-prompt((+f)> )+rebind:focus\" ||
   echo \"change-prompt(> )+unbind:focus\"' \

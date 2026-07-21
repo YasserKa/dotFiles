@@ -768,3 +768,4 @@ zotero() {
 	command zotero &
 	wait_window '^Zotero$' && i3-msg "$(window_get_condition '^Zotero$') move scratchpad"
 }
+

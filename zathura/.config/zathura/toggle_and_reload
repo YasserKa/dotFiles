@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Usage: toggle_and_reload <id> <end_id> <parent_id> <fold_state_file> <master_toc> <render_toc_script> <width>
+id="$1"
+end_id="$2"
+parent_id="$3"
+foldfile="$4"
+master="$5"
+render_toc="$6"
+width="$7"
+
+if [[ "$id" == "$end_id" ]]; then
+	# Leaf: nothing to fold on itself, roll up the parent instead
+	[[ "$parent_id" == "-1" ]] && exit 0 # top-level leaf, no parent to fold
+	target="$parent_id"
+else
+	target="$id"
+fi
+
+touch "$foldfile"
+awk -v target="$target" '
+    $0 == target { seen = 1; next }
+    NF { print }
+    END { if (!seen) print target }
+' "$foldfile" >"${foldfile}.tmp" && mv "${foldfile}.tmp" "$foldfile"
+
+tmp_rendered="$(mktemp)"
+"$render_toc" "$master" "$foldfile" "$width" >"$tmp_rendered"
+
+# Land the cursor on whichever row we actually folded (parent, if redirected)
+newpos="$(awk -F'\t' -v want="$target" '$1 == want { print NR; exit }' "$tmp_rendered")"
+[[ -z "$newpos" ]] && newpos=1
+
+printf 'reload(cat %q)+pos(%s)\n' "$tmp_rendered" "$newpos"
