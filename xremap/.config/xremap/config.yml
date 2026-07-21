@@ -118,3 +118,8 @@ keymap:
       C-d: space
       C-o: M-left
       C-i: M-right
+  - name: Zathura C-m as confirmation (<Return>)
+    application:
+      only: [org.pwmt.zathura]
+    remap:
+      C-m: enter

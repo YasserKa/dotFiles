@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Compare last 2 entries in clipboard
+#
+# Dependencies: copyq delta
+
+mkdir -p /tmp/diff/
+tmp_last="/tmp/diff/last"
+tmp_before_last="/tmp/diff/before_last"
+
+copyq eval -- 'print(read("text/plain", 0))' >|"$tmp_last"
+copyq eval -- 'print(read("text/plain", 1))' >|"$tmp_before_last"
+
+eval_interactive_cmd --floating --geometry 'fullscreen toggle' "delta --paging always $tmp_last $tmp_before_last"
+
+trap 'rm -r /tmp/diff/' EXIT

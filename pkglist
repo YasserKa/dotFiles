@@ -391,7 +391,7 @@ regclient-regctl # Utility for accessing docker eregistries - Used by dockerchec
 pcmanfm # Default file manager for GNOME
 pdfpc # Presenter console for PDF files
 dua-cli # Disk usage analyzer with an ncurses interface
-sunshine-beta-bin # Stream host for moonlight
+sunshine-bin # Stream host for moonlight
 zoom # Video Conferencing and Web Conferencing Service
 nextcloud-client # Nextcloud desktop client
 slack-desktop # Slack Desktop (Beta) for Linux
