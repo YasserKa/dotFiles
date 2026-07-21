@@ -426,30 +426,70 @@ rcdotfiles() {
 }
 alias cron='vim $XDG_CONFIG_HOME/cron/crons.cron; crontab $XDG_CONFIG_HOME/cron/crons.cron'
 
-is_window_exists() {
-	i3-msg -t get_tree |
-	jq -e --arg re "$1" '
-  	recurse(.nodes[]?, .floating_nodes[]?) |
-  	select(
-    	((.name // "") | test($re)) or
-    	((.app_id // "") | test($re)) or
-    	((.window_properties.class // "") | test($re))
-  	)
-	' >/dev/null
-}
+	#######################################
+	# Check if a window with specific pattern with certain criteria exists
+	# Arguments:
+	#   $1: window pattern
+	#   $@: criteria
+	#######################################
+ is_window_exists() {
+  local pattern="$1"
+  shift # Remove pattern from arguments, leaving only criteria
 
-is_window_visible() {
-    i3-msg -t get_tree |
-    jq -e --arg re "$1" '
+  local criteria=("$@")
+
+  # If no criteria specified, default to 'any'
+  if [ ${#criteria[@]} -eq 0 ]; then
+    criteria=("any")
+  fi
+
+  # Validate all criteria
+  local valid_criteria=("any" "focused" "visible" "urgent" "floating" "fullscreen")
+  for crit in "${criteria[@]}"; do
+    local valid=0
+    for valid_crit in "${valid_criteria[@]}"; do
+      if [ "$crit" = "$valid_crit" ]; then
+        valid=1
+        break
+      fi
+    done
+    if [ $valid -eq 0 ]; then
+      notify "Error: Invalid criteria '$crit'" >&2
+      return 2
+    fi
+  done
+
+  # Check for conflicting criteria
+  local has_any=0
+  for crit in "${criteria[@]}"; do
+    if [ "$crit" = "any" ]; then
+      has_any=1
+      break
+    fi
+  done
+
+  # Build the base jq query
+  # shellcheck disable=SC2016
+  local jq_query='
         recurse(.nodes[]?, .floating_nodes[]?) |
         select(
-            (
-                ((.name // "") | test($re)) or
-                ((.app_id // "") | test($re)) or
-                ((.window_properties.class // "") | test($re))
-            ) and .visible
-        )
-    ' >/dev/null
+            ((.name // "") | test($re)) or
+            ((.app_id // "") | test($re)) or
+            ((.window_properties.class // "") | test($re))
+        )'
+
+  # Append criteria filters (only if not 'any')
+  if [ $has_any -eq 0 ]; then
+    for crit in "${criteria[@]}"; do
+      case "$crit" in
+      focused | visible | urgent) jq_query="$jq_query | select(.$crit == true)" ;;
+      floating) jq_query="$jq_query | select(.type == \"floating_con\")" ;;
+      fullscreen) jq_query="$jq_query | select(.fullscreen_mode == 1)" ;;
+      esac
+    done
+  fi
+
+  i3-msg -t get_tree | jq -e --arg re "$pattern" "$jq_query" >/dev/null
 }
 
 wait_window() {
@@ -757,15 +797,16 @@ fi
 
 # Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
 thunderbird() {
-	is_window_exists '^org.mozilla.Thunderbird$' && \
-		{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
-			i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && exit 0
+ is_window_exists '^org.mozilla.Thunderbird$' && \
+ 	{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
+ 		i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && return 0
 	command thunderbird &
-	wait_window '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
+ wait_window '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
 }
+
 zotero() {
-	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$") move workspace current, floating disable, focus" && exit 0
+	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$")" move workspace current, floating disable, focus && return 0
 	command zotero &
-	wait_window '^Zotero$' && i3-msg "$(window_get_condition '^Zotero$') move scratchpad"
+	wait_window '^Zotero$' && sleep 0.5 && i3-msg "$(window_get_condition '^Zotero$') move scratchpad"
 }
 
