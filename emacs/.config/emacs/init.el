@@ -1881,6 +1881,11 @@ see how ARG affects this command."
     (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
     )
 
+  ;; Fixes cutout shaded background in code blocks
+  (use-package org-block-wrap
+    :straight (org-block-wrap :host gitlab :repo "vegasharmon/org-block-wrap")
+    :hook (org-mode . org-block-wrap-mode))
+
   ;; Go in the block with insert mode after inserting it
   (advice-add 'org-insert-structure-template :after #'(lambda (orig-fun &rest args) (newline) (evil-previous-line)))
 
