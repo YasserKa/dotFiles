@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
-
+#
 # Deficiency: $QUTE_TITLE (page title) is not available for hints
+#
+# Dependencies: pup
 
+TITLE="$(curl -sL "${QUTE_CURRENT_URL}" | pup 'title text{}' | xargs)" # xargs used to remove leading/trailing newlines
 # remove the number sign and what goes after that (if given)
 URL=$(echo "${QUTE_CURRENT_URL}" | cut -f -1 -d "#")
+
+# Get ID & text for selected element
 HTML_ID="$(echo "${QUTE_SELECTED_HTML}" | grep -oP 'id="\K(.+?)(?=")' | head -n 1)"
-LINK="${URL}#${HTML_ID}"
+HTML_TEXT="$(echo "${QUTE_SELECTED_HTML}" | grep -oP '<h.*[^>]*>\K[^<]+' | head -n 1)"
+
+LINK="[[${URL}#${HTML_ID}][${TITLE} — ${HTML_TEXT}]]"
 
 clipboard_copy "${LINK}"
 
