@@ -10,10 +10,10 @@ encode_url() {
 	for ((i = 0; i < ${#1}; i++)); do
 		: "${1:i:1}"
 		case "$_" in
-			# Keep allowed characters
-			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-			# Encode disallowed characters
-			*) printf '%%%02X' "'$_" ;;
+		# Keep allowed characters
+		[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+		# Encode disallowed characters
+		*) printf '%%%02X' "'$_" ;;
 		esac
 	done
 	printf '\n'
@@ -24,7 +24,16 @@ MAX_WORDS=6
 
 [[ "$SELECTED_TEXT" ]] || { echo "message-error 'No text is selected'" >>"$QUTE_FIFO" && exit 0; }
 
-COMPLETE_SELECTED_TEXT="$(grep -o -m 1 "[^ ]*${SELECTED_TEXT}[^ ]*" <"$QUTE_TEXT")"
+COMPLETE_SELECTED_TEXT="$(
+	SEL="$SELECTED_TEXT" perl -0777 -ne '
+    my $sel = $ENV{SEL};
+    my $pat = quotemeta($sel);          # escape regex metachars
+    $pat =~ s/(\\\s)+/\\s+/g;           # collapse escaped whitespace runs into \s+
+    if (/([^\s]*$pat[^\s]*)/s) {
+      print $1;
+    }
+  ' <"$QUTE_TEXT"
+)"
 
 # Trim leading spaces
 TRIMMED_SELECTED_TEXT=${COMPLETE_SELECTED_TEXT#"${COMPLETE_SELECTED_TEXT%%[![:space:]]*}"}
