@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+#
+# Consolidated TOC fold controller for fzf transform bindings.
+# Usage: toc_ctl <subcommand> [args...]
+#
+# Subcommands:
+#   toggle   <id> <end_id> <parent_id> <fold_state> <master> <render_toc> <width>
+#   unfold   <current_id>              <fold_state> <master> <render_toc> <width>
+#   fold     <current_id>              <fold_state> <master> <render_toc> <width>
+#   search   <query>                   <fold_state> <master> <render_toc> <width> <qlen_tmpfile>
+set -euo pipefail
+
+subcmd="$1"; shift
+
+# --- shared helpers -----------------------------------------------------
+
+parent_of() { # <id> <master>
+    awk -F'\t' -v id="$1" '$1 == id { print $4 }' "$2"
+}
+
+emit_reload_and_pos() { # <foldfile> <master> <render_toc> <width> <target_id>
+    local foldfile="$1" master="$2" render_toc="$3" width="$4" target="$5"
+    local tmp_rendered newpos
+    tmp_rendered="$(mktemp)"
+    "$render_toc" "$master" "$foldfile" "$width" > "$tmp_rendered"
+    newpos="$(awk -F'\t' -v want="$target" '$1 == want { print NR; exit }' "$tmp_rendered")"
+    [[ -z "$newpos" ]] && newpos=1
+    printf 'reload(cat %q)+pos(%s)\n' "$tmp_rendered" "$newpos"
+}
+
+remove_ancestors_from_fold() { # <id> <foldfile> <master>
+    local id="$1" foldfile="$2" master="$3" current
+    current="$(parent_of "$id" "$master")"
+    while [[ -n "$current" && "$current" != "-1" ]]; do
+        awk -v t="$current" '$0 != t' "$foldfile" > "${foldfile}.tmp.$$" && mv "${foldfile}.tmp.$$" "$foldfile"
+        current="$(parent_of "$current" "$master")"
+    done
+}
+
+# --- subcommands ---------------------------------------------------------
+
+cmd_toggle() {
+    local id="$1" end_id="$2" parent_id="$3" foldfile="$4" master="$5" render_toc="$6" width="$7"
+    local target
+
+    if [[ "$id" == "$end_id" ]]; then
+        [[ "$parent_id" == "-1" ]] && exit 0   # top-level leaf, nothing to fold
+        target="$parent_id"
+    else
+        target="$id"
+    fi
+
+    touch "$foldfile"
+    awk -v target="$target" '
+        $0 == target { seen = 1; next }
+        NF { print }
+        END { if (!seen) print target }
+    ' "$foldfile" > "${foldfile}.tmp.$$" && mv "${foldfile}.tmp.$$" "$foldfile"
+
+    emit_reload_and_pos "$foldfile" "$master" "$render_toc" "$width" "$target"
+}
+
+cmd_unfold() {
+    local current_id="$1" foldfile="$2" master="$3" render_toc="$4" width="$5"
+    : > "$foldfile"
+    emit_reload_and_pos "$foldfile" "$master" "$render_toc" "$width" "$current_id"
+}
+
+cmd_fold() {
+    local current_id="$1" foldfile="$2" master="$3" render_toc="$4" width="$5"
+    local target parent
+
+    awk -F'\t' '$3 > $1 { print $1 }' "$master" > "$foldfile"
+
+    target="$current_id"
+    parent="$(parent_of "$current_id" "$master")"
+    while [[ -n "$parent" && "$parent" != "-1" ]]; do
+        target="$parent"
+        parent="$(parent_of "$parent" "$master")"
+    done
+
+    emit_reload_and_pos "$foldfile" "$master" "$render_toc" "$width" "$target"
+}
+
+cmd_search() {
+    local query="$1" foldfile="$2" master="$3" render_toc="$4" width="$5" qlen_tmp="$6"
+    local prev_len cur_len matches to_remove
+
+    sleep 0.08
+
+    prev_len="$(cat "$qlen_tmp" 2>/dev/null || echo 0)"
+    cur_len="${#query}"
+    echo "$cur_len" > "$qlen_tmp"
+
+    if [[ -n "$query" ]]; then
+        matches="$(
+          awk -F'\t' -v q="$query" '
+            function lc(s,   i,r) { r=""; for (i=1;i<=length(s);i++) r=r tolower(substr(s,i,1)); return r }
+            function is_subseq(needle, hay,   i,j) {
+                i=1; j=1
+                while (i <= length(needle) && j <= length(hay)) {
+                    if (substr(needle,i,1) == substr(hay,j,1)) i++
+                    j++
+                }
+                return i > length(needle)
+            }
+            BEGIN { lq = lc(q) }
+            { if (is_subseq(lq, lc($5))) print $1 }
+          ' "$master"
+        )"
+
+        to_remove="$(
+          while IFS= read -r mid; do
+              [[ -z "$mid" ]] && continue
+              cur="$(parent_of "$mid" "$master")"
+              while [[ -n "$cur" && "$cur" != "-1" ]]; do
+                  echo "$cur"
+                  cur="$(parent_of "$cur" "$master")"
+              done
+          done <<< "$matches" | sort -u
+        )"
+
+        if [[ -n "$to_remove" ]]; then
+            awk -v removefile=<(echo "$to_remove") '
+                BEGIN { while ((getline l < removefile) > 0) rm[l] = 1 }
+                !($0 in rm)
+            ' "$foldfile" > "${foldfile}.tmp.$$" && mv "${foldfile}.tmp.$$" "$foldfile"
+        fi
+    fi
+
+    tmp_rendered="$(mktemp)"
+    "$render_toc" "$master" "$foldfile" "$width" > "$tmp_rendered"
+    action="reload(cat $(printf '%q' "$tmp_rendered"))"
+    (( cur_len > prev_len )) && action="${action}+best"
+    echo "$action"
+}
+
+case "$subcmd" in
+    toggle) cmd_toggle "$@" ;;
+    unfold) cmd_unfold "$@" ;;
+    fold)   cmd_fold   "$@" ;;
+    search) cmd_search "$@" ;;
+    *) echo "toc_ctl: unknown subcommand '$subcmd'" >&2; exit 1 ;;
+esac

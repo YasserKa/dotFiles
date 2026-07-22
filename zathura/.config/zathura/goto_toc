@@ -14,7 +14,7 @@ FOLD_STATE="${FILE_TOC}.fold"
 readonly FILE_BASENAME FILE_TOC FOLD_STATE
 
 declare -r RENDER_TOC="$XDG_CONFIG_HOME/zathura/render_toc"
-declare -r TOGGLE_AND_RELOAD="$XDG_CONFIG_HOME/zathura/toggle_and_reload"
+declare -r TOC_CTL="$XDG_CONFIG_HOME/zathura/toc_ctl"
 declare -r TOC_WIDTH=75
 
 # Store TOC
@@ -56,20 +56,24 @@ cmd_goto_page="$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configurati
 COLOR=$'\033[1;36m'
 COLOR_END=$'\033[0m'
 
-FZF_HEADER="${COLOR}<tab>${COLOR_END}: toggle fold, ${COLOR}<C-A-f>${COLOR_END}: toggle follow mode, ${COLOR}<C-g>${COLOR_END}: goto page"
+TMPFILE_FZF_QUERY=$(mktemp) # Used for
+FZF_HEADER="${COLOR}<tab>${COLOR_END}: toggle fold, ${COLOR}<C-a>${COLOR_END}: fold all, ${COLOR}<C-r>${COLOR_END}: reveal all, ${COLOR}<C-A-f>${COLOR_END}: toggle follow mode, ${COLOR}<C-g>${COLOR_END}: goto page"
 # C-A-f toggle follow page
 # C-g go to page
 # Tab folds/unfolds the section under the cursor (or its parent, for leaves)
 kitty_control --geometry 'resize set 990 500, move position 35 ppt 63 ppt' "'$RENDER_TOC' '$FILE_TOC' '$FOLD_STATE' '$TOC_WIDTH' \
   | fzf --reverse --ansi \
+  --raw --bind 'ctrl-n:down-match,ctrl-p:up-match' \
+  --bind \"change:transform:'$TOC_CTL' search \\\"\\\$FZF_QUERY\\\" \\\"$FOLD_STATE\\\" \\\"$FILE_TOC\\\" \\\"$RENDER_TOC\\\" \\\"$TOC_WIDTH\\\" \\\"$TMPFILE_FZF_QUERY\\\"\" \
+  --bind 'tab:transform:\"$TOC_CTL\" toggle {1} {2} {3} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
+  --bind 'ctrl-r:transform:\"$TOC_CTL\" unfold {1} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
+  --bind 'ctrl-a:transform:\"$TOC_CTL\" fold {1} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
   --header \"$FZF_HEADER\" \
   --delimiter '\t' --with-nth 4 \
   --preview '' \
-  --bind 'result:pos($pos)+unbind(result)' \
+  --bind 'result:pos($pos)+unbind(focus)+unbind(result)' \
   --bind 'focus:execute-silent(page={-1}; $cmd_goto_page \$((page-1)))' \
-  --bind 'load:unbind(focus)' \
   --prompt '> ' \
-  --bind 'tab:transform:\"$TOGGLE_AND_RELOAD\" {1} {2} {3} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
   --bind 'ctrl-alt-f:transform:[[  \$FZF_PROMPT == \"> \"  ]] &&
   echo \"change-prompt((+f)> )+rebind:focus\" ||
   echo \"change-prompt(> )+unbind:focus\"' \
