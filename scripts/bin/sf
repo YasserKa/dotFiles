@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# Search files using rg & fzf with toggle between fzf & ripgrep modes
+#
+# Arguments
+# $1 (optional): initial query
+#
+# RG_PREFIX (optional): ripgrep command piped to fzf
+# RG_PATHS (optional): paths for ripgrep
+#
+# Dependencies: fzf rg
+
+rm -f /tmp/rg-fzf-{r,f}
+RG_PREFIX="${RG_PREFIX:-rg --column --line-number --no-heading --color=always --smart-case}"
+RG_PATHS="${RG_PATHS:-}"
+INITIAL_QUERY="${*:-}"
+
+COLOR=$'\033[1;36m'
+COLOR_END=$'\033[0m'
+FZF_HEADER="${COLOR}C-t${COLOR_END}: Switch between ripgrep/fzf"
+
+fzf --ansi --disabled --query "$INITIAL_QUERY" \
+	--bind "start:reload:$RG_PREFIX {q} $RG_PATHS" \
+	--bind "change:reload:sleep 0.1; $RG_PREFIX {q} $RG_PATHS || true" \
+	--bind 'ctrl-t:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
+      echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
+      echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
+	--color "hl:-1:underline,hl+:-1:underline:reverse" \
+	--prompt '1. ripgrep> ' \
+	--delimiter : \
+	--header "$FZF_HEADER" \
+	--preview 'bat --color=always {1} --highlight-line {2}' \
+	--preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+	--bind 'enter:become(nvim {1} +{2})'

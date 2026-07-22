@@ -670,18 +670,10 @@ which() {
 	return 2
 }
 
-find_pattern_in_dotfiles() {
-  [[ $# -gt 0 ]] || return 1
-	rg --hidden --no-ignore --color=always --line-number --no-heading --smart-case \
-		--glob '!**/zsh/history' --glob '!**/emacs/var/*' \
-		-- "${*:-}" "$HOME/.dotfiles" "$HOME/.dotfiles-private" |
-  	fzf --ansi \
-    --color "hl:-1:underline,hl+:-1:underline:reverse" \
-    --delimiter : \
-    --preview 'bat --color=always {1} --highlight-line {2}' \
-    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-    --bind 'enter:become(nvim {1} +{2})'
-	}
+sf_dot() {
+	RG_PREFIX="rg --hidden --no-ignore --color=always --line-number --no-heading --smart-case \
+	--glob '!**/zsh/history' --glob '!**/emacs/var/*'" RG_PATHS="$(printf '%q ' "$HOME/.dotfiles" "$HOME/.dotfiles-private")" sf "$*"
+}
 
 run_failguard() {
   local N="${FAILGUARD_N:-3}"
