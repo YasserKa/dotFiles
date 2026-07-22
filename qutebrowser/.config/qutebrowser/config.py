@@ -248,6 +248,13 @@ config.unbind("<Ctrl-q>", mode="normal")
 if "WAYLAND_DISPLAY" in os.environ and "DISPLAY" in os.environ:
     c.qt.force_platform = "XCB"
 
+c.qt.args = [
+    "enable-features=AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder",
+    "ignore-gpu-blocklist",
+    "enable-gpu-rasterization",
+    "enable-zero-copy",
+]
+
 c.aliases = {
     "q": "close",
     "yank_footnote": 'yank inline "[] []: {url}"',
