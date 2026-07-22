@@ -44,14 +44,16 @@
     "format-alt": "{time} {icon}",
     "format-icons": ["", "", "", "", ""]
   },
+  // Alternative: https://github.com/vivien/i3blocks-contrib/tree/master/bandwidth
   "network": {
     "interval": 2,
-    "format-wifi": "{signalStrength}%  {bandwidthDownBytes:>}",
-    "format-ethernet": " {bandwidthDownBytes:>}",
+    "format-wifi": "{signalStrength}%   {bandwidthDownBytes:=}  {bandwidthUpBytes:=}",
+    "format-ethernet": "  {bandwidthDownBytes:=}  {bandwidthUpBytes:=}",
     "tooltip-format": "{ifname} via {gwaddr} ",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "Disconnected ⚠",
-    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "kitty_control 'nethogs -a'"
   },
   "bluetooth": {
     "format": " {status}",

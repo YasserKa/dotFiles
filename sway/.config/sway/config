@@ -72,7 +72,7 @@ output * bg $HOME/Pictures/WallPapers/763859.jpg fill
 # Create file to avoid infinite shikane reload
 # Reload waybar (Needs to be after shikane reload && it needs bash to source the monitors properly)
 # In Wayland, dunst doesn't follow focus, use the middle monitor instead
-exec_always touch /tmp/flag_sway_reloaded && shikane --oneshot && bash -ic '{ [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && $XDG_CONFIG_HOME/dunst/update_monitor_id; }; killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && waybar & disown'
+exec_always touch /tmp/flag_sway_reloaded && shikane --oneshot && bash -ic '{ [[ -n "$WAYLAND_DISPLAY" ]] && [[ -z "$DISPLAY" ]] && $XDG_CONFIG_HOME/dunst/update_monitor_id; }; killall -9q waybar; source $HOME/bin/helpers/monitor_variables && envsubst < $XDG_CONFIG_HOME/waybar/config_template.jsonc >| $XDG_CONFIG_HOME/waybar/config.jsonc && exec systemd-cat --identifier=waybar waybar'
 
 include ~/.config/i3/monitor_setup
 

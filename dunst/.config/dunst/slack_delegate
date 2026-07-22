@@ -12,6 +12,5 @@ fi
 
 [[ $(dunstify "$2" "$3" --appname slack-delegate --action="action,label") == "action" ]] && {
   ! is_window_exists '^Slack$' && slack
-  dunstify hello
   goto_window '^Slack$'
 }

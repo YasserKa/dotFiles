@@ -20,6 +20,14 @@ export PAGER=less
 export MANOPT=-Pvimpager
 export MYVIMRC="$HOME/.config/nvim/lua/plugins/user.lua"
 
+# Disable groff/grotty SGR color+OSC8 hyperlink escapes in man pages.
+# Needed because vimpager/nvim (AnsiEsc plugin) and `most` don't
+# handle OSC 8 hyperlinks (used in coreutils man page cross-refs),
+# causing garbled ]8;;URL...]8;; text. Revisit if switching to a
+# pager with real OSC 8 support (less 581+) or if AnsiEsc gets fixed
+# for the E519 nvim 'highlight' option bug.
+export GROFF_NO_SGR=1
+
 export DOTFILES_DIR="$HOME/.dotfiles"
 export EDITOR_GUI=nvim-qt
 
@@ -107,7 +115,7 @@ if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" 
 		else
 			export QT_QPA_PLATFORM="xcb"
 		fi
-		exec sway
+		exec systemd-cat --identifier=sway sway
 	elif [ "$SERVER" = "X" ]; then
 		exec startx "${XINITRC}"
 	fi
