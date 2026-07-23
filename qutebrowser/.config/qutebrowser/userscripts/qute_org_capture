@@ -3,7 +3,11 @@
 "$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2
 
 TEMPLATE="url"
-[[ "$1" == "--clock" ]] && TEMPLATE="clock"
+case "$1" in
+--template=*)
+  TEMPLATE="${1#*=}"
+  ;;
+esac
 
 encode_url() {
   # Reliable localization
@@ -52,15 +56,21 @@ define() {
 }
 
 URL_HOST="$(echo "$QUTE_URL" | awk -F '/' '{print $3}')"
+# Encode it in case a title has ampersand "&"
+QUTE_URL="$(encode_url "$QUTE_URL")"
+
+# Create a frame to refile the URL
+if [[ "$TEMPLATE" == "refile" ]]; then
+  emacsclient --socket-name="$EMACS_ORG_SOCKET" --frame-parameters='((name . "floating") (width . 0.75) (height . 0.5))' --create-frame "org-protocol://capture?template=refile&title=$QUTE_TITLE&url=$QUTE_URL"
+  exit 0
+fi
+
 # Store word definition in different way
 if [[ "$URL_HOST" == "www.merriam-webster.com" ]]; then
   WORD="$(echo "$QUTE_URL" | awk -F '/' '{print $NF}')"
   emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=word&url=$WORD&title=$(encode_url "$(define "$WORD")")"
   exit 0
 fi
-
-# Encode it in case a title has ampersand "&"
-QUTE_URL="$(encode_url "$QUTE_URL")"
 
 if org_capture "$QUTE_URL" "$QUTE_TITLE" "$TEMPLATE"; then
   echo ":message-info 'Note captured'" >>"$QUTE_FIFO"

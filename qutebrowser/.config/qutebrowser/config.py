@@ -65,7 +65,10 @@ c.bindings.commands = {
             "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture"
         ),
         "<Alt-c><space>c": (
-            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture --clock"
+            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture --template=clock"
+        ),
+        "<Alt-r><space>c": (
+            "spawn --userscript ~/.config/qutebrowser/userscripts/qute_org_capture --template=refile"
         ),
         # Open/Delete download files
         "<space>od": (

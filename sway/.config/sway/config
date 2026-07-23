@@ -120,6 +120,7 @@ for_window [app_id="imv|mpv"] floating enable
 # Enable floating for windows that has floating class
 for_window [instance="floating"] floating enable
 
+for_window [title="^floating$"] floating enable
 for_window [title="^fullscreen$"] fullscreen enable
 
 for_window [instance="pinentry-gtk"] floating enable

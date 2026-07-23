@@ -1021,6 +1021,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (org-directory notes-dir)
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t "Hide symbols")
+  (org-default-notes-file (concat notes-dir "/capture.org"))
   (org-startup-folded 'content)
   (org-startup-folded t)
   (org-cycle-include-plain-lists 'integrate "Keep items folded when cycling")
@@ -1907,6 +1908,27 @@ see how ARG affects this command."
         org-export-preserve-breaks t
         org-export-with-todo-keywords nil)
 
+  ;; Functions used for org-protocol to refile using a floating frame
+  (defun my/close-client-frame (frame)
+    (when (frame-live-p frame)
+      (delete-frame frame)))
+
+  (defun my/org-capture-refile-target ()
+    (let ((frame (selected-frame))
+          target)
+      (condition-case nil
+          (progn
+            (with-current-buffer (find-file-noselect org-default-notes-file)
+              (setq target (org-refile-get-location "Capture to")))
+            (set-buffer (find-file-noselect (nth 1 target)))
+            (goto-char (or (nth 3 target) (point-min)))
+            (when (frame-parameter frame 'client)
+              (run-at-time 0 nil #'my/close-client-frame frame)))
+        (quit
+         (when (frame-parameter frame 'client)
+           (delete-frame frame))
+         (signal 'quit nil)))))
+
   (use-package org-protocol
     :straight nil
     :ensure nil
@@ -1918,6 +1940,8 @@ see how ARG affects this command."
                 "* TODO %:annotation" :immediate-finish t)
                ("clock" "URL to clock" plain
                 (clock)
+                "- %:annotation" :immediate-finish t :prepend t)
+               ("refile" "refile entry" plain (function my/org-capture-refile-target)
                 "- %:annotation" :immediate-finish t :prepend t)
                ("p" "org-capture-note" entry
                 (file+headline ,(concat notes-dir "/papers.org") "Inbox")
