@@ -1459,6 +1459,14 @@ Made for `org-tab-first-hook' in evil-mode."
         '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
           ))
 
+  (defun my/org-clock-save-buffer ()
+    "Save the buffer after a clock event, if it has a file and is modified."
+    (when (and (buffer-file-name) (buffer-modified-p))
+      (save-buffer)))
+  (add-hook 'org-clock-in-hook #'my/org-clock-save-buffer)
+  (add-hook 'org-clock-out-hook #'my/org-clock-save-buffer)
+  (add-hook 'org-clock-cancel-hook #'my/org-clock-save-buffer)
+
   ;; Convert effort to HH:MM format
   (defun org-normalize-effort ()
     "Convert effort to HH:MM format in Org mode without causing recursion."
@@ -1585,7 +1593,7 @@ Made for `org-tab-first-hook' in evil-mode."
                          (:name "Tasks" :and (:file-path ".*/tasks.org" :not (:property "SKIP_IN_A_WEEK")))
                          (:discard (:anything))
                          ))))
-             (alltodo ""
+            (alltodo ""
                      (
                       (org-agenda-overriding-header "")
                       (org-agenda-sorting-strategy '(timestamp-up))
@@ -1594,22 +1602,22 @@ Made for `org-tab-first-hook' in evil-mode."
                        `((:discard (:scheduled today :priority "A"))
                          (:name "In a week" :and (:scheduled (before ,one-week-from-today) :not (:property "SKIP_IN_A_WEEK") :not (:todo "NEXT") :not (:file-path ".*/tasks.org") :not (:file-path ".*/other_tasks.org") :not (:file-path ".*/capture.org")))
                          (:discard (:anything))
-                ))))
-              ))
-            ("o" "Others"
-            ((alltodo ""
-                      (
-                        (org-agenda-prefix-format '((todo . " %-5e")))
-                        (org-agenda-overriding-header "")
-                        (org-super-agenda-header-separator "")
-                        (org-super-agenda-groups
-                        '(
-                          (:name "Capture"
-                                  :file-path ".*capture.org")
-                          (:name "\nTasks"
-                                  :file-path ".*/tasks.org")
-                          (:discard (:anything))
-                          ))))
+                         ))))
+            ))
+          ("o" "Others"
+           ((alltodo ""
+                     (
+                      (org-agenda-prefix-format '((todo . " %-5e")))
+                      (org-agenda-overriding-header "")
+                      (org-super-agenda-header-separator "")
+                      (org-super-agenda-groups
+                       '(
+                         (:name "Capture"
+                                :file-path ".*capture.org")
+                         (:name "\nTasks"
+                                :file-path ".*/tasks.org")
+                         (:discard (:anything))
+                         ))))
             (todo "DONE" ((org-agenda-overriding-header "\nCompleted")))
             (todo "CANCELED" ((org-agenda-overriding-header "\nCanceled")))
             ))
@@ -1711,27 +1719,27 @@ Made for `org-tab-first-hook' in evil-mode."
     (save-restriction
       (org-narrow-to-subtree)
       (let* ((today (format-time-string "%Y-%m-%d"))
-            (tstart (concat today " 00:00"))
-            (tend   (concat today " 23:59")))
+             (tstart (concat today " 00:00"))
+             (tend   (concat today " 23:59")))
         (org-clock-sum tstart tend))))
 
   ;; Clock in clock out hooks with the bar
   (defun my/add-clock-tmp-file ()
-  (let ((today-mins (save-restriction
-                      (org-narrow-to-subtree)
-                      (let* ((today (format-time-string "%Y-%m-%d"))
-                             (tstart (concat today " 00:00"))
-                             (tend   (concat today " 23:59")))
-                        (org-clock-sum tstart tend)))))
-    (shell-command (concat "/bin/echo -e "
-                           "\"" (org-get-heading t t t t) " \n"
-                           (org-entry-get nil "Effort") " \n"
-                           (substring-no-properties (org-clock-get-clock-string)) " \n"
-                           (format "%s" today-mins) " \n"
-                           (what-line) " \n"
-                           (buffer-file-name) "\""
-                           " > /tmp/org_current_task"))
-    ))
+    (let ((today-mins (save-restriction
+                        (org-narrow-to-subtree)
+                        (let* ((today (format-time-string "%Y-%m-%d"))
+                               (tstart (concat today " 00:00"))
+                               (tend   (concat today " 23:59")))
+                          (org-clock-sum tstart tend)))))
+      (shell-command (concat "/bin/echo -e "
+                             "\"" (org-get-heading t t t t) " \n"
+                             (org-entry-get nil "Effort") " \n"
+                             (substring-no-properties (org-clock-get-clock-string)) " \n"
+                             (format "%s" today-mins) " \n"
+                             (what-line) " \n"
+                             (buffer-file-name) "\""
+                             " > /tmp/org_current_task"))
+      ))
 
   (defun my/org-clock-out-done ()
     "Clock out and switch state of task to done"
