@@ -29,10 +29,10 @@ bindsym $mod+l  focus right
 bindsym $mod+h  focus left
 
 # Move focused windows
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move down
+bindsym $mod+Shift+k exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move up
+bindsym $mod+Shift+l exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move right
+bindsym $mod+Shift+h exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move left
 
 # Split in hor/vert orientation
 bindsym $mod+v split horizontal

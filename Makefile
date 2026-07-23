@@ -67,7 +67,7 @@ install-packages: create-clean-pkglist install-aur-helper
 create-clean-pkglist:
 	@# pacman doesn\'t show the following installed packages
 	@# Added xremap bcz there are one for each x11 and wayland
-	@cat pkglist | grep -o "^[^#]*" | grep -vE "(emacs.*|binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which|xremap-x11-bin)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
+	@cat pkglist "pkglist_$$(uname -n)"  | grep -o "^[^#]*" | grep -vE "(emacs.*|binutils|fakeroot|gcc|gnupg|libtool|m4|make|msgpack-c|patch|pkgconf|sudo|texinfo|tree-sitter|which|xremap-x11-bin)" | sort | sed '1d' | tr -d "[:blank:]" >| pkglist_clean.tmp
 
 .PHONY: stow-root
 stow-root:

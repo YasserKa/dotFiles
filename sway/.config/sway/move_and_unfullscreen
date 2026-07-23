@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#
+# Used by sway to minimize fullscreened containers if another container is moved in the workspace
+
+CON_ID=$(swaymsg -t get_tree | jq '.. | select(.focused? == true) | .id')
+
+# Get workspace BEFORE the move
+WS_BEFORE=$(swaymsg -t get_tree | jq --argjson id "$CON_ID" '
+  [.. | objects | select(.type=="workspace") |
+   select(.. | objects | select(.id? == $id))] | .[0].id
+')
+
+# Perform the move
+swaymsg "[con_id=$CON_ID] $*"
+
+# Get workspace AFTER the move
+TREE_AFTER=$(swaymsg -t get_tree)
+WS_AFTER=$(echo "$TREE_AFTER" | jq --argjson id "$CON_ID" '
+  [.. | objects | select(.type=="workspace") |
+   select(.. | objects | select(.id? == $id))] | .[0].id
+')
+
+# Only act if the workspace actually changed
+if [ "$WS_BEFORE" != "$WS_AFTER" ] && [ -n "$WS_AFTER" ] && [ "$WS_AFTER" != "null" ]; then
+	FS_ID=$(echo "$TREE_AFTER" | jq --argjson ws "$WS_AFTER" --argjson id "$CON_ID" '
+    [.. | objects | select(.id? == $ws) | .. | objects |
+     select(.fullscreen_mode? == 1 and .id != $id)] | .[0].id
+  ')
+	if [ -n "$FS_ID" ] && [ "$FS_ID" != "null" ]; then
+		swaymsg "[con_id=$FS_ID] fullscreen disable"
+		swaymsg "[con_id=$CON_ID] focus"
+	fi
+fi
