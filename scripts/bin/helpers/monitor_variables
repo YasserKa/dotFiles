@@ -4,7 +4,7 @@
 if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 	MONITORS="$(wlr-randr | awk '
     /^[^ ]/ { name=$1 }
-    /Position:/ { match($0, /Position: ([0-9]+),/, m); print m[1], name }
+    /Position:/ && name !~ /^HEADLESS-/ { match($0, /Position: ([0-9]+),/, m); print m[1], name }
     ' | sort -n | cut -d' ' -f2-)"
 elif [[ -n "${DISPLAY}" ]]; then
 	MONITORS="$(xrandr --listmonitors | tail -n +2 |

@@ -781,7 +781,9 @@ if [[ -n "${WAYLAND_DISPLAY}" ]]; then
 		swaymsg create_output res 1920x1080
 		OUTPUT_NAME="$(swaymsg -t get_outputs | grep -oP 'HEADLESS-\d+')"
 		echo "output_name = ${OUTPUT_NAME}" >|"$XDG_CONFIG_HOME/sunshine/sunshine.conf"
-	} && command sunshine
+	} && command sunshine; {
+		swaymsg output "$OUTPUT_NAME" unplug && swaymsg reload;
+		} # Need to disable output & reload for shikane to align the monitors properly
 else
 	command sunshine
 fi
@@ -793,7 +795,7 @@ thunderbird() {
  	{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
  		i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && return 0
 	command thunderbird &
- wait_window '^org.mozilla.Thunderbird$' && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
+ wait_window '^org.mozilla.Thunderbird$' && sleep 0.5 && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
 }
 
 zotero() {
