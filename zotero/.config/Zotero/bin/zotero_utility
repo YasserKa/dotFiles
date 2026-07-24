@@ -348,6 +348,8 @@ get_metadata() {
 
     HTML_PATH="$(mktemp -t "tmp_XXX.html")"
     readonly HTML_PATH
+		echo "$(curl -d "$SOURCE" -H 'Content-Type: text/plain' http://remote:1969/web | jq ".[] | .$METADATA" | head)"
+		return 0
 
     trap 'rm -f $HTML_PATH' RETURN
     get_page_content "$SOURCE" "$HTML_PATH"
