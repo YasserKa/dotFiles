@@ -286,6 +286,7 @@ c.aliases = {
     "import_zotero_read": "spawn ~/.config/Zotero/bin/zotero_utility import --add_org_entry --collection_name 'To_Read' {url}",
     "get_paper_citations": "spawn ~/bin/notify_paper_citation {url}",
     "get_paper_graph": 'spawn bash -ic "xdg-open https://inciteful.xyz/p/$(~/.config/Zotero/bin/zotero_utility get_metadata DOI {url})"',
+    "libkey": 'spawn bash -ic "xdg-open https://libkey.io/$(~/.config/Zotero/bin/zotero_utility get_metadata DOI {url})"',
     "kde_share": "spawn kde_share_url {url}",
     "yt-transcribe": "spawn --userscript ~/.config/qutebrowser/userscripts/yt-transcribe",
     "paper": "spawn --userscript ~/.config/qutebrowser/userscripts/get_paper",
