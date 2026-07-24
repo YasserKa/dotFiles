@@ -65,9 +65,10 @@ zstyle ':completion:*' rehash true
 
 plug "zsh-users/zsh-completions"
 
+HISTORIES_DIR="$HOME/.dotfiles-private/zsh/.config/zsh/.zsh_dir_histories"
 # Per directori autosuggestions
 _per_dir_history_precmd() {
-    local dir_hist="$HOME/.dotfiles-private/zsh/.config/zsh/.zsh_dir_histories/$(echo $PWD | tr '/' '_')"
+    local dir_hist="${HISTORIES_DIR}/$(echo $PWD | tr '/' '_')"
     mkdir -p "$(dirname $dir_hist)"
     [[ ! -e "$dir_hist" ]] && touch "$dir_hist"
     echo "$1" >> "$dir_hist"
@@ -78,14 +79,14 @@ add-zsh-hook preexec _per_dir_history_precmd
 
 _zsh_autosuggest_strategy_dir_history() {
     local prefix="${1//\\/}"
-    local dir_hist="$HOME/.dotfiles-private/zsh/.config/zsh/.zsh_dir_histories/$(echo $PWD | tr '/' '_')"
+    local dir_hist="${HISTORIES_DIR}/$(echo $PWD | tr '/' '_')"
     if [[ -f "$dir_hist" ]]; then
         suggestion=$(awk -v prefix="$prefix" 'substr($0, 1, length(prefix)) == prefix' "$dir_hist" | tail -1)
     fi
     [[ -z "$suggestion" ]] && suggestion=$(fc -ln 1 | awk -v prefix="$prefix" 'substr($0, 1, length(prefix)) == prefix' | tail -1)
 }
 
-ZSH_AUTOSUGGEST_STRATEGY=(dir_history history)
+ZSH_AUTOSUGGEST_STRATEGY=(dir_history history completion)
 
 
 plug "zsh-users/zsh-autosuggestions"
