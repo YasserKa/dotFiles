@@ -16,6 +16,8 @@ keymap:
         launch: ["bash", "-c", "dunstctl close"]
       SUPER-Shift-Space:
         launch: ["bash", "-c", "i3-msg floating toggle"]
+      SUPER-Alt-Space:
+        launch: ["bash", "-c", "i3-msg focus mode_toggle"] # Switch between floating/tiled focus
       SUPER-apostrophe:
         launch: ["bash", "-c", "dunstctl history-pop"]
       # Execute default actions

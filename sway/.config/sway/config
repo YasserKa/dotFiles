@@ -45,6 +45,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+f fullscreen toggle; focus
 
 # Toggle the current focus between tiling and floating mode
+# NOTE: Actually this is done by xremap
 bindsym $mod+Shift+space floating toggle
 
 # Drag/resize floating with mouse left/right+$mod
