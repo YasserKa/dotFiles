@@ -133,6 +133,13 @@ import_source() {
 
   declare -r FRE_NAME="zotero_collection"
 
+	(
+		CACHE_PAPER_REFERENCES_PATH="$(inotifywait --timeout 60 -e create,moved_to --format '%w%f' "$XDG_CACHE_HOME/papers_references/")" &&
+			inotifywait --timeout $((60 * 20)) --format '%w%f' "${CACHE_PAPER_REFERENCES_PATH}" --include "references_enriched.json" &&
+			dunstify "Enriched paper references"
+	) &
+	CACHE_PAPER_PID=$!
+
   if [[ "$RECENT" == "true" ]]; then
     # Use most recent file
     source "$TMP_FILE_RECENT_COLLECTION_ID"
@@ -186,6 +193,7 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     let path = decodeURIComponent("'$SOURCE'");
     items = await getZoteroPane().addAttachmentFromDialog(false, 0,[path]);
 		await waitForCondition(() => items[0].parentID, 10000);
+    await sleep(2000); // Wait for BetterBibTeX plugin to sync the item
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].parentID).citationKey
   '
   elif curl --head "$SOURCE" >/dev/null; then
@@ -250,13 +258,14 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
   fi
   results="$(eval_script_return_value "$import_script")"
   if grep "Error:" <(echo "$results"); then
+    notify-send "$results"
     exit 1
   else
     if [[ "$ADD_ORG_ENTRY" == "true" ]]; then
       emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${results}]"
     fi
-    # echo "$results"
     dunstify "Entry Added"
+    wait "$CACHE_PAPER_PID"
   fi
 }
 
