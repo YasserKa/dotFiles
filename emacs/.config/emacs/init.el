@@ -1958,7 +1958,7 @@ see how ARG affects this command."
                 (file ,(concat notes-dir "/capture.org"))
                 "* TODO %:description" :immediate-finish t)
                ("w" "Web site" entry
-                (file ,(concat notes-dir "/org_protocol_html.org")) ;
+                (file ,(concat notes-dir "/org_protocol_html.org"))
                 "* %a :website:\n\n%U %?\n\n%:initial")
                ("word" "Word" entry
                 (file ,(concat notes-dir "/words.org"))
