@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""
+sway_geo_focus; geometric directional focus for Sway.
+
+Sway's built-in `focus left/right/up/down` walks the layout TREE, so it can
+jump to a container that isn't actually adjacent on screen (whatever was
+last focused inside a split). This script instead looks at real on-screen
+coordinates and focuses whichever window is truly closest in the given
+direction.
+
+Usage:
+    sway-geo-focus.py right
+    sway-geo-focus.py left
+    sway-geo-focus.py up
+    sway-geo-focus.py down
+
+Requires:
+    pip install i3ipc          (or: sudo pacman -S python-i3ipc / apt install python3-i3ipc)
+
+Sway config (~/.config/sway/config) — replace the default focus bindings:
+
+    bindsym $mod+Left  exec --no-startup-id ~/.local/bin/sway-geo-focus.py left
+    bindsym $mod+Down  exec --no-startup-id ~/.local/bin/sway-geo-focus.py down
+    bindsym $mod+Up    exec --no-startup-id ~/.local/bin/sway-geo-focus.py up
+    bindsym $mod+Right exec --no-startup-id ~/.local/bin/sway-geo-focus.py right
+
+(Make the script executable: chmod +x sway-geo-focus.py, and put it
+somewhere like ~/.local/bin/.)
+"""
+
+import sys
+import i3ipc
+
+
+def get_leaves(node):
+    """Return only real window containers under this node — never split
+    or tabbed/stacked parent containers, whose rect is the bounding box
+    of all their children (and would otherwise get picked as an oversized,
+    wrong candidate). Delegates to i3ipc's own Con.leaves(), which is
+    purpose-built for exactly this and also correctly unwraps floating
+    windows, rather than hand-checking for "no children"."""
+    return node.leaves()
+
+
+def get_visible_leaves(conn, tree):
+    """Collect leaf windows from the currently VISIBLE workspace on every
+    output (not just the focused output), so directional focus can jump
+    straight to the correct window on another monitor instead of relying
+    on Sway's own tree-based cross-output fallback.
+
+    Note: get_tree() nodes don't reliably expose a usable `visible` flag
+    in i3ipc, so we cross-reference against the dedicated GET_WORKSPACES
+    IPC call instead, which does report `visible` accurately per the
+    sway-ipc protocol. WorkspaceReply has no `id` field, so we match on
+    workspace `name` instead (names are unique per workspace)."""
+    visible_ws_names = {ws.name for ws in conn.get_workspaces() if ws.visible}
+
+    leaves = []
+    for ws_node in tree.workspaces():
+        if ws_node.name in visible_ws_names:
+            ws_leaves = get_leaves(ws_node)
+            if ws_leaves:
+                # If any window on this workspace is fullscreen, the rest
+                # of the leaves here aren't actually visible on screen —
+                # tag them so main() can fall back to native focus.
+                ws_has_fullscreen = any(
+                    getattr(c, "fullscreen_mode", 0) for c in ws_leaves
+                )
+                for c in ws_leaves:
+                    c._geo_focus_ws_fullscreen = ws_has_fullscreen
+                    c._is_empty_placeholder = False
+                leaves.extend(ws_leaves)
+            else:
+                # Empty visible workspace (e.g. an unused output) — treat
+                # its workspace rect as a placeholder candidate so
+                # directional focus can land there instead of skipping
+                # straight past it to the next output that has windows.
+                ws_node._geo_focus_ws_fullscreen = False
+                ws_node._is_empty_placeholder = True
+                leaves.append(ws_node)
+    return leaves
+
+
+def rect_of(con):
+    r = con.rect
+    return (r.x, r.y, r.width, r.height)
+
+
+def center_of(rect):
+    x, y, w, h = rect
+    return (x + w / 2.0, y + h / 2.0)
+
+
+def pick_target(focused, candidates, direction):
+    fx, fy = center_of(rect_of(focused))
+    best = None
+    best_score = None
+
+    for c in candidates:
+        if c.id == focused.id:
+            continue
+        cx, cy = center_of(rect_of(c))
+        dx, dy = cx - fx, cy - fy
+
+        if direction == "right" and dx <= 0:
+            continue
+        if direction == "left" and dx >= 0:
+            continue
+        if direction == "down" and dy <= 0:
+            continue
+        if direction == "up" and dy >= 0:
+            continue
+
+        # Restrict to a roughly 90-degree cone in the requested direction
+        # (primary axis distance must dominate the perpendicular offset).
+        if direction in ("left", "right"):
+            primary, perp = abs(dx), abs(dy)
+        else:
+            primary, perp = abs(dy), abs(dx)
+
+        if perp > primary:
+            continue
+
+        # Prefer closest primary-axis distance, then smallest perpendicular
+        # offset as a tiebreaker.
+        score = (primary, perp)
+        if best_score is None or score < best_score:
+            best_score = score
+            best = c
+
+    return best
+
+
+def main():
+    if len(sys.argv) != 2 or sys.argv[1] not in ("left", "right", "up", "down"):
+        print("Usage: sway-geo-focus.py {left|right|up|down}", file=sys.stderr)
+        sys.exit(1)
+
+    direction = sys.argv[1]
+    conn = i3ipc.Connection()
+    tree = conn.get_tree()
+    focused = tree.find_focused()
+
+    if focused is None:
+        sys.exit(0)
+
+    # If the focused container is fullscreen, geometric focus doesn't make
+    # sense here (there's effectively only one visible window) — defer to
+    # Sway's normal tree-based focus behavior instead.
+    if getattr(focused, "fullscreen_mode", 0):
+        conn.command(f"focus {direction}")
+        return
+
+    # Consider windows on every output's currently visible workspace, so a
+    # move across monitors is decided by real geometry too, not by
+    # Sway's tree-based cross-output fallback.
+    candidates = get_visible_leaves(conn, tree)
+
+    target = pick_target(focused, candidates, direction)
+
+    if target is None:
+        # Nothing qualifies in that direction anywhere on screen (e.g.
+        # you're at the outermost edge) — defer to Sway's native behavior.
+        conn.command(f"focus {direction}")
+    elif getattr(target, "_geo_focus_ws_fullscreen", False):
+        # Target lives on a workspace with an active fullscreen window
+        # (so it isn't really visible) — defer to Sway's native behavior.
+        conn.command(f"focus {direction}")
+    elif getattr(target, "_is_empty_placeholder", False):
+        # Target is an empty visible workspace/output — move focus there
+        # via the output itself rather than a nonexistent window.
+        conn.command(f"focus output {direction}")
+    else:
+        conn.command(f"[con_id={target.id}] focus")
+
+
+if __name__ == "__main__":
+    main()

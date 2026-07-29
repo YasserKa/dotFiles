@@ -1,33 +1,44 @@
 #!/usr/bin/env bash
 #
-# Used by sway to minimize fullscreened containers if another container is moved in the workspace
+# Move a container and:
+# Force its movement if they are the only parents of a group
+# Unfullscreen containers in the targeted output
 
-CON_ID=$(swaymsg -t get_tree | jq '.. | select(.focused? == true) | .id')
-
-# Get workspace BEFORE the move
-WS_BEFORE=$(swaymsg -t get_tree | jq --argjson id "$CON_ID" '
+TREE_BEFORE=$(swaymsg -t get_tree)
+CON_ID=$(echo "$TREE_BEFORE" | jq '[.. | objects | select(.focused==true)][0].id')
+RECT_BEFORE=$(echo "$TREE_BEFORE" | jq -c --argjson id "$CON_ID" \
+  '[.. | objects | select(.id==$id)][0].rect')
+WS_BEFORE=$(echo "$TREE_BEFORE" | jq --argjson id "$CON_ID" '
   [.. | objects | select(.type=="workspace") |
-   select(.. | objects | select(.id? == $id))] | .[0].id
+   select(.. | objects | select(.id?==$id))] | .[0].id
 ')
 
-# Perform the move
+# First move attempt
 swaymsg "[con_id=$CON_ID] $*"
 
-# Get workspace AFTER the move
 TREE_AFTER=$(swaymsg -t get_tree)
+RECT_AFTER=$(echo "$TREE_AFTER" | jq -c --argjson id "$CON_ID" \
+  '[.. | objects | select(.id==$id)][0].rect')
+
+# If nothing actually moved (escape-only hop), fire again
+if [ "$RECT_BEFORE" = "$RECT_AFTER" ]; then
+  swaymsg "[con_id=$CON_ID] $*"
+  TREE_AFTER=$(swaymsg -t get_tree)
+fi
+
 WS_AFTER=$(echo "$TREE_AFTER" | jq --argjson id "$CON_ID" '
   [.. | objects | select(.type=="workspace") |
-   select(.. | objects | select(.id? == $id))] | .[0].id
+   select(.. | objects | select(.id?==$id))] | .[0].id
 ')
 
 # Only act if the workspace actually changed
 if [ "$WS_BEFORE" != "$WS_AFTER" ] && [ -n "$WS_AFTER" ] && [ "$WS_AFTER" != "null" ]; then
-	FS_ID=$(echo "$TREE_AFTER" | jq --argjson ws "$WS_AFTER" --argjson id "$CON_ID" '
-    [.. | objects | select(.id? == $ws) | .. | objects |
-     select(.fullscreen_mode? == 1 and .id != $id)] | .[0].id
+  FS_ID=$(echo "$TREE_AFTER" | jq --argjson ws "$WS_AFTER" --argjson id "$CON_ID" '
+    [.. | objects | select(.id?==$ws) | .. | objects |
+     select(.fullscreen_mode?==1 and .id != $id)] | .[0].id
   ')
-	if [ -n "$FS_ID" ] && [ "$FS_ID" != "null" ]; then
-		swaymsg "[con_id=$FS_ID] fullscreen disable"
-		swaymsg "[con_id=$CON_ID] focus"
-	fi
+  if [ -n "$FS_ID" ] && [ "$FS_ID" != "null" ]; then
+    swaymsg "[con_id=$FS_ID] fullscreen disable"
+    swaymsg "[con_id=$CON_ID] focus"
+  fi
 fi

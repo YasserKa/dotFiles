@@ -4,9 +4,11 @@
 set $mod Mod4
 gaps inner 2
 gaps outer 2
+# No gaps for single child workspaces
+smart_gaps on
 
 # Set window borders
-default_border pixel 3
+default_border pixel 0
 default_border none
 default_floating_border none
 
@@ -23,16 +25,27 @@ xwayland disable
 # >>>
 # Workspaces/Windows <<<
 # Focus windows
-bindsym $mod+j  focus down
-bindsym $mod+k  focus up
-bindsym $mod+l  focus right
-bindsym $mod+h  focus left
+bindsym $mod+j exec $XDG_CONFIG_HOME/sway/sway_geo_focus down
+bindsym $mod+k exec $XDG_CONFIG_HOME/sway/sway_geo_focus up
+bindsym $mod+l exec $XDG_CONFIG_HOME/sway/sway_geo_focus right
+bindsym $mod+h exec $XDG_CONFIG_HOME/sway/sway_geo_focus left
 
 # Move focused windows
 bindsym $mod+Shift+j exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move down
 bindsym $mod+Shift+k exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move up
 bindsym $mod+Shift+l exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move right
 bindsym $mod+Shift+h exec $XDG_CONFIG_HOME/sway/move_and_unfullscreen move left
+
+# bindsym $mod+j focus down
+# bindsym $mod+k focus up
+# bindsym $mod+l focus right
+# bindsym $mod+h focus left
+
+# # Move focused windows
+# bindsym $mod+Shift+j move down
+# bindsym $mod+Shift+k move up
+# bindsym $mod+Shift+l move right
+# bindsym $mod+Shift+h move left
 
 # Split in hor/vert orientation
 bindsym $mod+v split horizontal
