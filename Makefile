@@ -92,7 +92,6 @@ install-aur-helper: stow-root
 setup-tuir:
 	@git clone --depth 1 https://gitlab.com/YasserKa/tuir /tmp/tuir
 	@# mailcap module (used by tuir) is removed at python 3.13
-	@uv python install 3.12
 	cd /tmp/tuir/ && uv tool install .
 	cd .. && rm /tmp/tuir -rf
 

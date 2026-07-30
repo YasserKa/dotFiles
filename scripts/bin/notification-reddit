@@ -8,7 +8,7 @@ TMP_FILE="/tmp/reddit_inbox.json"
 [[ ! -e "$TMP_FILE" ]] && echo "" && exit 0
 
 # Filter out DMs, since they aren't marked as unread when you reading them
-num_unread=$(jq '.data.children | map(select(.kind != "t4"))  | length' "$TMP_FILE")
+num_unread=$(jq '.["data"]["children"] | length' "$TMP_FILE")
 
 if [[ $((num_unread > 0)) && "$1" == "open" ]]; then
 	xdg-open "https://reddit.com/message/unread/"
