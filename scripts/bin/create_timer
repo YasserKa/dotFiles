@@ -2,41 +2,64 @@
 #######################################
 # Create a timer with progress bar
 # Arguments:
-#   $1: seconds to wait
+#   $1: seconds to wait, OR a target time in HH:MM format
+#       (HH:MM is interpreted as the next occurrence of that
+#        clock time, today or tomorrow if it has already passed)
+#   $2: (optional) message
 #######################################
 
-
 function cleanup() {
-  tput cnorm
+	tput cnorm
 }
-
 trap cleanup EXIT
-
 # Hide cursor
 tput civis
 
 get_time() {
-  local -r SECONDS="$1"
-  if [[ $((SECONDS/60)) -ge 60 ]]; then
-    date -d@"$SECONDS" -u +%H:%M:%S
-  else
-    date -d@"$SECONDS" -u +%M:%S
-  fi
+	local -r SECONDS="$1"
+	if [[ $((SECONDS / 60)) -ge 60 ]]; then
+		date -d@"$SECONDS" -u +%H:%M:%S
+	else
+		date -d@"$SECONDS" -u +%M:%S
+	fi
 }
 
+# Convert an HH:MM target time into seconds-from-now.
+# If the input isn't HH:MM, it's returned unchanged (treated as raw seconds).
+resolve_seconds() {
+	local -r INPUT="$1"
+	if [[ "$INPUT" =~ ^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$ ]]; then
+		local -r NOW_EPOCH=$(date +%s)
+		local TARGET_EPOCH
+		TARGET_EPOCH=$(date -d "$INPUT" +%s) || {
+			echo "Invalid time: $INPUT" >&2
+			exit 1
+		}
+		# If that time already passed today, target tomorrow instead
+		if ((TARGET_EPOCH <= NOW_EPOCH)); then
+			TARGET_EPOCH=$(date -d "tomorrow $INPUT" +%s)
+		fi
+		echo $((TARGET_EPOCH - NOW_EPOCH))
+	else
+		echo "$INPUT"
+	fi
+}
 
 main() {
-  local -r SECONDS="$1"
-  local SECONDS_LEFT="$1"
-  echo -e "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
-
-  while [ "$SECONDS_LEFT" -gt 0 ]; do
-    echo -ne "Left: $(get_time "$SECONDS_LEFT")  Elapsed: $(get_time "$((SECONDS-SECONDS_LEFT))")\033[0K\r"
-    sleep 1
-    SECONDS_LEFT=$((SECONDS_LEFT - 1))
-  done && notify-send --expire-time=$((5 * 60 * 1000)) -- "TIMER UP!"
+	local -r SECONDS="$1"
+	local SECONDS_LEFT="$1"
+	local MESSAGE="${2-TIMER UP!}"
+	echo -e "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
+	while [ "$SECONDS_LEFT" -gt 0 ]; do
+		echo -ne "Left: $(get_time "$SECONDS_LEFT")  Elapsed: $(get_time "$((SECONDS - SECONDS_LEFT))")\033[0K\r"
+		sleep 1
+		SECONDS_LEFT=$((SECONDS_LEFT - 1))
+	done && notify-send --expire-time=$((5 * 60 * 1000)) -- "$MESSAGE"
 }
 
-(($# > 1)) && echo "Only need one option - seconds" && exit 1
+if (($# > 2)); then
+	echo "One needed option - seconds or HH:MM, and optionally message" && exit 1
+fi
 
-main "$@"
+SECONDS_ARG="$(resolve_seconds "$1")"
+main "$SECONDS_ARG" "$2"
