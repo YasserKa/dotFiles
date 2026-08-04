@@ -7,13 +7,25 @@
 #        clock time, today or tomorrow if it has already passed)
 #   $2: (optional) message
 #######################################
-
 function cleanup() {
 	tput cnorm
 }
 trap cleanup EXIT
 # Hide cursor
 tput civis
+
+# Only emit color codes when writing to a real terminal
+if [ -t 1 ]; then
+	readonly COLOR_RESET=$(tput sgr0)
+	readonly COLOR_BOLD=$(tput bold)
+	readonly COLOR_CYAN=$(tput setaf 6)
+	readonly COLOR_YELLOW=$(tput setaf 3)
+else
+	readonly COLOR_RESET=""
+	readonly COLOR_BOLD=""
+	readonly COLOR_CYAN=""
+	readonly COLOR_YELLOW=""
+fi
 
 get_time() {
 	local -r SECONDS="$1"
@@ -48,10 +60,10 @@ resolve_seconds() {
 main() {
 	local -r SECONDS="$1"
 	local SECONDS_LEFT="$1"
-	local MESSAGE="${2-TIMER UP!}"
-	echo -e "Interval: $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
+	local MESSAGE="${2:-TIMER UP!}"
+	echo -e "${COLOR_BOLD}${COLOR_CYAN}Interval:${COLOR_RESET} $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
 	while [ "$SECONDS_LEFT" -gt 0 ]; do
-		echo -ne "Left: $(get_time "$SECONDS_LEFT")  Elapsed: $(get_time "$((SECONDS - SECONDS_LEFT))")\033[0K\r"
+		echo -ne "Left: ${COLOR_YELLOW}${COLOR_BOLD}$(get_time "$SECONDS_LEFT")${COLOR_RESET}  Elapsed: $(get_time "$((SECONDS - SECONDS_LEFT))")\033[0K\r"
 		sleep 1
 		SECONDS_LEFT=$((SECONDS_LEFT - 1))
 	done && notify-send --expire-time=$((5 * 60 * 1000)) -- "$MESSAGE"
