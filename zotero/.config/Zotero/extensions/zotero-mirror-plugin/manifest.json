@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Zoter mirror",
+  "version": "1.0",
+  "description": "Zoter mirror",
+  "homepage_url": "https://github.com/YasserKa/dotFiles/zotero",
+  "applications": {
+    "zotero": {
+      "id": "webSocket-server",
+      "update_url": "https://github.com/YasserKa/dotFiles/zotero",
+      "strict_min_version": "9.0",
+      "strict_max_version": "9.*"
+    }
+  }
+}

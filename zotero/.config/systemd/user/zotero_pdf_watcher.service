@@ -1,0 +1,11 @@
+[Unit]
+Description=Zotero PDF bidirectional mirror watcher
+
+[Service]
+Type=simple
+ExecStart=/home/yasser/.config/Zotero/bin/zotero_pdf_watcher --storage /home/yasser/.config/Zotero/storage --mirror /home/yasser/Documents/zotero_papers_mirror
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
