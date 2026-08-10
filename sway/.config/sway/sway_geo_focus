@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-sway_geo_focus; geometric directional focus for Sway.
+sway-geo-focus.py — geometric directional focus for Sway.
 
 Sway's built-in `focus left/right/up/down` walks the layout TREE, so it can
 jump to a container that isn't actually adjacent on screen (whatever was
@@ -91,44 +91,67 @@ def center_of(rect):
     return (x + w / 2.0, y + h / 2.0)
 
 
+def edges_of(rect):
+    x, y, w, h = rect
+    return x, y, x + w, y + h  # left, top, right, bottom
+
+
+def overlap_1d(a_min, a_max, b_min, b_max):
+    return max(0, min(a_max, b_max) - max(a_min, b_min))
+
+
 def pick_target(focused, candidates, direction):
-    fx, fy = center_of(rect_of(focused))
-    best = None
-    best_score = None
+    fl, ft, fr, fb = edges_of(rect_of(focused))
+    fcx, fcy = center_of(rect_of(focused))
+
+    scored = []
 
     for c in candidates:
         if c.id == focused.id:
             continue
-        cx, cy = center_of(rect_of(c))
-        dx, dy = cx - fx, cy - fy
+        cl, ct, cr, cb = edges_of(rect_of(c))
+        ccx, ccy = center_of(rect_of(c))
 
-        if direction == "right" and dx <= 0:
-            continue
-        if direction == "left" and dx >= 0:
-            continue
-        if direction == "down" and dy <= 0:
-            continue
-        if direction == "up" and dy >= 0:
-            continue
+        # A candidate only qualifies if it's genuinely positioned in the
+        # requested direction — its near edge at or past our far edge —
+        # not merely "its center happens to be that way", which is what
+        # let a same-row/column window get excluded in favor of a
+        # farther, center-aligned one.
+        if direction == "right":
+            if cl < fr:
+                continue
+            primary = cl - fr
+            overlap = overlap_1d(ft, fb, ct, cb)
+            perp_dist = abs(ccy - fcy)
+        elif direction == "left":
+            if cr > fl:
+                continue
+            primary = fl - cr
+            overlap = overlap_1d(ft, fb, ct, cb)
+            perp_dist = abs(ccy - fcy)
+        elif direction == "down":
+            if ct < fb:
+                continue
+            primary = ct - fb
+            overlap = overlap_1d(fl, fr, cl, cr)
+            perp_dist = abs(ccx - fcx)
+        else:  # up
+            if cb > ft:
+                continue
+            primary = ft - cb
+            overlap = overlap_1d(fl, fr, cl, cr)
+            perp_dist = abs(ccx - fcx)
 
-        # Restrict to a roughly 90-degree cone in the requested direction
-        # (primary axis distance must dominate the perpendicular offset).
-        if direction in ("left", "right"):
-            primary, perp = abs(dx), abs(dy)
-        else:
-            primary, perp = abs(dy), abs(dx)
+        # Rank by: closest first (never let a farther window win just
+        # because it overlaps more), then most perpendicular overlap,
+        # then closest center alignment as a final tiebreaker.
+        scored.append((primary, -overlap, perp_dist, c))
 
-        if perp > primary:
-            continue
+    if not scored:
+        return None
 
-        # Prefer closest primary-axis distance, then smallest perpendicular
-        # offset as a tiebreaker.
-        score = (primary, perp)
-        if best_score is None or score < best_score:
-            best_score = score
-            best = c
-
-    return best
+    scored.sort(key=lambda t: t[:3])
+    return scored[0][3]
 
 
 def main():

@@ -4,6 +4,8 @@ set selection-clipboard clipboard
 set vertical-center true
 # Change highlights transparency
 set highlight-fg rgba(0,0,0,0.9)
+# Skip confirmation dialogue when opening external links
+set open-link-confirm false
 
 # Using ; instead of : for command mode
 map ; focus_inputbar :
