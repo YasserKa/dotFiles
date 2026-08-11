@@ -104,7 +104,7 @@ SERVER="WAYLAND"
 if [ -z "${WAYLAND_DISPLAY}" ] && [ -z "${DISPLAY}" ] && [ -z "$SSH_CONNECTION" ] && [ -z "$SSH_TTY" ] && [ -z "$TMUX" ]; then
 	# Execute at start of session
 	# Start manager for GPG & SSH agents
-	eval "$(keychain --quick --quiet --nogui --eval --noask --gpg2 id_ed25519 B08290CD65BD78DAC41A38368DBCA4F866308AAC)"
+	eval "$(keychain --quick --quiet --nogui --eval --noask id_ed25519 B08290CD65BD78DAC41A38368DBCA4F866308AAC)"
 	git -C "$DOTFILES_DIR" pull origin >/dev/null 2>&1 &
 	disown
 
