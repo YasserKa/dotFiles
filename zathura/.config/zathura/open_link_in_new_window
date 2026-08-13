@@ -34,7 +34,7 @@ get_page_num() {
 	ydotool key 46:1 46:0
 
 	# Wait until the page number is copied  or the action is aborted
-	wait_keys "<esc>" "<ctrl>+m" >/dev/null
+	wait_keys "<esc>" "<ctrl>+m" "<enter>" >/dev/null
 
 	page="$(clipboard_paste)"
 
