@@ -5,6 +5,12 @@
 DOC_PATH="$1"
 BOOKS_DIR="/home/yasser/Documents/books"
 PAPERS_DIR="$XDG_CONFIG_HOME/Zotero/storage"
+SYNC_PAPERS_DIR="$HOME/Documents/zotero_papers_mirror"
+
+if [[ "$DOC_PATH" == "$PAPERS_DIR"/* ]]; then
+  DOC_PATH="$(jq -r '.entries[] | select(.sourcePath == "'"$DOC_PATH"'") | .destPath ' "$HOME/Documents/zotero_papers_mirror/.zotero-mirror-manifest.json")"
+fi
+
 quoted_file_basename="${DOC_PATH##*/}"
 
 DOC_PATH=$(realpath "$DOC_PATH")
@@ -17,7 +23,7 @@ is_inside() {
 }
 
 # If document doesn't exists in syncthing, move it to books/tmp/ & sync it
-[[ "$DOC_PATH" != "$BOOKS_DIR"/* && "$DOC_PATH" != "$PAPERS_DIR"/* ]] && {
+[[ "$DOC_PATH" != "$BOOKS_DIR"/* && "$DOC_PATH" != "$PAPERS_DIR"/* && "$DOC_PATH" != "$SYNC_PAPERS_DIR"/* ]] && {
   mv "$DOC_PATH" "$BOOKS_DIR/tmp/"
 
   if [[ "$(uname -n)" == "lenovo-g4" ]]; then
@@ -26,7 +32,7 @@ is_inside() {
     HOME_API_KEY="$(pass syncthing_p14s_api)"
   fi
 
-  LENOVO_Y700_API_KEY="$(pass syncthing_y700_api)"
+  LENOVO_Y700_API_KEY="$(pass syncthing_home_2_api)"
   if curl -Ss --connect-timeout 1 tablet:8384; then
     TABLET_API_KEY="$(pass syncthing_tablet_api)"
     TABLET_URL="http://tablet:8384"
@@ -51,7 +57,7 @@ is_inside() {
         "$URL/rest/db/status?folder=$FOLDER_ID" |
         jq '.needFiles + .needDirectories + .needDeletes')
 
-      if [ "$state" = "idle" ] && [ "$need" = "0" ]; then
+      if [[ "$state" == "idle" && "$need" == 0 ]]; then
         break
       fi
 
