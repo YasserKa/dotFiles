@@ -13,18 +13,19 @@ main() {
 	DOI="$(timeout 10 "$XDG_CONFIG_HOME/Zotero/bin/zotero_utility" get_metadata DOI "$URL")"
 	(($? != 0)) && dunstify "Zotero timedout while extracting DOI" && exit 0
 
-	[[ "$DOI" == "DOI not found" ]] && dunstify "DOI not found" && exit 0
-
-	response=$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/DOI:${DOI}?fields=citationCount,influentialCitationCount")
+	# Use DOI if it was found
+	if [[ "$DOI" != "DOI not found" && -n "$DOI" ]]; then
+		response=$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/DOI:${DOI}?fields=citationCount,influentialCitationCount,title")
+	fi
 
 	# DOI, didn't work, use title
-	if echo "$response" | jq -e 'has("error")' >/dev/null; then
+	if [[ -z "$response" || $(echo "$response" | jq -e 'has("error")' >/dev/null) ]]; then
 		dunstify "Couldn't find paper using DOI, trying with title"
 		sleep 1.5 # Rate limit
 		TITLE="$("$XDG_CONFIG_HOME/Zotero/bin/zotero_utility" get_metadata title "$URL")"
 		ENCODED_TITLE="$(echo "$TITLE" | jq -Rr '@uri')"
 		response="$(curl -H "x-api-key: $(pass semantic_scholar_api_key)" "https://api.semanticscholar.org/graph/v1/paper/search/match?query=${ENCODED_TITLE}&fields=citationCount,influentialCitationCount")"
-		[[ "$(echo "$response" | jq -r '.data | length')" != 1 ]] && echo dunstify "Note: more than paper identified"
+		[[ "$(echo "$response" | jq -r '.data | length')" > 1 ]] && dunstify "Note: more than paper identified"
 		# Get first paper
 		response="$(echo "$response" | jq -r '.data[0]')"
 	fi
@@ -35,7 +36,7 @@ main() {
 	if [[ "$citations" != "null" ]]; then
 		notify-send --expire-time 10000 "Paper Stats" "📊 Citations: $citations\n⭐ Influential: $influential"
 	else
-		notify-send "Error" "Could not fetch data for: $TITLE"
+		notify-send "Error" "Could not fetch data for: <b>${TITLE}</b>"
 	fi
 }
 
