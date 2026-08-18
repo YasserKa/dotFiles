@@ -529,6 +529,58 @@ def is_pdf(path: Path) -> bool:
     return path.suffix.lower() == ".pdf"
 
 
+def remove_empty_mirror_directories(mirror_root: Path) -> int:
+    """
+    Remove directories under mirror_root that contain no PDFs.
+
+    Directories are processed bottom-up, so if:
+
+        Parent/
+            Child/
+
+    contains no PDFs, Child is removed first and then Parent.
+
+    The mirror root itself is never removed.
+    Hidden directories (e.g. .zotero-pdf-conflicts) are preserved.
+    """
+    mirror_root = normalize(mirror_root)
+    removed = 0
+
+    if not mirror_root.is_dir():
+        return 0
+
+    # Bottom-up traversal is important for nested Zotero collections.
+    for root, dirs, files in os.walk(mirror_root, topdown=False):
+        directory = Path(root)
+
+        if directory == mirror_root:
+            continue
+
+        # Don't touch watcher/internal directories.
+        if directory.name.startswith("."):
+            continue
+
+        # Does this directory tree still contain a PDF?
+        has_pdf = any(path.is_file() and is_pdf(path) for path in directory.rglob("*"))
+
+        if has_pdf:
+            continue
+
+        try:
+            shutil.rmtree(directory)
+            LOG.info("Removed empty mirror directory: %s", directory)
+            removed += 1
+        except FileNotFoundError:
+            pass
+        except OSError:
+            LOG.exception(
+                "Failed removing empty mirror directory: %s",
+                directory,
+            )
+
+    return removed
+
+
 def sha256_file(
     path: Path,
     chunk_size: int = 1024 * 1024,
@@ -849,7 +901,17 @@ def main():
         while not stop_event.wait(1):
             # Pick up structural changes made by the Zotero extension even
             # when no PDF event occurs.
-            manifest.reload_if_needed()
+            manifest_changed = manifest.reload_if_needed()
+
+            if manifest_changed:
+                removed = remove_empty_mirror_directories(mirror)
+
+                if removed:
+                    LOG.info(
+                        "Removed %d empty mirror director%s",
+                        removed,
+                        "y" if removed == 1 else "ies",
+                    )
 
     finally:
         LOG.info("Stopping")
