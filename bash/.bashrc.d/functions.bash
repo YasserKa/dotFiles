@@ -672,7 +672,7 @@ which() {
 
 sf_dot() {
 	RG_PREFIX="rg --hidden --no-ignore --color=always --line-number --no-heading --smart-case \
-	--glob '!**/zsh/history' --glob '!**/emacs/var/*'" RG_PATHS="$(printf '%q ' "$HOME/.dotfiles" "$HOME/.dotfiles-private")" sf "$*"
+	--glob '!**/.git/**' --glob '!.dotfiles-private/zsh/**' --glob '!.dotfiles-private/bash/**' --glob '!**/share/qutebrowser/*' --glob '!**/emacs/var/*'" RG_PATHS="$(printf '%q ' "$HOME/.dotfiles" "$HOME/.dotfiles-private")" sf "$*"
 }
 
 run_failguard() {
