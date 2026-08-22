@@ -365,6 +365,7 @@ tuir() {
 elif [[ -n "${DISPLAY}" ]]; then
 	(xdotool search --sync --name "^Front Page - tuir" key --clearmodifiers g t 2 &)
 	fi
+	export TUIR_BROWSER="${BROWSER} %s"
 	open_cli tuir
 }
 
