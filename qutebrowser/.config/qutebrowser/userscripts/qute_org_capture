@@ -27,10 +27,41 @@ encode_url() {
 
 define() {
   word="$1"
-  curl -fsSL "https://api.dictionaryapi.dev/api/v2/entries/en/$word" |
-    jq -r '
-  def clean: gsub("\\s+";" ") | gsub("^ +| +$";"");
+  local max_attempts=5
+  local delay=1
+  local attempt=1
+  local response
 
+  while ((attempt <= max_attempts)); do
+    response=$(curl -fsSL -w '\n%{http_code}' "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
+    status=$?
+    http_code=$(tail -n1 <<<"$response")
+    body=$(sed '$d' <<<"$response")
+
+    if [[ $status -eq 0 ]]; then
+      break
+    fi
+
+    # Error code 404: the word isn't found
+    if [[ "$http_code" == "502" ]]; then
+      echo "Got 502, retrying ($attempt/$max_attempts)..." >&2
+      sleep "$delay"
+      ((attempt++))
+      delay=$((delay * 2))
+      continue
+    else
+      echo "curl failed with exit code $status (http $http_code)" >&2
+      return 1
+    fi
+  done
+
+  if [[ $attempt -gt $max_attempts ]]; then
+    echo "Failed after $max_attempts attempts" >&2
+    return 1
+  fi
+
+  echo "$body" | jq -r '
+  def clean: gsub("\\s+";" ") | gsub("^ +| +$";"");
   .[0] as $e
   | "Word: \($e.word)\n"
   + (
