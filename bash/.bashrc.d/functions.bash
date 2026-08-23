@@ -54,7 +54,7 @@ mv() {
 	if [[ ! -d "$parent_dir" && ${last_arg: -1} == "/" ]]; then
 		echo -n "Destination '$parent_dir' does not exist. Create directory? [y/N] "
 		read -r confirm
-		if [[ "$confirm" =~ ^[Yy]$ ]]; then
+		if [[ "$confirm" =~ ^[Yy]([Ee][Ss])?$ ]]; then
 			mkdir -p "$parent_dir"
 		else
 			return 1
