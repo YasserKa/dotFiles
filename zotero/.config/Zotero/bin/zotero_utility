@@ -133,12 +133,12 @@ import_source() {
 
   declare -r FRE_NAME="zotero_collection"
 
-	(
-		CACHE_PAPER_REFERENCES_PATH="$(inotifywait --timeout 60 -e create,moved_to --format '%w%f' "$XDG_CACHE_HOME/papers_references/")" &&
-			inotifywait --timeout $((60 * 20)) --format '%w%f' "${CACHE_PAPER_REFERENCES_PATH}" --include "references_enriched.json" &&
-			dunstify "Enriched paper references"
-	) &
-	CACHE_PAPER_PID=$!
+  (
+    CACHE_PAPER_REFERENCES_PATH="$(inotifywait --timeout 60 -e create,moved_to --format '%w%f' "$XDG_CACHE_HOME/papers_references/")" &&
+      inotifywait --timeout $((60 * 20)) --format '%w%f' "${CACHE_PAPER_REFERENCES_PATH}" --include "references_enriched.json" &&
+      dunstify "Enriched paper references"
+  ) &
+  CACHE_PAPER_PID=$!
 
   if [[ "$RECENT" == "true" ]]; then
     # Use most recent file
@@ -357,8 +357,8 @@ get_metadata() {
 
     HTML_PATH="$(mktemp -t "tmp_XXX.html")"
     readonly HTML_PATH
-		curl -d "$SOURCE" -H 'Content-Type: text/plain' http://remote:1969/web | jq -r ".[] | .$METADATA" | head
-		return 0
+    curl -d "$SOURCE" -H 'Content-Type: text/plain' http://remote:1969/web | jq -r ".[] | .$METADATA" | head -n 1
+    return 0
 
     trap 'rm -f $HTML_PATH' RETURN
     get_page_content "$SOURCE" "$HTML_PATH"
