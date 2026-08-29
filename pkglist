@@ -55,6 +55,7 @@ sof-firmware # Sound open firmware
 wireplumber # Session manager for Pipewire watching streams (better than pipewire-media-sesion)
 pavucontrol # PulseAudio Volume Control
 cmus-git # Feature-rich ncurses-based music player
+libmad # Needed for cmus to open mp3 files
 
 # Aesthetics
 ttf-inconsolata # Monospace font for pretty code listings and for the terminal

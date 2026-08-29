@@ -2,65 +2,68 @@
 
 "$XDG_CONFIG_HOME/i3/set_i3_focus_on_window_activation_configuration" none 2
 
+TMP_FILE=$(mktemp)
 TEMPLATE="url"
+
 case "$1" in
 --template=*)
-  TEMPLATE="${1#*=}"
-  ;;
+	TEMPLATE="${1#*=}"
+	;;
 esac
 
 encode_url() {
-  # Reliable localization
-  local LC_ALL=C
-  # Go through each character
-  for ((i = 0; i < ${#1}; i++)); do
-    : "${1:i:1}"
-    case "$_" in
-    # Keep allowed characters
-    [a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-    # Encode disallowed characters
-    *) printf '%%%02X' "'$_" ;;
-    esac
-  done
-  printf '\n'
+	# Reliable localization
+	local LC_ALL=C
+	# Go through each character
+	for ((i = 0; i < ${#1}; i++)); do
+		: "${1:i:1}"
+		case "$_" in
+		# Keep allowed characters
+		[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
+		# Encode disallowed characters
+		*) printf '%%%02X' "'$_" ;;
+		esac
+	done
+	printf '\n'
 }
 
 define() {
-  word="$1"
-  local max_attempts=5
-  local delay=1
-  local attempt=1
-  local response
+	word="$1"
+	local max_attempts=5
+	local delay=1
+	local attempt=1
+	local response
 
-  while ((attempt <= max_attempts)); do
-    response=$(curl -fsSL -w '\n%{http_code}' "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
-    status=$?
-    http_code=$(tail -n1 <<<"$response")
-    body=$(sed '$d' <<<"$response")
+	while ((attempt <= max_attempts)); do
+		# Needs IPv4 to work
+		response=$(curl -fsSL --ipv4 --connect-timeout 10 -w '\n%{http_code}' "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
+		status=$?
+		http_code=$(tail -n1 <<<"$response")
+		body=$(sed '$d' <<<"$response")
 
-    if [[ $status -eq 0 ]]; then
-      break
-    fi
+		if [[ $status -eq 0 ]]; then
+			break
+		fi
 
-    # Error code 404: the word isn't found
-    if [[ "$http_code" == "502" ]]; then
-      echo "Got 502, retrying ($attempt/$max_attempts)..." >&2
-      sleep "$delay"
-      ((attempt++))
-      delay=$((delay * 2))
-      continue
-    else
-      echo "curl failed with exit code $status (http $http_code)" >&2
-      return 1
-    fi
-  done
+		# Error code 404: the word isn't found
+		if [[ "$http_code" == "502" ]]; then
+			echo "Got 502, retrying ($attempt/$max_attempts)..." >&2
+			sleep "$delay"
+			((attempt++))
+			delay=$((delay * 2))
+			continue
+		else
+			echo "curl failed with exit code $status (http $http_code)" >&2
+			return 1
+		fi
+	done
 
-  if [[ $attempt -gt $max_attempts ]]; then
-    echo "Failed after $max_attempts attempts" >&2
-    return 1
-  fi
+	if [[ $attempt -gt $max_attempts ]]; then
+		echo "Failed after $max_attempts attempts" >&2
+		return 1
+	fi
 
-  echo "$body" | jq -r '
+	echo "$body" | jq -r '
   def clean: gsub("\\s+";" ") | gsub("^ +| +$";"");
   .[0] as $e
   | "Word: \($e.word)\n"
@@ -89,11 +92,21 @@ define() {
 URL_HOST="$(echo "$QUTE_URL" | awk -F '/' '{print $3}')"
 
 # Store word definition in different way
-if [[ "$URL_HOST" == "www.merriam-webster.com" ]]; then
-  WORD="$(echo "$QUTE_URL" | awk -F '/' '{print $NF}')"
-  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=word&url=$WORD&title=$(encode_url "$(define "$WORD")")"
-  echo ":message-info 'Word captured'" >>"$QUTE_FIFO"
-  exit 0
+if [[ "$URL_HOST" == "www.merriam-webster.com" || "$URL_HOST" == "www.wordreference.com" ]]; then
+	WORD="$(echo "$QUTE_URL" | awk -F '/' '{print $NF}')"
+
+	DEFINITION="$(define "$WORD")"
+	echo "$DEFINITION" >|"$TMP_FILE"
+	# <Bar> = escaped "|" so vim doesn't treat it as a top-level command separator
+	# (needed because %d|wq itself contains a "|" inside the mapping string)
+	"$TERMINAL" --title "floating" -e "$EDITOR" "$TMP_FILE" +"nnoremap <C-c><C-c> <esc>:q<cr> | inoremap <C-c><C-c> <esc>:q<cr> | nnoremap <C-c><C-k> <esc>:%d<Bar>wq<cr> | inoremap <C-c><C-k> <esc>:%d<Bar>wq<cr>"
+	DEFINITION="$(cat "$TMP_FILE")"
+	[[ -z "$DEFINITION" ]] && exit 0
+	# Remove "Word: <word>" line
+	DEFINITION="$(echo "$DEFINITION" | sed --expression 1d)"
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=word&url=$WORD&title=$(encode_url "$DEFINITION")"
+	echo ":message-info 'Word captured'" >>"$QUTE_FIFO"
+	exit 0
 fi
 
 # Encode it in case a title has ampersand "&"
@@ -101,13 +114,13 @@ QUTE_URL="$(encode_url "$QUTE_URL")"
 
 # Create a frame to refile the URL
 if [[ "$TEMPLATE" == "refile" ]]; then
-  emacsclient --socket-name="$EMACS_ORG_SOCKET" --frame-parameters='((name . "floating") (width . 0.75) (height . 0.5))' --create-frame "org-protocol://capture?template=refile&title=$QUTE_TITLE&url=$QUTE_URL"
-  echo ":message-info 'Note refiled'" >>"$QUTE_FIFO"
-  exit 0
+	emacsclient --socket-name="$EMACS_ORG_SOCKET" --frame-parameters='((name . "floating") (width . 0.75) (height . 0.5))' --create-frame "org-protocol://capture?template=refile&title=$QUTE_TITLE&url=$QUTE_URL"
+	echo ":message-info 'Note refiled'" >>"$QUTE_FIFO"
+	exit 0
 fi
 
 if org_capture "$QUTE_URL" "$QUTE_TITLE" "$TEMPLATE"; then
-  echo ":message-info 'Note captured'" >>"$QUTE_FIFO"
+	echo ":message-info 'Note captured'" >>"$QUTE_FIFO"
 else
-  echo ":message-error 'Note not captured'" >>"$QUTE_FIFO"
+	echo ":message-error 'Note not captured'" >>"$QUTE_FIFO"
 fi
