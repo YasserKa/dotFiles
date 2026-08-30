@@ -57,7 +57,7 @@ COLOR=$'\033[1;36m'
 COLOR_END=$'\033[0m'
 
 TMPFILE_FZF_QUERY=$(mktemp) # Used for
-FZF_HEADER="${COLOR}<tab>${COLOR_END}: toggle fold, ${COLOR}<C-a>${COLOR_END}: fold all, ${COLOR}<C-r>${COLOR_END}: reveal all, ${COLOR}<C-A-f>${COLOR_END}: toggle follow mode, ${COLOR}<C-g>${COLOR_END}: goto page"
+FZF_HEADER="${COLOR}<tab>${COLOR_END}: toggle fold, ${COLOR}<A-a>${COLOR_END}: fold all, ${COLOR}<C-r>${COLOR_END}: reveal all, ${COLOR}<C-A-f>${COLOR_END}: toggle follow mode, ${COLOR}<C-g>${COLOR_END}: goto page"
 # C-A-f toggle follow page
 # C-g go to page
 # Tab folds/unfolds the section under the cursor (or its parent, for leaves)
@@ -67,7 +67,7 @@ kitty_control --geometry 'resize set 990 500, move position 35 ppt 63 ppt' "'$RE
   --bind \"change:transform:'$TOC_CTL' search \\\"\\\$FZF_QUERY\\\" \\\"$FOLD_STATE\\\" \\\"$FILE_TOC\\\" \\\"$RENDER_TOC\\\" \\\"$TOC_WIDTH\\\" \\\"$TMPFILE_FZF_QUERY\\\"\" \
   --bind 'tab:transform:\"$TOC_CTL\" toggle {1} {2} {3} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
   --bind 'ctrl-r:transform:\"$TOC_CTL\" unfold {1} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
-  --bind 'ctrl-a:transform:\"$TOC_CTL\" fold {1} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
+  --bind 'alt-a:transform:\"$TOC_CTL\" fold {1} \"$FOLD_STATE\" \"$FILE_TOC\" \"$RENDER_TOC\" \"$TOC_WIDTH\"' \
   --header \"$FZF_HEADER\" \
   --delimiter '\t' --with-nth 4 \
   --preview '' \
