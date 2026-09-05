@@ -1,3 +1,4 @@
+;;; early-init.el --- description -*- lexical-binding: t; -*-
 ;;; oc-csl-activate.el --- CSL-based citation activation  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021-2022 András Simonyi
@@ -203,9 +204,9 @@ Return nil if KEY is not found."
 (defun org-cite-csl-activate--help-echo-fun (_ buffer pos)
   "Help-echo function for activated citations."
   (with-current-buffer buffer
-   (if-let ((cached-rendered-bib (get-text-property pos 'rendered-bib)))
+   (if-let* ((cached-rendered-bib (get-text-property pos 'rendered-bib)))
        cached-rendered-bib
-     (when-let  ((citation (org-cite-csl-activate--get-citation pos)))
+     (when-let*  ((citation (org-cite-csl-activate--get-citation pos)))
        (let* ((proc (org-cite-csl-activate--processor))
 	      (info (list :cite-citeproc-processor proc))
 	      (cit-struct (org-cite-csl--create-structure citation info))

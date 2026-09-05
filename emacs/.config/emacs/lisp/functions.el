@@ -1,3 +1,4 @@
+;;; early-init.el --- description -*- lexical-binding: t; -*-
 ;; https://zck.org/deleting-files-in-emacs
 (defun my/delete-visited-file (buffer-name)
   "Delete the file visited by the buffer named BUFFER-NAME."

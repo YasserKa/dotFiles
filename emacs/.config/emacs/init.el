@@ -192,8 +192,16 @@
 ;; Insert text content using links
 (use-package org-transclusion
   :after org
-  :hook (org-mode . org-transclusion-mode)
   :custom (org-transclusion-exclude-elements '(property-drawer planning))
+  :config
+  ;; This package breaks indentation on yanked text
+  ;; Enable it only for files that has #+transclude:
+  (defun my/maybe-enable-org-transclusion ()
+    (when (save-excursion
+            (goto-char (point-min))
+            (re-search-forward "^#\\+transclude:" nil t))
+      (org-transclusion-mode 1)))
+  (add-hook 'org-mode-hook #'my/maybe-enable-org-transclusion)
   )
 
 ;; Unfolding an item with emojis is slow, this package fixes this problem

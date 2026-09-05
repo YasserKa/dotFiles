@@ -1,3 +1,4 @@
+;;; early-init.el --- description -*- lexical-binding: t; -*-
 ;;; ol-man.el - Support for links to man pages in Org mode
 (require 'ol)
 

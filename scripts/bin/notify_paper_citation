@@ -33,12 +33,12 @@ main() {
 	citations=$(echo "$response" | jq -r '.citationCount')
 	influential=$(echo "$response" | jq -r '.influentialCitationCount')
 
-	[[ -z "$citations" ]] && notify-send "Error" "Could not fetch citations for: <b>${TITLE}</b>" && exit 0
+	[[ -z "$citations" ]] && notify-send "Error" "Could not fetch citations" && exit 0
 
 	if [[ "$citations" != "null" ]]; then
 		notify-send --expire-time 10000 "Paper Stats" "📊 Citations: $citations\n⭐ Influential: $influential"
 	else
-		notify-send "Error" "Could not fetch data for: <b>${TITLE}</b>"
+		notify-send "Error" "Could not fetch data for paper"
 	fi
 }
 
