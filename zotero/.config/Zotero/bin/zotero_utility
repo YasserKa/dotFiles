@@ -140,7 +140,7 @@ import_source() {
   (
     CACHE_PAPER_REFERENCES_PATH="$(inotifywait --timeout 60 -e create,moved_to --format '%w%f' "$XDG_CACHE_HOME/papers_references/")" &&
       inotifywait --timeout $((60 * 20)) --format '%w%f' "${CACHE_PAPER_REFERENCES_PATH}" --include "references_enriched.json" &&
-      dunstify "Enriched paper references"
+      dunstify "Enriched paper references" || dunstify "Couldn't get the document for the paper"
   ) &
   CACHE_PAPER_PID=$!
 
@@ -215,7 +215,7 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     fi
 
     # shellcheck disable=2016
-    import_script='
+   import_script='
   (async function () {
   var { library, collection, editable } = Zotero.Server.Connector.getSaveTarget();
   var libraryID = library.libraryID;
@@ -236,29 +236,78 @@ if (translators.length == 0) {
 } else {
 translate.setTranslator(translators[0].translatorID);
 
-let items = await translate.translate({
-libraryID,
-collections: ['"$COLLECTION_ID"'],
-});
+let targetCollectionID = '"$COLLECTION_ID"';
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+result = await new Promise((resolve) => {
+  let done = false;
+  let savedItemID = null;
 
-async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
-  const startTime = Date.now();
+  // Stage 1: catch the moment the parent item is actually committed to the DB,
+  // regardless of how long the translator internally takes to fire itemDone.
+  let addObserverID = Zotero.Notifier.registerObserver(
+    {
+      notify: function (event, type, ids) {
+        if (done || event !== "add") return;
+        for (let id of ids) {
+          let it = Zotero.Items.get(id);
+          if (it && it.isRegularItem() && it.getCollections().includes(targetCollectionID)) {
+            savedItemID = id;
+            checkCitationKey();
+            break;
+          }
+        }
+      }
+    },
+    ["item"]
+  );
 
-  while (true) {
-    if (conditionFn()) { break; }
-
-    if (Date.now() - startTime > timeoutMs) { break; }
-
-    await sleep(pollIntervalMs);
+  function checkCitationKey() {
+    if (done || !savedItemID) return;
+    let entry = Zotero.BetterBibTeX.KeyManager.get(savedItemID);
+    if (entry && entry.citationKey) {
+      finish(entry.citationKey);
+    }
   }
-}
 
-		await waitForCondition(() => items[0], 10000);
-    result = await Zotero.BetterBibTeX.KeyManager.get(items[0].getID()).citationKey
+  // Stage 2: once we have the item, keep watching modify events until BBT stamps the key.
+  let modifyObserverID = Zotero.Notifier.registerObserver(
+    {
+      notify: function (event, type, ids) {
+        if (done || !savedItemID) return;
+        if (ids.includes(savedItemID)) checkCitationKey();
+      }
+    },
+    ["item"]
+  );
+
+  function finish(key) {
+    if (done) return;
+    done = true;
+    Zotero.Notifier.unregisterObserver(addObserverID);
+    Zotero.Notifier.unregisterObserver(modifyObserverID);
+    resolve(key);
+  }
+
+  translate.translate({
+    libraryID,
+    collections: [targetCollectionID],
+  }).catch(function (e) {
+    Zotero.debug("zotero_utility: translate() attachment/fulltext step failed: " + e);
+  });
+
+  // Overall safety net: 2 minutes covers slow resolver cascades (multiple
+  // sci-hub mirrors timing out) without hanging forever.
+  setTimeout(() => {
+    if (!done) {
+      if (savedItemID) {
+        // Item was saved but BBT never stamped a key in time - still useful info.
+        finish("Error: citation key not generated (item " + savedItemID + " saved)");
+      } else {
+        finish("Error: Entry not added (timed out waiting for item save)");
+      }
+    }
+  }, 120000);
+});
 }
 '
   else
@@ -636,8 +685,14 @@ eval_script_return_value() {
 
   nc 127.0.0.1 8080 < <(echo "$SCRIPT")
 
+  local waited=0
   until [[ -f "$tmp" ]]; do
     sleep 0.1
+    waited=$((waited + 1))
+    if ((waited > 300)); then # 30s timeout
+      notify-send "zotero_utility: timed out waiting for script result"
+      return 1
+    fi
   done
   cat "$tmp"
   rm "$tmp"
