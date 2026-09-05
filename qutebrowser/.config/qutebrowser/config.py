@@ -281,9 +281,9 @@ c.aliases = {
         "spawn --userscript ~/.config/qutebrowser/userscripts/download_youtube"
     ),
     "gc": "spawn bash -ic '. $HOME/bin/git_clone {url}'",
-    "import_zotero": "spawn ~/.config/Zotero/bin/zotero_utility import {url}",
-    "import_zotero_recent": "spawn ~/.config/Zotero/bin/zotero_utility import --recent {url}",
-    "import_zotero_read": "spawn ~/.config/Zotero/bin/zotero_utility import --add_org_entry --collection_name 'To_Read' {url}",
+    "import_zotero": "spawn --userscript ~/.config/Zotero/bin/zotero_utility import --html-from-browser {url}",
+    "import_zotero_recent": "spawn --userscript ~/.config/Zotero/bin/zotero_utility import --recent --html-from-browser {url}",
+    "import_zotero_read": "spawn --userscript ~/.config/Zotero/bin/zotero_utility import --add_org_entry --collection_name 'To_Read' --html-from-browser {url}",
     "get_paper_citations": "spawn ~/bin/notify_paper_citation {url}",
     "get_paper_graph": 'spawn bash -ic "xdg-open https://inciteful.xyz/p/$(~/.config/Zotero/bin/zotero_utility get_metadata DOI {url})"',
     "libkey": 'spawn bash -ic "xdg-open https://libkey.io/$(~/.config/Zotero/bin/zotero_utility get_metadata DOI {url})"',

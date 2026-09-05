@@ -108,13 +108,17 @@ result=collectionId.toString()
 
 import_source() {
   local TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
-  local COLLECTION_NAME RECENT SOURCE ADD_ORG_ENTRY
+  local COLLECTION_NAME RECENT SOURCE ADD_ORG_ENTRY USE_BROWSER_HTML
 
   while :; do
+    echo "$1"
     case $1 in
     --collection_name)
       COLLECTION_NAME="$2"
       shift
+      ;;
+    --html-from-browser)
+      USE_BROWSER_HTML="true"
       ;;
     --recent)
       RECENT="true"
@@ -202,8 +206,13 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     readonly HTML_PATH
 
     trap 'rm -f $HTML_PATH' RETURN
+
     # Extract web page source code
-    get_page_content "$SOURCE" "$HTML_PATH"
+    if [[ "$USE_BROWSER_HTML" == "true" ]]; then
+      cp "$QUTE_HTML" "$HTML_PATH"
+    else
+      get_page_content "$SOURCE" "$HTML_PATH"
+    fi
 
     # shellcheck disable=2016
     import_script='
