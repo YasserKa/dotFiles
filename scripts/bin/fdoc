@@ -3,7 +3,6 @@
 # Open documents
 #
 # Dependencies: fasd fd fzf
-
 # Paths to search for documents
 # REASON: It's slow to search all directories (including hidden)
 declare -a PATHS_TO_SEARCH
@@ -11,7 +10,6 @@ declare -a PATHS_TO_SEARCH
 # resolve this duplication
 PATHS_TO_SEARCH=("${HOME}")
 readonly PATHS_TO_SEARCH
-
 ################################################################################
 # Get basename for documents in PATHS_TO_SEARCH by using a regex on their
 # extensions. Place priority on documents using fasd (frecency) (i.e. frequency
@@ -25,7 +23,7 @@ readonly PATHS_TO_SEARCH
 ################################################################################
 get_documents() {
 	local DOCS_PATH FASD_DOCS NO_DUPLICATES
-	DOCS_PATH="$(fd --regex '.*.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
+	DOCS_PATH="$(fd --no-ignore --exclude '*/zotero_papers_mirror/*' --regex '.*.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
 	readonly DOCS_PATH
 	FASD_DOCS="$(fasd -lR "${DOCS_PATH}")"
 	readonly FASD_DOCS
@@ -33,20 +31,18 @@ get_documents() {
 	readonly NO_DUPLICATES
 	echo "$NO_DUPLICATES"
 }
-
 main() {
 	local DOC_SELECTED
 	local -a DOCUMENTS
 	DOCUMENTS="$(get_documents)"
-
 	declare TMP_FILE
 	TMP_FILE="$(mktemp -t "tmp_XXX")"
 	readonly TMP_FILE
-
 	trap 'rm $TMP_FILE' RETURN
-
-	DOCUMENTS="$(printf "%s" "$DOCUMENTS" | awk -F'/' '{
+	DOCUMENTS="$(printf "%s" "$DOCUMENTS" | awk -F'/' -v home="$HOME" '{
     full=$0;
+
+    # parent/document display
     if (NF >= 2) {
         dir=$(NF-1);
         base=$(NF);
@@ -54,19 +50,33 @@ main() {
     } else {
         short = "\033[32m" $NF "\033[0m";
     }
-    printf "%s\t%s\n", full, short;
-	}')"
 
+    # path-from-$HOME display
+    rel = full;
+    sub("^" home "/", "", rel);
+    n = split(rel, parts, "/");
+    if (n >= 2) {
+        relbase = parts[n];
+        reldir = "";
+        for (i = 1; i < n; i++) {
+            reldir = reldir parts[i] "/";
+        }
+        fromhome = reldir "\033[32m" relbase "\033[0m";
+    } else {
+        fromhome = "\033[32m" rel "\033[0m";
+    }
+
+    printf "%s\t%s\t%s\n", full, short, fromhome;
+	}')"
 	IFS='' read -r -d '' cmd <<EOF
-	printf "$DOCUMENTS" | fzf --no-sort --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 2 --ansi --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' >| ${TMP_FILE}
+	printf "$DOCUMENTS" | fzf --scheme=path  --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 3 --ansi \
+		--header 'ctrl-t: toggle path display' --bind 'ctrl-t:change-with-nth(2|3)' \
+		--preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' >| ${TMP_FILE}
 EOF
 	eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
-
 	DOC_SELECTED="$(<"$TMP_FILE")"
 	readonly DOC_SELECTED
-
 	[[ -z "$DOC_SELECTED" ]] && exit 1
-
 	while read -r DOC; do
 		xdg-open "${DOC}" >/dev/null 2>&1 &
 		fasd -A "${DOC}"
@@ -74,5 +84,4 @@ EOF
 	done <<<"$DOC_SELECTED"
 	i3-msg 'workspace --no-auto-back-and-forth 8'
 }
-
 main
