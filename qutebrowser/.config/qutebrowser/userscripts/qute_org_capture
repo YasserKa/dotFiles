@@ -34,6 +34,17 @@ define() {
 	local attempt=1
 	local response
 
+	# NOTE: api.dictionaryapi.dev not working
+	curl -s "https://en.wiktionary.org/w/api.php?action=query&titles=$1&prop=extracts&explaintext=1&format=json&formatversion=2" |
+		jq -r '.query.pages[0].extract' |
+		awk '
+    /^== [A-Za-z ]+ ==$/ { eng = ($0 == "== English ==") }
+    eng && /^=+ (Noun|Verb|Adjective|Adverb|Pronoun|Preposition|Conjunction|Interjection|Determiner|Numeral) =+$/ { print; flag=1; next }
+    eng && /^=+[^=]/ { flag=0 }
+    flag
+  '
+	return 0
+
 	while ((attempt <= max_attempts)); do
 		# Needs IPv4 to work
 		response=$(curl -fsSL --ipv4 --connect-timeout 5 -w '\n%{http_code}' "https://api.dictionaryapi.dev/api/v2/entries/en/$word")
@@ -50,17 +61,16 @@ define() {
 			echo "Got 502, retrying ($attempt/$max_attempts)..." >&2
 			sleep "$delay"
 			((attempt++))
-			delay=$((delay * 2))
-			continue
 		else
 			# Only provide needed sections
-			curl -s "https://en.wiktionary.org/w/api.php?action=query&titles=$word&prop=extracts&explaintext=1&format=json&formatversion=2" | jq -r '.query.pages[0].extract' | awk '
-          /^=== (Noun|Verb|Adjective|Adverb|Pronoun|Preposition|Conjunction|Interjection|Determiner|Numeral) ===$/ {
-            print; flag=1; next
-          }
-          /^===/ { flag=0 }
-          flag
-        '
+			curl -s "https://en.wiktionary.org/w/api.php?action=query&titles=$1&prop=extracts&explaintext=1&format=json&formatversion=2" |
+				jq -r '.query.pages[0].extract' |
+				awk '
+    		/^== [A-Za-z ]+ ==$/ { eng = ($0 == "== English ==") }
+    		eng && /^=+ (Noun|Verb|Adjective|Adverb|Pronoun|Preposition|Conjunction|Interjection|Determiner|Numeral) =+$/ { print; flag=1; next }
+    		eng && /^=+[^=]/ { flag=0 }
+    		flag
+  		'
 			echo "curl failed with exit code $status (http $http_code)" >&2
 			return 0
 		fi
