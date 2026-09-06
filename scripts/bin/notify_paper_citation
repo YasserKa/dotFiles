@@ -19,7 +19,7 @@ main() {
 	fi
 
 	# DOI, didn't work, use title
-	if [[ -z "$response" || $(echo "$response" | jq -e 'has("error")' >/dev/null) ]]; then
+	if [[ -z "$response" || "$(echo "$response" | jq -e 'has("error")')" ]]; then
 		dunstify "Couldn't find paper using DOI, trying with title"
 		sleep 1.5 # Rate limit
 		TITLE="$("$XDG_CONFIG_HOME/Zotero/bin/zotero_utility" get_metadata title "$URL")"
