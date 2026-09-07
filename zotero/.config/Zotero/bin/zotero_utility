@@ -157,6 +157,13 @@ import_source() {
 
   [[ -z "$COLLECTION_ID" ]] && exit 0
 
+  local IDENTIFIERS
+  IDENTIFIERS="$(eval_script_return_value '
+(async function () {
+  let ids = Zotero.Utilities.Internal.extractIdentifiers("'"$SOURCE"'");
+  result = JSON.stringify(ids);
+')"
+
   if [[ -f "$SOURCE" ]]; then
     # Attach document
 
@@ -200,6 +207,50 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     await sleep(2000); // Wait for BetterBibTeX plugin to sync the item
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].parentID).citationKey
   '
+
+  elif [[ "$IDENTIFIERS" != "[]" && -n "$IDENTIFIERS" ]]; then
+    # shellcheck disable=2016
+    import_script='
+  (async function () {
+  let identifiers = '"$IDENTIFIERS"';
+  let translate = new Zotero.Translate.Search();
+  translate.setSearch(identifiers);
+
+  let translators = await translate.getTranslators();
+  if (translators.length == 0) {
+    result = "Error: No search translators available for identifier";
+  } else {
+    translate.setTranslator(translators[0].translatorID);
+
+    let items = await translate.translate({
+      libraryID: Zotero.Libraries.userLibraryID,
+      collections: ['"$COLLECTION_ID"'],
+    });
+
+    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+    async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
+      const startTime = Date.now();
+      while (true) {
+        if (conditionFn()) break;
+        if (Date.now() - startTime > timeoutMs) break;
+        await sleep(pollIntervalMs);
+      }
+    }
+
+    if (!items || !items[0]) {
+      result = "Error: Entry not added (no item returned from identifier search)";
+    } else {
+      await waitForCondition(
+        () => Zotero.BetterBibTeX.KeyManager.get(items[0].id) && Zotero.BetterBibTeX.KeyManager.get(items[0].id).citationKey,
+        15000
+      );
+      let entry = Zotero.BetterBibTeX.KeyManager.get(items[0].id);
+      result = (entry && entry.citationKey) || "Error: citation key not generated";
+    }
+  }
+'
+    results="$(eval_script_return_value "$import_script")"
+    # falls through to your existing grep "Error:" handling below
   elif curl --head "$SOURCE" >/dev/null; then
 
     HTML_PATH="$(mktemp -t "tmp_XXX")"
