@@ -117,7 +117,7 @@ if [[ "$URL_HOST" == "www.merriam-webster.com" || "$URL_HOST" == "www.wordrefere
 	echo "$DEFINITION" >|"$TMP_FILE"
 	# <Bar> = escaped "|" so vim doesn't treat it as a top-level command separator
 	# (needed because %d|wq itself contains a "|" inside the mapping string)
-	"$TERMINAL" --title "floating" -e "$EDITOR" "$TMP_FILE" +"nnoremap <C-c><C-c> <esc>:q<cr> | inoremap <C-c><C-c> <esc>:q<cr> | nnoremap <C-c><C-k> <esc>:%d<Bar>wq<cr> | inoremap <C-c><C-k> <esc>:%d<Bar>wq<cr>"
+	"$TERMINAL" --title "fullscreen" -e "$EDITOR" "$TMP_FILE" +"nnoremap <C-c><C-c> <esc>:q<cr> | inoremap <C-c><C-c> <esc>:q<cr> | nnoremap <C-c><C-k> <esc>:%d<Bar>wq<cr> | inoremap <C-c><C-k> <esc>:%d<Bar>wq<cr>"
 	DEFINITION="$(cat "$TMP_FILE")"
 	[[ -z "$DEFINITION" ]] && exit 0
 	# Remove "Word: <word>" line
