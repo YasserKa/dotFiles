@@ -1457,6 +1457,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-agenda-log-mode-items '(closed clock))
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
+  (setq org-log-repeat nil) ;; Don't add done repeated task time done
   ;; Show today's clocked report
   (setq org-clock-clocktable-default-properties '(:maxlevel 2 :narrow 40! :link t :sort (5 . ?t) :fileskip0 t :stepskip0 t :scope agenda :block today :properties ("Effort")))
   ;; Persist clock history on Emacs close
