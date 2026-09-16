@@ -1,5 +1,7 @@
 \mode<presentation>
 
+\newcommand{\therole}{}
+
 % Vertically align bullet icon
 \setbeamertemplate{itemize item}{\raisebox{0.22ex}{\tiny$\blacksquare$}\hskip0.1em}
 \setbeamertemplate{itemize subitem}{\raisebox{0.12ex}{\tiny$\blacksquare$}\hskip0.1em}
@@ -39,11 +41,24 @@
               \else
                 {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
               \fi
+              \ifx\insertauthor\@empty
+              \else
+                \vspace{0.8em}
+                {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
+              \fi
+              \ifx\therole\empty
+              \else
+                {\usebeamerfont{institute}\usebeamercolor[fg]{institute}\therole\par}
+              \fi
+              \ifx\insertdate\@empty
+              \else
+                {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
+              \fi
             \end{minipage}
           \end{center}
 
           \ifx\insertsubtitle\@empty
-              %  Add less space if there's no subtitle
+            %  Add less space if there's no subtitle
             \vspace*{1em}
           \else
             \vspace*{2em}

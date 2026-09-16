@@ -1,0 +1,27 @@
+% tables.sty — theme-agnostic table styling
+% Each theme (colortheme .sty) should redefine these 5 colors after loading this package.
+% Fallbacks here just prevent a crash if a theme forgets to.
+
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+
+\providecolor{tableHeaderFg}{named}{white}
+\providecolor{tableHeaderBg}{named}{black}
+\providecolor{tableRowA}{named}{white}
+\providecolor{tableRowB}{named}{gray}
+\providecolor{tableRule}{named}{gray}
+
+\AtBeginDocument{\arrayrulecolor{tableRule}}
+
+\AtBeginEnvironment{tabular}{%
+  \rowcolors{2}{tableRowA}{tableRowB}%
+}
+\AtBeginEnvironment{tabularx}{%
+  \rowcolors{2}{tableRowA}{tableRowB}%
+}
+
+\newcommand{\tblheader}{\rowcolor{tableHeaderBg}}
+\newcommand{\hcell}[1]{\color{tableHeaderFg}\textbf{#1}}

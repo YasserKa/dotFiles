@@ -1,9 +1,4 @@
 \documentclass[aspectratio=169]{beamer}
-%Information to be included in the title page:
-\title{<Presentation title>}
-\subtitle{<Presentation subtitle>}
-\institute{LULEÅ UNIVERSITY OF TECHNOLOGY}
-
  %%%% Needed for overleaf (Need to add ./themes as ./theme)
 \usepackage{graphicx}
 \makeatletter
@@ -11,6 +6,14 @@
 \makeatother
 
 \usetheme{ltu_dark}
+
+%Information to be included in the title page:
+\title{<Presentation title>}
+\subtitle{<Presentation subtitle>}
+% \author{Yaser Kaddoura}
+% \renewcommand{\therole}{PhD. student}
+\date{} % comment it out to show date
+% \institute{Luleå University of Technology} % Shown in footer
 
 \setbeamertemplate{headline}{} % Uncomment to remove headline
 \setbeameroption{show notes on second screen} % Show notes
@@ -21,6 +24,10 @@
 
 % For hyperlinks
 \usepackage{hyperref}
+% Needed, so hyperref doesn't complain about \today
+\pdfstringdefDisableCommands{%
+  \def\translate#1{#1}%
+}
 
 
 %%%%
@@ -119,7 +126,8 @@ A &= B \\
 
   \begin{table}
     \begin{tabular}{l | c | c | c | c }
-      Competitor Name & Swim & Cycle & Run & Total \\
+      \tblheader
+      \hcell{Competitor Name} & \hcell{Swim} & \hcell{Cycle} & \hcell{Run} & \hcell{Total} \\
       \hline \hline
       John T & 13:04 & 24:15 & 18:34 & 55:53 \\
       Norman P & 8:00 & 22:45 & 23:02 & 53:47\onslide<2->\\
@@ -133,6 +141,30 @@ A &= B \\
   Hyperlink: \url{https://www.example.com} or \href{https://www.example.com}{Click here to visit Example}
 
   \footnotetext[1]{This is a caption}
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{More tables}
+
+  \begin{table}
+    \begin{tabular}{>{\raggedright\arraybackslash}m{5cm} c}
+      \tblheader
+      \hcell{Col1} & \hcell{Col2} \\
+      This column has more text than the one next to it & Short text \\
+    \end{tabular}
+  \end{table}
+
+\vspace{1em}
+\small
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\begin{tabularx}{\textwidth}{L L L}
+\toprule
+\tblheader
+\textbf{Col1} & \textbf{Col2} & \textbf{Col3} \\
+Bigger table with more text & Yes, it's so wide, I can fit more and more and more & Let's goooooo \\
+\bottomrule
+\end{tabularx}
+
 \end{frame}
 
 \section{Blocks}
