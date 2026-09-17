@@ -5,4 +5,4 @@
 [[ ! -e /tmp/flag_sway_reloaded ]] && i3-msg reload || rm /tmp/flag_sway_reloaded
 
 # Need to restart for i3 & moving workspaces around
-[[ -n "${DISPLAY}" ]] && i3-msg restart && "$XDG_CONFIG_HOME/i3/move_i3_workspaces"
+[[ -z "${WAYLAND_DISPLAY}" ]] && echo hello && i3-msg restart && "$XDG_CONFIG_HOME/i3/move_i3_workspaces"
