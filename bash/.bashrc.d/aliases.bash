@@ -108,7 +108,7 @@ alias gen_bib="command cp $XDG_CONFIG_HOME/Zotero/better-bibtex/my_library.bib b
 alias show_keys="sudo showkey --keycodes"
 
 alias rapid_miner="_JAVA_AWT_WM_NONREPARENTING=1 JAVA_HOME=/usr/lib/jvm/java-17-openjdk /opt/RapidMiner/AI\ Studio\ 2026.1.1/AI-Studio.sh"
-alias knime="knime-desktop -data .config/knime-workspace"
+alias knime="knime-desktop -data $XDG_CONFIG_HOME/knime_workspace"
 
 # SSH setup
 ssh() { command ssh "$@" -t 'export yasser_config_env=1; TERM=xterm-256color; bash -login'; }
