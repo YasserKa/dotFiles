@@ -447,7 +447,7 @@ return {
   { "https://github.com/szw/vim-maximizer", lazy = false },
   { "https://github.com/simnalamburt/vim-mundo", cmd = "MundoToggle" },
   {
-    "iamcco/markdown-preview.nvim",
+    "sammaji/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     build = function(plugin)
       if vim.fn.executable "npx" then
