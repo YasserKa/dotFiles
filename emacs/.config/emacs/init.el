@@ -2734,6 +2734,102 @@ selection of all minor-modes, active or not."
   (let ((current-prefix-arg 4)) (call-interactively 'org-columns))
   )
 
+;; my/consult-org-agenda-by-schedule
+;; Group and sort consult agenda using day
+(defun my/consult-org--headings (match scope)
+  "Collect Org heading candidates for MATCH/SCOPE.
+Each candidate is prefixed with its day title (for grouping/search)
+and file name (padded to a common width for alignment)."
+  (let (buffer entries)
+    (org-map-entries
+     (lambda ()
+       (unless (eq buffer (buffer-name))
+         (setq buffer (buffer-name)
+               org-outline-path-cache nil))
+       (pcase-let ((`(_ ,level ,todo ,prio ,_hl ,tags) (org-heading-components)))
+         (let* ((heading (org-format-outline-path
+                          (org-get-outline-path 'with-self 'use-cache)
+                          (1- (frame-width)) nil (propertize "/" 'face 'org-warning)))
+                (sched (org-get-scheduled-time (point)))
+                (dead  (org-get-deadline-time (point)))
+                (time (cond ((and sched dead) (if (time-less-p sched dead) sched dead))
+                            (sched sched)
+                            (dead dead))))
+           (when tags
+             (setq tags (concat " " tags))
+             (put-text-property 1 (length tags) 'face 'org-tag tags))
+           (push (list :buffer buffer
+                       :heading (concat heading tags)
+                       :time time
+                       :level level
+                       :todo todo
+                       :prio prio
+                       :marker (point-marker)
+                       :pos (point))
+                 entries))))
+     match scope)
+    (setq entries (nreverse entries))
+    (let* ((width (apply #'max 0 (mapcar (lambda (e) (length (plist-get e :buffer))) entries)))
+           (fmt (format "%%-%ds " width)))
+      (mapcar
+       (lambda (e)
+         (let* ((day (my/consult-org--day-title (plist-get e :time)))
+                (body (concat (format fmt (plist-get e :buffer)) (plist-get e :heading)))
+                (cand (concat day " " body (consult--tofu-encode (plist-get e :pos)))))
+           (add-text-properties
+            0 1
+            `(consult--candidate ,(plist-get e :marker)
+              consult-org--heading (,(plist-get e :level) ,(plist-get e :todo) . ,(plist-get e :prio))
+              my/entry-time ,(plist-get e :time)
+              my/day-title ,day)
+            cand)
+           cand))
+       entries))))
+
+(defun my/consult-org--day-title (time)
+  "Group title (day) for TIME, a time value or nil."
+  (if (not time)
+      "No date"
+    (let* ((today (time-to-days (current-time)))
+           (diff (- (time-to-days time) today)))
+      (cond
+       ((< diff 0) (format "Overdue (%s)" (format-time-string "%a %d %b" time)))
+       ((= diff 0) "Today")
+       ((= diff 1) "Tomorrow")
+       (t (format-time-string "%A %d %b" time))))))
+
+(defun my/consult-org-agenda-by-schedule (&optional match)
+  "Like `consult-org-agenda' but ordered and grouped by SCHEDULED/DEADLINE date,
+with the file name kept at the start of each candidate."
+  (interactive)
+  (require 'consult-org)
+  (unless org-agenda-files
+    (user-error "No agenda files"))
+  (let* ((cands (consult--slow-operation "Collecting headings..."
+                  (my/consult-org--headings match 'agenda)))
+         (sorted (sort cands
+                       (lambda (a b)
+                         (let ((ta (get-text-property 0 'my/entry-time a))
+                               (tb (get-text-property 0 'my/entry-time b)))
+                           (cond ((and ta tb) (time-less-p ta tb))
+                                 (ta t)
+                                 (t nil)))))))
+    (consult--read
+     sorted
+     :prompt "Go to heading: "
+     :category 'consult-org-heading
+     :sort nil
+     :require-match t
+     :history '(:input consult-org--history)
+     :narrow (consult-org--narrow)
+     :state (consult--jump-state)
+     :group (lambda (cand transform)
+         (let ((day (get-text-property 0 'my/day-title cand)))
+           (if transform
+               (substring cand (1+ (length day)))
+             day)))
+     :lookup #'consult--lookup-candidate)))
+
 (use-package hydra)
 (defun org-capture-full-screen ()
   (interactive)
@@ -2883,7 +2979,7 @@ selection of all minor-modes, active or not."
   (" g" consult-org-heading "file" :column "headers")
   (" G" (consult-org-heading t (get-open-org-files)) "buffers")
   (" a" consult-org-agenda "agenda")
-  (" w" (consult-org-agenda "TODO<>\"DONE\"+TODO<>\"CANCELLED\"+DEADLINE<\"<+7d>\"|TODO<>\"DONE\"+TODO<>\"CANCELLED\"+SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
+  (" w" (my/consult-org-agenda-by-schedule "TODO<>\"DONE\"+TODO<>\"CANCELLED\"+DEADLINE<\"<+7d>\"|TODO<>\"DONE\"+TODO<>\"CANCELLED\"+SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
   (" n" (consult-org-agenda "TODO=\"NEXT\"") "NEXT tasks")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
