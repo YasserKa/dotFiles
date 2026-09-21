@@ -26,9 +26,9 @@
 # Dependencies: zotero, netcat
 
 get_collection_id_from_name() {
-	local -r COLLECTION_NAME="$1"
+  local -r COLLECTION_NAME="$1"
 
-	script='
+  script='
   (async function () {
 let collections = Zotero.Collections.getLoaded()
 let collectionId = 0
@@ -41,11 +41,11 @@ for (let collection of collections) {
 
 result=collectionId.toString()
 '
-	eval_script_return_value "$script"
+  eval_script_return_value "$script"
 }
 
 pick_collection_id() {
-	script='
+  script='
   (async function () {
   let libraries = await Zotero.Libraries.getAll()
 
@@ -74,28 +74,28 @@ for (let library of libraries) {
 result = collections_str
 '
 
-	result="$(eval_script_return_value "$script")"
+  result="$(eval_script_return_value "$script")"
 
-	result="$(command cat <(fre --store_name "$FRE_NAME" --sorted | grep -Fx -f <(echo "$result")) <(echo "$result" | grep -Fvx -f <(fre --store_name "$FRE_NAME" --sorted)))"
-	result="${result//>>/\\033[36m>>\\033[0m}"
+  result="$(command cat <(fre --store_name "$FRE_NAME" --sorted | grep -Fx -f <(echo "$result")) <(echo "$result" | grep -Fvx -f <(fre --store_name "$FRE_NAME" --sorted)))"
+  result="${result//>>/\\033[36m>>\\033[0m}"
 
-	TMP_FILE="$(mktemp -t "tmp_XXX")"
-	readonly TMP_FILE
+  TMP_FILE="$(mktemp -t "tmp_XXX")"
+  readonly TMP_FILE
 
-	trap 'rm $TMP_FILE' RETURN
+  trap 'rm $TMP_FILE' RETURN
 
-	IFS='' read -r -d '' cmd <<EOF
+  IFS='' read -r -d '' cmd <<EOF
   printf "$result" |  fzf --ansi --with-nth '{2..}' --preview-window hidden >| '${TMP_FILE}'
 EOF
 
-	eval_interactive_cmd --floating "$cmd"
+  eval_interactive_cmd --floating "$cmd"
 
-	[[ -s "$TMP_FILE" ]] || exit 0
+  [[ -s "$TMP_FILE" ]] || exit 0
 
-	fre --store_name "$FRE_NAME" --add "$(cat "$TMP_FILE")"
-	collection_key="$(<"$TMP_FILE" cut -d $'\t' -f 1)"
+  fre --store_name "$FRE_NAME" --add "$(cat "$TMP_FILE")"
+  collection_key="$(<"$TMP_FILE" cut -d $'\t' -f 1)"
 
-	script='
+  script='
 (async function () {
 let libraryId = await Zotero.Libraries.getAll()[0].id
 
@@ -103,80 +103,80 @@ let collectionId = await Zotero.Collections.getByLibraryAndKey(libraryId, "'"$co
 
 result=collectionId.toString()
 '
-	eval_script_return_value "$script"
+  eval_script_return_value "$script"
 }
 
 import_source() {
-	local TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
-	local COLLECTION_NAME RECENT SOURCE ADD_ORG_ENTRY USE_BROWSER_HTML
+  local TMP_FILE_RECENT_COLLECTION_ID="$XDG_DATA_HOME/zotero_recent_collection_id"
+  local COLLECTION_NAME RECENT SOURCE ADD_ORG_ENTRY USE_BROWSER_HTML
 
-	while :; do
-		echo "$1"
-		case $1 in
-			--collection_name)
-				COLLECTION_NAME="$2"
-				shift
-				;;
-			--html-from-browser)
-				USE_BROWSER_HTML="true"
-				;;
-			--recent)
-				RECENT="true"
-				;;
-			--add_org_entry)
-				ADD_ORG_ENTRY="true"
-				;;
-			*)
-				# Could be changed to remove em-dashes
-				SOURCE="$1"
-				break
-				;;
-		esac
-		shift
-	done
+  while :; do
+    echo "$1"
+    case $1 in
+    --collection_name)
+      COLLECTION_NAME="$2"
+      shift
+      ;;
+    --html-from-browser)
+      USE_BROWSER_HTML="true"
+      ;;
+    --recent)
+      RECENT="true"
+      ;;
+    --add_org_entry)
+      ADD_ORG_ENTRY="true"
+      ;;
+    *)
+      # Could be changed to remove em-dashes
+      SOURCE="$1"
+      break
+      ;;
+    esac
+    shift
+  done
 
-	declare -r FRE_NAME="zotero_collection"
+  declare -r FRE_NAME="zotero_collection"
 
-	(
-		CACHE_PAPER_REFERENCES_PATH="$(inotifywait --timeout 60 -e create,moved_to --format '%w%f' "$XDG_CACHE_HOME/papers_references/")" &&
-			inotifywait --timeout $((60 * 20)) --format '%w%f' "${CACHE_PAPER_REFERENCES_PATH}" --include "references_enriched.json" &&
-			dunstify "Enriched paper references" || dunstify "Couldn't get the document for the paper"
-	) &
-	CACHE_PAPER_PID=$!
+  (
+    CACHE_PAPER_REFERENCES_PATH="$(inotifywait --timeout 60 -e create,moved_to --format '%w%f' "$XDG_CACHE_HOME/papers_references/")" &&
+      inotifywait --timeout $((60 * 20)) --format '%w%f' "${CACHE_PAPER_REFERENCES_PATH}" --include "references_enriched.json" &&
+      dunstify "Enriched paper references" || dunstify "Couldn't get the document for the paper"
+  ) &
+  CACHE_PAPER_PID=$!
 
-	if [[ "$RECENT" == "true" ]]; then
-		# Use most recent file
-		source "$TMP_FILE_RECENT_COLLECTION_ID"
-	elif [[ -n "$COLLECTION_NAME" ]]; then
-		declare -r COLLECTION_ID="$(get_collection_id_from_name "$COLLECTION_NAME")"
-	else # Pick interactively
-		declare -r COLLECTION_ID="$(pick_collection_id)"
-	fi
-	# Don't track reading collection
-	[[ -n "$COLLECTION_ID" && "$COLLECTION_NAME" != "To_Read" ]] && declare -p COLLECTION_ID >|"$TMP_FILE_RECENT_COLLECTION_ID"
+  if [[ "$RECENT" == "true" ]]; then
+    # Use most recent file
+    source "$TMP_FILE_RECENT_COLLECTION_ID"
+  elif [[ -n "$COLLECTION_NAME" ]]; then
+    declare -r COLLECTION_ID="$(get_collection_id_from_name "$COLLECTION_NAME")"
+  else # Pick interactively
+    declare -r COLLECTION_ID="$(pick_collection_id)"
+  fi
+  # Don't track reading collection
+  [[ -n "$COLLECTION_ID" && "$COLLECTION_NAME" != "To_Read" ]] && declare -p COLLECTION_ID >|"$TMP_FILE_RECENT_COLLECTION_ID"
 
-	[[ -z "$COLLECTION_ID" ]] && exit 0
+  [[ -z "$COLLECTION_ID" ]] && exit 0
 
-	local IDENTIFIERS
-	IDENTIFIERS="$(eval_script_return_value '
+  local IDENTIFIERS
+  IDENTIFIERS="$(eval_script_return_value '
 (async function () {
   let ids = Zotero.Utilities.Internal.extractIdentifiers("'"$SOURCE"'");
   result = JSON.stringify(ids);
 ')"
 
-	if [[ -f "$SOURCE" ]]; then
-		# Attach document
+  if [[ -f "$SOURCE" ]]; then
+    # Attach document
 
-		# If filename contains an em-dash replace it, because JS doesn't like em-dashes
-		if [[ "$(basename "$SOURCE")" =~ [—–] ]]; then
-			OLD_SOURCE="$SOURCE"
-			SOURCE="/tmp/$(basename "$OLD_SOURCE" | sed 's/[—–]/-/g')"
-			cp -- "$OLD_SOURCE" "$SOURCE"
-		fi
+    # If filename contains an em-dash replace it, because JS doesn't like em-dashes
+    if [[ "$(basename "$SOURCE")" =~ [—–] ]]; then
+      OLD_SOURCE="$SOURCE"
+      SOURCE="/tmp/$(basename "$OLD_SOURCE" | sed 's/[—–]/-/g')"
+      cp -- "$OLD_SOURCE" "$SOURCE"
+    fi
 
-		# Convert to UTF-8 escape sequence (percent-encoding)
-		SOURCE=$(python3 -c "import urllib.parse; print(urllib.parse.quote(\"$SOURCE\"))")
-		import_script='
+    # Convert to UTF-8 escape sequence (percent-encoding)
+    SOURCE=$(python3 -c "import urllib.parse; print(urllib.parse.quote(\"$SOURCE\"))")
+    import_script='
   (async function () {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -208,65 +208,107 @@ async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
     result = await Zotero.BetterBibTeX.KeyManager.get(items[0].parentID).citationKey
   '
 
-	elif [[ "$IDENTIFIERS" != "[]" && -n "$IDENTIFIERS" ]]; then
-		# shellcheck disable=2016
-		import_script='
+  elif [[ "$IDENTIFIERS" != "[]" && -n "$IDENTIFIERS" ]]; then
+    # shellcheck disable=2016
+    import_script='
   (async function () {
   let identifiers = '"$IDENTIFIERS"';
-  let translate = new Zotero.Translate.Search();
-  translate.setSearch(identifiers);
 
-  let translators = await translate.getTranslators();
-  if (translators.length == 0) {
-    result = "Error: No search translators available for identifier";
-  } else {
-    translate.setTranslator(translators[0].translatorID);
+  let doi = null;
+  for (let id of identifiers) {
+    if (id.DOI) { doi = id.DOI; break; }
+  }
 
-    let items = await translate.translate({
-      libraryID: Zotero.Libraries.userLibraryID,
-      collections: ['"$COLLECTION_ID"'],
-    });
-
-    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-    async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
-      const startTime = Date.now();
-      while (true) {
-        if (conditionFn()) break;
-        if (Date.now() - startTime > timeoutMs) break;
-        await sleep(pollIntervalMs);
-      }
+  function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+  async function waitForCondition(conditionFn, timeoutMs, pollIntervalMs = 100) {
+    const startTime = Date.now();
+    while (true) {
+      if (conditionFn()) break;
+      if (Date.now() - startTime > timeoutMs) break;
+      await sleep(pollIntervalMs);
     }
+  }
 
-    if (!items || !items[0]) {
-      result = "Error: Entry not added (no item returned from identifier search)";
+  async function getCitationKey(itemID, timeoutMs) {
+    await waitForCondition(
+      () => Zotero.BetterBibTeX.KeyManager.get(itemID) && Zotero.BetterBibTeX.KeyManager.get(itemID).citationKey,
+      timeoutMs
+    );
+    let entry = Zotero.BetterBibTeX.KeyManager.get(itemID);
+    return (entry && entry.citationKey) || null;
+  }
+
+  // --- Step 1: dedupe check ---
+  async function findExistingItemByDOI(doi) {
+    if (!doi) return null;
+    let search = new Zotero.Search();
+    search.libraryID = Zotero.Libraries.userLibraryID;
+    search.addCondition("DOI", "is", doi);
+    let ids = await search.search();
+    return ids.length > 0 ? await Zotero.Items.getAsync(ids[0]) : null;
+  }
+
+  let existing = await findExistingItemByDOI(doi);
+
+  if (existing) {
+    if (!existing.getCollections().includes('"$COLLECTION_ID"')) {
+      existing.addToCollection('"$COLLECTION_ID"');
+      await existing.saveTx();
+    }
+    let key = await getCitationKey(existing.id, 15000);
+    result = key || ("Error: citation key not generated (existing item " + existing.id + ")");
+  } else {
+    // --- Step 2: create, but do not let attachment/PDF resolution block us ---
+    let translate = new Zotero.Translate.Search();
+    translate.setSearch(identifiers);
+
+    let translators = await translate.getTranslators();
+    if (translators.length == 0) {
+      result = "Error: No search translators available for identifier";
     } else {
-      await waitForCondition(
-        () => Zotero.BetterBibTeX.KeyManager.get(items[0].id) && Zotero.BetterBibTeX.KeyManager.get(items[0].id).citationKey,
-        15000
-      );
-      let entry = Zotero.BetterBibTeX.KeyManager.get(items[0].id);
-      result = (entry && entry.citationKey) || "Error: citation key not generated";
+      translate.setTranslator(translators[0].translatorID);
+
+      let savedItem = null;
+      translate.setHandler("itemDone", function (obj, item) {
+        if (!savedItem) savedItem = item;
+      });
+
+      translate.translate({
+        libraryID: Zotero.Libraries.userLibraryID,
+        collections: ['"$COLLECTION_ID"'],
+      }).catch(function (e) {
+        Zotero.debug("zotero_utility: translate() attachment/fulltext step failed: " + e);
+      });
+
+      await waitForCondition(() => savedItem, 20000);
+
+      if (!savedItem) {
+        result = "Error: Entry not added (timed out waiting for item metadata)";
+      } else {
+        let key = await getCitationKey(savedItem.id, 15000);
+        result = key || "Error: citation key not generated";
+      }
     }
   }
 '
-		results="$(eval_script_return_value "$import_script")"
-		# falls through to your existing grep "Error:" handling below
-	elif curl --head "$SOURCE" >/dev/null; then
+    results="$(eval_script_return_value "$import_script")"
+    # falls through to your existing grep "Error:" handling below
+  elif curl --head "$SOURCE" >/dev/null; then
 
-		HTML_PATH="$(mktemp -t "tmp_XXX")"
-		readonly HTML_PATH
+    HTML_PATH="$(mktemp -t "tmp_XXX")"
+    readonly HTML_PATH
 
-		trap 'rm -f $HTML_PATH' RETURN
+    trap 'rm -f $HTML_PATH' RETURN
 
-		# Extract web page source code
-		if [[ "$USE_BROWSER_HTML" == "true" ]]; then
-			cp "$QUTE_HTML" "$HTML_PATH"
-		else
-			get_page_content "$SOURCE" "$HTML_PATH"
-		fi
+    # Extract web page source code
+    if [[ "$USE_BROWSER_HTML" == "true" ]]; then
+      cp "$QUTE_HTML" "$HTML_PATH"
+    else
+      get_page_content "$SOURCE" "$HTML_PATH"
+    fi
 
-		# shellcheck disable=2016
-		import_script='
+    # shellcheck disable=2016
+    import_script='
   (async function () {
   var { library, collection, editable } = Zotero.Server.Connector.getSaveTarget();
   var libraryID = library.libraryID;
@@ -361,46 +403,46 @@ result = await new Promise((resolve) => {
 });
 }
 '
-	else
-		notify-send "Couldn't import to zotero: $SOURCE"
-		exit 1
-	fi
-	results="$(eval_script_return_value "$import_script")"
-	if grep "Error:" <(echo "$results"); then
-		notify-send "$results"
-		exit 1
-	else
-		if [[ "$ADD_ORG_ENTRY" == "true" ]]; then
-			emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${results}]"
-		fi
-		dunstify "Entry Added"
-		wait "$CACHE_PAPER_PID"
-	fi
+  else
+    notify-send "Couldn't import to zotero: $SOURCE"
+    exit 1
+  fi
+  results="$(eval_script_return_value "$import_script")"
+  if grep "Error:" <(echo "$results"); then
+    notify-send "$results"
+    exit 1
+  else
+    if [[ "$ADD_ORG_ENTRY" == "true" ]]; then
+      emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=p&title=Read [cite:@${results}]"
+    fi
+    dunstify "Entry Added"
+    wait "$CACHE_PAPER_PID"
+  fi
 }
 
 get_metadata() {
 
-	if [[ "$1" != "DOI" && "$1" != "title" ]]; then
-		dunstify "Error: first argument must be DOI or title."
-		exit 1
-	fi
+  if [[ "$1" != "DOI" && "$1" != "title" ]]; then
+    dunstify "Error: first argument must be DOI or title."
+    exit 1
+  fi
 
-	METADATA="$1"
-	SOURCE="$2"
+  METADATA="$1"
+  SOURCE="$2"
 
-	if [[ -f "$SOURCE" ]]; then
-		# Attach document
+  if [[ -f "$SOURCE" ]]; then
+    # Attach document
 
-		# If filename contains an em-dash replace it, because JS doesn't like em-dashes
-		if [[ "$(basename "$SOURCE")" =~ [—–] ]]; then
-			OLD_SOURCE="$SOURCE"
-			SOURCE="/tmp/$(basename "$OLD_SOURCE" | sed 's/[—–]/-/g')"
-			cp -- "$OLD_SOURCE" "$SOURCE"
-		fi
+    # If filename contains an em-dash replace it, because JS doesn't like em-dashes
+    if [[ "$(basename "$SOURCE")" =~ [—–] ]]; then
+      OLD_SOURCE="$SOURCE"
+      SOURCE="/tmp/$(basename "$OLD_SOURCE" | sed 's/[—–]/-/g')"
+      cp -- "$OLD_SOURCE" "$SOURCE"
+    fi
 
-		SOURCE=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("'"$SOURCE"'"))')
+    SOURCE=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("'"$SOURCE"'"))')
 
-		SCRIPT='
+    SCRIPT='
 (async function () {
     let path = decodeURIComponent("'$SOURCE'");
 
@@ -462,22 +504,22 @@ get_metadata() {
       }
     }
   '
-	elif curl --head "$SOURCE" >/dev/null; then
+  elif curl --head "$SOURCE" >/dev/null; then
 
-		HTML_PATH="$(mktemp -t "tmp_XXX.html")"
-		readonly HTML_PATH
+    HTML_PATH="$(mktemp -t "tmp_XXX.html")"
+    readonly HTML_PATH
 
-		# Use Hosted Zotero translation service
-		OUTPUT="$(curl -d "$SOURCE" -H 'Content-Type: text/plain' http://remote:1969/web | jq -r ".[] | .$METADATA" | head -n 1)"
+    # Use Hosted Zotero translation service
+    OUTPUT="$(curl -d "$SOURCE" -H 'Content-Type: text/plain' http://remote:1969/web | jq -r ".[] | .$METADATA" | head -n 1)"
 
-		# If it didn't work, use local Zotero API
-		[[ "$OUTPUT" != "null" ]] && echo "$OUTPUT" && exit 0
+    # If it didn't work, use local Zotero API
+    [[ "$OUTPUT" != "null" ]] && echo "$OUTPUT" && exit 0
 
-		trap 'rm -f $HTML_PATH' RETURN
-		get_page_content "$SOURCE" "$HTML_PATH"
+    trap 'rm -f $HTML_PATH' RETURN
+    get_page_content "$SOURCE" "$HTML_PATH"
 
-		# shellcheck disable=2016
-		SCRIPT='
+    # shellcheck disable=2016
+    SCRIPT='
   (async function () {
     let url = "'"$SOURCE"'"
 
@@ -511,12 +553,12 @@ get_metadata() {
       });
     }
   '
-	fi
-	eval_script_return_value "$SCRIPT"
+  fi
+  eval_script_return_value "$SCRIPT"
 }
 
 search_entries() {
-	script='
+  script='
   (async function () {
 
   let libraries = await Zotero.Libraries.getAll()
@@ -596,12 +638,12 @@ for (let library of libraries) {
 let result = collections_str
 '
 
-	result="$(eval_script_return_value "$script")"
-	FRE_NAME="zotero_items"
+  result="$(eval_script_return_value "$script")"
+  FRE_NAME="zotero_items"
 
-	frecency_result="$(fre --store_name "zotero_items" --sorted)"
+  frecency_result="$(fre --store_name "zotero_items" --sorted)"
 
-	result="$(awk -F$'\t' '
+  result="$(awk -F$'\t' '
 function print_entry(key) {
     print f1[key] "\t" f2[key] "\t" f3[key] "\t" f4[key] "\t\033[36m" coll[key] "\033[0m\t\033[1;38m" f6[key] "\033[0m\t\033[37m" f7[key] "\t" f8[key] "\033[0m";
     print pdfi[key] refi[key] "\033[1;33m" title[key] "\033[0m";
@@ -644,10 +686,10 @@ END {
 }
 ' <(echo "$frecency_result") <(echo "$result"))"
 
-	awk 'NR==1 {print; next} NR%2==0 {printf "%s\0", $0; next} {print}' < <(echo "$result") >|/tmp/result_null
+  awk 'NR==1 {print; next} NR%2==0 {printf "%s\0", $0; next} {print}' < <(echo "$result") >|/tmp/result_null
 
-	# Focus collection and item in Zotero JS
-	focus_zotero_item='(async function() {
+  # Focus collection and item in Zotero JS
+  focus_zotero_item='(async function() {
     function getZoteroPane() {
 		  let windows = Zotero.getMainWindows();
 		  for (let win of windows) {
@@ -665,12 +707,12 @@ END {
 
   focus_zotero_item('
 
-	TMP_FILE="$(mktemp -t "tmp_XXX")"
-	readonly TMP_FILE
+  TMP_FILE="$(mktemp -t "tmp_XXX")"
+  readonly TMP_FILE
 
-	trap 'rm $TMP_FILE' EXIT
+  trap 'rm $TMP_FILE' EXIT
 
-	IFS='' read -r -d '' cmd <<EOF
+  IFS='' read -r -d '' cmd <<EOF
   cat "/tmp/result_null" |  fzf --multi --read0 --ansi --with-nth {5..} \
   --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {4}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
   --bind 'alt-u:execute-silent(xdg-open {3})' \
@@ -680,31 +722,31 @@ END {
   >| '${TMP_FILE}'
 EOF
 
-	eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
+  eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
 
-	[[ -s "$TMP_FILE" ]] || exit 1
+  [[ -s "$TMP_FILE" ]] || exit 1
 
-	FILES_PATH="$(<"$TMP_FILE" cut -d $'\t' -f 4 | sed -n 'p;n')"
+  FILES_PATH="$(<"$TMP_FILE" cut -d $'\t' -f 4 | sed -n 'p;n')"
 
-	while IFS= read -r FILE_PATH; do
-		# Open document if directory exists; otherwise, open link
-		if [[ -d "$FILE_PATH" ]]; then
-			xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
-			disown
-			i3-msg "workspace --no-auto-back-and-forth 8"
-		else
-			xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
-		fi
-		fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
-	done <<<"$FILES_PATH"
+  while IFS= read -r FILE_PATH; do
+    # Open document if directory exists; otherwise, open link
+    if [[ -d "$FILE_PATH" ]]; then
+      xdg-open "$(find "$FILE_PATH" -type f -name "*" ! -name ".*")" &
+      disown
+      i3-msg "workspace --no-auto-back-and-forth 8"
+    else
+      xdg-open "$(<"$TMP_FILE" cut -d $'\t' -f 3 | head -n 1)"
+    fi
+    fre --store_name "$FRE_NAME" --add "$(<"$TMP_FILE" cut -d $'\t' -f -1 | head -n 1)"
+  done <<<"$FILES_PATH"
 }
 
 focus_zotero_entry_from_path() {
-	path="$1"
-	file_name="${path##*/}"
+  path="$1"
+  file_name="${path##*/}"
 
-	i3-msg "$ZOTERO_CONDITION move workspace current, focus"
-	SCRIPT='
+  i3-msg "$ZOTERO_CONDITION move workspace current, focus"
+  SCRIPT='
 (async function() {
     function getZoteroPane() {
 		  let windows = Zotero.getMainWindows();
@@ -728,71 +770,71 @@ focus_zotero_entry_from_path() {
   await focus_zotero_item();
 })();
 '
-	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
+  nc 127.0.0.1 8080 < <(echo "$SCRIPT")
 }
 
 eval_script_return_value() {
-	tmp="/tmp/search_zotero_${RANDOM}"
+  tmp="/tmp/search_zotero_${RANDOM}"
 
-	SCRIPT='
+  SCRIPT='
   '"$1"'
   await Zotero.File.putContentsAsync("'"$tmp"'", result);
 })();
 '
 
-	nc 127.0.0.1 8080 < <(echo "$SCRIPT")
+  nc 127.0.0.1 8080 < <(echo "$SCRIPT")
 
-	local waited=0
-	until [[ -f "$tmp" ]]; do
-		sleep 0.1
-		waited=$((waited + 1))
-		if ((waited > 300)); then # 30s timeout
-			notify-send "zotero_utility: timed out waiting for script result"
-			return 1
-		fi
-	done
-	cat "$tmp"
-	rm "$tmp"
+  local waited=0
+  until [[ -f "$tmp" ]]; do
+    sleep 0.1
+    waited=$((waited + 1))
+    if ((waited > 300)); then # 30s timeout
+      notify-send "zotero_utility: timed out waiting for script result"
+      return 1
+    fi
+  done
+  cat "$tmp"
+  rm "$tmp"
 }
 
 main() {
-	source "$HOME/.bashrc.d/functions.bash"
+  source "$HOME/.bashrc.d/functions.bash"
 
-	# Open Zotero
-	if ! is_window_exists "^Zotero$"; then
-		nohup zotero >/dev/null 2>&1 &
-		disown
-		wait_window "^Zotero$"
-		ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
-		until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
-			sleep 0.1
-		done
-		sleep 2
-		i3-msg "$ZOTERO_CONDITION move scratchpad"
-	else
-		ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
-	fi
+  # Open Zotero
+  if ! is_window_exists "^Zotero$"; then
+    nohup zotero >/dev/null 2>&1 &
+    disown
+    wait_window "^Zotero$"
+    ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
+    until nc -zv 127.0.0.1 8080 >/dev/null 2>&1; do
+      sleep 0.1
+    done
+    sleep 2
+    i3-msg "$ZOTERO_CONDITION move scratchpad"
+  else
+    ZOTERO_CONDITION="$(window_get_condition "^Zotero$")"
+  fi
 
-	case $1 in
-		import)
-			shift
-			import_source "$@"
-			;;
-		get_metadata)
-			shift
-			get_metadata "$@"
-			;;
-		search)
-			search_entries
-			;;
-		focus_entry)
-			shift
-			focus_zotero_entry_from_path "$@"
-			;;
-		*)
-			dunstify "$1 utlity isn't supported" && exit 1
-			;;
-	esac
+  case $1 in
+  import)
+    shift
+    import_source "$@"
+    ;;
+  get_metadata)
+    shift
+    get_metadata "$@"
+    ;;
+  search)
+    search_entries
+    ;;
+  focus_entry)
+    shift
+    focus_zotero_entry_from_path "$@"
+    ;;
+  *)
+    dunstify "$1 utlity isn't supported" && exit 1
+    ;;
+  esac
 }
 
 main "$@"
