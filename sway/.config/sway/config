@@ -368,7 +368,7 @@ exec --no-startup-id bash -ic "org"
 
 exec --no-startup-id kitty_control init
 
-exec --no-startup-id bash -ic 'zotero'
+exec --no-startup-id bash -ic 'pull_files_from_remote; zotero'
 
 # Manages other devices
 exec /bin/kdeconnectd & disown
