@@ -137,7 +137,8 @@
     "format": "",
     "signal": 9,
     "on-click": "$HOME/bin/canvas_utility open_first_link",
-    "on-click-right": "$HOME/bin/canvas_utility open_file",
+    "on-click-right": "$HOME/bin/canvas_utility check_assignments",
+    "on-click-middle": "$HOME/bin/canvas_utility open_file",
     "return-type": "json",
     "exec": "$HOME/bin/canvas_utility get_tooltip"
   },
