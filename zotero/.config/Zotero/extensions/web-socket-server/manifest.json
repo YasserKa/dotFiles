@@ -9,7 +9,7 @@
       "id": "websocket-server",
       "update_url": "https://github.com/YasserKa/dotFiles/zotero",
       "strict_min_version": "10.0",
-      "strict_max_version": "10.*"
+      "strict_max_version": "99.*"
     }
   }
 }

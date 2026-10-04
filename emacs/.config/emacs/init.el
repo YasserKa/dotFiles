@@ -127,8 +127,6 @@
   (openwith-mode t))
 ;; }}}
 ;; Appearance {{{
-(setq my/default-font "Firacode Nerd Font-12")
-(add-to-list 'default-frame-alist `(font . ,my/default-font))
 
 ;; Emacs, recenter the screen after reaching the edge,
 ;; disable that by making it move with the screen with n lines
@@ -163,6 +161,11 @@
         modus-themes-italic-constructs t
         modus-themes-org-blocks 'gray-background)
   (load-theme 'modus-operandi-tinted :no-confirm))
+
+(setq my/default-font "Firacode Nerd Font")
+(set-face-attribute 'default nil :family my/default-font :height 120)
+;; fallback font for italics
+(set-face-attribute 'italic nil :family "DejaVu Sans Mono" :height 120 :slant 'italic)
 
 (use-package doom-modeline
   :custom
@@ -217,6 +220,7 @@
   (show-paren-delay 0)
   :config (show-paren-mode 1)
   )
+
 ;; }}}
 ;; Editing {{{
 ;; Trims spaces from end of line
@@ -1979,8 +1983,8 @@ see how ARG affects this command."
     (setq org-protocol-default-template-key "q")
     )
 
-  (use-package org-protocol-capture-html
-    :ensure nil)
+  ;; (use-package org-protocol-capture-html
+  ;;   :ensure nil)
 
   (defun my/org-open-all-links-in-subtree ()
     "Open all the links in the current subtree.
