@@ -3211,6 +3211,14 @@ with the file name kept at the start of each candidate."
     (let ((entry (elfeed-search-selected :single)))
       (start-process-shell-command "" nil (concat "org_capture '" (elfeed-entry-link entry) "' '" (elfeed-entry-title entry)"'")) (elfeed-search-show-entry entry)))
 
+  (defun my/elfeed-search-untag-unread-all-no-confirm ()
+    "Untag `unread' from all entries in the list, like C-u, without confirmation."
+    (interactive)
+    (let ((current-prefix-arg '(4)))
+      (cl-letf (((symbol-function 'y-or-n-p) (lambda (&rest _) t))
+                ((symbol-function 'yes-or-no-p) (lambda (&rest _) t)))
+        (elfeed-search-untag-unread))))
+
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "r") 'elfeed-search-clear-filter)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "C")  'my/elfeed-entry-capture-show)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
@@ -3220,7 +3228,7 @@ with the file name kept at the start of each candidate."
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gk")  'elfeed-goodies/split-show-prev)
 
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "o")  'elfeed-search-browse-url)
-  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "A") '(lambda () (interactive) (mark-whole-buffer) (elfeed-search-untag-all-unread)))
+  (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "A")  'my/elfeed-search-untag-unread-all-no-confirm)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "q")  'save-buffers-kill-terminal)
 
   (defun elfeed-format-relative-time (timestamp)
