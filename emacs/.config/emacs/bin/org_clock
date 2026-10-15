@@ -140,8 +140,7 @@ get_name() {
 ################################################################################
 get_time() {
 	local TASK_TIME
-	TASK_TIME="$(cut -d ' ' -f -1 <(echo "$1"))"
-	readonly TASK_TIME
+	TASK_TIME="$(echo "$1" | sed -E 's/^(\[[^]]*\]).*/\1/')"
 
 	# Seconds since the temp file got created
 	local -i SECONDS_SINCE_CREATION=$(($(date +%s) - $(date +%s -r $TMP_FILE_PATH)))
@@ -149,24 +148,21 @@ get_time() {
 	TIME_SINCE_CREATION=$(date --date="@$SECONDS_SINCE_CREATION" -u +%H:%M)
 
 	# [<X:XX>/X:XX] or [<X:XX>] (if effort property doesn't exist)
-	TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\/.*|\1|p' <(echo "$TASK_TIME"))"
+	TIME_ALREADY_SPENT_TOTAL="$(sed -n 's|\[\(.*\)\/.*|\1|p' <(echo "$TASK_TIME"))"
 	# HACK: if string doesn't exist then the other format is valid
-	[[ -z $TIME_ALREADY_SPENT ]] &&
-		TIME_ALREADY_SPENT="$(sed -n 's|\[\(.*\)\].*|\1|p' <(echo "$TASK_TIME"))"
+	[[ -z $TIME_ALREADY_SPENT_TOTAL ]] &&
+		TIME_ALREADY_SPENT_TOTAL="$(sed -n 's|\[\(.*\)\].*|\1|p' <(echo "$TASK_TIME"))"
 
 	# [X:XX/<X:XX>]
 	TIME_NEEDED="$(sed -n 's|.*\/\(.*\)\]|\1|p' <(echo "$TASK_TIME"))"
 
-	# Convert time to seconds
-	SECONDS_ALREADY_SPENT="$(echo "$TIME_ALREADY_SPENT" | awk -F: '{ print ($1 * 3600) + ($2 * 60) }')"
 	# Add time spent
 	TODAY_SECONDS="$(($(head -4 $TMP_FILE_PATH | tail -1) * 60))"
 
 	SECONDS_ALREADY_SPENT_TODAY=$((SECONDS_SINCE_CREATION + TODAY_SECONDS))
-	SECONDS_ALREADY_SPENT_TOTAL=$((SECONDS_SINCE_CREATION + SECONDS_ALREADY_SPENT))
+	# dunstify "$SECONDS_ALREADY_SPENT_TOTAL"
 	# Convert it back to HH:MM
 	TIME_ALREADY_SPENT_TODAY=$(date --date="@$SECONDS_ALREADY_SPENT_TODAY" -u +%H:%M)
-	TIME_ALREADY_SPENT_TOTAL=$(date --date="@$SECONDS_ALREADY_SPENT_TOTAL" -u +%H:%M)
 
 	# Add time needed if it exists (Effort might not exist for a task)
 	if [[ $TIME_NEEDED != "" ]]; then
@@ -188,18 +184,18 @@ execute_emacs_command() {
 
 main() {
 	case "$1" in
-		"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
-		"clock_out") execute_emacs_command "(org-clock-out)" ;;
-		"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
-		"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
-		"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
-		"go_to_entry") go_to_entry ;;
-		"go_to_scheduled_entry") go_to_scheduled_entry ;;
-		"get_info") get_info "$2" 0 ;;
-		"notify_info") notify_info "$2" 1 ;;
-		"toggle_bar_time") toggle_bar_time ;;
-		"toggle_today_time") toggle_today_time ;;
-		*) echo "$1 is a wrong argument" ;;
+	"clock_in") execute_emacs_command "(org-clock-in-last)" ;;
+	"clock_out") execute_emacs_command "(org-clock-out)" ;;
+	"clock_out_done") execute_emacs_command "(my/org-clock-out-done)" ;;
+	"clock_toggle") execute_emacs_command "(my/org-toggle-last-clock nil)" ;;
+	"clock_cancel") execute_emacs_command "(org-clock-cancel)" ;;
+	"go_to_entry") go_to_entry ;;
+	"go_to_scheduled_entry") go_to_scheduled_entry ;;
+	"get_info") get_info "$2" 0 ;;
+	"notify_info") notify_info "$2" 1 ;;
+	"toggle_bar_time") toggle_bar_time ;;
+	"toggle_today_time") toggle_today_time ;;
+	*) echo "$1 is a wrong argument" ;;
 	esac
 }
 
