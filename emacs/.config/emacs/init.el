@@ -458,13 +458,10 @@ does not have to do this by oneself."
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-properties)
 
-  ;; Use Company backends as Capfs.
-  (require 'company)
-  ;; Use the company-dabbrev and company-elisp backends together.
-  (add-to-list 'completion-at-point-functions
-         (cape-company-to-capf
-          (apply-partially #'company--multi-backend-adapter
-                           '(company-yasnippet))))
+(use-package yasnippet-capf
+  :after cape
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
   )
 
 (use-package evil
