@@ -1260,6 +1260,26 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (advice-add 'org-archive-subtree :around #'my/update-archive-location)
 
+  ;; Toggle subtree narrowing
+  (with-eval-after-load "org"
+    (keymap-set org-mode-map "C-x n n" #'org-toggle-narrow-to-subtree))
+
+  (defun my/org-sort ()
+    "Sort entries to move DONE items to the bottom, then by priority (A, B, C, D)."
+    (interactive)
+    (org-sort-entries
+     nil ; with-case
+     ?f  ; sorting-type (functional)
+     (lambda ()
+       (let ((done-score (if (org-entry-is-done-p) "1" "0"))
+             ;; Safely get priority string ("A", "B", etc.) or use "Z" as a fallback for no priority
+             (priority (org-entry-get nil "PRIORITY")))
+         (concat done-score "-" priority)))
+     #'string<)
+    (org-fold-hide-subtree)
+    (org-show-entry)
+    (org-show-children))
+
   ;; Agenda
   ;; Open agenda files to buffer at startup
   (setq
@@ -1997,6 +2017,45 @@ Note: this uses Org's internal variable `org-link--search-failed'."
           (while (progn (org-next-link)
                         (not org-link--search-failed))
             (org-open-at-point))))))
+
+  ;; Reveal/hide  entries after going to a heading {{{
+  (defun my/org-reveal(&optional hide-other-headings)
+    "Show entry and children of the current org heading."
+    (interactive)
+    (when (derived-mode-p 'org-mode)
+      ;; Note: 'org-cycle-*' and 'org-fold-*' below are not not
+      ;; available in Emacs 28 or below.
+      (when (fboundp 'org-cycle-overview)
+        (when hide-other-headings (org-cycle-overview))
+        (org-fold-show-entry)
+        (org-fold-show-children))
+      ;; Passing '(4) (C-u): on each level of the hierarchy all siblings
+      ;; are shown.
+      (org-fold-reveal '(4))
+      (recenter)))
+
+  (defun my/org-reveal-keep-other(&rest args)
+    (my/org-reveal))
+
+  (defun my/org-reveal-hide-other(&rest args)
+    (my/org-reveal t))
+
+  (advice-add 'org-agenda-goto :after #'my/org-reveal-hide-other)
+  (advice-add 'my/org-agenda-goto-smart :after #'my/org-reveal-hide-other)
+  (advice-add 'my/org-goto-next-scheduled :after #'my/org-reveal-hide-other)
+
+  (advice-add 'org-agenda-switch-to :after #'my/org-reveal-hide-other)
+
+  (advice-add 'org-clock-goto :after #'my/org-reveal-hide-other)
+
+  (advice-add 'org-refile :after #'my/org-reveal-keep-other)
+  (advice-add 'consult-line :after #'my/org-reveal-keep-other)
+  (advice-add 'consult-grep :after #'my/org-reveal-keep-other)
+  (advice-add 'consult-ripgrep :after #'my/org-reveal-keep-other)
+  (advice-add 'consult-org-heading :after #'my/org-reveal-keep-other)
+  (advice-add 'consult-org-agenda :after #'my/org-reveal-keep-other)
+  ;; }}}
+
   )
 
 (use-package calfw-org
