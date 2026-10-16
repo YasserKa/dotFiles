@@ -82,8 +82,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         if root then
           local handle = io.popen(
             "ps aux | grep '"
-            .. root
-            .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
+              .. root
+              .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
           )
           if not handle then return nil end
           local result = handle:read "*a"
@@ -214,8 +214,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         local root = find_pyproject_root()
         local handle = io.popen(
           "ps aux | grep '"
-          .. root
-          .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
+            .. root
+            .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
         )
         if not handle then return nil end
         local result = handle:read "*a"
@@ -282,8 +282,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
       local wk = require "which-key"
       wk.add {
-        { "<localLeader>n",  group = "Jupyter" },
-        { "<localLeader>nc", execute_cell,     desc = "Execute cell/s" },
+        { "<localLeader>n", group = "Jupyter" },
+        { "<localLeader>nc", execute_cell, desc = "Execute cell/s" },
         {
           "<localLeader>nC",
           function()
@@ -293,7 +293,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
           desc = "Execute cell and jump to next cell",
         },
         { "<localLeader>nd", delete_cell, desc = "Delete cell" },
-        { "<localLeader>ng", goto_cell,   desc = "Goto cell" },
+        { "<localLeader>ng", goto_cell, desc = "Goto cell" },
         {
           "<localLeader>nJ",
           start_jupyter_selenium_api,
@@ -309,12 +309,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
           shutdown_jupyter_selenium_api,
           desc = "Shutdown API",
         },
-        { "<localLeader>nR", restart_kernel,    desc = "Restart Kernel" },
+        { "<localLeader>nR", restart_kernel, desc = "Restart Kernel" },
         { "<localLeader>nr", execute_all_cells, desc = "Execute all cells" },
       }
 
       wk.add {
-        { "<localLeader>n",  group = "Jupyter Ascending",         mode = "v" },
+        { "<localLeader>n", group = "Jupyter Ascending", mode = "v" },
         { "<localLeader>nc", ":lua Execute_selected_cells()<CR>", desc = "Execute selected cells", mode = "v" },
       }
     end
@@ -371,12 +371,12 @@ end
 _G.YankOrgLink = function()
   local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
   local cmd = '"${TERMINAL}" --directory "'
-      .. vim.fn.expand "%:p:h"
-      .. '" --detach -e "${EDITOR}" +'
-      .. r
-      .. ' "'
-      .. vim.fn.expand "%:t"
-      .. '"'
+    .. vim.fn.expand "%:p:h"
+    .. '" --detach -e "${EDITOR}" +'
+    .. r
+    .. ' "'
+    .. vim.fn.expand "%:t"
+    .. '"'
   local encoded_org_link = "[[" .. "link-handler://" .. encodeString(cmd) .. "][" .. vim.fn.expand "%:t" .. "]]"
   vim.fn.setreg("+", encoded_org_link)
 end
@@ -389,14 +389,14 @@ _G.WatchFile = function()
 
   vim.cmd(
     "silent !chmod +x "
-    .. filepath
-    .. ' && "${TERMINAL}" --detach --directory "'
-    .. dirpath
-    .. '" bash -c "echo \\"'
-    .. filename
-    .. '\\" | entr -c '
-    .. filepath
-    .. '"'
+      .. filepath
+      .. ' && "${TERMINAL}" --detach --directory "'
+      .. dirpath
+      .. '" bash -c "echo \\"'
+      .. filename
+      .. '\\" | entr -c '
+      .. filepath
+      .. '"'
   )
 end
 
@@ -772,6 +772,20 @@ vim.g["csv_nomap_h"] = 1
 vim.g["csv_nomap_l"] = 1
 -- {{{ vim-maximizer
 vim.keymap.set("n", "<C-w>m", "<cmd>MaximizerToggle!<CR>")
+-- }}}
+-- Markdown footnote {{{
+local group = vim.api.nvim_create_augroup("AddRef", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  pattern = { "markdown", "mail" },
+  callback = function(ev) require("addref").attach(ev.buf) end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = group,
+  pattern = { "qutebrowser-editor-*", "tuir*", "neomutt-*" },
+  callback = function(ev) require("addref").attach(ev.buf) end,
+})
 -- }}}
 vim.api.nvim_exec2(
   [[
