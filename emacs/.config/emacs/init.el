@@ -2633,6 +2633,44 @@ minibuffer ran."
   :config
   (add-to-list 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil)))
 ;; }}}
+;; consult-org order by priority {{{
+(defun my/consult-org--priority (cand)
+  "Return the priority character of CAND (e.g. ?A), or nil if unset."
+  (cddr (get-text-property 0 'consult-org--heading cand)))
+
+(defun my/consult-org--priority-title (prio)
+  "Group title for priority char PRIO, or \"No priority\" if nil."
+  (if prio (format "Priority %c" prio) "No priority"))
+
+(defun my/consult-org-agenda-by-priority (&optional match)
+  "Like `consult-org-agenda' but ordered and grouped by priority."
+  (interactive)
+  (require 'consult-org)
+  (unless org-agenda-files
+    (user-error "No agenda files"))
+  (let* ((cands (consult--slow-operation "Collecting headings..."
+                  (my/consult-org--headings match 'agenda)))
+         (sorted (sort cands
+                       (lambda (a b)
+                         (let ((pa (or (my/consult-org--priority a) (1+ ?Z)))
+                               (pb (or (my/consult-org--priority b) (1+ ?Z))))
+                           (< pa pb))))))
+    (consult--read
+     sorted
+     :prompt "Go to heading: "
+     :category 'consult-org-heading
+     :sort nil
+     :require-match t
+     :history '(:input consult-org--history)
+     :narrow (consult-org--narrow)
+     :state (consult--jump-state)
+     :group (lambda (cand transform)
+              (let ((day (get-text-property 0 'my/day-title cand)))
+                (if transform
+                    (substring cand (1+ (length day)))
+                  (my/consult-org--priority-title (my/consult-org--priority cand)))))
+     :lookup #'consult--lookup-candidate)))
+;; }}}
 ;; Vim leader / which-key {{{
 ;; Remap universal argument
 (global-set-key (kbd "M-u") 'universal-argument)
@@ -3040,7 +3078,7 @@ with the file name kept at the start of each candidate."
   (" G" (consult-org-heading t (get-open-org-files)) "buffers")
   (" a" consult-org-agenda "agenda")
   (" w" (my/consult-org-agenda-by-schedule "TODO<>\"DONE\"+TODO<>\"CANCELLED\"+DEADLINE<\"<+7d>\"|TODO<>\"DONE\"+TODO<>\"CANCELLED\"+SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
-  (" n" (consult-org-agenda "TODO=\"NEXT\"") "NEXT tasks")
+  (" n" (my/consult-org-agenda-by-priority "TODO=\"NEXT\"") "NEXT tasks")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
   (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
   (" i" (find-file (concat notes-dir "/ideas.org")) "ideas.org")
@@ -3206,6 +3244,7 @@ with the file name kept at the start of each candidate."
         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 ;;;; }}}
+;; elfeed {{{
 (use-package elfeed
   :custom
   (elfeed-search-title-max-width 80)
@@ -3381,7 +3420,6 @@ concatenated."
   (setf elfeed-search-sort-function #'my-elfeed-tag-sort)
   )
 
-
 (use-package elfeed-org
   :after elfeed
   :custom (rmh-elfeed-org-files (list (concat notes-dir "feeds.org")))
@@ -3408,3 +3446,5 @@ concatenated."
   :bind
   ("C-c l o" . link-hint-open-link)
   ("C-c l c" . link-hint-copy-link))
+;; }}}
+
