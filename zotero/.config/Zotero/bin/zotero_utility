@@ -688,7 +688,7 @@ search_entries() {
       creators = creators.substring(0, creators.length -2);
     }
 
-    items_str += item._id + "\t" + item_json.key + "\t" + url + "\t" + file_path + "\t" + collection_path + "\t" + item_json.itemType + "\t" + date + "\t" + creators + "\n" + item_json.title + "\n"
+    items_str += item._id + "\t" + item_json.key + "\t" + item_json.citationKey + "\t" + url + "\t" + file_path + "\t" + collection_path + "\t" + item_json.itemType + "\t" + date + "\t" + creators + "\n" + item_json.title + "\n"
   });
 }
 }
@@ -712,7 +712,7 @@ let result = collections_str
 
 	result="$(awk -F$'\t' '
 function print_entry(key) {
-    print f1[key] "\t" f2[key] "\t" f3[key] "\t" f4[key] "\t\033[36m" coll[key] "\033[0m\t\033[1;38m" f6[key] "\033[0m\t\033[37m" f7[key] "\t" f8[key] "\033[0m";
+    print f1[key] "\t" f2[key] "\t" f3[key] "\t" f4[key] "\t" f5[key] "\t\033[36m" coll[key] "\033[0m\t\033[1;38m" f7[key] "\033[0m\t\033[37m" f8[key] "\t" f9[key] "\033[0m";
     print pdfi[key] refi[key] "\033[1;33m" title[key] "\033[0m";
 }
 NR==FNR { order[NR] = $1; in_order[$1] = 1; next }
@@ -720,21 +720,21 @@ NR==FNR { order[NR] = $1; in_order[$1] = 1; next }
     key = $1;
 
     # accumulate unique collections for this item
-    if (!((key SUBSEP $5) in coll_seen)) {
-        coll_seen[key SUBSEP $5] = 1;
-        coll[key] = (key in coll) ? coll[key] ", " $5 : $5;
+    if (!((key SUBSEP $6) in coll_seen)) {
+        coll_seen[key SUBSEP $6] = 1;
+        coll[key] = (key in coll) ? coll[key] ", " $6 : $6;
     }
 
     if (!(key in seen)) {
         seen[key] = 1;
         keys[++count] = key;
 
-        zotero_key = $4;
+        zotero_key = $5;
         sub(/^.*\//, "", zotero_key);
         refi[key] = (system("[ -f \"/home/yasser/.cache/papers_references/" zotero_key "/references_enriched.json\" ]") == 0) ? "\033[34m󰆼 \033[0m" : "  ";
-        pdfi[key] = ($4 != "null") ? "\033[31m \033[0m" : "  ";
+        pdfi[key] = ($5 != "null") ? "\033[31m \033[0m" : "  ";
 
-        f1[key]=$1; f2[key]=$2; f3[key]=$3; f4[key]=$4; f6[key]=$6; f7[key]=$7; f8[key]=$8;
+        f1[key]=$1; f2[key]=$2; f3[key]=$3; f4[key]=$4; f5[key]=$5; f7[key]=$7; f8[key]=$8; f9[key]=$9;
 
         getline;
         title[key] = $0;
@@ -780,12 +780,12 @@ END {
 	trap 'rm $TMP_FILE' EXIT
 
 	IFS='' read -r -d '' cmd <<EOF
-  cat "/tmp/result_null" |  fzf --multi --read0 --ansi --with-nth {5..} \
-  --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {4}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
-  --bind 'alt-u:execute-silent(xdg-open {3})' \
-  --bind 'alt-q:execute-silent(dunstify {1})' \
+  cat "/tmp/result_null" |  fzf --multi --read0 --ansi --with-nth {6..} \
+  --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {5}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
+  --bind 'alt-u:execute-silent(xdg-open {4})' \
+  --bind 'alt-y:execute-silent(echo {3} | clipboard_copy)+abort' \
   --bind 'alt-z:execute-silent(i3-msg '\''${ZOTERO_CONDITION} focus'\'' && /bin/nc 127.0.0.1 8080 < <(echo "${focus_zotero_item}{1})})();"))+abort' \
-  --header 'Enter open document, A-u open link, A-z focus in zotero' \
+  --header 'Enter open document, A-u open link, A-y yank citation key, A-z focus in zotero' \
   >| '${TMP_FILE}'
 EOF
 
