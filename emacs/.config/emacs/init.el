@@ -2043,6 +2043,7 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (advice-add 'org-agenda-goto :after #'my/org-reveal-hide-other)
   (advice-add 'my/org-agenda-goto-smart :after #'my/org-reveal-hide-other)
   (advice-add 'my/org-goto-next-scheduled :after #'my/org-reveal-hide-other)
+  (advice-add 'my/consult-org-agenda-by-priority :after #'my/org-reveal-hide-other)
 
   (advice-add 'org-agenda-switch-to :after #'my/org-reveal-hide-other)
 
