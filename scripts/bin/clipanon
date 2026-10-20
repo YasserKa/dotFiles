@@ -1,0 +1,176 @@
+#!/usr/bin/env -S uv run --script
+#
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "presidio-analyzer",
+#     "pyperclip",
+#     "en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl",
+# ]
+# ///
+"""
+clipanon.py - toggle anonymize / deanonymize on the clipboard.
+
+Run once:  clipboard text is anonymized (PII -> [PERSON_1], [EMAIL_ADDRESS_1], ...)
+           and the mapping is saved locally.
+Run again: if the clipboard contains known placeholders, they are swapped
+           back to the original values and the saved mapping is deleted.
+
+Usage (chmod +x clipanon.py once, then):
+    ./clipanon.py            # toggle
+
+The mapping lives in $XDG_RUNTIME_DIR (a per-user tmpfs, wiped on logout/reboot),
+falling back to $XDG_STATE_HOME or ~/.local/state.
+
+Dependencies (including the spaCy model) are declared in the PEP 723 block
+above, so `uv` installs them into a cached environment automatically.
+"""
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+import pyperclip
+
+def _state_dir() -> Path:
+    runtime = os.environ.get("XDG_RUNTIME_DIR")
+    if runtime:
+        return Path(runtime) / "clipanon"
+    state = os.environ.get("XDG_STATE_HOME") or (Path.home() / ".local" / "state")
+    return Path(state) / "clipanon"
+
+
+STATE_DIR = _state_dir()
+STATE_FILE = STATE_DIR / "mapping.json"
+
+# Entity types to mask. Add/remove as needed (e.g. "ORGANIZATION", "LOCATION", "URL").
+ENTITIES = [
+    "PERSON",
+    "EMAIL_ADDRESS",
+    "PHONE_NUMBER",
+    "IBAN_CODE",
+    "CREDIT_CARD",
+    "IP_ADDRESS",
+]
+MIN_SCORE = 0.4
+LANGUAGE = "en"
+
+TOKEN_RE = re.compile(r"\[\s*([A-Z_]+_\d+)\s*\]", re.IGNORECASE)
+
+
+# ---------- state ----------
+def load_state() -> dict:
+    """State: {"tokens": {token: original}, "counters": {entity: n}}"""
+    if STATE_FILE.exists():
+        try:
+            return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            pass
+    return {"tokens": {}, "counters": {}}
+
+
+def save_state(state: dict) -> None:
+    STATE_DIR.mkdir(mode=0o700, parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+    try:
+        os.chmod(STATE_FILE, 0o600)
+    except OSError:
+        pass  # e.g. Windows
+
+
+# ---------- core ----------
+def has_known_tokens(text: str, state: dict) -> bool:
+    return any(
+        f"[{m.group(1).upper()}]" in state["tokens"] for m in TOKEN_RE.finditer(text)
+    )
+
+
+def deanonymize(text: str, state: dict) -> str:
+    def repl(m: re.Match) -> str:
+        key = f"[{m.group(1).upper()}]"
+        return state["tokens"].get(key, m.group(0))
+
+    return TOKEN_RE.sub(repl, text)
+
+
+def anonymize(text: str, state: dict) -> tuple[str, int]:
+    from presidio_analyzer import AnalyzerEngine  # lazy import (slow)
+
+    analyzer = AnalyzerEngine()
+    results = analyzer.analyze(
+        text=text, language=LANGUAGE, entities=ENTITIES, score_threshold=MIN_SCORE
+    )
+
+    # Drop overlapping detections, keeping the highest-scoring / longest ones.
+    results.sort(key=lambda r: (-r.score, -(r.end - r.start)))
+    kept = []
+    for r in results:
+        if all(r.end <= k.start or r.start >= k.end for k in kept):
+            kept.append(r)
+    kept.sort(key=lambda r: r.start)
+
+    # Same value -> same token (case-insensitive), also across runs.
+    reverse = {
+        (tok.split("_")[0], orig.lower()): tok
+        for tok, orig in ((t, o) for t, o in state["tokens"].items())
+    }
+    reverse = {}
+    for tok, orig in state["tokens"].items():
+        entity = tok[1:-1].rsplit("_", 1)[0]
+        reverse[(entity, orig.lower())] = tok
+
+    out, last = [], 0
+    for r in kept:
+        original = text[r.start : r.end]
+        key = (r.entity_type, original.lower())
+        token = reverse.get(key)
+        if token is None:
+            n = state["counters"].get(r.entity_type, 0) + 1
+            state["counters"][r.entity_type] = n
+            token = f"[{r.entity_type}_{n}]"
+            state["tokens"][token] = original
+            reverse[key] = token
+        out.append(text[last : r.start])
+        out.append(token)
+        last = r.end
+    out.append(text[last:])
+    return "".join(out), len(kept)
+
+
+def notify(message: str) -> None:
+    """Print and, if available, show a desktop notification (never includes clipboard content)."""
+    print(message)
+    if shutil.which("notify-send"):
+        subprocess.run(
+            ["notify-send", "--app-name=clipanon", "--expire-time=3000", "clipanon", message],
+            check=False,
+        )
+
+
+def main() -> int:
+    state = load_state()
+
+    text = pyperclip.paste()
+    if not text.strip():
+        notify("Clipboard is empty.")
+        return 1
+
+    if has_known_tokens(text, state):
+        pyperclip.copy(deanonymize(text, state))
+        STATE_FILE.unlink(missing_ok=True)
+        notify("De-anonymized clipboard.")
+    else:
+        new_text, count = anonymize(text, state)
+        save_state(state)
+        pyperclip.copy(new_text)
+        notify(f"Anonymized clipboard ({count} items masked).")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+# vim:ft=py
