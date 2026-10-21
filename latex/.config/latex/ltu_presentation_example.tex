@@ -5,19 +5,6 @@
 \def\input@path{{theme/}}
 \makeatother
 
-\usetheme{ltu_dark}
-
-%Information to be included in the title page:
-\title{<Presentation title>}
-\subtitle{<Presentation subtitle>}
-% \author{Yaser Kaddoura}
-% \renewcommand{\therole}{PhD. student}
-\date{} % comment it out to show date
-% \institute{Luleå University of Technology} % Shown in footer
-
-\setbeamertemplate{headline}{} % Uncomment to remove headline
-\setbeameroption{show notes on second screen} % Show notes
-
 % Add symbols
 \usepackage[T1]{fontenc}
 \usepackage{lmodern} % Latin Modern fonts
@@ -29,6 +16,22 @@
   \def\translate#1{#1}%
 }
 
+%%%%% Settings %%%%%
+
+\usetheme{ltu_dark} % ltu_light
+
+%Information to be included in the title page:
+\title{<Presentation title>}
+\subtitle{<Presentation subtitle>}
+% \author{Yaser Kaddoura}
+% \renewcommand{\therole}{PhD. student}
+\date{} % comment it out to show date
+% \institute{Luleå University of Technology} % Shown in footer
+
+\setbeamertemplate{headline}{} % Uncomment to remove headline
+% \setbeameroption{show notes on second screen} % Show notes
+
+%%%%% Settings %%%%%
 
 %%%%
 % \note{...}
@@ -54,10 +57,9 @@
   \tableofcontents
 \end{frame}
 
-\section{Lists, columns, image}
-\begin{frame}[t]
 
-  \frametitle{Lists}
+\section{Lists, columns, image}
+\begin{frame}[t]{Lists, columns, image}
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
@@ -83,13 +85,74 @@
       \caption{Caption}
     \end{figure}
   \end{columns}
+\end{frame}
 
+\section{Grid}
+
+\begin{frame}[t]{Grid}
+  \begin{columns}
+		\begin{column}{0.33\textwidth}
+    \begin{figure}
+      \includegraphics[width=.5\textwidth]{example-image}
+    \end{figure}
+		\end{column}
+		\begin{column}{0.33\textwidth}
+    \begin{figure}
+      \includegraphics[width=.5\textwidth]{example-image}
+    \end{figure}
+		\end{column}
+		\begin{column}{0.33\textwidth}
+    \begin{figure}
+      \includegraphics[width=.4\textwidth]{example-image}
+    \end{figure}
+		\end{column}
+  \end{columns}
+  \begin{columns}
+		\begin{column}{0.48\textwidth}
+    \begin{figure}
+      \includegraphics[width=.4\textwidth]{example-image}
+      \caption{Caption}
+    \end{figure}
+		\end{column}
+
+		\begin{column}{0.48\textwidth}
+    \begin{figure}
+      \includegraphics[width=.4\textwidth]{example-image}
+      \caption{Caption}
+    \end{figure}
+		\end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[c]{Flow}
+  \centering
+  % default: 4 per row
+  \flowsteps{{Analyse},{Design},{Build},{Test},{Deploy},{Review}}
+\end{frame}
+
+\begin{frame}[c]
+  \frametitle{Flow}
+  \begin{stepflow}{3}
+    \stepcard{first}{what goes in}
+    \steparrow
+    \stepcard{second}{what happens to it}
+    \steparrow
+    \stepcard{third}{what comes out}
+  \end{stepflow}
+  \vspace{1em}
+  \begin{stepflow}{3}
+    \stepcard{third}{what goes in}
+    \steparrow
+    \stepcard{fourth}{what happens to it}
+    \steparrow
+    \stepcard{sixth}{what comes out}
+  \end{stepflow}
 \end{frame}
 
 \begin{frame}
 \frametitle{Animation}
 \setbeamercovered{dynamic}
-Use \texttt{\textbackslash pause} or \textbf{overlay specifications} to items, environments, tables, and commands
+Use \texttt{\textbackslash pause} or \acb{overlay specifications} to \ac{items, environments, tables, and commands}
 Make transparent instead of hiding: \texttt{\textbackslash setbeamercovered\{transparent\}}
 \begin{enumerate}[(I)]
   \item<1,4> Show this in 1st \& 4th

@@ -380,6 +380,7 @@ rust
 grim    # Screenshot utility for Wayland
 slurp   # Selection a region in Wayland
 satty   # Screenshot annotation
+pinta   # Drawing/editing program (mainly used for dim higlighting)
 gimp    # Image Manipulation Program
 wf-recorder # Screen recorder for wlroots-based compositors
 

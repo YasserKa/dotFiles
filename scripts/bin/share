@@ -37,7 +37,7 @@ case $1 in
 			deepin-screen-recorder --screenRecord
 		fi
 		;;
-	-i | -c | -l | -d)
+	-i | -c | -l | -d | -h)
 		# Place latex paths in tmp directory
 		[[ "$1" == "-l" ]] && target_img_dir=$target_img_tmp_dir
 		if [ -n "${WAYLAND_DISPLAY}" ]; then
@@ -46,6 +46,9 @@ case $1 in
 			case $1 in
 				-i | -c | -d)
 					satty --filename "$target_path/Screen_image.png" --output-filename "$target_path/Screen_image.png" || exit 0
+					;;
+				-h)
+					pinta "$target_path/Screen_image.png" || exit 0
 					;;
 			esac
 		else
@@ -115,12 +118,9 @@ new_path="$target_path/$new_name"
 
 mv "$old_path" "$new_path"
 
-if [[ "$extension" == "gif" ]]; then
-	arg='-i'
-fi
-
 if [ "$1" == "-c" ]; then
 	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		echo "$new_path" | wl-copy
 		wl-copy <"$new_path"
 	else
 		xclip -selection clipboard -t image/png -i "$new_path"
@@ -132,6 +132,9 @@ elif [ "$1" == "-l" ]; then
 	notify-send "Latex saved to clipboard"
 elif [ "$1" == "-d" ]; then
 	dragon-drop "$new_path"
+elif [ "$1" == "-h" ]; then
+	clipboard_copy "$new_path"
+	notify-send "Path to image saved to clipboard"
 else
 	xback "$new_path"
 fi

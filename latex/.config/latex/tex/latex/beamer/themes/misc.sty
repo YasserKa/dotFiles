@@ -1,0 +1,62 @@
+% misc.sty — Some micros
+
+\usepackage{pgffor}
+
+\newcommand{\ac}[1]{\textcolor{structure}{#1}}
+\newcommand{\acb}[1]{\textcolor{structure}{\textbf{#1}}}
+
+\newlength{\tdStepW}
+\newlength{\tdStepGap}
+\setlength{\tdStepGap}{2.6em}   % room for one arrow plus the air around it
+
+% \begin{stepflow}{<number of cards>} ... \end{stepflow}
+%
+% N cards leave N-1 gaps, hence the arithmetic. Passing the count rather than
+% measuring it keeps the macro simple; the caller already knows the number.
+\newenvironment{stepflow}[1]{%
+  \setlength{\tdStepW}{\dimexpr(\textwidth-#1\tdStepGap+\tdStepGap)/#1\relax}%
+  \par\noindent\ignorespaces
+}{\par}
+\newcommand{\steparrow}{%
+  \unskip\hfill
+  \begin{minipage}[t]{1.4em}%
+    \vspace{1.9em}{\color{structure}\footnotesize$\rightarrow$}%
+  \end{minipage}%
+  \hfill\ignorespaces
+}
+
+\newcommand{\stepcard}[3][1]{%
+  \begin{minipage}[t]{\dimexpr#1\tdStepW\relax}
+    \raggedright
+    % \par INSIDE each size group. LaTeX sets a whole paragraph with the
+    % \baselineskip in force when the paragraph ends, so a \par written outside
+    % the braces ends the paragraph at the restored size and every line of the
+    % card body is led as if it were normalsize — 40% too open, and only on the
+    % lines the size change was meant to cover.
+    {\color{structure}\rule{\linewidth}{1.2pt}\par}\vspace{0.45em}
+    {\footnotesize\bfseries #2\par}\vspace{0.3em}
+    {\scriptsize #3\par}
+  \end{minipage}%
+}
+
+% \flowsteps[items per row]{{Text 1},{Text 2},...}
+\newcommand{\flowsteps}[2][4]{%
+  % 1) count the items
+  \xdef\flowN{0}%
+  \foreach \x [count=\i] in {#2} {\xdef\flowN{\i}}%
+  % 2) number of columns = min(N, items per row)
+  \ifnum\flowN<#1\relax \xdef\flowK{\flowN}\else \xdef\flowK{#1}\fi
+  % 3) column width (90% of text width shared equally)
+  \pgfmathsetmacro{\flowW}{0.9/\flowK}%
+  % 4) typeset, breaking the row after every #1 items
+  \foreach \x [count=\i] in {#2} {%
+    \begin{minipage}[t]{\flowW\textwidth}
+      \centering
+      {\Large\acb{\ifnum\i<10 0\fi\i}}\\
+      {\color{beam}\rule[8pt]{0.3cm}{1pt}}\\
+      \x
+    \end{minipage}%
+    \pgfmathparse{int(mod(\i,#1))}%
+    \ifnum\pgfmathresult=0 \ifnum\i<\flowN \par\vspace{8ex}\fi\fi
+  }%
+}
