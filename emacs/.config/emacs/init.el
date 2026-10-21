@@ -2057,6 +2057,35 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (advice-add 'consult-org-agenda :after #'my/org-reveal-keep-other)
   ;; }}}
 
+  (defun my/org-collapse-clocks ()
+    "Replace all CLOCK lines in the current entry with a single one
+that has the same total duration."
+    (interactive)
+    (save-excursion
+      (org-back-to-heading t)
+      (let ((end (copy-marker (save-excursion (outline-next-heading) (point))))
+            (total 0)
+            (start-str nil)
+            (ins nil))
+        (while (re-search-forward
+                "^[ \t]*CLOCK: \\[\\([^]]+\\)\\]--\\[[^]]+\\] +=> +\\([0-9]+\\):\\([0-9]+\\)[ \t]*$"
+                end t)
+          (setq total (+ total (* 60 (string-to-number (match-string 2)))
+                         (string-to-number (match-string 3))))
+          (unless ins
+            (setq start-str (match-string 1)
+                  ins (copy-marker (line-beginning-position))))
+          (delete-region (line-beginning-position)
+                         (min (point-max) (1+ (line-end-position)))))
+        (when ins
+          (goto-char ins)
+          (let* ((system-time-locale "C")
+                 (start (org-time-string-to-time (concat "[" start-str "]")))
+                 (stop  (time-add start (* 60 total))))
+            (insert (format "CLOCK: [%s]--[%s] => %d:%02d\n"
+                            start-str
+                            (format-time-string "%Y-%m-%d %a %H:%M" stop)
+                            (/ total 60) (% total 60))))))))
   )
 
 (use-package calfw-org
@@ -2282,11 +2311,11 @@ Note: this uses Org's internal variable `org-link--search-failed'."
   (add-to-list 'embark-keymap-alist '(citar-citation . embark-citar-actions))
   )
 
-(use-package citar-org-roam
-  :after (citar org-roam)
-  :custom
-  (citar-org-roam-subdir "references")
-  :config (citar-org-roam-mode))
+;; (use-package citar-org-roam
+;;   :after (citar org-roam)
+;;   :custom
+;;   (citar-org-roam-subdir "references")
+;;   :config (citar-org-roam-mode))
 
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
@@ -2878,9 +2907,9 @@ and file name (padded to a common width for alignment)."
            (add-text-properties
             0 1
             `(consult--candidate ,(plist-get e :marker)
-              consult-org--heading (,(plist-get e :level) ,(plist-get e :todo) . ,(plist-get e :prio))
-              my/entry-time ,(plist-get e :time)
-              my/day-title ,day)
+                                 consult-org--heading (,(plist-get e :level) ,(plist-get e :todo) . ,(plist-get e :prio))
+                                 my/entry-time ,(plist-get e :time)
+                                 my/day-title ,day)
             cand)
            cand))
        entries))))
@@ -2923,10 +2952,10 @@ with the file name kept at the start of each candidate."
      :narrow (consult-org--narrow)
      :state (consult--jump-state)
      :group (lambda (cand transform)
-         (let ((day (get-text-property 0 'my/day-title cand)))
-           (if transform
-               (substring cand (1+ (length day)))
-             day)))
+              (let ((day (get-text-property 0 'my/day-title cand)))
+                (if transform
+                    (substring cand (1+ (length day)))
+                  day)))
      :lookup #'consult--lookup-candidate)))
 
 (use-package hydra)
@@ -3449,3 +3478,89 @@ concatenated."
   ("C-c l c" . link-hint-copy-link))
 ;; }}}
 
+(use-package denote
+  :custom
+  (denote-org-front-matter "#+title: %s")
+  (denote-prompt (title))
+  :config
+  (setq denote-directory (expand-file-name "~/Documents/notes"))
+  (use-package consult-denote)
+  (use-package denote-org
+    :ensure t
+    :commands
+    ;; I list the commands here so that you can discover them more
+    ;; easily.  You might want to bind the most frequently used ones to
+    ;; the `org-mode-map'.
+    ( denote-org-link-to-heading
+      denote-org-backlinks-for-heading
+
+      denote-org-extract-org-subtree
+
+      denote-org-convert-links-to-file-type
+      denote-org-convert-links-to-denote-type
+
+      denote-org-dblock-insert-files
+      denote-org-dblock-insert-links
+      denote-org-dblock-insert-backlinks
+      denote-org-dblock-insert-missing-links
+      denote-org-dblock-insert-files-as-headings))
+  (use-package citar-denote
+    :ensure t
+    :demand t ;; Ensure minor mode loads
+    :after (:any citar denote)
+    :custom
+    ;; Package defaults
+    (citar-denote-file-type 'org)
+    (citar-denote-keyword "bib")
+    (citar-denote-signature nil)
+    (citar-denote-subdir "bla")
+    (citar-denote-template nil)
+    (citar-denote-title-format "title")
+    (citar-denote-title-format-andstr "and")
+    (citar-denote-title-format-authors 1)
+    (citar-denote-use-bib-keywords nil)
+    :preface
+    (bind-key "C-c w n" #'citar-denote-open-note)
+    :init
+    (citar-denote-mode)
+    ;; Bind all available commands
+    :bind (("C-c w d" . citar-denote-dwim)
+           ("C-c w e" . citar-denote-open-reference-entry)
+           ("C-c w a" . citar-denote-add-citekey)
+           ("C-c w k" . citar-denote-remove-citekey)
+           ("C-c w r" . citar-denote-find-reference)
+           ("C-c w l" . citar-denote-link-reference)
+           ("C-c w f" . citar-denote-find-citation)
+           ("C-c w x" . citar-denote-nocite)
+           ("C-c w y" . citar-denote-cite-nocite)
+           ("C-c w z" . citar-denote-nobib)))
+
+  )
+(use-package universal-sidecar
+  :ensure t
+  :bind ("C-c s" . universal-sidecar-toggle))
+
+(use-package denote-sections
+  :ensure t
+  :after (denote universal-sidecar)
+  :config
+  (add-to-list 'universal-sidecar-sections
+               'denote-sections-backlinks-section))
+
+(use-package consult-notes
+  :straight (:type git :host github :repo "mclear-tools/consult-notes")
+  :commands (consult-notes
+             consult-notes-search-in-all-notes
+             ;; if using org-roam
+             consult-notes-org-roam-find-node
+             consult-notes-org-roam-find-node-relation)
+  :config
+  (setq consult-notes-file-dir-sources '(("Name"  ?n  "~/notes"))) ;; Set notes dir(s), see below
+  ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
+  ;; (setq consult-notes-org-headings-files '("~/path/to/file1.org"
+  ;;                                          "~/path/to/file2.org"))
+  (consult-notes-org-headings-mode)
+  (when (locate-library "denote")
+    (consult-notes-denote-mode))
+  ;; search only for text files in denote dir
+  (setq consult-notes-denote-files-function (lambda () (denote-directory-files nil t t))))
