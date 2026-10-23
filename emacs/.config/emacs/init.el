@@ -2086,6 +2086,10 @@ that has the same total duration."
                             start-str
                             (format-time-string "%Y-%m-%d %a %H:%M" stop)
                             (/ total 60) (% total 60))))))))
+
+  ;; Able to add clock time to log retrospectively
+  (use-package org-retroclock
+    :straight (:type git :host github :repo "Jotham-LEC/org-retroclock"))
   )
 
 (use-package calfw-org
