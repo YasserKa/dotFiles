@@ -3,7 +3,7 @@ MAKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 XDG_DATA_HOME=$(HOME)/.local/share
 
 # sci-hub for qutebrowser
-PYPI_PACKAGES = tmuxp pdm sci-hub ipython pix2tex mutt-ics jupytext
+PYPI_PACKAGES = tmuxp pdm sci-hub ipython pix2tex mutt-ics jupytext shot-scraper
 
 .PHONY: install
 install: update-sudoers pre-install-packages install-packages post-install-packages update-sudoers
