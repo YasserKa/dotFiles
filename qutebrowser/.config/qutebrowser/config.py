@@ -356,7 +356,14 @@ c.downloads.location.suggestion = "both"
 c.downloads.remove_finished = 0
 c.downloads.location.directory = f"{os.environ['HOME']}/Downloads"
 
-c.editor.command = [os.getenv("EDITOR_GUI"), "{file}", "--nofork"]
+# c.editor.command = [os.getenv("EDITOR_GUI"), "{file}", "--nofork"]
+c.editor.command = [
+    os.getenv("TERMINAL"),
+    os.getenv("EDITOR"),
+    "{file}",
+    "-c",
+    "normal {line}G{column0}l",
+]
 c.completion.open_categories = ["quickmarks", "bookmarks", "history"]
 
 c.url.default_page = "https://www.google.com"

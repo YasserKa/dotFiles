@@ -117,5 +117,5 @@ ssh_config_setup() { make --file "$DOTFILES_DIR"/instance_setup/Makefile --keep-
 
 # misc
 alias testmail='echo | command neomutt -s "Testing mail" yasser.kaddoura19@gmail.com &> /dev/null'
-# Activate virtual env
-alias pdmshell='eval "$(pdm venv activate)"'
+# Activate virtual env; sometimes it warns about latest version, remove it with 2>...
+alias pdmshell='eval "$(pdm venv activate 2>/dev/null)"'

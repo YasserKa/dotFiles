@@ -790,6 +790,8 @@ else
 fi
 }
 
+virt-manager() { [[ -n "${WAYLAND_DISPLAY}" ]] && GDK_BACKEND=x11 command virt-manager; }
+
 # Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
 thunderbird() {
  is_window_exists '^org.mozilla.Thunderbird$' && \
