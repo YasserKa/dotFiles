@@ -45,7 +45,11 @@ clip="$(<"$TMP_FILE")"
 
 copyq disable
 if [[ "$clip" =~ /tmp/copyq..* ]]; then
-	xclip -selection clipboard -t image/png -i "$clip"
+	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+		wl-copy <"$clip"
+	else
+		xclip -selection clipboard -t image/png -i "$clip"
+	fi
 else
 	clipboard_copy "$clip"
 fi
