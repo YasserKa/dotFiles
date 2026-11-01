@@ -1350,9 +1350,13 @@ Made for `org-tab-first-hook' in evil-mode."
             (org-link-set-parameters type :preview fn)))
 
     (setq org-startup-with-link-previews t)
-    (setq org-link-preview-include-descriptive t)
+    (setq org-link-descriptive nil)
 
     ;; Beautify links as they get inserted
+    (defun my/org-link-preview-guard (ov after &rest _)
+      "Remove preview overlay OV before text is inserted at its start."
+      (unless after (delete-overlay ov)))
+
     (defun my/org-link-preview-jit (beg end)
       "Preview Org links on the lines covering BEG..END when jit-lock fontifies them."
       (when (derived-mode-p 'org-mode)
@@ -1361,14 +1365,20 @@ Made for `org-tab-first-hook' in evil-mode."
               (let ((lbeg (progn (goto-char beg) (line-beginning-position)))
                     (lend (progn (goto-char end) (line-end-position))))
                 (when (< lbeg lend)
-                  (org-link-preview-region t nil lbeg lend))))
+                  (org-link-preview-region t nil lbeg lend)
+                  (dolist (ov (overlays-in lbeg lend))
+                    (when (and (or (overlay-get ov 'display)
+                                   (overlay-get ov 'before-string))
+                               (not (overlay-get ov 'insert-in-front-hooks)))
+                      (overlay-put ov 'insert-in-front-hooks
+                                   (list #'my/org-link-preview-guard)))))))
           (error (message "[preview-jit] error: %S" err)))))
 
     (add-hook 'org-mode-hook
               (lambda ()
                 (jit-lock-register #'my/org-link-preview-jit)))
 
-        (defun add-icons (_ov _path link)
+    (defun add-icons (_ov _path link)
       "Return custom icons for some link types, nil for the rest."
       (pcase (org-element-property :type link)
         ("link-handler" (nerd-icons-faicon "nf-fa-link"))
