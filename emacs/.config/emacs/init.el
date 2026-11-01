@@ -1053,6 +1053,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
 
   ;; Use mailcap software for power point files
   (add-to-list 'org-file-apps '("\\.pptx\\'" . system))
+  (setf (alist-get 'system org-file-apps-gnu) "xdg-open %s")
 
   (defun my/update-org-level-face ()
     (dolist (face '((org-level-1 . 1.25)
