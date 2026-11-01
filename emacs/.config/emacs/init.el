@@ -1341,8 +1341,6 @@ Made for `org-tab-first-hook' in evil-mode."
     :custom
     ;; Increase performance
     (org-element-use-cache t)
-    ;; Disable PDF preview
-    (org-link-beautify-pdf-preview nil)
     :config
     (org-link-beautify-mode 1)
     (when-let* ((fn (org-link-get-parameter "link-handler" :preview)))
@@ -1351,6 +1349,11 @@ Made for `org-tab-first-hook' in evil-mode."
 
     (setq org-startup-with-link-previews t)
     (setq org-link-descriptive nil)
+
+    ;; Disable PDF file preview
+    (advice-add 'org-link-beautify-preview-file-pdf :override
+            (lambda (ov path link)
+              (org-link-beautify-iconify ov path link)))
 
     ;; Beautify links as they get inserted
     (defun my/org-link-preview-guard (ov after &rest _)
