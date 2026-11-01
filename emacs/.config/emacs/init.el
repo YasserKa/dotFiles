@@ -3182,7 +3182,7 @@ with the file name kept at the start of each candidate."
 (defhydra org-links-hydra (:exit t :idle 1)
   (" y" org-store-link "yank" :column " links")
   (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
-  (" t" (lambda () (interactive) (call-interactively #'org-link-beautify-mode) (org-toggle-link-display)) "toggle")
+  (" t" (lambda () (interactive) (call-interactively #'org-link-beautify-mode) (let ((current-prefix-arg 12)) (call-interactively #'org-link-preview))) "toggle")
   (" p" my/org-insert-last-stored-link-with-title "paste last")
   )
 
