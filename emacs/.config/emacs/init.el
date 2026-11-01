@@ -1336,22 +1336,7 @@ Made for `org-tab-first-hook' in evil-mode."
     :if (or (display-graphic-p) (server-mode)))
 
   (use-package org-link-beautify
-    :after (org all-the-icons)
-    :init
-    (eval-after-load "org-link-beautify"
-      '(defun org-link-beautify--display-icon (start end description icon)
-         "Display ICON for link on START and END with DESCRIPTION."
-         (put-text-property
-          start end
-          'display
-          (propertize
-           (concat
-            (propertize "[" 'face 'org-link-beautify-link-decorator-face)
-            (propertize description 'face 'org-link-beautify-link-description-face)
-            (propertize "]" 'face 'org-link-beautify-link-decorator-face)
-            (propertize "⟨" 'face 'org-link-beautify-link-decorator-face)
-            (propertize icon)
-            (propertize "⟩" 'face 'org-link-beautify-link-decorator-face))))))
+    :after (org all-the-icons org-tempo) ;; org-tempo is needed, else org-link-beautify breaks
     :custom
     ;; Increase performance
     (org-element-use-cache t)
@@ -1359,19 +1344,38 @@ Made for `org-tab-first-hook' in evil-mode."
     (org-link-beautify-pdf-preview nil)
     :config
     (org-link-beautify-mode 1)
-    ;; Org agenda hangs when using the mode
-    ;; Disable the mode in agenda mode and re-enable
-    (add-hook 'org-agenda-mode-hook 'org-link-beautify-disable)
-    (add-hook 'org-agenda-finalize-hook 'org-link-beautify-enable)
+    (when-let* ((fn (org-link-get-parameter "link-handler" :preview)))
+          (dolist (type '("tb" "roam" "gls"))
+            (org-link-set-parameters type :preview fn)))
 
-    (defun add-icons (orig-fun &rest args)
-      "Add icons to links"
-      (cond
-       ((string= "link-handler" orig-fun) (nerd-icons-faicon "nf-fa-link"))
-       ((string= "tb" orig-fun) (nerd-icons-flicon "nf-linux-thunderbird"))
-       ((string= "roam" orig-fun) (nerd-icons-mdicon "nf-md-text_search"))
-       ((string= "gls" orig-fun) (nerd-icons-mdicon "nf-md-book_search"))
-       ))
+    (setq org-startup-with-link-previews t)
+    (setq org-link-preview-include-descriptive t)
+
+    ;; Beautify links as they get inserted
+    (defun my/org-link-preview-jit (beg end)
+      "Preview Org links on the lines covering BEG..END when jit-lock fontifies them."
+      (when (derived-mode-p 'org-mode)
+        (condition-case err
+            (save-excursion
+              (let ((lbeg (progn (goto-char beg) (line-beginning-position)))
+                    (lend (progn (goto-char end) (line-end-position))))
+                (when (< lbeg lend)
+                  (org-link-preview-region t nil lbeg lend))))
+          (error (message "[preview-jit] error: %S" err)))))
+
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (jit-lock-register #'my/org-link-preview-jit)))
+
+        (defun add-icons (_ov _path link)
+      "Return custom icons for some link types, nil for the rest."
+      (pcase (org-element-property :type link)
+        ("link-handler" (nerd-icons-faicon "nf-fa-link"))
+        ("tb"           (nerd-icons-flicon "nf-linux-thunderbird"))
+        ("roam"         (nerd-icons-mdicon "nf-md-text_search"))
+        ("gls"          (nerd-icons-mdicon "nf-md-book_search"))))
+
+    (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     (org-link-set-parameters
      "tb"  ; short prefix
      :follow (lambda (message-id)
@@ -1379,9 +1383,8 @@ Made for `org-tab-first-hook' in evil-mode."
                (start-process "bash" nil "bash" "-ic" "thunderbird")
                )
      )
-
-    (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     )
+
 
   (use-package org-download
     :after org
