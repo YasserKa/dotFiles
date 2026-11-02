@@ -1207,6 +1207,45 @@ will be toggled."
         (height . 0.5)
         (alpha . 1.0)
         )))
+    :config
+
+    ;; Enable monitor focused to be used instead of where the Emacs client is
+    (defun my/monitor-at-pointer ()
+      "Return the monitor attributes alist for the monitor under the mouse."
+      (let* ((pos (mouse-absolute-pixel-position))
+             (x (car pos))
+             (y (cdr pos)))
+        (or (seq-find
+             (lambda (m)
+               (pcase-let ((`(,mx ,my ,mw ,mh) (alist-get 'geometry m)))
+                 (and (>= x mx) (< x (+ mx mw))
+                      (>= y my) (< y (+ my mh)))))
+             (display-monitor-attributes-list))
+            (car (display-monitor-attributes-list)))))
+
+    (defun my/yequake-toggle-on-pointer-monitor (name)
+      "Toggle Yequake frame NAME, sized for the monitor under the mouse."
+      (interactive)
+      (pcase-let* ((m (my/monitor-at-pointer))
+                   (`(,wx ,wy ,ww ,wh) (alist-get 'workarea m))
+                   (width  (floor (* 0.75 ww)))
+                   (height (floor (* 0.5 wh)))
+                   (yequake-frames
+                    (mapcar
+                     (lambda (entry)
+                       (if (equal (car entry) name)
+                           (cons (car entry)
+                                 (append
+                                  `((width . ,width)
+                                    (height . ,height)
+                                    (left . ,(+ wx (/ (- ww width) 2)))
+                                    (top . ,wy))
+                                  (seq-remove
+                                   (lambda (c) (memq (car c) '(width height left top)))
+                                   (cdr entry))))
+                         entry))
+                     yequake-frames)))
+        (yequake-toggle name)))
     )
 
   ;; Make the first tab behave properly, taken from doomemacs
@@ -1344,16 +1383,16 @@ Made for `org-tab-first-hook' in evil-mode."
     :config
     (org-link-beautify-mode 1)
     (when-let* ((fn (org-link-get-parameter "link-handler" :preview)))
-          (dolist (type '("tb" "roam" "gls"))
-            (org-link-set-parameters type :preview fn)))
+      (dolist (type '("tb" "roam" "gls"))
+        (org-link-set-parameters type :preview fn)))
 
     (setq org-startup-with-link-previews t)
     (setq org-link-descriptive nil)
 
     ;; Disable PDF file preview
     (advice-add 'org-link-beautify-preview-file-pdf :override
-            (lambda (ov path link)
-              (org-link-beautify-iconify ov path link)))
+                (lambda (ov path link)
+                  (org-link-beautify-iconify ov path link)))
 
     ;; Beautify links as they get inserted
     (defun my/org-link-preview-guard (ov after &rest _)

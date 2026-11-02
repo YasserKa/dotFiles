@@ -137,7 +137,7 @@ if [[ "$TEMPLATE" == "refile" ]]; then
 	exit 0
 fi
 
-if org_capture "$QUTE_URL" "$QUTE_TITLE" "$TEMPLATE"; then
+if timeout 3 org_capture "$QUTE_URL" "$QUTE_TITLE" "$TEMPLATE"; then
 	echo ":message-info 'Note captured'" >>"$QUTE_FIFO"
 else
 	echo ":message-error 'Note not captured'" >>"$QUTE_FIFO"

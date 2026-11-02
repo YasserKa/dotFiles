@@ -32,7 +32,7 @@ keymap:
           [
             "bash",
             "-c",
-            'emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval ''(yequake-toggle "org-capture-yeq")''',
+            'emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval ''(my/yequake-toggle-on-pointer-monitor "org-capture-yeq")''',
           ]
       # Execute default actions
       SUPER-Shift-u:
