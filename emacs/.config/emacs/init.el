@@ -1388,6 +1388,10 @@ Made for `org-tab-first-hook' in evil-mode."
 
     (setq org-startup-with-link-previews t)
     (setq org-link-descriptive nil)
+    ;; Agenda buffers: show descriptive links
+    (add-hook 'org-agenda-mode-hook
+              (lambda ()
+                (setq-local org-link-descriptive t)))
 
     ;; Disable PDF file preview
     (advice-add 'org-link-beautify-preview-file-pdf :override
