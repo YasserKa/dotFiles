@@ -783,9 +783,10 @@ END {
   cat "/tmp/result_null" |  fzf --multi --read0 --ansi --with-nth {6..} \
   --preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media "\$(find {5}  -type f -name "*" ! -name ".*" 2>/dev/null)"'\
   --bind 'alt-u:execute-silent(xdg-open {4})' \
+	--bind 'ctrl-alt-n:execute-silent(KEY="\$(echo "{3}" | tr "/:" "_")" && emacsclient --socket-name="$EMACS_ORG_SOCKET" -e "(org-open-file \"$NOTES_ORG_HOME/references/\${KEY//'\''}.org\")")+abort' \
   --bind 'alt-y:execute-silent(echo {3} | clipboard_copy)+abort' \
   --bind 'alt-z:execute-silent(i3-msg '\''${ZOTERO_CONDITION} focus'\'' && /bin/nc 127.0.0.1 8080 < <(echo "${focus_zotero_item}{1})})();"))+abort' \
-  --header 'Enter open document, A-u open link, A-y yank citation key, A-z focus in zotero' \
+  --header 'Enter open document, A-u open link, A-y yank citation key, A-z focus in zotero, C-A-n open note in Emacs' \
   >| '${TMP_FILE}'
 EOF
 
