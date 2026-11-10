@@ -21,25 +21,22 @@ readonly PATHS_TO_SEARCH
 # Outputs:
 #     file names for documents seperated by new line
 ################################################################################
+
 get_documents() {
-	local DOCS_PATH FASD_DOCS NO_DUPLICATES
-	DOCS_PATH="$(fd --no-ignore --exclude '*/zotero_papers_mirror/*' --regex '.*.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
-	readonly DOCS_PATH
-	FASD_DOCS="$(fasd -lR "${DOCS_PATH}")"
-	readonly FASD_DOCS
-	NO_DUPLICATES="$(cat <(echo "$FASD_DOCS") <(echo "$DOCS_PATH" | grep -Fvx -f <(echo "$FASD_DOCS")))"
-	readonly NO_DUPLICATES
-	echo "$NO_DUPLICATES"
+	local DOCS_PATH FASD_DOCS
+	DOCS_PATH="$(fd --no-ignore --regex '\.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
+	FASD_DOCS="$(fasd -flR | grep -Fx -f <(printf '%s\n' "$DOCS_PATH"))"
+	printf '%s\n' "$FASD_DOCS"
+	printf '%s\n' "$DOCS_PATH" | grep -Fvx -f <(printf '%s\n' "$FASD_DOCS")
 }
+
 main() {
-	local DOC_SELECTED
-	local -a DOCUMENTS
-	DOCUMENTS="$(get_documents)"
-	declare TMP_FILE
-	TMP_FILE="$(mktemp -t "tmp_XXX")"
-	readonly TMP_FILE
-	trap 'rm $TMP_FILE' RETURN
-	DOCUMENTS="$(printf "%s" "$DOCUMENTS" | awk -F'/' -v home="$HOME" '{
+	local DOC_SELECTED LIST_FILE TMP_FILE
+	LIST_FILE="$(mktemp -t "fdoc_list_XXX")"
+	TMP_FILE="$(mktemp -t "fdoc_sel_XXX")"
+	trap 'rm -f "$LIST_FILE" "$TMP_FILE"' RETURN
+
+	get_documents | awk -F'/' -v home="$HOME" '{
     full=$0;
 
     # parent/document display
@@ -67,21 +64,24 @@ main() {
     }
 
     printf "%s\t%s\t%s\n", full, short, fromhome;
-	}')"
-	IFS='' read -r -d '' cmd <<EOF
-	printf "$DOCUMENTS" | fzf --scheme=path  --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 3 --ansi \
+	}' >|"$LIST_FILE"
+
+	local cmd
+	cmd="fzf --scheme=path --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 3 --ansi \
 		--header 'ctrl-t: toggle path display' --bind 'ctrl-t:change-with-nth(2|3)' \
-		--preview='$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' >| ${TMP_FILE}
-EOF
+		--preview='\$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' \
+		< $(printf '%q' "$LIST_FILE") >| $(printf '%q' "$TMP_FILE")"
+
 	eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
+
 	DOC_SELECTED="$(<"$TMP_FILE")"
-	readonly DOC_SELECTED
 	[[ -z "$DOC_SELECTED" ]] && exit 1
 	while read -r DOC; do
 		xdg-open "${DOC}" >/dev/null 2>&1 &
-		fasd -A "${DOC}"
 		disown
+		fasd -A "${DOC}"
 	done <<<"$DOC_SELECTED"
 	i3-msg 'workspace --no-auto-back-and-forth 8'
 }
+
 main
