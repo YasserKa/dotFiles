@@ -65,11 +65,18 @@ send_cmd() {
 
 	trap 'rm $src_file; unset src_file' EXIT
 
+	# Wait for the terminal resize before running the command.
+	# The window geometry (e.g. fullscreen) is applied by i3-msg *after* the command is sent,
+	# and programs like delta read the terminal width once at startup, so they'd render squeezed.
+	# `wait` returns as soon as SIGWINCH (resize) arrives; the 0.3s sleep is a timeout
+	# for when the size doesn't change. `trap : WINCH` is needed so the signal interrupts `wait`.
+	local wait_resize="trap : WINCH; sleep 0.3 & wait \$!; trap - WINCH"
+
 	# NOTE: Wayland needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
 	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
-		printf "%s\n%s\n%s" "$*" "swaymsg '[title=^${CLASS}$] fullscreen disable' && swaymsg '[title=^${CLASS}$] move scratchpad'" "rm -f $LOCK_FILE" >|"$src_file"
+		printf "%s\n%s\n%s\n%s" "$wait_resize" "$*" "swaymsg '[title=^${CLASS}$] fullscreen disable' && swaymsg '[title=^${CLASS}$] move scratchpad'" "rm -f $LOCK_FILE" >|"$src_file"
 	elif [[ -n "${DISPLAY}" ]]; then
-		printf "%s\n%s\n%s" "$*" "i3-msg '[title=\"^${CLASS}$\"] move scratchpad'" "rm -f $LOCK_FILE" >|"$src_file"
+		printf "%s\n%s\n%s\n%s" "$wait_resize" "$*" "i3-msg '[title=\"^${CLASS}$\"] move scratchpad'" "rm -f $LOCK_FILE" >|"$src_file"
 	fi
 
 	kitty @ --to "$SOCKET_ADDRESS" action paste "< $src_file bash"
