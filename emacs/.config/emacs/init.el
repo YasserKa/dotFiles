@@ -988,6 +988,9 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   ;; Navigation & inserting latex env and templates using C-j
   (evil-define-key 'insert org-cdlatex-mode-map (kbd "C-j") 'cdlatex-tab)
 
+  ;; Increase size of LaTeX fragments
+  (plist-put org-latex-preview-appearance-options :zoom 1.25)
+
   (setq
    cdlatex-math-symbol-alist
    '( ;; adding missing functions to 3rd level symbols
@@ -2127,7 +2130,7 @@ see how ARG affects this command."
     ;; Hack to make sure that preambles are added once only
     ;; Init and emacs startup hooks doesn't work while using daemons
     (unless (boundp 'preambles-flag)
-      (setq org-format-latex-header (concat org-format-latex-header "\n\\input{$HOME/.config/latex/preamble.tex}\n"))
+      (setq org-format-latex-header (concat org-format-latex-header "\n\\def\\orgpreview{}\n\\input{$HOME/.config/latex/preamble.tex}\n"))
       )
     (setq preambles-flag t)
     :config

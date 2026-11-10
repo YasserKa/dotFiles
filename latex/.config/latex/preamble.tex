@@ -7,16 +7,17 @@
 \newcommand{\sectionbreak}{\clearpage}
 
 
-% For hyperlinks
-\usepackage{hyperref}
-
- \hypersetup{
+% For hyperlinks (skipped in Org previews)
+\ifdefined\orgpreview\else
+  \usepackage{hyperref}
+  \hypersetup{
     colorlinks=true,
     linkcolor=blue,
-    citecolor=black,        % color of links to bibliography
-    filecolor=magenta,      
+    citecolor=black,
+    filecolor=magenta,
     urlcolor=blue,
-}
+  }
+\fi
 
 
 % Don't indent paragraphs, leave some space between them
