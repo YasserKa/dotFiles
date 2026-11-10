@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+#!/usr/bin/env bash
+# open_webpage URL [POSITION]
+#
+# Open URL in qutebrowser and, once the page has loaded, go to POSITION:
+#   7100        scroll down 7100 pixels
+#   43%         scroll to 43% of the page
+#   some text   jump to the first occurrence of "some text"
+#
+# How the wait works: qutebrowser cannot tell us when a page has loaded,
+# so a small JavaScript snippet is sent to the page a few times over ten
+# seconds. Each run checks that the current tab is showing URL, and then
+# goes to POSITION as soon as the page has finished loading. It only acts
+# once per page, so later runs do nothing if you have already started
+# reading, and nothing in another tab if you switched away.
+#
+# Uses :cmd-later (qutebrowser >= 3.0). On older versions set
+# QUTE_LATER_CMD=later.
+
+set -u
+
+die() {
+	echo "open_webpage: $*" >&2
+	command -v notify-send >/dev/null && notify-send "open_webpage" "$*"
+	exit 1
+}
+
+[[ $# -ge 1 && -n "$1" ]] || {
+	echo "usage: open_webpage URL [POSITION]" >&2
+	exit 2
+}
+url="$1"
+pos="${2:-}"
+
+if [[ -z "$pos" || "$pos" == 0 ]]; then
+	exec qutebrowser "$url"
+fi
+
+# Quote a string for JavaScript. ';' is escaped too, because ';;' separates
+# commands in qutebrowser, and newlines would end the command.
+js_string() {
+	local s="$1"
+	s="${s//\\/\\\\}"
+	s="${s//\"/\\\"}"
+	s="${s//;/\\u003b}"
+	s="${s//$'\n'/ }"
+	printf '"%s"' "$s"
+}
+
+if [[ "$pos" =~ ^[0-9]+$ ]]; then
+	go="window.scrollTo(0, $pos)"
+elif [[ "$pos" =~ ^([0-9]+)%$ ]]; then
+	go="window.scrollTo(0, (document.documentElement.scrollHeight - innerHeight) * ${BASH_REMATCH[1]} / 100)"
+else
+	go="window.find($(js_string "$pos"), false, false, true)"
+fi
+
+# Pages are compared without scheme, "www.", fragment, trailing slash or
+# trailing index.html, so small redirects (http -> https) still match.
+js='(() => {'
+js+=' const want = '"$(js_string "$url")"';'
+js+=' const norm = u => u.replace(/^[a-z]+:\/\/(www\.)?/i, "").replace(/#.*$/, "").replace(/\/(index\.html?)?$/, "");'
+js+=' if (window.__openWebpageDone || norm(location.href) !== norm(want)) return;'
+js+=' window.__openWebpageDone = true;'
+js+=' const go = () => '"$go"';'
+js+=' if (document.readyState === "complete") go(); else addEventListener("load", go, { once: true });'
+js+=' })()'
+
+later="${QUTE_LATER_CMD:-cmd-later}"
+cmds=()
+for delay in 300 1000 2500 5000 10000; do
+	cmds+=(":$later $delay jseval --quiet $js")
+done
+
+exec qutebrowser "$url" "${cmds[@]}"

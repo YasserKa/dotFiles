@@ -43,7 +43,7 @@
 (require 'functions)
 ;; }}}
 ;; Defining variables {{{
-(defconst notes-dir (concat (getenv "NOTES_ORG_HOME") "/") "Notes directory")
+(defconst my/notes-dir (concat (getenv "NOTES_ORG_HOME") "/") "Notes directory")
 ;; }}}
 ;; Better defaults {{{
 ;; Use y/n for yes/no prompts
@@ -462,7 +462,63 @@ does not have to do this by oneself."
   :after cape
   :config
   (add-to-list 'completion-at-point-functions #'yasnippet-capf))
-  )
+
+;; Allow id auto-completion with [[]]
+(defvar my/org-id--cache nil)
+
+(defun my/org-id-reset-cache ()
+  (interactive)
+  (setq my/org-id--cache nil))
+
+(defun my/org-id--candidates ()
+  "Alist of (TITLE . ID) for all files and headings with an ID."
+  (or my/org-id--cache
+      (setq my/org-id--cache
+            (let (cands)
+              (unless org-id-locations (org-id-locations-load))
+              (dolist (file (delete-dups
+                             (if (hash-table-p org-id-locations)
+                                 (hash-table-values org-id-locations)
+                               (mapcar #'car org-id-locations))))
+                (when (file-exists-p file)
+                  (with-current-buffer (find-file-noselect file)
+                    (org-with-wide-buffer
+                     ;; File-level ID
+                     (goto-char (point-min))
+                     (when-let* ((id (org-entry-get nil "ID")))
+                       (push (cons (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
+                                       (file-name-base file))
+                                   id)
+                             cands))
+                     ;; Heading IDs
+                     (org-map-entries
+                      (lambda ()
+                        (push (cons (org-get-heading t t t t)
+                                    (org-entry-get nil "ID"))
+                              cands))
+                      "ID<>\"\"")))))
+              cands))))
+
+(defun my/org-id-capf ()
+  "Complete Org ID links after `[['."
+  (when (looking-back "\\[\\[\\([^]\n]*\\)" (line-beginning-position))
+    (let ((beg (match-beginning 1))
+          (cands (my/org-id--candidates)))
+      (list beg (point) cands
+            :exclusive 'no
+            :annotation-function (lambda (_) " id")
+            :exit-function
+            (lambda (str _status)
+              (when-let* ((id (cdr (assoc str cands))))
+                (delete-region (- (point) (length str) 2) (point))
+                (when (looking-at "\\]\\]") (delete-char 2)) ; electric-pair leftovers
+                (insert (org-link-make-string (concat "id:" id) str))))))))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'completion-at-point-functions #'my/org-id-capf nil t)))
+
+)
 
 (use-package evil
   :init
@@ -883,7 +939,9 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   :hook (magit-mode . magit-delta-mode))
 ;; }}}
 ;; LateX {{{
-(add-hook 'org-mode-hook (lambda () (interactive) (org-toggle-pretty-entities) (setq org-pretty-entities-include-sub-superscripts nil)))
+;; \alpha -> α
+(setq org-pretty-entities t)
+(setq org-pretty-entities-include-sub-superscripts nil)
 
 (use-package laas
   :hook ((LaTeX-mode . laas-mode)
@@ -1027,10 +1085,10 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   :defer t
   :hook ((org-mode . my/org-mode-setup))
   :custom
-  (org-directory notes-dir)
+  (org-directory my/notes-dir)
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t "Hide symbols")
-  (org-default-notes-file (concat notes-dir "/capture.org"))
+  (org-default-notes-file (concat my/notes-dir "/capture.org"))
   (org-startup-folded 'content)
   (org-startup-folded t)
   (org-cycle-include-plain-lists 'integrate "Keep items folded when cycling")
@@ -1050,9 +1108,107 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (use-package org-sidebar)
   (require 'ol-man)
   (require 'ol-link-handler)
+  (require 'my-nodes) ;; Utility functions
+
+  (use-package universal-sidecar
+    :ensure t
+    :after org
+    :init
+    (setq universal-sidecar-enable-timer nil)
+    :config
+    (universal-sidecar-insinuate)
+
+    ;; Never build the sidecar for minibuffers or non-file buffers
+    (add-hook 'universal-sidecar-ignore-buffer-functions
+              (lambda (buf) (or (minibufferp buf) (not (buffer-file-name buf)))))
+
+    ;; Immediate refresh on buffer/window change, debounced so a burst of
+    ;; events (window setup, display-buffer, etc.) causes only one refresh.
+    (defvar my/sidecar--refresh-timer nil)
+
+    (defun my/sidecar-refresh ()
+      (setq my/sidecar--refresh-timer nil)
+      (unless (or (active-minibuffer-window)
+                  (string-match-p "\\*sidecar\\*" (buffer-name)))
+        (universal-sidecar-refresh)))
+
+    (defun my/sidecar-refresh-soon (&rest _)
+      (when (timerp my/sidecar--refresh-timer)
+        (cancel-timer my/sidecar--refresh-timer))
+      (setq my/sidecar--refresh-timer
+            (run-with-timer 0.1 nil #'my/sidecar-refresh)))
+
+    (add-hook 'window-buffer-change-functions #'my/sidecar-refresh-soon)
+    (add-hook 'window-selection-change-functions #'my/sidecar-refresh-soon)
+    )
+
+  ;; Add link types
+  ;; [[doc:NAME::PAGE][Title]]   -> open_document NAME PAGE
+  ;; [[web:URL::POSITION][Title]] -> open_webpage URL POSITION
+  ;;   POSITION is 7100 (pixels), 43% or text to search for; it is optional.
+  (defun my/link-split (path)
+    "Split PATH at the first \"::\" after any \"://\" into (TARGET POSITION)."
+    (let ((start (if (string-match "://" path) (match-end 0) 0)))
+      (if (string-match "::" path start)
+          (list (substring path 0 (match-beginning 0))
+                (substring path (match-end 0)))
+        (list path nil))))
+
+  (defun my/link-run (program path)
+    (apply #'start-process program nil program
+          (delq nil (delete "" (my/link-split path)))))
+
+  (org-link-set-parameters
+  "doc"
+  :follow (lambda (path _) (my/link-run "open_document" path)))
+
+  (org-link-set-parameters
+  "web"
+  :follow (lambda (path _) (my/link-run "open_webpage" path))
+  ;; Export as an ordinary hyperlink, without the position.
+  :export (lambda (path desc backend _)
+            (let ((url (car (my/link-split path))))
+              (pcase backend
+                ('html (format "<a href=\"%s\">%s</a>" url (or desc url)))
+                ('latex (format "\\href{%s}{%s}" url (or desc url)))
+                ('md (format "[%s](%s)" (or desc url) url))
+                (_ url)))))
+
+  (use-package org-link-maint
+    :straight nil
+    :after (org consult)
+    :custom (org-link-maint-command-link-types '(("doc" . "open_document")))
+    :config (org-link-maint-mode 1) ;; Shows broken links
+    )
+
+  (use-package org-backlinks
+    :straight nil                                             ; local file, don't fetch
+    :after (org consult universal-sidecar)
+    :config
+    (add-to-list 'universal-sidecar-sections 'org-custom-id-backlinks-section))
+
+  (use-package org-forwardlinks
+    :straight nil                                             ; local file, don't fetch
+    :after (org consult universal-sidecar)
+    :custom
+    (my/org-fl-consult-jump 'source) ; Can show target too
+    :config
+    (add-to-list 'universal-sidecar-sections 'org-forward-links-section t))
+
+  (use-package org-links-embark
+    :straight nil
+    :after (embark org-backlinks org-forwardlinks))
+
+  (use-package org-citar-links
+    :straight nil
+    :after (citar org-backlinks)
+    :config
+    (add-to-list 'universal-sidecar-sections 'org-citar-section t))
+
 
   ;; Use mailcap software for power point files
   (add-to-list 'org-file-apps '("\\.pptx\\'" . system))
+  (add-to-list 'org-file-apps '("\\.pdf::\\([0-9]+\\)\\'" . "zathura --page=%1 %s"))
   (setf (alist-get 'system org-file-apps-gnu) "xdg-open %s")
 
   (defun my/update-org-level-face ()
@@ -1109,7 +1265,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
 
   (defun get-org-files ()
     (interactive)
-    (directory-files notes-dir nil ".org$"))
+    (directory-files my/notes-dir nil ".org$"))
   ;; (get-org-files :maxlevel . 3)
   (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
                              (org-agenda-files :maxlevel . 3)
@@ -1383,7 +1539,7 @@ Made for `org-tab-first-hook' in evil-mode."
     :config
     (org-link-beautify-mode 1)
     (when-let* ((fn (org-link-get-parameter "link-handler" :preview)))
-      (dolist (type '("tb" "roam" "gls"))
+      (dolist (type '("tb" "gls"))
         (org-link-set-parameters type :preview fn)))
 
     (setq org-startup-with-link-previews t)
@@ -1426,11 +1582,16 @@ Made for `org-tab-first-hook' in evil-mode."
 
     (defun add-icons (_ov _path link)
       "Return custom icons for some link types, nil for the rest."
-      (pcase (org-element-property :type link)
-        ("link-handler" (nerd-icons-faicon "nf-fa-link"))
-        ("tb"           (nerd-icons-flicon "nf-linux-thunderbird"))
-        ("roam"         (nerd-icons-mdicon "nf-md-text_search"))
-        ("gls"          (nerd-icons-mdicon "nf-md-book_search"))))
+      (let ((path (org-element-property :path link)))
+        (pcase (org-element-property :type link)
+          ("link-handler" (nerd-icons-faicon "nf-fa-link"))
+          ("tb"           (nerd-icons-flicon "nf-linux-thunderbird"))
+          ("gls"          (nerd-icons-mdicon "nf-md-book_search"))
+          ;; Strip "::44" so the extension decides the icon (pdf, epub, djvu...)
+          ("doc"          (nerd-icons-icon-for-file (car (split-string path "::"))))
+          ;; Site icon for GitHub, YouTube, etc., a generic one otherwise
+          ("web"          (nerd-icons-icon-for-url (car (split-string path "::")))))))
+
 
     (advice-add 'org-link-beautify--return-icon :before-until #'add-icons)
     (org-link-set-parameters
@@ -1445,7 +1606,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
   (use-package org-download
     :after org
-    :config (setq-default org-download-image-dir (concat notes-dir "/images/drag_drop"))
+    :config (setq-default org-download-image-dir (concat my/notes-dir "/images/drag_drop"))
     )
 
   (defun my/open-super-agenda ()
@@ -1791,7 +1952,7 @@ Made for `org-tab-first-hook' in evil-mode."
     )
 
   (setq org-capture-templates
-        `(("d" "default" entry (file ,(concat notes-dir "/capture.org"))
+        `(("d" "default" entry (file ,(concat my/notes-dir "/capture.org"))
            "* TODO %?\n")))
 
   ;; Clocking
@@ -2034,7 +2195,7 @@ see how ARG affects this command."
 
     (dolist (template
              `(("url" "org-capture-url" entry
-                (file ,(concat notes-dir "/capture.org"))
+                (file ,(concat my/notes-dir "/capture.org"))
                 "* TODO %:annotation" :immediate-finish t)
                ("clock" "URL to clock" plain
                 (clock)
@@ -2042,16 +2203,16 @@ see how ARG affects this command."
                ("refile" "refile entry" plain (function my/org-capture-refile-target)
                 "- %:annotation" :immediate-finish t :prepend t)
                ("p" "org-capture-note" entry
-                (file+headline ,(concat notes-dir "/papers.org") "Inbox")
+                (file+headline ,(concat my/notes-dir "/papers.org") "Inbox")
                 "* TODO %:description" :immediate-finish t)
                ("n" "org-capture-note" entry
-                (file ,(concat notes-dir "/capture.org"))
+                (file ,(concat my/notes-dir "/capture.org"))
                 "* TODO %:description" :immediate-finish t)
                ("w" "Web site" entry
-                (file ,(concat notes-dir "/org_protocol_html.org"))
+                (file ,(concat my/notes-dir "/org_protocol_html.org"))
                 "* %a :website:\n\n%U %?\n\n%:initial")
                ("word" "Word" entry
-                (file ,(concat notes-dir "/words.org"))
+                (file ,(concat my/notes-dir "/words.org"))
                 "* %:link\n%:description" :immediate-finish t)
                ))
 
@@ -2210,6 +2371,7 @@ that has the same total duration."
   :no-require
   :after all-the-icons
   :custom
+  (citar-notes-paths (list "~/notes/references"))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
@@ -2228,6 +2390,59 @@ that has the same total duration."
    ;; (LaTeX-mode . citar-capf-setup)
    )
   :config
+  (require 'subr-x)
+
+  ;; Adjust note template
+  (with-eval-after-load 'citar
+    (setf (alist-get 'note citar-templates)
+          "${title} (${author editor:%etal}, ${year issued date})"))
+
+  (defun my/citar-sanitize-key (key)
+    "Turn citekey KEY into a safe file basename."
+    (replace-regexp-in-string "[/\\\\:]" "_" key))
+
+  ;; 1. Where new notes go
+  (defun my/citar-get-note-filename (key)
+    (citar--check-configuration 'citar-notes-paths 'citar-file-note-extensions)
+    (let* ((safe (my/citar-sanitize-key key))
+           (files (citar-file--directory-files
+                   citar-notes-paths (list safe) citar-file-note-extensions
+                   citar-file-additional-files-separator)))
+      (or (car (gethash safe files))
+          (when-let* ((dir (car citar-notes-paths))
+                      (ext (car citar-file-note-extensions)))
+            (expand-file-name (concat safe "." ext) dir)))))
+
+  ;; 2. Which entries already have notes
+  (defun my/citar-get-notes (&optional keys)
+    (citar--check-configuration 'citar-notes-paths 'citar-file-note-extensions)
+    (let ((safe->key (make-hash-table :test #'equal))
+          (result (make-hash-table :test #'equal)))
+      (dolist (k (or keys (hash-table-keys (citar-get-entries))))
+        (puthash (my/citar-sanitize-key k) k safe->key))
+      (maphash (lambda (safe files)
+                 (puthash (gethash safe safe->key safe) files result))
+               (citar-file--directory-files
+                citar-notes-paths
+                (and keys (hash-table-keys safe->key))
+                citar-file-note-extensions
+                citar-file-additional-files-separator))
+      result))
+
+  ;; 3. Note template: fill the buffer citar already opened
+  (defun my/citar-format-note (key entry)
+    "Insert the note template for KEY and ENTRY into the current buffer."
+    (ignore key)
+    (let* ((template (citar--get-template 'note))
+           (note-meta (when template (citar-format--entry template entry))))
+      (insert "#+title: " (or note-meta "") "\n\n")
+      (when (fboundp 'evil-insert) (evil-insert 1))))
+
+  (with-eval-after-load 'citar-file
+    (advice-add 'citar-file--get-note-filename :override #'my/citar-get-note-filename)
+    (advice-add 'citar-file--get-notes :override #'my/citar-get-notes))
+
+  (setq citar-note-format-function #'my/citar-format-note)
 
   ;; Activation processor for Org to show links as a CSL style
   (with-eval-after-load 'oc-csl-activate
@@ -2375,12 +2590,6 @@ that has the same total duration."
   (add-to-list 'embark-keymap-alist '(citar-citation . embark-citar-actions))
   )
 
-;; (use-package citar-org-roam
-;;   :after (citar org-roam)
-;;   :custom
-;;   (citar-org-roam-subdir "references")
-;;   :config (citar-org-roam-mode))
-
 ;; Show emphasis markers when hovering over text
 (use-package org-appear
   :after (org evil)
@@ -2470,7 +2679,7 @@ that has the same total duration."
     "Changes i3 focus_window_configuration"
     (setq path_to_script (concat (getenv "XDG_CONFIG_HOME") "/i3/set_i3_focus_on_window_activation_configuration"))
     (start-process-shell-command "Update i3 focus window config" nil (concat "setsid nohup "  path_to_script " none 2")))
-  (setq org-agenda-files (concat notes-dir "/agenda_files"))
+  (setq org-agenda-files (concat my/notes-dir "/agenda_files"))
   )
 
 (use-package org-superstar
@@ -2482,74 +2691,36 @@ that has the same total duration."
   (org-superstar-item-bullet-alist '((?- . ?•) (?* . ?•) (?+ . ?•)))
   (org-superstar-headline-bullets-list '("●" "○" "●" "○" "●" "○" "●")))
 
+;; Exists only for org-roam-ui
 (use-package org-roam
-  :after org
+  :ensure t
   :custom
-  (org-roam-directory notes-dir)
-  (org-roam-node-display-template
-   (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
-  ;; It's slow, so disable it
-  (org-roam-db-update-on-save nil)
-  ;; Node completion
-  (org-roam-completion-everywhere t)
-  (org-roam-capture-templates
-   '(("d" "default" plain "%?"
-      :if-new (file+head "${slug}.org"
-                         "#+TITLE: ${title}\n")
-      :unnarrowed t)))
+  (org-roam-directory my/notes-dir)
   :config
-  (org-roam-db-autosync-mode)
-
-  ;; Add to jump list after visiting a node
-  (advice-add 'org-roam-node-visit :before #'(lambda (&rest pos) (evil-set-jump)))
-
-  ;; Overriding org-roam-node by staying in the current buffer after inserting a new one
-  ;; This is done by removing :props '(:finalize find-file) in org-roam-capture
-  (cl-defun my/org-roam-node-find (&optional other-window initial-input filter-fn &key templates)
-    (interactive current-prefix-arg)
-    (let ((node (org-roam-node-read initial-input filter-fn)))
-      (if (org-roam-node-file node)
-          (org-roam-node-visit node other-window)
-        (org-roam-capture-
-         :node node
-         :templates templates))))
-
-  ;; Add to jump list after visiting a node
-  (advice-add 'org-roam-node-find :override #'my/org-roam-node-find)
-
-  (use-package consult-org-roam
-    :ensure t
-    :after (org-roam consult)
-    :init
-    (require 'consult-org-roam)
-    :custom
-    ;; Use `ripgrep' for searching with `consult-org-roam-search'
-    (consult-org-roam-grep-func #'consult-ripgrep)
-    ;; Configure a custom narrow key for `consult-buffer'
-    (consult-org-roam-buffer-narrow-key ?r)
-    ;; Display org-roam buffers right after non-org-roam buffers
-    ;; in consult-buffer (and not down at the bottom)
-    (consult-org-roam-buffer-after-buffers t)
-    :config
-    (consult-customize
-     consult-org-roam-forward-links
-     :preview-key "M-.")
-    )
-  )
+  (org-roam-db-autosync-mode))       ; keeps the index current on save
 
 (use-package websocket
   :after org-roam)
 (use-package simple-httpd
   :after org-roam)
 
+;; Allowd org-roam-ui to show titles
+(use-package org-roam-bibtex
+  :after org-roam
+  :config
+    (setq bibtex-completion-bibliography
+          (list (concat (getenv "XDG_CONFIG_HOME") "/Zotero/better-bibtex/my_library.bib")))
+  ) ; optional: if using Org-ref v2 or v3 citation links
+
+
 (use-package org-roam-ui
   :after org-roam
-  ;; :straight (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
   :custom
   (org-roam-ui-sync-theme t)
   (org-roam-ui-follow t)
   (org-roam-ui-update-on-save t)
   (org-roam-ui-open-on-start t)
+  (org-roam-ui-ref-title-template "%^{title} (%^{author-abbrev}, %^{year})")
   )
 
 ;; ORG NOTIFICATION
@@ -2629,32 +2800,6 @@ that has the same total duration."
     :parent embark-general-map
     "h" #'helpful-command)
   (add-to-list 'embark-keymap-alist '(command . embark-command-actions))
-
-  ;; C-v and C-x window splits window
-  ;; Org-roam-nodes
-  (defvar-keymap embark-org-roam-nodes-actions
-    :doc "Keymap for actions for org roam nodes"
-    :parent embark-general-map
-    "x" #'my/org-roam-node-find-window-x
-    "v" #'my/org-roam-node-find-window-v
-    "w" #'my/org-roam-node-find-other-frame
-    )
-
-  (add-to-list 'embark-keymap-alist '(org-roam-node . embark-org-roam-nodes-actions))
-
-  (defun my/org-roam-node-find-window-v ()
-    (interactive)
-    (org-roam-node-find t))
-
-  (defun my/org-roam-node-find-other-frame ()
-    (interactive)
-    (clone-frame)
-    (org-roam-node-find))
-
-  (defun my/org-roam-node-find-window-x ()
-    (interactive)
-    (evil-window-split)
-    (org-roam-node-find))
 
   ;; Buffers
   (defvar-keymap embark-buffer-actions
@@ -3128,12 +3273,13 @@ with the file name kept at the start of each candidate."
 (defhydra org-hydra (:hint nil :exit t :idle 1 )
   (" *" org-ctrl-c-star "make header" :column " org")
   (" -" org-ctrl-c-minus "make item")
-  (" B" org-cite-insert "BibTex")
+  (" B" citar-open       "BibTex")
   (" c" org-clock-hydra/body "clock")
   (" C" calfw-org-open-calendar "calendar block view")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
-  (" r" org-roam-hydra/body "org-roam")
+  (" u" org-utility-hydra/body "org utility")
   (" f" org-find-hydra/body "find")
+  (" m" org-maintenance-hydra/body       "maintenance")
   (" o" org-indirect-open-hydra/body "indirect open")
   (" R" org-refile-hydra/body "refile")
   (" l" org-links-hydra/body "links")
@@ -3168,27 +3314,18 @@ with the file name kept at the start of each candidate."
    (delq nil (mapcar #'buffer-file-name (buffer-list)))))
 
 (defhydra org-goto-hydra (:exit t :idle 1)
-  (" g" consult-org-heading "file" :column "headers")
-  (" G" (consult-org-heading t (get-open-org-files)) "buffers")
-  (" a" consult-org-agenda "agenda")
+  (" g" consult-org-heading "file" :column "headings in file")
+  (" G" (lambda () (interactive) (consult-ripgrep "~/notes" "#^\\*+ #")) "headings in every org file")
+  (" B" (consult-org-heading t (get-open-org-files)) "headings in buffers")
+  (" a" consult-org-agenda "headings in agenda")
   (" w" (my/consult-org-agenda-by-schedule "TODO<>\"DONE\"+TODO<>\"CANCELLED\"+DEADLINE<\"<+7d>\"|TODO<>\"DONE\"+TODO<>\"CANCELLED\"+SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
   (" n" (my/consult-org-agenda-by-priority "TODO=\"NEXT\"") "NEXT tasks")
   (" r" org-refile-goto-last-stored "last refiled" :column "files")
-  (" c" (find-file (concat notes-dir "/capture.org")) "capture.org")
-  (" i" (find-file (concat notes-dir "/ideas.org")) "ideas.org")
-  (" p" (find-file (concat notes-dir "/projects.org")) "projects.org")
-  (" t" (find-file (concat notes-dir "/tasks.org")) "tasks.org")
+  (" c" (find-file (concat my/notes-dir "/capture.org")) "capture.org")
+  (" i" (find-file (concat my/notes-dir "/ideas.org")) "ideas.org")
+  (" p" (find-file (concat my/notes-dir "/projects.org")) "projects.org")
+  (" t" (find-file (concat my/notes-dir "/tasks.org")) "tasks.org")
   )
-
-(defun my/get-filtered-nodes (file)
-  "Return FILE if it does not exist in DIR and doesn't start with t_, otherwise return nil."
-  (message (file-name-nondirectory (org-roam-node-file file)))
-  (let* ((dir-files (directory-files "~/notes/references" nil directory-files-no-dot-files-regexp))
-         (filename (file-name-nondirectory (org-roam-node-file file))))
-    (if (or (member filename dir-files)
-            (string-prefix-p "t_" filename))
-        nil
-      file)))
 
 (defun org-tree-to-indirect-buffer-new-frame (&optional arg)
   "Open subtree in a new frame as an indirect buffer (always a new frame)."
@@ -3202,41 +3339,73 @@ with the file name kept at the start of each candidate."
   )
 
 (defhydra org-find-hydra (:exit t :idle 1)
-  (" f" (lambda () (interactive) (let ((inhibit-message t)) (org-roam-node-find nil "" 'my/get-filtered-nodes))) "find node")
+  (" f" #'my/node-find "find node")
   )
 
-(defhydra org-roam-hydra (:exit t :idle 1)
-  (" i" org-roam-node-insert                 "insert node" :column " node")
-  (" r" consult-org-roam-backlinks           "links to here")
-  (" R" consult-org-roam-backlinks-recursive "links to here recursive")
-  (" f" consult-org-roam-forward-links       "links from this node")
-  (" g" org-roam-ui-mode                     "graph" :column " ")
-  (" a" org-roam-alias-add                   "add alias")
-  (" s" org-roam-db-sync                     "sync")
+(defhydra org-utility-hydra (:exit t :idle 1)
+  (" i" #'my/node-insert                                   "insert node" :column " node")
+  (" b" #'my/org-backlinks                                 "node backlinks")
+  (" B" (lambda () (interactive) (my/org-backlinks t))     "file backlinks")
+  (" f" my/org-forward-links                               "node forwardlinks")
+  (" F" (lambda () (interactive) (my/org-forward-links t)) "file forwardlinks")
+  (" g" org-roam-ui-mode                                    "graph" :column " ")
+  (" h" org-id-get-create                                   "make a heading a node")
+  (" a" #'my/node-add-alias                                 "add alias")
+  (" A" #'my/node-remove-alias                              "remove alias")
+  )
+
+(defhydra org-maintenance-hydra (:exit t :idle 1)
+  (" f" #'org-link-maint-consult-broken      "Find broken links")
+  (" u" #'org-link-maint-update-backlinks    "Update description for current link")
+  (" U" #'org-link-maint-update-descriptions "Update all descriptions")
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
   (" ." my/org-refile-to-file "to current file" :column " refile")
   (" c" my/org-refile-to-running-clock "to clocked")
-  (" t" (org-refile nil nil (list nil (concat notes-dir "/tasks.org"))) "to tasks.org")
-  (" i" (my/org-refile-to-file nil (concat notes-dir "/ideas.org")) "to ideas.org")
-  (" p" (my/org-refile-to-file nil (concat notes-dir "/projects.org")) "to projects.org")
+  (" t" (org-refile nil nil (list nil (concat my/notes-dir "/tasks.org"))) "to tasks.org")
+  (" i" (my/org-refile-to-file nil (concat my/notes-dir "/ideas.org")) "to ideas.org")
+  (" p" (my/org-refile-to-file nil (concat my/notes-dir "/projects.org")) "to projects.org")
   (" a" org-refile "to agenda/buffers")
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
+(defun my/org-yank-heading-link ()
+  "Copy a link to the current heading, described as \"<title>: <heading>\" (no ID)."
+  (interactive)
+  (let* ((org-id-link-to-org-use-id nil)
+         (raw (org-store-link nil))
+         (target (if (string-match org-link-bracket-re raw)
+                     (match-string 1 raw)
+                   raw))
+         (title (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
+                    (file-name-base (buffer-file-name (buffer-base-buffer)))))
+         (heading (org-get-heading t t t t))
+         (link (org-link-make-string target (format "%s: %s" title heading))))
+    (kill-new link)
+    (message "Copied: %s" link)))
+
+(defun my/org-yank-heading-id-link ()
+  "Add an ID to the current heading if missing, then copy an id: link to it."
+  (interactive)
+  (org-id-get-create)                       ; ensure the heading has an ID
+  (let* ((org-id-link-to-org-use-id t)
+         (link (org-store-link nil)))
+    (kill-new link)
+    (message "Copied: %s" link)))
+
 (defhydra org-links-hydra (:exit t :idle 1)
-  (" y" org-store-link "yank" :column " links")
+  (" y" #'my/org-yank-heading-link "Yank heading using name & yank" :column " links")
+  (" Y" #'my/org-yank-heading-id-link "Create id & yank" :column " links")
   (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
   (" t" (lambda () (interactive) (call-interactively #'org-link-beautify-mode) (let ((current-prefix-arg 12)) (call-interactively #'org-link-preview))) "toggle")
-  (" p" my/org-insert-last-stored-link-with-title "paste last")
   )
 
 ;; Agenda
 (defhydra agenda-hydra (:exit t :idle 1)
   (" c" agenda-clock-hydra/body "clock" :column " org")
   (" g" org-goto-hydra/body "goto hydra")
-  (" r" org-roam-hydra/body "org-roam")
+  (" r" org-utility-hydra/body "org-utility")
   (" R" org-refile-hydra/body "refile")
   (" c" agenda-clock-hydra/body "clock" :column " agenda")
   (" v" agenda-view-hydra/body "view")
@@ -3260,6 +3429,10 @@ with the file name kept at the start of each candidate."
 
 (defhydra org-cite (:exit t :hint nil :idle 1)
   (" i" org-cite-insert "insert cite")
+  (" f" citar-open                                            "open resources")
+  (" b" #'my/org-citar-cited-by-here                          "notes & papers citing paper")
+  (" f" #'my/org-citar-cited-here                             "node forwardlinks")
+  (" F" (lambda () (interactive) (my/org-citar-cites-here t)) "file forwardlinks")
   )
 
 ;;;; }}}
@@ -3516,7 +3689,7 @@ concatenated."
 
 (use-package elfeed-org
   :after elfeed
-  :custom (rmh-elfeed-org-files (list (concat notes-dir "feeds.org")))
+  :custom (rmh-elfeed-org-files (list (concat my/notes-dir "feeds.org")))
   :config (elfeed-org)
   )
 
@@ -3541,90 +3714,3 @@ concatenated."
   ("C-c l o" . link-hint-open-link)
   ("C-c l c" . link-hint-copy-link))
 ;; }}}
-
-(use-package denote
-  :custom
-  (denote-org-front-matter "#+title: %s")
-  (denote-prompt (title))
-  :config
-  (setq denote-directory (expand-file-name "~/Documents/notes"))
-  (use-package consult-denote)
-  (use-package denote-org
-    :ensure t
-    :commands
-    ;; I list the commands here so that you can discover them more
-    ;; easily.  You might want to bind the most frequently used ones to
-    ;; the `org-mode-map'.
-    ( denote-org-link-to-heading
-      denote-org-backlinks-for-heading
-
-      denote-org-extract-org-subtree
-
-      denote-org-convert-links-to-file-type
-      denote-org-convert-links-to-denote-type
-
-      denote-org-dblock-insert-files
-      denote-org-dblock-insert-links
-      denote-org-dblock-insert-backlinks
-      denote-org-dblock-insert-missing-links
-      denote-org-dblock-insert-files-as-headings))
-  (use-package citar-denote
-    :ensure t
-    :demand t ;; Ensure minor mode loads
-    :after (:any citar denote)
-    :custom
-    ;; Package defaults
-    (citar-denote-file-type 'org)
-    (citar-denote-keyword "bib")
-    (citar-denote-signature nil)
-    (citar-denote-subdir "bla")
-    (citar-denote-template nil)
-    (citar-denote-title-format "title")
-    (citar-denote-title-format-andstr "and")
-    (citar-denote-title-format-authors 1)
-    (citar-denote-use-bib-keywords nil)
-    :preface
-    (bind-key "C-c w n" #'citar-denote-open-note)
-    :init
-    (citar-denote-mode)
-    ;; Bind all available commands
-    :bind (("C-c w d" . citar-denote-dwim)
-           ("C-c w e" . citar-denote-open-reference-entry)
-           ("C-c w a" . citar-denote-add-citekey)
-           ("C-c w k" . citar-denote-remove-citekey)
-           ("C-c w r" . citar-denote-find-reference)
-           ("C-c w l" . citar-denote-link-reference)
-           ("C-c w f" . citar-denote-find-citation)
-           ("C-c w x" . citar-denote-nocite)
-           ("C-c w y" . citar-denote-cite-nocite)
-           ("C-c w z" . citar-denote-nobib)))
-
-  )
-(use-package universal-sidecar
-  :ensure t
-  :bind ("C-c s" . universal-sidecar-toggle))
-
-(use-package denote-sections
-  :ensure t
-  :after (denote universal-sidecar)
-  :config
-  (add-to-list 'universal-sidecar-sections
-               'denote-sections-backlinks-section))
-
-(use-package consult-notes
-  :straight (:type git :host github :repo "mclear-tools/consult-notes")
-  :commands (consult-notes
-             consult-notes-search-in-all-notes
-             ;; if using org-roam
-             consult-notes-org-roam-find-node
-             consult-notes-org-roam-find-node-relation)
-  :config
-  (setq consult-notes-file-dir-sources '(("Name"  ?n  "~/notes"))) ;; Set notes dir(s), see below
-  ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
-  ;; (setq consult-notes-org-headings-files '("~/path/to/file1.org"
-  ;;                                          "~/path/to/file2.org"))
-  (consult-notes-org-headings-mode)
-  (when (locate-library "denote")
-    (consult-notes-denote-mode))
-  ;; search only for text files in denote dir
-  (setq consult-notes-denote-files-function (lambda () (denote-directory-files nil t t))))

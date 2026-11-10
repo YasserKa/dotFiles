@@ -1,11 +1,35 @@
 #!/usr/bin/env bash
+# Usage: open_document [--check] NAME [PAGE]
+#   --check  don't open anything: exit 0 if NAME (and PAGE) can be
+#            opened, otherwise print why on stdout and exit 1.
+
+CHECK=false
+if [[ "$1" == "--check" ]]; then
+	CHECK=true
+	shift
+fi
 
 DOC_NAME="$1"
 PAGE_NUM="$2"
 
 PATHS_TO_SEARCH=("${HOME}" "${XDG_CONFIG_HOME}/Zotero/storage")
 
-[[ -f "$DOC_NAME" ]] && DOC_PATH="$DOC_NAME" || DOC_PATH="$(fd --no-ignore-vcs -F "${DOC_NAME}" "${PATHS_TO_SEARCH[@]}" | head -1)"
+[[ -f "$DOC_NAME" ]] && DOC_PATH="$DOC_NAME" || DOC_PATH="$(fd --no-ignore-vcs -F "${DOC_NAME}" "${PATHS_TO_SEARCH[@]}" 2>/dev/null | head -1)"
+
+if $CHECK; then
+	if [[ -z "$DOC_PATH" || ! -e "$DOC_PATH" ]]; then
+		echo "not found"
+		exit 1
+	fi
+	if [[ "$PAGE_NUM" =~ ^[0-9]+$ && "${DOC_PATH,,}" == *.pdf ]] && command -v pdfinfo >/dev/null; then
+		pages=$(pdfinfo "$DOC_PATH" 2>/dev/null | awk '/^Pages:/ {print $2}')
+		if [[ -n "$pages" ]] && ((PAGE_NUM < 1 || PAGE_NUM > pages)); then
+			echo "no page $PAGE_NUM (has $pages)"
+			exit 1
+		fi
+	fi
+	exit 0
+fi
 
 FILETYPE=$(xdg-mime query filetype "$DOC_PATH")
 APPLICATION=$(xdg-mime query default "$FILETYPE")

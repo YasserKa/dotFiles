@@ -1,47 +1,61 @@
 #!/usr/bin/env bash
 #
-# Store a link_handler link that opens a web page in a certain scroll position
+# qutebrowser userscript: yank an Org link to the current page that
+# remembers the scroll position.
 #
-# Dependencies yq
+#   [[web:https://example.com/page.html::7100][Page title]]
+#
+# Open such links with open_webpage (via the "web" Org link type).
+#
+# Install: put this in ~/.local/share/qutebrowser/userscripts/ and bind it,
+#   :bind yw spawn --userscript yank-web-link
+#
+# Dependencies: yq, clipboard_copy
 
-encode_url() {
-	# Reliable localization
-	local LC_ALL=C
-	# Go through each character
-	for ((i = 0; i < ${#1}; i++)); do
-		: "${1:i:1}"
-		case "$_" in
-			# Keep allowed characters
-			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-			# Encode disallowed characters
-			*) printf '%%%02X' "'$_" ;;
-		esac
-	done
-	printf '\n'
-}
+set -u
 
-# Save a session to have an up to date information about the web page
-# (i.e. the scroll position)
+fifo() { echo "$*" >>"$QUTE_FIFO"; }
+
+# qutebrowser does not give userscripts the scroll position, so save a
+# session (it records it) and read it back.
 session_name="link_handler"
-echo ":session-save --quiet $session_name" >>"$QUTE_FIFO"
-
 session_path="${QUTE_DATA_DIR}/sessions/${session_name}.yml"
-# Configuring qutebrowser - qutebrowser
 
-y_scroll="$(yq ".windows[]  | select (.active ==true) | .tabs[] | select (.active == true) | .history[] | select (.active == true and .title == \"$QUTE_TITLE\" and .url == \"$QUTE_URL\") | .\"scroll-pos\".y" "$session_path")"
+old_mtime="$(date -r "$session_path" +%s%N 2>/dev/null || echo none)"
 
-# Open the page
-pre_qutebrowser_command="qutebrowser ${QUTE_URL@Q}"
-# Wait until the page is loaded
-# Qutebrowser's WM_NAME changes to the page's title with "- qutebrowser" as a postfix
-goto_window_command="goto_window '^${QUTE_TITLE} - qutebrowser$'"
-# Scroll to the position
-post_qutebrowser_command="qutebrowser \":scroll-px 0 $y_scroll\""
-cmd="$pre_qutebrowser_command && $goto_window_command && $post_qutebrowser_command"
+fifo ":session-save --quiet --only-active-window $session_name"
 
-encoded_command="$(encode_url "$cmd")"
-link_handler_url="[[link-handler://${encoded_command}][$QUTE_TITLE, scroll 0 $y_scroll]]"
+# Wait (at most ~3 s) for qutebrowser to write the new session, so we do not
+# read the scroll position from an older save.
+for _ in {1..60}; do
+	new_mtime="$(date -r "$session_path" +%s%N 2>/dev/null || echo none)"
+	[[ "$new_mtime" != none && "$new_mtime" != "$old_mtime" ]] && break
+	sleep 0.05
+done
 
-clipboard_copy "$link_handler_url"
+# Active window (or the only one saved), active tab, current history entry.
+y="$(yq '((.windows | map(select(.active == true))) + .windows) | .[0]
+         | .tabs[] | select(.active == true)
+         | .history[] | select(.active == true) | ."scroll-pos".y' "$session_path" 2>/dev/null |
+	head -n 1)"
+[[ "$y" =~ ^[0-9]+$ ]] || y=0
 
-echo "message-info 'yanked link handler URL'" >>"$QUTE_FIFO"
+# Org links: brackets in the URL are percent-encoded (same URL), brackets in
+# the description become braces, as org-store-link does.
+url="${QUTE_URL//[/%5B}"
+url="${url//]/%5D}"
+title="${QUTE_TITLE:-$QUTE_URL}"
+title="${title//[/\{}"
+title="${title//]/\}}"
+
+target="$url"
+((y > 0)) && target+="::$y" || { ~/.config/qutebrowser/userscripts/yank_org_link && exit 0; }
+link="[[web:${target}][${title}]]"
+
+clipboard_copy "$link"
+
+if ((y > 0)); then
+	fifo "message-info 'Yanked web link at scroll $y'"
+else
+	fifo "message-info 'Yanked web link'"
+fi

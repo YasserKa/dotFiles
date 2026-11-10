@@ -1,4 +1,4 @@
-;;; ol-man.el - Support for links to man pages in Org mode
+;;; ol-man.el - Support for links to man pages in Org mode --- description -*- lexical-binding: t; -*-
 (require 'ol)
 
 (org-link-set-parameters "man"

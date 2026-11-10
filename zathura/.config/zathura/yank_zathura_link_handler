@@ -3,44 +3,26 @@
 # Open a document to a page or using its name
 # Dependencies: fd
 
-# [[link-handler://open_document%20%22sml-book-draft-latest%22][sml-book-draft-latest]]
+# [[doc:<file_name>::<page_num>][file_name, page <page_num>]]
 file_path="$1"
 page_num="$2"
 section_name="$3"
 
-encode_url() {
-	# Reliable localization
-	local LC_ALL=C
-	# Go through each character
-	for ((i = 0; i < ${#1}; i++)); do
-		: "${1:i:1}"
-		case "$_" in
-			# Keep allowed characters
-			[a-zA-Z0-9.~_-]) printf '%s' "$_" ;;
-			# Encode disallowed characters
-			*) printf '%%%02X' "'$_" ;;
-		esac
-	done
-	printf '\n'
-}
-
 doc_basename="${file_path##*/}"
 doc_name="${doc_basename%.*}"
-link_name="$doc_name"
+description="$doc_name"
 
-cmd='open_document "'${doc_basename}'"'
+link="${doc_basename}"
 
 if [[ $page_num ]]; then
-	cmd+=" $page_num"
+	link="${link}::${page_num}"
 	if [[ $section_name ]]; then
-		link_name+=", $section_name"
+		description+=", $section_name"
 	else
-		link_name+=", page $page_num"
+		description+=", page $page_num"
 	fi
 fi
 
-encoded_command="$(encode_url "$cmd")"
-
-org_url="[[link-handler://${encoded_command}][${link_name}]]"
+org_url="[[doc:${link}][${description}]]"
 
 clipboard_copy "$org_url"
