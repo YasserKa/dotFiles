@@ -50,6 +50,9 @@
 (defvar my/node-alias-property "ALIASES"
   "Name of the property that holds a node's aliases.")
 
+(defvar my/node-type-property "TYPE"
+  "Name of the property whose value is shown as the node's type.")
+
 (defvar my/node-title-width 50
   "Column where the aliases start in the node finder.")
 
@@ -113,8 +116,9 @@ Skips Emacs lock files (.#foo.org), anything in a hidden directory
              "[ \t]+:[[:alnum:]_@#%:]+:[ \t]*$" "" s)))
     (string-trim s)))
 
-(defun my/node--drawer-aliases ()
-  "With point on an :ID: line, return aliases from the same property drawer."
+(defun my/node--drawer-property (name)
+  "With point on an :ID: line, return property NAME from the same drawer.
+Returns the trimmed value string, or nil if the property is missing."
   (save-excursion
     (let* ((beg (progn (re-search-backward "^[ \t]*:PROPERTIES:[ \t]*$" nil t)
                        (point)))
@@ -122,10 +126,19 @@ Skips Emacs lock files (.#foo.org), anything in a hidden directory
                        (point))))
       (goto-char beg)
       (when (re-search-forward
-             (format "^[ \t]*:%s:[ \t]+\\(.+\\)$"
-                     (regexp-quote my/node-alias-property))
+             (format "^[ \t]*:%s:[ \t]+\\(.+\\)$" (regexp-quote name))
              end t)
-        (my/node--parse-aliases (match-string 1))))))
+        (string-trim (match-string 1))))))
+
+(defun my/node--drawer-aliases ()
+  "With point on an :ID: line, return aliases from the same property drawer."
+  (let ((value (my/node--drawer-property my/node-alias-property)))
+    (when value (my/node--parse-aliases value))))
+
+(defun my/node--drawer-type ()
+  "With point on an :ID: line, return the node's type, or nil."
+  (let ((value (my/node--drawer-property my/node-type-property)))
+    (and value (not (string-empty-p value)) value)))
 
 (defun my/node--file-tags ()
   "Return the tags of the `#+filetags:' keyword in the current buffer."
@@ -135,12 +148,15 @@ Skips Emacs lock files (.#foo.org), anything in a hidden directory
       ;; Accepts both \":a:b:\" and the older \"a b\" format.
       (split-string (match-string 1) "[: \t]+" t))))
 
-(defun my/node--display (title aliases &optional tags)
-  "Return the candidate text: TITLE, then ALIASES, then TAGS.
-ALIASES are dimmed and TAGS look like org-roam's (:a:b:)."
-  (if (or aliases tags)
+(defun my/node--display (title aliases &optional tags type)
+  "Return the candidate text: TITLE, then TYPE, ALIASES and TAGS.
+TYPE is a string, ALIASES are dimmed, and TAGS look like org-roam's
+(:a:b:). All of it is part of the text, so you can search by any of them."
+  (if (or aliases tags type)
       (concat (truncate-string-to-width title my/node-title-width
                                         0 ?\s "…")
+              (when type
+                (concat "  " (propertize type 'face 'font-lock-type-face)))
               (when aliases
                 (concat "  "
                         (propertize (string-join aliases ", ")
@@ -172,6 +188,7 @@ ALIASES are dimmed and TAGS look like org-roam's (:a:b:)."
       (while (re-search-forward "^[ \t]*:ID:[ \t]+\\(\\S-+\\)" nil t)
         (let* ((id (match-string 1))
                (aliases (my/node--drawer-aliases))
+               (type (my/node--drawer-type))
                (heading-pos
                 (save-excursion
                   (goto-char (match-beginning 0))
@@ -190,7 +207,8 @@ ALIASES are dimmed and TAGS look like org-roam's (:a:b:)."
           ;; #+filetags: is shown on file-level nodes only, so tags
           ;; don't leak onto the headings of the same file.
           (push (list (my/node--display shown aliases
-                                        (unless heading-pos file-tags))
+                                        (unless heading-pos file-tags)
+                                        type)
                       id file (or heading-pos 1) title aliases)
                 nodes)))
       nodes)))

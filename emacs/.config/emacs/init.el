@@ -1711,7 +1711,10 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-effort-durations '(("m" . 1) ("h" . 60) ("d" . 1440) ("w" . 10080) ("mon" . 43200) ("y" . 525960.0)))
   (setq org-global-properties
         '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
-          ))
+         ("TYPE_ALL" . "activity hub")))
+
+  ;; Make the key itself show up in the key prompt, even in files that don't use it yet
+  (add-to-list 'org-default-properties "TYPE")
 
   (defun my/org-clock-save-buffer ()
     "Save the buffer after a clock event, if it has a file and is modified."
