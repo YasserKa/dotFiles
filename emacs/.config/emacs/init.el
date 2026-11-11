@@ -1606,6 +1606,18 @@ Made for `org-tab-first-hook' in evil-mode."
      )
     )
 
+  ;; Beautify table
+  (use-package textui
+  :straight (textui :type git :host github :repo "yibie/textui"))
+
+  (use-package org-table-widget
+    :straight (org-table-widget :type git :host github :repo "yibie/org-table-widget")
+    :after org
+    :hook (org-mode . org-table-widget-mode)
+    :config
+    (setq org-table-widget-link-beautify-images t)
+    (require 'org-table-widget-link-beautify)
+    )
 
   (use-package org-download
     :after org
@@ -1711,7 +1723,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-effort-durations '(("m" . 1) ("h" . 60) ("d" . 1440) ("w" . 10080) ("mon" . 43200) ("y" . 525960.0)))
   (setq org-global-properties
         '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
-         ("TYPE_ALL" . "activity hub")))
+          ("TYPE_ALL" . "activity hub")))
 
   ;; Make the key itself show up in the key prompt, even in files that don't use it yet
   (add-to-list 'org-default-properties "TYPE")
@@ -2714,8 +2726,8 @@ that has the same total duration."
 (use-package org-roam-bibtex
   :after org-roam
   :config
-    (setq bibtex-completion-bibliography
-          (list (concat (getenv "XDG_CONFIG_HOME") "/Zotero/better-bibtex/my_library.bib")))
+  (setq bibtex-completion-bibliography
+        (list (concat (getenv "XDG_CONFIG_HOME") "/Zotero/better-bibtex/my_library.bib")))
   ) ; optional: if using Org-ref v2 or v3 citation links
 
 
@@ -3404,7 +3416,7 @@ with the file name kept at the start of each candidate."
   (" y" #'my/org-yank-heading-link "Yank heading using name & yank" :column " links")
   (" Y" #'my/org-yank-heading-id-link "Create id & yank" :column " links")
   (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
-  (" t" (lambda () (interactive) (call-interactively #'org-link-beautify-mode) (let ((current-prefix-arg 12)) (call-interactively #'org-link-preview))) "toggle")
+  (" t" (lambda () (interactive) (call-interactively #'org-link-beautify-mode) (call-interactively #'org-table-widget-mode) (let ((current-prefix-arg 12)) (call-interactively #'org-link-preview))) "toggle")
   )
 
 ;; Agenda
