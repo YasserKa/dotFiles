@@ -83,8 +83,7 @@ if [ "$1" == "-n" ]; then
 
 	new_path="$target_path/$new_file_name"
 	mv "$old_path" "$new_path"
-	clipboard_copy "#+ATTR_ORG: :width 450
-[[./images/$new_file_name]]"
+	clipboard_copy "[[img:$new_file_name]]"
 	notify-send "Saved as $new_file_name"
 	exit
 fi

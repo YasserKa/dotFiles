@@ -1097,8 +1097,9 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (org-cycle-include-plain-lists 'integrate "Keep items folded when cycling")
   (org-enforce-todo-dependencies t)
   (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
+  (org-link-abbrev-alist '(("img" . "~/notes/images/%s"))) ;; allow [[img:]] links
   (org-startup-with-inline-images t)
-  (org-image-actual-width '(500))
+  (org-image-actual-width '(700))
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
