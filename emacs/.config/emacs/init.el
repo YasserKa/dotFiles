@@ -472,40 +472,61 @@ does not have to do this by oneself."
     (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
   ;; Allow id auto-completion with [[]]
-  (defvar my/org-id--cache nil)
+  (require 'org-id)
 
-  (defun my/org-id-reset-cache ()
-    (interactive)
-    (setq my/org-id--cache nil))
+  (defvar my/org-id--file-cache (make-hash-table :test #'equal)
+    "FILE -> (MTIME . CANDIDATES).")
+
+  (defvar my/org-id--todo-re
+    (concat "\\`" (regexp-opt '("TODO" "NEXT" "WAIT" "DONE" "CANCELLED")) "[ \t]+")
+    "Leading keywords to strip from headings. Adjust to your setup.")
+
+  (defun my/org-id--clean-heading (h)
+    (let ((case-fold-search nil))
+      (setq h (replace-regexp-in-string my/org-id--todo-re "" h))
+      (setq h (replace-regexp-in-string "\\`\\[#.\\][ \t]+" "" h))
+      (setq h (replace-regexp-in-string "[ \t]+:[[:alnum:]_@#%:]+:[ \t]*\\'" "" h))
+      (string-trim h)))
+
+  (defun my/org-id--scan-file (file)
+    "Return (TITLE . ID) pairs in FILE without visiting it in org-mode."
+    (let (cands file-id file-title heading)
+      (with-temp-buffer
+        (insert-file-contents file)
+        (goto-char (point-min))
+        (let ((case-fold-search t))
+          (while (re-search-forward
+                  (concat "^\\(?:\\(\\*+\\)[ \t]+\\(.*\\)"      ; heading
+                          "\\|[ \t]*:ID:[ \t]+\\(\\S-+\\)"      ; ID property
+                          "\\|#\\+title:[ \t]*\\(.*\\)\\)")     ; file title
+                  nil t)
+            (cond
+             ((match-beginning 1) (setq heading (match-string 2)))
+             ((match-beginning 3)
+              (if heading
+                  (push (cons (my/org-id--clean-heading heading) (match-string 3)) cands)
+                (setq file-id (match-string 3))))
+             ((and (match-beginning 4) (not heading))
+              (setq file-title (string-trim (match-string 4))))))))
+      (when file-id
+        (push (cons (or file-title (file-name-base file)) file-id) cands))
+      cands))
 
   (defun my/org-id--candidates ()
-    "Alist of (TITLE . ID) for all files and headings with an ID."
-    (or my/org-id--cache
-        (setq my/org-id--cache
-              (let (cands)
-                (unless org-id-locations (org-id-locations-load))
-                (dolist (file (delete-dups
-                               (if (hash-table-p org-id-locations)
-                                   (hash-table-values org-id-locations)
-                                 (mapcar #'car org-id-locations))))
-                  (when (file-exists-p file)
-                    (with-current-buffer (find-file-noselect file)
-                      (org-with-wide-buffer
-                       ;; File-level ID
-                       (goto-char (point-min))
-                       (when-let* ((id (org-entry-get nil "ID")))
-                         (push (cons (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
-                                         (file-name-base file))
-                                     id)
-                               cands))
-                       ;; Heading IDs
-                       (org-map-entries
-                        (lambda ()
-                          (push (cons (org-get-heading t t t t)
-                                      (org-entry-get nil "ID"))
-                                cands))
-                        "ID<>\"\"")))))
-                cands))))
+    (unless org-id-locations (org-id-locations-load))
+    (let (all)
+      (dolist (file (delete-dups
+                     (if (hash-table-p org-id-locations)
+                         (hash-table-values org-id-locations)
+                       (mapcar #'car org-id-locations))))
+        (when-let* ((attrs (file-attributes file)))
+          (let ((mtime (file-attribute-modification-time attrs))
+                (cached (gethash file my/org-id--file-cache)))
+            (unless (equal (car cached) mtime)
+              (setq cached (cons mtime (my/org-id--scan-file file)))
+              (puthash file cached my/org-id--file-cache))
+            (setq all (append (cdr cached) all)))))
+      all))
 
   (defun my/org-id-capf ()
     "Complete Org ID links after `[['."
