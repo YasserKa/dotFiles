@@ -15,10 +15,10 @@
          'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
- (setq straight-check-for-modifications '(find-when-checking
+  (setq straight-check-for-modifications '(find-when-checking
                                            check-on-save)
         straight-vc-git-default-clone-depth 2)
-(when (daemonp) (setq straight-build-dir (concat "build" "_" (daemonp))))
+  (when (daemonp) (setq straight-build-dir (concat "build" "_" (daemonp))))
   (load bootstrap-file nil 'nomessage))
 
 (setq straight-use-package-by-default t)
@@ -156,11 +156,19 @@
 
 (use-package modus-themes
   :config
-  ;; Better org mode code block syntax
   (setq modus-themes-bold-constructs t
         modus-themes-italic-constructs t
-        modus-themes-org-blocks 'gray-background)
-  (load-theme 'modus-operandi-tinted :no-confirm))
+        modus-themes-common-palette-overrides
+        ;; Changing code & verbatim emphasis
+        '((fg-prose-code magenta-warmer)
+          (bg-prose-code bg-dim)
+          (fg-prose-verbatim green-cooler)
+          (bg-prose-verbatim bg-dim)))
+
+  (load-theme 'modus-operandi-tinted :no-confirm)
+  )
+
+
 
 (setq my/default-font "Firacode Nerd Font")
 (set-face-attribute 'default nil :family my/default-font :height 120)
@@ -234,9 +242,9 @@
   :hook (org-mode . (lambda ()
                       (modify-syntax-entry ?$ "\"" org-mode-syntax-table)
                       ))
-(emacs-lisp-mode . (lambda ()
-  (setq electric-pair-preserve-balance t)
-                      ))
+  (emacs-lisp-mode . (lambda ()
+                       (setq electric-pair-preserve-balance t)
+                       ))
   :custom
   (electric-pair-preserve-balance nil)
   :config
@@ -249,7 +257,7 @@
      ((when (eq (following-char) 0) ) nil)
      ))
 
-     (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
+  (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
   )
 
 (use-package flycheck)
@@ -458,67 +466,67 @@ does not have to do this by oneself."
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-properties)
 
-(use-package yasnippet-capf
-  :after cape
-  :config
-  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+  (use-package yasnippet-capf
+    :after cape
+    :config
+    (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
-;; Allow id auto-completion with [[]]
-(defvar my/org-id--cache nil)
+  ;; Allow id auto-completion with [[]]
+  (defvar my/org-id--cache nil)
 
-(defun my/org-id-reset-cache ()
-  (interactive)
-  (setq my/org-id--cache nil))
+  (defun my/org-id-reset-cache ()
+    (interactive)
+    (setq my/org-id--cache nil))
 
-(defun my/org-id--candidates ()
-  "Alist of (TITLE . ID) for all files and headings with an ID."
-  (or my/org-id--cache
-      (setq my/org-id--cache
-            (let (cands)
-              (unless org-id-locations (org-id-locations-load))
-              (dolist (file (delete-dups
-                             (if (hash-table-p org-id-locations)
-                                 (hash-table-values org-id-locations)
-                               (mapcar #'car org-id-locations))))
-                (when (file-exists-p file)
-                  (with-current-buffer (find-file-noselect file)
-                    (org-with-wide-buffer
-                     ;; File-level ID
-                     (goto-char (point-min))
-                     (when-let* ((id (org-entry-get nil "ID")))
-                       (push (cons (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
-                                       (file-name-base file))
-                                   id)
-                             cands))
-                     ;; Heading IDs
-                     (org-map-entries
-                      (lambda ()
-                        (push (cons (org-get-heading t t t t)
-                                    (org-entry-get nil "ID"))
-                              cands))
-                      "ID<>\"\"")))))
-              cands))))
+  (defun my/org-id--candidates ()
+    "Alist of (TITLE . ID) for all files and headings with an ID."
+    (or my/org-id--cache
+        (setq my/org-id--cache
+              (let (cands)
+                (unless org-id-locations (org-id-locations-load))
+                (dolist (file (delete-dups
+                               (if (hash-table-p org-id-locations)
+                                   (hash-table-values org-id-locations)
+                                 (mapcar #'car org-id-locations))))
+                  (when (file-exists-p file)
+                    (with-current-buffer (find-file-noselect file)
+                      (org-with-wide-buffer
+                       ;; File-level ID
+                       (goto-char (point-min))
+                       (when-let* ((id (org-entry-get nil "ID")))
+                         (push (cons (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
+                                         (file-name-base file))
+                                     id)
+                               cands))
+                       ;; Heading IDs
+                       (org-map-entries
+                        (lambda ()
+                          (push (cons (org-get-heading t t t t)
+                                      (org-entry-get nil "ID"))
+                                cands))
+                        "ID<>\"\"")))))
+                cands))))
 
-(defun my/org-id-capf ()
-  "Complete Org ID links after `[['."
-  (when (looking-back "\\[\\[\\([^]\n]*\\)" (line-beginning-position))
-    (let ((beg (match-beginning 1))
-          (cands (my/org-id--candidates)))
-      (list beg (point) cands
-            :exclusive 'no
-            :annotation-function (lambda (_) " id")
-            :exit-function
-            (lambda (str _status)
-              (when-let* ((id (cdr (assoc str cands))))
-                (delete-region (- (point) (length str) 2) (point))
-                (when (looking-at "\\]\\]") (delete-char 2)) ; electric-pair leftovers
-                (insert (org-link-make-string (concat "id:" id) str))))))))
+  (defun my/org-id-capf ()
+    "Complete Org ID links after `[['."
+    (when (looking-back "\\[\\[\\([^]\n]*\\)" (line-beginning-position))
+      (let ((beg (match-beginning 1))
+            (cands (my/org-id--candidates)))
+        (list beg (point) cands
+              :exclusive 'no
+              :annotation-function (lambda (_) " id")
+              :exit-function
+              (lambda (str _status)
+                (when-let* ((id (cdr (assoc str cands))))
+                  (delete-region (- (point) (length str) 2) (point))
+                  (when (looking-at "\\]\\]") (delete-char 2)) ; electric-pair leftovers
+                  (insert (org-link-make-string (concat "id:" id) str))))))))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (add-hook 'completion-at-point-functions #'my/org-id-capf nil t)))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'completion-at-point-functions #'my/org-id-capf nil t)))
 
-)
+  )
 
 (use-package evil
   :init
@@ -965,19 +973,19 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                  (char-after))))))
 
   (aas-set-snippets 'laas-mode
-                    ;; set condition!
-                    ;; :cond #'my/tex-nonmathp
-                    :cond #'my/nonmath-standalone-dm-p
-                    "dm" '(yas "\\[
+    ;; set condition!
+    ;; :cond #'my/tex-nonmathp
+    :cond #'my/nonmath-standalone-dm-p
+    "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
-                    :cond #'texmathp ; expand only while in math
-                    "t=" "\\triangleq"
-                    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
-                    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
+    :cond #'texmathp ; expand only while in math
+    "t=" "\\triangleq"
+    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
+    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
+    ;; add accent snippets
+    :cond #'laas-object-on-left-condition
+    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
   )
 
 ;; Used to insert latex environments and math templates
@@ -1160,23 +1168,23 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
 
   (defun my/link-run (program path)
     (apply #'start-process program nil program
-          (delq nil (delete "" (my/link-split path)))))
+           (delq nil (delete "" (my/link-split path)))))
 
   (org-link-set-parameters
-  "doc"
-  :follow (lambda (path _) (my/link-run "open_document" path)))
+   "doc"
+   :follow (lambda (path _) (my/link-run "open_document" path)))
 
   (org-link-set-parameters
-  "web"
-  :follow (lambda (path _) (my/link-run "open_webpage" path))
-  ;; Export as an ordinary hyperlink, without the position.
-  :export (lambda (path desc backend _)
-            (let ((url (car (my/link-split path))))
-              (pcase backend
-                ('html (format "<a href=\"%s\">%s</a>" url (or desc url)))
-                ('latex (format "\\href{%s}{%s}" url (or desc url)))
-                ('md (format "[%s](%s)" (or desc url) url))
-                (_ url)))))
+   "web"
+   :follow (lambda (path _) (my/link-run "open_webpage" path))
+   ;; Export as an ordinary hyperlink, without the position.
+   :export (lambda (path desc backend _)
+             (let ((url (car (my/link-split path))))
+               (pcase backend
+                 ('html (format "<a href=\"%s\">%s</a>" url (or desc url)))
+                 ('latex (format "\\href{%s}{%s}" url (or desc url)))
+                 ('md (format "[%s](%s)" (or desc url) url))
+                 (_ url)))))
 
   (use-package org-link-maint
     :straight nil
@@ -1609,7 +1617,7 @@ Made for `org-tab-first-hook' in evil-mode."
 
   ;; Beautify table
   (use-package textui
-  :straight (textui :type git :host github :repo "yibie/textui"))
+    :straight (textui :type git :host github :repo "yibie/textui"))
 
   (use-package org-table-widget
     :straight (org-table-widget :type git :host github :repo "yibie/org-table-widget")
@@ -2105,8 +2113,6 @@ see how ARG affects this command."
    ;; Check https://github.com/doomemacs/themes/issues/453
    '(org-block-begin-line ((t (:background unspecified :weight bold))))
    '(org-block-end-line ((t (:background unspecified :weight bold))))
-   '(org-code ((t (:background "#e0e0e0" :foreground "#000000" :inverse-video nil  :height 0.9 :box (:line-width 1 :color "#000000")))))
-   '(org-verbatim ((t (:inherit org-code))))
    )
 
   ;; Used by babel
