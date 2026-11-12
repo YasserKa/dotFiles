@@ -3416,21 +3416,45 @@ with the file name kept at the start of each candidate."
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
-(defun my/org-yank-heading-link ()
-  "Copy a link to the current heading, described as \"<title>: <heading>\" (no ID)."
-  (interactive)
-  (let* ((org-id-link-to-org-use-id nil)
-         (raw (org-store-link nil))
-         (target (if (string-match org-link-bracket-re raw)
-                     (match-string 1 raw)
-                   raw))
-         (title (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
-                    (file-name-base (buffer-file-name (buffer-base-buffer)))))
-         (heading (org-get-heading t t t t))
-         (link (org-link-make-string target (format "%s: %s" title heading))))
-    (kill-new link)
-    (message "Copied: %s" link)))
+;; {{{ Yanking links
+;; Custom ID
+(defun my/org--slugify (s)
+  "Turn S into a CUSTOM_ID-friendly slug."
+  (let ((slug (downcase s)))
+    (setq slug (replace-regexp-in-string "[^[:alnum:]]+" "-" slug))
+    (string-trim slug "-+" "-+")))
 
+(defun my/org--unique-custom-id (base)
+  "Return BASE, or BASE-N, so it isn't already a CUSTOM_ID in this buffer."
+  (let ((id base) (n 1))
+    (while (org-find-property "CUSTOM_ID" id)
+      (setq n (1+ n)
+            id (format "%s-%d" base n)))
+    id))
+
+(defun my/org-yank-heading-link ()
+  "Copy a link to the current heading via its CUSTOM_ID, creating one if needed.
+The description is \"<title>: <heading>\", with any links in the heading
+replaced by their descriptions."
+  (interactive)
+  (save-excursion
+    (org-back-to-heading t)
+    (let* ((file (buffer-file-name (buffer-base-buffer)))
+           (heading (org-link-display-format (org-get-heading t t t t)))
+           (custom-id (or (org-entry-get nil "CUSTOM_ID")
+                          (let ((new (my/org--unique-custom-id
+                                      (my/org--slugify heading))))
+                            (org-entry-put nil "CUSTOM_ID" new)
+                            new)))
+           (title (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
+                      (file-name-base file)))
+           (link (org-link-make-string
+                  (concat "file:" (abbreviate-file-name file) "::#" custom-id)
+                  (format "%s: %s" title heading))))
+      (kill-new link)
+      (message "Copied: %s" link))))
+
+;; ID
 (defun my/org-yank-heading-id-link ()
   "Add an ID to the current heading if missing, then copy an id: link to it."
   (interactive)
@@ -3439,6 +3463,7 @@ with the file name kept at the start of each candidate."
          (link (org-store-link nil)))
     (kill-new link)
     (message "Copied: %s" link)))
+;; }}}
 
 (defhydra org-links-hydra (:exit t :idle 1)
   (" y" #'my/org-yank-heading-link "Yank heading using name & yank" :column " links")
