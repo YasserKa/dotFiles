@@ -1575,6 +1575,51 @@ Made for `org-tab-first-hook' in evil-mode."
       (dolist (type '("tb" "gls"))
         (org-link-set-parameters type :preview fn)))
 
+    ;; Beautify files
+    (use-package boxquote
+      :ensure t)
+
+    ;; Preview images for files
+    (defvar my/org-link-file-preview-orig nil
+      "Original org-link-beautify :preview function for file: links.")
+
+    ;; Show preview for these files
+    (defvar my/org-link-rich-preview-regexp
+      (rx "." (or "png" "jpg" "jpeg" "gif" "svg" "webp"
+                  "pdf" "epub" "mp4" "mkv" "webm" "mp3" "flac")
+          eos)
+      "File links matching this get org-link-beautify's full preview.")
+
+
+    (defun my/org-link-file-preview (ov path link)
+      "Rich preview for media files, icon + description for everything else."
+      (if (and my/org-link-file-preview-orig
+               (string-match-p my/org-link-rich-preview-regexp (downcase path)))
+          (funcall my/org-link-file-preview-orig ov path link)
+        (let* ((file (expand-file-name path))
+               (icon (cond
+                      ((file-directory-p file) (nerd-icons-icon-for-dir file))
+                      ((and (file-executable-p file) (not (file-name-extension file)))
+                       (nerd-icons-codicon "nf-cod-terminal"))
+                      (t (nerd-icons-icon-for-file file))))
+               (cb (org-element-property :contents-begin link))
+               (ce (org-element-property :contents-end link))
+               (desc (if (and cb ce)
+                         (buffer-substring-no-properties cb ce)
+                       (abbreviate-file-name path))))
+          (overlay-put ov 'display
+                       (concat icon " " (propertize desc 'face 'org-link)))
+          t)))   ; non-nil = keep the overlay
+
+    (defun my/org-link-install-file-preview ()
+      (let ((current (org-link-get-parameter "file" :preview)))
+        (unless (eq current #'my/org-link-file-preview)
+          (setq my/org-link-file-preview-orig current)
+          (org-link-set-parameters "file" :preview #'my/org-link-file-preview))))
+
+    (add-hook 'org-mode-hook #'my/org-link-install-file-preview 90)
+
+
     (setq org-startup-with-link-previews t)
     (setq org-link-descriptive nil)
     ;; Agenda buffers: show descriptive links
