@@ -47,6 +47,15 @@ vim.api.nvim_create_autocmd("BufNewFile", {
   command = "0r ~/.config/nvim/skeletons/skeleton.py | exe 'normal jo' | startinsert",
 })
 
+-- Don't add end of line for snippets in Emacs
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*/snippets/*",
+  callback = function()
+    vim.opt_local.fixendofline = false
+    vim.opt_local.endofline = false
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = { "*.py" },
   callback = function(args)
