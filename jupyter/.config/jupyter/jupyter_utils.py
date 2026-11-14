@@ -2,7 +2,10 @@ import os
 import json
 import time
 import pandas as pd
+import importlib
 import sys
+import subprocess
+from contextlib import contextmanager
 from IPython import get_ipython
 from IPython.display import display
 from IPython.core.magic import register_cell_magic
@@ -71,8 +74,6 @@ class JupyterUtils:
 
             torch.set_printoptions(threshold=float("inf"), linewidth=200)
 
-    from contextlib import contextmanager
-
     @contextmanager
     def full_display(self):
         """Temporarily show all rows/columns."""
@@ -90,12 +91,10 @@ class JupyterUtils:
         """Load dataFrame or dictionary"""
         path = os.path.join(self.tmp_folder, f"{name}")
         if os.path.exists(f"{path}.parquet"):
-            object = pd.read_parquet(f"{path}.parquet")
+            data = pd.read_parquet(f"{path}.parquet")
         elif os.path.exists(f"{path}.json"):
-            import json
-
             with open(f"{path}.json") as f:
-                object = json.load(f)
+                data = json.load(f)
         else:
             print(f"path not found {path}")
             return None
@@ -187,19 +186,76 @@ class JupyterUtils:
 
         return stats
 
+    @staticmethod
+    def mem_usage(df):
+        """Show memory usage of DataFrame columns."""
+        usage = df.memory_usage(deep=True)
+        usage_mb = usage / 1024**2
+        return pd.DataFrame({"bytes": usage, "MB": usage_mb.round(2)}).sort_values(
+            "MB", ascending=False
+        )
+
+    @staticmethod
+    def diff_dfs(df1, df2, name1="df1", name2="df2"):
+        """Compare two DataFrames and show differences."""
+        print(f"Shape: {name1}={df1.shape}, {name2}={df2.shape}")
+        print(f"\nColumns only in {name1}:", set(df1.columns) - set(df2.columns))
+        print(f"Columns only in {name2}:", set(df2.columns) - set(df1.columns))
+        print(f"\nCommon columns with different dtypes:")
+        common = set(df1.columns) & set(df2.columns)
+        for col in common:
+            if df1[col].dtype != df2[col].dtype:
+                print(f"  {col}: {df1[col].dtype} vs {df2[col].dtype}")
+
+    @staticmethod
+    def corr_with(df, target_col, top=10):
+        """Show correlations with a target column."""
+        numeric_df = df.select_dtypes(include="number")
+        if target_col not in numeric_df.columns:
+            print(f"Column '{target_col}' is not numeric")
+            return None
+        corrs = numeric_df.corr()[target_col].abs().sort_values(ascending=False)
+        return corrs.head(top + 1)[1:]  # Exclude self-correlation
+
+    # ---------------------------
+    # Quick plotting
+    # ---------------------------
+    @staticmethod
+    def quick_plot(df, cols=None):
+        import matplotlib.pyplot as plt
+
+        cols = cols or df.select_dtypes(include="number").columns
+        df[cols].plot(figsize=(8, 5))
+        plt.show()
+
+    # ---------------------------
+    # Reload module
+    # ---------------------------
+    @staticmethod
+    def reload_module(mod):
+        importlib.reload(mod)
+
+    # ---------------------------
+    # System / environment info
+    # ---------------------------
+    @staticmethod
+    def sys_info():
+        import platform
+
+        print("Python:", sys.version)
+        print("Platform:", platform.platform())
+        print("Current working dir:", os.getcwd())
+
 
 # ---------------------------
 # Jupyter cell magics
 # ---------------------------
 @register_cell_magic
 def notify(line, cell):
-    """Send notification after cell execution."""
-    get_ipython().run_cell(cell)
-    notification_msg = line
-    if notification_msg == "":
-        notification_msg = "Cell execution done"
-
-    os.system(f"dunstify --timeout 9999 '{notification_msg}'")
+    """Send notification after cell execution, reporting failures."""
+    result = get_ipython().run_cell(cell)
+    msg = line or ("Cell failed" if not result.success else "Cell execution done")
+    subprocess.run(["dunstify", "--timeout", "9999", msg])
 
 
 @register_cell_magic
