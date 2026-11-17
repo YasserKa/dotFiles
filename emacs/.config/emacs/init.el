@@ -1294,6 +1294,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   ;; Use mailcap software for power point files
   (add-to-list 'org-file-apps '("\\.pptx\\'" . system))
   (add-to-list 'org-file-apps '("\\.pdf::\\([0-9]+\\)\\'" . "zathura --page=%1 %s"))
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . "xdg-open %s"))
   (setf (alist-get 'system org-file-apps-gnu) "xdg-open %s")
 
   (defun my/update-org-level-face ()
@@ -2423,6 +2424,23 @@ see how ARG affects this command."
         org-export-coding-system 'utf-8
         org-export-preserve-breaks t
         org-export-with-todo-keywords nil)
+
+  ;; Move org exported files to another directory
+  (defvar my/org-export-dir "/tmp/org_export/")
+
+  (defun my/org-export-pdf-and-open ()
+    "Export current Org buffer to PDF in `my/org-export-dir' and open it."
+    (interactive)
+    (org-open-file (org-latex-export-to-pdf)))
+
+  (defun my/org-export-to-dir (orig extension &optional subtreep pub-dir)
+    (if (and (null pub-dir) (member extension '(".tex" ".pdf")))
+        (progn
+          (make-directory my/org-export-dir t)
+          (funcall orig extension subtreep my/org-export-dir))
+      (funcall orig extension subtreep pub-dir)))
+
+  (advice-add 'org-export-output-file-name :around #'my/org-export-to-dir)
 
   ;; Functions used for org-protocol to refile using a floating frame
   (defun my/close-client-frame (frame)
