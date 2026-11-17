@@ -17,7 +17,8 @@
 ;; Non-Org links (URLs, other file types) are ignored.
 ;;
 ;; "Node" has the same meaning as in org-backlinks.el: the closest heading
-;; (self or ancestor) with an :ID:, or the file-level node.  Links inside
+;; (self or ancestor) with an :ID: or :CUSTOM_ID: (see
+;; `my/org-bl-node-properties'), or the file-level node.  Links inside
 ;; nested nodes with their own :ID: do not belong to the outer node.
 ;;
 ;; The sidecar section follows `my/org-bl-scope', so C-c b / C-c B switch
@@ -206,7 +207,7 @@ order of first appearance, with unresolved links last (KEY nil).  TARGET is
                   (save-restriction
                     (widen)
                     (if node
-                        (progn (goto-char owner) (org-get-heading t t t t))
+                        (progn (goto-char owner) (my/org-bl--heading-title))
                       (my/org-bl--file-title)))))
          (entries
           (seq-filter

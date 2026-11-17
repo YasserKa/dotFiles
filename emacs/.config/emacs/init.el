@@ -44,6 +44,7 @@
 ;; }}}
 ;; Defining variables {{{
 (defconst my/notes-dir (concat (getenv "NOTES_ORG_HOME") "/") "Notes directory")
+(defconst my/papers-notes-dir (concat my/notes-dir "references") "Papers notes directory")
 ;; }}}
 ;; Better defaults {{{
 ;; Use y/n for yes/no prompts
@@ -1046,6 +1047,11 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   ;; Increase size of LaTeX fragments
   (plist-put org-latex-preview-appearance-options :zoom 1.25)
 
+  ;; Make inline math size bigger
+  (setq org-latex-preview-preamble
+        (concat org-latex-preview-preamble
+                "\n\\everymath{\\displaystyle}"))
+
   (setq
    cdlatex-math-symbol-alist
    '( ;; adding missing functions to 3rd level symbols
@@ -1094,7 +1100,8 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
     )
   ;; TODO: Server problems
   (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-  (add-hook 'LaTeX-mode-hook #'my/setup-latex-mode)
+  ;; Don't start it up, because it overrides org if a latex file is opened
+  ;; (add-hook 'LaTeX-mode-hook #'my/setup-latex-mode)
   (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
   (add-hook 'LaTeX-mode-hook 'prettify-symbols-mode)
   (setq TeX-PDF-mode t
@@ -1236,7 +1243,11 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (use-package org-link-maint
     :straight nil
     :after (org consult)
-    :custom (org-link-maint-command-link-types '(("doc" . "open_document")))
+    :custom
+    (org-link-maint-command-link-types '(("doc" . "open_document")))
+    (org-link-maint-orphan-exclude-directories (list my/papers-notes-dir))
+    (org-link-maint-notify 'always) ;; Notify on all issues
+    (org-link-maint-background-idle nil)
     :config (org-link-maint-mode 1) ;; Shows broken links
     )
 
@@ -1245,6 +1256,11 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
     :after (org consult universal-sidecar)
     :config
     (add-to-list 'universal-sidecar-sections 'org-custom-id-backlinks-section))
+
+  ;; C-v C-x M-v bindings in consult
+  (use-package my-open-elsewhere
+    :straight nil
+    :config (my/open-elsewhere-global-mode 1))
 
   (use-package org-forwardlinks
     :straight nil                                             ; local file, don't fetch
@@ -1516,8 +1532,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (advice-add 'org-archive-subtree :around #'my/update-archive-location)
 
   ;; Toggle subtree narrowing
-  (with-eval-after-load "org"
-    (keymap-set org-mode-map "C-x n n" #'org-toggle-narrow-to-subtree))
+  (keymap-set org-mode-map "C-x n t" #'org-toggle-narrow-to-subtree)
 
   (defun my/org-sort ()
     "Sort entries to move DONE items to the bottom, then by priority (A, B, C, D)."
@@ -1618,24 +1633,28 @@ Made for `org-tab-first-hook' in evil-mode."
 
 
     (defun my/org-link-file-preview (ov path link)
-      "Rich preview for media files, icon + description for everything else."
-      (if (and my/org-link-file-preview-orig
-               (string-match-p my/org-link-rich-preview-regexp (downcase path)))
-          (funcall my/org-link-file-preview-orig ov path link)
-        (let* ((file (expand-file-name path))
-               (icon (cond
-                      ((file-directory-p file) (nerd-icons-icon-for-dir file))
-                      ((and (file-executable-p file) (not (file-name-extension file)))
-                       (nerd-icons-codicon "nf-cod-terminal"))
-                      (t (nerd-icons-icon-for-file file))))
-               (cb (org-element-property :contents-begin link))
-               (ce (org-element-property :contents-end link))
-               (desc (if (and cb ce)
-                         (buffer-substring-no-properties cb ce)
-                       (abbreviate-file-name path))))
-          (overlay-put ov 'display
-                       (concat icon " " (propertize desc 'face 'org-link)))
-          t)))   ; non-nil = keep the overlay
+      "Rich preview for media files, icon + description for everything else.
+Plain (unbracketed) links are left as raw text."
+      (unless (eq (org-element-property :format link) 'plain)
+        (if (and my/org-link-file-preview-orig
+                 (string-match-p my/org-link-rich-preview-regexp (downcase path)))
+            (funcall my/org-link-file-preview-orig ov path link)
+          (let* ((file (expand-file-name path))
+                 (icon (cond
+                        ((file-directory-p file) (nerd-icons-icon-for-dir file))
+                        ((and (file-executable-p file) (not (file-name-extension file)))
+                         (nerd-icons-codicon "nf-cod-terminal"))
+                        (t (nerd-icons-icon-for-file file))))
+                 (cb (org-element-property :contents-begin link))
+                 (ce (org-element-property :contents-end link))
+                 (desc (if (and cb ce)
+                           (buffer-substring-no-properties cb ce)
+                         (let ((opt (org-element-property :search-option link)))
+                           (concat (abbreviate-file-name path)
+                                   (when opt (concat "::" opt)))))))
+            (overlay-put ov 'display
+                         (concat icon " " (propertize desc 'face 'org-link)))
+            t))))   ; non-nil = keep the overlay
 
     (defun my/org-link-install-file-preview ()
       (let ((current (org-link-get-parameter "file" :preview)))
@@ -1663,6 +1682,48 @@ Made for `org-tab-first-hook' in evil-mode."
       "Remove preview overlay OV before text is inserted at its start."
       (unless after (delete-overlay ov)))
 
+    (defun my/org-internal-link-previews (beg end)
+      "Icon + description overlays for [[*heading]] and [[#custom-id]] links."
+      (save-excursion
+        (goto-char beg)
+        (while (re-search-forward org-link-bracket-re end t)
+          (let* ((mb (match-beginning 0))
+                 (me (match-end 0))
+                 (path (match-string-no-properties 1))
+                 (desc (match-string-no-properties 2))
+                 (icon (pcase (and (> (length path) 0) (aref path 0))
+                         (?* (nerd-icons-mdicon "nf-md-format_header_pound"))
+                         (?# (nerd-icons-mdicon "nf-md-pound")))))
+            (when (and icon
+                       ;; skip half-edited links that swallowed the next line
+                       (not (string-match-p "\n" (buffer-substring-no-properties mb me)))
+                       (not (seq-some (lambda (o) (overlay-get o 'my/internal-link))
+                                      (overlays-in mb me))))
+              (let ((ov (make-overlay mb me)))
+                (overlay-put ov 'my/internal-link t)
+                (overlay-put ov 'evaporate t)
+                (overlay-put ov 'display
+                             (concat icon " "
+                                     (propertize (or desc (substring path 1))
+                                                 'face 'org-link)))
+                (my/org-link-truncate-display ov)
+                ;; remove the overlay when you type in front of it or edit inside it
+                (overlay-put ov 'insert-in-front-hooks (list #'my/org-link-preview-guard))
+                (overlay-put ov 'modification-hooks (list #'my/org-link-preview-guard))))))))
+
+    (defvar my/org-link-preview-max-width 90
+      "Truncate beautified link display strings longer than this.")
+
+    (defun my/org-link-truncate-display (ov)
+      "Shorten OV's display string so it stays on one screen line."
+      (let ((d (overlay-get ov 'display)))
+        (when (and (stringp d)
+                   (> (string-width d) my/org-link-preview-max-width))
+          (overlay-put ov 'help-echo d)
+          (overlay-put ov 'display
+                       (truncate-string-to-width
+                        d my/org-link-preview-max-width nil nil "…")))))
+
     (defun my/org-link-preview-jit (beg end)
       "Preview Org links on the lines covering BEG..END when jit-lock fontifies them."
       (when (derived-mode-p 'org-mode)
@@ -1672,17 +1733,40 @@ Made for `org-tab-first-hook' in evil-mode."
                     (lend (progn (goto-char end) (line-end-position))))
                 (when (< lbeg lend)
                   (org-link-preview-region t nil lbeg lend)
+                  (when (bound-and-true-p org-link-beautify-mode)
+                    (my/org-internal-link-previews lbeg lend))
                   (dolist (ov (overlays-in lbeg lend))
-                    (when (and (or (overlay-get ov 'display)
-                                   (overlay-get ov 'before-string))
-                               (not (overlay-get ov 'insert-in-front-hooks)))
-                      (overlay-put ov 'insert-in-front-hooks
-                                   (list #'my/org-link-preview-guard)))))))
+                    (when (memq ov org-link-preview-overlays)
+                      (if (save-excursion
+                            (goto-char (overlay-start ov))
+                            (search-forward "\n" (overlay-end ov) t))
+                          (delete-overlay ov)
+                        (my/org-link-truncate-display ov)
+                        (unless (overlay-get ov 'insert-in-front-hooks)
+                          (overlay-put ov 'insert-in-front-hooks
+                                       (list #'my/org-link-preview-guard)))))))))
           (error (message "[preview-jit] error: %S" err)))))
 
     (add-hook 'org-mode-hook
               (lambda ()
                 (jit-lock-register #'my/org-link-preview-jit)))
+
+    (defun my/org-link-beautify-toggle ()
+      "Keep custom previews in sync with `org-link-beautify-mode'."
+      (when org-link-beautify-mode
+        (my/org-link-install-file-preview))
+      (dolist (buf (buffer-list))
+        (with-current-buffer buf
+          (when (derived-mode-p 'org-mode)
+            (save-restriction
+              (widen)
+              (if org-link-beautify-mode
+                  (progn
+                    (org-link-preview-region t t (point-min) (point-max))
+                    (my/org-internal-link-previews (point-min) (point-max)))
+                (remove-overlays (point-min) (point-max) 'my/internal-link t)))))))
+
+    (add-hook 'org-link-beautify-mode-hook #'my/org-link-beautify-toggle)
 
     (defun add-icons (_ov _path link)
       "Return custom icons for some link types, nil for the rest."
@@ -1824,7 +1908,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-effort-durations '(("m" . 1) ("h" . 60) ("d" . 1440) ("w" . 10080) ("mon" . 43200) ("y" . 525960.0)))
   (setq org-global-properties
         '(("COLUMNS". "%50ITEM(Task) %2PRIORITY %5Effort(Effort){:} %5CLOCKSUM(Spent)")
-          ("TYPE_ALL" . "activity hub")))
+          ("TYPE_ALL" . "activity hub standalone")))
 
   ;; Make the key itself show up in the key prompt, even in files that don't use it yet
   (add-to-list 'org-default-properties "TYPE")
@@ -2338,9 +2422,6 @@ see how ARG affects this command."
     (setq org-protocol-default-template-key "q")
     )
 
-  ;; (use-package org-protocol-capture-html
-  ;;   :ensure nil)
-
   (defun my/org-open-all-links-in-subtree ()
     "Open all the links in the current subtree.
 Note: this uses Org's internal variable `org-link--search-failed'."
@@ -2428,6 +2509,167 @@ that has the same total duration."
   ;; Able to add clock time to log retrospectively
   (use-package org-retroclock
     :straight (:type git :host github :repo "Jotham-LEC/org-retroclock"))
+
+  ;; {{{ Yanking links and inserting them using embark
+;;; Helpers
+  (defun my/org--slugify (s)
+    "Turn S into a CUSTOM_ID-friendly slug."
+    (let ((slug (downcase s)))
+      (setq slug (replace-regexp-in-string "[^[:alnum:]]+" "-" slug))
+      (string-trim slug "-+" "-+")))
+
+  (defun my/org--unique-custom-id (base)
+    "Return BASE, or BASE-N, so it isn't already a CUSTOM_ID in this buffer."
+    (let ((id base) (n 1))
+      (while (org-find-property "CUSTOM_ID" id)
+        (setq n (1+ n)
+              id (format "%s-%d" base n)))
+      id))
+
+  (defun my/org--file ()
+    (buffer-file-name (buffer-base-buffer)))
+
+  (defun my/org--heading ()
+    "Current heading text with links flattened to their descriptions."
+    (org-link-display-format (org-get-heading t t t t)))
+
+  (defun my/org--description ()
+    "Return \"<title>: <heading>\"."
+    (let ((title (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
+                     (file-name-base (my/org--file)))))
+      (format "%s: %s" title (my/org--heading))))
+
+  (defun my/org--file-id ()
+    "Return the file-level :ID: of the current buffer, or nil."
+    (org-with-wide-buffer
+     (goto-char (point-min))
+     (unless (org-at-heading-p)
+       (org-entry-get (point-min) "ID"))))
+
+  (defun my/org--file-target ()
+    "Return \"id:<file-id>\" if the file has a file-level ID, else \"file:<path>\"."
+    (if-let* ((fid (my/org--file-id)))
+        (concat "id:" fid)
+      (concat "file:" (abbreviate-file-name (my/org--file)))))
+
+  (defun my/org--link-string (&optional create-custom-id from-buffer)
+    "Return an Org link to the heading at point.
+Prefers the heading's :ID:, then :CUSTOM_ID:.  If neither exists, creates a
+CUSTOM_ID when CREATE-CUSTOM-ID is non-nil, otherwise uses a *Heading search.
+The file part uses the file-level :ID: when present, else the file path.
+If FROM-BUFFER is the heading's own buffer, a heading search is inserted
+as a plain [[*Heading]]."
+    (save-excursion
+      (org-back-to-heading t)
+      (let* ((id (org-entry-get nil "ID"))
+             (custom-id
+              (and (not id)
+                   (or (org-entry-get nil "CUSTOM_ID")
+                       (and create-custom-id
+                            (let ((new (my/org--unique-custom-id
+                                        (my/org--slugify (my/org--heading)))))
+                              (org-entry-put nil "CUSTOM_ID" new)
+                              new)))))
+             (same-buffer
+              (and from-buffer
+                   (eq (or (buffer-base-buffer from-buffer) from-buffer)
+                       (or (buffer-base-buffer) (current-buffer))))))
+        (cond
+         (id
+          (org-link-make-string (concat "id:" id) (my/org--heading)))
+         (custom-id
+          (org-link-make-string (concat (my/org--file-target) "::#" custom-id)
+                                (my/org--description)))
+         (same-buffer
+          (org-link-make-string (concat "*" (org-get-heading t t t t))))
+         (t
+          (org-link-make-string (concat (my/org--file-target)
+                                        "::*" (org-get-heading t t t t))
+                                (my/org--description)))))))
+;;; Yank commands
+
+  (defun my/org--kill-link (link)
+    (kill-new link)
+    (message "Copied: %s" link))
+
+  (defun my/org-yank-heading-link ()
+    "Copy a link to the current heading: ID, then CUSTOM_ID, then ::*Heading."
+    (interactive)
+    (my/org--kill-link (my/org--link-string)))
+
+  (defun my/org-yank-heading-custom-id-link ()
+    "Copy a link to the current heading: ID, then CUSTOM_ID (created if missing)."
+    (interactive)
+    (my/org--kill-link (my/org--link-string t)))
+
+;;; Embark actions
+
+  (defun my/embark-org--heading-marker (target)
+    "Return a marker for the Org heading TARGET.
+Handles `org-marker' candidates (consult-org-heading), grep candidates
+\(consult-ripgrep, \"file:line:text\"), and a heading at point."
+    (cond
+     ((get-text-property 0 'org-marker target))
+     ((string-match "\\`\\(.+?\\):\\([0-9]+\\):" target)
+      (let* ((file (expand-file-name (match-string 1 target) my/notes-directory))
+             (line (string-to-number (match-string 2 target))))
+        (with-current-buffer (find-file-noselect file)
+          (org-with-wide-buffer
+           (goto-char (point-min))
+           (forward-line (1- line))
+           (point-marker)))))
+     ((and (derived-mode-p 'org-mode) (org-at-heading-p))
+      (point-marker))
+     (t (user-error "Can't find the heading for: %s" target))))
+
+  (defun my/embark-org-insert-link (target)
+    "Insert a link to heading TARGET: ID, then CUSTOM_ID, then ::*Heading."
+    (let ((buf (current-buffer)))
+      (insert (org-with-point-at (my/embark-org--heading-marker target)
+                (my/org--link-string nil buf)))))
+
+  (defun my/embark-org-insert-custom-id-link (target)
+    "Insert a link to heading TARGET: ID, then CUSTOM_ID (created if missing)."
+    (let ((buf (current-buffer)))
+      (insert (org-with-point-at (my/embark-org--heading-marker target)
+                (my/org--link-string t buf)))))
+
+  (defun my/embark-org--heading-marker (target)
+    "Return a marker for the Org heading TARGET.
+Handles `org-marker' candidates (consult-org-heading), grep candidates
+\(consult-ripgrep, \"file:line:text\"), and the heading at point."
+    (cond
+     ((get-text-property 0 'org-marker target))
+     ((string-match "\\`\\(.+?\\):\\([0-9]+\\):" target)
+      (let* ((file (expand-file-name (match-string 1 target) my/notes-dir))
+             (line (string-to-number (match-string 2 target))))
+        (with-current-buffer (find-file-noselect file)
+          (org-with-wide-buffer
+           (goto-char (point-min))
+           (forward-line (1- line))
+           (point-marker)))))
+     ((derived-mode-p 'org-mode) (point-marker))
+     (t (user-error "No Org heading location for %s" target))))
+
+  (with-eval-after-load 'embark-org
+    (define-key embark-org-heading-map (kbd "j") #'my/embark-org-insert-link)
+    (define-key embark-org-heading-map (kbd "J") #'my/embark-org-insert-custom-id-link)
+    (keymap-set embark-org-heading-map "c" #'org-clock-in)
+    )
+
+  (defvar-keymap my/embark-grep-heading-map
+    :doc "Org heading link actions for grep candidates."
+    "j" #'my/embark-org-insert-link
+    "J" #'my/embark-org-insert-custom-id-link
+    "c" #'org-clock-in
+    )
+
+  (with-eval-after-load 'embark-consult
+    (setf (alist-get 'consult-grep embark-keymap-alist)
+          (cons 'my/embark-grep-heading-map
+                (ensure-list (alist-get 'consult-grep embark-keymap-alist)))))
+  ;; }}}
+
   )
 
 (use-package calfw-org
@@ -2488,7 +2730,7 @@ that has the same total duration."
   :no-require
   :after all-the-icons
   :custom
-  (citar-notes-paths (list "~/notes/references"))
+  (citar-notes-paths (list my/papers-notes-dir))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
@@ -2777,8 +3019,7 @@ that has the same total duration."
                               )
                             (evil-define-key 'normal 'evil-org-mode
                               (kbd "zi")  #'org-toggle-inline-images
-                              (kbd "<C-SPC>") 'org-cycle
-                              ;; <S-TAB>
+                              ;; <bactab> is <S-TAB>
                               (kbd "<backtab>") 'org-fold-hide-subtree
                               (kbd "<C-tab>") 'org-shifttab
                               (kbd "zl")  #'org-latex-preview
@@ -2803,14 +3044,32 @@ that has the same total duration."
   :after org
   :hook (org-mode . org-superstar-mode)
   :custom
-  ;; Setting this to t bugs org-cycle; makes it not work on subheadings properly
-  ;; (org-superstar-remove-leading-stars t)
-  (org-superstar-item-bullet-alist '((?- . ?•) (?* . ?•) (?+ . ?•)))
-  (org-superstar-headline-bullets-list '("●" "○" "●" "○" "●" "○" "●")))
+  (org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?◦)))
+  (org-list-demote-modify-bullet '(("-" . "+") ("+" . "-"))) ;; Alternate between both
+  (org-plain-list-ordered-item-terminator ?.) ;; Use 1. not 1)
+  (org-superstar-headline-bullets-list '("●" "○" "●" "○" "●" "○" "●"))
+  :config
+  (set-fontset-font t ?◦ "DejaVu Sans Mono")
+
+  (defun my/org-toggle-list-type-at-bullet ()
+    "On a list bullet, switch the list between `-' and `1.'.
+Return non-nil if handled, so org-shift commands stop there."
+    (when (org-at-item-bullet-p)
+      (org-cycle-list-bullet
+       (if (string-match-p "[0-9]" (org-list-get-bullet
+                                    (org-in-item-p)
+                                    (org-list-struct)))
+           "-" "1."))
+      t))
+  (add-hook 'org-shiftright-hook #'my/org-toggle-list-type-at-bullet)
+  (add-hook 'org-shiftleft-hook  #'my/org-toggle-list-type-at-bullet)
+  )
+
 
 ;; Exists only for org-roam-ui
 (use-package org-roam
   :ensure t
+  :after org
   :custom
   (org-roam-directory my/notes-dir)
   :config
@@ -2888,13 +3147,12 @@ that has the same total duration."
   :bind (:map vertico-map
               ("M-C-j" . vertico-quick-jump))
   :config
-  (when evil-collection-setup-minibuffer
-    ;; Open buffer in a new window, uses embark's v and x
-    (evil-collection-define-key 'insert 'vertico-map (kbd "C-v") (kbd "C-. v"))
-    (evil-collection-define-key 'insert 'vertico-map (kbd "C-x") (kbd "C-. x")))
+  ;; (when evil-collection-setup-minibuffer
+  ;;   ;; Open buffer in a new window, uses embark's v and x
+  ;;   (evil-collection-define-key 'insert 'vertico-map (kbd "C-v") (kbd "C-. v"))
+  ;;   (evil-collection-define-key 'insert 'vertico-map (kbd "C-x") (kbd "C-. x")))
 
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
-
   )
 
 (use-package counsel)
@@ -2917,61 +3175,6 @@ that has the same total duration."
     :parent embark-general-map
     "h" #'helpful-command)
   (add-to-list 'embark-keymap-alist '(command . embark-command-actions))
-
-  ;; Buffers
-  (defvar-keymap embark-buffer-actions
-    :doc "Keymap for actions for buffers"
-    :parent embark-buffer-map
-    "x" #'my/switch-to-buffer-other-window-x
-    "v" #'my/switch-to-buffer-other-window-v)
-  (add-to-list 'embark-keymap-alist '(buffer . embark-buffer-actions))
-
-  (defun my/switch-to-buffer-other-window-x (buf)
-    (interactive "bBuffer: ")
-    (split-window-below) (windmove-down)
-    (switch-to-buffer buf))
-
-  (defun my/switch-to-buffer-other-window-v (buf)
-    (interactive "bBuffer: ")
-    (split-window-right) (windmove-right)
-    (switch-to-buffer buf))
-
-  ;; Files
-  (defvar-keymap embark-file-actions
-    :doc "Keymap for actions for files"
-    :parent embark-file-map
-    "x" #'my/switch-to-file-other-window-x
-    "v" #'my/switch-to-file-other-window-v
-    "w" #'my/switch-to-file-other-frame)
-  (add-to-list 'embark-keymap-alist '(file . embark-file-actions))
-
-  (defun my/switch-to-file-other-window-x (file)
-    (interactive "bFile: ")
-    (split-window-below) (windmove-down)
-    (find-file file))
-
-  (defun my/switch-to-file-other-window-v (file)
-    (interactive "bFile: ")
-    (split-window-right) (windmove-right)
-    (find-file file))
-
-  (defun my/switch-to-file-other-frame (file)
-    (interactive "bFile: ")
-    (clone-frame)
-    (find-file file))
-
-  ;; Override the function by inserting link with title
-  (defun embark-org-insert-link-to (target)
-    "Insert a link to the TARGET in the source window.
-If TARGET is an agenda item and `other-window-for-scrolling' is
-displaying an org mode buffer, then that is the source window.
-If TARGET is a minibuffer completion candidate, then the source
-window is the window selected before the command that opened the
-minibuffer ran."
-    (embark-org--in-source-window target
-                                  (lambda (marker)
-                                    (org-with-point-at marker (org-store-link nil t))
-                                    (my/org-insert-last-stored-link-with-title ""))))
   )
 
 ;; Improves Vertico's completion
@@ -3014,7 +3217,7 @@ minibuffer ran."
     (consult--read
      sorted
      :prompt "Go to heading: "
-     :category 'consult-org-heading
+     :category 'org-heading
      :sort nil
      :require-match t
      :history '(:input consult-org--history)
@@ -3136,31 +3339,6 @@ selection of all minor-modes, active or not."
 ;; Keep links stored after insertion
 (setq org-link-keep-stored-after-insertion t)
 
-(defun my/org-insert-last-stored-link-with-title (arg)
-  "Insert the last stored link with the title of the file and the header without removing it from the link list."
-  (interactive "P")
-  (let ((org-link-keep-stored-after-insertion t)
-        (links (copy-sequence org-stored-links))
-        (po "\n")
-        (cnt 1) l
-        file-buffer)
-    (if (null org-stored-links)
-        (message "No link to insert")
-      (while (and (or (listp 1) (>= 1 cnt))
-                  (setq l (pop links)))
-        (setq cnt (1+ cnt))
-        (let* ((file-path (car l))
-               (header (cadr l))
-               (file-buffer (find-file-noselect (nth 1 (split-string file-path ":"))))
-               (file-title (org-global-prop-value "TITLE" file-buffer))
-               (file-link (format "%s" (abbreviate-file-name file-path)))
-               (link-text (format "%s: %s" file-title header))
-               (link (concat file-link "::" header)))
-          (insert (concat "[["file-link"]["link-text"]]"))
-          (insert po)))
-      (when file-buffer
-        (kill-buffer file-buffer)))))
-
 ;; Get property value for a buffer
 ;; https://emacs.stackexchange.com/questions/21713/how-to-get-property-values-from-org-file-headers
 (defun org-global-prop-value (key buffer)
@@ -3233,6 +3411,7 @@ and file name (padded to a common width for alignment)."
            (add-text-properties
             0 1
             `(consult--candidate ,(plist-get e :marker)
+                                 org-marker ,(plist-get e :marker)
                                  consult-org--heading (,(plist-get e :level) ,(plist-get e :todo) . ,(plist-get e :prio))
                                  my/entry-time ,(plist-get e :time)
                                  my/day-title ,day)
@@ -3432,7 +3611,7 @@ with the file name kept at the start of each candidate."
 
 (defhydra org-goto-hydra (:exit t :idle 1)
   (" g" consult-org-heading "file" :column "headings in file")
-  (" G" (lambda () (interactive) (consult-ripgrep "~/notes" "#^\\*+ #")) "headings in every org file")
+  (" G" (lambda () (interactive) (consult-ripgrep my/notes-dir "#^\\*+ #")) "headings in every org file")
   (" B" (consult-org-heading t (get-open-org-files)) "headings in buffers")
   (" a" consult-org-agenda "headings in agenda")
   (" w" (my/consult-org-agenda-by-schedule "TODO<>\"DONE\"+TODO<>\"CANCELLED\"+DEADLINE<\"<+7d>\"|TODO<>\"DONE\"+TODO<>\"CANCELLED\"+SCHEDULED<\"<+7d>\"") "Tasks deadline/scheduled in one week")
@@ -3472,9 +3651,9 @@ with the file name kept at the start of each candidate."
   )
 
 (defhydra org-maintenance-hydra (:exit t :idle 1)
-  (" f" #'org-link-maint-consult-broken      "Find broken links")
-  (" u" #'org-link-maint-update-backlinks    "Update description for current link")
-  (" U" #'org-link-maint-update-descriptions "Update all descriptions")
+  (" f" #'org-link-maint-consult                                        "Find links with broken links or outdated description")
+  (" u" #'org-link-maint-fix-descriptions                               "Update links descriptions interactively")
+  (" U" #'(lambda () (interactive) (org-link-maint-fix-descriptions t)) "Update links descriptions")
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
@@ -3487,58 +3666,10 @@ with the file name kept at the start of each candidate."
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
-;; {{{ Yanking links
-;; Custom ID
-(defun my/org--slugify (s)
-  "Turn S into a CUSTOM_ID-friendly slug."
-  (let ((slug (downcase s)))
-    (setq slug (replace-regexp-in-string "[^[:alnum:]]+" "-" slug))
-    (string-trim slug "-+" "-+")))
-
-(defun my/org--unique-custom-id (base)
-  "Return BASE, or BASE-N, so it isn't already a CUSTOM_ID in this buffer."
-  (let ((id base) (n 1))
-    (while (org-find-property "CUSTOM_ID" id)
-      (setq n (1+ n)
-            id (format "%s-%d" base n)))
-    id))
-
-(defun my/org-yank-heading-link ()
-  "Copy a link to the current heading via its CUSTOM_ID, creating one if needed.
-The description is \"<title>: <heading>\", with any links in the heading
-replaced by their descriptions."
-  (interactive)
-  (save-excursion
-    (org-back-to-heading t)
-    (let* ((file (buffer-file-name (buffer-base-buffer)))
-           (heading (org-link-display-format (org-get-heading t t t t)))
-           (custom-id (or (org-entry-get nil "CUSTOM_ID")
-                          (let ((new (my/org--unique-custom-id
-                                      (my/org--slugify heading))))
-                            (org-entry-put nil "CUSTOM_ID" new)
-                            new)))
-           (title (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
-                      (file-name-base file)))
-           (link (org-link-make-string
-                  (concat "file:" (abbreviate-file-name file) "::#" custom-id)
-                  (format "%s: %s" title heading))))
-      (kill-new link)
-      (message "Copied: %s" link))))
-
-;; ID
-(defun my/org-yank-heading-id-link ()
-  "Add an ID to the current heading if missing, then copy an id: link to it."
-  (interactive)
-  (org-id-get-create)                       ; ensure the heading has an ID
-  (let* ((org-id-link-to-org-use-id t)
-         (link (org-store-link nil)))
-    (kill-new link)
-    (message "Copied: %s" link)))
-;; }}}
-
 (defhydra org-links-hydra (:exit t :idle 1)
-  (" y" #'my/org-yank-heading-link "Yank heading using name & yank" :column " links")
-  (" Y" #'my/org-yank-heading-id-link "Create id & yank" :column " links")
+  (" y" #'my/org-yank-heading-link              "Yank heading using ID, or CUSTOM_ID (if they exist) then heading" :column " links")
+  (" Y" #'my/org-yank-heading-custom-id-link "Yank heading using ID or create CUSTOM_ID yank using it" :column " links")
+  (" h" org-id-get-create                       "Create ID for a heading" :column "links")
   (" e" org-insert-link "edit" :column " links") ; Edit link if it exists at point
   (" t" (lambda () (interactive) (call-interactively #'org-link-beautify-mode) (call-interactively #'org-table-widget-mode) (let ((current-prefix-arg 12)) (call-interactively #'org-link-preview))) "toggle")
   )
@@ -3727,6 +3858,8 @@ replaced by their descriptions."
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "C")  'my/elfeed-entry-capture-show)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-p")  'scroll-other-window-down)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "M-n")  'scroll-other-window)
+
+
 
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gj")  'elfeed-goodies/split-show-next)
   (evil-collection-define-key 'normal 'elfeed-search-mode-map (kbd "gk")  'elfeed-goodies/split-show-prev)

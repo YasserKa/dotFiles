@@ -19,7 +19,7 @@
 ;; These are the same searches as `my/org-backlinks' and
 ;; `my/org-forward-links', but run for the link target instead of for the
 ;; node at point.  "Node" has the usual meaning: the closest heading (self or
-;; ancestor) with an :ID:, or the file-level node.
+;; ancestor) with an :ID: or :CUSTOM_ID:, or the file-level node.
 ;;
 ;; Supported links: id:, file:x.org, file:x.org::#custom-id,
 ;; file:x.org::*Heading and #custom-id.

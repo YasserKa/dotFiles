@@ -1,0 +1,9 @@
+[Unit]
+Description=Check Outlook events against Org agenda
+After=network-online.target
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+ExecStart=%h/bin/ics2org-check.py --ics-cmd "pass show outlook_ics" --org %h/notes --me yaser.kaddoura@ltu.se --days 999 --notify

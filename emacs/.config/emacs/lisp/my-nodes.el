@@ -15,21 +15,27 @@
 ;; double quotes. Headings can have :ID: and :ALIASES: in their own
 ;; drawer too.
 ;;
-;; The node finder shows one candidate per node, with the aliases in
-;; a dimmed column after the title:
+;; The node finder shows one candidate per node. The candidate is the
+;; heading (or file title), its aliases and #+filetags:, which is what
+;; you match on. For headings, the outline path (the file's #+title,
+;; then the parent headings), and the :TYPE: of any node, are an
+;; annotation on the right, visible but not matched:
 ;;
-;;   Elisp notes                                 Emacs Lisp, elisp
+;;   Proximity measures         Machine Learning › Unsupervised learning
+;;   SQL client                                Database › SQL › Tools
+;;   Set up a device                                  Android  activity
+;;   Artificial Intelligence                                        hub
 ;;
-;; The aliases are part of the candidate text, so typing an alias
-;; matches the node (Vertico/Orderless/etc. all just work).
+;; Set `my/node-annotate-parents' to nil to show only the file's title.
 ;;
-;; While in `my/node-find', these keys open the highlighted node
-;; somewhere else instead of in the current window (see
-;; `my/node-open-keys' to change them):
+;; With Consult, you can narrow to one type (see `my/node-types') by
+;; typing its key and SPC at the start of the input, e.g. "a SPC" for
+;; activities.
 ;;
-;;   C-x  new window below (horizontal split)
-;;   C-v  new window to the right (vertical split)
-;;   M-w  new frame
+;; While in `my/node-find', C-x, C-v and M-w open the highlighted node
+;; in a window below, a window to the right, or a new frame. Those keys
+;; come from my-open-elsewhere.el, which provides them for Consult's
+;; buffer, file, grep and Org heading commands too.
 ;;
 ;; :ALIASES: is a plain property, so Org does not inherit it as long as
 ;; `org-use-property-inheritance' is nil (the default).
@@ -39,6 +45,8 @@
 (require 'cl-lib)
 (require 'seq)
 (require 'subr-x)
+(require 'my-open-elsewhere)
+(my/open-elsewhere-global-mode 1)
 
 ;;; ------------------------------------------------------------
 ;;; Configuration
@@ -53,6 +61,23 @@
 (defvar my/node-type-property "TYPE"
   "Name of the property whose value is shown as the node's type.")
 
+(defvar my/node-types
+  '((?a "activity" "Activities")
+    (?h "hub"      "Hubs")
+    (?p "paper"    "Papers"))
+  "Node types used for narrowing, as (KEY TYPE LABEL).
+KEY is the narrowing key, TYPE the :TYPE: value (compared ignoring
+case) and LABEL the name Consult shows for the narrowing.")
+
+(defvar my/node-default-group '(?n . "Notes")
+  "(KEY . LABEL) for nodes with no :TYPE: or a type not in `my/node-types'.")
+
+(defvar my/node-annotate-parents t
+  "Non-nil means a heading's annotation shows its full outline path.
+With t (the default), heading nodes are annotated with their file's
+#+title and parent headings, e.g. \"Machine Learning › Unsupervised
+learning\". With nil, only the file's #+title is shown.")
+
 (defvar my/node-title-width 50
   "Column where the aliases start in the node finder.")
 
@@ -61,12 +86,6 @@
 A directory with one of these names is excluded at any depth under
 `my/notes-dir'. The notes are still known to org-id, so existing
 id: links to them keep working.")
-
-(defvar my/node-open-keys
-  '(("C-x" . my/node-open-below)
-    ("C-v" . my/node-open-right)
-    ("M-w" . my/node-open-frame))
-  "Keys active in the `my/node-find' minibuffer, as (KEY . COMMAND).")
 
 ;;; ------------------------------------------------------------
 ;;; File listing (skips lock files, hidden paths, broken symlinks)
@@ -116,6 +135,28 @@ Skips Emacs lock files (.#foo.org), anything in a hidden directory
              "[ \t]+:[[:alnum:]_@#%:]+:[ \t]*$" "" s)))
     (string-trim s)))
 
+(defun my/node--heading-title (pos)
+  "Return the cleaned title of the heading line at POS."
+  (save-excursion
+    (goto-char pos)
+    (my/node--clean-heading
+     (buffer-substring-no-properties (line-beginning-position)
+                                     (line-end-position)))))
+
+(defun my/node--outline-parents (pos)
+  "Return the titles of the headings above the heading at POS, outermost first."
+  (save-excursion
+    (goto-char pos)
+    (let ((level (if (looking-at "\\*+") (- (match-end 0) (match-beginning 0)) 0))
+          parents)
+      (while (and (> level 1)
+                  (re-search-backward "^\\(\\*+\\)[ \t]" nil t))
+        (let ((l (- (match-end 1) (match-beginning 1))))
+          (when (< l level)
+            (setq level l)
+            (push (my/node--heading-title (point)) parents))))
+      parents)))
+
 (defun my/node--drawer-property (name)
   "With point on an :ID: line, return property NAME from the same drawer.
 Returns the trimmed value string, or nil if the property is missing."
@@ -148,15 +189,13 @@ Returns the trimmed value string, or nil if the property is missing."
       ;; Accepts both \":a:b:\" and the older \"a b\" format.
       (split-string (match-string 1) "[: \t]+" t))))
 
-(defun my/node--display (title aliases &optional tags type)
-  "Return the candidate text: TITLE, then TYPE, ALIASES and TAGS.
-TYPE is a string, ALIASES are dimmed, and TAGS look like org-roam's
-(:a:b:). All of it is part of the text, so you can search by any of them."
-  (if (or aliases tags type)
+(defun my/node--display (title aliases &optional tags)
+  "Return the candidate text: TITLE, then ALIASES and TAGS.
+ALIASES are dimmed and TAGS look like org-roam's (:a:b:). All of it is
+part of the text, so you can search by any of them."
+  (if (or aliases tags)
       (concat (truncate-string-to-width title my/node-title-width
                                         0 ?\s "…")
-              (when type
-                (concat "  " (propertize type 'face 'font-lock-type-face)))
               (when aliases
                 (concat "  "
                         (propertize (string-join aliases ", ")
@@ -170,10 +209,16 @@ TYPE is a string, ALIASES are dimmed, and TAGS look like org-roam's
 ;;; ------------------------------------------------------------
 ;;; Scanning
 ;;; ------------------------------------------------------------
-;; A node entry is: (DISPLAY ID FILE POS TITLE ALIASES)
+;; Scanning returns one plist per :ID:, and `my/node--build-entries'
+;; turns those into node entries:
+;;
+;;   (CANDIDATE ID FILE POS TITLE ALIASES TYPE PATH)
+;;
+;; CANDIDATE carries the text properties `my-node-key' (the
+;; narrowing key), `my-node-type' and `my-node-path' (for annotations).
 
 (defun my/node--scan-file (file)
-  "Return a list of node entries for every :ID: in FILE."
+  "Return a list of raw node plists for every :ID: in FILE."
   (with-temp-buffer
     (insert-file-contents file)
     (let ((file-title
@@ -187,31 +232,102 @@ TYPE is a string, ALIASES are dimmed, and TAGS look like org-roam's
       (goto-char (point-min))
       (while (re-search-forward "^[ \t]*:ID:[ \t]+\\(\\S-+\\)" nil t)
         (let* ((id (match-string 1))
+               (id-pos (match-beginning 0))
                (aliases (my/node--drawer-aliases))
                (type (my/node--drawer-type))
                (heading-pos
                 (save-excursion
-                  (goto-char (match-beginning 0))
-                  (when (re-search-backward "^\\*+ " nil t) (point))))
-               (title (if heading-pos
-                          (my/node--clean-heading
-                           (save-excursion
-                             (goto-char heading-pos)
-                             (buffer-substring-no-properties
-                              (line-beginning-position)
-                              (line-end-position))))
-                        file-title))
-               (shown (if heading-pos
-                          (format "%s (%s)" title file-title)
-                        title)))
-          ;; #+filetags: is shown on file-level nodes only, so tags
-          ;; don't leak onto the headings of the same file.
-          (push (list (my/node--display shown aliases
-                                        (unless heading-pos file-tags)
-                                        type)
-                      id file (or heading-pos 1) title aliases)
+                  (goto-char id-pos)
+                  (when (re-search-backward "^\\*+ " nil t) (point)))))
+          (push (list :id id
+                      :file file
+                      :pos (or heading-pos 1)
+                      :title (if heading-pos
+                                 (my/node--heading-title heading-pos)
+                               file-title)
+                      :aliases aliases
+                      :type type
+                      ;; #+filetags: is shown on file-level nodes only, so
+                      ;; tags don't leak onto the headings of the same file.
+                      :tags (unless heading-pos file-tags)
+                      ;; File title, then (optionally) the parent headings.
+                      :path (when heading-pos
+                              (cons file-title
+                                    (when my/node-annotate-parents
+                                      (my/node--outline-parents heading-pos)))))
                 nodes)))
       nodes)))
+
+;;; ------------------------------------------------------------
+;;; Types and candidates
+;;; ------------------------------------------------------------
+
+(defun my/node--narrow-keys ()
+  "Return the narrowing keys as (KEY . LABEL)."
+  (append (mapcar (lambda (e) (cons (nth 0 e) (nth 2 e))) my/node-types)
+          (list my/node-default-group)))
+
+(defun my/node--type-key (type)
+  "Return the narrowing key for the :TYPE: value TYPE."
+  (or (and type
+           (car (seq-find (lambda (e) (string= (downcase type)
+                                               (downcase (nth 1 e))))
+                          my/node-types)))
+      (car my/node-default-group)))
+
+(defun my/node--path-string (raw)
+  "Return RAW's outline path as \"File › Parent › ...\", or nil."
+  (let ((path (plist-get raw :path)))
+    (when path (string-join path " › "))))
+
+(defun my/node--base-text (raw)
+  "Return the candidate text for RAW before disambiguation."
+  (my/node--display (plist-get raw :title)
+                    (plist-get raw :aliases)
+                    (plist-get raw :tags)))
+
+(defun my/node--entry-lessp (a b)
+  "Sort entries A and B alphabetically by candidate text."
+  (string-lessp (downcase (car a)) (downcase (car b))))
+
+(defun my/node--build-entries (raws)
+  "Turn RAWS (plists from `my/node--scan-file') into sorted node entries.
+The path is in the annotation, so two headings with the same name
+would give the same candidate. Those get their path appended, dimmed,
+so every candidate is unique and selects the right node."
+  (let ((counts (make-hash-table :test #'equal))
+        (seen (make-hash-table :test #'equal))
+        entries)
+    (dolist (raw raws)
+      (cl-incf (gethash (my/node--base-text raw) counts 0)))
+    (dolist (raw raws)
+      (let* ((base (my/node--base-text raw))
+             (path (my/node--path-string raw))
+             (type (plist-get raw :type))
+             (text (if (> (gethash base counts) 1)
+                       (concat base " "
+                               (propertize
+                                (format "(%s)"
+                                        (or path (file-name-nondirectory
+                                                  (plist-get raw :file))))
+                                'face 'completions-annotations))
+                     base))
+             (n (cl-incf (gethash text seen 0))))
+        (when (> n 1)
+          (setq text (format "%s #%d" text n)))
+        (push (list (propertize text
+                                'my-node-key (my/node--type-key type)
+                                'my-node-type type
+                                'my-node-path path)
+                    (plist-get raw :id)
+                    (plist-get raw :file)
+                    (plist-get raw :pos)
+                    (plist-get raw :title)
+                    (plist-get raw :aliases)
+                    type
+                    path)
+              entries)))
+    (sort entries #'my/node--entry-lessp)))
 
 (defun my/node--excluded-p (file)
   "Return non-nil if FILE is inside a directory in `my/node-excluded-dirs'."
@@ -231,19 +347,22 @@ TYPE is a string, ALIASES are dimmed, and TAGS look like org-roam's
     ;; Excluded directories stay in this list so id: links into them
     ;; still resolve; they are only left out of the candidates.
     (setq org-id-extra-files files)
-    (apply #'append
-           (mapcar #'my/node--scan-file
-                   (seq-remove #'my/node--excluded-p files)))))
+    (my/node--build-entries
+     (apply #'append
+            (mapcar #'my/node--scan-file
+                    (seq-remove #'my/node--excluded-p files))))))
 
 ;;; ------------------------------------------------------------
 ;;; Creating
 ;;; ------------------------------------------------------------
 
 (defun my/node--file-name (title)
-  "Return the file name for TITLE: the title as is, spaces as underscores.
-Case and punctuation are kept. Only characters that can't be part of a
-file name (/ and NUL) are replaced, with underscores as well."
-  (concat (replace-regexp-in-string "[ \t/\0]+" "_" (string-trim title))
+  "Return the file name for TITLE: lowercased, spaces as underscores.
+Punctuation is kept. Only characters that can't be part of a file
+name (/ and NUL) are replaced, with underscores as well. The note's
+#+title keeps the original case."
+  (concat (downcase
+           (replace-regexp-in-string "[ \t/\0]+" "_" (string-trim title)))
           ".org"))
 
 (defun my/node--create (title)
@@ -257,23 +376,49 @@ file name (/ and NUL) are replaced, with underscores as well."
       (insert ":PROPERTIES:\n:ID:       " id "\n:END:\n"
               "#+title: " title "\n\n"))
     (org-id-add-location id file)
-    (list title id file 1 title nil)))
+    (list title id file 1 title nil nil nil)))
 
 ;;; ------------------------------------------------------------
 ;;; Completion
 ;;; ------------------------------------------------------------
 
+(defun my/node--annotate (cand)
+  "Return CAND's outline path and type, right-aligned and dimmed."
+  (let* ((path (get-text-property 0 'my-node-path cand))
+         (type (get-text-property 0 'my-node-type cand))
+         (text (string-join
+                (delq nil
+                      (list (and path (propertize path 'face
+                                                  'completions-annotations))
+                            (and type (propertize type 'face
+                                                  'font-lock-type-face))))
+                "  ")))
+    (unless (string-empty-p text)
+      (concat " "
+              (propertize " " 'display
+                          `(space :align-to (- right ,(+ 2 (string-width text)))))
+              text))))
+
+(defvar consult--narrow)
+
+(defun my/node--narrow-p (cand)
+  "Return non-nil if CAND belongs to the active narrowing key."
+  (or (null consult--narrow)
+      (eq (get-text-property 0 'my-node-key cand) consult--narrow)))
+
 (defun my/node--table (candidates)
-  "Completion table for CANDIDATES (strings) with a `my-node' category.
-The category lets you attach Marginalia/Embark behavior later."
+  "Completion table for CANDIDATES with annotations.
+Used when Consult isn't (e.g. `my/node-insert'). The `my-node' category
+lets you attach Marginalia/Embark behavior later."
   (lambda (string pred action)
     (if (eq action 'metadata)
-        '(metadata (category . my-node))
+        '(metadata (category . my-node)
+                   (annotation-function . my/node--annotate)
+                   (display-sort-function . identity)
+                   (cycle-sort-function . identity))
       (complete-with-action action candidates string pred))))
 
 (declare-function consult--read "consult")
-(declare-function vertico-exit "vertico")
-(declare-function evil-local-set-key "evil-core")
 
 (defun my/node--preview-state ()
   "Return a Consult state function that previews nodes in the current window.
@@ -318,63 +463,10 @@ window goes back to what it showed before."
                      (kill-buffer b)))
                  (setq temp-buffers nil)))))))
 
-;;; ------------------------------------------------------------
-;;; Open-elsewhere keys (active only while in `my/node-find')
-;;; ------------------------------------------------------------
-
-(defvar my/node--find-session nil
-  "Non-nil while the `my/node-find' prompt is active.")
-
-(defvar my/node--open-action nil
-  "How to open the chosen node: nil, `below', `right' or `frame'.")
-
-(defun my/node--exit-with (action)
-  "Exit the minibuffer with the highlighted candidate, remembering ACTION."
-  (setq my/node--open-action action)
-  (if (and (bound-and-true-p vertico-mode) (fboundp 'vertico-exit))
-      (vertico-exit)
-    (exit-minibuffer)))
-
-(defun my/node-open-below ()
-  "Open the highlighted node in a new window below."
-  (interactive)
-  (my/node--exit-with 'below))
-
-(defun my/node-open-right ()
-  "Open the highlighted node in a new window to the right."
-  (interactive)
-  (my/node--exit-with 'right))
-
-(defun my/node-open-frame ()
-  "Open the highlighted node in a new frame."
-  (interactive)
-  (my/node--exit-with 'frame))
-
-(defun my/node--setup-keys ()
-  "Install `my/node-open-keys' in the minibuffer for `my/node-find'.
-Added to `minibuffer-setup-hook' (appended, so Evil is already set up)."
-  (when my/node--find-session
-    (let ((map (make-sparse-keymap))
-          (evil (and (fboundp 'evil-local-set-key)
-                     (bound-and-true-p evil-local-mode))))
-      (pcase-dolist (`(,key . ,cmd) my/node-open-keys)
-        (define-key map (kbd key) cmd)
-        ;; Evil's insert/normal maps shadow the local map (e.g. C-v is
-        ;; `quoted-insert' there), so bind the keys per state as well.
-        (when evil
-          (evil-local-set-key 'insert (kbd key) cmd)
-          (evil-local-set-key 'normal (kbd key) cmd)))
-      (use-local-map (make-composed-keymap map (current-local-map))))))
-
-(defun my/node--visit (entry &optional action)
-  "Go to the node ENTRY, in a new window or frame depending on ACTION."
-  (pcase action
-    ('below (select-window (split-window-below)))
-    ('right (select-window (split-window-right)))
-    ('frame (let ((frame (clone-frame)))
-              (select-frame-set-input-focus frame)
-              ;; clone-frame copies the window layout; keep only one window
-              (delete-other-windows (frame-selected-window frame)))))
+(defun my/node--visit (entry)
+  "Go to the node ENTRY in the selected window.
+When the prompt was left with an open-elsewhere key, the new window or
+frame is already selected at this point."
   (pcase-let ((`(,_ ,_ ,file ,pos . ,_) entry))
     (find-file file)
     (goto-char pos)
@@ -388,20 +480,19 @@ Added to `minibuffer-setup-hook' (appended, so Evil is already set up)."
 
 (defun my/node--read (prompt &optional for-find)
   "Prompt for a node. Return its entry, creating a new note for unknown input.
-With FOR-FIND non-nil, enable the open-elsewhere keys and, if Consult
-is available, show the node in the current window while you move
-through the candidates."
+With Consult, candidates can be narrowed with the keys in
+`my/node-types'. With FOR-FIND non-nil, also show the node in the
+current window while you move through the candidates."
   (let* ((nodes (my/node--collect))
          (cands (mapcar #'car nodes))
-         (my/node--find-session for-find)
          ;; Previewing opens and fontifies files, which prints messages
          ;; ("file has auto save data...", "Indentation setup for shell
          ;; type zsh" from fontified src blocks) into the prompt area.
          ;; They are still written to *Messages*.
          (inhibit-message (or for-find inhibit-message))
          (choice
-          (minibuffer-with-setup-hook (:append #'my/node--setup-keys)
-            (if (and for-find (require 'consult nil t))
+          (progn
+            (if (require 'consult nil t)
                 (consult--read
                  cands
                  :prompt prompt
@@ -411,7 +502,11 @@ through the candidates."
                  :preview-key 'any
                  :lookup (lambda (selected &rest _)
                            (or (assoc selected nodes) selected))
-                 :state (my/node--preview-state))
+                 :annotate #'my/node--annotate
+                 :narrow (list :predicate #'my/node--narrow-p
+                               :keys (my/node--narrow-keys))
+                 ;; Live preview only when finding, not when inserting links.
+                 :state (and for-find (my/node--preview-state)))
               (completing-read prompt (my/node--table cands) nil nil)))))
     (cond ((consp choice) choice)
           ((assoc choice nodes))
@@ -423,19 +518,17 @@ through the candidates."
 
 (defun my/node-find ()
   "Find a node (by title or alias), or create it if it doesn't exist.
-While prompting, `my/node-open-keys' open the node in a new window
-or frame instead of the current window."
+While prompting, C-x, C-v and M-w open the node in a new window or
+frame instead (see `my/open-elsewhere-keys')."
   (interactive)
-  (setq my/node--open-action nil)
-  (let ((entry (my/node--read "Node: " t)))
-    (my/node--visit entry my/node--open-action)))
+  (my/node--visit (my/node--read "Node: " t)))
 
 (defun my/node-insert (&optional choose-text)
   "Insert an id: link to a node, creating the node if it doesn't exist.
 The link text is the node's title. With a prefix argument CHOOSE-TEXT,
 pick the text from the title and the node's aliases."
   (interactive "P")
-  (pcase-let ((`(,_ ,id ,_ ,_ ,title ,aliases) (my/node--read "Link to: ")))
+  (pcase-let ((`(,_ ,id ,_ ,_ ,title ,aliases . ,_) (my/node--read "Link to: ")))
     (let ((text (if (and choose-text aliases)
                     (completing-read "Link text: " (cons title aliases)
                                      nil nil nil nil title)

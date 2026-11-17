@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# Watches a Twitch channel and alerts when the streamer changes category.
+#
+# Usage:
+#   export TWITCH_CLIENT_ID="your_client_id"
+#   export TWITCH_CLIENT_SECRET="your_client_secret"
+#   ./twitch-category-watch.sh <streamer_login>
+#
+# Optional environment variables:
+#   INTERVAL=60          seconds between checks (default 60)
+#
+# Requires: curl, jq
+
+set -euo pipefail
+
+STREAMER="${1:?Usage: $0 <streamer_login>}"
+CLIENT_ID="$(pass twitch_client_id)"
+CLIENT_SECRET="$(pass twitch_client_secret)"
+INTERVAL="${INTERVAL:-60}"
+TOKEN=""
+
+for cmd in curl jq; do
+  command -v "$cmd" >/dev/null || {
+    echo "Missing dependency: $cmd" >&2
+    exit 1
+  }
+done
+
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
+
+# Get an app access token (client credentials flow).
+get_token() {
+  TOKEN=$(curl -s -X POST "https://id.twitch.tv/oauth2/token" \
+    -d "client_id=$CLIENT_ID" \
+    -d "client_secret=$CLIENT_SECRET" \
+    -d "grant_type=client_credentials" | jq -r '.access_token // empty')
+  if [[ -z "$TOKEN" ]]; then
+    echo "Could not get an access token. Check your client ID and secret." >&2
+    exit 1
+  fi
+}
+
+# Call a Helix endpoint; refreshes the token once if it has expired.
+api() {
+  local path="$1" attempt resp code
+  for attempt in 1 2; do
+    resp=$(curl -s -w $'\n%{http_code}' \
+      -H "Client-Id: $CLIENT_ID" \
+      -H "Authorization: Bearer $TOKEN" \
+      "https://api.twitch.tv/helix/$path") || return 1
+    code="${resp##*$'\n'}"
+    if [[ "$code" == "401" && "$attempt" == 1 ]]; then
+      log "Token expired, refreshing..."
+      get_token
+      continue
+    fi
+    [[ "$code" == "200" ]] || {
+      log "API error (HTTP $code) on $path"
+      return 1
+    }
+    printf '%s' "${resp%$'\n'*}"
+    return 0
+  done
+  return 1
+}
+
+get_token
+
+# Look up the broadcaster ID from the login name.
+users=$(api "users?login=$STREAMER") || {
+  echo "User lookup failed." >&2
+  exit 1
+}
+BROADCASTER_ID=$(jq -r '.data[0].id // empty' <<<"$users")
+DISPLAY_NAME=$(jq -r '.data[0].display_name // empty' <<<"$users")
+[[ -n "$BROADCASTER_ID" ]] || {
+  echo "No Twitch user named '$STREAMER'." >&2
+  exit 1
+}
+
+log "Watching $DISPLAY_NAME (id $BROADCASTER_ID), checking every ${INTERVAL}s. Ctrl+C to stop."
+
+last=""
+while true; do
+  if channel=$(api "channels?broadcaster_id=$BROADCASTER_ID"); then
+    current=$(jq -r '.data[0].game_name // ""' <<<"$channel")
+    [[ -z "$current" ]] && current="(no category)"
+    if [[ -z "$last" ]]; then
+      log "Current category: $current"
+    elif [[ "$current" != "$last" ]]; then
+      notify-send --expire-time 10000 "$DISPLAY_NAME switched category: $last -> $current"
+    fi
+    last="$current"
+  fi
+  sleep "$INTERVAL"
+done

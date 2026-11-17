@@ -10,9 +10,12 @@
 ;;   - [[file:x.org::#custom-id]]              (heading with CUSTOM_ID)
 ;;   - [[#custom-id]]                          (same-file internal link)
 ;;
-;; "Node" follows the org-roam convention: the closest heading (self or
-;; ancestor) with an :ID:, or the file-level node.  A node owns its own ID
-;; and the CUSTOM_IDs of headings inside it that do not have their own ID.
+;; "Node": the closest heading (self or ancestor) with one of the
+;; properties in `my/org-bl-node-properties' (default :ID: or :CUSTOM_ID:),
+;; or the file-level node.  A node owns its own ID/CUSTOM_ID and those of
+;; headings inside it that are not nodes themselves.  Set the option to
+;; '("ID") for the org-roam convention (CUSTOM_ID headings belong to their
+;; closest ID'd ancestor).
 ;;
 ;; Keys (Org buffers):
 ;;   C-c b      Sidecar: backlinks for the node at point (pinned)
@@ -37,6 +40,15 @@
 (defgroup my/org-bl nil
   "Org backlinks for ID and CUSTOM_ID targets."
   :group 'org)
+
+(defcustom my/org-bl-node-properties '("ID" "CUSTOM_ID")
+  "Properties that make a heading a node of its own.
+The node at point is the closest heading (self or ancestor) that has any of
+these properties, or the file-level node if there is none.  This affects
+the \"node\" scope of backlinks, forward links and citations.
+Use (\"ID\") to treat only headings with an :ID: as nodes."
+  :type '(repeat string)
+  :group 'my/org-bl)
 
 (defcustom my/org-bl-directories nil
   "Directories searched for backlinks.  Defaults to `org-directory'."
@@ -87,7 +99,7 @@ Set by `my/org-backlinks-node' and `my/org-backlinks-file'."
 (defvar my/org-bl--index (make-hash-table :test 'equal)
   "File -> (STAMP . ENTRIES), the cached link index.")
 
-(defconst my/org-bl--index-version 2
+(defconst my/org-bl--index-version 3
   "Bump when the shape of index entries changes.")
 
 ;;;; Indexing ---------------------------------------------------------------
@@ -109,6 +121,38 @@ Return a plist starting with :kind (id, internal or file), or nil."
             :file (file-truename (expand-file-name path dir))
             :search search
             :cid (and search (string-prefix-p "#" search) (substring search 1)))))))
+
+(defun my/org-bl--clean-heading-text (text)
+  "Heading TEXT without tags, with links shown as their descriptions."
+  (let ((s (replace-regexp-in-string "[ \t]+:[[:alnum:]_@#%:]+:[ \t]*\\'" "" text)))
+    (string-trim (if (fboundp 'org-link-display-format)
+                     (org-link-display-format s)
+                   s))))
+
+(defun my/org-bl--heading-title ()
+  "Title of the heading at point, cleaned for display.
+No TODO keyword, priority, tags or COMMENT; links appear as their
+descriptions, so [[https://...][Google]] becomes Google."
+  (my/org-bl--clean-heading-text (or (org-get-heading t t t t) "")))
+
+(defun my/org-bl--context-heading (pos)
+  "Return the heading that contains the text at POS, or nil.
+For text in a body, that is the closest heading above it (on any level).
+For text in a heading line itself, it is the parent heading (nil for a
+top-level heading), since the line already shows the heading.
+Works in buffers that are not in `org-mode'."
+  (save-excursion
+    (goto-char pos)
+    (beginning-of-line)
+    (let* ((case-fold-search nil)
+           (level (and (looking-at "\\(\\*+\\) ")
+                       (length (match-string 1))))
+           (re (if level
+                   (and (> level 1)
+                        (format "^\\*\\{1,%d\\} +\\(.*\\)$" (1- level)))
+                 "^\\*+ +\\(.*\\)$")))
+      (when (and re (re-search-backward re nil t))
+        (my/org-bl--clean-heading-text (match-string-no-properties 1))))))
 
 (defun my/org-bl--scan-buffer (dir)
   "Index all links in the current buffer.  DIR is the file's directory."
@@ -132,12 +176,8 @@ Return a plist starting with :kind (id, internal or file), or nil."
                              :line (line-number-at-pos pos)
                              :raw raw
                              :col (- pos lb lead)
-                             :heading (save-excursion
-                                        (goto-char pos)
-                                        (when (re-search-backward "^\\*+ +\\(.*\\)$" nil t)
-                                          (match-string-no-properties 1)))))
-                      entries)))
-            (end-of-line)))))
+                             :heading (my/org-bl--context-heading pos)))
+                      entries)))))))
     (nreverse entries)))
 
 (defun my/org-bl--entries (file)
@@ -175,7 +215,8 @@ Return a plist starting with :kind (id, internal or file), or nil."
 
 (defun my/org-bl--owner (pos)
   "Return the start of the node owning POS, or nil for the file-level node.
-The owner is the closest heading (self or ancestor) with an ID property."
+The owner is the closest heading (self or ancestor) having one of the
+properties in `my/org-bl-node-properties'."
   (save-excursion
     (save-restriction
       (widen)
@@ -184,12 +225,15 @@ The owner is the closest heading (self or ancestor) with an ID property."
         (org-back-to-heading t)
         (catch 'found
           (while t
-            (when (org-entry-get nil "ID") (throw 'found (point)))
+            (when (seq-some (lambda (p) (org-entry-get nil p))
+                            my/org-bl-node-properties)
+              (throw 'found (point)))
             (unless (org-up-heading-safe) (throw 'found nil))))))))
 
 (defun my/org-bl--file-title ()
   "Title of the current Org file: #+TITLE or the file name."
-  (or (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))
+  (or (when-let* ((title (cadr (assoc "TITLE" (org-collect-keywords '("TITLE"))))))
+        (my/org-bl--clean-heading-text title))
       (file-name-nondirectory (or (buffer-file-name) "file"))))
 
 (defun my/org-bl--targets (pin)
@@ -212,7 +256,7 @@ node has POS 0 and the file title as LABEL."
           (setq beg owner
                 end (progn (org-end-of-subtree t) (point))
                 whole nil
-                title (org-get-heading t t t t)))
+                title (my/org-bl--heading-title)))
          (t
           (setq beg (point-min) end (point-max) whole t
                 title filetitle)))
@@ -229,7 +273,7 @@ node has POS 0 and the file title as LABEL."
                               (if (org-before-first-heading-p)
                                   (cons 0 filetitle)
                                 (org-back-to-heading t)
-                                (cons (point) (or (org-get-heading t t t t) ""))))))
+                                (cons (point) (my/org-bl--heading-title))))))
                   (if (string= kind "ID")
                       (push (cons val node) ids)
                     (push (cons val node) cids)))))))))
@@ -430,7 +474,8 @@ font-lock is off, so both are set."
 ;;;###autoload
 (defun my/org-backlinks-node ()
   "Show backlinks for the node at point in the sidecar (all Org buffers).
-The node is the closest heading with an ID, or the file if there is none."
+The node is the closest heading with an ID or CUSTOM_ID (see
+`my/org-bl-node-properties'), or the file if there is none."
   (interactive)
   (unless (derived-mode-p 'org-mode) (user-error "Not in an Org buffer"))
   (setq my/org-bl-scope 'node)
@@ -517,7 +562,8 @@ PIN is a position in BUF; nil means all nodes of the file visited by BUF."
 (defun my/org-backlinks (&optional whole-file)
   "Search backlinks with `consult'.
 By default, show backlinks to the node at point: the closest heading with an
-ID (or the file) plus the CUSTOM_ID headings it owns.  With prefix arg
+ID or CUSTOM_ID (or the file), plus headings inside it that are not nodes
+themselves.  See `my/org-bl-node-properties'.  With prefix arg
 WHOLE-FILE, show backlinks to all nodes in this file."
   (interactive "P")
   (unless (derived-mode-p 'org-mode) (user-error "Not in an Org buffer"))

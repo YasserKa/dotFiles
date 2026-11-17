@@ -15,7 +15,8 @@
 ;;   - citar's notes source (`citar-get-notes'), e.g. citar-file or org-roam,
 ;;   - or a file name equal to a citekey in your bibliography.
 ;; "Node" has the same meaning as in org-backlinks.el: the closest heading
-;; (self or ancestor) with an :ID:, or the file-level node.
+;; (self or ancestor) with an :ID: or :CUSTOM_ID: (see
+;; `my/org-bl-node-properties'), or the file-level node.
 ;;
 ;; Paper results are shown with `citar-select-refs', i.e. the same display
 ;; as `org-cite-insert' / `citar-insert-citation' (author, year, title,
@@ -173,7 +174,7 @@ without those markers is split into bare keys (CITE_KEY, #+REFERENCE)."
 (defvar my/org-cl--index (make-hash-table :test 'equal)
   "File -> (STAMP . DATA), the cached citation index.")
 
-(defconst my/org-cl--index-version 1
+(defconst my/org-cl--index-version 2
   "Bump when the shape of the index changes.")
 
 (defun my/org-cl--scan-buffer ()
@@ -209,10 +210,7 @@ plist with :key :pos :line :raw :col :heading :owner :owner-keys."
                              :line (line-number-at-pos cbeg)
                              :raw (string-trim line)
                              :col (- cbeg lb lead)
-                             :heading (save-excursion
-                                        (goto-char cbeg)
-                                        (when (re-search-backward "^\\*+ +\\(.*\\)$" nil t)
-                                          (match-string-no-properties 1)))
+                             :heading (my/org-bl--context-heading cbeg)
                              :owner owner
                              :owner-keys (unless (eq okeys :none) okeys))))
             (dolist (k keys)
@@ -504,7 +502,7 @@ Occurrences of KEY get `my/org-bl-reference'."
     (save-restriction
       (widen)
       (if-let* ((o (my/org-bl--owner pos)))
-          (progn (goto-char o) (org-get-heading t t t t))
+          (progn (goto-char o) (my/org-bl--heading-title))
         (my/org-bl--file-title)))))
 
 ;;;; Prompts ----------------------------------------------------------------
@@ -718,6 +716,15 @@ notes) are offered too, in a separate group."
      (format "Citing %s: " (mapconcat #'my/org-cl--short citekeys ", "))
      notes)))
 
+;;;###autoload
+(defun my/citar-where-cited (citekeys)
+  "Consult all places where CITEKEYS are cited."
+  (interactive (list (citar-select-refs)))
+  (my/org-cl--consult-locations
+   (my/org-cl--citations-of citekeys
+                            (and (buffer-file-name) (list (my/org-cl--self))))
+   (format "Cited (%s): " (mapconcat #'my/org-cl--short citekeys ", "))))
+
 ;;;; Commands on the node at point ------------------------------------------
 
 (defun my/org-cl--check ()
@@ -749,6 +756,14 @@ With WHOLE-FILE, use every paper declared in the file."
   (interactive "P")
   (my/org-cl--check)
   (my/citar-cited-by (my/org-cl--paper-keys-here whole-file)))
+
+;;;###autoload
+(defun my/org-citar-where-cited-here (&optional whole-file)
+  "Consult the places citing this note's paper.
+With WHOLE-FILE, use every paper declared in the file."
+  (interactive "P")
+  (my/org-cl--check)
+  (my/citar-where-cited (my/org-cl--paper-keys-here whole-file)))
 
 ;;;; Sidecar ----------------------------------------------------------------
 
@@ -831,6 +846,10 @@ POS nil means the whole file."
   "Embark action: papers and notes citing TARGET."
   (my/citar-cited-by (my/org-cl--embark-keys target)))
 
+(defun my/org-cl-embark-where-cited (target)
+  "Embark action: all places citing TARGET."
+  (my/citar-where-cited (my/org-cl--embark-keys target)))
+
 (defun my/org-cl--bind-embark-keys ()
   "Add the citation actions to citar's Embark keymaps."
   (dolist (sym '(citar-map citar-citation-map
@@ -838,7 +857,8 @@ POS nil means the whole file."
     (when (and (boundp sym) (keymapp (symbol-value sym)))
       (let ((map (symbol-value sym)))
         (define-key map (kbd "F") #'my/org-cl-embark-cites)
-        (define-key map (kbd "B") #'my/org-cl-embark-cited-by)))))
+        (define-key map (kbd "B") #'my/org-cl-embark-cited-by)
+        (define-key map (kbd "W") #'my/org-cl-embark-where-cited)))))
 
 (my/org-cl--bind-embark-keys)
 (with-eval-after-load 'citar-embark (my/org-cl--bind-embark-keys))
@@ -846,7 +866,7 @@ POS nil means the whole file."
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c n c") #'my/org-citar-cites-here)
   (define-key org-mode-map (kbd "C-c n C") #'my/org-citar-cited-by-here)
-  )
+  (define-key org-mode-map (kbd "C-c n w") #'my/org-citar-where-cited-here))
 
 (provide 'org-citar-links)
 ;;; org-citar-links.el ends here

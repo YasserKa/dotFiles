@@ -377,6 +377,9 @@ exec /bin/kdeconnectd & disown
 
 exec gammastep
 
+# Connect to headphones if possible
+exec --no-startup-id bash -ic 'timeout 30 switch_audio_sink "Bluetooth" "headphones"'
+
 # Disable bluetooth
 # exec rfkill block bluetooth
 

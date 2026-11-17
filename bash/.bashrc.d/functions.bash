@@ -795,7 +795,7 @@ virt-manager() { [[ -n "${WAYLAND_DISPLAY}" ]] && GDK_BACKEND=x11 command virt-m
 # Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
 thunderbird() {
  is_window_exists '^org.mozilla.Thunderbird$' && \
- 	{ is_window_visible '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
+ 	{ is_window_exists '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
  		i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && return 0
 	command thunderbird &
  wait_window '^org.mozilla.Thunderbird$' && sleep 0.5 && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
