@@ -1,46 +1,32 @@
 #!/usr/bin/env bash
-# Move specific windows to scratchpad or kill them
-#
-# dependencies: i3/sway jq
+# Move an app's main window to the scratchpad; kill everything else.
+# dependencies: sway (or i3), jq
 
-SCRATCHPAD_WINDOWS=(
-    "Zotero"
-    "org.mozilla.Thunderbird"
+# Pairs of: app_id/class regex   title regex identifying the MAIN window
+rules=(
+    '^Zotero$' 'Zotero'
+    '^(org\.mozilla\.Thunderbird|thunderbird)$' 'Mozilla Thunderbird$'
 )
 
-for window in "${SCRATCHPAD_WINDOWS[@]}"; do
+IFS=$'\t' read -r id app title < <(
+    i3-msg -t get_tree | jq -r '
+        .. | objects | select(.focused == true and .type != "workspace")
+        | [.id, (.app_id // .window_properties.class // ""), (.name // "")]
+        | @tsv'
+)
 
-    focused_window_id="$(i3-msg -t get_tree | jq --arg re "$window" '
-    .. | objects
-    | select(
-    .focused and (
-        (.name? == $re) or
-        (.app_id? == $re) or
-        (.window_properties.class? == $re))
-    ) | .id
-    ')"
+[[ -z "$id" ]] && exit 0 # nothing focused (e.g. empty workspace)
 
-    # Window focus isn't in the list
-    [[ -z "$focused_window_id" ]] && continue
-
-    # Get all window ids that have same property
-    windows_ids="$(i3-msg -t get_tree | jq --arg re "$window" '
-    .. | objects
-    | select(
-        (.name? == $re) or
-        (.app_id? == $re) or
-        (.window_properties.class? == $re)
-    ) | .id
-    ')"
-
-    # If the window id is not the smallest -> it's a secondary window
-    if [[ "$(echo "$windows_ids" | wc -l)" -gt 1 ]]; then
-        [[ "$(echo "$windows_ids" | head -n 1)" != "$focused_window_id" ]] && break
+for ((i = 0; i < ${#rules[@]}; i += 2)); do
+    app_re=${rules[i]} main_re=${rules[i + 1]}
+    if [[ $app =~ $app_re ]]; then
+        if [[ $title =~ $main_re ]]; then
+            # Sway needs fullscreen disabled first, otherwise it bugs out
+            i3-msg "[con_id=$id] fullscreen disable, move scratchpad"
+            exit 0
+        fi
+        break # known app, but a secondary window -> kill it
     fi
-
-    # NOTE: Sway needs fullscreen disabled; otherwise, it bugs out when other windows are fullscreened
-    i3-msg "[con_id=$focused_window_id] fullscreen disable" && i3-msg "[con_id=$focused_window_id] move scratchpad"
-    exit 0
 done
 
-i3-msg kill
+i3-msg "[con_id=$id] kill"
