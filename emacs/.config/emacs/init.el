@@ -1534,21 +1534,67 @@ Made for `org-tab-first-hook' in evil-mode."
   ;; Toggle subtree narrowing
   (keymap-set org-mode-map "C-x n t" #'org-toggle-narrow-to-subtree)
 
+  (require 'cl-lib)
+  (require 'org-element)
+
+  (defvar my/org-sort-todo-order '("NEXT" "BLOCKED" "TODO" "DONE" "CANCELED")
+    "TODO keywords in the order `my/org-sort' places them.
+Keywords not listed here come right after these; entries without
+any TODO keyword come last.")
+
+  (defun my/org-sort--key ()
+    "Return a numeric sort key for the entry at point: state, then priority."
+    (let* ((state (org-get-todo-state))
+           (n (length my/org-sort-todo-order))
+           (state-rank (cond ((null state) (1+ n))   ; non-TODO entries last
+                             ((cl-position state my/org-sort-todo-order
+                                           :test #'string=))
+                             (t n)))                 ; unknown keywords
+           ;; Priority cookie as a char (?A, ?B, ...); none sorts after all.
+           (priority (or (org-element-property :priority (org-element-at-point))
+                         256)))
+      (+ (* state-rank 1000) priority)))
+
   (defun my/org-sort ()
-    "Sort entries to move DONE items to the bottom, then by priority (A, B, C, D)."
+    "Sort entries by TODO state, then by priority.
+State order: NEXT, BLOCKED, TODO, DONE, CANCELED, then entries with
+no TODO keyword.  Within each state: A, B, C, D, then no priority.
+
+If the heading at point has children, sort its children.  Otherwise
+sort the heading together with its siblings."
     (interactive)
-    (org-sort-entries
-     nil ; with-case
-     ?f  ; sorting-type (functional)
-     (lambda ()
-       (let ((done-score (if (org-entry-is-done-p) "1" "0"))
-             ;; Safely get priority string ("A", "B", etc.) or use "Z" as a fallback for no priority
-             (priority (org-entry-get nil "PRIORITY")))
-         (concat done-score "-" priority)))
-     #'string<)
-    (org-fold-hide-subtree)
-    (org-show-entry)
-    (org-show-children))
+    (unless (derived-mode-p 'org-mode)
+      (user-error "Not in an Org buffer"))
+    (org-back-to-heading t)
+    (let* ((line (buffer-substring-no-properties
+                  (line-beginning-position) (line-end-position)))
+           (has-children (save-excursion (org-goto-first-child)))
+           ;; The heading whose children get sorted (nil = top level).
+           (parent (if has-children
+                       (point)
+                     (save-excursion (and (org-up-heading-safe) (point))))))
+      (if parent
+          (progn
+            (goto-char parent)
+            (org-sort-entries nil ?f #'my/org-sort--key #'<))
+        ;; Top-level heading with no children: sort all top-level entries
+        ;; (respects narrowing).
+        (let ((transient-mark-mode t))
+          (push-mark (point-min) t t)
+          (goto-char (point-max))
+          (org-sort-entries nil ?f #'my/org-sort--key #'<)
+          (deactivate-mark)))
+      ;; Refold the sorted subtree the same way the original function did.
+      (when parent
+        (goto-char parent)
+        (org-fold-hide-subtree)
+        (org-fold-show-entry)
+        (org-fold-show-children))
+      ;; Put point back on the heading you started from.
+      (goto-char (or parent (point-min)))
+      (when (re-search-forward (concat "^" (regexp-quote line) "$") nil t)
+        (goto-char (match-beginning 0)))))
+
 
   ;; Agenda
   ;; Open agenda files to buffer at startup
@@ -3574,6 +3620,7 @@ with the file name kept at the start of each candidate."
   (" C" calfw-org-open-calendar "calendar block view")
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" u" org-utility-hydra/body "org utility")
+  (" s" my/org-sort "org sort")
   (" f" org-find-hydra/body "find")
   (" m" org-maintenance-hydra/body       "maintenance")
   (" o" org-indirect-open-hydra/body "indirect open")
@@ -3640,10 +3687,12 @@ with the file name kept at the start of each candidate."
 
 (defhydra org-utility-hydra (:exit t :idle 1)
   (" i" #'my/node-insert                                   "insert node" :column " node")
-  (" b" #'my/org-backlinks                                 "node backlinks")
+  (" b" #'my/org-backlinks                                 "node backlinks" :column " links")
   (" B" (lambda () (interactive) (my/org-backlinks t))     "file backlinks")
   (" f" my/org-forward-links                               "node forwardlinks")
   (" F" (lambda () (interactive) (my/org-forward-links t)) "file forwardlinks")
+  (" s" #'my/org-backlinks-node                             "node sidecar" :column " sidecar")
+  (" S" #'my/org-backlinks-file                             "file sidecar")
   (" g" org-roam-ui-mode                                    "graph" :column " ")
   (" h" org-id-get-create                                   "make a heading a node")
   (" a" #'my/node-add-alias                                 "add alias")
