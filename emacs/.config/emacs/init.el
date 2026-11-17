@@ -591,6 +591,32 @@ does not have to do this by oneself."
       )
     )
 
+  ;; {{{ Preserve visual mode after shifting (pressing < or >)
+  (defun my/evil-shift-right-visual (&optional count)
+    "Shift the visual selection right and keep it selected."
+    (interactive "p")
+    (evil-shift-right evil-visual-beginning evil-visual-end count)
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (defun my/evil-shift-left-visual (&optional count)
+    "Shift the visual selection left and keep it selected."
+    (interactive "p")
+    (evil-shift-left evil-visual-beginning evil-visual-end count)
+    (evil-normal-state)
+    (evil-visual-restore))
+
+  (define-key evil-visual-state-map (kbd ">") #'my/evil-shift-right-visual)
+  (define-key evil-visual-state-map (kbd "<") #'my/evil-shift-left-visual)
+  ;; }}}
+
+  ;; Don't enable Corfu in evil's ex prompt (keep it for other minibuffers)
+  (setq global-corfu-minibuffer
+        (lambda ()
+          (not (or (bound-and-true-p vertico--input)
+                   (eq (current-local-map) read-passwd-map)
+                   (eq (current-local-map) evil-ex-completion-map)))))
+
   ;; Swap C-? & C-h
   (evil-define-key '(normal insert) 'global  (kbd "C-?") 'help-command)  ;; Bind C-? to help-command
 
