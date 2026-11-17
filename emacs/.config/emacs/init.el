@@ -472,9 +472,7 @@ does not have to do this by oneself."
     :config
     (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
-  ;; Allow id auto-completion with [[]]
-  (require 'org-id)
-
+  ;; {{{ Allow id auto-completion with [[]]
   (defvar my/org-id--file-cache (make-hash-table :test #'equal)
     "FILE -> (MTIME . CANDIDATES).")
 
@@ -546,6 +544,7 @@ does not have to do this by oneself."
 
   (add-hook 'org-mode-hook
             (lambda ()
+              (require 'org-id)
               (add-hook 'completion-at-point-functions #'my/org-id-capf nil t)))
 
   )
