@@ -636,6 +636,17 @@ does not have to do this by oneself."
 
   (define-key key-translation-map (kbd "C-<escape>") (kbd "ESC"))
 
+  (defun my/isearch-delete-word-backward ()
+    "Delete the last word from the isearch string."
+    (interactive)
+    (setq isearch-string
+          (replace-regexp-in-string "\\W*\\w*\\'" "" isearch-string)
+          isearch-message
+          (mapconcat #'isearch-text-char-description isearch-string ""))
+    (isearch-search-and-update))
+
+  (define-key isearch-mode-map (kbd "C-w") #'my/isearch-delete-word-backward)
+
   (evil-define-key 'normal 'global
     (kbd "0") 'evil-beginning-of-line
     (kbd "j") 'evil-next-visual-line
