@@ -711,18 +711,14 @@ does not have to do this by oneself."
   (define-and-bind-text-object "$" "\\$" "\\$")
   (define-and-bind-text-object "~" "\\~" "\\~")
 
-  (defun my/join-line-keep-point ()
-    "Join line without moving point"
-    (interactive)
-    (point-to-register 'z)
-    (let ((current-prefix-arg 4)) ;; emulate C-u
-      (call-interactively 'join-line) ;; invoke align-regexp interactively
-      )
-    (jump-to-register 'z)
-    )
+  (evil-define-operator my/evil-join-keep-point (beg end)
+    "Like `evil-join' (J), but leave the cursor where it is."
+    :motion evil-line
+    :move-point nil
+    (save-excursion (evil-join beg end)))
 
-  (evil-define-key 'normal 'global (kbd "J") 'my/join-line-keep-point)
-  (evil-define-key 'visual 'global (kbd "J") 'join-line)
+  (evil-define-key '(normal visual) 'global (kbd "J") #'my/evil-join-keep-point)
+
   )
 
 (use-package windresize
@@ -1031,19 +1027,19 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                  (char-after))))))
 
   (aas-set-snippets 'laas-mode
-    ;; set condition!
-    ;; :cond #'my/tex-nonmathp
-    :cond #'my/nonmath-standalone-dm-p
-    "dm" '(yas "\\[
+                    ;; set condition!
+                    ;; :cond #'my/tex-nonmathp
+                    :cond #'my/nonmath-standalone-dm-p
+                    "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
-    :cond #'texmathp ; expand only while in math
-    "t=" "\\triangleq"
-    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
-    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
-    ;; add accent snippets
-    :cond #'laas-object-on-left-condition
-    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
+                    :cond #'texmathp ; expand only while in math
+                    "t=" "\\triangleq"
+                    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
+                    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
+                    ;; add accent snippets
+                    :cond #'laas-object-on-left-condition
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
   )
 
 ;; Used to insert latex environments and math templates
@@ -1169,9 +1165,6 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (org-cycle-include-plain-lists 'integrate "Keep items folded when cycling")
   (org-enforce-todo-dependencies t)
   (org-cycle-separator-lines -1  "No empty lines needed to fold subtrees")
-  (org-link-abbrev-alist '(("img" . "~/notes/images/%s"))) ;; allow [[img:]] links
-  (org-startup-with-inline-images t)
-  (org-image-actual-width '(700))
   ;; Padding
   (line-spacing 0.05)
   ;; Hide title in the header
@@ -1570,7 +1563,6 @@ any TODO keyword come last.")
   "Sort entries by TODO state, then by priority.
 State order: NEXT, BLOCKED, TODO, DONE, CANCELED, then entries with
 no TODO keyword.  Within each state: A, B, C, D, then no priority.
-
 By default, sort the heading at point together with its siblings.
 With a prefix ARG (\\[universal-argument]), sort its children instead.
 Afterwards, point is on the first of the sorted headings."
@@ -1608,7 +1600,6 @@ Afterwards, point is on the first of the sorted headings."
       (goto-char (point-min))
       (unless (org-at-heading-p)
         (outline-next-heading)))))
-
 
   ;; Agenda
   ;; Open agenda files to buffer at startup
