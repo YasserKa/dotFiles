@@ -240,26 +240,63 @@
 
 (use-package elec-pair
   :ensure nil
-  :hook (org-mode . (lambda ()
-                      (modify-syntax-entry ?$ "\"" org-mode-syntax-table)
-                      ))
-  (emacs-lisp-mode . (lambda ()
-                       (setq electric-pair-preserve-balance t)
-                       ))
+  :hook (emacs-lisp-mode . (lambda ()
+                             ;; setq-local, otherwise this leaks into every buffer
+                             (setq-local electric-pair-preserve-balance t)))
   :custom
   (electric-pair-preserve-balance nil)
   :config
   (electric-pair-mode t)
 
+  ;; ---------- Case 1: don't pair when text follows the cursor ----------
   (defun my/ignore-elec-pairs (c)
-    (cond
-     ((and (char-equal c ?$) (org-in-src-block-p)) t)
-     ((when (char-equal c (preceding-char))) nil)
-     ((when (eq (following-char) 0) ) nil)
-     ))
+    "Return non-nil to inhibit pairing of C.
+Called after C has been inserted, so `following-char' is the char after it."
+    (or
+     ;; no $ pairing inside org src blocks
+     (and (eq c ?$)
+          (derived-mode-p 'org-mode)
+          (org-in-src-block-p))
+     ;; only pair if followed by eol, whitespace, a closer, punctuation or a quote
+     (not (or (eolp)
+              (memq (char-syntax (following-char)) '(?\s ?\) ?. ?\"))))))
 
-  (add-function :before-until electric-pair-inhibit-predicate 'my/ignore-elec-pairs)
-  )
+  (setq electric-pair-inhibit-predicate #'my/ignore-elec-pairs)
+
+  ;; ---------- org / LaTeX: cases 2, 3 and 4 ----------
+  (defvar my/display-math-indent 4
+    "Indentation of the body of a $$ ... $$ block, relative to the $$.")
+
+  (defun my/org-dollar ()
+    "Insert $; turn an empty $|$ into $$|$$."
+    (interactive)
+    (if (and (eq (char-before) ?$)
+             (eq (char-after) ?$)
+             (not (eq (char-before (1- (point))) ?$))
+             (not (eq (char-after (1+ (point))) ?$))
+             (not (org-in-src-block-p)))
+        (progn (insert "$")
+               (save-excursion (insert "$")))
+      (call-interactively #'self-insert-command)))
+
+  (defun my/org-return ()
+    "Open $$|$$ into a three-line display-math block, else `org-return'."
+    (interactive)
+    (if (and (looking-back "\\$\\$" (max (point-min) (- (point) 2)))
+             (looking-at-p "\\$\\$"))
+        (let ((col (save-excursion (backward-char 2) (current-column))))
+          (insert "\n")
+          (save-excursion
+            (insert "\n")
+            (indent-to col))  ; closing $$ lines up with the opening one
+          (indent-to (+ col my/display-math-indent)))
+      (call-interactively #'org-return)))
+
+  (with-eval-after-load 'org
+    (modify-syntax-entry ?$ "\"" org-mode-syntax-table)
+    (define-key org-mode-map (kbd "$")   #'my/org-dollar)
+    (define-key org-mode-map (kbd "RET") #'my/org-return)))
+
 
 (use-package flycheck)
 
