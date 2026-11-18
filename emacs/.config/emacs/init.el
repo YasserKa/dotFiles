@@ -1658,6 +1658,109 @@ Afterwards, point is on the first of the sorted headings."
   (when (daemonp)
     (advice-add 'command-execute :around #'my/command-with-high-gc))
 
+  ;; {{{ Images
+  (setq
+   org-link-abbrev-alist '(("img" . "~/notes/images/%s")) ;; allow [[img:]] links
+   org-startup-with-inline-images t
+   org-image-actual-width nil ;; Use ATTR_ORG then original size
+   org-attach-auto-tag nil) ;; Don't use attachment
+
+  ;; Paste clipboard images in Org as [[img:NAME]] links (Emacs + Evil)
+  ;; yank-media handler: save the image, insert an img: link
+  (defun my/org-yank-image-as-img-link (mimetype data)
+    "Save clipboard image DATA where an img: link points, and insert that link.
+The location comes from the \"img\" entry in `org-link-abbrev-alist'."
+    (let* ((ext  (pcase (cadr (split-string (symbol-name mimetype) "/"))
+                   ("jpeg" "jpg")
+                   (e e)))
+           (base (format-time-string "%Y%m%d_%H%M%S"))
+           (name (concat base "." ext))
+           (path (lambda (n) (expand-file-name (org-link-expand-abbrev (concat "img:" n)))))
+           (n 1))
+      ;; Avoid clobbering if two pastes happen within the same second.
+      (while (file-exists-p (funcall path name))
+        (setq name (format "%s_%d.%s" base n ext)
+              n (1+ n)))
+      (make-directory (file-name-directory (funcall path name)) t)
+      (with-temp-file (funcall path name)
+        (set-buffer-multibyte nil)
+        (setq buffer-file-coding-system 'binary)
+        (insert data))
+      (insert (format "[[img:%s]]" name))))
+
+  (defun my/org-register-img-yank-handler ()
+    ;; Same regexp as Org's own handler, so this one replaces it in the buffer.
+    (yank-media-handler "image/.*" #'my/org-yank-image-as-img-link))
+
+  (add-hook 'org-mode-hook #'my/org-register-img-yank-handler)
+
+  ;; Clipboard check
+  (defun my/org-clipboard-has-image-p ()
+    "Non-nil if the system clipboard currently offers an image."
+    (let ((targets (ignore-errors (gui-get-selection 'CLIPBOARD 'TARGETS))))
+      (and targets
+           (seq-some (lambda (tgt)
+                       (string-prefix-p "image/" (symbol-name tgt)))
+                     targets))))
+
+  ;; Evil: p / P (and "+p, "*p)
+  (with-eval-after-load 'evil
+    (defun my/evil-org-paste-image (orig-fn after count &optional register &rest args)
+      "In Org buffers, paste an image with `yank-media' if the clipboard has one.
+AFTER non-nil means paste after the cursor (like `p')."
+      (if (and (derived-mode-p 'org-mode)
+               (memq register '(nil ?+ ?*))
+               (my/org-clipboard-has-image-p))
+          (progn
+            (when (and after (not (eolp)))
+              (forward-char))
+            (yank-media))
+        (apply orig-fn count register args)))
+
+    (defun my/evil-paste-after-a (orig-fn &rest args)
+      (apply #'my/evil-org-paste-image orig-fn t args))
+
+    (defun my/evil-paste-before-a (orig-fn &rest args)
+      (apply #'my/evil-org-paste-image orig-fn nil args))
+
+    (advice-add 'evil-paste-after  :around #'my/evil-paste-after-a)
+    (advice-add 'evil-paste-before :around #'my/evil-paste-before-a))
+
+  ;; Add binding to add ATTR_ORG to images
+  (defun my/org-image-width ()
+    "Insert (or jump to) #+ATTR_ORG :width above the image link on this line,
+and select the width value."
+    (interactive)
+    (unless (save-excursion
+              (forward-line 0)
+              (re-search-forward org-link-bracket-re (line-end-position) t))
+      (user-error "No image link on this line"))
+    (let ((indent (current-indentation)) beg end)
+      (forward-line 0)
+      (if (save-excursion
+            (and (zerop (forward-line -1))
+                 (looking-at "[ \t]*#\\+ATTR_ORG:.*:width[ \t]+\\([0-9]+\\)")))
+          ;; Already has a width: select it.
+          (setq beg (match-beginning 1) end (match-end 1))
+        ;; Insert a new attribute line, matching the link's indentation.
+        (insert (make-string indent ?\s) "#+ATTR_ORG: :width 400\n")
+        (setq end (1- (point)) beg (- end 3)))
+      (if (bound-and-true-p evil-local-mode)
+          (progn (goto-char beg)
+                 (evil-visual-char)
+                 (goto-char (1- end)))   ; evil visual is inclusive
+        (goto-char end)
+        (push-mark beg t t))))
+  (defun my/org-image-width-yas ()
+    (interactive)
+    (forward-line 0)
+    (open-line 1)
+    (yas-expand-snippet "#+ATTR_ORG: :width ${1:400}"))
+
+  (evil-define-key 'normal org-mode-map (kbd "z w") #'my/org-image-width)
+  ;; }}}
+
+
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
    )
