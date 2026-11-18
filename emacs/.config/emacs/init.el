@@ -1693,12 +1693,19 @@ Afterwards, point is on the first of the sorted headings."
 
 
     (defun my/org-link-file-preview (ov path link)
-      "Rich preview for media files, icon + description for everything else.
+      "Native Org preview for images, beautify for other media, icon + description otherwise.
 Plain (unbracketed) links are left as raw text."
       (unless (eq (org-element-property :format link) 'plain)
-        (if (and my/org-link-file-preview-orig
-                 (string-match-p my/org-link-rich-preview-regexp (downcase path)))
-            (funcall my/org-link-file-preview-orig ov path link)
+        (cond
+         ;; Images: Org's own handler (respects `org-image-actual-width')
+         ((string-match-p (image-file-name-regexp) path)
+          (org-link-preview-file ov path link))
+         ;; PDFs, video, audio...: org-link-beautify's handler
+         ((and my/org-link-file-preview-orig
+               (string-match-p my/org-link-rich-preview-regexp (downcase path)))
+          (funcall my/org-link-file-preview-orig ov path link))
+         ;; Everything else: icon + description
+         (t
           (let* ((file (expand-file-name path))
                  (icon (cond
                         ((file-directory-p file) (nerd-icons-icon-for-dir file))
@@ -1714,7 +1721,7 @@ Plain (unbracketed) links are left as raw text."
                                    (when opt (concat "::" opt)))))))
             (overlay-put ov 'display
                          (concat icon " " (propertize desc 'face 'org-link)))
-            t))))   ; non-nil = keep the overlay
+            t)))))
 
     (defun my/org-link-install-file-preview ()
       (let ((current (org-link-get-parameter "file" :preview)))
@@ -1784,6 +1791,31 @@ Plain (unbracketed) links are left as raw text."
                        (truncate-string-to-width
                         d my/org-link-preview-max-width nil nil "…")))))
 
+    (defun my/org-transclude-link-previews (beg end)
+      "Preview links inside #+transclude: keywords, which Org doesn't parse as links."
+      (save-excursion
+        (goto-char beg)
+        (while (re-search-forward "^[ \t]*#\\+transclude:[ \t]*" end t)
+          (when (looking-at org-link-bracket-re)
+            (let* ((mb (match-beginning 0))
+                   (me (match-end 0))
+                   (link (save-excursion (goto-char mb) (org-element-link-parser)))
+                   (preview (and link
+                                 (org-link-get-parameter
+                                  (org-element-property :type link) :preview))))
+              (when (and preview
+                         (not (string-match-p "\n" (buffer-substring-no-properties mb me)))
+                         (not (seq-some (lambda (o) (overlay-get o 'my/internal-link))
+                                        (overlays-in mb me))))
+                (let ((ov (make-overlay mb me)))
+                  (overlay-put ov 'my/internal-link t) ; reuse: toggle + dedupe logic
+                  (overlay-put ov 'evaporate t)
+                  (overlay-put ov 'insert-in-front-hooks (list #'my/org-link-preview-guard))
+                  (overlay-put ov 'modification-hooks (list #'my/org-link-preview-guard))
+                  (if (funcall preview ov (org-element-property :path link) link)
+                      (my/org-link-truncate-display ov)
+                    (delete-overlay ov)))))))))
+
     (defun my/org-link-preview-jit (beg end)
       "Preview Org links on the lines covering BEG..END when jit-lock fontifies them."
       (when (derived-mode-p 'org-mode)
@@ -1794,7 +1826,9 @@ Plain (unbracketed) links are left as raw text."
                 (when (< lbeg lend)
                   (org-link-preview-region t nil lbeg lend)
                   (when (bound-and-true-p org-link-beautify-mode)
-                    (my/org-internal-link-previews lbeg lend))
+                    (when (bound-and-true-p org-link-beautify-mode)
+                      (my/org-internal-link-previews lbeg lend)
+                      (my/org-transclude-link-previews lbeg lend)))
                   (dolist (ov (overlays-in lbeg lend))
                     (when (memq ov org-link-preview-overlays)
                       (if (save-excursion
@@ -1822,8 +1856,8 @@ Plain (unbracketed) links are left as raw text."
               (widen)
               (if org-link-beautify-mode
                   (progn
-                    (org-link-preview-region t t (point-min) (point-max))
-                    (my/org-internal-link-previews (point-min) (point-max)))
+                    (my/org-internal-link-previews (point-min) (point-max))
+                    (my/org-transclude-link-previews (point-min) (point-max)))
                 (remove-overlays (point-min) (point-max) 'my/internal-link t)))))))
 
     (add-hook 'org-link-beautify-mode-hook #'my/org-link-beautify-toggle)
@@ -1862,11 +1896,6 @@ Plain (unbracketed) links are left as raw text."
     :config
     (setq org-table-widget-link-beautify-images t)
     (require 'org-table-widget-link-beautify)
-    )
-
-  (use-package org-download
-    :after org
-    :config (setq-default org-download-image-dir (concat my/notes-dir "/images/drag_drop"))
     )
 
   (defun my/open-super-agenda ()
