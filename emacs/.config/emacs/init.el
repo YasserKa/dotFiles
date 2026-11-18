@@ -1567,44 +1567,44 @@ any TODO keyword come last.")
       (+ (* state-rank 1000) priority)))
 
   (defun my/org-sort ()
-    "Sort entries by TODO state, then by priority.
+  "Sort entries by TODO state, then by priority.
 State order: NEXT, BLOCKED, TODO, DONE, CANCELED, then entries with
 no TODO keyword.  Within each state: A, B, C, D, then no priority.
 
 If the heading at point has children, sort its children.  Otherwise
 sort the heading together with its siblings."
-    (interactive)
-    (unless (derived-mode-p 'org-mode)
-      (user-error "Not in an Org buffer"))
-    (org-back-to-heading t)
-    (let* ((line (buffer-substring-no-properties
-                  (line-beginning-position) (line-end-position)))
-           (has-children (save-excursion (org-goto-first-child)))
-           ;; The heading whose children get sorted (nil = top level).
-           (parent (if has-children
-                       (point)
-                     (save-excursion (and (org-up-heading-safe) (point))))))
-      (if parent
-          (progn
-            (goto-char parent)
-            (org-sort-entries nil ?f #'my/org-sort--key #'<))
-        ;; Top-level heading with no children: sort all top-level entries
-        ;; (respects narrowing).
-        (let ((transient-mark-mode t))
-          (push-mark (point-min) t t)
-          (goto-char (point-max))
-          (org-sort-entries nil ?f #'my/org-sort--key #'<)
-          (deactivate-mark)))
-      ;; Refold the sorted subtree the same way the original function did.
-      (when parent
-        (goto-char parent)
-        (org-fold-hide-subtree)
-        (org-fold-show-entry)
-        (org-fold-show-children))
-      ;; Put point back on the heading you started from.
-      (goto-char (or parent (point-min)))
-      (when (re-search-forward (concat "^" (regexp-quote line) "$") nil t)
-        (goto-char (match-beginning 0)))))
+  (interactive)
+  (unless (derived-mode-p 'org-mode)
+    (user-error "Not in an Org buffer"))
+  (org-back-to-heading t)
+  (let* ((line (buffer-substring-no-properties
+                (line-beginning-position) (line-end-position)))
+         (has-children (save-excursion (org-goto-first-child)))
+         (parent (if has-children
+                     (point)
+                   (save-excursion (and (org-up-heading-safe) (point))))))
+    (if parent
+        (progn
+          (goto-char parent)
+          (org-sort-entries nil ?f #'my/org-sort--key #'<))
+      (let ((transient-mark-mode t))
+        (push-mark (point-min) t t)
+        (goto-char (point-max))
+        (org-sort-entries nil ?f #'my/org-sort--key #'<)
+        (deactivate-mark)))
+    ;; Refold: org-sort-entries unfolds the subtree it sorts (or the
+    ;; whole buffer for a top-level sort), so fold it back up.
+    (if parent
+        (progn
+          (goto-char parent)
+          (org-fold-hide-subtree)
+          (org-fold-show-entry)
+          (org-fold-show-children))
+      (org-overview))
+    ;; Put point back on the heading you started from.
+    (goto-char (or parent (point-min)))
+    (when (re-search-forward (concat "^" (regexp-quote line) "$") nil t)
+      (goto-char (match-beginning 0)))))
 
 
   ;; Agenda
