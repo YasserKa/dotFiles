@@ -1596,10 +1596,23 @@ any TODO keyword come last.")
                          256)))
       (+ (* state-rank 1000) priority)))
 
-  (defun my/org-sort (&optional arg)
+  (defun my/org-sort--refold (parent)
+  "Fold the sorted entries back up.
+PARENT is a marker at the heading whose children were sorted, or nil
+for a top-level sort."
+  (save-excursion
+    (if (not parent)
+        (org-overview)
+      (goto-char parent)
+      (org-fold-hide-subtree)
+      (org-fold-show-entry)
+      (org-fold-show-children))))
+
+(defun my/org-sort (&optional arg)
   "Sort entries by TODO state, then by priority.
 State order: NEXT, BLOCKED, TODO, DONE, CANCELED, then entries with
 no TODO keyword.  Within each state: A, B, C, D, then no priority.
+
 By default, sort the heading at point together with its siblings.
 With a prefix ARG (\\[universal-argument]), sort its children instead.
 Afterwards, point is on the first of the sorted headings."
@@ -1609,9 +1622,12 @@ Afterwards, point is on the first of the sorted headings."
   (org-back-to-heading t)
   (when (and arg (not (save-excursion (org-goto-first-child))))
     (user-error "This heading has no children to sort"))
-  (let ((parent (if arg
-                    (point)
-                  (save-excursion (and (org-up-heading-safe) (point))))))
+  (let* ((pos (if arg
+                  (point)
+                (save-excursion (and (org-up-heading-safe) (point)))))
+         ;; A marker, so the deferred refold below still finds it.
+         (parent (and pos (copy-marker pos)))
+         (buf (current-buffer)))
     (if parent
         (progn
           (goto-char parent)
@@ -1621,15 +1637,15 @@ Afterwards, point is on the first of the sorted headings."
         (goto-char (point-max))
         (org-sort-entries nil ?f #'my/org-sort--key #'<)
         (deactivate-mark)))
-    ;; Refold: org-sort-entries unfolds the subtree it sorts (or the
-    ;; whole buffer for a top-level sort), so fold it back up.
-    (if parent
-        (progn
-          (goto-char parent)
-          (org-fold-hide-subtree)
-          (org-fold-show-entry)
-          (org-fold-show-children))
-      (org-overview))
+    ;; Refold now, and once more after the command has finished, in
+    ;; case Org's folding code unfolds the re-inserted text afterwards.
+    (my/org-sort--refold parent)
+    (run-at-time 0 nil
+                 (lambda ()
+                   (when (buffer-live-p buf)
+                     (with-current-buffer buf
+                       (my/org-sort--refold parent)
+                       (when parent (set-marker parent nil))))))
     ;; Move to the first of the sorted headings.
     (if parent
         (progn (goto-char parent)
