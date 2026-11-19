@@ -19,7 +19,7 @@ def main():
     header_message_id_encoded = quote(data["headerMessageId"], safe="")
     subprocess.Popen(
         (
-            f"org_capture 'tb:{header_message_id_encoded}' 'LTU email: {data['subject']}'"
+            f'org_capture "tb:{header_message_id_encoded}" "LTU email: {data["subject"]}"'
         ),
         shell=True,
         text=True,
