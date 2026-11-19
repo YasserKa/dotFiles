@@ -1566,23 +1566,23 @@ any TODO keyword come last.")
                          256)))
       (+ (* state-rank 1000) priority)))
 
-  (defun my/org-sort ()
+  (defun my/org-sort (&optional arg)
   "Sort entries by TODO state, then by priority.
 State order: NEXT, BLOCKED, TODO, DONE, CANCELED, then entries with
 no TODO keyword.  Within each state: A, B, C, D, then no priority.
 
-If the heading at point has children, sort its children.  Otherwise
-sort the heading together with its siblings."
-  (interactive)
+By default, sort the heading at point together with its siblings.
+With a prefix ARG (\\[universal-argument]), sort its children instead.
+Afterwards, point is on the first of the sorted headings."
+  (interactive "P")
   (unless (derived-mode-p 'org-mode)
     (user-error "Not in an Org buffer"))
   (org-back-to-heading t)
-  (let* ((line (buffer-substring-no-properties
-                (line-beginning-position) (line-end-position)))
-         (has-children (save-excursion (org-goto-first-child)))
-         (parent (if has-children
-                     (point)
-                   (save-excursion (and (org-up-heading-safe) (point))))))
+  (when (and arg (not (save-excursion (org-goto-first-child))))
+    (user-error "This heading has no children to sort"))
+  (let ((parent (if arg
+                    (point)
+                  (save-excursion (and (org-up-heading-safe) (point))))))
     (if parent
         (progn
           (goto-char parent)
@@ -1601,10 +1601,13 @@ sort the heading together with its siblings."
           (org-fold-show-entry)
           (org-fold-show-children))
       (org-overview))
-    ;; Put point back on the heading you started from.
-    (goto-char (or parent (point-min)))
-    (when (re-search-forward (concat "^" (regexp-quote line) "$") nil t)
-      (goto-char (match-beginning 0)))))
+    ;; Move to the first of the sorted headings.
+    (if parent
+        (progn (goto-char parent)
+               (org-goto-first-child))
+      (goto-char (point-min))
+      (unless (org-at-heading-p)
+        (outline-next-heading)))))
 
 
   ;; Agenda
