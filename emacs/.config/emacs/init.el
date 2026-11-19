@@ -3223,6 +3223,30 @@ Handles `org-marker' candidates (consult-org-heading), grep candidates
           ;; Open link without losing focus of window
           (update_i3_focus_window_config)
           (org-open-at-point-global)))))
+
+  (defun my/org-new-item-below (&optional checkbox)
+    "Insert a new list item after the whole current item (and its children).
+With CHECKBOX non-nil, add an empty checkbox. Outside a list, insert a heading."
+    (interactive "P")
+    (let ((item (org-in-item-p)))       ; works on any line of the item
+      (if item
+          (let* ((struct (save-excursion (goto-char item) (org-list-struct)))
+                 (end    (org-list-get-item-end item struct))
+                 (ind    (org-list-get-ind item struct))
+                 (bullet (org-list-get-bullet item struct)))
+            (goto-char end)
+            (skip-chars-backward " \t\n")   ; end of item's text, past sub-items
+            (insert "\n" (make-string ind ?\s) bullet (if checkbox "[ ] " ""))
+            (org-list-repair)               ; renumber ordered lists
+            (end-of-line))
+        (if checkbox
+            (progn (end-of-line)
+                   (let ((current-prefix-arg '(16)))
+                     (call-interactively #'org-insert-todo-heading)))
+          (org-insert-heading-after-current)))
+      (evil-insert 0)))
+
+
   :hook ((org-mode . evil-org-mode)
          (evil-org-mode . (lambda ()
                             (evil-org-set-key-theme '(textobjects insert navigation todo calendar additional))
@@ -3244,11 +3268,8 @@ Handles `org-marker' candidates (consult-org-heading), grep candidates
                                                             (let ((evil-org-special-o/O '(table-row item))) (evil-org-open-above 1)) t)
                                                            ((progn (beginning-of-line) (org-insert-heading) (evil-insert 0)))))
                               (kbd "<C-S-return>") #'(lambda () (interactive) (beginning-of-line) (org-insert-todo-heading 0) (evil-insert 0))
-                              (kbd "<M-return>") #'(lambda () (interactive)
-                                                     (cond ((org-at-item-p)
-                                                            (let ((evil-org-special-o/O '(table-row item))) (evil-org-open-below 1)) t)
-                                                           ((progn (org-insert-heading-after-current) (evil-insert 0)))))
-                              (kbd "<M-S-return>") #'(lambda () (interactive) (end-of-line) (let ((current-prefix-arg '(16))) (call-interactively 'org-insert-todo-heading)) (evil-insert 0))
+                              (kbd "<M-return>")   #'my/org-new-item-below
+                              (kbd "<M-S-return>") (lambda () (interactive) (my/org-new-item-below t))
                               )
                             ;; readline keybinding
                             (evil-define-key 'insert 'evil-org-mode
