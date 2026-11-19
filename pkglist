@@ -344,6 +344,8 @@ qemu-full # Full QEMU setup
 libvirt # API for controlling virtualization engines (openvz,kvm, qemu, virtualbox, xen)
 dnsmasq # Lightweight, easy to configure DNS forwarder and DHCP server
 virt-manager # Desktop user interface for managing virtual machines
+cockpit-machines # Cockpit UI for virtual machines
+swtpm # Needed for virtualizing Windows
 
 # Mutt
 neomutt # A version of mutt with added features

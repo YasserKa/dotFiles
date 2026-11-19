@@ -39,8 +39,6 @@ array::contains() {
 }
 
 main() {
-	# Clear kitty image
-	printf "\x1b_Ga=d,d=A\x1b\\"
 	[[ ! -e "$1" ]] && echo "$1" && exit 0
 
 	MIME_TYPE="$(file -bL --mime-type -- "$1")"
@@ -152,7 +150,7 @@ main() {
 	pgrep navi >/dev/null && FZF_PREVIEW_LINES=$((FZF_PREVIEW_LINES - 6))
 
 	case "$MIME_TYPE" in
-		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=stream --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" & ;;
+		image/*) kitty +kitten icat --clear --silent --scale-up --transfer-mode=memory --unicode-placeholder --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0" "$1" ;;
 		text/*) bat -n --color=always "$1" ;;
 		audio/*) exiftool "$1" ;;
 		application/json) bat --color=always --language=json <(jq '.[] | .' "$1") ;;

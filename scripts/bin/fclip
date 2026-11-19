@@ -1,51 +1,479 @@
 #!/usr/bin/env bash
 #
-# Yank from coyq's clipboard
+# Yank from CopyQ's clipboard history via fzf.
 #
-# Dependencies: copyq fzf xclip
+# Dependencies: copyq fzf (>= 0.56 for --gap / multi-line items) bat
+# Optional:     jq, magika, pygmentize (python-pygments)     -> better syntax detection
+#               xclip / wl-copy                              -> image items stored as /tmp/copyq* paths
+#
+# The script calls itself for the parts fzf needs (--list, --preview), so no
+# JavaScript or shell code has to survive several layers of nested quoting.
 
-get_candidates='
-time_ansi = "\x1b[32m";
-text_ansi = "\x1b[1;38m";
-end_ansi = "\x1b[0;39m";
-for (i = 0; i < size(); ++i) {
-  print(
-  i
-  + " "
-  + time_ansi
-  + read("application/x-copyq-user-copy-time", i)
-  + end_ansi
-  + " "
-  + text_ansi
-  + read("text/plain", i)
-  + end_ansi
-  + "\0",
-  );
-}'
+set -uo pipefail
 
-declare TMP_FILE
-TMP_FILE="$(mktemp -t "tmp_XXX")"
-readonly TMP_FILE
+SELF="$(realpath -- "${BASH_SOURCE[0]}")"
+PREVIEW_MEDIA="${XDG_CONFIG_HOME:-$HOME/.config}/fzf/fzf_preview_media"
 
-trap 'rm $TMP_FILE' EXIT
+MAX_ITEMS=${CLIP_MAX_ITEMS:-500} # how many history entries to load
+MAX_LINES=${CLIP_MAX_LINES:-3}   # lines shown per entry in the list (full text is in the preview)
+MAX_COLS=${CLIP_MAX_COLS:-200}   # truncate very long lines in the list
 
-IFS='' read -r -d '' cmd <<EOF
-  get_candidates='${get_candidates}'
-  copyq eval -- "\${get_candidates}" | fzf --multi --ansi --delimiter ' ' --nth=3.. --accept-nth=3.. --with-nth=2.. --read0 --preview-window="hidden" --preview "$XDG_CONFIG_HOME/fzf/fzf_preview_media {4..}" \
-    --bind "enter:execute-silent(echo {4..} >|'${TMP_FILE}')+abort" \
-    --bind 'ctrl-alt-d:execute-silent(copyq remove {1})+reload:copyq eval -- '"'\${get_candidates}'" \
-    | sed -E 's/^[0-9]\+ [0-9]\+-[0-9]\+ [0-9:]\+ //'
-EOF
+# ---------------------------------------------------------------------------
+# List: "<row>\t<age>\t<text>\0"
+#   - age is a fixed-width relative time ("  3m", " 2h", "  5d") so the text
+#     column always starts at the same place
+#   - continuation lines are indented to that column
+# ---------------------------------------------------------------------------
+read -r -d '' LIST_JS <<'JS'
+var G = '\x1b[32m', D = '\x1b[2m', B = '\x1b[1m', R = '\x1b[0m';
+var now = Date.now();
+var indent = '     '; // 4 cols of age + the tab (rendered 1 col wide with --tabstop=1)
+
+function pad(s) { while (s.length < 4) s = ' ' + s; return s; }
+
+function age(t) {
+  // Accepts "yyyy-MM-dd hh:mm[:ss]" and year-less "MM-dd hh:mm[:ss]" (local time).
+  var m = str(t).trim().match(/^(?:(\d{4})-)?(\d{1,2})-(\d{1,2})[ T](\d{1,2}):(\d{2})(?::(\d{2}))?/);
+  if (!m) return '   -';
+  var today = new Date(now);
+  var year = m[1] ? +m[1] : today.getFullYear();
+  var d = new Date(year, m[2] - 1, +m[3], +m[4], +m[5], +(m[6] || 0));
+  // No year stored and the date lands in the future -> it's from last year.
+  if (!m[1] && d.getTime() > now + 60000) d.setFullYear(year - 1);
+  var v = Math.max(0, (now - d.getTime()) / 1000);
+  var units = [['s', 60], ['m', 60], ['h', 24], ['d', 7], ['w', 52]];
+  for (var k = 0; k < units.length; ++k) {
+    if (v < units[k][1]) return pad(Math.floor(v) + units[k][0]);
+    v /= units[k][1];
+  }
+  return pad(Math.floor(v) + 'y');
+}
+
+function clean(s) {
+  // no stray escape codes / tabs / CRs messing up the list
+  return s.replace(/\r/g, '').replace(/\t/g, '  ').replace(/\x1b/g, '\u241b');
+}
+
+// First line (1-based) containing any search term, so fzf can scroll the
+// preview there. Same rules as match_lines() in the shell part.
+var terms = query.split(/\s+/).filter(function (t) {
+  return t && t !== '|' && t.charAt(0) !== '!';
+}).map(function (t) {
+  return t.replace(/^'/, '').replace(/^\^/, '').replace(/\$$/, '').toLowerCase();
+}).filter(function (t) { return t; });
+
+function firstMatch(text) {
+  if (!terms.length) return 1;
+  var ls = text.toLowerCase().split('\n');
+  for (var k = 0; k < ls.length; ++k)
+    for (var m = 0; m < terms.length; ++m)
+      if (ls[k].indexOf(terms[m]) !== -1) return k + 1;
+  return 1;
+}
+
+var n = Math.min(size(), maxItems);
+var rows = [];
+if (onlyRows === null) for (var r = 0; r < n; ++r) rows.push(r);
+else rows = onlyRows;
+
+for (var j = 0; j < rows.length; ++j) {
+  var i = rows[j];
+  var text = clean(str(read('text/plain', i)));
+  var body;
+  if (text === '') {
+    var fmts = str(read('?', i)).split('\n').filter(function (f) {
+      return f && f.indexOf('application/x-copyq') !== 0;
+    });
+    body = D + '[' + (fmts[0] || 'empty') + ']' + R;
+  } else {
+    var lines = text.split('\n');
+    while (lines.length > 1 && lines[lines.length - 1].trim() === '') lines.pop();
+    var shown = lines.slice(0, maxLines).map(function (l) {
+      return l.length > maxCols ? l.slice(0, maxCols) + D + '\u2026' + R + B : l;
+    });
+    body = B + shown.join(R + '\n' + indent + B) + R;
+    if (lines.length > maxLines)
+      body += '\n' + indent + D + '\u2026 +' + (lines.length - maxLines) + ' more lines' + R;
+  }
+  print(i + '\t' + firstMatch(text) + '\t' + G + age(read('application/x-copyq-user-copy-time', i)) + R + '\t' + body + '\0');
+}
+JS
+
+# Full text of every entry as "<row>\t<text>\0", used only for matching.
+read -r -d '' SEARCH_JS <<'JS'
+var n = Math.min(size(), maxItems);
+for (var i = 0; i < n; ++i)
+  print(i + '\t' + str(read('text/plain', i)).replace(/\0/g, '') + '\0');
+JS
+
+# fzf only searches what it displays, so the list is truncated for display but
+# matched here against each clip's *full* text, then rendered in score order.
+list_items() {
+	local query=${1:-} only_rows=null
+	if [[ -n "$query" ]]; then
+		local -a rows
+		mapfile -t rows < <(
+			copyq eval -- "var maxItems = $MAX_ITEMS;
+$SEARCH_JS" |
+				fzf --read0 --print0 --delimiter='\t' --nth=2.. --scheme=history --filter="$query" |
+				while IFS= read -r -d '' rec; do echo "${rec%%$'\t'*}"; done
+		)
+		((${#rows[@]})) || return 0
+		only_rows="[$(
+			IFS=,
+			echo "${rows[*]}"
+		)]"
+	fi
+	local q_js=${query//\\/\\\\}
+	q_js=${q_js//\'/\\\'}
+	copyq eval -- "var maxItems = $MAX_ITEMS, maxLines = $MAX_LINES, maxCols = $MAX_COLS, onlyRows = $only_rows, query = '$q_js';
+$LIST_JS"
+}
+
+# Lines in a file, counting a last line without a trailing newline (wc -l doesn't).
+line_count() { awk 'END { print NR }' "$1"; }
+
+# ---------------------------------------------------------------------------
+# Syntax detection: cheap reliable heuristics first, ML/statistical guessers last
+# ---------------------------------------------------------------------------
+
+# Does this line look like a shell command?
+#   echo hi · sudo pacman -S x · $ git log · FOO=bar make · ./build.sh · ~/bin/x
+#   clipboard_copy "$clip"  (your shell functions aren't on PATH, so an unknown
+#   lowercase word followed by shell syntax counts too)
+looks_like_shell() {
+	local line=$1 word
+	local assign='^[A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*([[:space:]]+|$)'
+	# flags · $var/${..}/$(..) · pipe · && · redirect to a file-ish target or fd
+	local syntax='[[:space:]]--?[A-Za-z]|\$[A-Za-z_{(]|[|]|&&|[0-9]?>>?[[:space:]]*[~/$.A-Za-z_]|[0-9]?>&[0-9]'
+
+	line="${line#\$ }"
+	line="${line#sudo }"
+	while [[ "$line" =~ $assign ]]; do # leading VAR=value assignments
+		line="${line:${#BASH_REMATCH[0]}}"
+		[[ -z "$line" ]] && return 0
+	done
+	word="${line%%[[:space:]]*}"
+
+	case "$word" in
+		'{' | '}' | function) return 1 ;; # shared with JS/JSON; let the guessers decide
+		'/*'* | '//'*) return 1 ;;        # C-style comments, not paths
+		./* | ../* | \~/* | /*) return 0 ;;
+	esac
+	case "$(type -t -- "$word" 2>/dev/null)" in
+		builtin | keyword | file) return 0 ;;
+	esac
+	[[ "$word" =~ ^[a-z_][a-z0-9_.-]*$ && "$line" =~ $syntax ]]
+}
+
+detect_lang() {
+	local f=$1 first code lang
+
+	first="$(head -n1 -- "$f")"
+	first="${first#"${first%%[![:space:]]*}"}" # trim leading whitespace
+
+	# Shebangs ("#!/usr/bin/env python") are recognised by bat itself.
+	[[ "$first" == '#!'* ]] && return
+
+	# Unambiguous openings of other languages. Checked before the shell test
+	# because some are also shell commands (ImageMagick's `import`).
+	case "$first" in
+		'diff --git'* | '--- '* | '@@ '*)
+			echo diff
+			return
+			;;
+		'<?xml'*)
+			echo xml
+			return
+			;;
+		'<!DOCTYPE html'* | '<!doctype html'* | '<html'*)
+			echo html
+			return
+			;;
+		'{'* | '[{'* | '['*)
+			if command -v jq &>/dev/null && jq -e . "$f" &>/dev/null; then
+				echo json
+				return
+			fi
+			;;
+		'import '*' from '* | 'const '* | 'let '*' = '* | \
+			'export default '* | 'export const '* | 'export function '* | 'export class '*)
+			echo javascript
+			return
+			;;
+		'def '* | 'class '*: | 'import '* | 'from '*' import '* | 'if __name__'*)
+			echo python
+			return
+			;;
+		'package '* | 'func '*'{')
+			echo go
+			return
+			;;
+		'fn '* | 'use '*'::'*';' | 'impl '*)
+			echo rust
+			return
+			;;
+		'#include'*)
+			echo cpp
+			return
+			;;
+		'SELECT '* | 'select '* | 'INSERT '* | 'UPDATE '* | 'CREATE '* | 'WITH '*)
+			echo sql
+			return
+			;;
+		'local '*' = '* | 'require('*)
+			echo lua
+			return
+			;;
+	esac
+
+	# Shell, judged on the first line that isn't a comment.
+	code="$(grep -m1 -vE '^[[:space:]]*(#|$)' -- "$f")"
+	code="${code#"${code%%[![:space:]]*}"}"
+	if [[ -n "$code" ]] && looks_like_shell "$code"; then
+		echo bash
+		return
+	fi
+
+	# Magika (Google's ML content-type detector, ~40ms): good on multi-line
+	# snippets. On one-liners it guesses wildly, except that "shell" is reliable.
+	if command -v magika &>/dev/null; then
+		lang="$(magika -l --no-colors -- "$f" 2>/dev/null)"
+		lang="${lang##*: }"
+		if (($(line_count "$f") > 1)); then
+			case "$lang" in
+				'' | txt | unknown | empty | undefined) ;;
+				shell)
+					echo bash
+					return
+					;;
+				batch)
+					echo bat
+					return
+					;;
+				*)
+					echo "$lang"
+					return
+					;;
+			esac
+		elif [[ "$lang" == shell ]]; then
+			echo bash
+			return
+		fi
+	fi
+
+	# pygments' guesser is noisy (it'll happily call Python "scdoc"), so only
+	# trust it for code-looking text and only when it names a common language.
+	if command -v pygmentize &>/dev/null && grep -q '[{};=()<>]' "$f"; then
+		lang="$(pygmentize -C <"$f" 2>/dev/null)"
+		case "$lang" in
+			bash | sh | zsh | python | python3 | javascript | js | typescript | ts | json | yaml | toml | \
+				ini | html | xml | css | scss | c | cpp | rust | go | java | kotlin | lua | ruby | php | \
+				sql | perl | diff | make | cmake | docker | nginx | markdown | md | haskell | nix)
+				echo "$lang"
+				;;
+		esac
+	fi
+}
+
+# Line numbers in file $1 that match the fzf query $2, one per line.
+# Each search term is matched on its own (a clip can match "foo bar" with the
+# two words on different lines). Negated terms (!foo) and | are skipped.
+# Plain substring matches are preferred; fuzzy matching is the fallback, since
+# fuzzy hits for short terms would light up half the clip.
+match_lines() {
+	local f=$1 t
+	local -a words terms=()
+	read -ra words <<<"$2"
+	for t in "${words[@]}"; do
+		[[ "$t" == '|' || "$t" == '!'* ]] && continue
+		t="${t#\'}" t="${t#^}" t="${t%\$}"
+		[[ -n "$t" ]] && terms+=("$t")
+	done
+	((${#terms[@]})) || return 0
+
+	{ for t in "${terms[@]}"; do grep -niF -- "$t" "$f" | cut -d: -f1; done; } |
+		sort -nu | grep . && return 0
+
+	for t in "${terms[@]}"; do
+		awk '{ print NR "\t" $0 }' "$f" | fzf --delimiter='\t' --nth=2.. --filter="$t" | cut -f1
+	done | sort -nu
+}
+
+# Anything that is a file (images, PDFs, folders, archives, ...) is previewed
+# by the general-purpose fzf_preview_media; this script only renders clip text.
+preview_file() {
+	if [[ -x "$PREVIEW_MEDIA" ]]; then
+		"$PREVIEW_MEDIA" "$1"
+	else
+		file -- "$1"
+	fi
+}
+
+preview_item() {
+	local idx=$1 query=${2:-} tmp lang fmt path
+
+	# Clear any kitty image left by the previous preview. fzf_preview_media does
+	# this too, but text clips never reach it.
+	printf '\x1b_Ga=d,d=A\x1b\\'
+
+	# Scratch files live in the picker's cache dir, which is removed when the
+	# picker closes, not when this preview exits: fzf_preview_media starts
+	# `kitty icat` in the background, and it must still find the image.
+	if [[ ! -d "${CLIP_CACHE:-}" ]]; then # run by hand, outside the picker
+		CLIP_CACHE="$(mktemp -d)"
+		trap 'rm -rf "$CLIP_CACHE"' EXIT
+	fi
+	# No extension on purpose: bat picks a syntax from the extension before the
+	# first line, so "preview.txt" would hide shebangs ("#!/usr/bin/env bash").
+	tmp="$CLIP_CACHE/clip"
+
+	copyq read text/plain "$idx" >"$tmp"
+
+	# No text: preview the item's image data, or list its formats.
+	if [[ ! -s "$tmp" ]]; then
+		fmt="$(copyq read '?' "$idx" | grep -m1 '^image/')"
+		if [[ -n "$fmt" ]]; then
+			path="$CLIP_CACHE/item-$idx.${fmt#image/}"
+			copyq read "$fmt" "$idx" >"$path"
+			preview_file "$path"
+		else
+			copyq read '?' "$idx"
+		fi
+		return
+	fi
+
+	# A one-line clip that is a path to something that exists (including your
+	# /tmp/copyq* images): preview what it points to.
+	if (($(line_count "$tmp") <= 1)); then
+		path="$(<"$tmp")"
+		path="${path/#\~/$HOME}"
+		if [[ "$path" == /* && -e "$path" ]]; then
+			preview_file "$path"
+			return
+		fi
+	fi
+
+	lang="$(detect_lang "$tmp")"
+	local bat_opts=(--color=always --style=plain --paging=never)
+
+	# Highlight lines matching the query. Scrolling to the first match is done
+	# by fzf itself (+{2} in --preview-window), so the whole clip stays visible.
+	local -a matches=()
+	local n
+	[[ -n "$query" ]] && mapfile -t matches < <(match_lines "$tmp" "$query")
+	for n in "${matches[@]:0:200}"; do bat_opts+=(--highlight-line "$n"); done
+
+	if [[ -z "$lang" ]] || ! bat "${bat_opts[@]}" -l "$lang" "$tmp" 2>/dev/null; then
+		bat "${bat_opts[@]}" "$tmp"
+	fi
+
+	local info
+	local lines
+	lines="$(line_count "$tmp")"
+	info="${lang:-auto} · $lines line$( ((lines == 1)) || echo s) · $(wc -m <"$tmp") chars"
+	case ${#matches[@]} in
+		0) ;;
+		1) info+=" · 1 matching line" ;;
+		*) info+=" · ${#matches[@]} matching lines" ;;
+	esac
+	printf '\n\x1b[2m── %s\x1b[0m\n' "$info"
+}
+
+# Remove rows. Row 0 is what's on the clipboard right now; if it's removed,
+# the clipboard gets the new newest entry, otherwise CopyQ would add the
+# deleted text back the next time it reads the clipboard.
+delete_items() {
+	copyq remove "$@" || return
+	local row
+	for row in "$@"; do
+		if [[ "$row" == 0 ]] && (($(copyq size) > 0)); then
+			copyq select 0
+			break
+		fi
+	done
+}
+
+case "${1:-}" in
+	--list)
+		list_items "${2:-}"
+		exit
+		;;
+	--delete)
+		shift
+		delete_items "$@"
+		exit
+		;;
+	--preview)
+		preview_item "$2" "${3:-}"
+		exit
+		;;
+esac
+
+# ---------------------------------------------------------------------------
+# Picker
+# ---------------------------------------------------------------------------
+# One scratch dir per picker session: preview files and the selection.
+CLIP_CACHE="$(mktemp -d -t "copyq-fzf.XXXXXX")"
+readonly CLIP_CACHE
+readonly SELECTION="$CLIP_CACHE/selection"
+
+# Monitoring stays on while picking: re-enabling it can make CopyQ re-read the
+# clipboard as a fresh copy (new timestamp on the newest entry, deleted entries
+# coming back). It's only paused around the final copy below.
+trap 'rm -rf "$CLIP_CACHE"' EXIT
+
+q_self="$(printf '%q' "$SELF")"
+q_sel="$(printf '%q' "$SELECTION")"
+
+fzf_args=(
+	--read0 --ansi --multi --highlight-line --gap
+	# Fields: 1 = CopyQ row, 2 = first matching line (hidden), 3 = age, 4 = text
+	--delimiter='\t' --with-nth=3.. --tabstop=1
+	# Matching happens in `--list <query>` against the full clip text, not
+	# against the truncated lines fzf displays.
+	--disabled
+	--bind="change:reload($q_self --list {q})"
+	--prompt='clip> '
+	--header='enter: copy (tab to pick several) · ctrl-alt-d: delete'
+	--preview="$q_self --preview {1} {q}"
+	# +{2}-/2: scroll to the first matching line and centre it
+	--preview-window='right,55%,wrap,border-left,+{2}-/2,<100(down,50%,wrap,border-top,+{2}-/2)'
+	--bind="enter:execute-silent(printf '%s\n' {+1} >| $q_sel)+abort"
+	--bind="ctrl-alt-d:execute-silent($q_self --delete {+1})+reload($q_self --list {q})+clear-multi"
+)
+
+# The floating terminal may not inherit our environment, so CLIP_CACHE is
+# exported inside the command itself; fzf passes it on to the previews.
+cmd="export CLIP_CACHE=$(printf '%q' "$CLIP_CACHE"); $(printf '%q ' "$SELF" --list)| fzf $(printf '%q ' "${fzf_args[@]}")"
 
 eval_interactive_cmd --floating "$cmd"
 
-[[ -s "$TMP_FILE" ]] || exit 1
+[[ -s "$SELECTION" ]] || exit 1
+mapfile -t rows <"$SELECTION"
 
-clip="$(<"$TMP_FILE")"
+# Single item without text (e.g. a real image item): let CopyQ restore it with
+# all its original formats.
+if ((${#rows[@]} == 1)) && [[ -z "$(copyq read text/plain "${rows[0]}")" ]]; then
+	copyq select "${rows[0]}"
+	exit
+fi
+# Read exact text (the trailing "x" keeps trailing newlines from being eaten).
+texts=()
+for row in "${rows[@]}"; do
+	t="$(
+		copyq read text/plain "$row"
+		printf x
+	)"
+	texts+=("${t%x}")
+done
+printf -v clip '%s\n' "${texts[@]}"
+clip="${clip%$'\n'}"
 
 copyq disable
-if [[ "$clip" =~ /tmp/copyq..* ]]; then
-	if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+trap 'rm -rf "$CLIP_CACHE"; copyq enable' EXIT
+if ((${#rows[@]} == 1)) && [[ "$clip" == /tmp/copyq* && -f "$clip" ]]; then
+	if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
 		wl-copy <"$clip"
 	else
 		xclip -selection clipboard -t image/png -i "$clip"
@@ -53,4 +481,3 @@ if [[ "$clip" =~ /tmp/copyq..* ]]; then
 else
 	clipboard_copy "$clip"
 fi
-copyq enable
