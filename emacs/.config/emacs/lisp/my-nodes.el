@@ -498,7 +498,7 @@ current window while you move through the candidates."
                  :prompt prompt
                  :category 'my-node
                  :require-match nil
-                 :sort nil
+                 :sort t
                  :preview-key 'any
                  :lookup (lambda (selected &rest _)
                            (or (assoc selected nodes) selected))

@@ -1,6 +1,7 @@
 XDG_CONFIG_HOME = $(HOME)/.config
 MAKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 XDG_DATA_HOME=$(HOME)/.local/share
+DOTFILES_ROOT := $(CURDIR)/root
 
 # sci-hub for qutebrowser
 PYPI_PACKAGES = tmuxp pdm sci-hub ipython pix2tex mutt-ics jupytext shot-scraper magika
@@ -75,7 +76,7 @@ stow-root:
 	@sudo pacman -S --noconfirm greetd
 	@# Map CAPSLOCK to CTRL in Virtual console
 	@sudo localectl set-x11-keymap us pc105+inet "" ctrl:nocaps,terminate:ctrl_alt_bksp
-	sudo rm -r /etc/{pacman.conf,greetd}
+	sudo rm -rf /etc/pacman.conf /etc/greetd
 	sudo mkdir /root/.config/nvim
 	sudo stow root --target=/
 
@@ -161,6 +162,16 @@ setup-systemd-services:
 	sudo systemctl enable bluetooth.service
 	@# Weekly, discard unused blocks in filesystem
 	sudo systemctl enable fstrim.timer
+	sudo mkdir -p /etc/systemd/system/pkgfile-update.service.d
+	@# pkgfile-update.service has ProtectHome=, so it can't follow /etc/pacman.conf's symlink into /home
+	printf '[Service]\nProtectHome=tmpfs\nBindReadOnlyPaths=%s\n' '$(CURDIR)/root' \
+		| sudo tee /etc/systemd/system/pkgfile-update.service.d/dotfiles.conf >/dev/null
+	sudo systemctl enable pkgfile-update.timer
+	@# Make autorandr start for X11 sessins only
+	sudo mkdir -p /etc/systemd/system/autorandr.service.d
+	printf '[Service]\nExecCondition=/usr/bin/pgrep -x Xorg|X\n' \
+		| sudo tee /etc/systemd/system/autorandr.service.d/x11-only.conf >/dev/null
+	sudo systemctl daemon-reload
 
 .PHONY: setup-qutebrowser
 setup-qutebrowser:

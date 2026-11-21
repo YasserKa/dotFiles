@@ -27,8 +27,15 @@
 ;;     %h is the heading without TODO keyword, priority and tags; %t the
 ;;     file's #+TITLE (or its name).  Every other description is reported.  For one you want to keep,
 ;;     answer "i" when asked, and it is never reported again.
-;;       M-x org-link-maint-fix-descriptions   fix them (asks y/n/!/q/i;
-;;                                              C-u fixes all without asking)
+;;
+;;     Wrong link type (`org-link-maint-check-link-types').  A link to a
+;;     heading should use the best target the heading has: ID >
+;;     CUSTOM_ID > *Heading.  So ::*Heading to a heading with a CUSTOM_ID
+;;     should be ::#custom-id, and ::#custom-id or ::*Heading to a
+;;     heading with an ID should be [[id:ID]].
+;;
+;;       M-x org-link-maint-fix   fix descriptions and link types (asks
+;;                                y/n/!/q/i; C-u fixes all without asking)
 ;;
 ;;  3. Orphan notes (`org-link-maint-check-orphans').  A note (file)
 ;;     with a TYPE property is an entry point; every other note must be
@@ -91,6 +98,14 @@ ID, %h is the file's title too.  A kind set to nil is not checked."
   :type '(alist :key-type (choice (const id) (const custom-id)
                                   (const heading) (const file))
                 :value-type (choice (const :tag "Don't check" nil) string)))
+
+(defcustom org-link-maint-check-link-types t
+  "When non-nil, report links to a heading that use a weaker kind of link.
+The order is ID > CUSTOM_ID > *Heading: a link should use the best
+one the heading has.  So [[...::*Heading]] to a heading with a
+CUSTOM_ID should be [[...::#custom-id]], and a ::#custom-id or
+::*Heading link to a heading with an ID should be [[id:ID]]."
+  :type 'boolean)
 
 (defcustom org-link-maint-ignore-file
   (locate-user-emacs-file "org-link-maint-ignore.eld")
@@ -170,6 +185,8 @@ This is the union of:
   type      ; the note's TYPE property (file level), or nil
   headings  ; hash: heading words (as Org compares them) -> heading title
   cids      ; hash: downcased CUSTOM_ID -> heading title
+  hprops    ; hash: heading words -> (ID . CUSTOM_ID) of that heading
+  cid-ids   ; hash: downcased CUSTOM_ID -> ID of the same heading
   targets   ; hash: downcased <<target>> words -> t
   names     ; hash: #+NAME words -> t
   ids       ; list of (ID . HEADING-TITLE), HEADING-TITLE nil for the file
@@ -230,6 +247,8 @@ KEYWORDS are the TODO keywords in effect."
         (keywords (org-link-maint--todo-keywords))
         (headings (make-hash-table :test #'equal))
         (cids (make-hash-table :test #'equal))
+        (hprops (make-hash-table :test #'equal))
+        (cid-ids (make-hash-table :test #'equal))
         (targets (make-hash-table :test #'equal))
         (names (make-hash-table :test #'equal))
         titles ids links first-heading file-type)
@@ -260,12 +279,13 @@ KEYWORDS are the TODO keywords in effect."
     ;; Headings with their property drawers.
     (goto-char first-heading)
     (while (re-search-forward "^\\*+ \\(.*\\)$" nil t)
-      (let ((title (org-link-maint--heading-title
-                    (match-string-no-properties 1) keywords))
-            id cid)
-        (let ((key (org-link-maint--heading-key title)))
-          (unless (gethash key headings)   ; Org finds the first one
-            (puthash key (org-link-maint--display title) headings)))
+      (let* ((title (org-link-maint--heading-title
+                     (match-string-no-properties 1) keywords))
+             (key (org-link-maint--heading-key title))
+             (first (not (gethash key headings))) ; Org finds the first one
+             id cid)
+        (when first
+          (puthash key (org-link-maint--display title) headings))
         (forward-line 1)
         (when (looking-at "[ \t]*\\(?:SCHEDULED\\|DEADLINE\\|CLOSED\\):")
           (forward-line 1))
@@ -282,7 +302,9 @@ KEYWORDS are the TODO keywords in effect."
         (when (or id cid)
           (let ((shown (org-link-maint--display title)))
             (when id (push (cons id shown) ids))
-            (when cid (puthash (downcase cid) shown cids))))))
+            (when cid (puthash (downcase cid) shown cids))
+            (when (and id cid) (puthash (downcase cid) id cid-ids))
+            (when first (puthash key (cons id cid) hprops))))))
     ;; <<targets>> (not <<<radio targets>>>) and #+NAME:s.
     (goto-char (point-min))
     (while (re-search-forward "<<\\([^<>\n]+\\)>>" nil t)
@@ -312,6 +334,7 @@ KEYWORDS are the TODO keywords in effect."
               (file-name-base file))
      :lines (line-number-at-pos (point-max))
      :headings headings :cids cids :targets targets :names names
+     :hprops hprops :cid-ids cid-ids
      :ids ids :links (nreverse links) :type file-type)))
 
 (defun org-link-maint--stamp (file)
@@ -438,7 +461,7 @@ Return nil if FILE does not exist."
 
 (defun org-link-maint--index-update (files)
   "Bring the index up to date for FILES and drop deleted files."
-  (let ((settings (list 3               ; index format version
+  (let ((settings (list 4               ; index format version
                         org-link-maint-command-link-types
                         (mapcar #'car org-link-maint-link-checkers)
                         org-todo-keywords)))
@@ -782,6 +805,47 @@ TARGET is from `org-link-maint--desc-target'."
       (let ((want (org-link-maint--render format title (or heading title))))
         (unless (equal desc want) want)))))
 
+(defun org-link-maint--short-id (id)
+  "ID shortened for messages."
+  (if (> (length id) 12) (concat (substring id 0 8) "…") id))
+
+(defun org-link-maint--better-link (parsed fi desc)
+  "If the link PARSED (into note FI) should use a stronger kind of link,
+return (NEW-LINK NEW-DESC REASON); else nil.  NEW-DESC is the
+description NEW-LINK should have (nil if DESC is nil)."
+  (pcase-let ((`(,type ,path ,search) parsed))
+    (when (and fi search (not (string-empty-p search)))
+      (let* ((title (org-link-maint--fi-title fi))
+             (prefix (concat type ":" path))
+             (better
+              (cond
+               ((string-prefix-p "#" search)
+                (let ((cid (downcase (substring search 1))))
+                  (when-let* ((id (gethash cid (org-link-maint--fi-cid-ids fi))))
+                    (list (concat "id:" id) 'id
+                          (gethash cid (org-link-maint--fi-cids fi))
+                          "heading has an ID: use an id: link"))))
+               ((string-prefix-p "*" search)
+                (let* ((key (org-link-maint--join (substring search 1)))
+                       (props (gethash key (org-link-maint--fi-hprops fi)))
+                       (heading (gethash key (org-link-maint--fi-headings fi))))
+                  (cond
+                   ((car props)
+                    (list (concat "id:" (car props)) 'id heading
+                          "heading has an ID: use an id: link"))
+                   ((cdr props)
+                    (list (concat prefix "::#" (cdr props)) 'custom-id heading
+                          (format "heading has a CUSTOM_ID: use ::#%s"
+                                  (cdr props))))))))))
+        (pcase better
+          (`(,link ,kind ,heading ,reason)
+           (let ((format (alist-get kind org-link-maint-description-formats)))
+             (list link
+                   (and desc (if format
+                                 (org-link-maint--render format title heading)
+                               desc))
+                   reason))))))))
+
 ;;;;; Descriptions to keep
 
 (defun org-link-maint--ignored ()
@@ -796,8 +860,9 @@ TARGET is from `org-link-maint--desc-target'."
     h))
 
 (defun org-link-maint--ignore (hit)
-  "Keep HIT's description: never report it again."
-  (pcase-let* ((`(,file ,_ ,_ ,desc ,_ ,_ ,_ ,_ ,link) hit)
+  "Keep HIT's link as it is: never report it again."
+  (pcase-let* ((`(,file ,_ ,_ ,label ,_ ,_ ,kind ,_ ,link . ,_) hit)
+               (desc (if (eq kind ?t) (nth 10 hit) label))
                (entry (list file link desc))
                (entries (hash-table-keys (org-link-maint--ignored))))
     (unless (member entry entries)
@@ -812,9 +877,11 @@ TARGET is from `org-link-maint--desc-target'."
 
 (defun org-link-maint--check-links (links commands)
   "Check LINKS, (FILE LINE OFFSET LINK DESC PARSED) entries.  Return hits.
-A hit is (FILE LINE OFFSET LABEL REASON TYPE KIND NEW LINK): KIND is
-?b for a broken link, ?d for an outdated description (NEW is the
-description it should have)."
+A hit is (FILE LINE OFFSET LABEL REASON TYPE KIND NEW LINK . MORE):
+KIND is ?b for a broken link, ?d for an outdated description (NEW is
+the description it should have), ?t for a link that should use a
+stronger link type (MORE is (NEW-LINK DESC): the link it should be,
+and its current description; NEW is the description for NEW-LINK)."
   (let ((ignored (org-link-maint--ignored))
         (source-fi nil) (source nil)
         hits)
@@ -831,14 +898,23 @@ description it should have)."
         (when (and (listp org-link-maint--edges) source-fi target-fi
                    (not (eq source-fi target-fi)))
           (push (cons source-fi target-fi) org-link-maint--edges))
-        (if reason
-            (push (list file line off label reason (car parsed) ?b nil link) hits)
+        (cond
+         (reason
+          (push (list file line off label reason (car parsed) ?b nil link) hits))
+         ((when-let* ((better (and org-link-maint-check-link-types parsed
+                                   (not (gethash (list file link desc) ignored))
+                                   (org-link-maint--better-link parsed target-fi desc))))
+            (pcase-let ((`(,new-link ,new-desc ,why) better))
+              (push (list file line off label why (car parsed) ?t new-desc link
+                          new-link desc)
+                    hits))))
+         (t
           (when-let* ((desc desc)
                       (target (and parsed (org-link-maint--desc-target parsed target-fi)))
                       (new (org-link-maint--expected-desc desc target))
                       ((not (gethash (list file link desc) ignored))))
             (push (list file line off desc (concat "→ " new) (car parsed) ?d new link)
-                  hits)))))
+                  hits))))))
     (nreverse hits)))
 
 (defun org-link-maint--links-of (files)
@@ -1074,6 +1150,7 @@ Normally started by `org-link-maint-scan-async'.  From cron:
            org-link-maint-cache-file ,(expand-file-name org-link-maint-cache-file)
            org-todo-keywords ',org-todo-keywords
            org-link-maint-description-formats ',org-link-maint-description-formats
+           org-link-maint-check-link-types ',org-link-maint-check-link-types
            org-link-maint-ignore-file ,(expand-file-name org-link-maint-ignore-file))
      (setq org-link-maint-check-orphans ',org-link-maint-check-orphans
            org-link-maint-root-types ',org-link-maint-root-types
@@ -1123,11 +1200,14 @@ URGENCY is \"low\", \"normal\" (default) or \"critical\"."
   (let ((b (cl-count ?b hits :key (lambda (h) (or (nth 6 h) ?b))))
         (d (cl-count ?d hits :key (lambda (h) (nth 6 h))))
         (o (cl-count ?o hits :key (lambda (h) (nth 6 h))))
+        (tp (cl-count ?t hits :key (lambda (h) (nth 6 h))))
         (u (cl-count ?u hits :key (lambda (h) (nth 6 h)))))
     (let ((parts (delq nil (list (and (> b 0) (format "%d broken link%s"
                                                       b (if (= b 1) "" "s")))
                                  (and (> d 0) (format "%d outdated description%s"
                                                       d (if (= d 1) "" "s")))
+                                 (and (> tp 0) (format "%d wrong link type%s"
+                                                       tp (if (= tp 1) "" "s")))
                                  (and (> o 0) (format "%d orphan note%s"
                                                       o (if (= o 1) "" "s")))
                                  (and (> u 0) (format "%d unreachable note%s"
@@ -1218,9 +1298,9 @@ Emacs stays usable while it runs.  Unless QUIET, report when done."
 (defvar org-link-maint--replace-all nil
   "Non-nil once the user answered `!' during a query.")
 
-(defun org-link-maint--ask (old new)
-  "Show the link matched last and ask whether to replace OLD with NEW.
-Return ?y, ?n, ?! (all remaining), ?q (quit) or ?i (keep OLD for good)."
+(defun org-link-maint--ask (question)
+  "Show the link matched last and ask QUESTION about changing it.
+Return ?y, ?n, ?! (all remaining), ?q (quit) or ?i (keep it for good)."
   (let* ((beg (match-beginning 0))
          (ov (make-overlay beg (match-end 0))))
     (overlay-put ov 'face 'query-replace)
@@ -1229,17 +1309,29 @@ Return ?y, ?n, ?! (all remaining), ?q (quit) or ?i (keep OLD for good)."
           (save-excursion (goto-char beg) (org-reveal))
           (set-window-point (display-buffer (current-buffer)) beg)
           (read-char-choice
-           (format "Description \"%s\" → \"%s\"? (y/n/!/q, i = keep for good) "
-                   old new)
+           (concat question " (y/n/!/q, i = keep for good) ")
            '(?y ?n ?! ?q ?i)))
       (delete-overlay ov))))
 
+(defun org-link-maint--link-question (reason new-link new)
+  "How to ask about replacing a link with NEW-LINK (description NEW)."
+  (format "%s%s — change to [[%s]%s]?"
+          (upcase (substring reason 0 1)) (substring reason 1)
+          ;; Long IDs only make the question hard to read.
+          (if (string-match "\\`id:\\([^:]+\\)" new-link)
+              (replace-match (org-link-maint--short-id (match-string 1 new-link))
+                             t t new-link 1)
+            new-link)
+          (if new (format "[%s]" new) "")))
+
 (defun org-link-maint--fix-hit (hit &optional ask)
-  "Give HIT's link its expected description.  If ASK, ask first.
+  "Fix HIT: its description, or for ?t hits the whole link.  If ASK, ask.
 Return ?y (changed), ?n (skipped), ?i (kept for good) or ?q (quit).
 Only HIT's file is opened, and nothing happens if the link is no
 longer there."
-  (pcase-let ((`(,file ,line ,off ,old ,_ ,_ ,_ ,new ,link) hit))
+  (pcase-let* ((`(,file ,line ,off ,label ,reason ,_ ,kind ,new ,link . ,_) hit)
+               (new-link (and (eq kind ?t) (nth 9 hit)))
+               (old (if new-link (nth 10 hit) label)))
     (with-current-buffer (find-file-noselect file)
       (org-with-wide-buffer
        (goto-char (point-min))
@@ -1254,9 +1346,13 @@ longer there."
                           (equal (match-string-no-properties 2) old))))
            (if (not (at-link))
                ?n
-             (let ((answer (if (and ask (not org-link-maint--replace-all))
-                               (org-link-maint--ask old new)
-                             ?y)))
+             (let ((answer
+                    (if (and ask (not org-link-maint--replace-all))
+                        (org-link-maint--ask
+                         (if new-link
+                             (org-link-maint--link-question reason new-link new)
+                           (format "Description \"%s\" → \"%s\"?" old new)))
+                      ?y)))
                (when (eq answer ?!)
                  (setq org-link-maint--replace-all t
                        answer ?y))
@@ -1264,9 +1360,10 @@ longer there."
                  (org-link-maint--ignore hit))
                (when (eq answer ?y)
                  ;; Match again: asking may have run other searches.
-                 (if (at-link)
-                     (replace-match new t t nil 2)
-                   (setq answer ?n)))
+                 (cond ((not (at-link)) (setq answer ?n))
+                       (new-link (replace-match (org-link-make-string new-link new)
+                                                t t))
+                       (t (replace-match new t t nil 2))))
                answer))))))))
 
 (defun org-link-maint--save-and-forget (fixed &optional kept)
@@ -1283,15 +1380,16 @@ longer there."
                                         (append fixed kept) :test #'equal)))))
 
 ;;;###autoload
-(defun org-link-maint-fix-descriptions (&optional no-query)
-  "Fix every outdated link description in all Org files.
+(defun org-link-maint-fix (&optional no-query)
+  "Fix every outdated description and wrong link type in all Org files.
 Asks for each one: y = yes, n = no, ! = all remaining, q = quit,
-i = keep this description for good (it won't be reported again).
+i = keep this link as it is for good (it won't be reported again).
 With prefix argument NO-QUERY, fix them all without asking.
-See `org-link-maint-description-formats' for what is expected."
+See `org-link-maint-description-formats' and
+`org-link-maint-check-link-types' for what is expected."
   (interactive "P")
   (let* ((cache (org-link-maint--full-scan))
-         (hits (cl-remove-if-not (lambda (h) (eq (nth 6 h) ?d))
+         (hits (cl-remove-if-not (lambda (h) (memq (nth 6 h) '(?d ?t)))
                                  (plist-get cache :hits)))
          ;; Last link first, so earlier positions stay valid.
          (hits (sort hits (lambda (a b)
@@ -1303,7 +1401,7 @@ See `org-link-maint-description-formats' for what is expected."
          (org-link-maint--replace-all no-query)
          fixed kept)
     (if (null hits)
-        (message "No outdated descriptions")
+        (message "No outdated descriptions or wrong link types")
       (cl-loop for hit in hits
                for answer = (org-link-maint--fix-hit hit (not no-query))
                do (pcase answer
@@ -1311,9 +1409,11 @@ See `org-link-maint-description-formats' for what is expected."
                     (?i (push hit kept)))
                until (eq answer ?q))
       (org-link-maint--save-and-forget fixed kept)
-      (message "Fixed %d of %d outdated description(s)%s"
+      (message "Fixed %d of %d link(s)%s"
                (length fixed) (length hits)
                (if kept (format ", kept %d" (length kept)) "")))))
+
+(defalias 'org-link-maint-fix-descriptions #'org-link-maint-fix)
 
 ;;;; Checking on save
 
@@ -1364,7 +1464,7 @@ Org's ID database, until the first full scan has built the index)."
                        (lambda (h)
                          (and (equal (car h) file)
                               ;; Orphan results depend on other files: keep.
-                              (memq (or (nth 6 h) ?b) '(?b ?d))
+                              (memq (or (nth 6 h) ?b) '(?b ?d ?t))
                               ;; Command types weren't rechecked: keep them.
                               (not (and skip (assoc (nth 5 h)
                                                     org-link-maint-command-link-types)))))
@@ -1437,7 +1537,7 @@ Org's ID database, until the first full scan has built the index)."
 (defun org-link-maint-consult (&optional fresh)
   "Pick a link problem in any Org file with consult, with live preview.
 Shows broken links and outdated descriptions; narrow with \"b\" or \"d\".
-Choosing an outdated description offers to fix it.
+Choosing an outdated description or wrong link type offers to fix it.
 
 Scans everything first (fast: only changed files are read).  Answers
 of external link checks are reused from the last scan; with prefix
@@ -1480,7 +1580,7 @@ argument FRESH they are asked again."
                              (lambda (cand)
                                (eq (get-text-property 0 'org-link-maint-kind cand)
                                    consult--narrow))
-                             :keys '((?b . "Broken") (?d . "Description")
+                             :keys '((?b . "Broken") (?d . "Description") (?t . "Link type")
                                      (?o . "Orphan") (?u . "Unreachable")))
                ;; Dimmed reason: "missing file", "→ New description", ...
                :annotate (lambda (cand)
@@ -1508,16 +1608,12 @@ argument FRESH they are asked again."
                    (not (and (eq (current-buffer) (marker-buffer marker))
                              (= (point) marker))))
           (consult--jump marker))
-        (when (and selected (eq (nth 6 selected) ?d))
-          (pcase (read-char-choice
-                  (format "Change description to \"%s\"? (y/n, i = keep for good) "
-                          (nth 7 selected))
-                  '(?y ?n ?i))
-            (?y (when (eq (org-link-maint--fix-hit selected) ?y)
-                  (org-link-maint--save-and-forget (list selected))))
-            (?i (org-link-maint--ignore selected)
-                (org-link-maint--save-and-forget nil (list selected))
-                (message "Kept; it won't be reported again"))))))))
+        (when (and selected (memq (nth 6 selected) '(?d ?t)))
+          (let ((org-link-maint--replace-all nil))
+            (pcase (org-link-maint--fix-hit selected t)
+              (?y (org-link-maint--save-and-forget (list selected)))
+              (?i (org-link-maint--save-and-forget nil (list selected))
+                  (message "Kept; it won't be reported again")))))))))
 
 (provide 'org-link-maint)
 ;;; org-link-maint.el ends here

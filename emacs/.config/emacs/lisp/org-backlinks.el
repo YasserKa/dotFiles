@@ -99,7 +99,7 @@ Set by `my/org-backlinks-node' and `my/org-backlinks-file'."
 (defvar my/org-bl--index (make-hash-table :test 'equal)
   "File -> (STAMP . ENTRIES), the cached link index.")
 
-(defconst my/org-bl--index-version 3
+(defconst my/org-bl--index-version 4
   "Bump when the shape of index entries changes.")
 
 ;;;; Indexing ---------------------------------------------------------------
@@ -108,8 +108,13 @@ Set by `my/org-backlinks-node' and `my/org-backlinks-file'."
   "Classify the Org LINK path string.  DIR resolves relative file paths.
 Return a plist starting with :kind (id, internal or file), or nil."
   (cond
-   ((string-match "\\`id:\\([^:]+\\)\\(?:::.*\\)?\\'" link)
-    (list :kind 'id :key (match-string 1 link)))
+   ((string-match "\\`id:\\([^:]+\\)\\(?:::\\(.*\\)\\)?\\'" link)
+    ;; [[id:UUID::#custom-id]] points to a CUSTOM_ID heading in the file
+    ;; that holds UUID, like [[file:x.org::#custom-id]].
+    (let ((search (match-string 2 link)))
+      (list :kind 'id :key (match-string 1 link)
+            :search search
+            :cid (and search (string-prefix-p "#" search) (substring search 1)))))
    ((string-match "\\`#\\(.+\\)\\'" link)
     (list :kind 'internal :cid (match-string 1 link)))
    ((and (or (string-prefix-p "file:" link)
@@ -292,12 +297,20 @@ referenced node.  PIN is nil or a buffer position."
          (cids (plist-get targets :cids))
          (whole (plist-get targets :whole))
          (filenode (plist-get targets :filenode))
+         ;; Every ID in this file, also outside the pinned node: an
+         ;; [[id:UUID::#cid]] link reaches a heading here when UUID is any
+         ;; ID of this file.
+         (file-ids (mapcar #'car (if whole ids
+                                   (plist-get (my/org-bl--targets nil) :ids))))
          rows)
     (dolist (f (my/org-bl--files self))
       (dolist (e (my/org-bl--entries f))
         (let ((node
                (pcase (plist-get e :kind)
-                 ('id (cdr (assoc (plist-get e :key) ids)))
+                 ('id (if-let* ((cid (plist-get e :cid)))
+                          (and (member (plist-get e :key) file-ids)
+                               (cdr (assoc cid cids)))
+                        (cdr (assoc (plist-get e :key) ids))))
                  ('internal (and (string= f self)
                                  (cdr (assoc (plist-get e :cid) cids))))
                  ('file (when (string= (plist-get e :file) self)

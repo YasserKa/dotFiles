@@ -166,7 +166,14 @@ Return (:title T :ids L :cids L :heads L); list items are (KEY POS LABEL)."
   "Return (FILE POS LABEL) for the link entry E, or nil if unresolved.
 SELF is the truename of the file containing E; IDTAB maps IDs to targets."
   (pcase (plist-get e :kind)
-    ('id (gethash (plist-get e :key) idtab))
+    ('id
+     (when-let* ((hit (gethash (plist-get e :key) idtab)))
+       (if-let* ((cid (plist-get e :cid)))
+           ;; [[id:UUID::#cid]]: the CUSTOM_ID heading in UUID's file.
+           (when-let* ((h (assoc cid (plist-get (my/org-fl--targets-of (car hit))
+                                                :cids))))
+             (list (car hit) (nth 1 h) (nth 2 h)))
+         hit)))
     ('internal
      (when-let* ((hit (assoc (plist-get e :cid)
                              (plist-get (my/org-fl--targets-of self) :cids))))

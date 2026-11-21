@@ -584,6 +584,51 @@ does not have to do this by oneself."
               (require 'org-id)
               (add-hook 'completion-at-point-functions #'my/org-id-capf nil t)))
 
+  ;; Headline auto-completion within buffer within []
+  (defun my/org-headline-link-capf ()
+    "Complete headlines inside single [...] and turn them into [[*Heading]]."
+    (when (and (derived-mode-p 'org-mode)
+               ;; A single [ (not preceded by another [) with no brackets
+               ;; between it and point.
+               (looking-back "\\(?:^\\|[^[]\\)\\(\\[\\)\\(\\*?\\)\\([^][\n]*\\)"
+                             (line-beginning-position))
+               ;; Must be closed by a single ] (as elec-pair inserts),
+               ;; not by ]].
+               (save-excursion
+                 (skip-chars-forward "^][\n")
+                 (and (eq (char-after) ?\])
+                      (not (eq (char-after (1+ (point))) ?\]))))
+               ;; Don't trigger in checkboxes [ ], [X] or footnotes [fn:...].
+               (not (string-match-p "\\`\\(?: \\|X\\'\\|-\\'\\|fn:\\)"
+                                    (match-string 3))))
+      (let* ((open (match-beginning 1))
+             (beg (match-beginning 3))
+             (end (save-excursion (skip-chars-forward "^]\n") (point)))
+             (headlines
+              (delete-dups
+               (org-with-wide-buffer
+                (org-map-entries
+                 (lambda () (org-get-heading t t t t)))))))
+        (list beg end headlines
+              :exclusive 'no
+              :annotation-function (lambda (_) " heading")
+              ;; Turn [Heading] into [[*Heading]].
+              :exit-function
+              (lambda (str status)
+                (when (memq status '(finished exact sole))
+                  (let ((close (save-excursion
+                                 (skip-chars-forward "^]\n")
+                                 (1+ (point)))))
+                    (delete-region open close)
+                    (goto-char open)
+                    (insert (format "[[*%s]]" str)))))))))
+
+  (defun my/org-setup-headline-link-capf ()
+    ;; Depth -90 puts it ahead of Org's own pcomplete capf.
+    (add-hook 'completion-at-point-functions
+              #'my/org-headline-link-capf -90 t))
+
+  (add-hook 'org-mode-hook #'my/org-setup-headline-link-capf)
   )
 
 (use-package evil
@@ -755,6 +800,28 @@ does not have to do this by oneself."
     (save-excursion (evil-join beg end)))
 
   (evil-define-key '(normal visual) 'global (kbd "J") #'my/evil-join-keep-point)
+
+  (defun my/org-join-strip-bullets (orig beg end &rest args)
+    "Strip list bullets/checkboxes from lines that `evil-join' pulls up."
+    (if (not (derived-mode-p 'org-mode))
+        (apply orig beg end args)
+      (let ((end-m (copy-marker end)))
+        (save-excursion
+          (goto-char beg)
+          (dotimes (_ (max 1 (1- (count-lines beg end))))
+            (forward-line 1)
+            (when (and (org-at-item-p)
+                       (looking-at "[ \t]*\\(?:[-+*]\\|[0-9]+[.)]\\|[A-Za-z][.)]\\)[ \t]+\\(?:\\[[ X-]\\][ \t]*\\)?"))
+              (replace-match ""))))
+        (unwind-protect
+            (apply orig beg (marker-position end-m) args)
+          (set-marker end-m nil)))))
+
+  (advice-remove 'evil-join #'my/org-strip-bullets-before-join)
+  (advice-remove 'evil-join-whitespace #'my/org-strip-bullets-before-join)
+  (advice-add 'evil-join :around #'my/org-join-strip-bullets)
+  (advice-add 'evil-join-whitespace :around #'my/org-join-strip-bullets)
+
 
   )
 
@@ -1030,6 +1097,15 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
     (interactive (list (magit-file-at-point t t) current-prefix-arg))
     (start-process-shell-command "Start default application" nil (concat (getenv "EDITOR_GUI") " " file nil))
     )
+
+  (defun my/magit-synced ()
+    "Align the current repo's HEAD with origin, without touching files, then open Magit."
+    (interactive)
+    (let ((default-directory (or (locate-dominating-file default-directory ".git")
+                                 (user-error "Not inside a git repo"))))
+      (call-process "git" nil nil nil "fetch" "-q" "origin")
+      (call-process "git" nil nil nil "reset" "-q" "origin/main")
+      (magit-status-setup-buffer default-directory)))
   )
 
 ;; Doesn't work
@@ -1064,19 +1140,19 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                  (char-after))))))
 
   (aas-set-snippets 'laas-mode
-                    ;; set condition!
-                    ;; :cond #'my/tex-nonmathp
-                    :cond #'my/nonmath-standalone-dm-p
-                    "dm" '(yas "\\[
+    ;; set condition!
+    ;; :cond #'my/tex-nonmathp
+    :cond #'my/nonmath-standalone-dm-p
+    "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
-                    :cond #'texmathp ; expand only while in math
-                    "t=" "\\triangleq"
-                    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
-                    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
+    :cond #'texmathp ; expand only while in math
+    "t=" "\\triangleq"
+    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
+    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
+    ;; add accent snippets
+    :cond #'laas-object-on-left-condition
+    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
   )
 
 ;; Used to insert latex environments and math templates
@@ -1597,62 +1673,62 @@ any TODO keyword come last.")
       (+ (* state-rank 1000) priority)))
 
   (defun my/org-sort--refold (parent)
-  "Fold the sorted entries back up.
+    "Fold the sorted entries back up.
 PARENT is a marker at the heading whose children were sorted, or nil
 for a top-level sort."
-  (save-excursion
-    (if (not parent)
-        (org-overview)
-      (goto-char parent)
-      (org-fold-hide-subtree)
-      (org-fold-show-entry)
-      (org-fold-show-children))))
+    (save-excursion
+      (if (not parent)
+          (org-overview)
+        (goto-char parent)
+        (org-fold-hide-subtree)
+        (org-fold-show-entry)
+        (org-fold-show-children))))
 
-(defun my/org-sort (&optional arg)
-  "Sort entries by TODO state, then by priority.
+  (defun my/org-sort (&optional arg)
+    "Sort entries by TODO state, then by priority.
 State order: NEXT, BLOCKED, TODO, DONE, CANCELED, then entries with
 no TODO keyword.  Within each state: A, B, C, D, then no priority.
 
 By default, sort the heading at point together with its siblings.
 With a prefix ARG (\\[universal-argument]), sort its children instead.
 Afterwards, point is on the first of the sorted headings."
-  (interactive "P")
-  (unless (derived-mode-p 'org-mode)
-    (user-error "Not in an Org buffer"))
-  (org-back-to-heading t)
-  (when (and arg (not (save-excursion (org-goto-first-child))))
-    (user-error "This heading has no children to sort"))
-  (let* ((pos (if arg
-                  (point)
-                (save-excursion (and (org-up-heading-safe) (point)))))
-         ;; A marker, so the deferred refold below still finds it.
-         (parent (and pos (copy-marker pos)))
-         (buf (current-buffer)))
-    (if parent
-        (progn
-          (goto-char parent)
-          (org-sort-entries nil ?f #'my/org-sort--key #'<))
-      (let ((transient-mark-mode t))
-        (push-mark (point-min) t t)
-        (goto-char (point-max))
-        (org-sort-entries nil ?f #'my/org-sort--key #'<)
-        (deactivate-mark)))
-    ;; Refold now, and once more after the command has finished, in
-    ;; case Org's folding code unfolds the re-inserted text afterwards.
-    (my/org-sort--refold parent)
-    (run-at-time 0 nil
-                 (lambda ()
-                   (when (buffer-live-p buf)
-                     (with-current-buffer buf
-                       (my/org-sort--refold parent)
-                       (when parent (set-marker parent nil))))))
-    ;; Move to the first of the sorted headings.
-    (if parent
-        (progn (goto-char parent)
-               (org-goto-first-child))
-      (goto-char (point-min))
-      (unless (org-at-heading-p)
-        (outline-next-heading)))))
+    (interactive "P")
+    (unless (derived-mode-p 'org-mode)
+      (user-error "Not in an Org buffer"))
+    (org-back-to-heading t)
+    (when (and arg (not (save-excursion (org-goto-first-child))))
+      (user-error "This heading has no children to sort"))
+    (let* ((pos (if arg
+                    (point)
+                  (save-excursion (and (org-up-heading-safe) (point)))))
+           ;; A marker, so the deferred refold below still finds it.
+           (parent (and pos (copy-marker pos)))
+           (buf (current-buffer)))
+      (if parent
+          (progn
+            (goto-char parent)
+            (org-sort-entries nil ?f #'my/org-sort--key #'<))
+        (let ((transient-mark-mode t))
+          (push-mark (point-min) t t)
+          (goto-char (point-max))
+          (org-sort-entries nil ?f #'my/org-sort--key #'<)
+          (deactivate-mark)))
+      ;; Refold now, and once more after the command has finished, in
+      ;; case Org's folding code unfolds the re-inserted text afterwards.
+      (my/org-sort--refold parent)
+      (run-at-time 0 nil
+                   (lambda ()
+                     (when (buffer-live-p buf)
+                       (with-current-buffer buf
+                         (my/org-sort--refold parent)
+                         (when parent (set-marker parent nil))))))
+      ;; Move to the first of the sorted headings.
+      (if parent
+          (progn (goto-char parent)
+                 (org-goto-first-child))
+        (goto-char (point-min))
+        (unless (org-at-heading-p)
+          (outline-next-heading)))))
 
   ;; Agenda
   ;; Open agenda files to buffer at startup
@@ -1815,10 +1891,12 @@ and select the width value."
   (use-package org-link-beautify
     :after (org all-the-icons org-tempo) ;; org-tempo is needed, else org-link-beautify breaks
     :custom
+    (org-link-preview-include-descriptive t)
     ;; Increase performance
     (org-element-use-cache t)
     :config
     (org-link-beautify-mode 1)
+
     (when-let* ((fn (org-link-get-parameter "link-handler" :preview)))
       (dolist (type '("tb" "gls"))
         (org-link-set-parameters type :preview fn)))
@@ -1963,6 +2041,20 @@ Plain (unbracketed) links are left as raw text."
                       (my/org-link-truncate-display ov)
                     (delete-overlay ov)))))))))
 
+    (defun my/org-link--preview-span (mb me)
+      "Ensure the link at MB..ME has exactly one preview covering it.
+Delete leftover previews from half-edited links inside the span."
+      (let (exact)
+        (dolist (o (overlays-in mb me))
+          (when (and (or (overlay-get o 'org-image-overlay)
+                         (memq o org-link-preview-overlays))
+                     (/= (overlay-start o) (overlay-end o)))
+            (if (and (= (overlay-start o) mb) (= (overlay-end o) me))
+                (setq exact t)
+              (delete-overlay o))))
+        (unless exact
+          (org-link-preview-region t nil mb me))))
+
     (defun my/org-link-preview-jit (beg end)
       "Preview Org links on the lines covering BEG..END when jit-lock fontifies them."
       (when (derived-mode-p 'org-mode)
@@ -1971,11 +2063,16 @@ Plain (unbracketed) links are left as raw text."
               (let ((lbeg (progn (goto-char beg) (line-beginning-position)))
                     (lend (progn (goto-char end) (line-end-position))))
                 (when (< lbeg lend)
-                  (org-link-preview-region t nil lbeg lend)
+                  ;; Only preview links that don't have a preview yet
+                  (goto-char lbeg)
+                  (while (re-search-forward org-link-any-re lend t)
+                    (let ((mb (match-beginning 0))
+                          (me (match-end 0)))
+                      (my/org-link--preview-span mb me)
+                      (goto-char me)))
                   (when (bound-and-true-p org-link-beautify-mode)
-                    (when (bound-and-true-p org-link-beautify-mode)
-                      (my/org-internal-link-previews lbeg lend)
-                      (my/org-transclude-link-previews lbeg lend)))
+                    (my/org-internal-link-previews lbeg lend)
+                    (my/org-transclude-link-previews lbeg lend))
                   (dolist (ov (overlays-in lbeg lend))
                     (when (memq ov org-link-preview-overlays)
                       (if (save-excursion
@@ -2558,8 +2655,6 @@ see how ARG affects this command."
   ;; Enables to add snippets for code blocks
   (use-package org-tempo
     :straight nil
-    :ensure nil
-    :after org
     :init
     ;; Hack to make sure that preambles are added once only
     ;; Init and emacs startup hooks doesn't work while using daemons
@@ -2921,8 +3016,53 @@ Handles `org-marker' candidates (consult-org-heading), grep candidates
     (setf (alist-get 'consult-grep embark-keymap-alist)
           (cons 'my/embark-grep-heading-map
                 (ensure-list (alist-get 'consult-grep embark-keymap-alist)))))
-  ;; }}}
 
+  ;; If pasting a link to same file, use [*heading] [#custom-id] instead
+  (defun my/org--same-file-p (type path)
+    "Non-nil if a TYPE:PATH link target refers to the current file."
+    (pcase type
+      ("id" (equal path (my/org--file-id)))
+      ("file" (and (my/org--file)
+                   (equal (file-truename (expand-file-name path))
+                          (file-truename (my/org--file)))))))
+
+  (defun my/org--custom-id-heading (custom-id)
+    "Return the cleaned heading text for CUSTOM-ID in this buffer, or nil."
+    (when-let* ((pos (org-find-property "CUSTOM_ID" custom-id)))
+      (org-with-wide-buffer
+       (goto-char pos)
+       (my/org--heading))))
+
+  (defun my/org-localize-heading-links (string)
+    "Rewrite links to headings in this file as local links.
+id:/file: links with ::*Heading become [[*Heading]];
+with ::#custom-id they become [[#custom-id][Heading]]."
+    (replace-regexp-in-string
+     org-link-bracket-re
+     (lambda (m)
+       (save-match-data
+         (string-match org-link-bracket-re m)
+         (let ((target (org-link-unescape (match-string 1 m))))
+           (if (string-match "\\`\\(id\\|file\\):\\(.+?\\)::\\([*#]\\)\\(.+\\)\\'" target)
+               (let ((type (match-string 1 target))
+                     (path (match-string 2 target))
+                     (kind (match-string 3 target))
+                     (search (match-string 4 target)))
+                 (cond
+                  ((not (my/org--same-file-p type path)) m)
+                  ((equal kind "*")
+                   (org-link-make-string (concat "*" search)))
+                  (t
+                   (org-link-make-string (concat "#" search)
+                                         (my/org--custom-id-heading search)))))
+             m))))
+     string t t))
+
+  (defun my/org-setup-yank-transform ()
+    (add-hook 'yank-transform-functions #'my/org-localize-heading-links nil t))
+
+  (add-hook 'org-mode-hook #'my/org-setup-yank-transform)
+  ;; }}}
   )
 
 (use-package calfw-org
@@ -3928,9 +4068,9 @@ with the file name kept at the start of each candidate."
   )
 
 (defhydra org-maintenance-hydra (:exit t :idle 1)
-  (" f" #'org-link-maint-consult                                        "Find links with broken links or outdated description")
-  (" u" #'org-link-maint-fix-descriptions                               "Update links descriptions interactively")
-  (" U" #'(lambda () (interactive) (org-link-maint-fix-descriptions t)) "Update links descriptions")
+  (" f" #'org-link-maint-consult                            "Find links with broken links or outdated description")
+  (" u" #'org-link-maint-fix                                "Fix links interactively")
+  (" U" #'(lambda () (interactive) (org-link-maint-fix t))  "Fix links")
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
