@@ -461,7 +461,7 @@ Return nil if FILE does not exist."
 
 (defun org-link-maint--index-update (files)
   "Bring the index up to date for FILES and drop deleted files."
-  (let ((settings (list 4               ; index format version
+  (let ((settings (list 5               ; index format version
                         org-link-maint-command-link-types
                         (mapcar #'car org-link-maint-link-checkers)
                         org-todo-keywords)))
@@ -556,9 +556,14 @@ folder, say).  Background scans and the picker always check them."
 (defvar org-link-maint--skip-command-types nil
   "Non-nil while checking links without running external programs.")
 
-(defun org-link-maint--split-pos (path)
-  "Split PATH at the first \"::\" after any \"://\" into (TARGET POS)."
-  (let ((start (if (string-match "://" path) (match-end 0) 0)))
+(defun org-link-maint--split-pos (path &optional after-url)
+  "Split PATH at the first \"::\" into (TARGET POS).
+With AFTER-URL, split at the first \"::\" after any \"://\" instead, as
+`my/link-split' does for command link types (whose target may be a
+URL).  id: and file: links are split like Org splits them, at the
+first \"::\", since the part after it may itself contain a URL (a
+heading such as \"*Archiving [[https://...][x]]\")."
+  (let ((start (if (and after-url (string-match "://" path)) (match-end 0) 0)))
     (if (string-match "::" path start)
         (list (substring path 0 (match-beginning 0))
               (substring path (match-end 0)))
@@ -580,9 +585,10 @@ for types in `org-link-maint-link-checkers' PATH is the whole path."
           (cons type (org-link-maint--split-pos rest)))
          ((assoc type org-link-maint-link-checkers)
           (list type rest nil))
-         ((or (member type org-link-maint--file-types)
-              (assoc type org-link-maint-command-link-types))
-          (cons type (org-link-maint--split-pos rest))))))
+         ((member type org-link-maint--file-types)
+          (cons type (org-link-maint--split-pos rest)))
+         ((assoc type org-link-maint-command-link-types)
+          (cons type (org-link-maint--split-pos rest t))))))
      ((string-match-p "\\`\\(?:/\\|\\./\\|\\.\\./\\|~\\)" link)
       (cons "file" (org-link-maint--split-pos link))))))
 

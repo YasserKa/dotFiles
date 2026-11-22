@@ -1376,7 +1376,11 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   ;; C-v C-x M-v bindings in consult
   (use-package my-open-elsewhere
     :straight nil
-    :config (my/open-elsewhere-global-mode 1))
+    :config
+    (dolist (cmd '(my/org-backlinks my/org-forward-links))
+      (add-to-list 'my/open-elsewhere-commands cmd))
+    (my/open-elsewhere-global-mode 1)
+    )
 
   (use-package org-forwardlinks
     :straight nil                                             ; local file, don't fetch
