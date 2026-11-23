@@ -1462,10 +1462,10 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
   (defun get-org-files ()
     (interactive)
     (directory-files my/notes-dir nil ".org$"))
-  ;; (get-org-files :maxlevel . 3)
-  (setq org-refile-targets '((nil :maxlevel . 9) ;; Refile to current directory at any level
-                             (org-agenda-files :maxlevel . 3)
-                             (org-buffer-list :maxlevel . 2)))
+
+  (setq org-refile-targets '((nil :maxlevel . 99) ;; Refile to current buffer at any level
+                             (org-agenda-files :maxlevel . 99)
+                             (org-buffer-list :maxlevel . 99)))
 
   (setq org-refile-use-outline-path 'file      ;; Allow files in refiling candidates
         org-outline-path-complete-in-steps nil ;; Don't remove headings
@@ -3709,16 +3709,35 @@ Return non-nil if handled, so org-shift commands stop there."
                  my/local-leader-key 'agenda-hydra/body))
             )
   )
+(defun my/org-refile-with-preview (&optional arg)
+  "Like `org-refile', but preview targets while navigating."
+  (interactive "P")
+  (let* ((targets (org-refile-get-targets))
+         (preview (consult--jump-preview))
+         (choice
+          (consult--read
+           (mapcar #'car targets)
+           :prompt "Refile to: "
+           :require-match t
+           :sort nil
+           :category 'org-heading
+           :state (lambda (action cand)
+                    (funcall preview action
+                             (when-let* ((tgt (assoc cand targets))
+                                         (buf (find-file-noselect (nth 1 tgt))))
+                               (with-current-buffer buf
+                                 (copy-marker (or (nth 3 tgt) (point-min))))))))))
+    (org-refile arg nil (assoc choice targets))))
 
 (defun my/org-refile-to-file (arg &optional file)
-  "Refile current heading to elsewhere in the current buffer.
+  "Refile current heading to a heading in FILE, with preview.
+If FILE is nil, refile within the current buffer.
 If prefix ARG, copy instead of move."
   (interactive "P")
   (let ((org-refile-targets `((,file :maxlevel . 10)))
         (org-refile-use-outline-path t)
-        (org-refile-keep arg)
-        current-prefix-arg)
-    (call-interactively #'org-refile)))
+        (org-refile-keep arg))
+    (my/org-refile-with-preview)))
 
 (defun my/org-refile-to-running-clock (arg)
   "Refile current heading to the currently clocked in task.
@@ -4077,7 +4096,7 @@ with the file name kept at the start of each candidate."
   (" t" (org-refile nil nil (list nil (concat my/notes-dir "/tasks.org"))) "to tasks.org")
   (" i" (my/org-refile-to-file nil (concat my/notes-dir "/ideas.org")) "to ideas.org")
   (" p" (my/org-refile-to-file nil (concat my/notes-dir "/projects.org")) "to projects.org")
-  (" a" org-refile "to agenda/buffers")
+  (" a" my/org-refile-with-preview "to agenda/buffers")
   (" g" org-refile-goto-last-stored "goto refile")
   )
 
