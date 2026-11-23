@@ -13,6 +13,8 @@ install: update-sudoers pre-install-packages install-packages post-install-packa
 pre-install-packages:
 	@echo "Creating directories"
 	@mkdir -p $(HOME)/bin
+	@mkdir -p $(HOME)/bin/helpers
+	@mkdir -p $(HOME)/bin/archive
 	@mkdir -p $(HOME)/.cache # For fasd
 	@mkdir -p $(HOME)/Pictures
 	@mkdir -p $(XDG_DATA_HOME)/applications

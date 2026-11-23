@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Copy highlights of the focused Okular document to the clipboard.
+# Deps: dbus-send, handle_document
+#   X11 (i3 etc.): xdotool, xclip
+#   Sway:          swaymsg, jq, wtype (or ydotool), wl-copy
+set -uo pipefail
+
+notify() { notify-send "Okular" "$1" 2>/dev/null || echo "$1" >&2; }
+[[ ${WAYLAND_DISPLAY:-} ]] && session=wayland || session=x11
+
+okular_call() { # okular_call <service> <method>
+	dbus-send --session --print-reply=literal --dest="$1" /okular "org.kde.okular.$2" 2>/dev/null |
+		sed 's/^[[:space:]]*//'
+}
+
+# 1. PID of the focused window
+case $session in
+	x11) pid=$(xdotool getactivewindow getwindowpid 2>/dev/null) ;;
+	wayland) pid=$(swaymsg -t get_tree | jq -r '.. | objects | select(.focused == true) | .pid') ;;
+esac
+
+service="org.kde.okular-$pid"
+if [[ -z $pid ]] || ! okular_call "$service" currentDocument | grep -q .; then
+	notify "Focused window isn't Okular"
+	exit 1
+fi
+
+# 2. Ask Okular for the document path
+doc=$(okular_call "$service" currentDocument)
+if [[ $doc == file://* ]]; then
+	doc=$(python3 -c 'import sys,urllib.parse as u; print(u.unquote(sys.argv[1][7:]))' "$doc")
+fi
+[[ -f $doc ]] || {
+	notify "No document open"
+	exit 1
+}
+
+# 3. Save, then wait until the file changes on disk
+before=$(stat -c '%i %y %s' "$doc")
+case $session in
+	x11) xdotool key --clearmodifiers ctrl+s ;;
+	wayland) wtype -M ctrl s -m ctrl ;;
+esac
+
+# If nothing was unsaved, Ctrl+S does nothing, so stop waiting after ~2 s
+for _ in {1..20}; do
+	[[ $(stat -c '%i %y %s' "$doc") != "$before" ]] && {
+		sleep 0.1
+		break
+	}
+	sleep 0.1
+done
+
+# 4. Extract and copy
+text=$(~/.config/zathura/handle_document get_annotations "$doc") || {
+	notify "Extraction failed"
+	exit 1
+}
+[[ $text ]] || {
+	notify "No highlights found"
+	exit 0
+}
+
+clipboard_copy "$text"
+
+notify "Highlights copied to clipboard"

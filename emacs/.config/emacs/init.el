@@ -3565,13 +3565,7 @@ Return non-nil if handled, so org-shift commands stop there."
   :bind (:map vertico-map
               ("M-C-j" . vertico-quick-jump))
   :config
-  ;; (when evil-collection-setup-minibuffer
-  ;;   ;; Open buffer in a new window, uses embark's v and x
-  ;;   (evil-collection-define-key 'insert 'vertico-map (kbd "C-v") (kbd "C-. v"))
-  ;;   (evil-collection-define-key 'insert 'vertico-map (kbd "C-x") (kbd "C-. x")))
-
-  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
-  )
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save))
 
 (use-package counsel)
 (use-package consult

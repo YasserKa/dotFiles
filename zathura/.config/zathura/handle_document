@@ -6,17 +6,23 @@
 
 import subprocess
 import sys
+import re
 from typing import List, Tuple
 
-import fitz
+import pymupdf
 import pyperclip as pc
 
+# Fraction of a word's height that must lie inside the highlight
+# for the word to count as highlighted
+MIN_VERTICAL_OVERLAP = 0.6
 FILE_PATH = sys.argv[2]
 
 
 def main():
     if sys.argv[1] == "get_annotations":
-        yank_highlights()
+        print("\n".join(get_highlights()))
+    elif sys.argv[1] == "yank_annotations":
+        pc.copy("\n".join(get_highlights()))
         subprocess.run(["dunstify", "Copied to clipboard"])
     elif sys.argv[1] == "remove_annotations":
         print("removing")
@@ -31,46 +37,62 @@ def main():
         raise ValueError
 
 
-def parse_highlight(
-    annot: fitz.Annot,
-    wordlist: List[Tuple[float, float, float, float, str, int, int, int]],
-) -> str:
+def word_in_rect(word_rect: pymupdf.Rect, hl_rect: pymupdf.Rect) -> bool:
+    if word_rect.x1 <= hl_rect.x0 or word_rect.x0 >= hl_rect.x1:
+        return False  # no horizontal overlap
+    overlap = min(word_rect.y1, hl_rect.y1) - max(word_rect.y0, hl_rect.y0)
+    return overlap >= MIN_VERTICAL_OVERLAP * word_rect.height
+
+
+def parse_highlight(annot: pymupdf.Annot, wordlist) -> str:
     points = annot.vertices
-    quad_count = int(len(points) / 4)
-    sentences = []
-    for i in range(quad_count):
-        # where the highlighted part is
-        r = fitz.Quad(points[i * 4 : i * 4 + 4]).rect
-
-        words = [w for w in wordlist if fitz.Rect(w[:4]).intersects(r)]
-        sentences.append(" ".join(w[4] for w in words))
-    sentence = " ".join(sentences)
-    return sentence
+    lines = []
+    for i in range(len(points) // 4):  # one quad per highlighted line
+        r = pymupdf.Quad(points[i * 4 : i * 4 + 4]).rect
+        words = [w[4] for w in wordlist if word_in_rect(pymupdf.Rect(w[:4]), r)]
+        lines.append(" ".join(words))
+    return " ".join(lines)
 
 
-def handle_page(page):
-    wordlist = page.get_text("words")  # list of words on page
-    wordlist.sort(key=lambda w: (w[3], w[0]))  # ascending y, then x
+def norm(s: str) -> str:
+    # Remove spaces, punctuation and line-break hyphens, and ignore case
+    return re.sub(r"\W+", "", s).lower()
+
+
+def annot_position(annot: pymupdf.Annot) -> tuple[int, float, float]:
+    r = pymupdf.Quad(annot.vertices[:4]).rect if annot.vertices else annot.rect
+    column = 0 if r.x0 < annot.parent.rect.width / 2 else 1
+    return (column, round(r.y0), r.x0)
+
+
+def handle_page(page) -> List[str]:
+    wordlist = page.get_text("words", sort=True)
+
+    annots = sorted(
+        page.annots(types=[pymupdf.PDF_ANNOT_HIGHLIGHT]),
+        key=annot_position,
+    )
 
     highlights = []
-    annot = page.first_annot
-    while annot:
-        if annot.type[0] == 8:
-            highlights.append(parse_highlight(annot, wordlist))
-            if "content" in annot.info:
-                highlights.append(f" {annot.info['content']} ")
-        annot = annot.next
+    for annot in annots:
+        text = parse_highlight(annot, wordlist)
+        note = (annot.info.get("content") or "").strip()
+
+        if not text:
+            highlights.append(note)
+        else:
+            highlights.append(text)
+            if note and norm(note) not in norm(text):
+                highlights.append(f" {note} ")
     return highlights
 
 
-def yank_highlights():
-    doc = fitz.open(FILE_PATH)
-
+def get_highlights() -> List[str]:
+    doc = pymupdf.open(FILE_PATH)
     highlights = []
     for page in doc:
         highlights += handle_page(page)
-
-    pc.copy("\n".join(highlights))
+    return highlights
 
 
 def yank_section_name_of_page(page_num: int):
@@ -80,7 +102,7 @@ def yank_section_name_of_page(page_num: int):
         page_num: page number
         text: selected text
     """
-    doc = fitz.open(FILE_PATH)
+    doc = pymupdf.open(FILE_PATH)
     text = pc.paste()
 
     toc = doc.get_toc()
@@ -127,7 +149,7 @@ def yank_chapters_as_tasks():
     from urllib.parse import quote
     from pathlib import Path
 
-    doc = fitz.open(FILE_PATH)
+    doc = pymupdf.open(FILE_PATH)
     toc = doc.get_toc()
 
     file_name = Path(FILE_PATH).name
@@ -144,7 +166,7 @@ def yank_chapters_as_tasks():
 
 
 def remove_annotations():
-    doc = fitz.open(FILE_PATH)
+    doc = pymupdf.open(FILE_PATH)
     for page in doc:
         annot = page.first_annot
         while annot:
@@ -152,7 +174,7 @@ def remove_annotations():
             next_annot = annot.next
             page.delete_annot(annot)
             annot = next_annot
-    doc.save(FILE_PATH, encryption=fitz.PDF_ENCRYPT_KEEP, incremental=True)
+    doc.save(FILE_PATH, encryption=pymupdf.PDF_ENCRYPT_KEEP, incremental=True)
 
 
 if __name__ == "__main__":
