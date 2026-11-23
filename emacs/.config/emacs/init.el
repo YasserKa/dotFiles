@@ -1459,10 +1459,7 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
          `("CANCELED" :foreground ,CANCELED_color :inherit org-todo-default :box (:line-width 3 :color ,CANCELED_color))
          ))
 
-  (defun get-org-files ()
-    (interactive)
-    (directory-files my/notes-dir nil ".org$"))
-
+  ;; Refile {{{
   (setq org-refile-targets '((nil :maxlevel . 99) ;; Refile to current buffer at any level
                              (org-agenda-files :maxlevel . 99)
                              (org-buffer-list :maxlevel . 99)))
@@ -1471,6 +1468,215 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
         org-outline-path-complete-in-steps nil ;; Don't remove headings
         org-refile-allow-creating-parent-nodes 'confirm ;; Add a new parent header to the refiled header
         )
+
+  (defvar my/org-ql-preview-commands '(org-ql-refile org-ql-find org-ql-find-in-agenda)
+    "Commands whose org-ql completion shows a live preview.")
+
+  (defvar my/org-ql-preview--state nil
+    "Last previewed (MARKER . INPUT), to avoid redundant redraws.")
+  (defvar my/org-ql-preview--overlays nil)
+
+  (defvar my/org-ql-preview-window-style 'same
+    "Where the preview is shown.
+`same':  in the window you started from (no extra windows at all).
+`other': in one extra window, reused for every file.")
+
+  (defvar my/org-ql-preview--window nil
+    "The single window used for previews during the current prompt.")
+
+  (defun my/org-ql-preview--get-window (buf)
+    "Return the one preview window, showing BUF in it."
+    (let ((origin (or (minibuffer-selected-window) (get-largest-window))))
+      (unless (window-live-p my/org-ql-preview--window)
+        (setq my/org-ql-preview--window
+              (if (eq my/org-ql-preview-window-style 'same)
+                  origin
+                (or (get-window-with-predicate
+                     (lambda (w) (not (eq w origin))) 'nomini)
+                    (split-window-sensibly origin)
+                    (split-window origin)))))
+      (unless (eq (window-buffer my/org-ql-preview--window) buf)
+        (set-window-buffer my/org-ql-preview--window buf))
+      my/org-ql-preview--window))
+
+
+  (defun my/org-ql-preview--candidate ()
+    "Return the currently highlighted completion candidate, or nil."
+    (cond
+     ((and (bound-and-true-p vertico-mode) (fboundp 'vertico--candidate))
+      (ignore-errors (vertico--candidate)))
+     ((bound-and-true-p icomplete-mode)
+      (car-safe completion-all-sorted-completions))))
+
+  (defun my/org-ql-preview--terms (input)
+    "Return plain search words from INPUT.
+Skips predicate tokens like todo:..., negated !words, and 1-char tokens."
+    (let ((tokens (or (ignore-errors (split-string-and-unquote input))
+                      (split-string input nil t))))
+      (cl-loop for tok in tokens
+               unless (or (string-match-p (rx bos (1+ (not (any ":" space))) ":") tok)
+                          (string-prefix-p "!" tok)
+                          (< (length tok) 2))
+               collect tok)))
+
+  (defun my/org-ql-preview--clear ()
+    (mapc #'delete-overlay my/org-ql-preview--overlays)
+    (setq my/org-ql-preview--overlays nil))
+
+  (defun my/org-ql-preview--highlight (beg end face)
+    (let ((ov (make-overlay beg end)))
+      (overlay-put ov 'face face)
+      (overlay-put ov 'priority 1000)
+      (push ov my/org-ql-preview--overlays)))
+
+  (defun my/org-ql-preview--reveal ()
+    "Unfold enough to make point visible (including drawers/blocks)."
+    (if (fboundp 'org-fold-show-context)
+        (org-fold-show-context 'org-goto)
+      (org-show-context 'org-goto)))
+
+  (defun my/org-ql-preview--update ()
+    "Show the entry for the current candidate, scrolled to the matched text."
+    (let* ((input (minibuffer-contents-no-properties))
+           (cand (my/org-ql-preview--candidate))
+           (marker (and (stringp cand) (get-text-property 0 'org-marker cand)))
+           (state (cons marker input)))
+      (when (and (markerp marker)
+                 (buffer-live-p (marker-buffer marker))
+                 (not (equal state my/org-ql-preview--state)))
+        (setq my/org-ql-preview--state state)
+        (my/org-ql-preview--clear)
+        (let* ((buf (marker-buffer marker))
+               (win (my/org-ql-preview--get-window buf)))
+          (when (window-live-p win)
+            (with-current-buffer buf
+              ;; Keep the buffer's own point intact for `org-refile'.
+              (save-excursion
+                (with-selected-window win
+                  (when (<= (point-min) marker (point-max))
+                    (goto-char marker)
+                    (my/org-ql-preview--reveal)
+                    (if (fboundp 'org-fold-show-entry)
+                        (org-fold-show-entry)
+                      (org-show-entry))
+                    (let* ((heading (line-beginning-position))
+                           (heading-end (line-end-position))
+                           (entry-end (save-excursion (outline-next-heading) (point)))
+                           (terms (my/org-ql-preview--terms input))
+                           (re (and terms (regexp-opt terms)))
+                           first-body-match)
+                      (my/org-ql-preview--highlight heading (1+ heading-end) 'highlight)
+                      ;; Highlight every match in the entry; remember the
+                      ;; first one below the heading line.
+                      (when re
+                        (save-excursion
+                          (let ((case-fold-search t))
+                            (while (re-search-forward re entry-end t)
+                              (when (and (not first-body-match)
+                                         (> (match-beginning 0) heading-end))
+                                (setq first-body-match (match-beginning 0)))
+                              (my/org-ql-preview--highlight
+                               (match-beginning 0) (match-end 0) 'isearch)))))
+                      (if (not first-body-match)
+                          (recenter (min 5 (/ (window-body-height) 4)))
+                        (goto-char first-body-match)
+                        (my/org-ql-preview--reveal)
+                        (if (< (count-lines heading first-body-match)
+                               (- (window-body-height) 4))
+                            ;; Heading and match both fit: heading near the top.
+                            (save-excursion (goto-char heading) (recenter 1))
+                          ;; Too far apart: centre on the match.
+                          (recenter)))))))))))))
+
+  (defun my/org-ql-preview--around (orig &rest args)
+    (if (not (memq this-command my/org-ql-preview-commands))
+        (apply orig args)
+      (let ((orig-buffer (current-buffer)))
+
+        (setq my/org-ql-preview--state nil
+              my/org-ql-preview--window nil)
+        (unwind-protect
+            (save-window-excursion
+              (minibuffer-with-setup-hook
+                  (lambda ()
+                    ;; Depth 90 so it runs after Vertico refreshes candidates.
+                    (add-hook 'post-command-hook #'my/org-ql-preview--update 90 t))
+                (apply orig args)))
+          (my/org-ql-preview--clear)
+          (set-buffer orig-buffer)))))
+
+  (advice-add 'org-ql-completing-read :around #'my/org-ql-preview--around)
+
+  (defun my/org-refile-with-preview (&optional arg)
+    "Like `org-refile', but preview targets while navigating."
+    (interactive "P")
+    (let* ((targets (org-refile-get-targets))
+           (preview (consult--jump-preview))
+           (choice
+            (consult--read
+             (mapcar #'car targets)
+             :prompt "Refile to: "
+             :require-match t
+             :sort nil
+             :category 'org-heading
+             :state (lambda (action cand)
+                      (funcall preview action
+                               (when-let* ((tgt (assoc cand targets))
+                                           (buf (find-file-noselect (nth 1 tgt))))
+                                 (with-current-buffer buf
+                                   (copy-marker (or (nth 3 tgt) (point-min))))))))))
+      (org-refile arg nil (assoc choice targets))))
+
+  (defun my/org-refile-to-file (arg &optional file)
+    "Refile current heading to a heading in FILE, with preview.
+If FILE is nil, refile within the current buffer.
+If prefix ARG, copy instead of move."
+    (interactive "P")
+    (let ((org-refile-targets `((,file :maxlevel . 10)))
+          (org-refile-use-outline-path t)
+          (org-refile-keep arg))
+      (my/org-refile-with-preview)))
+
+  (defun my/org-refile-to-running-clock (arg)
+    "Refile current heading to the currently clocked in task.
+If prefix ARG, copy instead of move."
+    (interactive "P")
+    (unless (bound-and-true-p org-clock-current-task)
+      (user-error "No active clock to refile to"))
+    (let ((org-refile-keep arg))
+      (org-refile 2)))
+
+  (defvar my/org-refile-last-target nil
+    "Last refile target, as (NAME FILE REGEXP MARKER).")
+
+  (defun my/org-refile-remember-target (&optional arg _default-buffer rfloc _msg)
+    "Record RFLOC as the last refile target when refiling (not jumping)."
+    (when (and rfloc (not arg))
+      (pcase-let ((`(,name ,file ,regexp ,pos) rfloc))
+        (when-let* ((old (nth 3 my/org-refile-last-target)))
+          (set-marker old nil))
+        (setq my/org-refile-last-target
+              (list name file regexp
+                    (when pos
+                      (with-current-buffer (find-file-noselect file)
+                        (copy-marker pos))))))))
+
+  (advice-add 'org-refile :before #'my/org-refile-remember-target)
+
+  (defun my/org-refile-to-last (&optional arg)
+    "Refile current heading to the last refile target.
+With prefix ARG, copy instead of move."
+    (interactive "P")
+    (unless my/org-refile-last-target
+      (user-error "No refile target recorded yet"))
+    (pcase-let ((`(,name ,file ,regexp ,m) my/org-refile-last-target))
+      (when (and m (not (marker-buffer m)))
+        (user-error "The buffer of the last target was killed"))
+      (let ((org-refile-keep arg))
+        (org-refile nil nil (list name file regexp (and m (marker-position m)))))))
+
+  (keymap-set org-mode-map "C-c C-w" #'my/org-refile-with-preview)
+  ;; }}}
 
   ;; Save files after 5 idle minutes
   (setq my/idle-timer-until-save-buffers (* 5 60))
@@ -2725,13 +2931,38 @@ see how ARG affects this command."
     (when (frame-live-p frame)
       (delete-frame frame)))
 
+  (defun my/org-refile-read-target (&optional prompt)
+    "Read a refile target with consult preview.
+Return it as (NAME FILE REGEXP POS), like `org-refile-get-location'."
+    (let* ((targets (org-refile-get-targets))
+           (preview (consult--jump-preview))
+           (choice
+            (consult--read
+             (mapcar #'car targets)
+             :prompt (or prompt "Refile to: ")
+             :require-match t
+             :sort nil
+             :category 'org-heading
+             :state (lambda (action cand)
+                      (funcall preview action
+                               (when-let* ((tgt (assoc cand targets))
+                                           (buf (find-file-noselect (nth 1 tgt))))
+                                 (with-current-buffer buf
+                                   (copy-marker (or (nth 3 tgt) (point-min))))))))))
+      (assoc choice targets)))
+
+  (defun my/org-refile-with-preview (&optional arg)
+    "Like `org-refile', but preview targets while navigating."
+    (interactive "P")
+    (org-refile arg nil (my/org-refile-read-target)))
+
   (defun my/org-capture-refile-target ()
     (let ((frame (selected-frame))
           target)
       (condition-case nil
           (progn
             (with-current-buffer (find-file-noselect org-default-notes-file)
-              (setq target (org-refile-get-location "Capture to")))
+              (setq target (my/org-refile-read-target "Capture to: ")))
             (set-buffer (find-file-noselect (nth 1 target)))
             (goto-char (or (nth 3 target) (point-min)))
             (when (frame-parameter frame 'client)
@@ -3709,44 +3940,7 @@ Return non-nil if handled, so org-shift commands stop there."
                  my/local-leader-key 'agenda-hydra/body))
             )
   )
-(defun my/org-refile-with-preview (&optional arg)
-  "Like `org-refile', but preview targets while navigating."
-  (interactive "P")
-  (let* ((targets (org-refile-get-targets))
-         (preview (consult--jump-preview))
-         (choice
-          (consult--read
-           (mapcar #'car targets)
-           :prompt "Refile to: "
-           :require-match t
-           :sort nil
-           :category 'org-heading
-           :state (lambda (action cand)
-                    (funcall preview action
-                             (when-let* ((tgt (assoc cand targets))
-                                         (buf (find-file-noselect (nth 1 tgt))))
-                               (with-current-buffer buf
-                                 (copy-marker (or (nth 3 tgt) (point-min))))))))))
-    (org-refile arg nil (assoc choice targets))))
 
-(defun my/org-refile-to-file (arg &optional file)
-  "Refile current heading to a heading in FILE, with preview.
-If FILE is nil, refile within the current buffer.
-If prefix ARG, copy instead of move."
-  (interactive "P")
-  (let ((org-refile-targets `((,file :maxlevel . 10)))
-        (org-refile-use-outline-path t)
-        (org-refile-keep arg))
-    (my/org-refile-with-preview)))
-
-(defun my/org-refile-to-running-clock (arg)
-  "Refile current heading to the currently clocked in task.
-If prefix ARG, copy instead of move."
-  (interactive "P")
-  (unless (bound-and-true-p org-clock-current-task)
-    (user-error "No active clock to refile to"))
-  (let ((org-refile-keep arg))
-    (org-refile 2)))
 
 (defun my/active-minor-modes ()
   "Return a list of active minor-mode symbols."
@@ -4091,13 +4285,16 @@ with the file name kept at the start of each candidate."
   )
 
 (defhydra org-refile-hydra (:exit t :idle 1)
-  (" ." my/org-refile-to-file "to current file" :column " refile")
+  (" ." my/org-refile-to-file "to current file" :column " refile to file")
   (" c" my/org-refile-to-running-clock "to clocked")
   (" t" (org-refile nil nil (list nil (concat my/notes-dir "/tasks.org"))) "to tasks.org")
   (" i" (my/org-refile-to-file nil (concat my/notes-dir "/ideas.org")) "to ideas.org")
   (" p" (my/org-refile-to-file nil (concat my/notes-dir "/projects.org")) "to projects.org")
   (" a" my/org-refile-with-preview "to agenda/buffers")
-  (" g" org-refile-goto-last-stored "goto refile")
+  (" T" org-ql-refile "Using text" :column "refile using")
+  (" v" avy-org-refile-as-child "Using visible headline")
+  (" l" my/org-refile-to-last "To last headline")
+  (" g" org-refile-goto-last-stored "goto refile" :column "")
   )
 
 (defhydra org-links-hydra (:exit t :idle 1)
