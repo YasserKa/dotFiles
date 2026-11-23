@@ -5,6 +5,7 @@
 # dependencies = [
 #     "flask",
 #     "selenium",
+#     "jupytext",
 #     "webdriver-manager",
 #     "watchdog",
 #     "jupyter-server"
@@ -136,6 +137,27 @@ class NotebookExecutor:
             """)
 
         return {"status": "Synced notebook and python file"}
+
+    def reload_from_disk(self):
+        return driver.execute_async_script("""
+            const done = arguments[arguments.length - 1];
+            (async () => {
+                const panel = window.jupyterapp.shell.currentWidget;
+                await panel.context.revert();          // reload from disk, no dialog
+
+                // Re-apply language_info so the cells get Python highlighting again
+                const kernel = panel.sessionContext.session?.kernel;
+                const info = kernel
+                    ? (await kernel.info).language_info
+                    : panel.model.getMetadata('language_info');
+                if (info) {
+                    panel.model.deleteMetadata('language_info');  // force a change event
+                    panel.model.setMetadata('language_info', info);
+                }
+                panel.model.dirty = false;  // don't mark as unsaved / trigger autosave
+                done(true);
+            })().catch(e => done(String(e)));
+        """)
 
     def sleep_until_kernel_is_idle(self):
         status = driver.execute_script(
@@ -357,6 +379,18 @@ def run():
         return ""
 
 
+import jupytext
+from jupytext.combine import combine_inputs_with_outputs
+
+
+def py_to_ipynb(py_path, ipynb_path):
+    """Update the notebook's code from the .py, keep its outputs. Never touches the .py."""
+    nb = jupytext.read(py_path)
+    if os.path.exists(ipynb_path):
+        nb = combine_inputs_with_outputs(nb, jupytext.read(ipynb_path))
+    jupytext.write(nb, ipynb_path)
+
+
 class PySyncHandler(FileSystemEventHandler):
     def __init__(self):
         self.notebook_changed = False
@@ -365,49 +399,15 @@ class PySyncHandler(FileSystemEventHandler):
 
     def transform_py_to_ipynb(self, py_path, notebook_path):
         current_active_cell_index = executor.get_active_cell_index()
-        subprocess.run(
-            [
-                "jupytext",
-                "--to",
-                "ipynb",
-                py_path,
-                "--output",
-                notebook_path,
-                "--update",
-            ]
-        )
-        driver.find_element(By.CSS_SELECTOR, ".jp-Notebook").send_keys(
-            Keys.CONTROL + Keys.SHIFT + "q"
-        )
-
-        # If notebook is edited, a reload button is given, press it to override the notebook
-        buttons = driver.find_elements(
-            By.CSS_SELECTOR, ".jp-Dialog-button.jp-mod-accept"
-        )
-
-        if len(buttons) > 0:
-            buttons[0].click()
-
-        # driver.find_element(By.CSS_SELECTOR, ".jp-Notebook").send_keys(
-        #     Keys.CONTROL + "s"
-        # )
+        py_to_ipynb(py_path, notebook_path)
+        result = executor.reload_from_disk()
+        if result is not True:
+            print("Reload failed:", result)
         signal_event.set()
-        time.sleep(2)
         executor.goto_cell(current_active_cell_index)
-        print(current_active_cell_index)
-        print("Notebook modified:", notebook_path)
 
     def transform_ipynb_to_py(self, py_path, notebook_path):
-        subprocess.run(
-            [
-                "jupytext",
-                "--to",
-                "py",
-                notebook_path,
-                "--output",
-                py_path,
-            ]
-        )
+        subprocess.run(["jupytext", "--sync", py_path])
         print("Python file modified:", py_path)
 
     def schedule_var(self, name, value, delay):
@@ -425,36 +425,15 @@ class PySyncHandler(FileSystemEventHandler):
         self._timers.pop(name, None)
 
     def on_closed(self, event):
-        global is_signal_recieved_from_vim
-        if event.is_directory:
+        if event.is_directory or not event.src_path.endswith(".py"):
             return
-
-        if event.src_path.endswith(".py"):
-            if self.notebook_changed:
-                self.schedule_var("notebook_changed", False, 3)
-                return ""
-            self.py_changed = True
-            py_path = event.src_path
-            notebook_path = f"{event.src_path[:-3]}.ipynb"
-            # If notebook version doesn't exist, don't run jupytext
-            if not os.path.exists(notebook_path):
-                return ""
-            goto_page(os.path.abspath(py_path))
-            executor.sleep_until_kernel_is_idle()
-            self.transform_py_to_ipynb(py_path, notebook_path)
-
-        if event.src_path.endswith(".ipynb"):
-            if self.py_changed:
-                self.schedule_var("py_changed", False, 3)
-                return ""
-            if is_signal_recieved_from_vim:
-                return ""
-            self.notebook_changed = True
-            notebook_path = event.src_path
-            py_path = f"{event.src_path[:-6]}.py"
-
-            if os.path.exists(py_path):
-                self.transform_ipynb_to_py(py_path, notebook_path)
+        py_path = event.src_path
+        notebook_path = py_path[:-3] + ".ipynb"
+        if not os.path.exists(notebook_path):
+            return
+        goto_page(os.path.abspath(py_path))
+        executor.sleep_until_kernel_is_idle()
+        self.transform_py_to_ipynb(py_path, notebook_path)
 
 
 def get_running_jupyter_in_cwd(cwd):

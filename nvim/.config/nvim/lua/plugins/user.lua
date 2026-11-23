@@ -727,56 +727,48 @@ return {
     event = "BufReadPost *.py",
     dependencies = "https://github.com/jpalardy/vim-slime",
     config = function()
-      -- Vim-slime setting
-      -- always use tmux
       vim.g.slime_target = "tmux"
-
-      -- https://github.com/jpalardy/vim-slime/tree/main/ftplugin/python
       vim.g.slime_bracketed_ipython = 1
-
-      -- always send text to the top-right pane in the current tmux tab without asking
       vim.g.slime_default_config = {
         socket_name = vim.split(vim.env.TMUX or "", ",")[1],
         target_pane = "{top-right}",
       }
-
       vim.g.slime_dont_ask_default = 1
-
-      -- Override the comment that makes a cell take "##"
-      -- this will cause a problem if there's a string having "##"
       vim.g.ipython_cell_tag = { "# %%" }
 
-      local function setup_python_buffer()
-        local bufnr = vim.api.nvim_get_current_buf()
-        local first_line_file = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1]
-        if first_line_file:match "^#%s*%%%%%s*" then
-          local wk = require "which-key"
-          wk.add {
-            { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
-            { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
-            { "<localLeader>nj", "<cmd>call search('# %%$')<cr>", desc = "Go to next cell" },
-            { "<localLeader>nk", "<cmd>call search('# %%$', 'b')<cr>", desc = "Go to previous cell" },
-            { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
-            { "[c", "<cmd>call search('# %%$', 'b')<cr>", desc = "Previous Cell" },
-            { "]c", "<cmd>call search('# %%$')<cr>", desc = "Next Cell" },
-          }
-          wk.add {
-            {
-              mode = { "i" },
-              { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
-              { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
-              { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
-              { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
-            },
-          }
-        end
+      local is_notebook = require("utils.notebook").is_notebook
+
+      local function setup_python_buffer(args)
+        local bufnr = args and args.buf or vim.api.nvim_get_current_buf()
+        if not is_notebook(bufnr) then return end
+
+        local wk = require "which-key"
+        wk.add {
+          buffer = bufnr,
+          { "<localLeader>nI", ":IPythonCellInsertAbove<CR>o", desc = "Insert cell above" },
+          { "<localLeader>ni", ":IPythonCellInsertBelow<CR>o", desc = "Insert cell below" },
+          { "<localLeader>nj", "<cmd>call search('^# %%')<cr>", desc = "Go to next cell" },
+          { "<localLeader>nk", "<cmd>call search('^# %%', 'b')<cr>", desc = "Go to previous cell" },
+          { "<localLeader>nm", "<cmd>IPythonCellToMarkdown<cr>", desc = "To markdown" },
+          { "[c", "<cmd>call search('^# %%', 'b')<cr>", desc = "Previous Cell" },
+          { "]c", "<cmd>call search('^# %%')<cr>", desc = "Next Cell" },
+          { "gk", "<cmd>call search('^# %%', 'b')<cr>", desc = "Previous Cell" },
+          { "gj", "<cmd>call search('^# %%')<cr>", desc = "Next Cell" },
+        }
+        wk.add {
+          buffer = bufnr,
+          mode = { "i" },
+          { "<C-,>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+          { "<C-,>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+          { "<F2>nI", "<C-o>:IPythonCellInsertAbove<CR><CR>", desc = "Insert cell above" },
+          { "<F2>ni", "<C-o>:IPythonCellInsertBelow<CR><CR>", desc = "Insert cell below" },
+        }
       end
 
-      vim.api.nvim_create_autocmd({ "BufRead" }, {
-        pattern = { "*.py" },
+      vim.api.nvim_create_autocmd("BufRead", {
+        pattern = "*.py",
         callback = setup_python_buffer,
       })
-      -- Trigger immediately if current buffer is already a .py file
       if vim.fn.expand("%"):match "%.py$" then setup_python_buffer() end
     end,
   },

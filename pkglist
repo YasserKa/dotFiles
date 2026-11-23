@@ -40,7 +40,6 @@ auto-cpufreq # Optimizes CPU speed & power
 # Bluetooth
 bluez # Daemons for bluetooth
 bluez-utils # Utilities for bluetooth
-bluetuith # TUI-based bluetooth manager
 blueman # GTK+ Bluetooth Manager
 rofi-bluetooth-git # Manage bluetooth using rofi
 

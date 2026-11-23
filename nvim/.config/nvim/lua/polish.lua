@@ -59,168 +59,35 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = { "*.py" },
   callback = function(args)
-    local first_line_file = vim.api.nvim_buf_get_lines(args.buf, 0, 1, false)[1]
-    if first_line_file:match "^#%s*%%%%" then
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        callback = function()
-          local file_path = vim.fn.expand "%:p"
-
-          local payload = {
-            file_path = file_path,
-          }
-          local json = vim.fn.json_encode(payload)
-          local url = "http://localhost:" .. vim.g.my_free_port .. "/send_save_signal"
-          local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
-          vim.fn.jobstart(cmd, { detach = true })
-        end,
-      })
-
-      local function find_pyproject_root()
-        local root_file = vim.fs.find("pyproject.toml", {
-          upward = true,
-          path = vim.api.nvim_buf_get_name(0),
-        })[1]
-        return root_file and vim.fs.dirname(root_file) or nil
-      end
-
-      local function find_free_port(start_port)
-        local port = start_port or 5000
-
-        -- If jupyter running in the driectory, get the PWD of where it's running
-        local root = find_pyproject_root()
-        if root then
-          local handle = io.popen(
-            "ps aux | grep '"
-              .. root
-              .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
-          )
-          if not handle then return nil end
-          local result = handle:read "*a"
-          -- The result returns an empty line at the end sometimes
-          result = result:gsub("%s+$", "")
-          if result ~= "" then return result end
-        end
-        while true do
-          local handle = io.popen("lsof -iTCP:" .. port .. " -sTCP:LISTEN")
-          if not handle then return nil end
-          local result = handle:read "*a"
-          handle:close()
-          if result == "" then
-            return port
-          else
-            port = port + 1
-          end
-        end
-      end
-
-      -- Set a global variable for the current Neovim session
-      vim.g.my_free_port = find_free_port(5000)
-
-      -- Get current Jupyter-style cell index at cursor (0-based)
-      local function get_cell_index(line_num)
-        local bufnr = vim.api.nvim_get_current_buf()
-        local current_line = line_num
-
-        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, current_line, false)
-
-        local cell = -1
-        for _, line in ipairs(lines) do
-          if line:match "^#%s*%%%%%s*$" or line:match "^#%s*%%%%%s*%[markdown%]%s*$" then cell = cell + 1 end
-        end
-
-        return cell
-      end
-
-      local function execute_cells(line_nums)
-        local file_path = vim.fn.expand "%:p"
-        local cell_indices = {}
-        for _, line_num in ipairs(line_nums) do
-          table.insert(cell_indices, get_cell_index(line_num))
-        end
-
-        local payload = {
-          index = cell_indices,
-          file_path = file_path,
-        }
-        local json = vim.fn.json_encode(payload)
-        local url = "http://localhost:" .. vim.g.my_free_port .. "/run_cells"
-        local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
-        vim.fn.jobstart(cmd, { detach = true })
-      end
-
-      local function execute_cell()
-        local cursor = vim.api.nvim_win_get_cursor(0) -- {line, col}
-        execute_cells { cursor[1] }
-      end
-
-      -- Execute visually selected cells
-      Execute_selected_cells = function()
-        -- Leave visual mode to update the "<" and ">" marks
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-        local start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
-        local end_line = vim.api.nvim_buf_get_mark(0, ">")[1]
-
-        print(start_line)
-        if start_line == 0 or end_line == 0 then
-          print "No visual selection"
-          return
-        end
-        local lines = {}
-        -- Add first cell if the # %% isn't selected
-        local first_line = vim.api.nvim_buf_get_lines(0, start_line - 1, start_line, false)[1]
-        if not first_line:find "^# %%" then table.insert(lines, start_line) end
-
-        for line_num = start_line, end_line do
-          local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
-          if line:find "^# %%" then table.insert(lines, line_num) end
-        end
-        execute_cells(lines)
-      end
-
-      local function execute_all_cells()
+    if not require("utils.notebook").is_notebook(args.buf) then return end
+    vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+      callback = function()
         local file_path = vim.fn.expand "%:p"
 
         local payload = {
           file_path = file_path,
         }
         local json = vim.fn.json_encode(payload)
-        local url = "http://localhost:" .. vim.g.my_free_port .. "/run_all_cells"
+        local url = "http://localhost:" .. vim.g.my_free_port .. "/send_save_signal"
         local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
         vim.fn.jobstart(cmd, { detach = true })
-      end
+      end,
+    })
 
-      local function goto_cell()
-        local file_path = vim.fn.expand "%:p"
-        local cursor = vim.api.nvim_win_get_cursor(0)
-        local cell_index = get_cell_index(cursor[1])
+    local function find_pyproject_root()
+      local root_file = vim.fs.find("pyproject.toml", {
+        upward = true,
+        path = vim.api.nvim_buf_get_name(0),
+      })[1]
+      return root_file and vim.fs.dirname(root_file) or nil
+    end
 
-        local payload = {
-          index = cell_index,
-          file_path = file_path,
-        }
-        local json = vim.fn.json_encode(payload)
-        local url = "http://localhost:" .. vim.g.my_free_port .. "/goto_cell"
-        local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
-        vim.fn.jobstart(cmd, { detach = true })
-      end
+    local function find_free_port(start_port)
+      local port = start_port or 5000
 
-      local function restart_kernel()
-        local file_path = vim.fn.expand "%:p"
-
-        local payload = {
-          file_path = file_path,
-        }
-        local json = vim.fn.json_encode(payload)
-        local url = "http://localhost:" .. vim.g.my_free_port .. "/restart_kernel"
-        local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
-        vim.fn.jobstart(cmd, { detach = true })
-      end
-
-      local function start_jupyter_selenium_api()
-        vim.g.my_free_port = find_free_port(5000)
-        local filename = vim.api.nvim_buf_get_name(0)
-
-        local root = find_pyproject_root()
+      -- If jupyter running in the driectory, get the PWD of where it's running
+      local root = find_pyproject_root()
+      if root then
         local handle = io.popen(
           "ps aux | grep '"
             .. root
@@ -230,103 +97,234 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         local result = handle:read "*a"
         -- The result returns an empty line at the end sometimes
         result = result:gsub("%s+$", "")
+        if result ~= "" then return result end
+      end
+      while true do
+        local handle = io.popen("lsof -iTCP:" .. port .. " -sTCP:LISTEN")
+        if not handle then return nil end
+        local result = handle:read "*a"
+        handle:close()
         if result == "" then
-          local cmd = string.format("$HOME/.config/jupyter/bin/jupyter_selenium '%s' %d", filename, vim.g.my_free_port)
-          vim.fn.jobstart(cmd, { detach = true })
+          return port
         else
-          local file_path = vim.fn.expand "%:p"
-
-          local payload = {
-            file_path = file_path,
-          }
-          local json = vim.fn.json_encode(payload)
-          local url = "http://localhost:" .. vim.g.my_free_port .. "/run"
-          local cmd = string.format("curl -X POST -H \"Content-Type: application/json\" -d '%s' %s", json, url)
-          vim.fn.jobstart(cmd, { detach = true })
+          port = port + 1
         end
       end
-
-      local function shutdown_jupyter_selenium_api()
-        local url = "http://localhost:" .. vim.g.my_free_port .. "/shutdown"
-        local cmd = string.format("curl -X POST %s", url)
-        vim.fn.jobstart(cmd, { detach = true })
-      end
-
-      local function interrupt_jupyter_selenium_api()
-        local url = "http://localhost:" .. vim.g.my_free_port .. "/interrupt"
-        local cmd = string.format("curl -X POST %s", url)
-        vim.fn.jobstart(cmd, { detach = true })
-      end
-
-      local function delete_cell()
-        local bufnr = vim.api.nvim_get_current_buf()
-        local cursor = vim.api.nvim_win_get_cursor(0)
-        local cur_line = cursor[1]
-
-        local line_count = vim.api.nvim_buf_line_count(bufnr)
-
-        -- find start marker
-        local start_line = 1
-        for l = cur_line, 1, -1 do
-          local text = vim.api.nvim_buf_get_lines(bufnr, l - 1, l, false)[1]
-          if text:match "^#%s*%%%%" then
-            start_line = l
-            break
-          end
-        end
-
-        -- find end marker
-        local end_line = line_count + 1
-        for l = cur_line + 1, line_count do
-          local text = vim.api.nvim_buf_get_lines(bufnr, l - 1, l, false)[1]
-          if text:match "^#%s*%%%%" then
-            end_line = l
-            break
-          end
-        end
-
-        -- delete whole cell
-        vim.api.nvim_buf_set_lines(bufnr, start_line - 1, end_line - 1, false, {})
-      end
-
-      local wk = require "which-key"
-      wk.add {
-        { "<localLeader>n", group = "Jupyter" },
-        { "<localLeader>nc", execute_cell, desc = "Execute cell/s" },
-        {
-          "<localLeader>nC",
-          function()
-            execute_cell()
-            vim.cmd [[call search('^# %%\s*$')]]
-          end,
-          desc = "Execute cell and jump to next cell",
-        },
-        { "<localLeader>nd", delete_cell, desc = "Delete cell" },
-        { "<localLeader>ng", goto_cell, desc = "Goto cell" },
-        {
-          "<localLeader>nJ",
-          start_jupyter_selenium_api,
-          desc = "Start API",
-        },
-        {
-          "<localLeader>ns",
-          interrupt_jupyter_selenium_api,
-          desc = "Interrupt kernel",
-        },
-        {
-          "<localLeader>nS",
-          shutdown_jupyter_selenium_api,
-          desc = "Shutdown API",
-        },
-        { "<localLeader>nR", restart_kernel, desc = "Restart Kernel" },
-        { "<localLeader>nr", execute_all_cells, desc = "Execute all cells" },
-      }
-
-      wk.add {
-        { "<localLeader>n", group = "Jupyter Ascending", mode = "v" },
-        { "<localLeader>nc", ":lua Execute_selected_cells()<CR>", desc = "Execute selected cells", mode = "v" },
-      }
     end
+
+    -- Set a global variable for the current Neovim session
+    vim.g.my_free_port = find_free_port(5000)
+
+    -- Get current Jupyter-style cell index at cursor (0-based)
+    local function get_cell_index(line_num)
+      local bufnr = vim.api.nvim_get_current_buf()
+      local current_line = line_num
+
+      local lines = vim.api.nvim_buf_get_lines(bufnr, 0, current_line, false)
+
+      local cell = -1
+      for _, line in ipairs(lines) do
+        if line:match "^#%s*%%%%%s*$" or line:match "^#%s*%%%%%s*%[markdown%]%s*$" then cell = cell + 1 end
+      end
+
+      return cell
+    end
+
+    local function execute_cells(line_nums)
+      local file_path = vim.fn.expand "%:p"
+      local cell_indices = {}
+      for _, line_num in ipairs(line_nums) do
+        table.insert(cell_indices, get_cell_index(line_num))
+      end
+
+      local payload = {
+        index = cell_indices,
+        file_path = file_path,
+      }
+      local json = vim.fn.json_encode(payload)
+      local url = "http://localhost:" .. vim.g.my_free_port .. "/run_cells"
+      local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
+      vim.fn.jobstart(cmd, { detach = true })
+    end
+
+    local function execute_cell()
+      local cursor = vim.api.nvim_win_get_cursor(0) -- {line, col}
+      execute_cells { cursor[1] }
+    end
+
+    -- Execute visually selected cells
+    Execute_selected_cells = function()
+      -- Leave visual mode to update the "<" and ">" marks
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+      local start_line = vim.api.nvim_buf_get_mark(0, "<")[1]
+      local end_line = vim.api.nvim_buf_get_mark(0, ">")[1]
+
+      print(start_line)
+      if start_line == 0 or end_line == 0 then
+        print "No visual selection"
+        return
+      end
+      local lines = {}
+      -- Add first cell if the # %% isn't selected
+      local first_line = vim.api.nvim_buf_get_lines(0, start_line - 1, start_line, false)[1]
+      if not first_line:find "^# %%" then table.insert(lines, start_line) end
+
+      for line_num = start_line, end_line do
+        local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+        if line:find "^# %%" then table.insert(lines, line_num) end
+      end
+      execute_cells(lines)
+    end
+
+    local function execute_all_cells()
+      local file_path = vim.fn.expand "%:p"
+
+      local payload = {
+        file_path = file_path,
+      }
+      local json = vim.fn.json_encode(payload)
+      local url = "http://localhost:" .. vim.g.my_free_port .. "/run_all_cells"
+      local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
+      vim.fn.jobstart(cmd, { detach = true })
+    end
+
+    local function goto_cell()
+      local file_path = vim.fn.expand "%:p"
+      local cursor = vim.api.nvim_win_get_cursor(0)
+      local cell_index = get_cell_index(cursor[1])
+
+      local payload = {
+        index = cell_index,
+        file_path = file_path,
+      }
+      local json = vim.fn.json_encode(payload)
+      local url = "http://localhost:" .. vim.g.my_free_port .. "/goto_cell"
+      local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
+      vim.fn.jobstart(cmd, { detach = true })
+    end
+
+    local function restart_kernel()
+      local file_path = vim.fn.expand "%:p"
+
+      local payload = {
+        file_path = file_path,
+      }
+      local json = vim.fn.json_encode(payload)
+      local url = "http://localhost:" .. vim.g.my_free_port .. "/restart_kernel"
+      local cmd = string.format("curl -X GET -H \"Content-Type: application/json\" -d '%s' %s", json, url)
+      vim.fn.jobstart(cmd, { detach = true })
+    end
+
+    local function start_jupyter_selenium_api()
+      vim.g.my_free_port = find_free_port(5000)
+      local filename = vim.api.nvim_buf_get_name(0)
+
+      local root = find_pyproject_root()
+      local handle = io.popen(
+        "ps aux | grep '"
+          .. root
+          .. "' | grep 'jupyter_selenium' |  grep -v grep | grep -v environments | awk -F' ' '{print $NF}'"
+      )
+      if not handle then return nil end
+      local result = handle:read "*a"
+      -- The result returns an empty line at the end sometimes
+      result = result:gsub("%s+$", "")
+      if result == "" then
+        local cmd = string.format("$HOME/.config/jupyter/bin/jupyter_selenium '%s' %d", filename, vim.g.my_free_port)
+        vim.fn.jobstart(cmd, { detach = true })
+      else
+        local file_path = vim.fn.expand "%:p"
+
+        local payload = {
+          file_path = file_path,
+        }
+        local json = vim.fn.json_encode(payload)
+        local url = "http://localhost:" .. vim.g.my_free_port .. "/run"
+        local cmd = string.format("curl -X POST -H \"Content-Type: application/json\" -d '%s' %s", json, url)
+        vim.fn.jobstart(cmd, { detach = true })
+      end
+    end
+
+    local function shutdown_jupyter_selenium_api()
+      local url = "http://localhost:" .. vim.g.my_free_port .. "/shutdown"
+      local cmd = string.format("curl -X POST %s", url)
+      vim.fn.jobstart(cmd, { detach = true })
+    end
+
+    local function interrupt_jupyter_selenium_api()
+      local url = "http://localhost:" .. vim.g.my_free_port .. "/interrupt"
+      local cmd = string.format("curl -X POST %s", url)
+      vim.fn.jobstart(cmd, { detach = true })
+    end
+
+    local function delete_cell()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local cursor = vim.api.nvim_win_get_cursor(0)
+      local cur_line = cursor[1]
+
+      local line_count = vim.api.nvim_buf_line_count(bufnr)
+
+      -- find start marker
+      local start_line = 1
+      for l = cur_line, 1, -1 do
+        local text = vim.api.nvim_buf_get_lines(bufnr, l - 1, l, false)[1]
+        if text:match "^#%s*%%%%" then
+          start_line = l
+          break
+        end
+      end
+
+      -- find end marker
+      local end_line = line_count + 1
+      for l = cur_line + 1, line_count do
+        local text = vim.api.nvim_buf_get_lines(bufnr, l - 1, l, false)[1]
+        if text:match "^#%s*%%%%" then
+          end_line = l
+          break
+        end
+      end
+
+      -- delete whole cell
+      vim.api.nvim_buf_set_lines(bufnr, start_line - 1, end_line - 1, false, {})
+    end
+
+    local wk = require "which-key"
+    wk.add {
+      { "<localLeader>n", group = "Jupyter" },
+      { "<localLeader>nc", execute_cell, desc = "Execute cell/s" },
+      {
+        "<localLeader>nC",
+        function()
+          execute_cell()
+          vim.cmd [[call search('^# %%\s*$')]]
+        end,
+        desc = "Execute cell and jump to next cell",
+      },
+      { "<localLeader>nd", delete_cell, desc = "Delete cell" },
+      { "<localLeader>ng", goto_cell, desc = "Goto cell" },
+      {
+        "<localLeader>nJ",
+        start_jupyter_selenium_api,
+        desc = "Start API",
+      },
+      {
+        "<localLeader>ns",
+        interrupt_jupyter_selenium_api,
+        desc = "Interrupt kernel",
+      },
+      {
+        "<localLeader>nS",
+        shutdown_jupyter_selenium_api,
+        desc = "Shutdown API",
+      },
+      { "<localLeader>nR", restart_kernel, desc = "Restart Kernel" },
+      { "<localLeader>nr", execute_all_cells, desc = "Execute all cells" },
+    }
+
+    wk.add {
+      { "<localLeader>n", group = "Jupyter Ascending", mode = "v" },
+      { "<localLeader>nc", ":lua Execute_selected_cells()<CR>", desc = "Execute selected cells", mode = "v" },
+    }
   end,
 })
 

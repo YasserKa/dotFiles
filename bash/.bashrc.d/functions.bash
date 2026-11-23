@@ -651,7 +651,18 @@ reboot() {
 }
 
 create_jupytext_pair() {
-	echo "# %%" >"$1.py" && jupytext --to ipynb "$1.py"
+	cat >"$1.py" <<'EOF'
+# ---
+# jupyter:
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
+# ---
+
+# %%
+EOF
+	jupytext --set-formats ipynb,py:percent "$1.py"
 }
 
 shutdown() {

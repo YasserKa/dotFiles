@@ -2,5 +2,5 @@
 # formats = ["ipynb", "py:percent"]
 
 # remove meta data
-notebook_metadata_filter = "-all"
-cell_metadata_filter = "-all"
+#notebook_metadata_filter = "-all"
+#cell_metadata_filter = "-all"
