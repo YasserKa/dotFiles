@@ -2926,6 +2926,23 @@ see how ARG affects this command."
 
   (advice-add 'org-export-output-file-name :around #'my/org-export-to-dir)
 
+  (use-package htmlize :ensure t)   ; optional: coloured code blocks
+
+  (use-package org-html-clip
+    :ensure nil
+    :straight nil
+    :after org
+    :bind (:map org-mode-map ("C-c e h" . my/org-html-to-clipboard)))
+
+  (use-package org-eer
+    :ensure nil
+    :straight nil
+    :if (equal (daemonp) "org")      ; only in your org daemon
+    :demand t                        ; must be loaded before Thunderbird opens an email
+    :custom
+    (my/eer-dir "~/.cache/eer/")
+    (my/eer-greeting-fmt "Hello %s,"))
+
   ;; Functions used for org-protocol to refile using a floating frame
   (defun my/close-client-frame (frame)
     (when (frame-live-p frame)
