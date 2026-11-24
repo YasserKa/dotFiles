@@ -126,14 +126,30 @@ Skips Emacs lock files (.#foo.org), anything in a hidden directory
   "Turn a list of ALIASES into the string stored in the property."
   (combine-and-quote-strings aliases))
 
+(defun my/node--strip-links (s)
+  "Replace each Org link in S with its description.
+A link without a description is replaced by its target. Brackets that
+are escaped inside a link (\\[ and \\]) are handled the way Org does."
+  (let ((s (replace-regexp-in-string
+            org-link-bracket-re
+            (lambda (m)
+              (let ((desc (match-string 2 m)))
+                (if (and desc (not (string-empty-p desc)))
+                    desc
+                  (org-link-unescape (match-string 1 m)))))
+            s t t)))
+    ;; Collapse the spaces links can leave behind.
+    (replace-regexp-in-string "[ \t]+" " " s)))
+
 (defun my/node--clean-heading (line)
-  "Strip stars, TODO keyword, priority and tags from heading LINE."
+  "Strip stars, TODO keyword, priority and tags from heading LINE.
+Org links are replaced by their descriptions."
   (let* ((s (replace-regexp-in-string
              "^\\*+[ \t]+\\(?:\\(?:TODO\\|NEXT\\|WAIT\\|DONE\\|CANCELLED\\)[ \t]+\\)?\\(?:\\[#.\\][ \t]+\\)?"
              "" line))
          (s (replace-regexp-in-string
              "[ \t]+:[[:alnum:]_@#%:]+:[ \t]*$" "" s)))
-    (string-trim s)))
+    (string-trim (my/node--strip-links s))))
 
 (defun my/node--heading-title (pos)
   "Return the cleaned title of the heading line at POS."
@@ -225,7 +241,7 @@ part of the text, so you can search by any of them."
            (or (save-excursion
                  (goto-char (point-min))
                  (when (re-search-forward "^#\\+title:[ \t]*\\(.+\\)$" nil t)
-                   (string-trim (match-string 1))))
+                   (string-trim (my/node--strip-links (match-string 1)))))
                (file-name-base file)))
           (file-tags (my/node--file-tags))
           nodes)
