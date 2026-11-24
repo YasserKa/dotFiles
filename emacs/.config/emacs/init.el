@@ -1140,19 +1140,19 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                  (char-after))))))
 
   (aas-set-snippets 'laas-mode
-    ;; set condition!
-    ;; :cond #'my/tex-nonmathp
-    :cond #'my/nonmath-standalone-dm-p
-    "dm" '(yas "\\[
+                    ;; set condition!
+                    ;; :cond #'my/tex-nonmathp
+                    :cond #'my/nonmath-standalone-dm-p
+                    "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
-    :cond #'texmathp ; expand only while in math
-    "t=" "\\triangleq"
-    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
-    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
-    ;; add accent snippets
-    :cond #'laas-object-on-left-condition
-    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
+                    :cond #'texmathp ; expand only while in math
+                    "t=" "\\triangleq"
+                    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
+                    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
+                    ;; add accent snippets
+                    :cond #'laas-object-on-left-condition
+                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
   )
 
 ;; Used to insert latex environments and math templates
@@ -1460,9 +1460,15 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
          ))
 
   ;; Refile {{{
-  (setq org-refile-targets '((nil :maxlevel . 99) ;; Refile to current buffer at any level
-                             (org-agenda-files :maxlevel . 99)
-                             (org-buffer-list :maxlevel . 99)))
+  (setq org-refile-targets
+        `((nil :maxlevel . 99)
+          (org-agenda-files :maxlevel . 99)
+          (org-buffer-list :maxlevel . 99)
+          (,(concat my/notes-dir "/ideas.org") :maxlevel . 99)))
+
+  ;; Save buffers after refiling
+  (advice-add 'org-refile :after
+              (lambda (&rest _) (org-save-all-org-buffers)))
 
   (setq org-refile-use-outline-path 'file      ;; Allow files in refiling candidates
         org-outline-path-complete-in-steps nil ;; Don't remove headings
@@ -1607,15 +1613,15 @@ Skips predicate tokens like todo:..., negated !words, and 1-char tokens."
 
   (advice-add 'org-ql-completing-read :around #'my/org-ql-preview--around)
 
-  (defun my/org-refile-with-preview (&optional arg)
-    "Like `org-refile', but preview targets while navigating."
-    (interactive "P")
+  (defun my/org-refile-read-target (&optional prompt)
+    "Read a refile target with consult preview.
+Return it as (NAME FILE REGEXP POS), like `org-refile-get-location'."
     (let* ((targets (org-refile-get-targets))
            (preview (consult--jump-preview))
            (choice
             (consult--read
              (mapcar #'car targets)
-             :prompt "Refile to: "
+             :prompt (or prompt "Refile to: ")
              :require-match t
              :sort nil
              :category 'org-heading
@@ -1625,7 +1631,28 @@ Skips predicate tokens like todo:..., negated !words, and 1-char tokens."
                                            (buf (find-file-noselect (nth 1 tgt))))
                                  (with-current-buffer buf
                                    (copy-marker (or (nth 3 tgt) (point-min))))))))))
-      (org-refile arg nil (assoc choice targets))))
+      (assoc choice targets)))
+
+  (defun my/org-refile-with-preview (&optional arg)
+    "Like `org-refile', but preview targets while navigating."
+    (interactive "P")
+    (org-refile arg nil (my/org-refile-read-target)))
+
+  (defun my/org-capture-refile-target ()
+    (let ((frame (selected-frame))
+          target)
+      (condition-case nil
+          (progn
+            (with-current-buffer (find-file-noselect org-default-notes-file)
+              (setq target (my/org-refile-read-target "Capture to: ")))
+            (set-buffer (find-file-noselect (nth 1 target)))
+            (goto-char (or (nth 3 target) (point-min)))
+            (when (frame-parameter frame 'client)
+              (run-at-time 0 nil #'my/close-client-frame frame)))
+        (quit
+         (when (frame-parameter frame 'client)
+           (delete-frame frame))
+         (signal 'quit nil)))))
 
   (defun my/org-refile-to-file (arg &optional file)
     "Refile current heading to a heading in FILE, with preview.
@@ -1716,39 +1743,27 @@ With prefix ARG, copy instead of move."
       "Call `org-capture' in a Yequake frame.
 Adds a function to `org-capture-after-finalize-hook' that closes
 the recently toggled Yequake frame and removes itself from the
-hook.
-
-Note: if another Yequake frame is toggled before the capture is
-finalized, when the capture is finalized, the wrong Yequake frame
-will be toggled."
+hook."
       (let* ((remove-hook-fn (lambda ()
                                (remove-hook 'org-capture-after-finalize-hook #'yequake-retoggle)
-                               (advice-remove 'org-after-refile-insert-hook #'yequake-retoggle)
-                               )))
+                               (advice-remove 'org-capture-refile #'yequake-retoggle))))
         (add-hook 'org-capture-after-finalize-hook remove-hook-fn)
         (add-hook 'org-capture-after-finalize-hook #'yequake-retoggle)
-
         (advice-add 'org-capture-refile :after remove-hook-fn)
         (advice-add 'org-capture-refile :after #'yequake-retoggle)
-
         (advice-add 'yequake-retoggle :around #'toggle-if-not-refiling)
-        ;; MAYBE: Propose an `org-capture-switch-buffer-fn' variable that could be rebound here.
-
-        ;; NOTE: We override `org-switch-to-buffer-other-window' because
-        ;; it always uses `switch-to-buffer-other-window', and we want to
-        ;; display the template menu and capture buffer in the existing
-        ;; window rather than splitting the frame.
+        ;; Show the template menu and capture buffer in the existing window
+        ;; instead of splitting the frame.
         (cl-letf* (((symbol-function #'org-switch-to-buffer-other-window)
                     (symbol-function #'switch-to-buffer)))
           (condition-case nil
               (progn
                 (org-capture goto keys)
                 (delete-other-windows)
-                ;; Be sure to return the "CAPTURE-" buffer, which is the current
-                ;; buffer at this point.
+                ;; Return the "CAPTURE-" buffer, which is current at this point.
                 (current-buffer))
             ((error quit)
-             ;; Capture aborted: remove the hook and hide the capture frame.
+             ;; Capture aborted: clean up and hide the capture frame.
              (remove-hook 'org-capture-after-finalize-hook #'yequake-retoggle)
              (advice-remove 'org-capture-refile #'yequake-retoggle)
              (advice-remove 'yequake-retoggle #'toggle-if-not-refiling)
@@ -1761,10 +1776,8 @@ will be toggled."
     (yequake-frames
      '(("org-capture-yeq"
         (buffer-fns . ((lambda () (my/yequake-org-capture-refile nil "d"))))
-        (width . 0.75)
-        (height . 0.5)
-        (alpha . 1.0)
-        )))
+        (width . 0.75) (height . 0.5) (alpha . 1.0))
+       ))
     :config
 
     ;; Enable monitor focused to be used instead of where the Emacs client is
@@ -2948,51 +2961,48 @@ see how ARG affects this command."
     (when (frame-live-p frame)
       (delete-frame frame)))
 
-  (defun my/org-refile-read-target (&optional prompt)
-    "Read a refile target with consult preview.
-Return it as (NAME FILE REGEXP POS), like `org-refile-get-location'."
-    (let* ((targets (org-refile-get-targets))
-           (preview (consult--jump-preview))
-           (choice
-            (consult--read
-             (mapcar #'car targets)
-             :prompt (or prompt "Refile to: ")
-             :require-match t
-             :sort nil
-             :category 'org-heading
-             :state (lambda (action cand)
-                      (funcall preview action
-                               (when-let* ((tgt (assoc cand targets))
-                                           (buf (find-file-noselect (nth 1 tgt))))
-                                 (with-current-buffer buf
-                                   (copy-marker (or (nth 3 tgt) (point-min))))))))))
-      (assoc choice targets)))
-
-  (defun my/org-refile-with-preview (&optional arg)
-    "Like `org-refile', but preview targets while navigating."
-    (interactive "P")
-    (org-refile arg nil (my/org-refile-read-target)))
-
-  (defun my/org-capture-refile-target ()
-    (let ((frame (selected-frame))
-          target)
-      (condition-case nil
-          (progn
-            (with-current-buffer (find-file-noselect org-default-notes-file)
-              (setq target (my/org-refile-read-target "Capture to: ")))
-            (set-buffer (find-file-noselect (nth 1 target)))
-            (goto-char (or (nth 3 target) (point-min)))
-            (when (frame-parameter frame 'client)
-              (run-at-time 0 nil #'my/close-client-frame frame)))
-        (quit
-         (when (frame-parameter frame 'client)
-           (delete-frame frame))
-         (signal 'quit nil)))))
-
   (use-package org-protocol
     :straight nil
     :ensure nil
     :config
+
+    (defun my/floating-capture-frame ()
+      "Return a visible frame named \"floating\" on the monitor under the mouse.
+Reuses the hidden frame from an earlier capture if there is one."
+      (pcase-let* ((`(,wx ,wy ,ww ,wh) (alist-get 'workarea (my/monitor-at-pointer)))
+                   (width  (floor (* 0.75 ww)))
+                   (height (floor (* 0.5 wh)))
+                   (frame  (or (seq-find (lambda (f) (equal (frame-parameter f 'name) "floating"))
+                                         (frame-list))
+                               (make-frame '((name . "floating")
+                                             (minibuffer . t)
+                                             (visibility . nil))))))
+        (set-frame-size frame width height t)
+        (set-frame-position frame (+ wx (/ (- ww width) 2)) wy)
+        (make-frame-visible frame)
+        (select-frame-set-input-focus frame)
+        frame))
+
+    (defun my/org-protocol-capture-floating (url)
+      "Run org-protocol URL in a floating frame on the monitor under the mouse."
+      (let* ((frame (my/floating-capture-frame))
+             (close (lambda ()
+                      (when (frame-live-p frame)
+                        (make-frame-invisible frame t)))))
+        (condition-case nil
+            (cl-letf (((symbol-function #'org-switch-to-buffer-other-window)
+                       (symbol-function #'switch-to-buffer))
+                      ;; The capture handler is :kill-client and calls
+                      ;; `server-edit'; there is no client buffer here.
+                      ((symbol-function #'server-edit) #'ignore))
+              (org-protocol-check-filename-for-protocol url nil nil)
+              (if (string-prefix-p "CAPTURE-" (buffer-name))
+                  ;; Interactive template: hide the frame when the capture buffer dies.
+                  (progn (delete-other-windows)
+                         (add-hook 'kill-buffer-hook close nil t))
+                ;; :immediate-finish template: already done.
+                (funcall close)))
+          ((error quit) (funcall close)))))
 
     (dolist (template
              `(("url" "org-capture-url" entry
@@ -3226,13 +3236,13 @@ Handles `org-marker' candidates (consult-org-heading), grep candidates
     "Insert a link to heading TARGET: ID, then CUSTOM_ID, then ::*Heading."
     (let ((buf (current-buffer)))
       (insert (org-with-point-at (my/embark-org--heading-marker target)
-                (my/org--link-string nil buf)))))
+                                 (my/org--link-string nil buf)))))
 
   (defun my/embark-org-insert-custom-id-link (target)
     "Insert a link to heading TARGET: ID, then CUSTOM_ID (created if missing)."
     (let ((buf (current-buffer)))
       (insert (org-with-point-at (my/embark-org--heading-marker target)
-                (my/org--link-string t buf)))))
+                                 (my/org--link-string t buf)))))
 
   (defun my/embark-org--heading-marker (target)
     "Return a marker for the Org heading TARGET.

@@ -121,7 +121,6 @@ if [[ "$URL_HOST" == "www.merriam-webster.com" || "$URL_HOST" == "www.wordrefere
 	DEFINITION="$(cat "$TMP_FILE")"
 	[[ -z "$DEFINITION" ]] && exit 0
 	# Remove "Word: <word>" line
-	DEFINITION="$(echo "$DEFINITION")"
 	emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait "org-protocol://capture?template=word&url=$WORD&title=$(encode_url "$DEFINITION")"
 	echo ":message-info 'Word captured'" >>"$QUTE_FIFO"
 	exit 0
@@ -132,7 +131,7 @@ QUTE_URL="$(encode_url "$QUTE_URL")"
 
 # Create a frame to refile the URL
 if [[ "$TEMPLATE" == "refile" ]]; then
-	emacsclient --socket-name="$EMACS_ORG_SOCKET" --frame-parameters='((name . "floating") (width . 0.75) (height . 0.5))' --create-frame "org-protocol://capture?template=refile&title=$QUTE_TITLE&url=$QUTE_URL"
+	emacsclient --socket-name="org" --no-wait --eval "(my/org-protocol-capture-floating \"org-protocol://capture?template=refile&title=$QUTE_TITLE&url=$QUTE_URL\")"
 	echo ":message-info 'Note refiled'" >>"$QUTE_FIFO"
 	exit 0
 fi
