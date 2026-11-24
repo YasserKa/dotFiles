@@ -2100,9 +2100,53 @@ and select the width value."
     (open-line 1)
     (yas-expand-snippet "#+ATTR_ORG: :width ${1:400}"))
 
+(defun my/org-img-dir ()
+  "Directory that img: links point to, from `org-link-abbrev-alist'."
+  (file-name-directory (expand-file-name (org-link-expand-abbrev "img:x"))))
+
+(defun my/org-referenced-images ()
+  "Return a hash table of every name used in an img: link under `my/notes-dir'."
+  (let ((refs (make-hash-table :test #'equal))
+        (files (directory-files-recursively
+                (expand-file-name my/notes-dir)
+                "\\.org\\(_archive\\)?\\'" nil
+                ;; Skip hidden directories such as .git
+                (lambda (d) (not (string-prefix-p "." (file-name-nondirectory d)))))))
+    (with-temp-buffer
+      (dolist (f files)
+        (erase-buffer)
+        (insert-file-contents f)
+        (goto-char (point-min))
+        (while (re-search-forward "\\[\\[img:\\([^]]+\\)\\]" nil t)
+          (puthash (match-string 1) t refs))))
+    refs))
+
+(defun my/org-clean-unused-images ()
+  "Delete images in the img: directory that no Org file links to.
+Shows the list and asks before deleting. Files go to the system trash."
+  (interactive)
+  ;; Links that exist only in unsaved buffers would otherwise be missed.
+  (save-some-buffers nil (lambda () (derived-mode-p 'org-mode)))
+  (let* ((dir (my/org-img-dir))
+         (refs (my/org-referenced-images))
+         (unused (seq-remove
+                  (lambda (f)
+                    (or (gethash (file-relative-name f dir) refs)
+                        (string-prefix-p "." (file-name-nondirectory f))))
+                  (directory-files-recursively dir ""))))
+    (if (null unused)
+        (message "No unused images in %s" dir)
+      (with-output-to-temp-buffer "*Unused images*"
+        (dolist (f unused)
+          (princ (concat (file-relative-name f dir) "\n"))))
+      (if (yes-or-no-p (format "Move %d unused image(s) to trash? " (length unused)))
+          (let ((delete-by-moving-to-trash t))
+            (dolist (f unused) (delete-file f t))
+            (message "Moved %d image(s) to trash" (length unused)))
+        (message "Nothing deleted")))))
+
   (evil-define-key 'normal org-mode-map (kbd "z w") #'my/org-image-width)
   ;; }}}
-
 
   (custom-set-faces
    '(org-agenda-dimmed-todo-face ((t (:inverse-video nil :box nil :weight normal))))
@@ -2179,8 +2223,9 @@ Plain (unbracketed) links are left as raw text."
 
     (add-hook 'org-mode-hook #'my/org-link-install-file-preview 90)
 
-
-    (setq org-startup-with-link-previews t)
+    ;; C-c C-c refresh image width
+    (add-hook 'org-ctrl-c-ctrl-c-hook #'org-redisplay-inline-images)
+    (setq org-startup-with-link-previews nil)
     (setq org-link-descriptive nil)
     ;; Agenda buffers: show descriptive links
     (add-hook 'org-agenda-mode-hook
