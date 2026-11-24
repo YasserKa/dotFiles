@@ -447,7 +447,7 @@ fzf_args=(
 # exported inside the command itself; fzf passes it on to the previews.
 cmd="export CLIP_CACHE=$(printf '%q' "$CLIP_CACHE"); $(printf '%q ' "$SELF" --list)| fzf $(printf '%q ' "${fzf_args[@]}")"
 
-eval_interactive_cmd --floating "$cmd"
+eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
 
 [[ -s "$SELECTION" ]] || exit 1
 mapfile -t rows <"$SELECTION"
