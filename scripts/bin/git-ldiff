@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# git ldiff [REV]: diff REV (default HEAD) against the working tree, write MAIN-diff.pdf and open it
+set -e
+main=$(grep -l '^[^%]*\\documentclass' *.tex | grep -v -- '-diff' | head -n1)
+out=${main%.tex}-diff
+revs=(-r "${1:-HEAD}")
+[[ $2 ]] && revs+=(-r "$2")
+latexdiff-vc --git --flatten --force --pdf "${revs[@]}" "$main"
+f=$(ls -t "$out"*.pdf | head -n1)
+mv -f "$f" "$out.pdf" && rm -f "${f%.pdf}".*
+pgrep -f "zathura.*$out.pdf" >/dev/null || (xdg-open "$out.pdf" >/dev/null 2>&1 &)

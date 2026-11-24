@@ -87,9 +87,7 @@
     countcommits = shortlog -sn --no-merges
     graph = log --graph --oneline --decorate --all
 
-    # LaTeX
     wdiff = diff --color-words --ignore-all-space
-    ldiff = difftool -y -t latex
 
 [help]
    ; execute corrected commands immediately
