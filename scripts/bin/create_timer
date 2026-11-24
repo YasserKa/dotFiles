@@ -1,38 +1,44 @@
 #!/usr/bin/env bash
 #######################################
-# Create a timer with progress bar
+# Create a countdown timer
 # Arguments:
-#   $1: seconds to wait, OR a target time in HH:MM format
+#   $1: seconds to wait, a duration like 1h, 45m, 1h30m, 90s,
+#       OR a target time in HH:MM format
 #       (HH:MM is interpreted as the next occurrence of that
 #        clock time, today or tomorrow if it has already passed)
 #   $2: (optional) message
 #######################################
-function cleanup() {
-	tput cnorm
-}
-trap cleanup EXIT
-# Hide cursor
-tput civis
 
-# Only emit color codes when writing to a real terminal
+# Only emit color/cursor codes when writing to a real terminal
 if [ -t 1 ]; then
+	readonly IS_TTY=1
 	readonly COLOR_RESET=$(tput sgr0)
 	readonly COLOR_BOLD=$(tput bold)
 	readonly COLOR_CYAN=$(tput setaf 6)
 	readonly COLOR_YELLOW=$(tput setaf 3)
 else
+	readonly IS_TTY=0
 	readonly COLOR_RESET=""
 	readonly COLOR_BOLD=""
 	readonly COLOR_CYAN=""
 	readonly COLOR_YELLOW=""
 fi
 
+STARTED=0
+cleanup() {
+	# Move off the countdown line so the prompt doesn't overwrite it
+	((STARTED)) && echo
+	((IS_TTY)) && tput cnorm
+}
+
+# Format seconds as MM:SS, or HH:MM:SS when an hour or more (hours not capped at 24)
 get_time() {
-	local -r SECONDS="$1"
-	if [[ $((SECONDS / 60)) -ge 60 ]]; then
-		date -d@"$SECONDS" -u +%H:%M:%S
+	local -r S="$1"
+	local -r H=$((S / 3600)) M=$((S % 3600 / 60)) SEC=$((S % 60))
+	if ((H > 0)); then
+		printf '%02d:%02d:%02d' "$H" "$M" "$SEC"
 	else
-		date -d@"$SECONDS" -u +%M:%S
+		printf '%02d:%02d' "$M" "$SEC"
 	fi
 }
 
@@ -56,28 +62,43 @@ resolve_seconds() {
 		# 10# forces base 10 so inputs like "08m" aren't parsed as octal
 		echo $((10#${BASH_REMATCH[2]:-0} * 3600 + 10#${BASH_REMATCH[4]:-0} * 60 + 10#${BASH_REMATCH[6]:-0}))
 	elif [[ "$INPUT" =~ ^[0-9]+$ ]]; then
-		echo "$INPUT"
+		echo $((10#$INPUT))
 	else
 		echo "Invalid duration: $INPUT (use seconds, 1h, 45m, 1h30m, 90s or HH:MM)" >&2
 		exit 1
 	fi
 }
 
-main() {
-	local -r SECONDS="$1"
-	local SECONDS_LEFT="$1"
-	local MESSAGE="${2:-TIMER UP!}"
-	echo -e "${COLOR_BOLD}${COLOR_CYAN}Interval:${COLOR_RESET} $(date +%H:%M) -> $(date -d "+$SECONDS seconds" +%H:%M)  ($(get_time "$SECONDS"))\n"
-	while [ "$SECONDS_LEFT" -gt 0 ]; do
-		echo -ne "Left: ${COLOR_YELLOW}${COLOR_BOLD}$(get_time "$SECONDS_LEFT")${COLOR_RESET}  Elapsed: $(get_time "$((SECONDS - SECONDS_LEFT))")\033[0K\r"
-		sleep 1
-		SECONDS_LEFT=$((SECONDS_LEFT - 1))
-	done && notify-send --expire-time=$((5 * 60 * 1000)) -- "$MESSAGE"
+print_status() {
+	local -r LEFT="$1" TOTAL="$2"
+	echo -ne "Left: ${COLOR_YELLOW}${COLOR_BOLD}$(get_time "$LEFT")${COLOR_RESET}  Elapsed: $(get_time "$((TOTAL - LEFT))")\033[0K\r"
 }
+
+main() {
+	local -r TOTAL="$1"
+	local -r MESSAGE="${2:-TIMER UP!}"
+	# Fixed end time: avoids drift from loop overhead and survives suspend
+	local -r END_EPOCH=$(($(date +%s) + TOTAL))
+	local LEFT="$TOTAL"
+
+	echo -e "${COLOR_BOLD}${COLOR_CYAN}Interval:${COLOR_RESET} $(date +%H:%M) -> $(date -d "@$END_EPOCH" +%H:%M)  ($(get_time "$TOTAL"))\n"
+
+	STARTED=1
+	((IS_TTY)) && tput civis
+	while ((LEFT > 0)); do
+		print_status "$LEFT" "$TOTAL"
+		sleep 1
+		LEFT=$((END_EPOCH - $(date +%s)))
+	done
+	print_status 0 "$TOTAL"
+	notify-send --expire-time=$((5 * 60 * 1000)) -- "$MESSAGE"
+}
+
+trap cleanup EXIT
 
 if (($# > 2)); then
 	echo "One needed option - seconds or HH:MM, and optionally message" && exit 1
 fi
 
-SECONDS_ARG="$(resolve_seconds "$1")" || exit 1
-main "$SECONDS_ARG" "$2"
+TOTAL_ARG="$(resolve_seconds "$1")" || exit 1
+main "$TOTAL_ARG" "$2"
