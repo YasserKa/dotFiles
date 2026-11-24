@@ -216,6 +216,16 @@
   (add-hook 'org-mode-hook #'my/maybe-enable-org-transclusion)
   )
 
+(use-package context-notes
+  :straight nil
+  :after org
+  :custom
+  context-notes-rules
+  '(("vd" ("data_format_tools.org"  "Multi-format" "View" "Bindings"))
+     ("file:COMMIT_EDITMSG" ("git.org" "Guidelines"))
+     ("dir:references" ("reading.org" "In papers"))
+     ("jupyter-notebook" ("jupyter_notebook.org"))))
+
 ;; Unfolding an item with emojis is slow, this package fixes this problem
 ;; (use-package emojify
 ;;   :disabled

@@ -326,8 +326,7 @@ bindsym $mod+Shift+d exec --no-startup-id fdoc
 # Papers
 bindsym $mod+Shift+p exec --no-startup-id $XDG_CONFIG_HOME/Zotero/bin/zotero_utility search
 
-# Don't show general notes
-bindsym $mod+n exec --no-startup-id $XDG_CONFIG_HOME/emacs/bin/toggle_org_notes
+bindsym $mod+n exec --no-startup-id $HOME/bin/toggle-org-notes
 
 # Show any window besides these
 bindsym $mod+minus exec $XDG_CONFIG_HOME/sway/show_scratchpad

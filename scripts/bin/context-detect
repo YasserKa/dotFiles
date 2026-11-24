@@ -1,0 +1,277 @@
+#!/usr/bin/env bash
+#
+# Print context keys for the focused window, one per line, general -> specific.
+#
+#   kitty / git / nvim / lang:gitcommit / git-commit
+#   zathura / ext:pdf / file:/home/me/papers/x.pdf
+#   emacs / mode:python-ts-mode / lang:python / ext:py / file:/...
+#
+# Dependencies: jq, swaymsg (Wayland) or xdotool (X11)
+# Optional:     nvim (or nvr), busctl, tmux, emacsclient
+#
+# Env: EMACS_MAIN_SOCKET  socket of the Emacs you edit in (default: server)
+#      EMACS_ORG_SOCKET   tried as a fallback
+
+set -o nounset -o pipefail
+
+declare -a KEYS=()
+add() { local k; for k; do [[ -n "$k" ]] && KEYS+=("$k"); done; }
+lower() { tr '[:upper:]' '[:lower:]' <<<"$1"; }
+
+SHELLS=" bash zsh fish sh dash nu xonsh "
+
+# --- focused window: prints "pid<TAB>app<TAB>title" -------------------------
+focused_window() {
+  if [[ -n "${WAYLAND_DISPLAY:-}" ]]; then
+    swaymsg -t get_tree | jq -r '
+      first(.. | objects | select(.focused == true))
+      | [(.pid // 0), (.window // 0), (.app_id // .window_properties.class // "-"), (.name // "")]
+      | @tsv'
+  elif [[ -n "${DISPLAY:-}" ]]; then
+    local wid
+    wid="$(xdotool getactivewindow 2>/dev/null)" || return 1
+    printf '%s\t%s\t%s\t%s\n' \
+      "$(xdotool getwindowpid "$wid" 2>/dev/null || echo 0)" \
+      "$wid" \
+      "$(xdotool getwindowclassname "$wid" 2>/dev/null || echo -)" \
+      "$(xdotool getwindowname "$wid" 2>/dev/null)"
+  fi
+}
+
+# --- all descendants of a pid: prints "pid comm" in tree order -------------
+descendants() {
+  ps -e -o pid=,ppid=,comm= | awk -v root="$1" '
+    { c = $3; for (i = 4; i <= NF; i++) c = c " " $i
+      parent[$1] = $2; comm[$1] = c; order[NR] = $1 }
+    END {
+      for (n = 1; n <= NR; n++) {
+        p = order[n]; q = p
+        while ((q in parent) && q != root && q > 1) q = parent[q]
+        if (q == root && p != root) print p, comm[p]
+      }
+    }'
+}
+
+# tmux client in this terminal -> follow its active pane instead
+tmux_pane_pid() {
+  local client_pid="$1"
+  tmux list-clients -F '#{client_pid} #{pane_pid}' 2>/dev/null |
+    awk -v c="$client_pid" '$1 == c { print $2; exit }'
+}
+
+nvim_query() { # socket expr
+  if command -v nvim >/dev/null; then
+    timeout 0.5 nvim --server "$1" --remote-expr "$2" 2>/dev/null
+  elif command -v nvr >/dev/null; then
+    timeout 0.5 nvr --servername "$1" --remote-expr "$2" 2>/dev/null
+  fi
+}
+
+file_keys() { # path
+  [[ -z "$1" ]] && return
+  local ext="${1##*.}"
+  [[ "$ext" != "$1" && "$ext" != */* ]] && add "ext:$(lower "$ext")"
+  add "file:$1"
+}
+
+# name -> "jupyter" "jupyter-notebook" (prefix first, so it reads general -> specific)
+name_keys() {
+  [[ "$1" == ?*-?* ]] && add "${1%%-*}"
+  add "$1"
+}
+
+# Keys for one process, from its full command line (the kernel's comm is
+# cut to 15 chars, e.g. "jupyter-noteboo"). Sets PROC_NAME; returns 1 for
+# interactive shells, which say nothing about what you're doing.
+#   /usr/bin/python3 /usr/bin/jupyter-notebook -> python3, jupyter, jupyter-notebook
+#   python test.py                             -> python, test.py, file:/abs/test.py
+#   python -m pytest                           -> python, pytest
+#   bash build.sh                              -> build.sh, file:/abs/build.sh
+proc_keys() { # pid
+  local pid="$1" name script interp=0 shell=0 i
+  local -a argv=()
+  { mapfile -d '' -t argv <"/proc/$pid/cmdline"; } 2>/dev/null || return 1 # exited meanwhile
+  if ((${#argv[@]})); then
+    name="${argv[0]##*/}"
+    name="${name#-}" # login shells: -bash
+  else
+    name="$(cat "/proc/$pid/comm" 2>/dev/null)" || return 1
+  fi
+  name="$(lower "$name")"
+  PROC_NAME="$name"
+
+  [[ "$SHELLS" == *" $name "* ]] && shell=1
+  case "$name" in python* | pypy* | node | nodejs | deno | bun | perl | ruby | lua* | php | julia | rscript) interp=1 ;; esac
+  ((shell)) || name_keys "$name"
+  ((interp || shell)) || return 0
+
+  for ((i = 1; i < ${#argv[@]}; i++)); do
+    case "${argv[i]}" in
+      -m) [[ -n "${argv[i + 1]:-}" ]] && name_keys "$(lower "${argv[i + 1]%%.*}")"
+        return 0 ;;
+      -c | -e) return $((shell)) ;;
+      -*) ;;
+      *) script="${argv[i]}"; break ;;
+    esac
+  done
+  [[ -z "${script:-}" ]] && return $((shell))
+
+  [[ "$script" != /* ]] && script="$(readlink "/proc/$pid/cwd")/$script"
+  if [[ "$script" == /usr/* || "$script" == */bin/* ]]; then
+    name_keys "$(lower "${script##*/}")" # installed tool, not your file
+  else
+    add "${script##*/}"
+    file_keys "$script"
+  fi
+  PROC_NAME="$(lower "${script##*/}")"
+  return 0
+}
+
+# --- per-program probes ----------------------------------------------------
+probe_nvim() { # pids of nvim processes (TUI + embedded server)
+  local p sock out file ft
+  for p; do
+    sock="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/nvim.$p.0"
+    [[ -S "$sock" ]] || continue
+    out="$(nvim_query "$sock" "expand('%:p') . \"\n\" . &filetype")" || continue
+    file="${out%%$'\n'*}"
+    ft="${out#*$'\n'}"
+    [[ -n "$ft" ]] && add "lang:$ft"
+    [[ "$ft" == gitcommit || "$file" == */COMMIT_EDITMSG ]] && add git-commit
+    [[ "$ft" == gitrebase ]] && add git-rebase
+    file_keys "$file"
+    return 0
+  done
+  return 1
+}
+
+probe_terminal() { # pid of terminal
+  local root="$1" pid comm args tmux_root
+  local entry last_pid="" cwd
+  local -a procs nvim_pids=() all_pids=()
+
+  mapfile -t procs < <(descendants "$root")
+  for entry in "${procs[@]}"; do
+    pid="${entry%% *}"
+    comm="${entry#* }"
+    if [[ "$comm" == tmux* ]]; then
+      tmux_root="$(tmux_pane_pid "$pid")"
+      [[ -n "$tmux_root" ]] && { add tmux; probe_terminal "$tmux_root"; return; }
+    fi
+  done
+
+  for entry in "${procs[@]}"; do
+    pid="${entry%% *}"
+    all_pids+=("$pid")
+    last_pid="$pid"
+    proc_keys "$pid" || continue
+    comm="$PROC_NAME"
+    case "$comm" in
+      git)
+        args="$(tr '\0' ' ' <"/proc/$pid/cmdline" 2>/dev/null)"
+        [[ "$args" == *" commit"* ]] && add git-commit
+        [[ "$args" == *" rebase"* ]] && add git-rebase ;;
+      lazygit | tig | gitui) add git ;;
+      nvim | vim) nvim_pids+=("$pid") ;;
+    esac
+  done
+  # Working directory of the innermost process (or the shell)
+  cwd="$(readlink "/proc/${last_pid:-$root}/cwd" 2>/dev/null)"
+  [[ -n "$cwd" ]] && add "cwd:$cwd"
+
+  # Some nvim setups name the socket after the shell's pid: try every pid.
+  if ((${#nvim_pids[@]})); then
+    probe_nvim "${nvim_pids[@]}" || probe_nvim "${all_pids[@]}" "$root"
+  fi
+}
+
+probe_zathura() { # pid
+  local f
+  f="$(busctl --user get-property "org.pwmt.zathura.PID-$1" /org/pwmt/zathura \
+    org.pwmt.zathura filename 2>/dev/null | sed -n 's/^s "\(.*\)"$/\1/p')"
+  if [[ -z "$f" ]]; then # fallback: last existing file on the command line
+    while IFS= read -r -d '' a; do [[ -f "$a" ]] && f="$(realpath "$a")"; done <"/proc/$1/cmdline"
+  fi
+  file_keys "$f"
+}
+
+# Server sockets, those owned by PID first.
+emacs_sockets() { # pid
+  local d s
+  local -a all=() own=()
+  for d in "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/emacs" "${TMPDIR:-/tmp}/emacs$(id -u)"; do
+    [[ -d "$d" ]] || continue
+    for s in "$d"/*; do [[ -S "$s" ]] && all+=("$s"); done
+  done
+  # ss names the process listening on each socket, without asking Emacs.
+  if ((${#all[@]})) && command -v ss >/dev/null; then
+    for s in "${all[@]}"; do
+      ss -xlpH "src $s" 2>/dev/null | grep -q "pid=$1," && own+=("$s")
+    done
+  fi
+  # Without ss (or if it saw nothing), ask each server for its pid.
+  if ((${#own[@]} == 0)); then
+    for s in "${all[@]}"; do
+      [[ "$(timeout 0.5 emacsclient --socket-name="$s" --eval '(emacs-pid)' 2>/dev/null)" == "$1" ]] &&
+        own+=("$s")
+    done
+  fi
+  printf '%s\n' "${own[@]}"
+  # Fallbacks if the owning server can't be found.
+  [[ -n "${EMACS_MAIN_SOCKET:-}" ]] && printf '%s\n' "$EMACS_MAIN_SOCKET"
+  printf 'server\n'
+}
+
+probe_emacs() { # pid title window-id
+  local tmp sock title="${2//\\/\\\\}" wid="${3:-}"
+  local -a lines=()
+  title="${title//\"/\\\"}"
+  tmp="$(mktemp)"
+  # Frames of a daemon all belong to the daemon's process, so PID picks the
+  # server. Within it, take the frame that has focus; if focus state is
+  # unknown, the frame whose X window or title matches the focused window.
+  while IFS= read -r sock; do
+    timeout 1 emacsclient --socket-name="$sock" --eval "
+(let* ((frames (frame-list))
+       (f (or (and (> (length \"$wid\") 0)
+                   (seq-find (lambda (f) (equal (frame-parameter f 'outer-window-id) \"$wid\"))
+                             frames))
+              (seq-find (lambda (f) (eq (frame-focus-state f) t)) frames)
+              (seq-find (lambda (f) (equal (frame-parameter f 'name) \"$title\")) frames)
+              (selected-frame)))
+       (b (window-buffer (frame-selected-window f))))
+  (with-current-buffer b
+    (let ((keys (if (fboundp 'context-notes-emacs-keys)
+                    (cdr (context-notes-emacs-keys))
+                  (delq nil (list (format \"mode:%s\" major-mode)
+                                  (and buffer-file-name
+                                       (concat \"file:\" buffer-file-name)))))))
+      (with-temp-file \"$tmp\" (insert (string-join keys \"\n\") \"\n\")))))" \
+      >/dev/null 2>&1 && break
+  done < <(emacs_sockets "$1" | awk '!seen[$0]++')
+  mapfile -t lines <"$tmp"
+  rm -f "$tmp"
+  ((${#lines[@]})) && add "${lines[@]}"
+}
+
+# --- main ------------------------------------------------------------------
+IFS=$'\t' read -r PID WID APP TITLE < <(focused_window) || exit 0
+[[ "$WID" == 0 ]] && WID=""
+APP="$(lower "$APP")"
+add "$APP"
+
+case "$APP" in
+  *zathura*) probe_zathura "$PID" ;;
+  emacs) probe_emacs "$PID" "$TITLE" "$WID" ;;
+  kitty | alacritty | foot | footclient | wezterm* | *terminal* | st | st-256color | urxvt | xterm | ghostty | *.ghostty)
+    probe_terminal "$PID" ;;
+  *) case "$TITLE" in *.ipynb* | *Jupyter*) add jupyter ;; esac ;;
+esac
+
+# Print, dropping duplicates, keeping order.
+declare -A seen=()
+for k in "${KEYS[@]}"; do
+  [[ -n "${seen[$k]:-}" ]] && continue
+  seen[$k]=1
+  printf '%s\n' "$k"
+done

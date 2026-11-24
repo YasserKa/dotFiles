@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+#
+# Toggle org notes for the current context
+#
+# Dependencies: emacs i3/sway xdotool jq context-detect
+
+declare -r CLASS="org_notes"
+
+source "$HOME/bin/helpers/monitor_variables"
+source "$HOME/.bashrc.d/functions.bash"
+
+# If it's visible, move it to scratchpad
+if [[ -n "${WAYLAND_DISPLAY}" ]]; then
+  i3-msg -t get_tree |
+    jq -e --arg re "^${CLASS}$" '
+    recurse(.nodes[]?, .floating_nodes[]?) |
+    select(
+      ((.name // "") | test($re))
+    ) | select(.visible == true)' >/dev/null && swaymsg "[title=^${CLASS}$] fullscreen disable" && swaymsg "[title=^${CLASS}$] move scratchpad" && exit 0
+elif [[ -n "${DISPLAY}" ]]; then
+  xdotool search --onlyvisible --name "^${CLASS}$" >/dev/null && { i3-msg "[title=^${CLASS}$] move scratchpad" && exit 0; }
+fi
+
+# Read the context NOW, while the window you were working in still has focus
+mapfile -t KEYS < <(context-detect)
+
+elisp_list() {
+  local out="(list" k
+  for k; do
+    k="${k//\\/\\\\}"
+    k="${k//\"/\\\"}"
+    out+=" \"$k\""
+  done
+  printf '%s)' "$out"
+}
+
+# Move frame to workspace on right output, enable fullscreen
+declare WORKSPACE
+if [[ -n "$MONITOR_RIGHT" ]]; then
+  WORKSPACE="$(i3-msg -t get_workspaces | jq -r ".[] | select(.output == \"${MONITOR_RIGHT}\") | .name")"
+else
+  WORKSPACE="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')"
+fi
+readonly WORKSPACE
+
+# If frame doesn't exist, create it
+if ! is_window_exists "^${CLASS}$"; then
+  emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval "(make-frame '((name . \"${CLASS}\") (minibuffer . t)))"
+fi
+
+wait_window "^${CLASS}$" && i3-msg "[title=^${CLASS}$] move --no-auto-back-and-forth workspace ${WORKSPACE}, fullscreen enable"
+
+goto_window "^${CLASS}$"
+
+emacsclient --socket-name="$EMACS_ORG_SOCKET" --no-wait --eval \
+  "(context-notes-request $(elisp_list "${KEYS[@]}") \"${CLASS}\")"
