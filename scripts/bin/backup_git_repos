@@ -1,26 +1,52 @@
 #!/usr/bin/env bash
-# Backup git repos
-# Arguments:
-#   $1: backup directory
-#   $*: git repos directories
-# Dependencies: git
+# Backup git repos as bundles
+# Usage: backup_git_repos [BACKUP_DIR] [REPO_DIR...]
+# Restore: git clone <BACKUP_DIR>/<name>.bundle <repo-dir>
+# Dependencies: git, coreutils
+set -uo pipefail
 
-BACKUP_DIR="${1-./backup}"
-mkdir -p "$BACKUP_DIR"
+[[ ${1-} == -h || ${1-} == --help ]] && {
+	sed -n '2,5s/^# //p' "$0"
+	exit 0
+}
 
-shift
+BACKUP_DIR="${1:-./backup}"
+(($#)) && shift
+mkdir -p "$BACKUP_DIR" || exit 1
 
-DIRS="$HOME/.dotfiles $HOME/.dotfiles-private $HOME/notes"
-DIRS="${*-${DIRS[@]}}"
+if (($#)); then dirs=("$@"); else
+	dirs=("$HOME/.dotfiles" "$HOME/.dotfiles-private" "$HOME/notes")
+fi
 
-# Clone github repos
-# curl -s curl -s -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer <token>" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/user/repos" | jq -r '.[].clone_url' | xargs -n1 git clone
-# ./backup_git_repos backup "$(find git_repos -mindepth 1 -maxdepth 1 -type d)"
-#
-# Restore repo
-# git clone <backup> <repo-dir>
+declare -A seen
+failed=0
+for dir in "${dirs[@]}"; do
+	dir="${dir%/}"
+	name="${dir##*/}"
+	name="${name#.}"
+	if [[ -n ${seen[$name]-} ]]; then
+		echo "SKIP $dir: name '$name' already used by ${seen[$name]}" >&2
+		failed=1
+		continue
+	fi
+	seen[$name]="$dir"
+	out="$(realpath -m "$BACKUP_DIR/$name.bundle")"
 
-for dir in $DIRS; do
-  echo "Backing up $dir to $BACKUP_DIR/${dir##*/}"
-  git -C "$(realpath -s "$dir")" bundle create "$(realpath -s "$BACKUP_DIR/${dir##*/}")" --all
+	# For .dotfiles-private & notes, since remote server makes commits
+	git -C "$dir" fetch origin
+	git -C "$dir" reset origin/main # mixed reset: moves HEAD + index only, NOT files
+
+	if ! git -C "$dir" rev-parse --git-dir &>/dev/null; then
+		echo "FAIL $dir: not a git repo" >&2
+		failed=1
+		continue
+	fi
+	[[ -n $(git -C "$dir" status --porcelain) ]] && echo "WARN $dir: uncommitted changes not included" >&2
+
+	echo "Backing up $dir -> $out"
+	if git -C "$dir" bundle create -q "$out" --all && git -C "$dir" bundle verify -q "$out" &>/dev/null; then :; else
+		echo "FAIL $dir" >&2
+		failed=1
+	fi
 done
+exit "$failed"
