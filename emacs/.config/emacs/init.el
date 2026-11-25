@@ -2481,23 +2481,29 @@ Delete leftover previews from half-edited links inside the span."
   (set-face-attribute 'org-agenda-clocking nil :background "light gray" :box '(:color "light gray"))
   '(org-document-info ((t (:foreground "dark orange"))))
 
-  (defun get-top-heading-in-block ()
-    "Get the title of the top-level heading in the current block."
-    (interactive)
+  (defun my/top-heading-title ()
+    "Category or top-level heading title for the entry at point (Org buffer)."
+    (save-excursion
+      (while (org-up-heading-safe))
+      (let ((category (org-entry-get nil "CATEGORY"))
+            (file-name (file-name-sans-extension (buffer-name)))
+            (title (org-get-heading t t t t)))
+        (truncate-string-with-ellipsis
+         (if (member category (list nil "" file-name)) (or title "") category)
+         24))))
 
-    ;; Check if the current line is a heading (in agenda, empty lines (e.g. 8:00 ----) needs to be skipped)
-    ;; org-agenda-clock has org-at-heading-p set to nil, so check if the command is used
-    (if (or (org-at-heading-p) (string-match  "org-agenda-clock-.*" (format "%s" this-command)))
-        (save-excursion
-          ;; Get the top most heading
-          (while (org-up-heading-safe))
-          (let ((categroy (org-entry-get nil "CATEGORY"))
-                (file-name (file-name-sans-extension (buffer-name)))
-                (org-heading-title (truncate-string-with-ellipsis (org-get-heading t t) 24))
-                )
-            (if (and (not (member category `("" ,file-name)))) (truncate-string-with-ellipsis category 24) (if org-heading-title org-heading-title "")
-                ))) "")
-    )
+  (defun get-top-heading-in-block ()
+    "Top-level heading (or category) for use in `org-agenda-prefix-format'."
+    (cond
+     ;; Normal case: Org evaluates the prefix in the source buffer, at the heading.
+     ((and (derived-mode-p 'org-mode) (org-at-heading-p))
+      (my/top-heading-title))
+     ;; In the agenda buffer (e.g. redraw after clock-in): follow the line's marker.
+     ((and (derived-mode-p 'org-agenda-mode) (org-get-at-bol 'org-hd-marker))
+      (org-with-point-at (org-get-at-bol 'org-hd-marker)
+        (my/top-heading-title)))
+     ;; Time-grid lines and anything else.
+     (t "")))
   (defun my/org-agenda-s-or-d-prefix ()
     "Return plain prefix 'S: MM-DD Ddd' or 'D: MM-DD Ddd' or \"\"."
     (let ((s (org-entry-get nil "SCHEDULED"))
@@ -3697,7 +3703,7 @@ with ::#custom-id they become [[#custom-id][Heading]]."
            missing)
       (with-current-buffer buf
         (dolist (key keys)
-          (if-let ((notes (gethash key table)))
+          (if-let* ((notes (gethash key table)))
               (insert (my/citar--transclude-block key notes))
             (push key missing)))
         (when (derived-mode-p 'org-mode)

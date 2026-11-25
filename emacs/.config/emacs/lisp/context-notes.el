@@ -119,7 +119,7 @@ Falls back to `find-file' in the notes directory when it isn't defined."
   (let ((dirs (seq-filter #'file-directory-p (context-notes--directories)))
         (props (context-notes--properties)))
     (when dirs
-      (if-let ((rg (executable-find "rg")))
+      (if-let* ((rg (executable-find "rg")))
           (apply #'process-lines-ignore-status rg "-l" "-i" "--no-messages"
                  "-g" "*.org"
                  "-e" (format "^\\s*:(%s):" (mapconcat #'regexp-quote props "|"))
@@ -179,7 +179,7 @@ stands for one path segment."
   (append
    (split-string (or (org-entry-get nil context-notes-property) "") "[ \t,]+" t)
    (delq nil (mapcar (lambda (p)
-                       (when-let ((v (org-entry-get nil p)))
+                       (when-let* ((v (org-entry-get nil p)))
                          (concat "file:" (string-trim v))))
                      context-notes-document-properties))))
 
@@ -189,7 +189,7 @@ Later (more specific) keys win; within a key, stronger matches win."
   (let ((i 0) best)
     (dolist (k keys best)
       (setq i (1+ i))
-      (when-let ((s (seq-max (cons 0 (delq nil (mapcar (lambda (v)
+      (when-let* ((s (seq-max (cons 0 (delq nil (mapcar (lambda (v)
                                                           (context-notes--match-strength v k))
                                                         values))))))
         (when (> s 0)
@@ -217,7 +217,7 @@ Later (more specific) keys win; within a key, stronger matches win."
 
 (defun context-notes--all-org-files ()
   (let ((dirs (seq-filter #'file-directory-p (context-notes--directories))))
-    (if-let ((rg (executable-find "rg")))
+    (if-let* ((rg (executable-find "rg")))
         (apply #'process-lines-ignore-status rg "--files" "-g" "*.org" dirs)
       (mapcan (lambda (d) (directory-files-recursively d "\\.org\\'")) dirs))))
 
