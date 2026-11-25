@@ -34,37 +34,19 @@ main() {
 	local DOC_SELECTED LIST_FILE TMP_FILE
 	LIST_FILE="$(mktemp -t "fdoc_list_XXX")"
 	TMP_FILE="$(mktemp -t "fdoc_sel_XXX")"
-	trap 'rm -f "$LIST_FILE" "$TMP_FILE"' RETURN
+	trap 'rm -f "$LIST_FILE" "$TMP_FILE"' EXIT
 
-	get_documents | awk -F'/' -v home="$HOME" '{
-    full=$0;
-
-    # parent/document display
-    if (NF >= 2) {
-        dir=$(NF-1);
-        base=$(NF);
-        short = dir "/" "\033[32m" base "\033[0m";
-    } else {
-        short = "\033[32m" $NF "\033[0m";
-    }
-
-    # path-from-$HOME display
-    rel = full;
-    sub("^" home "/", "", rel);
-    n = split(rel, parts, "/");
-    if (n >= 2) {
-        relbase = parts[n];
-        reldir = "";
-        for (i = 1; i < n; i++) {
-            reldir = reldir parts[i] "/";
-        }
-        fromhome = reldir "\033[32m" relbase "\033[0m";
-    } else {
-        fromhome = "\033[32m" rel "\033[0m";
-    }
-
-    printf "%s\t%s\t%s\n", full, short, fromhome;
-	}' >|"$LIST_FILE"
+	get_documents | awk -F'\t' '
+BEGIN { home = ENVIRON["HOME"] "/"; g = "\033[32m"; r = "\033[0m" }
+{
+    full = $0
+    rel = (index(full, home) == 1) ? substr(full, length(home) + 1) : full
+    n = split(full, p, "/")
+    short = p[n-1] "/" g p[n] r
+    match(rel, /[^\/]*$/)
+    fromhome = substr(rel, 1, RSTART - 1) g substr(rel, RSTART) r
+    printf "%s\t%s\t%s\n", full, short, fromhome
+}' >|"$LIST_FILE"
 
 	local cmd
 	cmd="fzf --scheme=path --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 3 --ansi \
