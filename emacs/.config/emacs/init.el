@@ -213,7 +213,56 @@
             (goto-char (point-min))
             (re-search-forward "^#\\+transclude:" nil t))
       (org-transclusion-mode 1)))
+  (add-to-list 'org-transclusion-extensions 'org-transclusion-indent-mode)
+  (require 'org-transclusion-indent-mode)
+  (org-transclusion-indent-mode) ;; Support org-indent-mode
   (add-hook 'org-mode-hook #'my/maybe-enable-org-transclusion)
+
+  (defvar-local my/org-transclusion--return nil
+    "Marker in the synthesis buffer to refresh after editing the source.")
+
+  (defun my/org-transclusion--refresh ()
+    (when-let* ((m my/org-transclusion--return)
+                (buf (marker-buffer m)))
+      (with-current-buffer buf
+        (save-excursion
+          (goto-char m)
+          (when (get-char-property (point) 'org-transclusion-type)
+            (org-transclusion-refresh))))))
+
+  (defun my/org-transclusion-edit-source ()
+    "Edit the whole source of the transclusion at point.
+Opens the source region in a narrowed indirect buffer; the
+transclusion is refreshed on save or when the buffer is closed."
+    (interactive)
+    (let* ((src-ov (or (get-text-property (point) 'org-transclusion-pair)
+                       (user-error "Not in a transclusion")))
+           (src-buf (overlay-buffer src-ov))
+           (beg (overlay-start src-ov))
+           (end (overlay-end src-ov))
+           (ret (point-marker))
+           (edit-buf (make-indirect-buffer
+                      src-buf
+                      (generate-new-buffer-name
+                       (format "*edit %s*" (buffer-name src-buf)))
+                      t)))
+      (with-current-buffer edit-buf
+        (narrow-to-region beg end)
+        (goto-char beg)
+        (setq my/org-transclusion--return ret)
+        (add-hook 'after-save-hook #'my/org-transclusion--refresh nil t)
+        (add-hook 'kill-buffer-hook #'my/org-transclusion--refresh nil t)
+        (local-set-key (kbd "C-c C-c") #'my/org-transclusion-edit-finish))
+      (pop-to-buffer edit-buf)))
+
+  (defun my/org-transclusion-edit-finish ()
+    "Save the source and close the edit buffer."
+    (interactive)
+    (save-buffer)
+    (kill-buffer-and-window))
+
+  (with-eval-after-load 'org-transclusion
+    (keymap-set org-transclusion-map "E" #'my/org-transclusion-edit-source))
   )
 
 (use-package context-notes
@@ -222,9 +271,9 @@
   :custom
   context-notes-rules
   '(("vd" ("data_format_tools.org"  "Multi-format" "View" "Bindings"))
-     ("file:COMMIT_EDITMSG" ("git.org" "Guidelines"))
-     ("dir:references" ("reading.org" "In papers"))
-     ("jupyter-notebook" ("jupyter_notebook.org"))))
+    ("file:COMMIT_EDITMSG" ("git.org" "Guidelines"))
+    ("dir:references" ("reading.org" "In papers"))
+    ("jupyter-notebook" ("jupyter_notebook.org"))))
 
 ;; Unfolding an item with emojis is slow, this package fixes this problem
 ;; (use-package emojify
@@ -1150,19 +1199,19 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
                  (char-after))))))
 
   (aas-set-snippets 'laas-mode
-                    ;; set condition!
-                    ;; :cond #'my/tex-nonmathp
-                    :cond #'my/nonmath-standalone-dm-p
-                    "dm" '(yas "\\[
+    ;; set condition!
+    ;; :cond #'my/tex-nonmathp
+    :cond #'my/nonmath-standalone-dm-p
+    "dm" '(yas "\\[
                                    `(save-excursion (previous-line)(make-string (current-indentation) ?\s))`$0
                                 \\] ")
-                    :cond #'texmathp ; expand only while in math
-                    "t=" "\\triangleq"
-                    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
-                    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
-                    ;; add accent snippets
-                    :cond #'laas-object-on-left-condition
-                    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
+    :cond #'texmathp ; expand only while in math
+    "t=" "\\triangleq"
+    "Sum" '(yas "\\sum\\limits_{$1}^{$2} $0")
+    "Prod" '(yas "\\prod\\limits_{$1}^{$2} $0")
+    ;; add accent snippets
+    :cond #'laas-object-on-left-condition
+    "qq" (lambda () (interactive) (laas-wrap-previous-object "sqrt")))
   )
 
 ;; Used to insert latex environments and math templates
@@ -2110,50 +2159,50 @@ and select the width value."
     (open-line 1)
     (yas-expand-snippet "#+ATTR_ORG: :width ${1:400}"))
 
-(defun my/org-img-dir ()
-  "Directory that img: links point to, from `org-link-abbrev-alist'."
-  (file-name-directory (expand-file-name (org-link-expand-abbrev "img:x"))))
+  (defun my/org-img-dir ()
+    "Directory that img: links point to, from `org-link-abbrev-alist'."
+    (file-name-directory (expand-file-name (org-link-expand-abbrev "img:x"))))
 
-(defun my/org-referenced-images ()
-  "Return a hash table of every name used in an img: link under `my/notes-dir'."
-  (let ((refs (make-hash-table :test #'equal))
-        (files (directory-files-recursively
-                (expand-file-name my/notes-dir)
-                "\\.org\\(_archive\\)?\\'" nil
-                ;; Skip hidden directories such as .git
-                (lambda (d) (not (string-prefix-p "." (file-name-nondirectory d)))))))
-    (with-temp-buffer
-      (dolist (f files)
-        (erase-buffer)
-        (insert-file-contents f)
-        (goto-char (point-min))
-        (while (re-search-forward "\\[\\[img:\\([^]]+\\)\\]" nil t)
-          (puthash (match-string 1) t refs))))
-    refs))
+  (defun my/org-referenced-images ()
+    "Return a hash table of every name used in an img: link under `my/notes-dir'."
+    (let ((refs (make-hash-table :test #'equal))
+          (files (directory-files-recursively
+                  (expand-file-name my/notes-dir)
+                  "\\.org\\(_archive\\)?\\'" nil
+                  ;; Skip hidden directories such as .git
+                  (lambda (d) (not (string-prefix-p "." (file-name-nondirectory d)))))))
+      (with-temp-buffer
+        (dolist (f files)
+          (erase-buffer)
+          (insert-file-contents f)
+          (goto-char (point-min))
+          (while (re-search-forward "\\[\\[img:\\([^]]+\\)\\]" nil t)
+            (puthash (match-string 1) t refs))))
+      refs))
 
-(defun my/org-clean-unused-images ()
-  "Delete images in the img: directory that no Org file links to.
+  (defun my/org-clean-unused-images ()
+    "Delete images in the img: directory that no Org file links to.
 Shows the list and asks before deleting. Files go to the system trash."
-  (interactive)
-  ;; Links that exist only in unsaved buffers would otherwise be missed.
-  (save-some-buffers nil (lambda () (derived-mode-p 'org-mode)))
-  (let* ((dir (my/org-img-dir))
-         (refs (my/org-referenced-images))
-         (unused (seq-remove
-                  (lambda (f)
-                    (or (gethash (file-relative-name f dir) refs)
-                        (string-prefix-p "." (file-name-nondirectory f))))
-                  (directory-files-recursively dir ""))))
-    (if (null unused)
-        (message "No unused images in %s" dir)
-      (with-output-to-temp-buffer "*Unused images*"
-        (dolist (f unused)
-          (princ (concat (file-relative-name f dir) "\n"))))
-      (if (yes-or-no-p (format "Move %d unused image(s) to trash? " (length unused)))
-          (let ((delete-by-moving-to-trash t))
-            (dolist (f unused) (delete-file f t))
-            (message "Moved %d image(s) to trash" (length unused)))
-        (message "Nothing deleted")))))
+    (interactive)
+    ;; Links that exist only in unsaved buffers would otherwise be missed.
+    (save-some-buffers nil (lambda () (derived-mode-p 'org-mode)))
+    (let* ((dir (my/org-img-dir))
+           (refs (my/org-referenced-images))
+           (unused (seq-remove
+                    (lambda (f)
+                      (or (gethash (file-relative-name f dir) refs)
+                          (string-prefix-p "." (file-name-nondirectory f))))
+                    (directory-files-recursively dir ""))))
+      (if (null unused)
+          (message "No unused images in %s" dir)
+        (with-output-to-temp-buffer "*Unused images*"
+          (dolist (f unused)
+            (princ (concat (file-relative-name f dir) "\n"))))
+        (if (yes-or-no-p (format "Move %d unused image(s) to trash? " (length unused)))
+            (let ((delete-by-moving-to-trash t))
+              (dolist (f unused) (delete-file f t))
+              (message "Moved %d image(s) to trash" (length unused)))
+          (message "Nothing deleted")))))
 
   (evil-define-key 'normal org-mode-map (kbd "z w") #'my/org-image-width)
   ;; }}}
@@ -3291,13 +3340,13 @@ Handles `org-marker' candidates (consult-org-heading), grep candidates
     "Insert a link to heading TARGET: ID, then CUSTOM_ID, then ::*Heading."
     (let ((buf (current-buffer)))
       (insert (org-with-point-at (my/embark-org--heading-marker target)
-                                 (my/org--link-string nil buf)))))
+                (my/org--link-string nil buf)))))
 
   (defun my/embark-org-insert-custom-id-link (target)
     "Insert a link to heading TARGET: ID, then CUSTOM_ID (created if missing)."
     (let ((buf (current-buffer)))
       (insert (org-with-point-at (my/embark-org--heading-marker target)
-                                 (my/org--link-string t buf)))))
+                (my/org--link-string t buf)))))
 
   (defun my/embark-org--heading-marker (target)
     "Return a marker for the Org heading TARGET.
@@ -3583,53 +3632,85 @@ with ::#custom-id they become [[#custom-id][Heading]]."
               citar-indicator-cited-icons))
 
   (defun my-citar--parse-time-seconds (s)
-    "Return sortable seconds for timestamp string S, or 0 if missing."
-    (let ((tm (and (stringp s)
-                   (not (string-empty-p s))
-                   (condition-case nil
-                       (date-to-time s)
-                     (error nil)))))
-      (if tm
-          (float-time tm)
-        0)))
+    "Return sortable seconds for timestamp string S, or 0 if missing/unparsable."
+    (or (and (stringp s)
+             (not (string-empty-p s))
+             (ignore-errors (float-time (date-to-time s))))
+        0))
 
-  (defun citar--completion-table (candidates &optional filter &rest metadata)
-    "Return a completion table for CANDIDATES, sorted by timestamp."
-    (let ((items nil)
-          (meta `(metadata
-                  (category . citar-candidate)
-                  (affixation-function . ,#'citar--ref-affix)
-                  ,@metadata)))
-      ;; Build a sortable list once.
-      (maphash
-       (lambda (display citekey)
-         (let* ((entry (citar-get-entry citekey))
-                (ts    (cdr (assoc "timestamp" entry)))
-                (score  (my-citar--parse-time-seconds ts)))
-           (when (or (null filter) (funcall filter citekey))
-             (push (cons score (cons display citekey)) items))))
-       candidates)
+  (defun my-citar--make-sorter (candidates)
+    "Return a sort function ordering CANDIDATES (display -> citekey hash) newest first."
+    (let ((cache (make-hash-table :test #'equal)))
+      (lambda (strings)
+        (cl-flet ((ts (s)
+                    (with-memoization (gethash s cache)
+                      (let ((key (gethash s candidates)))
+                        (if key
+                            (my-citar--parse-time-seconds
+                             (citar-get-value "timestamp" key))
+                          0)))))
+          ;; Stable sort: entries with equal/missing timestamps keep citar's order.
+          (sort strings (lambda (a b) (> (ts a) (ts b))))))))
 
-      ;; Newest first.
-      (setq items
-            (sort items
-                  (lambda (a b) (> (car a) (car b)))))
+  (defun my-citar--add-sort-metadata (args)
+    "Inject sort functions into `citar--completion-table' metadata."
+    (pcase-let* ((`(,cands ,filter . ,meta) args)
+                 (sorter (my-citar--make-sorter cands)))
+      `(,cands ,filter
+               (display-sort-function . ,sorter)
+               (cycle-sort-function . ,sorter)
+               ,@meta)))
 
-      (setq items (mapcar #'cdr items))
+  (with-eval-after-load 'citar
+    (advice-add 'citar--completion-table :filter-args #'my-citar--add-sort-metadata))
+  (defvar my/citar-transclude-props
+    ":level 2 :exclude-elements \"keyword property-drawer\""
+    "Extra properties appended to every #+transclude: line.")
 
-      (lambda (string predicate action)
-        (if (eq action 'metadata)
-            meta
-          (complete-with-action action items string predicate)))))
+  (defun my/citar--note-link (note)
+    "Turn a citar NOTE (file path or org-roam id) into an org link."
+    (if (file-exists-p note)
+        (format "[[file:%s]]" (abbreviate-file-name note))
+      ;; citar-org-roam and similar note sources return node ids
+      (format "[[id:%s]]" note)))
 
-  (with-eval-after-load 'vertico
-    (defun my-vertico-no-sort-for-citar ()
-      (let ((m (completion-metadata (minibuffer-contents)
-                                    minibuffer-completion-table
-                                    minibuffer-completion-predicate)))
-        (when (eq (completion-metadata-get m 'category) 'citar-candidate)
-          (setq-local vertico-sort-function nil))))
-    (add-hook 'minibuffer-setup-hook #'my-vertico-no-sort-for-citar))
+  (defun my/citar--transclude-block (key notes)
+    (let ((title (or (citar-get-value "title" key) key)))
+      (concat
+       (format "* %s [cite:@%s]\n" title key)
+       (mapconcat (lambda (n)
+                    (format "#+transclude: %s %s\n"
+                            (my/citar--note-link n) my/citar-transclude-props))
+                  notes "")
+       "\n")))
+
+  (defun my/citar-transclude-notes (keys)
+    "Insert #+transclude: blocks for the notes of all KEYS at point."
+    (interactive (list (citar-select-refs :filter (citar-has-notes))))
+    (let* ((keys (if (stringp keys) (list keys) keys))
+           (table (citar-get-notes keys))
+           ;; when called via embark from the minibuffer, insert in the
+           ;; buffer we came from
+           (buf (if (minibufferp)
+                    (window-buffer (minibuffer-selected-window))
+                  (current-buffer)))
+           missing)
+      (with-current-buffer buf
+        (dolist (key keys)
+          (if-let ((notes (gethash key table)))
+              (insert (my/citar--transclude-block key notes))
+            (push key missing)))
+        (when (derived-mode-p 'org-mode)
+          (org-transclusion-add-all)))
+      (when missing
+        (message "No notes for: %s" (string-join (nreverse missing) ", ")))))
+
+  ;; Embark: act on several selected references at once
+  (with-eval-after-load 'embark
+    (add-to-list 'embark-multitarget-actions #'my/citar-transclude-notes)
+    (with-eval-after-load 'citar-embark
+      (keymap-set citar-embark-map "T" #'my/citar-transclude-notes)))
+
 
   )
 
@@ -4282,6 +4363,7 @@ with the file name kept at the start of each candidate."
   (" x" (lambda () (interactive) (org-capture nil "d")) "capture")
   (" u" org-utility-hydra/body "org utility")
   (" s" my/org-sort "org sort")
+  (" t" org-transclusion-hydra/body "transclusion")
   (" f" org-find-hydra/body "find")
   (" m" org-maintenance-hydra/body       "maintenance")
   (" o" org-indirect-open-hydra/body "indirect open")
@@ -4329,6 +4411,16 @@ with the file name kept at the start of each candidate."
   (" i" (find-file (concat my/notes-dir "/ideas.org")) "ideas.org")
   (" p" (find-file (concat my/notes-dir "/projects.org")) "projects.org")
   (" t" (find-file (concat my/notes-dir "/tasks.org")) "tasks.org")
+  )
+
+(defhydra org-transclusion-hydra (:exit t :idle 1)
+  (" e" my/org-transclusion-edit-source "Edit" :column "")
+  (" a" org-transclusion-add "Add")
+  (" A" org-transclusion-add-all "Add all")
+  (" r" org-transclusion-remove "Remove")
+  (" R" org-transclusion-remove-all "Remove all")
+  (" m" org-transclusion-transient-menu "Transient menu")
+  (" n" my/citar-transclude-notes "Add paper notes transclusions")
   )
 
 (defun org-tree-to-indirect-buffer-new-frame (&optional arg)
