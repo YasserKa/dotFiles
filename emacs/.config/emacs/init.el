@@ -2029,27 +2029,23 @@ Afterwards, point is on the first of the sorted headings."
    ;;Show today +7 days
    org-agenda-start-on-weekday nil)
 
-  ;; Add daylight saving schedule to agenda
-  (setq org-agenda-include-diary t)
+  ;; Remove diary from agenda
+  (setq org-agenda-include-diary nil)
 
-  ;; Show only daylight saving start and end dates
-  ;; Hook is needed to wait for library to load
-  (add-hook 'org-agenda-finalize-hook
-            (lambda ()
-              (setq calendar-holidays
-                    '((holiday-sexp calendar-daylight-savings-starts
-                                    (format "Daylight Saving Time Begins %s"
-                                            (solar-time-string
-                                             (/ calendar-daylight-savings-starts-time
-                                                (float 60))
-                                             calendar-standard-time-zone-name)))
-                      (holiday-sexp calendar-daylight-savings-ends
-                                    (format "Daylight Saving Time Ends %s"
-                                            (solar-time-string
-                                             (/ calendar-daylight-savings-ends-time
-                                                (float 60))
-                                             calendar-daylight-time-zone-name))))
-                    )))
+  ;; Add Daylight saving time in agenda
+  (with-eval-after-load 'holidays
+    (require 'solar)
+    (setq calendar-holidays
+          '((holiday-sexp calendar-daylight-savings-starts
+                          (format "Daylight Saving Time Begins %s"
+                                  (solar-time-string
+                                   (/ calendar-daylight-savings-starts-time (float 60))
+                                   calendar-standard-time-zone-name)))
+            (holiday-sexp calendar-daylight-savings-ends
+                          (format "Daylight Saving Time Ends %s"
+                                  (solar-time-string
+                                   (/ calendar-daylight-savings-ends-time (float 60))
+                                   calendar-daylight-time-zone-name))))))
 
   ;; Improve performance for interactive cmds (e.g. agenda, calendar blocks, etc.) in daemon mode
   (defun my/command-with-high-gc (orig-fn &rest args)
@@ -3898,13 +3894,13 @@ Return non-nil if handled, so org-shift commands stop there."
 (use-package simple-httpd
   :after org-roam)
 
-;; Allowd org-roam-ui to show titles
+;; Allows org-roam-ui to show titles
 (use-package org-roam-bibtex
   :after org-roam
   :config
   (setq bibtex-completion-bibliography
         (list (concat (getenv "XDG_CONFIG_HOME") "/Zotero/better-bibtex/my_library.bib")))
-  ) ; optional: if using Org-ref v2 or v3 citation links
+  )
 
 
 (use-package org-roam-ui

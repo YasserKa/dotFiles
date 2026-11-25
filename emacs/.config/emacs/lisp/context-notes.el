@@ -210,7 +210,7 @@ Later (more specific) keys win; within a key, stronger matches win."
                (org-back-to-heading t))
              (unless (memq (point) seen)
                (push (point) seen)
-               (when-let ((score (context-notes--score
+               (when-let* ((score (context-notes--score
                                   keys (context-notes--entry-values))))
                  (push (cons score (point-marker)) hits))))))))
     hits))
@@ -297,9 +297,9 @@ the earlier SPECS in that order (levels in between may be skipped)."
     (dolist (k keys hits)
       (setq i (1+ i))
       (dolist (rule context-notes-rules)
-        (when-let ((s (context-notes--match-strength (car rule) k)))
+        (when-let* ((s (context-notes--match-strength (car rule) k)))
           (dolist (target (cdr rule))
-            (when-let ((m (context-notes--resolve target)))
+            (when-let* ((m (context-notes--resolve target)))
               (push (cons (+ (* i 10000) s) m) hits))))))))
 
 (defun context-notes-collect (keys)
@@ -494,7 +494,7 @@ Bound dynamically around the prompt, so it resets however the prompt ends.")
 
 (defun context-notes-show (keys &optional frame-name)
   "Show notes matching KEYS, in the frame called FRAME-NAME if given."
-  (when-let ((frame (and frame-name (context-notes--frame frame-name))))
+  (when-let* ((frame (and frame-name (context-notes--frame frame-name))))
     (select-frame-set-input-focus frame))
   (setq context-notes--last-keys keys)
   (context-notes--kill-old)
