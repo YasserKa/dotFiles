@@ -170,6 +170,7 @@ fx  # Command-line tool and terminal JSON viewer
 
 fd # Simple, fast and user-friendly alternative to find
 fzf # Command-line fuzzy finder
+sad # Interactive CLI search and replace
 python-openpyxl # Used to preview Excel files
 sysz # fzf terminal UI for systeml
 the_silver_searcher # Code searching tool similar to Ack, but faster

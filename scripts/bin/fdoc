@@ -1,69 +1,119 @@
 #!/usr/bin/env bash
 #
-# Open documents
+# Open documents (pdf, djvu, epub) with fzf, with recently and frequently
+# opened documents (fasd frecency) listed first.
 #
-# Dependencies: fasd fd fzf
+# Dependencies: fasd fd fzf xdg-open i3-msg eval_interactive_cmd
+#               (fzf must be recent enough for --accept-nth and change-with-nth)
+
 # Paths to search for documents
-# REASON: It's slow to search all directories (including hidden)
-declare -a PATHS_TO_SEARCH
-# TODO: if this changes, zotero's link handler should be changed as well. Try to
-# resolve this duplication
-PATHS_TO_SEARCH=("${HOME}")
-readonly PATHS_TO_SEARCH
+readonly -a PATHS_TO_SEARCH=("${HOME}")
+readonly DOC_WORKSPACE=8
+readonly -a DOC_EXTENSIONS=(pdf djvu epub)
+# Hidden directories are already skipped (fd runs without --hidden).
+# REASON: searching everything, including hidden directories, is slow.
+readonly -a EXCLUDES=(node_modules)
+
 ################################################################################
-# Get basename for documents in PATHS_TO_SEARCH by using a regex on their
-# extensions. Place priority on documents using fasd (frecency) (i.e. frequency
-# and recently opened)
+# Exit with an error if a required command is missing.
+# Arguments:
+#     None
+################################################################################
+check_dependencies() {
+	local dep
+	for dep in fasd fd fzf xdg-open i3-msg eval_interactive_cmd; do
+		if ! command -v "$dep" >/dev/null 2>&1; then
+			printf 'fdoc: missing dependency: %s\n' "$dep" >&2
+			exit 1
+		fi
+	done
+}
+
+################################################################################
+# List full paths of documents in PATHS_TO_SEARCH, frecent documents (fasd)
+# first, then the remaining documents in fd's order.
 # Globals:
 #     PATHS_TO_SEARCH
+#     DOC_EXTENSIONS
+#     EXCLUDES
 # Arguments:
 #     None
 # Outputs:
-#     file names for documents seperated by new line
+#     Document paths separated by newlines
 ################################################################################
-
 get_documents() {
-	local DOCS_PATH FASD_DOCS
-	DOCS_PATH="$(fd --no-ignore --regex '\.(pdf|djvu|epub)$' "${PATHS_TO_SEARCH[@]}")"
-	FASD_DOCS="$(fasd -flR | grep -Fx -f <(printf '%s\n' "$DOCS_PATH"))"
-	printf '%s\n' "$FASD_DOCS"
-	printf '%s\n' "$DOCS_PATH" | grep -Fvx -f <(printf '%s\n' "$FASD_DOCS")
+	local -a fd_args=(--no-ignore --type f)
+	local ext dir
+	for ext in "${DOC_EXTENSIONS[@]}"; do fd_args+=(-e "$ext"); done
+	for dir in "${EXCLUDES[@]}"; do fd_args+=(--exclude "$dir"); done
+
+	# First input: every document found by fd.
+	# Second input: fasd's files, most frecent first.
+	# Print fasd entries that are documents, then documents fasd doesn't know.
+	awk '
+		NR == FNR { is_doc[$0]; order[++n] = $0; next }
+		($0 in is_doc) && !seen[$0]++
+		END { for (i = 1; i <= n; i++) if (!(order[i] in seen)) print order[i] }
+	' <(fd "${fd_args[@]}" . "${PATHS_TO_SEARCH[@]}") <(fasd -flR)
+}
+
+################################################################################
+# Turn each path into three tab-separated fields for fzf:
+#     1. full path (what gets opened)
+#     2. parent/document, document name highlighted
+#     3. path relative to $HOME, document name highlighted
+# Inputs:
+#     Paths on stdin, one per line
+# Outputs:
+#     Tab-separated lines on stdout
+################################################################################
+format_for_display() {
+	awk '
+		BEGIN { home = ENVIRON["HOME"] "/"; g = "\033[32m"; r = "\033[0m" }
+		{
+			full = $0
+			rel = (index(full, home) == 1) ? substr(full, length(home) + 1) : full
+			n = split(full, p, "/")
+			short = p[n-1] "/" g p[n] r
+			match(rel, /[^\/]*$/)
+			fromhome = substr(rel, 1, RSTART - 1) g substr(rel, RSTART) r
+			printf "%s\t%s\t%s\n", full, short, fromhome
+		}
+	'
 }
 
 main() {
-	local DOC_SELECTED LIST_FILE TMP_FILE
-	LIST_FILE="$(mktemp -t "fdoc_list_XXX")"
-	TMP_FILE="$(mktemp -t "fdoc_sel_XXX")"
-	trap 'rm -f "$LIST_FILE" "$TMP_FILE"' EXIT
+	check_dependencies
 
-	get_documents | awk -F'\t' '
-BEGIN { home = ENVIRON["HOME"] "/"; g = "\033[32m"; r = "\033[0m" }
-{
-    full = $0
-    rel = (index(full, home) == 1) ? substr(full, length(home) + 1) : full
-    n = split(full, p, "/")
-    short = p[n-1] "/" g p[n] r
-    match(rel, /[^\/]*$/)
-    fromhome = substr(rel, 1, RSTART - 1) g substr(rel, RSTART) r
-    printf "%s\t%s\t%s\n", full, short, fromhome
-}' >|"$LIST_FILE"
+	local list_file sel_file
+	list_file="$(mktemp --tmpdir fdoc_list.XXXXXX)" || exit 1
+	sel_file="$(mktemp --tmpdir fdoc_sel.XXXXXX)" || exit 1
+	# The paths are expanded now: the EXIT trap runs after main has returned,
+	# when these local variables no longer exist.
+	# shellcheck disable=SC2064
+	trap "rm -f $(printf '%q ' "$list_file" "$sel_file")" EXIT
+
+	get_documents | format_for_display >|"$list_file"
 
 	local cmd
 	cmd="fzf --scheme=path --tiebreak=index --multi --delimiter '\t' --accept-nth 1 --with-nth 3 --ansi \
 		--header 'ctrl-t: toggle path display' --bind 'ctrl-t:change-with-nth(2|3)' \
 		--preview='\$XDG_CONFIG_HOME/fzf/fzf_preview_media {1}' \
-		< $(printf '%q' "$LIST_FILE") >| $(printf '%q' "$TMP_FILE")"
+		< $(printf '%q' "$list_file") >| $(printf '%q' "$sel_file")"
 
 	eval_interactive_cmd --floating --geometry 'fullscreen toggle' "$cmd"
 
-	DOC_SELECTED="$(<"$TMP_FILE")"
-	[[ -z "$DOC_SELECTED" ]] && exit 1
-	while read -r DOC; do
-		xdg-open "${DOC}" >/dev/null 2>&1 &
+	local -a docs
+	mapfile -t docs <"$sel_file"
+	((${#docs[@]})) || return 1
+
+	local doc
+	for doc in "${docs[@]}"; do
+		xdg-open "$doc" >/dev/null 2>&1 &
 		disown
-		fasd -A "${DOC}"
-	done <<<"$DOC_SELECTED"
-	i3-msg 'workspace --no-auto-back-and-forth 8'
+	done
+	fasd -A "${docs[@]}"
+	i3-msg --quiet "workspace --no-auto-back-and-forth ${DOC_WORKSPACE}"
 }
 
-main
+main "$@"

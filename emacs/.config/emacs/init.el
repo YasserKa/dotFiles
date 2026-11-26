@@ -3032,16 +3032,26 @@ see how ARG affects this command."
   (defvar my/org-export-dir "/tmp/org_export/")
 
   (defun my/org-export-pdf-and-open ()
-    "Export current Org buffer to PDF in `my/org-export-dir' and open it."
+    "Export current Org buffer to PDF and open it."
     (interactive)
     (org-open-file (org-latex-export-to-pdf)))
 
+  (defun my/org-export-explicit-file-name (subtreep)
+    "Return EXPORT_FILE_NAME from the subtree property or buffer keyword, if set."
+    (or (and subtreep (org-entry-get nil "EXPORT_FILE_NAME" 'selective))
+        (cadr (assoc "EXPORT_FILE_NAME"
+                     (org-collect-keywords '("EXPORT_FILE_NAME"))))))
+
   (defun my/org-export-to-dir (orig extension &optional subtreep pub-dir)
-    (if (and (null pub-dir) (member extension '(".tex" ".pdf")))
-        (progn
-          (make-directory my/org-export-dir t)
-          (funcall orig extension subtreep my/org-export-dir))
-      (funcall orig extension subtreep pub-dir)))
+    (let ((explicit (my/org-export-explicit-file-name subtreep)))
+      (if (and (null pub-dir)
+               (member extension '(".tex" ".pdf"))
+               ;; Only redirect if no explicit directory was given
+               (not (and explicit (file-name-directory explicit))))
+          (progn
+            (make-directory my/org-export-dir t)
+            (funcall orig extension subtreep my/org-export-dir))
+        (funcall orig extension subtreep pub-dir))))
 
   (advice-add 'org-export-output-file-name :around #'my/org-export-to-dir)
 
