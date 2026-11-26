@@ -3521,6 +3521,7 @@ with ::#custom-id they become [[#custom-id][Heading]]."
    )
   :config
   (require 'subr-x)
+  (require 'my-open-elsewhere-citar)
 
   ;; Adjust note template
   (with-eval-after-load 'citar

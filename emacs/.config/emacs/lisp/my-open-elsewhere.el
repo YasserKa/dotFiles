@@ -124,15 +124,24 @@ evaluated before the function body, so outside the `let' below."
 WHERE is `below', `right' or `frame'; DEPTH is the minibuffer depth
 the key was pressed in, so only that prompt acts on it.")
 
+(defvar my/open-elsewhere-exit-functions nil
+  "Functions that may leave the minibuffer in a special way.
+Each is called with no arguments when an open-elsewhere key is pressed.
+The first one that returns non-nil has taken care of exiting (now or
+later); if none does, the minibuffer is exited like RET. For prompts
+that need something other than RET to finish, e.g. Citar's
+multiple selection.")
+
 (defun my/open-elsewhere--exit (where)
   "Accept the current candidate and open it according to WHERE."
   (setq my/open-elsewhere--pending (cons where (minibuffer-depth)))
-  (if (and (bound-and-true-p vertico-mode) (fboundp 'vertico-exit))
-      (vertico-exit)
-    (exit-minibuffer))
-  ;; Exiting throws out of this function. Reaching this line means the
-  ;; minibuffer refused to exit (e.g. "Match required"), so forget it.
-  (setq my/open-elsewhere--pending nil))
+  (unless (run-hook-with-args-until-success 'my/open-elsewhere-exit-functions)
+    (if (and (bound-and-true-p vertico-mode) (fboundp 'vertico-exit))
+        (vertico-exit)
+      (exit-minibuffer))
+    ;; Exiting throws out of this function. Reaching this line means the
+    ;; minibuffer refused to exit (e.g. "Match required"), so forget it.
+    (setq my/open-elsewhere--pending nil)))
 
 (defun my/open-elsewhere-below ()
   "Open the selected candidate in a new window below."
@@ -153,8 +162,15 @@ the key was pressed in, so only that prompt acts on it.")
 ;;; After the prompt returns: make and select the new window/frame
 ;;; ------------------------------------------------------------
 
+(defvar my/open-elsewhere-prepared nil
+  "The last WHERE that `my/open-elsewhere--prepare' acted on, or nil.
+Other code can let-bind this to nil around a prompt and check it
+afterwards to see whether the prompt was left with one of the keys,
+e.g. to open something other than the command's default result.")
+
 (defun my/open-elsewhere--prepare (where)
   "Split the selected window or clone the frame according to WHERE."
+  (setq my/open-elsewhere-prepared where)
   (pcase where
     ('below (select-window (split-window-below)))
     ('right (select-window (split-window-right)))
@@ -169,6 +185,9 @@ Runs ORIG with ARGS. If the prompt it opened was exited with one of the
 open-elsewhere keys, prepare the new window or frame before returning,
 so the caller's action happens there."
   (let ((depth (1+ (minibuffer-depth))))
+    ;; A key is only pressed to leave a prompt, so anything pending now
+    ;; is left over from a prompt that wasn't advised. Drop it.
+    (setq my/open-elsewhere--pending nil)
     (prog1 (apply orig args)
       (when (and my/open-elsewhere--pending
                  (= (cdr my/open-elsewhere--pending) depth))
@@ -179,7 +198,10 @@ so the caller's action happens there."
 ;; `completing-read' covers Consult, `read-file-name' (find-file),
 ;; `project-find-file' and most other prompts. `read-buffer' is needed
 ;; because it calls the completion code from C, which bypasses advice.
-(defconst my/open-elsewhere--advised '(completing-read read-buffer))
+;; `completing-read-multiple' (used by e.g. Citar) reads the minibuffer
+;; directly, not through `completing-read'.
+(defconst my/open-elsewhere--advised
+  '(completing-read completing-read-multiple read-buffer))
 
 (defvar my/open-elsewhere--marked nil
   "Commands currently advised with `my/open-elsewhere--mark-inside'.")
