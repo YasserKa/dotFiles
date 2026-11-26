@@ -6,9 +6,16 @@ DOC_PATH="$1"
 BOOKS_DIR="/home/yasser/Documents/books"
 PAPERS_DIR="$XDG_CONFIG_HOME/Zotero/storage"
 SYNC_PAPERS_DIR="$HOME/Documents/zotero_papers_mirror"
+MANIFEST="$SYNC_PAPERS_DIR/.zotero-mirror-manifest.json"
 
 if [[ "$DOC_PATH" == "$PAPERS_DIR"/* ]]; then
-  DOC_PATH="$(jq -r '.entries[] | select(.sourcePath == "'"$DOC_PATH"'") | .destPath ' "$HOME/Documents/zotero_papers_mirror/.zotero-mirror-manifest.json")"
+  DOC_PATH="$(jq -r --arg src "$DOC_PATH" \
+    'first(.entries[] | select(.sourcePath == $src) | .destPath) // empty' \
+    "$MANIFEST")"
+  [[ -n "$DOC_PATH" ]] || {
+    echo "Not found in mirror manifest" >&2
+    exit 1
+  }
 fi
 
 quoted_file_basename="${DOC_PATH##*/}"
@@ -49,13 +56,9 @@ is_inside() {
     curl -fsS -H "X-API-Key:$API" -X POST "$URL/rest/db/scan?folder=$FOLDER_ID"
 
     while true; do
-      state=$(curl -fsS -H "X-API-Key:$API" \
-        "$URL/rest/db/status?folder=$FOLDER_ID" |
-        jq -r '.state')
-
-      need=$(curl -fsS -H "X-API-Key:$API" \
-        "$URL/rest/db/status?folder=$FOLDER_ID" |
-        jq '.needFiles + .needDirectories + .needDeletes')
+      status=$(curl -fsS -H "X-API-Key:$API" "$URL/rest/db/status?folder=$FOLDER_ID")
+      state=$(jq -r '.state' <<<"$status")
+      need=$(jq '.needFiles + .needDirectories + .needDeletes' <<<"$status")
 
       if [[ "$state" == "idle" && "$need" == 0 ]]; then
         break
