@@ -1675,24 +1675,26 @@ Skips predicate tokens like todo:..., negated !words, and 1-char tokens."
   (advice-add 'org-ql-completing-read :around #'my/org-ql-preview--around)
 
   (defun my/org-refile-read-target (&optional prompt)
-    "Read a refile target with consult preview.
+  "Read a refile target with consult preview.
 Return it as (NAME FILE REGEXP POS), like `org-refile-get-location'."
-    (let* ((targets (org-refile-get-targets))
-           (preview (consult--jump-preview))
-           (choice
-            (consult--read
-             (mapcar #'car targets)
-             :prompt (or prompt "Refile to: ")
-             :require-match t
-             :sort nil
-             :category 'org-heading
-             :state (lambda (action cand)
-                      (funcall preview action
-                               (when-let* ((tgt (assoc cand targets))
-                                           (buf (find-file-noselect (nth 1 tgt))))
-                                 (with-current-buffer buf
-                                   (copy-marker (or (nth 3 tgt) (point-min))))))))))
-      (assoc choice targets)))
+  (let* ((targets (seq-filter #'cadr (org-refile-get-targets)))
+         (preview (consult--jump-preview))
+         (choice
+          (consult--read
+           (mapcar #'car targets)
+           :prompt (or prompt "Refile to: ")
+           :require-match t
+           :sort nil
+           :category 'org-heading
+           :history 'org-refile-history
+           :state (lambda (action cand)
+                    (funcall preview action
+                             (when-let* ((tgt (assoc cand targets))
+                                         (file (nth 1 tgt))
+                                         (buf (find-file-noselect file)))
+                               (with-current-buffer buf
+                                 (copy-marker (or (nth 3 tgt) (point-min))))))))))
+    (assoc choice targets)))
 
   (defun my/org-refile-with-preview (&optional arg)
     "Like `org-refile', but preview targets while navigating."
