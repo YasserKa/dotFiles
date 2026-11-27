@@ -179,6 +179,15 @@ e.g. to open something other than the command's default result.")
               ;; clone-frame copies the window layout; keep one window.
               (delete-other-windows (frame-selected-window frame))))))
 
+(defun my/open-elsewhere-call (where fn)
+  "Make a window or frame according to WHERE, select it and call FN.
+WHERE is `below', `right' or `frame'. For actions outside the
+minibuffer, e.g. Embark actions on the thing at point: the new window
+shows the same buffer with point in the same place, so FN can act on
+what is at point."
+  (my/open-elsewhere--prepare where)
+  (funcall fn))
+
 (defun my/open-elsewhere--around-read (orig &rest args)
   "Around advice for prompt functions: act on a pending open-elsewhere key.
 Runs ORIG with ARGS. If the prompt it opened was exited with one of the

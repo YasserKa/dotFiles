@@ -1439,6 +1439,8 @@ Otherwise call `evil-collection-unimpaired-paste-above`."
     (dolist (cmd '(my/org-backlinks my/org-forward-links))
       (add-to-list 'my/open-elsewhere-commands cmd))
     (my/open-elsewhere-global-mode 1)
+  (with-eval-after-load 'embark
+    (require 'my-open-elsewhere-embark))
     )
 
   (use-package org-forwardlinks
@@ -4520,9 +4522,9 @@ with the file name kept at the start of each candidate."
 
 (defhydra org-cite (:exit t :hint nil :idle 1)
   (" i" org-cite-insert "insert cite")
-  (" f" citar-open                                            "open resources")
   (" b" #'my/org-citar-cited-by-here                          "notes & papers citing paper")
-  (" f" #'my/org-citar-cited-here                             "node forwardlinks")
+  (" W" #'my/org-citar-where-cited-here                       "where/locations citing paper")
+  (" f" #'my/org-citar-cites-here                             "node forwardlinks")
   (" F" (lambda () (interactive) (my/org-citar-cites-here t)) "file forwardlinks")
   )
 
