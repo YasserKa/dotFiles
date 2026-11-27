@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-"""Remove/Yank annotated text"""
+"""Add/Undo/Remove/Yank annotated text"""
 
 # pyright: ignore [reportGeneralTypeIssues]
 
+import os
 import subprocess
 import sys
 import re
@@ -17,9 +18,30 @@ import pyperclip as pc
 MIN_VERTICAL_OVERLAP = 0.6
 FILE_PATH = sys.argv[2]
 
+# Highlight colors, chosen by number: `add FILE PAGE 3`
+HIGHLIGHT_COLORS = {
+    "1": "#87CFFA",  # blue
+    "2": "#FFEB3B",  # yellow
+    "3": "#8FED8F",  # green
+    "4": "#FF99CC",  # pink
+    "5": "#FFA64D",  # orange
+}
+DEFAULT_COLOR = "1"
+
+# One line per highlight made with `add`: <file>\t<page index>\t<annot xref>
+UNDO_LOG = os.path.join(
+    os.environ.get("XDG_STATE_HOME", os.path.expanduser("~/.local/state")),
+    "zathura_highlights.log",
+)
+
 
 def main():
-    if sys.argv[1] == "get_annotations":
+    if sys.argv[1] == "add":
+        color = sys.argv[4] if len(sys.argv) > 4 else DEFAULT_COLOR
+        add_highlight(int(sys.argv[3]), color)
+    elif sys.argv[1] == "undo":
+        undo_highlight()
+    elif sys.argv[1] == "get_annotations":
         print("\n".join(get_highlights()))
     elif sys.argv[1] == "yank_annotations":
         pc.copy("\n".join(get_highlights()))
@@ -35,6 +57,73 @@ def main():
         yank_section_name_of_page(int(sys.argv[3]))
     else:
         raise ValueError
+
+
+def hex_to_rgb(hex_color: str) -> Tuple[float, float, float]:
+    h = hex_color.lstrip("#")
+    return tuple(int(h[i : i + 2], 16) / 255 for i in (0, 2, 4))
+
+
+def save_incremental(doc):
+    doc.save(FILE_PATH, encryption=pymupdf.PDF_ENCRYPT_KEEP, incremental=True)
+
+
+def read_undo_log() -> List[str]:
+    try:
+        with open(UNDO_LOG) as f:
+            return f.read().splitlines()
+    except FileNotFoundError:
+        return []
+
+
+def write_undo_log(lines: List[str]):
+    os.makedirs(os.path.dirname(UNDO_LOG), exist_ok=True)
+    with open(UNDO_LOG, "w") as f:
+        f.write("".join(line + "\n" for line in lines))
+
+
+def add_highlight(page_num: int, color: str):
+    """Highlight the clipboard selection on page_num (1-based) and log it for undo"""
+    text = pc.paste().strip()
+    if not text:
+        return
+    doc = pymupdf.open(FILE_PATH)
+    page = doc[page_num - 1]
+    hits = page.search_for(text, quads=True)
+    if not hits:
+        subprocess.run(["dunstify", "Selection not found on page"])
+        return
+    annot = page.add_highlight_annot(hits)
+    annot.set_colors(
+        stroke=hex_to_rgb(HIGHLIGHT_COLORS.get(color, HIGHLIGHT_COLORS[DEFAULT_COLOR]))
+    )
+    annot.update()
+    xref = annot.xref
+    save_incremental(doc)
+    lines = read_undo_log()
+    lines.append(f"{os.path.realpath(FILE_PATH)}\t{page_num - 1}\t{xref}")
+    write_undo_log(lines)
+
+
+def undo_highlight():
+    """Remove the most recent highlight made with `add` in this file"""
+    path = os.path.realpath(FILE_PATH)
+    lines = read_undo_log()
+    for i in range(len(lines) - 1, -1, -1):
+        file, page_index, xref = lines[i].split("\t")
+        if file != path:
+            continue
+        doc = pymupdf.open(FILE_PATH)
+        page = doc[
+            int(page_index)
+        ]  # keep the page alive, else "Annot is not bound to a page"
+        annot = page.load_annot(int(xref))
+        if annot:  # may already have been removed elsewhere
+            page.delete_annot(annot)
+            save_incremental(doc)
+        del lines[i]
+        write_undo_log(lines)
+        return
 
 
 def word_in_rect(word_rect: pymupdf.Rect, hl_rect: pymupdf.Rect) -> bool:
@@ -59,18 +148,28 @@ def norm(s: str) -> str:
     return re.sub(r"\W+", "", s).lower()
 
 
-def annot_position(annot: pymupdf.Annot) -> tuple[int, float, float]:
+def is_two_column(page) -> bool:
+    mid = page.rect.width / 2
+    blocks = [b for b in page.get_text("blocks") if b[6] == 0]  # text blocks only
+    left = sum(1 for b in blocks if b[2] < mid)  # entirely left of middle
+    right = sum(1 for b in blocks if b[0] > mid)  # entirely right of middle
+    crossing = len(blocks) - left - right  # spans the middle
+    return left >= 2 and right >= 2 and left + right > crossing
+
+
+def annot_position(annot: pymupdf.Annot, two_column: bool) -> tuple[int, float, float]:
     r = pymupdf.Quad(annot.vertices[:4]).rect if annot.vertices else annot.rect
-    column = 0 if r.x0 < annot.parent.rect.width / 2 else 1
+    column = 1 if two_column and r.x0 >= annot.parent.rect.width / 2 else 0
     return (column, round(r.y0), r.x0)
 
 
 def handle_page(page) -> List[str]:
     wordlist = page.get_text("words", sort=True)
 
+    two_column = is_two_column(page)
     annots = sorted(
         page.annots(types=[pymupdf.PDF_ANNOT_HIGHLIGHT]),
-        key=annot_position,
+        key=lambda a: annot_position(a, two_column),
     )
 
     highlights = []
@@ -174,7 +273,10 @@ def remove_annotations():
             next_annot = annot.next
             page.delete_annot(annot)
             annot = next_annot
-    doc.save(FILE_PATH, encryption=pymupdf.PDF_ENCRYPT_KEEP, incremental=True)
+    save_incremental(doc)
+    # Nothing left to undo in this file
+    path = os.path.realpath(FILE_PATH)
+    write_undo_log([l for l in read_undo_log() if l.split("\t")[0] != path])
 
 
 if __name__ == "__main__":

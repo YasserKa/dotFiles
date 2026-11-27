@@ -1,0 +1,33 @@
+[Desktop Entry]
+FullScreen=false
+shouldShowMenuBarComingFromFullScreen=true
+shouldShowToolBarComingFromFullScreen=true
+
+[General]
+LockSidebar=true
+ShowSidebar=true
+
+[Recent Files]
+File1[$e]=$HOME/blaa.pdf
+File10[$e]=file:$HOME/projects/courses/reading/suggested reading order.pdf
+File2[$e]=$HOME/Downloads/Mary W. Cornog - Merriam-Webster's Vocabulary Builder (2010, Merriam Webster Mass Market).mobi
+File3[$e]=$HOME/Downloads/The 7 Habits of Highly Effective People -- Stephen R_ Covey [Covey, Stephen R_] -- 2009 -- RosettaBooks -- isbn13 9780795309199 -- 647517474344a184b70eb0cdab52b880 -- Anna’s Archive.mobi
+File4[$e]=$HOME/.config/Zotero/storage/QCT6WS9Z/Padmanabhan et al. - Machine Learning in Information Systems Research.pdf
+File5[$e]=$HOME/Documents/books/Academia/teaching/academic_teaching_3rd_edition.pdf
+File6[$e]=$HOME/.config/Zotero/storage/RK8NHEKH/McDonald and Levine-Clark - 2017 - Personal Information Management.pdf
+File7[$e]=$HOME/Documents/inbox/s11740-024-01326-7.pdf
+File8[$e]=$HOME/projects/courses/reading/suggested reading order.pdf
+File9[$e]=$HOME/A Guide to Conducting a Standalone Systematic Literature Review.pdf
+Name1[$e]=blaa.pdf
+Name10[$e]=suggested reading order.pdf
+Name2[$e]=Mary W. Cornog - Merriam-Webster's Vocabulary Builder (2010, Merriam Webster Mass Market).mobi
+Name3[$e]=The 7 Habits of Highly Effective People -- Stephen R_ Covey [Covey, Stephen R_] -- 2009 -- RosettaBooks -- isbn13 9780795309199 -- 647517474344a184b70eb0cdab52b880 -- Anna’s Archive.mobi
+Name4[$e]=Padmanabhan et al. - Machine Learning in Information Systems Research.pdf
+Name5[$e]=academic_teaching_3rd_edition.pdf
+Name6[$e]=McDonald and Levine-Clark - 2017 - Personal Information Management.pdf
+Name7[$e]=s11740-024-01326-7.pdf
+Name8[$e]=suggested reading order.pdf
+Name9[$e]=A Guide to Conducting a Standalone Systematic Literature Review.pdf
+
+[Shortcut Schemes]
+Current Scheme=my_scheme
