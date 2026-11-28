@@ -1,8 +1,37 @@
 #!/usr/bin/env bash
 
-"$XDG_CONFIG_HOME/i3/generate_i3_monitor_setup"
-# Reloading sway, reloads shikane; to avoid infinite loop in this case, don't reload sway
-[[ ! -e /tmp/flag_sway_reloaded ]] && i3-msg reload || rm /tmp/flag_sway_reloaded
+# "$XDG_CONFIG_HOME/i3/generate_i3_monitor_setup"
+# # Reloading sway, reloads shikane; to avoid infinite loop in this case, don't reload sway
+# [[ ! -e /tmp/flag_sway_reloaded ]] && i3-msg reload || rm /tmp/flag_sway_reloaded
+#
+# # Need to restart for i3 & moving workspaces around
+# [[ -z "${WAYLAND_DISPLAY}" ]] && i3-msg restart && "$XDG_CONFIG_HOME/i3/move_i3_workspaces"
 
-# Need to restart for i3 & moving workspaces around
-[[ -z "${WAYLAND_DISPLAY}" ]] && i3-msg restart && "$XDG_CONFIG_HOME/i3/move_i3_workspaces"
+# Called by shikane after a profile is applied (sway or i3)
+
+"$XDG_CONFIG_HOME/i3/generate_i3_monitor_setup"
+
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+	# Safe now: shikane is started with `exec`, so a reload doesn't rerun it.
+	# The sway config has no `output` lines, so a reload doesn't change outputs
+	# and doesn't retrigger shikane either.
+	# swaymsg reload
+
+	# Move workspaces that were already created on the wrong output
+	# (your existing script, if it works with swaymsg)
+	# "$XDG_CONFIG_HOME/i3/move_i3_workspaces"
+
+	"$XDG_CONFIG_HOME/dunst/update_monitor_id"
+
+	# Regenerate and restart waybar, detached from shikane
+	# shellcheck disable=SC1091
+	source "$HOME/bin/helpers/monitor_variables"
+	envsubst <"$XDG_CONFIG_HOME/waybar/config_template.jsonc" \
+		>|"$XDG_CONFIG_HOME/waybar/config.jsonc"
+	pkill -x waybar
+	setsid -f systemd-cat --identifier=waybar waybar
+else
+	i3-msg reload
+	i3-msg restart
+	"$XDG_CONFIG_HOME/i3/move_i3_workspaces"
+fi
