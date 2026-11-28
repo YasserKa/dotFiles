@@ -803,18 +803,88 @@ fi
 
 virt-manager() { [[ -n "${WAYLAND_DISPLAY}" ]] && GDK_BACKEND=x11 command virt-manager; }
 
-# Open thunderbird window if it doesn't exist, else move it to current workspace if it's not visible
-thunderbird() {
- is_window_exists '^org.mozilla.Thunderbird$' && \
- 	{ is_window_exists '^org.mozilla.Thunderbird$' ||  i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" move workspace current, floating disable; } && \
- 		i3-msg "$(window_get_condition "org.mozilla.Thunderbird")" focus && return 0
-	command thunderbird &
- wait_window '^org.mozilla.Thunderbird$' && sleep 0.5 && i3-msg "$(window_get_condition '^org.mozilla.Thunderbird$') move scratchpad"
+# scratch_app <mark> <app_id/class regex> <command> [args...]
+#   first call: launch, hide the main window in the scratchpad
+#   later calls: pull it back out onto the current workspace
+scratch_app() {
+  local mark=$1 re=$2 timeout=10 id action
+  shift 2
+
+  # jq snippet: does this container belong to the app?
+  local match='(((.app_id // "") | test($re)) or ((.window_properties.class // "") | test($re)))'
+
+  _sa_show() {
+    if swaymsg -t get_tree | jq -e --arg m "$mark" '
+         any(recurse(.nodes[]?, .floating_nodes[]?)
+             | select(.type == "workspace" and .name == "__i3_scratch")
+             | recurse(.nodes[]?, .floating_nodes[]?);
+             (.marks // []) | index($m))' >/dev/null; then
+      swaymsg -q "[con_mark=\"^$mark\$\"] scratchpad show, floating disable, focus"
+    else
+      swaymsg -q "[con_mark=\"^$mark\$\"] focus"
+    fi
+  }
+
+	# Re-hide window <con_id> if it becomes visible within <seconds>
+	_sa_guard() {
+  	local id=$1
+  	while read -r _; do
+    	swaymsg -t get_tree | jq -e --argjson id "$id" \
+      'any(recurse(.nodes[]?, .floating_nodes[]?); .id == $id and .visible)' >/dev/null \
+      && swaymsg -q "[con_id=$id] move scratchpad"
+  	done < <(timeout "$2" swaymsg -t subscribe -m '["window"]' \
+    | jq --unbuffered -c --argjson id "$id" 'select(.container.id == $id)')
+	}
+
+  # 1) Marked window exists -> show it
+  if swaymsg -t get_marks | jq -e --arg m "$mark" 'any(.[]; . == $m)' >/dev/null; then
+    _sa_show
+    return
+  fi
+
+  # 2) Unmarked main window exists -> adopt it
+  id=$(swaymsg -t get_tree | jq -r --arg re "$re" "
+    first(recurse(.nodes[]?, .floating_nodes[]?)
+    | select(.type == \"con\" and $match) | .id) // empty")
+  if [[ -n $id ]]; then
+    swaymsg -q "[con_id=$id] mark --add $mark"
+    _sa_show
+    return
+  fi
+
+  # 3) Launch: hide if it's a fresh start, show if the process was already running
+  local name=${1##*/} alt
+  alt=${name}-bin
+  action='move scratchpad'
+  if pgrep -x "${name:0:15}" >/dev/null || pgrep -x "${alt:0:15}" >/dev/null; then
+    action='focus'
+  fi
+
+  (
+    sleep 0.3
+    command "$@"
+  ) >/dev/null 2>&1 &
+  disown
+
+  id=$(jq -n -r --arg re "$re" "
+    first(inputs
+    | select(.change == \"new\" or .change == \"title\")
+    | .container
+    | select(.type == \"con\" and $match)
+    | .id)" \
+    < <(timeout "$timeout" swaymsg -t subscribe -m '["window"]'))
+
+  [[ -n $id ]] || {
+    notify "$1: window never appeared" 2>/dev/null
+    return 1
+  }
+
+  swaymsg -q "[con_id=$id] mark --add $mark, $action"
+  if [[ $action == 'move scratchpad' ]]; then
+    _sa_guard "$id" 5 & disown
+  fi
 }
 
-zotero() {
-	is_window_exists "^Zotero$" && i3-msg "$(window_get_condition "^Zotero$")" move workspace current, floating disable, focus && return 0
-	command zotero &
-	wait_window '^Zotero$' && sleep 0.5 && i3-msg "$(window_get_condition '^Zotero$') move scratchpad"
-}
+thunderbird() { scratch_app _tb_main '^org\.mozilla\.Thunderbird$' thunderbird "$@"; }
+zotero() { scratch_app _zotero_main '^Zotero$' zotero "$@"; }
 

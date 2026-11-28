@@ -352,8 +352,11 @@ exec --no-startup-id bash -ic 'pull_files_from_remote && ${BROWSER} --override-r
 # Move qutebrowser to fist workspace
 exec --no-startup-id bash -ic '{ wait_window "^org.qutebrowser.qutebrowser$" 999 && sleep 0.5 && i3-msg "$(window_get_condition "^org.qutebrowser.qutebrowser$") move --no-auto-back-and-forth container to workspace 1"; }'
 
-exec --no-startup-id bash -ic 'sleep 0.5 && thunderbird & "$XDG_CONFIG_HOME"/thunderbird/thunderbird_utility sync'
-exec --no-startup-id sleep 2 && birdtray
+exec --no-startup-id bash -ic 'thunderbird & "$XDG_CONFIG_HOME"/thunderbird/thunderbird_utility sync'
+# Wait until tray is up
+exec --no-startup-id bash -c 'until busctl --user status org.kde.StatusNotifierWatcher >/dev/null 2>&1; do sleep 0.5; done; sleep 1; exec birdtray'
+
+exec --no-startup-id bash -ic 'pull_files_from_remote && zotero'
 
 # Open programs
 # Clipboard manager
@@ -368,8 +371,6 @@ exec --no-startup-id emacs --bg-daemon=$EMACS_DEFAULT_SOCKET &
 exec --no-startup-id bash -ic "pull_files_from_remote && org"
 
 exec --no-startup-id kitty_control init
-
-exec --no-startup-id bash -ic 'pull_files_from_remote && zotero'
 
 # Manages other devices
 exec /bin/kdeconnectd & disown
